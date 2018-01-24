@@ -1,6 +1,6 @@
 {
   "name": "wmathconcepts",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "engine": "node >= 6.0.0",
   "description": "Collection of routines for work with several common math concepts",
   "author": "Kostiantyn Wandalen <wtory.net@domainsbyproxy.com>",
@@ -11,9 +11,9 @@
     }
   ],
   "license": "MIT",
-  "main": "staging/dwtools/amath/geometry/aConcepts.s",
+  "main": "staging/dwtools/amath/geometric/aConcepts.s",
   "files": [
-    "staging/dwtools/amath/geometry",
+    "staging/dwtools/amath/geometric",
     "production"
   ],
   "scripts": {

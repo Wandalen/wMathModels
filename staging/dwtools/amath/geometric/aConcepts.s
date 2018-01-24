@@ -5,6 +5,8 @@
 if( typeof module !== 'undefined' )
 {
 
+  debugger;
+
   if( typeof wBase === 'undefined' )
   try
   {
