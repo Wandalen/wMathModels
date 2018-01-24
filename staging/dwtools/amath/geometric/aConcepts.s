@@ -26,6 +26,10 @@ if( typeof module !== 'undefined' )
 
   var _ = wTools;
 
+  _.include( 'wMathScalar' );
+  _.include( 'wMathVector' );
+  _.include( 'wMathSpace' );
+
   require( './Box.s' );
   require( './Sphere.s' );
   require( './Plane.s' );
