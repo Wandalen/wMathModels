@@ -5,7 +5,6 @@
 if( typeof module !== 'undefined' )
 {
 
-  //if( typeof wBase === 'undefined' )
   if( typeof wBase === 'undefined' )
   try
   {
