@@ -5,29 +5,28 @@
 if( typeof module !== 'undefined' )
 {
 
-  //if( typeof wBase === 'undefined' )
-  if( typeof wBase === 'undefined' )
-  try
+  if( typeof _global_ === 'undefined' || !_global_.wBase )
   {
+    let toolsPath = '../../../dwtools/Base.s';
+    let toolsExternal = 0;
     try
     {
-      require.resolve( '../../../../dwtools/Base.s' )/*fff*/;
+      require.resolve( toolsPath )/*hhh*/;
     }
-    finally
+    catch( err )
     {
-      require( '../../../../dwtools/Base.s' )/*fff*/;
+      toolsExternal = 1;
+      require( 'wTools' );
     }
+    if( !toolsExternal )
+    require( toolsPath )/*hhh*/;
   }
-  catch( err )
-  {
-    require( 'wTools' );
-  }
-var _ = wTools;
+
+  var _ = _global_.wTools;
 
   _.include( 'wTesting' );
+  _.include( 'wMathVector' );
 
-  require( '../cvector/Base.s' );
-  require( '../cvector/Base.s' );
   require( '../geometric/Quat.s' );
   require( '../geometric/Euler.s' );
   require( '../geometric/AxisAndAngle.s' );
@@ -37,9 +36,9 @@ var _ = wTools;
 
 //
 
-var _ = wTools.withArray.Float32;
+var _ = _global_.wTools.withArray.Float32;
 var Space = _.Space;
-var Parent = wTools.Tester;
+var Parent = _.Tester;
 
 var vector = _.vector;
 var avector = _.avector;
@@ -1170,7 +1169,7 @@ var Self =
 
 //
 
-Self = wTestSuite( Self );
+Self = wTestSuit( Self );
 if( typeof module !== 'undefined' && !module.parent )
 _.Tester.test( Self.name );
 

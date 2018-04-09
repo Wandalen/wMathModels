@@ -2,9 +2,7 @@
 
 'use strict';
 
-wTools.assert( !wTools.quat );
-
-var _ = wTools;
+var _ = _global_.wTools;
 var avector = _.avector;
 var vector = _.vector;
 var pi = Math.PI;
@@ -16,6 +14,7 @@ var abs = Math.abs;
 var sqr = _.sqr;
 var sqrt = _.sqrt;
 
+_.assert( !_.quat );
 var Self = _.quat = _.quat || Object.create( _.avector );
 
 // --

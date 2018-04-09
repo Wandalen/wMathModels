@@ -2,7 +2,7 @@
 
 'use strict';
 
-var _ = wTools;
+var _ = _global_.wTools;
 var avector = _.avector;
 var vector = _.vector;
 var Self = _.box = _.box || Object.create( null );
