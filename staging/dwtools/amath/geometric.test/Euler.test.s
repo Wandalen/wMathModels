@@ -882,7 +882,8 @@ var Self =
 
   name : 'Math.Euler',
   silencing : 1,
-  routine : 'fromAxisAndAngle',
+  enabled : 0, // !!!
+  // routine : 'fromAxisAndAngle',
 
   context :
   {
