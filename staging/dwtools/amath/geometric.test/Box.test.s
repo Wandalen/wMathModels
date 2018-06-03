@@ -679,7 +679,6 @@ var Self =
 
   name : 'Math.Box',
   silencing : 1,
-  enabled : 0, // !!!
   // verbosity : 7,
   // debug : 1,
 
