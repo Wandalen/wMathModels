@@ -107,7 +107,7 @@ function centeredOfSize( box,size )
   var min = _.box.minGet( boxv );
   var max = _.box.maxGet( boxv );
 
-  size = _.arraySlice( size );
+  size = _.numbersSlice( size );
   size = _.avector.mulScalar( size,0.5 );
   _.vector.assign( max, size );
   size = _.avector.mulScalar( size,-1 );
