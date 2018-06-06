@@ -1,4 +1,4 @@
-( function _Sphere_test_s_( ) {
+( function _Box_test_s_( ) {
 
 'use strict';
 
