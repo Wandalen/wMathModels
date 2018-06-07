@@ -740,6 +740,15 @@ function boxFromPoints( test )
   bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
+  test.description = '0d Box from 0d points'; //
+
+  var expected = [];
+  var points = [ [], [], [] ];
+  var bbox = [];
+
+  bbox = _.box.fromPoints( bbox, points );
+  test.equivalent( bbox, expected );
+
   /* */
 
   if( !Config.debug )
@@ -768,25 +777,25 @@ function boxFromPoints( test )
   test.description = 'Too little arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0] );
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.description = 'too many arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0], [ [ 0, 1, 0 ], [ 1, 0, 1 ] ], [ 0, 1, 2 ] );
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], [ 1, 0, 1 ] ], [ 0, 1, 2 ] );
   });
 
   test.description = 'Different dimensions between box and points'; //
   test.shouldThrowError( function()
   {
-    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0], [ [ 0, 1 ], [ 1, 0 ] ]);
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], [ 1, 0 ] ]);
   });
 
     test.description = 'Different dimensions between points'; //
     test.shouldThrowError( function()
     {
-      _.box.fromPoints( [ 0, 0, 0, 0, 0, 0], [ [ 0, 1, 0 ], [ 1, 0 ], [ 0 ] ]);
+      _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], [ 1, 0 ], [ 0 ] ]);
     });
 }
 
@@ -894,7 +903,6 @@ function pointExpand( test )
   box = _.box.pointExpand( box, point );
   test.equivalent( box, expected );
 
-
   /* */
 
   if( !Config.debug )
@@ -921,25 +929,25 @@ function pointExpand( test )
   test.description = 'Too little arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0] );
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.description = 'too many arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
   test.description = 'Wrong point dimension (box 3D vs point 4D)'; //
   test.shouldThrowError( function()
   {
-    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0], [ 0, 1, 0, 2 ] );
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ] );
   });
 
   test.description = 'Wrong point dimension (box 3D vs point 2D)'; //
   test.shouldThrowError( function()
   {
-    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0], [ 0, 1 ] );
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ] );
   });
 
   test.description = 'Wrong point dimension (box 2D vs point 1D)'; //
