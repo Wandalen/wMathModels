@@ -155,6 +155,9 @@ function _from( box )
 function fromPoints( box , points )
 {
 
+  _.assert( arguments.length === 2 );
+  _.assert( _.arrayIs( points ) );
+
   if( box === null )
   box = _.box.makeNil();
 
@@ -162,14 +165,12 @@ function fromPoints( box , points )
   var min = _.box.minGet( boxv );
   var max = _.box.maxGet( boxv );
 
-  _.assert( arguments.length === 2 );
-
   debugger;
   // throw _.err( 'not tested' );
 
   for( var i = 0 ; i < points.length ; i += 1 )
   {
-    _.box.pointExpand( boxv,points[ i ] )
+    _.box.pointExpand( boxv, points[ i ] );
   }
 
   return box;
