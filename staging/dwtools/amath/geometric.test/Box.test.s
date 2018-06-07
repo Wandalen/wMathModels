@@ -672,62 +672,67 @@ function boxFromBox( test )
 
 //
 
-function FromPoints( test )
+function boxFromPoints( test )
 {
 
-  debugger;
-
-  test.description = 'Two points'; //
+  test.description = 'Box from two points'; //
 
   var expected = [ - 1, - 2, - 3, 1, 2, 3 ];
   var pointOne = [ - 1, 2, - 3 ];
   var pointTwo = [ 1, - 2, 3 ];
   var points = [ pointOne, pointTwo ];
-  var bbox = [ 0,0,0,0,0,0 ];
+  var bbox = null;
 
   bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox,expected );
 
-  debugger;
+  test.description = 'Box from three points'; //
 
+  var expected = [ - 1, - 2, - 3, 1, 2, 6 ];
+  var pointOne = [ - 1, 2, - 3 ];
+  var pointTwo = [ 1, - 2, 3 ];
+  var pointThree = [ 0, 0, 6 ];
+  var points = [ pointOne, pointTwo, pointThree ];
+  var bbox = null;
 
-  var expected = vec( expected );
-  var bbox = vec([ 0,0,0,0,0,0 ]);
-  var bbox = vec( bbox );
-
-  _.box.fromBox( bbox,bbox );
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox,expected );
 
-  test.description = 'same sizes, different position'; //
+  test.description = 'Box from six points'; //
 
-  var expected = [ -2.5,0.5,5.5,sqrt( 0.5 ) ];
-  var bbox = [ 0,0,0,0,0,0 ];
-  var bbox = [ -3,0,5,-2,1,6 ];
+  var expected = [ -3, - 2, - 1, 1, 2, 3 ];
+  var pointOne = [ 0, 0, 3 ];
+  var pointTwo = [ 0, 2, 0 ];
+  var pointThree = [ 1, 0, 0 ];
+  var pointFour = [ - 3, 0, 0 ];
+  var pointFive = [ 0, - 2, 0 ];
+  var pointSix = [ 0, 0, - 1 ];
+  var points = [ pointOne, pointTwo, pointThree, pointFour, pointFive, pointSix ];
+  var bbox = null;
 
-  _.box.fromBox( bbox,bbox );
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox,expected );
 
-  var expected = vec( expected );
-  var bbox = vec([ 0,0,0,0,0,0 ]);
-  var bbox = vec( bbox );
+  test.description = 'Box from two decimal points'; //
 
-  _.box.fromBox( bbox,bbox );
+  var expected = [ -0.991, - 0.203, 0.005, 0.001, 0.203, 0.889 ];
+  var pointOne = [ 0.001, -0.203, 0.889 ];
+  var pointTwo = [ -0.991, 0.203, 0.005 ];
+  var points = [ pointOne, pointTwo ];
+  var bbox = null;
+
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox,expected );
 
-  test.description = 'different sizes, different position'; //
+  test.description = 'Box from Two points with initial box dimension'; //
 
-  var expected = [ -2,0.5,7,sqrt( 5 ) ];
-  var bbox = [ 0,0,0,0,0,0 ];
-  var bbox = [ -3,0,5,-1,1,9 ];
+  var expected = [ 2, 1, 2, 4, 8, 4 ];
+  var pointOne = [ 3, 1, 3 ];
+  var pointTwo = [ 3, 8, 3 ];
+  var points = [ pointOne, pointTwo ];
+  var bbox = [ 2, 2, 2, 4, 4, 4 ];
 
-  _.box.fromBox( bbox,bbox );
-  test.equivalent( bbox,expected );
-
-  var expected = vec( expected );
-  var bbox = vec([ 0,0,0,0,0,0 ]);
-  var bbox = vec( bbox );
-
-  _.box.fromBox( bbox,bbox )
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox,expected );
 
   test.description = 'bad arguments'; //
@@ -735,34 +740,38 @@ function FromPoints( test )
   if( !Config.debug )
   return;
 
-  function shouldThrowError( rname )
+  test.description = 'no arguments';
+  test.shouldThrowError( function()
   {
+    _.box.fromPoints();
+  });
 
-    test.shouldThrowErrorSync( () => _.avector[ rname ]() );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],[ 5 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],1 ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],undefined ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],'1' ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3,4 ],[ 1,2,3,4,5 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3 ],[ 1,2,3,4,5,6 ] ) );
+  test.description = 'wrong type of argument';
+  console.log("Executing");
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( 'box', 'points' );
+  });
 
-    test.shouldThrowErrorSync( () => _.vector[ rname ]() );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),vec([ 5 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),1 ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),undefined ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),'1' ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2,3,4 ]),vec([ 1,2,3,4,5 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2,3 ]),vec([ 1,2,3,4,5,6 ]) ) );
+  test.description = 'wrong type of argument';
+  console.log("Executing");
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( null, 4 );
+  });
 
-  }
+  test.description = 'too little arguments';
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0] );
+  });
 
-  shouldThrowError( 'boxFromBox' );
+  test.description = 'too many arguments';
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0], [ [ 0, 1, 0 ] [ 1, 0, 1 ] ], [ 0, 1, 2 ] );
+  });
 
-  debugger;
 }
 
 // --
@@ -780,19 +789,19 @@ var Self =
   tests :
   {
 
-    is : is,
-    isEmpty : isEmpty,
-    isZero : isZero,
-    isNil : isNil,
+  //  is : is,
+  //  isEmpty : isEmpty,
+  //  isZero : isZero,
+  //  isNil : isNil,
 
-    make : make,
-    makeZero : makeZero,
-    makeNil : makeNil,
+  //  make : make,
+  //  makeZero : makeZero,
+  //  makeNil : makeNil,
 
-    zero : zero,
-    nil : nil,
-    centeredOfSize : centeredOfSize,
-    fromPoints : fromPoints,
+  //  zero : zero,
+  //  nil : nil,
+  //  centeredOfSize : centeredOfSize,
+    boxFromPoints : boxFromPoints,
 
   }
 
