@@ -27,10 +27,10 @@ if( typeof module !== 'undefined' )
 
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
+  _.include( 'wMathSpace' );
 
   require( '../geometric/Euler.s' );
   require( '../geometric/Quat.s' );
-  require( '../space/wSpace.s' );
 
 }
 
