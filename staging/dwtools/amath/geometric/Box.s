@@ -103,6 +103,7 @@ function centeredOfSize( box,size )
 
   if( !_.box.is( box ) )
   box = _.box.make( box );
+
   var boxv = _.box._from( box );
   var min = _.box.minGet( boxv );
   var max = _.box.maxGet( boxv );
