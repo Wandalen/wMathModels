@@ -685,7 +685,7 @@ function boxFromPoints( test )
   var bbox = null;
 
   bbox = _.box.fromPoints( bbox, points );
-  test.equivalent( bbox,expected );
+  test.equivalent( bbox, expected );
 
   test.description = 'Box from three points'; //
 
@@ -698,7 +698,7 @@ function boxFromPoints( test )
   var bbox = null;
 
   bbox = _.box.fromPoints( bbox, points );
-  test.equivalent( bbox,expected );
+  test.equivalent( bbox, expected );
 
   test.description = 'Box from six points'; //
 
@@ -714,7 +714,7 @@ function boxFromPoints( test )
   var bbox = null;
 
   bbox = _.box.fromPoints( bbox, points );
-  test.equivalent( bbox,expected );
+  test.equivalent( bbox, expected );
 
   test.description = 'Box from two decimal points'; //
 
@@ -726,7 +726,7 @@ function boxFromPoints( test )
   var bbox = null;
 
   bbox = _.box.fromPoints( bbox, points );
-  test.equivalent( bbox,expected );
+  test.equivalent( bbox, expected );
 
   test.description = 'Box from Two points with initial box dimension'; //
 
@@ -738,7 +738,7 @@ function boxFromPoints( test )
   var bbox = [ 2, 2, 2, 4, 4, 4 ];
 
   bbox = _.box.fromPoints( bbox, points );
-  test.equivalent( bbox,expected );
+  test.equivalent( bbox, expected );
 
   /* */
 
