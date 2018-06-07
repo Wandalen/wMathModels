@@ -745,7 +745,7 @@ function boxFromPoints( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments';
+  test.description = 'No arguments'; //
   test.shouldThrowError( function()
   {
     _.box.fromPoints();
@@ -765,18 +765,29 @@ function boxFromPoints( test )
     _.box.fromPoints( null, 4 );
   });
 
-  test.description = 'Too little arguments';
+  test.description = 'Too little arguments'; //
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0] );
   });
 
-  test.description = 'too many arguments';
+  test.description = 'too many arguments'; //
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0], [ [ 0, 1, 0 ], [ 1, 0, 1 ] ], [ 0, 1, 2 ] );
   });
 
+  test.description = 'Different dimensions between box and points'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0], [ [ 0, 1 ], [ 1, 0 ] ]);
+  });
+
+    test.description = 'Different dimensions between points'; //
+    test.shouldThrowError( function()
+    {
+      _.box.fromPoints( [ 0, 0, 0, 0, 0, 0], [ [ 0, 1, 0 ], [ 1, 0 ], [ 0 ] ]);
+    });
 }
 
 //
