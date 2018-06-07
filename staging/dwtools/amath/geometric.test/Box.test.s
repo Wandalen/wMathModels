@@ -781,6 +781,100 @@ function boxFromPoints( test )
 
 //
 
+function pointExpand( test )
+{
+
+  test.description = 'Null box expanded'; //
+
+  var box = null;
+  var point = [ 1, 2, 3 ];
+  var expected = [ 1, 2, 3, 1, 2, 3 ];
+
+  box = _.box.pointExpand( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'One point box expanded'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  point = [ - 1, 2, - 3 ];
+  expected = [ - 1,  0, - 3, 0, 2, 0 ];
+
+  box = _.box.pointExpand( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box expanded'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ - 1, 3, - 1 ];
+  expected = [ - 1, 0, - 1, 2, 3, 2 ];
+
+  box = _.box.pointExpand( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box NOT expanded ( point inside box )'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [  1, 1, 1 ];
+  expected = [ 0,  0, 0, 2, 2, 2 ];
+
+  box = _.box.pointExpand( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box ( normalized to 1 ) expanded'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  point = [ -0.900, 0, 0.900 ];
+  expected = [ - 0.900,  0, -0.238, 0.194, 0.766, 0.900 ];
+
+  box = _.box.pointExpand( box, point );
+  test.equivalent( box, expected );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand();
+  });
+
+  test.description = 'Wrong type of argument'; //
+
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( 'box', 'points' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( null, 4 );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+  });
+
+  test.description = 'Wrong point dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0], [ 0, 1, 0, 2 ] );
+  });
+
+}
+
 // --
 // proto
 // --
@@ -796,20 +890,20 @@ var Self =
   tests :
   {
 
-    is : is,
-    isEmpty : isEmpty,
-    isZero : isZero,
-    isNil : isNil,
+//    is : is,
+//    isEmpty : isEmpty,
+//    isZero : isZero,
+//    isNil : isNil,
 
-    make : make,
-    makeZero : makeZero,
-    makeNil : makeNil,
+//    make : make,
+//    makeZero : makeZero,
+//    makeNil : makeNil,
 
-    zero : zero,
-    nil : nil,
-    centeredOfSize : centeredOfSize,
-    boxFromPoints : boxFromPoints,
-
+//    zero : zero,
+//    nil : nil,
+//    centeredOfSize : centeredOfSize,
+//    boxFromPoints : boxFromPoints,
+  pointExpand : pointExpand,
   }
 
 }
