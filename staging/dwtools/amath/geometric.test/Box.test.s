@@ -874,6 +874,16 @@ function pointExpand( test )
   box = _.box.pointExpand( box, point );
   test.equivalent( box, expected );
 
+  test.description = 'Box of 0 dimension expanded'; //
+
+  var box = [ ];
+  var point = [ ];
+  var expected = [ ];
+
+  box = _.box.pointExpand( box, point );
+  test.equivalent( box, expected );
+
+
   /* */
 
   if( !Config.debug )
@@ -924,7 +934,7 @@ function pointExpand( test )
   test.description = 'Wrong point dimension (box 2D vs point 1D)'; //
   test.shouldThrowError( function()
   {
-    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0], [ 0, 1, 0, 2 ] );
+    _.box.pointExpand( [ 0, 0, 0, 0 ], [ 0 ] );
   });
 }
 
