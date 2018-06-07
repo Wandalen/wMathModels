@@ -890,20 +890,20 @@ var Self =
   tests :
   {
 
-//    is : is,
-//    isEmpty : isEmpty,
-//    isZero : isZero,
-//    isNil : isNil,
+    is : is,
+    isEmpty : isEmpty,
+    isZero : isZero,
+    isNil : isNil,
 
-//    make : make,
-//    makeZero : makeZero,
-//    makeNil : makeNil,
+    make : make,
+    makeZero : makeZero,
+    makeNil : makeNil,
 
-//    zero : zero,
-//    nil : nil,
-//    centeredOfSize : centeredOfSize,
-//    boxFromPoints : boxFromPoints,
-  pointExpand : pointExpand,
+    zero : zero,
+    nil : nil,
+    centeredOfSize : centeredOfSize,
+    boxFromPoints : boxFromPoints,
+    pointExpand : pointExpand,
   }
 
 }
