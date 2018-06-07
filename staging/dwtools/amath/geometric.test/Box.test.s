@@ -670,6 +670,101 @@ function boxFromBox( test )
   debugger;
 }
 
+//
+
+function FromPoints( test )
+{
+
+  debugger;
+
+  test.description = 'Two points'; //
+
+  var expected = [ - 1, - 2, - 3, 1, 2, 3 ];
+  var pointOne = [ - 1, 2, - 3 ];
+  var pointTwo = [ 1, - 2, 3 ];
+  var points = [ pointOne, pointTwo ];
+  var bbox = [ 0,0,0,0,0,0 ];
+
+  bbox = _.box.fromPoints( bbox, points );
+  test.equivalent( bbox,expected );
+
+  debugger;
+
+
+  var expected = vec( expected );
+  var bbox = vec([ 0,0,0,0,0,0 ]);
+  var bbox = vec( bbox );
+
+  _.box.fromBox( bbox,bbox );
+  test.equivalent( bbox,expected );
+
+  test.description = 'same sizes, different position'; //
+
+  var expected = [ -2.5,0.5,5.5,sqrt( 0.5 ) ];
+  var bbox = [ 0,0,0,0,0,0 ];
+  var bbox = [ -3,0,5,-2,1,6 ];
+
+  _.box.fromBox( bbox,bbox );
+  test.equivalent( bbox,expected );
+
+  var expected = vec( expected );
+  var bbox = vec([ 0,0,0,0,0,0 ]);
+  var bbox = vec( bbox );
+
+  _.box.fromBox( bbox,bbox );
+  test.equivalent( bbox,expected );
+
+  test.description = 'different sizes, different position'; //
+
+  var expected = [ -2,0.5,7,sqrt( 5 ) ];
+  var bbox = [ 0,0,0,0,0,0 ];
+  var bbox = [ -3,0,5,-1,1,9 ];
+
+  _.box.fromBox( bbox,bbox );
+  test.equivalent( bbox,expected );
+
+  var expected = vec( expected );
+  var bbox = vec([ 0,0,0,0,0,0 ]);
+  var bbox = vec( bbox );
+
+  _.box.fromBox( bbox,bbox )
+  test.equivalent( bbox,expected );
+
+  test.description = 'bad arguments'; //
+
+  if( !Config.debug )
+  return;
+
+  function shouldThrowError( rname )
+  {
+
+    test.shouldThrowErrorSync( () => _.avector[ rname ]() );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ] ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3 ] ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],[ 5 ] ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],1 ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],undefined ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],'1' ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3,4 ],[ 1,2,3,4,5 ] ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3 ],[ 1,2,3,4,5,6 ] ) );
+
+    test.shouldThrowErrorSync( () => _.vector[ rname ]() );
+    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]) ) );
+    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3 ]) ) );
+    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),vec([ 5 ]) ) );
+    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),1 ) );
+    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),undefined ) );
+    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),'1' ) );
+    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2,3,4 ]),vec([ 1,2,3,4,5 ]) ) );
+    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2,3 ]),vec([ 1,2,3,4,5,6 ]) ) );
+
+  }
+
+  shouldThrowError( 'boxFromBox' );
+
+  debugger;
+}
+
 // --
 // proto
 // --
@@ -697,6 +792,7 @@ var Self =
     zero : zero,
     nil : nil,
     centeredOfSize : centeredOfSize,
+    fromPoints : fromPoints,
 
   }
 
