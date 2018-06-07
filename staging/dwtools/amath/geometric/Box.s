@@ -164,9 +164,9 @@ function fromPoints( box , points )
   _.assert( arguments.length === 2 );
 
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
-  for( var i = 0 ; i < points.length.length ; i += 1 )
+  for( var i = 0 ; i < points.length ; i += 1 )
   {
     _.box.pointExpand( boxv,points[ i ] )
   }

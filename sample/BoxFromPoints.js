@@ -9,10 +9,13 @@ var pointTwo = _.avector.arrayMakeRandom( 3 );
 var pointThree = _.avector.arrayMakeRandom( 3 );
 var pointFour = _.avector.arrayMakeRandom( 3 );
 var pointFive = _.avector.arrayMakeRandom( 3 );
+var points = [ pointOne, pointTwo, pointThree, pointFour, pointFive ]
 
+var got = _.box.fromPoints( src, points );
 
-var got = _.box.fromPoints( src, pointOne);
-console.log( 'box centered :', pointOne );
-console.log( 'box centered :', pointTwo );
-console.log( 'box centered :', pointThree );
+console.log( 'P1 :', pointOne );
+console.log( 'P2 :', pointTwo );
+console.log( 'P3 :', pointThree );
+console.log( 'P4 :', pointFour );
+console.log( 'P5 :', pointFive );
 console.log( 'box centered :', got );
