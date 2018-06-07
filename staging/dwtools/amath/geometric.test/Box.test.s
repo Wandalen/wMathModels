@@ -904,6 +904,7 @@ var Self =
     centeredOfSize : centeredOfSize,
     boxFromPoints : boxFromPoints,
     pointExpand : pointExpand,
+    
   }
 
 }
