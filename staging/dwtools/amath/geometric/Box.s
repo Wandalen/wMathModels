@@ -165,13 +165,12 @@ function fromPoints( box , points )
   var min = _.box.minGet( boxv );
   var max = _.box.maxGet( boxv );
 
-
   debugger;
   // throw _.err( 'not tested' );
 
   for( var i = 0 ; i < points.length ; i += 1 )
   {
-    _.box.pointExpand( boxv,points[ i ] )
+    _.box.pointExpand( boxv, points[ i ] );
   }
 
   return box;

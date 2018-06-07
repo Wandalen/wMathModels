@@ -678,9 +678,10 @@ function boxFromPoints( test )
   test.description = 'Box from two points'; //
 
   var expected = [ - 1, - 2, - 3, 1, 2, 3 ];
-  var pointOne = [ - 1, 2, - 3 ];
-  var pointTwo = [ 1, - 2, 3 ];
-  var points = [ pointOne, pointTwo ];
+  var pointone = [ - 1, 2, - 3 ];
+  var pointtwo = [ 1, - 2, 3 ];
+
+  var points = [ pointone, pointtwo ];
   var bbox = null;
 
   bbox = _.box.fromPoints( bbox, points );
@@ -689,10 +690,11 @@ function boxFromPoints( test )
   test.description = 'Box from three points'; //
 
   var expected = [ - 1, - 2, - 3, 1, 2, 6 ];
-  var pointOne = [ - 1, 2, - 3 ];
-  var pointTwo = [ 1, - 2, 3 ];
-  var pointThree = [ 0, 0, 6 ];
-  var points = [ pointOne, pointTwo, pointThree ];
+  var pointone = [ - 1, 2, - 3 ];
+  var pointtwo = [ 1, - 2, 3 ];
+  var pointthree = [ 0, 0, 6 ];
+
+  var points = [ pointone, pointtwo, pointthree ];
   var bbox = null;
 
   bbox = _.box.fromPoints( bbox, points );
@@ -701,13 +703,14 @@ function boxFromPoints( test )
   test.description = 'Box from six points'; //
 
   var expected = [ -3, - 2, - 1, 1, 2, 3 ];
-  var pointOne = [ 0, 0, 3 ];
-  var pointTwo = [ 0, 2, 0 ];
-  var pointThree = [ 1, 0, 0 ];
-  var pointFour = [ - 3, 0, 0 ];
-  var pointFive = [ 0, - 2, 0 ];
-  var pointSix = [ 0, 0, - 1 ];
-  var points = [ pointOne, pointTwo, pointThree, pointFour, pointFive, pointSix ];
+  var pointone = [ 0, 0, 3 ];
+  var pointtwo = [ 0, 2, 0 ];
+  var pointthree = [ 1, 0, 0 ];
+  var pointfour = [ - 3, 0, 0 ];
+  var pointfive = [ 0, - 2, 0 ];
+  var pointsix = [ 0, 0, - 1 ];
+
+  var points = [ pointone, pointtwo, pointthree, pointfour, pointfive, pointsix ];
   var bbox = null;
 
   bbox = _.box.fromPoints( bbox, points );
@@ -716,9 +719,10 @@ function boxFromPoints( test )
   test.description = 'Box from two decimal points'; //
 
   var expected = [ -0.991, - 0.203, 0.005, 0.001, 0.203, 0.889 ];
-  var pointOne = [ 0.001, -0.203, 0.889 ];
-  var pointTwo = [ -0.991, 0.203, 0.005 ];
-  var points = [ pointOne, pointTwo ];
+  var pointone = [ 0.001, -0.203, 0.889 ];
+  var pointtwo = [ -0.991, 0.203, 0.005 ];
+
+  var points = [ pointone, pointtwo ];
   var bbox = null;
 
   bbox = _.box.fromPoints( bbox, points );
@@ -727,40 +731,41 @@ function boxFromPoints( test )
   test.description = 'Box from Two points with initial box dimension'; //
 
   var expected = [ 2, 1, 2, 4, 8, 4 ];
-  var pointOne = [ 3, 1, 3 ];
-  var pointTwo = [ 3, 8, 3 ];
-  var points = [ pointOne, pointTwo ];
+  var pointone = [ 3, 1, 3 ];
+  var pointtwo = [ 3, 8, 3 ];
+
+  var points = [ pointone, pointtwo ];
   var bbox = [ 2, 2, 2, 4, 4, 4 ];
 
   bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox,expected );
 
-  test.description = 'bad arguments'; //
+  /* */
 
   if( !Config.debug )
   return;
 
-  test.description = 'no arguments';
+  test.description = 'No arguments';
   test.shouldThrowError( function()
   {
     _.box.fromPoints();
   });
 
-  test.description = 'wrong type of argument';
-  console.log("Executing");
+  test.description = 'Wrong type of argument'; //
+
   test.shouldThrowError( function()
   {
     _.box.fromPoints( 'box', 'points' );
   });
 
-  test.description = 'wrong type of argument';
-  console.log("Executing");
+  test.description = 'Wrong type of argument'; //
+
   test.shouldThrowError( function()
   {
     _.box.fromPoints( null, 4 );
   });
 
-  test.description = 'too little arguments';
+  test.description = 'Too little arguments';
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0] );
@@ -769,7 +774,7 @@ function boxFromPoints( test )
   test.description = 'too many arguments';
   test.shouldThrowError( function()
   {
-    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0], [ [ 0, 1, 0 ] [ 1, 0, 1 ] ], [ 0, 1, 2 ] );
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0], [ [ 0, 1, 0 ], [ 1, 0, 1 ] ], [ 0, 1, 2 ] );
   });
 
 }
