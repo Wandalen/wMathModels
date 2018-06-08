@@ -1374,7 +1374,7 @@ function pointClamp( test )
 
   box = [ 0, 0, 0, 2, 2, 2 ];
   point = [  1, 1, 1 ];
-  expected = [ 2, 2, 2 ];
+  expected = [ 1, 1, 1 ];
 
   box = _.box.pointClamp( box, point );
   test.equivalent( box, expected );
@@ -1400,8 +1400,8 @@ function pointClamp( test )
   test.description = 'Point (normalized to one) in box'; //
 
   box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
-  point = [ 0.050, 0.500, 0.000 ];
-  expected = [ 0.050, 0.500, 0.000 ];
+  point = [ 0.050, 0.500, 0 ];
+  expected = [ 0.050, 0.500, 0 ];
 
   box = _.box.pointClamp( box, point );
   test.equivalent( box, expected );
@@ -1410,7 +1410,7 @@ function pointClamp( test )
 
   box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   point = [ 0.050, 0.500, - 0.303 ];
-  expected = [ 0.050, 0.500, -0,238 ];
+  expected = [ 0.050, 0.500, -0.238 ];
 
   box = _.box.pointClamp( box, point );
   test.equivalent( box, expected );
@@ -1436,8 +1436,8 @@ function pointClamp( test )
   test.description = 'Point in seven dimensions box'; //
 
   box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
-  expected = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  point = [ 0, 4, 3.5, 0, 4, 2, 2 ];
+  expected = [ 0, 4, 3.5, 0, 4, 2, 2 ];
 
   box = _.box.pointClamp( box, point );
   test.equivalent( box, expected );
@@ -1446,7 +1446,7 @@ function pointClamp( test )
 
   box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
   point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
-  expected = [ 0, 4, 3.5, 0, 5, 2, 3 ];
+  expected = [ 0, 4, 3.5, 0, 4, 2, 3 ];
 
   box = _.box.pointClamp( box, point );
   test.equivalent( box, expected );
@@ -1777,8 +1777,8 @@ var Self =
 
 //    pointExpand : pointExpand,
 //    pointContains : pointContains,
-    pointRelative : pointRelative,
-//  pointClamp : pointClamp,
+//    pointRelative : pointRelative,
+    pointClamp : pointClamp,
 //   pointDistance : pointDistance,
   }
 
