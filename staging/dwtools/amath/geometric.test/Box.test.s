@@ -2151,6 +2151,200 @@ function boxIntersects( test )
 
 }
 
+function boxExpand( test )
+{
+
+  test.description = 'Empty box expands empty box'; //
+
+  var box = [];
+  var boxtwo = [];
+  var expected = [];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+
+  test.description = 'Zero box expands zero box'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  boxtwo = [ 0, 0, 0, 0, 0, 0 ];
+  expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Same boxes (no expansion)'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 0, 0, 0, 4, 4, 4 ];
+  expected = [ 0, 0, 0, 4, 4, 4 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Smaller box (no expansion)'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  boxtwo = [ 1, 1, 1, 2, 2, 2 ];
+  expected = [ 0, 0, 0, 3, 3, 3 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = '1D expansion'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  boxtwo = [ 1, 1, 1, 2, 2, 4 ];
+  expected = [ 0, 0, 0, 3, 3, 4 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = '2D expansion'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 2, - 2, - 2, 4, 6, 6 ];
+  expected = [ 0, - 2, - 2, 4, 6, 6 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = '3D expansion'; //
+
+  box = [ 0, 0, 0, 1, 1, 1 ];
+  boxtwo = [ - 2, - 2, - 2, 3, 3, 3 ];
+  expected = [ - 2, - 2, - 2, 3, 3, 3 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Random expansion'; //
+
+  box = [ 0, - 5, 3, 2, 3, 3 ];
+  boxtwo = [ - 1, - 1, - 1, 2.5, 2.5, 2.5 ];
+  expected = [ - 1, - 5, - 1, 2.5, 3, 3 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box expanded (normalized to one)'; //
+
+  box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  boxtwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.90 ];
+  expected = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box not expanded (normalized to one)'; //
+
+  box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.70 ];
+  expected = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box expanded (four dimensions)'; //
+
+  box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+  boxtwo = [ 0, 0, 0, 0, 3, 3, 3, 3 ];
+  expected = [ - 1, - 1, - 1, - 1, 3, 3, 3, 3 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box not expanded (four dimensions)'; //
+
+  box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  expected = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box expanded (one dimension)'; //
+
+  box = [ - 1, 2 ];
+  boxtwo = [ - 2, 10 ];
+  expected = [ - 2, 10 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box expanded on one side (one dimension)'; //
+
+  box = [ - 1, 2 ];
+  boxtwo = [ 0, 4 ];
+  expected = [ - 1, 4 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box not expanded (one dimension)'; //
+
+  box = [ - 1, 3 ];
+  boxtwo = [ 0, 1 ];
+  expected = [ - 1, 3 ];
+
+  box = _.box.boxExpand( box, boxtwo );
+  test.equivalent( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxExpand();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxExpand( 'box', 'box2' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxExpand( null, [] );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxExpand( [], null );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxExpand( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxExpand( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
+  });
+
+  test.description = 'Different box dimensions (box 3D vs box 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxExpand( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxExpand( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
+  });
+
+}
+
 // --
 // proto
 // --
@@ -2187,8 +2381,8 @@ var Self =
 //    pointDistance : pointDistance,
 
 //    boxContains : boxContains,
-    boxIntersects : boxIntersects,
-//    boxExpand : boxExpand,
+//    boxIntersects : boxIntersects,
+    boxExpand : boxExpand,
 
   }
 
