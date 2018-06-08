@@ -581,7 +581,7 @@ function boxContains( box , box2 )
   _.assert( dim === _.box.dimGet( box ) );
 
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   if( !_.box.pointContains( box,min ) )
   return false;

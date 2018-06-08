@@ -1608,7 +1608,6 @@ function pointDistance( test )
   box = _.box.pointDistance( box, point );
   test.equivalent( box, expected );
 
-
   test.description = 'Point (normalized to one) in box'; //
 
   box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
@@ -1713,7 +1712,6 @@ function pointDistance( test )
     _.box.pointDistance( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
-
   test.description = 'Too little arguments'; //
   test.shouldThrowError( function()
   {
@@ -1745,6 +1743,202 @@ function pointDistance( test )
   });
 }
 
+
+function boxContains( test )
+{
+
+  test.description = 'Empty box to empty box'; //
+
+  box = [];
+  boxtwo = [];
+  expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+
+  test.description = 'Zero box to zero box'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  boxtwo = [ 0, 0, 0, 0, 0, 0 ];
+  expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Same boxes'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 0, 0, 0, 4, 4, 4 ];
+  expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box with a common side'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  boxtwo = [ 1, 1, 1, 2, 2, 3 ];
+  expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+
+  test.description = 'Box in box'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  boxtwo = [ 1, 1, 1, 2, 2, 2 ];
+  expected = true;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box half in box'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 2, 2, 2, 6, 6, 6 ];
+  expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box totally out of box'; //
+
+  box = [ 0, 0, 0, 1, 1, 1 ];
+  boxtwo = [ 2, 2, 2, 3, 3, 3 ];
+  expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box in two dimensions'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 0, - 1, - 1, 1, 0, 0 ];
+  expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box in one dimensions'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 1, 1, 1, 3, 3, 5 ];
+  expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box (both normalized to one)'; //
+
+  var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  var boxtwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
+  var expected = true;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box (normalized to one)'; //
+
+  var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  var boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
+  var expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box (four dimensions)'; //
+
+  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+  var boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = true;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box (four dimensions)'; //
+
+  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+  var boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
+  var expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box (one dimensions)'; //
+
+  var box = [ - 1, 2 ];
+  var boxtwo = [ 0, 1 ];
+  var expected = true;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box (four dimensions)'; //
+
+  var box = [ - 1, 2 ];
+  var boxtwo = [ 0, 4 ];
+  var expected = false;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxContains();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxContains( 'box', 'box2' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxContains( null, [] );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxContains( [], null );
+  });
+
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxContains( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxContains( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
+  });
+
+  test.description = 'Different box dimensions (box 3D vs box 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxContains( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxContains( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
+  });
+
+}
 
 // --
 // proto
@@ -1779,7 +1973,12 @@ var Self =
 //    pointContains : pointContains,
 //    pointRelative : pointRelative,
 //    pointClamp : pointClamp,
-   pointDistance : pointDistance,
+//    pointDistance : pointDistance,
+
+      boxContains : boxContains,
+//    boxIntersects : boxIntersects,
+//    boxExpand : boxExpand,
+
   }
 
 }
