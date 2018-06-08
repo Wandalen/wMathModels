@@ -468,6 +468,7 @@ function pointExpand( box , point )
 * @function pointContains
 * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @memberof wTools.box
 */
 
 function pointContains( box , point )
