@@ -1787,8 +1787,8 @@ var Self =
 //    pointExpand : pointExpand,
 //    pointContains : pointContains,
 //    pointRelative : pointRelative,
-  pointClamp : pointClamp,
-//   pointDistance : pointDistance,
+  // pointClamp : pointClamp,
+  pointDistance : pointDistance,
   }
 
 }
