@@ -450,6 +450,26 @@ function pointExpand( box , point )
 
 //
 
+/**
+* Routine checks if a given point is contained inside a box.
+*
+* @param { Array } box - The box to check if the point is inside.
+* @param { Array } point - The point to check.
+*
+* @example
+* // returns true
+* _.pointContains( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+*
+* @example
+* // returns false
+* _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
+*
+* @returns { Boolen } Returns true if the point is inside the box, and false if the point is outside it.
+* @function pointContains
+* @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+*/
+
 function pointContains( box , point )
 {
 
@@ -468,10 +488,10 @@ function pointContains( box , point )
   debugger;
   //throw _.err( 'not tested' );
 
-  if( _.vector.anyLessOrEqual( point , min ) )
+  if( _.vector.anyLessEqual( point , min ) )
   return false;
 
-  if( _.vector.anyGreaterOrEqual( point , max ) )
+  if( _.vector.anyGreaterEqual( point , max ) )
   return false;
 
   return true;
@@ -522,7 +542,6 @@ function pointClamp( box , point )
   debugger;
   //  throw _.err( 'not tested' );
 
-
   _.vector.clamp( _point, min, max );
  debugger;
 
@@ -542,9 +561,9 @@ function pointDistance( box , point )
   debugger;
   //  throw _.err( 'not tested' );
 
-  var clamped = _.box.pointClamp( box , point.clone() );
+  var clamped = _.box.pointClamp( box , point );
 
-  return _.vector.distance( point,clamped );
+  return _.avector.distance( point,clamped );
 }
 
 //
@@ -561,7 +580,7 @@ function boxContains( box , box2 )
   _.assert( dim === _.box.dimGet( box ) );
 
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   if( !_.box.pointContains( box,min ) )
   return false;
@@ -586,7 +605,7 @@ function boxIntersects( box , box2 )
   _.assert( dim === _.box.dimGet( box ) );
 
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   if( _.box.pointContains( box,min ) )
   return true;
