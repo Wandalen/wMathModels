@@ -1784,7 +1784,6 @@ function boxContains( test )
   box = _.box.boxContains( box, boxtwo );
   test.equivalent( box, expected );
 
-
   test.description = 'Box in box'; //
 
   box = [ 0, 0, 0, 3, 3, 3 ];
@@ -1832,54 +1831,54 @@ function boxContains( test )
 
   test.description = 'Box in box (both normalized to one)'; //
 
-  var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  var boxtwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
-  var expected = true;
+  box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  boxtwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
+  expected = true;
 
   box = _.box.boxContains( box, boxtwo );
   test.equivalent( box, expected );
 
   test.description = 'Box out of box (normalized to one)'; //
 
-  var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  var boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
-  var expected = false;
+  box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
+  expected = false;
 
   box = _.box.boxContains( box, boxtwo );
   test.equivalent( box, expected );
 
   test.description = 'Box in box (four dimensions)'; //
 
-  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  var boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-  var expected = true;
+  box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  expected = true;
 
   box = _.box.boxContains( box, boxtwo );
   test.equivalent( box, expected );
 
   test.description = 'Box out of box (four dimensions)'; //
 
-  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  var boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
-  var expected = false;
+  box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
+  expected = false;
 
   box = _.box.boxContains( box, boxtwo );
   test.equivalent( box, expected );
 
   test.description = 'Box in box (one dimensions)'; //
 
-  var box = [ - 1, 2 ];
-  var boxtwo = [ 0, 1 ];
-  var expected = true;
+  box = [ - 1, 2 ];
+  boxtwo = [ 0, 1 ];
+  expected = true;
 
   box = _.box.boxContains( box, boxtwo );
   test.equivalent( box, expected );
 
   test.description = 'Box out of box (four dimensions)'; //
 
-  var box = [ - 1, 2 ];
-  var boxtwo = [ 0, 4 ];
-  var expected = false;
+  box = [ - 1, 2 ];
+  boxtwo = [ 0, 4 ];
+  expected = false;
 
   box = _.box.boxContains( box, boxtwo );
   test.equivalent( box, expected );
@@ -1940,6 +1939,218 @@ function boxContains( test )
 
 }
 
+function boxIntersects( test )
+{
+
+  test.description = 'Empty box to empty box'; //
+
+  var box = [];
+  var boxtwo = [];
+  var expected = false;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+
+  test.description = 'Zero box to zero box'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  boxtwo = [ 0, 0, 0, 0, 0, 0 ];
+  expected = false;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Same boxes'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 0, 0, 0, 4, 4, 4 ];
+  expected = false;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box with a common side'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  boxtwo = [ 1, 1, 1, 2, 2, 3 ];
+  expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  boxtwo = [ 1, 1, 1, 2, 2, 2 ];
+  expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box half in box'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 2, 2, 2, 6, 6, 6 ];
+  expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box totally out of box'; //
+
+  box = [ 0, 0, 0, 1, 1, 1 ];
+  boxtwo = [ 2, 2, 2, 3, 3, 3 ];
+  expected = false;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box in two dimensions'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 0, - 1, - 1, 1, 0, 0 ];
+  expected = false;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box in one dimensions'; //
+
+  box = [ 0, 0, 0, 4, 4, 4 ];
+  boxtwo = [ 1, 1, 1, 3, 3, 5 ];
+  expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box (both normalized to one)'; //
+
+  box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  boxtwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
+  expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box (normalized to one)'; //
+
+  box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
+  expected = false;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box (four dimensions)'; //
+
+  box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box in 1D (four dimensions)'; //
+
+  box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
+  expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box in 1D (four dimensions)'; //
+
+  box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
+  boxtwo = [ 3, 3, 3, 3, 4, 4, 4, 4 ];
+  expected = false;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box (one dimensions)'; //
+
+  box = [ - 1, 2 ];
+  boxtwo = [ 0, 1 ];
+  expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box intersects box (one dimensions)'; //
+
+  box = [ - 1, 2 ];
+  boxtwo = [ 0, 4 ];
+  expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box out of box (one dimensions)'; //
+
+  box = [ - 1, 2 ];
+  boxtwo = [ 3, 4 ];
+  expected = false;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxIntersects();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxIntersects( 'box', 'box2' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxIntersects( null, [] );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxIntersects( [], null );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxIntersects( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
+  });
+
+  test.description = 'Different box dimensions (box 3D vs box 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxIntersects( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.boxIntersects( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
+  });
+
+}
+
 // --
 // proto
 // --
@@ -1975,8 +2186,8 @@ var Self =
 //    pointClamp : pointClamp,
 //    pointDistance : pointDistance,
 
-      boxContains : boxContains,
-//    boxIntersects : boxIntersects,
+//    boxContains : boxContains,
+    boxIntersects : boxIntersects,
 //    boxExpand : boxExpand,
 
   }
