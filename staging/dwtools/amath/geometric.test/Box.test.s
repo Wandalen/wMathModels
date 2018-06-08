@@ -1161,7 +1161,7 @@ function pointRelative( test )
 
   var box = null;
   var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = [ NaN, NaN, NaN ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
@@ -1179,52 +1179,52 @@ function pointRelative( test )
 
   box = [ 0, 0, 0, 0, 0, 0 ];
   point = [ 0, 0, 0 ];
-  expected = [ 0, 0, 0 ];
+  expected = [ NaN, NaN, NaN ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
 
-  test.description = 'Point in box'; //
+  test.description = 'Point in medium of box'; //
 
   box = [ 0, 0, 0, 2, 2, 2 ];
   point = [  1, 1, 1 ];
-  expected = [ 2, 2, 2 ];
+  expected = [ 0.5, 0.5, 0.5 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
 
-  test.description = 'Point over box'; //
+  test.description = 'Point with 1D out of box'; //
 
   box = [ 0, 0, 0, 2, 2, 2 ];
   point = [ 1, 1, 3 ];
-  expected = [ 1, 1, 2 ];
+  expected = [ 0.5, 0.5, 1.5 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
 
-  test.description = 'Point under box'; //
+  test.description = 'Point with 1D under box'; //
 
   box = [ 0, 0, 0, 2, 2, 2 ];
   point = [ - 1, 1, 1 ];
-  expected = [ 0, 1, 1 ];
+  expected = [ - 0.5, 0.5, 0.5 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
 
   test.description = 'Point (normalized to one) in box'; //
 
-  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
-  point = [ 0.050, 0.500, 0.000 ];
-  expected = [ 0.050, 0.500, 0.000 ];
+  box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
+  point = [ 0.100, 0.025, 0.050 ];
+  expected = [ 2, 0.5, 1 ];
 
-  box = _.box.pointContains( box, point );
+  box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
 
   test.description = 'Point (normalized to one) not in box'; //
 
-  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
-  point = [ 0.050, 0.500, - 0.303 ];
-  expected = [ 0.050, 0.500, -0,238 ];
+  box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
+  point = [ 0.075, 0.075, 0.075 ];
+  expected = [ 1.5, 1.5, 1.5 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
@@ -1233,7 +1233,7 @@ function pointRelative( test )
 
   box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   point = [ 0, 0, 0 , 0 ];
-  expected = [ 0, 0, 0 , 0 ];
+  expected = [ 0.5, 0.5, 0.5 , 0.5 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
@@ -1242,25 +1242,16 @@ function pointRelative( test )
 
   box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   point = [ 0, - 2, 0 , 2 ];
-  expected = [ 0, - 1, 0 , 1 ];
+  expected = [ 0.5, - 0.5, 0.5 , 1.5 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
 
   test.description = 'Point in seven dimensions box'; //
 
-  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
-  expected = [ 0, 4, 3.5, 0, 5, 2, 2 ];
-
-  box = _.box.pointRelative( box, point );
-  test.equivalent( box, expected );
-
-  test.description = 'Point out of seven dimensions box'; //
-
-  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
-  expected = [ 0, 4, 3.5, 0, 5, 2, 3 ];
+  box = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
+  point = [ - 0.5, - 2, 1, - 3.5, 4, - 5, 7 ];
+  expected = [ 0.5, 0, 1, - 0.5, 2, - 1, 3 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
@@ -1269,7 +1260,7 @@ function pointRelative( test )
 
   box = [ 0, 2 ];
   point = [ 1 ];
-  expected = [ 1 ];
+  expected = [ 0.5 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
@@ -1278,7 +1269,7 @@ function pointRelative( test )
 
   box = [ 0, 2 ];
   point = [ 3 ];
-  expected = [ 2 ];
+  expected = [ 1.5 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
@@ -1287,7 +1278,7 @@ function pointRelative( test )
 
   box = [ 0, 2 ];
   point = [ - 3 ];
-  expected = [ 0 ];
+  expected = [ - 1.5 ];
 
   box = _.box.pointRelative( box, point );
   test.equivalent( box, expected );
@@ -1785,8 +1776,8 @@ var Self =
 //    boxFromPoints : boxFromPoints,
 
 //    pointExpand : pointExpand,
-    pointContains : pointContains,
-//    pointRelative : pointRelative,
+//    pointContains : pointContains,
+    pointRelative : pointRelative,
 //  pointClamp : pointClamp,
 //   pointDistance : pointDistance,
   }
