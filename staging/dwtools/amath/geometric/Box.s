@@ -466,7 +466,7 @@ function pointContains( box , point )
   _.assert( arguments.length === 2 );
 
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   if( _.vector.anyLessOrEqual( point , min ) )
   return false;
@@ -495,7 +495,7 @@ function pointRelative( box , point )
   _.assert( arguments.length === 2 );
 
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   _.vector.divAssigning( _.vector.subAssigning( _point , min ) , _.vector.subAssigning( max.clone() , min ) );
 
@@ -520,10 +520,11 @@ function pointClamp( box , point )
   _.assert( arguments.length === 2 );
 
   debugger;
-  throw _.err( 'not tested' );
+  //  throw _.err( 'not tested' );
 
-  debugger;
+
   _.vector.clamp( _point, min, max );
+ debugger;
 
   return point;
 }
@@ -539,7 +540,7 @@ function pointDistance( box , point )
   _.assert( arguments.length === 2 );
 
   debugger;
-  throw _.err( 'not tested' );
+  //  throw _.err( 'not tested' );
 
   var clamped = _.box.pointClamp( box , point.clone() );
 

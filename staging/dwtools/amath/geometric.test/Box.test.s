@@ -792,11 +792,11 @@ function boxFromPoints( test )
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], [ 1, 0 ] ]);
   });
 
-    test.description = 'Different dimensions between points'; //
-    test.shouldThrowError( function()
-    {
-      _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], [ 1, 0 ], [ 0 ] ]);
-    });
+  test.description = 'Different dimensions between points'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], [ 1, 0 ], [ 0 ] ]);
+  });
 }
 
 //
@@ -957,6 +957,804 @@ function pointExpand( test )
   });
 }
 
+//
+
+function pointContains( test )
+{
+
+  test.description = 'Null box contains empty point'; //
+
+  var box = null;
+  var point = [ 0, 0, 0 ];
+  var expected = false;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Empty box contains empty point'; //
+
+  box = [];
+  point = [];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point Box contains Point'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  point = [ 0, 0, 0 ];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box contains point'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [  1, 1, 1 ];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box under point'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ 1, 1, 3 ];
+  expected = false;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box over point'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ - 1, 1, 1 ];
+  expected = false;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box ( normalized to 1 ) contains point'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  point = [ 0.050, 0.500, 0.000 ];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box ( normalized to 1 ) doesn´t contain point'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  point = [ 0.050, 0.500, - 0.303 ];
+  expected = false;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box of four dimensions contains point'; //
+
+  box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  point = [ 0, 0, 0 , 0 ];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box of four dimensions doesn´t contain point'; //
+
+  box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  point = [ 0, - 2, 0 , 2 ];
+  expected = false;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box of 7 dimensions contains point'; //
+
+  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box of 7 dimensions doesn´t contain point'; //
+
+  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box of 1 dimension contains point'; //
+
+  box = [ 0, 2 ];
+  point = [ 1 ];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box of 1 dimension desn´t contain point (too big)'; //
+
+  box = [ 0, 2 ];
+  point = [ 3 ];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Box of 1 dimension desn´t contain point (too small)'; //
+
+  box = [ 0, 2 ];
+  point = [ - 3 ];
+  expected = true;
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointContains();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointContains( 'box', 'point' );
+  });
+
+  test.description = 'Point Null'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointContains( [ 0, 0, 0, 1, 1, 1 ], null );
+  });
+
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointContains( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointContains( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 3D vs point 4D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointContains( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 3D vs point 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointContains( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 2D vs point 1D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointContains( [ 0, 0, 0, 0 ], [ 0 ] );
+  });
+}
+
+//
+
+function pointRelative( test )
+{
+
+  test.description = 'Empty point relative to null box'; //
+
+  var box = null;
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Empty point relative to empty box'; //
+
+  var box = [];
+  var point = [];
+  var expected = [];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point relative to zero box'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  point = [ 0, 0, 0 ];
+  expected = [ 0, 0, 0 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [  1, 1, 1 ];
+  expected = [ 2, 2, 2 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point over box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ 1, 1, 3 ];
+  expected = [ 1, 1, 2 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point under box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ - 1, 1, 1 ];
+  expected = [ 0, 1, 1 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point (normalized to one) in box'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  point = [ 0.050, 0.500, 0.000 ];
+  expected = [ 0.050, 0.500, 0.000 ];
+
+  box = _.box.pointContains( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point (normalized to one) not in box'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  point = [ 0.050, 0.500, - 0.303 ];
+  expected = [ 0.050, 0.500, -0,238 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in four dimensions box'; //
+
+  box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  point = [ 0, 0, 0 , 0 ];
+  expected = [ 0, 0, 0 , 0 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of four dimensions box'; //
+
+  box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  point = [ 0, - 2, 0 , 2 ];
+  expected = [ 0, - 1, 0 , 1 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in seven dimensions box'; //
+
+  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  expected = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of seven dimensions box'; //
+
+  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
+  expected = [ 0, 4, 3.5, 0, 5, 2, 3 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in one dimension box'; //
+
+  box = [ 0, 2 ];
+  point = [ 1 ];
+  expected = [ 1 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of one dimension box (smaller)'; //
+
+  box = [ 0, 2 ];
+  point = [ 3 ];
+  expected = [ 2 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of one dimension box (bigger)'; //
+
+  box = [ 0, 2 ];
+  point = [ - 3 ];
+  expected = [ 0 ];
+
+  box = _.box.pointRelative( box, point );
+  test.equivalent( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( 'box', 'point' );
+  });
+
+  test.description = 'Point Null'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 1, 1, 1 ], null );
+  });
+
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 3D vs point 4D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 3D vs point 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 2D vs point 1D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 0 ], [ 0 ] );
+  });
+}
+
+//
+
+function pointClamp( test )
+{
+
+  test.description = 'Empty point relative to null box'; //
+
+  var box = null;
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Empty point relative to empty box'; //
+
+  var box = [];
+  var point = [];
+  var expected = [];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point relative to zero box'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  point = [ 0, 0, 0 ];
+  expected = [ 0, 0, 0 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [  1, 1, 1 ];
+  expected = [ 2, 2, 2 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point over box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ 1, 1, 3 ];
+  expected = [ 1, 1, 2 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point under box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ - 1, 1, 1 ];
+  expected = [ 0, 1, 1 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point (normalized to one) in box'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  point = [ 0.050, 0.500, 0.000 ];
+  expected = [ 0.050, 0.500, 0.000 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point (normalized to one) not in box'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  point = [ 0.050, 0.500, - 0.303 ];
+  expected = [ 0.050, 0.500, -0,238 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in four dimensions box'; //
+
+  box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  point = [ 0, 0, 0 , 0 ];
+  expected = [ 0, 0, 0 , 0 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of four dimensions box'; //
+
+  box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  point = [ 0, - 2, 0 , 2 ];
+  expected = [ 0, - 1, 0 , 1 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in seven dimensions box'; //
+
+  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  expected = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of seven dimensions box'; //
+
+  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
+  expected = [ 0, 4, 3.5, 0, 5, 2, 3 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in one dimension box'; //
+
+  box = [ 0, 2 ];
+  point = [ 1 ];
+  expected = [ 1 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of one dimension box (smaller)'; //
+
+  box = [ 0, 2 ];
+  point = [ 3 ];
+  expected = [ 2 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of one dimension box (bigger)'; //
+
+  box = [ 0, 2 ];
+  point = [ - 3 ];
+  expected = [ 0 ];
+
+  box = _.box.pointClamp( box, point );
+  test.equivalent( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointClamp();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointClamp( 'box', 'point' );
+  });
+
+  test.description = 'Point Null'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointClamp( [ 0, 0, 0, 1, 1, 1 ], null );
+  });
+
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointClamp( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointClamp( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 3D vs point 4D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointClamp( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 3D vs point 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointClamp( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 2D vs point 1D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointClamp( [ 0, 0, 0, 0 ], [ 0 ] );
+  });
+}
+
+function pointDistance( test )
+{
+
+  test.description = 'Empty point relative to null box'; //
+
+  var box = null;
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Empty point relative to empty box'; //
+
+  var box = [];
+  var point = [];
+  var expected = 0;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point relative to zero box'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  point = [ 0, 0, 0 ];
+  expected = 0;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [  1, 1, 1 ];
+  expected = 0;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point over box in one dimension'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ 1, 1, 3 ];
+  expected = 1;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point under box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ - 1, 1, 1 ];
+  expected = 1;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point away from box in two dimensions'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ 0, - 1, - 1 ];
+  expected = Math.sqrt(2);
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point away from box in three dimensions'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  point = [ 3, - 1, - 1 ];
+  expected = Math.sqrt(3);
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+
+  test.description = 'Point (normalized to one) in box'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  point = [ 0.050, 0.500, 0.000 ];
+  expected = 0;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point (normalized to one) not in box'; //
+
+  box = [ - 0.050, 0.002, -0.203, 0.194, 0.766, 0.766 ];
+  point = [ 0.050, 0.500, - 0.303 ];
+  expected = 0.1;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in four dimensions box'; //
+
+  box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  point = [ 0, 0, 0 , 0 ];
+  expected = 0;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of four dimensions box'; //
+
+  box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  point = [ 0, - 2, 0 , 2 ];
+  expected = Math.sqrt(2);
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in seven dimensions box'; //
+
+  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  expected = 0;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of seven dimensions box'; //
+
+  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
+  expected = 4;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point in one dimension box'; //
+
+  box = [ 0, 2 ];
+  point = [ 1 ];
+  expected = 0;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of one dimension box (smaller)'; //
+
+  box = [ 0, 2 ];
+  point = [ 3 ];
+  expected = 1;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point out of one dimension box (bigger)'; //
+
+  box = [ 0, 2 ];
+  point = [ - 3 ];
+  expected = 3;
+
+  box = _.box.pointDistance( box, point );
+  test.equivalent( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointDistance();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointDistance( 'box', 'point' );
+  });
+
+  test.description = 'Point Null'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointDistance( [ 0, 0, 0, 1, 1, 1 ], null );
+  });
+
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointDistance( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointDistance( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 3D vs point 4D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointDistance( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 3D vs point 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
+  });
+
+  test.description = 'Wrong point dimension (box 2D vs point 1D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.pointDistance( [ 0, 0, 0, 0 ], [ 0 ] );
+  });
+}
+
+
 // --
 // proto
 // --
@@ -972,21 +1770,25 @@ var Self =
   tests :
   {
 
-    is : is,
-    isEmpty : isEmpty,
-    isZero : isZero,
-    isNil : isNil,
+//    is : is,
+//    isEmpty : isEmpty,
+//    isZero : isZero,
+//    isNil : isNil,
 
-    make : make,
-    makeZero : makeZero,
-    makeNil : makeNil,
+//    make : make,
+//    makeZero : makeZero,
+//    makeNil : makeNil,
 
-    zero : zero,
-    nil : nil,
-    centeredOfSize : centeredOfSize,
-    boxFromPoints : boxFromPoints,
-    pointExpand : pointExpand,
+//    zero : zero,
+//    nil : nil,
+//    centeredOfSize : centeredOfSize,
+//    boxFromPoints : boxFromPoints,
 
+//    pointExpand : pointExpand,
+//    pointContains : pointContains,
+//    pointRelative : pointRelative,
+  pointClamp : pointClamp,
+//   pointDistance : pointDistance,
   }
 
 }
