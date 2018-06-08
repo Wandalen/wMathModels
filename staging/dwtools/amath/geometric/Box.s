@@ -542,7 +542,6 @@ function pointClamp( box , point )
   debugger;
   //  throw _.err( 'not tested' );
 
-
   _.vector.clamp( _point, min, max );
  debugger;
 
@@ -564,7 +563,7 @@ function pointDistance( box , point )
 
   var clamped = _.box.pointClamp( box , point );
 
-  return _.vector.distance( point,clamped );
+  return _.avector.distance( point,clamped );
 }
 
 //

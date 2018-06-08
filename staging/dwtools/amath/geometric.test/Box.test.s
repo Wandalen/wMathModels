@@ -2378,11 +2378,11 @@ var Self =
 //    pointContains : pointContains,
 //    pointRelative : pointRelative,
 //    pointClamp : pointClamp,
-//    pointDistance : pointDistance,
+      pointDistance : pointDistance,
 
 //    boxContains : boxContains,
 //    boxIntersects : boxIntersects,
-    boxExpand : boxExpand,
+//    boxExpand : boxExpand,
 
   }
 
