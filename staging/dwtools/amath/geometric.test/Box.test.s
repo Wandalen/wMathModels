@@ -971,20 +971,20 @@ function pointContains( test )
   box = _.box.pointContains( box, point );
   test.equivalent( box, expected );
 
-  test.description = 'Empty box contains empty point'; //
+  test.description = 'Empty box doesn´t contain empty point'; //
 
   box = [];
   point = [];
-  expected = true;
+  expected = false;
 
   box = _.box.pointContains( box, point );
   test.equivalent( box, expected );
 
-  test.description = 'Point Box contains Point'; //
+  test.description = 'Point Box doesn´t contain Point'; //
 
   box = [ 0, 0, 0, 0, 0, 0 ];
   point = [ 0, 0, 0 ];
-  expected = true;
+  expected = false;
 
   box = _.box.pointContains( box, point );
   test.equivalent( box, expected );
@@ -1054,8 +1054,8 @@ function pointContains( test )
 
   test.description = 'Box of 7 dimensions contains point'; //
 
-  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  box = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
+  point = [ 0, -1, -1, 0, -1, 0, 0 ];
   expected = true;
 
   box = _.box.pointContains( box, point );
@@ -1063,9 +1063,9 @@ function pointContains( test )
 
   test.description = 'Box of 7 dimensions doesn´t contain point'; //
 
-  box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  box = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
   point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
-  expected = true;
+  expected = false;
 
   box = _.box.pointContains( box, point );
   test.equivalent( box, expected );
@@ -1083,7 +1083,7 @@ function pointContains( test )
 
   box = [ 0, 2 ];
   point = [ 3 ];
-  expected = true;
+  expected = false;
 
   box = _.box.pointContains( box, point );
   test.equivalent( box, expected );
@@ -1092,7 +1092,7 @@ function pointContains( test )
 
   box = [ 0, 2 ];
   point = [ - 3 ];
-  expected = true;
+  expected = false;
 
   box = _.box.pointContains( box, point );
   test.equivalent( box, expected );
@@ -1785,9 +1785,9 @@ var Self =
 //    boxFromPoints : boxFromPoints,
 
 //    pointExpand : pointExpand,
-//    pointContains : pointContains,
+    pointContains : pointContains,
 //    pointRelative : pointRelative,
-  pointClamp : pointClamp,
+//  pointClamp : pointClamp,
 //   pointDistance : pointDistance,
   }
 
