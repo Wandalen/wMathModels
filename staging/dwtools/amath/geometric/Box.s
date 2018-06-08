@@ -450,6 +450,26 @@ function pointExpand( box , point )
 
 //
 
+/**
+* Routine checks if a given point is contained inside a box.
+*
+* @param { Array } box - The box to check if the point is inside.
+* @param { Array } point - The point to check.
+*
+* @example
+* // returns true
+* _.pointContains( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+*
+* @example
+* // returns false
+* _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
+*
+* @returns { Boolen } Returns true if the point is inside the box, and false if the point is outside it.
+* @function pointContains
+* @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+*/
+
 function pointContains( box , point )
 {
 
@@ -542,7 +562,7 @@ function pointDistance( box , point )
   debugger;
   //  throw _.err( 'not tested' );
 
-  var clamped = _.box.pointClamp( box , point.clone() );
+  var clamped = _.box.pointClamp( box , point );
 
   return _.vector.distance( point,clamped );
 }
