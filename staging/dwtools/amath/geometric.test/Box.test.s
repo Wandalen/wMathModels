@@ -1577,7 +1577,7 @@ function pointDistance( test )
   box = [ 0, 0, 0, 2, 2, 2 ];
   point = [ 1, 1, 3 ];
   expected = 1;
-
+debugger;
   box = _.box.pointDistance( box, point );
   test.equivalent( box, expected );
 
@@ -2378,7 +2378,7 @@ var Self =
 //    pointContains : pointContains,
 //    pointRelative : pointRelative,
 //    pointClamp : pointClamp,
-      pointDistance : pointDistance,
+    pointDistance : pointDistance,
 
 //    boxContains : boxContains,
 //    boxIntersects : boxIntersects,

@@ -505,7 +505,7 @@ function sphereIntersects( sphere1, sphere2 )
   _.assert( arguments.length === 2 );
   _.assert( dim1 === dim2 );
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   var r = radius1 + radius2;
   return _.vector.distanceSqr( center1,center2 ) <= r*r;

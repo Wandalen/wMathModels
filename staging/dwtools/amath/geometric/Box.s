@@ -528,6 +528,11 @@ function pointRelative( box , point )
 function pointClamp( box , point )
 {
 
+  var clamped = point;
+  const myPoint = point;
+
+  console.log('point code: ', myPoint, ' clamped : ', clamped);
+
   if( box === null )
   box = _.box.make();
 
@@ -535,18 +540,20 @@ function pointClamp( box , point )
   var dim = _.box.dimGet( boxv );
   var min = _.box.minGet( boxv );
   var max = _.box.maxGet( boxv );
-  var _point = _.vector.from( point );
-
-  _.assert( dim === point.length );
+  var _clamped = _.vector.from( clamped );
+  _.assert( dim === clamped.length );
   _.assert( arguments.length === 2 );
 
   debugger;
   //  throw _.err( 'not tested' );
 
-  _.vector.clamp( _point, min, max );
- debugger;
+  console.log('point code: ', myPoint, ' clamped : ', clamped);
+  debugger;
+  _.vector.clamp( _clamped, min, max );
+  debugger;
+  console.log('point code: ', myPoint, ' clamped : ', clamped);
 
-  return point;
+  return clamped;
 }
 
 //
@@ -554,6 +561,7 @@ function pointClamp( box , point )
 function pointDistance( box , point )
 {
 
+  var pointnotclamped = point;
   if( box === null )
   box = _.box.make();
 
@@ -564,7 +572,7 @@ function pointDistance( box , point )
 
   var clamped = _.box.pointClamp( box , point );
 
-  return _.avector.distance( point,clamped );
+  return _.avector.distance( pointnotclamped,clamped );
 }
 
 //

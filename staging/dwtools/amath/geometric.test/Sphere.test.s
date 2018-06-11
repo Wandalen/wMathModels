@@ -809,9 +809,131 @@ function sphereExpand( test )
   if( !Config.debug )
   return;
 
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'boxOne', 'boxTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ], 'boxTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'boxOne', [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+
+}
+
+//
+
+function sphereIntersects( test )
+{
+
+  test.description = 'Intersection of empty spheres'; //
+
+  var sphere = [ 0,0,0,0 ];
+  var sphere2 = [ 0,0,0,0 ];
+  var expected = true;
+  var got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got, expected );
+
+  test.description = 'Trivial intersection'; //
+
+  sphere = [ - 1, 2, 0, 2 ];
+  sphere2 = [ 1, 3, 0, 2 ];
+  expected = true;
+  got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got, expected );
+
+  test.description = 'Different radius'; //
+
+  sphere = [ - 1, 0, 0, 3 ];
+  sphere2 = [ 1, 0, 0, 2 ];
+  expected = true;
+  got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got, expected );
+
+
+  test.description = 'Just touching'; //
+
+  sphere = [ - 1, 0, 0, 1 ];
+  sphere2 = [ 1, 0, 0, 1 ];
+  expected = true;
+  got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got, expected );
+
+  test.description = 'Not intersecting'; //
+
+  sphere = [ - 1.5, 0, 0, 1 ];
+  sphere2 = [ 1.5, 0, 0, 1 ];
+  expected = false;
+  got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got, expected );
+
+  test.description = 'One inside another'; //
+
+  sphere = [ 0, 0, 0, 3 ];
+  sphere2 = [ 0, 0, 0, 1 ];
+  expected = true;
+  got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got, expected );
+
+  test.description = 'One inside another different centers'; //
+
+  sphere = [ 0, 0, 0, 3 ];
+  sphere2 = [ 1, 1, 1, 3 ];
+  expected = true;
+  got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got, expected );
+
+  test.description = 'dst is nil';
+
+  sphere = _.sphere.makeNil();
+  sphere2 = [ 0,0,0,2 ];
+  expected = true;
+  got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got,expected );
+
+  test.description = 'src is nil';
+
+  sphere = _.sphere.makeNil();
+  sphere2 = [ 0,0,0,2 ];
+  expected = true;
+  got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got,expected );
+
+  test.description = 'dst and src are nil';
+
+  test.description = 'src is nil';
+
+  sphere = _.sphere.makeNil();
+  sphere2 = _.sphere.makeNil();
+  expected = true;
+  got = _.sphere.sphereIntersects( sphere, sphere2 );
+
+  test.equivalent( got,expected );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+    test.shouldThrowErrorSync( () => _.sphere.sphereExpand( ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'boxOne', 'boxTwo' ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ], 'boxTwo' ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'boxOne', [ 1,2,3,4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+
+
 
 }
 
@@ -826,19 +948,19 @@ function pointExpand( test )
   var sphere = [ 0,0,0,0 ];
   var point = [ 0,0,0 ];
   var expected = [ 0,0,0,0 ];
-  var got = _.sphere.pointExpand( sphere,point );
+  var got = _.sphere.pointExpand( sphere, point );
 
-  test.equivalent( got,expected );
+  test.equivalent( got, expected );
   test.shouldBe( got === sphere );
 
   test.description = 'expand zero by non zero';
 
-  var sphere = [ 0,0,0,0 ];
+  var sphere = [ 0, 0, 0, 0 ];
   var center = _.sphere.centerGet( sphere );
   var point = [ 1,1,1 ];
   var expected = [ 0.5,0.5,0.5,_.sqrt( 3 ) / 2 ];
-  var got = _.sphere.pointExpand( sphere,point );
-  var d1 = _.avector.distance( point,center );
+  var got = _.sphere.pointExpand( sphere, point );
+  var d1 = _.avector.distance( point, center );
   debugger;
   var d2 = _.avector.distance( _.dup( 0,3 ),center );
 
@@ -890,23 +1012,24 @@ var Self =
   tests :
   {
 
-    is : is,
-    isEmpty : isEmpty,
-    isZero : isZero,
-    isNil : isNil,
+//    is : is,
+//    isEmpty : isEmpty,
+//    isZero : isZero,
+//    isNil : isNil,
 
-    make : make,
-    makeZero : makeZero,
-    makeNil : makeNil,
+//    make : make,
+//    makeZero : makeZero,
+//    makeNil : makeNil,
 
-    zero : zero,
-    nil : nil,
-    centeredOfRadius : centeredOfRadius,
+//    zero : zero,
+//    nil : nil,
+//    centeredOfRadius : centeredOfRadius,
 
-    sphereFromBox : sphereFromBox,
+//    sphereFromBox : sphereFromBox,
     sphereExpand : sphereExpand,
+    sphereIntersects : sphereIntersects,
 
-    pointExpand : pointExpand,
+//    pointExpand : pointExpand,
 
   },
 
