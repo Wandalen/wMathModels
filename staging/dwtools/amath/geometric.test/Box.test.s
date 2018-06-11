@@ -804,6 +804,18 @@ function boxFromPoints( test )
 function pointExpand( test )
 {
 
+  test.description = 'Point remains unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var point = [ 0, 2 ];
+  var oldPoint = [ 0, 2 ];
+  var expected = [ 0, 0, 1, 2 ];
+
+  box = _.box.pointExpand( dstBox, point );
+  test.equivalent( box, expected );
+  test.equivalent( dstBox, expected );
+  test.equivalent( point, oldPoint );
+
   test.description = 'Null box expanded'; //
 
   var box = null;
@@ -961,6 +973,20 @@ function pointExpand( test )
 
 function pointContains( test )
 {
+
+  test.description = 'Box and Point remain unchanged'; //
+
+  var box = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var oldBox = [  - 1,  - 1 , 1, 1 ];
+  var oldPoint = [  0, 0 ];
+  var expected = true;
+
+  var result = _.box.pointContains( box, point );
+
+  test.equivalent( result, expected );
+  test.equivalent( box, oldBox );
+  test.equivalent( point, oldPoint );
 
   test.description = 'Null box contains empty point'; //
 
@@ -1157,6 +1183,18 @@ function pointContains( test )
 function pointRelative( test )
 {
 
+test.description = 'Returns same instance point, box remains unchanged'; //
+
+var box = [ 0, 0, 2, 2 ];
+var point = [ 0, 1 ];
+var oldBox = [ 0, 0, 2, 2 ];
+var expected = [ 0, 0.5 ];
+
+var relative = _.box.pointRelative( box, point );
+test.equivalent( relative, expected );
+test.equivalent( relative, point );
+test.equivalent( oldBox, box );
+
   test.description = 'Empty point relative to null box'; //
 
   var box = null;
@@ -1343,20 +1381,31 @@ function pointRelative( test )
 function pointClamp( test )
 {
 
+  test.description = 'Returns same instance point, box remains unchanged'; //
+
+  var box = [ 1, 1, 1, 3, 3, 3 ];
+  var point = [ 0, 1, 2 ];
+  var oldBox = [ 1, 1, 1, 3, 3, 3 ];
+  var expected = [ 1, 1, 2 ];
+
+  var clamped = _.box.pointClamp( box, point );
+  test.equivalent( clamped, point );
+  test.equivalent( oldBox, box );
+
   test.description = 'Empty point relative to null box'; //
 
-  var box = null;
-  var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  box = null;
+  point = [ 0, 0, 0 ];
+  expected = [ 0, 0, 0 ];
 
   box = _.box.pointClamp( box, point );
   test.equivalent( box, expected );
 
   test.description = 'Empty point relative to empty box'; //
 
-  var box = [];
-  var point = [];
-  var expected = [];
+  box = [];
+  point = [];
+  expected = [];
 
   box = _.box.pointClamp( box, point );
   test.equivalent( box, expected );
@@ -1536,11 +1585,24 @@ function pointClamp( test )
 function pointDistance( test )
 {
 
+  test.description = 'Box and Point remain unchanged'; //
+
+  var box = [ 0, 0, 2, 2 ];
+  var point = [ 0, 3 ];
+  var oldBox = [  0,  0, 2, 2 ];
+  var oldPoint = [  0, 3 ];
+  var expected = 1;
+
+  var result = _.box.pointDistance( box, point );
+  test.equivalent( expected, result );
+  test.equivalent( box, oldBox );
+  test.equivalent( point, oldPoint );
+
   test.description = 'Empty point relative to null box'; //
 
-  var box = null;
-  var point = [ 0, 0, 0 ];
-  var expected = 0;
+  box = null;
+  point = [ 0, 0, 0 ];
+  expected = 0;
 
   box = _.box.pointDistance( box, point );
   test.equivalent( box, expected );
@@ -1647,7 +1709,7 @@ debugger;
   test.description = 'Point in seven dimensions box'; //
 
   box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  point = [ 0, 4, 3.5, 0, 3, 2, 2 ];
   expected = 0;
 
   box = _.box.pointDistance( box, point );
@@ -1656,7 +1718,7 @@ debugger;
   test.description = 'Point out of seven dimensions box'; //
 
   box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
+  point = [ 0, 4, 3.5, 0, 4, 2, 7 ];
   expected = 4;
 
   box = _.box.pointDistance( box, point );
@@ -1746,6 +1808,19 @@ debugger;
 
 function boxContains( test )
 {
+
+  test.description = 'Source box and Destination box remain unchanged'; //
+
+  var srcBox = [ 0, 0, 3, 3 ];
+  var oldsrcBox = [ 0, 0, 3, 3 ];
+  var tstBox = [  1,  1, 2, 2 ];
+  var oldtstBox = [  1,  1, 2, 2 ];
+  var expected = true;
+
+  var box = _.box.boxContains( srcBox, tstBox );
+  test.equivalent( expected, box );
+  test.equivalent( srcBox, oldsrcBox );
+  test.equivalent( tstBox, oldtstBox );
 
   test.description = 'Empty box to empty box'; //
 
@@ -1950,6 +2025,19 @@ function boxContains( test )
 
 function boxIntersects( test )
 {
+
+test.description = 'Source box and Test box remain unchanged'; //
+
+  var srcBox = [ 0, 0, 2, 2 ];
+  var oldsrcBox = [ 0, 0, 2, 2 ];
+  var tstBox = [  1,  1, 3, 3 ];
+  var oldtstBox = [  1,  1, 3, 3 ];
+  var expected = true;
+
+  var box = _.box.boxIntersects( srcBox, tstBox );
+  test.equivalent( expected, box );
+  test.equivalent( srcBox, oldsrcBox );
+  test.equivalent( tstBox, oldtstBox );
 
   test.description = 'Empty box to empty box'; //
 
@@ -2173,6 +2261,17 @@ function boxIntersects( test )
 function boxExpand( test )
 {
 
+  test.description = 'Source box remains unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var srcBox = [ - 1, - 1, 0, 2 ];
+  var oldsrcBox = [ - 1, - 1, 0, 2 ];
+  var expected = [ - 1, - 1, 1, 2 ];
+
+  box = _.box.boxExpand( dstBox, srcBox );
+  test.equivalent( srcBox, oldsrcBox );
+  test.equivalent( dstBox, expected );
+
   test.description = 'Empty box expands empty box'; //
 
   var box = [];
@@ -2364,6 +2463,122 @@ function boxExpand( test )
 
 }
 
+function dimGet( test )
+{
+
+  test.description = 'Source box remains unchanged'; //
+
+  var srcBox = [ 0, 0, 1, 1 ];
+  var oldsrcBox = [ 0, 0, 1, 1 ];
+  var expected = 2;
+
+  box = _.box.dimGet( srcBox );
+  test.equivalent( srcBox, oldsrcBox );
+  test.equivalent( box, expected );
+
+  test.description = 'Empty box'; //
+
+  var box = [];
+  var expected = 0;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'One dimension box'; //
+
+  box = [ 0, 0 ];
+  expected = 1;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'Two dimension box'; //
+
+  box = [ 0, 0, 1, 1 ];
+  expected = 2;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'Three dimension box'; //
+
+  box = [ - 1, - 2, - 3, 0, 1, 2 ];
+  expected = 3;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'Four dimension box'; //
+
+  box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
+  expected = 4;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'Eight dimension box'; //
+
+  box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 3.5, 5.5, 2.3, 27, 2.2, 540 ];
+  expected = 8;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( 'box' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( null );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 'Hello', 'world' ] );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 'Hello', 3 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 0 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 0, 0, 0 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 0, 0, 0, 0, 0 ] );
+  });
+}
+
 // --
 // proto
 // --
@@ -2397,11 +2612,17 @@ var Self =
 //    pointContains : pointContains,
 //    pointRelative : pointRelative,
 //    pointClamp : pointClamp,
-//      pointDistance : pointDistance,
+//    pointDistance : pointDistance,
 
-//     boxContains : boxContains,
-    boxIntersects : boxIntersects,
-//     boxExpand : boxExpand,
+//    boxContains : boxContains,
+//    boxIntersects : boxIntersects,
+//    boxExpand : boxExpand,
+
+    dimGet : dimGet,
+//    minGet : minGet,
+//    maxGet : maxGet,
+//    centerGet : centerGet,
+//    sizeGet : sizeGet,
 
   }
 

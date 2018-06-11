@@ -489,6 +489,27 @@ function sphereExpand( sphereDst, sphereSrc )
 
 //
 
+/**
+* Returns true if the two spheres intersect.
+*
+* @param { Array } sphere one
+* @param { Array } sphere two
+*
+* @example
+* // returns true
+* _.sphereIntersects( [ - 1, 0, 0, 2 ], [ 1, 0, 0, 2 ] );
+*
+* @example
+* // returns false
+* _.sphereIntersects( [ - 2, 0, 0, 1 ], [ 2, 0, 0, 1 ] );
+*
+* @returns { Boolean } Returns true if the two spheres intersect and false if not.
+* @function sphereIntersects
+* @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @memberof wTools.box
+*/
+
 function sphereIntersects( sphere1, sphere2 )
 {
 

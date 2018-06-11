@@ -262,6 +262,7 @@ function fromCube( box , size )
 function is( box )
 {
   _.assert( arguments.length === 1 );
+  _.assert( !box.some( isNaN ) );
   return ( _.arrayLike( box ) || _.vectorIs( box ) ) && ( box.length >= 0 ) && ( box.length % 2 === 0 );
 }
 
@@ -326,6 +327,26 @@ function isNil( box )
 }
 
 //
+
+/**
+* Get box dimension. Returns the dimension of the box. Box stays untouched.
+*
+* @param { Array } box - The source box.
+*
+* @example
+* // returns 2
+* _.dimGet( [ 0, 0, 2, 2 ] );
+*
+* @example
+* // returns 1
+* _.dimGet( [ 0, 1 ] );
+*
+* @returns { Number } Returns the dimension of the box.
+* @function dimGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( box ) is not box.
+* @memberof wTools.box
+*/
 
 function dimGet( box )
 {
@@ -425,12 +446,19 @@ function expand( box , expand )
   return box;
 }
 
+
+/**
+* Get the relative coordinates of a point regarding a given box. Returns the point in relative coordinates.
+* Source box remains untouched.
+*
+* @param { Array } box - Source box.
+* @param { Array } point - The point to calculate its relative reference.
 //
 /**
-*Returns the array of the first box expanded by the coordinates of the point.
+*Expand box by point. Returns the expanded box. Box are stored in Array data structure. Point stays untouched, dstBox changes.
 *
-* @param { Array } box to be expanded.
-* @param { Array } Point of reference with expansion dimensions.
+* @param { Array } dstBox - box to be expanded.
+* @param { Array } point - Point of reference with expansion dimensions.
 *
 * @example
 * // returns [ 0, 0, 3, 3 ];
@@ -444,16 +472,18 @@ function expand( box , expand )
 * @function pointExpand
 * @throws { Error } An Error if ( dim ) is different than point.length (the box and the point don´t have the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
 * @memberof wTools.box
 */
 
-function pointExpand( box , point )
+function pointExpand( dstBox , point )
 {
 
-  if( box === null )
-  box = _.box.makeNil();
+  if( dstBox === null )
+  dstBox = _.box.makeNil();
 
-  var boxv = _.box._from( box );
+  var boxv = _.box._from( dstBox );
   var dim = _.box.dimGet( boxv );
   var min = _.box.minGet( boxv );
   var max = _.box.maxGet( boxv );
@@ -465,13 +495,13 @@ function pointExpand( box , point )
   _.vector.minVectors( min , point );
   _.vector.maxVectors( max , point );
 
-  return box;
+  return dstBox;
 }
 
 //
 
 /**
-* Routine checks if a given point is contained inside a box.
+* Check if a given point is contained inside a box. Returs true if it is contained, false if not. Point and box stay untouched.
 *
 * @param { Array } box - The box to check if the point is inside.
 * @param { Array } point - The point to check.
@@ -488,6 +518,8 @@ function pointExpand( box , point )
 * @function pointContains
 * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
 * @memberof wTools.box
 */
 
@@ -520,11 +552,11 @@ function pointContains( box , point )
 
 //
 
-
 /**
-* Gives the relative coordinates of a point regarding a given box.
+* Get the relative coordinates of a point regarding a given box. Returns the point in relative coordinates.
+* Source box remains untouched.
 *
-* @param { Array } box - The box reference coordinates.
+* @param { Array } box - Source box.
 * @param { Array } point - The point to calculate its relative reference.
 *
 * @example
@@ -539,6 +571,8 @@ function pointContains( box , point )
 * @function pointRelative
 * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
 * @memberof wTools.box
 */
 
@@ -565,10 +599,8 @@ function pointRelative( box , point )
   return point
 }
 
-//
-
 /**
-*Returns an array with the clamped coordinates of a point against a box.
+* Clamp a point to a box. Returns the clamped point. Box stays untouched, point gets clamped.
 *
 * @param { Array } box - The reference box.
 * @param { Array } point - The point to be clamped against the box.
@@ -585,6 +617,8 @@ function pointRelative( box , point )
 * @function pointClamp
 * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
 * @memberof wTools.box
 */
 
@@ -615,10 +649,32 @@ function pointClamp( box , point )
 
 //
 
+/**
+*Calulate distance between point and box. Returns distance value. Point and box stay untouched.
+*
+* @param { Array } box - source box.
+* @param { Array } point - source point.
+*
+* @example
+* // returns 1;
+* _.pointDistance( [ 0, 0, 2, 2 ], [ 0, 3 ] );
+*
+* @example
+* // returns 0;
+* _.pointDistance( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+*
+* @returns { Number } Returns the distance between the point and the nearest point in the box.
+* @function pointDistance
+* @throws { Error } An Error if ( dim ) is different than dimGet(box) (the point and the box don´t have the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box
+* @throws { Error } An Error if ( point ) is not point
+* @memberof wTools.box
+*/
+
 function pointDistance( box , point )
 {
 
-  var pointnotclamped = point;
   if( box === null )
   box = _.box.make();
 
@@ -627,18 +683,21 @@ function pointDistance( box , point )
   debugger;
   //  throw _.err( 'not tested' );
 
-  var clamped = _.box.pointClamp( box , point );
+  var clamped = _.box.pointClamp( box, point.slice() );
 
-  return _.avector.distance( pointnotclamped,clamped );
+  return _.avector.distance( point,clamped );
+
+  debugger;
 }
 
 //
 
 /**
-*Returns true if the box in the first variable contains the box in the second variable (if a side is touching then it doesn´t contain it).
+*Check if the source box contains tested box (if a side is touching then it doesn´t contain it).
+*Returns true if it is contained, false if not. Box are stored in Array data structure. Source and tested boxes remain unchanged
 *
-* @param { Array } box - The container box.
-* @param { Array } boxtwo - The box to check if it is contained.
+* @param { Array } srcBox - The source box (container).
+* @param { Array } tstBox - The tested box (the box to check if it is contained in srcBox).
 *
 * @example
 * // returns true
@@ -652,6 +711,7 @@ function pointDistance( box , point )
 * @function boxContains
 * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
 * @memberof wTools.box
 */
 
@@ -680,11 +740,22 @@ function boxContains( box , box2 )
 
 //
 
+
 /**
-*Returns true if the box in the first intersects with the box in the second variable (if only side is touching then it doesn´t intersects).
+*Expand destination box by source box. Returns destination box. Box are stored in Array data structure. Source box stays untouched.
 *
-* @param { Array } box one
-* @param { Array } box two
+* @param { Array } dstBox - box to be expanded.
+* @param { Array } srcBox - source box with expansion dimensions.
+* @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
+* @memberof wTools.box
+*/
+
+/**
+*Check if srcBox intersects with tstBox. Returns true if the boxes intersect, false if not (if only side is touching then they don´t intersect).
+* Box are stored in Array data structure. Source box and Test box stay untouched.
+*
+* @param { Array } srcBox - Source box
+* @param { Array } tstBox - Test box to check if it intersects
 *
 * @example
 * // returns true
@@ -701,24 +772,24 @@ function boxContains( box , box2 )
 * @memberof wTools.box
 */
 
-function boxIntersects( box , box2 )
+function boxIntersects( srcBox , tstBox )
 {
 
-  var boxv = _.box._from( box2 );
+  var boxv = _.box._from( tstBox );
   var dim = _.box.dimGet( boxv );
   var min = _.box.minGet( boxv );
   var max = _.box.maxGet( boxv );
 
   _.assert( arguments.length === 2 );
-  _.assert( dim === _.box.dimGet( box ) );
+  _.assert( dim === _.box.dimGet( srcBox ) );
 
   debugger;
   // throw _.err( 'not tested' );
 
-  if( _.box.pointContains( box,min ) )
+  if( _.box.pointContains( srcBox,min ) )
   return true;
 
-  if( _.box.pointContains( box,max ) )
+  if( _.box.pointContains( srcBox,max ) )
   return true;
 
   return false;
@@ -727,10 +798,10 @@ function boxIntersects( box , box2 )
 //
 
 /**
-*Returns the array of the first box expanded by the coordinates of the second box.
+*Expand destination box by source box. Returns destination box. Box are stored in Array data structure. Source box stays untouched.
 *
-* @param { Array } box to be expanded.
-* @param { Array } box two, reference box with expansion dimensions.
+* @param { Array } dstBox - box to be expanded.
+* @param { Array } srcBox - source box with expansion dimensions.
 *
 * @example
 * // returns [ 0, 0, 3, 3 ];
@@ -744,21 +815,22 @@ function boxIntersects( box , box2 )
 * @function boxExpand
 * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
 * @memberof wTools.box
 */
 
-function boxExpand( box , box2 )
+function boxExpand( dstBox , srcBox )
 {
 
-  var _box1 = _.box._from( box );
-  var dim1 = _.box.dimGet( _box1 );
-  var min1 = _.box.minGet( _box1 );
-  var max1 = _.box.maxGet( _box1 );
+  var _dstBox = _.box._from( dstBox );
+  var dim1 = _.box.dimGet( _dstBox );
+  var min1 = _.box.minGet( _dstBox );
+  var max1 = _.box.maxGet( _dstBox );
 
-  var _box2 = _.box._from( box2 );
-  var dim2 = _.box.dimGet( _box2 );
-  var min2 = _.box.minGet( _box2 );
-  var max2 = _.box.maxGet( _box2 );
+  var _srcBox = _.box._from( srcBox );
+  var dim2 = _.box.dimGet( _srcBox );
+  var min2 = _.box.minGet( _srcBox );
+  var max2 = _.box.maxGet( _srcBox );
 
   _.assert( arguments.length === 2 );
   _.assert( dim1 === dim2 );
@@ -766,7 +838,7 @@ function boxExpand( box , box2 )
   _.vector.minVectors( min1 , min2 );
   _.vector.maxVectors( max1 , max2 );
 
-  return box;
+  return dstBox;
 }
 
 //
