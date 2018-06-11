@@ -434,11 +434,11 @@ function expand( box , expand )
 *
 * @example
 * // returns [ 0, 0, 3, 3 ];
-* _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
+* _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
 *
 * @example
 * // returns [ 0, 0, 2, 2 ];
-* _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+* _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
 *
 * @returns { Array } Returns the array of the box expanded.
 * @function pointExpand
