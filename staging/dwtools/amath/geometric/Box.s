@@ -659,10 +659,11 @@ function pointDistance( box , point )
 //
 
 /**
-*Returns true if the box in the first variable contains the box in the second variable (if a side is touching then it doesn´t contain it).
+*Check if the source box contains tested box (if a side is touching then it doesn´t contain it).
+*Returns true if it is contained, false if not. Box are stored in Array data structure. Source and tested boxes remain unchanged
 *
-* @param { Array } box - The container box.
-* @param { Array } boxtwo - The box to check if it is contained.
+* @param { Array } srcBox - The source box (container).
+* @param { Array } tstBox - The tested box (the box to check if it is contained in srcBox).
 *
 * @example
 * // returns true
@@ -676,6 +677,7 @@ function pointDistance( box , point )
 * @function boxContains
 * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
 * @memberof wTools.box
 */
 
@@ -704,11 +706,22 @@ function boxContains( box , box2 )
 
 //
 
+
 /**
-*Returns true if the box in the first intersects with the box in the second variable (if only side is touching then it doesn´t intersects).
+*Expand destination box by source box. Returns destination box. Box are stored in Array data structure. Source box stays untouched.
 *
-* @param { Array } box one
-* @param { Array } box two
+* @param { Array } dstBox - box to be expanded.
+* @param { Array } srcBox - source box with expansion dimensions.
+* @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
+* @memberof wTools.box
+*/
+
+/**
+*Check if srcBox intersects with tstBox. Returns true if the boxes intersect, false if not (if only side is touching then they don´t intersect).
+* Box are stored in Array data structure. Source box and Test box stay untouched.
+*
+* @param { Array } srcBox - Source box
+* @param { Array } tstBox - Test box to check if it intersects
 *
 * @example
 * // returns true
@@ -725,24 +738,24 @@ function boxContains( box , box2 )
 * @memberof wTools.box
 */
 
-function boxIntersects( box , box2 )
+function boxIntersects( srcBox , tstBox )
 {
 
-  var boxv = _.box._from( box2 );
+  var boxv = _.box._from( tstBox );
   var dim = _.box.dimGet( boxv );
   var min = _.box.minGet( boxv );
   var max = _.box.maxGet( boxv );
 
   _.assert( arguments.length === 2 );
-  _.assert( dim === _.box.dimGet( box ) );
+  _.assert( dim === _.box.dimGet( srcBox ) );
 
   debugger;
   // throw _.err( 'not tested' );
 
-  if( _.box.pointContains( box,min ) )
+  if( _.box.pointContains( srcBox,min ) )
   return true;
 
-  if( _.box.pointContains( box,max ) )
+  if( _.box.pointContains( srcBox,max ) )
   return true;
 
   return false;
