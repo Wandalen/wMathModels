@@ -804,6 +804,18 @@ function boxFromPoints( test )
 function pointExpand( test )
 {
 
+  test.description = 'Point remains unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var point = [ 0, 2 ];
+  var oldPoint = [ 0, 2 ];
+  var expected = [ 0, 0, 1, 2 ];
+
+  box = _.box.pointExpand( dstBox, point );
+  test.equivalent( box, expected );
+  test.equivalent( dstBox, expected );
+  test.equivalent( point, oldPoint );
+
   test.description = 'Null box expanded'; //
 
   var box = null;
@@ -961,6 +973,20 @@ function pointExpand( test )
 
 function pointContains( test )
 {
+
+  test.description = 'Box and Point remain unchanged'; //
+
+  var box = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var oldBox = [  - 1,  - 1 , 1, 1 ];
+  var oldPoint = [  0, 0 ];
+  var expected = true;
+
+  var result = _.box.pointContains( box, point );
+
+  test.equivalent( result, expected );
+  test.equivalent( box, oldBox );
+  test.equivalent( point, oldPoint );
 
   test.description = 'Null box contains empty point'; //
 
@@ -1157,6 +1183,18 @@ function pointContains( test )
 function pointRelative( test )
 {
 
+test.description = 'Returns same instance point, box remains unchanged'; //
+
+var box = [ 0, 0, 2, 2 ];
+var point = [ 0, 1 ];
+var oldBox = [ 0, 0, 2, 2 ];
+var expected = [ 0, 0.5 ];
+
+var relative = _.box.pointRelative( box, point );
+test.equivalent( relative, expected );
+test.equivalent( relative, point );
+test.equivalent( oldBox, box );
+
   test.description = 'Empty point relative to null box'; //
 
   var box = null;
@@ -1343,15 +1381,16 @@ function pointRelative( test )
 function pointClamp( test )
 {
 
-  test.description = 'Returns same instance point'; //
+  test.description = 'Returns same instance point, box remains unchanged'; //
 
   var box = [ 1, 1, 1, 3, 3, 3 ];
   var point = [ 0, 1, 2 ];
+  var oldBox = [ 1, 1, 1, 3, 3, 3 ];
   var expected = [ 1, 1, 2 ];
 
   var clamped = _.box.pointClamp( box, point );
   test.equivalent( clamped, point );
-  test.equivalent( box, box );
+  test.equivalent( oldBox, box );
 
   test.description = 'Empty point relative to null box'; //
 
@@ -1546,11 +1585,24 @@ function pointClamp( test )
 function pointDistance( test )
 {
 
+  test.description = 'Box and Point remain unchanged'; //
+
+  var box = [ 0, 0, 2, 2 ];
+  var point = [ 0, 3 ];
+  var oldBox = [  0,  0, 2, 2 ];
+  var oldPoint = [  0, 3 ];
+  var expected = 1;
+
+  var result = _.box.pointDistance( box, point );
+  test.equivalent( expected, result );
+  test.equivalent( box, oldBox );
+  test.equivalent( point, oldPoint );
+
   test.description = 'Empty point relative to null box'; //
 
-  var box = null;
-  var point = [ 0, 0, 0 ];
-  var expected = 0;
+  box = null;
+  point = [ 0, 0, 0 ];
+  expected = 0;
 
   box = _.box.pointDistance( box, point );
   test.equivalent( box, expected );
@@ -2220,7 +2272,6 @@ function boxExpand( test )
   test.equivalent( srcBox, oldsrcBox );
   test.equivalent( dstBox, expected );
 
-
   test.description = 'Empty box expands empty box'; //
 
   var box = [];
@@ -2441,11 +2492,11 @@ var Self =
 //    centeredOfSize : centeredOfSize,
 //    boxFromPoints : boxFromPoints,
 
-//    pointExpand : pointExpand,
-//    pointContains : pointContains,
-//    pointRelative : pointRelative,
-//    pointClamp : pointClamp,
-//    pointDistance : pointDistance,
+    pointExpand : pointExpand,
+    pointContains : pointContains,
+    pointRelative : pointRelative,
+    pointClamp : pointClamp,
+    pointDistance : pointDistance,
 
      boxContains : boxContains,
      boxIntersects : boxIntersects,

@@ -425,12 +425,19 @@ function expand( box , expand )
   return box;
 }
 
+
+/**
+* Get the relative coordinates of a point regarding a given box. Returns the point in relative coordinates.
+* Source box remains untouched.
+*
+* @param { Array } box - Source box.
+* @param { Array } point - The point to calculate its relative reference.
 //
 /**
-*Returns the array of the first box expanded by the coordinates of the point.
+*Expand box by point. Returns the expanded box. Box are stored in Array data structure. Point stays untouched, dstBox changes.
 *
-* @param { Array } box to be expanded.
-* @param { Array } Point of reference with expansion dimensions.
+* @param { Array } dstBox - box to be expanded.
+* @param { Array } point - Point of reference with expansion dimensions.
 *
 * @example
 * // returns [ 0, 0, 3, 3 ];
@@ -444,16 +451,18 @@ function expand( box , expand )
 * @function pointExpand
 * @throws { Error } An Error if ( dim ) is different than point.length (the box and the point don´t have the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
 * @memberof wTools.box
 */
 
-function pointExpand( box , point )
+function pointExpand( dstBox , point )
 {
 
-  if( box === null )
-  box = _.box.makeNil();
+  if( dstBox === null )
+  dstBox = _.box.makeNil();
 
-  var boxv = _.box._from( box );
+  var boxv = _.box._from( dstBox );
   var dim = _.box.dimGet( boxv );
   var min = _.box.minGet( boxv );
   var max = _.box.maxGet( boxv );
@@ -465,13 +474,13 @@ function pointExpand( box , point )
   _.vector.minVectors( min , point );
   _.vector.maxVectors( max , point );
 
-  return box;
+  return dstBox;
 }
 
 //
 
 /**
-* Routine checks if a given point is contained inside a box.
+* Check if a given point is contained inside a box. Returs true if it is contained, false if not. Point and box stay untouched.
 *
 * @param { Array } box - The box to check if the point is inside.
 * @param { Array } point - The point to check.
@@ -488,6 +497,8 @@ function pointExpand( box , point )
 * @function pointContains
 * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
 * @memberof wTools.box
 */
 
@@ -520,11 +531,11 @@ function pointContains( box , point )
 
 //
 
-
 /**
-* Gives the relative coordinates of a point regarding a given box.
+* Get the relative coordinates of a point regarding a given box. Returns the point in relative coordinates.
+* Source box remains untouched.
 *
-* @param { Array } box - The box reference coordinates.
+* @param { Array } box - Source box.
 * @param { Array } point - The point to calculate its relative reference.
 *
 * @example
@@ -539,6 +550,8 @@ function pointContains( box , point )
 * @function pointRelative
 * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
 * @memberof wTools.box
 */
 
@@ -565,10 +578,8 @@ function pointRelative( box , point )
   return point
 }
 
-//
-
 /**
-*Returns an array with the clamped coordinates of a point against a box.
+* Clamp a point to a box. Returns the clamped point. Box stays untouched, point gets clamped.
 *
 * @param { Array } box - The reference box.
 * @param { Array } point - The point to be clamped against the box.
@@ -585,6 +596,8 @@ function pointRelative( box , point )
 * @function pointClamp
 * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
 * @memberof wTools.box
 */
 
