@@ -615,10 +615,32 @@ function pointClamp( box , point )
 
 //
 
+/**
+*Calulate distance between point and box. Returns distance value. Point and box stay untouched.
+*
+* @param { Array } box - source box.
+* @param { Array } point - source point.
+*
+* @example
+* // returns 1;
+* _.pointDistance( [ 0, 0, 2, 2 ], [ 0, 3 ] );
+*
+* @example
+* // returns 0;
+* _.pointDistance( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+*
+* @returns { Number } Returns the distance between the point and the nearest point in the box.
+* @function pointDistance
+* @throws { Error } An Error if ( dim ) is different than dimGet(box) (the point and the box don´t have the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box
+* @throws { Error } An Error if ( point ) is not point
+* @memberof wTools.box
+*/
+
 function pointDistance( box , point )
 {
 
-  var pointnotclamped = point;
   if( box === null )
   box = _.box.make();
 
@@ -627,9 +649,11 @@ function pointDistance( box , point )
   debugger;
   //  throw _.err( 'not tested' );
 
-  var clamped = _.box.pointClamp( box , point );
+  var clamped = _.box.pointClamp( box, point.slice() );
 
-  return _.avector.distance( pointnotclamped,clamped );
+  return _.avector.distance( point,clamped );
+
+  debugger;
 }
 
 //
@@ -727,10 +751,10 @@ function boxIntersects( box , box2 )
 //
 
 /**
-*Returns the array of the first box expanded by the coordinates of the second box.
+*Expand destination box by source box. Returns destination box. Box are stored in Array data structure. Source box stays untouched.
 *
-* @param { Array } box to be expanded.
-* @param { Array } box two, reference box with expansion dimensions.
+* @param { Array } dstBox - box to be expanded.
+* @param { Array } srcBox - source box with expansion dimensions.
 *
 * @example
 * // returns [ 0, 0, 3, 3 ];
@@ -744,21 +768,22 @@ function boxIntersects( box , box2 )
 * @function boxExpand
 * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
 * @memberof wTools.box
 */
 
-function boxExpand( box , box2 )
+function boxExpand( dstBox , srcBox )
 {
 
-  var _box1 = _.box._from( box );
-  var dim1 = _.box.dimGet( _box1 );
-  var min1 = _.box.minGet( _box1 );
-  var max1 = _.box.maxGet( _box1 );
+  var _dstBox = _.box._from( dstBox );
+  var dim1 = _.box.dimGet( _dstBox );
+  var min1 = _.box.minGet( _dstBox );
+  var max1 = _.box.maxGet( _dstBox );
 
-  var _box2 = _.box._from( box2 );
-  var dim2 = _.box.dimGet( _box2 );
-  var min2 = _.box.minGet( _box2 );
-  var max2 = _.box.maxGet( _box2 );
+  var _srcBox = _.box._from( srcBox );
+  var dim2 = _.box.dimGet( _srcBox );
+  var min2 = _.box.minGet( _srcBox );
+  var max2 = _.box.maxGet( _srcBox );
 
   _.assert( arguments.length === 2 );
   _.assert( dim1 === dim2 );
@@ -766,7 +791,7 @@ function boxExpand( box , box2 )
   _.vector.minVectors( min1 , min2 );
   _.vector.maxVectors( max1 , max2 );
 
-  return box;
+  return dstBox;
 }
 
 //

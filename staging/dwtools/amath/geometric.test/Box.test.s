@@ -1343,20 +1343,30 @@ function pointRelative( test )
 function pointClamp( test )
 {
 
+  test.description = 'Returns same instance point'; //
+
+  var box = [ 1, 1, 1, 3, 3, 3 ];
+  var point = [ 0, 1, 2 ];
+  var expected = [ 1, 1, 2 ];
+
+  var clamped = _.box.pointClamp( box, point );
+  test.equivalent( clamped, point );
+  test.equivalent( box, box );
+
   test.description = 'Empty point relative to null box'; //
 
-  var box = null;
-  var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  box = null;
+  point = [ 0, 0, 0 ];
+  expected = [ 0, 0, 0 ];
 
   box = _.box.pointClamp( box, point );
   test.equivalent( box, expected );
 
   test.description = 'Empty point relative to empty box'; //
 
-  var box = [];
-  var point = [];
-  var expected = [];
+  box = [];
+  point = [];
+  expected = [];
 
   box = _.box.pointClamp( box, point );
   test.equivalent( box, expected );
@@ -1647,7 +1657,7 @@ debugger;
   test.description = 'Point in seven dimensions box'; //
 
   box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  point = [ 0, 4, 3.5, 0, 3, 2, 2 ];
   expected = 0;
 
   box = _.box.pointDistance( box, point );
@@ -1656,7 +1666,7 @@ debugger;
   test.description = 'Point out of seven dimensions box'; //
 
   box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
+  point = [ 0, 4, 3.5, 0, 4, 2, 7 ];
   expected = 4;
 
   box = _.box.pointDistance( box, point );
@@ -2173,6 +2183,18 @@ function boxIntersects( test )
 function boxExpand( test )
 {
 
+  test.description = 'Source box remains unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var srcBox = [ - 1, - 1, 0, 2 ];
+  var oldsrcBox = [ - 1, - 1, 0, 2 ];
+  var expected = [ - 1, - 1, 1, 2 ];
+
+  box = _.box.boxExpand( dstBox, srcBox );
+  test.equivalent( srcBox, oldsrcBox );
+  test.equivalent( dstBox, expected );
+
+
   test.description = 'Empty box expands empty box'; //
 
   var box = [];
@@ -2397,10 +2419,10 @@ var Self =
 //    pointContains : pointContains,
 //    pointRelative : pointRelative,
 //    pointClamp : pointClamp,
-//      pointDistance : pointDistance,
+    pointDistance : pointDistance,
 
 //     boxContains : boxContains,
-    boxIntersects : boxIntersects,
+//    boxIntersects : boxIntersects,
 //     boxExpand : boxExpand,
 
   }
