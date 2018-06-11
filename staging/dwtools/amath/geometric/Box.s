@@ -426,6 +426,26 @@ function expand( box , expand )
 }
 
 //
+/**
+*Returns the array of the first box expanded by the coordinates of the point.
+*
+* @param { Array } box to be expanded.
+* @param { Array } Point of reference with expansion dimensions.
+*
+* @example
+* // returns [ 0, 0, 3, 3 ];
+* _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
+*
+* @example
+* // returns [ 0, 0, 2, 2 ];
+* _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+*
+* @returns { Array } Returns the array of the box expanded.
+* @function pointExpand
+* @throws { Error } An Error if ( dim ) is different than point.length (the box and the point don´t have the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @memberof wTools.box
+*/
 
 function pointExpand( box , point )
 {
@@ -547,6 +567,27 @@ function pointRelative( box , point )
 
 //
 
+/**
+*Returns an array with the clamped coordinates of a point against a box.
+*
+* @param { Array } box - The reference box.
+* @param { Array } point - The point to be clamped against the box.
+*
+* @example
+* // returns [ 0, 2 ]
+* _.pointClamp( [ 0, 0, 2, 2 ], [ 0, 3 ] );
+*
+* @example
+* // returns [ 0, 1 ]
+* _.pointClamp( [ 0, 0, 2, 2 ], [ 0, 1 ] );
+*
+* @returns { Array } Returns an array with the coordinates of the clamped point.
+* @function pointClamp
+* @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @memberof wTools.box
+*/
+
 function pointClamp( box , point )
 {
 
@@ -596,7 +637,7 @@ function pointDistance( box , point )
 /**
 *Returns true if the box in the first variable contains the box in the second variable (if a side is touching then it doesn´t contain it).
 *
-* @param { Array } box - The cotainer box.
+* @param { Array } box - The container box.
 * @param { Array } boxtwo - The box to check if it is contained.
 *
 * @example
