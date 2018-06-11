@@ -4,12 +4,21 @@ require( 'wmathconcepts' );
 var _ = wTools;
 
 var box = [ 0, 0, 0, 2, 2, 2 ];
-var point = [ 1, 1, 3 ];
-const pointnotclamped = point;
+const pointnotclamped = [ 1, 1, 3 ];
+var point = pointnotclamped;
+
 console.log( pointnotclamped );
+
+debugger;
+
 var clamped = _.box.pointClamp(box, point);
 
-// console.log(clamped,' vs ', pointnotclamped, ' vs ',point);
+console.log(clamped,' vs ', pointnotclamped, ' vs ',point);
 
 dist2 = _.avector.distance(pointnotclamped, clamped);
-// console.log( 'distance :',dist2 );
+
+debugger;
+
+console.log(clamped,' vs ', pointnotclamped, ' vs ',point);
+
+console.log( 'distance :',dist2 );

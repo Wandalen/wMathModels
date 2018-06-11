@@ -1749,9 +1749,9 @@ function boxContains( test )
 
   test.description = 'Empty box to empty box'; //
 
-  box = [];
-  boxtwo = [];
-  expected = false;
+  var box = [];
+  var boxtwo = [];
+  var expected = false;
 
   box = _.box.boxContains( box, boxtwo );
   test.equivalent( box, expected );
@@ -1789,6 +1789,15 @@ function boxContains( test )
   box = [ 0, 0, 0, 3, 3, 3 ];
   boxtwo = [ 1, 1, 1, 2, 2, 2 ];
   expected = true;
+
+  box = _.box.boxContains( box, boxtwo );
+  test.equivalent( box, expected );
+
+  test.description = 'Box in box (other way aroud)'; //
+
+  box = [ 1, 1, 1, 2, 2, 2 ];
+  boxtwo = [ 0, 0, 0, 3, 3, 3 ];
+  expected = false;
 
   box = _.box.boxContains( box, boxtwo );
   test.equivalent( box, expected );
@@ -1975,6 +1984,16 @@ function boxIntersects( test )
   box = [ 0, 0, 0, 3, 3, 3 ];
   boxtwo = [ 1, 1, 1, 2, 2, 3 ];
   expected = true;
+
+  box = _.box.boxIntersects( box, boxtwo );
+  test.equivalent( box, expected );
+
+
+  test.description = 'Box out of box with a common side'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  boxtwo = [ 4, 4, 3, 5, 5, 5 ];
+  expected = false;
 
   box = _.box.boxIntersects( box, boxtwo );
   test.equivalent( box, expected );
@@ -2378,11 +2397,11 @@ var Self =
 //    pointContains : pointContains,
 //    pointRelative : pointRelative,
 //    pointClamp : pointClamp,
-    pointDistance : pointDistance,
+//      pointDistance : pointDistance,
 
-//    boxContains : boxContains,
-//    boxIntersects : boxIntersects,
-//    boxExpand : boxExpand,
+//     boxContains : boxContains,
+    boxIntersects : boxIntersects,
+//     boxExpand : boxExpand,
 
   }
 
