@@ -262,6 +262,7 @@ function fromCube( box , size )
 function is( box )
 {
   _.assert( arguments.length === 1 );
+  _.assert( !box.some( isNaN ) );
   return ( _.arrayLike( box ) || _.vectorIs( box ) ) && ( box.length >= 0 ) && ( box.length % 2 === 0 );
 }
 
@@ -326,6 +327,26 @@ function isNil( box )
 }
 
 //
+
+/**
+* Get box dimension. Returns the dimension of the box. Box stays untouched.
+*
+* @param { Array } box - The source box.
+*
+* @example
+* // returns 2
+* _.dimGet( [ 0, 0, 2, 2 ] );
+*
+* @example
+* // returns 1
+* _.dimGet( [ 0, 1 ] );
+*
+* @returns { Number } Returns the dimension of the box.
+* @function dimGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( box ) is not box.
+* @memberof wTools.box
+*/
 
 function dimGet( box )
 {

@@ -2463,6 +2463,122 @@ function boxExpand( test )
 
 }
 
+function dimGet( test )
+{
+
+  test.description = 'Source box remains unchanged'; //
+
+  var srcBox = [ 0, 0, 1, 1 ];
+  var oldsrcBox = [ 0, 0, 1, 1 ];
+  var expected = 2;
+
+  box = _.box.dimGet( srcBox );
+  test.equivalent( srcBox, oldsrcBox );
+  test.equivalent( box, expected );
+
+  test.description = 'Empty box'; //
+
+  var box = [];
+  var expected = 0;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'One dimension box'; //
+
+  box = [ 0, 0 ];
+  expected = 1;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'Two dimension box'; //
+
+  box = [ 0, 0, 1, 1 ];
+  expected = 2;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'Three dimension box'; //
+
+  box = [ - 1, - 2, - 3, 0, 1, 2 ];
+  expected = 3;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'Four dimension box'; //
+
+  box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
+  expected = 4;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'Eight dimension box'; //
+
+  box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 3.5, 5.5, 2.3, 27, 2.2, 540 ];
+  expected = 8;
+
+  box = _.box.dimGet( box );
+  test.equivalent( box, expected );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( 'box' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( null );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 'Hello', 'world' ] );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 'Hello', 3 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 0 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 0, 0, 0 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.dimGet( [ 0, 0, 0, 0, 0 ] );
+  });
+}
+
 // --
 // proto
 // --
@@ -2492,15 +2608,21 @@ var Self =
 //    centeredOfSize : centeredOfSize,
 //    boxFromPoints : boxFromPoints,
 
-    pointExpand : pointExpand,
-    pointContains : pointContains,
-    pointRelative : pointRelative,
-    pointClamp : pointClamp,
-    pointDistance : pointDistance,
+//    pointExpand : pointExpand,
+//    pointContains : pointContains,
+//    pointRelative : pointRelative,
+//    pointClamp : pointClamp,
+//    pointDistance : pointDistance,
 
-     boxContains : boxContains,
-     boxIntersects : boxIntersects,
-     boxExpand : boxExpand,
+//    boxContains : boxContains,
+//    boxIntersects : boxIntersects,
+//    boxExpand : boxExpand,
+
+    dimGet : dimGet,
+//    minGet : minGet,
+//    maxGet : maxGet,
+//    centerGet : centerGet,
+//    sizeGet : sizeGet,
 
   }
 
