@@ -421,11 +421,11 @@ function radiusSet( sphere,radius )
 
   //if( _.vectorIs( sphere ) )
   //{
-  var spherev = _.sphere._from( sphere );
+    var spherev = _.sphere._from( sphere );
   //return spherev.eSet( sphere.length-1, radius );
   //console.log('vector');
-  sphere.eSet( sphere.length-1, radius );
-  return sphere;
+    spherev.eSet( sphere.length-1, radius );
+    return spherev;
   //}
 
   // Alternative solution
