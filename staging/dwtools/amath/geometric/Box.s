@@ -262,6 +262,7 @@ function fromCube( box , size )
 function is( box )
 {
   _.assert( arguments.length === 1 );
+  // _.assert( !box.some( isNaN ) );
   return ( _.arrayLike( box ) || _.vectorIs( box ) ) && ( box.length >= 0 ) && ( box.length % 2 === 0 );
 }
 
