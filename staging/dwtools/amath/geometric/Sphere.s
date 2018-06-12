@@ -317,7 +317,7 @@ function isNil( sphere )
 * @function dimGet
 * @throws { Error } An Error if ( arguments.length ) is different than one.
 * @throws { Error } An Error if ( sphere ) is not sphere.
-* @memberof wTools.box
+* @memberof wTools.sphere
 */
 
 function dimGet( sphere )
@@ -328,6 +328,27 @@ function dimGet( sphere )
 }
 
 //
+
+/**
+* Get the center of a sphere. Returns a vector wit the coordinates of the center of the sphere.
+* Sphere stays untouched.
+*
+* @param { Array } sphere - The source sphere.
+*
+* @example
+* // returns [ 0, 0, 2 ]
+* _.centerGet( [ 0, 0, 2, 2 ] );
+*
+* @example
+* // returns  0 
+* _.centerGet( [ 0, 1 ] );
+*
+* @returns { Vector } Returns the coordinates of the center of the sphere.
+* @function centerGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.sphere
+*/
 
 function centerGet( sphere )
 {
@@ -527,7 +548,7 @@ function sphereExpand( sphereDst, sphereSrc )
 * @function sphereIntersects
 * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
-* @memberof wTools.box
+* @memberof wTools.sphere
 */
 
 function sphereIntersects( sphere1, sphere2 )

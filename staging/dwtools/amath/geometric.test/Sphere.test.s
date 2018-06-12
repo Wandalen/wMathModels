@@ -1122,9 +1122,149 @@ function dimGet( test )
     _.sphere.dimGet( [ 0, 1 ], [ 0, 1 ] );
   });
 
-
 }
 
+
+function centerGet( test )
+{
+
+  test.description = 'Source sphere remains unchanged'; //
+
+  var srcsphere = [ 0, 0, 1, 1 ];
+  var oldsrcsphere = [ 0, 0, 1, 1 ];
+  var expected = [ 0, 0, 1 ];
+  expected = _.vector.from(expected);
+
+  var sphere = _.sphere.centerGet( srcsphere );
+
+  test.equivalent( srcsphere, oldsrcsphere );
+  test.equivalent( sphere, expected );
+
+  test.description = 'One dimension sphere'; //
+
+  sphere = [ 0, 0 ];
+  expected = [ 0 ];
+  expected = _.vector.from(expected);
+
+  sphere = _.sphere.centerGet( sphere );
+  test.equivalent( sphere, expected );
+
+  test.description = 'Two dimension sphere'; //
+
+  sphere = [ 0, 0, 2 ];
+  expected = [ 0, 0 ];
+  expected = _.vector.from(expected);
+
+  sphere = _.sphere.centerGet( sphere );
+  test.equivalent( sphere, expected );
+
+  test.description = 'Three dimension sphere'; //
+
+  sphere = [ 0, - 1, - 2, 2 ];
+  expected = [ 0, - 1, - 2 ];
+  expected = _.vector.from(expected);
+
+  sphere = _.sphere.centerGet( sphere );
+  test.equivalent( sphere, expected );
+
+  test.description = 'Four dimension sphere'; //
+
+  sphere = [ 0, - 1, - 2, 2, 0 ];
+  expected = [ 0, - 1, - 2, 2 ];
+  expected = _.vector.from(expected);
+
+  sphere = _.sphere.centerGet( sphere );
+  test.equivalent( sphere, expected );
+
+  test.description = 'Eight dimension sphere'; //
+
+  sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, - 1 ];
+  expected = [ 0, - 1, -2, 2, 0, 1, 2, 6 ];
+  expected = _.vector.from(expected);
+
+  sphere = _.sphere.centerGet( sphere );
+  test.identical( sphere, expected );
+
+  test.description = 'normalized sphere'; //
+
+  sphere = [ 0.624, 0.376, 0.52 ];
+  expected = [ 0.624, 0.376 ];
+  expected = _.vector.from(expected);
+
+  sphere = _.sphere.centerGet( sphere );
+  test.equivalent( sphere, expected );
+
+
+  test.description = 'negative radius'; //
+
+  sphere = [ 1, 2, - 3 ];
+  expected = [ 1, 2 ];
+  expected = _.vector.from(expected);
+
+  sphere = _.sphere.centerGet( sphere );
+  test.equivalent( sphere, expected );
+
+
+  test.description = 'NaN radius'; //
+
+  sphere = [ 1, 2, NaN ];
+  expected = [ 1, 2 ];
+  expected = _.vector.from(expected);
+
+  sphere = _.sphere.centerGet( sphere );
+  test.equivalent( sphere, expected );
+
+  test.description = 'NaN sphere'; //
+
+  sphere = [ NaN, NaN, NaN ];
+  expected = [ NaN, NaN ];
+  expected = _.vector.from(expected);
+
+  sphere = _.sphere.centerGet( sphere );
+  test.equivalent( sphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.centerGet();
+  });
+
+  test.description = 'Too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.centerGet( [ 0, 0, 1, 1 ], [ 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'Wrong type of arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.centerGet( null );
+  });
+
+  test.description = 'Wrong type of arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.centerGet( 'string' );
+  });
+
+  test.description = 'Wrong type of arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.centerGet( 4 );
+  });
+
+  test.description = 'Wrong sphere dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.centerGet( [ ] );
+  });
+
+}
 
 // --
 // proto
@@ -1160,7 +1300,8 @@ var Self =
 
 //    pointExpand : pointExpand,
 
-      dimGet : dimGet,
+//    dimGet : dimGet,
+    centerGet : centerGet,
   },
 
 }
