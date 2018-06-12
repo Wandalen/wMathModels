@@ -358,8 +358,8 @@ function dimGet( box )
 //
 
 /**
-* Get the minimun coordinates of a box. Returns a vector with the minimum coordinates of the box.
-* Box stays untouched.
+* Get the coordinates of the left corner of a box.
+* Returns a vector with the coordinates of the left corner of the box definition. Box stays untouched.
 *
 * @param { Array } box - The source box.
 *
@@ -371,7 +371,7 @@ function dimGet( box )
 * // returns  0, 1
 * _.cornerLeftGet( [ 0, 1, 2, 3 ] );
 *
-* @returns { Vector } Returns a vector with the minimun coordinates of the box.
+* @returns { Vector } Returns a vector with the left corner of the box.
 * @function cornerLeftGet
 * @throws { Error } An Error if ( arguments.length ) is different than one.
 * @throws { Error } An Error if ( box ) is not box.
@@ -388,8 +388,8 @@ function cornerLeftGet( box )
 //
 
 /**
-* Get the maximun coordinates of a box. Returns an array with the maximum coordinates of the box.
-* Box stays untouched.
+* Get the coordinates of the right corner of a box.
+* Returns a vector with the coordinates of the right corner of the box definition. Box stays untouched.
 *
 * @param { Array } box - The source box.
 *
@@ -465,6 +465,29 @@ function centerGet( box , dst )
 }
 
 //
+
+/**
+* Get the size of a box. Returns an array with the length of each side the box.
+* Box stays untouched.
+*
+* @param { Array } box - The source box.
+* @param { Array } dst - The destination array (optional - sets the type of the returned object).
+*
+* @example
+* // returns [ 2, 2 ]
+* _.sizeGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
+*
+* @example
+* // returns [ 1 ]
+* _.sizeGet( [ 0, 1 ] );
+*
+* @returns { Array } Returns the lenght of each side of the box.
+* @function sizeGet
+* @throws { Error } An Error if ( arguments.length ) is different than one or two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
+* @memberof wTools.box
+*/
 
 function sizeGet( box , dst )
 {

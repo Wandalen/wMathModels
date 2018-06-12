@@ -300,6 +300,26 @@ function isNil( sphere )
 
 //
 
+/**
+* Get Sphere dimension. Returns the dimension of the Sphere (number). Sphere stays untouched.
+*
+* @param { Array } sphere - The source sphere.
+*
+* @example
+* // returns 3
+* _.dimGet( [ 0, 0, 2, 2 ] );
+*
+* @example
+* // returns 1
+* _.dimGet( [ 0, 1 ] );
+*
+* @returns { Number } Returns the dimension of the sphere.
+* @function dimGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.sphere
+*/
+
 function dimGet( sphere )
 {
   _.assert( arguments.length === 1 );
@@ -308,6 +328,27 @@ function dimGet( sphere )
 }
 
 //
+
+/**
+* Get the center of a sphere. Returns a vector wit the coordinates of the center of the sphere.
+* Sphere stays untouched.
+*
+* @param { Array } sphere - The source sphere.
+*
+* @example
+* // returns  0, 0, 2
+* _.centerGet( [ 0, 0, 2, 2 ] );
+*
+* @example
+* // returns  0
+* _.centerGet( [ 0, 1 ] );
+*
+* @returns { Vector } Returns the coordinates of the center of the sphere.
+* @function centerGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.sphere
+*/
 
 function centerGet( sphere )
 {
@@ -318,6 +359,27 @@ function centerGet( sphere )
 
 //
 
+/**
+* Get the radius of a sphere. Returns a number with the radius of the sphere.
+* Sphere stays untouched.
+*
+* @param { Array } sphere - The source sphere.
+*
+* @example
+* // returns 2
+* _.radiusGet( [ 0, 0, 2, 2 ] );
+*
+* @example
+* // returns  1
+* _.radiusGet( [ 0, 1 ] );
+*
+* @returns { Number } Returns the radius of the sphere.
+* @function radiusGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.sphere
+*/
+
 function radiusGet( sphere )
 {
   _.assert( arguments.length === 1 );
@@ -327,12 +389,52 @@ function radiusGet( sphere )
 
 //
 
+
+/**
+* Set the radius of a sphere. Returns a vector with the sphere including the new radius.
+* Radius stays untouched.
+*
+* @param { Array } sphere - The source and destination sphere.
+* @param { Number } radius - The source radius to set.
+*
+* @example
+* // returns [ 0, 0, 2, 4 ]
+* _.radiusSet( [ 0, 0, 2, 2 ], 4 );
+*
+* @example
+* // returns  [ 0, - 2 ]
+* _.radiusSet( [ 0, 1 ], -2 );
+*
+* @returns { Array } Returns the sphere with the modified radius.
+* @function radiusSet
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @throws { Error } An Error if ( radius ) is not number.
+* @memberof wTools.sphere
+*/
+
 function radiusSet( sphere,radius )
 {
   _.assert( _.numberIs( radius ) );
+  _.assert( _.sphere.is( sphere ) );
   _.assert( arguments.length === 2 );
+
+  //if( _.vectorIs( sphere ) )
+  //{
   var spherev = _.sphere._from( sphere );
-  return spherev.eSet( sphere.length-1,radius );
+  //return spherev.eSet( sphere.length-1, radius );
+  //console.log('vector');
+  sphere.eSet( sphere.length-1, radius );
+  return sphere;
+  //}
+
+  // Alternative solution
+  //if( _.arrayLike( sphere ) )
+  //{
+  //  sphere[ sphere.length-1 ] = radius;
+  //  return sphere;
+  //}
+  debugger;
 }
 
 //
@@ -507,7 +609,7 @@ function sphereExpand( sphereDst, sphereSrc )
 * @function sphereIntersects
 * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
-* @memberof wTools.box
+* @memberof wTools.sphere
 */
 
 function sphereIntersects( sphere1, sphere2 )
