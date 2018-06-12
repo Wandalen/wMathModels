@@ -79,8 +79,8 @@ function nil( box )
   if( _.box.is( box ) )
   {
     var boxv = _.box._from( box );
-    var min = _.box.minGet( boxv );
-    var max = _.box.maxGet( boxv );
+    var min = _.box.cornerLeftGet( boxv );
+    var max = _.box.cornerRightGet( boxv );
 
     _.vector.assign( min, +Infinity );
     _.vector.assign( max, -Infinity );
@@ -105,8 +105,8 @@ function centeredOfSize( box,size )
   box = _.box.make( box );
 
   var boxv = _.box._from( box );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   size = _.numbersSlice( size );
   size = _.avector.mulScalar( size,0.5 );
@@ -162,8 +162,8 @@ function fromPoints( box , points )
   box = _.box.makeNil();
 
   var boxv = _.box._from( box );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   debugger;
   // throw _.err( 'not tested' );
@@ -186,8 +186,8 @@ function fromCenterAndSize( box , center , size )
   box = _.box.make( center.length );
 
   var boxv = _.box._from( box );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
   var dim = _.box.dimGet( boxv );
   var center = _.vector.from( center );
   var size = _.vector.from( size );
@@ -220,8 +220,8 @@ function fromSphere( box , sphere )
   box = _.box.make( dim );
 
   var boxv = _.box._from( box );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
   var dim2 = _.box.dimGet( boxv );
 
   _.assert( arguments.length === 2 );
@@ -245,8 +245,8 @@ function fromCube( box , size )
   box = _.box.make();
 
   var boxv = _.box._from( box );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
   var dim = _.box.dimGet( boxv );
 
   _.assert( arguments.length === 2 );
@@ -275,8 +275,8 @@ function isEmpty( box )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   for( var d = 0 ; d < dim ; d++ )
   if( min.eGet( d ) >= max.eGet( d ) )
@@ -297,8 +297,8 @@ function isZero( box )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   for( var d = 0 ; d < dim ; d++ )
   if( min.eGet( d ) !== max.eGet( d ) )
@@ -316,8 +316,8 @@ function isNil( box )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   for( var d = 0 ; d < dim ; d++ )
   if( min.eGet( d ) > max.eGet( d ) )
@@ -365,20 +365,20 @@ function dimGet( box )
 *
 * @example
 * // returns  0
-* _.minGet( [ 0, 2 ] );
+* _.cornerLeftGet( [ 0, 2 ] );
 *
 * @example
 * // returns  0, 1
-* _.minGet( [ 0, 1, 2, 3 ] );
+* _.cornerLeftGet( [ 0, 1, 2, 3 ] );
 *
 * @returns { Vector } Returns a vector with the minimun coordinates of the box.
-* @function minGet
+* @function cornerLeftGet
 * @throws { Error } An Error if ( arguments.length ) is different than one.
 * @throws { Error } An Error if ( box ) is not box.
 * @memberof wTools.box
 */
 
-function minGet( box )
+function cornerLeftGet( box )
 {
   var boxv = _.box._from( box );
   _.assert( arguments.length === 1 );
@@ -395,20 +395,20 @@ function minGet( box )
 *
 * @example
 * // returns [ 2 ]
-* _.maxGet( [ 0, 2 ] );
+* _.cornerRightGet( [ 0, 2 ] );
 *
 * @example
 * // returns [ 2, 3 ]
-* _.maxGet( [ 0, 1, 2, 3 ] );
+* _.cornerRightGet( [ 0, 1, 2, 3 ] );
 *
 * @returns { Array } Returns a sub-array with the maximun coordinates of the box.
-* @function maxGet
+* @function cornerRightGet
 * @throws { Error } An Error if ( arguments.length ) is different than one.
 * @throws { Error } An Error if ( box ) is not box.
 * @memberof wTools.box
 */
 
-function maxGet( box )
+function cornerRightGet( box )
 {
   var boxv = _.box._from( box );
   _.assert( arguments.length === 1 );
@@ -444,8 +444,8 @@ function centerGet( box , dst )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   if( !dst )
   dst = _.dup( 0,dim ) ;
@@ -471,8 +471,8 @@ function sizeGet( box , dst )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   if( !dst )
   dst = _.dup( 0,dim );
@@ -496,8 +496,8 @@ function expand( box , expand )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
   var expand = _.vector.fromMaybeNumber( expand,dim );
 
   _.assert( dim === expand.length );
@@ -551,8 +551,8 @@ function pointExpand( dstBox , point )
 
   var boxv = _.box._from( dstBox );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
   var point = _.vector.from( point );
 
   _.assert( dim === point.length );
@@ -597,8 +597,8 @@ function pointContains( box , point )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
   var point = _.vector.from( point );
 
   _.assert( dim === point.length );
@@ -650,8 +650,8 @@ function pointRelative( box , point )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
   var _point = _.vector.from( point );
 
   _.assert( dim === point.length );
@@ -696,8 +696,8 @@ function pointClamp( box , point )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
   var _point = _.vector.from( point );
 
   _.assert( dim === point.length );
@@ -787,8 +787,8 @@ function boxContains( box , box2 )
 
   var boxv = _.box._from( box2 );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   _.assert( arguments.length === 2 );
   _.assert( dim === _.box.dimGet( box ) );
@@ -844,8 +844,8 @@ function boxIntersects( srcBox , tstBox )
 
   var boxv = _.box._from( tstBox );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   _.assert( arguments.length === 2 );
   _.assert( dim === _.box.dimGet( srcBox ) );
@@ -891,13 +891,13 @@ function boxExpand( dstBox , srcBox )
 
   var _dstBox = _.box._from( dstBox );
   var dim1 = _.box.dimGet( _dstBox );
-  var min1 = _.box.minGet( _dstBox );
-  var max1 = _.box.maxGet( _dstBox );
+  var min1 = _.box.cornerLeftGet( _dstBox );
+  var max1 = _.box.cornerRightGet( _dstBox );
 
   var _srcBox = _.box._from( srcBox );
   var dim2 = _.box.dimGet( _srcBox );
-  var min2 = _.box.minGet( _srcBox );
-  var max2 = _.box.maxGet( _srcBox );
+  var min2 = _.box.cornerLeftGet( _srcBox );
+  var max2 = _.box.cornerRightGet( _srcBox );
 
   _.assert( arguments.length === 2 );
   _.assert( dim1 === dim2 );
@@ -915,8 +915,8 @@ function matrixHomogenousApply( box , matrix )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
 
   _.assert( arguments.length === 2 );
   _.assert( _.spaceIs( matrix ) );
@@ -1109,8 +1109,8 @@ var Proto =
   isNil : isNil,
 
   dimGet : dimGet,
-  minGet : minGet,
-  maxGet : maxGet,
+  cornerLeftGet : cornerLeftGet,
+  cornerRightGet : cornerRightGet,
   centerGet : centerGet,
   sizeGet : sizeGet,
 

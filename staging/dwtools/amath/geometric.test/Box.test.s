@@ -2787,7 +2787,7 @@ function centerGet( test )
 }
 
 
-function minGet( test )
+function cornerLeftGet( test )
 {
 
   test.description = 'Source box remains unchanged'; //
@@ -2797,12 +2797,12 @@ function minGet( test )
   var expected = [ 0, 0 ];
   expected = _.vector.from(expected);
 
-  box = _.box.minGet( srcBox );
+  box = _.box.cornerLeftGet( srcBox );
   test.identical( srcBox, oldsrcBox );
   test.identical( box, expected );
 
   var box = [ 0, 0, 1, 1 ];
-  box = _.box.minGet( box );
+  box = _.box.cornerLeftGet( box );
   test.identical( box, expected );
 
   test.description = 'Empty box'; //
@@ -2811,7 +2811,7 @@ function minGet( test )
   expected = [];
   expected = _.vector.from(expected);
 
-  box = _.box.minGet( box );
+  box = _.box.cornerLeftGet( box );
   test.identical( box, expected );
 
   test.description = 'One dimension box'; //
@@ -2820,7 +2820,7 @@ function minGet( test )
   expected = [ 0 ];
   expected = _.vector.from(expected);
 
-  box = _.box.minGet( box );
+  box = _.box.cornerLeftGet( box );
   test.identical( box, expected );
 
   test.description = 'Two dimension box'; //
@@ -2829,7 +2829,7 @@ function minGet( test )
   expected = [ 0, 0 ];
   expected = _.vector.from(expected);
 
-  box = _.box.minGet( box );
+  box = _.box.cornerLeftGet( box );
   test.identical( box, expected );
 
   test.description = 'Three dimension box'; //
@@ -2838,7 +2838,7 @@ function minGet( test )
   expected = [ - 1, - 2, - 3 ];
   expected = _.vector.from(expected);
 
-  box = _.box.minGet( box );
+  box = _.box.cornerLeftGet( box );
   test.identical( box, expected );
 
   test.description = 'Four dimension box'; //
@@ -2847,7 +2847,7 @@ function minGet( test )
   expected = [ - 1, - 2.2, - 3, 5 ];
   expected = _.vector.from(expected);
 
-  box = _.box.minGet( box );
+  box = _.box.cornerLeftGet( box );
   test.identical( box, expected );
 
   test.description = 'Eight dimension box'; //
@@ -2856,7 +2856,7 @@ function minGet( test )
   expected = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   expected = _.vector.from(expected);
 
-  box = _.box.minGet( box );
+  box = _.box.cornerLeftGet( box );
   test.identical( box, expected );
 
   test.description = 'Inverted box'; //
@@ -2865,7 +2865,7 @@ function minGet( test )
   expected = [ 1, 1 ];
   expected = _.vector.from(expected);
 
-  box = _.box.minGet( box );
+  box = _.box.cornerLeftGet( box );
   test.identical( box, expected );
 
   /* */
@@ -2876,54 +2876,54 @@ function minGet( test )
   test.description = 'No arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.minGet();
+    _.box.cornerLeftGet();
   });
 
   test.description = 'Wrong type of argument'; //
   test.shouldThrowError( function()
   {
-    _.box.minGet( null );
+    _.box.cornerLeftGet( null );
   });
 
   test.description = 'Wrong type of argument'; //
   test.shouldThrowError( function()
   {
-    _.box.minGet( NaN );
+    _.box.cornerLeftGet( NaN );
   });
 
   test.description = 'Wrong type of argument'; //
   test.shouldThrowError( function()
   {
-    _.box.minGet( 'Hello' );
+    _.box.cornerLeftGet( 'Hello' );
   });
 
   test.description = 'Wrong type of argument'; //
   test.shouldThrowError( function()
   {
-    _.box.minGet( [ 'Hello', world ] );
+    _.box.cornerLeftGet( [ 'Hello', world ] );
   });
 
   test.description = 'Wrong box dimension'; //
   test.shouldThrowError( function()
   {
-    _.box.minGet( [ 0 ] );
+    _.box.cornerLeftGet( [ 0 ] );
   });
 
   test.description = 'Wrong box dimension'; //
   test.shouldThrowError( function()
   {
-    _.box.minGet( [ 0, 0, 0 ] );
+    _.box.cornerLeftGet( [ 0, 0, 0 ] );
   });
 
   test.description = 'Wrong box dimension'; //
   test.shouldThrowError( function()
   {
-    _.box.minGet( [ 0, 0, 0, 0, 0 ] );
+    _.box.cornerLeftGet( [ 0, 0, 0, 0, 0 ] );
   });
 }
 
 
-function maxGet( test )
+function cornerRightGet( test )
 {
 
   test.description = 'Source box remains unchanged'; //
@@ -2933,12 +2933,12 @@ function maxGet( test )
   var expected = [ 1, 1 ];
   expected = _.vector.from(expected);
 
-  box = _.box.maxGet( srcBox );
+  box = _.box.cornerRightGet( srcBox );
   test.identical( srcBox, oldsrcBox );
   test.identical( box, expected );
 
   var box = [ 0, 0, 1, 1 ];
-  box = _.box.maxGet( box );
+  box = _.box.cornerRightGet( box );
   test.identical( box, expected );
 
   test.description = 'Empty box'; //
@@ -2947,7 +2947,7 @@ function maxGet( test )
   expected = [];
   expected = _.vector.from(expected);
 
-  box = _.box.maxGet( box );
+  box = _.box.cornerRightGet( box );
   test.identical( box, expected );
 
   test.description = 'One dimension box'; //
@@ -2956,7 +2956,7 @@ function maxGet( test )
   expected = [ 1 ];
   expected = _.vector.from(expected);
 
-  box = _.box.maxGet( box );
+  box = _.box.cornerRightGet( box );
   test.identical( box, expected );
 
   test.description = 'Two dimension box'; //
@@ -2965,7 +2965,7 @@ function maxGet( test )
   expected = [ 1, 1 ];
   expected = _.vector.from(expected);
 
-  box = _.box.maxGet( box );
+  box = _.box.cornerRightGet( box );
   test.identical( box, expected );
 
   test.description = 'Three dimension box'; //
@@ -2974,7 +2974,7 @@ function maxGet( test )
   expected = [ 0, 1, 2 ];
   expected = _.vector.from(expected);
 
-  box = _.box.maxGet( box );
+  box = _.box.cornerRightGet( box );
   test.identical( box, expected );
 
   test.description = 'Four dimension box'; //
@@ -2983,7 +2983,7 @@ function maxGet( test )
   expected = [ 0.1, 1, 2, 5.4 ];
   expected = _.vector.from(expected);
 
-  box = _.box.maxGet( box );
+  box = _.box.cornerRightGet( box );
   test.identical( box, expected );
 
   test.description = 'Eight dimension box'; //
@@ -2992,7 +2992,7 @@ function maxGet( test )
   expected = [ -1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ];
   expected = _.vector.from(expected);
 
-  box = _.box.maxGet( box );
+  box = _.box.cornerRightGet( box );
   test.identical( box, expected );
 
   test.description = 'Inverted box'; //
@@ -3001,7 +3001,7 @@ function maxGet( test )
   expected = [ 0, 0 ];
   expected = _.vector.from(expected);
 
-  box = _.box.maxGet( box );
+  box = _.box.cornerRightGet( box );
   test.identical( box, expected );
 
   /* */
@@ -3012,49 +3012,49 @@ function maxGet( test )
   test.description = 'No arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.maxGet();
+    _.box.cornerRightGet();
   });
 
   test.description = 'Wrong type of argument'; //
   test.shouldThrowError( function()
   {
-    _.box.maxGet( null );
+    _.box.cornerRightGet( null );
   });
 
   test.description = 'Wrong type of argument'; //
   test.shouldThrowError( function()
   {
-    _.box.maxGet( NaN );
+    _.box.cornerRightGet( NaN );
   });
 
   test.description = 'Wrong type of argument'; //
   test.shouldThrowError( function()
   {
-    _.box.maxGet( 'Hello' );
+    _.box.cornerRightGet( 'Hello' );
   });
 
   test.description = 'Wrong type of argument'; //
   test.shouldThrowError( function()
   {
-    _.box.maxGet( [ 'Hello', world ] );
+    _.box.cornerRightGet( [ 'Hello', world ] );
   });
 
   test.description = 'Wrong box dimension'; //
   test.shouldThrowError( function()
   {
-    _.box.maxGet( [ 0 ] );
+    _.box.cornerRightGet( [ 0 ] );
   });
 
   test.description = 'Wrong box dimension'; //
   test.shouldThrowError( function()
   {
-    _.box.maxGet( [ 0, 0, 0 ] );
+    _.box.cornerRightGet( [ 0, 0, 0 ] );
   });
 
   test.description = 'Wrong box dimension'; //
   test.shouldThrowError( function()
   {
-    _.box.maxGet( [ 0, 0, 0, 0, 0 ] );
+    _.box.cornerRightGet( [ 0, 0, 0, 0, 0 ] );
   });
 }
 
@@ -3098,8 +3098,8 @@ var Self =
 //    boxExpand : boxExpand,
 
 //    dimGet : dimGet,
-//    minGet : minGet,
-    maxGet : maxGet,
+//    cornerLeftGet : cornerLeftGet,
+    cornerRightGet : cornerRightGet,
 //    centerGet : centerGet,
 //    sizeGet : sizeGet,
 
