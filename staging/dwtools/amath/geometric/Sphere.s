@@ -336,11 +336,11 @@ function dimGet( sphere )
 * @param { Array } sphere - The source sphere.
 *
 * @example
-* // returns [ 0, 0, 2 ]
+* // returns  0, 0, 2
 * _.centerGet( [ 0, 0, 2, 2 ] );
 *
 * @example
-* // returns  0 
+* // returns  0
 * _.centerGet( [ 0, 1 ] );
 *
 * @returns { Vector } Returns the coordinates of the center of the sphere.
@@ -358,6 +358,27 @@ function centerGet( sphere )
 }
 
 //
+
+/**
+* Get the radius of a sphere. Returns a vector with the radius of the sphere.
+* Sphere stays untouched.
+*
+* @param { Array } sphere - The source sphere.
+*
+* @example
+* // returns 2
+* _.centerGet( [ 0, 0, 2, 2 ] );
+*
+* @example
+* // returns  1
+* _.centerGet( [ 0, 1 ] );
+*
+* @returns { Vector } Returns the radius of the sphere.
+* @function radiusGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.sphere
+*/
 
 function radiusGet( sphere )
 {
