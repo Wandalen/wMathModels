@@ -358,8 +358,8 @@ function dimGet( box )
 //
 
 /**
-* Get the minimun coordinates of a box. Returns a vector with the minimum coordinates of the box.
-* Box stays untouched.
+* Get the coordinates of the bottom-left corner of a box.
+* Returns a vector with the coordinates of the minimum point of the box. Box stays untouched.
 *
 * @param { Array } box - The source box.
 *
@@ -371,7 +371,7 @@ function dimGet( box )
 * // returns  0, 1
 * _.minGet( [ 0, 1, 2, 3 ] );
 *
-* @returns { Vector } Returns a vector with the minimun coordinates of the box.
+* @returns { Vector } Returns a vector with the minimun coordinates of the box (bottom-left corner).
 * @function minGet
 * @throws { Error } An Error if ( arguments.length ) is different than one.
 * @throws { Error } An Error if ( box ) is not box.
@@ -388,8 +388,8 @@ function minGet( box )
 //
 
 /**
-* Get the maximun coordinates of a box. Returns an array with the maximum coordinates of the box.
-* Box stays untouched.
+* Get the coordinates of the top-right corner of a box.
+* Returns a vector with the coordinates of the maximum point of the box. Box stays untouched.
 *
 * @param { Array } box - The source box.
 *

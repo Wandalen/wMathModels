@@ -2995,7 +2995,7 @@ function maxGet( test )
   box = _.box.maxGet( box );
   test.identical( box, expected );
 
-  test.description = 'Inverted box'; //
+  test.description = 'Empty box at [ 1, 1 ]'; //
 
   box = [ 1, 1, 0, 0 ];
   expected = [ 0, 0 ];
