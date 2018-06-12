@@ -357,6 +357,27 @@ function dimGet( box )
 
 //
 
+/**
+* Get the minimun coordinates of a box. Returns a vector with the minimum coordinates of the box.
+* Box stays untouched.
+*
+* @param { Array } box - The source box.
+*
+* @example
+* // returns  0
+* _.minGet( [ 0, 2 ] );
+*
+* @example
+* // returns  0, 1
+* _.minGet( [ 0, 1, 2, 3 ] );
+*
+* @returns { Vector } Returns a vector with the minimun coordinates of the box.
+* @function minGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( box ) is not box.
+* @memberof wTools.box
+*/
+
 function minGet( box )
 {
   var boxv = _.box._from( box );
@@ -365,6 +386,27 @@ function minGet( box )
 }
 
 //
+
+/**
+* Get the maximun coordinates of a box. Returns an array with the maximum coordinates of the box.
+* Box stays untouched.
+*
+* @param { Array } box - The source box.
+*
+* @example
+* // returns [ 2 ]
+* _.maxGet( [ 0, 2 ] );
+*
+* @example
+* // returns [ 2, 3 ]
+* _.maxGet( [ 0, 1, 2, 3 ] );
+*
+* @returns { Array } Returns a sub-array with the maximun coordinates of the box.
+* @function maxGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( box ) is not box.
+* @memberof wTools.box
+*/
 
 function maxGet( box )
 {

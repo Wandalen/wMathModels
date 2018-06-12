@@ -2786,6 +2786,142 @@ function centerGet( test )
 
 }
 
+
+function minGet( test )
+{
+
+  test.description = 'Source box remains unchanged'; //
+
+  var srcBox = [ 0, 0, 1, 1 ];
+  var oldsrcBox = [ 0, 0, 1, 1 ];
+  var expected = [ 0, 0 ];
+  expected = _.vector.from(expected);
+
+  box = _.box.minGet( srcBox );
+  test.identical( srcBox, oldsrcBox );
+  test.identical( box, expected );
+
+  var box = [ 0, 0, 1, 1 ];
+  box = _.box.minGet( box );
+  test.identical( box, expected );
+
+  test.description = 'Empty box'; //
+
+  box = [];
+  expected = [];
+  expected = _.vector.from(expected);
+
+  box = _.box.minGet( box );
+  test.identical( box, expected );
+
+  test.description = 'One dimension box'; //
+
+  box = [ 0, 1 ];
+  expected = [ 0 ];
+  expected = _.vector.from(expected);
+
+  box = _.box.minGet( box );
+  test.identical( box, expected );
+
+  test.description = 'Two dimension box'; //
+
+  box = [ 0, 0, 1, 1 ];
+  expected = [ 0, 0 ];
+  expected = _.vector.from(expected);
+
+  box = _.box.minGet( box );
+  test.identical( box, expected );
+
+  test.description = 'Three dimension box'; //
+
+  box = [ - 1, - 2, - 3, 0, 1, 2 ];
+  expected = [ - 1, - 2, - 3 ];
+  expected = _.vector.from(expected);
+
+  box = _.box.minGet( box );
+  test.identical( box, expected );
+
+  test.description = 'Four dimension box'; //
+
+  box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
+  expected = [ - 1, - 2.2, - 3, 5 ];
+  expected = _.vector.from(expected);
+
+  box = _.box.minGet( box );
+  test.identical( box, expected );
+
+  test.description = 'Eight dimension box'; //
+
+  box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 3.5, 5.5, 2.3, 27, 2.2, 540 ];
+  expected = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
+  expected = _.vector.from(expected);
+
+  box = _.box.minGet( box );
+  test.identical( box, expected );
+
+  test.description = 'Inverted box'; //
+
+  box = [ 1, 1, 0, 0 ];
+  expected = [ 1, 1 ];
+  expected = _.vector.from(expected);
+
+  box = _.box.minGet( box );
+  test.identical( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.minGet();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.minGet( null );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.minGet( NaN );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.minGet( 'Hello' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.minGet( [ 'Hello', world ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.minGet( [ 0 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.minGet( [ 0, 0, 0 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.minGet( [ 0, 0, 0, 0, 0 ] );
+  });
+}
+
 // --
 // proto
 // --
@@ -2826,9 +2962,9 @@ var Self =
 //    boxExpand : boxExpand,
 
 //    dimGet : dimGet,
-//    minGet : minGet,
+    minGet : minGet,
 //    maxGet : maxGet,
-    centerGet : centerGet,
+//    centerGet : centerGet,
 //    sizeGet : sizeGet,
 
   }
