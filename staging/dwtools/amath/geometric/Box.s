@@ -379,7 +379,7 @@ function maxGet( box )
 * Get the center of a box. Returns the center of the box. Box stays untouched.
 *
 * @param { Array } box - The source box.
-* @param { Array } dst - The destination array (optional).
+* @param { Array } dst - The destination array (optional - sets the type of the returned object).
 *
 * @example
 * // returns [ 0, 1 ]
@@ -406,7 +406,8 @@ function centerGet( box , dst )
   var max = _.box.maxGet( boxv );
 
   if( !dst )
-  dst = _.vector.from( _.dup( 0,dim ) );
+  dst = _.dup( 0,dim ) ;
+  debugger;
   var dstv = _.vector.from( dst );
 
   _.assert( dim === dst.length );

@@ -2589,6 +2589,7 @@ function centerGet( test )
   test.equivalent( box, expected );
   test.equivalent( point, expected );
 
+
   test.description = 'Empty box'; //
 
   var box = [];
@@ -2596,22 +2597,22 @@ function centerGet( test )
   var expected = [] ;
 
   box = _.box.centerGet( box, point );
-  box = _.array._from(box);
   test.equivalent( box, expected );
 
   box = _.box.centerGet( box );
   test.equivalent( box, expected );
   debugger;
+
   test.description = 'One dimension box'; //
 
   box = [ 0, 0 ];
-  point = [ 0, 0 ];
+  point = [ 0 ];
   expected = [ 0 ];
-  var expv = _.vector.from( expected );
 
-  //box = _.box.centerGet( box, point );
-  //test.equivalent( box, expv );
+  box = _.box.centerGet( box, point );
+  test.equivalent( box, expected );
 
+  box = [ 0, 0 ];
   box = _.box.centerGet( box );
   test.equivalent( box, expected );
 
@@ -2624,7 +2625,8 @@ function centerGet( test )
   box = _.box.centerGet( box );
   test.equivalent( box, expected );
 
-  // box = _.box.centerGet( box, point );
+  box = [ 0, 0, 1, 2 ];
+  box = _.box.centerGet( box, point );
   test.equivalent( box, expected );
 
   test.description = 'Three dimension box'; //
@@ -2636,6 +2638,8 @@ function centerGet( test )
   box = _.box.centerGet( box );
   test.equivalent( box, expected );
 
+  box = [ 0, - 1, - 2, 0, 1, 2 ];
+
   box = _.box.centerGet( box, point );
   test.equivalent( box, expected );
 
@@ -2643,10 +2647,12 @@ function centerGet( test )
 
   box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
   expected = [ 0, 0, 0, 4 ];
-  point = [ 2, 4, - 6, 1.2 ];
+  point = [ 2, 4, - 6, 2 ];
 
   box = _.box.centerGet( box );
   test.equivalent( box, expected );
+
+  box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
 
   box = _.box.centerGet( box, point );
   test.identical( box, expected );
@@ -2654,13 +2660,57 @@ function centerGet( test )
   test.description = 'Eight dimension box'; //
 
   box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
-  expected = [ 0, 0, 0, 4, 0, 0, 0, 4 ];
+  point = [ 2, 4, - 6, 2, 2, 4, - 6, 2 ];
+  expected = [ 0, - 1, -2, 2, 0, 1, 2, 6 ];
 
   box = _.box.centerGet( box );
   test.identical( box, expected );
 
+  box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
   box = _.box.centerGet( box, point );
   test.identical( box, expected );
+
+
+  test.description = 'Point is vector'; //
+
+  box = [ 0, 0, 1, 2 ];
+  point = _.vector.from( [ 1, 1 ] );
+  expected = [ 0.5, 1 ];
+  var expv = _.vector.from( expected );
+
+  box = _.box.centerGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 0, 0, 1, 2 ];
+  box = _.box.centerGet( box, point );
+  test.equivalent( box, expv );
+
+  test.description = 'Point is null'; //
+
+  box = [ 0, 0, 1, 2 ];
+  point = null;
+  expected = [ 0.5, 1 ];
+
+  box = _.box.centerGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 0, 0, 1, 2 ];
+  box = _.box.centerGet( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point is NaN'; //
+
+  box = [ 0, 0, 1, 2 ];
+  point = NaN;
+  expected = [ 0.5, 1 ];
+
+  box = _.box.centerGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 0, 0, 1, 2 ];
+  box = _.box.centerGet( box, point );
+  test.equivalent( box, expected );
+
 
   /* */
 
@@ -2676,37 +2726,38 @@ function centerGet( test )
   test.description = 'Too many arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.centerGet( [ 0, 0, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ]);
+    _.box.centerGet( [ 0, 0, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] );
   });
 
-  test.description = 'Wrong type of argument'; //
-  test.shouldThrowError( function()
-  {
-    _.box.centerGet( 'box' );
-  });
-
-  test.description = 'Wrong type of argument'; //
+  test.description = 'Wrong type of arguments'; //
   test.shouldThrowError( function()
   {
     _.box.centerGet( null );
   });
 
-  test.description = 'Wrong type of argument'; //
+  test.description = 'Wrong type of arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.centerGet( [ 'Hello', 'world' ] );
+    _.box.centerGet( 'string' );
   });
 
-  test.description = 'Wrong type of argument'; //
+  test.description = 'Wrong type of arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.centerGet( [ 'Hello', 3 ] );
+    _.box.centerGet( null, [ 0, 0 ] );
   });
 
-  test.description = 'Wrong type of argument'; //
+  test.description = 'Wrong type of arguments'; //
   test.shouldThrowError( function()
   {
-    _.box.centerGet( [ 1, 3 ], 'Hello' );
+    _.box.centerGet( 'string', [ 0, 0 ] );
+  });
+
+
+  test.description = 'Wrong type of arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.centerGet( [ 0, 0, 1, 1 ], 'string' );
   });
 
   test.description = 'Wrong box dimension'; //
