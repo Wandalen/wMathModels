@@ -375,6 +375,28 @@ function maxGet( box )
 
 //
 
+/**
+* Get the center of a box. Returns the center of the box. Box stays untouched.
+*
+* @param { Array } box - The source box.
+* @param { Array } dst - The destination array (optional).
+*
+* @example
+* // returns [ 0, 1 ]
+* _.centerGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
+*
+* @example
+* // returns [ 0.5 ]
+* _.centerGet( [ 0, 1 ] );
+*
+* @returns { Array } Returns the coordinates of the center of the box.
+* @function centerGet
+* @throws { Error } An Error if ( arguments.length ) is different than one or two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not point.
+* @memberof wTools.box
+*/
+
 function centerGet( box , dst )
 {
 
@@ -390,11 +412,12 @@ function centerGet( box , dst )
   _.assert( dim === dst.length );
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
-  // debugger;
+  debugger;
   // throw _.err( 'not tested' );
 
   _.vector.addAssigning( dstv.copy( min ), max ).mulScalar( 0.5 );
 
+  debugger;
   return dst;
 }
 
@@ -602,7 +625,7 @@ function pointRelative( box , point )
 /**
 * Clamp a point to a box. Returns the clamped point. Box stays untouched, point gets clamped.
 *
-* @param { Array } box - The reference box.
+* @param { Array } box - The source box.
 * @param { Array } point - The point to be clamped against the box.
 *
 * @example
@@ -650,7 +673,8 @@ function pointClamp( box , point )
 //
 
 /**
-*Calulate distance between point and box. Returns distance value. Point and box stay untouched.
+*Calulate distance between point and box ( distance between point and nearest point in box ). Returns distance value.
+* Point and box stay untouched.
 *
 * @param { Array } box - source box.
 * @param { Array } point - source point.
@@ -811,7 +835,7 @@ function boxIntersects( srcBox , tstBox )
 * // returns [ 0, 0, 2, 2 ];
 * _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 1, 2, 2 ] );
 *
-* @returns { Array } Returns the array of the box expanded.
+* @returns { Array } Returns the array of the expanded box, that contains new element ( src box ).
 * @function boxExpand
 * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
