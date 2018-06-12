@@ -186,8 +186,8 @@ function fromBox( sphere, box )
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
-  var min = _.box.minGet( boxv );
-  var max = _.box.maxGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
   var size = _.box.sizeGet( boxv );
 
   if( sphere === null )
