@@ -1371,6 +1371,46 @@ function radiusGet( test )
   sphere = _.sphere.radiusGet( sphere );
   test.equivalent( sphere, expected );
 
+  test.description = 'radiusGet+Set two dimensions'; //
+
+  sphere = [ 0, 0, 1, 1 ];
+  var radiusOld = 1;
+  var radiusSph = _.sphere.radiusGet( sphere );
+  test.equivalent( radiusSph, radiusOld );
+
+  var radius = 2;
+  expected = [ 0, 0, 1, 2 ];
+  expected = _.vector.from(expected);
+  sphere = _.sphere.radiusSet( sphere, radius );
+  test.equivalent( sphere, expected );
+
+  var radiusSph = _.sphere.radiusGet( sphere );
+  test.equivalent( radius, radiusSph );
+
+  test.description = 'radiusGet+Set three dimensions'; //
+
+  sphere = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var radiusOld = 1;
+  var radiusSph = _.sphere.radiusGet( sphere );
+  test.equivalent( radiusOld, radiusSph );
+
+  var radius = 2;
+  expected = [ 0, 0, 0, 1, 1, 1, 2 ];
+  expected = _.vector.from(expected);
+  sphere = _.sphere.radiusSet( sphere, radius );
+  test.equivalent( sphere, expected );
+
+  var radiusSph = _.sphere.radiusGet( sphere );
+  test.equivalent( radius, radiusSph );
+
+  test.description = 'NaN sphere'; //
+
+  sphere = [ NaN, NaN, NaN ];
+  expected = NaN;
+
+  sphere = _.sphere.radiusGet( sphere );
+  test.equivalent( sphere, expected );
+
   /* */
 
   if( !Config.debug )
@@ -1414,7 +1454,6 @@ function radiusGet( test )
 
 }
 
-
 function radiusSet( test )
 {
 
@@ -1424,7 +1463,7 @@ function radiusSet( test )
   var srcRadius = 2;
   var oldsrcRadius = 2;
   var expected =  [ 0, 0, 1, 2 ] ;
-  // expected = _.vector.from(expected);
+  expected = _.vector.from(expected);
 
   var sphere = _.sphere.radiusSet( sphere, srcRadius );
 
@@ -1435,7 +1474,8 @@ function radiusSet( test )
 
   sphere = [ 0 ];
   var radius = 1;
-  expected = [ 0 ];
+  expected = [ 1 ];
+  expected = _.vector.from(expected);
 
   sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
@@ -1445,8 +1485,9 @@ function radiusSet( test )
   sphere = [ 0, 0 ];
   radius = 2;
   expected = [ 0, 2 ] ;
+  expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere );
+  sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
 
   test.description = 'Two dimension sphere'; //
@@ -1454,8 +1495,9 @@ function radiusSet( test )
   sphere = [ 0, 0, 2 ];
   radius = 3;
   expected = [ 0, 0, 3 ];
+  expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere );
+  sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
 
   test.description = 'Three dimension sphere'; //
@@ -1463,8 +1505,9 @@ function radiusSet( test )
   sphere = [ 0, - 1, - 2, 2 ];
   radius = 4;
   expected = [ 0, - 1, - 2, 4 ];
+  expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere );
+  sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
 
   test.description = 'Four dimension sphere'; //
@@ -1472,8 +1515,9 @@ function radiusSet( test )
   sphere = [ 0, - 1, - 2, 2, 0 ];
   radius = 5;
   expected =  [ 0, - 1, - 2, 2, 5 ];
+  expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere );
+  sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
 
   test.description = 'Eight dimension sphere'; //
@@ -1481,8 +1525,9 @@ function radiusSet( test )
   sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, 1 ];
   radius = 2;
   expected = [  0, - 1, - 2, 2, 0, 1, 2, 6, 2 ];
+  expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere );
+  sphere = _.sphere.radiusSet( sphere, radius );
   test.identical( sphere, expected );
 
   test.description = 'normalized sphere'; //
@@ -1490,8 +1535,9 @@ function radiusSet( test )
   sphere = [ 0.624, 0.376, 0.52 ];
   radius = 0.777;
   expected = [ 0.624, 0.376, 0.777 ];
+  expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere );
+  sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
 
   test.description = 'negative radius'; //
@@ -1499,8 +1545,9 @@ function radiusSet( test )
   sphere = [ 1, 2, - 3 ];
   radius = - 2;
   expected = [ 1, 2, - 2 ];
+  expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere );
+  sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
 
   test.description = 'NaN radius'; //
@@ -1508,8 +1555,9 @@ function radiusSet( test )
   sphere = [ 1, 2, 3 ];
   radius = NaN;
   expected = [ 1, 2, NaN ];
+  expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere );
+  sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
 
   test.description = 'NaN sphere'; //
@@ -1517,9 +1565,43 @@ function radiusSet( test )
   sphere = [ NaN, NaN, NaN ];
   radius = 2;
   expected = [ NaN, NaN, 2 ];
+  expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere );
+  sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
+
+
+  test.description = 'radiusSet+Get two dimensions'; //
+
+  sphere = [ 0, 0, 2, 3 ];
+  var radiusOld = 3;
+  var radiusSph = _.sphere.radiusGet( sphere );
+  test.equivalent( radiusOld, radiusSph );
+
+  var radius = 2;
+  expected = [ 0, 0, 2, 2 ];
+  expected = _.vector.from(expected);
+  sphere = _.sphere.radiusSet( sphere, radius );
+  test.equivalent( sphere, expected );
+
+  var radiusSph = _.sphere.radiusGet( sphere );
+  test.equivalent( radius, radiusSph );
+
+  test.description = 'radiusSet+Get three dimensions'; //
+
+  sphere = [ 0, 0, 0, 1, 1, 1, 3 ];
+  radiusOld = 3;
+  var radiusSph = _.sphere.radiusGet( sphere );
+  test.equivalent( radiusOld, radiusSph );
+
+  var radius = 2;
+  expected = [ 0, 0, 0, 1, 1, 1, 2 ];
+  expected = _.vector.from(expected);
+  sphere = _.sphere.radiusSet( sphere, radius );
+  test.equivalent( sphere, expected );
+
+  var radiusSph = _.sphere.radiusGet( sphere );
+  test.equivalent( radius, radiusSph );
 
   /* */
 
@@ -1606,7 +1688,7 @@ var Self =
 
 //    dimGet : dimGet,
 //    centerGet : centerGet,
-//    radiusGet : radiusGet,
+    radiusGet : radiusGet,
      radiusSet : radiusSet,
   },
 
