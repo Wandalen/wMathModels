@@ -11,7 +11,7 @@ debugger;
 
 var centerp = _.box.centerGet( box, point );
 var center = _.box.centerGet( box );
-center = Array.from( center );
+//center = Array.from( center );
 console.log('expected: ',expected,'result: ',center,' vs ',centerp);
 
 debugger;
