@@ -300,6 +300,26 @@ function isNil( sphere )
 
 //
 
+/**
+* Get Sphere dimension. Returns the dimension of the Sphere (number). Sphere stays untouched.
+*
+* @param { Array } sphere - The source sphere.
+*
+* @example
+* // returns 3
+* _.dimGet( [ 0, 0, 2, 2 ] );
+*
+* @example
+* // returns 1
+* _.dimGet( [ 0, 1 ] );
+*
+* @returns { Number } Returns the dimension of the sphere.
+* @function dimGet
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.box
+*/
+
 function dimGet( sphere )
 {
   _.assert( arguments.length === 1 );

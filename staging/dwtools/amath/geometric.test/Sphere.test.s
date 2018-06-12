@@ -918,7 +918,6 @@ function sphereIntersects( test )
 
   test.equivalent( got,expected );
 
-
   /* */
 
   if( !Config.debug )
@@ -932,8 +931,6 @@ function sphereIntersects( test )
     test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
     test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] ) );
     test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
-
-
 
 }
 
@@ -997,6 +994,138 @@ function pointExpand( test )
 
 }
 
+
+function dimGet( test )
+{
+
+  test.description = 'Source sphere remains unchanged'; //
+
+  var srcsphere = [ 0, 0, 1, 1 ];
+  var oldsrcsphere = [ 0, 0, 1, 1 ];
+  var expected = 3;
+
+  var sphere = _.sphere.dimGet( srcsphere );
+  test.identical( srcsphere, oldsrcsphere );
+  test.identical( sphere, expected );
+
+  test.description = 'Nil sphere sphere'; //
+
+  sphere = [ 1, 1, 1, -Infinity ];
+  expected = 3;
+
+  sphere = _.sphere.dimGet( sphere );
+  test.identical( sphere, expected );
+
+  test.description = 'Zero dimension sphere'; //
+
+  sphere = [ 1 ];
+  expected = 0;
+
+  sphere = _.sphere.dimGet( sphere );
+  test.identical( sphere, expected );
+
+  test.description = 'One dimension sphere'; //
+
+  sphere = [ 0, 0 ];
+  expected = 1;
+
+  sphere = _.sphere.dimGet( sphere );
+  test.identical( sphere, expected );
+
+  test.description = 'Two dimension sphere'; //
+
+  sphere = [ 0, - 1, 1.5 ];
+  expected = 2;
+
+  sphere = _.sphere.dimGet( sphere );
+  test.identical( sphere, expected );
+
+  test.description = 'Three dimension sphere'; //
+
+  sphere = [ - 1, 0, 1.2, 2 ];
+  expected = 3;
+
+  sphere = _.sphere.dimGet( sphere );
+  test.identical( sphere, expected );
+
+  test.description = 'Four dimension sphere'; //
+
+  sphere = [ - 1, - 2.2, 1, 2, 5.4 ];
+  expected = 4;
+
+  sphere = _.sphere.dimGet( sphere );
+  test.identical( sphere, expected );
+
+  test.description = 'Eight dimension sphere'; //
+
+  sphere = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1 ];
+  expected = 8;
+
+  sphere = _.sphere.dimGet( sphere );
+  test.identical( sphere, expected );
+
+
+  test.description = 'NaN'; //
+
+  sphere = [ 'Hi', 'world' ];
+  expected = 1;
+
+  sphere = _.sphere.dimGet( sphere );
+  test.identical( sphere, expected );
+
+  test.description = 'NaN'; //
+
+  sphere = [ 'Hi', 'world', null, null, NaN, NaN ];
+  expected = 5;
+
+  sphere = _.sphere.dimGet( sphere );
+  test.identical( sphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.dimGet();
+  });
+
+  test.description = 'Wrong Sphere dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.dimGet( [] );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.dimGet( 'Hi' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.dimGet( null );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.dimGet( 3 );
+  });
+
+  test.description = 'To many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.dimGet( [ 0, 1 ], [ 0, 1 ] );
+  });
+
+
+}
+
+
 // --
 // proto
 // --
@@ -1026,11 +1155,12 @@ var Self =
 //    centeredOfRadius : centeredOfRadius,
 
 //    sphereFromBox : sphereFromBox,
-    sphereExpand : sphereExpand,
-    sphereIntersects : sphereIntersects,
+//    sphereExpand : sphereExpand,
+//    sphereIntersects : sphereIntersects,
 
 //    pointExpand : pointExpand,
 
+      dimGet : dimGet,
   },
 
 }
