@@ -3058,6 +3058,233 @@ function cornerRightGet( test )
   });
 }
 
+
+function sizeGet( test )
+{
+
+  test.description = 'Source box remains unchanged, point changes'; //
+
+  var srcBox = [ 0, 0, 1, 1 ];
+  var oldsrcBox = [ 0, 0, 1, 1 ];
+  var point = [ 0, 5 ];
+  var expected = [ 1, 1 ];
+
+  var box = _.box.sizeGet( srcBox, point );
+
+  test.equivalent( srcBox, oldsrcBox );
+  test.equivalent( box, expected );
+  test.equivalent( point, expected );
+
+  test.description = 'Empty box'; //
+
+  var box = [];
+  var point = [];
+  var expected = [] ;
+
+  box = _.box.sizeGet( box, point );
+  test.equivalent( box, expected );
+
+  box = _.box.sizeGet( box );
+  test.equivalent( box, expected );
+  debugger;
+
+  test.description = 'One dimension box'; //
+
+  box = [ 0, 0 ];
+  point = [ 0 ];
+  expected = [ 0 ];
+
+  box = _.box.sizeGet( box, point );
+  test.equivalent( box, expected );
+
+  box = [ 0, 0 ];
+  box = _.box.sizeGet( box );
+  test.equivalent( box, expected );
+
+  test.description = 'Two dimension box'; //
+
+  box = [ 0, 1, 1, 2 ];
+  point = [ 2, 4 ];
+  expected = [ 1, 1 ];
+
+  box = _.box.sizeGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 0, 1, 1, 2 ];
+  box = _.box.sizeGet( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Three dimension box'; //
+
+  box = [ 0, - 1, - 2, 0, 1, 2 ];
+  expected = [ 0, 2, 4 ];
+  point = [ 2, 4, - 6 ];
+
+  box = _.box.sizeGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 0, - 1, - 2, 0, 1, 2 ];
+
+  box = _.box.sizeGet( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Four dimension box'; //
+
+  box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
+  expected = [ 0, 2, 4, 4 ];
+  point = [ 2, 4, - 6, 2 ];
+
+  box = _.box.sizeGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
+
+  box = _.box.sizeGet( box, point );
+  test.identical( box, expected );
+
+  test.description = 'Eight dimension box'; //
+
+  box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
+  point = [ 2, 4, - 6, 2, 2, 4, - 6, 2 ];
+  expected = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
+
+  box = _.box.sizeGet( box );
+  test.identical( box, expected );
+
+  box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
+  box = _.box.sizeGet( box, point );
+  test.identical( box, expected );
+
+
+  test.description = 'Point is vector'; //
+
+  box = [ 0, 0, 1, 2 ];
+  point = _.vector.from( [ 1, 1 ] );
+  expected = [ 1, 2 ];
+  var expv = _.vector.from( expected );
+
+  box = _.box.sizeGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 0, 0, 1, 2 ];
+  box = _.box.sizeGet( box, point );
+  test.equivalent( box, expv );
+
+  test.description = 'Point is null'; //
+
+  box = [ 0, 0, 1, 2 ];
+  point = null;
+  expected = [ 1, 2 ];
+
+  box = _.box.sizeGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 0, 0, 1, 2 ];
+  box = _.box.sizeGet( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Point is NaN'; //
+
+  box = [ 0, 0, 1, 2 ];
+  point = NaN;
+  expected = [ 1, 2 ];
+
+  box = _.box.sizeGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 0, 0, 1, 2 ];
+  box = _.box.sizeGet( box, point );
+  test.equivalent( box, expected );
+
+  test.description = 'Empty box'; //
+
+  box = [ 1, 1, 0, 0 ];
+  point = NaN;
+  expected = [ - 1, - 1 ];
+
+  box = _.box.sizeGet( box );
+  test.equivalent( box, expected );
+
+  box = [ 1, 1, 0, 0 ];
+  box = _.box.sizeGet( box, point );
+  test.equivalent( box, expected );
+
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet();
+  });
+
+  test.description = 'Too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( [ 0, 0, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] );
+  });
+
+  test.description = 'Wrong type of arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( null );
+  });
+
+  test.description = 'Wrong type of arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( 'string' );
+  });
+
+  test.description = 'Wrong type of arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( null, [ 0, 0 ] );
+  });
+
+  test.description = 'Wrong type of arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( 'string', [ 0, 0 ] );
+  });
+
+
+  test.description = 'Wrong type of arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( [ 0, 0, 1, 1 ], 'string' );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( [ 0 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( [ 0, 0, 0 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( [ 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'Different dimension between box and point'; //
+  test.shouldThrowError( function()
+  {
+    _.box.sizeGet( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0 ] );
+  });
+
+}
+
 // --
 // proto
 // --
@@ -3099,9 +3326,9 @@ var Self =
 
 //    dimGet : dimGet,
 //    cornerLeftGet : cornerLeftGet,
-    cornerRightGet : cornerRightGet,
+//    cornerRightGet : cornerRightGet,
 //    centerGet : centerGet,
-//    sizeGet : sizeGet,
+    sizeGet : sizeGet,
 
   }
 
