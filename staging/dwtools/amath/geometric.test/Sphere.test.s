@@ -1373,13 +1373,13 @@ function radiusGet( test )
 
   test.description = 'radiusGet+Set two dimensions'; //
 
-  sphere = [ 0, 0, 1, 1 ];
+  sphere = [ 0, 1, 1 ];
   var radiusOld = 1;
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radiusSph, radiusOld );
 
   var radius = 2;
-  expected = [ 0, 0, 1, 2 ];
+  expected = [ 0, 1, 2 ];
   expected = _.vector.from(expected);
   sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
@@ -1389,13 +1389,13 @@ function radiusGet( test )
 
   test.description = 'radiusGet+Set three dimensions'; //
 
-  sphere = [ 0, 0, 0, 1, 1, 1, 1 ];
+  sphere = [ 0, 0, 1, 1 ];
   var radiusOld = 1;
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  expected = [ 0, 0, 0, 1, 1, 1, 2 ];
+  expected = [ 0, 0, 1, 2 ];
   expected = _.vector.from(expected);
   sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
@@ -1573,13 +1573,13 @@ function radiusSet( test )
 
   test.description = 'radiusSet+Get two dimensions'; //
 
-  sphere = [ 0, 0, 2, 3 ];
+  sphere = [ 0, 2, 3 ];
   var radiusOld = 3;
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  expected = [ 0, 0, 2, 2 ];
+  expected = [ 0, 2, 2 ];
   expected = _.vector.from(expected);
   sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );
@@ -1589,13 +1589,13 @@ function radiusSet( test )
 
   test.description = 'radiusSet+Get three dimensions'; //
 
-  sphere = [ 0, 0, 0, 1, 1, 1, 3 ];
+  sphere = [ 0, 1, 1, 3 ];
   radiusOld = 3;
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  expected = [ 0, 0, 0, 1, 1, 1, 2 ];
+  expected = [ 0, 1, 1, 2 ];
   expected = _.vector.from(expected);
   sphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( sphere, expected );

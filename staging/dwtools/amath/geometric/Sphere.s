@@ -350,12 +350,35 @@ function dimGet( sphere )
 * @memberof wTools.sphere
 */
 
-function centerGet( sphere )
+function centerGet( sphere, dst )
 {
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1 || arguments.length === 2 );
+
   var spherev = _.sphere._from( sphere );
-  return spherev.subarray( 0,sphere.length-1 );
+  var dim = _.sphere.dimGet( sphere );
+  console.log( 'dim: ',dim );
+  console.log( 'spherev: ', spherev )
+  if( !dst )
+  {
+    dst = _.dup( 0, dim ) ;
+    console.log('no dst, new: ',dst);
+  }
+  debugger;
+
+  _.assert( dim === dst.length );
+  var dstv = _.vector.from( dst );
+  console.log('dstv:  ',dstv);
+
+  dstv = spherev.subarray( 0,sphere.length-1 );
+  return dstv;
 }
+
+//function centerGet( sphere )
+//{
+//  _.assert( arguments.length === 1 );
+//  var spherev = _.sphere._from( sphere );
+//  return spherev.subarray( 0,sphere.length-1 );
+//}
 
 //
 
