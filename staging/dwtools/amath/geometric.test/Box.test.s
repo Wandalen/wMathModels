@@ -3330,6 +3330,15 @@ function fromPoints( test )
   box = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
+  test.description = 'Box out of one point'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  points= [ [ - 1, 0, - 1 ] ] ;
+  expected = [ - 1, 0, - 1, 2, 2, 2 ];
+
+  box = _.box.fromPoints( box, points);
+  test.identical( box, expected );
+
   test.description = 'Box NOT expanded ( points inside box )'; //
 
   box = [ 0, 0, 0, 2, 2, 2 ];
@@ -3596,6 +3605,201 @@ function fromCenterAndSize( test )
   });
 
 }
+
+
+//
+
+function fromSphere( test )
+{
+
+  test.description = 'Center and size remain unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var sphere = [ 1, 1, 1 ];
+  var oldsphere = [ 1, 1, 1 ];
+  var expected = [ - 1, - 1, 2, 2 ];
+
+  var box = _.box.fromSphere( dstBox, sphere );
+  test.identical( dstBox, expected );
+  test.identical( box, expected );
+  test.identical( sphere, oldsphere );
+
+  test.description = 'Create box from sphere 1D same center'; //
+
+  box = [ 0, 0 ];
+  sphere = [ 0, 1 ];
+  expected = [ - 1, 1 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'Create box from sphere 1D different centers'; //
+
+  box = [ 0, 0 ];
+  sphere = [ 1, 1 ];
+  expected = [ - 1, 2 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'Expand from sphere - sphere in box'; //
+
+  box = [ 0, 2 ];
+  sphere = [ 1, 1 ];
+  expected = [ - 1, 3 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'Expand from sphere - sphere out of box'; //
+
+  box = [ 0, 2 ];
+  sphere = [ 3, 1 ];
+  expected = [ - 1, 4 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'Create box from sphere 3D same center'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  sphere = [ 0, 0, 0, 1 ];
+  expected = [ - 1, - 1, - 1, 1, 1, 1 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'Create box from sphere 3D different center'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  sphere = [ 1, 1, 1, 1 ];
+  expected = [ - 1, - 1, - 1, 2, 2, 2 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'Expand from sphere 3D sphere in box'; //
+
+  box = [ 0, 0, 0, 2, 2, 3 ];
+  sphere = [ 1, 1, 1, 1 ];
+  expected = [ - 1, - 1, - 1, 3, 3, 4 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'Expand from sphere 3D sphere out box'; //
+
+  box = [ 0, 0, 0, 2, 2, 3 ];
+  sphere = [ 3, 3, 3, 1 ];
+  expected = [ - 1, - 1, - 1, 4, 4, 4 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'Contract Sphere - sphere in box'; //
+
+  box = [ 0, 0, 0, 2, 2, 3 ];
+  sphere = [ 1, 1, 1, - 1 ];
+  expected = [ 1, 1, 1, 1, 1, 2 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'Contract Sphere - sphere out of box'; //
+
+  box = [ 0, 0, 0, 2, 2, 3 ];
+  sphere = [ 3, 3, 3, - 1 ];
+  expected = [ 1, 1, 1, 2, 2, 2 ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'NaN box'; //
+
+  box = [ NaN, NaN ];
+  sphere = [ 1, 1 ];
+  expected = [ NaN, NaN ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  test.description = 'NaN Sphere'; //
+
+  box = [ 0, 2 ];
+  sphere = [ NaN, NaN ];
+  expected = [ NaN, NaN ];
+
+  box = _.box.fromSphere( box, sphere );
+  test.identical( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere( 'box', 'sphere' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere( null, [ 0, 1 ] );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere( [ 0, 1 ], null );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ]);
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1, 1], [ 1, 1, 0, 0 ] );
+  });
+
+  test.description = 'Wrong box dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere( [ 0 ], [ 0 ] );
+  });
+
+  test.description = 'Wrong dimension (box 3D vs sphere 4D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2, 1 ] );
+  });
+
+  test.description = 'Wrong dimension (box 3D vs sphere 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ], [ 0, 2, 1 ] );
+  });
+
+  test.description = 'Wrong dimension (box 2D vs sphere 1D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromSphere( [ 0, 0, 0, 0 ],  [ 0, 1 ]  );
+  });
+
+}
+
+
 // --
 // proto
 // --
@@ -3642,7 +3846,8 @@ var Self =
 //    sizeGet : sizeGet,
 
 //    fromPoints : fromPoints,
-     fromCenterAndSize : fromCenterAndSize,
+//    fromCenterAndSize : fromCenterAndSize,
+    fromSphere : fromSphere,
   }
 
 }

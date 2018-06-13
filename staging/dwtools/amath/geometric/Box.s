@@ -259,6 +259,32 @@ function fromCenterAndSize( box , center , size )
 
 //
 
+
+/**
+* Create or expand box from sphere. Returns the expanded box.
+* Box are stored in Array data structure. Sphere stays untouched, box changes.
+* First, the box is expanded until it contains the center of the sphere.
+* Then, the box is expanded by the radius of the sphere.
+*
+* @param { Array } box - box to be expanded.
+* @param { Array } sphere - sphere of reference with expansion dimensions.
+*
+* @example
+* // returns [ - 1, - 1, 2, 2 ];
+* _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 1 ] );
+*
+* @example
+* // returns [ - 2, - 2, 3, 3 ];
+* _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 2 ] );
+*
+* @returns { Array } Returns the array of the expanded box.
+* @function fromSphere
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.box
+*/
+
 function fromSphere( box , sphere )
 {
 
@@ -279,7 +305,8 @@ function fromSphere( box , sphere )
   _.assert( dim1 === dim2 );
 
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
+
 
   _.box.fromPoints( boxv, [ center ] );
   _.box.expand( boxv, radius );
@@ -288,6 +315,29 @@ function fromSphere( box , sphere )
 }
 
 //
+
+/**
+* Create or expand box from cube dimensions. Returns the expanded box.
+* Box are stored in Array data structure. Cube size stay untouched, box changes.
+*
+* @param { Array } box - box to be expanded.
+* @param { Array } size - Array of reference with size dimensions.
+*
+* @example
+* // returns [ - 1, - 1, 3, 3 ];
+* _.fromCube( [ 0, 0, 1, 1 ], [ 4, 4 ] );
+*
+* @example
+* // returns [ 0, 0, 2, 2 ];
+* _.fromCube( [ 0, 0, 1, 1 ], [ 2, 2 ] );
+*
+* @returns { Array } Returns the array of the box expanded.
+* @function fromCube
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( size ) is not array.
+* @memberof wTools.box
+*/
 
 function fromCube( box , size )
 {
@@ -299,6 +349,7 @@ function fromCube( box , size )
   var min = _.box.cornerLeftGet( boxv );
   var max = _.box.cornerRightGet( boxv );
   var dim = _.box.dimGet( boxv );
+  debugger;
 
   _.assert( arguments.length === 2 );
 
@@ -578,7 +629,7 @@ function expand( box , expand )
   _.assert( arguments.length === 2 );
 
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   _.vector.subAssigning( min , expand );
   _.vector.addAssigning( max , expand );
