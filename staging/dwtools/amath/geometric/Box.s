@@ -435,7 +435,7 @@ function cornerRightGet( box )
 * @function centerGet
 * @throws { Error } An Error if ( arguments.length ) is different than one or two.
 * @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( point ) is not point.
+* @throws { Error } An Error if ( dst ) is not point.
 * @memberof wTools.box
 */
 
