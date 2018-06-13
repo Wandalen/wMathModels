@@ -355,22 +355,19 @@ function centerGet( sphere, dst )
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
   var spherev = _.sphere._from( sphere );
-  var dim = _.sphere.dimGet( sphere );
-  console.log( 'dim: ',dim );
-  console.log( 'spherev: ', spherev )
+  var dim = _.sphere.dimGet( spherev );
+
   if( !dst )
-  {
-    dst = _.dup( 0, dim ) ;
-    console.log('no dst, new: ',dst);
-  }
+  dst = _.dup( 0, dim ) ;
   debugger;
 
   _.assert( dim === dst.length );
-  var dstv = _.vector.from( dst );
-  console.log('dstv:  ',dstv);
 
-  dstv = spherev.subarray( 0,sphere.length-1 );
-  return dstv;
+  var dstv = _.vector.from( dst );
+
+  _.vector.assignVector( dstv, spherev.subarray( 0, sphere.length-1 ) );
+
+  return dst;
 }
 
 //function centerGet( sphere )

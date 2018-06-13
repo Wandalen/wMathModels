@@ -1133,7 +1133,6 @@ function centerGet( test )
   var srcsphere = [ 0, 0, 1, 1 ];
   var oldsrcsphere = [ 0, 0, 1, 1 ];
   var expected = [ 0, 0, 1 ];
-  expected = _.vector.from(expected);
 
   var sphere = _.sphere.centerGet( srcsphere );
 
@@ -1144,7 +1143,6 @@ function centerGet( test )
 
   sphere = [ 0 ];
   expected = [ ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.equivalent( sphere, expected );
@@ -1153,7 +1151,6 @@ function centerGet( test )
 
   sphere = [ 0, 0 ];
   expected = [ 0 ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.equivalent( sphere, expected );
@@ -1162,7 +1159,6 @@ function centerGet( test )
 
   sphere = [ 0, 0, 2 ];
   expected = [ 0, 0 ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.equivalent( sphere, expected );
@@ -1171,7 +1167,6 @@ function centerGet( test )
 
   sphere = [ 0, - 1, - 2, 2 ];
   expected = [ 0, - 1, - 2 ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.equivalent( sphere, expected );
@@ -1180,7 +1175,6 @@ function centerGet( test )
 
   sphere = [ 0, - 1, - 2, 2, 0 ];
   expected = [ 0, - 1, - 2, 2 ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.equivalent( sphere, expected );
@@ -1189,7 +1183,6 @@ function centerGet( test )
 
   sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, - 1 ];
   expected = [ 0, - 1, -2, 2, 0, 1, 2, 6 ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.identical( sphere, expected );
@@ -1198,7 +1191,6 @@ function centerGet( test )
 
   sphere = [ 0.624, 0.376, 0.52 ];
   expected = [ 0.624, 0.376 ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.equivalent( sphere, expected );
@@ -1207,7 +1199,6 @@ function centerGet( test )
 
   sphere = [ 1, 2, - 3 ];
   expected = [ 1, 2 ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.equivalent( sphere, expected );
@@ -1217,7 +1208,6 @@ function centerGet( test )
 
   sphere = [ 1, 2, NaN ];
   expected = [ 1, 2 ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.equivalent( sphere, expected );
@@ -1226,7 +1216,6 @@ function centerGet( test )
 
   sphere = [ NaN, NaN, NaN ];
   expected = [ NaN, NaN ];
-  expected = _.vector.from(expected);
 
   sphere = _.sphere.centerGet( sphere );
   test.equivalent( sphere, expected );
@@ -1686,10 +1675,10 @@ var Self =
 
 //    pointExpand : pointExpand,
 
-    dimGet : dimGet,
+//    dimGet : dimGet,
     centerGet : centerGet,
-    radiusGet : radiusGet,
-    radiusSet : radiusSet,
+//    radiusGet : radiusGet,
+//    radiusSet : radiusSet,
   },
 
 }
