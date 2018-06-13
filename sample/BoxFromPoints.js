@@ -5,14 +5,26 @@ var _ = wTools;
 
 debugger;
 
-var pointOne = _.avector.arrayMakeRandom( 3 );
-var pointTwo = _.avector.arrayMakeRandom( 3 );
-var pointThree = _.avector.arrayMakeRandom( 3 );
-var pointFour = _.avector.arrayMakeRandom( 3 );
-var pointFive = _.avector.arrayMakeRandom( 3 );
+var box = null;
+var pointOne = [ 0, 1 ];
+var pointTwo =  [ 1, 0 ] ;
+var pointThree = [ 0, - 1 ];
+var pointFour = [ - 1, 0 ];
+var pointFive = [ 0, 0 ];
 var points = [ pointOne, pointTwo, pointThree, pointFour, pointFive ]
 
-var box = _.box.fromPoints( null, points );
+var dim = points[0].length;
+console.log( 'dim :', dim );
+
+if( box === null )
+//var dimp = points[0].length;
+box = _.box.makeNil(dim);
+
+console.log( 'box centered :', box );
+
+
+
+var box = _.box.fromPoints( box, points );
 
 console.log( 'P1 :', pointOne );
 console.log( 'P2 :', pointTwo );
