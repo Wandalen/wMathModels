@@ -330,57 +330,32 @@ function dimGet( sphere )
 //
 
 /**
-* Get the center of a sphere. Returns an array with the coordinates of the center of the sphere.
+* Get the center of a sphere. Returns a vector with the coordinates of the center of the sphere.
 * Sphere stays untouched.
 *
 * @param { Array } sphere - The source sphere.
-* @param { Array } dst - The destination array (optional - sets the type of the returned object).
 *
 * @example
-* // returns  [ 0, 0, 2 ]
+* // returns   0, 0, 2
 * _.centerGet( [ 0, 0, 2, 2 ] );
 *
 * @example
-* // returns [ 0 ]
+* // returns  0 
 * _.centerGet( [ 0, 1 ] );
 *
-* @example
-* // returns  0
-* _.centerGet( [ 0, 1 ], _.vector.from( [ 1 ] ) );
-*
-* @returns { Array } Returns the coordinates of the center of the sphere.
+* @returns { Vector } Returns the coordinates of the center of the sphere.
 * @function centerGet
-* @throws { Error } An Error if ( arguments.length ) is different than one or two.
+* @throws { Error } An Error if ( arguments.length ) is different than one.
 * @throws { Error } An Error if ( sphere ) is not sphere.
 * @memberof wTools.sphere
 */
 
-function centerGet( sphere, dst )
+function centerGet( sphere )
 {
-  _.assert( arguments.length === 1 || arguments.length === 2 );
-
+  _.assert( arguments.length === 1 );
   var spherev = _.sphere._from( sphere );
-  var dim = _.sphere.dimGet( spherev );
-
-  if( !dst )
-  dst = _.dup( 0, dim ) ;
-  debugger;
-
-  _.assert( dim === dst.length );
-
-  var dstv = _.vector.from( dst );
-
-  _.vector.assignVector( dstv, spherev.subarray( 0, sphere.length-1 ) );
-
-  return dst;
+  return spherev.subarray( 0,sphere.length-1 );
 }
-
-//function centerGet( sphere )
-//{
-//  _.assert( arguments.length === 1 );
-//  var spherev = _.sphere._from( sphere );
-//  return spherev.subarray( 0,sphere.length-1 );
-//}
 
 //
 
