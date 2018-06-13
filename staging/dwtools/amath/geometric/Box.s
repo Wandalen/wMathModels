@@ -185,7 +185,7 @@ function fromPoints( box , points )
   var dimp = points[0].length;
 
   if( box === null )
-  box = _.box.makeNil(dimp);
+  box = _.box.makeNil( dimp );
 
   var boxv = _.box._from( box );
   var min = _.box.cornerLeftGet( boxv );
