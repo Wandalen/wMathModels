@@ -1686,10 +1686,10 @@ var Self =
 
 //    pointExpand : pointExpand,
 
-//    dimGet : dimGet,
-//    centerGet : centerGet,
+    dimGet : dimGet,
+    centerGet : centerGet,
     radiusGet : radiusGet,
-     radiusSet : radiusSet,
+    radiusSet : radiusSet,
   },
 
 }
