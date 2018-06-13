@@ -152,14 +152,40 @@ function _from( box )
 
 //
 
+
+/**
+*Create or expand box from an array of points. Returns the expanded box. Box are stored in Array data structure.
+* Points stay untouched, box changes.
+*
+* @param { Array } box - box to be expanded.
+* @param { Array } points - Array of points of reference with expansion dimensions.
+*
+* @example
+* // returns [ 0, 0, 3, 3 ];
+* _.fromPoints( null , [ [ 1, 3 ], [ 0, 0 ], [ 3, 1 ] ] );
+*
+* @example
+* // returns [ 0, - 1, 2, 2 ];
+* _.fromPoints( [ 0, 0, 1, 1 ], [ [ 1, 2 ], [ 0, 0 ], [ 2, - 1 ] ] );
+*
+* @returns { Array } Returns the array of the box expanded.
+* @function fromPoints
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( point ) is not array.
+* @memberof wTools.box
+*/
+
 function fromPoints( box , points )
 {
 
   _.assert( arguments.length === 2 );
   _.assert( _.arrayIs( points ) );
 
+  var dimp = points[0].length;
+
   if( box === null )
-  box = _.box.makeNil();
+  box = _.box.makeNil(dimp);
 
   var boxv = _.box._from( box );
   var min = _.box.cornerLeftGet( boxv );
@@ -535,14 +561,8 @@ function expand( box , expand )
   return box;
 }
 
-
-/**
-* Get the relative coordinates of a point regarding a given box. Returns the point in relative coordinates.
-* Source box remains untouched.
-*
-* @param { Array } box - Source box.
-* @param { Array } point - The point to calculate its relative reference.
 //
+
 /**
 *Expand box by point. Returns the expanded box. Box are stored in Array data structure. Point stays untouched, dstBox changes.
 *

@@ -834,15 +834,6 @@ function pointExpand( test )
   box = _.box.pointExpand( box, point );
   test.identical( box, expected );
 
-  test.description = 'Point [ 0, 0, 0 ] box not expanded'; //
-
-  var box = null;
-  var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
-
-  box = _.box.pointExpand( box, point );
-  test.identical( box, expected );
-
   test.description = 'One point box expanded'; //
 
   box = [ 0, 0, 0, 0, 0, 0 ];
@@ -3285,6 +3276,176 @@ function sizeGet( test )
 
 }
 
+
+//
+
+function fromPoints( test )
+{
+
+  test.description = 'Points remain unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var points = [ [ 1, 1 ], [ 0, 0 ], [ 0, 2 ] ];
+  var oldpoints = [ [ 1, 1 ], [ 0, 0 ], [ 0, 2 ] ];
+  var expected = [ 0, 0, 1, 2 ];
+
+  box = _.box.fromPoints( dstBox, points );
+  test.identical( box, expected );
+  test.identical( dstBox, expected );
+  test.identical( points, oldpoints );
+
+  test.description = 'Create box of two dimensions'; //
+
+  var box = null;
+  var points = [ [ 1, 0 ], [ 0, - 2 ], [ 0, 3 ], [ - 1, 2 ] ];
+  var expected = [ - 1, - 2, 1, 3 ];
+
+  box = _.box.fromPoints( box, points );
+  test.identical( box, expected );
+
+  test.description = 'Create box three dimensions'; //
+
+  var box = null;
+  var points = [ [ 1, 0, 0 ], [ 0, 2, 0 ], [ 0, 0, 3 ] ];
+  var expected = [ 0, 0, 0, 1, 2, 3 ];
+
+  box = _.box.fromPoints( box, points );
+  test.identical( box, expected );
+
+  test.description = 'Zero points - box not expanded'; //
+
+  var box = null;
+  var points= [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  box = _.box.fromPoints( box, points);
+  test.identical( box, expected );
+
+  test.description = 'Box expanded'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  points= [ [ - 1, 0, - 1 ], [ 0, 3, 0 ], [ 0, - 3, 0 ], [ 2, 2, 3 ] ] ;
+  expected = [ - 1, - 3, - 1, 2, 3, 3 ];
+
+  box = _.box.fromPoints( box, points);
+  test.identical( box, expected );
+
+  test.description = 'Box NOT expanded ( points inside box )'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  points= [ [ 0, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] ];
+  expected = [ 0,  0, 0, 2, 2, 2 ];
+
+  box = _.box.fromPoints( box, points);
+  test.identical( box, expected );
+
+  test.description = 'Box ( normalized to 1 ) expanded'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  points= [ [ - 0.900, 0, 0.900 ], [ 0, - 0.001, 0 ], [ 0.900, 0, - 0.900 ] ];
+  expected = [ - 0.900,  - 0.001, - 0.900, 0.900, 0.766, 0.900 ];
+
+  box = _.box.fromPoints( box, points);
+  test.identical( box, expected );
+
+  test.description = 'Null box of four dimensions expanded'; //
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var points= [ [ - 1, - 2, - 3 , - 4 ], [ 1, 2, 3 , 4 ] ];
+  var expected = [ - 1, - 2, - 3 , - 4, 1, 2, 3, 4 ];
+
+  box = _.box.fromPoints( box, points);
+  test.identical( box, expected );
+
+  test.description = 'Null box of 7 dimensions expanded'; //
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var points= [ [ 1, 2, 3 , 0, 0, 0, 0 ], [ 0, 0, 0 , 4, 5, 6, 7 ] ] ;
+  var expected = [ 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7 ];
+
+  box = _.box.fromPoints( box, points);
+  test.identical( box, expected );
+
+  test.description = 'Box of 1 dimension expanded'; //
+
+  var box = [ 0, 0 ];
+  var points= [ [ - 1 ], [ 0 ], [ 1 ] ];
+  var expected = [ - 1, 1 ];
+
+  box = _.box.fromPoints( box, points);
+  test.identical( box, expected );
+
+  test.description = 'Box of 0 dimension expanded'; //
+
+  var box = [ ];
+  var points= [ [], [] ];
+  var expected = [ ];
+
+  box = _.box.fromPoints( box, points);
+  test.identical( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( 'box', 'points' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( null, 4 );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'Too little arguments - one point'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ]);
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ], [ 1, 0, 1 ] );
+  });
+
+  test.description = 'Wrong points dimension (box 3D vs points 4D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0, 2 ], [ 0, 1, - 3, 4 ] ] );
+  });
+
+  test.description = 'Wrong points dimension (box 3D vs points 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ] );
+  });
+
+  test.description = 'Wrong points dimension (box 2D vs points 1D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromPoints( [ 0, 0, 0, 0 ], [ [ 1 ], [ 0 ] ] );
+  });
+}
+
+
+
 // --
 // proto
 // --
@@ -3328,8 +3489,8 @@ var Self =
 //    cornerLeftGet : cornerLeftGet,
 //    cornerRightGet : cornerRightGet,
 //    centerGet : centerGet,
-    sizeGet : sizeGet,
-
+//    sizeGet : sizeGet,
+      fromPoints : fromPoints,
   }
 
 }
