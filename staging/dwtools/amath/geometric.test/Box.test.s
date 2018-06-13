@@ -3444,6 +3444,158 @@ function fromPoints( test )
   });
 }
 
+
+
+//
+
+function fromCenterAndSize( test )
+{
+
+  test.description = 'Center and size remain unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var center = [ 1, 1 ];
+  var size = [ 4, 4 ];
+  var oldcenter = [ 1, 1 ];
+  var oldsize = [ 4, 4 ];
+  var expected = [ - 1, - 1, 3, 3 ];
+
+  var box = _.box.fromCenterAndSize( dstBox, center, size );
+  test.identical( dstBox, expected );
+  test.identical( box, expected );
+  test.identical( center, oldcenter );
+  test.identical( size, oldsize );
+
+  test.description = 'Empty box'; //
+
+  box = [ ];
+  center = [ ];
+  size = [ ];
+  expected = [ ];
+
+  var box = _.box.fromCenterAndSize( box, center, size );
+  test.identical( box, expected );
+
+  test.description = 'Trivial expansion'; //
+
+  box = [ 0, 1, 1, 0 ];
+  center = [ 1, 1 ];
+  size = [ 4, 4 ];
+  expected = [ - 1, - 1, 3, 3 ];
+
+  var box = _.box.fromCenterAndSize( box, center, size );
+  test.identical( box, expected );
+
+  test.description = 'Different sizes expansion'; //
+
+  box = [ 2, 2, 3, 3 ];
+  center = [ 1, 1 ];
+  size = [ 4, 2 ];
+  expected = [ - 1, 0, 3, 2 ];
+
+  var box = _.box.fromCenterAndSize( box, center, size );
+  test.identical( box, expected );
+
+  test.description = 'Decimal values'; //
+
+  box = [ 1.2, 2.4, 3.3, 4.8 ];
+  center = [ 1.5, 0.79 ];
+  size = [ 0.5, 0.2 ];
+  expected = [ 1.25, 0.69, 1.75, 0.89 ];
+
+  var box = _.box.fromCenterAndSize( box, center, size );
+  test.equivalent( box, expected );
+
+  test.description = 'Negative size'; //
+
+  box = [ 0, 0, 0, 0 ];
+  center = [ 0, 0 ];
+  size = [ -2, -2 ];
+  expected = [ 1, 1, - 1, - 1 ];
+
+  var box = _.box.fromCenterAndSize( box, center, size );
+  test.identical( box, expected );
+
+  test.description = 'Box of three dimensions'; //
+
+  box = [ 1, 3, 2, 2, 4, 4 ];
+  center = [ 1, 1, 1 ];
+  size = [ 4, 4, 2 ];
+  expected = [ - 1, - 1, 0, 3, 3, 2 ];
+
+  var box = _.box.fromCenterAndSize( box, center, size );
+  test.identical( box, expected );
+
+  test.description = 'NaN box'; //
+
+  box = [ NaN, NaN, NaN, NaN ];
+  center = [ NaN, NaN ];
+  size = [ NaN, NaN ];
+  expected = [ NaN, NaN, NaN, NaN ];
+
+  var box = _.box.fromCenterAndSize( box, center, size );
+  test.identical( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCenterAndSize();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCenterAndSize( 'box', 'center', 'size' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCenterAndSize( null, 4, 5 );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ]);
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] );
+  });
+
+  test.description = 'Wrong points dimension (box 3D vs points 4D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ], [ 0, 1, - 3, 4 ] );
+  });
+
+  test.description = 'Wrong points dimension (box 3D vs points 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ], [ 2, 1 ] );
+  });
+
+  test.description = 'Wrong points dimension (box 2D vs points 1D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCenterAndSize( [ 0, 0, 0, 0 ],  [ 1 ], [ 0 ]  );
+  });
+
+}
 // --
 // proto
 // --
@@ -3488,7 +3640,9 @@ var Self =
 //    cornerRightGet : cornerRightGet,
 //    centerGet : centerGet,
 //    sizeGet : sizeGet,
-      fromPoints : fromPoints,
+
+//    fromPoints : fromPoints,
+     fromCenterAndSize : fromCenterAndSize,
   }
 
 }

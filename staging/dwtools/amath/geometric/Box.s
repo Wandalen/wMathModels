@@ -205,6 +205,31 @@ function fromPoints( box , points )
 
 //
 
+/**
+* Create or expand box from center point and size dimensions. Returns the expanded box.
+* Box are stored in Array data structure. Center point and size stay untouched, box changes.
+*
+* @param { Array } box - box to be expanded.
+* @param { Array } center - Point of reference with center coordinates.
+* @param { Array } size - Array of reference with size dimensions.
+*
+* @example
+* // returns [ - 1, - 1, 3, 3 ];
+* _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 4, 4 ] );
+*
+* @example
+* // returns [ 0, 0, 2, 2 ];
+* _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 2, 2 ] );
+*
+* @returns { Array } Returns the array of the box expanded.
+* @function fromCenterAndSize
+* @throws { Error } An Error if ( arguments.length ) is different than three.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( center ) is not point.
+* @throws { Error } An Error if ( size ) is not array.
+* @memberof wTools.box
+*/
+
 function fromCenterAndSize( box , center , size )
 {
 
@@ -223,7 +248,7 @@ function fromCenterAndSize( box , center , size )
   _.assert( arguments.length === 3 );
 
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   var size = _.vector.mulScalar( size.clone() , 0.5 );
   _.vector.subAssigning( min.copy( center ) , size );
