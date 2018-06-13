@@ -180,7 +180,7 @@ function pointContains( frustum , point )
 }
 
 // --
-// prototype
+// define class
 // --
 
 var Proto =

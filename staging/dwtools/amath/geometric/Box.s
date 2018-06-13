@@ -349,7 +349,6 @@ function fromCube( box , size )
   var min = _.box.cornerLeftGet( boxv );
   var max = _.box.cornerRightGet( boxv );
   var dim = _.box.dimGet( boxv );
-  debugger;
 
   _.assert( arguments.length === 2 );
 
@@ -1201,7 +1200,7 @@ function translate( box , offset )
 // }
 
 // --
-// prototype
+// define class
 // --
 
 var Proto =

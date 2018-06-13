@@ -375,7 +375,7 @@ function negate( plane )
 }
 
 // --
-// prototype
+// define class
 // --
 
 var Proto =

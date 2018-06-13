@@ -1115,7 +1115,7 @@ var Order =
 }
 
 // --
-// prototype
+// define class
 // --
 
 var Proto =
