@@ -3444,8 +3444,6 @@ function fromPoints( test )
   });
 }
 
-
-
 // --
 // proto
 // --

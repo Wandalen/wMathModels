@@ -154,16 +154,42 @@ function _from( sphere )
 
 //
 
+/**
+* Create or expand a sphere from an array of points. Returns the expanded sphere. Spheres are stored in Array data structure.
+* Points stay untouched, sphere changes. Created spheres have center in origin.
+*
+* @param { Array } sphere - sphere to be expanded.
+* @param { Array } points - Array of points of reference with expansion dimensions.
+*
+* @example
+* // returns [ 0, 0, 0, 3 ];
+* _.fromPoints( null , [ [ 0, 0, 3 ], [ 0, 2, 0 ], [ 1, 0, 0 ] ] );
+*
+* @example
+* // returns [ 0, - 1, 2 ];
+* _.fromPoints( [ 0, - 1, 1 ], [ [ 1, 0 ], [ 0, -3 ], [ 0, 0 ] ] );
+*
+* @returns { Array } Returns the array of the sphere expanded.
+* @function fromPoints
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @throws { Error } An Error if ( point ) is not array.
+* @memberof wTools.box
+*/
+
 function fromPoints( sphere, points )
 {
 
   _.assert( arguments.length === 2 );
 
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
+
+
+  var dimp = points[0].length;
 
   if( sphere === null )
-  sphere = _.sphere.make();
+  sphere = _.sphere.make(dimp);
 
   var spherev = _.sphere._from( sphere );
   var center = _.sphere.centerGet( spherev );
@@ -174,7 +200,8 @@ function fromPoints( sphere, points )
     maxr = Math.max( maxr, _.vector.distanceSqr( center , _.vector.from( points[ i ] ) ) );
   }
 
-  sphere[ 3 ] = Math.sqrt( maxr );
+  debugger;
+  sphere[ dimp ] = Math.sqrt( maxr );
 
   return sphere;
 }
@@ -340,7 +367,7 @@ function dimGet( sphere )
 * _.centerGet( [ 0, 0, 2, 2 ] );
 *
 * @example
-* // returns  0 
+* // returns  0
 * _.centerGet( [ 0, 1 ] );
 *
 * @returns { Vector } Returns the coordinates of the center of the sphere.

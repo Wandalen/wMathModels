@@ -1652,6 +1652,202 @@ function radiusSet( test )
 
 }
 
+//
+
+function fromPoints( test )
+{
+
+  test.description = 'Points remain unchanged and Destination sphere changes'; //
+
+  var dstsphere = [ 0, 0, 0, 1 ];
+  var points = [ [ 1, 1, 0 ], [ 0, 0, 0 ], [ 0, 0, 2 ] ];
+  var oldpoints = [ [ 1, 1, 0 ], [ 0, 0, 0 ], [ 0, 0, 2 ] ];
+  var expected = [ 0, 0, 0, 2 ];
+
+  sphere = _.sphere.fromPoints( dstsphere, points );
+  test.identical( sphere, expected );
+  test.identical( dstsphere, expected );
+  test.identical( points, oldpoints );
+
+  test.description = 'Create sphere of two dimensions'; //
+
+  var sphere = null;
+  var points = [ [ 1, 0 ], [ 0, - 2 ], [ 0, 3 ], [ - 3, 4 ] ];
+  var expected = [ 0, 0, 5 ];
+
+  sphere = _.sphere.fromPoints( sphere, points );
+  test.identical( sphere, expected );
+
+  test.description = 'Create sphere three dimensions'; //
+
+  var sphere = null;
+  var points = [ [ 1, 0, 0 ], [ 0, 2, 0 ], [ 0, 0, 3 ] ];
+  var expected = [ 0, 0, 0, 3 ];
+
+  sphere = _.sphere.fromPoints( sphere, points );
+  test.identical( sphere, expected );
+
+  test.description = 'Zero points - sphere not expanded'; //
+
+  var sphere = null;
+  var points= [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+  test.description = 'sphere expanded'; //
+
+  sphere = [ 0, 0, 0, 2 ];
+  points= [ [ - 1, 0, - 1 ], [ 0, 3, 0 ], [ 0, - 3, 0 ] ] ;
+  expected = [ 0, 0, 0, 3 ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+  test.description = 'sphere NOT expanded ( points inside sphere )'; //
+
+  sphere = [ 1, 1, 1, 2 ];
+  points= [ [ 0, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] ];
+  expected = [ 1,  1, 1, 1 ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+  test.description = 'sphere ( normalized to 1 ) expanded'; //
+
+  sphere = [ 0, 0, 0, 0 ];
+  points= [ [ - 0.500, 0, 0 ], [ 0, 0.005, 0 ] ];
+  expected = [ 0, 0, 0, 0.5 ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+  test.description = 'Null sphere of four dimensions expanded'; //
+
+  var sphere = [ 0, 0, 0, 0, 0 ];
+  var points= [ [ 0, 0, 0, 1 ], [ 0, 0, 3 , 4 ] ];
+  var expected = [ 0, 0, 0, 0, 5 ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+  test.description = 'Null sphere of 7 dimensions expanded'; //
+
+  var sphere = [  0, 0, 0, 0, 0, 0, 0, 1 ];
+  var points= [ [ 0, 2, 0, 0, 0, 0, 0 ], [ 0, 0, 0 , 4, 0, 0, 0 ] ] ;
+  var expected = [ 0, 0, 0, 0, 0, 0, 0, 4 ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+  test.description = 'sphere of 1 dimension expanded'; //
+
+  var sphere = [ 0, 0 ];
+  var points= [ [ - 1 ], [ 0 ], [ 1 ] ];
+  var expected = [ 0, 1 ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+
+  test.description = 'sphere of 1 dimension not expanded - NaN'; //
+
+  var sphere = [ NaN, NaN ];
+  var points= [ [ NaN ], [ NaN ], [ NaN ] ];
+  var expected = [ NaN, NaN ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+
+  test.description = 'sphere of 1 dimension not expanded - NaN'; //
+
+  var sphere = [ NaN, NaN ];
+  var points= [ [ 1 ], [ 2 ], [ 0 ] ];
+  var expected = [ NaN, NaN ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+
+  test.description = 'sphere of 1 dimension not expanded - NaN'; //
+
+  var sphere = [ 0, 1 ];
+  var points= [ [ NaN ], [ NaN ], [ NaN ] ];
+  var expected = [ 0, NaN ];
+
+  sphere = _.sphere.fromPoints( sphere, points);
+  test.identical( sphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints();
+  });
+
+
+  test.description = 'Wrong type of argument - none'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints( [ ] , [ [ ], [ ] ] );
+  });
+
+  test.description = 'Wrong type of argument - string'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints( 'sphere', 'points' );
+  });
+
+  test.description = 'Wrong type of argument - number'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints( null, 4 );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints( [ 0, 0, 0 ] );
+  });
+
+  test.description = 'Too little arguments - one point'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints( [ 0, 0, 0 ], [ 1, 1, 1 ]);
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints( [ 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ], [ 1, 0 ] );
+  });
+
+  test.description = 'Wrong points dimension (sphere 3D vs points 4D)'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints( [ 0, 0, 0, 0 ], [ [ 0, 1, 0, 2 ], [ 0, 1, - 3, 4 ] ] );
+  });
+
+  test.description = 'Wrong points dimension (sphere 3D vs points 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints( [ 0, 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ] );
+  });
+
+  test.description = 'Wrong points dimension (sphere 2D vs points 1D)'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromPoints( [ 0, 0, 0 ], [ [ 1 ], [ 0 ] ] );
+  });
+}
+
+
 // --
 // proto
 // --
@@ -1687,9 +1883,11 @@ var Self =
 //    pointExpand : pointExpand,
 
 //    dimGet : dimGet,
-    centerGet : centerGet,
+//    centerGet : centerGet,
 //    radiusGet : radiusGet,
 //    radiusSet : radiusSet,
+
+     fromPoints : fromPoints,
   },
 
 }
