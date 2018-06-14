@@ -226,6 +226,7 @@ function fromBox( sphere, box )
   var dim = _.sphere.dimGet( spherev );
 
   _.assert( dim === _.box.dimGet( box ) );
+//  _.assert( dim === _.sphere.dimGet(  sphere) );
   _.assert( arguments.length === 2 );
 
   center.copy( min );
@@ -242,6 +243,31 @@ function fromBox( sphere, box )
 }
 
 //
+
+/**
+* Create or modify sphere coordinates from a center and a radius. Returns the modified sphere.
+* Spheres are stored in Array data structure. Center and radius stay untouched, sphere changes.
+*
+* @param { Array } sphere - sphere to be modified.
+* @param { Array } center - Array of coordinates for new center of sphere.
+* @param { Number } radius - Value for new radius of sphere.
+*
+* @example
+* // returns [ 0, 2, 0, 1 ];
+* _.fromCenterAndRadius( null , [ 0, 2, 0 ], 1 );
+*
+* @example
+* // returns [ 1, 0, 2 ];
+* _.fromCenterAndRadius( [ 0, - 1, 1 ], [ 1, 0 ], 2 );
+*
+* @returns { Array } Returns the array of the sphere with new coordinates.
+* @function fromCenterAndRadius
+* @throws { Error } An Error if ( arguments.length ) is different than three.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @throws { Error } An Error if ( center ) is not point.
+* @throws { Error } An Error if ( radius ) is not number.
+* @memberof wTools.box
+*/
 
 function fromCenterAndRadius( sphere,center,radius )
 {

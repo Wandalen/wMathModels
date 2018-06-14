@@ -3800,6 +3800,350 @@ function fromSphere( test )
 }
 
 
+//
+
+function expand( test )
+{
+
+  test.description = 'Expansion array remains unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var expand = [ 0, 2 ];
+  var oldexpand = [ 0, 2 ];
+  var expected = [ 0, - 2, 1, 3 ];
+
+  box = _.box.expand( dstBox, expand );
+  test.identical( box, expected );
+  test.identical( dstBox, expected );
+  test.identical( expand, oldexpand );
+
+  test.description = 'Null box expanded'; //
+
+  var box = null;
+  var expand = [ 1, 2, 3 ];
+  var expected = [ - 1, - 2, - 3, 1, 2, 3 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Null box NOT expanded'; //
+
+  var box = null;
+  var expand = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'One side box expanded'; //
+
+  box = [ 0, 0, 0, 0, 0, 0 ];
+  expand = [ 0, 0,  3 ];
+  expected = [ 0,  0, - 3, 0, 0, 3 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Box expanded'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  expand = [ 1, 3, 1 ];
+  expected = [ - 1, - 3, - 1, 3, 5, 3 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Box expanded by value'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  expand = 1;
+  expected = [ - 1, - 1, - 1, 3, 3, 3 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Box NOT expanded ( empty expand array )'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  expand = [  0, 0, 0 ];
+  expected = [ 0,  0, 0, 2, 2, 2 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Box contracted'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  expand = [ - 1, - 1, - 1 ];
+  expected = [ 1, 1, 1, 2, 2, 2 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Box with decimal numbers expanded'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  expand = [ -0.100, 0, 0.100 ];
+  expected = [  0.050,  0.002, -0.338, 0.094, 0.766, 0.866 ];
+
+  box = _.box.expand( box, expand );
+  test.equivalent( box, expected );
+
+  test.description = 'Null box of four dimensions expanded'; //
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var expand = [ 1, 2, 3 , 4 ];
+  var expected = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Null box of 7 dimensions expanded'; //
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var expand = [ 1, 2, 3 , 4, 5, 6, 7 ];
+  var expected = [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Box of 1 dimension expanded'; //
+
+  var box = [ 0, 0 ];
+  var expand = [ 1 ];
+  var expected = [ - 1, 1 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Box of 0 dimension expanded'; //
+
+  var box = [ ];
+  var expand = [ ];
+  var expected = [ ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  test.description = 'Null box expanded by value'; //
+
+  var box = null;
+  var expand =  4 ;
+  var expected = [ - 4, -4, -4, 4, 4, 4 ];
+
+  box = _.box.expand( box, expand );
+  test.identical( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.expand();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.expand( 'box', 'expand' );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.expand( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.expand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+  });
+
+  test.description = 'Wrong expand array dimension (box 3D vs array 4D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.expand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.description = 'Wrong expand array dimension (box 3D vs array 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.expand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ] );
+  });
+
+  test.description = 'Wrong expand array dimension (box 2D vs array 1D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.expand( [ 0, 0, 0, 0 ], [ 0 ] );
+  });
+
+  test.description = 'Wrong expand array dimension (null box vs array 2D)'; //
+  test.shouldThrowError( function()
+  {
+    _.box.expand( null, [ 0, 1 ] );
+  });
+
+}
+
+//
+
+function fromCube( test )
+{
+
+  test.description = 'Cube remains unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var cube = 1;
+  var oldcube = 1;
+  var expected = [ - 0.5, - 0.5, 0.5, 0.5 ];
+
+  box = _.box.fromCube( dstBox, cube );
+  test.identical( box, expected );
+  test.identical( dstBox, expected );
+  test.identical( cube, oldcube );
+
+  test.description = 'Null box from cube'; //
+
+  var box = null;
+  var fromCube = 2;
+  var expected = [ - 1, - 1, - 1, 1, 1, 1 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Null box NOT from cube'; //
+
+  var box = null;
+  var fromCube = [ 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+
+  test.description = 'Box of 1 dimension'; //
+
+  var box = [ 0, 0 ];
+  var fromCube = [ 1 ];
+  var expected = [ - 0.5, 0.5 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Box from cube'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  fromCube = 6;
+  expected = [ - 3, - 3, - 3, 3, 3, 3 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'clean box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  fromCube =  0;
+  expected = [ 0,  0, 0, 0, 0, 0 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Box contracted'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  fromCube = - 1;
+  expected = [ 0.5, 0.5, 0.5, - 0.5, - 0.5, - 0.5 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Box with decimal numbers from cube'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  fromCube =  0.100;
+  expected = [  - 0.050, - 0.050, - 0.050, 0.050, 0.050, 0.050 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.equivalent( box, expected );
+
+  test.description = 'Null box of four dimensions from cube'; //
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var fromCube = 4;
+  var expected = [ - 2, - 2, - 2, - 2, 2, 2, 2, 2 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Null box of 7 dimensions from cube'; //
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var fromCube = 8;
+  var expected = [ - 4, - 4, - 4, - 4, - 4, - 4, - 4, 4, 4, 4, 4, 4, 4, 4 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Empty box and cube'; //
+
+  var box = [ ];
+  var fromCube = [ ];
+  var expected = [ ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'If cube is not number, expected NaN'; //
+
+  var box = [ 0, 0, 1, 1 ];
+  var fromCube = [ 1, 2 ];
+  var expected = [ NaN, NaN, NaN, NaN ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( 'box', 'cube' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( 'box', 3 );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( [ 0, 0, 0, 0, 0, 0 ], 2, 3 );
+  });
+
+}
+
+
 // --
 // define class
 // --
@@ -3838,6 +4182,7 @@ var Self =
 //    boxContains : boxContains,
 //    boxIntersects : boxIntersects,
 //    boxExpand : boxExpand,
+//    expand : expand,
 
 //    dimGet : dimGet,
 //    cornerLeftGet : cornerLeftGet,
@@ -3847,7 +4192,9 @@ var Self =
 
 //    fromPoints : fromPoints,
 //    fromCenterAndSize : fromCenterAndSize,
-    fromSphere : fromSphere,
+//    fromSphere : fromSphere,
+    fromCube : fromCube,
+
   }
 
 }

@@ -317,25 +317,25 @@ function fromSphere( box , sphere )
 //
 
 /**
-* Create or expand box from cube dimensions. Returns the expanded box.
+* Create a cube from cube size centered in origin. Returns the box converted in cube.
 * Box are stored in Array data structure. Cube size stay untouched, box changes.
 *
-* @param { Array } box - box to be expanded.
-* @param { Array } size - Array of reference with size dimensions.
+* @param { Array } box - box to be converted to cube.
+* @param { Number } size - Cube size.
 *
 * @example
-* // returns [ - 1, - 1, 3, 3 ];
+* // returns [ - 2, - 2, 2, 2 ];
 * _.fromCube( [ 0, 0, 1, 1 ], [ 4, 4 ] );
 *
 * @example
-* // returns [ 0, 0, 2, 2 ];
-* _.fromCube( [ 0, 0, 1, 1 ], [ 2, 2 ] );
+* // returns [ - 1, - 1, 1, 1 ];
+* _.fromCube( [ 3, 3, 5, 5 ], [ 2, 2 ] );
 *
-* @returns { Array } Returns the array of the box expanded.
+* @returns { Array } Returns the array of the new cube.
 * @function fromCube
 * @throws { Error } An Error if ( arguments.length ) is different than two.
 * @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( size ) is not array.
+* @throws { Error } An Error if ( size ) is not a number.
 * @memberof wTools.box
 */
 
@@ -611,6 +611,31 @@ function sizeGet( box , dst )
 }
 
 //
+
+/**
+* Expand all sides of a box by the dimensions in the expansion array.
+* Returns the expanded box. Box are stored in Array data structure.
+* The expansion array stays untouched, the box changes.
+*
+* @param { Array } box - box to be expanded.
+* @param { Array } expand - Array of reference with expansion dimensions.
+*
+* @example
+* // returns [ - 1, - 3, 4, 6 ];
+* _.expand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
+*
+* @example
+* // returns [ - 1, - 2, 2, 4 ];
+* _.expand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+*
+* @returns { Array } Returns the array of the box expanded.
+* @function expand
+* @throws { Error } An Error if ( dim ) is different than expand.length (the box and the expansion array don´t have the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( expand ) is not an array.
+* @memberof wTools.box
+*/
 
 function expand( box , expand )
 {
