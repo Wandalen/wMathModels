@@ -208,30 +208,6 @@ function fromPoints( sphere, points )
 
 //
 
-/**
-* Create or expand a sphere from abox. Returns the expanded sphere. Spheres are stored in Array data structure.
-* Box stays untouched, sphere changes.
-* Created spheres have center in middle of box, and the radius is calculated base on the two major dimensions.
-*
-* @param { Array } sphere - sphere to be expanded.
-* @param { Array } box - Array of box of reference with expansion dimensions.
-*
-* @example
-* // returns [ 0.5, 0.5, 0.5, 0.5 ];
-* _.fromBox( null , [ 0, 0, 0, 1, 1, 1 ] );
-*
-* @example
-* // returns [ 0, 0, 1 ];
-* _.fromBox( [ 0, - 1, 1 ], [ - 1, - 1, 1, 1 ] );
-*
-* @returns { Array } Returns the array of the sphere surrounded by the box.
-* @function fromBox
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( sphere ) is not sphere.
-* @throws { Error } An Error if ( box ) is not a box.
-* @memberof wTools.box
-*/
-
 function fromBox( sphere, box )
 {
 
