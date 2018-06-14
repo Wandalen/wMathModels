@@ -3989,6 +3989,160 @@ function expand( test )
 
 }
 
+//
+
+function fromCube( test )
+{
+
+  test.description = 'Cube remains unchanged and Destination box changes'; //
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var cube = 1;
+  var oldcube = 1;
+  var expected = [ - 0.5, - 0.5, 0.5, 0.5 ];
+
+  box = _.box.fromCube( dstBox, cube );
+  test.identical( box, expected );
+  test.identical( dstBox, expected );
+  test.identical( cube, oldcube );
+
+  test.description = 'Null box from cube'; //
+
+  var box = null;
+  var fromCube = 2;
+  var expected = [ - 1, - 1, - 1, 1, 1, 1 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Null box NOT from cube'; //
+
+  var box = null;
+  var fromCube = [ 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+
+  test.description = 'Box of 1 dimension'; //
+
+  var box = [ 0, 0 ];
+  var fromCube = [ 1 ];
+  var expected = [ - 0.5, 0.5 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Box from cube'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  fromCube = 6;
+  expected = [ - 3, - 3, - 3, 3, 3, 3 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'clean box'; //
+
+  box = [ 0, 0, 0, 2, 2, 2 ];
+  fromCube =  0;
+  expected = [ 0,  0, 0, 0, 0, 0 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Box contracted'; //
+
+  box = [ 0, 0, 0, 3, 3, 3 ];
+  fromCube = - 1;
+  expected = [ 0.5, 0.5, 0.5, - 0.5, - 0.5, - 0.5 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Box with decimal numbers from cube'; //
+
+  box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  fromCube =  0.100;
+  expected = [  - 0.050, - 0.050, - 0.050, 0.050, 0.050, 0.050 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.equivalent( box, expected );
+
+  test.description = 'Null box of four dimensions from cube'; //
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var fromCube = 4;
+  var expected = [ - 2, - 2, - 2, - 2, 2, 2, 2, 2 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Null box of 7 dimensions from cube'; //
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var fromCube = 8;
+  var expected = [ - 4, - 4, - 4, - 4, - 4, - 4, - 4, 4, 4, 4, 4, 4, 4, 4 ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'Empty box and cube'; //
+
+  var box = [ ];
+  var fromCube = [ ];
+  var expected = [ ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  test.description = 'If cube is not number, expected NaN'; //
+
+  var box = [ 0, 0, 1, 1 ];
+  var fromCube = [ 1, 2 ];
+  var expected = [ NaN, NaN, NaN, NaN ];
+
+  box = _.box.fromCube( box, fromCube );
+  test.identical( box, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube();
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( 'box', 'cube' );
+  });
+
+  test.description = 'Wrong type of argument'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( 'box', 3 );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( [ 0, 0, 0, 0, 0, 0 ], 2, 3 );
+  });
+
+}
+
 
 // --
 // define class
@@ -4028,7 +4182,7 @@ var Self =
 //    boxContains : boxContains,
 //    boxIntersects : boxIntersects,
 //    boxExpand : boxExpand,
-    expand : expand,
+//    expand : expand,
 
 //    dimGet : dimGet,
 //    cornerLeftGet : cornerLeftGet,
@@ -4039,6 +4193,8 @@ var Self =
 //    fromPoints : fromPoints,
 //    fromCenterAndSize : fromCenterAndSize,
 //    fromSphere : fromSphere,
+    fromCube : fromCube,
+
   }
 
 }
