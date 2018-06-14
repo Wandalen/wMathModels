@@ -612,6 +612,31 @@ function sizeGet( box , dst )
 
 //
 
+/**
+* Expand all sides of a box by the dimensions in the expansion array.
+* Returns the expanded box. Box are stored in Array data structure.
+* The expansion array stays untouched, the box changes.
+*
+* @param { Array } box - box to be expanded.
+* @param { Array } expand - Array of reference with expansion dimensions.
+*
+* @example
+* // returns [ - 1, - 3, 4, 6 ];
+* _.expand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
+*
+* @example
+* // returns [ - 1, - 2, 2, 4 ];
+* _.expand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+*
+* @returns { Array } Returns the array of the box expanded.
+* @function expand
+* @throws { Error } An Error if ( dim ) is different than expand.length (the box and the expansion array don´t have the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( box ) is not box.
+* @throws { Error } An Error if ( expand ) is not an array.
+* @memberof wTools.box
+*/
+
 function expand( box , expand )
 {
 

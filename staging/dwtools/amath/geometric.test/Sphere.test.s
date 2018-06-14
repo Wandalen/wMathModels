@@ -1888,7 +1888,7 @@ var Self =
 //    radiusSet : radiusSet,
 
      fromPoints : fromPoints,
-  },
+  }
 
 }
 
