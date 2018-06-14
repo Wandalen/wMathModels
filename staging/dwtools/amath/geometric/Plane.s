@@ -41,6 +41,34 @@ function is( plane )
 
 //
 
+
+/**
+* Create a plane from another plane or a normal and a bias. Returns the new plane.
+* Planes are stored in Array data structure. Source plane/Normal and bias stay untouched, dst plane changes.
+*
+* @param { Array } dstplane - Destination plane to be expanded.
+* @param { Array } srcplane - Source plane.
+* Alternative to srcplane:
+* @param { Array } normal - Array of points with normal vector coordinates.
+* @param { Number } bias - Number with bias value.
+*
+* @example
+* // returns [ 0, 0, 1, 2 ];
+* _.from( [ 0, 0, 0, 0 ] , [ 0, 0, 1, 2 ] );
+*
+* @example
+* // returns [ 0, - 1, 2, 2 ];
+* _.from( [ 0, 0, 1, 1 ], [ 0, - 1, 2 ], 2 );
+*
+* @returns { Array } Returns the array of the new plane.
+* @function from
+* @throws { Error } An Error if ( arguments.length ) is different than two or three.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( normal ) is not array.
+* @throws { Error } An Error if ( bias ) is not number.
+* @memberof wTools.box
+*/
+
 function from( plane )
 {
 
@@ -49,7 +77,7 @@ function from( plane )
 
   _.assert( arguments.length === 2 || arguments.length === 3 );
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   var _plane = _.plane._from( plane );
   var normal = _.plane.normalGet( _plane );
@@ -58,13 +86,13 @@ function from( plane )
   if( arguments.length === 2 )
   {
     debugger;
-    throw _.err( 'not tested' );
+  //  throw _.err( 'not tested' );
     _.avector.assign( _plane,arguments[ 1 ] )
   }
   else if( arguments.length === 3 )
   {
     debugger;
-    throw _.err( 'not tested' );
+  //  throw _.err( 'not tested' );
     _.avector.assign( normal,vector.from( arguments[ 1 ] ) );
     _.plane.biasSet( _plane,arguments[ 2 ] );
   }
@@ -87,11 +115,11 @@ function fromNormalAndPoint( plane, anormal, apoint )
 
   _.assert( arguments.length === 3 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   debugger;
   normal.copy( anormal );
-  _.plane.biasSet( plane , - _.vector.dot( _.vector.from( point ) , normal ) );
+  _.plane.biasSet( plane , - _.vector.dot( _.vector.from( apoint ) , normal ) );
 
   return plane;
 }
@@ -110,7 +138,7 @@ function fromPoints( plane,a,b,c )
 
   _.assert( arguments.length === 4 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   a = _.vector.from( a );
   b = _.vector.from( b );
@@ -120,9 +148,9 @@ function fromPoints( plane,a,b,c )
   var n2 = vector.subVectors( c.clone() , b );
   var normal = vector.cross( n1,n2 );
   debugger;
-  norma.normalize();
+  normal.normalize();
 
-  plane.fromNormalAndPoint( plane, normal, a );
+  _.plane.fromNormalAndPoint( plane, normal, a );
 
   return plane;
 }
@@ -168,7 +196,7 @@ function biasSet( plane,bias )
   _.assert( _.numberIs( bias ) );
   _.assert( arguments.length === 2 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   return _plane.eSet( _plane.length-1,bias );
 }
