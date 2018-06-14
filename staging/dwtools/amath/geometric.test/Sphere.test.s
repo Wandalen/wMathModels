@@ -1847,6 +1847,224 @@ function fromPoints( test )
   });
 }
 
+//
+
+function fromCenterAndRadius( test )
+{
+
+  test.description = 'Center and radius remain unchanged and Destination sphere changes'; //
+
+  var dstsphere = [ 0, 0, 0, 1 ];
+  var center = [ 0, 0, 2 ];
+  var radius = 3;
+  var oldcenter = [ 0, 0, 2 ];
+  var oldradius = 3;
+  var expected = [ 0, 0, 2, 3 ];
+
+  sphere = _.sphere.fromCenterAndRadius( dstsphere, center, radius );
+  test.identical( sphere, expected );
+  test.identical( dstsphere, expected );
+  test.identical( center, oldcenter );
+  test.identical( radius, oldradius );
+
+  test.description = 'Create sphere of one dimension'; //
+
+  var sphere = null;
+  var center = [ 0 ];
+  var radius = 1;
+  var expected = [ 0, 1 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  test.description = 'Create sphere of two dimensions'; //
+
+  var sphere = null;
+  var center = [ 0, 1 ];
+  var radius = 1;
+  var expected = [ 0, 1, 1 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius );
+  test.identical( sphere, expected );
+
+  test.description = 'Create sphere three dimensions'; //
+
+  var sphere = null;
+  var center = [ 0, 0, 0 ];
+  var radius = 3;
+  var expected = [ 0, 0, 0, 3 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius );
+  test.identical( sphere, expected );
+
+  test.description = 'sphere expanded - center moved'; //
+
+  sphere = [ 0, 0, 0, 2 ];
+  var center = [ 0, - 5.5, 101 ];
+  var radius = 6;
+  expected = [ 0, - 5.5, 101, 6 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  test.description = 'sphere contracted'; //
+
+  sphere = [ 1, 1, 1, 2 ];
+  var center = [ 1, 1, 1 ];
+  var radius = 1;
+  expected = [ 1,  1, 1, 1 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  test.description = 'sphere ( normalized to 1 ) expanded'; //
+
+  sphere = [ 0.2, - 0.1, 0.6, 0.2 ];
+  var center = [ - 0.4,  0.1, 0.3 ];
+  var radius = 0.5;
+  expected = [ - 0.4,  0.1, 0.3, 0.5 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  test.description = 'Zero sphere of four dimensions expanded'; //
+
+  var sphere = [ 0, 0, 0, 0, 0 ];
+  var center = [ 0, 1, 2, 3 ];
+  var radius = 1;
+  var expected = [ 0, 1, 2, 3, 1 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  test.description = 'Null sphere of 7 dimensions expanded'; //
+
+  var sphere = [  0, 0, 0, 0, 0, 0, 0, 1 ];
+  var center = [  0, 3, 0, - 2, 0, 3, 0 ];
+  var radius = 2;
+  var expected = [ 0, 3, 0, - 2, 0, 3, 0, 2 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  test.description = 'sphere of 1 dimension expanded'; //
+
+  var sphere = [ 0, 0 ];
+  var center = [ 0 ];
+  var radius = 1;
+  var expected = [ 0, 1 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  test.description = 'NaN sphere of 1 dimension expanded'; //
+
+  var sphere = [ NaN, NaN ];
+  var center = [ 0 ];
+  var radius = 1;
+  var expected = [ 0, 1 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  test.description = 'sphere of 1 dimension no center - center NaN'; //
+
+  var sphere = [ 0, 1 ];
+  var center = [ NaN ];
+  var radius = 1;
+  var expected = [ NaN, 1 ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  test.description = 'sphere of 1 dimension not expanded - radius NaN'; //
+
+  var sphere = [ 0, 1 ];
+  var center = [ 0 ];
+  var radius = NaN;
+  var expected = [ 0, NaN ];
+
+  sphere = _.sphere.fromCenterAndRadius( sphere, center, radius);
+  test.identical( sphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.description = 'No arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius();
+  });
+
+  test.description = 'Wrong type of argument - none'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( [ ] , [ ], [ ]  );
+  });
+
+  test.description = 'Wrong type of argument - string'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( 'sphere', 'center', 'radius' );
+  });
+
+  test.description = 'Wrong type of argument - number'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( 1, 2, 4 );
+  });
+
+  test.description = 'Too little arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( [ 0, 0, 0 ] );
+  });
+
+  test.description = 'Too little arguments - no radius'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1, 1, 1 ] );
+  });
+
+  test.description = 'Too little arguments - no center'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], 1 );
+  });
+
+  test.description = 'too many arguments'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 0, 1 ], [ 2, 1 ], 3 );
+  });
+
+  test.description = 'Wrong center dimension ( sphere 3D vs center 4D )'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( [ 0, 0, 0, 0 ], [ 0, 1, 0, 2 ], 3 );
+  });
+
+  test.description = 'Wrong center dimension ( sphere 3D vs center 2D )'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( [ 0, 0, 0, 0 ], [ 2, 1 ], 2 );
+  });
+
+  test.description = 'Wrong center dimension ( sphere 2D vs center 1D )'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1 ], 1 );
+  });
+
+  test.description = 'Wrong radius dimension'; //
+  test.shouldThrowError( function()
+  {
+    _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1, 1 ], [1,0] );
+  });
+
+}
 
 // --
 // define class
@@ -1887,7 +2105,9 @@ var Self =
 //    radiusGet : radiusGet,
 //    radiusSet : radiusSet,
 
-     fromPoints : fromPoints,
+//     fromPoints : fromPoints,
+     fromCenterAndRadius : fromCenterAndRadius,
+
   }
 
 }
