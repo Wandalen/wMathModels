@@ -704,7 +704,7 @@ function translate( sphere,offset )
 }
 
 // --
-// prototype
+// define class
 // --
 
 var Proto =

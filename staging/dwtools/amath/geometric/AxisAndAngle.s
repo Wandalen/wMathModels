@@ -232,7 +232,7 @@ function zero( axisAndAngle,angle )
 }
 
 // --
-// prototype
+// define class
 // --
 
 var Proto =
