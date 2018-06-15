@@ -294,6 +294,32 @@ function pointCoplanarGet( plane , point )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
+  var distance = _.vector.dot( normal , _point ) + bias;
+
+  _.assert( arguments.length === 1 || arguments.length === 2 );
+  debugger;
+  //throw _.err( 'not tested' );
+
+ var normod = _.vector.dot( normal, normal);
+
+  normal = normal/normod;
+  _point = _.avector.add( _point , normal*distance  );
+
+
+return _point;
+}
+
+function alternativepointCoplanarGet( plane , point )
+{
+
+  if( !point )
+  point = [ 0,0,0 ];
+
+  var _point = _.vector.fromArray( point );
+  var _plane = _.plane._from( plane );
+  var normal = _.plane.normalGet( _plane );
+  var bias = _.plane.biasGet( _plane );
+
   _.assert( arguments.length === 1 || arguments.length === 2 );
   debugger;
   //throw _.err( 'not tested' );
