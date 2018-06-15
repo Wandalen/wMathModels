@@ -248,6 +248,25 @@ function biasSet( plane,bias )
 
 //
 
+/**
+* Get the distance between a point and a plane. Returns the distance value.
+* The point an the plane remain unchanged.
+*
+* @param { Array } plane - Source plane.
+* @param { Vector } point - Source point.
+*
+* @example
+* // returns 1;
+* _.pointsDistance( [ 0, 1, 0, 1 ] , _.vector.from( [ 0, 0, 1 ] ) );
+*
+* @returns { Number } Returns the distance from the point to the plane.
+* @function pointDistance
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( point ) is not a vector.
+* @memberof wTools.box
+*/
+
 function pointDistance( plane , point )
 {
 
@@ -258,7 +277,8 @@ function pointDistance( plane , point )
 
   _.assert( arguments.length === 2 );
 
-  return _.vector.dot( normal , point ) + bias;
+  var distance = _.vector.dot( normal , point ) + bias;
+  return distance;
 }
 
 //

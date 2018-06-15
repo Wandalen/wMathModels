@@ -14,8 +14,8 @@ var pointb = [ 0, 1, 1];
 var pointc = [ 1, 0, 1];
 //pointc = _.vector.from(pointc);
 var plane = _.plane.fromPoints( plane, pointa, pointb, pointc );
+console.log('Plane 3D fromPoints: a: ',pointa,' b: ', pointb, ' c: ', pointc,' plane: ', plane );
 
-console.log('Plane 3D: ',plane);
 var normal = _.plane.normalGet( plane );
 console.log('normal: ',normal);
 var bias = _.plane.biasGet( plane );
@@ -23,12 +23,14 @@ console.log('bias: ',bias);
 
 var plane = _.plane.fromNormalAndPoint( plane, normal, pointc );
 
-console.log('Plane 3D fromNormalAndPoint: ',plane,' point: ', pointc );
+console.log('Plane 3D fromNormalAndPoint:',plane,' point: ', pointc );
 
+var plane = [ - 1, - 1, - 1, - 1 ];
+//plane = _.vector.from(plane);
+pointa = _.vector.from(pointa);
+var dist = _.plane.pointDistance(plane, pointa);
 
-var plane = _.plane.from( [ 0, 0, 0, 0 ], [ 0, 0, 1 ],  2 );
-
-console.log('Plane 3D: ',plane);
+console.log('Distance: ',dist);
 
 
 // console.log('Array: ',sphere,' - Vector: ', vsphere );

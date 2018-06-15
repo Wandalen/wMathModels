@@ -487,6 +487,127 @@ function fromPoints( test )
   test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0, 0 ], [ 0, 4, 1, 0 ], [ 0, 0, 1, 1 ], [ 0, 2, 2, 0 ] ));
 }
 
+function pointDistance( test )
+{
+
+  test.description = 'Point and plane stay unchanged'; //
+
+  var plane = [ 0, 0 , 1, 2 ];
+  var point = [ 0, 1, 0 ];
+  point = _.vector.from( point );
+  var oldplane = [ 0, 0, 1, 2 ];
+  var oldpoint = [ 0, 1, 0 ];
+  oldpoint = _.vector.from( point );
+  var expected = 2;
+
+  var distance = _.plane.pointDistance( plane, point );
+  test.identical( expected, distance );
+  test.identical( plane, oldplane );
+  test.identical( point, oldpoint );
+
+  test.description = 'NaN plane'; //
+
+  var plane = [ NaN, NaN, NaN, NaN ];
+  var point = [ 2, 1, 0 ];
+  point = _.vector.from( point );
+  var expected = NaN;
+
+  var plane = _.plane.pointDistance( plane, point );
+  test.identical( plane, expected );
+
+  test.description = 'NaN point'; //
+
+  var plane = [ 0, 0, 0, 0 ];
+  point = [ NaN, NaN, NaN ];
+  point = _.vector.from( point );
+  var expected = NaN;
+
+  var plane = _.plane.pointDistance( plane, point );
+  test.identical( plane, expected );
+
+  test.description = 'Trivial'; //
+
+  var plane = [ 0, 2, 0, 2 ];
+  point = [ 1, 1, 1 ];
+  point = _.vector.from( point );
+  var expected = 4;
+
+  var plane = _.plane.pointDistance( plane, point );
+  test.identical( plane, expected );
+
+
+  test.description = 'Point under plane'; //
+
+  var plane = [ 1, 1, 1, 1 ];
+  point = [ 0, 0, 0 ];
+  point = _.vector.from( point );
+  var expected = 1;
+
+  var plane = _.plane.pointDistance( plane, point );
+  test.identical( plane, expected );
+
+  test.description = 'Point over plane'; //
+
+  var plane = [ - 1, - 1, - 1, - 1 ];
+  point = [ 0, 0, 0 ];
+  point = _.vector.from( point );
+  var expected = - 1;
+
+  var plane = _.plane.pointDistance( plane, point );
+  test.identical( plane, expected );
+
+  test.description = 'Decimal numbers'; //
+
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  point = [ 0, 0.2, 0.6 ];
+  point = _.vector.from( point );
+  var expected = 0;
+
+  var plane = _.plane.pointDistance( plane, point );
+  test.equivalent( plane, expected );
+
+  test.description = 'Points in plane'; //
+
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var a = [ 0, 0, 1 ];
+  var b = [ 0, 0, 2 ];
+  var c = [ 0, 0, 3 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var plane = _.plane.fromPoints( plane, a, b, c );
+  test.equivalent( plane, expected );
+
+
+  a = _.vector.from( a );
+  b = _.vector.from( b );
+  c = _.vector.from( c );
+  expected = 0;
+
+  var dist = _.plane.pointDistance( plane, a );
+  test.equivalent( dist, expected );
+  var dist = _.plane.pointDistance( plane, b );
+  test.equivalent( dist, expected );
+  var dist = _.plane.pointDistance( plane, c );
+  test.equivalent( dist, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 1, 0, 0 ], [ 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0, 0 ], [ 2, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], [ 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( NaN, [ 0, 1, 0 ] ));
+}
+
 // --
 // define class
 // --
@@ -504,8 +625,8 @@ var Self =
 
 //   from : from,
 //   fromNormalAndPoint : fromNormalAndPoint,
-   fromPoints : fromPoints,
-//   pointDistance : pointDistance,
+//   fromPoints : fromPoints,
+   pointDistance : pointDistance,
 //   pointCoplanarGet : pointCoplanarGet,
 
 //   sphereDistance : sphereDistance,
