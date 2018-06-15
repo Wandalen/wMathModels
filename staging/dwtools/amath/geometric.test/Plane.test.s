@@ -608,6 +608,24 @@ function pointDistance( test )
   test.shouldThrowErrorSync( () => _.plane.pointDistance( NaN, [ 0, 1, 0 ] ));
 }
 
+function sphereDistance( test )
+{
+
+  test.description = 'Sphere and plane stay unchanged'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var sphere = [ 2, 0, 0, 1 ];
+  var oldplane = [ 1, 0, 0, 1 ];
+  var oldsphere = [ 2, 0, 0, 1];
+  var expected = 2;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+  test.identical( expected, distance );
+  test.identical( plane, oldplane );
+  test.identical( sphere, oldsphere );
+
+}
+
 // --
 // define class
 // --
@@ -626,10 +644,10 @@ var Self =
 //   from : from,
 //   fromNormalAndPoint : fromNormalAndPoint,
 //   fromPoints : fromPoints,
-   pointDistance : pointDistance,
+//   pointDistance : pointDistance,
 //   pointCoplanarGet : pointCoplanarGet,
 
-//   sphereDistance : sphereDistance,
+   sphereDistance : sphereDistance,
 
 //   lineIntersects : lineIntersects,
 

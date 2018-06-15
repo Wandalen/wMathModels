@@ -296,15 +296,34 @@ function pointCoplanarGet( plane , point )
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   _.avector.assign( _point , normal  );
-  _.avector.mulScalar( -bias );
+  _.avector.mulScalar( _point, -bias );
 
   return point
 }
 
 //
+
+/**
+* Get the distance between a plane and a sphere. Returns the distance value.
+* The sphere an the plane remain unchanged.
+*
+* @param { Array } plane - Source plane.
+* @param { Array } sphere - Source sphere.
+*
+* @example
+* // returns 1;
+* _.sphereDistance( [ 0, 1, 0, 1 ] , [ 0, 0, 2, 1 ]);
+*
+* @returns { Number } Returns the distance from the sphere to the plane.
+* @function sphereDistance
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.box
+*/
 
 function sphereDistance( plane , sphere )
 {
@@ -312,13 +331,16 @@ function sphereDistance( plane , sphere )
   var _plane = _.plane._from( plane );
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
+  var center = _.sphere.centerGet( sphere );
+  center = _.vector.from( center );
 
   _.assert( arguments.length === 2 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
-  var d = _.plane.pointDistance( plane , sphere );
-  return d - _.sphere.radiusGet( sphere );
+  var d = _.plane.pointDistance( plane , center );
+  d = d - _.sphere.radiusGet( sphere );
+  return d;
 }
 
 //
