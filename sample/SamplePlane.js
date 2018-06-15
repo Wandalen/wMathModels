@@ -23,7 +23,7 @@ console.log('bias: ',bias);
 
 var plane = _.plane.fromNormalAndPoint( plane, normal, pointc );
 
-console.log('Plane 3D: ',plane);
+console.log('Plane 3D fromNormalAndPoint: ',plane,' point: ', pointc );
 
 
 var plane = _.plane.from( [ 0, 0, 0, 0 ], [ 0, 0, 1 ],  2 );

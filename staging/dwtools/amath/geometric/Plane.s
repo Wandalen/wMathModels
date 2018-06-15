@@ -103,6 +103,27 @@ function from( plane )
 
 //
 
+/**
+* Create a plane from a normal and a point. Returns the new plane.
+* Planes are stored in Array data structure. Normal and point stay untouched, plane changes.
+*
+* @param { Array } plane - Plane to be modified.
+* @param { Array } anormal - Array of points with normal vector coordinates.
+* @param { Array } abias - Array with point coordinates.
+*
+* @example
+* // returns [ 0, 0, 1, 2 ];
+* _.fromNormalAndPoint( [ 0, 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
+*
+* @returns { Array } Returns the array of the new plane.
+* @function fromNormalAndPoint
+* @throws { Error } An Error if ( arguments.length ) is different than three.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( anormal ) is not array.
+* @throws { Error } An Error if ( apoint ) is not a point.
+* @memberof wTools.box
+*/
+
 function fromNormalAndPoint( plane, anormal, apoint )
 {
 
@@ -125,6 +146,29 @@ function fromNormalAndPoint( plane, anormal, apoint )
 }
 
 //
+
+/**
+* Create a plane from three points. Returns the new plane.
+* Planes are stored in Array data structure. The points remain untouched, plane changes.
+*
+* @param { Array } plane - Plane to be modified.
+* @param { Array } a - First point in the new plane.
+* @param { Array } b - Second point in the new plane.
+* @param { Array } c - Third point in the new plane.
+*
+* @example
+* // returns [ 0, 1, 0, 0 ];
+* _.fromPoints( [ 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
+*
+* @returns { Array } Returns the array of the new plane.
+* @function fromPoints
+* @throws { Error } An Error if ( arguments.length ) is different than four.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( a ) is not a point.
+* @throws { Error } An Error if ( b ) is not a point.
+* @throws { Error } An Error if ( c ) is not a point.
+* @memberof wTools.box
+*/
 
 function fromPoints( plane,a,b,c )
 {
