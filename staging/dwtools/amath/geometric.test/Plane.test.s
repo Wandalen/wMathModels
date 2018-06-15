@@ -704,6 +704,107 @@ function sphereDistance( test )
 
 }
 
+
+function pointCoplanarGet( test )
+{
+
+  test.description = 'Plane remains unchanged, point changes'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = [ 2, 0, 2 ];
+  var oldplane = [ 1, 0, 0, 1 ];
+  var expected = [ - 1, 0, 2 ];
+
+  point = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, point );
+  test.identical( plane, oldplane );
+
+  test.description = 'No point'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var expected = [ - 1, 0, 0 ];
+
+  point = _.plane.pointCoplanarGet( plane );
+  test.identical( expected, point );
+
+  test.description = 'Null point'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = null;
+  var expected = [ - 1, 0, 0 ];
+
+  point = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, point );
+
+  test.description = 'NaN point'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = NaN;
+  var expected = [ - 1, 0, 0 ];
+
+  point = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, point );
+
+  test.description = 'NaN array point'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = [ NaN, NaN, NaN ];
+  var expected = [ NaN, NaN, NaN ];
+
+  point = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, point );
+
+  test.description = 'Trivial'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = [ 1, 3, 2 ];
+  var expected = [ - 1, 3, 2 ];
+
+  point = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, point );
+
+  test.description = 'Trivial 2'; //
+
+  var plane = [ 1, 0 , - 1, 0 ];
+  var point = [ 2, 3, 2 ];
+  var expected = [ 2, 3, 2 ];
+
+  point = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, point );
+
+  test.description = 'Proyection 3D'; //
+
+  var plane = [ 2, - 1 , 3, 1 ];
+  var point = [ 4, 1, -3 ];
+  var expected = [ 29/7, 13/14, -39/14  ];
+
+  point = _.plane.pointCoplanarGet( plane, point );
+  test.equivalent( expected, point );
+
+  test.description = 'Point in plane'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = [ - 1, 2, 3 ];
+  var expected = [ - 1, 2, 3 ];
+
+  point = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, point );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN, 'point' ));
+
+}
+
 // --
 // define class
 // --
@@ -719,11 +820,11 @@ var Self =
   tests :
   {
 
-//   from : from,
-//   fromNormalAndPoint : fromNormalAndPoint,
-//   fromPoints : fromPoints,
-//   pointDistance : pointDistance,
-//   pointCoplanarGet : pointCoplanarGet,
+   from : from,
+   fromNormalAndPoint : fromNormalAndPoint,
+   fromPoints : fromPoints,
+   pointDistance : pointDistance,
+   pointCoplanarGet : pointCoplanarGet,
 
    sphereDistance : sphereDistance,
 

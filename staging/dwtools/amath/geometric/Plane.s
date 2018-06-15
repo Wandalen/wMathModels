@@ -283,11 +283,30 @@ function pointDistance( plane , point )
   var distance = ( _.vector.dot( normal , point ) + bias ) / mod ;
 
   distance = Math.abs( distance );
-  
+
   return distance;
 }
 
 //
+
+/**
+* Get the proyection of a point in a plane. Returns the new point coordinates.
+* The plane remains unchanged, the point changes.
+*
+* @param { Array } plane - Source plane.
+* @param { Array } point - Source and destination point.
+*
+* @example
+* // returns [ - 1, 2, 2 ];
+* _.pointCoplanarGet( [ 1, 0, 0, 1 ] , [ 2, 2, 2 ]);
+*
+* @returns { Array } Returns the new point in the plane.
+* @function pointCoplanarGet
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( point ) is not point.
+* @memberof wTools.box
+*/
 
 function pointCoplanarGet( plane , point )
 {
@@ -296,26 +315,24 @@ function pointCoplanarGet( plane , point )
   point = [ 0,0,0 ];
 
   var _point = _.vector.fromArray( point );
-  var _plane = _.plane._from( plane );
+  var _plane = _.plane._from( plane.slice() );
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
-
-  var distance = _.vector.dot( normal , _point ) + bias;
+  
+  var lambda = - (( _.vector.dot( normal , _point ) + bias ) / _.vector.dot( normal, normal ) ) ;
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
   debugger;
   //throw _.err( 'not tested' );
 
- var normod = _.vector.dot( normal, normal);
+  var movement = _.vector.mulScalar( normal, lambda );
 
-  normal = normal/normod;
-  _point = _.avector.add( _point , normal*distance  );
+  _point = _.avector.add( _point ,  movement  );
 
-
-return _point;
+  return _point;
 }
 
-function alternativepointCoplanarGet( plane , point )
+function OldpointCoplanarGet( plane , point )
 {
 
   if( !point )
