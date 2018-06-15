@@ -289,7 +289,7 @@ function fromNormalAndPoint( test )
 
   var dstplane = [ 1, 0, 1, 2 ];
   var normal = [ 1, 2, 1 ];
-  var point = [ 0, 3, 0 ]
+  var point = [ 0, 3, 0 ];
   var expected = [ 1, 2, 1, - 6 ];
 
   var plane = _.plane.fromNormalAndPoint( dstplane, normal, point );
@@ -353,6 +353,140 @@ function fromNormalAndPoint( test )
   test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], NaN ));
 }
 
+
+function fromPoints( test )
+{
+
+  test.description = 'Points stay unchanged, dst plane changes'; //
+
+  var dstplane = [ 0, 0 , 1, 2 ];
+  var a = [ 0, 1, 0 ];
+  var b = [ 0, 3, 4 ];
+  var c = [ 0, 2, 0 ];
+  var olda = [ 0, 1, 0 ];
+  var oldb = [ 0, 3, 4 ];
+  var oldc = [ 0, 2, 0 ];
+  var expected = [ 1, 0, 0, 0 ];
+
+  var plane = _.plane.fromPoints( dstplane, a, b, c );
+  test.identical( plane, dstplane );
+  test.identical( expected, dstplane );
+  test.identical( a, olda );
+  test.identical( b, oldb );
+  test.identical( c, oldc );
+
+  test.description = 'NaN plane'; //
+
+  var dstplane = [ NaN, NaN, NaN, NaN ];
+  var a = [ 2, 1, 0 ];
+  var b = [ 2, 3, 4 ];
+  var c = [ 2, 2, 0 ];
+  var expected = [ 1, 0, 0, - 2 ];
+
+  var plane = _.plane.fromPoints( dstplane, a, b, c  );
+  test.identical( plane, expected );
+
+  test.description = 'null plane from normal and point'; //
+
+  var dstplane = null;
+  var a = [ 0, 1, 0 ];
+  var b = [ 0, 3, 4 ];
+  var c = [ 0, 2, 0 ];
+  var expected = [ 1, 0, 0, 0 ];
+
+  var plane = _.plane.fromPoints( dstplane, a, b, c  );
+  test.identical( plane, expected );
+
+  test.description = 'NaN point'; //
+
+  var dstplane = [ 0, 0, 0, 0 ];
+  var a = [ NaN, NaN, NaN ];
+  var b = [ 0, 3, 4 ];
+  var c = [ 0, 2, 0 ];
+  var expected = [ NaN, NaN, NaN, NaN ];
+
+  var plane = _.plane.fromPoints( dstplane, a, b, c  );
+  test.identical( plane, expected );
+
+  test.description = 'Erase plane'; //
+
+  var dstplane = [ 1, 1, 1, 1 ];
+  var a = [ 0, 0, 0 ];
+  var b = [ 0, 0, 0 ];
+  var c = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var plane = _.plane.fromPoints( dstplane, a, b, c  );
+  test.identical( plane, expected );
+
+  test.description = 'Change plane'; //
+
+  var dstplane = [ 1, 0, 1, 2 ];
+  var a = [ 1, 3, 0 ];
+  var b = [ 1, 3, 4 ];
+  var c = [ 1, 2, 0 ];
+  var expected = [ - 1, 0, 0, 1 ];
+
+  var plane = _.plane.fromPoints( dstplane, a, b, c  );
+  test.identical( plane, expected );
+
+  test.description = 'Negative numbers'; //
+
+  var dstplane = [ - 1, - 3, - 1, 3 ];
+  var a = [ 2, 0, 2 ];
+  var b = [ 2, - 2, - 2 ];
+  var c = [ 2, 2, 0 ];
+  var expected = [ - 1, 0, 0, 2 ];
+
+  var plane = _.plane.fromPoints( dstplane, a, b, c  );
+  test.identical( plane, expected );
+
+  test.description = 'Decimal numbers'; //
+
+  var dstplane = [ 0.2, 0.3, - 0.1, 0 ];
+  var a = [ 0, 0.2, 0.6 ];
+  var b = [ 0, 0, 4.2 ];
+  var c = [ 0, 0.3, 0 ];
+  var expected = [ 1, 0, 0, 0 ];
+
+  var plane = _.plane.fromPoints( dstplane, a, b, c  );
+  test.equivalent( plane, expected );
+
+  test.description = 'Points in same direction - no plane'; //
+
+  var dstplane = [ 0.2, 0.3, - 0.1, 0 ];
+  var a = [ 0, 0, 1 ];
+  var b = [ 0, 0, 2 ];
+  var c = [ 0, 0, 3 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var plane = _.plane.fromPoints( dstplane, a, b, c  );
+  test.equivalent( plane, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0, 2 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0, 1, 2 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], null, [ 1, 0, 0 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 1, 0 ], null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 1, 0, 0 ], [ 0, 0, 1 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], NaN, [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], NaN, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 1 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0 ], [ 0, 4 ], [ 0, 1 ], [ 0, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0, 0 ], [ 0, 4, 1, 0 ], [ 0, 0, 1, 1 ], [ 0, 2, 2, 0 ] ));
+}
+
 // --
 // define class
 // --
@@ -369,8 +503,8 @@ var Self =
   {
 
 //   from : from,
-   fromNormalAndPoint : fromNormalAndPoint,
-//   fromPoints : fromPoints,
+//   fromNormalAndPoint : fromNormalAndPoint,
+   fromPoints : fromPoints,
 //   pointDistance : pointDistance,
 //   pointCoplanarGet : pointCoplanarGet,
 

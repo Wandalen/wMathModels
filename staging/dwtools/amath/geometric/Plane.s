@@ -163,6 +163,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
 * @returns { Array } Returns the array of the new plane.
 * @function fromPoints
 * @throws { Error } An Error if ( arguments.length ) is different than four.
+* @throws { Error } An Error if ( dim ) point dimension is different than three.
 * @throws { Error } An Error if ( plane ) is not plane.
 * @throws { Error } An Error if ( a ) is not a point.
 * @throws { Error } An Error if ( b ) is not a point.
