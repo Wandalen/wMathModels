@@ -541,7 +541,7 @@ function pointDistance( test )
   var plane = [ 0, 0, 1, 1 ];
   point = [ 0, 0, - 2 ];
   point = _.vector.from( point );
-  var expected = - 1;
+  var expected = 1;
 
   var plane = _.plane.pointDistance( plane, point );
   test.identical( plane, expected );
@@ -637,7 +637,7 @@ function sphereDistance( test )
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 1, 1, 1, 1 ];
-  var expected = 3;
+  var expected = 1;
 
   var plane = _.plane.sphereDistance( plane, sphere );
   test.identical( plane, expected );
@@ -655,7 +655,7 @@ function sphereDistance( test )
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, 0, 0, 1.5 ];
-  var expected = 0.5;
+  var expected = - 0.5;
 
   var plane = _.plane.sphereDistance( plane, sphere );
   test.identical( plane, expected );
@@ -664,38 +664,28 @@ function sphereDistance( test )
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var plane = _.plane.sphereDistance( plane, sphere );
+  test.identical( plane, expected );
+
+  test.description = 'Sphere under plane'; //
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ - 1, - 1, - 1, 1 ];
   var expected = 1;
 
   var plane = _.plane.sphereDistance( plane, sphere );
   test.identical( plane, expected );
 
-  test.description = 'Trivial'; //
+  test.description = 'Sphere over plane'; //
 
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0, - 2, 0, 1 ];
-  var expected = - 3;
-
-  var plane = _.plane.sphereDistance( plane, sphere );
-  test.identical( plane, expected );
-
-  test.description = 'Trivial'; //
-
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 1, 1, 1, 1 ];
-  var expected = 3;
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ 0, 3, 0, 1 ];
+  var expected = 1;
 
   var plane = _.plane.sphereDistance( plane, sphere );
   test.identical( plane, expected );
-
-  test.description = 'Trivial'; //
-
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 1, 1, 1, 1 ];
-  var expected = 3;
-
-  var plane = _.plane.sphereDistance( plane, sphere );
-  test.identical( plane, expected );
-
 
   /* */
 
@@ -732,10 +722,10 @@ var Self =
 //   from : from,
 //   fromNormalAndPoint : fromNormalAndPoint,
 //   fromPoints : fromPoints,
-   pointDistance : pointDistance,
+//   pointDistance : pointDistance,
 //   pointCoplanarGet : pointCoplanarGet,
 
-//   sphereDistance : sphereDistance,
+   sphereDistance : sphereDistance,
 
 //   lineIntersects : lineIntersects,
 
