@@ -277,7 +277,11 @@ function pointDistance( plane , point )
 
   _.assert( arguments.length === 2 );
 
-  var distance = _.vector.dot( normal , point ) + bias;
+  var mod = _.vector.dot(normal, normal);
+  mod = Math.sqrt(mod);
+
+  var distance = ( _.vector.dot( normal , point ) + bias ) / mod ;
+
   return distance;
 }
 
@@ -357,6 +361,7 @@ function sphereDistance( plane , sphere )
   var _plane = _.plane._from( plane );
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
+
   var center = _.sphere.centerGet( sphere );
   center = _.vector.from( center );
 
@@ -365,7 +370,9 @@ function sphereDistance( plane , sphere )
   //throw _.err( 'not tested' );
 
   var d = _.plane.pointDistance( plane , center );
+  console.log('distance', d);
   d = d - _.sphere.radiusGet( sphere );
+  console.log('distance', d, ' radius ', _.sphere.radiusGet( sphere ));
   return d;
 }
 

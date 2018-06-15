@@ -5,8 +5,6 @@
 if( typeof module !== 'undefined' )
 {
 
-  //
-
   if( typeof _global_ === 'undefined' || !_global_.wBase )
   {
     let toolsPath = '../../../dwtools/Base.s';
@@ -31,6 +29,8 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathVector' );
 
   require( '../geometric/Plane.s' );
+  require( '../geometric/Sphere.s' );
+  require( '../geometric/Box.s' );
 
 }
 
@@ -527,10 +527,10 @@ function pointDistance( test )
 
   test.description = 'Trivial'; //
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 0, 1, 0, 2 ];
   point = [ 1, 1, 1 ];
   point = _.vector.from( point );
-  var expected = 4;
+  var expected = 3;
 
   var plane = _.plane.pointDistance( plane, point );
   test.identical( plane, expected );
@@ -538,20 +538,20 @@ function pointDistance( test )
 
   test.description = 'Point under plane'; //
 
-  var plane = [ 1, 1, 1, 1 ];
-  point = [ 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 1 ];
+  point = [ 0, 0, - 2 ];
   point = _.vector.from( point );
-  var expected = 1;
+  var expected = - 1;
 
   var plane = _.plane.pointDistance( plane, point );
   test.identical( plane, expected );
 
   test.description = 'Point over plane'; //
 
-  var plane = [ - 1, - 1, - 1, - 1 ];
-  point = [ 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 1 ];
+  point = [ 0, 0, 2 ];
   point = _.vector.from( point );
-  var expected = - 1;
+  var expected = 3;
 
   var plane = _.plane.pointDistance( plane, point );
   test.identical( plane, expected );
@@ -570,9 +570,9 @@ function pointDistance( test )
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var a = [ 0, 0, 1 ];
-  var b = [ 0, 0, 2 ];
+  var b = [ 0, 1, 0 ];
   var c = [ 0, 0, 3 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = [ - 1, 0, 0, 0 ];
 
   var plane = _.plane.fromPoints( plane, a, b, c );
   test.equivalent( plane, expected );
@@ -624,6 +624,94 @@ function sphereDistance( test )
   test.identical( plane, oldplane );
   test.identical( sphere, oldsphere );
 
+  test.description = 'Trivial'; //
+
+  var sphere = [ 2, 0, 0, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 2;
+
+  var plane = _.plane.sphereDistance( plane, sphere );
+  test.identical( plane, expected );
+
+  test.description = 'Trivial 2'; //
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 1, 1, 1, 1 ];
+  var expected = 3;
+
+  var plane = _.plane.sphereDistance( plane, sphere );
+  test.identical( plane, expected );
+
+  test.description = 'Center in plane'; //
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, - 1, 0, 1 ];
+  var expected = - 1;
+
+  var plane = _.plane.sphereDistance( plane, sphere );
+  test.identical( plane, expected );
+
+  test.description = 'Sphere cuts plane'; //
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1.5 ];
+  var expected = 0.5;
+
+  var plane = _.plane.sphereDistance( plane, sphere );
+  test.identical( plane, expected );
+
+  test.description = 'Sphere touches plane'; //
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 1;
+
+  var plane = _.plane.sphereDistance( plane, sphere );
+  test.identical( plane, expected );
+
+  test.description = 'Trivial'; //
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, - 2, 0, 1 ];
+  var expected = - 3;
+
+  var plane = _.plane.sphereDistance( plane, sphere );
+  test.identical( plane, expected );
+
+  test.description = 'Trivial'; //
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 1, 1, 1, 1 ];
+  var expected = 3;
+
+  var plane = _.plane.sphereDistance( plane, sphere );
+  test.identical( plane, expected );
+
+  test.description = 'Trivial'; //
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 1, 1, 1, 1 ];
+  var expected = 3;
+
+  var plane = _.plane.sphereDistance( plane, sphere );
+  test.identical( plane, expected );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( NaN, [ 0, 1, 0 ] ));
+
 }
 
 // --
@@ -644,10 +732,10 @@ var Self =
 //   from : from,
 //   fromNormalAndPoint : fromNormalAndPoint,
 //   fromPoints : fromPoints,
-//   pointDistance : pointDistance,
+   pointDistance : pointDistance,
 //   pointCoplanarGet : pointCoplanarGet,
 
-   sphereDistance : sphereDistance,
+//   sphereDistance : sphereDistance,
 
 //   lineIntersects : lineIntersects,
 
