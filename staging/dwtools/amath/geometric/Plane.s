@@ -512,8 +512,6 @@ function matrixHomogenousApply( plane , matrix )
 
 //
 
-
-
 /**
 * Translates a plane by a given offset. Returns the new plane coordinates.
 * The offset remains unchanged, the plane changes.
@@ -556,6 +554,27 @@ function translate( plane , offset )
 
 //
 
+/**
+* Normalize a plane coordinates. Returns the normalized plane coordinates.
+* The plane changes.
+*
+* @param { Array } plane - Source and destination plane.
+*
+* @example
+* // returns [ 1, 0, 0, 0 ];
+* _.normalize( [ 1, 0, 0, 0 ] );
+*
+* @example
+* // returns [ 1, 0, 0, 2 ]
+* _.translate( [ 1, 0, 0, 2 ]  );
+*
+* @returns { Array } Returns the normalized plane.
+* @function normalize
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @memberof wTools.box
+*/
+
 function normalize( plane )
 {
 
@@ -565,7 +584,7 @@ function normalize( plane )
 
   _.assert( arguments.length === 1 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   var scaler = 1.0 / normal.mag();
   normal.mulScalar( scaler );
