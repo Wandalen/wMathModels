@@ -3,11 +3,10 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var plane = [ 1, 0, 0, 0 ];
-var line = [ [ - 2, 0, 0 ], [ 0, 0, 0 ] ];
+var plane = [ 4, 0, 0, 4, 0, 4, 8 ];
 //point = _.vector.from( point );
 
-console.log('Plane: ', plane, ' - Line: ', line[0], ' - ', line[1] );
-var inter = _.plane.lineIntersects( plane , line );
+console.log('Plane: ', plane );
+var inter = _.plane.normalize( plane );
 
-console.log('line intersection: ', inter);
+console.log('line intersection: ', plane);

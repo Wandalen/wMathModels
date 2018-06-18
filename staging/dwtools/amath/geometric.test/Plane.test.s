@@ -901,6 +901,333 @@ function lineIntersects( test )
 
 }
 
+function translate( test )
+{
+
+  test.description = 'Offset remains unchanged, plane changes'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var offset = [ 1, 0, 1 ];
+  var oldOffset = [ 1, 0, 1 ];
+  var expected = [ 1, 0, 0, 0 ];
+
+  var newplane = _.plane.translate( plane, offset );
+  test.identical( expected, newplane );
+  test.identical( plane, newplane );
+  test.identical( offset, oldOffset );
+
+  test.description = 'No change (normal and offset are perpendicular)'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var offset = [ 0, 2, 3 ];
+  var expected = [ 1, 0 , 0, 1 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.identical( expected, offset );
+
+  test.description = 'No change'; //
+
+  var plane = [ 1, 0 , - 1, 0 ];
+  var offset = [ 2, 2, 2 ];
+  var expected = [ 1, 0 , - 1, 0 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.identical( expected, offset );
+
+  test.description = 'Trivial translation'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var offset = [ 3, 2, 3 ];
+  var expected =  [ 1, 0 , 0, - 3 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.equivalent( expected, offset );
+
+  test.description = 'Negative offset'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var offset = [ - 3, - 2, - 3 ];
+  var expected =  [ 1, 0 , 0, 3 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.equivalent( expected, offset );
+
+  test.description = 'More dimensions'; //
+
+  var plane = [ 1, 0 , 0, 2, 3, 4, 0 ];
+  var offset = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = [ 1, 0 , 0, 2, 3, 4, -16 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.identical( expected, offset );
+
+  test.description = 'NaN offset'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var offset = [ NaN, NaN, NaN ];
+  var expected =  [ 1, 0 , 0, NaN ];
+
+  offset = _.plane.translate( plane, offset );
+  test.equivalent( expected, offset );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.translate( ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ], [ 0, 0, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ], [ 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( null, [ 0, 0, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( NaN, [ 0, 0, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 2 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 2 ], NaN));
+  test.shouldThrowErrorSync( () => _.plane.translate( 'plane', 'offset' ));
+
+}
+
+
+function normalize( test )
+{
+
+  test.description = 'Plane changes'; //
+
+  var plane = [ 2, 0 , 0, 1 ];
+  var expected = [ 1, 0, 0, 0.5 ];
+
+  var newplane = _.plane.normalize( plane );
+  test.identical( expected, newplane );
+  test.identical( plane, newplane );
+
+  test.description = 'Trivial '; //
+
+  var plane = [ 2, 0 , 0, 4 ];
+  var expected =  [ 1, 0 , 0, 2 ];
+
+  var result = _.plane.normalize( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Trivial'; //
+
+  var plane = [ 2, 2 , 2, 4 ];
+  var expected = [ 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 4/Math.sqrt( 12 ) ];
+
+  result = _.plane.normalize( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Already normalized 1D'; //
+
+  var plane = [ 1, 0 , 0, 3 ];
+  var expected = [ 1, 0 , 0, 3 ];
+
+  result = _.plane.normalize( plane );
+  test.identical( expected, result );
+
+  test.description = 'Already normalized'; //
+
+  var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
+  var expected = [1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
+
+  result = _.plane.normalize( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Negative coordinates'; //
+
+  var plane = [ - 3, - 6 , 0, 8 ];
+  var expected =  [ - 3/Math.sqrt( 45 ), - 6/Math.sqrt( 45 ) , 0, 8/Math.sqrt( 45 ) ];
+
+  result = _.plane.normalize( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'More dimensions'; //
+
+  var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
+  var expected = [ 4/Math.sqrt( 48 ), 0 , 0, 4/Math.sqrt( 48 ), 0, 4/Math.sqrt( 48 ), 8/Math.sqrt( 48 ) ];
+
+  result = _.plane.normalize( plane );
+  test.identical( expected, result );
+
+  test.description = 'NaN result'; //
+
+  var plane = [ NaN, NaN, NaN, NaN ];
+  var expected =  [ NaN, NaN, NaN, NaN ];
+
+  result = _.plane.normalize( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Plane  [ 0 ]'; //
+
+  var plane = [ 0 ];
+  var expected =  [ NaN ];
+
+  result = _.plane.normalize( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Null coordinate'; //
+
+  var plane = [ 1, null, 0, 0 ];
+  var expected =  [ 1, 0, 0, 0 ];
+
+  result = _.plane.normalize( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'NaN coordinates'; //
+
+  var plane = [ 1, NaN, 0, 0 ];
+  var expected =  [ NaN, NaN, NaN, NaN ];
+
+  result = _.plane.normalize( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'String coordinates'; //
+
+  var plane = [ 1, 'string', 0, 0 ];
+  var expected =  [ NaN, NaN, NaN, NaN ];
+
+  result = _.plane.normalize( plane );
+  test.equivalent( expected, result );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.normalize( ));
+  test.shouldThrowErrorSync( () => _.plane.normalize( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.normalize( null ));
+  test.shouldThrowErrorSync( () => _.plane.normalize( NaN ));
+  test.shouldThrowErrorSync( () => _.plane.normalize( 'plane' ));
+
+}
+
+
+function negate( test )
+{
+
+  test.description = 'Zero'; //
+
+  var plane = [ 0, 0 , 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var newplane = _.plane.negate( plane );
+  test.identical( expected, newplane );
+  test.identical( plane, newplane );
+
+  test.description = 'Plane changes'; //
+
+  var plane = [ 2, 0 , 0, 1 ];
+  var expected = [ - 2, 0, 0, - 1 ];
+
+  var newplane = _.plane.negate( plane );
+  test.identical( expected, newplane );
+  test.identical( plane, newplane );
+
+  test.description = 'Trivial '; //
+
+  var plane = [ 2, 0 , 0, 4 ];
+  var expected =  [ - 2, 0 , 0, - 4 ];
+
+  var result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Trivial'; //
+
+  var plane = [ 2, 2 , 2, 4 ];
+  var expected = [ - 2, - 2, - 2, - 4 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Negate 1D'; //
+
+  var plane = [ 1, 0 , 0, 3 ];
+  var expected = [ - 1, 0 , 0, - 3 ];
+
+  result = _.plane.negate( plane );
+  test.identical( expected, result );
+
+  test.description = 'Negate'; //
+
+  var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
+  var expected = [ - 1/Math.sqrt( 2 ), - 1/Math.sqrt( 2 ), 0, - 2/Math.sqrt( 2 ) ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Negative coordinates'; //
+
+  var plane = [ - 3, - 6 , 0, 8 ];
+  var expected =  [ 3, 6, 0, - 8 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'More dimensions'; //
+
+  var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
+  var expected = [  - 4, 0 , 0, - 4, 0, - 4, - 8 ];
+
+  result = _.plane.negate( plane );
+  test.identical( expected, result );
+
+  test.description = 'NaN result'; //
+
+  var plane = [ NaN, NaN, NaN, NaN ];
+  var expected =  [ NaN, NaN, NaN, NaN ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Plane  [ 0 ]'; //
+
+  var plane = [ 0 ];
+  var expected =  [ 0 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Null coordinate'; //
+
+  var plane = [ 1, null, 0, 0 ];
+  var expected =  [ - 1, 0, 0, 0 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'NaN coordinates'; //
+
+  var plane = [ 1, NaN, 0, 0 ];
+  var expected =  [ - 1, NaN, 0, 0 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'String coordinates'; //
+
+  var plane = [ 1, 'string', 0, 0 ];
+  var expected =  [ - 1, NaN, 0, 0 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.negate( ));
+  test.shouldThrowErrorSync( () => _.plane.negate( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.negate( [] ));
+  test.shouldThrowErrorSync( () => _.plane.negate( null ));
+  test.shouldThrowErrorSync( () => _.plane.negate( NaN ));
+  test.shouldThrowErrorSync( () => _.plane.negate( 'plane' ));
+
+}
+
 // --
 // define class
 // --
@@ -912,25 +1239,26 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
+  routine: 'negate',
 
   tests :
   {
 
-//   from : from,
-//   fromNormalAndPoint : fromNormalAndPoint,
-//   fromPoints : fromPoints,
-//   pointDistance : pointDistance,
-//   pointCoplanarGet : pointCoplanarGet,
+    from : from,
+    fromNormalAndPoint : fromNormalAndPoint,
+    fromPoints : fromPoints,
+    pointDistance : pointDistance,
+    pointCoplanarGet : pointCoplanarGet,
 
-//   sphereDistance : sphereDistance,
+    sphereDistance : sphereDistance,
 
-   lineIntersects : lineIntersects,
+    lineIntersects : lineIntersects,
 
-//   matrixHomogenousApply : matrixHomogenousApply,
-//   translate : translate,
+    //matrixHomogenousApply : matrixHomogenousApply,
+    translate : translate,
 
-//   normalize : normalize,
-//   negate : negate,
+    normalize : normalize,
+    negate : negate,
 
   }
 
