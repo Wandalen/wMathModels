@@ -595,6 +595,28 @@ function normalize( plane )
 
 //
 
+
+/**
+* Negate a plane coordinates. Returns the negated plane coordinates.
+* The plane changes.
+*
+* @param { Array } plane - Source and destination plane.
+*
+* @example
+* // returns [ - 1, 0, 0, 0 ];
+* _.negate( [ 1, 0, 0, 0 ] );
+*
+* @example
+* // returns [ - 1, 0, 0, - 2 ]
+* _.negate( [ 1, 0, 0, 2 ]  );
+*
+* @returns { Array } Returns the negated plane.
+* @function negate
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @memberof wTools.box
+*/
+
 function negate( plane )
 {
 
@@ -604,7 +626,7 @@ function negate( plane )
 
   _.assert( arguments.length === 1 );
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   _.vector.mulScalar( normal,-1 );
   _.plane.biasSet( _plane,-bias );

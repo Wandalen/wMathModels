@@ -1076,8 +1076,8 @@ function normalize( test )
 
   test.description = 'NaN coordinates'; //
 
-  var plane = [ 1, null, 0, 0 ];
-  var expected =  [ 1, 0, 0, 0 ];
+  var plane = [ 1, NaN, 0, 0 ];
+  var expected =  [ NaN, NaN, NaN, NaN ];
 
   result = _.plane.normalize( plane );
   test.equivalent( expected, result );
@@ -1104,6 +1104,131 @@ function normalize( test )
 
 }
 
+
+function negate( test )
+{
+
+  test.description = 'Zero'; //
+
+  var plane = [ 0, 0 , 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var newplane = _.plane.negate( plane );
+  test.identical( expected, newplane );
+  test.identical( plane, newplane );
+
+  test.description = 'Plane changes'; //
+
+  var plane = [ 2, 0 , 0, 1 ];
+  var expected = [ - 2, 0, 0, - 1 ];
+
+  var newplane = _.plane.negate( plane );
+  test.identical( expected, newplane );
+  test.identical( plane, newplane );
+
+  test.description = 'Trivial '; //
+
+  var plane = [ 2, 0 , 0, 4 ];
+  var expected =  [ - 2, 0 , 0, - 4 ];
+
+  var result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Trivial'; //
+
+  var plane = [ 2, 2 , 2, 4 ];
+  var expected = [ - 2, - 2, - 2, - 4 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Negate 1D'; //
+
+  var plane = [ 1, 0 , 0, 3 ];
+  var expected = [ - 1, 0 , 0, - 3 ];
+
+  result = _.plane.negate( plane );
+  test.identical( expected, result );
+
+  test.description = 'Negate'; //
+
+  var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
+  var expected = [ - 1/Math.sqrt( 2 ), - 1/Math.sqrt( 2 ), 0, - 2/Math.sqrt( 2 ) ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Negative coordinates'; //
+
+  var plane = [ - 3, - 6 , 0, 8 ];
+  var expected =  [ 3, 6, 0, - 8 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'More dimensions'; //
+
+  var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
+  var expected = [  - 4, 0 , 0, - 4, 0, - 4, - 8 ];
+
+  result = _.plane.negate( plane );
+  test.identical( expected, result );
+
+  test.description = 'NaN result'; //
+
+  var plane = [ NaN, NaN, NaN, NaN ];
+  var expected =  [ NaN, NaN, NaN, NaN ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Plane  [ 0 ]'; //
+
+  var plane = [ 0 ];
+  var expected =  [ 0 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'Null coordinate'; //
+
+  var plane = [ 1, null, 0, 0 ];
+  var expected =  [ - 1, 0, 0, 0 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'NaN coordinates'; //
+
+  var plane = [ 1, NaN, 0, 0 ];
+  var expected =  [ - 1, NaN, 0, 0 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+  test.description = 'String coordinates'; //
+
+  var plane = [ 1, 'string', 0, 0 ];
+  var expected =  [ - 1, NaN, 0, 0 ];
+
+  result = _.plane.negate( plane );
+  test.equivalent( expected, result );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.negate( ));
+  test.shouldThrowErrorSync( () => _.plane.negate( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.negate( [] ));
+  test.shouldThrowErrorSync( () => _.plane.negate( null ));
+  test.shouldThrowErrorSync( () => _.plane.negate( NaN ));
+  test.shouldThrowErrorSync( () => _.plane.negate( 'plane' ));
+
+}
+
 // --
 // define class
 // --
@@ -1115,26 +1240,26 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'normalize',
+  routine: 'negate',
 
   tests :
   {
 
-   from : from,
-   fromNormalAndPoint : fromNormalAndPoint,
-   fromPoints : fromPoints,
-   pointDistance : pointDistance,
-   pointCoplanarGet : pointCoplanarGet,
+    from : from,
+    fromNormalAndPoint : fromNormalAndPoint,
+    fromPoints : fromPoints,
+    pointDistance : pointDistance,
+    pointCoplanarGet : pointCoplanarGet,
 
-   sphereDistance : sphereDistance,
+    sphereDistance : sphereDistance,
 
-   lineIntersects : lineIntersects,
+    lineIntersects : lineIntersects,
 
-   //matrixHomogenousApply : matrixHomogenousApply,
-   translate : translate,
+    //matrixHomogenousApply : matrixHomogenousApply,
+    translate : translate,
 
-   normalize : normalize,
-   //negate : negate,
+    normalize : normalize,
+    negate : negate,
 
   }
 
