@@ -28,6 +28,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
 
+  require( '../geometric/Box.s' );
   require( '../geometric/Sphere.s' );
 
 }
