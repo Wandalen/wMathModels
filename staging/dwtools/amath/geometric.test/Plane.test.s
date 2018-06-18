@@ -902,6 +902,93 @@ function lineIntersects( test )
 
 }
 
+function translate( test )
+{
+
+  test.description = 'Offset remains unchanged, plane changes'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var offset = [ 1, 0, 1 ];
+  var oldOffset = [ 1, 0, 1 ];
+  var expected = [ 1, 0, 0, 0 ];
+
+  var newplane = _.plane.translate( plane, offset );
+  test.identical( expected, newplane );
+  test.identical( plane, newplane );
+  test.identical( offset, oldOffset );
+
+  test.description = 'No change (normal and offset are perpendicular)'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var offset = [ 0, 2, 3 ];
+  var expected = [ 1, 0 , 0, 1 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.identical( expected, offset );
+
+  test.description = 'No change'; //
+
+  var plane = [ 1, 0 , - 1, 0 ];
+  var offset = [ 2, 2, 2 ];
+  var expected = [ 1, 0 , - 1, 0 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.identical( expected, offset );
+
+  test.description = 'Trivial translation'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var offset = [ 3, 2, 3 ];
+  var expected =  [ 1, 0 , 0, - 3 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.equivalent( expected, offset );
+
+  test.description = 'Negative offset'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var offset = [ - 3, - 2, - 3 ];
+  var expected =  [ 1, 0 , 0, 3 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.equivalent( expected, offset );
+
+  test.description = 'More dimensions'; //
+
+  var plane = [ 1, 0 , 0, 2, 3, 4, 0 ];
+  var offset = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = [ 1, 0 , 0, 2, 3, 4, -16 ];
+
+  offset = _.plane.translate( plane, offset );
+  test.identical( expected, offset );
+
+  test.description = 'NaN offset'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var offset = [ NaN, NaN, NaN ];
+  var expected =  [ 1, 0 , 0, NaN ];
+
+  offset = _.plane.translate( plane, offset );
+  test.equivalent( expected, offset );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.translate( ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ], [ 0, 0, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ], [ 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( null, [ 0, 0, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( NaN, [ 0, 0, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 2 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 2 ], NaN));
+  test.shouldThrowErrorSync( () => _.plane.translate( 'plane', 'offset' ));
+
+}
+
 // --
 // define class
 // --
@@ -913,25 +1000,26 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
+  routine: 'translate',
 
   tests :
   {
 
-//   from : from,
-//   fromNormalAndPoint : fromNormalAndPoint,
-//   fromPoints : fromPoints,
-//   pointDistance : pointDistance,
-//   pointCoplanarGet : pointCoplanarGet,
+   from : from,
+   fromNormalAndPoint : fromNormalAndPoint,
+   fromPoints : fromPoints,
+   pointDistance : pointDistance,
+   pointCoplanarGet : pointCoplanarGet,
 
-//   sphereDistance : sphereDistance,
+   sphereDistance : sphereDistance,
 
    lineIntersects : lineIntersects,
 
-//   matrixHomogenousApply : matrixHomogenousApply,
-//   translate : translate,
+   //matrixHomogenousApply : matrixHomogenousApply,
+   translate : translate,
 
-//   normalize : normalize,
-//   negate : negate,
+   //normalize : normalize,
+   //negate : negate,
 
   }
 
