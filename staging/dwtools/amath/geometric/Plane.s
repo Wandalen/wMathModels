@@ -407,7 +407,7 @@ function sphereDistance( plane , sphere )
 *
 * @example
 * // returns true
-* _.lineIntersect( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
+* _.lineIntersects( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
 *
 * @example
 * // returns false
@@ -512,6 +512,29 @@ function matrixHomogenousApply( plane , matrix )
 
 //
 
+/**
+* Translates a plane by a given offset. Returns the new plane coordinates.
+* The offset remains unchanged, the plane changes.
+*
+* @param { Array } plane - Source and destination plane.
+* @param { Array } offset -  Offset to translate the plane.
+*
+* @example
+* // returns [ 1, 0, 0, 1 ];
+* _.translate( [ 1, 0, 0, 1 ] , [ 0, 2, 0 ] );
+*
+* @example
+* // returns [ 1, 0, 0, - 1 ]
+* _.translate( [ 1, 0, 0, 1 ] ,  [  2, 2, 2 ] );
+*
+* @returns { Boolean } Returns the translated plane.
+* @function translate
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( offset ) is not point.
+* @memberof wTools.box
+*/
+
 function translate( plane , offset )
 {
 
@@ -522,14 +545,35 @@ function translate( plane , offset )
 
   _.assert( arguments.length === 2 );
   debugger;
-  throw _.err( 'not tested' );
+//  throw _.err( 'not tested' );
 
-  _.plane.biasSet( bias - _.vector.dot( normal,_offset ) )
+  _.plane.biasSet( plane, bias - _.vector.dot( normal,_offset ) )
 
   return plane;
 }
 
 //
+
+/**
+* Normalize a plane coordinates. Returns the normalized plane coordinates.
+* The plane changes.
+*
+* @param { Array } plane - Source and destination plane.
+*
+* @example
+* // returns [ 1, 0, 0, 0 ];
+* _.normalize( [ 1, 0, 0, 0 ] );
+*
+* @example
+* // returns [ 1, 0, 0, 2 ]
+* _.translate( [ 1, 0, 0, 2 ]  );
+*
+* @returns { Array } Returns the normalized plane.
+* @function normalize
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @memberof wTools.box
+*/
 
 function normalize( plane )
 {
@@ -540,7 +584,7 @@ function normalize( plane )
 
   _.assert( arguments.length === 1 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   var scaler = 1.0 / normal.mag();
   normal.mulScalar( scaler );
@@ -551,6 +595,28 @@ function normalize( plane )
 
 //
 
+
+/**
+* Negate a plane coordinates. Returns the negated plane coordinates.
+* The plane changes.
+*
+* @param { Array } plane - Source and destination plane.
+*
+* @example
+* // returns [ - 1, 0, 0, 0 ];
+* _.negate( [ 1, 0, 0, 0 ] );
+*
+* @example
+* // returns [ - 1, 0, 0, - 2 ]
+* _.negate( [ 1, 0, 0, 2 ]  );
+*
+* @returns { Array } Returns the negated plane.
+* @function negate
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @memberof wTools.box
+*/
+
 function negate( plane )
 {
 
@@ -560,7 +626,7 @@ function negate( plane )
 
   _.assert( arguments.length === 1 );
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   _.vector.mulScalar( normal,-1 );
   _.plane.biasSet( _plane,-bias );
