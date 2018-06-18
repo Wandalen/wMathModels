@@ -41,6 +41,34 @@ function is( plane )
 
 //
 
+
+/**
+* Create a plane from another plane or a normal and a bias. Returns the new plane.
+* Planes are stored in Array data structure. Source plane/Normal and bias stay untouched, dst plane changes.
+*
+* @param { Array } dstplane - Destination plane to be expanded.
+* @param { Array } srcplane - Source plane.
+* Alternative to srcplane:
+* @param { Array } normal - Array of points with normal vector coordinates.
+* @param { Number } bias - Number with bias value.
+*
+* @example
+* // returns [ 0, 0, 1, 2 ];
+* _.from( [ 0, 0, 0, 0 ] , [ 0, 0, 1, 2 ] );
+*
+* @example
+* // returns [ 0, - 1, 2, 2 ];
+* _.from( [ 0, 0, 1, 1 ], [ 0, - 1, 2 ], 2 );
+*
+* @returns { Array } Returns the array of the new plane.
+* @function from
+* @throws { Error } An Error if ( arguments.length ) is different than two or three.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( normal ) is not array.
+* @throws { Error } An Error if ( bias ) is not number.
+* @memberof wTools.box
+*/
+
 function from( plane )
 {
 
@@ -49,7 +77,7 @@ function from( plane )
 
   _.assert( arguments.length === 2 || arguments.length === 3 );
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   var _plane = _.plane._from( plane );
   var normal = _.plane.normalGet( _plane );
@@ -58,13 +86,13 @@ function from( plane )
   if( arguments.length === 2 )
   {
     debugger;
-    throw _.err( 'not tested' );
+  //  throw _.err( 'not tested' );
     _.avector.assign( _plane,arguments[ 1 ] )
   }
   else if( arguments.length === 3 )
   {
     debugger;
-    throw _.err( 'not tested' );
+  //  throw _.err( 'not tested' );
     _.avector.assign( normal,vector.from( arguments[ 1 ] ) );
     _.plane.biasSet( _plane,arguments[ 2 ] );
   }
@@ -74,6 +102,27 @@ function from( plane )
 }
 
 //
+
+/**
+* Create a plane from a normal and a point. Returns the new plane.
+* Planes are stored in Array data structure. Normal and point stay untouched, plane changes.
+*
+* @param { Array } plane - Plane to be modified.
+* @param { Array } anormal - Array of points with normal vector coordinates.
+* @param { Array } abias - Array with point coordinates.
+*
+* @example
+* // returns [ 0, 0, 1, 2 ];
+* _.fromNormalAndPoint( [ 0, 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
+*
+* @returns { Array } Returns the array of the new plane.
+* @function fromNormalAndPoint
+* @throws { Error } An Error if ( arguments.length ) is different than three.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( anormal ) is not array.
+* @throws { Error } An Error if ( apoint ) is not a point.
+* @memberof wTools.box
+*/
 
 function fromNormalAndPoint( plane, anormal, apoint )
 {
@@ -87,16 +136,40 @@ function fromNormalAndPoint( plane, anormal, apoint )
 
   _.assert( arguments.length === 3 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   debugger;
   normal.copy( anormal );
-  _.plane.biasSet( plane , - _.vector.dot( _.vector.from( point ) , normal ) );
+  _.plane.biasSet( plane , - _.vector.dot( _.vector.from( apoint ) , normal ) );
 
   return plane;
 }
 
 //
+
+/**
+* Create a plane from three points. Returns the new plane.
+* Planes are stored in Array data structure. The points remain untouched, plane changes.
+*
+* @param { Array } plane - Plane to be modified.
+* @param { Array } a - First point in the new plane.
+* @param { Array } b - Second point in the new plane.
+* @param { Array } c - Third point in the new plane.
+*
+* @example
+* // returns [ 0, 1, 0, 0 ];
+* _.fromPoints( [ 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
+*
+* @returns { Array } Returns the array of the new plane.
+* @function fromPoints
+* @throws { Error } An Error if ( arguments.length ) is different than four.
+* @throws { Error } An Error if ( dim ) point dimension is different than three.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( a ) is not a point.
+* @throws { Error } An Error if ( b ) is not a point.
+* @throws { Error } An Error if ( c ) is not a point.
+* @memberof wTools.box
+*/
 
 function fromPoints( plane,a,b,c )
 {
@@ -110,7 +183,7 @@ function fromPoints( plane,a,b,c )
 
   _.assert( arguments.length === 4 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   a = _.vector.from( a );
   b = _.vector.from( b );
@@ -120,9 +193,9 @@ function fromPoints( plane,a,b,c )
   var n2 = vector.subVectors( c.clone() , b );
   var normal = vector.cross( n1,n2 );
   debugger;
-  norma.normalize();
+  normal.normalize();
 
-  plane.fromNormalAndPoint( plane, normal, a );
+  _.plane.fromNormalAndPoint( plane, normal, a );
 
   return plane;
 }
@@ -168,12 +241,31 @@ function biasSet( plane,bias )
   _.assert( _.numberIs( bias ) );
   _.assert( arguments.length === 2 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   return _plane.eSet( _plane.length-1,bias );
 }
 
 //
+
+/**
+* Get the distance between a point and a plane. Returns the distance value.
+* The point an the plane remain unchanged.
+*
+* @param { Array } plane - Source plane.
+* @param { Vector } point - Source point.
+*
+* @example
+* // returns 1;
+* _.pointsDistance( [ 0, 1, 0, 1 ] , _.vector.from( [ 0, 0, 1 ] ) );
+*
+* @returns { Number } Returns the distance from the point to the plane.
+* @function pointDistance
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( point ) is not a vector.
+* @memberof wTools.box
+*/
 
 function pointDistance( plane , point )
 {
@@ -185,12 +277,62 @@ function pointDistance( plane , point )
 
   _.assert( arguments.length === 2 );
 
-  return _.vector.dot( normal , point ) + bias;
+  var mod = _.vector.dot(normal, normal);
+  mod = Math.sqrt(mod);
+
+  var distance = ( _.vector.dot( normal , point ) + bias ) / mod ;
+
+  // distance = Math.abs( distance );
+
+  return distance;
 }
 
 //
 
+/**
+* Get the proyection of a point in a plane. Returns the new point coordinates.
+* The plane remains unchanged, the point changes.
+*
+* @param { Array } plane - Source plane.
+* @param { Array } point - Source and destination point.
+*
+* @example
+* // returns [ - 1, 2, 2 ];
+* _.pointCoplanarGet( [ 1, 0, 0, 1 ] , [ 2, 2, 2 ]);
+*
+* @returns { Array } Returns the new point in the plane.
+* @function pointCoplanarGet
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( point ) is not point.
+* @memberof wTools.box
+*/
+
 function pointCoplanarGet( plane , point )
+{
+
+  if( !point )
+  point = [ 0,0,0 ];
+
+  var _point = _.vector.fromArray( point );
+  var _plane = _.plane._from( plane.slice() );
+  var normal = _.plane.normalGet( _plane );
+  var bias = _.plane.biasGet( _plane );
+
+  var lambda = - (( _.vector.dot( normal , _point ) + bias ) / _.vector.dot( normal, normal ) ) ;
+
+  _.assert( arguments.length === 1 || arguments.length === 2 );
+  debugger;
+  //throw _.err( 'not tested' );
+
+  var movement = _.vector.mulScalar( normal, lambda );
+
+  _point = _.avector.add( _point ,  movement  );
+
+  return _point;
+}
+
+function OldpointCoplanarGet( plane , point )
 {
 
   if( !point )
@@ -203,15 +345,34 @@ function pointCoplanarGet( plane , point )
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   _.avector.assign( _point , normal  );
-  _.avector.mulScalar( -bias );
+  _.avector.mulScalar( _point, -bias );
 
   return point
 }
 
 //
+
+/**
+* Get the distance between a plane and a sphere. Returns the distance value.
+* The sphere an the plane remain unchanged.
+*
+* @param { Array } plane - Source plane.
+* @param { Array } sphere - Source sphere.
+*
+* @example
+* // returns 1;
+* _.sphereDistance( [ 0, 1, 0, 1 ] , [ 0, 0, 2, 1 ]);
+*
+* @returns { Number } Returns the distance from the sphere to the plane.
+* @function sphereDistance
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.box
+*/
 
 function sphereDistance( plane , sphere )
 {
@@ -220,15 +381,45 @@ function sphereDistance( plane , sphere )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
+  var center = _.sphere.centerGet( sphere );
+  center = _.vector.from( center );
+
   _.assert( arguments.length === 2 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
-  var d = _.plane.pointDistance( plane , sphere );
-  return d - _.sphere.radiusGet( sphere );
+  var d = _.plane.pointDistance( plane , center );
+  console.log('distance', d);
+  d = d - _.sphere.radiusGet( sphere );
+  console.log('distance', d, ' radius ', _.sphere.radiusGet( sphere ));
+  return d;
 }
 
 //
+
+
+/**
+* Check if a plane and a line intersect. Returns true if they intersect.
+* The plane and line remain unchanged.
+*
+* @param { Array } plane - Source plane.
+* @param { Array } line -  First and last points in line.
+*
+* @example
+* // returns true
+* _.lineIntersect( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
+*
+* @example
+* // returns false
+* _.lineIntersects( [ 1, 0, 0, 1 ] , [ [  2, 2, 2 ], [ 3, 3, 3 ] ]);
+*
+* @returns { Boolean } Returns true if the line and plane intersect, false if not.
+* @function lineIntersects
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( line ) is not line.
+* @memberof wTools.box
+*/
 
 function lineIntersects( plane , line )
 {
@@ -239,10 +430,13 @@ function lineIntersects( plane , line )
 
   _.assert( arguments.length === 2 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
-  var b = _.plane.pointDistance( line[ 0 ] );
-  var e = _.plane.pointDistance( line[ 1 ] );
+  var point1 = _.vector.from( line[0] );
+  var point2 = _.vector.from( line[1] );
+
+  var b = _.plane.pointDistance( _plane, point1 );
+  var e = _.plane.pointDistance( _plane, point2 );
 
   debugger;
   return ( b <= 0 && e >= 0 ) || ( e <= 0 && b >= 0 );
