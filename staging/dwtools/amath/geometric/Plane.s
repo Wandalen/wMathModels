@@ -282,7 +282,7 @@ function pointDistance( plane , point )
 
   var distance = ( _.vector.dot( normal , point ) + bias ) / mod ;
 
-  distance = Math.abs( distance );
+  // distance = Math.abs( distance );
 
   return distance;
 }
@@ -318,7 +318,7 @@ function pointCoplanarGet( plane , point )
   var _plane = _.plane._from( plane.slice() );
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
-  
+
   var lambda = - (( _.vector.dot( normal , _point ) + bias ) / _.vector.dot( normal, normal ) ) ;
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
@@ -397,6 +397,30 @@ function sphereDistance( plane , sphere )
 
 //
 
+
+/**
+* Check if a plane and a line intersect. Returns true if they intersect.
+* The plane and line remain unchanged.
+*
+* @param { Array } plane - Source plane.
+* @param { Array } line -  First and last points in line.
+*
+* @example
+* // returns true
+* _.lineIntersect( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
+*
+* @example
+* // returns false
+* _.lineIntersects( [ 1, 0, 0, 1 ] , [ [  2, 2, 2 ], [ 3, 3, 3 ] ]);
+*
+* @returns { Boolean } Returns true if the line and plane intersect, false if not.
+* @function lineIntersects
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( line ) is not line.
+* @memberof wTools.box
+*/
+
 function lineIntersects( plane , line )
 {
 
@@ -406,10 +430,13 @@ function lineIntersects( plane , line )
 
   _.assert( arguments.length === 2 );
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
-  var b = _.plane.pointDistance( line[ 0 ] );
-  var e = _.plane.pointDistance( line[ 1 ] );
+  var point1 = _.vector.from( line[0] );
+  var point2 = _.vector.from( line[1] );
+
+  var b = _.plane.pointDistance( _plane, point1 );
+  var e = _.plane.pointDistance( _plane, point2 );
 
   debugger;
   return ( b <= 0 && e >= 0 ) || ( e <= 0 && b >= 0 );

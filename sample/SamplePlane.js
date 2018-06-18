@@ -3,10 +3,11 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var plane = [ 2, - 1, 3, 1 ];
-var point = [ 4, 1, - 3 ];
-point = _.vector.from( point );
+var plane = [ 1, 0, 0, 0 ];
+var line = [ [ - 2, 0, 0 ], [ 0, 0, 0 ] ];
+//point = _.vector.from( point );
 
-var pointp = _.plane.pointCoplanarGet( plane , point );
+console.log('Plane: ', plane, ' - Line: ', line[0], ' - ', line[1] );
+var inter = _.plane.lineIntersects( plane , line );
 
-console.log('point proyection on plane: ', point,' value: ', pointp);
+console.log('line intersection: ', inter);

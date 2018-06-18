@@ -53,7 +53,6 @@ _.assert( sqrt );
 function from( test )
 {
 
-
   test.description = 'Src plane, normal and bias stay unchanged, dst plane changes'; //
 
   var dstplane = [ 0, 0 , 1, 2 ];
@@ -208,7 +207,6 @@ function from( test )
 
 function fromNormalAndPoint( test )
 {
-
 
   test.description = 'Normal and point stay unchanged, dst plane changes'; //
 
@@ -541,7 +539,7 @@ function pointDistance( test )
   var plane = [ 0, 0, 1, 1 ];
   point = [ 0, 0, - 2 ];
   point = _.vector.from( point );
-  var expected = 1;
+  var expected = - 1;
 
   var plane = _.plane.pointDistance( plane, point );
   test.identical( plane, expected );
@@ -682,7 +680,7 @@ function sphereDistance( test )
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ 0, 3, 0, 1 ];
-  var expected = 1;
+  var expected = - 3;
 
   var plane = _.plane.sphereDistance( plane, sphere );
   test.identical( plane, expected );
@@ -805,6 +803,105 @@ function pointCoplanarGet( test )
 
 }
 
+function lineIntersects( test )
+{
+
+  test.description = 'Plane and line remain unchanged'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var line = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
+  var oldplane = [ 1, 0, 0, 1 ];
+  var oldline = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
+  var expected = false;
+
+  var inters = _.plane.lineIntersects( plane, line );
+  test.identical( expected, inters );
+  test.identical( plane, oldplane );
+  test.identical( line, oldline );
+
+  test.description = 'Line and plane intersect'; //
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var line = [ [ - 2, - 2, - 2 ], [ 2, 2, 2 ] ];
+  var expected = true;
+
+  line = _.plane.lineIntersects( plane, line );
+  test.identical( expected, line );
+
+  test.description = 'Line and Plane intersect'; //
+
+  var plane = [ 1, 0 , - 1, 0 ];
+  var line = [ [ 2, 2, 2 ], [ 3, 3, 3 ] ];
+  var expected = true;
+
+  line = _.plane.lineIntersects( plane, line );
+  test.identical( expected, line );
+
+  test.description = 'Line and Plane don´t intersect'; //
+
+  var plane = [ 1, 0 , - 1, 0 ];
+  var line = [ [ 2, 2, 3 ], [ 3, 3, 4 ] ];
+  var expected = false;
+
+  line = _.plane.lineIntersects( plane, line );
+  test.identical( expected, line );
+
+  test.description = 'Line in Plane'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var line = [ [ 0, 2, 3 ], [ 0, 5, 7 ] ];
+  var expected = true;
+
+  line = _.plane.lineIntersects( plane, line );
+  test.equivalent( expected, line );
+
+  test.description = 'Perpendicular line intersects'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var line = [ [ - 2, 2, 2 ], [ 2, 2, 2 ] ];
+  var expected = true;
+
+  line = _.plane.lineIntersects( plane, line );
+  test.identical( expected, line );
+
+  test.description = 'Perpendicular line touches plane'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var line = [ [ - 2, 2, 2 ], [ 0, 2, 2 ] ];
+  var expected = true;
+
+  line = _.plane.lineIntersects( plane, line );
+  test.identical( expected, line );
+
+  test.description = 'Perpendicular doesn´t intersect'; //
+
+  var plane = [ 1, 0 , 0, 0 ];
+  var line = [ [ - 2, 2, 2 ], [ - 1, 2, 2 ] ];
+  var expected = false;
+
+  line = _.plane.lineIntersects( plane, line );
+  test.identical( expected, line );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ], [ [ 0, - 1, 0 ], [ 0, 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0, 2 ], [ [ 0, - 1, 0 ], [ 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ], [ [ 0, - 1, 0 ], [ 0, 3, 1 ] ], [ [ 0, - 1, 0 ], [ 0, 3, 1 ] ]  ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( null , [ [ 0, - 1, 0 ], [ 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( NaN, [ [ 0, - 1, 0 ], [ 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( 'plane', 'line' ));
+
+}
+
 // --
 // define class
 // --
@@ -820,15 +917,15 @@ var Self =
   tests :
   {
 
-   from : from,
-   fromNormalAndPoint : fromNormalAndPoint,
-   fromPoints : fromPoints,
-   pointDistance : pointDistance,
-   pointCoplanarGet : pointCoplanarGet,
+//   from : from,
+//   fromNormalAndPoint : fromNormalAndPoint,
+//   fromPoints : fromPoints,
+//   pointDistance : pointDistance,
+//   pointCoplanarGet : pointCoplanarGet,
 
-   sphereDistance : sphereDistance,
+//   sphereDistance : sphereDistance,
 
-//   lineIntersects : lineIntersects,
+   lineIntersects : lineIntersects,
 
 //   matrixHomogenousApply : matrixHomogenousApply,
 //   translate : translate,
