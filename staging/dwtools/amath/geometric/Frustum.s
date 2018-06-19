@@ -155,7 +155,7 @@ function sphereIntersects( frustum , sphere )
 *
 * @example
 * // returns false;
-* _.sphereIntersects( _.frustum.make() , [ 2, 2, 3, 3 ] );
+* _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
 **
 * @returns { Boolean } Returns true if the frustum and the box intersect.
 * @function boxIntersects
@@ -179,12 +179,8 @@ function boxIntersects( frustum , box )
   {
     var plane = frustum.colVectorGet( i );
 
-    p1[ 0 ] = plane.eGet( 0 ) > 0 ? box.min[ 0 ] : box.max[ 0 ];
-    p2[ 0 ] = plane.eGet( 0 ) > 0 ? box.max[ 0 ] : box.min[ 0 ];
-    p1[ 1 ] = plane.eGet( 1 ) > 0 ? box.min[ 1 ] : box.max[ 1 ];
-    p2[ 1 ] = plane.eGet( 1 ) > 0 ? box.max[ 1 ] : box.min[ 1 ];
-    p1[ 2 ] = plane.eGet( 2 ) > 0 ? box.min[ 2 ] : box.max[ 2 ];
-    p2[ 2 ] = plane.eGet( 2 ) > 0 ? box.max[ 2 ] : box.min[ 2 ];
+    p1 = _.box.cornerLeftGet( box );
+    p2 = _.box.cornerRightGet( box );
 
     var d1 = _.plane.pointDistance( plane,p1 );
     var d2 = _.plane.pointDistance( plane,p2 );
