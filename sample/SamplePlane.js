@@ -3,10 +3,13 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var plane = [ 4, 0, 0, 4, 0, 4, 8 ];
-//point = _.vector.from( point );
+var plane1 = [ 1, 0, 0, - 4 ];
+var plane2 = [ 1, 0, 0, 1 ];
+var plane3 = [ 1, 0, 0, 2 ];
 
-console.log('Plane: ', plane );
-var inter = _.plane.normalize( plane );
+var Intpoint = [ 0, 0, 0 ];
 
-console.log('line intersection: ', plane);
+var IntPoint = _.plane.threePlanesIntersectionPoint( plane1, plane2, plane3, Intpoint );
+console.log('Point: ', IntPoint );
+
+debugger;
