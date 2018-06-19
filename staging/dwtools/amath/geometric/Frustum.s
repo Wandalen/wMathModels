@@ -100,6 +100,30 @@ function is( frustum )
 
 //
 
+
+/**
+* Check if a frustum and a sphere intersect. Returns true if they intersect.
+* Frustum and sphere remain unchanged.
+*
+* @param { Frustum } frustum - Source frustum.
+* @param { Sphere } sphere - Source sphere.
+*
+* @example
+* // returns [ 0, 0, 3, 3 ];
+* _.sphereIntersects( null , [ [ 1, 3 ], [ 0, 0 ], [ 3, 1 ] ] );
+*
+* @example
+* // returns [ 0, - 1, 2, 2 ];
+* _.sphereIntersects( [ 0, 0, 1, 1 ], [ [ 1, 2 ], [ 0, 0 ], [ 2, - 1 ] ] );
+*
+* @returns { Boolean } Returns true if the frustum and the sphere intersect.
+* @function sphereIntersects
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.box
+*/
+
 function sphereIntersects( frustum , sphere )
 {
 
@@ -115,12 +139,12 @@ function sphereIntersects( frustum , sphere )
     var plane = frustum.colVectorGet( i );
     var distance = _.plane.pointDistance( plane,center );
 
-    if( distance < radius )
-    return false;
+    if( Math.abs(distance) < radius )
+    return true;
 
   }
 
-  return true;
+  return false;
 }
 
 //
