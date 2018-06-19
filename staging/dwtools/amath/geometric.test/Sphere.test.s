@@ -1124,6 +1124,7 @@ function dimGet( test )
 
 }
 
+//
 
 function centerGet( test )
 {
