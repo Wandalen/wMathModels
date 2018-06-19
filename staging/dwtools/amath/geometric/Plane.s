@@ -512,22 +512,20 @@ function lineIntersection( plane , line , point )
 * @param { Array } planeone - Source plane.
 * @param { Array } planetwo - Source plane.
 * @param { Array } planethree - Source plane.
-* @param { Array } point -  Destination point.
 *
 * @example
 * // returns [ 0, 0, 0 ];
-* _.threePlanesIntersectionPoint( [ 1, 0, 0, 0 ] , [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ], [ 3, 3, 3 ] );
+* _.threePlanesIntersectionPoint( [ 1, 0, 0, 0 ] , [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ] );
 *
 *
 * @returns { Point } Returns the point of intersection between three planes.
 * @function threePlanesIntersectionPoint
-* @throws { Error } An Error if ( arguments.length ) is different than four.
+* @throws { Error } An Error if ( arguments.length ) is different than three.
 * @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( point ) is not point.
 * @memberof wTools.box
 */
 
-function threePlanesIntersectionPoint( planeone , planetwo , planethree, point )
+function threePlanesIntersectionPoint( planeone , planetwo , planethree )
 {
 
   var _planeone = _.plane._from( planeone );
@@ -540,11 +538,8 @@ function threePlanesIntersectionPoint( planeone , planetwo , planethree, point )
   var normalthree = _.plane.normalGet( _planethree );
   var biasthree = _.plane.biasGet( _planethree );
 
-  _.assert( arguments.length === 4 );
-  _.assert( normalone.length === normaltwo.length && normalthree.length === point.length && normaltwo.length == normalthree.length );
-
-  if( point === null )
-  point = [ 0,0,0 ];
+  _.assert( arguments.length === 3 );
+  _.assert( normalone.length === normaltwo.length && normaltwo.length == normalthree.length );
 
   var Ispoint = _.vector.dot( normalone, _.vector.cross( normaltwo.clone(), normalthree ) );
 
@@ -557,7 +552,7 @@ function threePlanesIntersectionPoint( planeone , planetwo , planethree, point )
   var Mcross31 = _.vector.mulScalar( cross31, - 1.0*biastwo );
   var Mcross12 = _.vector.mulScalar( cross12, - 1.0*biasthree );
 
-  point = _.vector.mulScalar( _.vector.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
+  var point = _.vector.mulScalar( _.vector.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
 
   return point;
   }
