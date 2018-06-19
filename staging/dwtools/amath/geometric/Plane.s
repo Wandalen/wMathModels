@@ -515,17 +515,17 @@ function lineIntersection( plane , line , point )
 *
 * @example
 * // returns [ 0, 0, 0 ];
-* _.threePlanesIntersectionPoint( [ 1, 0, 0, 0 ] , [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ] );
+* _.threeIntersectionPoint( [ 1, 0, 0, 0 ] , [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ] );
 *
 *
 * @returns { Point } Returns the point of intersection between three planes.
-* @function threePlanesIntersectionPoint
+* @function threeIntersectionPoint
 * @throws { Error } An Error if ( arguments.length ) is different than three.
 * @throws { Error } An Error if ( plane ) is not plane.
 * @memberof wTools.box
 */
 
-function threePlanesIntersectionPoint( planeone , planetwo , planethree )
+function threeIntersectionPoint( planeone , planetwo , planethree )
 {
 
   var _planeone = _.plane._from( planeone );
@@ -749,7 +749,7 @@ var Proto =
   normalize : normalize,
   negate : negate,
 
-  threePlanesIntersectionPoint : threePlanesIntersectionPoint,
+  threeIntersectionPoint : threeIntersectionPoint,
 
 }
 

@@ -901,7 +901,7 @@ function lineIntersects( test )
 }
 
 
-function threePlanesIntersectionPoint( test )
+function threeIntersectionPoint( test )
 {
 
   test.description = 'Planes remain unchanged'; //
@@ -915,7 +915,7 @@ function threePlanesIntersectionPoint( test )
   var expected = [ - 1, 0, 0 ];
   expected = _.vector.from( expected );
 
-  var inters = _.plane.threePlanesIntersectionPoint( plane1, plane2, plane3 );
+  var inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, inters );
   test.identical( plane1, oldplane1 );
   test.identical( plane2, oldplane2 );
@@ -928,7 +928,7 @@ function threePlanesIntersectionPoint( test )
   var plane3 = [ 3, 0 , 0, 7 ];
   var expected = NaN;
 
-  inters = _.plane.threePlanesIntersectionPoint( plane1, plane2, plane3 );
+  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, inters );
 
   test.description = '2 Parallel planes'; //
@@ -938,7 +938,7 @@ function threePlanesIntersectionPoint( test )
   var plane3 = [ 3, 1 , 4, 7 ];
   var expected = NaN;
 
-  inters = _.plane.threePlanesIntersectionPoint( plane1, plane2, plane3 );
+  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, inters );
 
   test.description = 'Perpendicular planes in origin'; //
@@ -949,7 +949,7 @@ function threePlanesIntersectionPoint( test )
   var expected = [ 0, 0, 0 ];
   expected = _.vector.from( expected );
 
-  inters = _.plane.threePlanesIntersectionPoint( plane1, plane2, plane3 );
+  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.equivalent( expected, inters );
   debugger;
   test.description = 'Planes in origin'; //
@@ -960,7 +960,7 @@ function threePlanesIntersectionPoint( test )
   var expected = [ 0, 0, 0 ];
   expected = _.vector.from( expected );
 
-  inters = _.plane.threePlanesIntersectionPoint( plane1, plane2, plane3 );
+  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.equivalent( expected, inters );
 
   test.description = 'Perpendicular planes'; //
@@ -971,7 +971,7 @@ function threePlanesIntersectionPoint( test )
   var expected = [ - 1, 1, - 1 ];
   expected = _.vector.from( expected );
 
-  inters = _.plane.threePlanesIntersectionPoint( plane1, plane2, plane3 );
+  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, inters );
 
   test.description = 'Trivial'; //
@@ -982,7 +982,7 @@ function threePlanesIntersectionPoint( test )
   var expected = [ - 32, 37, 11.5 ];
   expected = _.vector.from( expected );
 
-  inters = _.plane.threePlanesIntersectionPoint( plane1, plane2, plane3 );
+  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, inters );
 
   /* */
@@ -990,16 +990,16 @@ function threePlanesIntersectionPoint( test )
   if( !Config.debug )
   return;
 
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( ));
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ], [ 0, 3, 1, 2 ]  ));
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2, 3 ], [ 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2, 4 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( null, [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ]  ));
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( [ 0, 0, 1, 0 ], NaN, [ 0, 3, 1, 2 ], ));
-  test.shouldThrowErrorSync( () => _.plane.threePlanesIntersectionPoint( [ ], [ ], [ ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ], [ 0, 3, 1, 2 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2, 3 ], [ 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2, 4 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( null, [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], NaN, [ 0, 3, 1, 2 ], ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ ], [ ], [ ] ));
 
 }
 
@@ -1341,7 +1341,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'threePlanesIntersectionPoint',
+  routine: 'threeIntersectionPoint',
 
   tests :
   {
@@ -1355,7 +1355,7 @@ var Self =
     sphereDistance : sphereDistance,
 
     lineIntersects : lineIntersects,
-    threePlanesIntersectionPoint : threePlanesIntersectionPoint,
+    threeIntersectionPoint : threeIntersectionPoint,
 
     //matrixHomogenousApply : matrixHomogenousApply,
     translate : translate,
