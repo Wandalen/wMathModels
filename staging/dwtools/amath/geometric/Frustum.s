@@ -178,7 +178,6 @@ function boxIntersects( frustum , box )
   for ( var i = 0 ; i < 6 ; i += 1 )
   {
     var plane = frustum.colVectorGet( i );
-    plane = _.vector.from( plane );
 
     p1[ 0 ] = plane.eGet( 0 ) > 0 ? box.min[ 0 ] : box.max[ 0 ];
     p2[ 0 ] = plane.eGet( 0 ) > 0 ? box.max[ 0 ] : box.min[ 0 ];
