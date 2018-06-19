@@ -318,7 +318,7 @@ function pointCoplanarGet( plane , point )
   var _plane = _.plane._from( plane.slice() );
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
-  
+
   var lambda = - (( _.vector.dot( normal , _point ) + bias ) / _.vector.dot( normal, normal ) ) ;
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
@@ -332,26 +332,26 @@ function pointCoplanarGet( plane , point )
   return _point;
 }
 
-function OldpointCoplanarGet( plane , point )
-{
+// function pointCoplanarGet( plane , point )
+// {
 
-  if( !point )
-  point = [ 0,0,0 ];
+//  if( !point )
+//  point = [ 0,0,0 ];
 
-  var _point = _.vector.fromArray( point );
-  var _plane = _.plane._from( plane );
-  var normal = _.plane.normalGet( _plane );
-  var bias = _.plane.biasGet( _plane );
+//  var _point = _.vector.fromArray( point );
+//  var _plane = _.plane._from( plane );
+//  var normal = _.plane.normalGet( _plane );
+//  var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 1 || arguments.length === 2 );
-  debugger;
-  //throw _.err( 'not tested' );
+//  _.assert( arguments.length === 1 || arguments.length === 2 );
+//  debugger;
+//  throw _.err( 'not tested' );
 
-  _.avector.assign( _point , normal  );
-  _.avector.mulScalar( _point, -bias );
+//  _.avector.assign( _point , normal  );
+//  _.avector.mulScalar( _point, -bias );
 
-  return point
-}
+//  return point
+//  }
 
 //
 
