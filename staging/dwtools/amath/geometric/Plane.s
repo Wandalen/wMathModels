@@ -1,4 +1,4 @@
-(function _Plane_s_(){
+(function _Plane_s_() {
 
 'use strict';
 
