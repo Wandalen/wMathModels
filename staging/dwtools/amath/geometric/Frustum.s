@@ -195,6 +195,25 @@ function boxIntersects( frustum , box )
 
 //
 
+/**
+* Check if a frustum contains a point. Returns true if it contains it.
+* Frustum and point remain unchanged.
+*
+* @param { Frustum } frustum - Source frustum.
+* @param { Array } point - Source point.
+*
+* @example
+* // returns false;
+* _.pointContains( _.frustum.make() , [ 1, 1, 1 ] );
+**
+* @returns { Boolean } Returns true if the frustum contains the point.
+* @function pointContains
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( point ) is not point.
+* @memberof wTools.box
+*/
+
 function pointContains( frustum , point )
 {
 
