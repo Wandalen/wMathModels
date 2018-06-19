@@ -100,6 +100,26 @@ function is( frustum )
 
 //
 
+
+/**
+* Check if a frustum and a sphere intersect. Returns true if they intersect.
+* Frustum and sphere remain unchanged.
+*
+* @param { Frustum } frustum - Source frustum.
+* @param { Sphere } sphere - Source sphere.
+*
+* @example
+* // returns false;
+* _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
+**
+* @returns { Boolean } Returns true if the frustum and the sphere intersect.
+* @function sphereIntersects
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.box
+*/
+
 function sphereIntersects( frustum , sphere )
 {
 
@@ -115,15 +135,35 @@ function sphereIntersects( frustum , sphere )
     var plane = frustum.colVectorGet( i );
     var distance = _.plane.pointDistance( plane,center );
 
-    if( distance < radius )
-    return false;
+    if( Math.abs(distance) < radius )
+    return true;
 
   }
 
-  return true;
+  return false;
 }
 
 //
+
+
+/**
+* Check if a frustum and a box intersect. Returns true if they intersect.
+* Frustum and box remain unchanged.
+*
+* @param { Frustum } frustum - Source frustum.
+* @param { Array } box - Source box.
+*
+* @example
+* // returns false;
+* _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
+**
+* @returns { Boolean } Returns true if the frustum and the box intersect.
+* @function boxIntersects
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( box ) is not box.
+* @memberof wTools.box
+*/
 
 function boxIntersects( frustum , box )
 {
@@ -139,12 +179,8 @@ function boxIntersects( frustum , box )
   {
     var plane = frustum.colVectorGet( i );
 
-    p1[ 0 ] = plane.eGet( 0 ) > 0 ? box.min[ 0 ] : box.max[ 0 ];
-    p2[ 0 ] = plane.eGet( 0 ) > 0 ? box.max[ 0 ] : box.min[ 0 ];
-    p1[ 1 ] = plane.eGet( 1 ) > 0 ? box.min[ 1 ] : box.max[ 1 ];
-    p2[ 1 ] = plane.eGet( 1 ) > 0 ? box.max[ 1 ] : box.min[ 1 ];
-    p1[ 2 ] = plane.eGet( 2 ) > 0 ? box.min[ 2 ] : box.max[ 2 ];
-    p2[ 2 ] = plane.eGet( 2 ) > 0 ? box.max[ 2 ] : box.min[ 2 ];
+    p1 = _.box.cornerLeftGet( box );
+    p2 = _.box.cornerRightGet( box );
 
     var d1 = _.plane.pointDistance( plane,p1 );
     var d2 = _.plane.pointDistance( plane,p2 );
