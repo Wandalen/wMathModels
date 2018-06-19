@@ -57,17 +57,21 @@ function sphereIntersects( test )
 
   test.description = 'Frustum and sphere remain unchanged'; //
 
-  var Spa = _.Space.make([ 4,4 ]);
-  Spa.atomSet( [ 0, 0 ], 1 ); Spa.atomSet( [ 1, 0 ], - 1 ); Spa.atomSet( [ 2, 0 ], 1 ); Spa.atomSet( [ 3, 0 ], 1 );
-  Spa.atomSet( [ 0, 1 ], 1 ); Spa.atomSet( [ 1, 1 ], 1 ); Spa.atomSet( [ 2, 1 ], - 1 ); Spa.atomSet( [ 3, 1 ], 1 );
-  Spa.atomSet( [ 0, 2 ], 1 ); Spa.atomSet( [ 1, 2 ], 1 ); Spa.atomSet( [ 2, 2 ], 1 ); Spa.atomSet( [ 3, 2 ], - 1 );
-  Spa.atomSet( [ 0, 3 ], - 1 ); Spa.atomSet( [ 1, 3 ], 0 ); Spa.atomSet( [ 2, 3 ], 1 ); Spa.atomSet( [ 3, 3 ], 1 );
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 1, 0, 0, - 1, 0, 0,
+       0, 1, 0, 0, - 1, 0,
+       0, 0, 1, 0, 0, - 1,
+       1, 1, 1, 1, 1, 1 ] );
 
-  var f = _.frustum.fromMatrixHomogenous( null , Spa);
   var sphere = [ 3, 3, 3, 1 ];
-  var oldf = _.frustum.fromMatrixHomogenous( null , Spa);
+  var oldf = _.Space.make( [ 4, 6 ] ).copy(
+     [ 1, 0, 0, - 1, 0, 0,
+       0, 1, 0, 0, - 1, 0,
+       0, 0, 1, 0, 0, - 1,
+       1, 1, 1, 1, 1, 1 ] );
+
   var oldSphere = [ 3, 3, 3, 1 ];
-  var expected = true;
+  var expected = false;
 
   var result = _.frustum.sphereIntersects( f, sphere );
   test.identical( result, expected );
@@ -76,7 +80,6 @@ function sphereIntersects( test )
 
   test.description = 'Frustum and sphere intersect'; //
 
-  var f = _.frustum.fromMatrixHomogenous( null , Spa);
   var sphere = [ 1, 1, 1, 1 ];
   var expected = true;
 
@@ -85,7 +88,6 @@ function sphereIntersects( test )
 
   test.description = 'Frustum and sphere intersect, sphere bigger than frustum'; //
 
-  var f = _.frustum.fromMatrixHomogenous( null , Spa);
   var sphere = [ 1, 1, 1, 7 ];
   var expected = true;
 
@@ -94,36 +96,44 @@ function sphereIntersects( test )
 
   test.description = 'Frustum and sphere not intersecting'; //
 
-  var f = _.frustum.fromMatrixHomogenous( null , Spa);
-  var sphere = [ 7, 10, 5, 1 ];
+  var sphere = [ 5, 5, 5, 1 ];
   var expected = false;
 
   var result = _.frustum.sphereIntersects( f, sphere );
   test.identical( result, expected );
 
-  Spa.atomSet( [ 0, 0 ], 2 ); Spa.atomSet( [ 1, 0 ], 3 ); Spa.atomSet( [ 2, 0 ], 4 ); Spa.atomSet( [ 3, 0 ], 5 );
-  Spa.atomSet( [ 0, 1 ], 2 ); Spa.atomSet( [ 1, 1 ], 3 ); Spa.atomSet( [ 2, 1 ], 4 ); Spa.atomSet( [ 3, 1 ], 5);
-  Spa.atomSet( [ 0, 2 ], 2 ); Spa.atomSet( [ 1, 2 ], 3 ); Spa.atomSet( [ 2, 2 ], 4 ); Spa.atomSet( [ 3, 2 ], 5 );
-  Spa.atomSet( [ 0, 3 ], 2 ); Spa.atomSet( [ 1, 3 ], 3 ); Spa.atomSet( [ 2, 3 ], 4 ); Spa.atomSet( [ 3, 3 ], 5 );
+  test.description = 'Frustum and sphere almost intersecting'; //
 
-  test.description = 'Frustum and sphere don´t intersect'; //
-
-  var f = _.frustum.fromMatrixHomogenous( null , Spa);
-  var sphere = [ -3 , - 3, - 3, 1 ];
+  var sphere = [ 5 , 5, 5, 3.9 ];
   var expected = false;
 
   var result = _.frustum.sphereIntersects( f, sphere );
   test.identical( result, expected );
 
-  test.description = 'Frustum and sphere don´t intersect'; //
+  test.description = 'Frustum and sphere just touching'; //
 
-  var f = _.frustum.fromMatrixHomogenous( null , Spa);
-  var sphere = [ 14, 14, 14, 0 ];
+  var sphere = [ 5 , 5, 5, 4 ];
   var expected = false;
 
   var result = _.frustum.sphereIntersects( f, sphere );
   test.identical( result, expected );
 
+  test.description = 'Frustum and sphere just intersect'; //
+
+  var sphere = [ 5, 5, 5, 4.1 ];
+  var expected = true;
+
+  var result = _.frustum.sphereIntersects( f, sphere );
+  test.identical( result, expected );
+
+  test.description = 'Zero frustum, no intersection'; //
+
+  var f = _.frustum.make();
+  var sphere = [ 0, 0, 0, 2 ];
+  var expected = false;
+
+  var result = _.frustum.sphereIntersects( f, sphere );
+  test.identical( result, expected );
 
   /* */
 
@@ -145,6 +155,112 @@ function sphereIntersects( test )
 
 }
 
+
+function boxIntersects( test )
+{
+
+  test.description = 'Frustum and box remain unchanged'; //
+
+  var Spa = _.Space.make([ 4,4 ]);
+  Spa.atomSet( [ 0, 0 ], 1 ); Spa.atomSet( [ 1, 0 ], - 1 ); Spa.atomSet( [ 2, 0 ], 1 ); Spa.atomSet( [ 3, 0 ], 1 );
+  Spa.atomSet( [ 0, 1 ], 1 ); Spa.atomSet( [ 1, 1 ], 1 ); Spa.atomSet( [ 2, 1 ], - 1 ); Spa.atomSet( [ 3, 1 ], 1 );
+  Spa.atomSet( [ 0, 2 ], 1 ); Spa.atomSet( [ 1, 2 ], 1 ); Spa.atomSet( [ 2, 2 ], 1 ); Spa.atomSet( [ 3, 2 ], - 1 );
+  Spa.atomSet( [ 0, 3 ], - 1 ); Spa.atomSet( [ 1, 3 ], 0 ); Spa.atomSet( [ 2, 3 ], 1 ); Spa.atomSet( [ 3, 3 ], 1 );
+
+  var f = _.frustum.fromMatrixHomogenous( null , Spa);
+  var box = [ 2, 2, 2, 4, 4, 4 ];
+  box = _.vector.from( box);
+  var oldf = _.frustum.fromMatrixHomogenous( null , Spa);
+  var oldbox = [ 2, 2, 2, 4, 4, 4 ];
+  var expected = true;
+
+  var result = _.frustum.boxIntersects( f, box );
+  test.identical( result, expected );
+  test.identical( f, oldf );
+  test.identical( box, oldbox );
+
+  test.description = 'Frustum and box intersect'; //
+
+  var f = _.frustum.fromMatrixHomogenous( null , Spa);
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var result = _.frustum.boxIntersects( f, box );
+  test.identical( result, expected );
+
+  test.description = 'Frustum and box intersect, box bigger than frustum'; //
+
+  var f = _.frustum.fromMatrixHomogenous( null , Spa);
+  var box = [ - 10, - 10, - 10, 10, 10, 10 ];
+  var expected = true;
+
+  var result = _.frustum.boxIntersects( f, box );
+  test.identical( result, expected );
+
+  test.description = 'Frustum and box not intersecting'; //
+
+  var f = _.frustum.fromMatrixHomogenous( null , Spa);
+  var box = [ 8, 8, 8, 9, 9, 9 ];
+  var expected = false;
+
+  var result = _.frustum.boxIntersects( f, box );
+  test.identical( result, expected );
+
+  Spa.atomSet( [ 0, 0 ], 2 ); Spa.atomSet( [ 1, 0 ], 3 ); Spa.atomSet( [ 2, 0 ], 4 ); Spa.atomSet( [ 3, 0 ], 5 );
+  Spa.atomSet( [ 0, 1 ], 2 ); Spa.atomSet( [ 1, 1 ], 3 ); Spa.atomSet( [ 2, 1 ], 4 ); Spa.atomSet( [ 3, 1 ], 5);
+  Spa.atomSet( [ 0, 2 ], 2 ); Spa.atomSet( [ 1, 2 ], 3 ); Spa.atomSet( [ 2, 2 ], 4 ); Spa.atomSet( [ 3, 2 ], 5 );
+  Spa.atomSet( [ 0, 3 ], 2 ); Spa.atomSet( [ 1, 3 ], 3 ); Spa.atomSet( [ 2, 3 ], 4 ); Spa.atomSet( [ 3, 3 ], 5 );
+
+  test.description = 'Frustum and box don´t intersect'; //
+
+  var f = _.frustum.fromMatrixHomogenous( null , Spa);
+  var box = [ -3 , - 3, - 3, - 2, - 2, - 2 ];
+  var expected = false;
+
+  var result = _.frustum.boxIntersects( f, box );
+  test.identical( result, expected );
+
+  test.description = 'Frustum and box don´t intersect'; //
+
+  var f = _.frustum.fromMatrixHomogenous( null , Spa);
+  var box = [ 14, 14, 14, 14, 14, 14 ];
+  var expected = false;
+
+  var result = _.frustum.boxIntersects( f, box );
+  test.identical( result, expected );
+
+  test.description = 'Zero frustum, no intersection'; //
+
+  var f = _.frustum.make();
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = false;
+
+  var result = _.frustum.boxIntersects( f, box );
+  test.identical( result, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( ));
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f ));
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, f, box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, box, box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( null, box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, null));
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( NaN, box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, NaN));
+
+  box = [ 0, 0, 1, 1, 2 ];
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, box ));
+
+  box = [ 0, 0, 1, 1, 2, 3, 4 ];
+  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, box ));
+
+}
+
 // --
 // define class
 // --
@@ -162,7 +278,7 @@ var Self =
  {
 
  sphereIntersects : sphereIntersects,
- //boxIntersects : boxIntersects,
+ boxIntersects : boxIntersects,
  //pointContains : pointContains,
 
  //frustumIntersects : frustumIntersects,

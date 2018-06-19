@@ -109,13 +109,9 @@ function is( frustum )
 * @param { Sphere } sphere - Source sphere.
 *
 * @example
-* // returns [ 0, 0, 3, 3 ];
-* _.sphereIntersects( null , [ [ 1, 3 ], [ 0, 0 ], [ 3, 1 ] ] );
-*
-* @example
-* // returns [ 0, - 1, 2, 2 ];
-* _.sphereIntersects( [ 0, 0, 1, 1 ], [ [ 1, 2 ], [ 0, 0 ], [ 2, - 1 ] ] );
-*
+* // returns false;
+* _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
+**
 * @returns { Boolean } Returns true if the frustum and the sphere intersect.
 * @function sphereIntersects
 * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -148,6 +144,26 @@ function sphereIntersects( frustum , sphere )
 }
 
 //
+
+
+/**
+* Check if a frustum and a box intersect. Returns true if they intersect.
+* Frustum and box remain unchanged.
+*
+* @param { Frustum } frustum - Source frustum.
+* @param { Array } box - Source box.
+*
+* @example
+* // returns false;
+* _.sphereIntersects( _.frustum.make() , [ 2, 2, 3, 3 ] );
+**
+* @returns { Boolean } Returns true if the frustum and the box intersect.
+* @function boxIntersects
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( box ) is not box.
+* @memberof wTools.box
+*/
 
 function boxIntersects( frustum , box )
 {
