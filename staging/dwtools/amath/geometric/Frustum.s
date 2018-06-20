@@ -396,6 +396,79 @@ function pointContains( frustum , point )
   return true;
 }
 
+
+//
+
+/**
+* Returns the closest point in a frustum to a point. Returns the coordinates of the closest point.
+* Frustum and point remain unchanged.
+*
+* @param { Frustum } frustum - Source frustum.
+* @param { Array } srcpoint - Source point.
+* @param { Array } dstpoint - Destination point.
+*
+* @example
+* // returns [ 0, 0, 0 ];
+* var frustum = _.Space.make( [ 4, 6 ] ).copy(
+*   [ 0,   0,   0,   0, - 1,   1,
+*     1, - 1,   0,   0,   0,   0,
+*     0,   0,   1, - 1,   0,   0,
+*   - 1,   0, - 1,   0,   0, - 1 ] );
+* _.pointClosestPoint( frustum , [ - 1, - 1, - 1 ] );
+*
+* @returns { Array } Returns the array of coordinates of the closest point in the frustum.
+* @function pointClosestPoint
+* @throws { Error } An Error if ( arguments.length ) is different than three.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( point ) is not point.
+* @throws { Error } An Error if ( dstpoint ) is not point.
+* @memberof wTools.box
+*/
+
+function pointClosestPoint( frustum , point )
+{
+  _.assert( arguments.length === 2 );
+  _.assert( _.frustum.is( frustum ) );
+  var point = _.vector.from( point );
+  var _point = point.slice();
+  var dstpoint = _.vector.fromArray( [ 0, 0, 0 ] );
+  var dims = _.Space.dimsOf( frustum ) ;
+  var rows = dims[ 0 ];
+  var cols = dims[ 1 ];
+  var fpoints = _.frustum.frustumCorners( frustum );
+
+  _.assert( _.spaceIs( fpoints ) );
+  _.assert( fpoints.hasShape([ 3,8 ]) );
+
+  var max = fpoints.colVectorGet( 0 );
+  var min = fpoints.colVectorGet( 0 );
+  max = _.vector.toArray( max );
+  min = _.vector.toArray( min );
+  _point = _.vector.toArray( _point );
+  dstpoint = _.vector.toArray( dstpoint );
+
+  for ( var j = 1 ; j < cols ; j++ )
+  {
+    var newp = _.vector.toArray( fpoints.colVectorGet( j ) );
+    if( newp[ 0 ] < min[ 0 ] ) { min[ 0 ] = newp[ 0 ]; }
+    if( newp[ 1 ] < min[ 1 ] ) { min[ 1 ] = newp[ 1 ]; }
+    if( newp[ 2 ] < min[ 2 ] ) { min[ 2 ] = newp[ 2 ]; }
+    if( newp[ 0 ] > max[ 0 ] ) { max[ 0 ] = newp[ 0 ]; }
+    if( newp[ 1 ] > max[ 1 ] ) { max[ 1 ] = newp[ 1 ]; }
+    if( newp[ 2 ] > max[ 2 ] ) { max[ 2 ] = newp[ 2 ]; }
+  }
+
+  for( var i = 0 ; i < 3 ; i++ )
+  {
+   if( _point[ i ] >= max[ i ] ){ dstpoint[ i ] = max[ i ]; }
+   else if( _point[ i ] <= min[ i ] ){ dstpoint[ i ] = min[ i ]; }
+   else{ dstpoint[ i ] = _point[ i ]; }
+  }
+
+  dstpoint = _.vector.from( dstpoint );
+  return dstpoint;
+}
+
 // --
 // define class
 // --
@@ -407,14 +480,17 @@ var Proto =
   fromMatrixHomogenous : fromMatrixHomogenous,
   is : is,
 
+  frustumCorners : frustumCorners,
 
+  frustumIntersects : frustumIntersects,
   sphereIntersects : sphereIntersects,
   boxIntersects : boxIntersects,
   pointContains : pointContains,
 
-  frustumCorners : frustumCorners,
+  pointClosestPoint : pointClosestPoint,
 
-  frustumIntersects : frustumIntersects,
+
+
 }
 
 _.mapSupplement( Self,Proto );
