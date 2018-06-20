@@ -280,18 +280,18 @@ function pointContains( test )
 
   test.description = 'Frustum and point remain unchanged'; //
 
-  var f = _.Space.make( [ 4, 6 ] ).copy
-    ([ 1, 0, 0, - 1, 0, 0,
-       0, 1, 0, 0, - 1, 0,
-       0, 0, 1, 0, 0, - 1,
-       1, 1, 1, 1, 1, 1 ] );
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
   var point = [ 3, 3, 3 ];
   point = _.vector.from( point );
-  var oldf = _.Space.make( [ 4, 6 ] ).copy
-    ([ 1, 0, 0, - 1, 0, 0,
-       0, 1, 0, 0, - 1, 0,
-       0, 0, 1, 0, 0, - 1,
-       1, 1, 1, 1, 1, 1 ] );
+  var oldf = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
 
   var oldpoint = [ 3, 3, 3 ];
   oldpoint = _.vector.from( oldpoint );
@@ -338,7 +338,7 @@ function pointContains( test )
   var result = _.frustum.pointContains( f, point );
   test.identical( result, expected );
 
-  test.description = 'Point out os frustum'; //
+  test.description = 'Point out of frustum'; //
 
   var point = [ 5 , 5, 5 ];
   point = _.vector.from( point );
@@ -357,10 +357,10 @@ function pointContains( test )
   var result = _.frustum.pointContains( f, point );
   test.identical( result, expected );
 
-  test.description = 'Zero frustum doesn´t contain point'; //
+  test.description = 'Zero frustum contains  all points'; //
 
   var f = _.frustum.make();
-  var point = [ 0, 0, 0.5 ];
+  var point = [ 0, - 10, 5 ];
   point = _.vector.from( point );
   var expected = true;
 
@@ -535,7 +535,7 @@ var Self =
  silencing : 1,
  // verbosity : 7,
  // debug : 1,
- routine: 'frustumCorners',
+ //routine: 'frustumCorners',
 
  tests :
  {

@@ -235,14 +235,16 @@ function frustumIntersect( srcfrustum , testfrustum )
   _.assert( _.frustum.is( testfrustum ) );
   debugger;
 
-  for ( var i = 0 ; i < 6 ; i += 1 )
+ var points = _.frustum.frustumCorners( srcfrustum );
+
+  for ( var i = 0 ; i < points.length ; i += 1 )
   {
-    var plane = frustum.colVectorGet( i );
-
-    //var d1 = _.plane.pointDistance( plane,p1 );
-    //var d2 = _.plane.pointDistance( plane,p2 );
-
-    if ( d1 < 0 && d2 < 0 )
+    var point = points.colVectorGet( i );
+    console.log('point :', point);
+    point = _.vector.from( point );
+    var c = _.frustum.pointContains( testfrustum, point );
+    console.log('contained: ', c);
+    if ( c == false )
     return false;
 
   }
@@ -377,7 +379,7 @@ function pointContains( frustum , point )
   {
 
     var plane = frustum.colVectorGet( i );
-    if( _.plane.pointDistance( plane,point ) < 0 )
+    if( _.plane.pointDistance( plane, point ) > 0 )
     return false;
 
   }
@@ -403,7 +405,7 @@ var Proto =
 
   frustumCorners : frustumCorners,
 
-// frustumIntersect : frustumIntersect,
+  frustumIntersect : frustumIntersect,
 }
 
 _.mapSupplement( Self,Proto );
