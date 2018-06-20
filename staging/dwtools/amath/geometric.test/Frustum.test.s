@@ -391,6 +391,117 @@ function pointContains( test )
 
 }
 
+//
+
+function frustumCorners( test )
+{
+
+  test.description = 'Frustum remains unchanged'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy
+    ([ 1, 0, 0, - 1, 0, 0,
+       0, 1, 0, 0, - 1, 0,
+       0, 0, 1, 0, 0, - 1,
+       1, 1, 1, 1, 1, 1 ] );
+  var oldf = _.Space.make( [ 4, 6 ] ).copy
+    ([ 1, 0, 0, - 1, 0, 0,
+       0, 1, 0, 0, - 1, 0,
+       0, 0, 1, 0, 0, - 1,
+       1, 1, 1, 1, 1, 1 ] );
+  var expected = _.Space.make( [ 3, 8 ] ).copy
+    ([ - 1, - 1, - 1, - 1, 1, 1, 1, 1,
+       - 1, - 1, 1, 1, - 1, - 1, 1, 1,
+       - 1, 1, - 1, 1, - 1, 1, - 1, 1 ] );
+
+  var result = _.frustum.frustumCorners( f );
+  test.identical( result, expected );
+  test.identical( f, oldf );
+
+  test.description = 'frustum as box (0,0,0,1,1,1)'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy
+    ([ - 1, 1, 0, 0, 0, 0,
+       0, 0, 0, 0, - 1, 1,
+       0, 0, 1, - 1, 0, 0,
+       0, - 1, - 1, 0, 0, - 1 ] );
+  var expected = _.Space.make( [ 3, 8 ] ).copy
+    ([ 0, 0, 0, 0, 1, 1, 1, 1,
+       0, 1, 0, 1, 0, 1, 0, 1,
+       1, 1, 0, 0, 1, 1, 0, 0 ] );
+
+  var result = _.frustum.frustumCorners( f );
+  test.identical( result, expected );
+
+  test.description = 'frustum as point (0,0,0,0,0,0)'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy
+    ([ - 1, 1, 0, 0, 0, 0,
+       0, 0, 0, 0, - 1, 1,
+       0, 0, 1, - 1, 0, 0,
+       0, 0, 0, 0, 0, 0 ] );
+  var expected = _.Space.make( [ 3, 8 ] ).copy
+    ([ 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0 ] );
+
+  var result = _.frustum.frustumCorners( f );
+  test.identical( result, expected );
+
+  test.description = 'frustum as box (2,2,2,2,2,2)'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy
+    ([ - 1, 1, 0, 0, 0, 0,
+       0, 0, 0, 0, - 1, 1,
+       0, 0, 1, - 1, 0, 0,
+       2, - 2, - 2, 2, 2, - 2 ] );
+  var expected = _.Space.make( [ 3, 8 ] ).copy
+    ([ 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2 ] );
+
+  var result = _.frustum.frustumCorners( f );
+  test.identical( result, expected );
+
+  test.description = 'frustum as box (0,0,0,1,1,1)'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy
+    ([ - 1, 1, 0, 0, 0, 0,
+       0, 0, 0, 0, - 1, 1,
+       0, 0, 1, - 1, 0, 0,
+       0, - 1, - 1, 0, 0, - 1 ] );
+  var expected = _.Space.make( [ 3, 8 ] ).copy
+    ([ 0, 0, 0, 0, 1, 1, 1, 1,
+       0, 1, 0, 1, 0, 1, 0, 1,
+       1, 1, 0, 0, 1, 1, 0, 0 ] );
+
+  var result = _.frustum.frustumCorners( f );
+  test.identical( result, expected );
+
+  test.description = 'frustum as box (0,0,0,1,1,1)'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy
+    ([ - 1, 1, 0, 0, 0, 0,
+       0, 0, 0, 0, - 1, 1,
+       0, 0, 1, - 1, 0, 0,
+       0, - 1, - 1, 0, 0, - 1 ] );
+  var expected = _.Space.make( [ 3, 8 ] ).copy
+    ([ 0, 0, 0, 0, 1, 1, 1, 1,
+       0, 1, 0, 1, 0, 1, 0, 1,
+       1, 1, 0, 0, 1, 1, 0, 0 ] );
+
+  var result = _.frustum.frustumCorners( f );
+  test.identical( result, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.frustumCorners( ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumCorners( f, f ));
+
+}
+
 // --
 // define class
 // --
@@ -402,7 +513,7 @@ var Self =
  silencing : 1,
  // verbosity : 7,
  // debug : 1,
- //routine: 'pointContains',
+ routine: 'frustumCorners',
 
  tests :
  {
@@ -411,6 +522,7 @@ var Self =
  boxIntersects : boxIntersects,
  pointContains : pointContains,
 
+ frustumCorners : frustumCorners,
  //frustumIntersects : frustumIntersects,
  //pointClosestPoint : pointClosestPoint,
  //boxClosestPoint : boxClosestPoint,
