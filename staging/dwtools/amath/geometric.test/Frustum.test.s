@@ -240,7 +240,7 @@ function boxIntersects( test )
   var result = _.frustum.boxIntersects( f, box );
   test.identical( result, expected );
 
-  test.description = 'Zero frustum, no intersection'; //
+  test.description = 'Zero frustum, intersection'; //
 
   var f = _.frustum.make();
   var box = [ 1, 1, 1, 2, 2, 2 ];
@@ -270,6 +270,139 @@ function boxIntersects( test )
   test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, box ));
   box = [ 0, 0, 1, 1, 2, 2, 2 ];
   test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, box ));
+
+}
+
+//
+
+function frustumIntersects( test )
+{
+
+  test.description = 'Frustums remain unchanged'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var frustum = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1, - 1, - 1, - 1, - 1, - 1 ] );
+  var oldf = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var oldfrustum = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1, - 1, - 1, - 1, - 1, - 1 ] );
+  var expected = true;
+
+  var result = _.frustum.frustumIntersects( f, frustum );
+  test.identical( result, expected );
+  test.identical( f, oldf );
+  test.identical( frustum, oldfrustum );
+
+  test.description = 'Frustum intersects with itself'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var expected = true;
+
+  var result = _.frustum.frustumIntersects( f, frustum );
+  test.identical( result, expected );
+
+  test.description = 'Frustums intersect'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 0.5, - 0.5, - 0.5, - 0.5, - 0.5, - 0.5 ] );
+  var expected = true;
+
+  var result = _.frustum.frustumIntersects( f, frustum );
+  test.identical( result, expected );
+
+  test.description = 'Frustums don´t intersec'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 3,   4, - 3,   4,   4, - 3 ] );;
+  var expected = false;
+
+  var result = _.frustum.frustumIntersects( f, frustum );
+  test.identical( result, expected );
+
+  test.description = 'Frustums almost intersecting'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 2,   1.1, - 2,   1.1,   1.1, - 2 ] );
+  var expected = false;
+
+  var result = _.frustum.frustumIntersects( f, frustum );
+  test.identical( result, expected );
+
+  test.description = 'Frustums just touching'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy(
+      [ 0,   0,   0,   0, - 1,   1,
+        1, - 1,   0,   0,   0,   0,
+        0,   0,   1, - 1,   0,   0,
+      - 2,   1, - 2,   1,   1, - 2 ] );
+
+  var expected = true;
+
+  var result = _.frustum.frustumIntersects( f, frustum );
+  test.identical( result, expected );
+
+  test.description = 'Frustums just intersect'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy(
+      [ 0,   0,   0,   0, - 1,   1,
+        1, - 1,   0,   0,   0,   0,
+        0,   0,   1, - 1,   0,   0,
+      - 2, 0.9, - 2, 0.9,   1, 0.9 ] );
+
+  var expected = true;
+
+  var result = _.frustum.frustumIntersects( f, frustum );
+  test.identical( result, expected );
+
+  test.description = 'Zero frustum, intersection'; //
+
+  var frustum = _.frustum.make();
+  var expected = true;
+
+  var result = _.frustum.frustumIntersects( f, frustum );
+  test.identical( result, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.frustumIntersects( ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumIntersects( f ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumIntersects( f, f, frustum ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumIntersects( null, frustum ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumIntersects( f, null));
+  test.shouldThrowErrorSync( () => _.frustum.frustumIntersects( NaN, frustum ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumIntersects( f, NaN));
+  test.shouldThrowErrorSync( () => _.frustum.frustumIntersects( [], f));
+  test.shouldThrowErrorSync( () => _.frustum.frustumIntersects( [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], f));
 
 }
 
@@ -535,7 +668,7 @@ var Self =
  silencing : 1,
  // verbosity : 7,
  // debug : 1,
- //routine: 'frustumCorners',
+ // routine: 'sphereIntersects',
 
  tests :
  {
@@ -545,7 +678,7 @@ var Self =
  pointContains : pointContains,
 
  frustumCorners : frustumCorners,
- //frustumIntersects : frustumIntersects,
+ frustumIntersects : frustumIntersects,
  //pointClosestPoint : pointClosestPoint,
  //boxClosestPoint : boxClosestPoint,
  //sphereClosestPoint : sphereClosestPoint,

@@ -8,6 +8,7 @@ var Self = _.frustum = _.frustum || Object.create( null );
 
 // --
 //  Frustum planes convention: frustum ( right, left, bottom, top, far, near );
+//  Frustum planes must have director vectors pointing outside frustum;
 // --
 
 function make()
@@ -208,26 +209,26 @@ function frustumCorners( srcfrustum )
 *
 * @example
 * // returns true;
-* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
-*  ([ 1, 0, 0, - 1, 0, 0,
-*     0, 1, 0, 0, - 1, 0,
-*     0, 0, 1, 0, 0, - 1,
-*     1, 1, 1, 1, 1, 1 ] );
-* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
-*  ([ 1, 0, 0, - 1, 0, 0,
-*     0, 1, 0, 0, - 1, 0,
-*     0, 0, 1, 0, 0, - 1,
-*     6, 6, 6, 6, 6, 6 ] );
-* _.frustumIntersect( srcfrustum , testfrustum );
+* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
+*   [ 0,   0,   0,   0, - 1,   1,
+*     1, - 1,   0,   0,   0,   0,
+*     0,   0,   1, - 1,   0,   0,
+*   - 1,   0, - 1,   0,   0, - 1 ] );
+* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
+*  [ 0,   0,   0,   0, - 1,   1,
+*    1, - 1,   0,   0,   0,   0,
+*    0,   0,   1, - 1,   0,   0,
+*   -0.5,-0.5,-0.5,-0.5,-0.5,-0.5 ] );
+* _.frustumIntersects( srcfrustum , testfrustum );
 *
 * @returns { Boolean } Returns true if the frustums intersect.
-* @function frustumIntersect
+* @function frustumIntersects
 * @throws { Error } An Error if ( arguments.length ) is different than two.
 * @throws { Error } An Error if ( frustum ) is not frustum.
 * @memberof wTools.box
 */
 
-function frustumIntersect( srcfrustum , testfrustum )
+function frustumIntersects( srcfrustum , testfrustum )
 {
 
   _.assert( arguments.length === 2 );
@@ -240,16 +241,24 @@ function frustumIntersect( srcfrustum , testfrustum )
   for ( var i = 0 ; i < points.length ; i += 1 )
   {
     var point = points.colVectorGet( i );
-    console.log('point :', point);
-    point = _.vector.from( point );
     var c = _.frustum.pointContains( testfrustum, point );
-    console.log('contained: ', c);
-    if ( c == false )
-    return false;
+    if ( c == true )
+    return true;
 
   }
 
-  return true;
+  var points2 = _.frustum.frustumCorners( testfrustum );
+
+  for ( var i = 0 ; i < points2.length ; i += 1 )
+  {
+    var point = points2.colVectorGet( i );
+    var c = _.frustum.pointContains( srcfrustum, point );
+    if ( c == true )
+    return true;
+
+  }
+
+  return false;
 }
 
 //
@@ -405,7 +414,7 @@ var Proto =
 
   frustumCorners : frustumCorners,
 
-  frustumIntersect : frustumIntersect,
+  frustumIntersects : frustumIntersects,
 }
 
 _.mapSupplement( Self,Proto );
