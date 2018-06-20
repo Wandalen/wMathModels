@@ -100,6 +100,61 @@ function is( frustum )
 
 //
 
+/**
+* Check if a frustum intersects with another frustum. Returns true if they intersect.
+* Both frustums remain unchanged.
+*
+* @param { Frustum } srcfrustum - Source frustum.
+* @param { Frustum } testfrustum - Frustum to test if it intersects.
+*
+* @example
+* // returns true;
+* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+*  ([ 1, 0, 0, - 1, 0, 0,
+*     0, 1, 0, 0, - 1, 0,
+*     0, 0, 1, 0, 0, - 1,
+*     1, 1, 1, 1, 1, 1 ] );
+* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+*  ([ 1, 0, 0, - 1, 0, 0,
+*     0, 1, 0, 0, - 1, 0,
+*     0, 0, 1, 0, 0, - 1,
+*     6, 6, 6, 6, 6, 6 ] );
+* _.frustumIntersect( srcfrustum , testfrustum );
+*
+* @returns { Boolean } Returns true if the frustums intersect.
+* @function frustumIntersect
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @memberof wTools.box
+*/
+
+function frustumIntersect( srcfrustum , testfrustum )
+{
+
+  _.assert( arguments.length === 2 );
+  _.assert( _.frustum.is( srcfrustum ) );
+  _.assert( _.frustum.is( testfrustum ) );
+  debugger;
+
+//  var p1 = [];
+//  var p2 = [];
+
+  for ( var i = 0 ; i < 6 ; i += 1 )
+  {
+    var plane = frustum.colVectorGet( i );
+
+    //var d1 = _.plane.pointDistance( plane,p1 );
+    //var d2 = _.plane.pointDistance( plane,p2 );
+
+    if ( d1 < 0 && d2 < 0 )
+    return false;
+
+  }
+
+  return true;
+}
+
+//
 
 /**
 * Check if a frustum and a sphere intersect. Returns true if they intersect.
@@ -195,6 +250,25 @@ function boxIntersects( frustum , box )
 
 //
 
+/**
+* Check if a frustum contains a point. Returns true if it contains it.
+* Frustum and point remain unchanged.
+*
+* @param { Frustum } frustum - Source frustum.
+* @param { Array } point - Source point.
+*
+* @example
+* // returns false;
+* _.pointContains( _.frustum.make() , [ 1, 1, 1 ] );
+**
+* @returns { Boolean } Returns true if the frustum contains the point.
+* @function pointContains
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( point ) is not point.
+* @memberof wTools.box
+*/
+
 function pointContains( frustum , point )
 {
 
@@ -231,6 +305,7 @@ var Proto =
   boxIntersects : boxIntersects,
   pointContains : pointContains,
 
+// frustumIntersect : frustumIntersect;
 }
 
 _.mapSupplement( Self,Proto );
