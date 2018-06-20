@@ -3,42 +3,55 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
+
+debugger;
 var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
    [ - 1, 1, 0, 0, 0, 0,
      0, 0, 0, 0, - 1, 1,
      0, 0, 1, - 1, 0, 0,
      0, - 1, - 1, 0, 0, - 1 ] );
 
-var far1 = srcfrustum.colVectorGet( 0 );
-var near1 = srcfrustum.colVectorGet( 1 );
-var top1 = srcfrustum.colVectorGet( 2 );
-var bottom1 = srcfrustum.colVectorGet( 3 );
-var left1 = srcfrustum.colVectorGet( 4 );
-var right1 = srcfrustum.colVectorGet( 5 );
+ var dims = _.Space.dimsOf( srcfrustum ) ;
+ var rows = dims[ 0 ];
+ var cols = dims[ 1 ];
 
-var p001 = _.plane.threeIntersectionPoint( far1, top1, left1 );
-var p011 = _.plane.threeIntersectionPoint( far1, top1, right1 );
-var p000 = _.plane.threeIntersectionPoint( far1, bottom1, left1 );
-var p010 = _.plane.threeIntersectionPoint( far1, bottom1, right1 );
-var p101 = _.plane.threeIntersectionPoint( near1, top1, left1 );
-var p111 = _.plane.threeIntersectionPoint( near1, top1, right1 );
-var p100 = _.plane.threeIntersectionPoint( near1, bottom1, left1 );
-var p110 = _.plane.threeIntersectionPoint( near1, bottom1, right1 );
+var pointsFru = _.Space.makeZero( [ rows - 1, cols + 2 ] );
 
-for( var d = 0 ; d < 8 ; d++ )
-if( min.eGet( d ) > max.eGet( d ) )
-return true;
+var l = 0;
+debugger;
+for( var i = 0 ; i < cols - 2 ; i++ )
+{
+  debugger;
+  for( var j = i + 1 ; j < cols - 1 ; j++ )
+  {
+    debugger;
+    for( var k = j + 1 ; k < cols ; k++ )
+    {
+      var plane1 = srcfrustum.colVectorGet( i );
+      var plane2 = srcfrustum.colVectorGet( j );
+      var plane3 = srcfrustum.colVectorGet( k );
+      var point = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+      debugger;
+      if ( !_.vectorIs( point ) ){}
+      else{
+        for( var m = 0 ; m < rows - 1; m++ )
+        {
+          debugger;
+          point = _.vector.toArray( point );
+          pointsFru.atomSet( [ m, l ], point[ m ] );
+        }
+        l = l + 1;
+      }
+    }
+   }
+}
 
-console.log('000: ',p000 ,'  001; ',p001,'  010: ',p010 ,'  100; ',p100);
-console.log('011: ',p011 ,'  101; ',p101,'  110: ',p110 ,'  111; ',p111);
-
-
-var testfrustum = _.Space.make( [ 4, 6 ] ).copy(
-    [ 1, 0, 0, - 1, 0, 0,
-      0, 1, 0, 0, - 1, 0,
-      0, 0, 1, 0, 0, - 1,
-      1, 1, 1, 1, 1, 1 ] );
-
+console.log('Corners of frustum: ');
+for( var i = 0 ; i < 8 ; i++ )
+{
+  col = _.vector.toArray(pointsFru.colVectorGet( i ));
+console.log(col);
+}
 
 
 debugger;
