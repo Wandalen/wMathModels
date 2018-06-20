@@ -9,7 +9,7 @@ var plane3 = [ 1, 0, 0, 2 ];
 
 var Intpoint = [ 0, 0, 0 ];
 
-var IntPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3, Intpoint );
+IntPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3);
 console.log('Point: ', IntPoint );
 
 debugger;

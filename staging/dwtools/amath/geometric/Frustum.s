@@ -137,6 +137,23 @@ function frustumIntersect( srcfrustum , testfrustum )
   _.assert( _.frustum.is( testfrustum ) );
   debugger;
 
+
+  var far1 = srcfrustum.colVectorGet( 0 );
+  var near1 = srcfrustum.colVectorGet( 1 );
+  var top1 = srcfrustum.colVectorGet( 2 );
+  var bottom1 = srcfrustum.colVectorGet( 3 );
+  var left1 = srcfrustum.colVectorGet( 4 );
+  var right1 = srcfrustum.colVectorGet( 5 );
+
+  var p001 = _.plane.threeIntersectionPoint( far1, top1, left1 );
+  var p011 = _.plane.threeIntersectionPoint( far1, top1, right1 );
+  var p000 = _.plane.threeIntersectionPoint( far1, bottom1, left1 );
+  var p010 = _.plane.threeIntersectionPoint( far1, bottom1, right1 );
+  var p101 = _.plane.threeIntersectionPoint( near1, top1, left1 );
+  var p111 = _.plane.threeIntersectionPoint( near1, top1, right1 );
+  var p100 = _.plane.threeIntersectionPoint( near1, bottom1, left1 );
+  var p110 = _.plane.threeIntersectionPoint( near1, bottom1, right1 );
+
 //  var p1 = [];
 //  var p2 = [];
 

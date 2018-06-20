@@ -402,7 +402,7 @@ var Self =
  silencing : 1,
  // verbosity : 7,
  // debug : 1,
- routine: 'pointContains',
+ //routine: 'pointContains',
 
  tests :
  {
