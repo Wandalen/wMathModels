@@ -7,7 +7,8 @@ var avector = _.avector;
 var Self = _.frustum = _.frustum || Object.create( null );
 
 // --
-//
+//  Frustum planes convention: frustum ( right, left, bottom, top, far, near );
+//  Frustum planes must have director vectors pointing outside frustum;
 // --
 
 function make()
@@ -97,6 +98,105 @@ function is( frustum )
   _.assert( arguments.length === 1 );
   return _.spaceIs( frustum ) && frustum.hasShape([ 4,6 ])
 }
+//
+
+/**
+* Returns the coordinates of the corners of a frustum. Returns an space object where each column is a point.
+* Frustum remain unchanged. Frustum need to follow planes convention ( see top of the file )
+*
+* @param { Frustum } srcfrustum - Source frustum.
+*
+* @example
+* // returns furstumCorners =
+* [ 0, 0, 0, 0, 1, 1, 1, 1,
+*   1, 0, 1, 0, 1, 0, 1, 0,
+*   1, 1, 0, 0, 1, 1, 0, 0,
+* ];
+* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+*  ([ 0, 0, 0, 0, - 1, 1,
+*     1, - 1, 0, 0, 0, 0,
+*     0, 0, 1, - 1, 0, 0,
+*     - 1, 0, - 1, 0, 0, - 1 ] );
+*
+* _.frustumCorners( srcfrustum );
+*
+* @returns { Space } Returns the coordintes of the points in the frustum corners.
+* @function frustumCorners
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @memberof wTools.box
+*/
+
+function frustumCorners( srcfrustum )
+{
+
+  _.assert( arguments.length === 1 );
+  _.assert( _.frustum.is( srcfrustum ) );
+  debugger;
+
+  var dims = _.Space.dimsOf( srcfrustum ) ;
+  var rows = dims[ 0 ];
+  var cols = dims[ 1 ];
+  var pointsFru = _.Space.makeZero( [ rows - 1, cols + 2 ] );
+
+  var right = _.vector.from(srcfrustum.colVectorGet( 0 ));
+  var left = srcfrustum.colVectorGet( 1 );
+  var top = srcfrustum.colVectorGet( 2 );
+  var bottom = srcfrustum.colVectorGet( 3 );
+  var far = srcfrustum.colVectorGet( 4 );
+  var near = srcfrustum.colVectorGet( 5 );
+
+  var point = _.plane.threeIntersectionPoint( far, top, right );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 0 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 0 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 0 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( far, top, left );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 1 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 1 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 1 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( far, bottom, right );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 2 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 2 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 2 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( far, bottom, left );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 3 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 3 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 3 ], point[ 2 ] );}
+
+  point = _.plane.threeIntersectionPoint( near, top, right );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 4 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 4 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 4 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( near, top, left );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 5 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 5 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 5 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( near, bottom, right );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 6 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 6 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 6 ], point[ 2 ] );}
+
+  point = _.plane.threeIntersectionPoint( near, bottom, left );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 7 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 7 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 7 ], point[ 2 ] );}
+  debugger;
+
+  return pointsFru;
+}
 
 //
 
@@ -109,26 +209,26 @@ function is( frustum )
 *
 * @example
 * // returns true;
-* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
-*  ([ 1, 0, 0, - 1, 0, 0,
-*     0, 1, 0, 0, - 1, 0,
-*     0, 0, 1, 0, 0, - 1,
-*     1, 1, 1, 1, 1, 1 ] );
-* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
-*  ([ 1, 0, 0, - 1, 0, 0,
-*     0, 1, 0, 0, - 1, 0,
-*     0, 0, 1, 0, 0, - 1,
-*     6, 6, 6, 6, 6, 6 ] );
-* _.frustumIntersect( srcfrustum , testfrustum );
+* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
+*   [ 0,   0,   0,   0, - 1,   1,
+*     1, - 1,   0,   0,   0,   0,
+*     0,   0,   1, - 1,   0,   0,
+*   - 1,   0, - 1,   0,   0, - 1 ] );
+* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
+*  [ 0,   0,   0,   0, - 1,   1,
+*    1, - 1,   0,   0,   0,   0,
+*    0,   0,   1, - 1,   0,   0,
+*   -0.5,-0.5,-0.5,-0.5,-0.5,-0.5 ] );
+* _.frustumIntersects( srcfrustum , testfrustum );
 *
 * @returns { Boolean } Returns true if the frustums intersect.
-* @function frustumIntersect
+* @function frustumIntersects
 * @throws { Error } An Error if ( arguments.length ) is different than two.
 * @throws { Error } An Error if ( frustum ) is not frustum.
 * @memberof wTools.box
 */
 
-function frustumIntersect( srcfrustum , testfrustum )
+function frustumIntersects( srcfrustum , testfrustum )
 {
 
   _.assert( arguments.length === 2 );
@@ -136,22 +236,29 @@ function frustumIntersect( srcfrustum , testfrustum )
   _.assert( _.frustum.is( testfrustum ) );
   debugger;
 
-//  var p1 = [];
-//  var p2 = [];
+ var points = _.frustum.frustumCorners( srcfrustum );
 
-  for ( var i = 0 ; i < 6 ; i += 1 )
+  for ( var i = 0 ; i < points.length ; i += 1 )
   {
-    var plane = frustum.colVectorGet( i );
-
-    //var d1 = _.plane.pointDistance( plane,p1 );
-    //var d2 = _.plane.pointDistance( plane,p2 );
-
-    if ( d1 < 0 && d2 < 0 )
-    return false;
+    var point = points.colVectorGet( i );
+    var c = _.frustum.pointContains( testfrustum, point );
+    if ( c == true )
+    return true;
 
   }
 
-  return true;
+  var points2 = _.frustum.frustumCorners( testfrustum );
+
+  for ( var i = 0 ; i < points2.length ; i += 1 )
+  {
+    var point = points2.colVectorGet( i );
+    var c = _.frustum.pointContains( srcfrustum, point );
+    if ( c == true )
+    return true;
+
+  }
+
+  return false;
 }
 
 //
@@ -281,7 +388,7 @@ function pointContains( frustum , point )
   {
 
     var plane = frustum.colVectorGet( i );
-    if( _.plane.pointDistance( plane,point ) < 0 )
+    if( _.plane.pointDistance( plane, point ) > 0 )
     return false;
 
   }
@@ -305,7 +412,9 @@ var Proto =
   boxIntersects : boxIntersects,
   pointContains : pointContains,
 
-// frustumIntersect : frustumIntersect;
+  frustumCorners : frustumCorners,
+
+  frustumIntersects : frustumIntersects,
 }
 
 _.mapSupplement( Self,Proto );
