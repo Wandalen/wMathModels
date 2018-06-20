@@ -398,99 +398,115 @@ function frustumCorners( test )
 
   test.description = 'Frustum remains unchanged'; //
 
-  var f = _.Space.make( [ 4, 6 ] ).copy
-    ([ 1, 0, 0, - 1, 0, 0,
-       0, 1, 0, 0, - 1, 0,
-       0, 0, 1, 0, 0, - 1,
-       1, 1, 1, 1, 1, 1 ] );
-  var oldf = _.Space.make( [ 4, 6 ] ).copy
-    ([ 1, 0, 0, - 1, 0, 0,
-       0, 1, 0, 0, - 1, 0,
-       0, 0, 1, 0, 0, - 1,
-       1, 1, 1, 1, 1, 1 ] );
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var oldf = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
   var expected = _.Space.make( [ 3, 8 ] ).copy
-    ([ - 1, - 1, - 1, - 1, 1, 1, 1, 1,
-       - 1, - 1, 1, 1, - 1, - 1, 1, 1,
-       - 1, 1, - 1, 1, - 1, 1, - 1, 1 ] );
+    ([ 0, 0, 0, 0, 1, 1, 1, 1,
+       1, 0, 1, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 1, 1, 0, 0 ] );
 
   var result = _.frustum.frustumCorners( f );
-  test.identical( result, expected );
+  test.equivalent( result, expected );
   test.identical( f, oldf );
 
-  test.description = 'frustum as box (0,0,0,1,1,1)'; //
 
-  var f = _.Space.make( [ 4, 6 ] ).copy
-    ([ - 1, 1, 0, 0, 0, 0,
-       0, 0, 0, 0, - 1, 1,
-       0, 0, 1, - 1, 0, 0,
-       0, - 1, - 1, 0, 0, - 1 ] );
+  test.description = 'Frustrum as box (0,0,0,1,1,1)'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
   var expected = _.Space.make( [ 3, 8 ] ).copy
     ([ 0, 0, 0, 0, 1, 1, 1, 1,
-       0, 1, 0, 1, 0, 1, 0, 1,
+       1, 0, 1, 0, 1, 0, 1, 0,
        1, 1, 0, 0, 1, 1, 0, 0 ] );
 
   var result = _.frustum.frustumCorners( f );
   test.identical( result, expected );
 
-  test.description = 'frustum as point (0,0,0,0,0,0)'; //
+  test.description = 'Frustrum as point (1,1,1)'; //
 
-  var f = _.Space.make( [ 4, 6 ] ).copy
-    ([ - 1, 1, 0, 0, 0, 0,
-       0, 0, 0, 0, - 1, 1,
-       0, 0, 1, - 1, 0, 0,
-       0, 0, 0, 0, 0, 0 ] );
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   1, - 1,   1,   1, - 1 ] );
   var expected = _.Space.make( [ 3, 8 ] ).copy
-    ([ 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0 ] );
+    ([ 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1 ] );
 
   var result = _.frustum.frustumCorners( f );
   test.identical( result, expected );
 
-  test.description = 'frustum as box (2,2,2,2,2,2)'; //
+  test.description = 'Frustrum as box (-1,-1,-1,1,1,1)'; //
 
-  var f = _.Space.make( [ 4, 6 ] ).copy
-    ([ - 1, 1, 0, 0, 0, 0,
-       0, 0, 0, 0, - 1, 1,
-       0, 0, 1, - 1, 0, 0,
-       2, - 2, - 2, 2, 2, - 2 ] );
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1, - 1, - 1, - 1, - 1, - 1 ] );
   var expected = _.Space.make( [ 3, 8 ] ).copy
-    ([ 2, 2, 2, 2, 2, 2, 2, 2,
-       2, 2, 2, 2, 2, 2, 2, 2,
-       2, 2, 2, 2, 2, 2, 2, 2 ] );
+    ([ -1, -1, -1, -1, 1, 1, 1, 1,
+       1, -1, 1, -1, 1, -1, 1, -1,
+       1, 1, -1, -1, 1, 1, -1, -1 ] );
 
   var result = _.frustum.frustumCorners( f );
   test.identical( result, expected );
 
-  test.description = 'frustum as box (0,0,0,1,1,1)'; //
+  test.description = 'Frustrum with inclined side'; //
 
-  var f = _.Space.make( [ 4, 6 ] ).copy
-    ([ - 1, 1, 0, 0, 0, 0,
-       0, 0, 0, 0, - 1, 1,
-       0, 0, 1, - 1, 0, 0,
-       0, - 1, - 1, 0, 0, - 1 ] );
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   2,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
   var expected = _.Space.make( [ 3, 8 ] ).copy
     ([ 0, 0, 0, 0, 1, 1, 1, 1,
-       0, 1, 0, 1, 0, 1, 0, 1,
+       1, 2, 1, 0, 1, 2, 1, 0,
        1, 1, 0, 0, 1, 1, 0, 0 ] );
 
   var result = _.frustum.frustumCorners( f );
   test.identical( result, expected );
 
-  test.description = 'frustum as box (0,0,0,1,1,1)'; //
+  test.description = 'Frustrum with two inclined sides'; //
 
-  var f = _.Space.make( [ 4, 6 ] ).copy
-    ([ - 1, 1, 0, 0, 0, 0,
-       0, 0, 0, 0, - 1, 1,
-       0, 0, 1, - 1, 0, 0,
-       0, - 1, - 1, 0, 0, - 1 ] );
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   2,   0,
+       0,   2,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
   var expected = _.Space.make( [ 3, 8 ] ).copy
-    ([ 0, 0, 0, 0, 1, 1, 1, 1,
-       0, 1, 0, 1, 0, 1, 0, 1,
+    ([ 2, 4, 2, 0, 1, 1, 1, 1,
+       1, 2, 1, 0, 1, 2, 1, 0,
        1, 1, 0, 0, 1, 1, 0, 0 ] );
 
   var result = _.frustum.frustumCorners( f );
   test.identical( result, expected );
+
+  test.description = 'Frustrum with three inclined sides'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   2,   0,
+       0,   2,   1, - 1,   0, 0.5,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var expected = _.Space.make( [ 3, 8 ] ).copy
+    ([ 2, 4, 2, 0, 0.5, 0.5, 1, 1,
+       1, 2, 1, 0, 1, 2, 1, 0,
+       1, 1, 0, 0, 1, 1, 0, 0 ] );
+
+  var result = _.frustum.frustumCorners( f );
+  test.equivalent( result, expected );
 
   /* */
 
@@ -499,6 +515,12 @@ function frustumCorners( test )
 
   test.shouldThrowErrorSync( () => _.frustum.frustumCorners( ));
   test.shouldThrowErrorSync( () => _.frustum.frustumCorners( f, f ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumCorners( null ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumCorners( NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumCorners( f, [ 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumCorners( [ 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumCorners( [ ] ));
+
 
 }
 

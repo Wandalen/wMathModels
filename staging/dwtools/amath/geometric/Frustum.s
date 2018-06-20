@@ -138,29 +138,60 @@ function frustumCorners( srcfrustum )
   var cols = dims[ 1 ];
   var pointsFru = _.Space.makeZero( [ rows - 1, cols + 2 ] );
 
-  var right = srcfrustum.colVectorGet( 0 );
+  var right = _.vector.from(srcfrustum.colVectorGet( 0 ));
   var left = srcfrustum.colVectorGet( 1 );
   var top = srcfrustum.colVectorGet( 2 );
   var bottom = srcfrustum.colVectorGet( 3 );
   var far = srcfrustum.colVectorGet( 4 );
   var near = srcfrustum.colVectorGet( 5 );
 
-  var point =  _.vector.toArray( _.plane.threeIntersectionPoint( far, top, right ) );
-  pointsFru.atomSet( [ 0, 0 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 0 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 0 ], point[ 2 ] );
-  point =  _.vector.toArray( _.plane.threeIntersectionPoint( far, top, left ) );
-  pointsFru.atomSet( [ 0, 1 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 1 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 1 ], point[ 2 ] );
-  point =  _.vector.toArray( _.plane.threeIntersectionPoint( far, bottom, right ) );
-  pointsFru.atomSet( [ 0, 2 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 2 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 2 ], point[ 2 ] );
-  point =  _.vector.toArray( _.plane.threeIntersectionPoint( far, bottom, left ) );
-  pointsFru.atomSet( [ 0, 3 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 3 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 3 ], point[ 2 ] );
-  point =  _.vector.toArray( _.plane.threeIntersectionPoint( near, top, right ) );
-  pointsFru.atomSet( [ 0, 4 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 4 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 4 ], point[ 2 ] );
-  point =  _.vector.toArray( _.plane.threeIntersectionPoint( near, top, left ) );
-  pointsFru.atomSet( [ 0, 5 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 5 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 5 ], point[ 2 ] );
-  point =  _.vector.toArray( _.plane.threeIntersectionPoint( near, bottom, right ) );
-  pointsFru.atomSet( [ 0, 6 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 6 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 6 ], point[ 2 ] );
-  point =  _.vector.toArray( _.plane.threeIntersectionPoint( near, bottom, left ) );
-  pointsFru.atomSet( [ 0, 7 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 7 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 7 ], point[ 2 ] );
+  var point = _.plane.threeIntersectionPoint( far, top, right );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 0 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 0 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 0 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( far, top, left );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 1 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 1 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 1 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( far, bottom, right );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 2 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 2 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 2 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( far, bottom, left );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 3 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 3 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 3 ], point[ 2 ] );}
+
+  point = _.plane.threeIntersectionPoint( near, top, right );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 4 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 4 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 4 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( near, top, left );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 5 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 5 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 5 ], point[ 2 ] );}
+
+  point =  _.plane.threeIntersectionPoint( near, bottom, right );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 6 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 6 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 6 ], point[ 2 ] );}
+
+  point = _.plane.threeIntersectionPoint( near, bottom, left );
+  if( ! _.vectorIs(point) ){ return false; }
+  else{
+    point = _.vector.toArray( point );
+    pointsFru.atomSet( [ 0, 7 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 7 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 7 ], point[ 2 ] );}
   debugger;
 
   return pointsFru;
@@ -203,9 +234,6 @@ function frustumIntersect( srcfrustum , testfrustum )
   _.assert( _.frustum.is( srcfrustum ) );
   _.assert( _.frustum.is( testfrustum ) );
   debugger;
-
-//  var p1 = [];
-//  var p2 = [];
 
   for ( var i = 0 ; i < 6 ; i += 1 )
   {
