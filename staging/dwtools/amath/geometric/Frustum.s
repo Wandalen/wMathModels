@@ -396,7 +396,6 @@ function pointContains( frustum , point )
   return true;
 }
 
-
 //
 
 /**
@@ -471,10 +470,10 @@ function pointClosestPoint( frustum , point )
   if( _.frustum.pointContains( frustum, dstpoint ) == true ){ console.log( ' Not need to project '); return dstpoint;  }
   else
   {
-  console.log( ' project ')
-  var d0 = 1.79E+308;
-  var dstpoint = _.vector.from( dstpoint );
-  var _point = _.vector.from( _point );
+    console.log( ' project ')
+    var d0 = 1.79E+308;
+    var dstpoint = _.vector.from( dstpoint );
+    var _point = _.vector.from( _point );
 
     for( var i = 0 ; i < cols ; i++ )
     {
@@ -486,11 +485,13 @@ function pointClosestPoint( frustum , point )
     }
   }
 
- //return dstpoint;
-
  dstpoint = _.vector.from( dstpoint );
- if( _.frustum.pointContains( frustum, _.vector.from( dstpoint ) ) == true ){ console.log( 'OK '); return dstpoint;  }
+ _.assert( _.frustum.pointContains( frustum, _.vector.from( dstpoint ) ) == true );
+
+return dstpoint;
+
 }
+
 
 // --
 // define class
