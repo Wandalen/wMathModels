@@ -388,7 +388,7 @@ function pointContains( frustum , point )
   {
 
     var plane = frustum.colVectorGet( i );
-    if( _.plane.pointDistance( plane, point ) > 0 )
+    if( _.plane.pointDistance( plane, point ) > 1E-12 )
     return false;
 
   }
@@ -427,10 +427,11 @@ function pointContains( frustum , point )
 
 function pointClosestPoint( frustum , point )
 {
+
   _.assert( arguments.length === 2 );
   _.assert( _.frustum.is( frustum ) );
   var point = _.vector.from( point );
-  var _point = point.slice();
+  var _point = _.vector.from( point.slice() );
   var dstpoint = _.vector.fromArray( [ 0, 0, 0 ] );
   var dims = _.Space.dimsOf( frustum ) ;
   var rows = dims[ 0 ];
@@ -444,8 +445,8 @@ function pointClosestPoint( frustum , point )
   var min = fpoints.colVectorGet( 0 );
   max = _.vector.toArray( max );
   min = _.vector.toArray( min );
-  _point = _.vector.toArray( _point );
   dstpoint = _.vector.toArray( dstpoint );
+  var _point = _.vector.toArray( _point.slice() );
 
   for ( var j = 1 ; j < cols ; j++ )
   {
@@ -466,7 +467,29 @@ function pointClosestPoint( frustum , point )
   }
 
   dstpoint = _.vector.from( dstpoint );
-  return dstpoint;
+
+  if( _.frustum.pointContains( frustum, dstpoint ) == true ){ console.log( ' Not need to project '); return dstpoint;  }
+  else
+  {
+  console.log( ' project ')
+  var d0 = 1.79E+308;
+  var dstpoint = _.vector.from( dstpoint );
+  var _point = _.vector.from( _point );
+
+    for( var i = 0 ; i < cols ; i++ )
+    {
+      var plane = _.vector.from( frustum.colVectorGet( i ) );
+      var p = _point.slice()
+      var d = _.plane.pointDistance( plane, _point );
+      if( Math.abs( d ) < Math.abs( d0 ) && _.frustum.pointContains( frustum, _.vector.from( _.plane.pointCoplanarGet( plane, p ) ) ) )
+      { dstpoint = _.plane.pointCoplanarGet( plane, p ); d0 = d;}
+    }
+  }
+
+ //return dstpoint;
+
+ dstpoint = _.vector.from( dstpoint );
+ if( _.frustum.pointContains( frustum, _.vector.from( dstpoint ) ) == true ){ console.log( 'OK '); return dstpoint;  }
 }
 
 // --

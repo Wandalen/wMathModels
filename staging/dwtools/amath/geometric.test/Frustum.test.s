@@ -657,6 +657,123 @@ function frustumCorners( test )
 
 }
 
+
+//
+
+function pointClosestPoint( test )
+{
+
+  test.description = 'Frustum and point remain unchanged'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var point = [ -1, -1, -1 ];
+  var oldf = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var oldpoint = [ -1, -1, -1 ];
+  var expected = _.vector.from( [ 0, 0, 0 ] );
+
+  var result = _.frustum.pointClosestPoint( f, point );
+  test.equivalent( result, expected );
+  test.identical( f, oldf );
+  test.identical( point, oldpoint );
+
+  test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 1, 1, 1 )'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var point = [ -1, -1, -1 ];
+  var expected = _.vector.from( [ 0, 0, 0 ] );
+
+  var result = _.frustum.pointClosestPoint( f, point );
+  test.identical( result, expected );
+
+  test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - center of side side'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var point = [ 0.5, 0.5, -3 ];
+  var expected = [ 0.5, 0.5, 0 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.pointClosestPoint( f, point );
+  test.identical( result, expected );
+
+  test.description = 'Point inside frustum'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var point = [ 0.5, 0.6, 0.2 ];
+  var expected = [ 0.5, 0.6, 0.2 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.pointClosestPoint( f, point );
+  test.identical( result, expected );
+
+  test.description = 'Point under frustum'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var point = [ -1, -1, -1 ];
+  var expected = [ 0, 0, 0 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.pointClosestPoint( f, point );
+  test.identical( result, expected );
+
+  test.description = 'Diagonal frustum plane'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   2,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var point = [ 0, 0, 2 ];
+  var expected = [ 0, 0.79999, 0.40000 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.pointClosestPoint( f, point );
+  test.equivalent( result, expected );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( f, f ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( null ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( f, [ 0, 0, 2, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( [ 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( [ ] ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( null, [ 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( NaN , [ 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( f, null ));
+  test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( f, NaN ));
+
+
+}
+
 // --
 // define class
 // --
@@ -668,7 +785,7 @@ var Self =
  silencing : 1,
  // verbosity : 7,
  // debug : 1,
- // routine: 'sphereIntersects',
+  routine: 'pointClosestPoint',
 
  tests :
  {
@@ -679,7 +796,7 @@ var Self =
 
  frustumCorners : frustumCorners,
  frustumIntersects : frustumIntersects,
- //pointClosestPoint : pointClosestPoint,
+ pointClosestPoint : pointClosestPoint,
  //boxClosestPoint : boxClosestPoint,
  //sphereClosestPoint : sphereClosestPoint,
 

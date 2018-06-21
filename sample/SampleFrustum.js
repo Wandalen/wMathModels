@@ -8,10 +8,10 @@ debugger;
 var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
    [ 0,   0,   0,   0, - 1,   1,
      1, - 1,   0,   0,   0,   0,
-     0,   0,   1, - 1,   0,   0,
+     0,   2,   1, - 1,   0,   0,
    - 1,   0, - 1,   0,   0, - 1 ] );
 
-var srcpoint = [ 5, 0.5, - 3 ];
+var srcpoint = [ 0, 0,  2 ];
 
 
 var inter = _.frustum.pointClosestPoint( srcfrustum, srcpoint );
