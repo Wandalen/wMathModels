@@ -17,8 +17,7 @@ var srcpoint = [ 0, 0,  2 ];
 var inter = _.frustum.pointClosestPoint( srcfrustum, srcpoint );
 //var interno = _.frustum.frustumIntersects( srcfrustum, frustum2 );
 
-console.log('src point: ', srcpoint);
-console.log('final: ', inter);
+console.log('final point: ', inter);
 //console.log('Frustums intersect: ', interno);
 
 debugger;

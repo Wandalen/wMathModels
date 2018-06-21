@@ -467,10 +467,9 @@ function pointClosestPoint( frustum , point )
 
   dstpoint = _.vector.from( dstpoint );
 
-  if( _.frustum.pointContains( frustum, dstpoint ) == true ){ console.log( ' Not need to project '); return dstpoint;  }
+  if( _.frustum.pointContains( frustum, dstpoint ) == true ){ return dstpoint;  }
   else
   {
-    console.log( ' project ')
     var d0 = 1.79E+308;
     var dstpoint = _.vector.from( dstpoint );
     var _point = _.vector.from( _point );
