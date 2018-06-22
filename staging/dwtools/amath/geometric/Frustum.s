@@ -297,7 +297,7 @@ function sphereIntersects( frustum , sphere )
     var plane = frustum.colVectorGet( i );
     var distance = _.plane.pointDistance( plane,center );
 
-    if( Math.abs(distance) < radius )
+    if( Math.abs(distance) <= radius )
     return true;
 
   }
@@ -614,6 +614,50 @@ function boxClosestPoint( frustum , box )
  return dstpoint;
 }
 
+
+/**
+* Returns the closest point in a frustum to a sphere. Returns the coordinates of the closest point.
+* Frustum and sphere remain unchanged.
+*
+* @param { Frustum } frustum - Source frustum.
+* @param { Array } sphere - Source sphere.
+*
+* @example
+* // returns [ 0, 0, 0 ];
+* var frustum = _.Space.make( [ 4, 6 ] ).copy(
+*   [ 0,   0,   0,   0, - 1,   1,
+*     1, - 1,   0,   0,   0,   0,
+*     0,   0,   1, - 1,   0,   0,
+*   - 1,   0, - 1,   0,   0, - 1 ] );
+* _.sphereClosestPoint( frustum , [ - 1, - 1, - 1, 0.1 ] );
+*
+* @returns { Array } Returns the array of coordinates of the closest point in the frustum.
+* @function sphereClosestPoint
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( sphere ) is not sphere.
+* @memberof wTools.box
+*/
+
+function sphereClosestPoint( frustum , sphere )
+{
+  var spherev = _.sphere._from( sphere );
+  var center = _.sphere.centerGet( spherev );
+  var radius = _.sphere.radiusGet( spherev );
+  var dim = _.sphere.dimGet( spherev );
+
+  _.assert( arguments.length === 2 );
+  _.assert( dim === 3 );
+  _.assert( _.frustum.is( frustum ) );
+
+  if( _.frustum.sphereIntersects( frustum, spherev ) ){ return 0; }
+
+  var dstpoint = _.frustum.pointClosestPoint( frustum, center );
+
+  return dstpoint;
+
+}
+
 // --
 // define class
 // --
@@ -634,6 +678,8 @@ var Proto =
 
   pointClosestPoint : pointClosestPoint,
   boxClosestPoint : boxClosestPoint,
+  sphereClosestPoint : sphereClosestPoint,
+
 
 
 }

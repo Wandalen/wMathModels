@@ -58,17 +58,17 @@ function sphereIntersects( test )
   test.description = 'Frustum and sphere remain unchanged'; //
 
   var f = _.Space.make( [ 4, 6 ] ).copy(
-     [ 1, 0, 0, - 1, 0, 0,
-       0, 1, 0, 0, - 1, 0,
-       0, 0, 1, 0, 0, - 1,
-       1, 1, 1, 1, 1, 1 ] );
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
 
   var sphere = [ 3, 3, 3, 1 ];
-  var oldf = _.Space.make( [ 4, 6 ] ).copy(
-     [ 1, 0, 0, - 1, 0, 0,
-       0, 1, 0, 0, - 1, 0,
-       0, 0, 1, 0, 0, - 1,
-       1, 1, 1, 1, 1, 1 ] );
+  var oldf =  _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
 
   var oldSphere = [ 3, 3, 3, 1 ];
   var expected = false;
@@ -94,6 +94,14 @@ function sphereIntersects( test )
   var result = _.frustum.sphereIntersects( f, sphere );
   test.identical( result, expected );
 
+  test.description = 'Frustum and sphere intersect, frustum bigger than sphere'; //
+
+  var sphere = [ 0.5, 0.5, 0.5, 0.1 ];
+  var expected = true;
+
+  var result = _.frustum.sphereIntersects( f, sphere );
+  test.identical( result, expected );
+
   test.description = 'Frustum and sphere not intersecting'; //
 
   var sphere = [ 5, 5, 5, 1 ];
@@ -113,7 +121,7 @@ function sphereIntersects( test )
   test.description = 'Frustum and sphere just touching'; //
 
   var sphere = [ 5 , 5, 5, 4 ];
-  var expected = false;
+  var expected = true;
 
   var result = _.frustum.sphereIntersects( f, sphere );
   test.identical( result, expected );
@@ -931,7 +939,7 @@ var Self =
  silencing : 1,
  // verbosity : 7,
  // debug : 1,
-  routine: 'boxClosestPoint',
+  routine: 'sphereIntersects',
 
  tests :
  {
