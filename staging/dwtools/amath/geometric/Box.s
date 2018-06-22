@@ -750,10 +750,10 @@ function pointContains( box , point )
   debugger;
   //throw _.err( 'not tested' );
 
-  if( _.vector.anyLessEqual( point , min ) )
+  if( _.vector.anyLess( point , min ) )
   return false;
 
-  if( _.vector.anyGreaterEqual( point , max ) )
+  if( _.vector.anyGreater( point , max ) )
   return false;
 
   return true;

@@ -984,7 +984,7 @@ function pointContains( test )
 
   var box = null;
   var point = [ 0, 0, 0 ];
-  var expected = false;
+  var expected = true;
 
   box = _.box.pointContains( box, point );
   test.identical( box, expected );
@@ -998,11 +998,11 @@ function pointContains( test )
   box = _.box.pointContains( box, point );
   test.identical( box, expected );
 
-  test.description = 'Point Box doesn´t contain Point'; //
+  test.description = 'Point Box contains Point'; //
 
   box = [ 0, 0, 0, 0, 0, 0 ];
   point = [ 0, 0, 0 ];
-  expected = false;
+  expected = true;
 
   box = _.box.pointContains( box, point );
   test.identical( box, expected );
@@ -4156,44 +4156,45 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
+  routine: 'pointContains',
 
   tests :
   {
 
-//    is : is,
-//    isEmpty : isEmpty,
-//    isZero : isZero,
-//    isNil : isNil,
+    is : is,
+    isEmpty : isEmpty,
+    isZero : isZero,
+    isNil : isNil,
 
-//    make : make,
-//    makeZero : makeZero,
-//    makeNil : makeNil,
+    make : make,
+    makeZero : makeZero,
+    makeNil : makeNil,
 
-//    zero : zero,
-//    nil : nil,
-//    centeredOfSize : centeredOfSize,
-//    boxFromPoints : boxFromPoints,
+    zero : zero,
+    nil : nil,
+    centeredOfSize : centeredOfSize,
+    boxFromPoints : boxFromPoints,
 
-//    pointExpand : pointExpand,
-//    pointContains : pointContains,
-//    pointRelative : pointRelative,
-//    pointClamp : pointClamp,
-//    pointDistance : pointDistance,
+    pointExpand : pointExpand,
+    pointContains : pointContains,
+    pointRelative : pointRelative,
+    pointClamp : pointClamp,
+    pointDistance : pointDistance,
 
-//    boxContains : boxContains,
-//    boxIntersects : boxIntersects,
-//    boxExpand : boxExpand,
-//    expand : expand,
+    boxContains : boxContains,
+    boxIntersects : boxIntersects,
+    boxExpand : boxExpand,
+    expand : expand,
 
-//    dimGet : dimGet,
-//    cornerLeftGet : cornerLeftGet,
-//    cornerRightGet : cornerRightGet,
-//    centerGet : centerGet,
-//    sizeGet : sizeGet,
+    dimGet : dimGet,
+    cornerLeftGet : cornerLeftGet,
+    cornerRightGet : cornerRightGet,
+    centerGet : centerGet,
+    sizeGet : sizeGet,
 
-//    fromPoints : fromPoints,
-//    fromCenterAndSize : fromCenterAndSize,
-//    fromSphere : fromSphere,
+    fromPoints : fromPoints,
+    fromCenterAndSize : fromCenterAndSize,
+    fromSphere : fromSphere,
     fromCube : fromCube,
 
   }
