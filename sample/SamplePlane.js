@@ -7,7 +7,7 @@ var plane1 = [ 1, 0, 0, -1 ];
 var plane2 = [ - 1, 0, 0, 0 ];
 var plane3 = [ 1, 0, 0, 2 ];
 
-var Intpoint = _.vector.from( [ 2, 2, 2 ] );
+var Intpoint = _.vector.from( [ 1.1, 1.1, 1.1 ] );
 
 
 IntPoint = _.plane.pointDistance( plane1, Intpoint);

@@ -330,30 +330,51 @@ function sphereIntersects( frustum , sphere )
 function boxIntersects( frustum , box )
 {
 
+  var _box = _.box._from( box );
   _.assert( arguments.length === 2 );
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
-  var p1 = [];
-  var p2 = [];
+  var fpoints = _.frustum.frustumCorners( frustum );
+  _.assert( _.spaceIs( fpoints ) );
 
   for ( var i = 0 ; i < 6 ; i += 1 )
   {
-    var plane = frustum.colVectorGet( i );
+    var point = _.vector.toArray( fpoints.colVectorGet( i ) );
+    var point = _.vector.from( point );
 
-    p1 = _.box.cornerLeftGet( box );
-    p2 = _.box.cornerRightGet( box );
-
-    var d1 = _.plane.pointDistance( plane,p1 );
-    var d2 = _.plane.pointDistance( plane,p2 );
-
-    if ( d1 < 0 && d2 < 0 )
-    return false;
-
-  }
-
-  return true;
+    if ( _.box.pointContains( box, point ) == true ){ return true; }
+   }
+  return false;
 }
+
+//function boxIntersects( frustum , box )
+//{
+//
+//  _.assert( arguments.length === 2 );
+//  _.assert( _.frustum.is( frustum ) );
+//  debugger;
+//
+//  var p1 = [];
+//  var p2 = [];
+//
+//  for ( var i = 0 ; i < 6 ; i += 1 )
+//  {
+//    var plane = frustum.colVectorGet( i );
+//
+//    p1 = _.box.cornerLeftGet( box );
+//    p2 = _.box.cornerRightGet( box );
+//
+//    var d1 = _.plane.pointDistance( plane,p1 );
+//    var d2 = _.plane.pointDistance( plane,p2 );
+//
+//    if ( d1 < 0 && d2 < 0 )
+//    return false;
+//
+//  }
+//
+//  return true;
+//}
 
 //
 
@@ -388,14 +409,13 @@ function pointContains( frustum , point )
   {
 
     var plane = frustum.colVectorGet( i );
-    if( _.plane.pointDistance( plane, point ) > 0 )
+    if( _.plane.pointDistance( plane, point ) > 1E-12 )
     return false;
 
   }
 
   return true;
 }
-
 
 //
 
@@ -405,7 +425,6 @@ function pointContains( frustum , point )
 *
 * @param { Frustum } frustum - Source frustum.
 * @param { Array } srcpoint - Source point.
-* @param { Array } dstpoint - Destination point.
 *
 * @example
 * // returns [ 0, 0, 0 ];
@@ -418,19 +437,19 @@ function pointContains( frustum , point )
 *
 * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
 * @function pointClosestPoint
-* @throws { Error } An Error if ( arguments.length ) is different than three.
+* @throws { Error } An Error if ( arguments.length ) is different than two.
 * @throws { Error } An Error if ( frustum ) is not frustum.
 * @throws { Error } An Error if ( point ) is not point.
-* @throws { Error } An Error if ( dstpoint ) is not point.
 * @memberof wTools.box
 */
 
 function pointClosestPoint( frustum , point )
 {
+
   _.assert( arguments.length === 2 );
   _.assert( _.frustum.is( frustum ) );
   var point = _.vector.from( point );
-  var _point = point.slice();
+  var _point = _.vector.from( point.slice() );
   var dstpoint = _.vector.fromArray( [ 0, 0, 0 ] );
   var dims = _.Space.dimsOf( frustum ) ;
   var rows = dims[ 0 ];
@@ -444,8 +463,8 @@ function pointClosestPoint( frustum , point )
   var min = fpoints.colVectorGet( 0 );
   max = _.vector.toArray( max );
   min = _.vector.toArray( min );
-  _point = _.vector.toArray( _point );
   dstpoint = _.vector.toArray( dstpoint );
+  var _point = _.vector.toArray( _point.slice() );
 
   for ( var j = 1 ; j < cols ; j++ )
   {
@@ -466,7 +485,172 @@ function pointClosestPoint( frustum , point )
   }
 
   dstpoint = _.vector.from( dstpoint );
-  return dstpoint;
+
+  if( _.frustum.pointContains( frustum, dstpoint ) == true ){ return dstpoint;  }
+  else
+  {
+    var d0 = 1.79E+308;
+    var dstpoint = _.vector.from( dstpoint );
+    var _point = _.vector.from( _point );
+
+    for( var i = 0 ; i < cols ; i++ )
+    {
+      var plane = _.vector.from( frustum.colVectorGet( i ) );
+      var p = _point.slice()
+      var d = _.plane.pointDistance( plane, _point );
+      if( Math.abs( d ) < Math.abs( d0 ) && _.frustum.pointContains( frustum, _.vector.from( _.plane.pointCoplanarGet( plane, p ) ) ) )
+      { dstpoint = _.plane.pointCoplanarGet( plane, p ); d0 = d;}
+    }
+  }
+
+ dstpoint = _.vector.from( dstpoint );
+ _.assert( _.frustum.pointContains( frustum, _.vector.from( dstpoint ) ) == true );
+
+return dstpoint;
+
+}
+
+
+/**
+* Returns the closest point in a frustum to a box. Returns the coordinates of the closest point.
+* Frustum and box remain unchanged.
+*
+* @param { Frustum } frustum - Source frustum.
+* @param { Array } box - Source box.
+*
+* @example
+* // returns [ 0, 0, 0 ];
+* var frustum = _.Space.make( [ 4, 6 ] ).copy(
+*   [ 0,   0,   0,   0, - 1,   1,
+*     1, - 1,   0,   0,   0,   0,
+*     0,   0,   1, - 1,   0,   0,
+*   - 1,   0, - 1,   0,   0, - 1 ] );
+* _.boxClosestPoint( frustum , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
+*
+* @returns { Array } Returns the array of coordinates of the closest point in the frustum.
+* @function boxClosestPoint
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( box ) is not box.
+* @memberof wTools.box
+*/
+
+function boxClosestPoint( frustum , box )
+{
+  var _box = _.box._from( box );
+  var dim1 = _.box.dimGet( _box );
+  var min1 = _.box.cornerLeftGet( _box );
+  var max1 = _.box.cornerRightGet( _box );
+  var dims = _.Space.dimsOf( frustum ) ;
+  var rows = dims[ 0 ];
+  var cols = dims[ 1 ];
+  var dstpoint = _.vector.fromArray( [ 0, 0, 0 ] );
+  _.assert( arguments.length === 2 );
+  _.assert( _.frustum.is( frustum ) );
+  _.assert( dim1 === 3 );
+
+ if( _.frustum.boxIntersects( frustum, _box ) ){ return 0; }
+
+ // frustum corners
+ var fpoints = _.frustum.frustumCorners( frustum );
+ var dist = 1.79E+308;
+ for ( var j = 0 ; j < cols ; j++ )
+ {
+   var newp = _.vector.from( _.vector.toArray( fpoints.colVectorGet( j ) ) );
+   var d = _.box.pointDistance( _box, newp );
+
+   if( d < dist ){ dstpoint = newp; dist = d; }
+
+ }
+
+ // box corners
+
+ var max = fpoints.colVectorGet( 0 );
+ var min = fpoints.colVectorGet( 0 );
+ max = _.vector.toArray( max );
+ min = _.vector.toArray( min );
+
+ for ( var j = 1 ; j < cols ; j++ )
+ {
+ var newp = _.vector.toArray( fpoints.colVectorGet( j ) );
+ if( newp[ 0 ] < min[ 0 ] ) { min[ 0 ] = newp[ 0 ]; }
+ if( newp[ 1 ] < min[ 1 ] ) { min[ 1 ] = newp[ 1 ]; }
+ if( newp[ 2 ] < min[ 2 ] ) { min[ 2 ] = newp[ 2 ]; }
+ if( newp[ 0 ] > max[ 0 ] ) { max[ 0 ] = newp[ 0 ]; }
+ if( newp[ 1 ] > max[ 1 ] ) { max[ 1 ] = newp[ 1 ]; }
+ if( newp[ 2 ] > max[ 2 ] ) { max[ 2 ] = newp[ 2 ]; }
+ }
+
+ var c0 = _.vector.from(_.vector.toArray( min1 ));
+ var c4 = _.vector.from(_.vector.toArray( max1 ));
+ var c0 = _.vector.toArray( c0 );
+ var c4 = _.vector.toArray( c4 );
+
+ var c1 = c0.slice(); c1[0] = c4[ 0 ];
+ var c2 = c0.slice(); c2[1] = c4[ 1 ];
+ var c3 = c0.slice(); c3[2] = c4[ 2 ];
+ var c5 = c0.slice(); c5[0] = c4[ 0 ]; c5[ 2 ] = c4[ 2 ];
+ var c6 = c0.slice(); c6[1] = c4[ 1 ]; c6[ 0 ] = c4[ 0 ];
+ var c7 = c0.slice(); c7[2] = c4[ 2 ]; c7[ 1 ] = c4[ 1 ];
+
+ for ( var j = 0 ; j < cols ; j++ )
+ {
+
+   var plane = _.vector.from( _.vector.toArray( frustum.colVectorGet( j ) ) );
+   var d0 = Math.abs( _.plane.pointDistance( plane, _.vector.from( c0 ) ) );
+   var d1 = Math.abs( _.plane.pointDistance( plane, _.vector.from( c1 ) ) );
+   var d2 = Math.abs( _.plane.pointDistance( plane, _.vector.from( c2 ) ) );
+   var d3 = Math.abs( _.plane.pointDistance( plane, _.vector.from( c3 ) ) );
+   var d4 = Math.abs( _.plane.pointDistance( plane, _.vector.from( c4 ) ) );
+   var d5 = Math.abs( _.plane.pointDistance( plane, _.vector.from( c5 ) ) );
+   var d6 = Math.abs( _.plane.pointDistance( plane, _.vector.from( c6 ) ) );
+   var d7 = Math.abs( _.plane.pointDistance( plane, _.vector.from( c7 ) ) );
+
+   if( d0 < dist ){
+     var pint = _.vector.from( _.plane.pointCoplanarGet( plane, _.vector.from( c0.slice() ) ) );
+     if( _.frustum.pointContains( frustum, pint ) ) {
+       dstpoint = _.plane.pointCoplanarGet( plane, c0 ); dist = d0; } }
+
+   if( d1 < dist ){
+     var pint = _.vector.from( _.plane.pointCoplanarGet( plane, _.vector.from( c1.slice() ) ) );
+     if( _.frustum.pointContains( frustum, pint ) ) {
+       dstpoint = _.plane.pointCoplanarGet( plane, c1 ); dist = d1; } }
+
+   if( d2 < dist ){
+      var pint = _.vector.from( _.plane.pointCoplanarGet( plane, _.vector.from( c2.slice() ) ) );
+      if( _.frustum.pointContains( frustum, pint ) ) {
+        dstpoint = _.plane.pointCoplanarGet( plane, c2 ); dist = d2; } }
+
+   if( d3 < dist ){
+       var pint = _.vector.from( _.plane.pointCoplanarGet( plane, _.vector.from( c3.slice() ) ) );
+       if( _.frustum.pointContains( frustum, pint ) ) {
+        dstpoint = _.plane.pointCoplanarGet( plane, c3 ); dist = d3; } }
+
+   if( d4 < dist ){
+        var pint = _.vector.from( _.plane.pointCoplanarGet( plane, _.vector.from( c4.slice() ) ) );
+        if( _.frustum.pointContains( frustum, pint ) ) {
+          dstpoint = _.plane.pointCoplanarGet( plane, c4 ); dist = d4; } }
+
+   if( d5 < dist ){
+        var pint = _.vector.from( _.plane.pointCoplanarGet( plane, _.vector.from( c5.slice() ) ) );
+        if( _.frustum.pointContains( frustum, pint ) ) {
+          dstpoint = _.plane.pointCoplanarGet( plane, c5 ); dist = d5; } }
+
+   if( d6 < dist ){
+         var pint = _.vector.from( _.plane.pointCoplanarGet( plane, _.vector.from( c6.slice() ) ) );
+         if( _.frustum.pointContains( frustum, pint ) ) {
+           dstpoint = _.plane.pointCoplanarGet( plane, c6 ); dist = d6; } }
+
+   if( d7 < dist ){
+          var pint = _.vector.from( _.plane.pointCoplanarGet( plane, _.vector.from( c7.slice() ) ) );
+          if( _.frustum.pointContains( frustum, pint ) ) {
+           dstpoint = _.plane.pointCoplanarGet( plane, c7 ); dist = d7; } }
+
+
+  }
+
+
+ return dstpoint;
 }
 
 // --
@@ -488,7 +672,7 @@ var Proto =
   pointContains : pointContains,
 
   pointClosestPoint : pointClosestPoint,
-
+  boxClosestPoint : boxClosestPoint,
 
 
 }
