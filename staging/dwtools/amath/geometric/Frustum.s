@@ -580,7 +580,7 @@ function boxClosestPoint( frustum , box )
    var newp = _.vector.from( _.vector.toArray( fpoints.colVectorGet( j ) ) );
    var d = _.box.pointDistance( _box, newp );
 
-   if( d < dist ){ dstpoint = newp; dist = d; }
+   if( d < dist ){ dstpoint = newp; dist = d;}
  }
 
  // box corners
@@ -601,7 +601,7 @@ function boxClosestPoint( frustum , box )
    corner = _.vector.from( corner );
    var proj = _.frustum.pointClosestPoint( frustum, corner );
    var d = _.avector.distance( corner, _.vector.toArray( proj ) );
-   if( d < dist ){ dstpoint = proj; dist = d; }
+   if( d < dist ){ dstpoint = proj; dist = d;}
  }
 
 
