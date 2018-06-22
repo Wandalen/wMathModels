@@ -291,20 +291,15 @@ function sphereIntersects( frustum , sphere )
   var center = _.sphere.centerGet( sphere );
   var radius = _.sphere.radiusGet( sphere );
 
-  for( var i = 0 ; i < 6 ; i += 1 )
-  {
-
-    var plane = frustum.colVectorGet( i );
-    var distance = _.plane.pointDistance( plane,center );
-
-    if( Math.abs(distance) <= radius )
-    return true;
-
+  if( _.frustum.pointContains( frustum, _.vector.from( center )) == true ){
+    return true; }
+  else{
+    var newc = _.vector.from( center.slice() );
+    var proj = _.frustum.pointClosestPoint( frustum, center );
+    var d = _.avector.distance( _.vector.toArray( proj ), _.vector.toArray( center ) );
+    if( d <= radius ){
+      return true; }
   }
-
-  if( _.frustum.pointContains( frustum, _.vector.from( center )))
-  return true;
-
   return false;
 }
 
@@ -650,7 +645,7 @@ function sphereClosestPoint( frustum , sphere )
   _.assert( dim === 3 );
   _.assert( _.frustum.is( frustum ) );
 
-  if( _.frustum.sphereIntersects( frustum, spherev ) ){ return 0; }
+  if( _.frustum.sphereIntersects( frustum, spherev ) == true ){ console.log('i');return 0; }
 
   var dstpoint = _.frustum.pointClosestPoint( frustum, center );
 

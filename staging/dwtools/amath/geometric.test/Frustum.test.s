@@ -112,7 +112,7 @@ function sphereIntersects( test )
 
   test.description = 'Frustum and sphere almost intersecting'; //
 
-  var sphere = [ 5 , 5, 5, 3.9 ];
+  var sphere = [ 5 , 5, 5, 6.9 ];
   var expected = false;
 
   var result = _.frustum.sphereIntersects( f, sphere );
@@ -120,7 +120,7 @@ function sphereIntersects( test )
 
   test.description = 'Frustum and sphere just touching'; //
 
-  var sphere = [ 5 , 5, 5, 4 ];
+  var sphere = [ 5 , 5, 5, 6.93 ];
   var expected = true;
 
   var result = _.frustum.sphereIntersects( f, sphere );
@@ -128,7 +128,7 @@ function sphereIntersects( test )
 
   test.description = 'Frustum and sphere just intersect'; //
 
-  var sphere = [ 5, 5, 5, 4.1 ];
+  var sphere = [ 5, 5, 5, 7 ];
   var expected = true;
 
   var result = _.frustum.sphereIntersects( f, sphere );
@@ -778,7 +778,6 @@ function pointClosestPoint( test )
   test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( f, null ));
   test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( f, NaN ));
 
-
 }
 
 //
@@ -923,10 +922,150 @@ function boxClosestPoint( test )
   test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( f, f, [ 0, 0, 0, 0, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( f, [ 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0 ] ));
 
-
-
 }
 
+//
+
+function sphereClosestPoint( test )
+{
+
+  test.description = 'Frustum and sphere remain unchanged'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var sphere = [ 0.5, 0.5, 0.5, 0.5 ];
+  var oldf = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var oldsphere = [ 0.5, 0.5, 0.5, 0.5 ];
+  var expected = 0;
+
+  var result = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( result, expected );
+  test.identical( f, oldf );
+  test.identical( sphere, oldsphere );
+
+  test.description = 'Frustrum as sphere ( 0, 0, 0, 1, 1, 1 ) - corner ( 1, 1, 1 )'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var sphere = [ 2.5, 2.5, 2.5, 0.5 ];
+  var expected = _.vector.from( [ 1, 1, 1 ] );
+
+  var result = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( result, expected );
+
+  test.description = 'Frustrum as sphere ( 0, 0, 0, 1, 1, 1 ) - corner ( 0, 0, 0 )'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var sphere = [ -1, -1, -1, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( result, expected );
+
+  test.description = 'sphere and frustum intersect'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var sphere = [ -1, -1, -1, 1.8 ];
+  var expected = 0;
+
+  var result = _.frustum.sphereClosestPoint( f, sphere );
+  test.identical( result, expected );
+
+  test.description = 'Point in inclined frustum side'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   2,   1, - 1,   0,   0,
+     - 3,   0, - 1,   0,   0, - 1 ] );
+  var sphere = [ 0.5, 1.5, 1, 0.01 ];
+  var expected = [ 0.5, 1.6, 0.79999 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( result, expected );
+
+  test.description = 'Diagonal frustum plane'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   2,   1, - 1,   0,   0,
+     - 3,   0, - 1,   0,   0, - 1 ] );
+  var sphere = [ 0, 0, 2, 0.01 ];
+  var expected = [ 0, 0.4, 0.20000 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( result, expected );
+
+  test.description = 'Pointsphere'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   2,   1, - 1,   0,   0,
+     - 3,   0, - 1,   0,   0, - 1 ] );
+  var sphere = [ -2, -2, -2, 0 ];
+  var expected = [ 0, 0, 0 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( result, expected );
+
+  test.description = 'Pointsphere on side'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var sphere = [ 1.1, 0.5, 0.5, 0 ];
+  var expected = [ 1, 0.5, 0.5 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( result, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( f, f ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( null ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( f, [ 0, 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( [ ] ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( null, [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( NaN , [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( f, null ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( f, NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( f, f, [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereClosestPoint( f, [ 0, 0, 0, 1 ], [ 0, 0, 0, 1 ] ));
+
+}
 
 // --
 // define class
@@ -939,7 +1078,7 @@ var Self =
  silencing : 1,
  // verbosity : 7,
  // debug : 1,
-  routine: 'sphereIntersects',
+  routine: 'sphereClosestPoint',
 
  tests :
  {
@@ -952,7 +1091,7 @@ var Self =
  frustumIntersects : frustumIntersects,
  pointClosestPoint : pointClosestPoint,
  boxClosestPoint : boxClosestPoint,
- //sphereClosestPoint : sphereClosestPoint,
+ sphereClosestPoint : sphereClosestPoint,
 
  }
 
