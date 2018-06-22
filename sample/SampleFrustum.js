@@ -14,7 +14,7 @@ var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
 var spinterins = [ 5, 5, 5, 6 ];
 var bc1 = _.frustum.sphereIntersects( srcfrustum, spinterins );
 console.log('final point inter inside: ', bc1);
-var spinterout = [ 7, 7, 5, 2 ];
+var spinterout = [ 1, 1, 5, 5 ];
 var bc2 = _.frustum.sphereClosestPoint( srcfrustum, spinterout );
 console.log('final point inter outside: ', bc2);
 

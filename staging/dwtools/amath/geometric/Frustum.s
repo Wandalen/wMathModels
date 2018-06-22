@@ -645,7 +645,7 @@ function sphereClosestPoint( frustum , sphere )
   _.assert( dim === 3 );
   _.assert( _.frustum.is( frustum ) );
 
-  if( _.frustum.sphereIntersects( frustum, spherev ) == true ){ console.log('i');return 0; }
+  if( _.frustum.sphereIntersects( frustum, spherev ) == true ){ return 0; }
 
   var dstpoint = _.frustum.pointClosestPoint( frustum, center );
 
