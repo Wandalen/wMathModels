@@ -126,11 +126,11 @@ function sphereIntersects( test )
   var result = _.frustum.sphereIntersects( f, sphere );
   test.identical( result, expected );
 
-  test.description = 'Zero frustum, no intersection'; //
+  test.description = 'Zero frustum, intersection'; //
 
   var f = _.frustum.make();
   var sphere = [ 0, 0, 0, 2 ];
-  var expected = false;
+  var expected = true;
 
   var result = _.frustum.sphereIntersects( f, sphere );
   test.identical( result, expected );
@@ -239,6 +239,15 @@ function boxIntersects( test )
   var result = _.frustum.boxIntersects( f, box );
   test.identical( result, expected );
 
+  test.description = 'Frustum and box just intersect'; //
+
+  var frustum = _.frustum.make();
+  var box = [ 0.9, 0.9, 0.9, 5, 5, 5 ];
+  var expected = true;
+
+  var result = _.frustum.boxIntersects( f, box );
+  test.identical( result, expected );
+
   /* */
 
   if( !Config.debug )
@@ -260,8 +269,6 @@ function boxIntersects( test )
   test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, box ));
   box = [ 0, 0, 1, 1, 2, 2, 2 ];
   test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, box ));
-  var f = _.frustum.make();
-  test.shouldThrowErrorSync( () => _.frustum.boxIntersects( f, [ 0, 0, 0, 1, 1, 1] ));
 
 }
 
@@ -739,7 +746,7 @@ function pointClosestPoint( test )
        0,   2,   1, - 1,   0,   0,
      - 1,   0, - 1,   0,   0, - 1 ] );
   var point = [ 0, 0, 2 ];
-  var expected = [ 0, 0.79999, 0.40000 ];
+  var expected = [ 0, 0.4, 0.2 ];
   var expected = _.vector.from( expected );
 
   var result = _.frustum.pointClosestPoint( f, point );
@@ -766,6 +773,153 @@ function pointClosestPoint( test )
 
 }
 
+//
+
+function boxClosestPoint( test )
+{
+
+  test.description = 'Frustum and box remain unchanged'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var oldf = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var oldbox = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var expected = 0;
+
+  var result = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( result, expected );
+  test.identical( f, oldf );
+  test.identical( box, oldbox );
+
+  test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 1, 1, 1 )'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var box = [ 1.5, 1.5, 1.5, 2.5, 2.5, 2.5 ];
+  var expected = _.vector.from( [ 1, 1, 1 ] );
+
+  var result = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( result, expected );
+
+  test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 0, 0, 0 )'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
+  var expected = [ 0, 0, 0 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( result, expected );
+
+  test.description = 'Box and frustum intersect'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
+  var expected = 0;
+
+  var result = _.frustum.boxClosestPoint( f, box );
+  test.identical( result, expected );
+
+  test.description = 'Point in inclined frustum side'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   2,   1, - 1,   0,   0,
+     - 3,   0, - 1,   0,   0, - 1 ] );
+  var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
+  var expected = [ 0.5, 1.6, 0.79999 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( result, expected );
+
+  test.description = 'Diagonal frustum plane'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   2,   1, - 1,   0,   0,
+     - 3,   0, - 1,   0,   0, - 1 ] );
+  var box = [ -2, -2, 2, 0, 0, 4 ];
+  var expected = [ 0, 0.4, 0.20000 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( result, expected );
+
+
+  test.description = 'PointBox'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   2,   1, - 1,   0,   0,
+     - 3,   0, - 1,   0,   0, - 1 ] );
+  var box = [ -2, -2, -2, -2, -2, -2 ];
+  var expected = [ 0, 0, 0 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( result, expected );
+
+  test.description = 'PointBox on side'; //
+
+  var f = _.Space.make( [ 4, 6 ] ).copy(
+     [ 0,   0,   0,   0, - 1,   1,
+       1, - 1,   0,   0,   0,   0,
+       0,   0,   1, - 1,   0,   0,
+     - 1,   0, - 1,   0,   0, - 1 ] );
+  var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
+  var expected = [ 1, 0.5, 0.5 ];
+  var expected = _.vector.from( expected );
+
+  var result = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( result, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( f, f ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( null ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( f, [ 0, 0, 2, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( [ ] ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( null, [ 0, 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( NaN , [ 0, 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( f, null ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( f, NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( f, f, [ 0, 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.boxClosestPoint( f, [ 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0 ] ));
+
+
+
+}
+
+
 // --
 // define class
 // --
@@ -777,7 +931,7 @@ var Self =
  silencing : 1,
  // verbosity : 7,
  // debug : 1,
- // routine: 'boxIntersects',
+  routine: 'boxClosestPoint',
 
  tests :
  {
@@ -789,7 +943,7 @@ var Self =
  frustumCorners : frustumCorners,
  frustumIntersects : frustumIntersects,
  pointClosestPoint : pointClosestPoint,
- //boxClosestPoint : boxClosestPoint,
+ boxClosestPoint : boxClosestPoint,
  //sphereClosestPoint : sphereClosestPoint,
 
  }

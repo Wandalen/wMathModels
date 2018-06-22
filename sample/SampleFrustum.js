@@ -12,15 +12,14 @@ var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
    - 3,   0, - 1,   0,   0, - 1 ] );
 
 var boxinter = [ -1, -2, -3, 0.1, 0.1, 0.1 ];
-var boxfructumc = [ -1, -2, -3, -0.1, -0.1, -0.1 ];
-var boxc = [ -1, -1, 0.8, 0, 1.6, 2 ];
-//var boxcclamped = [ -0.5, -0.5, , -0.1, -0.1, -0.1 ];
+var boxfructumc = [ 2, 3, 4, 5, 6, 7 ];
+var boxc = [ -2, -2, 1, 0, 0, 4 ];
 
 
 var bc1 = _.frustum.boxClosestPoint( srcfrustum, boxinter );
-console.log('final point: ', bc1);
+console.log('final point inter: ', bc1);
 var bc2 = _.frustum.boxClosestPoint( srcfrustum, boxfructumc );
-console.log('final point: ', bc2);
+console.log('final point crner: ', bc2);
 var bc3 = _.frustum.boxClosestPoint( srcfrustum, boxc );
 console.log('final point: ', bc3);
 
