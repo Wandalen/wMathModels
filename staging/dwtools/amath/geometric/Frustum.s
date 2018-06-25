@@ -531,6 +531,7 @@ return dstpoint;
 
 }
 
+//
 
 /**
 * Returns the closest point in a frustum to a box. Returns the coordinates of the closest point.
@@ -566,49 +567,56 @@ function boxClosestPoint( frustum , box )
   var rows = dims[ 0 ];
   var cols = dims[ 1 ];
   var dstpoint = _.vector.fromArray( [ 0, 0, 0 ] );
+
   _.assert( arguments.length === 2 );
   _.assert( _.frustum.is( frustum ) );
   _.assert( dim1 === 3 );
 
- if( _.frustum.boxIntersects( frustum, _box ) ){ return 0; }
+  if( _.frustum.boxIntersects( frustum, _box ) )
+  return 0;
 
- // frustum corners
- var fpoints = _.frustum.frustumCorners( frustum );
- var dist = 1.79E+308;
- for ( var j = 0 ; j < cols ; j++ )
- {
-   var newp = _.vector.from( _.vector.toArray( fpoints.colVectorGet( j ) ) );
-   var d = _.box.pointDistance( _box, newp );
+  /* frustum corners */
 
-   if( d < dist ){ dstpoint = newp; dist = d;}
- }
+  var fpoints = _.frustum.frustumCorners( frustum );
+  var dist = 1.79E+308;
+  for ( var j = 0 ; j < cols ; j++ )
+  {
+    var newp = _.vector.from( _.vector.toArray( fpoints.colVectorGet( j ) ) );
+    var d = _.box.pointDistance( _box, newp );
 
- // box corners
- var c = _.Space.makeZero( [ 3, 8 ] );
- min1 = _.vector.toArray( min1 ); max1 = _.vector.toArray( max1 );
- var col = c.colVectorGet( 0 ); col.copy( [min1[ 0 ], min1[ 1 ], min1[ 2 ] ]);
- var col = c.colVectorGet( 1 ); col.copy( [max1[ 0 ], min1[ 1 ], min1[ 2 ] ]);
- var col = c.colVectorGet( 2 ); col.copy( [min1[ 0 ], max1[ 1 ], min1[ 2 ] ]);
- var col = c.colVectorGet( 3 ); col.copy( [min1[ 0 ], min1[ 1 ], max1[ 2 ] ]);
- var col = c.colVectorGet( 4 ); col.copy( [max1[ 0 ], max1[ 1 ], max1[ 2 ] ]);
- var col = c.colVectorGet( 5 ); col.copy( [min1[ 0 ], max1[ 1 ], max1[ 2 ] ]);
- var col = c.colVectorGet( 6 ); col.copy( [max1[ 0 ], min1[ 1 ], max1[ 2 ] ]);
- var col = c.colVectorGet( 7 ); col.copy( [max1[ 0 ], max1[ 1 ], min1[ 2 ] ]);
+    if( d < dist )
+    {
+      dstpoint = newp;
+      dist = d;
+    }
+  }
 
- for ( var j = 0 ; j < 8 ; j++ )
- {
-   var corner = _.vector.toArray( c.colVectorGet( j ) );
-   corner = _.vector.from( corner );
-   var proj = _.frustum.pointClosestPoint( frustum, corner );
-   var d = _.avector.distance( corner, _.vector.toArray( proj ) );
-   if( d < dist ){ dstpoint = proj; dist = d;}
- }
+  /* box corners */
 
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  min1 = _.vector.toArray( min1 ); max1 = _.vector.toArray( max1 );
+  var col = c.colVectorGet( 0 ); col.copy( [min1[ 0 ], min1[ 1 ], min1[ 2 ] ]);
+  var col = c.colVectorGet( 1 ); col.copy( [max1[ 0 ], min1[ 1 ], min1[ 2 ] ]);
+  var col = c.colVectorGet( 2 ); col.copy( [min1[ 0 ], max1[ 1 ], min1[ 2 ] ]);
+  var col = c.colVectorGet( 3 ); col.copy( [min1[ 0 ], min1[ 1 ], max1[ 2 ] ]);
+  var col = c.colVectorGet( 4 ); col.copy( [max1[ 0 ], max1[ 1 ], max1[ 2 ] ]);
+  var col = c.colVectorGet( 5 ); col.copy( [min1[ 0 ], max1[ 1 ], max1[ 2 ] ]);
+  var col = c.colVectorGet( 6 ); col.copy( [max1[ 0 ], min1[ 1 ], max1[ 2 ] ]);
+  var col = c.colVectorGet( 7 ); col.copy( [max1[ 0 ], max1[ 1 ], min1[ 2 ] ]);
 
+  for ( var j = 0 ; j < 8 ; j++ )
+  {
+    var corner = _.vector.toArray( c.colVectorGet( j ) );
+    corner = _.vector.from( corner );
+    var proj = _.frustum.pointClosestPoint( frustum, corner );
+    var d = _.avector.distance( corner, _.vector.toArray( proj ) );
+    if( d < dist ){ dstpoint = proj; dist = d;}
+  }
 
- return dstpoint;
+  return dstpoint;
 }
 
+//
 
 /**
 * Returns the closest point in a frustum to a sphere. Returns the coordinates of the closest point.
