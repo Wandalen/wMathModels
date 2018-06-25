@@ -28,9 +28,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathVector' );
   _.include( 'wMathSpace' );
 
-  require( '../geometric/Quat.s' );
-  require( '../geometric/Euler.s' );
-  require( '../geometric/AxisAndAngle.s' );
+  require( '../geometric/aConcepts.s' );
 
 }
 

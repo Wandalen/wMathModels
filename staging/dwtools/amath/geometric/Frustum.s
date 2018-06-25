@@ -1,4 +1,4 @@
-(function _Geometric_s_(){
+(function _Frustum_s_(){
 
 'use strict';
 
@@ -6,9 +6,16 @@ var _ = _global_.wTools;
 var avector = _.avector;
 var Self = _.frustum = _.frustum || Object.create( null );
 
+/*
+
+Frustum planes convention : right, left, bottom, top, far, near;
+
+Frustum planes must have director vectors pointing outside frustum;
+
+*/
+
 // --
-//  Frustum planes convention: frustum ( right, left, bottom, top, far, near );
-//  Frustum planes must have director vectors pointing outside frustum;
+// routines
 // --
 
 function make()
@@ -248,7 +255,7 @@ function frustumIntersects( srcfrustum , testfrustum )
   _.assert( _.frustum.is( testfrustum ) );
   debugger;
 
- var points = _.frustum.frustumCorners( srcfrustum );
+  var points = _.frustum.frustumCorners( srcfrustum );
 
   for( var i = 0 ; i < points.length ; i += 1 )
   {
@@ -548,7 +555,7 @@ function pointClosestPoint( frustum , point )
   if( _.frustum.pointContains( frustum, dstpoint ) == true ){
     return dstpoint;  }
   else
-  { var d0 = 1.79E+308;
+  { var d0 = Infinity;
     var _point = _.vector.toArray( _point );
     var finalpoint = dstpoint;
 
@@ -572,6 +579,7 @@ function pointClosestPoint( frustum , point )
 //
 
 /**
+<<<<<<< HEAD
 * Returns the closest point in a frustum to a box. Returns the coordinates of the closest point.
 * Frustum and box remain unchanged.
 *
@@ -594,6 +602,30 @@ function pointClosestPoint( frustum , point )
 * @throws { Error } An Error if ( box ) is not box.
 * @memberof wTools.frustum
 */
+=======
+  * Returns the closest point in a frustum to a box. Returns the coordinates of the closest point.
+  * Frustum and box remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * var frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.boxClosestPoint( frustum , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
+  * @function boxClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.box
+  */
+>>>>>>> upstream/master
 
 //
 
@@ -618,8 +650,8 @@ function boxClosestPoint( frustum , box )
   /* frustum corners */
 
   var fpoints = _.frustum.frustumCorners( frustum );
-  var dist = 1.79E+308;
-  for( var j = 0 ; j < cols ; j++ )
+  var dist = Infinity;
+  for ( var j = 0 ; j < cols ; j++ )
   {
     var newp = _.vector.from( _.vector.toArray( fpoints.colVectorGet( j ) ) );
     var d = _.box.pointDistance( _box, newp );
@@ -629,6 +661,7 @@ function boxClosestPoint( frustum , box )
       dstpoint = newp;
       dist = d;
     }
+
   }
 
   /* box corners */
