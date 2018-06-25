@@ -30,7 +30,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
 
-  require( '../geometric/Sphere.s' );
+  require( '../geometric/aConcepts.s' );
 
 }
 

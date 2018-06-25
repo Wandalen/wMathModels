@@ -29,8 +29,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathVector' );
   _.include( 'wMathSpace' );
 
-  require( '../geometric/Euler.s' );
-  require( '../geometric/Quat.s' );
+  require( '../geometric/aConcepts.s' );
 
 }
 
@@ -252,7 +251,9 @@ function fromAxisAndAngle( test )
 
     var euler1 = _.euler.fromAxisAndAngle( dst,axisAndAngle1 );
     var quat1 = _.quat.fromEuler( null,euler1 );
+    debugger;
     var quat2 = _.quat.fromAxisAndAngle( null,axisAndAngle1 );
+    debugger;
 
     var appliedQuat1 = _.quat.applyTo( quat1,[ 0.25,0.5,1 ] );
     var appliedQuat2 = _.quat.applyTo( quat2,[ 0.25,0.5,1 ] );
@@ -882,8 +883,7 @@ var Self =
 
   name : 'Math.Euler',
   silencing : 1,
-  enabled : 0, // !!!
-  // routine : 'fromAxisAndAngle',
+  enabled : 1, // !!!
 
   context :
   {
@@ -900,10 +900,10 @@ var Self =
 
     zero : zero,
 
-    fromAxisAndAngle : fromAxisAndAngle,
+    // fromAxisAndAngle : fromAxisAndAngle,
     fromQuat : fromQuat,
-    // fromMatrix : fromMatrix,
-    // toMatrix : toMatrix,
+    fromMatrix : fromMatrix,
+    toMatrix : toMatrix,
 
   },
 
