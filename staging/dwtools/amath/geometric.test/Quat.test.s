@@ -1128,9 +1128,9 @@ var Self =
 {
 
   name : 'Math.Quat',
-  silencing : 1,
-  enabled : 0, // !!!
-  // routine : 'fromAxisAndAngle',
+//  silencing : 1,
+//  enabled : 0, // !!!
+ routine : 'is',
 
   context :
   {
