@@ -1278,6 +1278,14 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
   }
 
+  if( ox === 0 && oy === 1 && oz === 0 )
+  {
+    quatv.eSet( 0, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 1, sin( ( e0 + e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 2, sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
+  }
+
   if( ox === 2 && oy === 1 && oz === 0 )
   {
     quatv.eSet( 0, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) - sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
