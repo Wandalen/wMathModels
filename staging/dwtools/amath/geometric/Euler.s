@@ -1145,27 +1145,27 @@ function fromQuat2( quat, dst )
   var oy = dstv.eGet( 4 );
   var oz = dstv.eGet( 5 );
 
-  if( ox == 0 && oy == 1 && oz == 2 )
+  if( ox === 0 && oy === 1 && oz === 2 )
   {
   }
 
-  if( ox == 0 && oy == 2 && oz == 1 )
+  if( ox === 0 && oy === 2 && oz === 1 )
   {
   }
 
-  if( ox == 1 && oy == 0 && oz == 2 )
+  if( ox === 1 && oy === 0 && oz === 2 )
   {
   }
 
-  if( ox == 1 && oy == 2 && oz == 0 )
+  if( ox === 1 && oy === 2 && oz === 0 )
   {
   }
 
-  if( ox == 2 && oy == 0 && oz == 1 )
+  if( ox === 2 && oy === 0 && oz === 1 )
   {
   }
 
-  if( ox == 2 && oy == 1 && oz == 0 )
+  if( ox === 2 && oy === 1 && oz === 0 )
   {
     if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
     {
@@ -1173,14 +1173,14 @@ function fromQuat2( quat, dst )
       dstv.eSet( 1, asin( - 2*( x*z - w*y ) ) );
       dstv.eSet( 2, atan2( ( x*y + w*z ), 0.5 - ( y*y + z*z ) ) );
     }
-    else if( 2*( x*z - w*y ) == - 1 )
+    else if( 2*( x*z - w*y ) === - 1 )
     {
       console.log('Indeterminate; We set angle x = 0. ')
       dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
       dstv.eSet( 1, pi/2 );
       dstv.eSet( 2, 0 );
     }
-    else if( 2*( x*z - w*y ) == 1 )
+    else if( 2*( x*z - w*y ) === 1 )
     {
       console.log('Indeterminate; We set angle x = 0. ')
       dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
@@ -1193,23 +1193,23 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox == 0 && oy == 1 && oz == 0 )
+  if( ox === 0 && oy === 1 && oz === 0 )
   {
   }
 
-  if( ox == 0 && oy == 2 && oz == 0 )
+  if( ox === 0 && oy === 2 && oz === 0 )
   {
   }
 
-  if( ox == 1 && oy == 0 && oz == 1 )
+  if( ox === 1 && oy === 0 && oz === 1 )
   {
   }
 
-  if( ox == 1 && oy == 2 && oz == 1 )
+  if( ox === 1 && oy === 2 && oz === 1 )
   {
   }
 
-  if( ox == 2 && oy == 0 && oz == 2 )
+  if( ox === 2 && oy === 0 && oz === 2 )
   {
     if( 0 < ( x*x + y*y ) && ( x*x + y*y ) < 1 )
     {
@@ -1217,14 +1217,14 @@ function fromQuat2( quat, dst )
       dstv.eSet( 1, acos( 1 - 2*( x*x + y*y ) ) );
       dstv.eSet( 2, atan2( ( x*z + w*y ), - ( y*z - w*x ) ) );
     }
-    else if( ( x*x + y*y ) == 0 )
+    else if( ( x*x + y*y ) === 0 )
     {
       console.log('Indeterminate; We set angle z2 = 0. ')
       dstv.eSet( 0, atan2( ( x*y + w*z ), 0.5 - ( y*y - z*z ) ) );
       dstv.eSet( 1, 0 );
       dstv.eSet( 2, 0 );
     }
-    else if( ( x*x + y*y ) == 1 )
+    else if( ( x*x + y*y ) === 1 )
     {
       console.log('Indeterminate; We set angle z2 = 0. ')
       dstv.eSet( 0, - atan2( ( x*y + w*z ), 0.5 - ( y*y - z*z ) ) );
@@ -1237,7 +1237,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox == 2 && oy == 1 && oz == 2 )
+  if( ox === 2 && oy === 1 && oz === 2 )
   {
   }
 
@@ -1262,20 +1262,28 @@ function toQuat2( euler )
   var oy = eulerv.eGet( 4 );
   var oz = eulerv.eGet( 5 );
 
-  if( ox == 2 && oy == 0 && oz == 2 )
+  if( ox === 0 && oy === 1 && oz === 2 )
+  {
+  quatv.eSet( 0, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) + cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  quatv.eSet( 1, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) - sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
+  quatv.eSet( 2, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) + sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
+  quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) - sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  }
+
+  if( ox === 2 && oy === 1 && oz === 0 )
+  {
+  quatv.eSet( 0, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) - sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
+  quatv.eSet( 1, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) + sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
+  quatv.eSet( 2, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) - cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  }
+
+  if( ox === 2 && oy === 0 && oz === 2 )
   {
     quatv.eSet( 0, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
     quatv.eSet( 1, sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
     quatv.eSet( 2, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
     quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
-  }
-
-  if( ox == 2 && oy == 1 && oz == 0 )
-  {
-    quatv.eSet( 0, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) - sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
-    quatv.eSet( 1, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) + sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
-    quatv.eSet( 2, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) - cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
-    quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
   }
 
   return quatv;
@@ -1300,7 +1308,7 @@ function fromMatrix2( mat, dst )
   var oy = eulerv.eGet( 4 );
   var oz = eulerv.eGet( 5 );
 
-  if( ox == 0 && oy == 1 && oz == 2 )
+  if( ox === 0 && oy === 1 && oz === 2 )
   {
     if( - 1 < m02 && m02 < 1 )
     {
@@ -1322,7 +1330,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 0 && oy == 2 && oz == 1 )
+  if( ox === 0 && oy === 2 && oz === 1 )
   {
     if( - 1 < m01 && m01 < 1 )
     {
@@ -1344,7 +1352,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 1 && oy == 0 && oz == 2 )
+  if( ox === 1 && oy === 0 && oz === 2 )
   {
     if( - 1 < m12 && m12 < 1 )
     {
@@ -1366,7 +1374,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 1 && oy == 2 && oz == 0 )
+  if( ox === 1 && oy === 2 && oz === 0 )
   {
     if( - 1 < m10 && m10 < 1 )
     {
@@ -1388,7 +1396,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 2 && oy == 0 && oz == 1 )
+  if( ox === 2 && oy === 0 && oz === 1 )
   {
     if( - 1 < m21 && m21 < 1 )
     {
@@ -1410,7 +1418,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 2 && oy == 1 && oz == 0 )
+  if( ox === 2 && oy === 1 && oz === 0 )
   {
     if( - 1 < m20 && m20 < 1 )
     {
@@ -1432,7 +1440,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 0 && oy == 1 && oz == 0 )
+  if( ox === 0 && oy === 1 && oz === 0 )
   {
     if( - 1 < m00 && m00 < 1 )
     {
@@ -1454,7 +1462,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 0 && oy == 2 && oz == 0 )
+  if( ox === 0 && oy === 2 && oz === 0 )
   {
     if( - 1 < m00 && m00 < 1 )
     {
@@ -1476,7 +1484,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 1 && oy == 0 && oz == 1 )
+  if( ox === 1 && oy === 0 && oz === 1 )
   {
     if( - 1 < m11 && m11 < 1 )
     {
@@ -1498,7 +1506,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 1 && oy == 2 && oz == 1 )
+  if( ox === 1 && oy === 2 && oz === 1 )
   {
     if( - 1 < m11 && m11 < 1 )
     {
@@ -1520,7 +1528,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 2 && oy == 0 && oz == 2 )
+  if( ox === 2 && oy === 0 && oz === 2 )
   {
     if( - 1 < m22 && m22 < 1 )
     {
@@ -1542,7 +1550,7 @@ function fromMatrix2( mat, dst )
     }
   }
 
-  if( ox == 2 && oy == 1 && oz == 2 )
+  if( ox === 2 && oy === 1 && oz === 2 )
   {
     if( - 1 < m22 && m22 < 1 )
     {
