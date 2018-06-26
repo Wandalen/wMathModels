@@ -1307,7 +1307,6 @@ var Proto =
 
   fromQuat2 : fromQuat2,
   fromMatrix2 : fromMatrix2,
-  fromMatrix3 : fromMatrix3,
 }
 
 _.mapExtend( Self,Proto );
