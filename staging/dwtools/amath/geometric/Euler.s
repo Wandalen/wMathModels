@@ -1114,6 +1114,282 @@ var Order =
 
 }
 
+function fromQuat2( quat, dst )
+{
+
+  var dst = _.euler.from( dst );
+  var dstv = _.vector.from( dst );
+  var quatv = _.quat._from( quat );
+
+  var ex,ey,ez;
+
+  var x = quatv.eGet( 0 );
+  var y = quatv.eGet( 1 );
+  var z = quatv.eGet( 2 );
+  var w = quatv.eGet( 3 );
+
+  // Normalize
+
+  var norm = sqrt( x*x + y*y + z*z + w*w );
+  console.log('Quaternion:');
+  console.log(quatv);
+  console.log('Norm:');
+  console.log(norm);
+
+  if( norm !== 1 )
+  {
+    x = x/norm;
+    y = y/norm;
+    z = z/norm;
+    w = w/norm;
+    norm = sqrt( x*x + y*y + z*z + w*w );
+    console.log('Quaternion:');
+    console.log(x,' ',y,' ',z,' ',w);
+    console.log('Norm:');
+    console.log(norm);
+  }
+
+  var ox = dstv.eGet( 3 );
+  var oy = dstv.eGet( 4 );
+  var oz = dstv.eGet( 5 );
+  var same = ox === oz;
+
+  if( ox == 0 && oy == 1 && oz == 2 )
+  {
+
+
+  }
+
+}
+
+function fromMatrix2( mat, dst )
+{
+
+  var euler = _.euler.from( dst );
+  var eulerv = _.vector.from( euler );
+
+  _.assert( _.Space.is( mat ) );
+  _.assert( mat.dims[ 0 ] >= 3 );
+  _.assert( mat.dims[ 1 ] >= 3 );
+  _.assert( arguments.length === 2 );
+
+  var m00 = mat.atomGet([ 0,0 ]); var m10 = mat.atomGet([ 1,0 ]); var m20 = mat.atomGet([ 2,0 ]);
+  var m01 = mat.atomGet([ 0,1 ]); var m11 = mat.atomGet([ 1,1 ]); var m21 = mat.atomGet([ 2,1 ]);
+  var m02 = mat.atomGet([ 0,2 ]); var m12 = mat.atomGet([ 1,2 ]); var m22 = mat.atomGet([ 2,2 ]);
+
+  var ox = eulerv.eGet( 3 );
+  var oy = eulerv.eGet( 4 );
+  var oz = eulerv.eGet( 5 );
+  var same = ox === oz;
+
+  if( ox == 0 && oy == 1 && oz == 2 )
+  {
+    eulerv.eSet( 0, atan2( -m12, m22 ) );
+    eulerv.eSet( 1, atan2( m02, sqrt( 1 - m02*m02 ) ) );
+    eulerv.eSet( 2, atan2( -m01, m00 ) );
+  }
+
+  if( ox == 0 && oy == 2 && oz == 1 )
+  {
+    eulerv.eSet( 0, atan2( m21, m11 ) );
+    eulerv.eSet( 1, atan2( -m01, sqrt( 1 - m01*m01 ) ) );
+    eulerv.eSet( 2, atan2( m02, m00 ) );
+  }
+
+  if( ox == 0 && oy == 1 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( m10, - m20 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m00*m00 ), m00 ) );
+    eulerv.eSet( 2, atan2( m01, m02 ) );
+  }
+
+  if( ox == 0 && oy == 2 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( m20, m10 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m00*m00 ), m00 ) );
+    eulerv.eSet( 2, atan2( m02, - m01 ) );
+  }
+
+  if( ox == 0 && oy == 2 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( m20, m10 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m00*m00 ), m00 ) );
+    eulerv.eSet( 2, atan2( m02, - m01 ) );
+  }
+
+  if( ox == 1 && oy == 0 && oz == 2 )
+  {
+    eulerv.eSet( 0, atan2( m21, m22 ) );
+    eulerv.eSet( 1, atan2( - m12, sqrt( 1 - m12*m12 ) ) );
+    eulerv.eSet( 2, atan2( m10, m11 ) );
+  }
+
+  if( ox == 1 && oy == 2 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( - m20, m00 ) );
+    eulerv.eSet( 1, atan2( m10, sqrt( 1 - m10*m10 ) ) );
+    eulerv.eSet( 2, atan2( - m12, m11 ) );
+  }
+
+  if( ox == 1 && oy == 0 && oz == 1 )
+  {
+    eulerv.eSet( 0, atan2( m01, m21 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m11*m11 ), m11 ) );
+    eulerv.eSet( 2, atan2( m10, - m12 ) );
+  }
+
+  if( ox == 1 && oy == 2 && oz == 1 )
+  {
+    eulerv.eSet( 0, atan2( m21, - m01 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m11*m11 ), m11 ) );
+    eulerv.eSet( 2, atan2( m12, m10 ) );
+  }
+
+  if( ox == 2 && oy == 0 && oz == 1 )
+  {
+    eulerv.eSet( 0, atan2( - m01, m11 ) );
+    eulerv.eSet( 1, atan2( m21, sqrt( 1 - m21*m21 ) ) );
+    eulerv.eSet( 2, atan2( - m20, m22 ) );
+  }
+
+  if( ox == 2 && oy == 1 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( m10, m00 ) );
+    eulerv.eSet( 1, atan2( - m20, sqrt( 1 - m20*m20 ) ) );
+    eulerv.eSet( 2, atan2( m21, m22 ) );
+  }
+
+  if( ox == 2 && oy == 0 && oz == 2 )
+  {
+    eulerv.eSet( 0, atan2( m02, - m12 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m22*m22 ), m22 ) );
+    eulerv.eSet( 2, atan2( m20, m21 ) );
+  }
+
+  if( ox == 2 && oy == 1 && oz == 2 )
+  {
+    eulerv.eSet( 0, atan2( m12, m02 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m22*m22 ), m22 ) );
+    eulerv.eSet( 2, atan2( m21, - m20 ) );
+  }
+
+  return eulerv;
+}
+
+
+function fromMatrix3( mat, dst )
+{
+
+  var euler = _.euler.from( dst );
+  var eulerv = _.vector.from( euler );
+
+  _.assert( _.Space.is( mat ) );
+  _.assert( mat.dims[ 0 ] >= 3 );
+  _.assert( mat.dims[ 1 ] >= 3 );
+  _.assert( arguments.length === 2 );
+
+  var m00 = mat.atomGet([ 0,0 ]); var m10 = mat.atomGet([ 1,0 ]); var m20 = mat.atomGet([ 2,0 ]);
+  var m01 = mat.atomGet([ 0,1 ]); var m11 = mat.atomGet([ 1,1 ]); var m21 = mat.atomGet([ 2,1 ]);
+  var m02 = mat.atomGet([ 0,2 ]); var m12 = mat.atomGet([ 1,2 ]); var m22 = mat.atomGet([ 2,2 ]);
+
+  var ox = eulerv.eGet( 3 );
+  var oy = eulerv.eGet( 4 );
+  var oz = eulerv.eGet( 5 );
+  var same = ox === oz;
+
+  if( ox == 0 && oy == 1 && oz == 2 )
+  {
+    eulerv.eSet( 0, atan2( -m21, m22 ) );
+    eulerv.eSet( 1, atan2( m20, sqrt( 1 - m20*m20 ) ) );
+    eulerv.eSet( 2, atan2( -m10, m00 ) );
+  }
+
+  if( ox == 0 && oy == 2 && oz == 1 )
+  {
+    eulerv.eSet( 0, atan2( m11, m11 ) );
+    eulerv.eSet( 1, atan2( -m10, sqrt( 1 - m10*m10 ) ) );
+    eulerv.eSet( 2, atan2( m20, m00 ) );
+  }
+
+  if( ox == 0 && oy == 1 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( m01, - m02 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m00*m00 ), m00 ) );
+    eulerv.eSet( 2, atan2( m10, m20 ) );
+  }
+
+  if( ox == 0 && oy == 2 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( m02, m01 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m00*m00 ), m00 ) );
+    eulerv.eSet( 2, atan2( m20, - m10 ) );
+  }
+
+  if( ox == 0 && oy == 2 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( m02, m01 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m00*m00 ), m00 ) );
+    eulerv.eSet( 2, atan2( m20, - m10 ) );
+  }
+
+  if( ox == 1 && oy == 0 && oz == 2 )
+  {
+    eulerv.eSet( 0, atan2( m12, m22 ) );
+    eulerv.eSet( 1, atan2( - m21, sqrt( 1 - m21*m21 ) ) );
+    eulerv.eSet( 2, atan2( m01, m11 ) );
+  }
+
+  if( ox == 1 && oy == 2 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( - m02, m00 ) );
+    eulerv.eSet( 1, atan2( m01, sqrt( 1 - m01*m01 ) ) );
+    eulerv.eSet( 2, atan2( - m21, m11 ) );
+  }
+
+  if( ox == 1 && oy == 0 && oz == 1 )
+  {
+    eulerv.eSet( 0, atan2( m10, m12 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m11*m11 ), m11 ) );
+    eulerv.eSet( 2, atan2( m01, - m21 ) );
+  }
+
+  if( ox == 1 && oy == 2 && oz == 1 )
+  {
+    eulerv.eSet( 0, atan2( m12, - m10 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m11*m11 ), m11 ) );
+    eulerv.eSet( 2, atan2( m21, m01 ) );
+  }
+
+  if( ox == 2 && oy == 0 && oz == 1 )
+  {
+    eulerv.eSet( 0, atan2( - m10, m11 ) );
+    eulerv.eSet( 1, atan2( m12, sqrt( 1 - m12*m12 ) ) );
+    eulerv.eSet( 2, atan2( - m02, m22 ) );
+  }
+
+  if( ox == 2 && oy == 1 && oz == 0 )
+  {
+    eulerv.eSet( 0, atan2( m01, m00 ) );
+    eulerv.eSet( 1, atan2( - m02, sqrt( 1 - m02*m02 ) ) );
+    eulerv.eSet( 2, atan2( m12, m22 ) );
+  }
+
+  if( ox == 2 && oy == 0 && oz == 2 )
+  {
+    eulerv.eSet( 1, Math.asin( - m20 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m22*m22 ), m22 ) );
+    eulerv.eSet( 2, atan2( m02, m12 ) );
+  }
+
+  if( ox == 2 && oy == 1 && oz == 2 )
+  {
+    eulerv.eSet( 0, atan2( m21, m20 ) );
+    eulerv.eSet( 1, atan2( sqrt( 1 - m22*m22 ), m22 ) );
+    eulerv.eSet( 2, atan2( m12, - m02 ) );
+  }
+
+  return eulerv;
+}
 // --
 // define class
 // --
@@ -1140,6 +1416,9 @@ var Proto =
 
   Order : Order,
 
+  fromQuat2 : fromQuat2,
+  fromMatrix2 : fromMatrix2,
+  fromMatrix3 : fromMatrix3,
 }
 
 _.mapExtend( Self,Proto );
