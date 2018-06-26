@@ -1131,10 +1131,6 @@ function fromQuat2( quat, dst )
   // Normalize
 
   var norm = sqrt( x*x + y*y + z*z + w*w );
-  console.log('Quaternion:');
-  console.log(quatv);
-  console.log('Norm:');
-  console.log(norm);
 
   if( norm !== 1 )
   {
@@ -1143,23 +1139,146 @@ function fromQuat2( quat, dst )
     z = z/norm;
     w = w/norm;
     norm = sqrt( x*x + y*y + z*z + w*w );
-    console.log('Quaternion:');
-    console.log(x,' ',y,' ',z,' ',w);
-    console.log('Norm:');
-    console.log(norm);
   }
 
   var ox = dstv.eGet( 3 );
   var oy = dstv.eGet( 4 );
   var oz = dstv.eGet( 5 );
-  var same = ox === oz;
 
   if( ox == 0 && oy == 1 && oz == 2 )
   {
-
-
   }
 
+  if( ox == 0 && oy == 2 && oz == 1 )
+  {
+  }
+
+  if( ox == 1 && oy == 0 && oz == 2 )
+  {
+  }
+
+  if( ox == 1 && oy == 2 && oz == 0 )
+  {
+  }
+
+  if( ox == 2 && oy == 0 && oz == 1 )
+  {
+  }
+
+  if( ox == 2 && oy == 1 && oz == 0 )
+  {
+    if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
+    {
+      dstv.eSet( 0, atan2( ( x*y + w*z ), 0.5 - ( y*y + z*z ) ) );
+      dstv.eSet( 1, asin( - 2*( x*z - w*y ) ) );
+      dstv.eSet( 2, atan2( ( x*y + w*z ), 0.5 - ( y*y + z*z ) ) );
+    }
+    else if( 2*( x*z - w*y ) == - 1 )
+    {
+      console.log('Indeterminate; We set angle x = 0. ')
+      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
+      dstv.eSet( 1, pi/2 );
+      dstv.eSet( 2, 0 );
+    }
+    else if( 2*( x*z - w*y ) == 1 )
+    {
+      console.log('Indeterminate; We set angle x = 0. ')
+      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
+      dstv.eSet( 1, - pi/2 );
+      dstv.eSet( 2, 0 );
+    }
+    else
+    {
+    return 0;
+    }
+  }
+
+  if( ox == 0 && oy == 1 && oz == 0 )
+  {
+  }
+
+  if( ox == 0 && oy == 2 && oz == 0 )
+  {
+  }
+
+  if( ox == 1 && oy == 0 && oz == 1 )
+  {
+  }
+
+  if( ox == 1 && oy == 2 && oz == 1 )
+  {
+  }
+
+  if( ox == 2 && oy == 0 && oz == 2 )
+  {
+    if( 0 < ( x*x + y*y ) && ( x*x + y*y ) < 1 )
+    {
+      dstv.eSet( 0, atan2( ( x*z - w*y ), ( y*z + w*x ) ) );
+      dstv.eSet( 1, acos( 1 - 2*( x*x + y*y ) ) );
+      dstv.eSet( 2, atan2( ( x*z + w*y ), - ( y*z - w*x ) ) );
+    }
+    else if( ( x*x + y*y ) == 0 )
+    {
+      console.log('Indeterminate; We set angle z2 = 0. ')
+      dstv.eSet( 0, atan2( ( x*y + w*z ), 0.5 - ( y*y - z*z ) ) );
+      dstv.eSet( 1, 0 );
+      dstv.eSet( 2, 0 );
+    }
+    else if( ( x*x + y*y ) == 1 )
+    {
+      console.log('Indeterminate; We set angle z2 = 0. ')
+      dstv.eSet( 0, - atan2( ( x*y + w*z ), 0.5 - ( y*y - z*z ) ) );
+      dstv.eSet( 1, pi );
+      dstv.eSet( 2, 0 );
+    }
+    else
+    {
+    return 0;
+    }
+  }
+
+  if( ox == 2 && oy == 1 && oz == 2 )
+  {
+  }
+
+  return dst;
+
+}
+
+
+function toQuat2( euler )
+{
+
+  var euler = _.euler.from( euler );
+  var eulerv = _.vector.from( euler );
+  var quatv = _.quat._from( _.quat.makeUnit() );
+
+  _.assert( arguments.length === 1 );
+
+  var e0 = eulerv.eGet( 0 );
+  var e1 = eulerv.eGet( 1 );
+  var e2 = eulerv.eGet( 2 );
+  var ox = eulerv.eGet( 3 );
+  var oy = eulerv.eGet( 4 );
+  var oz = eulerv.eGet( 5 );
+
+  if( ox == 2 && oy == 0 && oz == 2 )
+  {
+    quatv.eSet( 0, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 1, sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 2, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
+  }
+
+  if( ox == 2 && oy == 1 && oz == 0 )
+  {
+    quatv.eSet( 0, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) - sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
+    quatv.eSet( 1, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) + sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
+    quatv.eSet( 2, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) - cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
+    quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  }
+
+  return quatv;
 }
 
 function fromMatrix2( mat, dst )
@@ -1183,7 +1302,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 0 && oy == 1 && oz == 2 )
   {
-    console.log('RxRyRz');
     if( - 1 < m02 && m02 < 1 )
     {
       eulerv.eSet( 0, atan2( -m12, m22 ) );
@@ -1206,7 +1324,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 0 && oy == 2 && oz == 1 )
   {
-    console.log('RxRzRy');
     if( - 1 < m01 && m01 < 1 )
     {
       eulerv.eSet( 0, atan2( m21, m11 ) );
@@ -1229,7 +1346,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 1 && oy == 0 && oz == 2 )
   {
-    console.log('RyRxRz');
     if( - 1 < m12 && m12 < 1 )
     {
       eulerv.eSet( 1, asin( -m12 ) );
@@ -1252,7 +1368,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 1 && oy == 2 && oz == 0 )
   {
-    console.log('RyRzRx');
     if( - 1 < m10 && m10 < 1 )
     {
       eulerv.eSet( 2, atan2( - m12, m11 ) );
@@ -1275,7 +1390,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 2 && oy == 0 && oz == 1 )
   {
-    console.log('RzRxRy');
     if( - 1 < m21 && m21 < 1 )
     {
       eulerv.eSet( 1, asin( m21 ) );
@@ -1298,7 +1412,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 2 && oy == 1 && oz == 0 )
   {
-    console.log('RzRyRx');
     if( - 1 < m20 && m20 < 1 )
     {
       eulerv.eSet( 2, atan2( m21, m22 ) );
@@ -1321,7 +1434,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 0 && oy == 1 && oz == 0 )
   {
-    console.log('RxRyRx');
     if( - 1 < m00 && m00 < 1 )
     {
       eulerv.eSet( 0, atan2( m10, - m20 ) );
@@ -1344,7 +1456,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 0 && oy == 2 && oz == 0 )
   {
-    console.log('RxRzRx');
     if( - 1 < m00 && m00 < 1 )
     {
       eulerv.eSet( 0, atan2( m20, m10 ) );
@@ -1367,7 +1478,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 1 && oy == 0 && oz == 1 )
   {
-    console.log('RyRxRy');
     if( - 1 < m11 && m11 < 1 )
     {
       eulerv.eSet( 0, atan2( m01, m21 ) );
@@ -1390,7 +1500,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 1 && oy == 2 && oz == 1 )
   {
-    console.log('RyRzRy');
     if( - 1 < m11 && m11 < 1 )
     {
       eulerv.eSet( 0, atan2( m21, - m01 ) );
@@ -1413,7 +1522,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 2 && oy == 0 && oz == 2 )
   {
-    console.log('RzRxRz');
     if( - 1 < m22 && m22 < 1 )
     {
       eulerv.eSet( 0, atan2( m02, - m12 ) );
@@ -1436,8 +1544,6 @@ function fromMatrix2( mat, dst )
 
   if( ox == 2 && oy == 1 && oz == 2 )
   {
-
-    console.log('RzRyRz');
     if( - 1 < m22 && m22 < 1 )
     {
       eulerv.eSet( 0, atan2( m12, m02 ) );
@@ -1482,12 +1588,15 @@ var Proto =
   fromAxisAndAngle : fromAxisAndAngle,
   fromQuat : fromQuat,
   fromMatrix : fromMatrix,
+  toMatrix : toMatrix,
+
 
   toMatrix : toMatrix,
 
   Order : Order,
 
   fromQuat2 : fromQuat2,
+  toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
 }
 
