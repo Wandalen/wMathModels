@@ -1173,107 +1173,289 @@ function fromMatrix2( mat, dst )
   _.assert( mat.dims[ 1 ] >= 3 );
   _.assert( arguments.length === 2 );
 
-  var m00 = mat.atomGet([ 0,0 ]); var m10 = mat.atomGet([ 1,0 ]); var m20 = mat.atomGet([ 2,0 ]);
-  var m01 = mat.atomGet([ 0,1 ]); var m11 = mat.atomGet([ 1,1 ]); var m21 = mat.atomGet([ 2,1 ]);
-  var m02 = mat.atomGet([ 0,2 ]); var m12 = mat.atomGet([ 1,2 ]); var m22 = mat.atomGet([ 2,2 ]);
-
-  for( var i = 0 ; i < 3 ; i ++ )
-
+  var m00 = mat.atomGet([ 0,0 ]); var m01 = mat.atomGet([ 0,1 ]); var m02 = mat.atomGet([ 0,2 ]);
+  var m10 = mat.atomGet([ 1,0 ]); var m11 = mat.atomGet([ 1,1 ]); var m12 = mat.atomGet([ 1,2 ]);
+  var m20 = mat.atomGet([ 2,0 ]); var m21 = mat.atomGet([ 2,1 ]); var m22 = mat.atomGet([ 2,2 ]);
 
   var ox = eulerv.eGet( 3 );
   var oy = eulerv.eGet( 4 );
   var oz = eulerv.eGet( 5 );
-  var same = ox === oz;
 
   if( ox == 0 && oy == 1 && oz == 2 )
   {
-    eulerv.eSet( 0, atan2( -m12, m22 ) );
-    eulerv.eSet( 1, atan2( m02, sqrt( 1 - m02*m02 ) ) );
-    eulerv.eSet( 2, atan2( -m01, m00 ) );
+    console.log('RxRyRz');
+    if( - 1 < m02 && m02 < 1 )
+    {
+      eulerv.eSet( 0, atan2( -m12, m22 ) );
+      eulerv.eSet( 1, asin(m02) );
+      eulerv.eSet( 2, atan2( -m01, m00 ) );
+    }
+    else if( m02 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m10, m11 ) );
+      eulerv.eSet( 1, - pi/2 );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m02 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( m10, m11 ) );
+      eulerv.eSet( 1, pi/2 );
+      eulerv.eSet( 2, 0 );
+    }
   }
 
   if( ox == 0 && oy == 2 && oz == 1 )
   {
-    eulerv.eSet( 0, atan2( m21, m11 ) );
-    eulerv.eSet( 1, atan2( -m01, sqrt( 1 - m01*m01 ) ) );
-    eulerv.eSet( 2, atan2( m02, m00 ) );
-  }
-
-  if( ox == 0 && oy == 1 && oz == 0 )
-  {
-    eulerv.eSet( 0, atan2( m10, - m20 ) );
-    eulerv.eSet( 1, atan2( sqrt( 1 - m00*m00 ), m00 ) );
-    eulerv.eSet( 2, atan2( m01, m02 ) );
-  }
-
-  if( ox == 0 && oy == 2 && oz == 0 )
-  {
-    eulerv.eSet( 0, atan2( m20, m10 ) );
-    eulerv.eSet( 1, atan2( sqrt( 1 - m00*m00 ), m00 ) );
-    eulerv.eSet( 2, atan2( m02, - m01 ) );
-  }
-
-  if( ox == 0 && oy == 2 && oz == 0 )
-  {
-    eulerv.eSet( 0, atan2( m20, m10 ) );
-    eulerv.eSet( 1, atan2( sqrt( 1 - m00*m00 ), m00 ) );
-    eulerv.eSet( 2, atan2( m02, - m01 ) );
+    console.log('RxRzRy');
+    if( - 1 < m01 && m01 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m21, m11 ) );
+      eulerv.eSet( 2, atan2( m02, m00 ) );
+      eulerv.eSet( 1, asin( - m01) );
+    }
+    else if( m01 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( - m20, m22 ) );
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 1, - pi/2 );
+    }
+    else if( m01 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( - m20, m22 ) );
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 1, pi/2 );
+    }
   }
 
   if( ox == 1 && oy == 0 && oz == 2 )
   {
-    eulerv.eSet( 0, atan2( m21, m22 ) );
-    eulerv.eSet( 1, atan2( - m12, sqrt( 1 - m12*m12 ) ) );
-    eulerv.eSet( 2, atan2( m10, m11 ) );
+    console.log('RyRxRz');
+    if( - 1 < m12 && m12 < 1 )
+    {
+      eulerv.eSet( 1, asin( -m12 ) );
+      eulerv.eSet( 0, atan2( m02, m22 ) );
+      eulerv.eSet( 2, atan2( m10, m11 ) );
+    }
+    else if( m12 >= 1 )
+    {
+      eulerv.eSet( 1, - pi/2 );
+      eulerv.eSet( 0, atan2( - m01, m00 ) );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m12 <= - 1 )
+    {
+      eulerv.eSet( 1, pi/2);
+      eulerv.eSet( 0, - atan2( - m01, m00 )  );
+      eulerv.eSet( 2, 0 );
+    }
   }
 
   if( ox == 1 && oy == 2 && oz == 0 )
   {
-    eulerv.eSet( 0, atan2( - m20, m00 ) );
-    eulerv.eSet( 1, atan2( m10, sqrt( 1 - m10*m10 ) ) );
-    eulerv.eSet( 2, atan2( - m12, m11 ) );
-  }
-
-  if( ox == 1 && oy == 0 && oz == 1 )
-  {
-    eulerv.eSet( 0, atan2( m01, m21 ) );
-    eulerv.eSet( 1, atan2( sqrt( 1 - m11*m11 ), m11 ) );
-    eulerv.eSet( 2, atan2( m10, - m12 ) );
-  }
-
-  if( ox == 1 && oy == 2 && oz == 1 )
-  {
-    eulerv.eSet( 0, atan2( m21, - m01 ) );
-    eulerv.eSet( 1, atan2( sqrt( 1 - m11*m11 ), m11 ) );
-    eulerv.eSet( 2, atan2( m12, m10 ) );
+    console.log('RyRzRx');
+    if( - 1 < m10 && m10 < 1 )
+    {
+      eulerv.eSet( 2, atan2( - m12, m11 ) );
+      eulerv.eSet( 0, atan2( - m20, m00 ) );
+      eulerv.eSet( 1, asin( m10 ) );
+    }
+    else if( m10 <= - 1 )
+    {
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 0, - atan2( m21, m22 ) );
+      eulerv.eSet( 1, - pi/2 );
+    }
+    else if( m10 >= 1 )
+    {
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 0, atan2( m21, m22 )  );
+      eulerv.eSet( 1, pi/2 );
+    }
   }
 
   if( ox == 2 && oy == 0 && oz == 1 )
   {
-    eulerv.eSet( 0, atan2( - m01, m11 ) );
-    eulerv.eSet( 1, atan2( m21, sqrt( 1 - m21*m21 ) ) );
-    eulerv.eSet( 2, atan2( - m20, m22 ) );
+    console.log('RzRxRy');
+    if( - 1 < m21 && m21 < 1 )
+    {
+      eulerv.eSet( 1, asin( m21 ) );
+      eulerv.eSet( 2, atan2( - m20, m22 ) );
+      eulerv.eSet( 0, atan2( - m01, m11 ) );
+    }
+    else if( m21 <= - 1 )
+    {
+      eulerv.eSet( 1, - pi/2 );
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 0, - atan2( m02, m00 ) );
+    }
+    else if( m21 >= 1 )
+    {
+      eulerv.eSet( 1, pi/2 );
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 0, atan2( m02, m00 ) );
+    }
   }
 
   if( ox == 2 && oy == 1 && oz == 0 )
   {
-    eulerv.eSet( 0, atan2( m10, m00 ) );
-    eulerv.eSet( 1, atan2( - m20, sqrt( 1 - m20*m20 ) ) );
-    eulerv.eSet( 2, atan2( m21, m22 ) );
+    console.log('RzRyRx');
+    if( - 1 < m20 && m20 < 1 )
+    {
+      eulerv.eSet( 2, atan2( m21, m22 ) );
+      eulerv.eSet( 1, asin( - m20 ) );
+      eulerv.eSet( 0, atan2( m10, m00 ) );
+    }
+    else if( m20 <= - 1 )
+    {
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 1, pi/2 );
+      eulerv.eSet( 0, - atan2( - m12, m11 ) );
+    }
+    else if( m20 >= 1 )
+    {
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 1, - pi/2 );
+      eulerv.eSet( 0, atan2( - m12, m11 ) );
+    }
+  }
+
+  if( ox == 0 && oy == 1 && oz == 0 )
+  {
+    console.log('RxRyRx');
+    if( - 1 < m00 && m00 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m10, - m20 ) );
+      eulerv.eSet( 1, acos( m00 ) );
+      eulerv.eSet( 2, atan2( m01, m02 ) );
+    }
+    else if( m00 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( - m12, m11 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m00 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( - m12, m11 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox == 0 && oy == 2 && oz == 0 )
+  {
+    console.log('RxRzRx');
+    if( - 1 < m00 && m00 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m20, m10 ) );
+      eulerv.eSet( 1, acos( m00 ) );
+      eulerv.eSet( 2, atan2( m02, - m01 ) );
+    }
+    else if( m00 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m21, m22 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m00 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( m21, m22 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox == 1 && oy == 0 && oz == 1 )
+  {
+    console.log('RyRxRy');
+    if( - 1 < m11 && m11 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m01, m21 ) );
+      eulerv.eSet( 1, acos( m11 ) );
+      eulerv.eSet( 2, atan2( m10, - m12 ) );
+    }
+    else if( m01 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m02, m00 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m01 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( m02, m00 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox == 1 && oy == 2 && oz == 1 )
+  {
+    console.log('RyRzRy');
+    if( - 1 < m11 && m11 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m21, - m01 ) );
+      eulerv.eSet( 1, acos( m11 ) );
+      eulerv.eSet( 2, atan2( m12, m10 ) );
+    }
+    else if( m01 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m20, m22 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m01 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( - m20, m22 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
   }
 
   if( ox == 2 && oy == 0 && oz == 2 )
   {
-    eulerv.eSet( 0, atan2( m02, - m12 ) );
-    eulerv.eSet( 1, atan2( sqrt( 1 - m22*m22 ), m22 ) );
-    eulerv.eSet( 2, atan2( m20, m21 ) );
+    console.log('RzRxRz');
+    if( - 1 < m22 && m22 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m02, - m12 ) );
+      eulerv.eSet( 1, acos( m22 ) );
+      eulerv.eSet( 2, atan2( m20, m21 ) );
+    }
+    else if( m22 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m01, m00 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m22 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( - m01, m00 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
   }
 
   if( ox == 2 && oy == 1 && oz == 2 )
   {
-    eulerv.eSet( 0, atan2( m12, m02 ) );
-    eulerv.eSet( 1, atan2( sqrt( 1 - m22*m22 ), m22 ) );
-    eulerv.eSet( 2, atan2( m21, - m20 ) );
+
+    console.log('RzRyRz');
+    if( - 1 < m22 && m22 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m12, m02 ) );
+      eulerv.eSet( 1, acos( m22 ) );
+      eulerv.eSet( 2, atan2( m21, - m20 ) );
+    }
+    else if( m01 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m10, m11 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m01 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( m10, m11 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
   }
 
   return eulerv;
