@@ -15,6 +15,7 @@ var dstXYZ = [ 0, 0, 0, 0, 1, 2 ];
 
 var srcXYZ = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
 var srcXZY = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+var srcYXZ = [ 0.5, 0.5, 0.5, 1, 0, 2 ];
 var srcZYX = [ 0.5, 0.5, 0.5, 2, 1, 0 ];
 var srcXYX = [ 0.5, 0.5, 0.5, 0, 1, 0 ];
 var srcXZX = [ 0.5, 0.5, 0.5, 0, 2, 0 ];
@@ -23,6 +24,8 @@ var quat = _.euler.toQuat2( srcXYZ );
 console.log( 'quat from euler XYZ :', quat );
 var quat = _.euler.toQuat2( srcXZY );
 console.log( 'quat from euler XZY :', quat );
+var quat = _.euler.toQuat2( srcYXZ );
+console.log( 'quat from euler YXZ:', quat );
 var quat = _.euler.toQuat2( srcZYX );
 console.log( 'quat from euler ZXY :', quat );
 var quat = _.euler.toQuat2( srcZXZ );
