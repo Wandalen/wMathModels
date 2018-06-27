@@ -1245,6 +1245,28 @@ function fromQuat2( quat, dst )
 
 }
 
+
+/**
+* Create the quaternion from a set of euler angles. Returns the created quaternion.
+* Euler angles stay untouched.
+*
+* @param { Array } euler - Source sequence of Euler angles.
+*
+* @example
+* // returns [ 0.49794255, 0, 0, 0.8775826 ];
+* _.toQuat2( [ 1, 0, 0, 0, 1, 2 ] );
+*
+* @example
+* // returns [ 0, 0.4794255, 0, 0.8775826 ];
+* _.toQuat2( [ 0, 1, 0, 2, 1, 0 ] );
+*
+* @returns { Quat } Returns the corresponding quaternion.
+* @function toQuat2
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( euler ) is not euler.
+* @memberof wTools.euler
+*/
+
 function toQuat2( euler )
 {
 
