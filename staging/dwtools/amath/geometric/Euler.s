@@ -1245,7 +1245,6 @@ function fromQuat2( quat, dst )
 
 }
 
-
 function toQuat2( euler )
 {
 
@@ -1270,7 +1269,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) - sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
   }
 
-  if( ox === 0 && oy === 2 && oz === 1 )
+  else if( ox === 0 && oy === 2 && oz === 1 )
   {
     quatv.eSet( 0, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) - cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
     quatv.eSet( 1, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) - sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
@@ -1278,7 +1277,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
   }
 
-  if( ox === 0 && oy === 1 && oz === 0 )
+  else if( ox === 0 && oy === 1 && oz === 0 )
   {
     quatv.eSet( 0, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
     quatv.eSet( 1, sin( ( e0 + e2 )/2 )*sin( e1/2 ) );
@@ -1286,7 +1285,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
   }
 
-  if( ox === 0 && oy === 2 && oz === 0 )
+  else if( ox === 0 && oy === 2 && oz === 0 )
   {
     quatv.eSet( 0, cos( ( e0 - e2 )/2 )*cos( e1/2 ) );
     quatv.eSet( 1, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
@@ -1294,7 +1293,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
   }
 
-  if( ox === 1 && oy === 0 && oz === 2 )
+  else if( ox === 1 && oy === 0 && oz === 2 )
   {
     quatv.eSet( 0, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) + sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
     quatv.eSet( 1, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) - cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
@@ -1302,7 +1301,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
   }
 
-  if( ox === 1 && oy === 2 && oz === 0 )
+  else if( ox === 1 && oy === 2 && oz === 0 )
   {
     quatv.eSet( 0, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) + sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
     quatv.eSet( 1, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) + cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
@@ -1310,7 +1309,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) - sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
   }
 
-  if( ox === 1 && oy === 0 && oz === 1 )
+  else if( ox === 1 && oy === 0 && oz === 1 )
   {
     quatv.eSet( 0, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
     quatv.eSet( 1, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
@@ -1318,7 +1317,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
   }
 
-  if( ox === 1 && oy === 2 && oz === 1 )
+  else if( ox === 1 && oy === 2 && oz === 1 )
   {
     quatv.eSet( 0, sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
     quatv.eSet( 1, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
@@ -1326,7 +1325,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
   }
 
-  if( ox === 2 && oy === 1 && oz === 0 )
+  else if( ox === 2 && oy === 1 && oz === 0 )
   {
     quatv.eSet( 0, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) - sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
     quatv.eSet( 1, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) + sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
@@ -1334,7 +1333,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
   }
 
-  if( ox === 2 && oy === 0 && oz === 1 )
+  else if( ox === 2 && oy === 0 && oz === 1 )
   {
     quatv.eSet( 0, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) - sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
     quatv.eSet( 1, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) + sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
@@ -1342,7 +1341,7 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) - sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
   }
 
-  if( ox === 2 && oy === 0 && oz === 2 )
+  else if( ox === 2 && oy === 0 && oz === 2 )
   {
     quatv.eSet( 0, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
     quatv.eSet( 1, sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
@@ -1350,12 +1349,17 @@ function toQuat2( euler )
     quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
   }
 
-  if( ox === 2 && oy === 1 && oz === 2 )
+  else if( ox === 2 && oy === 1 && oz === 2 )
   {
     quatv.eSet( 0, - sin( ( e0 + e2 )/2 )*sin( e1/2 ) );
     quatv.eSet( 1, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
     quatv.eSet( 2, sin( ( e0 - e2 )/2 )*cos( e1/2 ) );
     quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
+  }
+
+  else
+  {
+     return 0;
   }
 
   return quatv;

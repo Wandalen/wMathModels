@@ -874,6 +874,104 @@ function toMatrix( test )
   debugger;
 }
 
+
+
+
+//
+
+function toQuat2( test )
+{
+  test.description = 'Euler remains unchanged'; //
+
+  var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var oldEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var expected = _.quat._from( [ 0.2915666, 0.1729548, 0.2915666, 0.8944633] );
+
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+  test.equivalent( euler, oldEuler );
+
+  test.description = 'Euler XYZ'; //
+
+  var euler = [ 1, 1, 0.25, 0, 1, 2 ];
+  var expected = _.quat._from( [ 0.4699079, 0.3649977, 0.3240739, 0.7354858 ] );
+
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY'; //
+
+  var euler = [ 1, 0.25, 0.5, 0, 2, 1 ];
+  var expected =  _.quat._from( [ 0.433828, 0.1575093, 0.2236973, 0.8584542] );
+
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ'; //
+
+  var euler = [ 1, 2, 0.25, 1, 0, 2 ];
+  var expected =  _.quat._from( [ 0.7649936, 0.1649463, - 0.3411593, 0.5207569] );
+
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX'; //
+
+  var euler = [ 1, 0.25, 2, 1, 2, 0 ];
+  var expected =  _.quat._from( [ 0.7649936, 0.349081, -0.3411593, 0.4201637] );
+
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY'; //
+
+  var euler = [ 0.25, 1, 1, 2, 0, 1 ];
+  var expected =  _.quat._from( [ 0.3649977, 0.4699079, 0.3240739, 0.7354858 ] );
+
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX'; //
+
+  var euler = [ 0.25, 1, 0.5, 2, 1, 0 ];
+  var expected =  _.quat._from( [ 0.1575093, 0.4879661, -0.0116753, 0.8584542 ] );
+
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler null'; //
+
+  var euler = null;
+  var expected =  _.quat._from( [ 0, 0, 0, 1 ] );
+
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler bad euler sequence'; //
+
+  var euler = [ 1, 0, 0, 1, 2, 3 ];
+  var expected = 0;
+
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( [] ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( [ 0, 0, 0, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( [ 0, 0, 0, 1, 2, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( euler, euler ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( NaN));
+
+}
+
+
 // --
 // define class
 // --
@@ -884,7 +982,7 @@ var Self =
   name : 'Math.Euler',
 //  silencing : 1,
 //  enabled : 1, // !!!
-//  routine: 'fromAxisAndAngle',
+  routine: 'toQuat2',
 
   context :
   {
@@ -905,6 +1003,8 @@ var Self =
     fromQuat : fromQuat,
     fromMatrix : fromMatrix,
     toMatrix : toMatrix,
+
+    toQuat2 : toQuat2,
 
   },
 
