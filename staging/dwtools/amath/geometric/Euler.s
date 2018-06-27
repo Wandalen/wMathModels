@@ -1147,28 +1147,59 @@ function fromQuat2( quat, dst )
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-  //if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
-  //{
-    dstv.eSet( 0, atan2( -2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
-    dstv.eSet( 1, - asin( 2*x*z - 2*w*y ) );
-    dstv.eSet( 2, atan2( 2*x*y + 2*w*z , x*x + w*w - y*y - z*z ) );
-  //}
+    if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
+    {
+      dstv.eSet( 0, atan2( -2*x*y + 2*w*z , w*w  + x*x - z*z - y*y ) );
+      dstv.eSet( 1, asin( 2*x*z + 2*w*y ) );
+      dstv.eSet( 2, atan2( - 2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
+    }
+    else if( 2*( x*z - w*y ) === - 1 )
+    {
+      console.log('Indeterminate; We set angle x = 0. ');
+      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
+      dstv.eSet( 1, pi/2 );
+      dstv.eSet( 2, 0 );
+    }
+    else if( 2*( x*z - w*y ) === 1 )
+    {
+      console.log('Indeterminate; We set angle x = 0. ');
+      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
+      dstv.eSet( 1, - pi/2 );
+      dstv.eSet( 2, 0 );
+    }
+    else
+    {
+      return 0;
+    }
+
   }
 
   if( ox === 0 && oy === 2 && oz === 1 )
   {
+    dstv.eSet( 0, atan2( 2*x*z + 2*w*y , x*x + w*w - z*z - y*y ) );
+    dstv.eSet( 1, - asin( 2*x*y - 2*w*z ) );
+    dstv.eSet( 2, atan2( 2*y*z + 2*w*x , y*y - z*z + w*w - x*x ) );
   }
 
   if( ox === 1 && oy === 0 && oz === 2 )
   {
+    dstv.eSet( 0, atan2( 2*x*y + 2*w*z , y*y - z*z + w*w - x*x ) );
+    dstv.eSet( 1, - asin( 2*y*z - 2*w*x ) );
+    dstv.eSet( 2, atan2( 2*x*z + 2*w*y , z*z - y*y - x*x + w*w ) );
   }
 
   if( ox === 1 && oy === 2 && oz === 0 )
   {
+    dstv.eSet( 0, atan2( - 2*y*z + 2*w*x , y*y - z*z + w*w - x*x ) );
+    dstv.eSet( 1, asin( 2*x*y + 2*w*z ) );
+    dstv.eSet( 2, atan2( - 2*x*z + 2*w*y , x*x + w*w - z*z - y*y  ) );
   }
 
   if( ox === 2 && oy === 0 && oz === 1 )
   {
+    dstv.eSet( 0, atan2( - 2*x*z + 2*w*y , z*z - y*y - x*x + w*w  ) );
+    dstv.eSet( 1, asin( 2*y*z + 2*w*x ) );
+    dstv.eSet( 2, atan2( - 2*x*y + 2*w*z , y*y - z*z + w*w - x*x  ) );
   }
 
   if( ox === 2 && oy === 1 && oz === 0 )
@@ -1177,42 +1208,54 @@ function fromQuat2( quat, dst )
     {
         dstv.eSet( 0, atan2( 2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
         dstv.eSet( 1, - asin( 2*x*z - 2*w*y ) );
-        dstv.eSet( 2, atan2( 2*x*y + 2*w*z , x*x + w*w - y*y - z*z ) )
+        dstv.eSet( 2, atan2( 2*x*y + 2*w*z , x*x + w*w - y*y - z*z ) );
     }
     else if( 2*( x*z - w*y ) === - 1 )
     {
-      console.log('Indeterminate; We set angle x = 0. ')
+      console.log('Indeterminate; We set angle x = 0. ');
       dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
       dstv.eSet( 1, pi/2 );
       dstv.eSet( 2, 0 );
     }
     else if( 2*( x*z - w*y ) === 1 )
     {
-      console.log('Indeterminate; We set angle x = 0. ')
+      console.log('Indeterminate; We set angle x = 0. ');
       dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
       dstv.eSet( 1, - pi/2 );
       dstv.eSet( 2, 0 );
     }
     else
     {
-    return 0;
+      return 0;
     }
   }
 
   if( ox === 0 && oy === 1 && oz === 0 )
   {
+    dstv.eSet( 0, atan2( 2*x*y - 2*w*z , 2*x*z + 2*w*y ) );
+    dstv.eSet( 1, acos(  x*x + w*w - z*z - y*y ) );
+    dstv.eSet( 2, atan2( 2*x*y + 2*w*z , -2*x*z + 2*w*y ) );
   }
 
   if( ox === 0 && oy === 2 && oz === 0 )
   {
+    dstv.eSet( 0, atan2( 2*x*z + 2*w*y , -2*x*y + 2*w*z ) );
+    dstv.eSet( 1, acos( x*x + w*w -z*z - y*y ) );
+    dstv.eSet( 2, atan2( 2*x*z - 2*w*y , 2*x*y + 2*w*z ) );
   }
 
   if( ox === 1 && oy === 0 && oz === 1 )
   {
+  dstv.eSet( 0, atan2( 2*x*y + 2*w*z , -2*y*z + 2*w*x ) );
+  dstv.eSet( 1, acos( y*y - z*z + w*w - x*x ) );
+  dstv.eSet( 2, atan2( 2*x*y - 2*w*z , 2*y*z + 2*w*x ) );
   }
 
   if( ox === 1 && oy === 2 && oz === 1 )
   {
+  dstv.eSet( 0, atan2( 2*y*z - 2*w*x , 2*x*y + 2*w*z ) );
+  dstv.eSet( 1, acos( y*y - z*z + w*w - x*x ) );
+  dstv.eSet( 2, atan2( 2*y*z + 2*w*x , -2*x*y + 2*w*z ) );
   }
 
   if( ox === 2 && oy === 0 && oz === 2 )
@@ -1225,33 +1268,29 @@ function fromQuat2( quat, dst )
     }
     else if( ( x*x + y*y ) === 0 )
     {
-      console.log('Indeterminate; We set angle z2 = 0. ')
+      console.log('Indeterminate; We set angle z2 = 0. ');
       dstv.eSet( 0, atan2( ( x*y + w*z ), 0.5 - ( y*y - z*z ) ) );
       dstv.eSet( 1, 0 );
       dstv.eSet( 2, 0 );
     }
     else if( ( x*x + y*y ) === 1 )
     {
-      console.log('Indeterminate; We set angle z2 = 0. ')
+      console.log('Indeterminate; We set angle z2 = 0. ');
       dstv.eSet( 0, - atan2( ( x*y + w*z ), 0.5 - ( y*y - z*z ) ) );
       dstv.eSet( 1, pi );
       dstv.eSet( 2, 0 );
     }
     else
     {
-    return 0;
+      return 0;
     }
   }
 
-  //NOTWORKING
   if( ox === 2 && oy === 1 && oz === 2 )
   {
-    if( 0 < ( x*x + y*y ) && ( x*x + y*y ) < 1 )
-    {
-        dstv.eSet( 0, atan2( ( 2*y*z + 2*w*x ), ( - 2*x*z + 2*w*y ) ) );
-        dstv.eSet( 1, acos( ( z*z - x*x - y*y + w*w ) ) );
-        dstv.eSet( 2, atan2( ( 2*y*z - 2*w*x ), ( 2*x*z + 2*w*y ) ) );
-    }
+  dstv.eSet( 0, atan2( ( 2*y*z + 2*w*x ), ( - 2*x*z + 2*w*y ) ) );
+  dstv.eSet( 1, acos( ( z*z - x*x - y*y + w*w ) ) );
+  dstv.eSet( 2, atan2( ( 2*y*z - 2*w*x ), ( 2*x*z + 2*w*y ) ) );
   }
 
   return dst;
@@ -1316,16 +1355,16 @@ function toQuat2( euler )
   {
     quatv.eSet( 0, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
     quatv.eSet( 1, sin( ( e0 + e2 )/2 )*sin( e1/2 ) );
-    quatv.eSet( 2, sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 2, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
     quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
   }
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    quatv.eSet( 0, cos( ( e0 - e2 )/2 )*cos( e1/2 ) );
-    quatv.eSet( 1, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
-    quatv.eSet( 2, - sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
-    quatv.eSet( 3, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 0, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 1, - sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 2, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
   }
 
   else if( ox === 1 && oy === 0 && oz === 2 )
@@ -1386,9 +1425,9 @@ function toQuat2( euler )
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    quatv.eSet( 0, - sin( ( e0 + e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 0, - sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
     quatv.eSet( 1, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
-    quatv.eSet( 2, sin( ( e0 - e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 2, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
     quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
   }
 
