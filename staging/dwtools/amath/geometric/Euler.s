@@ -1147,6 +1147,12 @@ function fromQuat2( quat, dst )
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
+  //if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
+  //{
+    dstv.eSet( 0, atan2( -2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
+    dstv.eSet( 1, - asin( 2*x*z - 2*w*y ) );
+    dstv.eSet( 2, atan2( 2*x*y + 2*w*z , x*x + w*w - y*y - z*z ) );
+  //}
   }
 
   if( ox === 0 && oy === 2 && oz === 1 )
@@ -1169,9 +1175,9 @@ function fromQuat2( quat, dst )
   {
     if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
     {
-      dstv.eSet( 0, atan2( ( x*y + w*z ), 0.5 - ( y*y + z*z ) ) );
-      dstv.eSet( 1, asin( - 2*( x*z - w*y ) ) );
-      dstv.eSet( 2, atan2( ( x*y + w*z ), 0.5 - ( y*y + z*z ) ) );
+        dstv.eSet( 0, atan2( 2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
+        dstv.eSet( 1, - asin( 2*x*z - 2*w*y ) );
+        dstv.eSet( 2, atan2( 2*x*y + 2*w*z , x*x + w*w - y*y - z*z ) )
     }
     else if( 2*( x*z - w*y ) === - 1 )
     {
@@ -1213,9 +1219,9 @@ function fromQuat2( quat, dst )
   {
     if( 0 < ( x*x + y*y ) && ( x*x + y*y ) < 1 )
     {
-      dstv.eSet( 0, atan2( ( x*z - w*y ), ( y*z + w*x ) ) );
-      dstv.eSet( 1, acos( 1 - 2*( x*x + y*y ) ) );
-      dstv.eSet( 2, atan2( ( x*z + w*y ), - ( y*z - w*x ) ) );
+        dstv.eSet( 0, atan2( ( 2*x*z - 2*w*y ), ( 2*y*z + 2*w*x ) ) );
+        dstv.eSet( 1, acos( ( z*z - x*x - y*y + w*w ) ) );
+        dstv.eSet( 2, atan2( ( 2*x*z + 2*w*y ), - ( 2*y*z - 2*w*x ) ) );
     }
     else if( ( x*x + y*y ) === 0 )
     {
@@ -1237,8 +1243,15 @@ function fromQuat2( quat, dst )
     }
   }
 
+  //NOTWORKING
   if( ox === 2 && oy === 1 && oz === 2 )
   {
+    if( 0 < ( x*x + y*y ) && ( x*x + y*y ) < 1 )
+    {
+        dstv.eSet( 0, atan2( ( 2*y*z + 2*w*x ), ( - 2*x*z + 2*w*y ) ) );
+        dstv.eSet( 1, acos( ( z*z - x*x - y*y + w*w ) ) );
+        dstv.eSet( 2, atan2( ( 2*y*z - 2*w*x ), ( 2*x*z + 2*w*y ) ) );
+    }
   }
 
   return dst;
