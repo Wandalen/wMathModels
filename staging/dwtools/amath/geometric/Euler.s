@@ -1321,14 +1321,14 @@ function fromQuat2( quat, dst )
     else if( 2*( x*z - w*y ) === - 1 )
     {
       console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + w*y ) ) );
+      dstv.eSet( 0, - atan2( ( x*y - w*z ), ( x*z + w*y ) ) );
       dstv.eSet( 1, pi/2 );
       dstv.eSet( 2, 0 );
     }
     else if( 2*( x*z - w*y ) === 1 )
     {
       console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + w*y ) ) );
+      dstv.eSet( 0, atan2( -2*( x*y - w*z ), -2*( x*z + w*y ) ) );
       dstv.eSet( 1, - pi/2 );
       dstv.eSet( 2, 0 );
     }

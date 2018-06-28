@@ -1046,6 +1046,7 @@ function fromQuat2( test )
   var result = _.euler.fromQuat2( quat, dst );
   test.equivalent( result, expected );
 
+
   /* */
 
   if( !Config.debug )
