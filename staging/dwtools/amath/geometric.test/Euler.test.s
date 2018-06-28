@@ -1091,7 +1091,7 @@ var Self =
     //fromAxisAndAngle : fromAxisAndAngle,
     fromQuat : fromQuat,
     fromMatrix : fromMatrix,
-    toMatrix : toMatrix,
+    fromMatrix : toMatrix,
 
     toQuat2 : toQuat2,
     fromQuat2 : fromQuat2,

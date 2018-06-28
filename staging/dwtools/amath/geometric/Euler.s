@@ -1180,14 +1180,14 @@ function fromQuat2( quat, dst )
     else if( 2*( x*z + w*y ) === - 1 )
     {
       console.log('Indeterminate; We set angle z = 0. ');
-      dstv.eSet( 0, atan2( ( y*z + w*x ), ( x*z - w*y ) ) );
+      dstv.eSet( 0, atan2( ( y*z - w*x ), ( x*z + w*y ) ) );
       dstv.eSet( 1, - pi/2 );
       dstv.eSet( 2, 0 );
     }
     else if( 2*( x*z + w*y ) === 1 )
     {
       console.log('Indeterminate; We set angle z = 0. ');
-      dstv.eSet( 0, atan2( ( y*z + w*x ), ( x*z - w*y ) ) );
+      dstv.eSet( 0, atan2( ( y*z - w*x ), ( x*z + w*y ) ) );
       dstv.eSet( 1, pi/2 );
       dstv.eSet( 2, 0 );
     }
@@ -1235,15 +1235,15 @@ function fromQuat2( quat, dst )
     }
     else if( ( 2*y*z - 2*w*x ) === - 1 )
     {
-      console.log('Indeterminate; We set angle x = 0. ');
+      console.log('Indeterminate; We set angle z = 0. ');
       dstv.eSet( 0, atan2( ( x*z - w*y ), ( y*z + w*x ) ) );
       dstv.eSet( 1, pi/2 );
       dstv.eSet( 2, 0 );
     }
     else if( ( 2*y*z - 2*w*x ) === 1 )
     {
-      console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( ( x*z + w*y ), ( y*z - w*x ) ) );
+      console.log('Indeterminate; We set angle z = 0. ');
+      dstv.eSet( 0, atan2( ( x*z - w*y ), ( y*z + w*x ) ) );
       dstv.eSet( 1, - pi/2 );
       dstv.eSet( 2, 0 );
     }
@@ -1265,14 +1265,14 @@ function fromQuat2( quat, dst )
     else if( ( 2*x*y + 2*w*z ) === - 1 )
     {
       console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( ( x*z + w*y ), ( y*x - w*z ) ) );
+      dstv.eSet( 0, atan2( ( x*z - w*y ), ( y*x + w*z ) ) );
       dstv.eSet( 1, - pi/2 );
       dstv.eSet( 2, 0 );
     }
     else if( ( 2*x*y + 2*w*z ) === 1 )
     {
       console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( ( x*z + w*y ), ( y*x - w*z ) ) );
+      dstv.eSet( 0, atan2( ( x*z - w*y ), ( y*x + w*z ) ) );
       dstv.eSet( 1, pi/2 );
       dstv.eSet( 2, 0 );
     }
@@ -1292,15 +1292,15 @@ function fromQuat2( quat, dst )
     }
     else if( ( 2*y*z + 2*w*x ) === - 1 )
     {
-      console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( ( x*y + w*z ), ( y*z - w*x ) ) );
+      console.log('Indeterminate; We set angle y = 0. ');
+      dstv.eSet( 0, atan2( ( x*y - w*z ), ( y*z + w*x ) ) );
       dstv.eSet( 1, - pi/2 );
       dstv.eSet( 2, 0 );
     }
     else if( ( 2*y*z + 2*w*x ) === 1 )
     {
-      console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( ( x*y + w*z ), ( y*z - w*x ) ) );
+      console.log('Indeterminate; We set angle y = 0. ');
+      dstv.eSet( 0, atan2( ( x*y - w*z ), ( y*z + w*x ) ) );
       dstv.eSet( 1, pi/2 );
       dstv.eSet( 2, 0 );
     }
@@ -1349,16 +1349,16 @@ function fromQuat2( quat, dst )
     }
     else if( (  x*x + w*w - z*z - y*y ) === - 1 )
     {
-      console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + w*y ) ) );
+      console.log('Indeterminate; We set angle x2 = 0. ');
+      dstv.eSet( 0, atan2( ( z*y - w*x ), 0.5 - ( x*x + z*z ) ) );
       dstv.eSet( 1, pi );
       dstv.eSet( 2, 0 );
     }
     else if( (  x*x + w*w - z*z - y*y ) === 1 )
     {
-      console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + w*y ) ) );
-      dstv.eSet( 1, - pi/2 );
+      console.log('Indeterminate; We set angle x2 = 0. ');
+      dstv.eSet( 0, atan2( ( z*y + w*x ), 0.5 - ( x*x + z*z ) ) );
+      dstv.eSet( 1, 0 );
       dstv.eSet( 2, 0 );
     }
     else
@@ -1369,23 +1369,88 @@ function fromQuat2( quat, dst )
 
   if( ox === 0 && oy === 2 && oz === 0 )
   {
-    dstv.eSet( 2, atan2( 2*x*z + 2*w*y , -2*x*y + 2*w*z ) );
-    dstv.eSet( 1, acos( x*x + w*w -z*z - y*y ) );
-    dstv.eSet( 0, atan2( 2*x*z - 2*w*y , 2*x*y + 2*w*z ) );
+
+    if( - 1 < (  x*x + w*w - z*z - y*y ) && (  x*x + w*w - z*z - y*y ) < 1 )
+    {
+      dstv.eSet( 2, atan2( 2*x*z + 2*w*y , -2*x*y + 2*w*z ) );
+      dstv.eSet( 1, acos( x*x + w*w -z*z - y*y ) );
+      dstv.eSet( 0, atan2( 2*x*z - 2*w*y , 2*x*y + 2*w*z ) );
+    }
+    else if( (  x*x + w*w - z*z - y*y ) === - 1 )
+    {
+      console.log('Indeterminate; We set angle x2 = 0. ');
+      dstv.eSet( 0, - atan2( ( z*y + w*x ), 0.5 - ( x*x + y*y ) ) );
+      dstv.eSet( 1, pi );
+      dstv.eSet( 2, 0 );
+    }
+    else if( (  x*x + w*w - z*z - y*y ) === 1 )
+    {
+      console.log('Indeterminate; We set angle x2 = 0. ');
+      dstv.eSet( 0, atan2( ( z*y + w*x ), 0.5 - ( x*x + y*y ) ) );
+      dstv.eSet( 1, 0 );
+      dstv.eSet( 2, 0 );
+    }
+    else
+    {
+      return 0;
+    }
   }
 
   if( ox === 1 && oy === 0 && oz === 1 )
   {
-  dstv.eSet( 2, atan2( 2*x*y + 2*w*z , -2*y*z + 2*w*x ) );
-  dstv.eSet( 1, acos( y*y - z*z + w*w - x*x ) );
-  dstv.eSet( 0, atan2( 2*x*y - 2*w*z , 2*y*z + 2*w*x ) );
+
+    if( - 1 < ( y*y - z*z + w*w - x*x ) && ( y*y - z*z + w*w - x*x ) < 1 )
+    {
+      dstv.eSet( 2, atan2( 2*x*y + 2*w*z , -2*y*z + 2*w*x ) );
+      dstv.eSet( 1, acos( y*y - z*z + w*w - x*x ) );
+      dstv.eSet( 0, atan2( 2*x*y - 2*w*z , 2*y*z + 2*w*x ) );
+    }
+    else if( ( y*y - z*z + w*w - x*x ) === - 1 )
+    {
+      console.log('Indeterminate; We set angle x2 = 0. ');
+      dstv.eSet( 0, - atan2( ( z*x - w*y ), 0.5 - ( z*z + y*y ) ) );
+      dstv.eSet( 1, pi );
+      dstv.eSet( 2, 0 );
+    }
+    else if( ( y*y - z*z + w*w - x*x ) === 1 )
+    {
+      console.log('Indeterminate; We set angle x2 = 0. ');
+      dstv.eSet( 0, atan2( ( z*x + w*y ), 0.5 - ( z*z + y*y ) ) );
+      dstv.eSet( 1, 0 );
+      dstv.eSet( 2, 0 );
+    }
+    else
+    {
+      return 0;
+    }
   }
 
   if( ox === 1 && oy === 2 && oz === 1 )
   {
-  dstv.eSet( 2, atan2( 2*y*z - 2*w*x , 2*x*y + 2*w*z ) );
-  dstv.eSet( 1, acos( y*y - z*z + w*w - x*x ) );
-  dstv.eSet( 0, atan2( 2*y*z + 2*w*x , -2*x*y + 2*w*z ) );
+      if( - 1 < ( y*y - z*z + w*w - x*x ) && ( y*y - z*z + w*w - x*x ) < 1 )
+      {
+        dstv.eSet( 2, atan2( 2*y*z - 2*w*x , 2*x*y + 2*w*z ) );
+        dstv.eSet( 1, acos( y*y - z*z + w*w - x*x ) );
+        dstv.eSet( 0, atan2( 2*y*z + 2*w*x , -2*x*y + 2*w*z ) );
+      }
+      else if( ( y*y - z*z + w*w - x*x ) === - 1 )
+      {
+        console.log('Indeterminate; We set angle x2 = 0. ');
+        dstv.eSet( 0, atan2( ( z*x - w*y ), 0.5 - ( y*y + x*x ) ) );
+        dstv.eSet( 1, pi );
+        dstv.eSet( 2, 0 );
+      }
+      else if( ( y*y - z*z + w*w - x*x ) === 1 )
+      {
+        console.log('Indeterminate; We set angle x2 = 0. ');
+        dstv.eSet( 0, atan2( ( z*x + w*y ), 0.5 - ( y*y + x*x ) ) );
+        dstv.eSet( 1, 0 );
+        dstv.eSet( 2, 0 );
+      }
+      else
+      {
+        return 0;
+      }
   }
 
   if( ox === 2 && oy === 0 && oz === 2 )
