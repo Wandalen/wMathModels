@@ -937,6 +937,126 @@ function toQuat2( test )
   var result = _.euler.toQuat2( euler );
   test.equivalent( result, expected );
 
+  test.description = 'Euler XYZ -> Quat -> Euler'; //
+
+  var euler = [ 1, 1, 0.25, 0, 1, 2 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected = [ 1, 1, 0.25, 0, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 0.5, 0, 2, 1 ];
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected =  [ 1, 0.25, 0.5, 0, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ -> Quat -> Euler'; //
+
+  var euler = [ 2, 1, 0.25, 1, 0, 2 ];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected = [ 2, 1, 0.25, 1, 0, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 2, 1, 2, 0 ];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected =  [ 1, 0.25, 2, 1, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 1, 2, 0, 1 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ];
+  var expected =  [ 0.25, 1, 1, 2, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 0.5, 2, 1, 0 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected = [ 0.25, 1, 0.5, 2, 1, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYX -> Quat -> Euler'; //
+
+  var euler = [ 1, 1, 0.25, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected = [ 1, 1, 0.25, 0, 1, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 0.5, 0, 2, 0 ];
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected =  [ 1, 0.25, 0.5, 0, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY -> Quat -> Euler'; //
+
+  var euler = [ 1, 2, 0.25, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected = [ 1, 2, 0.25, 1, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 2, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected =  [ 1, 0.25, 2, 1, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 1, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ];
+  var expected =  [ 0.25, 1, 1, 2, 0, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYZ -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 0.5, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected = [ 0.25, 1, 0.5, 2, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
   test.description = 'Euler null'; //
 
   var euler = null;
@@ -1037,6 +1157,126 @@ function fromQuat2( test )
   var result = _.euler.fromQuat2( quat, dst );
   test.equivalent( result, expected );
 
+  test.description = 'Euler XYZ - Euler -> Quat -> Euler'; //
+
+  var euler = [ 1, 1, 0.25, 0, 1, 2 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected =  [ 1, 1, 0.25, 0, 1, 2 ]; ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY - Euler -> Quat -> Euler'; //
+
+  var euler =  [ 1, 0.25, 0.5, 0, 2, 1 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected = [ 1, 0.25, 0.5, 0, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ - Euler -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.5, 0.5, 1, 0, 2 ];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected =  [ 1, 0.5, 0.5, 1, 0, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX - Euler -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 2, 1, 2, 0 ];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected = [ 1, 0.25, 2, 1, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY - Euler -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 1, 2, 0, 1 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var expected = [ 0.25, 1, 1, 2, 0, 1 ] ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Euler -> Quat -> Euler'; //
+
+  var euler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYX - Euler -> Quat -> Euler'; //
+
+  var euler = [ 1, 1, 0.25, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected =  [ 1, 1, 0.25, 0, 1, 0 ]; ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX - Euler -> Quat -> Euler'; //
+
+  var euler =  [ 1, 0.25, 0.5, 0, 2, 0 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected = [ 1, 0.25, 0.5, 0, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY - Euler -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.5, 0.5, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected =  [ 1, 0.5, 0.5, 1, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY - Euler -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 2, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected = [ 1, 0.25, 2, 1, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ - Euler -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 1, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var expected = [ 0.25, 1, 1, 2, 0, 2 ] ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Euler -> Quat -> Euler'; //
+
+  var euler =  [ 1, 0.5, 0.5, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected =  [ 1, 0.5, 0.5, 2, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
   test.description = 'Quat null'; //
 
   var quat = null;
@@ -1045,7 +1285,6 @@ function fromQuat2( test )
 
   var result = _.euler.fromQuat2( quat, dst );
   test.equivalent( result, expected );
-
 
   /* */
 
@@ -1072,7 +1311,7 @@ var Self =
   name : 'Math.Euler',
 //  silencing : 1,
 //  enabled : 1, // !!!
-  routine: 'fromQuat2',
+  routine: 'toQuat2',
 
   context :
   {
