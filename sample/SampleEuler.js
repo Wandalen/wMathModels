@@ -5,22 +5,26 @@ var _ = wTools;
 
 
 var matrix =  _.Space.make( [ 3, 3 ] ).copy(
-     [ 1, 0, 1,
-       1, 1, 0,
-       0, 1, 1 ] );
+     [ 0.2, 0.1, 0.5,
+       0.1, 0.3, 0.1,
+       0.7, 0, 0.2 ] );
 
-var dstXYZ = [ 0, 0, 0, 1, 2, 0 ];
-//var euler2 = _.euler.fromMatrix2( matrix, dstXYZ );
-//console.log( 'Euler from mat xyz:', euler2 );
+var dstXYZ = [ 0, 0, 0, 0, 1, 2 ];
+var dstXZY = [ 0, 0, 0, 0, 2, 1 ];
+var dstYXZ = [ 0, 0, 0, 1, 0, 2 ];
+var dstYZX = [ 0, 0, 0, 1, 2, 0 ];
+var dstZXY = [ 0, 0, 0, 2, 0, 1 ];
+var dstZYX = [ 0, 0, 0, 2, 1, 0 ];
+var dstXYX = [ 0, 0, 0, 0, 1, 0 ];
+var dstXZX = [ 0, 0, 0, 0, 2, 0 ];
+var dstYXY = [ 0, 0, 0, 1, 0, 1 ];
+var dstYZY = [ 0, 0, 0, 1, 2, 1 ];
+var dstZXZ = [ 0, 0, 0, 2, 0, 2 ];
+var dstZYZ = [ 0, 0, 0, 2, 1, 2 ];
 
-var a = (Math.PI/2);
-console.log(a);
-var srcXYZ = [ 0.1, a, 0, 1, 2, 0 ];
-var srcZYX2 = [ 0.1, -a, 0, 1, 2, 0 ];
-var quat = _.euler.toQuat2( srcXYZ );
-console.log( 'Quat XYZ :', quat );
-var euler = _.euler.fromQuat2( quat, dstXYZ );
-console.log( 'euler from quat XYZ :', euler );
-var quat = _.euler.toQuat2( srcZYX2 );
-var euler = _.euler.fromQuat2( quat, dstXYZ );
-console.log( 'euler from quat XYZ :', euler );
+var euler = [ 0.5, 0.2, -0.3, 2, 1, 0 ];
+var mat = _.euler.toMatrix2( euler );
+console.log('Matrix : ');
+console.log( mat );
+var euler2 = _.euler.fromMatrix2( mat, dstZYX );
+console.log( 'Euler from mat xyz:', euler2 );

@@ -1217,7 +1217,6 @@ function fromQuat2( test )
   var quat =  [ 0.09544332266900905, 0.3252921697349392, 0.39636481102592414, 0.8532118805123485 ];
   var dst = [ 0, 0, 0, 2, 1, 0 ];
   var expected =  [ 0.09544332266900905, 0.3252921697349392, 0.39636481102592414, 0.8532118805123485 ];
-  var expected = _.quat._from( expected );
 
   var euler = _.euler.fromQuat2( quat, dst );
   var result = _.euler.toQuat2( euler );

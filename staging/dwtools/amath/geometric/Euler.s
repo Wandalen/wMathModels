@@ -1677,9 +1677,9 @@ function fromMatrix2( mat, dst )
   {
     if( - 1 < m02 && m02 < 1 )
     {
-      eulerv.eSet( 0, atan2( -m12, m22 ) );
-      eulerv.eSet( 1, asin(m02) );
-      eulerv.eSet( 2, atan2( -m01, m00 ) );
+      eulerv.eSet( 0, atan2( - m12, m22 ) );
+      eulerv.eSet( 1, atan2( m02, sqrt( 1 - m02*m02 ) ) );
+      eulerv.eSet( 2, atan2( - m01, m00 ) );
     }
     else if( m02 <= - 1 )
     {
@@ -1940,6 +1940,183 @@ function fromMatrix2( mat, dst )
   return eulerv;
 }
 
+
+function toMatrix2( euler )
+{
+
+  var euler = _.euler.from( euler );
+  var eulerv = _.vector.from( euler );
+  var mat =  _.Space.makeZero( [ 3, 3 ] );
+  ;
+  _.assert( _.Space.is( mat ) );
+  _.assert( arguments.length === 1 );
+
+  var e1 = eulerv.eGet( 0 );
+  var e2 = eulerv.eGet( 1 );
+  var e3 = eulerv.eGet( 2 );
+  var ox = eulerv.eGet( 3 );
+  var oy = eulerv.eGet( 4 );
+  var oz = eulerv.eGet( 5 );
+
+  if( ox === 0 && oy === 1 && oz === 2 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], - cos( e2)*sin( e3 ) );
+    mat.atomSet( [ 0, 2 ], sin( e2 ) );
+    mat.atomSet( [ 1, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 1 ], -sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], -sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 2, 0 ], -cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*sin( e3 )+ sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+  }
+
+  if( ox === 0 && oy === 2 && oz === 1 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], - sin( e2 ) );
+    mat.atomSet( [ 0, 2 ], cos( e2 )*sin( e3 ) );
+    mat.atomSet( [ 1, 0 ], cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 1 ], cos( e1 )*cos( e2 ) );
+    mat.atomSet( [ 1, 2 ], cos( e1 )*sin( e2 )*sin( e3 ) - sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 2, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) - cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 1 ], sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 2, 2 ], sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+  }
+
+  if( ox === 1 && oy === 0 && oz === 2 )
+  {
+    mat.atomSet( [ 0, 0 ], sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], sin( e1 )*sin( e2 )*cos( e3 ) - cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 0, 2 ], sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 1, 0 ], cos( e2 )*sin( e3 ) );
+    mat.atomSet( [ 1, 1 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], -sin( e2 ) );
+    mat.atomSet( [ 2, 0 ], cos( e1 )*sin( e2 )*sin( e3 ) - sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*cos( e3 )+ sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+  }
+
+  if( ox === 1 && oy === 2 && oz === 0 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e1 )*cos( e2 ) );
+    mat.atomSet( [ 0, 1 ], - cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 0, 2 ], cos( e1 )*sin( e2 )*sin( e3 ) + sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 0 ], sin( e2 ) );
+    mat.atomSet( [ 1, 1 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], - cos( e2 )*sin( e3 ) );
+    mat.atomSet( [ 2, 0 ], - sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 2, 1 ], sin( e1 )*sin( e2 )*cos( e3 )+ cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 2 ], - sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+  }
+
+  if( ox === 2 && oy === 0 && oz === 1 )
+  {
+    mat.atomSet( [ 0, 0 ], - sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], - sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 0, 2 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 0 ], cos( e1 )*sin( e2 )*sin( e3 ) + sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 1 ], cos( e1 )*cos( e2 ) );
+    mat.atomSet( [ 1, 2 ], - cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 0 ], - cos( e2 )*sin( e3 ) );
+    mat.atomSet( [ 2, 1 ], sin( e2 ) );
+    mat.atomSet( [ 2, 2 ], cos( e2 )*cos( e3 ) );
+  }
+
+  if( ox === 2 && oy === 1 && oz === 0 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e1 )*cos( e2 ) );
+    mat.atomSet( [ 0, 1 ], cos( e1 )*sin( e2 )*sin( e3 ) - sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 0, 2 ], cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 0 ], sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 1, 1 ], sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], sin( e1 )*sin( e2 )*cos( e3 ) - cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 0 ], - sin( e2 ) );
+    mat.atomSet( [ 2, 1 ], cos( e2 )*sin( e3 ) );
+    mat.atomSet( [ 2, 2 ], cos( e2 )*cos( e3 ) );
+  }
+
+  if( ox === 0 && oy === 1 && oz === 0 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], - cos( e2)*sin( e3 ) );
+    mat.atomSet( [ 0, 2 ], sin( e2 ) );
+    mat.atomSet( [ 1, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 1 ], -sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], -sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 2, 0 ], -cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*sin( e3 )+ sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+  }
+
+  if( ox === 0 && oy === 2 && oz === 0 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], - cos( e2)*sin( e3 ) );
+    mat.atomSet( [ 0, 2 ], sin( e2 ) );
+    mat.atomSet( [ 1, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 1 ], -sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], -sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 2, 0 ], -cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*sin( e3 )+ sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+  }
+
+  if( ox === 1 && oy === 0 && oz === 1 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], - cos( e2)*sin( e3 ) );
+    mat.atomSet( [ 0, 2 ], sin( e2 ) );
+    mat.atomSet( [ 1, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 1 ], -sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], -sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 2, 0 ], -cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*sin( e3 )+ sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+  }
+
+  if( ox === 1 && oy === 2 && oz === 1 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], - cos( e2)*sin( e3 ) );
+    mat.atomSet( [ 0, 2 ], sin( e2 ) );
+    mat.atomSet( [ 1, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 1 ], -sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], -sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 2, 0 ], -cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*sin( e3 )+ sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+  }
+
+  if( ox === 2 && oy === 0 && oz === 2 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], - cos( e2)*sin( e3 ) );
+    mat.atomSet( [ 0, 2 ], sin( e2 ) );
+    mat.atomSet( [ 1, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 1 ], -sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], -sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 2, 0 ], -cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*sin( e3 )+ sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+  }
+
+  if( ox === 2 && oy === 1 && oz === 2 )
+  {
+    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 1 ], - cos( e2)*sin( e3 ) );
+    mat.atomSet( [ 0, 2 ], sin( e2 ) );
+    mat.atomSet( [ 1, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
+    mat.atomSet( [ 1, 1 ], -sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 1, 2 ], -sin( e1 )*cos( e2 ) );
+    mat.atomSet( [ 2, 0 ], -cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*sin( e3 )+ sin( e1 )*cos( e3 ) );
+    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+  }
+
+  return mat;
+}
+
 // --
 // define class
 // --
@@ -1971,6 +2148,7 @@ var Proto =
   fromQuat2 : fromQuat2,
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
+  toMatrix2 : toMatrix2,
 }
 
 _.mapExtend( Self,Proto );
