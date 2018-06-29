@@ -1157,64 +1157,70 @@ function fromQuat2( test )
   var result = _.euler.fromQuat2( quat, dst );
   test.equivalent( result, expected );
 
-  test.description = 'Euler XYZ - Euler -> Quat -> Euler'; //
+  test.description = 'Euler XYZ - Quat -> Euler -> Quat'; //
 
-  var euler = [ 1, 1, 0.25, 0, 1, 2 ];
+  var quat = [ 0.4699079, 0.3649977, 0.3240739, 0.7354858 ];
   var dst = [ 0, 0, 0, 0, 1, 2 ];
-  var expected =  [ 1, 1, 0.25, 0, 1, 2 ];
+  var expected =  [ 0.4699079, 0.3649977, 0.3240739, 0.7354858 ];
+  var expected = _.quat._from( expected );
 
-  var quat = _.euler.toQuat2( euler );
-  var result = _.euler.fromQuat2( quat, dst );
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
   test.equivalent( result, expected );
 
-  test.description = 'Euler XZY - Euler -> Quat -> Euler'; //
+  test.description = 'Euler XZY - Quat -> Euler -> Quat'; //
 
-  var euler =  [ 1, 0.25, 0.5, 0, 2, 1 ] ;
+  var quat =  [ 0.433828, 0.1575093, 0.2236973, 0.8584542];
   var dst = [ 0, 0, 0, 0, 2, 1 ];
-  var expected = [ 1, 0.25, 0.5, 0, 2, 1 ];
+  var expected = [ 0.433828, 0.1575093, 0.2236973, 0.8584542];
+  var expected = _.quat._from( expected );
 
-  var quat = _.euler.toQuat2( euler );
-  var result = _.euler.fromQuat2( quat, dst );
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
   test.equivalent( result, expected );
 
-  test.description = 'Euler YXZ - Euler -> Quat -> Euler'; //
+  test.description = 'Euler YXZ - Quat -> Euler -> Quat'; //
 
-  var euler = [ 1, 0.5, 0.5, 1, 0, 2 ];
+  var quat = [ 0.325292169, 0.3963648110, 0.09544332266, 0.8532118805];
   var dst = [ 0, 0, 0, 1, 0, 2 ];
-  var expected =  [ 1, 0.5, 0.5, 1, 0, 2 ];
+  var expected =  [ 0.325292169, 0.3963648110, 0.09544332266, 0.8532118805];
+  var expected = _.quat._from( expected );
 
-  var quat = _.euler.toQuat2( euler );
-  var result = _.euler.fromQuat2( quat, dst );
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
   test.equivalent( result, expected );
 
-  test.description = 'Euler YZX - Euler -> Quat -> Euler'; //
+  test.description = 'Euler YZX - Quat -> Euler -> Quat'; //
 
-  var euler = [ 1, 0.25, 2, 1, 2, 0 ];
+  var quat = [ 0.7649936, 0.349081, -0.3411593, 0.4201637];
   var dst = [ 0, 0, 0, 1, 2, 0 ];
-  var expected = [ 1, 0.25, 2, 1, 2, 0 ];
+  var expected = [ 0.7649936, 0.349081, -0.3411593, 0.4201637];
+  var expected = _.quat._from( expected );
 
-  var quat = _.euler.toQuat2( euler );
-  var result = _.euler.fromQuat2( quat, dst );
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
   test.equivalent( result, expected );
 
-  test.description = 'Euler ZXY - Euler -> Quat -> Euler'; //
+  test.description = 'Euler ZXY - Quat -> Euler -> Quat'; //
 
-  var euler = [ 0.25, 1, 1, 2, 0, 1 ];
+  var quat = [ 0.3649977, 0.4699079, 0.3240739, 0.7354858 ];
   var dst = [ 0, 0, 0, 2, 0, 1 ]
-  var expected = [ 0.25, 1, 1, 2, 0, 1 ] ;
+  var expected = [ 0.3649977, 0.4699079, 0.3240739, 0.7354858 ];
+  var expected = _.quat._from( expected );
 
-  var quat = _.euler.toQuat2( euler );
-  var result = _.euler.fromQuat2( quat, dst );
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
   test.equivalent( result, expected );
 
-  test.description = 'Euler ZYX - Euler -> Quat -> Euler'; //
+  test.description = 'Euler ZYX - Quat -> Euler -> Quat'; //
 
-  var euler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+  var quat =  [ 0.09544332266900905, 0.3252921697349392, 0.39636481102592414, 0.8532118805123485 ];
   var dst = [ 0, 0, 0, 2, 1, 0 ];
-  var expected =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+  var expected =  [ 0.09544332266900905, 0.3252921697349392, 0.39636481102592414, 0.8532118805123485 ];
+  var expected = _.quat._from( expected );
 
-  var quat = _.euler.toQuat2( euler );
-  var result = _.euler.fromQuat2( quat, dst );
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
   test.equivalent( result, expected );
 
   test.description = 'Euler XYX - Euler -> Quat -> Euler'; //
