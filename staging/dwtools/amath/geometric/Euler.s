@@ -104,7 +104,7 @@ function from( euler )
   if( _.vectorIs( euler ) )
   {
     debugger;
-    throw _.err( 'not implemented' );
+    //throw _.err( 'not implemented' );
     return euler.slice();
   }
 
@@ -1857,13 +1857,13 @@ function fromMatrix2( mat, dst )
       eulerv.eSet( 1, acos( m11 ) );
       eulerv.eSet( 2, atan2( m10, - m12 ) );
     }
-    else if( m01 <= - 1 )
+    else if( m11 <= - 1 )
     {
       eulerv.eSet( 0, - atan2( m02, m00 ) );
       eulerv.eSet( 1, pi );
       eulerv.eSet( 2, 0 );
     }
-    else if( m01 >= 1 )
+    else if( m11 >= 1 )
     {
       eulerv.eSet( 0, atan2( m02, m00 ) );
       eulerv.eSet( 1, 0 );
@@ -1879,13 +1879,13 @@ function fromMatrix2( mat, dst )
       eulerv.eSet( 1, acos( m11 ) );
       eulerv.eSet( 2, atan2( m12, m10 ) );
     }
-    else if( m01 <= - 1 )
+    else if( m11 <= - 1 )
     {
-      eulerv.eSet( 0, - atan2( m20, m22 ) );
+      eulerv.eSet( 0, atan2( m20, m22 ) );
       eulerv.eSet( 1, pi );
       eulerv.eSet( 2, 0 );
     }
-    else if( m01 >= 1 )
+    else if( m11 >= 1 )
     {
       eulerv.eSet( 0, atan2( - m20, m22 ) );
       eulerv.eSet( 1, 0 );
@@ -1903,13 +1903,13 @@ function fromMatrix2( mat, dst )
     }
     else if( m22 <= - 1 )
     {
-      eulerv.eSet( 0, - atan2( m01, m00 ) );
+      eulerv.eSet( 0, atan2( m01, m00 ) );
       eulerv.eSet( 1, pi );
       eulerv.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
-      eulerv.eSet( 0, atan2( - m01, m00 ) );
+      eulerv.eSet( 0, -atan2( m01, m00 ) );
       eulerv.eSet( 1, 0 );
       eulerv.eSet( 2, 0 );
     }
@@ -1923,13 +1923,13 @@ function fromMatrix2( mat, dst )
       eulerv.eSet( 1, acos( m22 ) );
       eulerv.eSet( 2, atan2( m21, - m20 ) );
     }
-    else if( m01 <= - 1 )
+    else if( m22 <= - 1 )
     {
       eulerv.eSet( 0, - atan2( m10, m11 ) );
       eulerv.eSet( 1, pi );
       eulerv.eSet( 2, 0 );
     }
-    else if( m01 >= 1 )
+    else if( m22 >= 1 )
     {
       eulerv.eSet( 0, atan2( m10, m11 ) );
       eulerv.eSet( 1, 0 );
