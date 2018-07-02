@@ -2025,14 +2025,15 @@ function boxIntersects( test )
 test.description = 'Source box and Test box remain unchanged'; //
 
   var srcBox = [ 0, 0, 2, 2 ];
-  var oldsrcBox = [ 0, 0, 2, 2 ];
   var tstBox = [  1,  1, 3, 3 ];
-  var oldtstBox = [  1,  1, 3, 3 ];
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   var expected = true;
+  test.identical( expected, gotBool );
 
-  var box = _.box.boxIntersects( srcBox, tstBox );
-  test.identical( expected, box );
+  var oldsrcBox = [ 0, 0, 2, 2 ];
   test.identical( srcBox, oldsrcBox );
+
+  var oldtstBox = [  1,  1, 3, 3 ];
   test.identical( tstBox, oldtstBox );
 
   test.description = 'Empty box to empty box'; //
@@ -2041,8 +2042,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   var boxTwo = [];
   var expected = false;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  var gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
 
   test.description = 'Zero box to zero box'; //
@@ -2051,8 +2052,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 0, 0, 0, 0, 0, 0 ];
   expected = true; // qqq : why was false?
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Same boxes'; //
 
@@ -2060,8 +2061,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 0, 0, 0, 4, 4, 4 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box in box with a common side'; //
 
@@ -2069,8 +2070,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 1, 1, 1, 2, 2, 3 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
 
   test.description = 'Box out of box with a common side'; //
@@ -2079,8 +2080,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 4, 4, 3, 5, 5, 5 ];
   expected = false;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box in box'; //
 
@@ -2088,8 +2089,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 1, 1, 1, 2, 2, 2 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box half in box'; //
 
@@ -2097,8 +2098,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 2, 2, 2, 6, 6, 6 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box totally out of box'; //
 
@@ -2106,8 +2107,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 2, 2, 2, 3, 3, 3 ];
   expected = false;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box out of box in two dimensions'; //
 
@@ -2115,8 +2116,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 0, - 1, - 1, 1, 0, 0 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box out of box in one dimensions'; //
 
@@ -2124,8 +2125,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 1, 1, 1, 3, 3, 5 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box in box (both normalized to one)'; //
 
@@ -2133,8 +2134,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box out of box (normalized to one)'; //
 
@@ -2142,8 +2143,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
   expected = true; // qqq : why false??
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box in box (four dimensions)'; //
 
@@ -2151,8 +2152,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box out of box in 1D (four dimensions)'; //
 
@@ -2160,8 +2161,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box out of box in 1D (four dimensions)'; //
 
@@ -2169,8 +2170,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 3, 3, 3, 3, 4, 4, 4, 4 ];
   expected = false;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box in box (one dimensions)'; //
 
@@ -2178,8 +2179,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 0, 1 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box intersects box (one dimensions)'; //
 
@@ -2187,8 +2188,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 0, 4 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box out of box (one dimensions)'; //
 
@@ -2196,8 +2197,8 @@ test.description = 'Source box and Test box remain unchanged'; //
   boxTwo = [ 3, 4 ];
   expected = false;
 
-  box = _.box.boxIntersects( box, boxTwo );
-  test.identical( box, expected );
+  gotBool = _.box.boxIntersects( box, boxTwo );
+  test.identical( gotBool, expected );
 
   /* */
 
@@ -4160,7 +4161,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-   routine: 'boxContains',
+   routine: 'boxIntersects',
 
   tests :
   {
