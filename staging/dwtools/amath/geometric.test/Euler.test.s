@@ -2264,7 +2264,7 @@ var Self =
   name : 'Math.Euler',
 //  silencing : 1,
 //  enabled : 1, // !!!
-  routine: 'toMatrix2',
+//  routine: 'toMatrix2',
 
   context :
   {

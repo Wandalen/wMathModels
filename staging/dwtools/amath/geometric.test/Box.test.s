@@ -973,6 +973,7 @@ function pointContains( test )
   var box = [  - 1,  - 1 , 1, 1 ];
   var point = [ 0, 0 ];
   var expected = true;
+
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool, expected );
 
@@ -3288,14 +3289,15 @@ function fromPoints( test )
 
   test.description = 'Points remain unchanged and Destination box changes'; //
 
-  var dstBox = [ 0, 0, 1, 1 ];
   var points = [ [ 1, 1 ], [ 0, 0 ], [ 0, 2 ] ];
-  var oldpoints = [ [ 1, 1 ], [ 0, 0 ], [ 0, 2 ] ];
   var expected = [ 0, 0, 1, 2 ];
+  var dstBox = [ 0, 0, 1, 1 ];
 
-  gotBox = _.box.fromPoints( dstBox, points );
-  test.identical( box, expected );
+  var gotBox = _.box.fromPoints( dstBox, points );
+  test.identical( gotBox, expected );
   test.identical( dstBox, expected );
+
+  var oldpoints = [ [ 1, 1 ], [ 0, 0 ], [ 0, 2 ] ];
   test.identical( points, oldpoints );
 
   test.description = 'Create box of two dimensions'; //
@@ -3305,7 +3307,7 @@ function fromPoints( test )
   var expected = [ - 1, - 2, 1, 3 ];
 
   gotBox = _.box.fromPoints( box, points );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Create box three dimensions'; //
 
@@ -3314,7 +3316,7 @@ function fromPoints( test )
   var expected = [ 0, 0, 0, 1, 2, 3 ];
 
   gotBox = _.box.fromPoints( box, points );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Zero points - box not expanded'; //
 
@@ -3323,7 +3325,7 @@ function fromPoints( test )
   var expected = [ 0, 0, 0, 0, 0, 0 ];
 
   gotBox = _.box.fromPoints( box, points);
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box expanded'; //
 
@@ -3332,7 +3334,7 @@ function fromPoints( test )
   expected = [ - 1, - 3, - 1, 2, 3, 3 ];
 
   gotBox = _.box.fromPoints( box, points);
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box out of one point'; //
 
@@ -3341,7 +3343,7 @@ function fromPoints( test )
   expected = [ - 1, 0, - 1, 2, 2, 2 ];
 
   gotBox = _.box.fromPoints( box, points);
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box NOT expanded ( points inside box )'; //
 
@@ -3350,7 +3352,7 @@ function fromPoints( test )
   expected = [ 0,  0, 0, 2, 2, 2 ];
 
   gotBox = _.box.fromPoints( box, points);
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box ( normalized to 1 ) expanded'; //
 
@@ -3359,7 +3361,7 @@ function fromPoints( test )
   expected = [ - 0.900,  - 0.001, - 0.900, 0.900, 0.766, 0.900 ];
 
   gotBox = _.box.fromPoints( box, points);
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Null box of four dimensions expanded'; //
 
@@ -3368,7 +3370,7 @@ function fromPoints( test )
   var expected = [ - 1, - 2, - 3 , - 4, 1, 2, 3, 4 ];
 
   gotBox = _.box.fromPoints( box, points);
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Null box of 7 dimensions expanded'; //
 
@@ -3377,7 +3379,7 @@ function fromPoints( test )
   var expected = [ 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7 ];
 
   gotBox = _.box.fromPoints( box, points);
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box of 1 dimension expanded'; //
 
@@ -3386,7 +3388,7 @@ function fromPoints( test )
   var expected = [ - 1, 1 ];
 
   gotBox = _.box.fromPoints( box, points);
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box of 0 dimension expanded'; //
 
@@ -3395,7 +3397,7 @@ function fromPoints( test )
   var expected = [ ];
 
   gotBox = _.box.fromPoints( box, points);
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   /* */
 
@@ -3469,25 +3471,27 @@ function fromCenterAndSize( test )
   var dstBox = [ 0, 0, 1, 1 ];
   var center = [ 1, 1 ];
   var size = [ 4, 4 ];
-  var oldcenter = [ 1, 1 ];
-  var oldsize = [ 4, 4 ];
   var expected = [ - 1, - 1, 3, 3 ];
 
   var gotBox = _.box.fromCenterAndSize( dstBox, center, size );
+  test.identical( gotBox, expected );
   test.identical( dstBox, expected );
-  test.identical( box, expected );
+
+
+  var oldcenter = [ 1, 1 ];
   test.identical( center, oldcenter );
+  var oldsize = [ 4, 4 ];
   test.identical( size, oldsize );
 
   test.description = 'Empty box'; //
 
-  box = [ ];
+  var box = [ ];
   center = [ ];
   size = [ ];
   expected = [ ];
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Trivial expansion'; //
 
@@ -3497,7 +3501,7 @@ function fromCenterAndSize( test )
   expected = [ - 1, - 1, 3, 3 ];
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Different sizes expansion'; //
 
@@ -3507,7 +3511,7 @@ function fromCenterAndSize( test )
   expected = [ - 1, 0, 3, 2 ];
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Decimal values'; //
 
@@ -3527,7 +3531,7 @@ function fromCenterAndSize( test )
   expected = [ 1, 1, - 1, - 1 ];
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box of three dimensions'; //
 
@@ -3537,7 +3541,7 @@ function fromCenterAndSize( test )
   expected = [ - 1, - 1, 0, 3, 3, 2 ];
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'NaN box'; //
 
@@ -3547,7 +3551,7 @@ function fromCenterAndSize( test )
   expected = [ NaN, NaN, NaN, NaN ];
 
   var gotBox = _.box.fromCenterAndSize( box, center, size );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   /* */
 
@@ -3620,12 +3624,13 @@ function fromSphere( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var sphere = [ 1, 1, 1 ];
-  var oldsphere = [ 1, 1, 1 ];
   var expected = [ - 1, - 1, 2, 2 ];
 
   var gotBox = _.box.fromSphere( dstBox, sphere );
+  test.identical( gotBox, expected );
   test.identical( dstBox, expected );
-  test.identical( box, expected );
+
+  var oldsphere = [ 1, 1, 1 ];
   test.identical( sphere, oldsphere );
 
   test.description = 'Create box from sphere 1D same center'; //
@@ -3635,7 +3640,7 @@ function fromSphere( test )
   expected = [ - 1, 1 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Create box from sphere 1D different centers'; //
 
@@ -3644,7 +3649,7 @@ function fromSphere( test )
   expected = [ - 1, 2 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Expand from sphere - sphere in box'; //
 
@@ -3653,7 +3658,7 @@ function fromSphere( test )
   expected = [ - 1, 3 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Expand from sphere - sphere out of box'; //
 
@@ -3662,7 +3667,7 @@ function fromSphere( test )
   expected = [ - 1, 4 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Create box from sphere 3D same center'; //
 
@@ -3671,16 +3676,16 @@ function fromSphere( test )
   expected = [ - 1, - 1, - 1, 1, 1, 1 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Create box from sphere 3D different center'; //
 
-  box = [ 0, 0, 0, 0, 0, 0 ];
+  var box = [ 0, 0, 0, 0, 0, 0 ];
   sphere = [ 1, 1, 1, 1 ];
   expected = [ - 1, - 1, - 1, 2, 2, 2 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Expand from sphere 3D sphere in box'; //
 
@@ -3689,7 +3694,7 @@ function fromSphere( test )
   expected = [ - 1, - 1, - 1, 3, 3, 4 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Expand from sphere 3D sphere out box'; //
 
@@ -3698,7 +3703,7 @@ function fromSphere( test )
   expected = [ - 1, - 1, - 1, 4, 4, 4 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Contract Sphere - sphere in box'; //
 
@@ -3707,7 +3712,7 @@ function fromSphere( test )
   expected = [ 1, 1, 1, 1, 1, 2 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Contract Sphere - sphere out of box'; //
 
@@ -3716,7 +3721,7 @@ function fromSphere( test )
   expected = [ 1, 1, 1, 2, 2, 2 ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'NaN box'; //
 
@@ -3725,7 +3730,7 @@ function fromSphere( test )
   expected = [ NaN, NaN ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'NaN Sphere'; //
 
@@ -3734,7 +3739,7 @@ function fromSphere( test )
   expected = [ NaN, NaN ];
 
   gotBox = _.box.fromSphere( box, sphere );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   /* */
 
@@ -3813,12 +3818,13 @@ function expand( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var expand = [ 0, 2 ];
-  var oldexpand = [ 0, 2 ];
   var expected = [ 0, - 2, 1, 3 ];
 
-  gotBox = _.box.expand( dstBox, expand );
-  test.identical( box, expected );
+  var gotBox = _.box.expand( dstBox, expand );
+  test.identical( gotBox, expected );
   test.identical( dstBox, expected );
+
+  var oldexpand = [ 0, 2 ];
   test.identical( expand, oldexpand );
 
   test.description = 'Null box expanded'; //
@@ -3828,7 +3834,7 @@ function expand( test )
   var expected = [ - 1, - 2, - 3, 1, 2, 3 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Null box NOT expanded'; //
 
@@ -3837,7 +3843,7 @@ function expand( test )
   var expected = [ 0, 0, 0, 0, 0, 0 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'One side box expanded'; //
 
@@ -3846,7 +3852,7 @@ function expand( test )
   expected = [ 0,  0, - 3, 0, 0, 3 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box expanded'; //
 
@@ -3855,7 +3861,7 @@ function expand( test )
   expected = [ - 1, - 3, - 1, 3, 5, 3 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box expanded by value'; //
 
@@ -3864,7 +3870,7 @@ function expand( test )
   expected = [ - 1, - 1, - 1, 3, 3, 3 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box NOT expanded ( empty expand array )'; //
 
@@ -3873,7 +3879,7 @@ function expand( test )
   expected = [ 0,  0, 0, 2, 2, 2 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box contracted'; //
 
@@ -3882,7 +3888,7 @@ function expand( test )
   expected = [ 1, 1, 1, 2, 2, 2 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box with decimal numbers expanded'; //
 
@@ -3900,7 +3906,7 @@ function expand( test )
   var expected = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Null box of 7 dimensions expanded'; //
 
@@ -3909,7 +3915,7 @@ function expand( test )
   var expected = [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box of 1 dimension expanded'; //
 
@@ -3918,7 +3924,7 @@ function expand( test )
   var expected = [ - 1, 1 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box of 0 dimension expanded'; //
 
@@ -3927,7 +3933,7 @@ function expand( test )
   var expected = [ ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Null box expanded by value'; //
 
@@ -3936,7 +3942,7 @@ function expand( test )
   var expected = [ - 4, -4, -4, 4, 4, 4 ];
 
   gotBox = _.box.expand( box, expand );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   /* */
 
@@ -4002,12 +4008,13 @@ function fromCube( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var cube = 1;
-  var oldcube = 1;
   var expected = [ - 0.5, - 0.5, 0.5, 0.5 ];
 
-  gotBox = _.box.fromCube( dstBox, cube );
-  test.identical( box, expected );
+  var gotBox = _.box.fromCube( dstBox, cube );
+  test.identical( gotBox, expected );
   test.identical( dstBox, expected );
+
+  var oldcube = 1;
   test.identical( cube, oldcube );
 
   test.description = 'Null box from cube'; //
@@ -4017,7 +4024,7 @@ function fromCube( test )
   var expected = [ - 1, - 1, - 1, 1, 1, 1 ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Null box NOT from cube'; //
 
@@ -4026,9 +4033,9 @@ function fromCube( test )
   var expected = [ 0, 0, 0, 0, 0, 0 ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
-
-
+  debugger;
+  test.identical( gotBox, expected );
+  debugger;
   test.description = 'Box of 1 dimension'; //
 
   var box = [ 0, 0 ];
@@ -4036,7 +4043,7 @@ function fromCube( test )
   var expected = [ - 0.5, 0.5 ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box from cube'; //
 
@@ -4045,7 +4052,7 @@ function fromCube( test )
   expected = [ - 3, - 3, - 3, 3, 3, 3 ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'clean box'; //
 
@@ -4054,7 +4061,7 @@ function fromCube( test )
   expected = [ 0,  0, 0, 0, 0, 0 ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box contracted'; //
 
@@ -4063,7 +4070,7 @@ function fromCube( test )
   expected = [ 0.5, 0.5, 0.5, - 0.5, - 0.5, - 0.5 ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Box with decimal numbers from cube'; //
 
@@ -4081,7 +4088,7 @@ function fromCube( test )
   var expected = [ - 2, - 2, - 2, - 2, 2, 2, 2, 2 ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Null box of 7 dimensions from cube'; //
 
@@ -4090,7 +4097,7 @@ function fromCube( test )
   var expected = [ - 4, - 4, - 4, - 4, - 4, - 4, - 4, 4, 4, 4, 4, 4, 4, 4 ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'Empty box and cube'; //
 
@@ -4099,7 +4106,7 @@ function fromCube( test )
   var expected = [ ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   test.description = 'If cube is not number, expected NaN'; //
 
@@ -4108,7 +4115,7 @@ function fromCube( test )
   var expected = [ NaN, NaN, NaN, NaN ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( box, expected );
+  test.identical( gotBox, expected );
 
   /* */
 
@@ -4159,7 +4166,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-   routine: 'centerGet',
+  // routine: 'centerGet',
 
   tests :
   {
