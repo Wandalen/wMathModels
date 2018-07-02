@@ -678,14 +678,14 @@ function boxFromPoints( test )
 
   test.description = 'Box from two points'; //
 
-  var expected = [ - 1, - 2, - 3, 1, 2, 3 ];
   var pointone = [ - 1, 2, - 3 ];
   var pointtwo = [ 1, - 2, 3 ];
+  var expected = [ - 1, - 2, - 3, 1, 2, 3 ];
 
   var points = [ pointone, pointtwo ];
-  var bbox = null;
+  var bbox  = null;
 
-  bbox = _.box.fromPoints( bbox, points );
+  bbox  = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = 'Box from three points'; //
@@ -696,9 +696,9 @@ function boxFromPoints( test )
   var pointthree = [ 0, 0, 6 ];
 
   var points = [ pointone, pointtwo, pointthree ];
-  var bbox = null;
+  var bbox  = null;
 
-  bbox = _.box.fromPoints( bbox, points );
+  bbox  = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = 'Box from six points'; //
@@ -712,9 +712,9 @@ function boxFromPoints( test )
   var pointsix = [ 0, 0, - 1 ];
 
   var points = [ pointone, pointtwo, pointthree, pointfour, pointfive, pointsix ];
-  var bbox = null;
+  var bbox  = null;
 
-  bbox = _.box.fromPoints( bbox, points );
+  bbox  = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = 'Box from two decimal points'; //
@@ -724,9 +724,9 @@ function boxFromPoints( test )
   var pointtwo = [ -0.991, 0.203, 0.005 ];
 
   var points = [ pointone, pointtwo ];
-  var bbox = null;
+  var bbox  = null;
 
-  bbox = _.box.fromPoints( bbox, points );
+  bbox  = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = 'Box from Two points with initial box dimension'; //
@@ -736,18 +736,18 @@ function boxFromPoints( test )
   var pointtwo = [ 3, 8, 3 ];
 
   var points = [ pointone, pointtwo ];
-  var bbox = [ 2, 2, 2, 4, 4, 4 ];
+  var bbox  = [ 2, 2, 2, 4, 4, 4 ];
 
-  bbox = _.box.fromPoints( bbox, points );
+  bbox  = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = '0d Box from 0d points'; //
 
   var expected = [];
   var points = [ [], [], [] ];
-  var bbox = [];
+  var bbox  = [];
 
-  bbox = _.box.fromPoints( bbox, points );
+  bbox  = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   /* */
@@ -1591,7 +1591,7 @@ function pointDistance( test )
   test.equivalent( expected, gotDist );
 
   var oldBox = [  0,  0, 2, 2 ];
-  test.equivalent( box, oldBox );
+  test.equivalent( oldBox,oldBox );
 
   var oldPoint = [  0, 3 ];
   test.equivalent( point, oldPoint );
@@ -2473,60 +2473,61 @@ function dimGet( test )
   test.description = 'Source box remains unchanged'; //
 
   var srcBox = [ 0, 0, 1, 1 ];
-  var oldsrcBox = [ 0, 0, 1, 1 ];
   var expected = 2;
 
-  box = _.box.dimGet( srcBox );
+  var gotDim = _.box.dimGet( srcBox );
+  test.identical( gotDim, expected );
+
+  var oldsrcBox = [ 0, 0, 1, 1 ];
   test.identical( srcBox, oldsrcBox );
-  test.identical( box, expected );
 
   test.description = 'Empty box'; //
 
   var box = [];
   var expected = 0;
 
-  box = _.box.dimGet( box );
-  test.identical( box, expected );
+  gotDim = _.box.dimGet( box );
+  test.identical( gotDim, expected );
 
   test.description = 'One dimension box'; //
 
   box = [ 0, 0 ];
   expected = 1;
 
-  box = _.box.dimGet( box );
-  test.identical( box, expected );
+  gotDim = _.box.dimGet( box );
+  test.identical( gotDim, expected );
 
   test.description = 'Two dimension box'; //
 
   box = [ 0, 0, 1, 1 ];
   expected = 2;
 
-  box = _.box.dimGet( box );
-  test.identical( box, expected );
+  gotDim = _.box.dimGet( box );
+  test.identical( gotDim, expected );
 
   test.description = 'Three dimension box'; //
 
   box = [ - 1, - 2, - 3, 0, 1, 2 ];
   expected = 3;
 
-  box = _.box.dimGet( box );
-  test.identical( box, expected );
+  gotDim = _.box.dimGet( box );
+  test.identical( gotDim, expected );
 
   test.description = 'Four dimension box'; //
 
   box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   expected = 4;
 
-  box = _.box.dimGet( box );
-  test.identical( box, expected );
+  gotDim = _.box.dimGet( box );
+  test.identical( gotDim, expected );
 
   test.description = 'Eight dimension box'; //
 
   box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 3.5, 5.5, 2.3, 27, 2.2, 540 ];
   expected = 8;
 
-  box = _.box.dimGet( box );
-  test.identical( box, expected );
+  gotDim = _.box.dimGet( box );
+  test.identical( gotDim, expected );
 
 
   test.description = 'NaN'; //
@@ -2534,18 +2535,16 @@ function dimGet( test )
   box = [ 'Hi', 'world' ];
   expected = 1;
 
-  box = _.box.dimGet( box );
-  test.identical( box, expected );
+  gotDim = _.box.dimGet( box );
+  test.identical( gotDim, expected );
 
   test.description = 'NaN'; //
 
   box = [ 'Hi', 'world', null, null, NaN, NaN ];
   expected = 3;
 
-  box = _.box.dimGet( box );
-  test.identical( box, expected );
-
-
+  gotDim = _.box.dimGet( box );
+  test.identical( gotDim, expected );
 
   /* */
 
@@ -2583,16 +2582,15 @@ function centerGet( test )
   test.description = 'Source box remains unchanged, point changes'; //
 
   var srcBox = [ 0, 0, 1, 1 ];
-  var oldsrcBox = [ 0, 0, 1, 1 ];
-  var point = [ 0, 5 ];
   var expected = [ 0.5, 0.5 ];
+  var point = [ 0, 5 ];
 
-  var box = _.box.centerGet( srcBox, point );
-
-  test.equivalent( srcBox, oldsrcBox );
-  test.equivalent( box, expected );
+  var gotCenter = _.box.centerGet( srcBox, point );
+  test.equivalent( gotCenter, expected );
   test.equivalent( point, expected );
 
+  var oldSrcBox = [ 0, 0, 1, 1 ];
+  test.equivalent( srcBox, oldSrcBox );
 
   test.description = 'Empty box'; //
 
@@ -2600,11 +2598,11 @@ function centerGet( test )
   var point = [];
   var expected = [] ;
 
-  box = _.box.centerGet( box, point );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box, point );
+  test.equivalent( gotCenter,expected );
 
-  box = _.box.centerGet( box );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
   debugger;
 
   test.description = 'One dimension box'; //
@@ -2613,12 +2611,12 @@ function centerGet( test )
   point = [ 0 ];
   expected = [ 0 ];
 
-  box = _.box.centerGet( box, point );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box, point );
+  test.equivalent( gotCenter,expected );
 
   box = [ 0, 0 ];
-  box = _.box.centerGet( box );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
 
   test.description = 'Two dimension box'; //
 
@@ -2626,12 +2624,12 @@ function centerGet( test )
   point = [ 1, 1 ];
   expected = [ 0.5, 1 ];
 
-  box = _.box.centerGet( box );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
 
   box = [ 0, 0, 1, 2 ];
-  box = _.box.centerGet( box, point );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box, point );
+  test.equivalent( gotCenter,expected );
 
   test.description = 'Three dimension box'; //
 
@@ -2639,13 +2637,13 @@ function centerGet( test )
   expected = [ 0, 0, 0 ];
   point = [ 2, 4, - 6 ];
 
-  box = _.box.centerGet( box );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
 
   box = [ 0, - 1, - 2, 0, 1, 2 ];
 
-  box = _.box.centerGet( box, point );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box, point );
+  test.equivalent( gotCenter,expected );
 
   test.description = 'Four dimension box'; //
 
@@ -2653,13 +2651,13 @@ function centerGet( test )
   expected = [ 0, 0, 0, 4 ];
   point = [ 2, 4, - 6, 2 ];
 
-  box = _.box.centerGet( box );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
 
   box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
 
-  box = _.box.centerGet( box, point );
-  test.identical( box, expected );
+  gotCenter = _.box.centerGet( box, point );
+  test.identical( gotCenter, expected );
 
   test.description = 'Eight dimension box'; //
 
@@ -2667,13 +2665,12 @@ function centerGet( test )
   point = [ 2, 4, - 6, 2, 2, 4, - 6, 2 ];
   expected = [ 0, - 1, -2, 2, 0, 1, 2, 6 ];
 
-  box = _.box.centerGet( box );
-  test.identical( box, expected );
+  gotCenter = _.box.centerGet( box );
+  test.identical( gotCenter, expected );
 
   box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
-  box = _.box.centerGet( box, point );
-  test.identical( box, expected );
-
+  gotCenter = _.box.centerGet( box, point );
+  test.identical( gotCenter, expected );
 
   test.description = 'Point is vector'; //
 
@@ -2682,12 +2679,12 @@ function centerGet( test )
   expected = [ 0.5, 1 ];
   var expv = _.vector.from( expected );
 
-  box = _.box.centerGet( box );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
 
   box = [ 0, 0, 1, 2 ];
-  box = _.box.centerGet( box, point );
-  test.equivalent( box, expv );
+  gotCenter = _.box.centerGet( box, point );
+  test.equivalent( gotCenter,expv );
 
   test.description = 'Point is null'; //
 
@@ -2695,12 +2692,12 @@ function centerGet( test )
   point = null;
   expected = [ 0.5, 1 ];
 
-  box = _.box.centerGet( box );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
 
   box = [ 0, 0, 1, 2 ];
-  box = _.box.centerGet( box, point );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box, point );
+  test.equivalent( gotCenter,expected );
 
   test.description = 'Point is NaN'; //
 
@@ -2708,12 +2705,12 @@ function centerGet( test )
   point = NaN;
   expected = [ 0.5, 1 ];
 
-  box = _.box.centerGet( box );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
 
   box = [ 0, 0, 1, 2 ];
-  box = _.box.centerGet( box, point );
-  test.equivalent( box, expected );
+  gotCenter = _.box.centerGet( box, point );
+  test.equivalent( gotCenter, expected );
 
 
   /* */
@@ -2797,26 +2794,23 @@ function cornerLeftGet( test )
   test.description = 'Source box remains unchanged'; //
 
   var srcBox = [ 0, 0, 1, 1 ];
-  var oldsrcBox = [ 0, 0, 1, 1 ];
   var expected = [ 0, 0 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerLeftGet( srcBox );
-  test.identical( srcBox, oldsrcBox );
-  test.identical( box, expected );
+  var gotCorner = _.box.cornerLeftGet( srcBox );
+  test.identical( gotCorner, expected );
 
-  var box = [ 0, 0, 1, 1 ];
-  box = _.box.cornerLeftGet( box );
-  test.identical( box, expected );
+  var oldsrcBox = [ 0, 0, 1, 1 ];
+  test.identical( srcBox, oldsrcBox );
 
   test.description = 'Empty box'; //
 
-  box = [];
+  var box = [];
   expected = [];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerLeftGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerLeftGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'One dimension box'; //
 
@@ -2824,8 +2818,8 @@ function cornerLeftGet( test )
   expected = [ 0 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerLeftGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerLeftGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Two dimension box'; //
 
@@ -2833,8 +2827,8 @@ function cornerLeftGet( test )
   expected = [ 0, 0 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerLeftGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerLeftGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Three dimension box'; //
 
@@ -2842,8 +2836,8 @@ function cornerLeftGet( test )
   expected = [ - 1, - 2, - 3 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerLeftGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerLeftGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Four dimension box'; //
 
@@ -2851,8 +2845,8 @@ function cornerLeftGet( test )
   expected = [ - 1, - 2.2, - 3, 5 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerLeftGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerLeftGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Eight dimension box'; //
 
@@ -2860,8 +2854,8 @@ function cornerLeftGet( test )
   expected = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerLeftGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerLeftGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Inverted box'; //
 
@@ -2869,8 +2863,8 @@ function cornerLeftGet( test )
   expected = [ 1, 1 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerLeftGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerLeftGet( box );
+  test.identical( gotCorner, expected );
 
   /* */
 
@@ -2933,26 +2927,23 @@ function cornerRightGet( test )
   test.description = 'Source box remains unchanged'; //
 
   var srcBox = [ 0, 0, 1, 1 ];
-  var oldsrcBox = [ 0, 0, 1, 1 ];
   var expected = [ 1, 1 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerRightGet( srcBox );
-  test.identical( srcBox, oldsrcBox );
-  test.identical( box, expected );
+  var gotCorner = _.box.cornerRightGet( srcBox );
+  test.identical( gotCorner, expected );
 
-  var box = [ 0, 0, 1, 1 ];
-  box = _.box.cornerRightGet( box );
-  test.identical( box, expected );
+  var oldSrcBox = [ 0, 0, 1, 1 ];
+  test.identical( srcBox, oldSrcBox );
 
   test.description = 'Empty box'; //
 
-  box = [];
+  var box = [];
   expected = [];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerRightGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerRightGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'One dimension box'; //
 
@@ -2960,8 +2951,8 @@ function cornerRightGet( test )
   expected = [ 1 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerRightGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerRightGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Two dimension box'; //
 
@@ -2969,8 +2960,8 @@ function cornerRightGet( test )
   expected = [ 1, 1 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerRightGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerRightGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Three dimension box'; //
 
@@ -2978,8 +2969,8 @@ function cornerRightGet( test )
   expected = [ 0, 1, 2 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerRightGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerRightGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Four dimension box'; //
 
@@ -2987,8 +2978,8 @@ function cornerRightGet( test )
   expected = [ 0.1, 1, 2, 5.4 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerRightGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerRightGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Eight dimension box'; //
 
@@ -2996,8 +2987,8 @@ function cornerRightGet( test )
   expected = [ -1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerRightGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerRightGet( box );
+  test.identical( gotCorner, expected );
 
   test.description = 'Empty box at [ 1, 1 ]'; //
 
@@ -3005,8 +2996,8 @@ function cornerRightGet( test )
   expected = [ 0, 0 ];
   expected = _.vector.from(expected);
 
-  box = _.box.cornerRightGet( box );
-  test.identical( box, expected );
+  gotCorner = _.box.cornerRightGet( box );
+  test.identical( gotCorner, expected );
 
   /* */
 
@@ -3069,15 +3060,15 @@ function sizeGet( test )
   test.description = 'Source box remains unchanged, point changes'; //
 
   var srcBox = [ 0, 0, 1, 1 ];
-  var oldsrcBox = [ 0, 0, 1, 1 ];
   var point = [ 0, 5 ];
   var expected = [ 1, 1 ];
 
-  var box = _.box.sizeGet( srcBox, point );
-
-  test.equivalent( srcBox, oldsrcBox );
-  test.equivalent( box, expected );
+  var gotSize = _.box.sizeGet( srcBox, point );
+  test.equivalent( gotSize, expected );
   test.equivalent( point, expected );
+
+  var oldSrcBox = [ 0, 0, 1, 1 ];
+  test.equivalent( srcBox, oldSrcBox );
 
   test.description = 'Empty box'; //
 
@@ -3085,11 +3076,11 @@ function sizeGet( test )
   var point = [];
   var expected = [] ;
 
-  box = _.box.sizeGet( box, point );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expected );
 
-  box = _.box.sizeGet( box );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
   debugger;
 
   test.description = 'One dimension box'; //
@@ -3098,12 +3089,12 @@ function sizeGet( test )
   point = [ 0 ];
   expected = [ 0 ];
 
-  box = _.box.sizeGet( box, point );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expected );
 
   box = [ 0, 0 ];
-  box = _.box.sizeGet( box );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
 
   test.description = 'Two dimension box'; //
 
@@ -3111,12 +3102,12 @@ function sizeGet( test )
   point = [ 2, 4 ];
   expected = [ 1, 1 ];
 
-  box = _.box.sizeGet( box );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
 
   box = [ 0, 1, 1, 2 ];
-  box = _.box.sizeGet( box, point );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expected );
 
   test.description = 'Three dimension box'; //
 
@@ -3124,13 +3115,13 @@ function sizeGet( test )
   expected = [ 0, 2, 4 ];
   point = [ 2, 4, - 6 ];
 
-  box = _.box.sizeGet( box );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
 
   box = [ 0, - 1, - 2, 0, 1, 2 ];
 
-  box = _.box.sizeGet( box, point );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expected );
 
   test.description = 'Four dimension box'; //
 
@@ -3138,13 +3129,13 @@ function sizeGet( test )
   expected = [ 0, 2, 4, 4 ];
   point = [ 2, 4, - 6, 2 ];
 
-  box = _.box.sizeGet( box );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
 
   box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
 
-  box = _.box.sizeGet( box, point );
-  test.identical( box, expected );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expected );
 
   test.description = 'Eight dimension box'; //
 
@@ -3152,12 +3143,12 @@ function sizeGet( test )
   point = [ 2, 4, - 6, 2, 2, 4, - 6, 2 ];
   expected = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
 
-  box = _.box.sizeGet( box );
-  test.identical( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
 
   box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
-  box = _.box.sizeGet( box, point );
-  test.identical( box, expected );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expected );
 
 
   test.description = 'Point is vector'; //
@@ -3167,12 +3158,12 @@ function sizeGet( test )
   expected = [ 1, 2 ];
   var expv = _.vector.from( expected );
 
-  box = _.box.sizeGet( box );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
 
   box = [ 0, 0, 1, 2 ];
-  box = _.box.sizeGet( box, point );
-  test.equivalent( box, expv );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expv );
 
   test.description = 'Point is null'; //
 
@@ -3180,12 +3171,12 @@ function sizeGet( test )
   point = null;
   expected = [ 1, 2 ];
 
-  box = _.box.sizeGet( box );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
 
   box = [ 0, 0, 1, 2 ];
-  box = _.box.sizeGet( box, point );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expected );
 
   test.description = 'Point is NaN'; //
 
@@ -3193,12 +3184,12 @@ function sizeGet( test )
   point = NaN;
   expected = [ 1, 2 ];
 
-  box = _.box.sizeGet( box );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
 
   box = [ 0, 0, 1, 2 ];
-  box = _.box.sizeGet( box, point );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expected );
 
   test.description = 'Empty box'; //
 
@@ -3206,12 +3197,12 @@ function sizeGet( test )
   point = NaN;
   expected = [ - 1, - 1 ];
 
-  box = _.box.sizeGet( box );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box );
+  test.identical( gotSize, expected );
 
   box = [ 1, 1, 0, 0 ];
-  box = _.box.sizeGet( box, point );
-  test.equivalent( box, expected );
+  gotSize = _.box.sizeGet( box, point );
+  test.identical( gotSize, expected );
 
 
 
@@ -3302,7 +3293,7 @@ function fromPoints( test )
   var oldpoints = [ [ 1, 1 ], [ 0, 0 ], [ 0, 2 ] ];
   var expected = [ 0, 0, 1, 2 ];
 
-  box = _.box.fromPoints( dstBox, points );
+  gotBox = _.box.fromPoints( dstBox, points );
   test.identical( box, expected );
   test.identical( dstBox, expected );
   test.identical( points, oldpoints );
@@ -3313,7 +3304,7 @@ function fromPoints( test )
   var points = [ [ 1, 0 ], [ 0, - 2 ], [ 0, 3 ], [ - 1, 2 ] ];
   var expected = [ - 1, - 2, 1, 3 ];
 
-  box = _.box.fromPoints( box, points );
+  gotBox = _.box.fromPoints( box, points );
   test.identical( box, expected );
 
   test.description = 'Create box three dimensions'; //
@@ -3322,7 +3313,7 @@ function fromPoints( test )
   var points = [ [ 1, 0, 0 ], [ 0, 2, 0 ], [ 0, 0, 3 ] ];
   var expected = [ 0, 0, 0, 1, 2, 3 ];
 
-  box = _.box.fromPoints( box, points );
+  gotBox = _.box.fromPoints( box, points );
   test.identical( box, expected );
 
   test.description = 'Zero points - box not expanded'; //
@@ -3331,7 +3322,7 @@ function fromPoints( test )
   var points= [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
   var expected = [ 0, 0, 0, 0, 0, 0 ];
 
-  box = _.box.fromPoints( box, points);
+  gotBox = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
   test.description = 'Box expanded'; //
@@ -3340,7 +3331,7 @@ function fromPoints( test )
   points= [ [ - 1, 0, - 1 ], [ 0, 3, 0 ], [ 0, - 3, 0 ], [ 2, 2, 3 ] ] ;
   expected = [ - 1, - 3, - 1, 2, 3, 3 ];
 
-  box = _.box.fromPoints( box, points);
+  gotBox = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
   test.description = 'Box out of one point'; //
@@ -3349,7 +3340,7 @@ function fromPoints( test )
   points= [ [ - 1, 0, - 1 ] ] ;
   expected = [ - 1, 0, - 1, 2, 2, 2 ];
 
-  box = _.box.fromPoints( box, points);
+  gotBox = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
   test.description = 'Box NOT expanded ( points inside box )'; //
@@ -3358,7 +3349,7 @@ function fromPoints( test )
   points= [ [ 0, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] ];
   expected = [ 0,  0, 0, 2, 2, 2 ];
 
-  box = _.box.fromPoints( box, points);
+  gotBox = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
   test.description = 'Box ( normalized to 1 ) expanded'; //
@@ -3367,7 +3358,7 @@ function fromPoints( test )
   points= [ [ - 0.900, 0, 0.900 ], [ 0, - 0.001, 0 ], [ 0.900, 0, - 0.900 ] ];
   expected = [ - 0.900,  - 0.001, - 0.900, 0.900, 0.766, 0.900 ];
 
-  box = _.box.fromPoints( box, points);
+  gotBox = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
   test.description = 'Null box of four dimensions expanded'; //
@@ -3376,7 +3367,7 @@ function fromPoints( test )
   var points= [ [ - 1, - 2, - 3 , - 4 ], [ 1, 2, 3 , 4 ] ];
   var expected = [ - 1, - 2, - 3 , - 4, 1, 2, 3, 4 ];
 
-  box = _.box.fromPoints( box, points);
+  gotBox = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
   test.description = 'Null box of 7 dimensions expanded'; //
@@ -3385,7 +3376,7 @@ function fromPoints( test )
   var points= [ [ 1, 2, 3 , 0, 0, 0, 0 ], [ 0, 0, 0 , 4, 5, 6, 7 ] ] ;
   var expected = [ 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7 ];
 
-  box = _.box.fromPoints( box, points);
+  gotBox = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
   test.description = 'Box of 1 dimension expanded'; //
@@ -3394,7 +3385,7 @@ function fromPoints( test )
   var points= [ [ - 1 ], [ 0 ], [ 1 ] ];
   var expected = [ - 1, 1 ];
 
-  box = _.box.fromPoints( box, points);
+  gotBox = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
   test.description = 'Box of 0 dimension expanded'; //
@@ -3403,7 +3394,7 @@ function fromPoints( test )
   var points= [ [], [] ];
   var expected = [ ];
 
-  box = _.box.fromPoints( box, points);
+  gotBox = _.box.fromPoints( box, points);
   test.identical( box, expected );
 
   /* */
@@ -3482,7 +3473,7 @@ function fromCenterAndSize( test )
   var oldsize = [ 4, 4 ];
   var expected = [ - 1, - 1, 3, 3 ];
 
-  var box = _.box.fromCenterAndSize( dstBox, center, size );
+  var gotBox = _.box.fromCenterAndSize( dstBox, center, size );
   test.identical( dstBox, expected );
   test.identical( box, expected );
   test.identical( center, oldcenter );
@@ -3495,7 +3486,7 @@ function fromCenterAndSize( test )
   size = [ ];
   expected = [ ];
 
-  var box = _.box.fromCenterAndSize( box, center, size );
+  var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( box, expected );
 
   test.description = 'Trivial expansion'; //
@@ -3505,7 +3496,7 @@ function fromCenterAndSize( test )
   size = [ 4, 4 ];
   expected = [ - 1, - 1, 3, 3 ];
 
-  var box = _.box.fromCenterAndSize( box, center, size );
+  var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( box, expected );
 
   test.description = 'Different sizes expansion'; //
@@ -3515,7 +3506,7 @@ function fromCenterAndSize( test )
   size = [ 4, 2 ];
   expected = [ - 1, 0, 3, 2 ];
 
-  var box = _.box.fromCenterAndSize( box, center, size );
+  var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( box, expected );
 
   test.description = 'Decimal values'; //
@@ -3525,8 +3516,8 @@ function fromCenterAndSize( test )
   size = [ 0.5, 0.2 ];
   expected = [ 1.25, 0.69, 1.75, 0.89 ];
 
-  var box = _.box.fromCenterAndSize( box, center, size );
-  test.equivalent( box, expected );
+  var gotBox = _.box.fromCenterAndSize( box, center, size );
+  test.equivalent( gotBox, expected );
 
   test.description = 'Negative size'; //
 
@@ -3535,7 +3526,7 @@ function fromCenterAndSize( test )
   size = [ -2, -2 ];
   expected = [ 1, 1, - 1, - 1 ];
 
-  var box = _.box.fromCenterAndSize( box, center, size );
+  var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( box, expected );
 
   test.description = 'Box of three dimensions'; //
@@ -3545,7 +3536,7 @@ function fromCenterAndSize( test )
   size = [ 4, 4, 2 ];
   expected = [ - 1, - 1, 0, 3, 3, 2 ];
 
-  var box = _.box.fromCenterAndSize( box, center, size );
+  var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( box, expected );
 
   test.description = 'NaN box'; //
@@ -3555,7 +3546,7 @@ function fromCenterAndSize( test )
   size = [ NaN, NaN ];
   expected = [ NaN, NaN, NaN, NaN ];
 
-  var box = _.box.fromCenterAndSize( box, center, size );
+  var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( box, expected );
 
   /* */
@@ -3632,7 +3623,7 @@ function fromSphere( test )
   var oldsphere = [ 1, 1, 1 ];
   var expected = [ - 1, - 1, 2, 2 ];
 
-  var box = _.box.fromSphere( dstBox, sphere );
+  var gotBox = _.box.fromSphere( dstBox, sphere );
   test.identical( dstBox, expected );
   test.identical( box, expected );
   test.identical( sphere, oldsphere );
@@ -3643,7 +3634,7 @@ function fromSphere( test )
   sphere = [ 0, 1 ];
   expected = [ - 1, 1 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'Create box from sphere 1D different centers'; //
@@ -3652,7 +3643,7 @@ function fromSphere( test )
   sphere = [ 1, 1 ];
   expected = [ - 1, 2 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'Expand from sphere - sphere in box'; //
@@ -3661,7 +3652,7 @@ function fromSphere( test )
   sphere = [ 1, 1 ];
   expected = [ - 1, 3 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'Expand from sphere - sphere out of box'; //
@@ -3670,7 +3661,7 @@ function fromSphere( test )
   sphere = [ 3, 1 ];
   expected = [ - 1, 4 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'Create box from sphere 3D same center'; //
@@ -3679,7 +3670,7 @@ function fromSphere( test )
   sphere = [ 0, 0, 0, 1 ];
   expected = [ - 1, - 1, - 1, 1, 1, 1 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'Create box from sphere 3D different center'; //
@@ -3688,7 +3679,7 @@ function fromSphere( test )
   sphere = [ 1, 1, 1, 1 ];
   expected = [ - 1, - 1, - 1, 2, 2, 2 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'Expand from sphere 3D sphere in box'; //
@@ -3697,7 +3688,7 @@ function fromSphere( test )
   sphere = [ 1, 1, 1, 1 ];
   expected = [ - 1, - 1, - 1, 3, 3, 4 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'Expand from sphere 3D sphere out box'; //
@@ -3706,7 +3697,7 @@ function fromSphere( test )
   sphere = [ 3, 3, 3, 1 ];
   expected = [ - 1, - 1, - 1, 4, 4, 4 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'Contract Sphere - sphere in box'; //
@@ -3715,7 +3706,7 @@ function fromSphere( test )
   sphere = [ 1, 1, 1, - 1 ];
   expected = [ 1, 1, 1, 1, 1, 2 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'Contract Sphere - sphere out of box'; //
@@ -3724,7 +3715,7 @@ function fromSphere( test )
   sphere = [ 3, 3, 3, - 1 ];
   expected = [ 1, 1, 1, 2, 2, 2 ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'NaN box'; //
@@ -3733,7 +3724,7 @@ function fromSphere( test )
   sphere = [ 1, 1 ];
   expected = [ NaN, NaN ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   test.description = 'NaN Sphere'; //
@@ -3742,7 +3733,7 @@ function fromSphere( test )
   sphere = [ NaN, NaN ];
   expected = [ NaN, NaN ];
 
-  box = _.box.fromSphere( box, sphere );
+  gotBox = _.box.fromSphere( box, sphere );
   test.identical( box, expected );
 
   /* */
@@ -3825,7 +3816,7 @@ function expand( test )
   var oldexpand = [ 0, 2 ];
   var expected = [ 0, - 2, 1, 3 ];
 
-  box = _.box.expand( dstBox, expand );
+  gotBox = _.box.expand( dstBox, expand );
   test.identical( box, expected );
   test.identical( dstBox, expected );
   test.identical( expand, oldexpand );
@@ -3836,7 +3827,7 @@ function expand( test )
   var expand = [ 1, 2, 3 ];
   var expected = [ - 1, - 2, - 3, 1, 2, 3 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Null box NOT expanded'; //
@@ -3845,7 +3836,7 @@ function expand( test )
   var expand = [ 0, 0, 0 ];
   var expected = [ 0, 0, 0, 0, 0, 0 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'One side box expanded'; //
@@ -3854,7 +3845,7 @@ function expand( test )
   expand = [ 0, 0,  3 ];
   expected = [ 0,  0, - 3, 0, 0, 3 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Box expanded'; //
@@ -3863,7 +3854,7 @@ function expand( test )
   expand = [ 1, 3, 1 ];
   expected = [ - 1, - 3, - 1, 3, 5, 3 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Box expanded by value'; //
@@ -3872,7 +3863,7 @@ function expand( test )
   expand = 1;
   expected = [ - 1, - 1, - 1, 3, 3, 3 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Box NOT expanded ( empty expand array )'; //
@@ -3881,7 +3872,7 @@ function expand( test )
   expand = [  0, 0, 0 ];
   expected = [ 0,  0, 0, 2, 2, 2 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Box contracted'; //
@@ -3890,7 +3881,7 @@ function expand( test )
   expand = [ - 1, - 1, - 1 ];
   expected = [ 1, 1, 1, 2, 2, 2 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Box with decimal numbers expanded'; //
@@ -3899,8 +3890,8 @@ function expand( test )
   expand = [ -0.100, 0, 0.100 ];
   expected = [  0.050,  0.002, -0.338, 0.094, 0.766, 0.866 ];
 
-  box = _.box.expand( box, expand );
-  test.equivalent( box, expected );
+  gotBox = _.box.expand( box, expand );
+  test.equivalent( gotBox, expected );
 
   test.description = 'Null box of four dimensions expanded'; //
 
@@ -3908,7 +3899,7 @@ function expand( test )
   var expand = [ 1, 2, 3 , 4 ];
   var expected = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Null box of 7 dimensions expanded'; //
@@ -3917,7 +3908,7 @@ function expand( test )
   var expand = [ 1, 2, 3 , 4, 5, 6, 7 ];
   var expected = [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Box of 1 dimension expanded'; //
@@ -3926,7 +3917,7 @@ function expand( test )
   var expand = [ 1 ];
   var expected = [ - 1, 1 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Box of 0 dimension expanded'; //
@@ -3935,7 +3926,7 @@ function expand( test )
   var expand = [ ];
   var expected = [ ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   test.description = 'Null box expanded by value'; //
@@ -3944,7 +3935,7 @@ function expand( test )
   var expand =  4 ;
   var expected = [ - 4, -4, -4, 4, 4, 4 ];
 
-  box = _.box.expand( box, expand );
+  gotBox = _.box.expand( box, expand );
   test.identical( box, expected );
 
   /* */
@@ -4014,7 +4005,7 @@ function fromCube( test )
   var oldcube = 1;
   var expected = [ - 0.5, - 0.5, 0.5, 0.5 ];
 
-  box = _.box.fromCube( dstBox, cube );
+  gotBox = _.box.fromCube( dstBox, cube );
   test.identical( box, expected );
   test.identical( dstBox, expected );
   test.identical( cube, oldcube );
@@ -4025,7 +4016,7 @@ function fromCube( test )
   var fromCube = 2;
   var expected = [ - 1, - 1, - 1, 1, 1, 1 ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
   test.description = 'Null box NOT from cube'; //
@@ -4034,7 +4025,7 @@ function fromCube( test )
   var fromCube = [ 0 ];
   var expected = [ 0, 0, 0, 0, 0, 0 ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
 
@@ -4044,7 +4035,7 @@ function fromCube( test )
   var fromCube = [ 1 ];
   var expected = [ - 0.5, 0.5 ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
   test.description = 'Box from cube'; //
@@ -4053,7 +4044,7 @@ function fromCube( test )
   fromCube = 6;
   expected = [ - 3, - 3, - 3, 3, 3, 3 ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
   test.description = 'clean box'; //
@@ -4062,7 +4053,7 @@ function fromCube( test )
   fromCube =  0;
   expected = [ 0,  0, 0, 0, 0, 0 ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
   test.description = 'Box contracted'; //
@@ -4071,7 +4062,7 @@ function fromCube( test )
   fromCube = - 1;
   expected = [ 0.5, 0.5, 0.5, - 0.5, - 0.5, - 0.5 ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
   test.description = 'Box with decimal numbers from cube'; //
@@ -4080,8 +4071,8 @@ function fromCube( test )
   fromCube =  0.100;
   expected = [  - 0.050, - 0.050, - 0.050, 0.050, 0.050, 0.050 ];
 
-  box = _.box.fromCube( box, fromCube );
-  test.equivalent( box, expected );
+  gotBox = _.box.fromCube( box, fromCube );
+  test.equivalent( gotBox, expected );
 
   test.description = 'Null box of four dimensions from cube'; //
 
@@ -4089,7 +4080,7 @@ function fromCube( test )
   var fromCube = 4;
   var expected = [ - 2, - 2, - 2, - 2, 2, 2, 2, 2 ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
   test.description = 'Null box of 7 dimensions from cube'; //
@@ -4098,7 +4089,7 @@ function fromCube( test )
   var fromCube = 8;
   var expected = [ - 4, - 4, - 4, - 4, - 4, - 4, - 4, 4, 4, 4, 4, 4, 4, 4 ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
   test.description = 'Empty box and cube'; //
@@ -4107,7 +4098,7 @@ function fromCube( test )
   var fromCube = [ ];
   var expected = [ ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
   test.description = 'If cube is not number, expected NaN'; //
@@ -4116,7 +4107,7 @@ function fromCube( test )
   var fromCube = [ 1, 2 ];
   var expected = [ NaN, NaN, NaN, NaN ];
 
-  box = _.box.fromCube( box, fromCube );
+  gotBox = _.box.fromCube( box, fromCube );
   test.identical( box, expected );
 
   /* */
@@ -4168,7 +4159,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-   routine: 'pointExpand',
+   routine: 'centerGet',
 
   tests :
   {
