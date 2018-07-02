@@ -2142,6 +2142,103 @@ function toMatrix2( test )
   var result = _.euler.toMatrix2( euler );
   test.equivalent( result, expected );
 
+  test.description = 'Euler XYX - Matrix -> Euler -> Matrix'; //
+
+  var matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.877582550048, 0.229848861694, 0.42073550820,
+         0.229848861694, 0.568439781665, - 0.789965629577,
+         - 0.42073550820, 0.78996562957, 0.44602233171 ] );
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected =  _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.877582550048, 0.229848861694, 0.42073550820,
+         0.229848861694, 0.568439781665, - 0.789965629577,
+         - 0.42073550820, 0.78996562957, 0.44602233171 ] );
+
+  var euler = _.euler.fromMatrix2( matrix, dst );
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX - Matrix -> Euler -> Matrix'; //
+
+  var matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.877582550048, - 0.42073550820, 0.229848861694,
+         0.42073550820, 0.44602233171, - 0.789965629577,
+         0.229848861694, 0.78996562957, 0.56843978166 ] );
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.877582550048, - 0.42073550820, 0.229848861694,
+         0.42073550820, 0.44602233171, - 0.789965629577,
+         0.229848861694, 0.78996562957, 0.56843978166 ] );
+
+  var euler = _.euler.fromMatrix2( matrix, dst );
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY - Matrix -> Euler -> Matrix'; //
+
+  var matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.56843978166, 0.229848861694, 0.789965629577,
+         0.229848861694, 0.877582550048, - 0.42073550820,
+         - 0.789965629577, 0.42073550820, 0.44602233171 ] );
+  var dst =  [ 0, 0, 0, 1, 0, 1 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.56843978166, 0.229848861694, 0.789965629577,
+         0.229848861694, 0.877582550048, - 0.42073550820,
+         - 0.789965629577, 0.42073550820, 0.44602233171 ] );
+
+  var euler = _.euler.fromMatrix2( matrix, dst );
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY - Matrix -> Euler -> Matrix'; //
+
+  var matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.44602233171, - 0.42073550820, 0.789965629577,
+         0.42073550820, 0.877582550048, 0.229848861694,
+         - 0.789965629577, 0.229848861694, 0.56843978166 ] );
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.44602233171, - 0.42073550820, 0.789965629577,
+         0.42073550820, 0.877582550048, 0.229848861694,
+         - 0.789965629577, 0.229848861694, 0.56843978166 ] );
+
+  var euler = _.euler.fromMatrix2( matrix, dst );
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ - Matrix -> Euler -> Matrix'; //
+
+  var matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.56843978166, - 1.139381289482, 0.229848861694,
+         0.789965629577, 0.44602233171, - 0.42073550820,
+         0.229848861694, 0.42073550820, 0.877582550048 ] );
+  var dst = [ 0, 0, 0, 2, 0, 2 ] ;
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.56843978166, - 1.139381289482, 0.229848861694,
+         0.789965629577, 0.44602233171, - 0.42073550820,
+         0.229848861694, 0.42073550820, 0.877582550048 ] );
+
+  var euler = _.euler.fromMatrix2( matrix, dst );
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYZ - Matrix -> Euler -> Matrix'; //
+
+  var matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.44602233171, - 0.789965629577, 0.42073550820,
+         0.789965629577, 0.56843978166, 0.229848861694,
+         - 0.42073550820, 0.229848861694, 0.877582550048 ] );
+  var dst =  [ 0, 0, 0, 2, 1, 2 ];
+  var expected =  _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.44602233171, - 0.789965629577, 0.42073550820,
+         0.789965629577, 0.56843978166, 0.229848861694,
+         - 0.42073550820, 0.229848861694, 0.877582550048 ] );
+
+  var euler = _.euler.fromMatrix2( matrix, dst );
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+
   /* */
 
   if( !Config.debug )
