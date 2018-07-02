@@ -61,33 +61,33 @@ function is( test )
 
   test.description = 'array'; //
 
-  test.is( !_.euler.is([]) );
-  test.is( !_.euler.is([ 0 ]) );
-  test.is( !_.euler.is([ 0,0 ]) );
-  test.is( !_.euler.is([ 0,0,0 ]) );
-  test.is( !_.euler.is([ 0,0,0,0 ]) );
-  test.is( !_.euler.is([ 0,0,0,0,0 ]) );
-  test.is( _.euler.is([ 0,0,0,0,0,0 ]) );
-  test.is( _.euler.is([ 1,2,3,0,1,2 ]) );
-  test.is( !_.euler.is([ 0,0,0,0,0,0,0 ]) );
+  test.shouldBe( !_.euler.is([]) );
+  test.shouldBe( !_.euler.is([ 0 ]) );
+  test.shouldBe( !_.euler.is([ 0,0 ]) );
+  test.shouldBe( !_.euler.is([ 0,0,0 ]) );
+  test.shouldBe( !_.euler.is([ 0,0,0,0 ]) );
+  test.shouldBe( !_.euler.is([ 0,0,0,0,0 ]) );
+  test.shouldBe( _.euler.is([ 0,0,0,0,0,0 ]) );
+  test.shouldBe( _.euler.is([ 1,2,3,0,1,2 ]) );
+  test.shouldBe( !_.euler.is([ 0,0,0,0,0,0,0 ]) );
 
   test.description = 'vector'; //
 
-  test.is( !_.euler.is( _.vector.fromArray([]) ) );
-  test.is( !_.euler.is( _.vector.fromArray([ 0 ]) ) );
-  test.is( !_.euler.is( _.vector.fromArray([ 0,0 ]) ) );
-  test.is( !_.euler.is( _.vector.fromArray([ 0,0,0 ]) ) );
-  test.is( !_.euler.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
-  test.is( !_.euler.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
-  test.is( _.euler.is( _.vector.fromArray([ 0,0,0,0,0,0 ]) ) );
-  test.is( _.euler.is( _.vector.fromArray([ 1,2,3,0,1,2 ]) ) );
-  test.is( !_.euler.is( _.vector.fromArray([ 0,0,0,0,0,0,0 ]) ) );
+  test.shouldBe( !_.euler.is( _.vector.fromArray([]) ) );
+  test.shouldBe( !_.euler.is( _.vector.fromArray([ 0 ]) ) );
+  test.shouldBe( !_.euler.is( _.vector.fromArray([ 0,0 ]) ) );
+  test.shouldBe( !_.euler.is( _.vector.fromArray([ 0,0,0 ]) ) );
+  test.shouldBe( !_.euler.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
+  test.shouldBe( !_.euler.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
+  test.shouldBe( _.euler.is( _.vector.fromArray([ 0,0,0,0,0,0 ]) ) );
+  test.shouldBe( _.euler.is( _.vector.fromArray([ 1,2,3,0,1,2 ]) ) );
+  test.shouldBe( !_.euler.is( _.vector.fromArray([ 0,0,0,0,0,0,0 ]) ) );
 
   test.description = 'not euler'; //
 
-  test.is( !_.euler.is( 'abcdef' ) );
-  test.is( !_.euler.is( {} ) );
-  test.is( !_.euler.is( function( a,b,c,d,e,f ){} ) );
+  test.shouldBe( !_.euler.is( 'abcdef' ) );
+  test.shouldBe( !_.euler.is( {} ) );
+  test.shouldBe( !_.euler.is( function( a,b,c,d,e,f ){} ) );
 
 }
 
@@ -99,15 +99,15 @@ function isZero( test )
   test.description = 'zero'; //
 
   debugger;
-  test.is( _.euler.isZero([ 0,0,0,0,1,2 ]) );
+  test.shouldBe( _.euler.isZero([ 0,0,0,0,1,2 ]) );
 
   test.description = 'not zero'; //
 
-  test.is( !_.euler.isZero([ 1,0,0,0,1,2 ]) );
-  test.is( !_.euler.isZero([ 0,1,0,0,1,2 ]) );
-  test.is( !_.euler.isZero([ 0,0,1,0,1,2 ]) );
+  test.shouldBe( !_.euler.isZero([ 1,0,0,0,1,2 ]) );
+  test.shouldBe( !_.euler.isZero([ 0,1,0,0,1,2 ]) );
+  test.shouldBe( !_.euler.isZero([ 0,0,1,0,1,2 ]) );
 
-  test.is( !_.euler.isZero([ 1,1,1,0,0,0 ]) );
+  test.shouldBe( !_.euler.isZero([ 1,1,1,0,0,0 ]) );
 
 }
 
@@ -122,7 +122,7 @@ function make( test )
   var got = _.euler.make( src );
   var expected = [ 0,0,0,0,1,2 ];
   test.identical( got,expected );
-  test.is( got !== src );
+  test.shouldBe( got !== src );
 
   test.description = 'src null'; //
 
@@ -130,7 +130,7 @@ function make( test )
   var got = _.euler.make( src );
   var expected = [ 0,0,0,0,1,2 ];
   test.identical( got,expected );
-  test.is( got !== src );
+  test.shouldBe( got !== src );
 
   test.description = 'src array'; //
 
@@ -138,7 +138,7 @@ function make( test )
   var got = _.euler.make( src );
   var expected = [ 0,1,2,5,5,5 ];
   test.identical( got,expected );
-  test.is( got !== src );
+  test.shouldBe( got !== src );
 
   test.description = 'src vector'; //
 
@@ -146,7 +146,7 @@ function make( test )
   var got = _.euler.make( src );
   var expected = [ 0,1,2,5,5,5 ];
   test.identical( got,expected );
-  test.is( got !== src );
+  test.shouldBe( got !== src );
 
   test.description = 'bad arguments'; //
 
@@ -193,7 +193,7 @@ function zero( test )
   var got = _.euler.zero( src );
   var expected = [ 0,0,0,0,1,2 ];
   test.identical( got,expected );
-  test.is( got !== src );
+  test.shouldBe( got !== src );
 
   test.description = 'src null'; //
 
@@ -201,7 +201,7 @@ function zero( test )
   var got = _.euler.zero( src );
   var expected = [ 0,0,0,0,1,2 ];
   test.identical( got,expected );
-  test.is( got !== src );
+  test.shouldBe( got !== src );
 
   test.description = 'dst array'; //
 
@@ -209,7 +209,7 @@ function zero( test )
   var got = _.euler.zero( dst );
   var expected = [ 0,0,0,5,5,5 ];
   test.identical( got,expected );
-  test.is( got === dst );
+  test.shouldBe( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -217,7 +217,7 @@ function zero( test )
   var got = _.euler.zero( dst );
   var expected = _.vector.fromArray([ 0,0,0,5,5,5 ]);
   test.identical( got,expected );
-  test.is( got === dst );
+  test.shouldBe( got === dst );
 
   test.description = 'bad arguments'; //
 
@@ -242,7 +242,7 @@ function fromAxisAndAngle( test )
     // var dst = [ 0,0,0,0,1,2 ]
     // var got = _.euler.fromAxisAndAngle( dst,axisAndAngle );
     // test.identical( got,expected );
-    // test.is( got === dst );
+    // test.shouldBe( got === dst );
 
     var dst = expected.slice();
     dst[ 0 ] = 0;
@@ -258,7 +258,7 @@ function fromAxisAndAngle( test )
     var appliedQuat1 = _.quat.applyTo( quat1,[ 0.25,0.5,1 ] );
     var appliedQuat2 = _.quat.applyTo( quat2,[ 0.25,0.5,1 ] );
 
-    test.is( euler1 === dst );
+    test.shouldBe( euler1 === dst );
     test.equivalent( euler1,expected );
     test.equivalent( appliedQuat1,appliedQuat2 );
 
@@ -277,7 +277,7 @@ function fromAxisAndAngle( test )
   // var dst = [ 0,0,0,0,1,2 ]
   // var got = _.euler.fromAxisAndAngle( dst,axisAndAngle );
   // test.identical( got,expected );
-  // test.is( got === dst );
+  // test.shouldBe( got === dst );
 
   test.description = 'trivial xyz';
 
@@ -311,7 +311,7 @@ function fromQuat( test )
 
     test.equivalent( euler1,expected );
     test.equivalent( appliedQuat1,appliedQuat2 );
-    test.is( euler1 === dst );
+    test.shouldBe( euler1 === dst );
 
     // logger.log( 'quat1',quat1 );
     // logger.log( 'quat2',quat2 );
@@ -336,7 +336,7 @@ function fromQuat( test )
     // {
     //   if( got === undefined )
     //   return false;
-    //   return _.entityEquivalent( got,o.expected,{ /*eps*/accuracy : o./*eps*/accuracy } );
+    //   return _.entityEquivalent( got,o.expected,{ eps : o.eps } );
     // }
     //
     // console.log( test.description );
@@ -346,7 +346,7 @@ function fromQuat( test )
     //   test : vtest,
     //   expected : appliedQuat1,
     //   variates : _.quat.fromEuler.variates,
-    //   /*eps*/accuracy : 1e-4,
+    //   eps : 1e-4,
     // });
 
   }
@@ -2261,9 +2261,10 @@ function toMatrix2( test )
 var Self =
 {
 
-  name : 'Tools/Math/Euler',
-  silencing : 1,
-  enabled : 1,
+  name : 'Math.Euler',
+//  silencing : 1,
+//  enabled : 1, // !!!
+  routine: 'toMatrix2',
 
   context :
   {
