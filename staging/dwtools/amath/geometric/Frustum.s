@@ -36,7 +36,7 @@ function fromMatrixHomogenous( frustum , m )
   if( frustum === null )
   frustum = this.make();
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.frustum.is( frustum ) );
   _.assert( _.spaceIs( m ) );
   _.assert( m.hasShape([ 4,4 ]) );
@@ -102,7 +102,7 @@ function fromMatrixHomogenous( frustum , m )
 
 function is( frustum )
 {
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return _.spaceIs( frustum ) && frustum.hasShape([ 4,6 ])
 }
 //
@@ -139,7 +139,7 @@ function is( frustum )
 function frustumCorners( srcfrustum )
 {
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   _.assert( _.frustum.is( srcfrustum ) );
   debugger;
 
@@ -282,7 +282,7 @@ function frustumCorners( srcfrustum )
 function frustumIntersects( srcfrustum , testfrustum )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.frustum.is( srcfrustum ) );
   _.assert( _.frustum.is( testfrustum ) );
   debugger;
@@ -338,7 +338,7 @@ function frustumIntersects( srcfrustum , testfrustum )
 function sphereIntersects( frustum , sphere )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.frustum.is( frustum ) );
 
   var center = _.sphere.centerGet( sphere );
@@ -392,7 +392,7 @@ function boxIntersects( frustum , box )
   var dim1 = _.box.dimGet( _box );
   var min1 = _.box.cornerLeftGet( _box );
   var max1 = _.box.cornerRightGet( _box );
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
@@ -460,7 +460,7 @@ function boxIntersects( frustum , box )
 //function boxIntersects( frustum , box )
 //{
 //
-//  _.assert( arguments.length === 2 );
+//  _.assert( arguments.length === 2, 'expects exactly two argument' );
 //  _.assert( _.frustum.is( frustum ) );
 //  debugger;
 //
@@ -511,7 +511,7 @@ function boxIntersects( frustum , box )
 function pointContains( frustum , point )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.frustum.is( frustum ) );
 
   debugger;
@@ -559,7 +559,7 @@ function pointContains( frustum , point )
 function pointClosestPoint( frustum , point )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.frustum.is( frustum ) );
   var point = _.vector.from( point );
   var _point = _.vector.from( point.slice() );
@@ -692,7 +692,7 @@ function boxClosestPoint( frustum , box )
   var cols = dims[ 1 ];
   var dstpoint = _.vector.fromArray( [ 0, 0, 0 ] );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.frustum.is( frustum ) );
   _.assert( dim1 === 3 );
 
@@ -780,7 +780,7 @@ function sphereClosestPoint( frustum , sphere )
   var radius = _.sphere.radiusGet( spherev );
   var dim = _.sphere.dimGet( spherev );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( dim === 3 );
   _.assert( _.frustum.is( frustum ) );
 

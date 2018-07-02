@@ -54,29 +54,29 @@ function is( test )
 
   test.description = 'array'; //
 
-  test.shouldBe( _.box.is( [] ) );
-  test.shouldBe( _.box.is([ 0,0 ]) );
-  test.shouldBe( _.box.is([ 1,2,3,4 ]) );
-  test.shouldBe( _.box.is([ 0,0,0,0,0,0 ]) );
+  test.is( _.box.is( [] ) );
+  test.is( _.box.is([ 0,0 ]) );
+  test.is( _.box.is([ 1,2,3,4 ]) );
+  test.is( _.box.is([ 0,0,0,0,0,0 ]) );
 
   test.description = 'vector'; //
 
-  test.shouldBe( _.box.is( _.vector.fromArray([]) ) );
-  test.shouldBe( _.box.is( _.vector.fromArray([ 0,0 ]) ) );
-  test.shouldBe( _.box.is( _.vector.fromArray([ 1,2,3,4 ]) ) );
-  test.shouldBe( _.box.is( _.vector.fromArray([ 0,0,0,0,0,0 ]) ) );
+  test.is( _.box.is( _.vector.fromArray([]) ) );
+  test.is( _.box.is( _.vector.fromArray([ 0,0 ]) ) );
+  test.is( _.box.is( _.vector.fromArray([ 1,2,3,4 ]) ) );
+  test.is( _.box.is( _.vector.fromArray([ 0,0,0,0,0,0 ]) ) );
 
   test.description = 'not box'; //
 
-  test.shouldBe( !_.box.is([ 0 ]) );
-  test.shouldBe( !_.box.is([ 0,0,0 ]) );
+  test.is( !_.box.is([ 0 ]) );
+  test.is( !_.box.is([ 0,0,0 ]) );
 
-  test.shouldBe( !_.box.is( _.vector.fromArray([ 0 ]) ) );
-  test.shouldBe( !_.box.is( _.vector.fromArray([ 0,0,0 ]) ) );
+  test.is( !_.box.is( _.vector.fromArray([ 0 ]) ) );
+  test.is( !_.box.is( _.vector.fromArray([ 0,0,0 ]) ) );
 
-  test.shouldBe( !_.box.is( 'abc' ) );
-  test.shouldBe( !_.box.is( { center : [ 0,0,0 ], radius : 1 } ) );
-  test.shouldBe( !_.box.is( function( a,b,c ){} ) );
+  test.is( !_.box.is( 'abc' ) );
+  test.is( !_.box.is( { center : [ 0,0,0 ], radius : 1 } ) );
+  test.is( !_.box.is( function( a,b,c ){} ) );
 
 }
 
@@ -87,34 +87,34 @@ function isEmpty( test )
 
   test.description = 'empty'; //
 
-  test.shouldBe( _.box.isEmpty([]) );
-  test.shouldBe( _.box.isEmpty([ 0,0 ]) );
-  test.shouldBe( _.box.isEmpty([ 0,0,0,0,0,0 ]) );
-  test.shouldBe( _.box.isEmpty([ 1,1 ]) );
-  test.shouldBe( _.box.isEmpty([ 5,0,5,0 ]) );
-  test.shouldBe( _.box.isEmpty([ -3,0,5,-3,0,5 ]) );
+  test.is( _.box.isEmpty([]) );
+  test.is( _.box.isEmpty([ 0,0 ]) );
+  test.is( _.box.isEmpty([ 0,0,0,0,0,0 ]) );
+  test.is( _.box.isEmpty([ 1,1 ]) );
+  test.is( _.box.isEmpty([ 5,0,5,0 ]) );
+  test.is( _.box.isEmpty([ -3,0,5,-3,0,5 ]) );
 
-  test.shouldBe( _.box.isEmpty([ 0,0,0,1 ]) );
-  test.shouldBe( _.box.isEmpty([ 0,-1 ]) );
-  test.shouldBe( _.box.isEmpty([ 0,0,0,-1 ]) );
-  test.shouldBe( _.box.isEmpty([ 0,0,5,0 ]) );
+  test.is( _.box.isEmpty([ 0,0,0,1 ]) );
+  test.is( _.box.isEmpty([ 0,-1 ]) );
+  test.is( _.box.isEmpty([ 0,0,0,-1 ]) );
+  test.is( _.box.isEmpty([ 0,0,5,0 ]) );
 
-  test.shouldBe( _.box.isEmpty([ 0,-Infinity ]) );
-  test.shouldBe( _.box.isEmpty([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
-  test.shouldBe( _.box.isEmpty([ 0,0,0,Infinity ]) );
+  test.is( _.box.isEmpty([ 0,-Infinity ]) );
+  test.is( _.box.isEmpty([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
+  test.is( _.box.isEmpty([ 0,0,0,Infinity ]) );
 
-  test.shouldBe( _.box.isEmpty([ 0.1,-Infinity ]) );
-  test.shouldBe( _.box.isEmpty([ 0,0,0.1,-Infinity ]) );
+  test.is( _.box.isEmpty([ 0.1,-Infinity ]) );
+  test.is( _.box.isEmpty([ 0,0,0.1,-Infinity ]) );
 
   test.description = 'not empty'; //
 
-  test.shouldBe( !_.box.isEmpty([ 0,1 ]) );
+  test.is( !_.box.isEmpty([ 0,1 ]) );
 
-  test.shouldBe( !_.box.isEmpty([ 0,+Infinity ]) );
-  test.shouldBe( !_.box.isEmpty([ -Infinity,0,0,+Infinity ]) );
+  test.is( !_.box.isEmpty([ 0,+Infinity ]) );
+  test.is( !_.box.isEmpty([ -Infinity,0,0,+Infinity ]) );
 
-  test.shouldBe( !_.box.isEmpty([ 0.1,+Infinity ]) );
-  test.shouldBe( !_.box.isEmpty([ 0,0.00001,0.1,+Infinity ]) );
+  test.is( !_.box.isEmpty([ 0.1,+Infinity ]) );
+  test.is( !_.box.isEmpty([ 0,0.00001,0.1,+Infinity ]) );
 
 }
 
@@ -125,30 +125,30 @@ function isZero( test )
 
   test.description = 'zero'; //
 
-  test.shouldBe( _.box.isZero([]) );
-  test.shouldBe( _.box.isZero([ 0,0 ]) );
-  test.shouldBe( _.box.isZero([ 0,0,0,0,0,0 ]) );
-  test.shouldBe( _.box.isZero([ 1,1 ]) );
-  test.shouldBe( _.box.isZero([ 5,0,5,0 ]) );
-  test.shouldBe( _.box.isZero([ -3,0,5,-3,0,5 ]) );
+  test.is( _.box.isZero([]) );
+  test.is( _.box.isZero([ 0,0 ]) );
+  test.is( _.box.isZero([ 0,0,0,0,0,0 ]) );
+  test.is( _.box.isZero([ 1,1 ]) );
+  test.is( _.box.isZero([ 5,0,5,0 ]) );
+  test.is( _.box.isZero([ -3,0,5,-3,0,5 ]) );
 
   test.description = 'not zero'; //
 
-  test.shouldBe( !_.box.isZero([ 0,1 ]) );
-  test.shouldBe( !_.box.isZero([ 0,0,0,1 ]) );
+  test.is( !_.box.isZero([ 0,1 ]) );
+  test.is( !_.box.isZero([ 0,0,0,1 ]) );
 
-  test.shouldBe( !_.box.isZero([ 0,-1 ]) );
-  test.shouldBe( !_.box.isZero([ 0,0,0,-1 ]) );
-  test.shouldBe( !_.box.isZero([ 0,0,5,0 ]) );
+  test.is( !_.box.isZero([ 0,-1 ]) );
+  test.is( !_.box.isZero([ 0,0,0,-1 ]) );
+  test.is( !_.box.isZero([ 0,0,5,0 ]) );
 
-  test.shouldBe( !_.box.isZero([ 0,-Infinity ]) );
-  test.shouldBe( !_.box.isZero([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
+  test.is( !_.box.isZero([ 0,-Infinity ]) );
+  test.is( !_.box.isZero([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
 
-  test.shouldBe( !_.box.isZero([ 0,Infinity ]) );
-  test.shouldBe( !_.box.isZero([ 0,0,0,Infinity ]) );
+  test.is( !_.box.isZero([ 0,Infinity ]) );
+  test.is( !_.box.isZero([ 0,0,0,Infinity ]) );
 
-  test.shouldBe( !_.box.isZero([ 0.1,-Infinity ]) );
-  test.shouldBe( !_.box.isZero([ 0,0,0.1,-Infinity ]) );
+  test.is( !_.box.isZero([ 0.1,-Infinity ]) );
+  test.is( !_.box.isZero([ 0,0,0.1,-Infinity ]) );
 
 }
 
@@ -159,19 +159,19 @@ function isNil( test )
 
   test.description = 'nil'; //
 
-  test.shouldBe( _.box.isNil([ +Infinity,+Infinity,-Infinity,-Infinity ]) );
-  test.shouldBe( _.box.isNil([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
+  test.is( _.box.isNil([ +Infinity,+Infinity,-Infinity,-Infinity ]) );
+  test.is( _.box.isNil([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
 
-  test.shouldBe( _.box.isNil([ +1,+1,-2,-5 ]) );
-  test.shouldBe( _.box.isNil([ +1,+1,+1,-2,-3,-4 ]) );
+  test.is( _.box.isNil([ +1,+1,-2,-5 ]) );
+  test.is( _.box.isNil([ +1,+1,+1,-2,-3,-4 ]) );
 
   test.description = 'not nil'; //
 
-  test.shouldBe( !_.box.isNil([ 0,Infinity ]) );
-  test.shouldBe( !_.box.isNil([ 0,0,0,Infinity ]) );
+  test.is( !_.box.isNil([ 0,Infinity ]) );
+  test.is( !_.box.isNil([ 0,0,0,Infinity ]) );
 
-  test.shouldBe( !_.box.isNil([ Infinity,Infinity ]) );
-  test.shouldBe( !_.box.isNil([ 0,0,0.1,Infinity ]) );
+  test.is( !_.box.isNil([ Infinity,Infinity ]) );
+  test.is( !_.box.isNil([ 0,0,0.1,Infinity ]) );
 
 }
 
@@ -186,7 +186,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = [ 0,0,0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -194,7 +194,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = [ 0,0,0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -202,7 +202,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src array'; //
 
@@ -210,7 +210,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src vector'; //
 
@@ -218,7 +218,7 @@ function make( test )
   var got = _.box.make( src );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
 }
 
@@ -233,7 +233,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = [ 0,0,0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -241,7 +241,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = [ 0,0,0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -249,7 +249,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src array'; //
 
@@ -257,7 +257,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src vector'; //
 
@@ -265,7 +265,7 @@ function makeZero( test )
   var got = _.box.makeZero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
 }
 
@@ -280,7 +280,7 @@ function makeNil( test )
   var got = _.box.makeNil( src );
   var expected = [ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -288,7 +288,7 @@ function makeNil( test )
   var got = _.box.makeNil( src );
   var expected = [ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -296,7 +296,7 @@ function makeNil( test )
   var got = _.box.makeNil( src );
   var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src array'; //
 
@@ -304,7 +304,7 @@ function makeNil( test )
   var got = _.box.makeNil( src );
   var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src vector'; //
 
@@ -312,7 +312,7 @@ function makeNil( test )
   var got = _.box.makeNil( src );
   var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
 }
 
@@ -327,7 +327,7 @@ function zero( test )
   var got = _.box.zero( src );
   var expected = [ 0,0,0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -335,7 +335,7 @@ function zero( test )
   var got = _.box.zero( src );
   var expected = [ 0,0,0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -343,7 +343,7 @@ function zero( test )
   var got = _.box.zero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -351,7 +351,7 @@ function zero( test )
   var got = _.box.zero( dst );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -359,7 +359,7 @@ function zero( test )
   var got = _.box.zero( dst );
   var expected = _.vector.fromArray([ 0,0,0,0 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst array 1d'; //
 
@@ -367,7 +367,7 @@ function zero( test )
   var got = _.box.zero( dst );
   var expected = [ 0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
 }
 
@@ -382,7 +382,7 @@ function nil( test )
   var got = _.box.nil( src );
   var expected = [ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -390,7 +390,7 @@ function nil( test )
   var got = _.box.nil( src );
   var expected = [ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -398,7 +398,7 @@ function nil( test )
   var got = _.box.nil( src );
   var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -406,7 +406,7 @@ function nil( test )
   var got = _.box.nil( dst );
   var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -414,7 +414,7 @@ function nil( test )
   var got = _.box.nil( dst );
   var expected = _.vector.fromArray([ +Infinity,+Infinity,-Infinity,-Infinity ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst array 2d'; //
 
@@ -422,7 +422,7 @@ function nil( test )
   var got = _.box.nil( dst );
   var expected = [ +Infinity,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
 }
 
@@ -437,7 +437,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src,2 );
   var expected = [ -1,-1,-1,+1,+1,+1 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -445,7 +445,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src,2 );
   var expected = [ -1,-1,-1,+1,+1,+1 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -453,7 +453,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src,2 );
   var expected = [ -1,-1,+1,+1 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -461,7 +461,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst,2 );
   var expected = [ -1,-1,+1,+1 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -469,7 +469,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst,2 );
   var expected = _.vector.fromArray([ -1,-1,+1,+1 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst array 2d'; //
 
@@ -477,7 +477,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst,2 );
   var expected = [ -1,+1 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   /* */
 
@@ -487,7 +487,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src );
   var expected = [ -0.5,-0.5,-0.5,+0.5,+0.5,+0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null, implicit size'; //
 
@@ -495,7 +495,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src );
   var expected = [ -0.5,-0.5,-0.5,+0.5,+0.5,+0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2, implicit size'; //
 
@@ -503,7 +503,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src );
   var expected = [ -0.5,-0.5,+0.5,+0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array, implicit size'; //
 
@@ -511,7 +511,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst );
   var expected = [ -0.5,-0.5,+0.5,+0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector, implicit size'; //
 
@@ -519,7 +519,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst );
   var expected = _.vector.fromArray([ -0.5,-0.5,+0.5,+0.5 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst array 2d, implicit size'; //
 
@@ -527,7 +527,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst );
   var expected = [ -0.5,+0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   /* */
 
@@ -537,7 +537,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src,[ 1,2,4 ] );
   var expected = [ -0.5,-1,-2,+0.5,+1,+2 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null with sizes in array'; //
 
@@ -545,7 +545,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src,[ 1,2,4 ] );
   var expected = [ -0.5,-1,-2,+0.5,+1,+2 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2 with sizes in array'; //
 
@@ -553,7 +553,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( src,[ 2,4 ] );
   var expected = [ -1,-2,+1,+2 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array with sizes in array'; //
 
@@ -561,7 +561,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst,[ 2,4 ] );
   var expected = [ -1,-2,+1,+2 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector with sizes in array'; //
 
@@ -569,7 +569,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst,[ 2,4 ] );
   var expected = _.vector.fromArray([ -1,-2,+1,+2 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst array 2d with sizes in array'; //
 
@@ -577,7 +577,7 @@ function centeredOfSize( test )
   var got = _.box.centeredOfSize( dst,[ 4 ] );
   var expected = [ -2,+2 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
 }
 
@@ -1803,12 +1803,14 @@ function boxContains( test )
 
   test.description = 'Source box and Destination box remain unchanged'; //
 
+  // qqq : vars in case
   var srcBox = [ 0, 0, 3, 3 ];
   var oldsrcBox = [ 0, 0, 3, 3 ];
   var tstBox = [ 1, 1, 2, 2 ];
   var oldtstBox = [ 1, 1, 2, 2 ];
   var expected = true;
 
+  // qqq : poor naming
   var box = _.box.boxContains( srcBox, tstBox );
   test.identical( expected, box );
   test.identical( srcBox, oldsrcBox );
@@ -1820,36 +1822,38 @@ function boxContains( test )
   var boxtwo = [];
   var expected = false;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
-
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Zero box to zero box'; //
 
   box = [ 0, 0, 0, 0, 0, 0 ];
   boxtwo = [ 0, 0, 0, 0, 0, 0 ];
-  expected = false;
+  expected = true; // qqq : why was false
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  debugger;
+  var got = _.box.boxContains( box, boxtwo );
+  debugger;
+  test.identical( got, expected );
+  debugger;
 
   test.description = 'Same boxes'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
   boxtwo = [ 0, 0, 0, 4, 4, 4 ];
-  expected = false;
+  expected = true;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box in box with a common side'; //
 
   box = [ 0, 0, 0, 3, 3, 3 ];
   boxtwo = [ 1, 1, 1, 2, 2, 3 ];
-  expected = false;
+  expected = true;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box in box'; //
 
@@ -1857,8 +1861,8 @@ function boxContains( test )
   boxtwo = [ 1, 1, 1, 2, 2, 2 ];
   expected = true;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box in box (other way aroud)'; //
 
@@ -1866,8 +1870,8 @@ function boxContains( test )
   boxtwo = [ 0, 0, 0, 3, 3, 3 ];
   expected = false;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box half in box'; //
 
@@ -1875,8 +1879,8 @@ function boxContains( test )
   boxtwo = [ 2, 2, 2, 6, 6, 6 ];
   expected = false;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box totally out of box'; //
 
@@ -1884,8 +1888,8 @@ function boxContains( test )
   boxtwo = [ 2, 2, 2, 3, 3, 3 ];
   expected = false;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box out of box in two dimensions'; //
 
@@ -1893,8 +1897,8 @@ function boxContains( test )
   boxtwo = [ 0, - 1, - 1, 1, 0, 0 ];
   expected = false;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box out of box in one dimensions'; //
 
@@ -1902,8 +1906,8 @@ function boxContains( test )
   boxtwo = [ 1, 1, 1, 3, 3, 5 ];
   expected = false;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box in box (both normalized to one)'; //
 
@@ -1911,8 +1915,8 @@ function boxContains( test )
   boxtwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
   expected = true;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box out of box (normalized to one)'; //
 
@@ -1920,8 +1924,8 @@ function boxContains( test )
   boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
   expected = false;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box in box (four dimensions)'; //
 
@@ -1929,8 +1933,8 @@ function boxContains( test )
   boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   expected = true;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box out of box (four dimensions)'; //
 
@@ -1938,8 +1942,8 @@ function boxContains( test )
   boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
   expected = false;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box in box (one dimensions)'; //
 
@@ -1947,8 +1951,8 @@ function boxContains( test )
   boxtwo = [ 0, 1 ];
   expected = true;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   test.description = 'Box out of box (four dimensions)'; //
 
@@ -1956,8 +1960,8 @@ function boxContains( test )
   boxtwo = [ 0, 4 ];
   expected = false;
 
-  box = _.box.boxContains( box, boxtwo );
-  test.identical( box, expected );
+  var got = _.box.boxContains( box, boxtwo );
+  test.identical( got, expected );
 
   /* */
 
@@ -2045,7 +2049,7 @@ test.description = 'Source box and Test box remain unchanged'; //
 
   box = [ 0, 0, 0, 0, 0, 0 ];
   boxtwo = [ 0, 0, 0, 0, 0, 0 ];
-  expected = false;
+  expected = true; // qqq : why was false?
 
   box = _.box.boxIntersects( box, boxtwo );
   test.identical( box, expected );
@@ -2054,7 +2058,7 @@ test.description = 'Source box and Test box remain unchanged'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
   boxtwo = [ 0, 0, 0, 4, 4, 4 ];
-  expected = false;
+  expected = true;
 
   box = _.box.boxIntersects( box, boxtwo );
   test.identical( box, expected );
@@ -2109,7 +2113,7 @@ test.description = 'Source box and Test box remain unchanged'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
   boxtwo = [ 0, - 1, - 1, 1, 0, 0 ];
-  expected = false;
+  expected = true;
 
   box = _.box.boxIntersects( box, boxtwo );
   test.identical( box, expected );
@@ -2136,7 +2140,7 @@ test.description = 'Source box and Test box remain unchanged'; //
 
   box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
-  expected = false;
+  expected = true; // qqq : why false??
 
   box = _.box.boxIntersects( box, boxtwo );
   test.identical( box, expected );
@@ -4152,11 +4156,11 @@ function fromCube( test )
 var Self =
 {
 
-  name : 'Math.Box',
+  name : 'Tools/Math/Box',
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'pointContains',
+  // routine: 'pointContains',
 
   tests :
   {

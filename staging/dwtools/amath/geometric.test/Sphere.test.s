@@ -55,35 +55,35 @@ function is( test )
 
   var s =
 `
-  test.shouldBe( _.sphere.is([ 0 ]) );
-  test.shouldBe( _.sphere.is([ 0,0 ]) );
-  test.shouldBe( _.sphere.is([ 0,0,0 ]) );
-  test.shouldBe( _.sphere.is([ 0,0,0,0 ]) );
+  test.is( _.sphere.is([ 0 ]) );
+  test.is( _.sphere.is([ 0,0 ]) );
+  test.is( _.sphere.is([ 0,0,0 ]) );
+  test.is( _.sphere.is([ 0,0,0,0 ]) );
 `
 
   console.log( s );
 
   test.description = 'array'; //
 
-  test.shouldBe( _.sphere.is([ 0 ]) );
-  test.shouldBe( _.sphere.is([ 0,0 ]) );
-  test.shouldBe( _.sphere.is([ 0,0,0 ]) );
-  test.shouldBe( _.sphere.is([ 0,0,0,0 ]) );
+  test.is( _.sphere.is([ 0 ]) );
+  test.is( _.sphere.is([ 0,0 ]) );
+  test.is( _.sphere.is([ 0,0,0 ]) );
+  test.is( _.sphere.is([ 0,0,0,0 ]) );
 
   test.description = 'vector'; //
 
-  test.shouldBe( _.sphere.is( _.vector.fromArray([ 0 ]) ) );
-  test.shouldBe( _.sphere.is( _.vector.fromArray([ 0,0 ]) ) );
-  test.shouldBe( _.sphere.is( _.vector.fromArray([ 0,0,0 ]) ) );
-  test.shouldBe( _.sphere.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
+  test.is( _.sphere.is( _.vector.fromArray([ 0 ]) ) );
+  test.is( _.sphere.is( _.vector.fromArray([ 0,0 ]) ) );
+  test.is( _.sphere.is( _.vector.fromArray([ 0,0,0 ]) ) );
+  test.is( _.sphere.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
 
   test.description = 'not sphere'; //
 
-  test.shouldBe( !_.sphere.is( [] ) );
-  test.shouldBe( !_.sphere.is( _.vector.fromArray([]) ) );
-  test.shouldBe( !_.sphere.is( 'abc' ) );
-  test.shouldBe( !_.sphere.is( { center : [ 0,0,0 ], radius : 1 } ) );
-  test.shouldBe( !_.sphere.is( function( a,b,c ){} ) );
+  test.is( !_.sphere.is( [] ) );
+  test.is( !_.sphere.is( _.vector.fromArray([]) ) );
+  test.is( !_.sphere.is( 'abc' ) );
+  test.is( !_.sphere.is( { center : [ 0,0,0 ], radius : 1 } ) );
+  test.is( !_.sphere.is( function( a,b,c ){} ) );
 
 }
 
@@ -96,41 +96,41 @@ function isEmpty( test )
 
   test.description = 'empty'; //
 
-  test.shouldBe( _.sphere.isEmpty([ 0 ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,0 ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,0,0 ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,0,0,0 ]) );
+  test.is( _.sphere.isEmpty([ 0 ]) );
+  test.is( _.sphere.isEmpty([ 0,0 ]) );
+  test.is( _.sphere.isEmpty([ 0,0,0 ]) );
+  test.is( _.sphere.isEmpty([ 0,0,0,0 ]) );
 
-  test.shouldBe( _.sphere.isEmpty([ 0 ]) );
-  test.shouldBe( _.sphere.isEmpty([ 1,0 ]) );
-  test.shouldBe( _.sphere.isEmpty([ 1,0,0 ]) );
-  test.shouldBe( _.sphere.isEmpty([ 1,0,0,0 ]) );
+  test.is( _.sphere.isEmpty([ 0 ]) );
+  test.is( _.sphere.isEmpty([ 1,0 ]) );
+  test.is( _.sphere.isEmpty([ 1,0,0 ]) );
+  test.is( _.sphere.isEmpty([ 1,0,0,0 ]) );
 
-  test.shouldBe( _.sphere.isEmpty([ -1 ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,-1 ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,0,-1 ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,0,0,-1 ]) );
+  test.is( _.sphere.isEmpty([ -1 ]) );
+  test.is( _.sphere.isEmpty([ 0,-1 ]) );
+  test.is( _.sphere.isEmpty([ 0,0,-1 ]) );
+  test.is( _.sphere.isEmpty([ 0,0,0,-1 ]) );
 
-  test.shouldBe( _.sphere.isEmpty([ -Infinity ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,-Infinity ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,0,-Infinity ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,0,0,-Infinity ]) );
+  test.is( _.sphere.isEmpty([ -Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0,-Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0,0,-Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0,0,0,-Infinity ]) );
 
-  test.shouldBe( _.sphere.isEmpty([ 0.1,-Infinity ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,0.1,-Infinity ]) );
-  test.shouldBe( _.sphere.isEmpty([ 0,0,0.1,-Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0.1,-Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0,0.1,-Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0,0,0.1,-Infinity ]) );
 
   test.description = 'not empty'; //
 
-  test.shouldBe( !_.sphere.isEmpty([ 1 ]) );
-  test.shouldBe( !_.sphere.isEmpty([ 0,1 ]) );
-  test.shouldBe( !_.sphere.isEmpty([ 0,0,1 ]) );
-  test.shouldBe( !_.sphere.isEmpty([ 0,0,0,1 ]) );
+  test.is( !_.sphere.isEmpty([ 1 ]) );
+  test.is( !_.sphere.isEmpty([ 0,1 ]) );
+  test.is( !_.sphere.isEmpty([ 0,0,1 ]) );
+  test.is( !_.sphere.isEmpty([ 0,0,0,1 ]) );
 
-  test.shouldBe( !_.sphere.isEmpty([ Infinity ]) );
-  test.shouldBe( !_.sphere.isEmpty([ 0,Infinity ]) );
-  test.shouldBe( !_.sphere.isEmpty([ 0,0,Infinity ]) );
-  test.shouldBe( !_.sphere.isEmpty([ 0,0,0,Infinity ]) );
+  test.is( !_.sphere.isEmpty([ Infinity ]) );
+  test.is( !_.sphere.isEmpty([ 0,Infinity ]) );
+  test.is( !_.sphere.isEmpty([ 0,0,Infinity ]) );
+  test.is( !_.sphere.isEmpty([ 0,0,0,Infinity ]) );
 
 }
 
@@ -141,41 +141,41 @@ function isZero( test )
 
   test.description = 'zero'; //
 
-  test.shouldBe( _.sphere.isZero([ 0 ]) );
-  test.shouldBe( _.sphere.isZero([ 0,0 ]) );
-  test.shouldBe( _.sphere.isZero([ 0,0,0 ]) );
-  test.shouldBe( _.sphere.isZero([ 0,0,0,0 ]) );
+  test.is( _.sphere.isZero([ 0 ]) );
+  test.is( _.sphere.isZero([ 0,0 ]) );
+  test.is( _.sphere.isZero([ 0,0,0 ]) );
+  test.is( _.sphere.isZero([ 0,0,0,0 ]) );
 
-  test.shouldBe( _.sphere.isZero([ 0 ]) );
-  test.shouldBe( _.sphere.isZero([ 1,0 ]) );
-  test.shouldBe( _.sphere.isZero([ 1,0,0 ]) );
-  test.shouldBe( _.sphere.isZero([ 1,0,0,0 ]) );
+  test.is( _.sphere.isZero([ 0 ]) );
+  test.is( _.sphere.isZero([ 1,0 ]) );
+  test.is( _.sphere.isZero([ 1,0,0 ]) );
+  test.is( _.sphere.isZero([ 1,0,0,0 ]) );
 
   test.description = 'not zero'; //
 
-  test.shouldBe( !_.sphere.isZero([ 1 ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,1 ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0,1 ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0,0,1 ]) );
+  test.is( !_.sphere.isZero([ 1 ]) );
+  test.is( !_.sphere.isZero([ 0,1 ]) );
+  test.is( !_.sphere.isZero([ 0,0,1 ]) );
+  test.is( !_.sphere.isZero([ 0,0,0,1 ]) );
 
-  test.shouldBe( !_.sphere.isZero([ -1 ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,-1 ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0,-1 ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0,0,-1 ]) );
+  test.is( !_.sphere.isZero([ -1 ]) );
+  test.is( !_.sphere.isZero([ 0,-1 ]) );
+  test.is( !_.sphere.isZero([ 0,0,-1 ]) );
+  test.is( !_.sphere.isZero([ 0,0,0,-1 ]) );
 
-  test.shouldBe( !_.sphere.isZero([ -Infinity ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,-Infinity ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0,-Infinity ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0,0,-Infinity ]) );
+  test.is( !_.sphere.isZero([ -Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,-Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0,-Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0,0,-Infinity ]) );
 
-  test.shouldBe( !_.sphere.isZero([ Infinity ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,Infinity ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0,Infinity ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0,0,Infinity ]) );
+  test.is( !_.sphere.isZero([ Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0,Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0,0,Infinity ]) );
 
-  test.shouldBe( !_.sphere.isZero([ 0.1,-Infinity ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0.1,-Infinity ]) );
-  test.shouldBe( !_.sphere.isZero([ 0,0,0.1,-Infinity ]) );
+  test.is( !_.sphere.isZero([ 0.1,-Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0.1,-Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0,0.1,-Infinity ]) );
 
 }
 
@@ -186,21 +186,21 @@ function isNil( test )
 
   test.description = 'nil'; //
 
-  test.shouldBe( _.sphere.isNil([ -Infinity ]) );
-  test.shouldBe( _.sphere.isNil([ 0,-Infinity ]) );
-  test.shouldBe( _.sphere.isNil([ 0,0,-Infinity ]) );
-  test.shouldBe( _.sphere.isNil([ 0,0,0,-Infinity ]) );
+  test.is( _.sphere.isNil([ -Infinity ]) );
+  test.is( _.sphere.isNil([ 0,-Infinity ]) );
+  test.is( _.sphere.isNil([ 0,0,-Infinity ]) );
+  test.is( _.sphere.isNil([ 0,0,0,-Infinity ]) );
 
   test.description = 'not nil'; //
 
-  test.shouldBe( !_.sphere.isNil([ Infinity ]) );
-  test.shouldBe( !_.sphere.isNil([ 0,Infinity ]) );
-  test.shouldBe( !_.sphere.isNil([ 0,0,Infinity ]) );
-  test.shouldBe( !_.sphere.isNil([ 0,0,0,Infinity ]) );
+  test.is( !_.sphere.isNil([ Infinity ]) );
+  test.is( !_.sphere.isNil([ 0,Infinity ]) );
+  test.is( !_.sphere.isNil([ 0,0,Infinity ]) );
+  test.is( !_.sphere.isNil([ 0,0,0,Infinity ]) );
 
-  test.shouldBe( !_.sphere.isNil([ 0.1,-Infinity ]) );
-  test.shouldBe( !_.sphere.isNil([ 0,0.1,-Infinity ]) );
-  test.shouldBe( !_.sphere.isNil([ 0,0,0.1,-Infinity ]) );
+  test.is( !_.sphere.isNil([ 0.1,-Infinity ]) );
+  test.is( !_.sphere.isNil([ 0,0.1,-Infinity ]) );
+  test.is( !_.sphere.isNil([ 0,0,0.1,-Infinity ]) );
 
 }
 
@@ -215,7 +215,7 @@ function make( test )
   var got = _.sphere.make( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -223,7 +223,7 @@ function make( test )
   var got = _.sphere.make( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -231,7 +231,7 @@ function make( test )
   var got = _.sphere.make( src );
   var expected = [ 0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src array'; //
 
@@ -239,7 +239,7 @@ function make( test )
   var got = _.sphere.make( src );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src vector'; //
 
@@ -247,7 +247,7 @@ function make( test )
   var got = _.sphere.make( src );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
 }
 
@@ -262,7 +262,7 @@ function makeZero( test )
   var got = _.sphere.makeZero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -270,7 +270,7 @@ function makeZero( test )
   var got = _.sphere.makeZero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -278,7 +278,7 @@ function makeZero( test )
   var got = _.sphere.makeZero( src );
   var expected = [ 0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src array'; //
 
@@ -286,7 +286,7 @@ function makeZero( test )
   var got = _.sphere.makeZero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src vector'; //
 
@@ -294,7 +294,7 @@ function makeZero( test )
   var got = _.sphere.makeZero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
 }
 
@@ -309,7 +309,7 @@ function makeNil( test )
   var got = _.sphere.makeNil( src );
   var expected = [ 0,0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -317,7 +317,7 @@ function makeNil( test )
   var got = _.sphere.makeNil( src );
   var expected = [ 0,0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -325,7 +325,7 @@ function makeNil( test )
   var got = _.sphere.makeNil( src );
   var expected = [ 0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src array'; //
 
@@ -333,7 +333,7 @@ function makeNil( test )
   var got = _.sphere.makeNil( src );
   var expected = [ 0,0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src vector'; //
 
@@ -341,7 +341,7 @@ function makeNil( test )
   var got = _.sphere.makeNil( src );
   var expected = [ 0,0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
 }
 
@@ -356,7 +356,7 @@ function zero( test )
   var got = _.sphere.zero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -364,7 +364,7 @@ function zero( test )
   var got = _.sphere.zero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -372,7 +372,7 @@ function zero( test )
   var got = _.sphere.zero( src );
   var expected = [ 0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -380,7 +380,7 @@ function zero( test )
   var got = _.sphere.zero( dst );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -388,7 +388,7 @@ function zero( test )
   var got = _.sphere.zero( dst );
   var expected = _.vector.fromArray([ 0,0,0,0 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst array 2d'; //
 
@@ -396,7 +396,7 @@ function zero( test )
   var got = _.sphere.zero( dst );
   var expected = [ 0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
 }
 
@@ -411,7 +411,7 @@ function nil( test )
   var got = _.sphere.nil( src );
   var expected = [ 0,0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -419,7 +419,7 @@ function nil( test )
   var got = _.sphere.nil( src );
   var expected = [ 0,0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -427,7 +427,7 @@ function nil( test )
   var got = _.sphere.nil( src );
   var expected = [ 0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -435,7 +435,7 @@ function nil( test )
   var got = _.sphere.nil( dst );
   var expected = [ 0,0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -443,7 +443,7 @@ function nil( test )
   var got = _.sphere.nil( dst );
   var expected = _.vector.fromArray([ 0,0,0,-Infinity ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst array 2d'; //
 
@@ -451,7 +451,7 @@ function nil( test )
   var got = _.sphere.nil( dst );
   var expected = [ 0,0,-Infinity ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
 }
 
@@ -466,7 +466,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( src );
   var expected = [ 0,0,0,0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -474,7 +474,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( src );
   var expected = [ 0,0,0,0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -482,7 +482,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( src );
   var expected = [ 0,0,0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -490,7 +490,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( dst );
   var expected = [ 0,0,0,0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -498,7 +498,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( dst );
   var expected = _.vector.fromArray([ 0,0,0,0.5 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst array 2d'; //
 
@@ -506,7 +506,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( dst );
   var expected = [ 0,0,0.5 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   /* */
 
@@ -516,7 +516,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( src,2 );
   var expected = [ 0,0,0,2 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -524,7 +524,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( src,2 );
   var expected = [ 0,0,0,2 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src 2'; //
 
@@ -532,7 +532,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( src,2 );
   var expected = [ 0,0,2 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -540,7 +540,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( dst,2 );
   var expected = [ 0,0,0,2 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -548,7 +548,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( dst,2 );
   var expected = _.vector.fromArray([ 0,0,0,2 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst array 2d'; //
 
@@ -556,7 +556,7 @@ function centeredOfRadius( test )
   var got = _.sphere.centeredOfRadius( dst,2 );
   var expected = [ 0,0,2 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
 }
 
@@ -664,7 +664,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'different radius';
 
@@ -674,7 +674,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'different radius, one inside of another 1';
 
@@ -684,7 +684,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'different radius, one inside of another 2';
 
@@ -694,7 +694,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'different radius, overlap';
 
@@ -704,7 +704,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'different radius, overlap';
 
@@ -714,7 +714,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'empty by identity';
 
@@ -724,7 +724,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'empty by empty at zero';
 
@@ -734,7 +734,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'empty by empty not at zero';
 
@@ -744,7 +744,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'overlap';
 
@@ -754,7 +754,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'inside, different centers';
 
@@ -764,7 +764,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'inside, same centers';
 
@@ -774,7 +774,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'dst is nil';
 
@@ -784,7 +784,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'src is nil';
 
@@ -794,7 +794,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   test.description = 'dst and src are nil';
 
@@ -804,7 +804,7 @@ function sphereExpand( test )
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === s1 );
+  test.is( got === s1 );
 
   if( !Config.debug )
   return;
@@ -948,7 +948,7 @@ function pointExpand( test )
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
-  test.shouldBe( got === sphere );
+  test.is( got === sphere );
 
   test.description = 'expand zero by non zero';
 
@@ -964,7 +964,7 @@ function pointExpand( test )
   test.equivalent( got,expected );
   test.equivalent( d1,d2 );
   test.equivalent( d1,_.sphere.radiusGet( sphere ) );
-  test.shouldBe( got === sphere );
+  test.is( got === sphere );
 
   test.description = 'expand non zero by non zero';
 
@@ -979,7 +979,7 @@ function pointExpand( test )
   test.equivalent( got,expected );
   test.equivalent( d1,d2 );
   test.equivalent( d1,_.sphere.radiusGet( sphere ) );
-  test.shouldBe( got === sphere );
+  test.is( got === sphere );
 
   test.description = 'expand nil sphere by point';
 
@@ -990,7 +990,7 @@ function pointExpand( test )
   var got = _.sphere.pointExpand( sphere,point );
 
   test.equivalent( got,expected );
-  test.shouldBe( got === sphere );
+  test.is( got === sphere );
 
 }
 
@@ -1294,7 +1294,7 @@ function radiusGet( test )
   test.description = 'Zero dimension sphere'; //
 
   sphere = [ 0 ];
-  expected = [ ];
+  expected = 0; /* qqq : was [], why didn't ask? */
 
   sphere = _.sphere.radiusGet( sphere );
   test.equivalent( sphere, expected );
@@ -2074,7 +2074,7 @@ function fromCenterAndRadius( test )
 var Self =
 {
 
-  name : 'Math.Sphere',
+  name : 'Tools/Math/Sphere',
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
@@ -2082,32 +2082,32 @@ var Self =
   tests :
   {
 
-//    is : is,
-//    isEmpty : isEmpty,
-//    isZero : isZero,
-//    isNil : isNil,
+    is : is,
+    isEmpty : isEmpty,
+    isZero : isZero,
+    isNil : isNil,
 
-//    make : make,
-//    makeZero : makeZero,
-//    makeNil : makeNil,
+    make : make,
+    makeZero : makeZero,
+    makeNil : makeNil,
 
-//    zero : zero,
-//    nil : nil,
-//    centeredOfRadius : centeredOfRadius,
+    zero : zero,
+    nil : nil,
+    centeredOfRadius : centeredOfRadius,
 
-//    sphereFromBox : sphereFromBox,
-//    sphereExpand : sphereExpand,
-//    sphereIntersects : sphereIntersects,
+    sphereFromBox : sphereFromBox,
+    sphereExpand : sphereExpand,
+    sphereIntersects : sphereIntersects,
 
-//    pointExpand : pointExpand,
+    pointExpand : pointExpand,
 
-//    dimGet : dimGet,
-//    centerGet : centerGet,
-//    radiusGet : radiusGet,
-//    radiusSet : radiusSet,
+    dimGet : dimGet,
+    centerGet : centerGet,
+    radiusGet : radiusGet,
+    radiusSet : radiusSet,
 
-//     fromPoints : fromPoints,
-     fromCenterAndRadius : fromCenterAndRadius,
+    fromPoints : fromPoints,
+    fromCenterAndRadius : fromCenterAndRadius,
 
   }
 

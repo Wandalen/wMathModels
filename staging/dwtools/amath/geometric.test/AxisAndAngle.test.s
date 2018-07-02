@@ -62,49 +62,49 @@ function is( test )
 
   test.description = 'array'; //
 
-  test.shouldBe( !_.axisAndAngle.is([]) );
-  test.shouldBe( !_.axisAndAngle.is([ 0 ]) );
-  test.shouldBe( !_.axisAndAngle.is([ 0,0 ]) );
+  test.is( !_.axisAndAngle.is([]) );
+  test.is( !_.axisAndAngle.is([ 0 ]) );
+  test.is( !_.axisAndAngle.is([ 0,0 ]) );
 
-  test.shouldBe( !_.axisAndAngle.is([ 0,0,0 ]) );
-  test.shouldBe( _.axisAndAngle.is( [ 0,0,0 ],0 ) );
-  test.shouldBe( !_.axisAndAngle.is( [ 0,0,0 ],null ) );
-  test.shouldBe( !_.axisAndAngle.is( null,0 ) );
-  test.shouldBe( !_.axisAndAngle.is( null,null ) );
+  test.is( !_.axisAndAngle.is([ 0,0,0 ]) );
+  test.is( _.axisAndAngle.is( [ 0,0,0 ],0 ) );
+  test.is( !_.axisAndAngle.is( [ 0,0,0 ],null ) );
+  test.is( !_.axisAndAngle.is( null,0 ) );
+  test.is( !_.axisAndAngle.is( null,null ) );
 
-  test.shouldBe( _.axisAndAngle.is([ 0,0,0,0 ]) );
-  test.shouldBe( !_.axisAndAngle.is( [ 0,0,0,0 ],0 ) );
-  test.shouldBe( !_.axisAndAngle.is( [ 0,0,0,0 ],null ) );
+  test.is( _.axisAndAngle.is([ 0,0,0,0 ]) );
+  test.is( !_.axisAndAngle.is( [ 0,0,0,0 ],0 ) );
+  test.is( !_.axisAndAngle.is( [ 0,0,0,0 ],null ) );
 
-  test.shouldBe( !_.axisAndAngle.is([ 0,0,0,0,0 ]) );
-  test.shouldBe( !_.axisAndAngle.is([ 0,0,0,0,0,0 ]) );
-  test.shouldBe( !_.axisAndAngle.is([ 1,2,3,0,1,2 ]) );
-  test.shouldBe( !_.axisAndAngle.is([ 0,0,0,0,0,0,0 ]) );
+  test.is( !_.axisAndAngle.is([ 0,0,0,0,0 ]) );
+  test.is( !_.axisAndAngle.is([ 0,0,0,0,0,0 ]) );
+  test.is( !_.axisAndAngle.is([ 1,2,3,0,1,2 ]) );
+  test.is( !_.axisAndAngle.is([ 0,0,0,0,0,0,0 ]) );
 
   test.description = 'vector'; //
 
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray([]) ) );
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray([ 0 ]) ) );
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray([ 0,0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray([]) ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray([ 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray([ 0,0 ]) ) );
 
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray([ 0,0,0 ]) ) );
-  test.shouldBe( _.axisAndAngle.is( _.vector.fromArray( [ 0,0,0 ]),0 ) );
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray( [ 0,0,0 ]),null ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray([ 0,0,0 ]) ) );
+  test.is( _.axisAndAngle.is( _.vector.fromArray( [ 0,0,0 ]),0 ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray( [ 0,0,0 ]),null ) );
 
-  test.shouldBe( _.axisAndAngle.is( _.vector.fromArray( [ 0,0,0,0 ]) ) );
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray( [ 0,0,0,0 ] ),0 ) );
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray( [ 0,0,0,0 ] ),null ) );
+  test.is( _.axisAndAngle.is( _.vector.fromArray( [ 0,0,0,0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray( [ 0,0,0,0 ] ),0 ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray( [ 0,0,0,0 ] ),null ) );
 
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray([ 0,0,0,0,0,0 ]) ) );
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray([ 1,2,3,0,1,2 ]) ) );
-  test.shouldBe( !_.axisAndAngle.is( _.vector.fromArray([ 0,0,0,0,0,0,0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray([ 0,0,0,0,0,0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray([ 1,2,3,0,1,2 ]) ) );
+  test.is( !_.axisAndAngle.is( _.vector.fromArray([ 0,0,0,0,0,0,0 ]) ) );
 
   test.description = 'not axisAndAngle'; //
 
-  test.shouldBe( !_.axisAndAngle.is( 'abcdef' ) );
-  test.shouldBe( !_.axisAndAngle.is( {} ) );
-  test.shouldBe( !_.axisAndAngle.is( function( a,b,c,d,e,f ){} ) );
+  test.is( !_.axisAndAngle.is( 'abcdef' ) );
+  test.is( !_.axisAndAngle.is( {} ) );
+  test.is( !_.axisAndAngle.is( function( a,b,c,d,e,f ){} ) );
 
 }
 
@@ -115,49 +115,49 @@ function like( test )
 
   test.description = 'array'; //
 
-  test.shouldBe( !_.axisAndAngle.like([]) );
-  test.shouldBe( !_.axisAndAngle.like([ 0 ]) );
-  test.shouldBe( !_.axisAndAngle.like([ 0,0 ]) );
+  test.is( !_.axisAndAngle.like([]) );
+  test.is( !_.axisAndAngle.like([ 0 ]) );
+  test.is( !_.axisAndAngle.like([ 0,0 ]) );
 
-  test.shouldBe( !_.axisAndAngle.like([ 0,0,0 ]) );
-  test.shouldBe( _.axisAndAngle.like( [ 0,0,0 ],0 ) );
-  test.shouldBe( _.axisAndAngle.like( [ 0,0,0 ],null ) );
-  test.shouldBe( _.axisAndAngle.like( null,0 ) );
-  test.shouldBe( _.axisAndAngle.like( null,null ) );
+  test.is( !_.axisAndAngle.like([ 0,0,0 ]) );
+  test.is( _.axisAndAngle.like( [ 0,0,0 ],0 ) );
+  test.is( _.axisAndAngle.like( [ 0,0,0 ],null ) );
+  test.is( _.axisAndAngle.like( null,0 ) );
+  test.is( _.axisAndAngle.like( null,null ) );
 
-  test.shouldBe( _.axisAndAngle.like([ 0,0,0,0 ]) );
-  test.shouldBe( !_.axisAndAngle.like( [ 0,0,0,0 ],0 ) );
-  test.shouldBe( !_.axisAndAngle.like( [ 0,0,0,0 ],null ) );
+  test.is( _.axisAndAngle.like([ 0,0,0,0 ]) );
+  test.is( !_.axisAndAngle.like( [ 0,0,0,0 ],0 ) );
+  test.is( !_.axisAndAngle.like( [ 0,0,0,0 ],null ) );
 
-  test.shouldBe( !_.axisAndAngle.like([ 0,0,0,0,0 ]) );
-  test.shouldBe( !_.axisAndAngle.like([ 0,0,0,0,0,0 ]) );
-  test.shouldBe( !_.axisAndAngle.like([ 1,2,3,0,1,2 ]) );
-  test.shouldBe( !_.axisAndAngle.like([ 0,0,0,0,0,0,0 ]) );
+  test.is( !_.axisAndAngle.like([ 0,0,0,0,0 ]) );
+  test.is( !_.axisAndAngle.like([ 0,0,0,0,0,0 ]) );
+  test.is( !_.axisAndAngle.like([ 1,2,3,0,1,2 ]) );
+  test.is( !_.axisAndAngle.like([ 0,0,0,0,0,0,0 ]) );
 
   test.description = 'vector'; //
 
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray([]) ) );
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray([ 0 ]) ) );
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray([ 0,0 ]) ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray([]) ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray([ 0 ]) ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray([ 0,0 ]) ) );
 
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray([ 0,0,0 ]) ) );
-  test.shouldBe( _.axisAndAngle.like( _.vector.fromArray( [ 0,0,0 ]),0 ) );
-  test.shouldBe( _.axisAndAngle.like( _.vector.fromArray( [ 0,0,0 ]),null ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray([ 0,0,0 ]) ) );
+  test.is( _.axisAndAngle.like( _.vector.fromArray( [ 0,0,0 ]),0 ) );
+  test.is( _.axisAndAngle.like( _.vector.fromArray( [ 0,0,0 ]),null ) );
 
-  test.shouldBe( _.axisAndAngle.like( _.vector.fromArray( [ 0,0,0,0 ]) ) );
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray( [ 0,0,0,0 ] ),0 ) );
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray( [ 0,0,0,0 ] ),null ) );
+  test.is( _.axisAndAngle.like( _.vector.fromArray( [ 0,0,0,0 ]) ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray( [ 0,0,0,0 ] ),0 ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray( [ 0,0,0,0 ] ),null ) );
 
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray([ 0,0,0,0,0,0 ]) ) );
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray([ 1,2,3,0,1,2 ]) ) );
-  test.shouldBe( !_.axisAndAngle.like( _.vector.fromArray([ 0,0,0,0,0,0,0 ]) ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray([ 0,0,0,0,0,0 ]) ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray([ 1,2,3,0,1,2 ]) ) );
+  test.is( !_.axisAndAngle.like( _.vector.fromArray([ 0,0,0,0,0,0,0 ]) ) );
 
   test.description = 'not axisAndAngle'; //
 
-  test.shouldBe( !_.axisAndAngle.like( 'abcdef' ) );
-  test.shouldBe( !_.axisAndAngle.like( {} ) );
-  test.shouldBe( !_.axisAndAngle.like( function( a,b,c,d,e,f ){} ) );
+  test.is( !_.axisAndAngle.like( 'abcdef' ) );
+  test.is( !_.axisAndAngle.like( {} ) );
+  test.is( !_.axisAndAngle.like( function( a,b,c,d,e,f ){} ) );
 
 }
 
@@ -168,37 +168,37 @@ function isZero( test )
 
   test.description = 'zero'; //
 
-  test.shouldBe( _.axisAndAngle.isZero([ 0,0,0,0 ]) );
-  test.shouldBe( _.axisAndAngle.isZero([ 1,0,0,0 ]) );
-  test.shouldBe( _.axisAndAngle.isZero([ 0,1,0,0 ]) );
-  test.shouldBe( _.axisAndAngle.isZero([ 0,0,1,0 ]) );
+  test.is( _.axisAndAngle.isZero([ 0,0,0,0 ]) );
+  test.is( _.axisAndAngle.isZero([ 1,0,0,0 ]) );
+  test.is( _.axisAndAngle.isZero([ 0,1,0,0 ]) );
+  test.is( _.axisAndAngle.isZero([ 0,0,1,0 ]) );
 
-  test.shouldBe( _.axisAndAngle.isZero( [ 0,0,1 ],0 ) );
+  test.is( _.axisAndAngle.isZero( [ 0,0,1 ],0 ) );
 
   test.description = 'not zero'; //
 
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,0,0,+0.1 ]) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 1,0,0,+0.1 ]) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,1,0,+0.1 ]) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,0,1,+0.1 ]) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 1,0,0,-0.1 ]) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,1,0,-0.1 ]) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,0,1,-0.1 ]) );
+  test.is( !_.axisAndAngle.isZero([ 0,0,0,+0.1 ]) );
+  test.is( !_.axisAndAngle.isZero([ 1,0,0,+0.1 ]) );
+  test.is( !_.axisAndAngle.isZero([ 0,1,0,+0.1 ]) );
+  test.is( !_.axisAndAngle.isZero([ 0,0,1,+0.1 ]) );
+  test.is( !_.axisAndAngle.isZero([ 1,0,0,-0.1 ]) );
+  test.is( !_.axisAndAngle.isZero([ 0,1,0,-0.1 ]) );
+  test.is( !_.axisAndAngle.isZero([ 0,0,1,-0.1 ]) );
 
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,0,0 ],+0.1 ) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 1,0,0 ],+0.1 ) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,1,0 ],+0.1 ) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,0,1 ],+0.1 ) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 1,0,0 ],-0.1 ) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,1,0 ],-0.1 ) );
-  test.shouldBe( !_.axisAndAngle.isZero([ 0,0,1 ],-0.1 ) );
+  test.is( !_.axisAndAngle.isZero([ 0,0,0 ],+0.1 ) );
+  test.is( !_.axisAndAngle.isZero([ 1,0,0 ],+0.1 ) );
+  test.is( !_.axisAndAngle.isZero([ 0,1,0 ],+0.1 ) );
+  test.is( !_.axisAndAngle.isZero([ 0,0,1 ],+0.1 ) );
+  test.is( !_.axisAndAngle.isZero([ 1,0,0 ],-0.1 ) );
+  test.is( !_.axisAndAngle.isZero([ 0,1,0 ],-0.1 ) );
+  test.is( !_.axisAndAngle.isZero([ 0,0,1 ],-0.1 ) );
 
-  test.shouldBe( !_.axisAndAngle.isZero( [ 0,0,1 ],null ) );
-  test.shouldBe( !_.axisAndAngle.isZero( null,0 ) );
-  test.shouldBe( !_.axisAndAngle.isZero( null,null ) );
+  test.is( !_.axisAndAngle.isZero( [ 0,0,1 ],null ) );
+  test.is( !_.axisAndAngle.isZero( null,0 ) );
+  test.is( !_.axisAndAngle.isZero( null,null ) );
 
-  test.shouldBe( !_.axisAndAngle.isZero( [ 0,0,1,0 ],null ) );
-  test.shouldBe( !_.axisAndAngle.isZero( [ 0,0,1,0 ],0 ) );
+  test.is( !_.axisAndAngle.isZero( [ 0,0,1,0 ],null ) );
+  test.is( !_.axisAndAngle.isZero( [ 0,0,1,0 ],0 ) );
 
 }
 
@@ -213,7 +213,7 @@ function make( test )
   var got = _.axisAndAngle.make( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -221,7 +221,7 @@ function make( test )
   var got = _.axisAndAngle.make( src );
   var expected = [ 0,0,0,0, ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src array'; //
 
@@ -229,7 +229,7 @@ function make( test )
   var got = _.axisAndAngle.make( src );
   var expected = [ 0,1,2,5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src array and angle'; //
 
@@ -237,7 +237,7 @@ function make( test )
   var got = _.axisAndAngle.make( src,5 );
   var expected = [ 0,1,2,5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src vector'; //
 
@@ -245,7 +245,7 @@ function make( test )
   var got = _.axisAndAngle.make( src );
   var expected = [ 0,1,2,5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src vector'; //
 
@@ -253,7 +253,7 @@ function make( test )
   var got = _.axisAndAngle.make( src,5 );
   var expected = [ 0,1,2,5 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   if( !Config.debug )
   return;
@@ -307,7 +307,7 @@ function from( test )
   var got = _.axisAndAngle.from( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'from null and null'; /* */
 
@@ -315,7 +315,7 @@ function from( test )
   var got = _.axisAndAngle.from( src,null );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'from null and angle'; /* */
 
@@ -323,7 +323,7 @@ function from( test )
   var got = _.axisAndAngle.from( src,3 );
   var expected = [ 0,0,0,3 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'from array and null'; /* */
 
@@ -332,7 +332,7 @@ function from( test )
   var got = _.axisAndAngle.from( src,null );
   var expected = [ 0,1,2,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'from array'; /* */
 
@@ -340,7 +340,7 @@ function from( test )
   var got = _.axisAndAngle.from( src );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
-  test.shouldBe( got === src );
+  test.is( got === src );
 
   test.description = 'from array and angle'; /* */
 
@@ -348,7 +348,7 @@ function from( test )
   var got = _.axisAndAngle.from( src,3 );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'from vector'; /* */
 
@@ -356,7 +356,7 @@ function from( test )
   var got = _.axisAndAngle.from( src );
   var expected = _.vector.from([ 0,1,2,3 ]);
   test.identical( got,expected );
-  test.shouldBe( got === src );
+  test.is( got === src );
 
   test.description = 'from vector and angle'; /* */
 
@@ -365,7 +365,7 @@ function from( test )
   var got = _.axisAndAngle.from( src,3 );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   if( !Config.debug )
   return;
@@ -394,7 +394,7 @@ function _from( test )
   var got = _.axisAndAngle._from( src );
   var expected = _.vector.from([ 0,0,0,0 ]);
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = '_from null and null'; /* */
 
@@ -402,7 +402,7 @@ function _from( test )
   var got = _.axisAndAngle._from( src,null );
   var expected = _.vector.from([ 0,0,0,0 ]);
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = '_from null and angle'; /* */
 
@@ -410,7 +410,7 @@ function _from( test )
   var got = _.axisAndAngle._from( src,3 );
   var expected = _.vector.from([ 0,0,0,3 ]);
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = '_from array and null'; /* */
 
@@ -419,9 +419,9 @@ function _from( test )
   var got = _.axisAndAngle._from( src,null );
   var expected = _.vector.from([ 0,1,2,0 ]);
   test.identical( got,expected );
-  test.shouldBe( got !== src );
-  test.shouldBe( got._vectorBuffer !== src );
-  test.shouldBe( !!got._vectorBuffer );
+  test.is( got !== src );
+  test.is( got._vectorBuffer !== src );
+  test.is( !!got._vectorBuffer );
 
   test.description = '_from array'; /* */
 
@@ -429,9 +429,9 @@ function _from( test )
   var got = _.axisAndAngle._from( src );
   var expected = _.vector.from([ 0,1,2,3 ]);
   test.identical( got,expected );
-  test.shouldBe( got !== src );
-  test.shouldBe( got._vectorBuffer === src );
-  test.shouldBe( !!got._vectorBuffer );
+  test.is( got !== src );
+  test.is( got._vectorBuffer === src );
+  test.is( !!got._vectorBuffer );
 
   test.description = '_from array and angle'; /* */
 
@@ -439,9 +439,9 @@ function _from( test )
   var got = _.axisAndAngle._from( src,3 );
   var expected = _.vector.from([ 0,1,2,3 ]);
   test.identical( got,expected );
-  test.shouldBe( got !== src );
-  test.shouldBe( got._vectorBuffer !== src );
-  test.shouldBe( !!got._vectorBuffer );
+  test.is( got !== src );
+  test.is( got._vectorBuffer !== src );
+  test.is( !!got._vectorBuffer );
 
   test.description = '_from vector'; /* */
 
@@ -449,7 +449,7 @@ function _from( test )
   var got = _.axisAndAngle._from( src );
   var expected = _.vector.from([ 0,1,2,3 ]);
   test.identical( got,expected );
-  test.shouldBe( got === src );
+  test.is( got === src );
 
   test.description = '_from vector and angle'; /* */
 
@@ -457,9 +457,9 @@ function _from( test )
   var got = _.axisAndAngle._from( src,3 );
   var expected = _.vector.from([ 0,1,2,3 ]);
   test.identical( got,expected );
-  test.shouldBe( got !== src );
-  test.shouldBe( got._vectorBuffer !== src );
-  test.shouldBe( !!got._vectorBuffer );
+  test.is( got !== src );
+  test.is( got._vectorBuffer !== src );
+  test.is( !!got._vectorBuffer );
 
   if( !Config.debug )
   return;
@@ -491,7 +491,7 @@ function zero( test )
   var got = _.axisAndAngle.zero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -499,7 +499,7 @@ function zero( test )
   var got = _.axisAndAngle.zero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -507,7 +507,7 @@ function zero( test )
   var got = _.axisAndAngle.zero( dst );
   var expected = [ 0,1,2,0 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -515,7 +515,7 @@ function zero( test )
   var got = _.axisAndAngle.zero( dst );
   var expected = _.vector.fromArray([ 0,1,2,0 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   if( !Config.debug )
   return;
@@ -536,7 +536,7 @@ function zero( test )
 var Self =
 {
 
-  name : 'Math.AxisAndAngle',
+  name : 'Tools/Math/AxisAndAngle',
   silencing : 1,
   // routine : 'isZero',
 
