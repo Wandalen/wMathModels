@@ -180,7 +180,7 @@ function _from( sphere )
 function fromPoints( sphere, points )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   debugger;
   //throw _.err( 'not tested' );
@@ -227,7 +227,7 @@ function fromBox( sphere, box )
 
   _.assert( dim === _.box.dimGet( box ) );
 //  _.assert( dim === _.sphere.dimGet(  sphere) );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   center.copy( min );
   vector.addVectors( center,max );
@@ -470,7 +470,7 @@ function radiusSet( sphere,radius )
 {
   _.assert( _.numberIs( radius ) );
   _.assert( _.sphere.is( sphere ) );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   //if( _.vectorIs( sphere ) )
   //{
@@ -500,7 +500,7 @@ function pointContains( sphere,point )
   var radius = _.sphere.radiusGet( spherev );
   var dim = _.sphere.dimGet( spherev );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === point.length );
 
   debugger;
@@ -518,7 +518,7 @@ function pointDistance( sphere,point )
   var center = _.sphere.centerGet( spherev );
   var radius = _.sphere.radiusGet( spherev );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === point.length );
 
   debugger;
@@ -538,7 +538,7 @@ function pointClamp( sphere, point )
   var dim = _.sphere.dimGet( spherev );
   var pointv = vector.from( point );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === point.length );
 
   debugger;
@@ -570,7 +570,7 @@ function pointExpand( sphere , point )
   var dim = _.sphere.dimGet( spherev );
   var pointv = vector.from( point );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === point.length );
 
   // debugger;
@@ -611,7 +611,7 @@ function sphereExpand( sphereDst, sphereSrc )
   var radiusSrc = _.sphere.radiusGet( _sphereSrc );
   var dimSrc = _.sphere.dimGet( _sphereSrc );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dimDst === dimSrc );
 
   if( radiusSrc === -Infinity )
@@ -678,7 +678,7 @@ function sphereIntersects( sphere1, sphere2 )
   var radius2 = _.sphere.radiusGet( _sphere2 );
   var dim2 = _.sphere.dimGet( _sphere2 );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim1 === dim2 );
   debugger;
   // throw _.err( 'not tested' );
@@ -697,7 +697,7 @@ function matrixHomogenousApply( sphere,matrix )
   var radius = _.sphere.radiusGet( spherev );
   var dim = _.sphere.dimGet( spherev );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.spaceIs( matrix ) );
   _.assert( dim+1 === matrix.ncol );
 
@@ -712,7 +712,7 @@ function matrixHomogenousApply( sphere,matrix )
 function translate( sphere,offset )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.spaceIs( matrix ) );
   debugger;
   throw _.err( 'not tested' );

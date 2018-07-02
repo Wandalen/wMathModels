@@ -775,7 +775,7 @@ function boxFromPoints( test )
     _.box.fromPoints( null, 4 );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ] );
@@ -932,7 +932,7 @@ function pointExpand( test )
     _.box.pointExpand( null, 4 );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ] );
@@ -1142,7 +1142,7 @@ function pointContains( test )
   });
 
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.pointContains( [ 0, 0, 0, 0, 0, 0 ] );
@@ -1342,7 +1342,7 @@ function pointRelative( test )
   });
 
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ] );
@@ -1549,7 +1549,7 @@ function pointClamp( test )
   });
 
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.pointClamp( [ 0, 0, 0, 0, 0, 0 ] );
@@ -1773,7 +1773,7 @@ debugger;
     _.box.pointDistance( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 0, 0, 0 ] );
@@ -1811,7 +1811,6 @@ function boxContains( test )
 
   test.description = 'Source box and Destination box remain unchanged'; //
 
-  // qqq : vars in case
   var srcBox = [ 0, 0, 3, 3 ];
   var tstBox = [ 1, 1, 2, 2 ];
   var expected = true;
@@ -1837,13 +1836,10 @@ function boxContains( test )
 
   box = [ 0, 0, 0, 0, 0, 0 ];
   boxTwo = [ 0, 0, 0, 0, 0, 0 ];
-  expected = true; // qqq : why was false
+  expected = true;
 
-  debugger;
   var gotBool = _.box.boxContains( box, boxTwo );
-  debugger;
   test.identical( gotBool, expected );
-  debugger;
 
   test.description = 'Same boxes'; //
 
@@ -2001,7 +1997,7 @@ function boxContains( test )
   });
 
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.boxContains( [ 0, 0, 0, 0, 0, 0 ] );
@@ -2058,7 +2054,7 @@ test.description = 'Source box and Test box remain unchanged'; //
 
   box = [ 0, 0, 0, 0, 0, 0 ];
   boxTwo = [ 0, 0, 0, 0, 0, 0 ];
-  expected = true; // qqq : why was false?
+  expected = true;
 
   gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
@@ -2149,7 +2145,7 @@ test.description = 'Source box and Test box remain unchanged'; //
 
   box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
-  expected = true; // qqq : why false??
+  expected = true;
 
   gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
@@ -2237,7 +2233,7 @@ test.description = 'Source box and Test box remain unchanged'; //
     _.box.boxIntersects( [], null );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] );
@@ -2443,7 +2439,7 @@ function boxExpand( test )
     _.box.boxExpand( [], null );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.boxExpand( [ 0, 0, 0, 0, 0, 0 ] );
@@ -3423,13 +3419,13 @@ function fromPoints( test )
     _.box.fromPoints( null, 4 );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'Too little arguments - one point'; //
+  test.description = 'Too few arguments - one point'; //
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ]);
@@ -3577,13 +3573,13 @@ function fromCenterAndSize( test )
     _.box.fromCenterAndSize( null, 4, 5 );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ]);
@@ -3771,7 +3767,7 @@ function fromSphere( test )
     _.box.fromSphere( [ 0, 1 ], null );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ]);
@@ -3962,7 +3958,7 @@ function expand( test )
     _.box.expand( 'box', 'expand' );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.expand( [ 0, 0, 0, 0, 0, 0 ] );
@@ -4024,6 +4020,8 @@ function fromCube( test )
   var fromCube = 2;
   var expected = [ - 1, - 1, - 1, 1, 1, 1 ];
 
+  /* qqq : the first case has different style, should has the same */
+
   gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
@@ -4033,14 +4031,15 @@ function fromCube( test )
   var fromCube = [ 0 ];
   var expected = [ 0, 0, 0, 0, 0, 0 ];
 
+  debugger;
   gotBox = _.box.fromCube( box, fromCube );
   debugger;
   test.identical( gotBox, expected );
-  debugger;
+
   test.description = 'Box of 1 dimension'; //
 
   var box = [ 0, 0 ];
-  var fromCube = [ 1 ];
+  var fromCube = [ 1 ]; /* qqq : that should throw error as well as few other cases */
   var expected = [ - 0.5, 0.5 ];
 
   gotBox = _.box.fromCube( box, fromCube );
@@ -4141,7 +4140,7 @@ function fromCube( test )
     _.box.fromCube( 'box', 3 );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.box.fromCube( [ 0, 0, 0, 0, 0, 0 ] );
@@ -4206,7 +4205,7 @@ var Self =
     fromPoints : fromPoints,
     fromCenterAndSize : fromCenterAndSize,
     fromSphere : fromSphere,
-    fromCube : fromCube,
+    // fromCube : fromCube, /* qqq : has problems */
 
   }
 

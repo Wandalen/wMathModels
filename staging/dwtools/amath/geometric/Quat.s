@@ -126,7 +126,7 @@ function _from( quat )
 function fromEuler( dst, euler, v )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   var dst = _.quat.from( dst );
   var dstv = _.vector.from( dst );
@@ -438,7 +438,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 {
 
   _.assert( _.EPS2 > 0 );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   var quat = _.quat.from( quat );
   var quatv = _.vector.from( quat );
@@ -576,7 +576,7 @@ function fromNormalizedVectors( dst, src1, src2 )
 function fromMatrixRotation( dst, mat )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -641,7 +641,7 @@ function fromMatrixRotation( dst, mat )
 function fromMatrixRotation2( dst, mat )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -680,7 +680,7 @@ function fromMatrixRotation2( dst, mat )
 function fromMatrixWithScale( dst, mat )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );

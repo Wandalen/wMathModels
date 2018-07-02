@@ -391,7 +391,7 @@ function unit( test )
 function fromAxisAndAngle( test )
 {
 
-  _.assert( test./*eps*/accuracy > 0 );
+  _.assert( test.accuracy > 0 );
 
   test.description = 'zero'; /* */
 
@@ -407,7 +407,7 @@ function fromAxisAndAngle( test )
 
   test.description = 'near zero'; /* */
 
-  var angle = test./*eps*/accuracy;
+  var angle = test.accuracy;
   var expected = [ 0.000004999999873689376,0,0,1 ];
   var got = _.quat.fromAxisAndAngle( null,[ 1,0,0 ],angle );
   test.equivalent( got,expected );
@@ -456,7 +456,7 @@ function fromAxisAndAngle( test )
     test.equivalent( quat, expected );
 
     // debugger;
-    if( _.avector.mag( axis ) !== 0 && abs( angle ) <= test./*eps*/accuracy )
+    if( _.avector.mag( axis ) !== 0 && abs( angle ) <= test.accuracy )
     return;
 
     var axis2 = _.quat.toAxisAndAngle( quat,null );
@@ -477,7 +477,7 @@ function fromAxisAndAngle( test )
     if( axis2[ 0 ]*axis[ 0 ] < 0 || axis2[ 1 ]*axis[ 1 ] < 0 || axis2[ 2 ]*axis[ 2 ] < 0 || axis2[ 3 ]*axis[ 3 ] < 0 )
     _.avector.mul( axis2,-1 );
 
-    test.equivalent( axis, axis2, test./*eps*/accuracy*10 );
+    test.equivalent( axis, axis2, test.accuracy*10 );
 
   }
 
@@ -523,16 +523,16 @@ function fromAxisAndAngle( test )
     var angle = sample.angle;
     allAxisesTest( sample.d );
 
-    var angle = sample.angle - test./*eps*/accuracy;
+    var angle = sample.angle - test.accuracy;
     allAxisesTest( 'below ' + sample.d );
 
-    var angle = sample.angle - test./*eps*/accuracy*0.1;
+    var angle = sample.angle - test.accuracy*0.1;
     allAxisesTest( 'below ' + sample.d );
 
-    var angle = sample.angle + test./*eps*/accuracy;
+    var angle = sample.angle + test.accuracy;
     allAxisesTest( 'above ' + sample.d );
 
-    var angle = sample.angle + test./*eps*/accuracy*0.1;
+    var angle = sample.angle + test.accuracy*0.1;
     allAxisesTest( 'above ' + sample.d );
 
   }
@@ -579,7 +579,7 @@ function fromAxisAndAngle( test )
 function fromEuler( test )
 {
 
-  var /*eps*/accuracy = _.EPS*0.1;
+  var accuracy = _.EPS*0.1;
   var h = _.sqrt( 2 ) / 2;
 
   // debugger;
@@ -684,7 +684,7 @@ function fromEuler( test )
 function _fromVectors( test,r,normalized )
 {
 
-  var /*eps*/accuracy = _.EPS*0.1;
+  var accuracy = _.EPS*0.1;
   var h = _.sqrt( 2 ) / 2;
 
   test.description = 'same avectors'; /* */
@@ -760,10 +760,10 @@ function _fromVectors( test,r,normalized )
     var v2 = sample.v2.slice();
 
     for( var i = 0 ; i < 3 ; i++ )
-    v1[ i ] -= /*eps*/accuracy;
+    v1[ i ] -= accuracy;
 
     for( var i = 0 ; i < 3 ; i++ )
-    v2[ i ] -= /*eps*/accuracy;
+    v2[ i ] -= accuracy;
 
     caseTest();
 
@@ -771,10 +771,10 @@ function _fromVectors( test,r,normalized )
     var v2 = sample.v2.slice();
 
     for( var i = 0 ; i < 3 ; i++ )
-    v1[ i ] -= /*eps*/accuracy;
+    v1[ i ] -= accuracy;
 
     for( var i = 0 ; i < 3 ; i++ )
-    v2[ i ] += /*eps*/accuracy;
+    v2[ i ] += accuracy;
 
     caseTest();
 
@@ -782,10 +782,10 @@ function _fromVectors( test,r,normalized )
     var v2 = sample.v2.slice();
 
     for( var i = 0 ; i < 3 ; i++ )
-    v1[ i ] += /*eps*/accuracy;
+    v1[ i ] += accuracy;
 
     for( var i = 0 ; i < 3 ; i++ )
-    v2[ i ] -= /*eps*/accuracy;
+    v2[ i ] -= accuracy;
 
     caseTest();
 
@@ -793,10 +793,10 @@ function _fromVectors( test,r,normalized )
     var v2 = sample.v2.slice();
 
     for( var i = 0 ; i < 3 ; i++ )
-    v1[ i ] += /*eps*/accuracy;
+    v1[ i ] += accuracy;
 
     for( var i = 0 ; i < 3 ; i++ )
-    v2[ i ] += /*eps*/accuracy;
+    v2[ i ] += accuracy;
 
     caseTest();
 
@@ -850,7 +850,7 @@ function _fromMatrixRotation( test,precise,r )
 
   var axis = null;
   var h = _.sqrt( 2 ) / 2;
-  var /*eps*/accuracy = precise ? _.EPS*1e-1 : _.EPS*1e-2;
+  var accuracy = precise ? _.EPS*1e-1 : _.EPS*1e-2;
   var samples =
   [
 
@@ -938,10 +938,10 @@ function _fromMatrixRotation( test,precise,r )
     var angle = sample.angle;
     testAllAxis( '' );
 
-    var angle = sample.angle - /*eps*/accuracy;
+    var angle = sample.angle - accuracy;
     testAllAxis( 'below' );
 
-    var angle = sample.angle + /*eps*/accuracy;
+    var angle = sample.angle + accuracy;
     testAllAxis( 'above' );
 
   }
@@ -1020,7 +1020,7 @@ function toMatrix( test )
 
   var axis = null;
   var h = _.sqrt( 2 ) / 2;
-  var /*eps*/accuracy = _.EPS*1e-1;
+  var accuracy = _.EPS*1e-1;
   var samples =
   [
 
@@ -1092,10 +1092,10 @@ function toMatrix( test )
     var angle = sample.angle;
     testAllAxis( '' );
 
-    var angle = sample.angle - /*eps*/accuracy;
+    var angle = sample.angle - accuracy;
     testAllAxis( 'below' );
 
-    var angle = sample.angle + /*eps*/accuracy;
+    var angle = sample.angle + accuracy;
     testAllAxis( 'above' );
 
   }

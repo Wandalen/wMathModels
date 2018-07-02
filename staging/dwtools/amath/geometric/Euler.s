@@ -229,7 +229,7 @@ function fromQuat( dst,quat,v )
   var dstv = _.vector.from( dst );
   var quatv = _.quat._from( quat );
 
-  // _.assert( arguments.length === 2, 'expects exactly two argument' );
+  // _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   var ox = dstv.eGet( 3 );
   var oy = dstv.eGet( 4 );
@@ -778,7 +778,7 @@ function fromMatrix( euler,mat )
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
 // m1
 // -0.875, 0.250, 0.415,
@@ -1993,13 +1993,15 @@ function fromMatrix2( mat, dst )
 * @memberof wTools.euler
 */
 
+/* qqq : adjust indentation of documentations */
+
 function toMatrix2( euler )
 {
 
   var euler = _.euler.from( euler );
   var eulerv = _.vector.from( euler );
   var mat =  _.Space.makeZero( [ 3, 3 ] );
-  ;
+
   _.assert( _.Space.is( mat ) );
   _.assert( arguments.length === 1 );
 
@@ -2009,6 +2011,8 @@ function toMatrix2( euler )
   var ox = eulerv.eGet( 3 );
   var oy = eulerv.eGet( 4 );
   var oz = eulerv.eGet( 5 );
+
+  /* qqq : should be if else if else */
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
@@ -2192,30 +2196,15 @@ var Proto =
   fromMatrix : fromMatrix,
   toMatrix : toMatrix,
 
-
-  toMatrix : toMatrix,
-
-  Order : Order,
-
   fromQuat2 : fromQuat2,
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
   toMatrix2 : toMatrix2,
+
+  Order : Order,
+
 }
 
 _.mapExtend( Self,Proto );
 
 })();
-
-
-/*
-
-d:30
-h:83(71)
-w:47
-
-d:54
-h:83(71)
-w:40
-
-*/
