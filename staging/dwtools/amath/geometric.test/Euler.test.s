@@ -874,9 +874,6 @@ function toMatrix( test )
   debugger;
 }
 
-
-
-
 //
 
 function toQuat2( test )
@@ -940,6 +937,126 @@ function toQuat2( test )
   var result = _.euler.toQuat2( euler );
   test.equivalent( result, expected );
 
+  test.description = 'Euler XYZ -> Quat -> Euler'; //
+
+  var euler = [ 1, 1, 0.25, 0, 1, 2 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected = [ 1, 1, 0.25, 0, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 0.5, 0, 2, 1 ];
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected =  [ 1, 0.25, 0.5, 0, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ -> Quat -> Euler'; //
+
+  var euler = [ 2, 1, 0.25, 1, 0, 2 ];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected = [ 2, 1, 0.25, 1, 0, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 2, 1, 2, 0 ];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected =  [ 1, 0.25, 2, 1, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 1, 2, 0, 1 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ];
+  var expected =  [ 0.25, 1, 1, 2, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 0.5, 2, 1, 0 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected = [ 0.25, 1, 0.5, 2, 1, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYX -> Quat -> Euler'; //
+
+  var euler = [ 1, 1, 0.25, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected = [ 1, 1, 0.25, 0, 1, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 0.5, 0, 2, 0 ];
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected =  [ 1, 0.25, 0.5, 0, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY -> Quat -> Euler'; //
+
+  var euler = [ 1, 2, 0.25, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected = [ 1, 2, 0.25, 1, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 2, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected =  [ 1, 0.25, 2, 1, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 1, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ];
+  var expected =  [ 0.25, 1, 1, 2, 0, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYZ -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 0.5, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected = [ 0.25, 1, 0.5, 2, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
   test.description = 'Euler null'; //
 
   var euler = null;
@@ -956,7 +1073,6 @@ function toQuat2( test )
   var result = _.euler.toQuat2( euler );
   test.equivalent( result, expected );
 
-
   /* */
 
   if( !Config.debug )
@@ -971,6 +1087,1075 @@ function toQuat2( test )
 
 }
 
+
+//
+
+function fromQuat2( test )
+{
+  test.description = 'Quaternion remains unchanged'; //
+
+  var quat = [ 0.2915666, 0.1729548, 0.2915666, 0.8944633 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var oldQuat = [ 0.2915666, 0.1729548, 0.2915666, 0.8944633 ];
+  var expected = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+  test.equivalent( quat, oldQuat );
+
+  test.description = 'Euler XYZ'; //
+
+  var quat =  [ 0.4699079, 0.3649977, 0.3240739, 0.7354858 ] ;
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected = [ 1, 1, 0.25, 0, 1, 2 ];
+
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY'; //
+
+  var quat = [ 0.433828, 0.1575093, 0.2236973, 0.8584542] ;
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected = [ 1, 0.25, 0.5, 0, 2, 1 ];
+
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ'; //
+
+  var quat = [ 0.325292169, 0.3963648110, 0.09544332266, 0.8532118805];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected =  [ 1, 0.5, 0.5, 1, 0, 2 ];
+
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX'; //
+
+  var quat = [ 0.7649936, 0.349081, -0.3411593, 0.4201637];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected = [ 1, 0.25, 2, 1, 2, 0 ];
+
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY'; //
+
+  var quat = [ 0.3649977, 0.4699079, 0.3240739, 0.7354858 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var expected = [ 0.25, 1, 1, 2, 0, 1 ] ;
+
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX'; //
+
+  var quat =  [ 0.09544332266900905, 0.3252921697349392, 0.39636481102592414, 0.8532118805123485 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYZ - Quat -> Euler -> Quat'; //
+
+  var quat = [ 0.4699079, 0.3649977, 0.3240739, 0.7354858 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected =  [ 0.4699079, 0.3649977, 0.3240739, 0.7354858 ];
+  var expected = _.quat._from( expected );
+
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY - Quat -> Euler -> Quat'; //
+
+  var quat =  [ 0.433828, 0.1575093, 0.2236973, 0.8584542];
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected = [ 0.433828, 0.1575093, 0.2236973, 0.8584542];
+  var expected = _.quat._from( expected );
+
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ - Quat -> Euler -> Quat'; //
+
+  var quat = [ 0.325292169, 0.3963648110, 0.09544332266, 0.8532118805];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected =  [ 0.325292169, 0.3963648110, 0.09544332266, 0.8532118805];
+  var expected = _.quat._from( expected );
+
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX - Quat -> Euler -> Quat'; //
+
+  var quat = [ 0.7649936, 0.349081, -0.3411593, 0.4201637];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected = [ 0.7649936, 0.349081, -0.3411593, 0.4201637];
+  var expected = _.quat._from( expected );
+
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY - Quat -> Euler -> Quat'; //
+
+  var quat = [ 0.3649977, 0.4699079, 0.3240739, 0.7354858 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var expected = [ 0.3649977, 0.4699079, 0.3240739, 0.7354858 ];
+  var expected = _.quat._from( expected );
+
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Quat -> Euler -> Quat'; //
+
+  var quat =  [ 0.09544332266900905, 0.3252921697349392, 0.39636481102592414, 0.8532118805123485 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected =  [ 0.09544332266900905, 0.3252921697349392, 0.39636481102592414, 0.8532118805123485 ];
+  var expected = _.vector.from( expected );
+
+  var euler = _.euler.fromQuat2( quat, dst );
+  var result = _.euler.toQuat2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYX - Euler -> Quat -> Euler'; //
+
+  var euler = [ 1, 1, 0.25, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected =  [ 1, 1, 0.25, 0, 1, 0 ]; ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX - Euler -> Quat -> Euler'; //
+
+  var euler =  [ 1, 0.25, 0.5, 0, 2, 0 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected = [ 1, 0.25, 0.5, 0, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY - Euler -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.5, 0.5, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected =  [ 1, 0.5, 0.5, 1, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY - Euler -> Quat -> Euler'; //
+
+  var euler = [ 1, 0.25, 2, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected = [ 1, 0.25, 2, 1, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ - Euler -> Quat -> Euler'; //
+
+  var euler = [ 0.25, 1, 1, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var expected = [ 0.25, 1, 1, 2, 0, 2 ] ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Euler -> Quat -> Euler'; //
+
+  var euler =  [ 1, 0.5, 0.5, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected =  [ 1, 0.5, 0.5, 2, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYZ - Gimbal Lock angle y = pi/2'; //
+
+  var euler = [ - 0.1, 1.570796327, 0, 0, 1, 2 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected =  [ - 0.1, 1.570796327, 0, 0, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYZ - Gimbal Lock angle y = -pi/2'; //
+
+  var euler = [ 0.1, - 1.570796327, 0, 0, 1, 2 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected = [ 0.1, - 1.570796327, 0, 0, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY - Gimbal Lock angle z = pi/2'; //
+
+  var euler =  [ 0.1, 1.570796327, 0, 0, 2, 1 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected = [ 0.1, 1.570796327, 0, 0, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY - Gimbal Lock angle z = - pi/2'; //
+
+  var euler =  [ 0.1, - 1.570796327, 0, 0, 2, 1 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected = [ 0.1, - 1.570796327, 0, 0, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ - Gimbal Lock angle x = pi/2'; //
+
+  var euler = [ 0.1, 1.570796327, 0, 1, 0, 2 ];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected =  [ 0.1, 1.570796327, 0, 1, 0, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ - Gimbal Lock angle x = - pi/2'; //
+
+  var euler = [ - 0.1, - 1.570796327, 0, 1, 0, 2 ];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected =  [ - 0.1, - 1.570796327, 0, 1, 0, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX - Gimbal Lock angle z = pi/2'; //
+
+  var euler = [ - 0.1, (Math.PI/2), 0, 1, 2, 0 ];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected = [ - 0.1, (Math.PI/2), 0, 1, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX - Gimbal Lock angle z = - pi/2'; //
+
+  var euler = [ - 0.1, - 1.570796327, 0, 1, 2, 0 ];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected = [ - 0.1, - 1.570796327, 0, 1, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY - Gimbal Lock angle x = pi/2'; //
+
+  var euler = [ - 0.1, (Math.PI/2), 0, 2, 0, 1 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var expected = [ - 0.1, (Math.PI/2), 0, 2, 0, 1 ] ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY - Gimbal Lock angle x = - pi/2'; //
+
+  var euler = [ - 0.1, - 1.570796327, 0, 2, 0, 1 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var expected = [ - 0.1, - 1.570796327, 0, 2, 0, 1 ] ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Gimbal Lock angle x = pi/2'; //
+
+  var euler =  [ - 0.1, 1.570796327, 0, 2, 1, 0 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected =  [ - 0.1, 1.570796327, 0, 2, 1, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Gimbal Lock angle x = - pi/2'; //
+
+  var euler =  [ - 0.1, - 1.570796327, 0, 2, 1, 0 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected =  [ - 0.1, - 1.570796327, 0, 2, 1, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYX - Gimbal Lock angle y = 0'; //
+
+  var euler = [ 0.1, 0, 0, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected =  [ 0.1, 0, 0, 0, 1, 0 ]; ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYX - Gimbal Lock angle y = pi'; //
+
+  var euler = [ 0.1, Math.PI, 0, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected =  [ 0.1, Math.PI, 0, 0, 1, 0 ]; ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX - Gimbal Lock angle z = 0'; //
+
+  var euler =  [ 0.1, 0, 0, 0, 2, 0 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected = [ 0.1, 0, 0, 0, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX - Gimbal Lock angle z = pi'; //
+
+  var euler =  [ 0.1, Math.PI, 0, 0, 2, 0 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected = [ 0.1, Math.PI, 0, 0, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY - Gimbal Lock angle z = 0'; //
+
+  var euler = [ 0.1, 0, 0, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected =  [ 0.1, 0, 0, 1, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY - Gimbal Lock angle z = pi'; //
+
+  var euler = [ 0.1, Math.PI, 0, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected =  [ 0.1, Math.PI, 0, 1, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY - Gimbal Lock angle z = 0'; //
+
+  var euler = [ 0.1, 0, 0, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected = [ 0.1, 0, 0, 1, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY - Gimbal Lock angle z = pi'; //
+
+  var euler = [ 0.1, Math.PI, 0, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected = [ 0.1, Math.PI, 0, 1, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ - Gimbal Lock angle z = 0'; //
+
+  var euler = [ 0.1, 0, 0, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var expected = [ 0.1, 0, 0, 2, 0, 2 ] ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ - Gimbal Lock angle z = pi'; //
+
+  var euler = [ 0.1, Math.PI, 0, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var expected = [ 0.1, Math.PI, 0, 2, 0, 2 ] ;
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYZ - Gimbal Lock angle z = 0'; //
+
+  var euler =  [ 0.1, 0, 0, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected =  [ 0.1, 0, 0, 2, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYZ - Gimbal Lock angle z = pi'; //
+
+  var euler =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler );
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  test.description = 'Quat null'; //
+
+  var quat = null;
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected =  [ 0, 0, 0, 1, 2, 0 ];
+
+  var result = _.euler.fromQuat2( quat, dst );
+  test.equivalent( result, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.euler.fromQuat2( ));
+  test.shouldThrowErrorSync( () => _.euler.fromQuat2( [] ));
+  test.shouldThrowErrorSync( () => _.euler.fromQuat2( [], [] ));
+  test.shouldThrowErrorSync( () => _.euler.fromQuat2( [ 0, 0, 0, 1, 1 ], [ 0, 0, 0, 0, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.euler.fromQuat2( [ 0, 0, 0, 1 ], [ 0, 0, 0, 0, 2 ] ));
+  test.shouldThrowErrorSync( () => _.euler.fromQuat2( [ 0, 0, 0, 1, 2, 0, 0 ], [ 0, 0, 0, 0, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.euler.fromQuat2( NaN, [ 0, 0, 0, 0, 1, 2 ] ));
+
+}
+
+//
+
+function fromMatrix2( test )
+{
+  test.description = 'Matrix remains unchanged'; //
+
+  var Matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.7701, -0.4207, 0.4794,
+         0.6224, 0.6599, - 0.4207,
+         - 0.1393, 0.6224, 0.7701 ] );
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var oldMatrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.7701, -0.4207, 0.4794,
+         0.6224, 0.6599, - 0.4207,
+         - 0.1393, 0.6224, 0.7701 ] );
+  var expected = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var result = _.euler.fromMatrix2( Matrix, dst );
+  result = _.vector.toArray( expected );
+  test.equivalent( result, expected );
+  test.equivalent( Matrix, oldMatrix );
+
+  test.description = 'Euler XYZ'; //
+
+  var Matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.7701, -0.4207, 0.4794,
+         0.6224, 0.6599, - 0.4207,
+         - 0.1393, 0.6224, 0.7701 ] );
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var result = _.euler.fromMatrix2( Matrix, dst );
+  result = _.vector.toArray( expected );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY'; //
+
+  var Matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.7701, -0.4794, 0.4207,
+         0.5990, 0.7701, - 0.2190,
+         - 0.2190, 0.4207, 0.8803 ] );
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+
+  var result = _.euler.fromMatrix2( Matrix, dst );
+  result = _.vector.toArray( expected );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ'; //
+
+  var Matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.7701, -0.4794, 0.4207,
+         0.6307, 0.4741, - 0.6142,
+         - 0.0950, 0.7384, 0.6675 ] );
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected =  [ 1, 0.5, 0.5, 1, 0, 2 ];
+
+  var result = _.euler.fromMatrix2( Matrix, dst );
+  result = _.vector.toArray( expected );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX'; //
+
+  var Matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.5235, 0.2861, 0.8025,
+         0.2474, 0.8503, - 0.4645,
+         - 0.8153, 0.4417, 0.3743 ] );
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected = [ 1, 0.25, 0.5, 1, 2, 0 ];
+
+  var result = _.euler.fromMatrix2( Matrix, dst );
+  result = _.vector.toArray( expected );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY'; //
+
+  var Matrix = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.7504, - 0.1336, 0.6472,
+         0.6079, 0.5235, - 0.5968,
+         - 0.2590, 0.8414, 0.4741 ] );
+  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var expected = [ 0.25, 1, 0.5, 2, 0, 1 ] ;
+
+  var result = _.euler.fromMatrix2( Matrix, dst );
+  result = _.vector.toArray( expected );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX'; //
+
+  var Matrix =  _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.4741, - 0.6142, 0.6307,
+         0.7384, 0.6675, 0.0950,
+         - 0.4794, 0.4207, 0.7701 ] );
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+
+  var result = _.euler.fromMatrix2( Matrix, dst );
+  result = _.vector.toArray( expected );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYZ - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 1, 0.5, 0.5, 0, 1, 2 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected = [ 1, 0.5, 0.5, 0, 1, 2 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 1, 0.5, 0.25, 0, 2, 1 ];
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected = [ 1, 0.5, 0.25, 0, 2, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 1, 0.25, 0.25, 1, 0, 2 ];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected = [ 1, 0.25, 0.25, 1, 0, 2 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 0.5, 0.25, - 0.25, 1, 2, 0 ];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected = [ 0.5, 0.25, - 0.25, 1, 2, 0 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 0.5, 0.75, - 0.25, 2, 0, 1 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ];
+  var expected = [ 0.5, 0.75, - 0.25, 2, 0, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 0.25, 0.75, - 0.25, 2, 1, 0 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected = [ 0.25, 0.75, - 0.25, 2, 1, 0 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYX - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 1, 1, 0.25, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected =  [ 1, 1, 0.25, 0, 1, 0 ]; ;
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX - Euler -> Matrix -> Euler'; //
+
+  var euler =  [ 1, 0.25, 0.5, 0, 2, 0 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected = [ 1, 0.25, 0.5, 0, 2, 0 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 1, 0.5, 0.5, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected =  [ 1, 0.5, 0.5, 1, 0, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 1, 0.25, 2, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected = [ 1, 0.25, 2, 1, 2, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ - Euler -> Matrix -> Euler'; //
+
+  var euler = [ 0.25, 1, 1, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var expected = [ 0.25, 1, 1, 2, 0, 2 ] ;
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Euler -> Matrix -> Euler'; //
+
+  var euler =  [ 1, 0.5, 0.5, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected =  [ 1, 0.5, 0.5, 2, 1, 2 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYZ - Gimbal Lock angle y = pi/2'; //
+
+  var euler = [ - 0.1, 1.570796327, 0, 0, 1, 2 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected =  [ - 0.1, 1.570796327, 0, 0, 1, 2 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYZ - Gimbal Lock angle y = -pi/2'; //
+
+  var euler = [ 0.1, - 1.570796327, 0, 0, 1, 2 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected = [ 0.1, - 1.570796327, 0, 0, 1, 2 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY - Gimbal Lock angle z = pi/2'; //
+
+  var euler =  [ 0.1, 1.570796327, 0, 0, 2, 1 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected = [ 0.1, 1.570796327, 0, 0, 2, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY - Gimbal Lock angle z = - pi/2'; //
+
+  var euler =  [ 0.1, - 1.570796327, 0, 0, 2, 1 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected = [ 0.1, - 1.570796327, 0, 0, 2, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ - Gimbal Lock angle x = pi/2'; //
+
+  var euler = [ 0.1, 1.570796327, 0, 1, 0, 2 ];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected =  [ 0.1, 1.570796327, 0, 1, 0, 2 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ - Gimbal Lock angle x = - pi/2'; //
+
+  var euler = [ - 0.1, - 1.570796327, 0, 1, 0, 2 ];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected =  [ - 0.1, - 1.570796327, 0, 1, 0, 2 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX - Gimbal Lock angle z = pi/2'; //
+
+  var euler = [ - 0.1, (Math.PI/2), 0, 1, 2, 0 ];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected = [ - 0.1, (Math.PI/2), 0, 1, 2, 0 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX - Gimbal Lock angle z = - pi/2'; //
+
+  var euler = [ - 0.1, - 1.570796327, 0, 1, 2, 0 ];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected = [ - 0.1, - 1.570796327, 0, 1, 2, 0 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY - Gimbal Lock angle x = pi/2'; //
+
+  var euler = [ - 0.1, (Math.PI/2), 0, 2, 0, 1 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var expected = [ - 0.1, (Math.PI/2), 0, 2, 0, 1 ] ;
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY - Gimbal Lock angle x = - pi/2'; //
+
+  var euler = [ - 0.1, - 1.570796327, 0, 2, 0, 1 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var expected = [ - 0.1, - 1.570796327, 0, 2, 0, 1 ] ;
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Gimbal Lock angle x = pi/2'; //
+
+  var euler =  [ - 0.1, 1.570796327, 0, 2, 1, 0 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected =  [ - 0.1, 1.570796327, 0, 2, 1, 0 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX - Gimbal Lock angle x = - pi/2'; //
+
+  var euler =  [ - 0.1, - 1.570796327, 0, 2, 1, 0 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected =  [ - 0.1, - 1.570796327, 0, 2, 1, 0 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYX - Gimbal Lock angle y = 0'; //
+
+  var euler = [ 0.1, 0, 0, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected =  [ 0.1, 0, 0, 0, 1, 0 ]; ;
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XYX - Gimbal Lock angle y = pi'; //
+
+  var euler = [ 0.1, Math.PI, 0, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected =  [ 0.1, Math.PI, 0, 0, 1, 0 ]; ;
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX - Gimbal Lock angle z = 0'; //
+
+  var euler =  [ 0.1, 0, 0, 0, 2, 0 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected = [ 0.1, 0, 0, 0, 2, 0 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZX - Gimbal Lock angle z = pi'; //
+
+  var euler =  [ 0.1, Math.PI, 0, 0, 2, 0 ] ;
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected = [ 0.1, Math.PI, 0, 0, 2, 0 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY - Gimbal Lock angle z = 0'; //
+
+  var euler = [ 0.1, 0, 0, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected =  [ 0.1, 0, 0, 1, 0, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXY - Gimbal Lock angle z = pi'; //
+
+  var euler = [ 0.1, Math.PI, 0, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected =  [ 0.1, Math.PI, 0, 1, 0, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY - Gimbal Lock angle z = 0'; //
+
+  var euler = [ 0.1, 0, 0, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected = [ 0.1, 0, 0, 1, 2, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZY - Gimbal Lock angle z = pi'; //
+
+  var euler = [ 0.2, Math.PI, 0, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected = [ 0.2, Math.PI, 0, 1, 2, 1 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ - Gimbal Lock angle z = 0'; //
+
+  var euler = [ 0.2, 0, 0, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var expected = [ 0.2, 0, 0, 2, 0, 2 ] ;
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXZ - Gimbal Lock angle z = pi'; //
+
+  var euler = [ 0.1, Math.PI, 0, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var expected = [ 0.1, Math.PI, 0, 2, 0, 2 ] ;
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYZ - Gimbal Lock angle z = 0'; //
+
+  var euler =  [ 0.1, 0, 0, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected =  [ 0.1, 0, 0, 2, 1, 2 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYZ - Gimbal Lock angle z = pi'; //
+
+  var euler =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
+
+  var matrix = _.euler.toMatrix2( euler );
+  var result = _.euler.fromMatrix2( matrix, dst );
+  result = _.vector.toArray( result );
+  test.equivalent( result, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.euler.fromMatrix2( ) );
+  test.shouldThrowErrorSync( () => _.euler.fromMatrix2( [] ) );
+  test.shouldThrowErrorSync( () => _.euler.fromMatrix2( [ 0, 0, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.fromMatrix2( [ 0, 0, 0, 1, 2, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.fromMatrix2( [ 0, 0, 0, 1, 2, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.fromMatrix2( euler, euler ) );
+  test.shouldThrowErrorSync( () => _.euler.fromMatrix2( NaN ) );
+  test.shouldThrowErrorSync( () => _.euler.fromMatrix2( null ) );
+
+}
+
+//
+
+function toMatrix2( test )
+{
+  test.description = 'Euler remains unchanged'; //
+
+  var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.77015, -0.42073, 0.47942,
+         0.62244, 0.65995, - 0.42073,
+         - 0.13938, 0.62244, 0.77015 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+  test.equivalent( euler, oldEuler );
+
+  test.description = 'Euler XYZ'; //
+
+  var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.77015, -0.42073, 0.47942,
+         0.62244, 0.65995, - 0.42073,
+         - 0.13938, 0.62244, 0.77015 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY'; //
+
+  var euler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.77015, -0.47942, 0.42073,
+         0.59907, 0.77015, - 0.21902,
+         - 0.21902, 0.42073, 0.88034 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ'; //
+
+  var euler =  [ 1, 0.5, 0.5, 1, 0, 2 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.66757, 0.09500, 0.73846,
+         0.42073, 0.77015, - 0.47942,
+         - 0.61427, 0.63074, 0.47415 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX'; //
+
+  var euler = [ 1, 0.25, 0.5, 1, 2, 0 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.52350, 0.28611, 0.80254,
+         0.24740, 0.85030, - 0.46452,
+         - 0.81531, 0.44173, 0.37435 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY'; //
+
+  var euler = [ 0.25, 1, 0.5, 2, 0, 1 ] ;
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.75049, - 0.13367, 0.64721,
+         0.60799, 0.52350, - 0.59689,
+         - 0.25903, 0.84147, 0.47415 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX'; //
+
+  var euler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+  var expected =  _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.47415, - 0.61427, 0.63074,
+         0.73846, 0.66757, 0.09500,
+         - 0.47942, 0.42073, 0.77015 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [] ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0.1, 0, 0, 1, 2, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 0.2, 0, 1, 2, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( NaN ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( 'euler' ) );
+
+}
 
 // --
 // define class
@@ -1001,9 +2186,12 @@ var Self =
     //fromAxisAndAngle : fromAxisAndAngle,
     fromQuat : fromQuat,
     fromMatrix : fromMatrix,
-    toMatrix : toMatrix,
+    fromMatrix : toMatrix,
 
     toQuat2 : toQuat2,
+    fromQuat2 : fromQuat2,
+    fromMatrix2 : fromMatrix2,
+    toMatrix2 : toMatrix2,
 
   },
 
