@@ -108,27 +108,27 @@ function is( test )
 
   test.description = 'array'; //
 
-  test.shouldBe( !_.quat.is([ 0 ]) );
-  test.shouldBe( !_.quat.is([ 0,0 ]) );
-  test.shouldBe( !_.quat.is([ 0,0,0 ]) );
-  test.shouldBe( _.quat.is([ 0,0,0,0 ]) );
-  test.shouldBe( !_.quat.is([ 0,0,0,0,0 ]) );
+  test.is( !_.quat.is([ 0 ]) );
+  test.is( !_.quat.is([ 0,0 ]) );
+  test.is( !_.quat.is([ 0,0,0 ]) );
+  test.is( _.quat.is([ 0,0,0,0 ]) );
+  test.is( !_.quat.is([ 0,0,0,0,0 ]) );
 
   test.description = 'vector'; //
 
-  test.shouldBe( !_.quat.is( _.vector.fromArray([ 0 ]) ) );
-  test.shouldBe( !_.quat.is( _.vector.fromArray([ 0,0 ]) ) );
-  test.shouldBe( !_.quat.is( _.vector.fromArray([ 0,0,0 ]) ) );
-  test.shouldBe( _.quat.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
-  test.shouldBe( !_.quat.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
+  test.is( !_.quat.is( _.vector.fromArray([ 0 ]) ) );
+  test.is( !_.quat.is( _.vector.fromArray([ 0,0 ]) ) );
+  test.is( !_.quat.is( _.vector.fromArray([ 0,0,0 ]) ) );
+  test.is( _.quat.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
+  test.is( !_.quat.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
 
   test.description = 'not quat'; //
 
-  test.shouldBe( !_.quat.is( [] ) );
-  test.shouldBe( !_.quat.is( _.vector.fromArray([]) ) );
-  test.shouldBe( !_.quat.is( 'abc' ) );
-  test.shouldBe( !_.quat.is( { center : [ 0,0,0 ], radius : 1 } ) );
-  test.shouldBe( !_.quat.is( function( a,b,c ){} ) );
+  test.is( !_.quat.is( [] ) );
+  test.is( !_.quat.is( _.vector.fromArray([]) ) );
+  test.is( !_.quat.is( 'abc' ) );
+  test.is( !_.quat.is( { center : [ 0,0,0 ], radius : 1 } ) );
+  test.is( !_.quat.is( function( a,b,c ){} ) );
 
 }
 
@@ -139,29 +139,29 @@ function isZero( test )
 
   test.description = 'zero'; //
 
-  test.shouldBe( _.quat.isZero([ 0,0,0,0 ]) );
+  test.is( _.quat.isZero([ 0,0,0,0 ]) );
 
   test.description = 'not zero'; //
 
-  test.shouldBe( !_.quat.isZero([ 0,0,0,1 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,0,0,1.1 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,0,0,Infinity ]) );
+  test.is( !_.quat.isZero([ 0,0,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,0,0,1.1 ]) );
+  test.is( !_.quat.isZero([ 0,0,0,Infinity ]) );
 
-  test.shouldBe( !_.quat.isZero([ 1,0,0,0 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,1,0,0 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,0,1,0 ]) );
+  test.is( !_.quat.isZero([ 1,0,0,0 ]) );
+  test.is( !_.quat.isZero([ 0,1,0,0 ]) );
+  test.is( !_.quat.isZero([ 0,0,1,0 ]) );
 
-  test.shouldBe( !_.quat.isZero([ 1,0,0,1 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,1,0,1 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,0,1,1 ]) );
+  test.is( !_.quat.isZero([ 1,0,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,1,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,0,1,1 ]) );
 
-  test.shouldBe( !_.quat.isZero([ 0.1,0,0,0 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,0.1,0,0 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,0,0.1,0 ]) );
+  test.is( !_.quat.isZero([ 0.1,0,0,0 ]) );
+  test.is( !_.quat.isZero([ 0,0.1,0,0 ]) );
+  test.is( !_.quat.isZero([ 0,0,0.1,0 ]) );
 
-  test.shouldBe( !_.quat.isZero([ 0.1,0,0,1 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,0.1,0,1 ]) );
-  test.shouldBe( !_.quat.isZero([ 0,0,0.1,1 ]) );
+  test.is( !_.quat.isZero([ 0.1,0,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,0.1,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,0,0.1,1 ]) );
 
 }
 
@@ -172,29 +172,29 @@ function isUnit( test )
 
   test.description = 'zero'; //
 
-  test.shouldBe( _.quat.isUnit([ 0,0,0,1 ]) );
+  test.is( _.quat.isUnit([ 0,0,0,1 ]) );
 
   test.description = 'not zero'; //
 
-  test.shouldBe( !_.quat.isUnit([ 0,0,0,0 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,0,0,1.1 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,0,0,Infinity ]) );
+  test.is( !_.quat.isUnit([ 0,0,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,0,0,1.1 ]) );
+  test.is( !_.quat.isUnit([ 0,0,0,Infinity ]) );
 
-  test.shouldBe( !_.quat.isUnit([ 1,0,0,0 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,1,0,0 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,0,1,0 ]) );
+  test.is( !_.quat.isUnit([ 1,0,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,1,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,0,1,0 ]) );
 
-  test.shouldBe( !_.quat.isUnit([ 1,0,0,1 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,1,0,1 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,0,1,1 ]) );
+  test.is( !_.quat.isUnit([ 1,0,0,1 ]) );
+  test.is( !_.quat.isUnit([ 0,1,0,1 ]) );
+  test.is( !_.quat.isUnit([ 0,0,1,1 ]) );
 
-  test.shouldBe( !_.quat.isUnit([ 0.1,0,0,0 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,0.1,0,0 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,0,0.1,0 ]) );
+  test.is( !_.quat.isUnit([ 0.1,0,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,0.1,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,0,0.1,0 ]) );
 
-  test.shouldBe( !_.quat.isUnit([ 0.1,0,0,1 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,0.1,0,1 ]) );
-  test.shouldBe( !_.quat.isUnit([ 0,0,0.1,1 ]) );
+  test.is( !_.quat.isUnit([ 0.1,0,0,1 ]) );
+  test.is( !_.quat.isUnit([ 0,0.1,0,1 ]) );
+  test.is( !_.quat.isUnit([ 0,0,0.1,1 ]) );
 
 }
 
@@ -209,7 +209,7 @@ function make( test )
   var got = _.quat.make( src );
   var expected = [ 0,0,0,1 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -217,7 +217,7 @@ function make( test )
   var got = _.quat.make( src );
   var expected = [ 0,0,0,1 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src array'; //
 
@@ -225,7 +225,7 @@ function make( test )
   var got = _.quat.make( src );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src vector'; //
 
@@ -233,7 +233,7 @@ function make( test )
   var got = _.quat.make( src );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'bad arguments'; //
 
@@ -305,7 +305,7 @@ function zero( test )
   var got = _.quat.zero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -313,7 +313,7 @@ function zero( test )
   var got = _.quat.zero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -321,7 +321,7 @@ function zero( test )
   var got = _.quat.zero( dst );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -329,7 +329,7 @@ function zero( test )
   var got = _.quat.zero( dst );
   var expected = _.vector.fromArray([ 0,0,0,0 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'bad arguments'; //
 
@@ -351,7 +351,7 @@ function unit( test )
   var got = _.quat.unit( src );
   var expected = [ 0,0,0,1 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'src null'; //
 
@@ -359,7 +359,7 @@ function unit( test )
   var got = _.quat.unit( src );
   var expected = [ 0,0,0,1 ];
   test.identical( got,expected );
-  test.shouldBe( got !== src );
+  test.is( got !== src );
 
   test.description = 'dst array'; //
 
@@ -367,7 +367,7 @@ function unit( test )
   var got = _.quat.unit( dst );
   var expected = [ 0,0,0,1 ];
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'dst vector'; //
 
@@ -375,7 +375,7 @@ function unit( test )
   var got = _.quat.unit( dst );
   var expected = _.vector.fromArray([ 0,0,0,1 ]);
   test.identical( got,expected );
-  test.shouldBe( got === dst );
+  test.is( got === dst );
 
   test.description = 'bad arguments'; //
 
@@ -391,7 +391,7 @@ function unit( test )
 function fromAxisAndAngle( test )
 {
 
-  _.assert( test.eps > 0 );
+  _.assert( test./*eps*/accuracy > 0 );
 
   test.description = 'zero'; /* */
 
@@ -407,7 +407,7 @@ function fromAxisAndAngle( test )
 
   test.description = 'near zero'; /* */
 
-  var angle = test.eps;
+  var angle = test./*eps*/accuracy;
   var expected = [ 0.000004999999873689376,0,0,1 ];
   var got = _.quat.fromAxisAndAngle( null,[ 1,0,0 ],angle );
   test.equivalent( got,expected );
@@ -456,7 +456,7 @@ function fromAxisAndAngle( test )
     test.equivalent( quat, expected );
 
     // debugger;
-    if( _.avector.mag( axis ) !== 0 && abs( angle ) <= test.eps )
+    if( _.avector.mag( axis ) !== 0 && abs( angle ) <= test./*eps*/accuracy )
     return;
 
     var axis2 = _.quat.toAxisAndAngle( quat,null );
@@ -477,7 +477,7 @@ function fromAxisAndAngle( test )
     if( axis2[ 0 ]*axis[ 0 ] < 0 || axis2[ 1 ]*axis[ 1 ] < 0 || axis2[ 2 ]*axis[ 2 ] < 0 || axis2[ 3 ]*axis[ 3 ] < 0 )
     _.avector.mul( axis2,-1 );
 
-    test.equivalent( axis, axis2, test.eps*10 );
+    test.equivalent( axis, axis2, test./*eps*/accuracy*10 );
 
   }
 
@@ -523,16 +523,16 @@ function fromAxisAndAngle( test )
     var angle = sample.angle;
     allAxisesTest( sample.d );
 
-    var angle = sample.angle - test.eps;
+    var angle = sample.angle - test./*eps*/accuracy;
     allAxisesTest( 'below ' + sample.d );
 
-    var angle = sample.angle - test.eps*0.1;
+    var angle = sample.angle - test./*eps*/accuracy*0.1;
     allAxisesTest( 'below ' + sample.d );
 
-    var angle = sample.angle + test.eps;
+    var angle = sample.angle + test./*eps*/accuracy;
     allAxisesTest( 'above ' + sample.d );
 
-    var angle = sample.angle + test.eps*0.1;
+    var angle = sample.angle + test./*eps*/accuracy*0.1;
     allAxisesTest( 'above ' + sample.d );
 
   }
@@ -579,7 +579,7 @@ function fromAxisAndAngle( test )
 function fromEuler( test )
 {
 
-  var eps = _.EPS*0.1;
+  var /*eps*/accuracy = _.EPS*0.1;
   var h = _.sqrt( 2 ) / 2;
 
   // debugger;
@@ -684,7 +684,7 @@ function fromEuler( test )
 function _fromVectors( test,r,normalized )
 {
 
-  var eps = _.EPS*0.1;
+  var /*eps*/accuracy = _.EPS*0.1;
   var h = _.sqrt( 2 ) / 2;
 
   test.description = 'same avectors'; /* */
@@ -760,10 +760,10 @@ function _fromVectors( test,r,normalized )
     var v2 = sample.v2.slice();
 
     for( var i = 0 ; i < 3 ; i++ )
-    v1[ i ] -= eps;
+    v1[ i ] -= /*eps*/accuracy;
 
     for( var i = 0 ; i < 3 ; i++ )
-    v2[ i ] -= eps;
+    v2[ i ] -= /*eps*/accuracy;
 
     caseTest();
 
@@ -771,10 +771,10 @@ function _fromVectors( test,r,normalized )
     var v2 = sample.v2.slice();
 
     for( var i = 0 ; i < 3 ; i++ )
-    v1[ i ] -= eps;
+    v1[ i ] -= /*eps*/accuracy;
 
     for( var i = 0 ; i < 3 ; i++ )
-    v2[ i ] += eps;
+    v2[ i ] += /*eps*/accuracy;
 
     caseTest();
 
@@ -782,10 +782,10 @@ function _fromVectors( test,r,normalized )
     var v2 = sample.v2.slice();
 
     for( var i = 0 ; i < 3 ; i++ )
-    v1[ i ] += eps;
+    v1[ i ] += /*eps*/accuracy;
 
     for( var i = 0 ; i < 3 ; i++ )
-    v2[ i ] -= eps;
+    v2[ i ] -= /*eps*/accuracy;
 
     caseTest();
 
@@ -793,10 +793,10 @@ function _fromVectors( test,r,normalized )
     var v2 = sample.v2.slice();
 
     for( var i = 0 ; i < 3 ; i++ )
-    v1[ i ] += eps;
+    v1[ i ] += /*eps*/accuracy;
 
     for( var i = 0 ; i < 3 ; i++ )
-    v2[ i ] += eps;
+    v2[ i ] += /*eps*/accuracy;
 
     caseTest();
 
@@ -850,7 +850,7 @@ function _fromMatrixRotation( test,precise,r )
 
   var axis = null;
   var h = _.sqrt( 2 ) / 2;
-  var eps = precise ? _.EPS*1e-1 : _.EPS*1e-2;
+  var /*eps*/accuracy = precise ? _.EPS*1e-1 : _.EPS*1e-2;
   var samples =
   [
 
@@ -938,10 +938,10 @@ function _fromMatrixRotation( test,precise,r )
     var angle = sample.angle;
     testAllAxis( '' );
 
-    var angle = sample.angle - eps;
+    var angle = sample.angle - /*eps*/accuracy;
     testAllAxis( 'below' );
 
-    var angle = sample.angle + eps;
+    var angle = sample.angle + /*eps*/accuracy;
     testAllAxis( 'above' );
 
   }
@@ -1020,7 +1020,7 @@ function toMatrix( test )
 
   var axis = null;
   var h = _.sqrt( 2 ) / 2;
-  var eps = _.EPS*1e-1;
+  var /*eps*/accuracy = _.EPS*1e-1;
   var samples =
   [
 
@@ -1092,10 +1092,10 @@ function toMatrix( test )
     var angle = sample.angle;
     testAllAxis( '' );
 
-    var angle = sample.angle - eps;
+    var angle = sample.angle - /*eps*/accuracy;
     testAllAxis( 'below' );
 
-    var angle = sample.angle + eps;
+    var angle = sample.angle + /*eps*/accuracy;
     testAllAxis( 'above' );
 
   }
@@ -1125,9 +1125,8 @@ function toMatrix( test )
 var Self =
 {
 
-  name : 'Math.Quat',
+  name : 'Tools/Math/Quaternion',
   silencing : 1,
-  enabled : 0, // !!!
   // routine : 'fromAxisAndAngle',
 
   context :
@@ -1157,8 +1156,8 @@ var Self =
     fromVectors : fromVectors,
     fromNormalizedVectors : fromNormalizedVectors,
 
-    fromMatrixRotation : fromMatrixRotation,
-    fromMatrixRotation2 : fromMatrixRotation2,
+    // fromMatrixRotation : fromMatrixRotation,
+    // fromMatrixRotation2 : fromMatrixRotation2,
 
     toMatrix : toMatrix,
 

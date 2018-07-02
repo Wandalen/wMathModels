@@ -27,7 +27,7 @@ var Self = _.euler = _.euler || Object.create( _.avector );
 
 function is( euler )
 {
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return ( _.arrayLike( euler ) || _.vectorIs( euler ) ) && ( euler.length === 6 );
 }
 
@@ -36,7 +36,7 @@ function is( euler )
 function isZero( euler )
 {
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   var eulerv = _.euler._from( euler );
 
@@ -96,7 +96,7 @@ function from( euler )
 {
 
   _.assert( euler === null || _.euler.is( euler ) );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   if( euler === null )
   return _.euler.make();
@@ -116,7 +116,7 @@ function from( euler )
 function _from( euler )
 {
   _.assert( euler === null || _.euler.is( euler ) );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   if( euler === null )
   euler = _.euler.make();
@@ -222,14 +222,14 @@ function fromAxisAndAngle( dst, axis, angle )
 
 function fromQuat( dst,quat,v )
 {
-  var eps = 1e-9;
-  var half = 0.5-eps;
+  var /*eps*/accuracy = 1e-9;
+  var half = 0.5-/*eps*/accuracy;
 
   var dst = _.euler.from( dst );
   var dstv = _.vector.from( dst );
   var quatv = _.quat._from( quat );
 
-  // _.assert( arguments.length === 2 );
+  // _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   var ox = dstv.eGet( 3 );
   var oy = dstv.eGet( 4 );
@@ -765,8 +765,8 @@ function fromQuat( dst,quat,v )
 
 function fromMatrix( euler,mat )
 {
-  var eps = 1e-7;
-  var one = 1-eps;
+  var /*eps*/accuracy = 1e-7;
+  var one = 1-/*eps*/accuracy;
 
   var euler = _.euler.from( euler );
   var eulerv = _.vector.from( euler );
@@ -778,7 +778,7 @@ function fromMatrix( euler,mat )
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
 // m1
 // -0.875, 0.250, 0.415,
@@ -793,7 +793,7 @@ function fromMatrix( euler,mat )
 
   eulerv.eSet( 1,asin( clamp( s02, - 1, + 1 ) ) );
 
-  if( abs( eps ) < one )
+  if( abs( /*eps*/accuracy ) < one )
   {
     eulerv.eSet( 0,atan2( - s12, s22 ) );
     eulerv.eSet( 2,atan2( - s01, s00 ) );
@@ -864,8 +864,8 @@ function fromMatrix( euler,mat )
 
 function toMatrix( euler,mat,premutating )
 {
-  // var eps = 1e-9;
-  // var half = 0.5-eps;
+  // var /*eps*/accuracy = 1e-9;
+  // var half = 0.5-/*eps*/accuracy;
 
   if( mat === null || mat === undefined )
   mat = _.Space.make([ 3,3 ]);

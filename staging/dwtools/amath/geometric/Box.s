@@ -129,7 +129,7 @@ function from( box )
   }
 
   _.assert( _.box.is( box ) );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   if( _.vectorIs( box ) )
   {
@@ -146,7 +146,7 @@ function from( box )
 function _from( box )
 {
   _.assert( _.box.is( box ) );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return _.vector.from( box );
 }
 
@@ -179,7 +179,7 @@ function _from( box )
 function fromPoints( box , points )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.arrayIs( points ) );
 
   var dimp = points[0].length;
@@ -245,7 +245,7 @@ function fromCenterAndSize( box , center , size )
 
   _.assert( dim === center.length );
   _.assert( dim === size.length );
-  _.assert( arguments.length === 3 );
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
 
   debugger;
   //throw _.err( 'not tested' );
@@ -301,7 +301,7 @@ function fromSphere( box , sphere )
   var max = _.box.cornerRightGet( boxv );
   var dim2 = _.box.dimGet( boxv );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( dim1 === dim2 );
 
   debugger;
@@ -350,7 +350,7 @@ function fromCube( box , size )
   var max = _.box.cornerRightGet( boxv );
   var dim = _.box.dimGet( boxv );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   _.vector.assignScalar( min,-size/2 );
   _.vector.assignScalar( max,+size/2 );
@@ -362,7 +362,7 @@ function fromCube( box , size )
 
 function is( box )
 {
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   // _.assert( !box.some( isNaN ) );
   return ( _.arrayLike( box ) || _.vectorIs( box ) ) && ( box.length >= 0 ) && ( box.length % 2 === 0 );
 }
@@ -372,7 +372,7 @@ function is( box )
 function isEmpty( box )
 {
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
@@ -394,7 +394,7 @@ function isEmpty( box )
 function isZero( box )
 {
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
@@ -413,7 +413,7 @@ function isZero( box )
 function isNil( box )
 {
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   var boxv = _.box._from( box );
   var dim = _.box.dimGet( boxv );
@@ -451,7 +451,7 @@ function isNil( box )
 
 function dimGet( box )
 {
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   _.assert( _.box.is( box ) );
   return box.length / 2;
 }
@@ -482,7 +482,7 @@ function dimGet( box )
 function cornerLeftGet( box )
 {
   var boxv = _.box._from( box );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return boxv.subarray( 0 , box.length / 2 );
 }
 
@@ -512,7 +512,7 @@ function cornerLeftGet( box )
 function cornerRightGet( box )
 {
   var boxv = _.box._from( box );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return boxv.subarray( box.length / 2 , box.length );
 }
 
@@ -650,7 +650,7 @@ function expand( box , expand )
   var expand = _.vector.fromMaybeNumber( expand,dim );
 
   _.assert( dim === expand.length );
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   debugger;
   //throw _.err( 'not tested' );
@@ -699,7 +699,7 @@ function pointExpand( dstBox , point )
   var point = _.vector.from( point );
 
   _.assert( dim === point.length );
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   _.vector.minVectors( min , point );
   _.vector.maxVectors( max , point );
@@ -745,10 +745,7 @@ function pointContains( box , point )
   var point = _.vector.from( point );
 
   _.assert( dim === point.length );
-  _.assert( arguments.length === 2 );
-
-  debugger;
-  //throw _.err( 'not tested' );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   if( _.vector.anyLess( point , min ) )
   return false;
@@ -762,28 +759,28 @@ function pointContains( box , point )
 //
 
 /**
-* Get the relative coordinates of a point regarding a given box. Returns the point in relative coordinates.
-* Source box remains untouched.
-*
-* @param { Array } box - Source box.
-* @param { Array } point - The point to calculate its relative reference.
-*
-* @example
-* // returns [ 0.5, 1 ]
-* _.pointRelative( [ 0, 0, 2, 2 ], [ 1, 2 ] );
-*
-* @example
-* // returns [ - 1.5, 2 ]
-* _.pointRelative( [ 0, 0, 2, 2 ], [ - 3, 4 ] );
-*
-* @returns { Array } Returns the relative coordinates of the point against the box coordinates.
-* @function pointRelative
-* @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( point ) is not point.
-* @memberof wTools.box
-*/
+  * Get the relative coordinates of a point regarding a given box. Returns the point in relative coordinates.
+  * Source box remains untouched.
+  *
+  * @param { Array } box - Source box.
+  * @param { Array } point - The point to calculate its relative reference.
+  *
+  * @example
+  * // returns [ 0.5, 1 ]
+  * _.pointRelative( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+  *
+  * @example
+  * // returns [ - 1.5, 2 ]
+  * _.pointRelative( [ 0, 0, 2, 2 ], [ - 3, 4 ] );
+  *
+  * @returns { Array } Returns the relative coordinates of the point against the box coordinates.
+  * @function pointRelative
+  * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.box
+  */
 
 function pointRelative( box , point )
 {
@@ -798,7 +795,7 @@ function pointRelative( box , point )
   var _point = _.vector.from( point );
 
   _.assert( dim === point.length );
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   debugger;
   // throw _.err( 'not tested' );
@@ -844,7 +841,7 @@ function pointClamp( box , point )
   var _point = _.vector.from( point );
 
   _.assert( dim === point.length );
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   debugger;
   //  throw _.err( 'not tested' );
@@ -888,7 +885,7 @@ function pointDistance( box , point )
   if( box === null )
   box = _.box.make();
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   debugger;
   //  throw _.err( 'not tested' );
@@ -903,27 +900,27 @@ function pointDistance( box , point )
 //
 
 /**
-*Check if the source box contains tested box (if a side is touching then it doesn´t contain it).
-*Returns true if it is contained, false if not. Box are stored in Array data structure. Source and tested boxes remain unchanged
-*
-* @param { Array } srcBox - The source box (container).
-* @param { Array } tstBox - The tested box (the box to check if it is contained in srcBox).
-*
-* @example
-* // returns true
-* _.boxContains( [ 0, 0, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
-*
-* @example
-* // returns false
-* _.boxContains( [ 0, 0, 2, 2 ], [ 0, 0, 1, 2.5 ] );
-*
-* @returns { Boolean } Returns true if the box is contained and false if not.
-* @function boxContains
-* @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
-* @memberof wTools.box
-*/
+  *Check if the source box contains tested box (if a side is touching then it doesn´t contain it).
+  *Returns true if it is contained, false if not. Box are stored in Array data structure. Source and tested boxes remain unchanged
+  *
+  * @param { Array } srcBox - The source box (container).
+  * @param { Array } tstBox - The tested box (the box to check if it is contained in srcBox).
+  *
+  * @example
+  * // returns true
+  * _.boxContains( [ 0, 0, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.boxContains( [ 0, 0, 2, 2 ], [ 0, 0, 1, 2.5 ] );
+  *
+  * @returns { Boolean } Returns true if the box is contained and false if not.
+  * @function boxContains
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
+  * @memberof wTools.box
+  */
 
 function boxContains( box , box2 )
 {
@@ -933,11 +930,8 @@ function boxContains( box , box2 )
   var min = _.box.cornerLeftGet( boxv );
   var max = _.box.cornerRightGet( boxv );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( dim === _.box.dimGet( box ) );
-
-  debugger;
-  // throw _.err( 'not tested' );
 
   if( !_.box.pointContains( box,min ) )
   return false;
@@ -990,7 +984,7 @@ function boxIntersects( srcBox , tstBox )
   var min = _.box.cornerLeftGet( boxv );
   var max = _.box.cornerRightGet( boxv );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( dim === _.box.dimGet( srcBox ) );
 
   debugger;
@@ -1042,7 +1036,7 @@ function boxExpand( dstBox , srcBox )
   var min2 = _.box.cornerLeftGet( _srcBox );
   var max2 = _.box.cornerRightGet( _srcBox );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( dim1 === dim2 );
 
   _.vector.minVectors( min1 , min2 );
@@ -1061,7 +1055,7 @@ function matrixHomogenousApply( box , matrix )
   var min = _.box.cornerLeftGet( boxv );
   var max = _.box.cornerRightGet( boxv );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.spaceIs( matrix ) );
   _.assert( matrix.hasShape([ dim+1,dim+1 ]) );
 
@@ -1101,7 +1095,7 @@ function translate( box , offset )
 // function pointContains( box,point )
 // {
 //
-//   _.assert( arguments.length === 2 );
+//   _.assert( arguments.length === 2, 'expects exactly two argument' );
 //   _.assert( _.box.is( box ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
@@ -1118,7 +1112,7 @@ function translate( box , offset )
 // function pointDistance( box,point )
 // {
 //
-//   _.assert( arguments.length === 2 );
+//   _.assert( arguments.length === 2, 'expects exactly two argument' );
 //   _.assert( _.box.is( box ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
@@ -1135,7 +1129,7 @@ function translate( box , offset )
 // function pointClamp( box, point )
 // {
 //
-//   _.assert( arguments.length === 2 );
+//   _.assert( arguments.length === 2, 'expects exactly two argument' );
 //   _.assert( _.box.is( box ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
@@ -1165,7 +1159,7 @@ function translate( box , offset )
 // function boxIntersects( box1, box2 )
 // {
 //
-//   _.assert( arguments.length === 2 );
+//   _.assert( arguments.length === 2, 'expects exactly two argument' );
 //   _.assert( _.box.is( box1 ) );
 //   _.assert( _.box.is( box2 ) );
 //   debugger;
@@ -1188,7 +1182,7 @@ function translate( box , offset )
 // function matrixHomogenousApply( box,matrix )
 // {
 //
-//   _.assert( arguments.length === 2 );
+//   _.assert( arguments.length === 2, 'expects exactly two argument' );
 //   _.assert( _.box.is( box ) );
 //   _.assert( _.spaceIs( matrix ) );
 //   debugger;
@@ -1209,7 +1203,7 @@ function translate( box , offset )
 // function translate( box,offset )
 // {
 //
-//   _.assert( arguments.length === 2 );
+//   _.assert( arguments.length === 2, 'expects exactly two argument' );
 //   _.assert( _.box.is( box ) );
 //   _.assert( _.spaceIs( matrix ) );
 //   debugger;

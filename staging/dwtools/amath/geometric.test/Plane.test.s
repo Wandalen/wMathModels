@@ -1337,11 +1337,11 @@ function negate( test )
 var Self =
 {
 
-  name : 'Math.Plane',
+  name : 'Tools/Math/Plane',
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'threeIntersectionPoint',
+  // routine: 'threeIntersectionPoint',
 
   tests :
   {
