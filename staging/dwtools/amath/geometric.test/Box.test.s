@@ -1797,6 +1797,7 @@ debugger;
   });
 }
 
+//
 
 function boxContains( test )
 {
@@ -4027,7 +4028,9 @@ function fromCube( test )
   var expected = [ 0, 0, 0, 0, 0, 0 ];
 
   box = _.box.fromCube( box, fromCube );
+  debugger;
   test.identical( box, expected );
+  debugger;
 
 
   test.description = 'Box of 1 dimension'; //
