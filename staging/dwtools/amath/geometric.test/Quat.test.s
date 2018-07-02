@@ -1127,7 +1127,6 @@ var Self =
 
   name : 'Tools/Math/Quaternion',
   silencing : 1,
-  // routine : 'fromAxisAndAngle',
 
   context :
   {

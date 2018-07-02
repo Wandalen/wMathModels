@@ -1114,6 +1114,578 @@ var Order =
 
 }
 
+function fromQuat2( quat, dst )
+{
+
+  var dst = _.euler.from( dst );
+  var dstv = _.vector.from( dst );
+  var quatv = _.quat._from( quat );
+
+  var ex,ey,ez;
+
+  var x = quatv.eGet( 0 );
+  var y = quatv.eGet( 1 );
+  var z = quatv.eGet( 2 );
+  var w = quatv.eGet( 3 );
+
+  // Normalize
+
+  var norm = sqrt( x*x + y*y + z*z + w*w );
+
+  if( norm !== 1 )
+  {
+    x = x/norm;
+    y = y/norm;
+    z = z/norm;
+    w = w/norm;
+    norm = sqrt( x*x + y*y + z*z + w*w );
+  }
+
+  var ox = dstv.eGet( 3 );
+  var oy = dstv.eGet( 4 );
+  var oz = dstv.eGet( 5 );
+
+  if( ox === 0 && oy === 1 && oz === 2 )
+  {
+  //if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
+  //{
+    dstv.eSet( 0, atan2( -2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
+    dstv.eSet( 1, - asin( 2*x*z - 2*w*y ) );
+    dstv.eSet( 2, atan2( 2*x*y + 2*w*z , x*x + w*w - y*y - z*z ) );
+  //}
+  }
+
+  if( ox === 0 && oy === 2 && oz === 1 )
+  {
+  }
+
+  if( ox === 1 && oy === 0 && oz === 2 )
+  {
+  }
+
+  if( ox === 1 && oy === 2 && oz === 0 )
+  {
+  }
+
+  if( ox === 2 && oy === 0 && oz === 1 )
+  {
+  }
+
+  if( ox === 2 && oy === 1 && oz === 0 )
+  {
+    if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
+    {
+        dstv.eSet( 0, atan2( 2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
+        dstv.eSet( 1, - asin( 2*x*z - 2*w*y ) );
+        dstv.eSet( 2, atan2( 2*x*y + 2*w*z , x*x + w*w - y*y - z*z ) )
+    }
+    else if( 2*( x*z - w*y ) === - 1 )
+    {
+      console.log('Indeterminate; We set angle x = 0. ')
+      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
+      dstv.eSet( 1, pi/2 );
+      dstv.eSet( 2, 0 );
+    }
+    else if( 2*( x*z - w*y ) === 1 )
+    {
+      console.log('Indeterminate; We set angle x = 0. ')
+      dstv.eSet( 0, atan2( ( x*y - w*z ), ( x*z + z*y ) ) );
+      dstv.eSet( 1, - pi/2 );
+      dstv.eSet( 2, 0 );
+    }
+    else
+    {
+    return 0;
+    }
+  }
+
+  if( ox === 0 && oy === 1 && oz === 0 )
+  {
+  }
+
+  if( ox === 0 && oy === 2 && oz === 0 )
+  {
+  }
+
+  if( ox === 1 && oy === 0 && oz === 1 )
+  {
+  }
+
+  if( ox === 1 && oy === 2 && oz === 1 )
+  {
+  }
+
+  if( ox === 2 && oy === 0 && oz === 2 )
+  {
+    if( 0 < ( x*x + y*y ) && ( x*x + y*y ) < 1 )
+    {
+        dstv.eSet( 0, atan2( ( 2*x*z - 2*w*y ), ( 2*y*z + 2*w*x ) ) );
+        dstv.eSet( 1, acos( ( z*z - x*x - y*y + w*w ) ) );
+        dstv.eSet( 2, atan2( ( 2*x*z + 2*w*y ), - ( 2*y*z - 2*w*x ) ) );
+    }
+    else if( ( x*x + y*y ) === 0 )
+    {
+      console.log('Indeterminate; We set angle z2 = 0. ')
+      dstv.eSet( 0, atan2( ( x*y + w*z ), 0.5 - ( y*y - z*z ) ) );
+      dstv.eSet( 1, 0 );
+      dstv.eSet( 2, 0 );
+    }
+    else if( ( x*x + y*y ) === 1 )
+    {
+      console.log('Indeterminate; We set angle z2 = 0. ')
+      dstv.eSet( 0, - atan2( ( x*y + w*z ), 0.5 - ( y*y - z*z ) ) );
+      dstv.eSet( 1, pi );
+      dstv.eSet( 2, 0 );
+    }
+    else
+    {
+    return 0;
+    }
+  }
+
+  //NOTWORKING
+  if( ox === 2 && oy === 1 && oz === 2 )
+  {
+    if( 0 < ( x*x + y*y ) && ( x*x + y*y ) < 1 )
+    {
+        dstv.eSet( 0, atan2( ( 2*y*z + 2*w*x ), ( - 2*x*z + 2*w*y ) ) );
+        dstv.eSet( 1, acos( ( z*z - x*x - y*y + w*w ) ) );
+        dstv.eSet( 2, atan2( ( 2*y*z - 2*w*x ), ( 2*x*z + 2*w*y ) ) );
+    }
+  }
+
+  return dst;
+
+}
+
+
+/**
+* Create the quaternion from a set of euler angles. Returns the created quaternion.
+* Euler angles stay untouched.
+*
+* @param { Array } euler - Source sequence of Euler angles.
+*
+* @example
+* // returns [ 0.49794255, 0, 0, 0.8775826 ];
+* _.toQuat2( [ 1, 0, 0, 0, 1, 2 ] );
+*
+* @example
+* // returns [ 0, 0.4794255, 0, 0.8775826 ];
+* _.toQuat2( [ 0, 1, 0, 2, 1, 0 ] );
+*
+* @returns { Quat } Returns the corresponding quaternion.
+* @function toQuat2
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( euler ) is not euler.
+* @memberof wTools.euler
+*/
+
+function toQuat2( euler )
+{
+
+  var euler = _.euler.from( euler );
+  var eulerv = _.vector.from( euler );
+  var quatv = _.quat._from( _.quat.makeUnit() );
+
+  _.assert( arguments.length === 1 );
+
+  var e0 = eulerv.eGet( 0 );
+  var e1 = eulerv.eGet( 1 );
+  var e2 = eulerv.eGet( 2 );
+  var ox = eulerv.eGet( 3 );
+  var oy = eulerv.eGet( 4 );
+  var oz = eulerv.eGet( 5 );
+
+  if( ox === 0 && oy === 1 && oz === 2 )
+  {
+    quatv.eSet( 0, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) + cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
+    quatv.eSet( 1, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) - sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
+    quatv.eSet( 2, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) + sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
+    quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) - sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  }
+
+  else if( ox === 0 && oy === 2 && oz === 1 )
+  {
+    quatv.eSet( 0, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) - cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
+    quatv.eSet( 1, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) - sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
+    quatv.eSet( 2, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) + sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
+    quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  }
+
+  else if( ox === 0 && oy === 1 && oz === 0 )
+  {
+    quatv.eSet( 0, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 1, sin( ( e0 + e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 2, sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
+  }
+
+  else if( ox === 0 && oy === 2 && oz === 0 )
+  {
+    quatv.eSet( 0, cos( ( e0 - e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 1, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 2, - sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 3, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
+  }
+
+  else if( ox === 1 && oy === 0 && oz === 2 )
+  {
+    quatv.eSet( 0, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) + sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
+    quatv.eSet( 1, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) - cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
+    quatv.eSet( 2, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) - sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
+    quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  }
+
+  else if( ox === 1 && oy === 2 && oz === 0 )
+  {
+    quatv.eSet( 0, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) + sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
+    quatv.eSet( 1, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) + cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
+    quatv.eSet( 2, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) - sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
+    quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) - sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  }
+
+  else if( ox === 1 && oy === 0 && oz === 1 )
+  {
+    quatv.eSet( 0, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 1, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 2, - sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
+  }
+
+  else if( ox === 1 && oy === 2 && oz === 1 )
+  {
+    quatv.eSet( 0, sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 1, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 2, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
+  }
+
+  else if( ox === 2 && oy === 1 && oz === 0 )
+  {
+    quatv.eSet( 0, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) - sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
+    quatv.eSet( 1, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) + sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
+    quatv.eSet( 2, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) - cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
+    quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) + sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  }
+
+  else if( ox === 2 && oy === 0 && oz === 1 )
+  {
+    quatv.eSet( 0, cos( e0/2 )*sin( e1/2 )*cos( e2/2 ) - sin( e0/2 )*cos( e1/2 )*sin( e2/2) );
+    quatv.eSet( 1, cos( e0/2 )*cos( e1/2 )*sin( e2/2 ) + sin( e0/2 )*sin( e1/2 )*cos( e2/2) );
+    quatv.eSet( 2, sin( e0/2 )*cos( e1/2 )*cos( e2/2 ) + cos( e0/2 )*sin( e1/2 )*sin( e2/2) );
+    quatv.eSet( 3, cos( e0/2 )*cos( e1/2 )*cos( e2/2 ) - sin( e0/2 )*sin( e1/2 )*sin( e2/2) );
+  }
+
+  else if( ox === 2 && oy === 0 && oz === 2 )
+  {
+    quatv.eSet( 0, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 1, sin( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 2, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
+  }
+
+  else if( ox === 2 && oy === 1 && oz === 2 )
+  {
+    quatv.eSet( 0, - sin( ( e0 + e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 1, cos( ( e0 - e2 )/2 )*sin( e1/2 ) );
+    quatv.eSet( 2, sin( ( e0 - e2 )/2 )*cos( e1/2 ) );
+    quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
+  }
+
+  else
+  {
+     return 0;
+  }
+
+  return quatv;
+}
+
+function fromMatrix2( mat, dst )
+{
+
+  var euler = _.euler.from( dst );
+  var eulerv = _.vector.from( euler );
+
+  _.assert( _.Space.is( mat ) );
+  _.assert( mat.dims[ 0 ] >= 3 );
+  _.assert( mat.dims[ 1 ] >= 3 );
+  _.assert( arguments.length === 2 );
+
+  var m00 = mat.atomGet([ 0,0 ]); var m01 = mat.atomGet([ 0,1 ]); var m02 = mat.atomGet([ 0,2 ]);
+  var m10 = mat.atomGet([ 1,0 ]); var m11 = mat.atomGet([ 1,1 ]); var m12 = mat.atomGet([ 1,2 ]);
+  var m20 = mat.atomGet([ 2,0 ]); var m21 = mat.atomGet([ 2,1 ]); var m22 = mat.atomGet([ 2,2 ]);
+
+  var ox = eulerv.eGet( 3 );
+  var oy = eulerv.eGet( 4 );
+  var oz = eulerv.eGet( 5 );
+
+  if( ox === 0 && oy === 1 && oz === 2 )
+  {
+    if( - 1 < m02 && m02 < 1 )
+    {
+      eulerv.eSet( 0, atan2( -m12, m22 ) );
+      eulerv.eSet( 1, asin(m02) );
+      eulerv.eSet( 2, atan2( -m01, m00 ) );
+    }
+    else if( m02 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m10, m11 ) );
+      eulerv.eSet( 1, - pi/2 );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m02 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( m10, m11 ) );
+      eulerv.eSet( 1, pi/2 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox === 0 && oy === 2 && oz === 1 )
+  {
+    if( - 1 < m01 && m01 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m21, m11 ) );
+      eulerv.eSet( 2, atan2( m02, m00 ) );
+      eulerv.eSet( 1, asin( - m01) );
+    }
+    else if( m01 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( - m20, m22 ) );
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 1, - pi/2 );
+    }
+    else if( m01 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( - m20, m22 ) );
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 1, pi/2 );
+    }
+  }
+
+  if( ox === 1 && oy === 0 && oz === 2 )
+  {
+    if( - 1 < m12 && m12 < 1 )
+    {
+      eulerv.eSet( 1, asin( -m12 ) );
+      eulerv.eSet( 0, atan2( m02, m22 ) );
+      eulerv.eSet( 2, atan2( m10, m11 ) );
+    }
+    else if( m12 >= 1 )
+    {
+      eulerv.eSet( 1, - pi/2 );
+      eulerv.eSet( 0, atan2( - m01, m00 ) );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m12 <= - 1 )
+    {
+      eulerv.eSet( 1, pi/2);
+      eulerv.eSet( 0, - atan2( - m01, m00 )  );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox === 1 && oy === 2 && oz === 0 )
+  {
+    if( - 1 < m10 && m10 < 1 )
+    {
+      eulerv.eSet( 2, atan2( - m12, m11 ) );
+      eulerv.eSet( 0, atan2( - m20, m00 ) );
+      eulerv.eSet( 1, asin( m10 ) );
+    }
+    else if( m10 <= - 1 )
+    {
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 0, - atan2( m21, m22 ) );
+      eulerv.eSet( 1, - pi/2 );
+    }
+    else if( m10 >= 1 )
+    {
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 0, atan2( m21, m22 )  );
+      eulerv.eSet( 1, pi/2 );
+    }
+  }
+
+  if( ox === 2 && oy === 0 && oz === 1 )
+  {
+    if( - 1 < m21 && m21 < 1 )
+    {
+      eulerv.eSet( 1, asin( m21 ) );
+      eulerv.eSet( 2, atan2( - m20, m22 ) );
+      eulerv.eSet( 0, atan2( - m01, m11 ) );
+    }
+    else if( m21 <= - 1 )
+    {
+      eulerv.eSet( 1, - pi/2 );
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 0, - atan2( m02, m00 ) );
+    }
+    else if( m21 >= 1 )
+    {
+      eulerv.eSet( 1, pi/2 );
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 0, atan2( m02, m00 ) );
+    }
+  }
+
+  if( ox === 2 && oy === 1 && oz === 0 )
+  {
+    if( - 1 < m20 && m20 < 1 )
+    {
+      eulerv.eSet( 2, atan2( m21, m22 ) );
+      eulerv.eSet( 1, asin( - m20 ) );
+      eulerv.eSet( 0, atan2( m10, m00 ) );
+    }
+    else if( m20 <= - 1 )
+    {
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 1, pi/2 );
+      eulerv.eSet( 0, - atan2( - m12, m11 ) );
+    }
+    else if( m20 >= 1 )
+    {
+      eulerv.eSet( 2, 0 );
+      eulerv.eSet( 1, - pi/2 );
+      eulerv.eSet( 0, atan2( - m12, m11 ) );
+    }
+  }
+
+  if( ox === 0 && oy === 1 && oz === 0 )
+  {
+    if( - 1 < m00 && m00 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m10, - m20 ) );
+      eulerv.eSet( 1, acos( m00 ) );
+      eulerv.eSet( 2, atan2( m01, m02 ) );
+    }
+    else if( m00 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( - m12, m11 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m00 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( - m12, m11 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox === 0 && oy === 2 && oz === 0 )
+  {
+    if( - 1 < m00 && m00 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m20, m10 ) );
+      eulerv.eSet( 1, acos( m00 ) );
+      eulerv.eSet( 2, atan2( m02, - m01 ) );
+    }
+    else if( m00 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m21, m22 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m00 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( m21, m22 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox === 1 && oy === 0 && oz === 1 )
+  {
+    if( - 1 < m11 && m11 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m01, m21 ) );
+      eulerv.eSet( 1, acos( m11 ) );
+      eulerv.eSet( 2, atan2( m10, - m12 ) );
+    }
+    else if( m01 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m02, m00 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m01 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( m02, m00 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox === 1 && oy === 2 && oz === 1 )
+  {
+    if( - 1 < m11 && m11 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m21, - m01 ) );
+      eulerv.eSet( 1, acos( m11 ) );
+      eulerv.eSet( 2, atan2( m12, m10 ) );
+    }
+    else if( m01 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m20, m22 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m01 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( - m20, m22 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox === 2 && oy === 0 && oz === 2 )
+  {
+    if( - 1 < m22 && m22 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m02, - m12 ) );
+      eulerv.eSet( 1, acos( m22 ) );
+      eulerv.eSet( 2, atan2( m20, m21 ) );
+    }
+    else if( m22 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m01, m00 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m22 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( - m01, m00 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  if( ox === 2 && oy === 1 && oz === 2 )
+  {
+    if( - 1 < m22 && m22 < 1 )
+    {
+      eulerv.eSet( 0, atan2( m12, m02 ) );
+      eulerv.eSet( 1, acos( m22 ) );
+      eulerv.eSet( 2, atan2( m21, - m20 ) );
+    }
+    else if( m01 <= - 1 )
+    {
+      eulerv.eSet( 0, - atan2( m10, m11 ) );
+      eulerv.eSet( 1, pi );
+      eulerv.eSet( 2, 0 );
+    }
+    else if( m01 >= 1 )
+    {
+      eulerv.eSet( 0, atan2( m10, m11 ) );
+      eulerv.eSet( 1, 0 );
+      eulerv.eSet( 2, 0 );
+    }
+  }
+
+  return eulerv;
+}
+
 // --
 // define class
 // --
@@ -1135,11 +1707,16 @@ var Proto =
   fromAxisAndAngle : fromAxisAndAngle,
   fromQuat : fromQuat,
   fromMatrix : fromMatrix,
+  toMatrix : toMatrix,
+
 
   toMatrix : toMatrix,
 
   Order : Order,
 
+  fromQuat2 : fromQuat2,
+  toQuat2 : toQuat2,
+  fromMatrix2 : fromMatrix2,
 }
 
 _.mapExtend( Self,Proto );
