@@ -93,7 +93,7 @@ function from( quat )
 {
 
   _.assert( quat === null || _.quat.is( quat ),'expects quaternion' );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   if( quat === null )
   return _.quat.make();
@@ -113,7 +113,7 @@ function from( quat )
 function _from( quat )
 {
   _.assert( quat === null || _.quat.is( quat ),'expects quaternion' );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   if( quat === null )
   quat = _.quat.make();
@@ -126,7 +126,7 @@ function _from( quat )
 function fromEuler( dst, euler, v )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   var dst = _.quat.from( dst );
   var dstv = _.vector.from( dst );
@@ -438,7 +438,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 {
 
   _.assert( _.EPS2 > 0 );
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   var quat = _.quat.from( quat );
   var quatv = _.vector.from( quat );
@@ -470,7 +470,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 function fromVectors( dst, src1, src2 )
 {
 
-  _.assert( arguments.length === 3 );
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
 
   var dst = _.quat.from( dst );
   var dstv = _.vector.from( dst );
@@ -543,7 +543,7 @@ function fromVectors2( src1,src2,axis )
 function fromNormalizedVectors( dst, src1, src2 )
 {
 
-  _.assert( arguments.length === 3 );
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
 
   var dst = _.quat.from( dst );
   var dstv = _.vector.from( dst );
@@ -576,7 +576,7 @@ function fromNormalizedVectors( dst, src1, src2 )
 function fromMatrixRotation( dst, mat )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -641,7 +641,7 @@ function fromMatrixRotation( dst, mat )
 function fromMatrixRotation2( dst, mat )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -680,7 +680,7 @@ function fromMatrixRotation2( dst, mat )
 function fromMatrixWithScale( dst, mat )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -795,7 +795,7 @@ function toMatrix( quat,mat )
 
 function is( quat )
 {
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return ( _.arrayLike( quat ) || _.vectorIs( quat ) ) && ( quat.length === 4 );
 }
 
@@ -804,7 +804,7 @@ function is( quat )
 function isUnit( quat )
 {
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   var quatv = _.quat._from( quat );
 
@@ -823,7 +823,7 @@ function isUnit( quat )
 function isZero( quat )
 {
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   var quatv = _.quat._from( quat );
 
@@ -843,7 +843,7 @@ function isZero( quat )
 
 function dimGet( quat )
 {
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   _.assert( _.quat.is( quat ) );
   return quat.length;
 }
@@ -854,7 +854,7 @@ function conjugate( dst )
 {
   var dstv = _.quat._from( dst );
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   debugger;
 
@@ -871,7 +871,7 @@ function inv( dst )
 {
   var dstv = _.quat._from( dst );
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   debugger;
 
@@ -902,13 +902,13 @@ function mul( dst )
 {
   var first = 1;
 
-  _.assert( arguments.length >= 2 );
+  _.assert( arguments.length >= 2, 'expects at least two arguments' );
 
   if( dst === null )
   {
     dst = this.make( arguments[ 1 ] );
     first = 2;
-    _.assert( arguments.length >= 3 );
+    _.assert( arguments.length >= 3, 'expects at least three arguments' );
   }
 
   var dstv = _.quat._from( dst );
@@ -930,7 +930,7 @@ function mix( dst, src, val )
   var dstv = _.quat._from( dst );
   var srcv = _.quat._from( src );
 
-  _.assert( arguments.length === 3 );
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
 
   if( val === 0 )
   return dst;

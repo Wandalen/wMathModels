@@ -27,7 +27,7 @@ function _from( plane )
 {
   _.assert( _.plane.is( plane ) );
   _.assert( _.vectorIs( plane ) || _.arrayLike( plane ) );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return _.vector.from( plane );
 }
 
@@ -35,7 +35,7 @@ function _from( plane )
 
 function is( plane )
 {
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return ( _.arrayLike( plane ) || _.vectorIs( plane ) ) && plane.length >= 1;
 }
 
@@ -134,7 +134,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 3 );
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -207,7 +207,7 @@ function dimGet( plane )
   var dim = plane.length - 1;
 
   _.assert( _.plane.is( plane ) );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
 
   debugger;
 
@@ -219,7 +219,7 @@ function dimGet( plane )
 function normalGet( plane )
 {
   var _plane = _.plane._from( plane );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return _plane.subarray( 0,_plane.length-1 );
 }
 
@@ -228,7 +228,7 @@ function normalGet( plane )
 function biasGet( plane )
 {
   var _plane = _.plane._from( plane );
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   return _plane.eGet( _plane.length-1 );
 }
 
@@ -239,7 +239,7 @@ function biasSet( plane,bias )
   var _plane = _.plane._from( plane );
 
   _.assert( _.numberIs( bias ) );
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -275,7 +275,7 @@ function pointDistance( plane , point )
   var bias = _.plane.biasGet( _plane );
   var _point = _.vector.fromArray( point );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   var mod = _.vector.dot(normal, normal);
   mod = Math.sqrt(mod);
@@ -384,7 +384,7 @@ function sphereDistance( plane , sphere )
   var center = _.sphere.centerGet( sphere );
   center = _.vector.from( center );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -428,7 +428,7 @@ function lineIntersects( plane , line )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -472,7 +472,7 @@ function lineIntersection( plane , line , point )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 3 );
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
   debugger;
   throw _.err( 'not tested' );
 
@@ -538,7 +538,7 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
   var normalthree = _.plane.normalGet( _planethree );
   var biasthree = _.plane.biasGet( _planethree );
 
-  _.assert( arguments.length === 3 );
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
   _.assert( normalone.length === normaltwo.length && normaltwo.length == normalthree.length );
 
   var Ispoint = _.vector.dot( normalone, _.vector.cross( normaltwo.clone(), normalthree ) );
@@ -573,7 +573,7 @@ function matrixHomogenousApply( plane , matrix )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   debugger;
   throw _.err( 'not tested' );
 
@@ -625,7 +625,7 @@ function translate( plane , offset )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
   debugger;
 //  throw _.err( 'not tested' );
 
@@ -664,7 +664,7 @@ function normalize( plane )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -706,7 +706,7 @@ function negate( plane )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 1, 'expects single argument' );
   debugger;
   // throw _.err( 'not tested' );
 
