@@ -2082,7 +2082,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  routine : 'fromCenterAndRadius',
+  // routine : 'fromCenterAndRadius',
 
   tests :
   {
