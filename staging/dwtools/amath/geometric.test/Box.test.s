@@ -1805,163 +1805,163 @@ function boxContains( test )
 
   // qqq : vars in case
   var srcBox = [ 0, 0, 3, 3 ];
-  var oldsrcBox = [ 0, 0, 3, 3 ];
   var tstBox = [ 1, 1, 2, 2 ];
-  var oldtstBox = [ 1, 1, 2, 2 ];
   var expected = true;
+  var gotBool = _.box.boxContains( srcBox, tstBox );
+  test.identical( expected, gotBool );
 
-  // qqq : poor naming
-  var box = _.box.boxContains( srcBox, tstBox );
-  test.identical( expected, box );
-  test.identical( srcBox, oldsrcBox );
-  test.identical( tstBox, oldtstBox );
+  var oldSrcBox = [ 0, 0, 3, 3 ];
+  test.identical( srcBox, oldSrcBox );
+
+  var oldTstBox = [ 1, 1, 2, 2 ];
+  test.identical( tstBox, oldTstBox );
 
   test.description = 'Empty box to empty box'; //
 
   var box = [];
-  var boxtwo = [];
+  var boxTwo = [];
   var expected = false;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool = _.box.boxContains( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Zero box to zero box'; //
 
   box = [ 0, 0, 0, 0, 0, 0 ];
-  boxtwo = [ 0, 0, 0, 0, 0, 0 ];
+  boxTwo = [ 0, 0, 0, 0, 0, 0 ];
   expected = true; // qqq : why was false
 
   debugger;
-  var got = _.box.boxContains( box, boxtwo );
+  var gotBool = _.box.boxContains( box, boxTwo );
   debugger;
-  test.identical( got, expected );
+  test.identical( gotBool, expected );
   debugger;
 
   test.description = 'Same boxes'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 0, 0, 0, 4, 4, 4 ];
+  boxTwo = [ 0, 0, 0, 4, 4, 4 ];
   expected = true;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool = _.box.boxContains( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box in box with a common side'; //
 
   box = [ 0, 0, 0, 3, 3, 3 ];
-  boxtwo = [ 1, 1, 1, 2, 2, 3 ];
+  boxTwo = [ 1, 1, 1, 2, 2, 3 ];
   expected = true;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool = _.box.boxContains( box, boxTwo );
+  test.identical( gotBool, expected );
 
   test.description = 'Box in box'; //
 
   box = [ 0, 0, 0, 3, 3, 3 ];
-  boxtwo = [ 1, 1, 1, 2, 2, 2 ];
+  boxTwo = [ 1, 1, 1, 2, 2, 2 ];
   expected = true;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box in box (other way aroud)'; //
 
   box = [ 1, 1, 1, 2, 2, 2 ];
-  boxtwo = [ 0, 0, 0, 3, 3, 3 ];
+  boxTwo = [ 0, 0, 0, 3, 3, 3 ];
   expected = false;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box half in box'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 2, 2, 2, 6, 6, 6 ];
+  boxTwo = [ 2, 2, 2, 6, 6, 6 ];
   expected = false;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box totally out of box'; //
 
   box = [ 0, 0, 0, 1, 1, 1 ];
-  boxtwo = [ 2, 2, 2, 3, 3, 3 ];
+  boxTwo = [ 2, 2, 2, 3, 3, 3 ];
   expected = false;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box out of box in two dimensions'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 0, - 1, - 1, 1, 0, 0 ];
+  boxTwo = [ 0, - 1, - 1, 1, 0, 0 ];
   expected = false;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box out of box in one dimensions'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 1, 1, 1, 3, 3, 5 ];
+  boxTwo = [ 1, 1, 1, 3, 3, 5 ];
   expected = false;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box in box (both normalized to one)'; //
 
   box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  boxtwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
+  boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
   expected = true;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box out of box (normalized to one)'; //
 
   box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
+  boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
   expected = false;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box in box (four dimensions)'; //
 
   box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   expected = true;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box out of box (four dimensions)'; //
 
   box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
+  boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
   expected = false;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box in box (one dimensions)'; //
 
   box = [ - 1, 2 ];
-  boxtwo = [ 0, 1 ];
+  boxTwo = [ 0, 1 ];
   expected = true;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   test.description = 'Box out of box (four dimensions)'; //
 
   box = [ - 1, 2 ];
-  boxtwo = [ 0, 4 ];
+  boxTwo = [ 0, 4 ];
   expected = false;
 
-  var got = _.box.boxContains( box, boxtwo );
-  test.identical( got, expected );
+  var gotBool= _.box.boxContains( box, boxTwo );
+  test.identical( gotBool,expected );
 
   /* */
 
@@ -2038,165 +2038,165 @@ test.description = 'Source box and Test box remain unchanged'; //
   test.description = 'Empty box to empty box'; //
 
   var box = [];
-  var boxtwo = [];
+  var boxTwo = [];
   var expected = false;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
 
   test.description = 'Zero box to zero box'; //
 
   box = [ 0, 0, 0, 0, 0, 0 ];
-  boxtwo = [ 0, 0, 0, 0, 0, 0 ];
+  boxTwo = [ 0, 0, 0, 0, 0, 0 ];
   expected = true; // qqq : why was false?
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Same boxes'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 0, 0, 0, 4, 4, 4 ];
+  boxTwo = [ 0, 0, 0, 4, 4, 4 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box in box with a common side'; //
 
   box = [ 0, 0, 0, 3, 3, 3 ];
-  boxtwo = [ 1, 1, 1, 2, 2, 3 ];
+  boxTwo = [ 1, 1, 1, 2, 2, 3 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
 
   test.description = 'Box out of box with a common side'; //
 
   box = [ 0, 0, 0, 3, 3, 3 ];
-  boxtwo = [ 4, 4, 3, 5, 5, 5 ];
+  boxTwo = [ 4, 4, 3, 5, 5, 5 ];
   expected = false;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box in box'; //
 
   box = [ 0, 0, 0, 3, 3, 3 ];
-  boxtwo = [ 1, 1, 1, 2, 2, 2 ];
+  boxTwo = [ 1, 1, 1, 2, 2, 2 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box half in box'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 2, 2, 2, 6, 6, 6 ];
+  boxTwo = [ 2, 2, 2, 6, 6, 6 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box totally out of box'; //
 
   box = [ 0, 0, 0, 1, 1, 1 ];
-  boxtwo = [ 2, 2, 2, 3, 3, 3 ];
+  boxTwo = [ 2, 2, 2, 3, 3, 3 ];
   expected = false;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box out of box in two dimensions'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 0, - 1, - 1, 1, 0, 0 ];
+  boxTwo = [ 0, - 1, - 1, 1, 0, 0 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box out of box in one dimensions'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 1, 1, 1, 3, 3, 5 ];
+  boxTwo = [ 1, 1, 1, 3, 3, 5 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box in box (both normalized to one)'; //
 
   box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  boxtwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
+  boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box out of box (normalized to one)'; //
 
   box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
+  boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
   expected = true; // qqq : why false??
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box in box (four dimensions)'; //
 
   box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box out of box in 1D (four dimensions)'; //
 
   box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
+  boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box out of box in 1D (four dimensions)'; //
 
   box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  boxtwo = [ 3, 3, 3, 3, 4, 4, 4, 4 ];
+  boxTwo = [ 3, 3, 3, 3, 4, 4, 4, 4 ];
   expected = false;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box in box (one dimensions)'; //
 
   box = [ - 1, 2 ];
-  boxtwo = [ 0, 1 ];
+  boxTwo = [ 0, 1 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box intersects box (one dimensions)'; //
 
   box = [ - 1, 2 ];
-  boxtwo = [ 0, 4 ];
+  boxTwo = [ 0, 4 ];
   expected = true;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box out of box (one dimensions)'; //
 
   box = [ - 1, 2 ];
-  boxtwo = [ 3, 4 ];
+  boxTwo = [ 3, 4 ];
   expected = false;
 
-  box = _.box.boxIntersects( box, boxtwo );
+  box = _.box.boxIntersects( box, boxTwo );
   test.identical( box, expected );
 
   /* */
@@ -2271,137 +2271,137 @@ function boxExpand( test )
   test.description = 'Empty box expands empty box'; //
 
   var box = [];
-  var boxtwo = [];
+  var boxTwo = [];
   var expected = [];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
 
   test.description = 'Zero box expands zero box'; //
 
   box = [ 0, 0, 0, 0, 0, 0 ];
-  boxtwo = [ 0, 0, 0, 0, 0, 0 ];
+  boxTwo = [ 0, 0, 0, 0, 0, 0 ];
   expected = [ 0, 0, 0, 0, 0, 0 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Same boxes (no expansion)'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 0, 0, 0, 4, 4, 4 ];
+  boxTwo = [ 0, 0, 0, 4, 4, 4 ];
   expected = [ 0, 0, 0, 4, 4, 4 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Smaller box (no expansion)'; //
 
   box = [ 0, 0, 0, 3, 3, 3 ];
-  boxtwo = [ 1, 1, 1, 2, 2, 2 ];
+  boxTwo = [ 1, 1, 1, 2, 2, 2 ];
   expected = [ 0, 0, 0, 3, 3, 3 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = '1D expansion'; //
 
   box = [ 0, 0, 0, 3, 3, 3 ];
-  boxtwo = [ 1, 1, 1, 2, 2, 4 ];
+  boxTwo = [ 1, 1, 1, 2, 2, 4 ];
   expected = [ 0, 0, 0, 3, 3, 4 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = '2D expansion'; //
 
   box = [ 0, 0, 0, 4, 4, 4 ];
-  boxtwo = [ 2, - 2, - 2, 4, 6, 6 ];
+  boxTwo = [ 2, - 2, - 2, 4, 6, 6 ];
   expected = [ 0, - 2, - 2, 4, 6, 6 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = '3D expansion'; //
 
   box = [ 0, 0, 0, 1, 1, 1 ];
-  boxtwo = [ - 2, - 2, - 2, 3, 3, 3 ];
+  boxTwo = [ - 2, - 2, - 2, 3, 3, 3 ];
   expected = [ - 2, - 2, - 2, 3, 3, 3 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Random expansion'; //
 
   box = [ 0, - 5, 3, 2, 3, 3 ];
-  boxtwo = [ - 1, - 1, - 1, 2.5, 2.5, 2.5 ];
+  boxTwo = [ - 1, - 1, - 1, 2.5, 2.5, 2.5 ];
   expected = [ - 1, - 5, - 1, 2.5, 3, 3 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box expanded (normalized to one)'; //
 
   box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  boxtwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.90 ];
+  boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.90 ];
   expected = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box not expanded (normalized to one)'; //
 
   box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  boxtwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.70 ];
+  boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.70 ];
   expected = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box expanded (four dimensions)'; //
 
   box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  boxtwo = [ 0, 0, 0, 0, 3, 3, 3, 3 ];
+  boxTwo = [ 0, 0, 0, 0, 3, 3, 3, 3 ];
   expected = [ - 1, - 1, - 1, - 1, 3, 3, 3, 3 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box not expanded (four dimensions)'; //
 
   box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  boxtwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   expected = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box expanded (one dimension)'; //
 
   box = [ - 1, 2 ];
-  boxtwo = [ - 2, 10 ];
+  boxTwo = [ - 2, 10 ];
   expected = [ - 2, 10 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box expanded on one side (one dimension)'; //
 
   box = [ - 1, 2 ];
-  boxtwo = [ 0, 4 ];
+  boxTwo = [ 0, 4 ];
   expected = [ - 1, 4 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   test.description = 'Box not expanded (one dimension)'; //
 
   box = [ - 1, 3 ];
-  boxtwo = [ 0, 1 ];
+  boxTwo = [ 0, 1 ];
   expected = [ - 1, 3 ];
 
-  box = _.box.boxExpand( box, boxtwo );
+  box = _.box.boxExpand( box, boxTwo );
   test.identical( box, expected );
 
   /* */
@@ -4160,7 +4160,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'pointContains',
+   routine: 'boxContains',
 
   tests :
   {
