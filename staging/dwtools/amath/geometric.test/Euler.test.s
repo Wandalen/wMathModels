@@ -1658,7 +1658,7 @@ function fromMatrix2( test )
   result = _.vector.toArray( result );
   test.equivalent( result, expected );
 
-  test.description = 'Euler XZY - Matrix -> Euler -> Matrix'; //
+  test.description = 'Euler XZY - Euler -> Matrix -> Euler'; //
 
   var euler = [ 1, 0.5, 0.25, 0, 2, 1 ];
   var dst = [ 0, 0, 0, 0, 2, 1 ];
@@ -1669,7 +1669,7 @@ function fromMatrix2( test )
   result = _.vector.toArray( result );
   test.equivalent( result, expected );
 
-  test.description = 'Euler YXZ - Matrix -> Euler -> Matrix'; //
+  test.description = 'Euler YXZ - Euler -> Matrix -> Euler'; //
 
   var euler = [ 1, 0.25, 0.25, 1, 0, 2 ];
   var dst = [ 0, 0, 0, 1, 0, 2 ];
@@ -1680,7 +1680,7 @@ function fromMatrix2( test )
   result = _.vector.toArray( result );
   test.equivalent( result, expected );
 
-  test.description = 'Euler YZX - Matrix -> Euler -> Matrix'; //
+  test.description = 'Euler YZX - Euler -> Matrix -> Euler'; //
 
   var euler = [ 0.5, 0.25, - 0.25, 1, 2, 0 ];
   var dst = [ 0, 0, 0, 1, 2, 0 ];
@@ -1691,7 +1691,7 @@ function fromMatrix2( test )
   result = _.vector.toArray( result );
   test.equivalent( result, expected );
 
-  test.description = 'Euler ZXY - Matrix -> Euler -> Matrix'; //
+  test.description = 'Euler ZXY - Euler -> Matrix -> Euler'; //
 
   var euler = [ 0.5, 0.75, - 0.25, 2, 0, 1 ];
   var dst = [ 0, 0, 0, 2, 0, 1 ];
@@ -1702,7 +1702,7 @@ function fromMatrix2( test )
   result = _.vector.toArray( result );
   test.equivalent( result, expected );
 
-  test.description = 'Euler ZYX - Matrix -> Euler -> Matrix'; //
+  test.description = 'Euler ZYX - Euler -> Matrix -> Euler'; //
 
   var euler = [ 0.25, 0.75, - 0.25, 2, 1, 0 ];
   var dst = [ 0, 0, 0, 2, 1, 0 ];
@@ -2075,6 +2075,73 @@ function toMatrix2( test )
   var result = _.euler.toMatrix2( euler );
   test.equivalent( result, expected );
   test.equivalent( euler, oldEuler );
+
+  test.description = 'Euler XYZ'; //
+
+  var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.77015, -0.42073, 0.47942,
+         0.62244, 0.65995, - 0.42073,
+         - 0.13938, 0.62244, 0.77015 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler XZY'; //
+
+  var euler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.77015, -0.47942, 0.42073,
+         0.59907, 0.77015, - 0.21902,
+         - 0.21902, 0.42073, 0.88034 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YXZ'; //
+
+  var euler =  [ 1, 0.5, 0.5, 1, 0, 2 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.66757, 0.09500, 0.73846,
+         0.42073, 0.77015, - 0.47942,
+         - 0.61427, 0.63074, 0.47415 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler YZX'; //
+
+  var euler = [ 1, 0.25, 0.5, 1, 2, 0 ];
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.52350, 0.28611, 0.80254,
+         0.24740, 0.85030, - 0.46452,
+         - 0.81531, 0.44173, 0.37435 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZXY'; //
+
+  var euler = [ 0.25, 1, 0.5, 2, 0, 1 ] ;
+  var expected = _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.75049, - 0.13367, 0.64721,
+         0.60799, 0.52350, - 0.59689,
+         - 0.25903, 0.84147, 0.47415 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
+  test.description = 'Euler ZYX'; //
+
+  var euler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+  var expected =  _.Space.make( [ 3, 3 ] ).copy(
+       [ 0.47415, - 0.61427, 0.63074,
+         0.73846, 0.66757, 0.09500,
+         - 0.47942, 0.42073, 0.77015 ] );
+
+  var result = _.euler.toMatrix2( euler );
+  test.equivalent( result, expected );
+
   /* */
 
   if( !Config.debug )
@@ -2086,6 +2153,7 @@ function toMatrix2( test )
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0.1, 0, 0, 1, 2, 0, 0 ] ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 0.2, 0, 1, 2, 0 ] ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( NaN ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( 'euler' ) );
 
 }
 

@@ -23,13 +23,9 @@ var dstZXZ = [ 0, 0, 0, 2, 0, 2 ];
 var dstZYZ = [ 0, 0, 0, 2, 1, 2 ];
 
 
-var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
-var expected = _.Space.make( [ 3, 3 ] ).copy(
-       [ 0.7701, -0.4207, 0.4794,
-         0.6224, 0.6599, - 0.4207,
-         - 0.1393, 0.6224, 0.7701 ] );
+var euler = [ 1, 0.5, 0.5, 2, 1, 0 ];
 
 var result = _.euler.toMatrix2( euler );
 console.log( 'Euler from mat xyz:', result );
-var result = _.euler.fromMatrix2( result, dstXYZ );
+var result = _.euler.fromMatrix2( result, dstZYX );
 console.log( 'Euler from mat xyz:', result );
