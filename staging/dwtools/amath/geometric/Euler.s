@@ -1654,6 +1654,32 @@ function toQuat2( euler )
   return quatv;
 }
 
+//
+
+
+/**
+* Create the euler angle from a rotation matrix. Returns the created euler angle.
+* Rotation matrix stays untouched.
+*
+* @param { Space } mat - Source rotation matrix.
+* @param { Array } dst - Destination array with euler angle source code.
+*
+* @example
+* // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
+*  mat  = _.Space.make( [ 3, 3 ] ).copy(
+*            [ 0.7701, -0.4207, 0.4794,
+*             0.6224, 0.6599, - 0.4207,
+*           - 0.1393, 0.6224, 0.7701 ] );
+* _.fromMatrix2( mat, [ 0, 0, 0, 0, 1, 2 ] );
+*
+* @returns { Array } Returns the corresponding euler angles.
+* @function fromMatrix2
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( dst ) is not euler.
+* @throws { Error } An Error if ( mat ) is not matrix.
+* @memberof wTools.euler
+*/
+
 function fromMatrix2( mat, dst )
 {
 
@@ -1940,6 +1966,32 @@ function fromMatrix2( mat, dst )
   return eulerv;
 }
 
+//
+
+/**
+* Create the rotation matrix from a set of euler angles. Returns the created matrix.
+* Euler angles stay untouched.
+*
+* @param { Array } euler - Source sequence of Euler angles.
+*
+* @example
+* // returns [ 0.7701, -0.4207, 0.4794,
+               0.6224, 0.6599, - 0.4207,
+               - 0.1393, 0.6224, 0.7701 ];
+* _.toMatrix2( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+*
+* @example
+* // returns [ 0.4741, - 0.6142, 0.6307,
+* //           0.7384, 0.6675, 0.0950,
+* //           - 0.4794, 0.4207, 0.7701 ]
+* _.toMatrix2( [ 1, 0.5, 0.5, 2, 1, 0 ] );
+*
+* @returns { Space } Returns the corresponding rotation matrix.
+* @function toMatrix2
+* @throws { Error } An Error if ( arguments.length ) is different than one.
+* @throws { Error } An Error if ( euler ) is not euler.
+* @memberof wTools.euler
+*/
 
 function toMatrix2( euler )
 {
