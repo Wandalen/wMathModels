@@ -154,27 +154,27 @@ function _from( box )
 
 
 /**
-*Create or expand box from an array of points. Returns the expanded box. Box are stored in Array data structure.
-* Points stay untouched, box changes.
-*
-* @param { Array } box - box to be expanded.
-* @param { Array } points - Array of points of reference with expansion dimensions.
-*
-* @example
-* // returns [ 0, 0, 3, 3 ];
-* _.fromPoints( null , [ [ 1, 3 ], [ 0, 0 ], [ 3, 1 ] ] );
-*
-* @example
-* // returns [ 0, - 1, 2, 2 ];
-* _.fromPoints( [ 0, 0, 1, 1 ], [ [ 1, 2 ], [ 0, 0 ], [ 2, - 1 ] ] );
-*
-* @returns { Array } Returns the array of the box expanded.
-* @function fromPoints
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( point ) is not array.
-* @memberof wTools.box
-*/
+  *Create or expand box from an array of points. Returns the expanded box. Box are stored in Array data structure.
+  * Points stay untouched, box changes.
+  *
+  * @param { Array } box - box to be expanded.
+  * @param { Array } points - Array of points of reference with expansion dimensions.
+  *
+  * @example
+  * // returns [ 0, 0, 3, 3 ];
+  * _.fromPoints( null , [ [ 1, 3 ], [ 0, 0 ], [ 3, 1 ] ] );
+  *
+  * @example
+  * // returns [ 0, - 1, 2, 2 ];
+  * _.fromPoints( [ 0, 0, 1, 1 ], [ [ 1, 2 ], [ 0, 0 ], [ 2, - 1 ] ] );
+  *
+  * @returns { Array } Returns the array of the box expanded.
+  * @function fromPoints
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( point ) is not array.
+  * @memberof wTools.box
+  */
 
 function fromPoints( box , points )
 {
@@ -206,29 +206,29 @@ function fromPoints( box , points )
 //
 
 /**
-* Create or expand box from center point and size dimensions. Returns the expanded box.
-* Box are stored in Array data structure. Center point and size stay untouched, box changes.
-*
-* @param { Array } box - box to be expanded.
-* @param { Array } center - Point of reference with center coordinates.
-* @param { Array } size - Array of reference with size dimensions.
-*
-* @example
-* // returns [ - 1, - 1, 3, 3 ];
-* _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 4, 4 ] );
-*
-* @example
-* // returns [ 0, 0, 2, 2 ];
-* _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 2, 2 ] );
-*
-* @returns { Array } Returns the array of the box expanded.
-* @function fromCenterAndSize
-* @throws { Error } An Error if ( arguments.length ) is different than three.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( center ) is not point.
-* @throws { Error } An Error if ( size ) is not array.
-* @memberof wTools.box
-*/
+  * Create or expand box from center point and size dimensions. Returns the expanded box.
+  * Box are stored in Array data structure. Center point and size stay untouched, box changes.
+  *
+  * @param { Array } box - box to be expanded.
+  * @param { Array } center - Point of reference with center coordinates.
+  * @param { Array } size - Array of reference with size dimensions.
+  *
+  * @example
+  * // returns [ - 1, - 1, 3, 3 ];
+  * _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 4, 4 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 2, 2 ];
+  * _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the box expanded.
+  * @function fromCenterAndSize
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( center ) is not point.
+  * @throws { Error } An Error if ( size ) is not array.
+  * @memberof wTools.box
+  */
 
 function fromCenterAndSize( box , center , size )
 {
@@ -261,29 +261,29 @@ function fromCenterAndSize( box , center , size )
 
 
 /**
-* Create or expand box from sphere. Returns the expanded box.
-* Box are stored in Array data structure. Sphere stays untouched, box changes.
-* First, the box is expanded until it contains the center of the sphere.
-* Then, the box is expanded by the radius of the sphere.
-*
-* @param { Array } box - box to be expanded.
-* @param { Array } sphere - sphere of reference with expansion dimensions.
-*
-* @example
-* // returns [ - 1, - 1, 2, 2 ];
-* _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 1 ] );
-*
-* @example
-* // returns [ - 2, - 2, 3, 3 ];
-* _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 2 ] );
-*
-* @returns { Array } Returns the array of the expanded box.
-* @function fromSphere
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( sphere ) is not sphere.
-* @memberof wTools.box
-*/
+  * Create or expand box from sphere. Returns the expanded box.
+  * Box are stored in Array data structure. Sphere stays untouched, box changes.
+  * First, the box is expanded until it contains the center of the sphere.
+  * Then, the box is expanded by the radius of the sphere.
+  *
+  * @param { Array } box - box to be expanded.
+  * @param { Array } sphere - sphere of reference with expansion dimensions.
+  *
+  * @example
+  * // returns [ - 1, - 1, 2, 2 ];
+  * _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 1 ] );
+  *
+  * @example
+  * // returns [ - 2, - 2, 3, 3 ];
+  * _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 2 ] );
+  *
+  * @returns { Array } Returns the array of the expanded box.
+  * @function fromSphere
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.box
+  */
 
 function fromSphere( box , sphere )
 {
@@ -317,27 +317,27 @@ function fromSphere( box , sphere )
 //
 
 /**
-* Create a cube from cube size centered in origin. Returns the box converted in cube.
-* Box are stored in Array data structure. Cube size stay untouched, box changes.
-*
-* @param { Array } box - box to be converted to cube.
-* @param { Number } size - Cube size.
-*
-* @example
-* // returns [ - 2, - 2, 2, 2 ];
-* _.fromCube( [ 0, 0, 1, 1 ], [ 4, 4 ] );
-*
-* @example
-* // returns [ - 1, - 1, 1, 1 ];
-* _.fromCube( [ 3, 3, 5, 5 ], [ 2, 2 ] );
-*
-* @returns { Array } Returns the array of the new cube.
-* @function fromCube
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( size ) is not a number.
-* @memberof wTools.box
-*/
+  * Create a cube from cube size centered in origin. Returns the box converted in cube.
+  * Box are stored in Array data structure. Cube size stay untouched, box changes.
+  *
+  * @param { Array } box - box to be converted to cube.
+  * @param { Number } size - Cube size.
+  *
+  * @example
+  * // returns [ - 2, - 2, 2, 2 ];
+  * _.fromCube( [ 0, 0, 1, 1 ], [ 4, 4 ] );
+  *
+  * @example
+  * // returns [ - 1, - 1, 1, 1 ];
+  * _.fromCube( [ 3, 3, 5, 5 ], [ 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the new cube.
+  * @function fromCube
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( size ) is not a number.
+  * @memberof wTools.box
+  */
 
 function fromCube( box , size )
 {
@@ -351,6 +351,8 @@ function fromCube( box , size )
   var dim = _.box.dimGet( boxv );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  //_.assert( ! isNaN( size ) );
+  _.assert( typeof( size ) == 'number' );
 
   _.vector.assignScalar( min,-size/2 );
   _.vector.assignScalar( max,+size/2 );

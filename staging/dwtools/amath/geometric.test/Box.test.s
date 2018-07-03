@@ -4028,21 +4028,12 @@ function fromCube( test )
   test.description = 'Null box NOT from cube'; //
 
   var box = null;
-  var fromCube = [ 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var fromCube = 0 ;
+  var expected = [ -0, -0, -0, 0, 0, 0 ];
 
   debugger;
   gotBox = _.box.fromCube( box, fromCube );
   debugger;
-  test.identical( gotBox, expected );
-
-  test.description = 'Box of 1 dimension'; //
-
-  var box = [ 0, 0 ];
-  var fromCube = [ 1 ]; /* qqq : that should throw error as well as few other cases */
-  var expected = [ - 0.5, 0.5 ];
-
-  gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
   test.description = 'Box from cube'; //
@@ -4058,7 +4049,7 @@ function fromCube( test )
 
   box = [ 0, 0, 0, 2, 2, 2 ];
   fromCube =  0;
-  expected = [ 0,  0, 0, 0, 0, 0 ];
+  expected = [ - 0, - 0, - 0, 0, 0, 0 ];
 
   gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
@@ -4099,24 +4090,6 @@ function fromCube( test )
   gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.description = 'Empty box and cube'; //
-
-  var box = [ ];
-  var fromCube = [ ];
-  var expected = [ ];
-
-  gotBox = _.box.fromCube( box, fromCube );
-  test.identical( gotBox, expected );
-
-  test.description = 'If cube is not number, expected NaN'; //
-
-  var box = [ 0, 0, 1, 1 ];
-  var fromCube = [ 1, 2 ];
-  var expected = [ NaN, NaN, NaN, NaN ];
-
-  gotBox = _.box.fromCube( box, fromCube );
-  test.identical( gotBox, expected );
-
   /* */
 
   if( !Config.debug )
@@ -4132,6 +4105,27 @@ function fromCube( test )
   test.shouldThrowError( function()
   {
     _.box.fromCube( 'box', 'cube' );
+  });
+
+  test.description = 'Cube  not number'; //
+
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( [ 0, 0, 1, 1 ], [ 1, 2 ] );
+  });
+
+  test.description = 'Cube  not number'; //
+
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( [ 0, 0 ], [ 1 ] );
+  });
+
+  test.description = 'Empty cube and box'; //
+
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( [ ], [ ] );
   });
 
   test.description = 'Wrong type of argument'; //
@@ -4166,7 +4160,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'centerGet',
+  routine: 'fromCube',
 
   tests :
   {
@@ -4205,8 +4199,7 @@ var Self =
     fromPoints : fromPoints,
     fromCenterAndSize : fromCenterAndSize,
     fromSphere : fromSphere,
-    // fromCube : fromCube, /* qqq : has problems */
-
+    fromCube : fromCube,
   }
 
 }

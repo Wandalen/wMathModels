@@ -229,7 +229,7 @@ function fromQuat( dst,quat,v )
   var dstv = _.vector.from( dst );
   var quatv = _.quat._from( quat );
 
-  // _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  // _.assert( arguments.length === 2, 'expects exactly two argument' );
 
   var ox = dstv.eGet( 3 );
   var oy = dstv.eGet( 4 );
@@ -778,7 +778,7 @@ function fromMatrix( euler,mat )
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'expects exactly two argument' );
 
 // m1
 // -0.875, 0.250, 0.415,
@@ -1116,27 +1116,27 @@ var Order =
 
 
 /**
-* Create a set of euler angles from a quaternion. Returns the created euler angles.
-* Quaternion stay untouched, dst contains the euler angle sequence.
-*
-* @param { Array } quat - Source quaternion.
-* @param { Array } dst - Destination sequence of Euler angles with source euler angles code.
-*
-* @example
-* // returns [ 1, 0, 0, 0, 1, 2 ];
-* _.fromQuat2( [ 0.49794255, 0, 0, 0.8775826 ], [ 0, 0, 0, 0, 1, 2 ] );
-*
-* @example
-* // returns [ 0, 1, 0, 2, 1, 0 ];
-* _.fromQuat2( [ 0, 0.4794255, 0, 0.8775826 ], [ 0, 0, 0, 2, 1, 0 ] );
-*
-* @returns { Quat } Returns the corresponding quaternion.
-* @function fromQuat2
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( quat ) is not quat.
-* @throws { Error } An Error if ( dst ) is not euler.
-* @memberof wTools.euler
-*/
+  * Create a set of euler angles from a quaternion. Returns the created euler angles.
+  * Quaternion stay untouched, dst contains the euler angle sequence.
+  *
+  * @param { Array } quat - Source quaternion.
+  * @param { Array } dst - Destination sequence of Euler angles with source euler angles code.
+  *
+  * @example
+  * // returns [ 1, 0, 0, 0, 1, 2 ];
+  * _.fromQuat2( [ 0.49794255, 0, 0, 0.8775826 ], [ 0, 0, 0, 0, 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0, 1, 0, 2, 1, 0 ];
+  * _.fromQuat2( [ 0, 0.4794255, 0, 0.8775826 ], [ 0, 0, 0, 2, 1, 0 ] );
+  *
+  * @returns { Quat } Returns the corresponding quaternion.
+  * @function fromQuat2
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( quat ) is not quat.
+  * @throws { Error } An Error if ( dst ) is not euler.
+  * @memberof wTools.euler
+  */
 
 function fromQuat2( quat, dst )
 {
@@ -1514,25 +1514,25 @@ function fromQuat2( quat, dst )
 
 
 /**
-* Create the quaternion from a set of euler angles. Returns the created quaternion.
-* Euler angles stay untouched.
-*
-* @param { Array } euler - Source sequence of Euler angles.
-*
-* @example
-* // returns [ 0.49794255, 0, 0, 0.8775826 ];
-* _.toQuat2( [ 1, 0, 0, 0, 1, 2 ] );
-*
-* @example
-* // returns [ 0, 0.4794255, 0, 0.8775826 ];
-* _.toQuat2( [ 0, 1, 0, 2, 1, 0 ] );
-*
-* @returns { Quat } Returns the corresponding quaternion.
-* @function toQuat2
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( euler ) is not euler.
-* @memberof wTools.euler
-*/
+  * Create the quaternion from a set of euler angles. Returns the created quaternion.
+  * Euler angles stay untouched.
+  *
+  * @param { Array } euler - Source sequence of Euler angles.
+  *
+  * @example
+  * // returns [ 0.49794255, 0, 0, 0.8775826 ];
+  * _.toQuat2( [ 1, 0, 0, 0, 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0, 0.4794255, 0, 0.8775826 ];
+  * _.toQuat2( [ 0, 1, 0, 2, 1, 0 ] );
+  *
+  * @returns { Quat } Returns the corresponding quaternion.
+  * @function toQuat2
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( euler ) is not euler.
+  * @memberof wTools.euler
+  */
 
 function toQuat2( euler )
 {
@@ -1658,27 +1658,27 @@ function toQuat2( euler )
 
 
 /**
-* Create the euler angle from a rotation matrix. Returns the created euler angle.
-* Rotation matrix stays untouched.
-*
-* @param { Space } mat - Source rotation matrix.
-* @param { Array } dst - Destination array with euler angle source code.
-*
-* @example
-* // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
-*  mat  = _.Space.make( [ 3, 3 ] ).copy(
-*            [ 0.7701, -0.4207, 0.4794,
-*             0.6224, 0.6599, - 0.4207,
-*           - 0.1393, 0.6224, 0.7701 ] );
-* _.fromMatrix2( mat, [ 0, 0, 0, 0, 1, 2 ] );
-*
-* @returns { Array } Returns the corresponding euler angles.
-* @function fromMatrix2
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( dst ) is not euler.
-* @throws { Error } An Error if ( mat ) is not matrix.
-* @memberof wTools.euler
-*/
+  * Create the euler angle from a rotation matrix. Returns the created euler angle.
+  * Rotation matrix stays untouched.
+  *
+  * @param { Space } mat - Source rotation matrix.
+  * @param { Array } dst - Destination array with euler angle source code.
+  *
+  * @example
+  * // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
+  *  mat  = _.Space.make( [ 3, 3 ] ).copy(
+  *            [ 0.7701, -0.4207, 0.4794,
+  *             0.6224, 0.6599, - 0.4207,
+  *           - 0.1393, 0.6224, 0.7701 ] );
+  * _.fromMatrix2( mat, [ 0, 0, 0, 0, 1, 2 ] );
+  *
+  * @returns { Array } Returns the corresponding euler angles.
+  * @function fromMatrix2
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dst ) is not euler.
+  * @throws { Error } An Error if ( mat ) is not matrix.
+  * @memberof wTools.euler
+  */
 
 function fromMatrix2( mat, dst )
 {
@@ -1969,31 +1969,29 @@ function fromMatrix2( mat, dst )
 //
 
 /**
-* Create the rotation matrix from a set of euler angles. Returns the created matrix.
-* Euler angles stay untouched.
-*
-* @param { Array } euler - Source sequence of Euler angles.
-*
-* @example
-* // returns [ 0.7701, -0.4207, 0.4794,
-               0.6224, 0.6599, - 0.4207,
-               - 0.1393, 0.6224, 0.7701 ];
-* _.toMatrix2( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
-*
-* @example
-* // returns [ 0.4741, - 0.6142, 0.6307,
-* //           0.7384, 0.6675, 0.0950,
-* //           - 0.4794, 0.4207, 0.7701 ]
-* _.toMatrix2( [ 1, 0.5, 0.5, 2, 1, 0 ] );
-*
-* @returns { Space } Returns the corresponding rotation matrix.
-* @function toMatrix2
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( euler ) is not euler.
-* @memberof wTools.euler
-*/
-
-/* qqq : adjust indentation of documentations */
+  * Create the rotation matrix from a set of euler angles. Returns the created matrix.
+  * Euler angles stay untouched.
+  *
+  * @param { Array } euler - Source sequence of Euler angles.
+  *
+  * @example
+  * // returns [ 0.7701, -0.4207, 0.4794,
+                 0.6224, 0.6599, - 0.4207,
+                 - 0.1393, 0.6224, 0.7701 ];
+  * _.toMatrix2( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0.4741, - 0.6142, 0.6307,
+  * //           0.7384, 0.6675, 0.0950,
+  * //           - 0.4794, 0.4207, 0.7701 ]
+  * _.toMatrix2( [ 1, 0.5, 0.5, 2, 1, 0 ] );
+  *
+  * @returns { Space } Returns the corresponding rotation matrix.
+  * @function toMatrix2
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( euler ) is not euler.
+  * @memberof wTools.euler
+  */
 
 function toMatrix2( euler )
 {
@@ -2001,7 +1999,7 @@ function toMatrix2( euler )
   var euler = _.euler.from( euler );
   var eulerv = _.vector.from( euler );
   var mat =  _.Space.makeZero( [ 3, 3 ] );
-
+  ;
   _.assert( _.Space.is( mat ) );
   _.assert( arguments.length === 1 );
 
@@ -2011,8 +2009,6 @@ function toMatrix2( euler )
   var ox = eulerv.eGet( 3 );
   var oy = eulerv.eGet( 4 );
   var oz = eulerv.eGet( 5 );
-
-  /* qqq : should be if else if else */
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
@@ -2196,15 +2192,30 @@ var Proto =
   fromMatrix : fromMatrix,
   toMatrix : toMatrix,
 
+
+  toMatrix : toMatrix,
+
+  Order : Order,
+
   fromQuat2 : fromQuat2,
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
   toMatrix2 : toMatrix2,
-
-  Order : Order,
-
 }
 
 _.mapExtend( Self,Proto );
 
 })();
+
+
+/*
+
+d:30
+h:83(71)
+w:47
+
+d:54
+h:83(71)
+w:40
+
+*/

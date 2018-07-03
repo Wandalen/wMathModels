@@ -893,6 +893,7 @@ function toQuat2( test )
   test.equivalent( gotQuat, expected );
   test.equivalent( euler, oldEuler );
 
+
   /* qqq : why no fromQuat2? */
 
   test.description = 'Euler XYZ'; //
@@ -1102,11 +1103,12 @@ function fromQuat2( test )
 
   var quat = [ 0.2915666, 0.1729548, 0.2915666, 0.8944633 ];
   var dst = [ 0, 0, 0, 0, 1, 2 ];
-  var oldQuat = [ 0.2915666, 0.1729548, 0.2915666, 0.8944633 ];
   var expected = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
 
   var gotEuler = _.euler.fromQuat2( quat, dst );
   test.equivalent( gotEuler, expected );
+
+  var oldQuat = [ 0.2915666, 0.1729548, 0.2915666, 0.8944633 ];
   test.equivalent( quat, oldQuat );
 
   test.description = 'Euler XYZ'; //
@@ -1570,17 +1572,18 @@ function fromMatrix2( test )
   ]);
 
   var dst = [ 0, 0, 0, 0, 1, 2 ];
-  var oldMatrix = _.Space.make( [ 3, 3 ] ).copy
-  ([
-    0.7701, -0.4207, 0.4794,
-    0.6224, 0.6599, - 0.4207,
-    - 0.1393, 0.6224, 0.7701
-  ]);
   var expected = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
 
   var gotEuler = _.euler.fromMatrix2( Matrix, dst );
   gotEuler = _.vector.toArray( expected );
   test.equivalent( gotEuler, expected );
+
+  var oldMatrix = _.Space.make( [ 3, 3 ] ).copy
+  ([
+  0.7701, -0.4207, 0.4794,
+  0.6224, 0.6599, - 0.4207,
+  - 0.1393, 0.6224, 0.7701
+  ]);
   test.equivalent( Matrix, oldMatrix );
 
   test.description = 'Euler XYZ'; //
@@ -2092,7 +2095,6 @@ function toMatrix2( test )
   test.description = 'Euler remains unchanged'; //
 
   var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
-  var oldEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
     0.77015, -0.42073, 0.47942,
@@ -2102,6 +2104,8 @@ function toMatrix2( test )
 
   var gotMatrix = _.euler.toMatrix2( euler );
   test.equivalent( gotMatrix, expected );
+
+  var oldEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   test.equivalent( euler, oldEuler );
 
   test.description = 'Euler XYZ'; //
