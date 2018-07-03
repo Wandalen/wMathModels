@@ -444,7 +444,7 @@ function pointContains( test )
   test.identical( f, oldF );
 
   var oldPoint = [ 3, 3, 3 ];
-  oldpoint = _.vector.from( oldpoint );
+  oldPoint = _.vector.from( oldPoint );
   test.identical( point, oldPoint );
 
   test.description = 'Frustum contains point'; //
@@ -548,20 +548,20 @@ function frustumCorners( test )
        1, - 1,   0,   0,   0,   0,
        0,   0,   1, - 1,   0,   0,
      - 1,   0, - 1,   0,   0, - 1 ] );
-  var oldf = _.Space.make( [ 4, 6 ] ).copy(
-     [ 0,   0,   0,   0, - 1,   1,
-       1, - 1,   0,   0,   0,   0,
-       0,   0,   1, - 1,   0,   0,
-     - 1,   0, - 1,   0,   0, - 1 ] );
   var expected = _.Space.make( [ 3, 8 ] ).copy
     ([ 0, 0, 0, 0, 1, 1, 1, 1,
        1, 0, 1, 0, 1, 0, 1, 0,
        1, 1, 0, 0, 1, 1, 0, 0 ] );
 
-  var result = _.frustum.frustumCorners( f );
-  test.equivalent( result, expected );
-  test.identical( f, oldf );
+  var gotCorners = _.frustum.frustumCorners( f );
+  test.equivalent( gotCorners, expected );
 
+  var oldF = _.Space.make( [ 4, 6 ] ).copy(
+  [ 0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1 ] );
+  test.identical( f, oldF );
 
   test.description = 'Frustrum as box (0,0,0,1,1,1)'; //
 
@@ -575,8 +575,8 @@ function frustumCorners( test )
        1, 0, 1, 0, 1, 0, 1, 0,
        1, 1, 0, 0, 1, 1, 0, 0 ] );
 
-  var result = _.frustum.frustumCorners( f );
-  test.identical( result, expected );
+  var gotCorners = _.frustum.frustumCorners( f );
+  test.identical( gotCorners, expected );
 
   test.description = 'Frustrum as point (1,1,1)'; //
 
@@ -590,8 +590,8 @@ function frustumCorners( test )
        1, 1, 1, 1, 1, 1, 1, 1,
        1, 1, 1, 1, 1, 1, 1, 1 ] );
 
-  var result = _.frustum.frustumCorners( f );
-  test.identical( result, expected );
+  var gotCorners = _.frustum.frustumCorners( f );
+  test.identical( gotCorners, expected );
 
   test.description = 'Frustrum as box (-1,-1,-1,1,1,1)'; //
 
@@ -605,8 +605,8 @@ function frustumCorners( test )
        1, -1, 1, -1, 1, -1, 1, -1,
        1, 1, -1, -1, 1, 1, -1, -1 ] );
 
-  var result = _.frustum.frustumCorners( f );
-  test.identical( result, expected );
+  var gotCorners = _.frustum.frustumCorners( f );
+  test.identical( gotCorners, expected );
 
   test.description = 'Frustrum with inclined side'; //
 
@@ -620,8 +620,8 @@ function frustumCorners( test )
        1, 2, 1, 0, 1, 2, 1, 0,
        1, 1, 0, 0, 1, 1, 0, 0 ] );
 
-  var result = _.frustum.frustumCorners( f );
-  test.identical( result, expected );
+  var gotCorners = _.frustum.frustumCorners( f );
+  test.identical( gotCorners, expected );
 
   test.description = 'Frustrum with two inclined sides'; //
 
@@ -635,8 +635,8 @@ function frustumCorners( test )
        1, 2, 1, 0, 1, 2, 1, 0,
        1, 1, 0, 0, 1, 1, 0, 0 ] );
 
-  var result = _.frustum.frustumCorners( f );
-  test.identical( result, expected );
+  var gotCorners = _.frustum.frustumCorners( f );
+  test.identical( gotCorners, expected );
 
   test.description = 'Frustrum with three inclined sides'; //
 
@@ -650,8 +650,8 @@ function frustumCorners( test )
        1, 2, 1, 0, 1, 2, 1, 0,
        1, 1, 0, 0, 1, 1, 0, 0 ] );
 
-  var result = _.frustum.frustumCorners( f );
-  test.equivalent( result, expected );
+  var gotCorners = _.frustum.frustumCorners( f );
+  test.equivalent( gotCorners, expected );
 
   /* */
 
@@ -683,18 +683,20 @@ function pointClosestPoint( test )
        0,   0,   1, - 1,   0,   0,
      - 1,   0, - 1,   0,   0, - 1 ] );
   var point = [ -1, -1, -1 ];
-  var oldf = _.Space.make( [ 4, 6 ] ).copy(
-     [ 0,   0,   0,   0, - 1,   1,
-       1, - 1,   0,   0,   0,   0,
-       0,   0,   1, - 1,   0,   0,
-     - 1,   0, - 1,   0,   0, - 1 ] );
-  var oldpoint = [ -1, -1, -1 ];
   var expected = _.vector.from( [ 0, 0, 0 ] );
 
-  var result = _.frustum.pointClosestPoint( f, point );
-  test.equivalent( result, expected );
-  test.identical( f, oldf );
-  test.identical( point, oldpoint );
+  var closestPoint = _.frustum.pointClosestPoint( f, point );
+  test.equivalent( closestPoint, expected );
+
+  var oldF = _.Space.make( [ 4, 6 ] ).copy(
+  [ 0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1 ] );
+  test.identical( f, oldF );
+
+  var oldPoint = [ -1, -1, -1 ];
+  test.identical( point, oldPoint );
 
   test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 1, 1, 1 )'; //
 
@@ -706,8 +708,8 @@ function pointClosestPoint( test )
   var point = [ -1, -1, -1 ];
   var expected = _.vector.from( [ 0, 0, 0 ] );
 
-  var result = _.frustum.pointClosestPoint( f, point );
-  test.identical( result, expected );
+  var closestPoint = _.frustum.pointClosestPoint( f, point );
+  test.identical( closestPoint, expected );
 
   test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - center of side side'; //
 
@@ -720,8 +722,8 @@ function pointClosestPoint( test )
   var expected = [ 0.5, 0.5, 0 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.pointClosestPoint( f, point );
-  test.identical( result, expected );
+  var closestPoint = _.frustum.pointClosestPoint( f, point );
+  test.identical( closestPoint, expected );
 
   test.description = 'Point inside frustum'; //
 
@@ -734,8 +736,8 @@ function pointClosestPoint( test )
   var expected = [ 0.5, 0.6, 0.2 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.pointClosestPoint( f, point );
-  test.identical( result, expected );
+  var closestPoint = _.frustum.pointClosestPoint( f, point );
+  test.identical( closestPoint, expected );
 
   test.description = 'Point under frustum'; //
 
@@ -748,8 +750,8 @@ function pointClosestPoint( test )
   var expected = [ 0, 0, 0 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.pointClosestPoint( f, point );
-  test.identical( result, expected );
+  var closestPoint = _.frustum.pointClosestPoint( f, point );
+  test.identical( closestPoint, expected );
 
   test.description = 'Diagonal frustum plane'; //
 
@@ -762,8 +764,8 @@ function pointClosestPoint( test )
   var expected = [ 0, 0.4, 0.2 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.pointClosestPoint( f, point );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.pointClosestPoint( f, point );
+  test.equivalent( closestPoint, expected );
 
 
   /* */
@@ -798,18 +800,20 @@ function boxClosestPoint( test )
        0,   0,   1, - 1,   0,   0,
      - 1,   0, - 1,   0,   0, - 1 ] );
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
-  var oldf = _.Space.make( [ 4, 6 ] ).copy(
-     [ 0,   0,   0,   0, - 1,   1,
-       1, - 1,   0,   0,   0,   0,
-       0,   0,   1, - 1,   0,   0,
-     - 1,   0, - 1,   0,   0, - 1 ] );
-  var oldbox = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
   var expected = 0;
 
-  var result = _.frustum.boxClosestPoint( f, box );
-  test.equivalent( result, expected );
-  test.identical( f, oldf );
-  test.identical( box, oldbox );
+  var closestPoint = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( closestPoint, expected );
+
+  var oldF = _.Space.make( [ 4, 6 ] ).copy(
+  [ 0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1 ] );
+  test.identical( f, oldF );
+
+  var oldBox = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  test.identical( box, oldBox );
 
   test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 1, 1, 1 )'; //
 
@@ -821,8 +825,8 @@ function boxClosestPoint( test )
   var box = [ 1.5, 1.5, 1.5, 2.5, 2.5, 2.5 ];
   var expected = _.vector.from( [ 1, 1, 1 ] );
 
-  var result = _.frustum.boxClosestPoint( f, box );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( closestPoint, expected );
 
   test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 0, 0, 0 )'; //
 
@@ -835,8 +839,8 @@ function boxClosestPoint( test )
   var expected = [ 0, 0, 0 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.boxClosestPoint( f, box );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( closestPoint, expected );
 
   test.description = 'Box and frustum intersect'; //
 
@@ -848,8 +852,8 @@ function boxClosestPoint( test )
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
   var expected = 0;
 
-  var result = _.frustum.boxClosestPoint( f, box );
-  test.identical( result, expected );
+  var closestPoint = _.frustum.boxClosestPoint( f, box );
+  test.identical( closestPoint, expected );
 
   test.description = 'Point in inclined frustum side'; //
 
@@ -862,8 +866,8 @@ function boxClosestPoint( test )
   var expected = [ 0.5, 1.6, 0.79999 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.boxClosestPoint( f, box );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( closestPoint, expected );
 
   test.description = 'Diagonal frustum plane'; //
 
@@ -876,8 +880,8 @@ function boxClosestPoint( test )
   var expected = [ 0, 0.4, 0.20000 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.boxClosestPoint( f, box );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( closestPoint, expected );
 
 
   test.description = 'PointBox'; //
@@ -891,8 +895,8 @@ function boxClosestPoint( test )
   var expected = [ 0, 0, 0 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.boxClosestPoint( f, box );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( closestPoint, expected );
 
   test.description = 'PointBox on side'; //
 
@@ -905,8 +909,8 @@ function boxClosestPoint( test )
   var expected = [ 1, 0.5, 0.5 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.boxClosestPoint( f, box );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.boxClosestPoint( f, box );
+  test.equivalent( closestPoint, expected );
 
   /* */
 
@@ -942,18 +946,20 @@ function sphereClosestPoint( test )
        0,   0,   1, - 1,   0,   0,
      - 1,   0, - 1,   0,   0, - 1 ] );
   var sphere = [ 0.5, 0.5, 0.5, 0.5 ];
-  var oldf = _.Space.make( [ 4, 6 ] ).copy(
-     [ 0,   0,   0,   0, - 1,   1,
-       1, - 1,   0,   0,   0,   0,
-       0,   0,   1, - 1,   0,   0,
-     - 1,   0, - 1,   0,   0, - 1 ] );
-  var oldsphere = [ 0.5, 0.5, 0.5, 0.5 ];
   var expected = 0;
 
-  var result = _.frustum.sphereClosestPoint( f, sphere );
-  test.equivalent( result, expected );
-  test.identical( f, oldf );
-  test.identical( sphere, oldsphere );
+  var closestPoint = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( closestPoint, expected );
+
+  var oldF = _.Space.make( [ 4, 6 ] ).copy(
+  [ 0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1 ] );
+  test.identical( f, oldF );
+
+  var oldSphere = [ 0.5, 0.5, 0.5, 0.5 ];
+  test.identical( sphere, oldSphere );
 
   test.description = 'Frustrum as sphere ( 0, 0, 0, 1, 1, 1 ) - corner ( 1, 1, 1 )'; //
 
@@ -965,8 +971,8 @@ function sphereClosestPoint( test )
   var sphere = [ 2.5, 2.5, 2.5, 0.5 ];
   var expected = _.vector.from( [ 1, 1, 1 ] );
 
-  var result = _.frustum.sphereClosestPoint( f, sphere );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( closestPoint, expected );
 
   test.description = 'Frustrum as sphere ( 0, 0, 0, 1, 1, 1 ) - corner ( 0, 0, 0 )'; //
 
@@ -979,8 +985,8 @@ function sphereClosestPoint( test )
   var expected = [ 0, 0, 0 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.sphereClosestPoint( f, sphere );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( closestPoint, expected );
 
   test.description = 'sphere and frustum intersect'; //
 
@@ -992,8 +998,8 @@ function sphereClosestPoint( test )
   var sphere = [ -1, -1, -1, 1.8 ];
   var expected = 0;
 
-  var result = _.frustum.sphereClosestPoint( f, sphere );
-  test.identical( result, expected );
+  var closestPoint = _.frustum.sphereClosestPoint( f, sphere );
+  test.identical( closestPoint, expected );
 
   test.description = 'Point in inclined frustum side'; //
 
@@ -1006,8 +1012,8 @@ function sphereClosestPoint( test )
   var expected = [ 0.5, 1.6, 0.79999 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.sphereClosestPoint( f, sphere );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( closestPoint, expected );
 
   test.description = 'Diagonal frustum plane'; //
 
@@ -1020,8 +1026,8 @@ function sphereClosestPoint( test )
   var expected = [ 0, 0.4, 0.20000 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.sphereClosestPoint( f, sphere );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( closestPoint, expected );
 
   test.description = 'Pointsphere'; //
 
@@ -1034,8 +1040,8 @@ function sphereClosestPoint( test )
   var expected = [ 0, 0, 0 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.sphereClosestPoint( f, sphere );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( closestPoint, expected );
 
   test.description = 'Pointsphere on side'; //
 
@@ -1048,8 +1054,8 @@ function sphereClosestPoint( test )
   var expected = [ 1, 0.5, 0.5 ];
   var expected = _.vector.from( expected );
 
-  var result = _.frustum.sphereClosestPoint( f, sphere );
-  test.equivalent( result, expected );
+  var closestPoint = _.frustum.sphereClosestPoint( f, sphere );
+  test.equivalent( closestPoint, expected );
 
   /* */
 
@@ -1083,7 +1089,7 @@ var Self =
  silencing : 1,
  // verbosity : 7,
  // debug : 1,
- routine: 'sphereIntersects',
+ // routine: 'sphereIntersects',
 
  tests :
  {
