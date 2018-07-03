@@ -56,18 +56,16 @@ function from( test )
 
   var dstPlane = [ 0, 0 , 1, 2 ];
   var srcPlane = [ 0, 1, 2, 3 ];
+  var oldSrcPlane = srcPlane.slice();
   var normal = [ 0, 1, 2 ];
+  var oldNormal = normal.slice();
   var bias = 3;
   var expected = [ 0, 1, 2, 3 ];
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, dstPlane );
   test.identical( expected, dstPlane );
-
-  var oldSrcPlane = [ 0, 1, 2, 3 ];
   test.identical( srcPlane, oldSrcPlane );
-
-  var oldNormal = [ 0, 1, 2 ];
   test.identical( normal, oldNormal );
 
   var oldBias = 3;
@@ -214,17 +212,15 @@ function fromNormalAndPoint( test )
 
   var dstPlane = [ 0, 0 , 1, 2 ];
   var normal = [ 0, 1, 0 ];
+  var oldNormal = normal.slice();
   var point = [ 0, 3, 4 ];
+  var oldPoint = point.slice();
   var expected = [ 0, 1, 0, - 3 ];
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, dstPlane );
   test.identical( expected, dstPlane );
-
-  var oldNormal = [ 0, 1, 0 ];
   test.identical( normal, oldNormal );
-
-  var oldPoint = [ 0, 3, 4 ];
   test.identical( point, oldPoint );
 
   test.description = 'NaN plane from normal and point'; //
@@ -363,18 +359,18 @@ function fromPoints( test )
 
   var dstPlane = [ 0, 0 , 1, 2 ];
   var a = [ 0, 1, 0 ];
+  var oldA = a.slice();
   var b = [ 0, 3, 4 ];
+  var oldB = b.slice();
   var c = [ 0, 2, 0 ];
+  var oldC = c.slice();
   var expected = [ 1, 0, 0, 0 ];
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c );
   test.identical( gotPlane, dstPlane );
   test.equivalent( expected, dstPlane );
-  var oldA = [ 0, 1, 0 ];
   test.identical( a, oldA );
-  var oldB = [ 0, 3, 4 ];
   test.identical( b, oldB );
-  var oldC = [ 0, 2, 0 ];
   test.identical( c, oldC );
 
   test.description = 'NaN plane'; //
@@ -495,18 +491,16 @@ function pointDistance( test )
   test.description = 'Point and plane stay unchanged'; //
 
   var plane = [ 0, 0 , 1, 2 ];
+  var oldPlane = plane.slice();
   var point = [ 0, 1, 0 ];
+  var oldPoint = point.slice();
+  oldPoint = _.vector.from( point );
   point = _.vector.from( point );
   var expected = 2;
 
   var distance = _.plane.pointDistance( plane, point );
   test.identical( expected, distance );
-
-  var oldPlane = [ 0, 0, 1, 2 ];
   test.identical( plane, oldPlane );
-
-  var oldPoint = [ 0, 1, 0 ];
-  oldPoint = _.vector.from( point );
   test.identical( point, oldPoint );
 
   test.description = 'NaN plane'; //
@@ -522,7 +516,7 @@ function pointDistance( test )
   test.description = 'NaN point'; //
 
   var plane = [ 0, 0, 0, 0 ];
-  point = [ NaN, NaN, NaN ];
+  var point = [ NaN, NaN, NaN ];
   point = _.vector.from( point );
   var expected = NaN;
 
@@ -532,18 +526,17 @@ function pointDistance( test )
   test.description = 'Trivial'; //
 
   var plane = [ 0, 1, 0, 2 ];
-  point = [ 1, 1, 1 ];
+  var point = [ 1, 1, 1 ];
   point = _.vector.from( point );
   var expected = 3;
 
   var distance = _.plane.pointDistance( plane, point );
   test.identical( distance, expected );
 
-
   test.description = 'Point under plane'; //
 
   var plane = [ 0, 0, 1, 1 ];
-  point = [ 0, 0, - 2 ];
+  var point = [ 0, 0, - 2 ];
   point = _.vector.from( point );
   var expected = - 1;
 
@@ -553,7 +546,7 @@ function pointDistance( test )
   test.description = 'Point over plane'; //
 
   var plane = [ 0, 0, 1, 1 ];
-  point = [ 0, 0, 2 ];
+  var point = [ 0, 0, 2 ];
   point = _.vector.from( point );
   var expected = 3;
 
@@ -563,7 +556,7 @@ function pointDistance( test )
   test.description = 'Decimal numbers'; //
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
-  point = [ 0, 0.2, 0.6 ];
+  var point = [ 0, 0.2, 0.6 ];
   point = _.vector.from( point );
   var expected = 0;
 
@@ -580,7 +573,6 @@ function pointDistance( test )
 
   var plane = _.plane.fromPoints( plane, a, b, c );
   test.equivalent( plane, expected );
-
 
   a = _.vector.from( a );
   b = _.vector.from( b );
@@ -618,16 +610,14 @@ function sphereDistance( test )
   test.description = 'Sphere and plane stay unchanged'; //
 
   var plane = [ 1, 0 , 0, 1 ];
+  var oldPlane = plane.slice();
   var sphere = [ 2, 0, 0, 1 ];
+  var oldSphere = sphere.slice();
   var expected = 2;
 
   var distance = _.plane.sphereDistance( plane, sphere );
   test.identical( expected, distance );
-
-  var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
-
-  var oldSphere = [ 2, 0, 0, 1];
   test.identical( sphere, oldSphere );
 
   test.description = 'Trivial'; //
@@ -717,13 +707,13 @@ function pointCoplanarGet( test )
   test.description = 'Plane remains unchanged, point changes'; //
 
   var plane = [ 1, 0 , 0, 1 ];
+  var oldPlane = plane.slice();
   var point = [ 2, 0, 2 ];
   var expected = [ - 1, 0, 2 ];
 
-  point = _.plane.pointCoplanarGet( plane, point );
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, point );
-
-  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( expected, gotPoint );
   test.identical( plane, oldPlane );
 
   test.description = 'No point'; //
@@ -731,8 +721,8 @@ function pointCoplanarGet( test )
   var plane = [ 1, 0 , 0, 1 ];
   var expected = [ - 1, 0, 0 ];
 
-  point = _.plane.pointCoplanarGet( plane );
-  test.identical( expected, point );
+  var gotPoint = _.plane.pointCoplanarGet( plane );
+  test.identical( expected, gotPoint );
 
   test.description = 'Null point'; //
 
@@ -740,8 +730,8 @@ function pointCoplanarGet( test )
   var point = null;
   var expected = [ - 1, 0, 0 ];
 
-  point = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, point );
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
 
   test.description = 'NaN point'; //
 
@@ -749,8 +739,8 @@ function pointCoplanarGet( test )
   var point = NaN;
   var expected = [ - 1, 0, 0 ];
 
-  point = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, point );
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
 
   test.description = 'NaN array point'; //
 
@@ -758,8 +748,8 @@ function pointCoplanarGet( test )
   var point = [ NaN, NaN, NaN ];
   var expected = [ NaN, NaN, NaN ];
 
-  point = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, point );
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
 
   test.description = 'Trivial'; //
 
@@ -767,8 +757,8 @@ function pointCoplanarGet( test )
   var point = [ 1, 3, 2 ];
   var expected = [ - 1, 3, 2 ];
 
-  point = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, point );
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
 
   test.description = 'Trivial 2'; //
 
@@ -776,8 +766,8 @@ function pointCoplanarGet( test )
   var point = [ 2, 3, 2 ];
   var expected = [ 2, 3, 2 ];
 
-  point = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, point );
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
 
   test.description = 'Proyection 3D'; //
 
@@ -785,8 +775,8 @@ function pointCoplanarGet( test )
   var point = [ 4, 1, -3 ];
   var expected = [ 29/7, 13/14, -39/14  ];
 
-  point = _.plane.pointCoplanarGet( plane, point );
-  test.equivalent( expected, point );
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.equivalent( expected, gotPoint );
 
   test.description = 'Point in plane'; //
 
@@ -794,8 +784,8 @@ function pointCoplanarGet( test )
   var point = [ - 1, 2, 3 ];
   var expected = [ - 1, 2, 3 ];
 
-  point = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, point );
+  gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
 
   /* */
 
@@ -818,13 +808,12 @@ function lineIntersects( test )
   test.description = 'Plane and line remain unchanged'; //
 
   var plane = [ 1, 0 , 0, 1 ];
+  var oldPlane = plane.slice();
   var line = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
   var expected = false;
 
-  var inters = _.plane.lineIntersects( plane, line );
-  test.identical( expected, inters );
-
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var interBool = _.plane.lineIntersects( plane, line );
+  test.identical( expected, interBool );
   test.identical( plane, oldPlane );
 
   var oldLine = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
@@ -836,8 +825,8 @@ function lineIntersects( test )
   var line = [ [ - 2, - 2, - 2 ], [ 2, 2, 2 ] ];
   var expected = true;
 
-  line = _.plane.lineIntersects( plane, line );
-  test.identical( expected, line );
+  var interBool = _.plane.lineIntersects( plane, line );
+  test.identical( expected, interBool );
 
   test.description = 'Line and Plane intersect'; //
 
@@ -845,8 +834,8 @@ function lineIntersects( test )
   var line = [ [ 2, 2, 2 ], [ 3, 3, 3 ] ];
   var expected = true;
 
-  line = _.plane.lineIntersects( plane, line );
-  test.identical( expected, line );
+  var interBool = _.plane.lineIntersects( plane, line );
+  test.identical( expected, interBool );
 
   test.description = 'Line and Plane don´t intersect'; //
 
@@ -854,8 +843,8 @@ function lineIntersects( test )
   var line = [ [ 2, 2, 3 ], [ 3, 3, 4 ] ];
   var expected = false;
 
-  line = _.plane.lineIntersects( plane, line );
-  test.identical( expected, line );
+  var interBool = _.plane.lineIntersects( plane, line );
+  test.identical( expected, interBool );
 
   test.description = 'Line in Plane'; //
 
@@ -863,8 +852,8 @@ function lineIntersects( test )
   var line = [ [ 0, 2, 3 ], [ 0, 5, 7 ] ];
   var expected = true;
 
-  line = _.plane.lineIntersects( plane, line );
-  test.equivalent( expected, line );
+  var interBool = _.plane.lineIntersects( plane, line );
+  test.equivalent( expected, interBool );
 
   test.description = 'Perpendicular line intersects'; //
 
@@ -872,8 +861,8 @@ function lineIntersects( test )
   var line = [ [ - 2, 2, 2 ], [ 2, 2, 2 ] ];
   var expected = true;
 
-  line = _.plane.lineIntersects( plane, line );
-  test.identical( expected, line );
+  var interBool = _.plane.lineIntersects( plane, line );
+  test.identical( expected, interBool );
 
   test.description = 'Perpendicular line touches plane'; //
 
@@ -881,8 +870,8 @@ function lineIntersects( test )
   var line = [ [ - 2, 2, 2 ], [ 0, 2, 2 ] ];
   var expected = true;
 
-  line = _.plane.lineIntersects( plane, line );
-  test.identical( expected, line );
+  var interBool = _.plane.lineIntersects( plane, line );
+  test.identical( expected, interBool );
 
   test.description = 'Perpendicular doesn´t intersect'; //
 
@@ -890,8 +879,8 @@ function lineIntersects( test )
   var line = [ [ - 2, 2, 2 ], [ - 1, 2, 2 ] ];
   var expected = false;
 
-  line = _.plane.lineIntersects( plane, line );
-  test.identical( expected, line );
+  var interBool = _.plane.lineIntersects( plane, line );
+  test.identical( expected, interBool );
 
   /* */
 
@@ -919,19 +908,18 @@ function threeIntersectionPoint( test )
   test.description = 'Planes remain unchanged'; //
 
   var plane1 = [ 1, 0 , 0, 1 ];
+  var oldPlane1 = plane1.slice();
   var plane2 = [ 1, 1 , 0, 1 ];
+  var oldPlane2 = plane2.slice();
   var plane3 = [ 1, 0 , 1, 1 ];
+  var oldPlane3 = plane3.slice();
   var expected = [ - 1, 0, 0 ];
   expected = _.vector.from( expected );
 
-  var inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, inters );
-
-  var oldPlane1 = [ 1, 0, 0, 1 ];
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
   test.identical( plane1, oldPlane1 );
-  var oldPlane2 = [ 1, 1, 0, 1 ];
   test.identical( plane2, oldPlane2 );
-  var oldPlane3 = [ 1, 0, 1, 1 ];
   test.identical( plane3, oldPlane3 );
 
   test.description = 'Parallel planes'; //
@@ -941,8 +929,8 @@ function threeIntersectionPoint( test )
   var plane3 = [ 3, 0 , 0, 7 ];
   var expected = NaN;
 
-  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, inters );
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
 
   test.description = '2 Parallel planes'; //
 
@@ -951,8 +939,8 @@ function threeIntersectionPoint( test )
   var plane3 = [ 3, 1 , 4, 7 ];
   var expected = NaN;
 
-  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, inters );
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
 
   test.description = 'Perpendicular planes in origin'; //
 
@@ -962,8 +950,8 @@ function threeIntersectionPoint( test )
   var expected = [ 0, 0, 0 ];
   expected = _.vector.from( expected );
 
-  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.equivalent( expected, inters );
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.equivalent( expected, interPoint );
   debugger;
   test.description = 'Planes in origin'; //
 
@@ -973,8 +961,8 @@ function threeIntersectionPoint( test )
   var expected = [ 0, 0, 0 ];
   expected = _.vector.from( expected );
 
-  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.equivalent( expected, inters );
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.equivalent( expected, interPoint );
 
   test.description = 'Perpendicular planes'; //
 
@@ -984,8 +972,8 @@ function threeIntersectionPoint( test )
   var expected = [ - 1, 1, - 1 ];
   expected = _.vector.from( expected );
 
-  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, inters );
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
 
   test.description = 'Trivial'; //
 
@@ -995,8 +983,8 @@ function threeIntersectionPoint( test )
   var expected = [ - 32, 37, 11.5 ];
   expected = _.vector.from( expected );
 
-  inters = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, inters );
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
 
   /* */
 
@@ -1023,13 +1011,12 @@ function translate( test )
 
   var plane = [ 1, 0 , 0, 1 ];
   var offset = [ 1, 0, 1 ];
+  var oldOffset = offset.slice();
   var expected = [ 1, 0, 0, 0 ];
 
   var newPlane = _.plane.translate( plane, offset );
   test.identical( expected, newPlane );
   test.identical( plane, newPlane );
-
-  var oldOffset = [ 1, 0, 1 ];
   test.identical( offset, oldOffset );
 
   test.description = 'No change (normal and offset are perpendicular)'; //
@@ -1038,8 +1025,8 @@ function translate( test )
   var offset = [ 0, 2, 3 ];
   var expected = [ 1, 0 , 0, 1 ];
 
-  offset = _.plane.translate( plane, offset );
-  test.identical( expected, offset );
+  var gotOffset = _.plane.translate( plane, offset );
+  test.identical( expected, gotOffset );
 
   test.description = 'No change'; //
 
@@ -1047,8 +1034,8 @@ function translate( test )
   var offset = [ 2, 2, 2 ];
   var expected = [ 1, 0 , - 1, 0 ];
 
-  offset = _.plane.translate( plane, offset );
-  test.identical( expected, offset );
+  var gotOffset = _.plane.translate( plane, offset );
+  test.identical( expected, gotOffset );
 
   test.description = 'Trivial translation'; //
 
@@ -1056,8 +1043,8 @@ function translate( test )
   var offset = [ 3, 2, 3 ];
   var expected =  [ 1, 0 , 0, - 3 ];
 
-  offset = _.plane.translate( plane, offset );
-  test.equivalent( expected, offset );
+  var gotOffset = _.plane.translate( plane, offset );
+  test.equivalent( expected, gotOffset );
 
   test.description = 'Negative offset'; //
 
@@ -1065,8 +1052,8 @@ function translate( test )
   var offset = [ - 3, - 2, - 3 ];
   var expected =  [ 1, 0 , 0, 3 ];
 
-  offset = _.plane.translate( plane, offset );
-  test.equivalent( expected, offset );
+  var gotOffset = _.plane.translate( plane, offset );
+  test.equivalent( expected, gotOffset );
 
   test.description = 'More dimensions'; //
 
@@ -1074,8 +1061,8 @@ function translate( test )
   var offset = [ - 2, - 2, - 2, 2, 2, 2 ];
   var expected = [ 1, 0 , 0, 2, 3, 4, -16 ];
 
-  offset = _.plane.translate( plane, offset );
-  test.identical( expected, offset );
+  var gotOffset = _.plane.translate( plane, offset );
+  test.identical( expected, gotOffset );
 
   test.description = 'NaN offset'; //
 
@@ -1083,8 +1070,8 @@ function translate( test )
   var offset = [ NaN, NaN, NaN ];
   var expected =  [ 1, 0 , 0, NaN ];
 
-  offset = _.plane.translate( plane, offset );
-  test.equivalent( expected, offset );
+  var gotOffset = _.plane.translate( plane, offset );
+  test.equivalent( expected, gotOffset );
 
   /* */
 
@@ -1130,7 +1117,7 @@ function normalize( test )
   var plane = [ 2, 2 , 2, 4 ];
   var expected = [ 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 4/Math.sqrt( 12 ) ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.description = 'Already normalized 1D'; //
@@ -1138,7 +1125,7 @@ function normalize( test )
   var plane = [ 1, 0 , 0, 3 ];
   var expected = [ 1, 0 , 0, 3 ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.identical( expected, normalized );
 
   test.description = 'Already normalized'; //
@@ -1146,7 +1133,7 @@ function normalize( test )
   var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
   var expected = [1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.description = 'Negative coordinates'; //
@@ -1154,7 +1141,7 @@ function normalize( test )
   var plane = [ - 3, - 6 , 0, 8 ];
   var expected =  [ - 3/Math.sqrt( 45 ), - 6/Math.sqrt( 45 ) , 0, 8/Math.sqrt( 45 ) ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.description = 'More dimensions'; //
@@ -1162,7 +1149,7 @@ function normalize( test )
   var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
   var expected = [ 4/Math.sqrt( 48 ), 0 , 0, 4/Math.sqrt( 48 ), 0, 4/Math.sqrt( 48 ), 8/Math.sqrt( 48 ) ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.identical( expected, normalized );
 
   test.description = 'NaN result'; //
@@ -1170,7 +1157,7 @@ function normalize( test )
   var plane = [ NaN, NaN, NaN, NaN ];
   var expected =  [ NaN, NaN, NaN, NaN ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.description = 'Plane  [ 0 ]'; //
@@ -1178,7 +1165,7 @@ function normalize( test )
   var plane = [ 0 ];
   var expected =  [ NaN ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.description = 'Null coordinate'; //
@@ -1186,7 +1173,7 @@ function normalize( test )
   var plane = [ 1, null, 0, 0 ];
   var expected =  [ 1, 0, 0, 0 ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.description = 'NaN coordinates'; //
@@ -1194,7 +1181,7 @@ function normalize( test )
   var plane = [ 1, NaN, 0, 0 ];
   var expected =  [ NaN, NaN, NaN, NaN ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.description = 'String coordinates'; //
@@ -1202,7 +1189,7 @@ function normalize( test )
   var plane = [ 1, 'string', 0, 0 ];
   var expected =  [ NaN, NaN, NaN, NaN ];
 
-  normalized = _.plane.normalize( plane );
+  var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
 
@@ -1254,7 +1241,7 @@ function negate( test )
   var plane = [ 2, 2 , 2, 4 ];
   var expected = [ - 2, - 2, - 2, - 4 ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.description = 'Negate 1D'; //
@@ -1262,7 +1249,7 @@ function negate( test )
   var plane = [ 1, 0 , 0, 3 ];
   var expected = [ - 1, 0 , 0, - 3 ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.description = 'Negate'; //
@@ -1270,7 +1257,7 @@ function negate( test )
   var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
   var expected = [ - 1/Math.sqrt( 2 ), - 1/Math.sqrt( 2 ), 0, - 2/Math.sqrt( 2 ) ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.description = 'Negative coordinates'; //
@@ -1278,7 +1265,7 @@ function negate( test )
   var plane = [ - 3, - 6 , 0, 8 ];
   var expected =  [ 3, 6, 0, - 8 ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.description = 'More dimensions'; //
@@ -1286,7 +1273,7 @@ function negate( test )
   var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
   var expected = [  - 4, 0 , 0, - 4, 0, - 4, - 8 ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.description = 'NaN result'; //
@@ -1294,7 +1281,7 @@ function negate( test )
   var plane = [ NaN, NaN, NaN, NaN ];
   var expected =  [ NaN, NaN, NaN, NaN ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.description = 'Plane  [ 0 ]'; //
@@ -1302,7 +1289,7 @@ function negate( test )
   var plane = [ 0 ];
   var expected =  [ 0 ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.description = 'Null coordinate'; //
@@ -1310,7 +1297,7 @@ function negate( test )
   var plane = [ 1, null, 0, 0 ];
   var expected =  [ - 1, 0, 0, 0 ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.description = 'NaN coordinates'; //
@@ -1318,7 +1305,7 @@ function negate( test )
   var plane = [ 1, NaN, 0, 0 ];
   var expected =  [ - 1, NaN, 0, 0 ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.description = 'String coordinates'; //
@@ -1326,7 +1313,7 @@ function negate( test )
   var plane = [ 1, 'string', 0, 0 ];
   var expected =  [ - 1, NaN, 0, 0 ];
 
-  negated = _.plane.negate( plane );
+  var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
 
