@@ -2322,12 +2322,13 @@ var Self =
 Euler representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ]
 Angle = set[ 0, PI / 6, PI / 4, PI / 3 ]
 Accuracy = epsilon, by default it is 1e-7
-Delta = set[ -0.1, -sqrt( Accuracy ), -Accuracy, -sqr( Accuracy ), 0, +sqr( Accuracy ), +Accuracy, +sqrt( Accuracy ), +0.1 ]
+Delta = set[ -0.1, -sqrt( Accuracy ), -sqr( Accuracy ), 0, +sqr( Accuracy ), +sqrt( Accuracy ), +0.1 ]
 
-Angle + n*PI / 2 + Delta
-  4   *   4      *   9
+                      Angle + n*PI / 2 + Delta
+        0.5 *       (  4   *   4      *   7   )     ^ 3
+excluding half cases                            for three angles
 
-144 premutations * 12 representations = 1728 ordinary test cases
+702464 premutations * 12 representations = 8 429 568 ordinary test cases
 
 */
 
