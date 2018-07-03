@@ -2013,6 +2013,7 @@ function toMatrix2( euler )
   var oz = eulerv.eGet( 5 );
 
   /* qqq : should be if else if else */
+  /* qqq : not optimal */
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
