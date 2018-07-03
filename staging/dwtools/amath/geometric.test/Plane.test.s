@@ -1355,7 +1355,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-   routine: 'negate',
+  // routine: 'negate',
 
   tests :
   {
