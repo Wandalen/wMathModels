@@ -836,74 +836,73 @@ function sphereIntersects( test )
 
   test.description = 'Trivial intersection'; //
 
-  sphere = [ - 1, 2, 0, 2 ];
-  sphere2 = [ 1, 3, 0, 2 ];
-  expected = true;
-  gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
+  var sphere = [ - 1, 2, 0, 2 ];
+  var sphere2 = [ 1, 3, 0, 2 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
 
   test.equivalent( gotSphere, expected );
 
   test.description = 'Different radius'; //
 
-  sphere = [ - 1, 0, 0, 3 ];
-  sphere2 = [ 1, 0, 0, 2 ];
-  expected = true;
-  gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
+  var sphere = [ - 1, 0, 0, 3 ];
+  var sphere2 = [ 1, 0, 0, 2 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
 
   test.equivalent( gotSphere, expected );
 
-
   test.description = 'Just touching'; //
 
-  sphere = [ - 1, 0, 0, 1 ];
-  sphere2 = [ 1, 0, 0, 1 ];
-  expected = true;
-  gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
+  var sphere = [ - 1, 0, 0, 1 ];
+  var sphere2 = [ 1, 0, 0, 1 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
 
   test.equivalent( gotSphere, expected );
 
   test.description = 'Not intersecting'; //
 
-  sphere = [ - 1.5, 0, 0, 1 ];
-  sphere2 = [ 1.5, 0, 0, 1 ];
-  expected = false;
-  gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
+  var sphere = [ - 1.5, 0, 0, 1 ];
+  var sphere2 = [ 1.5, 0, 0, 1 ];
+  var expected = false;
+  var gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
 
   test.equivalent( gotSphere, expected );
 
   test.description = 'One inside another'; //
 
-  sphere = [ 0, 0, 0, 3 ];
-  sphere2 = [ 0, 0, 0, 1 ];
-  expected = true;
-  gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
+  var sphere = [ 0, 0, 0, 3 ];
+  var sphere2 = [ 0, 0, 0, 1 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
 
   test.equivalent( gotSphere, expected );
 
   test.description = 'One inside another different centers'; //
 
-  sphere = [ 0, 0, 0, 3 ];
-  sphere2 = [ 1, 1, 1, 3 ];
-  expected = true;
-  gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
+  var sphere = [ 0, 0, 0, 3 ];
+  var sphere2 = [ 1, 1, 1, 3 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
 
   test.equivalent( gotSphere, expected );
 
   test.description = 'dst is nil';
 
-  sphere = _.sphere.makeNil();
-  sphere2 = [ 0,0,0,2 ];
-  expected = true;
-  gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
+  var sphere = _.sphere.makeNil();
+  var sphere2 = [ 0,0,0,2 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
 
   test.equivalent( gotSphere,expected );
 
   test.description = 'src is nil';
 
-  sphere = _.sphere.makeNil();
-  sphere2 = [ 0,0,0,2 ];
-  expected = true;
-  gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
+  var sphere = _.sphere.makeNil();
+  var sphere2 = [ 0,0,0,2 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
 
   test.equivalent( gotSphere,expected );
 
@@ -911,10 +910,10 @@ function sphereIntersects( test )
 
   test.description = 'src is nil';
 
-  sphere = _.sphere.makeNil();
-  sphere2 = _.sphere.makeNil();
-  expected = true;
-  gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
+  var sphere = _.sphere.makeNil();
+  var sphere2 = _.sphere.makeNil();
+  var expected = true;
+  var gotSphere = _.sphere.sphereIntersects( sphere, sphere2 );
 
   test.equivalent( gotSphere,expected );
 
@@ -1000,85 +999,85 @@ function dimGet( test )
 
   test.description = 'Source sphere remains unchanged'; //
 
-  var srcsphere = [ 0, 0, 1, 1 ];
+  var srcSphere = [ 0, 0, 1, 1 ];
+  var oldSrcSphere = srcSphere.slice();
   var expected = 3;
 
-  var gotDim = _.sphere.dimGet( srcsphere );
+  var gotDim = _.sphere.dimGet( srcSphere );
   test.identical( gotDim, expected );
-  var oldsrcsphere = [ 0, 0, 1, 1 ];
-  test.identical( srcsphere, oldsrcsphere );
+  test.identical( srcSphere, oldSrcSphere );
 
   test.description = 'Nil sphere sphere'; //
 
   var sphere = [ 1, 1, 1, -Infinity ];
-  expected = 3;
+  var expected = 3;
 
-  gotDim = _.sphere.dimGet( sphere );
+  var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
   test.description = 'Zero dimension sphere'; //
 
-  sphere = [ 1 ];
-  expected = 0;
+  var sphere = [ 1 ];
+  var expected = 0;
 
-  gotDim = _.sphere.dimGet( sphere );
+  var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
   test.description = 'One dimension sphere'; //
 
-  sphere = [ 0, 0 ];
-  expected = 1;
+  var sphere = [ 0, 0 ];
+  var expected = 1;
 
-  gotDim = _.sphere.dimGet( sphere );
+  var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
   test.description = 'Two dimension sphere'; //
 
-  sphere = [ 0, - 1, 1.5 ];
-  expected = 2;
+  var sphere = [ 0, - 1, 1.5 ];
+  var expected = 2;
 
-  gotDim = _.sphere.dimGet( sphere );
+  var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
   test.description = 'Three dimension sphere'; //
 
-  sphere = [ - 1, 0, 1.2, 2 ];
-  expected = 3;
+  var sphere = [ - 1, 0, 1.2, 2 ];
+  var expected = 3;
 
-  gotDim = _.sphere.dimGet( sphere );
+  var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
   test.description = 'Four dimension sphere'; //
 
-  sphere = [ - 1, - 2.2, 1, 2, 5.4 ];
-  expected = 4;
+  var sphere = [ - 1, - 2.2, 1, 2, 5.4 ];
+  var expected = 4;
 
-  gotDim = _.sphere.dimGet( sphere );
+  var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
   test.description = 'Eight dimension sphere'; //
 
-  sphere = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1 ];
-  expected = 8;
+  var sphere = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1 ];
+  var expected = 8;
 
-  gotDim = _.sphere.dimGet( sphere );
+  var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
 
   test.description = 'NaN'; //
 
-  sphere = [ 'Hi', 'world' ];
-  expected = 1;
+  var sphere = [ 'Hi', 'world' ];
+  var expected = 1;
 
-  gotDim = _.sphere.dimGet( sphere );
+  var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
   test.description = 'NaN'; //
 
-  sphere = [ 'Hi', 'world', null, null, NaN, NaN ];
-  expected = 5;
+  var sphere = [ 'Hi', 'world', null, null, NaN, NaN ];
+  var expected = 5;
 
-  gotDim = _.sphere.dimGet( sphere );
+  var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
   /* */
@@ -1131,105 +1130,105 @@ function centerGet( test )
 
   test.description = 'Source sphere remains unchanged'; //
 
-  var srcsphere = [ 0, 0, 1, 1 ];
-  var oldsrcsphere = [ 0, 0, 1, 1 ];
+  var srcSphere = [ 0, 0, 1, 1 ];
+  var oldSrcSphere = srcSphere.slice();
   var expected = [ 0, 0, 1 ];
   expected = _.vector.from(expected);
 
-  var gotCenter = _.sphere.centerGet( srcsphere );
+  var gotCenter = _.sphere.centerGet( srcSphere );
 
-  test.equivalent( srcsphere, oldsrcsphere );
+  test.equivalent( srcSphere, oldSrcSphere );
   test.identical( gotCenter, expected );
 
   test.description = 'Zero dimension sphere'; //
 
   var sphere = [ 0 ];
-  expected = [ ];
+  var expected = [ ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
   test.description = 'One dimension sphere'; //
 
-  sphere = [ 0, 0 ];
-  expected = [ 0 ];
+  var sphere = [ 0, 0 ];
+  var expected = [ 0 ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
   test.description = 'Two dimension sphere'; //
 
-  sphere = [ 0, 0, 2 ];
-  expected = [ 0, 0 ];
+  var sphere = [ 0, 0, 2 ];
+  var expected = [ 0, 0 ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
   test.description = 'Three dimension sphere'; //
 
-  sphere = [ 0, - 1, - 2, 2 ];
-  expected = [ 0, - 1, - 2 ];
+  var sphere = [ 0, - 1, - 2, 2 ];
+  var expected = [ 0, - 1, - 2 ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
   test.description = 'Four dimension sphere'; //
 
-  sphere = [ 0, - 1, - 2, 2, 0 ];
-  expected = [ 0, - 1, - 2, 2 ];
+  var sphere = [ 0, - 1, - 2, 2, 0 ];
+  var expected = [ 0, - 1, - 2, 2 ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
   test.description = 'Eight dimension sphere'; //
 
-  sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, - 1 ];
-  expected = [ 0, - 1, -2, 2, 0, 1, 2, 6 ];
+  var sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, - 1 ];
+  var expected = [ 0, - 1, -2, 2, 0, 1, 2, 6 ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
   test.description = 'normalized sphere'; //
 
-  sphere = [ 0.624, 0.376, 0.52 ];
-  expected = [ 0.624, 0.376 ];
+  var sphere = [ 0.624, 0.376, 0.52 ];
+  var expected = [ 0.624, 0.376 ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
   test.description = 'negative radius'; //
 
-  sphere = [ 1, 2, - 3 ];
-  expected = [ 1, 2 ];
+  var sphere = [ 1, 2, - 3 ];
+  var expected = [ 1, 2 ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
 
   test.description = 'NaN radius'; //
 
-  sphere = [ 1, 2, NaN ];
-  expected = [ 1, 2 ];
+  var sphere = [ 1, 2, NaN ];
+  var expected = [ 1, 2 ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
   test.description = 'NaN sphere'; //
 
-  sphere = [ NaN, NaN, NaN ];
-  expected = [ NaN, NaN ];
+  var sphere = [ NaN, NaN, NaN ];
+  var expected = [ NaN, NaN ];
   expected = _.vector.from(expected);
 
-  gotCenter = _.sphere.centerGet( sphere );
+  var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
   /* */
@@ -1281,106 +1280,106 @@ function radiusGet( test )
 
   test.description = 'Source sphere remains unchanged'; //
 
-  var srcsphere = [ 0, 0, 1, 1 ];
-  var oldsrcsphere = [ 0, 0, 1, 1 ];
+  var srcSphere = [ 0, 0, 1, 1 ];
+  var oldSrcSphere = srcSphere.slice();
   var expected =  1 ;
   // expected = _.vector.from(expected);
 
-  var gotRadius = _.sphere.radiusGet( srcsphere );
+  var gotRadius = _.sphere.radiusGet( srcSphere );
 
-  test.equivalent( srcsphere, oldsrcsphere );
+  test.equivalent( srcSphere, oldSrcSphere );
   test.identical( gotRadius, expected );
 
   test.description = 'Zero dimension sphere'; //
 
   var sphere = [ 0 ];
-  expected = 0;
+  var expected = 0;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
   test.description = 'One dimension sphere'; //
 
-  sphere = [ 0, 0 ];
-  expected =  0 ;
+  var sphere = [ 0, 0 ];
+  var expected =  0 ;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
   test.description = 'Two dimension sphere'; //
 
-  sphere = [ 0, 0, 2 ];
-  expected = 2;
+  var sphere = [ 0, 0, 2 ];
+  var expected = 2;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
   test.description = 'Three dimension sphere'; //
 
-  sphere = [ 0, - 1, - 2, 2 ];
-  expected = 2;
+  var sphere = [ 0, - 1, - 2, 2 ];
+  var expected = 2;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
   test.description = 'Four dimension sphere'; //
 
-  sphere = [ 0, - 1, - 2, 2, 0 ];
-  expected =  0;
+  var sphere = [ 0, - 1, - 2, 2, 0 ];
+  var expected =  0;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
   test.description = 'Eight dimension sphere'; //
 
-  sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, 1 ];
-  expected = 1;
+  var sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, 1 ];
+  var expected = 1;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
   test.description = 'normalized sphere'; //
 
-  sphere = [ 0.624, 0.376, 0.52 ];
-  expected = 0.52;
+  var sphere = [ 0.624, 0.376, 0.52 ];
+  var expected = 0.52;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
   test.description = 'negative radius'; //
 
-  sphere = [ 1, 2, - 3 ];
-  expected = -3;
+  var sphere = [ 1, 2, - 3 ];
+  var expected = -3;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
 
   test.description = 'NaN radius'; //
 
-  sphere = [ 1, 2, NaN ];
-  expected = NaN;
+  var sphere = [ 1, 2, NaN ];
+  var expected = NaN;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
   test.description = 'NaN sphere'; //
 
-  sphere = [ NaN, NaN, NaN ];
-  expected = NaN;
+  var sphere = [ NaN, NaN, NaN ];
+  var expected = NaN;
 
-  gotRadius = _.sphere.radiusGet( sphere );
+  var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
   test.description = 'radiusGet+Set two dimensions'; //
 
-  sphere = [ 0, 1, 1 ];
+  var sphere = [ 0, 1, 1 ];
   var radiusOld = 1;
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radiusSph, radiusOld );
 
   var radius = 2;
-  expected = [ 0, 1, 2 ];
+  var expected = [ 0, 1, 2 ];
   expected = _.vector.from(expected);
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1390,15 +1389,15 @@ function radiusGet( test )
 
   test.description = 'radiusGet+Set three dimensions'; //
 
-  sphere = [ 0, 0, 1, 1 ];
+  var sphere = [ 0, 0, 1, 1 ];
   var radiusOld = 1;
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  expected = [ 0, 0, 1, 2 ];
+  var expected = [ 0, 0, 1, 2 ];
   expected = _.vector.from(expected);
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( gotSphere, expected );
 
   var radiusSph = _.sphere.radiusGet( gotSphere );
@@ -1406,10 +1405,10 @@ function radiusGet( test )
 
   test.description = 'NaN sphere'; //
 
-  sphere = [ NaN, NaN, NaN ];
-  expected = NaN;
+  var sphere = [ NaN, NaN, NaN ];
+  var expected = NaN;
 
-  gotSphere = _.sphere.radiusGet( sphere );
+  var gotSphere = _.sphere.radiusGet( sphere );
   test.equivalent( gotSphere, expected );
 
   /* */
@@ -1468,122 +1467,121 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, srcRadius );
   test.identical( gotSphere, expected );
 
-  var oldsrcRadius = 2;
-  test.equivalent( srcRadius, oldsrcRadius );
+  var oldSrcRadius = 2;
+  test.equivalent( srcRadius, oldSrcRadius );
 
   test.description = 'Zero dimension sphere'; //
 
   var sphere = [ 0 ];
   var radius = 1;
-  expected = [ 1 ];
+  var expected = [ 1 ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'One dimension sphere'; //
 
-  sphere = [ 0, 0 ];
-  radius = 2;
-  expected = [ 0, 2 ] ;
+  var sphere = [ 0, 0 ];
+  var radius = 2;
+  var expected = [ 0, 2 ] ;
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'Two dimension sphere'; //
 
-  sphere = [ 0, 0, 2 ];
-  radius = 3;
-  expected = [ 0, 0, 3 ];
+  var sphere = [ 0, 0, 2 ];
+  var radius = 3;
+  var expected = [ 0, 0, 3 ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'Three dimension sphere'; //
 
-  sphere = [ 0, - 1, - 2, 2 ];
-  radius = 4;
-  expected = [ 0, - 1, - 2, 4 ];
+  var sphere = [ 0, - 1, - 2, 2 ];
+  var radius = 4;
+  var expected = [ 0, - 1, - 2, 4 ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'Four dimension sphere'; //
 
-  sphere = [ 0, - 1, - 2, 2, 0 ];
-  radius = 5;
-  expected =  [ 0, - 1, - 2, 2, 5 ];
+  var sphere = [ 0, - 1, - 2, 2, 0 ];
+  var radius = 5;
+  var expected =  [ 0, - 1, - 2, 2, 5 ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'Eight dimension sphere'; //
 
-  sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, 1 ];
-  radius = 2;
-  expected = [  0, - 1, - 2, 2, 0, 1, 2, 6, 2 ];
+  var sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, 1 ];
+  var radius = 2;
+  var expected = [  0, - 1, - 2, 2, 0, 1, 2, 6, 2 ];
   expected = _.vector.from(expected);
 
-  sphere = _.sphere.radiusSet( sphere, radius );
-  test.identical( sphere, expected );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
+  test.identical( gotSphere, expected );
 
   test.description = 'normalized sphere'; //
 
-  sphere = [ 0.624, 0.376, 0.52 ];
-  radius = 0.777;
-  expected = [ 0.624, 0.376, 0.777 ];
+  var sphere = [ 0.624, 0.376, 0.52 ];
+  var radius = 0.777;
+  var expected = [ 0.624, 0.376, 0.777 ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'negative radius'; //
 
-  sphere = [ 1, 2, - 3 ];
-  radius = - 2;
-  expected = [ 1, 2, - 2 ];
+  var sphere = [ 1, 2, - 3 ];
+  var radius = - 2;
+  var expected = [ 1, 2, - 2 ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'NaN radius'; //
 
-  sphere = [ 1, 2, 3 ];
-  radius = NaN;
-  expected = [ 1, 2, NaN ];
+  var sphere = [ 1, 2, 3 ];
+  var radius = NaN;
+  var expected = [ 1, 2, NaN ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'NaN sphere'; //
 
-  sphere = [ NaN, NaN, NaN ];
-  radius = 2;
-  expected = [ NaN, NaN, 2 ];
+  var sphere = [ NaN, NaN, NaN ];
+  var radius = 2;
+  var expected = [ NaN, NaN, 2 ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
-
 
   test.description = 'radiusSet+Get two dimensions'; //
 
-  sphere = [ 0, 2, 3 ];
+  var sphere = [ 0, 2, 3 ];
   var radiusOld = 3;
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  expected = [ 0, 2, 2 ];
+  var expected = [ 0, 2, 2 ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   var radiusSph = _.sphere.radiusGet( sphere );
@@ -1591,16 +1589,16 @@ function radiusSet( test )
 
   test.description = 'radiusSet+Get three dimensions'; //
 
-  sphere = [ 0, 1, 1, 3 ];
-  radiusOld = 3;
+  var sphere = [ 0, 1, 1, 3 ];
+  var radiusOld = 3;
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  expected = [ 0, 1, 1, 2 ];
+  var expected = [ 0, 1, 1, 2 ];
   expected = _.vector.from(expected);
 
-  gotSphere = _.sphere.radiusSet( sphere, radius );
+  var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
   var radiusSph = _.sphere.radiusGet( sphere );
@@ -1666,7 +1664,7 @@ function fromPoints( test )
   var points = [ [ 1, 1, 0 ], [ 0, 0, 0 ], [ 0, 0, 2 ] ];
   var expected = [ 0, 0, 0, 2 ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points );
+  var gotSphere = _.sphere.fromPoints( dstSphere, points );
   test.identical( gotSphere, expected );
   test.identical( dstSphere, expected );
 
@@ -1688,7 +1686,7 @@ function fromPoints( test )
   var points = [ [ 1, 0, 0 ], [ 0, 2, 0 ], [ 0, 0, 3 ] ];
   var expected = [ 0, 0, 0, 3 ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points );
+  var gotSphere = _.sphere.fromPoints( dstSphere, points );
   test.identical( gotSphere, expected );
 
   test.description = 'Zero points - sphere not expanded'; //
@@ -1697,34 +1695,34 @@ function fromPoints( test )
   var points= [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
   var expected = [ 0, 0, 0, 0 ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
   test.description = 'sphere expanded'; //
 
-  dstSphere = [ 0, 0, 0, 2 ];
-  points= [ [ - 1, 0, - 1 ], [ 0, 3, 0 ], [ 0, - 3, 0 ] ] ;
-  expected = [ 0, 0, 0, 3 ];
+  var dstSphere = [ 0, 0, 0, 2 ];
+  var points= [ [ - 1, 0, - 1 ], [ 0, 3, 0 ], [ 0, - 3, 0 ] ] ;
+  var expected = [ 0, 0, 0, 3 ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
   test.description = 'sphere NOT expanded ( points inside sphere )'; //
 
-  dstSphere = [ 1, 1, 1, 2 ];
-  points= [ [ 0, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] ];
-  expected = [ 1,  1, 1, 1 ];
+  var dstSphere = [ 1, 1, 1, 2 ];
+  var points= [ [ 0, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] ];
+  var expected = [ 1,  1, 1, 1 ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
   test.description = 'sphere ( normalized to 1 ) expanded'; //
 
-  dstSphere = [ 0, 0, 0, 0 ];
-  points= [ [ - 0.500, 0, 0 ], [ 0, 0.005, 0 ] ];
-  expected = [ 0, 0, 0, 0.5 ];
+  var dstSphere = [ 0, 0, 0, 0 ];
+  var points= [ [ - 0.500, 0, 0 ], [ 0, 0.005, 0 ] ];
+  var expected = [ 0, 0, 0, 0.5 ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
   test.description = 'Null sphere of four dimensions expanded'; //
@@ -1733,16 +1731,16 @@ function fromPoints( test )
   var points= [ [ 0, 0, 0, 1 ], [ 0, 0, 3 , 4 ] ];
   var expected = [ 0, 0, 0, 0, 5 ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
   test.description = 'Null sphere of 7 dimensions expanded'; //
 
-  dstSphere = [  0, 0, 0, 0, 0, 0, 0, 1 ];
+  var dstSphere = [  0, 0, 0, 0, 0, 0, 0, 1 ];
   var points= [ [ 0, 2, 0, 0, 0, 0, 0 ], [ 0, 0, 0 , 4, 0, 0, 0 ] ] ;
   var expected = [ 0, 0, 0, 0, 0, 0, 0, 4 ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
   test.description = 'sphere of 1 dimension expanded'; //
@@ -1751,7 +1749,7 @@ function fromPoints( test )
   var points= [ [ - 1 ], [ 0 ], [ 1 ] ];
   var expected = [ 0, 1 ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
 
@@ -1761,7 +1759,7 @@ function fromPoints( test )
   var points= [ [ NaN ], [ NaN ], [ NaN ] ];
   var expected = [ NaN, NaN ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
 
@@ -1771,7 +1769,7 @@ function fromPoints( test )
   var points= [ [ 1 ], [ 2 ], [ 0 ] ];
   var expected = [ NaN, NaN ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
 
@@ -1781,7 +1779,7 @@ function fromPoints( test )
   var points= [ [ NaN ], [ NaN ], [ NaN ] ];
   var expected = [ 0, NaN ];
 
-  gotSphere = _.sphere.fromPoints( dstSphere, points);
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
   /* */
@@ -1879,7 +1877,7 @@ function fromCenterAndRadius( test )
   var radius = 1;
   var expected = [ 0, 1 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   test.description = 'Create sphere of two dimensions'; //
@@ -1889,7 +1887,7 @@ function fromCenterAndRadius( test )
   var radius = 1;
   var expected = [ 0, 1, 1 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius );
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'Create sphere three dimensions'; //
@@ -1899,37 +1897,37 @@ function fromCenterAndRadius( test )
   var radius = 3;
   var expected = [ 0, 0, 0, 3 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius );
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius );
   test.identical( gotSphere, expected );
 
   test.description = 'sphere expanded - center moved'; //
 
-  dstSphere = [ 0, 0, 0, 2 ];
+  var dstSphere = [ 0, 0, 0, 2 ];
   var center = [ 0, - 5.5, 101 ];
   var radius = 6;
-  expected = [ 0, - 5.5, 101, 6 ];
+  var expected = [ 0, - 5.5, 101, 6 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   test.description = 'sphere contracted'; //
 
-  dstSphere = [ 1, 1, 1, 2 ];
+  var dstSphere = [ 1, 1, 1, 2 ];
   var center = [ 1, 1, 1 ];
   var radius = 1;
-  expected = [ 1,  1, 1, 1 ];
+  var expected = [ 1,  1, 1, 1 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   test.description = 'sphere ( normalized to 1 ) expanded'; //
 
-  dstSphere = [ 0.2, - 0.1, 0.6, 0.2 ];
+  var dstSphere = [ 0.2, - 0.1, 0.6, 0.2 ];
   var center = [ - 0.4,  0.1, 0.3 ];
   var radius = 0.5;
-  expected = [ - 0.4,  0.1, 0.3, 0.5 ];
+  var expected = [ - 0.4,  0.1, 0.3, 0.5 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   test.description = 'Zero sphere of four dimensions expanded'; //
@@ -1939,7 +1937,7 @@ function fromCenterAndRadius( test )
   var radius = 1;
   var expected = [ 0, 1, 2, 3, 1 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   test.description = 'Null sphere of 7 dimensions expanded'; //
@@ -1949,7 +1947,7 @@ function fromCenterAndRadius( test )
   var radius = 2;
   var expected = [ 0, 3, 0, - 2, 0, 3, 0, 2 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   test.description = 'sphere of 1 dimension expanded'; //
@@ -1959,7 +1957,7 @@ function fromCenterAndRadius( test )
   var radius = 1;
   var expected = [ 0, 1 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   test.description = 'NaN sphere of 1 dimension expanded'; //
@@ -1969,7 +1967,7 @@ function fromCenterAndRadius( test )
   var radius = 1;
   var expected = [ 0, 1 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   test.description = 'sphere of 1 dimension no center - center NaN'; //
@@ -1979,7 +1977,7 @@ function fromCenterAndRadius( test )
   var radius = 1;
   var expected = [ NaN, 1 ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   test.description = 'sphere of 1 dimension not expanded - radius NaN'; //
@@ -1989,7 +1987,7 @@ function fromCenterAndRadius( test )
   var radius = NaN;
   var expected = [ 0, NaN ];
 
-  gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
+  var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
   /* */
