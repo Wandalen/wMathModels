@@ -1294,7 +1294,7 @@ function radiusGet( test )
   test.description = 'Zero dimension sphere'; //
 
   var sphere = [ 0 ];
-  expected = 0; /* qqq : was [], why didn't ask? */
+  expected = 0;
 
   gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );

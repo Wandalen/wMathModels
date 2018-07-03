@@ -2010,6 +2010,9 @@ function toMatrix2( euler )
   var oy = eulerv.eGet( 4 );
   var oz = eulerv.eGet( 5 );
 
+  /* qqq : should be if else if else */
+  /* qqq : not optimal */
+
   if( ox === 0 && oy === 1 && oz === 2 )
   {
     mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
