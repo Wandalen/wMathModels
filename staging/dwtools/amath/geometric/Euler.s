@@ -2210,15 +2210,3 @@ var Proto =
 _.mapExtend( Self,Proto );
 
 })();
-
-/*
-
-d:30
-h:83(71)
-w:47
-
-d:54
-h:83(71)
-w:40
-
-*/
