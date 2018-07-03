@@ -1992,6 +1992,7 @@ function fromMatrix2( mat, dst )
   * @throws { Error } An Error if ( euler ) is not euler.
   * @memberof wTools.euler
   */
+/* qqq : adjust indentation of documentations */
 
 function toMatrix2( euler )
 {
@@ -2209,7 +2210,6 @@ var Proto =
 _.mapExtend( Self,Proto );
 
 })();
-
 
 /*
 

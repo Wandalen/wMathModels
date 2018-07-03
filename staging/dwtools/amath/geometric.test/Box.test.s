@@ -4000,6 +4000,8 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
+  /* qqq : the first case has different style, should has the same */
+
   test.description = 'Null box NOT from cube'; //
 
   var box = null;
@@ -4082,14 +4084,14 @@ function fromCube( test )
     _.box.fromCube( 'box', 'cube' );
   });
 
-  test.description = 'Cube  not number'; //
+  test.description = 'Cube not number'; //
 
   test.shouldThrowError( function()
   {
     _.box.fromCube( [ 0, 0, 1, 1 ], [ 1, 2 ] );
   });
 
-  test.description = 'Cube  not number'; //
+  test.description = 'Cube not number'; //
 
   test.shouldThrowError( function()
   {
@@ -4174,7 +4176,7 @@ var Self =
     fromPoints : fromPoints,
     fromCenterAndSize : fromCenterAndSize,
     fromSphere : fromSphere,
-    fromCube : fromCube,
+    fromCube : fromCube, /* qqq : has problems */
   }
 
 }
