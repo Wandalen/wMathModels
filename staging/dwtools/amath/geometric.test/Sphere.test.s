@@ -1814,13 +1814,13 @@ function fromPoints( test )
     _.sphere.fromPoints( null, 4 );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ] );
   });
 
-  test.description = 'Too little arguments - one point'; //
+  test.description = 'Too few arguments - one point'; //
   test.shouldThrowError( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ], [ 1, 1, 1 ]);
@@ -2021,19 +2021,19 @@ function fromCenterAndRadius( test )
     _.sphere.fromCenterAndRadius( 1, 2, 4 );
   });
 
-  test.description = 'Too little arguments'; //
+  test.description = 'Too few arguments'; //
   test.shouldThrowError( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ] );
   });
 
-  test.description = 'Too little arguments - no radius'; //
+  test.description = 'Too few arguments - no radius'; //
   test.shouldThrowError( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1, 1, 1 ] );
   });
 
-  test.description = 'Too little arguments - no center'; //
+  test.description = 'Too few arguments - no center'; //
   test.shouldThrowError( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], 1 );

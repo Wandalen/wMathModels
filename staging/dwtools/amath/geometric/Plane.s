@@ -239,7 +239,7 @@ function biasSet( plane,bias )
   var _plane = _.plane._from( plane );
 
   _.assert( _.numberIs( bias ) );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -275,7 +275,7 @@ function pointDistance( plane , point )
   var bias = _.plane.biasGet( _plane );
   var _point = _.vector.fromArray( point );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   var mod = _.vector.dot(normal, normal);
   mod = Math.sqrt(mod);
@@ -384,7 +384,7 @@ function sphereDistance( plane , sphere )
   var center = _.sphere.centerGet( sphere );
   center = _.vector.from( center );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -428,7 +428,7 @@ function lineIntersects( plane , line )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -573,7 +573,7 @@ function matrixHomogenousApply( plane , matrix )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   debugger;
   throw _.err( 'not tested' );
 
@@ -625,7 +625,7 @@ function translate( plane , offset )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   debugger;
 //  throw _.err( 'not tested' );
 

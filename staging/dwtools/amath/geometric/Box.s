@@ -179,7 +179,7 @@ function _from( box )
 function fromPoints( box , points )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.arrayIs( points ) );
 
   var dimp = points[0].length;
@@ -301,7 +301,7 @@ function fromSphere( box , sphere )
   var max = _.box.cornerRightGet( boxv );
   var dim2 = _.box.dimGet( boxv );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim1 === dim2 );
 
   debugger;
@@ -350,7 +350,7 @@ function fromCube( box , size )
   var max = _.box.cornerRightGet( boxv );
   var dim = _.box.dimGet( boxv );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   _.vector.assignScalar( min,-size/2 );
   _.vector.assignScalar( max,+size/2 );
@@ -650,7 +650,7 @@ function expand( box , expand )
   var expand = _.vector.fromMaybeNumber( expand,dim );
 
   _.assert( dim === expand.length );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   debugger;
   //throw _.err( 'not tested' );
@@ -699,7 +699,7 @@ function pointExpand( dstBox , point )
   var point = _.vector.from( point );
 
   _.assert( dim === point.length );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   _.vector.minVectors( min , point );
   _.vector.maxVectors( max , point );
@@ -745,7 +745,7 @@ function pointContains( box , point )
   var point = _.vector.from( point );
 
   _.assert( dim === point.length );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   if( _.vector.anyLess( point , min ) )
   return false;
@@ -795,7 +795,7 @@ function pointRelative( box , point )
   var _point = _.vector.from( point );
 
   _.assert( dim === point.length );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   debugger;
   // throw _.err( 'not tested' );
@@ -841,7 +841,7 @@ function pointClamp( box , point )
   var _point = _.vector.from( point );
 
   _.assert( dim === point.length );
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   debugger;
   //  throw _.err( 'not tested' );
@@ -885,7 +885,7 @@ function pointDistance( box , point )
   if( box === null )
   box = _.box.make();
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   debugger;
   //  throw _.err( 'not tested' );
@@ -930,7 +930,7 @@ function boxContains( box , box2 )
   var min = _.box.cornerLeftGet( boxv );
   var max = _.box.cornerRightGet( boxv );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === _.box.dimGet( box ) );
 
   if( !_.box.pointContains( box,min ) )
@@ -984,7 +984,7 @@ function boxIntersects( srcBox , tstBox )
   var min = _.box.cornerLeftGet( boxv );
   var max = _.box.cornerRightGet( boxv );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === _.box.dimGet( srcBox ) );
 
   debugger;
@@ -1036,7 +1036,7 @@ function boxExpand( dstBox , srcBox )
   var min2 = _.box.cornerLeftGet( _srcBox );
   var max2 = _.box.cornerRightGet( _srcBox );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim1 === dim2 );
 
   _.vector.minVectors( min1 , min2 );
@@ -1055,7 +1055,7 @@ function matrixHomogenousApply( box , matrix )
   var min = _.box.cornerLeftGet( boxv );
   var max = _.box.cornerRightGet( boxv );
 
-  _.assert( arguments.length === 2, 'expects exactly two argument' );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.spaceIs( matrix ) );
   _.assert( matrix.hasShape([ dim+1,dim+1 ]) );
 
@@ -1095,7 +1095,7 @@ function translate( box , offset )
 // function pointContains( box,point )
 // {
 //
-//   _.assert( arguments.length === 2, 'expects exactly two argument' );
+//   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
@@ -1112,7 +1112,7 @@ function translate( box , offset )
 // function pointDistance( box,point )
 // {
 //
-//   _.assert( arguments.length === 2, 'expects exactly two argument' );
+//   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
@@ -1129,7 +1129,7 @@ function translate( box , offset )
 // function pointClamp( box, point )
 // {
 //
-//   _.assert( arguments.length === 2, 'expects exactly two argument' );
+//   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
@@ -1159,7 +1159,7 @@ function translate( box , offset )
 // function boxIntersects( box1, box2 )
 // {
 //
-//   _.assert( arguments.length === 2, 'expects exactly two argument' );
+//   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 //   _.assert( _.box.is( box1 ) );
 //   _.assert( _.box.is( box2 ) );
 //   debugger;
@@ -1182,7 +1182,7 @@ function translate( box , offset )
 // function matrixHomogenousApply( box,matrix )
 // {
 //
-//   _.assert( arguments.length === 2, 'expects exactly two argument' );
+//   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   _.assert( _.spaceIs( matrix ) );
 //   debugger;
@@ -1203,7 +1203,7 @@ function translate( box , offset )
 // function translate( box,offset )
 // {
 //
-//   _.assert( arguments.length === 2, 'expects exactly two argument' );
+//   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   _.assert( _.spaceIs( matrix ) );
 //   debugger;
