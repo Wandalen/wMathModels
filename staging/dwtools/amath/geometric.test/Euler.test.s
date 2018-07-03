@@ -887,6 +887,9 @@ function toQuat2( test )
 
   var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var oldEuler =   euler.slice();
+  /* qqq : should be
+     var oldEuler =  euler.slice();
+  */
   var expected = _.quat._from( [ 0.2915666, 0.1729548, 0.2915666, 0.8944633] );
 
   var gotQuat = _.euler.toQuat2( euler );
@@ -1570,6 +1573,17 @@ function fromMatrix2( test )
     0.6224, 0.6599, - 0.4207,
     - 0.1393, 0.6224, 0.7701
   ]);
+
+  /* qqq : should look like this
+
+    var Matrix = _.Space.make([ 3, 3 ]).copy
+    ([
+      0.7701, -0.4207, 0.4794,
+      0.6224, 0.6599, - 0.4207,
+      - 0.1393, 0.6224, 0.7701
+    ]);
+
+  */
 
   var dst = [ 0, 0, 0, 0, 1, 2 ];
   var expected = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
