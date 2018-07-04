@@ -4016,15 +4016,6 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.description = 'Box of 1 dimension'; /* */
-
-  var box = [ 0, 0 ];
-  var fromCube = [ 1 ]; /* qqq : that should throw error as well as few other cases */
-  var expected = [ - 0.5, 0.5 ];
-
-  gotBox = _.box.fromCube( box, fromCube );
-  test.identical( gotBox, expected );
-
   test.description = 'Box from cube'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
@@ -4077,24 +4068,6 @@ function fromCube( test )
   var expected = [ - 4, - 4, - 4, - 4, - 4, - 4, - 4, 4, 4, 4, 4, 4, 4, 4 ];
 
   gotBox = _.box.fromCube( box, fromCube );
-  test.identical( gotBox, expected );
-
-  test.description = 'Empty box and cube'; /* */
-
-  var box = [ ];
-  var fromCube = [ ];
-  var expected = [ ];
-
-  gotBox = _.box.fromCube( box, fromCube );
-  test.identical( gotBox, expected );
-
-  test.description = 'If cube is not number, expected NaN'; /* */
-
-  var box = [ 0, 0, 1, 1 ];
-  var fromCube = [ 1, 2 ];
-  var expected = [ NaN, NaN, NaN, NaN ];
-
-  var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
   /* */
