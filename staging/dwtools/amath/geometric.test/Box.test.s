@@ -683,71 +683,71 @@ function boxFromPoints( test )
   var expected = [ - 1, - 2, - 3, 1, 2, 3 ];
 
   var points = [ pointone, pointtwo ];
-  var bbox  = null;
+  var bbox = null;
 
-  bbox  = _.box.fromPoints( bbox, points );
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = 'Box from three points'; //
 
-  var expected = [ - 1, - 2, - 3, 1, 2, 6 ];
   var pointone = [ - 1, 2, - 3 ];
   var pointtwo = [ 1, - 2, 3 ];
   var pointthree = [ 0, 0, 6 ];
+  var expected = [ - 1, - 2, - 3, 1, 2, 6 ];
 
   var points = [ pointone, pointtwo, pointthree ];
-  var bbox  = null;
+  var bbox = null;
 
-  bbox  = _.box.fromPoints( bbox, points );
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = 'Box from six points'; //
 
-  var expected = [ -3, - 2, - 1, 1, 2, 3 ];
   var pointone = [ 0, 0, 3 ];
   var pointtwo = [ 0, 2, 0 ];
   var pointthree = [ 1, 0, 0 ];
   var pointfour = [ - 3, 0, 0 ];
   var pointfive = [ 0, - 2, 0 ];
   var pointsix = [ 0, 0, - 1 ];
+  var expected = [ -3, - 2, - 1, 1, 2, 3 ];
 
   var points = [ pointone, pointtwo, pointthree, pointfour, pointfive, pointsix ];
-  var bbox  = null;
+  var bbox = null;
 
-  bbox  = _.box.fromPoints( bbox, points );
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = 'Box from two decimal points'; //
 
-  var expected = [ -0.991, - 0.203, 0.005, 0.001, 0.203, 0.889 ];
   var pointone = [ 0.001, -0.203, 0.889 ];
   var pointtwo = [ -0.991, 0.203, 0.005 ];
+  var expected = [ -0.991, - 0.203, 0.005, 0.001, 0.203, 0.889 ];
 
   var points = [ pointone, pointtwo ];
-  var bbox  = null;
+  var bbox = null;
 
-  bbox  = _.box.fromPoints( bbox, points );
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = 'Box from Two points with initial box dimension'; //
 
-  var expected = [ 2, 1, 2, 4, 8, 4 ];
   var pointone = [ 3, 1, 3 ];
   var pointtwo = [ 3, 8, 3 ];
+  var expected = [ 2, 1, 2, 4, 8, 4 ];
 
   var points = [ pointone, pointtwo ];
-  var bbox  = [ 2, 2, 2, 4, 4, 4 ];
+  var bbox = [ 2, 2, 2, 4, 4, 4 ];
 
-  bbox  = _.box.fromPoints( bbox, points );
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   test.description = '0d Box from 0d points'; //
 
   var expected = [];
   var points = [ [], [], [] ];
-  var bbox  = [];
+  var bbox = [];
 
-  bbox  = _.box.fromPoints( bbox, points );
+  bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
   /* */
@@ -817,7 +817,6 @@ function pointExpand( test )
 
   var expected = [ 0, 0, 1, 2 ];
   test.identical( gotBox, expected );
-
 
   test.description = 'Null box expanded'; //
 
@@ -1805,6 +1804,7 @@ function boxContains( test )
 
   test.description = 'Source box and Destination box remain unchanged'; //
 
+  // qqq : vars in case
   var srcBox = [ 0, 0, 3, 3 ];
   var oldSrcBox = srcBox.slice();
   var tstBox = [ 1, 1, 2, 2 ];
@@ -2043,7 +2043,7 @@ test.description = 'Source box and Test box remain unchanged'; //
   test.description = 'Zero box to zero box'; //
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
-  var boxTwo = [ 0, 0, 0, 0, 0, 0 ];
+  var boxTwo = [ 0, 0, 0, 0, 0, 0 ]; // qqq : why was false?
   var expected = true;
 
   var gotBool = _.box.boxIntersects( box, boxTwo );
@@ -2135,7 +2135,7 @@ test.description = 'Source box and Test box remain unchanged'; //
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
-  var expected = true;
+  var expected = true; // qqq : why false??
 
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
@@ -4012,6 +4012,7 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   debugger;
   test.identical( gotBox, expected );
+  debugger;
 
   test.description = 'Box from cube'; //
 

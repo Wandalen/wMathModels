@@ -3,12 +3,6 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-
-var matrix =  _.Space.make( [ 3, 3 ] ).copy(
-     [ 0.2, 0.1, 0.5,
-       0.1, 0.3, 0.1,
-       0.7, 0, 0.2 ] );
-
 var dstXYZ = [ 0, 0, 0, 0, 1, 2 ];
 var dstXZY = [ 0, 0, 0, 0, 2, 1 ];
 var dstYXZ = [ 0, 0, 0, 1, 0, 2 ];
@@ -22,12 +16,12 @@ var dstYZY = [ 0, 0, 0, 1, 2, 1 ];
 var dstZXZ = [ 0, 0, 0, 2, 0, 2 ];
 var dstZYZ = [ 0, 0, 0, 2, 1, 2 ];
 
-var dst = [ 0, 0, 0, 2, 1, 2 ];
+var Matrix = _.Space.make( [ 3, 3 ] ).copy
+([
+  0.66757100, 0.09500198, 0.738460242,
+  0.4207354, 0.77015113, - 0.479425549,
+  - 0.61427241, 0.6307470, 0.474159896
+]);
 
-var euler = [ 0.5, 0.5, 0.5, 2, 1, 2 ];
-var matrix = _.euler.toMatrix2( euler );
-console.log( 'Euler from mat xyz:', matrix );
-var euler = _.euler.fromMatrix2( matrix, dst );
-console.log( 'Euler from mat xyz:', euler);
-var result = _.euler.toMatrix2( euler );
-console.log( 'Euler from mat xyz:', result );
+var gotEuler = _.euler.fromMatrix2( Matrix, dstYXZ );
+console.log( 'Euler from mat xyz:', gotMatrix);
