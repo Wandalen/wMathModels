@@ -1116,27 +1116,27 @@ var Order =
 
 
 /**
-* Create a set of euler angles from a quaternion. Returns the created euler angles.
-* Quaternion stay untouched, dst contains the euler angle sequence.
-*
-* @param { Array } quat - Source quaternion.
-* @param { Array } dst - Destination sequence of Euler angles with source euler angles code.
-*
-* @example
-* // returns [ 1, 0, 0, 0, 1, 2 ];
-* _.fromQuat2( [ 0.49794255, 0, 0, 0.8775826 ], [ 0, 0, 0, 0, 1, 2 ] );
-*
-* @example
-* // returns [ 0, 1, 0, 2, 1, 0 ];
-* _.fromQuat2( [ 0, 0.4794255, 0, 0.8775826 ], [ 0, 0, 0, 2, 1, 0 ] );
-*
-* @returns { Quat } Returns the corresponding quaternion.
-* @function fromQuat2
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( quat ) is not quat.
-* @throws { Error } An Error if ( dst ) is not euler.
-* @memberof wTools.euler
-*/
+  * Create a set of euler angles from a quaternion. Returns the created euler angles.
+  * Quaternion stay untouched, dst contains the euler angle sequence.
+  *
+  * @param { Array } quat - Source quaternion.
+  * @param { Array } dst - Destination sequence of Euler angles with source euler angles code.
+  *
+  * @example
+  * // returns [ 1, 0, 0, 0, 1, 2 ];
+  * _.fromQuat2( [ 0.49794255, 0, 0, 0.8775826 ], [ 0, 0, 0, 0, 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0, 1, 0, 2, 1, 0 ];
+  * _.fromQuat2( [ 0, 0.4794255, 0, 0.8775826 ], [ 0, 0, 0, 2, 1, 0 ] );
+  *
+  * @returns { Quat } Returns the corresponding quaternion.
+  * @function fromQuat2
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( quat ) is not quat.
+  * @throws { Error } An Error if ( dst ) is not euler.
+  * @memberof wTools.euler
+  */
 
 function fromQuat2( quat, dst )
 {
@@ -1514,25 +1514,25 @@ function fromQuat2( quat, dst )
 
 
 /**
-* Create the quaternion from a set of euler angles. Returns the created quaternion.
-* Euler angles stay untouched.
-*
-* @param { Array } euler - Source sequence of Euler angles.
-*
-* @example
-* // returns [ 0.49794255, 0, 0, 0.8775826 ];
-* _.toQuat2( [ 1, 0, 0, 0, 1, 2 ] );
-*
-* @example
-* // returns [ 0, 0.4794255, 0, 0.8775826 ];
-* _.toQuat2( [ 0, 1, 0, 2, 1, 0 ] );
-*
-* @returns { Quat } Returns the corresponding quaternion.
-* @function toQuat2
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( euler ) is not euler.
-* @memberof wTools.euler
-*/
+  * Create the quaternion from a set of euler angles. Returns the created quaternion.
+  * Euler angles stay untouched.
+  *
+  * @param { Array } euler - Source sequence of Euler angles.
+  *
+  * @example
+  * // returns [ 0.49794255, 0, 0, 0.8775826 ];
+  * _.toQuat2( [ 1, 0, 0, 0, 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0, 0.4794255, 0, 0.8775826 ];
+  * _.toQuat2( [ 0, 1, 0, 2, 1, 0 ] );
+  *
+  * @returns { Quat } Returns the corresponding quaternion.
+  * @function toQuat2
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( euler ) is not euler.
+  * @memberof wTools.euler
+  */
 
 function toQuat2( euler )
 {
@@ -1658,27 +1658,27 @@ function toQuat2( euler )
 
 
 /**
-* Create the euler angle from a rotation matrix. Returns the created euler angle.
-* Rotation matrix stays untouched.
-*
-* @param { Space } mat - Source rotation matrix.
-* @param { Array } dst - Destination array with euler angle source code.
-*
-* @example
-* // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
-*  mat  = _.Space.make( [ 3, 3 ] ).copy(
-*            [ 0.7701, -0.4207, 0.4794,
-*             0.6224, 0.6599, - 0.4207,
-*           - 0.1393, 0.6224, 0.7701 ] );
-* _.fromMatrix2( mat, [ 0, 0, 0, 0, 1, 2 ] );
-*
-* @returns { Array } Returns the corresponding euler angles.
-* @function fromMatrix2
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( dst ) is not euler.
-* @throws { Error } An Error if ( mat ) is not matrix.
-* @memberof wTools.euler
-*/
+  * Create the euler angle from a rotation matrix. Returns the created euler angle.
+  * Rotation matrix stays untouched.
+  *
+  * @param { Space } mat - Source rotation matrix.
+  * @param { Array } dst - Destination array with euler angle source code.
+  *
+  * @example
+  * // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
+  *  mat  = _.Space.make( [ 3, 3 ] ).copy(
+  *            [ 0.7701, -0.4207, 0.4794,
+  *             0.6224, 0.6599, - 0.4207,
+  *           - 0.1393, 0.6224, 0.7701 ] );
+  * _.fromMatrix2( mat, [ 0, 0, 0, 0, 1, 2 ] );
+  *
+  * @returns { Array } Returns the corresponding euler angles.
+  * @function fromMatrix2
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dst ) is not euler.
+  * @throws { Error } An Error if ( mat ) is not matrix.
+  * @memberof wTools.euler
+  */
 
 function fromMatrix2( mat, dst )
 {
@@ -1969,30 +1969,29 @@ function fromMatrix2( mat, dst )
 //
 
 /**
-* Create the rotation matrix from a set of euler angles. Returns the created matrix.
-* Euler angles stay untouched.
-*
-* @param { Array } euler - Source sequence of Euler angles.
-*
-* @example
-* // returns [ 0.7701, -0.4207, 0.4794,
-               0.6224, 0.6599, - 0.4207,
-               - 0.1393, 0.6224, 0.7701 ];
-* _.toMatrix2( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
-*
-* @example
-* // returns [ 0.4741, - 0.6142, 0.6307,
-* //           0.7384, 0.6675, 0.0950,
-* //           - 0.4794, 0.4207, 0.7701 ]
-* _.toMatrix2( [ 1, 0.5, 0.5, 2, 1, 0 ] );
-*
-* @returns { Space } Returns the corresponding rotation matrix.
-* @function toMatrix2
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( euler ) is not euler.
-* @memberof wTools.euler
-*/
-
+  * Create the rotation matrix from a set of euler angles. Returns the created matrix.
+  * Euler angles stay untouched.
+  *
+  * @param { Array } euler - Source sequence of Euler angles.
+  *
+  * @example
+  * // returns [ 0.7701, -0.4207, 0.4794,
+                 0.6224, 0.6599, - 0.4207,
+                 - 0.1393, 0.6224, 0.7701 ];
+  * _.toMatrix2( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0.4741, - 0.6142, 0.6307,
+  * //           0.7384, 0.6675, 0.0950,
+  * //           - 0.4794, 0.4207, 0.7701 ]
+  * _.toMatrix2( [ 1, 0.5, 0.5, 2, 1, 0 ] );
+  *
+  * @returns { Space } Returns the corresponding rotation matrix.
+  * @function toMatrix2
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( euler ) is not euler.
+  * @memberof wTools.euler
+  */
 /* qqq : adjust indentation of documentations */
 
 function toMatrix2( euler )
@@ -2012,163 +2011,170 @@ function toMatrix2( euler )
   var oy = eulerv.eGet( 4 );
   var oz = eulerv.eGet( 5 );
 
+  var ce1 = cos( e1 );
+  var ce2 = cos( e2 );
+  var ce3 = cos( e3 );
+  var se1 = sin( e1 );
+  var se2 = sin( e2 );
+  var se3 = sin( e3 );
+
   /* qqq : should be if else if else */
   /* qqq : not optimal */
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
-    mat.atomSet( [ 0, 1 ], - cos( e2)*sin( e3 ) );
-    mat.atomSet( [ 0, 2 ], sin( e2 ) );
-    mat.atomSet( [ 1, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 1, 1 ], -sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
-    mat.atomSet( [ 1, 2 ], -sin( e1 )*cos( e2 ) );
-    mat.atomSet( [ 2, 0 ], -cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*sin( e3 )+ sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+    mat.atomSet( [ 0, 0 ], ce2*ce3 );
+    mat.atomSet( [ 0, 1 ], - ce2*se3 );
+    mat.atomSet( [ 0, 2 ], se2 );
+    mat.atomSet( [ 1, 0 ], se1*se2*ce3 + ce1*se3 );
+    mat.atomSet( [ 1, 1 ], -se1*se2*se3 + ce1*ce3 );
+    mat.atomSet( [ 1, 2 ], -se1*ce2 );
+    mat.atomSet( [ 2, 0 ], -ce1*se2*ce3 + se1*se3 );
+    mat.atomSet( [ 2, 1 ], ce1*se2*se3+ se1*ce3 );
+    mat.atomSet( [ 2, 2 ], ce1*ce2 );
   }
 
-  if( ox === 0 && oy === 2 && oz === 1 )
+  else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    mat.atomSet( [ 0, 0 ], cos( e2 )*cos( e3 ) );
-    mat.atomSet( [ 0, 1 ], - sin( e2 ) );
-    mat.atomSet( [ 0, 2 ], cos( e2 )*sin( e3 ) );
-    mat.atomSet( [ 1, 0 ], cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 1, 1 ], cos( e1 )*cos( e2 ) );
-    mat.atomSet( [ 1, 2 ], cos( e1 )*sin( e2 )*sin( e3 ) - sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 2, 0 ], sin( e1 )*sin( e2 )*cos( e3 ) - cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 2, 1 ], sin( e1 )*cos( e2 ) );
-    mat.atomSet( [ 2, 2 ], sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 0, 0 ], ce2*ce3 );
+    mat.atomSet( [ 0, 1 ], - se2 );
+    mat.atomSet( [ 0, 2 ], ce2*se3 );
+    mat.atomSet( [ 1, 0 ], ce1*se2*ce3 + se1*se3 );
+    mat.atomSet( [ 1, 1 ], ce1*ce2 );
+    mat.atomSet( [ 1, 2 ], ce1*se2*se3 - se1*ce3 );
+    mat.atomSet( [ 2, 0 ], se1*se2*ce3 - ce1*se3 );
+    mat.atomSet( [ 2, 1 ], se1*ce2 );
+    mat.atomSet( [ 2, 2 ], se1*se2*se3 + ce1*ce3 );
   }
 
-  if( ox === 1 && oy === 0 && oz === 2 )
+  else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    mat.atomSet( [ 0, 0 ], sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
-    mat.atomSet( [ 0, 1 ], sin( e1 )*sin( e2 )*cos( e3 ) - cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 0, 2 ], sin( e1 )*cos( e2 ) );
-    mat.atomSet( [ 1, 0 ], cos( e2 )*sin( e3 ) );
-    mat.atomSet( [ 1, 1 ], cos( e2 )*cos( e3 ) );
-    mat.atomSet( [ 1, 2 ], -sin( e2 ) );
-    mat.atomSet( [ 2, 0 ], cos( e1 )*sin( e2 )*sin( e3 ) - sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 )*cos( e3 )+ sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 ) );
+    mat.atomSet( [ 0, 0 ], se1*se2*se3 + ce1*ce3 );
+    mat.atomSet( [ 0, 1 ], se1*se2*ce3 - ce1*se3 );
+    mat.atomSet( [ 0, 2 ], se1*ce2 );
+    mat.atomSet( [ 1, 0 ], ce2*se3 );
+    mat.atomSet( [ 1, 1 ], ce2*ce3 );
+    mat.atomSet( [ 1, 2 ], -se2 );
+    mat.atomSet( [ 2, 0 ], ce1*se2*se3 - se1*ce3 );
+    mat.atomSet( [ 2, 1 ], ce1*se2*ce3+ se1*se3 );
+    mat.atomSet( [ 2, 2 ], ce1*ce2 );
   }
 
-  if( ox === 1 && oy === 2 && oz === 0 )
+  else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    mat.atomSet( [ 0, 0 ], cos( e1 )*cos( e2 ) );
-    mat.atomSet( [ 0, 1 ], - cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 0, 2 ], cos( e1 )*sin( e2 )*sin( e3 ) + sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 1, 0 ], sin( e2 ) );
-    mat.atomSet( [ 1, 1 ], cos( e2 )*cos( e3 ) );
-    mat.atomSet( [ 1, 2 ], - cos( e2 )*sin( e3 ) );
-    mat.atomSet( [ 2, 0 ], - sin( e1 )*cos( e2 ) );
-    mat.atomSet( [ 2, 1 ], sin( e1 )*sin( e2 )*cos( e3 )+ cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 2, 2 ], - sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 0, 0 ], ce1*ce2 );
+    mat.atomSet( [ 0, 1 ], - ce1*se2*ce3 + se1*se3 );
+    mat.atomSet( [ 0, 2 ], ce1*se2*se3 + se1*ce3 );
+    mat.atomSet( [ 1, 0 ], se2 );
+    mat.atomSet( [ 1, 1 ], ce2*ce3 );
+    mat.atomSet( [ 1, 2 ], - ce2*se3 );
+    mat.atomSet( [ 2, 0 ], - se1*ce2 );
+    mat.atomSet( [ 2, 1 ], se1*se2*ce3+ ce1*se3 );
+    mat.atomSet( [ 2, 2 ], - se1*se2*se3 + ce1*ce3 );
   }
 
-  if( ox === 2 && oy === 0 && oz === 1 )
+  else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    mat.atomSet( [ 0, 0 ], - sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
-    mat.atomSet( [ 0, 1 ], - sin( e1 )*cos( e2 ) );
-    mat.atomSet( [ 0, 2 ], sin( e1 )*sin( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 1, 0 ], cos( e1 )*sin( e2 )*sin( e3 ) + sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 1, 1 ], cos( e1 )*cos( e2 ) );
-    mat.atomSet( [ 1, 2 ], - cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 2, 0 ], - cos( e2 )*sin( e3 ) );
-    mat.atomSet( [ 2, 1 ], sin( e2 ) );
-    mat.atomSet( [ 2, 2 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 0 ], - se1*se2*se3 + ce1*ce3 );
+    mat.atomSet( [ 0, 1 ], - se1*ce2 );
+    mat.atomSet( [ 0, 2 ], se1*se2*ce3 + ce1*se3 );
+    mat.atomSet( [ 1, 0 ], ce1*se2*se3 + se1*ce3 );
+    mat.atomSet( [ 1, 1 ], ce1*ce2 );
+    mat.atomSet( [ 1, 2 ], - ce1*se2*ce3 + se1*se3 );
+    mat.atomSet( [ 2, 0 ], - ce2*se3 );
+    mat.atomSet( [ 2, 1 ], se2 );
+    mat.atomSet( [ 2, 2 ], ce2*ce3 );
   }
 
-  if( ox === 2 && oy === 1 && oz === 0 )
+  else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    mat.atomSet( [ 0, 0 ], cos( e1 )*cos( e2 ) );
-    mat.atomSet( [ 0, 1 ], cos( e1 )*sin( e2 )*sin( e3 ) - sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 0, 2 ], cos( e1 )*sin( e2 )*cos( e3 ) + sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 1, 0 ], sin( e1 )*cos( e2 ) );
-    mat.atomSet( [ 1, 1 ], sin( e1 )*sin( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
-    mat.atomSet( [ 1, 2 ], sin( e1 )*sin( e2 )*cos( e3 ) - cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 2, 0 ], - sin( e2 ) );
-    mat.atomSet( [ 2, 1 ], cos( e2 )*sin( e3 ) );
-    mat.atomSet( [ 2, 2 ], cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 0 ], ce1*ce2 );
+    mat.atomSet( [ 0, 1 ], ce1*se2*se3 - se1*ce3 );
+    mat.atomSet( [ 0, 2 ], ce1*se2*ce3 + se1*se3 );
+    mat.atomSet( [ 1, 0 ], se1*ce2 );
+    mat.atomSet( [ 1, 1 ], se1*se2*se3 + ce1*ce3 );
+    mat.atomSet( [ 1, 2 ], se1*se2*ce3 - ce1*se3 );
+    mat.atomSet( [ 2, 0 ], - se2 );
+    mat.atomSet( [ 2, 1 ], ce2*se3 );
+    mat.atomSet( [ 2, 2 ], ce2*ce3 );
   }
 
-  if( ox === 0 && oy === 1 && oz === 0 )
+  else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    mat.atomSet( [ 0, 0 ], cos( e2 ) );
-    mat.atomSet( [ 0, 1 ], sin( e2 )*sin( e3 ) );
-    mat.atomSet( [ 0, 2 ], sin( e2 )*cos( e3 ) );
-    mat.atomSet( [ 1, 0 ], sin( e1 )*sin( e2 ) );
-    mat.atomSet( [ 1, 1 ], cos( e1 )*cos( e3 ) - sin( e1 )*cos( e2 )*sin( e3 ) );
-    mat.atomSet( [ 1, 2 ], - cos( e1 )*sin( e3 ) - sin( e1 )*cos( e2 )*cos( e3 ) );
-    mat.atomSet( [ 2, 0 ], - cos( e1 )*sin( e2 ) );
-    mat.atomSet( [ 2, 1 ], sin( e1 )*cos( e3 ) + cos( e1 )*cos( e2 )*sin( e3 )  );
-    mat.atomSet( [ 2, 2 ], - sin( e1 )*sin( e3 ) + cos( e1 )*cos( e2 )*cos( e3 ) );
+    mat.atomSet( [ 0, 0 ], ce2 );
+    mat.atomSet( [ 0, 1 ], se2*se3 );
+    mat.atomSet( [ 0, 2 ], se2*ce3 );
+    mat.atomSet( [ 1, 0 ], se1*se2 );
+    mat.atomSet( [ 1, 1 ], ce1*ce3 - se1*ce2*se3 );
+    mat.atomSet( [ 1, 2 ], - ce1*se3 - se1*ce2*ce3 );
+    mat.atomSet( [ 2, 0 ], - ce1*se2 );
+    mat.atomSet( [ 2, 1 ], se1*ce3 + ce1*ce2*se3  );
+    mat.atomSet( [ 2, 2 ], - se1*se3 + ce1*ce2*ce3 );
   }
 
-  if( ox === 0 && oy === 2 && oz === 0 )
+  else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    mat.atomSet( [ 0, 0 ], cos( e2 ) );
-    mat.atomSet( [ 0, 1 ], - sin( e2 )*cos( e3 ) );
-    mat.atomSet( [ 0, 2 ], sin( e2 )*sin( e3 ) );
-    mat.atomSet( [ 1, 0 ], cos( e1 )*sin( e2 ) );
-    mat.atomSet( [ 1, 1 ], cos( e1 )*cos( e2 )*cos( e3 ) - sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 1, 2 ], - cos( e1 )*cos( e2 )*sin( e3 ) - sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 2, 0 ], sin( e1 )*sin( e2 ) );
-    mat.atomSet( [ 2, 1 ], sin( e1 )*cos( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 2, 2 ], - sin( e1 )*cos( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 0, 0 ], ce2 );
+    mat.atomSet( [ 0, 1 ], - se2*ce3 );
+    mat.atomSet( [ 0, 2 ], se2*se3 );
+    mat.atomSet( [ 1, 0 ], ce1*se2 );
+    mat.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
+    mat.atomSet( [ 1, 2 ], - ce1*ce2*se3 - se1*ce3 );
+    mat.atomSet( [ 2, 0 ], se1*se2 );
+    mat.atomSet( [ 2, 1 ], se1*ce2*ce3 + ce1*se3 );
+    mat.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
   }
 
-  if( ox === 1 && oy === 0 && oz === 1 )
+  else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    mat.atomSet( [ 0, 0 ], - sin( e1 )*cos( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
-    mat.atomSet( [ 0, 1 ], sin( e1 )*sin( e2 ) );
-    mat.atomSet( [ 0, 2 ], sin( e1 )*cos( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 1, 0 ], sin( e2 )*sin( e3 ) );
-    mat.atomSet( [ 1, 1 ], cos( e2 ) );
-    mat.atomSet( [ 1, 2 ], - sin( e2 )*cos( e3 ) );
-    mat.atomSet( [ 2, 0 ], - cos( e1 )*cos( e2 )*sin( e3 ) - sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 2, 1 ], cos( e1 )*sin( e2 ) );
-    mat.atomSet( [ 2, 2 ], cos( e1 )*cos( e2 )*cos( e3 ) - sin( e1 )*sin( e3 ) );
+    mat.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
+    mat.atomSet( [ 0, 1 ], se1*se2 );
+    mat.atomSet( [ 0, 2 ], se1*ce2*ce3 + ce1*se3 );
+    mat.atomSet( [ 1, 0 ], se2*se3 );
+    mat.atomSet( [ 1, 1 ], ce2 );
+    mat.atomSet( [ 1, 2 ], - se2*ce3 );
+    mat.atomSet( [ 2, 0 ], - ce1*ce2*se3 - se1*ce3 );
+    mat.atomSet( [ 2, 1 ], ce1*se2 );
+    mat.atomSet( [ 2, 2 ], ce1*ce2*ce3 - se1*se3 );
   }
 
-  if( ox === 1 && oy === 2 && oz === 1 )
+  else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    mat.atomSet( [ 0, 0 ], cos( e1 )*cos( e2 )*cos( e3 ) - sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 0, 1 ], - cos( e1 )*sin( e2 ) );
-    mat.atomSet( [ 0, 2 ], cos( e1 )*cos( e2 )*sin( e3 ) + sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 1, 0 ], sin( e2 )*cos( e3 ) );
-    mat.atomSet( [ 1, 1 ], cos( e2 ) );
-    mat.atomSet( [ 1, 2 ], sin( e2 )*sin( e3 ) );
-    mat.atomSet( [ 2, 0 ], - sin( e1 )*cos( e2 )*cos( e3 ) - cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 2, 1 ], sin( e1 )*sin( e2 ) );
-    mat.atomSet( [ 2, 2 ], - sin( e1 )*cos( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
+    mat.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
+    mat.atomSet( [ 0, 1 ], - ce1*se2 );
+    mat.atomSet( [ 0, 2 ], ce1*ce2*se3 + se1*ce3 );
+    mat.atomSet( [ 1, 0 ], se2*ce3 );
+    mat.atomSet( [ 1, 1 ], ce2 );
+    mat.atomSet( [ 1, 2 ], se2*se3 );
+    mat.atomSet( [ 2, 0 ], - se1*ce2*ce3 - ce1*se3 );
+    mat.atomSet( [ 2, 1 ], se1*se2 );
+    mat.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
   }
 
-  if( ox === 2 && oy === 0 && oz === 2 )
+  else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    mat.atomSet( [ 0, 0 ], - sin( e1 )*cos( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
-    mat.atomSet( [ 0, 1 ], - sin( e1 )*cos( e2 )*cos( e3 ) - cos( e1 )*cos( e3 )  );
-    mat.atomSet( [ 0, 2 ], sin( e1 )*sin( e2 ) );
-    mat.atomSet( [ 1, 0 ], cos( e1 )*cos( e2 )*sin( e3 ) + sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 1, 1 ], cos( e1 )*cos( e2 )*cos( e3 ) - sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 1, 2 ], - cos( e1 )*sin( e2 ) );
-    mat.atomSet( [ 2, 0 ], sin( e2 )*sin( e3 ) );
-    mat.atomSet( [ 2, 1 ], sin( e2 )*cos( e3 ) );
-    mat.atomSet( [ 2, 2 ], cos( e2 ) );
+    mat.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
+    mat.atomSet( [ 0, 1 ], - se1*ce2*ce3 - ce1*ce3  );
+    mat.atomSet( [ 0, 2 ], se1*se2 );
+    mat.atomSet( [ 1, 0 ], ce1*ce2*se3 + se1*ce3 );
+    mat.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
+    mat.atomSet( [ 1, 2 ], - ce1*se2 );
+    mat.atomSet( [ 2, 0 ], se2*se3 );
+    mat.atomSet( [ 2, 1 ], se2*ce3 );
+    mat.atomSet( [ 2, 2 ], ce2 );
   }
 
-  if( ox === 2 && oy === 1 && oz === 2 )
+  else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    mat.atomSet( [ 0, 0 ], cos( e1 )*cos( e2 )*cos( e3 ) - sin( e1 )*sin( e3 ) );
-    mat.atomSet( [ 0, 1 ], - cos( e1 )*cos( e2 )*sin( e3 ) - sin( e1 )*cos( e3 ) );
-    mat.atomSet( [ 0, 2 ], cos( e1 )*sin( e2 ) );
-    mat.atomSet( [ 1, 0 ], sin( e1 )*cos( e2 )*cos( e3 ) + cos( e1 )*sin( e3 ) );
-    mat.atomSet( [ 1, 1 ], - sin( e1 )*cos( e2 )*sin( e3 ) + cos( e1 )*cos( e3 ) );
-    mat.atomSet( [ 1, 2 ], sin( e1 )*sin( e2 ) );
-    mat.atomSet( [ 2, 0 ], - sin( e2 )*cos( e3 ) );
-    mat.atomSet( [ 2, 1 ], sin( e2 )*sin( e3 ) );
-    mat.atomSet( [ 2, 2 ], cos( e2 ) );
+    mat.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
+    mat.atomSet( [ 0, 1 ], - ce1*ce2*se3 - se1*ce3 );
+    mat.atomSet( [ 0, 2 ], ce1*se2 );
+    mat.atomSet( [ 1, 0 ], se1*ce2*ce3 + ce1*se3 );
+    mat.atomSet( [ 1, 1 ], - se1*ce2*se3 + ce1*ce3 );
+    mat.atomSet( [ 1, 2 ], se1*se2 );
+    mat.atomSet( [ 2, 0 ], - se2*ce3 );
+    mat.atomSet( [ 2, 1 ], se2*se3 );
+    mat.atomSet( [ 2, 2 ], ce2 );
   }
 
   return mat;
