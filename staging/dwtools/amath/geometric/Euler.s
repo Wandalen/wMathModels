@@ -2186,23 +2186,90 @@ function createEulerAngle( a0, n0, d0, a1, n1, d1, a2, n2, d2, seq )
 {
    _.assert( arguments.length == 10);
 
-   var dst = _.euler.makeUnit( );
+   var dst = [ 0, 0, 0, 0, 0, 0 ];
    var dstv = _.vector.from( dst );
 
    // Angles
-   dstv.eSet( 0, a0 + n0*pi()/2 + d0 );
-   dstv.eSet( 1, a1 + n1*pi()/2 + d1 );
-   dstv.eSet( 2, a2 + n2*pi()/2 + d2 );
+   dstv.eSet( 0, a0 + n0*pi/2 + d0 );
+   dstv.eSet( 1, a1 + n1*pi/2 + d1 );
+   dstv.eSet( 2, a2 + n2*pi/2 + d2 );
 
    // Sequence
 
-   if ( seq = 'xyz' )
+   if ( seq == 'xyz' )
    {
      dstv.eSet( 3, 0 );
      dstv.eSet( 4, 1 );
      dstv.eSet( 5, 2 );
    }
+   else if ( seq == 'xzy' )
+   {
+     dstv.eSet( 3, 0 );
+     dstv.eSet( 4, 2 );
+     dstv.eSet( 5, 1 );
+   }
+   else if ( seq == 'yxz' )
+   {
+     dstv.eSet( 3, 1 );
+     dstv.eSet( 4, 0 );
+     dstv.eSet( 5, 2 );
+   }
+   else if ( seq == 'yzx' )
+   {
+     dstv.eSet( 3, 1 );
+     dstv.eSet( 4, 2 );
+     dstv.eSet( 5, 0 );
+   }
+   else if ( seq = 'zxy' )
+   {
+     dstv.eSet( 3, 2 );
+     dstv.eSet( 4, 0 );
+     dstv.eSet( 5, 1 );
+   }
+   else if ( seq = 'zyx' )
+   {
+     dstv.eSet( 3, 2 );
+     dstv.eSet( 4, 1 );
+     dstv.eSet( 5, 0 );
+   }
+   else if ( seq = 'xyx' )
+   {
+     dstv.eSet( 3, 0 );
+     dstv.eSet( 4, 1 );
+     dstv.eSet( 5, 0 );
+   }
+   else if ( seq = 'xzx' )
+   {
+     dstv.eSet( 3, 0 );
+     dstv.eSet( 4, 2 );
+     dstv.eSet( 5, 0 );
+   }
+   else if ( seq = 'yxy' )
+   {
+     dstv.eSet( 3, 1 );
+     dstv.eSet( 4, 0 );
+     dstv.eSet( 5, 1 );
+   }
+   else if ( seq = 'yzy' )
+   {
+     dstv.eSet( 3, 1 );
+     dstv.eSet( 4, 2 );
+     dstv.eSet( 5, 1 );
+   }
+   else if ( seq = 'zxz' )
+   {
+     dstv.eSet( 3, 2 );
+     dstv.eSet( 4, 0 );
+     dstv.eSet( 5, 2 );
+   }
+   else if ( seq = 'zyz' )
+   {
+     dstv.eSet( 3, 2 );
+     dstv.eSet( 4, 1 );
+     dstv.eSet( 5, 2 );
+   }
 
+   return _.euler.from( dstv );
 }
 
 //
@@ -2239,6 +2306,7 @@ var Proto =
   fromMatrix2 : fromMatrix2,
   toMatrix2 : toMatrix2,
   checkQuatRoutines : checkQuatRoutines,
+  createEulerAngle : createEulerAngle,
 
   Order : Order,
 
