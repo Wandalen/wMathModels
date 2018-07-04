@@ -2182,17 +2182,17 @@ function toMatrix2( euler )
 
 //
 
-function createEulerAngle( a0, n0, d0, a1, n1, d1, a2, n2, d2, seq )
+function createEulerAngle( angle0, angle1, angle2, seq )
 {
-   _.assert( arguments.length == 10);
+   _.assert( arguments.length == 4);
 
    var dst = [ 0, 0, 0, 0, 0, 0 ];
    var dstv = _.vector.from( dst );
 
    // Angles
-   dstv.eSet( 0, a0 + n0*pi/2 + d0 );
-   dstv.eSet( 1, a1 + n1*pi/2 + d1 );
-   dstv.eSet( 2, a2 + n2*pi/2 + d2 );
+   dstv.eSet( 0, angle0[ 0 ] + angle0[ 1 ]*pi/2 + angle0[ 2 ] );
+   dstv.eSet( 1, angle1[ 0 ] + angle1[ 1 ]*pi/2 + angle1[ 2 ] );
+   dstv.eSet( 2, angle2[ 0 ] + angle2[ 1 ]*pi/2 + angle2[ 2 ] );
 
    // Sequence
 
@@ -2274,8 +2274,10 @@ function createEulerAngle( a0, n0, d0, a1, n1, d1, a2, n2, d2, seq )
 
 //
 
-function checkQuatRoutines( quat, dst )
+function checkQuatRoutines( a0, n0, d0, a1, n1, d1, a2, n2, d2, seq )
 {
+
+ euler = createEulerAngle( a0, n0, d0, a1, n1, d1, a2, n2, d2, seq );
 }
 
 // --
