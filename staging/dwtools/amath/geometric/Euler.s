@@ -2180,6 +2180,37 @@ function toMatrix2( euler )
   return mat;
 }
 
+//
+
+function createEulerAngle( a0, n0, d0, a1, n1, d1, a2, n2, d2, seq )
+{
+   _.assert( arguments.length == 10);
+
+   var dst = _.euler.makeUnit( );
+   var dstv = _.vector.from( dst );
+
+   // Angles
+   dstv.eSet( 0, a0 + n0*pi()/2 + d0 );
+   dstv.eSet( 1, a1 + n1*pi()/2 + d1 );
+   dstv.eSet( 2, a2 + n2*pi()/2 + d2 );
+
+   // Sequence
+
+   if ( seq = 'xyz' )
+   {
+     dstv.eSet( 3, 0 );
+     dstv.eSet( 4, 1 );
+     dstv.eSet( 5, 2 );
+   }
+
+}
+
+//
+
+function checkQuatRoutines( quat, dst )
+{
+}
+
 // --
 // define class
 // --
@@ -2207,6 +2238,7 @@ var Proto =
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
   toMatrix2 : toMatrix2,
+  checkQuatRoutines : checkQuatRoutines,
 
   Order : Order,
 
