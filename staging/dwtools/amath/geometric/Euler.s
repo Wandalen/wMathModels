@@ -61,6 +61,95 @@ function make( src )
 
 //
 
+function make2( src, seq )
+{
+  _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 2 );
+  _.assert( src === undefined || src === null || _.euler.is( src ) );
+  _.assert( typeof seq === 'string' );
+  var result = _.euler.makeZero();
+  if( _.euler.is( src ) )
+  _.avector.assign( result, src );
+   // Sequence
+   if ( seq == 'xyz' )
+   {
+     result[ 3 ] = 0;
+     result[ 4 ] = 1;
+     result[ 5 ] = 2;
+   }
+   else if ( seq == 'xzy' )
+   {
+     result[ 3 ] = 0;
+     result[ 4 ] = 2;
+     result[ 5 ] = 1;
+   }
+   else if ( seq == 'yxz' )
+   {
+     result[ 3 ] = 1;
+     result[ 4 ] = 0;
+     result[ 5 ] = 2;
+   }
+   else if ( seq == 'yzx' )
+   {
+     result[ 3 ] = 1;
+     result[ 4 ] = 2;
+     result[ 5 ] = 0;
+   }
+   else if ( seq = 'zxy' )
+   {
+     result[ 3 ] = 2;
+     result[ 4 ] = 0;
+     result[ 5 ] = 1;
+   }
+   else if ( seq = 'zyx' )
+   {
+     result[ 3 ] = 2;
+     result[ 4 ] = 1;
+     result[ 5 ] = 0;
+   }
+   else if ( seq = 'xyx' )
+   {
+     result[ 3 ] = 0;
+     result[ 4 ] = 1;
+     result[ 5 ] = 0;
+   }
+   else if ( seq = 'xzx' )
+   {
+     result[ 3 ] = 0;
+     result[ 4 ] = 2;
+     result[ 5 ] = 0;
+   }
+   else if ( seq = 'yxy' )
+   {
+     result[ 3 ] = 1;
+     result[ 4 ] = 0;
+     result[ 5 ] = 1;
+   }
+   else if ( seq = 'yzy' )
+   {
+     result[ 3 ] = 1;
+     result[ 4 ] = 2;
+     result[ 5 ] = 1;
+   }
+   else if ( seq = 'zxz' )
+   {
+     result[ 3 ] = 2;
+     result[ 4 ] = 0;
+     result[ 5 ] = 2;
+   }
+   else if ( seq = 'zyz' )
+   {
+     result[ 3 ] = 2;
+     result[ 4 ] = 1;
+     result[ 5 ] = 2;
+   }
+   else
+   {}
+
+   return result;
+}
+
+//
+
 function makeZero()
 {
   _.assert( arguments.length === 0 );
@@ -1144,6 +1233,7 @@ function fromQuat2( quat, dst )
   var dst = _.euler.from( dst );
   var dstv = _.vector.from( dst );
   var quatv = _.quat._from( quat );
+  var accuracy =  1e-7;
 
   var ex,ey,ez;
 
@@ -1187,7 +1277,7 @@ function fromQuat2( quat, dst )
       dstv.eSet( 1, - pi/2 );
       dstv.eSet( 2, 0 );
     }
-    else if( 2*( x*z + w*y ) === 1 )
+    else if( 2*( x*z + w*y ) -1 < accuracy )
     {
       console.log('Indeterminate; We set angle z = 0. ');
       dstv.eSet( 0, - atan2( -2*( x*y + w*z ), -2*( x*z - w*y ) ) );
@@ -1196,6 +1286,7 @@ function fromQuat2( quat, dst )
     }
     else
     {
+      console.log( 'filtro = ', 2*( x*z + w*y ) );
       return 0;
     }
   }
@@ -2183,124 +2274,6 @@ function toMatrix2( euler )
   return mat;
 }
 
-//
-
-function createEulerAngle( angle0, angle1, angle2, seq )
-{
-   _.assert( arguments.length == 4);
-
-   var dst = [ 0, 0, 0, 0, 0, 0 ];
-   var dstv = _.vector.from( dst );
-
-   // Angles
-   dstv.eSet( 0, angle0[ 0 ] + angle0[ 1 ]*pi/2 + angle0[ 2 ] );
-   dstv.eSet( 1, angle1[ 0 ] + angle1[ 1 ]*pi/2 + angle1[ 2 ] );
-   dstv.eSet( 2, angle2[ 0 ] + angle2[ 1 ]*pi/2 + angle2[ 2 ] );
-
-   // Sequence
-
-   if ( seq == 'xyz' )
-   {
-     dstv.eSet( 3, 0 );
-     dstv.eSet( 4, 1 );
-     dstv.eSet( 5, 2 );
-   }
-   else if ( seq == 'xzy' )
-   {
-     dstv.eSet( 3, 0 );
-     dstv.eSet( 4, 2 );
-     dstv.eSet( 5, 1 );
-   }
-   else if ( seq == 'yxz' )
-   {
-     dstv.eSet( 3, 1 );
-     dstv.eSet( 4, 0 );
-     dstv.eSet( 5, 2 );
-   }
-   else if ( seq == 'yzx' )
-   {
-     dstv.eSet( 3, 1 );
-     dstv.eSet( 4, 2 );
-     dstv.eSet( 5, 0 );
-   }
-   else if ( seq = 'zxy' )
-   {
-     dstv.eSet( 3, 2 );
-     dstv.eSet( 4, 0 );
-     dstv.eSet( 5, 1 );
-   }
-   else if ( seq = 'zyx' )
-   {
-     dstv.eSet( 3, 2 );
-     dstv.eSet( 4, 1 );
-     dstv.eSet( 5, 0 );
-   }
-   else if ( seq = 'xyx' )
-   {
-     dstv.eSet( 3, 0 );
-     dstv.eSet( 4, 1 );
-     dstv.eSet( 5, 0 );
-   }
-   else if ( seq = 'xzx' )
-   {
-     dstv.eSet( 3, 0 );
-     dstv.eSet( 4, 2 );
-     dstv.eSet( 5, 0 );
-   }
-   else if ( seq = 'yxy' )
-   {
-     dstv.eSet( 3, 1 );
-     dstv.eSet( 4, 0 );
-     dstv.eSet( 5, 1 );
-   }
-   else if ( seq = 'yzy' )
-   {
-     dstv.eSet( 3, 1 );
-     dstv.eSet( 4, 2 );
-     dstv.eSet( 5, 1 );
-   }
-   else if ( seq = 'zxz' )
-   {
-     dstv.eSet( 3, 2 );
-     dstv.eSet( 4, 0 );
-     dstv.eSet( 5, 2 );
-   }
-   else if ( seq = 'zyz' )
-   {
-     dstv.eSet( 3, 2 );
-     dstv.eSet( 4, 1 );
-     dstv.eSet( 5, 2 );
-   }
-
-   return _.euler.from( dstv );
-}
-
-//
-
-function checkQuatRoutines( angle0, angle1, angle2, seq )
-{
-
-  var accuracy =  1e-7;
-  var euler0 = _.euler.createEulerAngle( angle0, angle1, angle2, seq );
-  var quat0 = _.euler.toQuat2( euler0 );
-  var euler1 = _.euler.fromQuat2( quat0, euler0 );
-  if( euler1 == 0 )
-  {
-   return false;
-  }
-  else{
-    var quat1 = _.euler.toQuat2( euler1 );
-
-    if( Math.abs( quat0.eGet( 0 ) ) - Math.abs( quat0.eGet( 0 ) ) < accuracy &&
-        Math.abs( quat0.eGet( 1 ) ) - Math.abs( quat0.eGet( 1 ) ) < accuracy &&
-        Math.abs( quat0.eGet( 2 ) ) - Math.abs( quat0.eGet( 2 ) ) < accuracy &&
-        Math.abs( quat0.eGet( 3 ) ) - Math.abs( quat0.eGet( 3 ) ) < accuracy )
-    { return true; }
-    else
-    { return false; }
-  }
-}
-
 // --
 // define class
 // --
@@ -2312,6 +2285,7 @@ var Proto =
   isZero : isZero,
 
   make : make,
+  make2 : make2,
   makeZero : makeZero,
 
   zero : zero,
@@ -2328,8 +2302,6 @@ var Proto =
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
   toMatrix2 : toMatrix2,
-  checkQuatRoutines : checkQuatRoutines,
-  createEulerAngle : createEulerAngle,
 
   Order : Order,
 

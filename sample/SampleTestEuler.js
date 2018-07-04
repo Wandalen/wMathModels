@@ -14,21 +14,41 @@ var expected = true;
 for( var i = 0; i < EulerSeqs.length; i++ )
 {
   var seq = EulerSeqs[ i ];
+  var euler = _.euler.make2( euler, seq );
   for( var ang = 0; ang < Angle.length; ang++ )
   {
     for( var quad = 0; quad < Quadrant.length; quad++ )
     {
       for( var d = 0; d < Delta.length; d++ )
       {
-        var angle0 = [ Angle[ ang ], Quadrant[ quad ], Delta[ d ] ];
-        var angle1 = [ Angle[ ang ], Quadrant[ quad ], Delta[ d ] ];
-        var angle2 = [ Angle[ ang ], Quadrant[ quad ], Delta[ d ] ];
-
-        var result = _.euler.checkQuatRoutines( angle0, angle1, angle2, seq );
-        if( result == false )
+        euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
+        euler[ 1 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
+        euler[ 2 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
+        console.log( 'Euler : ', euler );
+        var expected = _.euler.toQuat2( euler );
+        var euler2 = _.euler.make2( null, seq );
+        euler2 = _.euler.fromQuat2( expected, euler2  );
+        console.log( 'Euler2 : ', euler2 );
+        if( euler2 === 0 ){ console.log( 'zero' ); }
+        else
         {
-          console.log(angle0, angle1, angle2, seq );
-
+          var result = _.euler.toQuat2( euler2 );
+          if( expected[ 0 ] - result[ 0 ] < 0.01 &&
+              expected[ 1 ] - result[ 1 ] < 0.01 &&
+              expected[ 2 ] - result[ 2 ] < 0.01 &&
+              expected[ 3 ] - result[ 3 ] < 0.01 )
+          { console.log( 'TRUE ****************************************' ); }
+          else if( expected[ 0 ] + result[ 0 ] <= 0.01 )
+          {
+            console.log('*****************   ', result );
+            result[ 0 ] = - result[ 0 ];
+            result[ 1 ] = - result[ 1 ];
+            result[ 2 ] = - result[ 2 ];
+            result[ 3 ] = - result[ 3 ];
+            console.log('******** ', result );
+          }
+          else
+          { console.log( 'FALSE', result,'   ',expected ); }
         }
       }
     }

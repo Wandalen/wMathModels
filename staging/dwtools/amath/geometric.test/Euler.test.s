@@ -2355,24 +2355,32 @@ function checkQuatRoutines( test )
   var Quadrant = [ 0, 1, 2, 3 ];
   var Accuracy =  1e-7;
   var Delta = [ -0.1, -Math.sqrt( Accuracy ), -( Accuracy*Accuracy ), 0, +( Accuracy*Accuracy ), +Math.sqrt( Accuracy ), +0.1 ];
-
-  var expected = true;
+  var euler = [ 0, 0, 0, 0, 0, 0 ];
 
   for( var i = 0; i < EulerSeqs.length; i++ )
   {
     var seq = EulerSeqs[ i ];
+    var euler = _.euler.make2( euler, seq );
     for( var ang = 0; ang < Angle.length; ang++ )
     {
       for( var quad = 0; quad < Quadrant.length; quad++ )
       {
         for( var d = 0; d < Delta.length; d++ )
         {
-          var angle0 = [ Angle[ ang ], Quadrant[ quad ], Delta[ d ] ];
-          var angle1 = [ Angle[ ang ], Quadrant[ quad ], Delta[ d ] ];
-          var angle2 = [ Angle[ ang ], Quadrant[ quad ], Delta[ d ] ];
+          euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
+          euler[ 1 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
+          euler[ 2 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
 
-          var result = _.euler.checkQuatRoutines( angle0, angle1, angle2, seq );
-          test.identical( result, expected );
+          var expected = _.euler.toQuat2( euler );
+          var euler2 = _.euler.make2( null, seq );
+          euler2 = _.euler.fromQuat2( expected, euler2  );
+          var result = _.euler.toQuat2( euler2 );
+          test.equivalent( result, expected );
+          if( expected[ 0 ] === - result[ 0 ] )
+          {
+            result = -1*result;
+          }
+          test.equivalent( result, expected );
         }
       }
     }
