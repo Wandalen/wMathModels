@@ -154,27 +154,27 @@ function _from( box )
 
 
 /**
-*Create or expand box from an array of points. Returns the expanded box. Box are stored in Array data structure.
-* Points stay untouched, box changes.
-*
-* @param { Array } box - box to be expanded.
-* @param { Array } points - Array of points of reference with expansion dimensions.
-*
-* @example
-* // returns [ 0, 0, 3, 3 ];
-* _.fromPoints( null , [ [ 1, 3 ], [ 0, 0 ], [ 3, 1 ] ] );
-*
-* @example
-* // returns [ 0, - 1, 2, 2 ];
-* _.fromPoints( [ 0, 0, 1, 1 ], [ [ 1, 2 ], [ 0, 0 ], [ 2, - 1 ] ] );
-*
-* @returns { Array } Returns the array of the box expanded.
-* @function fromPoints
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( point ) is not array.
-* @memberof wTools.box
-*/
+  *Create or expand box from an array of points. Returns the expanded box. Box are stored in Array data structure.
+  * Points stay untouched, box changes.
+  *
+  * @param { Array } box - box to be expanded.
+  * @param { Array } points - Array of points of reference with expansion dimensions.
+  *
+  * @example
+  * // returns [ 0, 0, 3, 3 ];
+  * _.fromPoints( null , [ [ 1, 3 ], [ 0, 0 ], [ 3, 1 ] ] );
+  *
+  * @example
+  * // returns [ 0, - 1, 2, 2 ];
+  * _.fromPoints( [ 0, 0, 1, 1 ], [ [ 1, 2 ], [ 0, 0 ], [ 2, - 1 ] ] );
+  *
+  * @returns { Array } Returns the array of the box expanded.
+  * @function fromPoints
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( point ) is not array.
+  * @memberof wTools.box
+  */
 
 function fromPoints( box , points )
 {
@@ -206,29 +206,29 @@ function fromPoints( box , points )
 //
 
 /**
-* Create or expand box from center point and size dimensions. Returns the expanded box.
-* Box are stored in Array data structure. Center point and size stay untouched, box changes.
-*
-* @param { Array } box - box to be expanded.
-* @param { Array } center - Point of reference with center coordinates.
-* @param { Array } size - Array of reference with size dimensions.
-*
-* @example
-* // returns [ - 1, - 1, 3, 3 ];
-* _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 4, 4 ] );
-*
-* @example
-* // returns [ 0, 0, 2, 2 ];
-* _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 2, 2 ] );
-*
-* @returns { Array } Returns the array of the box expanded.
-* @function fromCenterAndSize
-* @throws { Error } An Error if ( arguments.length ) is different than three.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( center ) is not point.
-* @throws { Error } An Error if ( size ) is not array.
-* @memberof wTools.box
-*/
+  * Create or expand box from center point and size dimensions. Returns the expanded box.
+  * Box are stored in Array data structure. Center point and size stay untouched, box changes.
+  *
+  * @param { Array } box - box to be expanded.
+  * @param { Array } center - Point of reference with center coordinates.
+  * @param { Array } size - Array of reference with size dimensions.
+  *
+  * @example
+  * // returns [ - 1, - 1, 3, 3 ];
+  * _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 4, 4 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 2, 2 ];
+  * _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the box expanded.
+  * @function fromCenterAndSize
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( center ) is not point.
+  * @throws { Error } An Error if ( size ) is not array.
+  * @memberof wTools.box
+  */
 
 function fromCenterAndSize( box , center , size )
 {
@@ -261,29 +261,29 @@ function fromCenterAndSize( box , center , size )
 
 
 /**
-* Create or expand box from sphere. Returns the expanded box.
-* Box are stored in Array data structure. Sphere stays untouched, box changes.
-* First, the box is expanded until it contains the center of the sphere.
-* Then, the box is expanded by the radius of the sphere.
-*
-* @param { Array } box - box to be expanded.
-* @param { Array } sphere - sphere of reference with expansion dimensions.
-*
-* @example
-* // returns [ - 1, - 1, 2, 2 ];
-* _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 1 ] );
-*
-* @example
-* // returns [ - 2, - 2, 3, 3 ];
-* _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 2 ] );
-*
-* @returns { Array } Returns the array of the expanded box.
-* @function fromSphere
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( sphere ) is not sphere.
-* @memberof wTools.box
-*/
+  * Create or expand box from sphere. Returns the expanded box.
+  * Box are stored in Array data structure. Sphere stays untouched, box changes.
+  * First, the box is expanded until it contains the center of the sphere.
+  * Then, the box is expanded by the radius of the sphere.
+  *
+  * @param { Array } box - box to be expanded.
+  * @param { Array } sphere - sphere of reference with expansion dimensions.
+  *
+  * @example
+  * // returns [ - 1, - 1, 2, 2 ];
+  * _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 1 ] );
+  *
+  * @example
+  * // returns [ - 2, - 2, 3, 3 ];
+  * _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 2 ] );
+  *
+  * @returns { Array } Returns the array of the expanded box.
+  * @function fromSphere
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.box
+  */
 
 function fromSphere( box , sphere )
 {
@@ -317,27 +317,27 @@ function fromSphere( box , sphere )
 //
 
 /**
-* Create a cube from cube size centered in origin. Returns the box converted in cube.
-* Box are stored in Array data structure. Cube size stay untouched, box changes.
-*
-* @param { Array } box - box to be converted to cube.
-* @param { Number } size - Cube size.
-*
-* @example
-* // returns [ - 2, - 2, 2, 2 ];
-* _.fromCube( [ 0, 0, 1, 1 ], [ 4, 4 ] );
-*
-* @example
-* // returns [ - 1, - 1, 1, 1 ];
-* _.fromCube( [ 3, 3, 5, 5 ], [ 2, 2 ] );
-*
-* @returns { Array } Returns the array of the new cube.
-* @function fromCube
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( size ) is not a number.
-* @memberof wTools.box
-*/
+  * Create a cube from cube size centered in origin. Returns the box converted in cube.
+  * Box are stored in Array data structure. Cube size stay untouched, box changes.
+  *
+  * @param { Array } box - box to be converted to cube.
+  * @param { Number } size - Cube size.
+  *
+  * @example
+  * // returns [ - 2, - 2, 2, 2 ];
+  * _.fromCube( [ 0, 0, 1, 1 ], [ 4, 4 ] );
+  *
+  * @example
+  * // returns [ - 1, - 1, 1, 1 ];
+  * _.fromCube( [ 3, 3, 5, 5 ], [ 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the new cube.
+  * @function fromCube
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( size ) is not a number.
+  * @memberof wTools.box
+  */
 
 function fromCube( box , size )
 {
@@ -351,6 +351,8 @@ function fromCube( box , size )
   var dim = _.box.dimGet( boxv );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  //_.assert( ! isNaN( size ) );
+  _.assert( typeof( size ) == 'number' );
 
   _.vector.assignScalar( min,-size/2 );
   _.vector.assignScalar( max,+size/2 );
@@ -430,24 +432,24 @@ function isNil( box )
 //
 
 /**
-* Get box dimension. Returns the dimension of the box. Box stays untouched.
-*
-* @param { Array } box - The source box.
-*
-* @example
-* // returns 2
-* _.dimGet( [ 0, 0, 2, 2 ] );
-*
-* @example
-* // returns 1
-* _.dimGet( [ 0, 1 ] );
-*
-* @returns { Number } Returns the dimension of the box.
-* @function dimGet
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( box ) is not box.
-* @memberof wTools.box
-*/
+  * Get box dimension. Returns the dimension of the box. Box stays untouched.
+  *
+  * @param { Array } box - The source box.
+  *
+  * @example
+  * // returns 2
+  * _.dimGet( [ 0, 0, 2, 2 ] );
+  *
+  * @example
+  * // returns 1
+  * _.dimGet( [ 0, 1 ] );
+  *
+  * @returns { Number } Returns the dimension of the box.
+  * @function dimGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.box
+  */
 
 function dimGet( box )
 {
@@ -459,25 +461,25 @@ function dimGet( box )
 //
 
 /**
-* Get the coordinates of the left corner of a box.
-* Returns a vector with the coordinates of the left corner of the box definition. Box stays untouched.
-*
-* @param { Array } box - The source box.
-*
-* @example
-* // returns  0
-* _.cornerLeftGet( [ 0, 2 ] );
-*
-* @example
-* // returns  0, 1
-* _.cornerLeftGet( [ 0, 1, 2, 3 ] );
-*
-* @returns { Vector } Returns a vector with the left corner of the box.
-* @function cornerLeftGet
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( box ) is not box.
-* @memberof wTools.box
-*/
+  * Get the coordinates of the left corner of a box.
+  * Returns a vector with the coordinates of the left corner of the box definition. Box stays untouched.
+  *
+  * @param { Array } box - The source box.
+  *
+  * @example
+  * // returns  0
+  * _.cornerLeftGet( [ 0, 2 ] );
+  *
+  * @example
+  * // returns  0, 1
+  * _.cornerLeftGet( [ 0, 1, 2, 3 ] );
+  *
+  * @returns { Vector } Returns a vector with the left corner of the box.
+  * @function cornerLeftGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.box
+  */
 
 function cornerLeftGet( box )
 {
@@ -489,25 +491,25 @@ function cornerLeftGet( box )
 //
 
 /**
-* Get the coordinates of the right corner of a box.
-* Returns a vector with the coordinates of the right corner of the box definition. Box stays untouched.
-*
-* @param { Array } box - The source box.
-*
-* @example
-* // returns [ 2 ]
-* _.cornerRightGet( [ 0, 2 ] );
-*
-* @example
-* // returns [ 2, 3 ]
-* _.cornerRightGet( [ 0, 1, 2, 3 ] );
-*
-* @returns { Array } Returns a sub-array with the maximun coordinates of the box.
-* @function cornerRightGet
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( box ) is not box.
-* @memberof wTools.box
-*/
+  * Get the coordinates of the right corner of a box.
+  * Returns a vector with the coordinates of the right corner of the box definition. Box stays untouched.
+  *
+  * @param { Array } box - The source box.
+  *
+  * @example
+  * // returns [ 2 ]
+  * _.cornerRightGet( [ 0, 2 ] );
+  *
+  * @example
+  * // returns [ 2, 3 ]
+  * _.cornerRightGet( [ 0, 1, 2, 3 ] );
+  *
+  * @returns { Array } Returns a sub-array with the maximun coordinates of the box.
+  * @function cornerRightGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.box
+  */
 
 function cornerRightGet( box )
 {
@@ -519,26 +521,26 @@ function cornerRightGet( box )
 //
 
 /**
-* Get the center of a box. Returns the center of the box. Box stays untouched.
-*
-* @param { Array } box - The source box.
-* @param { Array } dst - The destination array (optional - sets the type of the returned object).
-*
-* @example
-* // returns [ 0, 1 ]
-* _.centerGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
-*
-* @example
-* // returns [ 0.5 ]
-* _.centerGet( [ 0, 1 ] );
-*
-* @returns { Array } Returns the coordinates of the center of the box.
-* @function centerGet
-* @throws { Error } An Error if ( arguments.length ) is different than one or two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( dst ) is not point.
-* @memberof wTools.box
-*/
+  * Get the center of a box. Returns the center of the box. Box stays untouched.
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } dst - The destination array (optional - sets the type of the returned object).
+  *
+  * @example
+  * // returns [ 0, 1 ]
+  * _.centerGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
+  *
+  * @example
+  * // returns [ 0.5 ]
+  * _.centerGet( [ 0, 1 ] );
+  *
+  * @returns { Array } Returns the coordinates of the center of the box.
+  * @function centerGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( dst ) is not point.
+  * @memberof wTools.box
+  */
 
 function centerGet( box , dst )
 {
@@ -568,27 +570,27 @@ function centerGet( box , dst )
 //
 
 /**
-* Get the size of a box. Returns an array with the length of each side the box.
-* Box stays untouched.
-*
-* @param { Array } box - The source box.
-* @param { Array } dst - The destination array (optional - sets the type of the returned object).
-*
-* @example
-* // returns [ 2, 2 ]
-* _.sizeGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
-*
-* @example
-* // returns [ 1 ]
-* _.sizeGet( [ 0, 1 ] );
-*
-* @returns { Array } Returns the lenght of each side of the box.
-* @function sizeGet
-* @throws { Error } An Error if ( arguments.length ) is different than one or two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( point ) is not point.
-* @memberof wTools.box
-*/
+  * Get the size of a box. Returns an array with the length of each side the box.
+  * Box stays untouched.
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } dst - The destination array (optional - sets the type of the returned object).
+  *
+  * @example
+  * // returns [ 2, 2 ]
+  * _.sizeGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
+  *
+  * @example
+  * // returns [ 1 ]
+  * _.sizeGet( [ 0, 1 ] );
+  *
+  * @returns { Array } Returns the lenght of each side of the box.
+  * @function sizeGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.box
+  */
 
 function sizeGet( box , dst )
 {
@@ -613,29 +615,29 @@ function sizeGet( box , dst )
 //
 
 /**
-* Expand all sides of a box by the dimensions in the expansion array.
-* Returns the expanded box. Box are stored in Array data structure.
-* The expansion array stays untouched, the box changes.
-*
-* @param { Array } box - box to be expanded.
-* @param { Array } expand - Array of reference with expansion dimensions.
-*
-* @example
-* // returns [ - 1, - 3, 4, 6 ];
-* _.expand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
-*
-* @example
-* // returns [ - 1, - 2, 2, 4 ];
-* _.expand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
-*
-* @returns { Array } Returns the array of the box expanded.
-* @function expand
-* @throws { Error } An Error if ( dim ) is different than expand.length (the box and the expansion array don´t have the same dimension).
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( expand ) is not an array.
-* @memberof wTools.box
-*/
+  * Expand all sides of a box by the dimensions in the expansion array.
+  * Returns the expanded box. Box are stored in Array data structure.
+  * The expansion array stays untouched, the box changes.
+  *
+  * @param { Array } box - box to be expanded.
+  * @param { Array } expand - Array of reference with expansion dimensions.
+  *
+  * @example
+  * // returns [ - 1, - 3, 4, 6 ];
+  * _.expand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
+  *
+  * @example
+  * // returns [ - 1, - 2, 2, 4 ];
+  * _.expand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+  *
+  * @returns { Array } Returns the array of the box expanded.
+  * @function expand
+  * @throws { Error } An Error if ( dim ) is different than expand.length (the box and the expansion array don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( expand ) is not an array.
+  * @memberof wTools.box
+  */
 
 function expand( box , expand )
 {
@@ -664,27 +666,27 @@ function expand( box , expand )
 //
 
 /**
-*Expand box by point. Returns the expanded box. Box are stored in Array data structure. Point stays untouched, dstBox changes.
-*
-* @param { Array } dstBox - box to be expanded.
-* @param { Array } point - Point of reference with expansion dimensions.
-*
-* @example
-* // returns [ 0, 0, 3, 3 ];
-* _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
-*
-* @example
-* // returns [ 0, 0, 2, 2 ];
-* _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
-*
-* @returns { Array } Returns the array of the box expanded.
-* @function pointExpand
-* @throws { Error } An Error if ( dim ) is different than point.length (the box and the point don´t have the same dimension).
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( point ) is not point.
-* @memberof wTools.box
-*/
+  *Expand box by point. Returns the expanded box. Box are stored in Array data structure. Point stays untouched, dstBox changes.
+  *
+  * @param { Array } dstBox - box to be expanded.
+  * @param { Array } point - Point of reference with expansion dimensions.
+  *
+  * @example
+  * // returns [ 0, 0, 3, 3 ];
+  * _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 2, 2 ];
+  * _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+  *
+  * @returns { Array } Returns the array of the box expanded.
+  * @function pointExpand
+  * @throws { Error } An Error if ( dim ) is different than point.length (the box and the point don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.box
+  */
 
 function pointExpand( dstBox , point )
 {
@@ -710,27 +712,27 @@ function pointExpand( dstBox , point )
 //
 
 /**
-* Check if a given point is contained inside a box. Returs true if it is contained, false if not. Point and box stay untouched.
-*
-* @param { Array } box - The box to check if the point is inside.
-* @param { Array } point - The point to check.
-*
-* @example
-* // returns true
-* _.pointContains( [ 0, 0, 2, 2 ], [ 1, 1 ] );
-*
-* @example
-* // returns false
-* _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
-*
-* @returns { Boolen } Returns true if the point is inside the box, and false if the point is outside it.
-* @function pointContains
-* @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( point ) is not point.
-* @memberof wTools.box
-*/
+  * Check if a given point is contained inside a box. Returs true if it is contained, false if not. Point and box stay untouched.
+  *
+  * @param { Array } box - The box to check if the point is inside.
+  * @param { Array } point - The point to check.
+  *
+  * @example
+  * // returns true
+  * _.pointContains( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
+  *
+  * @returns { Boolen } Returns true if the point is inside the box, and false if the point is outside it.
+  * @function pointContains
+  * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.box
+  */
 
 function pointContains( box , point )
 {
@@ -806,27 +808,27 @@ function pointRelative( box , point )
 }
 
 /**
-* Clamp a point to a box. Returns the clamped point. Box stays untouched, point gets clamped.
-*
-* @param { Array } box - The source box.
-* @param { Array } point - The point to be clamped against the box.
-*
-* @example
-* // returns [ 0, 2 ]
-* _.pointClamp( [ 0, 0, 2, 2 ], [ 0, 3 ] );
-*
-* @example
-* // returns [ 0, 1 ]
-* _.pointClamp( [ 0, 0, 2, 2 ], [ 0, 1 ] );
-*
-* @returns { Array } Returns an array with the coordinates of the clamped point.
-* @function pointClamp
-* @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box.
-* @throws { Error } An Error if ( point ) is not point.
-* @memberof wTools.box
-*/
+  * Clamp a point to a box. Returns the clamped point. Box stays untouched, point gets clamped.
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } point - The point to be clamped against the box.
+  *
+  * @example
+  * // returns [ 0, 2 ]
+  * _.pointClamp( [ 0, 0, 2, 2 ], [ 0, 3 ] );
+  *
+  * @example
+  * // returns [ 0, 1 ]
+  * _.pointClamp( [ 0, 0, 2, 2 ], [ 0, 1 ] );
+  *
+  * @returns { Array } Returns an array with the coordinates of the clamped point.
+  * @function pointClamp
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.box
+  */
 
 function pointClamp( box , point )
 {
@@ -856,28 +858,28 @@ function pointClamp( box , point )
 //
 
 /**
-*Calulate distance between point and box ( distance between point and nearest point in box ). Returns distance value.
-* Point and box stay untouched.
-*
-* @param { Array } box - source box.
-* @param { Array } point - source point.
-*
-* @example
-* // returns 1;
-* _.pointDistance( [ 0, 0, 2, 2 ], [ 0, 3 ] );
-*
-* @example
-* // returns 0;
-* _.pointDistance( [ 0, 0, 2, 2 ], [ 1, 1 ] );
-*
-* @returns { Number } Returns the distance between the point and the nearest point in the box.
-* @function pointDistance
-* @throws { Error } An Error if ( dim ) is different than dimGet(box) (the point and the box don´t have the same dimension).
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( box ) is not box
-* @throws { Error } An Error if ( point ) is not point
-* @memberof wTools.box
-*/
+  *Calulate distance between point and box ( distance between point and nearest point in box ). Returns distance value.
+  * Point and box stay untouched.
+  *
+  * @param { Array } box - source box.
+  * @param { Array } point - source point.
+  *
+  * @example
+  * // returns 1;
+  * _.pointDistance( [ 0, 0, 2, 2 ], [ 0, 3 ] );
+  *
+  * @example
+  * // returns 0;
+  * _.pointDistance( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+  *
+  * @returns { Number } Returns the distance between the point and the nearest point in the box.
+  * @function pointDistance
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the point and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( point ) is not point
+  * @memberof wTools.box
+  */
 
 function pointDistance( box , point )
 {
@@ -955,26 +957,26 @@ function boxContains( box , box2 )
 */
 
 /**
-*Check if srcBox intersects with tstBox. Returns true if the boxes intersect, false if not (if only side is touching then they don´t intersect).
-* Box are stored in Array data structure. Source box and Test box stay untouched.
-*
-* @param { Array } srcBox - Source box
-* @param { Array } tstBox - Test box to check if it intersects
-*
-* @example
-* // returns true
-* _.boxIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
-*
-* @example
-* // returns false
-* _.boxIntersects( [ 0, 0, 2, 2 ], [ 3, 3, 4, 4 ] );
-*
-* @returns { Boolean } Returns true if the boxes intersect and false if not.
-* @function boxIntersects
-* @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @memberof wTools.box
-*/
+  *Check if srcBox intersects with tstBox. Returns true if the boxes intersect, false if not (if only side is touching then they don´t intersect).
+  * Box are stored in Array data structure. Source box and Test box stay untouched.
+  *
+  * @param { Array } srcBox - Source box
+  * @param { Array } tstBox - Test box to check if it intersects
+  *
+  * @example
+  * // returns true
+  * _.boxIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
+  *
+  * @example
+  * // returns false
+  * _.boxIntersects( [ 0, 0, 2, 2 ], [ 3, 3, 4, 4 ] );
+  *
+  * @returns { Boolean } Returns true if the boxes intersect and false if not.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.box
+  */
 
 function boxIntersects( srcBox , tstBox )
 {
@@ -1002,26 +1004,26 @@ function boxIntersects( srcBox , tstBox )
 //
 
 /**
-*Expand destination box by source box. Returns destination box. Box are stored in Array data structure. Source box stays untouched.
-*
-* @param { Array } dstBox - box to be expanded.
-* @param { Array } srcBox - source box with expansion dimensions.
-*
-* @example
-* // returns [ 0, 0, 3, 3 ];
-* _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
-*
-* @example
-* // returns [ 0, 0, 2, 2 ];
-* _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 1, 2, 2 ] );
-*
-* @returns { Array } Returns the array of the expanded box, that contains new element ( src box ).
-* @function boxExpand
-* @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
-* @memberof wTools.box
-*/
+  *Expand destination box by source box. Returns destination box. Box are stored in Array data structure. Source box stays untouched.
+  *
+  * @param { Array } dstBox - box to be expanded.
+  * @param { Array } srcBox - source box with expansion dimensions.
+  *
+  * @example
+  * // returns [ 0, 0, 3, 3 ];
+  * _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 2, 2 ];
+  * _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 1, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the expanded box, that contains new element ( src box ).
+  * @function boxExpand
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
+  * @memberof wTools.box
+  */
 
 function boxExpand( dstBox , srcBox )
 {

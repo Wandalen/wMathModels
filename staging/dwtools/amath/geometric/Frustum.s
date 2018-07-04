@@ -105,36 +105,35 @@ function is( frustum )
   _.assert( arguments.length === 1, 'expects single argument' );
   return _.spaceIs( frustum ) && frustum.hasShape([ 4,6 ])
 }
+
 //
 
 /**
-* Returns the coordinates of the corners of a frustum. Returns an space object where each column is a point.
-* Frustum remain unchanged. Frustum need to follow planes convention ( see top of the file )
-*
-* @param { Frustum } srcfrustum - Source frustum.
-*
-* @example
-* // returns furstumCorners =
-* [ 0, 0, 0, 0, 1, 1, 1, 1,
-*   1, 0, 1, 0, 1, 0, 1, 0,
-*   1, 1, 0, 0, 1, 1, 0, 0,
-* ];
-* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
-*  ([ 0, 0, 0, 0, - 1, 1,
-*     1, - 1, 0, 0, 0, 0,
-*     0, 0, 1, - 1, 0, 0,
-*     - 1, 0, - 1, 0, 0, - 1 ] );
-*
-* _.frustumCorners( srcfrustum );
-*
-* @returns { Space } Returns the coordintes of the points in the frustum corners.
-* @function frustumCorners
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( frustum ) is not frustum.
-* @memberof wTools.frustum
-*/
-
-//
+  * Returns the coordinates of the corners of a frustum. Returns an space object where each column is a point.
+  * Frustum remain unchanged. Frustum need to follow planes convention ( see top of the file )
+  *
+  * @param { Frustum } srcfrustum - Source frustum.
+  *
+  * @example
+  * // returns furstumCorners =
+  * [ 0, 0, 0, 0, 1, 1, 1, 1,
+  *   1, 0, 1, 0, 1, 0, 1, 0,
+  *   1, 1, 0, 0, 1, 1, 0, 0,
+  * ];
+  * var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([ 0, 0, 0, 0, - 1, 1,
+  *     1, - 1, 0, 0, 0, 0,
+  *     0, 0, 1, - 1, 0, 0,
+  *     - 1, 0, - 1, 0, 0, - 1 ] );
+  *
+  * _.frustumCorners( srcfrustum );
+  *
+  * @returns { Space } Returns the coordintes of the points in the frustum corners.
+  * @function frustumCorners
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @memberof wTools.frustum
+  */
 
 function frustumCorners( srcfrustum )
 {
@@ -250,34 +249,36 @@ function frustumCorners( srcfrustum )
 //
 
 /**
-* Check if a frustum intersects with another frustum. Returns true if they intersect.
-* Both frustums remain unchanged.
-*
-* @param { Frustum } srcfrustum - Source frustum.
-* @param { Frustum } testfrustum - Frustum to test if it intersects.
-*
-* @example
-* // returns true;
-* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
-*   [ 0,   0,   0,   0, - 1,   1,
-*     1, - 1,   0,   0,   0,   0,
-*     0,   0,   1, - 1,   0,   0,
-*   - 1,   0, - 1,   0,   0, - 1 ] );
-* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy(
-*  [ 0,   0,   0,   0, - 1,   1,
-*    1, - 1,   0,   0,   0,   0,
-*    0,   0,   1, - 1,   0,   0,
-*   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ] );
-* _.frustumIntersects( srcfrustum , testfrustum );
-*
-* @returns { Boolean } Returns true if the frustums intersect.
-* @function frustumIntersects
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( frustum ) is not frustum.
-* @memberof wTools.frustum
-*/
-
-//
+  * Check if a frustum intersects with another frustum. Returns true if they intersect.
+  * Both frustums remain unchanged.
+  *
+  * @param { Frustum } srcfrustum - Source frustum.
+  * @param { Frustum } testfrustum - Frustum to test if it intersects.
+  *
+  * @example
+  * // returns true;
+  * var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+  *   ([
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
+  *   );
+  * _.frustumIntersects( srcfrustum , testfrustum );
+  *
+  * @returns { Boolean } Returns true if the frustums intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @memberof wTools.frustum
+  */
 
 function frustumIntersects( srcfrustum , testfrustum )
 {
@@ -315,25 +316,23 @@ function frustumIntersects( srcfrustum , testfrustum )
 //
 
 /**
-* Check if a frustum and a sphere intersect. Returns true if they intersect.
-* Frustum and sphere remain unchanged.
-*
-* @param { Frustum } frustum - Source frustum.
-* @param { Sphere } sphere - Source sphere.
-*
-* @example
-* // returns false;
-* _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
-**
-* @returns { Boolean } Returns true if the frustum and the sphere intersect.
-* @function sphereIntersects
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( frustum ) is not frustum.
-* @throws { Error } An Error if ( sphere ) is not sphere.
-* @memberof wTools.frustum
-*/
-
-//
+  * Check if a frustum and a sphere intersect. Returns true if they intersect.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Sphere } sphere - Source sphere.
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
+  **
+  * @returns { Boolean } Returns true if the frustum and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.frustum
+  */
 
 function sphereIntersects( frustum , sphere )
 {
@@ -365,25 +364,23 @@ function sphereIntersects( frustum , sphere )
 
 
 /**
-* Check if a frustum and a box intersect. Returns true if they intersect.
-* Frustum and box remain unchanged.
-*
-* @param { Frustum } frustum - Source frustum.
-* @param { Array } box - Source box.
-*
-* @example
-* // returns false;
-* _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
-**
-* @returns { Boolean } Returns true if the frustum and the box intersect.
-* @function boxIntersects
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( frustum ) is not frustum.
-* @throws { Error } An Error if ( box ) is not box.
-* @memberof wTools.frustum
-*/
-
-//
+  * Check if a frustum and a box intersect. Returns true if they intersect.
+  * Frustum and box remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
+  **
+  * @returns { Boolean } Returns true if the frustum and the box intersect.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.frustum
+  */
 
 function boxIntersects( frustum , box )
 {
@@ -488,25 +485,23 @@ function boxIntersects( frustum , box )
 //
 
 /**
-* Check if a frustum contains a point. Returns true if it contains it.
-* Frustum and point remain unchanged.
-*
-* @param { Frustum } frustum - Source frustum.
-* @param { Array } point - Source point.
-*
-* @example
-* // returns false;
-* _.pointContains( _.frustum.make() , [ 1, 1, 1 ] );
-**
-* @returns { Boolean } Returns true if the frustum contains the point.
-* @function pointContains
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( frustum ) is not frustum.
-* @throws { Error } An Error if ( point ) is not point.
-* @memberof wTools.frustum
-*/
-
-//
+  * Check if a frustum contains a point. Returns true if it contains it.
+  * Frustum and point remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } point - Source point.
+  *
+  * @example
+  * // returns false;
+  * _.pointContains( _.frustum.make() , [ 1, 1, 1 ] );
+  **
+  * @returns { Boolean } Returns true if the frustum contains the point.
+  * @function pointContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.frustum
+  */
 
 function pointContains( frustum , point )
 {
@@ -531,30 +526,28 @@ function pointContains( frustum , point )
 //
 
 /**
-* Returns the closest point in a frustum to a point. Returns the coordinates of the closest point.
-* Frustum and point remain unchanged.
-*
-* @param { Frustum } frustum - Source frustum.
-* @param { Array } srcpoint - Source point.
-*
-* @example
-* // returns [ 0, 0, 0 ];
-* var frustum = _.Space.make( [ 4, 6 ] ).copy(
-*   [ 0,   0,   0,   0, - 1,   1,
-*     1, - 1,   0,   0,   0,   0,
-*     0,   0,   1, - 1,   0,   0,
-*   - 1,   0, - 1,   0,   0, - 1 ] );
-* _.pointClosestPoint( frustum , [ - 1, - 1, - 1 ] );
-*
-* @returns { Array } Returns the array of coordinates of the closest point in the frustum.
-* @function pointClosestPoint
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( frustum ) is not frustum.
-* @throws { Error } An Error if ( point ) is not point.
-* @memberof wTools.frustum
-*/
-
-//
+  * Returns the closest point in a frustum to a point. Returns the coordinates of the closest point.
+  * Frustum and point remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } srcpoint - Source point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * var frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.pointClosestPoint( frustum , [ - 1, - 1, - 1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
+  * @function pointClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.frustum
+  */
 
 function pointClosestPoint( frustum , point )
 {
@@ -658,28 +651,28 @@ function pointClosestPoint( frustum , point )
 //
 
 /**
-* Returns the closest point in a frustum to a box. Returns the coordinates of the closest point.
-* Frustum and box remain unchanged.
-*
-* @param { Frustum } frustum - Source frustum.
-* @param { Array } box - Source box.
-*
-* @example
-* // returns [ 0, 0, 0 ];
-* var frustum = _.Space.make( [ 4, 6 ] ).copy(
-*   [ 0,   0,   0,   0, - 1,   1,
-*     1, - 1,   0,   0,   0,   0,
-*     0,   0,   1, - 1,   0,   0,
-*   - 1,   0, - 1,   0,   0, - 1 ] );
-* _.boxClosestPoint( frustum , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
-*
-* @returns { Array } Returns the array of coordinates of the closest point in the frustum.
-* @function boxClosestPoint
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( frustum ) is not frustum.
-* @throws { Error } An Error if ( box ) is not box.
-* @memberof wTools.frustum
-*/
+  * Returns the closest point in a frustum to a box. Returns the coordinates of the closest point.
+  * Frustum and box remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * var frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.boxClosestPoint( frustum , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
+  * @function boxClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.frustum
+  */
 
 function boxClosestPoint( frustum , box )
 {
@@ -748,30 +741,28 @@ function boxClosestPoint( frustum , box )
 //
 
 /**
-* Returns the closest point in a frustum to a sphere. Returns the coordinates of the closest point.
-* Frustum and sphere remain unchanged.
-*
-* @param { Frustum } frustum - Source frustum.
-* @param { Array } sphere - Source sphere.
-*
-* @example
-* // returns [ 0, 0, 0 ];
-* var frustum = _.Space.make( [ 4, 6 ] ).copy(
-*   [ 0,   0,   0,   0, - 1,   1,
-*     1, - 1,   0,   0,   0,   0,
-*     0,   0,   1, - 1,   0,   0,
-*   - 1,   0, - 1,   0,   0, - 1 ] );
-* _.sphereClosestPoint( frustum , [ - 1, - 1, - 1, 0.1 ] );
-*
-* @returns { Array } Returns the array of coordinates of the closest point in the frustum.
-* @function sphereClosestPoint
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( frustum ) is not frustum.
-* @throws { Error } An Error if ( sphere ) is not sphere.
-* @memberof wTools.frustum
-*/
-
-//
+  * Returns the closest point in a frustum to a sphere. Returns the coordinates of the closest point.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * var frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.sphereClosestPoint( frustum , [ - 1, - 1, - 1, 0.1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.frustum
+  */
 
 function sphereClosestPoint( frustum , sphere )
 {

@@ -43,31 +43,31 @@ function is( plane )
 
 
 /**
-* Create a plane from another plane or a normal and a bias. Returns the new plane.
-* Planes are stored in Array data structure. Source plane/Normal and bias stay untouched, dst plane changes.
-*
-* @param { Array } dstplane - Destination plane to be expanded.
-* @param { Array } srcplane - Source plane.
-* Alternative to srcplane:
-* @param { Array } normal - Array of points with normal vector coordinates.
-* @param { Number } bias - Number with bias value.
-*
-* @example
-* // returns [ 0, 0, 1, 2 ];
-* _.from( [ 0, 0, 0, 0 ] , [ 0, 0, 1, 2 ] );
-*
-* @example
-* // returns [ 0, - 1, 2, 2 ];
-* _.from( [ 0, 0, 1, 1 ], [ 0, - 1, 2 ], 2 );
-*
-* @returns { Array } Returns the array of the new plane.
-* @function from
-* @throws { Error } An Error if ( arguments.length ) is different than two or three.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( normal ) is not array.
-* @throws { Error } An Error if ( bias ) is not number.
-* @memberof wTools.box
-*/
+  * Create a plane from another plane or a normal and a bias. Returns the new plane.
+  * Planes are stored in Array data structure. Source plane/Normal and bias stay untouched, dst plane changes.
+  *
+  * @param { Array } dstplane - Destination plane to be expanded.
+  * @param { Array } srcplane - Source plane.
+  * Alternative to srcplane:
+  * @param { Array } normal - Array of points with normal vector coordinates.
+  * @param { Number } bias - Number with bias value.
+  *
+  * @example
+  * // returns [ 0, 0, 1, 2 ];
+  * _.from( [ 0, 0, 0, 0 ] , [ 0, 0, 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0, - 1, 2, 2 ];
+  * _.from( [ 0, 0, 1, 1 ], [ 0, - 1, 2 ], 2 );
+  *
+  * @returns { Array } Returns the array of the new plane.
+  * @function from
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( normal ) is not array.
+  * @throws { Error } An Error if ( bias ) is not number.
+  * @memberof wTools.box
+  */
 
 function from( plane )
 {
@@ -104,25 +104,25 @@ function from( plane )
 //
 
 /**
-* Create a plane from a normal and a point. Returns the new plane.
-* Planes are stored in Array data structure. Normal and point stay untouched, plane changes.
-*
-* @param { Array } plane - Plane to be modified.
-* @param { Array } anormal - Array of points with normal vector coordinates.
-* @param { Array } abias - Array with point coordinates.
-*
-* @example
-* // returns [ 0, 0, 1, 2 ];
-* _.fromNormalAndPoint( [ 0, 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
-*
-* @returns { Array } Returns the array of the new plane.
-* @function fromNormalAndPoint
-* @throws { Error } An Error if ( arguments.length ) is different than three.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( anormal ) is not array.
-* @throws { Error } An Error if ( apoint ) is not a point.
-* @memberof wTools.box
-*/
+  * Create a plane from a normal and a point. Returns the new plane.
+  * Planes are stored in Array data structure. Normal and point stay untouched, plane changes.
+  *
+  * @param { Array } plane - Plane to be modified.
+  * @param { Array } anormal - Array of points with normal vector coordinates.
+  * @param { Array } abias - Array with point coordinates.
+  *
+  * @example
+  * // returns [ 0, 0, 1, 2 ];
+  * _.fromNormalAndPoint( [ 0, 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
+  *
+  * @returns { Array } Returns the array of the new plane.
+  * @function fromNormalAndPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( anormal ) is not array.
+  * @throws { Error } An Error if ( apoint ) is not a point.
+  * @memberof wTools.box
+  */
 
 function fromNormalAndPoint( plane, anormal, apoint )
 {
@@ -148,28 +148,28 @@ function fromNormalAndPoint( plane, anormal, apoint )
 //
 
 /**
-* Create a plane from three points. Returns the new plane.
-* Planes are stored in Array data structure. The points remain untouched, plane changes.
-*
-* @param { Array } plane - Plane to be modified.
-* @param { Array } a - First point in the new plane.
-* @param { Array } b - Second point in the new plane.
-* @param { Array } c - Third point in the new plane.
-*
-* @example
-* // returns [ 0, 1, 0, 0 ];
-* _.fromPoints( [ 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
-*
-* @returns { Array } Returns the array of the new plane.
-* @function fromPoints
-* @throws { Error } An Error if ( arguments.length ) is different than four.
-* @throws { Error } An Error if ( dim ) point dimension is different than three.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( a ) is not a point.
-* @throws { Error } An Error if ( b ) is not a point.
-* @throws { Error } An Error if ( c ) is not a point.
-* @memberof wTools.box
-*/
+  * Create a plane from three points. Returns the new plane.
+  * Planes are stored in Array data structure. The points remain untouched, plane changes.
+  *
+  * @param { Array } plane - Plane to be modified.
+  * @param { Array } a - First point in the new plane.
+  * @param { Array } b - Second point in the new plane.
+  * @param { Array } c - Third point in the new plane.
+  *
+  * @example
+  * // returns [ 0, 1, 0, 0 ];
+  * _.fromPoints( [ 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
+  *
+  * @returns { Array } Returns the array of the new plane.
+  * @function fromPoints
+  * @throws { Error } An Error if ( arguments.length ) is different than four.
+  * @throws { Error } An Error if ( dim ) point dimension is different than three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( a ) is not a point.
+  * @throws { Error } An Error if ( b ) is not a point.
+  * @throws { Error } An Error if ( c ) is not a point.
+  * @memberof wTools.box
+  */
 
 function fromPoints( plane,a,b,c )
 {
@@ -249,23 +249,23 @@ function biasSet( plane,bias )
 //
 
 /**
-* Get the distance between a point and a plane. Returns the distance value.
-* The point an the plane remain unchanged.
-*
-* @param { Array } plane - Source plane.
-* @param { Vector } point - Source point.
-*
-* @example
-* // returns 1;
-* _.pointsDistance( [ 0, 1, 0, 1 ] , _.vector.from( [ 0, 0, 1 ] ) );
-*
-* @returns { Number } Returns the distance from the point to the plane.
-* @function pointDistance
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( point ) is not a vector.
-* @memberof wTools.box
-*/
+  * Get the distance between a point and a plane. Returns the distance value.
+  * The point an the plane remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Vector } point - Source point.
+  *
+  * @example
+  * // returns 1;
+  * _.pointsDistance( [ 0, 1, 0, 1 ] , _.vector.from( [ 0, 0, 1 ] ) );
+  *
+  * @returns { Number } Returns the distance from the point to the plane.
+  * @function pointDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( point ) is not a vector.
+  * @memberof wTools.box
+  */
 
 function pointDistance( plane , point )
 {
@@ -290,23 +290,23 @@ function pointDistance( plane , point )
 //
 
 /**
-* Get the proyection of a point in a plane. Returns the new point coordinates.
-* The plane remains unchanged, the point changes.
-*
-* @param { Array } plane - Source plane.
-* @param { Array } point - Source and destination point.
-*
-* @example
-* // returns [ - 1, 2, 2 ];
-* _.pointCoplanarGet( [ 1, 0, 0, 1 ] , [ 2, 2, 2 ]);
-*
-* @returns { Array } Returns the new point in the plane.
-* @function pointCoplanarGet
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( point ) is not point.
-* @memberof wTools.box
-*/
+  * Get the proyection of a point in a plane. Returns the new point coordinates.
+  * The plane remains unchanged, the point changes.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } point - Source and destination point.
+  *
+  * @example
+  * // returns [ - 1, 2, 2 ];
+  * _.pointCoplanarGet( [ 1, 0, 0, 1 ] , [ 2, 2, 2 ]);
+  *
+  * @returns { Array } Returns the new point in the plane.
+  * @function pointCoplanarGet
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.box
+  */
 
 function pointCoplanarGet( plane , point )
 {
@@ -356,23 +356,23 @@ function pointCoplanarGet( plane , point )
 //
 
 /**
-* Get the distance between a plane and a sphere. Returns the distance value.
-* The sphere an the plane remain unchanged.
-*
-* @param { Array } plane - Source plane.
-* @param { Array } sphere - Source sphere.
-*
-* @example
-* // returns 1;
-* _.sphereDistance( [ 0, 1, 0, 1 ] , [ 0, 0, 2, 1 ]);
-*
-* @returns { Number } Returns the distance from the sphere to the plane.
-* @function sphereDistance
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( sphere ) is not sphere.
-* @memberof wTools.box
-*/
+  * Get the distance between a plane and a sphere. Returns the distance value.
+  * The sphere an the plane remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns 1;
+  * _.sphereDistance( [ 0, 1, 0, 1 ] , [ 0, 0, 2, 1 ]);
+  *
+  * @returns { Number } Returns the distance from the sphere to the plane.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.box
+  */
 
 function sphereDistance( plane , sphere )
 {
@@ -399,27 +399,27 @@ function sphereDistance( plane , sphere )
 
 
 /**
-* Check if a plane and a line intersect. Returns true if they intersect.
-* The plane and line remain unchanged.
-*
-* @param { Array } plane - Source plane.
-* @param { Array } line -  First and last points in line.
-*
-* @example
-* // returns true
-* _.lineIntersects( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
-*
-* @example
-* // returns false
-* _.lineIntersects( [ 1, 0, 0, 1 ] , [ [  2, 2, 2 ], [ 3, 3, 3 ] ]);
-*
-* @returns { Boolean } Returns true if the line and plane intersect, false if not.
-* @function lineIntersects
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( line ) is not line.
-* @memberof wTools.box
-*/
+  * Check if a plane and a line intersect. Returns true if they intersect.
+  * The plane and line remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } line -  First and last points in line.
+  *
+  * @example
+  * // returns true
+  * _.lineIntersects( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
+  *
+  * @example
+  * // returns false
+  * _.lineIntersects( [ 1, 0, 0, 1 ] , [ [  2, 2, 2 ], [ 3, 3, 3 ] ]);
+  *
+  * @returns { Boolean } Returns true if the line and plane intersect, false if not.
+  * @function lineIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @memberof wTools.box
+  */
 
 function lineIntersects( plane , line )
 {
@@ -445,25 +445,25 @@ function lineIntersects( plane , line )
 //
 
 /**
-* Returns the intersection point between a plane and a line. Returns the intersection point coordinates.
-* The plane and line remain unchanged.
-*
-* @param { Array } plane - Source plane.
-* @param { Array } line -  First and last points in line.
-*
-* @example
-* // returns [ 0, 0, 0 ];
-* _.lineIntersects( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
-*
-*
-* @returns { Point } Returns the point of intersection between a plane and a line.
-* @function lineIntersection
-* @throws { Error } An Error if ( arguments.length ) is different than three.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( line ) is not line.
-* @throws { Error } An Error if ( point ) is not point.
-* @memberof wTools.box
-*/
+  * Returns the intersection point between a plane and a line. Returns the intersection point coordinates.
+  * The plane and line remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } line -  First and last points in line.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.lineIntersection( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a plane and a line.
+  * @function lineIntersection
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.box
+  */
 
 function lineIntersection( plane , line , point )
 {
@@ -506,24 +506,24 @@ function lineIntersection( plane , line , point )
 //
 
 /**
-* Returns the intersection point between three planes. Returns the intersection point coordinates, NaN if the plane´s intersection is not a point.
-* The planes remain unchanged.
-*
-* @param { Array } planeone - Source plane.
-* @param { Array } planetwo - Source plane.
-* @param { Array } planethree - Source plane.
-*
-* @example
-* // returns [ 0, 0, 0 ];
-* _.threeIntersectionPoint( [ 1, 0, 0, 0 ] , [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ] );
-*
-*
-* @returns { Point } Returns the point of intersection between three planes.
-* @function threeIntersectionPoint
-* @throws { Error } An Error if ( arguments.length ) is different than three.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @memberof wTools.box
-*/
+  * Returns the intersection point between three planes. Returns the intersection point coordinates, NaN if the plane´s intersection is not a point.
+  * The planes remain unchanged.
+  *
+  * @param { Array } planeone - Source plane.
+  * @param { Array } planetwo - Source plane.
+  * @param { Array } planethree - Source plane.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.threeIntersectionPoint( [ 1, 0, 0, 0 ] , [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ] );
+  *
+  *
+  * @returns { Point } Returns the point of intersection between three planes.
+  * @function threeIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @memberof wTools.box
+  */
 
 function threeIntersectionPoint( planeone , planetwo , planethree )
 {
@@ -595,27 +595,27 @@ function matrixHomogenousApply( plane , matrix )
 //
 
 /**
-* Translates a plane by a given offset. Returns the new plane coordinates.
-* The offset remains unchanged, the plane changes.
-*
-* @param { Array } plane - Source and destination plane.
-* @param { Array } offset -  Offset to translate the plane.
-*
-* @example
-* // returns [ 1, 0, 0, 1 ];
-* _.translate( [ 1, 0, 0, 1 ] , [ 0, 2, 0 ] );
-*
-* @example
-* // returns [ 1, 0, 0, - 1 ]
-* _.translate( [ 1, 0, 0, 1 ] ,  [  2, 2, 2 ] );
-*
-* @returns { Boolean } Returns the translated plane.
-* @function translate
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @throws { Error } An Error if ( offset ) is not point.
-* @memberof wTools.box
-*/
+  * Translates a plane by a given offset. Returns the new plane coordinates.
+  * The offset remains unchanged, the plane changes.
+  *
+  * @param { Array } plane - Source and destination plane.
+  * @param { Array } offset -  Offset to translate the plane.
+  *
+  * @example
+  * // returns [ 1, 0, 0, 1 ];
+  * _.translate( [ 1, 0, 0, 1 ] , [ 0, 2, 0 ] );
+  *
+  * @example
+  * // returns [ 1, 0, 0, - 1 ]
+  * _.translate( [ 1, 0, 0, 1 ] ,  [  2, 2, 2 ] );
+  *
+  * @returns { Boolean } Returns the translated plane.
+  * @function translate
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( offset ) is not point.
+  * @memberof wTools.box
+  */
 
 function translate( plane , offset )
 {
@@ -637,25 +637,25 @@ function translate( plane , offset )
 //
 
 /**
-* Normalize a plane coordinates. Returns the normalized plane coordinates.
-* The plane changes.
-*
-* @param { Array } plane - Source and destination plane.
-*
-* @example
-* // returns [ 1, 0, 0, 0 ];
-* _.normalize( [ 1, 0, 0, 0 ] );
-*
-* @example
-* // returns [ 1, 0, 0, 2 ]
-* _.translate( [ 1, 0, 0, 2 ]  );
-*
-* @returns { Array } Returns the normalized plane.
-* @function normalize
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @memberof wTools.box
-*/
+  * Normalize a plane coordinates. Returns the normalized plane coordinates.
+  * The plane changes.
+  *
+  * @param { Array } plane - Source and destination plane.
+  *
+  * @example
+  * // returns [ 1, 0, 0, 0 ];
+  * _.normalize( [ 1, 0, 0, 0 ] );
+  *
+  * @example
+  * // returns [ 1, 0, 0, 2 ]
+  * _.translate( [ 1, 0, 0, 2 ]  );
+  *
+  * @returns { Array } Returns the normalized plane.
+  * @function normalize
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @memberof wTools.box
+  */
 
 function normalize( plane )
 {
@@ -679,25 +679,25 @@ function normalize( plane )
 
 
 /**
-* Negate a plane coordinates. Returns the negated plane coordinates.
-* The plane changes.
-*
-* @param { Array } plane - Source and destination plane.
-*
-* @example
-* // returns [ - 1, 0, 0, 0 ];
-* _.negate( [ 1, 0, 0, 0 ] );
-*
-* @example
-* // returns [ - 1, 0, 0, - 2 ]
-* _.negate( [ 1, 0, 0, 2 ]  );
-*
-* @returns { Array } Returns the negated plane.
-* @function negate
-* @throws { Error } An Error if ( arguments.length ) is different than one.
-* @throws { Error } An Error if ( plane ) is not plane.
-* @memberof wTools.box
-*/
+  * Negate a plane coordinates. Returns the negated plane coordinates.
+  * The plane changes.
+  *
+  * @param { Array } plane - Source and destination plane.
+  *
+  * @example
+  * // returns [ - 1, 0, 0, 0 ];
+  * _.negate( [ 1, 0, 0, 0 ] );
+  *
+  * @example
+  * // returns [ - 1, 0, 0, - 2 ]
+  * _.negate( [ 1, 0, 0, 2 ]  );
+  *
+  * @returns { Array } Returns the negated plane.
+  * @function negate
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @memberof wTools.box
+  */
 
 function negate( plane )
 {
