@@ -1173,9 +1173,12 @@ function fromQuat2( quat, dst )
   {
     if( - 1 < 2*( x*z + w*y ) && 2*( x*z + w*y ) < 1 )
     {
-      dstv.eSet( 2, atan2( -2*x*y + 2*w*z , w*w  + x*x - z*z - y*y ) );
+      //dstv.eSet( 2, atan2( -2*x*y + 2*w*z , w*w  + x*x - z*z - y*y ) );
+      //dstv.eSet( 1, asin( 2*x*z + 2*w*y ) );
+      //dstv.eSet( 0, atan2( - 2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
+      dstv.eSet( 2, atan2( -( 2*x*y - 2*w*z ) , w*w  + x*x - z*z - y*y ) );
       dstv.eSet( 1, asin( 2*x*z + 2*w*y ) );
-      dstv.eSet( 0, atan2( - 2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
+      dstv.eSet( 0, atan2( - ( 2*y*z - 2*w*x ) , z*z - y*y - x*x + w*w ) );
     }
     else if( 2*( x*z + w*y ) === - 1 )
     {
@@ -1315,7 +1318,7 @@ function fromQuat2( quat, dst )
     if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
     {
       dstv.eSet( 2, atan2( 2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
-      dstv.eSet( 1, - asin( 2*x*z - 2*w*y ) );
+      dstv.eSet( 1, asin( 2*w*y - 2*x*z ) );
       dstv.eSet( 0, atan2( 2*x*y + 2*w*z , x*x + w*w - y*y - z*z ) );
     }
     else if( 2*( x*z - w*y ) === - 1 )
@@ -2274,10 +2277,23 @@ function createEulerAngle( angle0, angle1, angle2, seq )
 
 //
 
-function checkQuatRoutines( a0, n0, d0, a1, n1, d1, a2, n2, d2, seq )
+function checkQuatRoutines( angle0, angle1, angle2, seq )
 {
 
- euler = createEulerAngle( a0, n0, d0, a1, n1, d1, a2, n2, d2, seq );
+  var accuracy =  1e-7;
+  var euler0 = _.euler.createEulerAngle( angle0, angle1, angle2, seq );
+  var quat0 = _.euler.toQuat2( euler0 );
+  var euler1 = _.euler.fromQuat2( quat0, euler0 );
+  var quat1 = _.euler.toQuat2( euler1 );
+
+  if( Math.abs( quat0.eGet( 0 ) ) - Math.abs( quat0.eGet( 0 ) ) < accuracy &&
+      Math.abs( quat0.eGet( 1 ) ) - Math.abs( quat0.eGet( 1 ) ) < accuracy &&
+      Math.abs( quat0.eGet( 2 ) ) - Math.abs( quat0.eGet( 2 ) ) < accuracy &&
+      Math.abs( quat0.eGet( 3 ) ) - Math.abs( quat0.eGet( 3 ) ) < accuracy )
+  { return true; }
+  else
+  { return false; }
+
 }
 
 // --

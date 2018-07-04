@@ -1849,6 +1849,7 @@ function toMatrix2( test )
   test.description = 'Euler remains unchanged'; //
 
   var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldEuler = euler.slice();
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
     0.77015, -0.42073, 0.47942,
@@ -1858,9 +1859,8 @@ function toMatrix2( test )
 
   var gotMatrix = _.euler.toMatrix2( euler );
   test.equivalent( gotMatrix, expected );
-
-  var oldEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   test.equivalent( euler, oldEuler );
+
 
   test.description = 'Euler XYZ'; //
 
