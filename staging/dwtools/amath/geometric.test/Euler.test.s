@@ -1861,7 +1861,6 @@ function toMatrix2( test )
   test.equivalent( gotMatrix, expected );
   test.equivalent( euler, oldEuler );
 
-
   test.description = 'Euler XYZ'; //
 
   var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
@@ -2348,6 +2347,39 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
 }
 
+function checkQuatRoutines( test )
+{
+
+  var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  var Quadrant = [ 0, 1, 2, 3 ];
+  var Accuracy =  1e-7;
+  var Delta = [ -0.1, -Math.sqrt( Accuracy ), -( Accuracy*Accuracy ), 0, +( Accuracy*Accuracy ), +Math.sqrt( Accuracy ), +0.1 ];
+
+  var expected = true;
+
+  for( var i = 0; i < EulerSeqs.length; i++ )
+  {
+    var seq = EulerSeqs[ i ];
+    for( var ang = 0; ang < Angle.length; ang++ )
+    {
+      for( var quad = 0; quad < Quadrant.length; quad++ )
+      {
+        for( var d = 0; d < Delta.length; d++ )
+        {
+          var angle0 = [ Angle[ ang ], Quadrant[ quad ], Delta[ d ] ];
+          var angle1 = [ Angle[ ang ], Quadrant[ quad ], Delta[ d ] ];
+          var angle2 = [ Angle[ ang ], Quadrant[ quad ], Delta[ d ] ];
+
+          var result = _.euler.checkQuatRoutines( angle0, angle1, angle2, seq );
+          test.identical( result, expected );
+        }
+      }
+    }
+  }
+
+}
+
 
 // --
 // define class
@@ -2358,7 +2390,7 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  //routine : 'eulerToRotationMatrixToEulerGimbalLock',
+  routine : 'checkQuatRoutines',
   context :
   {
   },
@@ -2384,6 +2416,7 @@ var Self =
     toMatrix2 : toMatrix2,
     eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
+    checkQuatRoutines : checkQuatRoutines,
 
   },
 

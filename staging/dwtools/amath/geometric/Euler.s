@@ -2284,16 +2284,21 @@ function checkQuatRoutines( angle0, angle1, angle2, seq )
   var euler0 = _.euler.createEulerAngle( angle0, angle1, angle2, seq );
   var quat0 = _.euler.toQuat2( euler0 );
   var euler1 = _.euler.fromQuat2( quat0, euler0 );
-  var quat1 = _.euler.toQuat2( euler1 );
+  if( euler1 == 0 )
+  {
+   return false;
+  }
+  else{
+    var quat1 = _.euler.toQuat2( euler1 );
 
-  if( Math.abs( quat0.eGet( 0 ) ) - Math.abs( quat0.eGet( 0 ) ) < accuracy &&
-      Math.abs( quat0.eGet( 1 ) ) - Math.abs( quat0.eGet( 1 ) ) < accuracy &&
-      Math.abs( quat0.eGet( 2 ) ) - Math.abs( quat0.eGet( 2 ) ) < accuracy &&
-      Math.abs( quat0.eGet( 3 ) ) - Math.abs( quat0.eGet( 3 ) ) < accuracy )
-  { return true; }
-  else
-  { return false; }
-
+    if( Math.abs( quat0.eGet( 0 ) ) - Math.abs( quat0.eGet( 0 ) ) < accuracy &&
+        Math.abs( quat0.eGet( 1 ) ) - Math.abs( quat0.eGet( 1 ) ) < accuracy &&
+        Math.abs( quat0.eGet( 2 ) ) - Math.abs( quat0.eGet( 2 ) ) < accuracy &&
+        Math.abs( quat0.eGet( 3 ) ) - Math.abs( quat0.eGet( 3 ) ) < accuracy )
+    { return true; }
+    else
+    { return false; }
+  }
 }
 
 // --
