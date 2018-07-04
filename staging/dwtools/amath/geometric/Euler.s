@@ -169,7 +169,7 @@ function fromAxisAndAngle( dst, axis, angle )
   if( angle === undefined )
   angle = axis[ 3 ];
 
-  _.assert( arguments.length === 2 || arguments.length === 3 );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
   _.assert( _.numberIs( angle ) );
   _.assert( this.EPS > 0 );

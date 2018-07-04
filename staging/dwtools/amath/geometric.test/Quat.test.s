@@ -106,7 +106,7 @@ function eachQuat( onQuat )
 function is( test )
 {
 
-  test.description = 'array'; //
+  test.description = 'array'; /* */
 
   test.is( !_.quat.is([ 0 ]) );
   test.is( !_.quat.is([ 0,0 ]) );
@@ -114,7 +114,7 @@ function is( test )
   test.is( _.quat.is([ 0,0,0,0 ]) );
   test.is( !_.quat.is([ 0,0,0,0,0 ]) );
 
-  test.description = 'vector'; //
+  test.description = 'vector'; /* */
 
   test.is( !_.quat.is( _.vector.fromArray([ 0 ]) ) );
   test.is( !_.quat.is( _.vector.fromArray([ 0,0 ]) ) );
@@ -122,7 +122,7 @@ function is( test )
   test.is( _.quat.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
   test.is( !_.quat.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
 
-  test.description = 'not quat'; //
+  test.description = 'not quat'; /* */
 
   test.is( !_.quat.is( [] ) );
   test.is( !_.quat.is( _.vector.fromArray([]) ) );
@@ -137,11 +137,11 @@ function is( test )
 function isZero( test )
 {
 
-  test.description = 'zero'; //
+  test.description = 'zero'; /* */
 
   test.is( _.quat.isZero([ 0,0,0,0 ]) );
 
-  test.description = 'not zero'; //
+  test.description = 'not zero'; /* */
 
   test.is( !_.quat.isZero([ 0,0,0,1 ]) );
   test.is( !_.quat.isZero([ 0,0,0,1.1 ]) );
@@ -170,11 +170,11 @@ function isZero( test )
 function isUnit( test )
 {
 
-  test.description = 'zero'; //
+  test.description = 'zero'; /* */
 
   test.is( _.quat.isUnit([ 0,0,0,1 ]) );
 
-  test.description = 'not zero'; //
+  test.description = 'not zero'; /* */
 
   test.is( !_.quat.isUnit([ 0,0,0,0 ]) );
   test.is( !_.quat.isUnit([ 0,0,0,1.1 ]) );
@@ -203,7 +203,7 @@ function isUnit( test )
 function make( test )
 {
 
-  test.description = 'src undefined'; //
+  test.description = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.quat.make( src );
@@ -211,7 +211,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; //
+  test.description = 'src null'; /* */
 
   var src = null;
   var got = _.quat.make( src );
@@ -219,7 +219,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src array'; //
+  test.description = 'src array'; /* */
 
   var src = [ 0,1,2,3 ];
   var got = _.quat.make( src );
@@ -227,7 +227,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src vector'; //
+  test.description = 'src vector'; /* */
 
   var src = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.quat.make( src );
@@ -235,7 +235,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'bad arguments'; //
+  test.description = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.quat.make( 0 ) );
   test.shouldThrowErrorSync( () => _.quat.make( 4 ) );
@@ -249,7 +249,7 @@ function make( test )
 function makeZero( test )
 {
 
-  test.description = 'trivial'; //
+  test.description = 'trivial'; /* */
 
   var got = _.quat.makeZero();
   var expected = [ 0,0,0,0 ];
@@ -258,7 +258,7 @@ function makeZero( test )
   if( !Config.debug )
   return;
 
-  test.description = 'bad arguments'; //
+  test.description = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.quat.makeZero( undefined ) );
   test.shouldThrowErrorSync( () => _.quat.makeZero( null ) );
@@ -274,7 +274,7 @@ function makeZero( test )
 function makeUnit( test )
 {
 
-  test.description = 'trivial'; //
+  test.description = 'trivial'; /* */
 
   var got = _.quat.makeUnit();
   var expected = [ 0,0,0,1 ];
@@ -283,7 +283,7 @@ function makeUnit( test )
   if( !Config.debug )
   return;
 
-  test.description = 'bad arguments'; //
+  test.description = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.quat.makeUnit( undefined ) );
   test.shouldThrowErrorSync( () => _.quat.makeUnit( null ) );
@@ -299,7 +299,7 @@ function makeUnit( test )
 function zero( test )
 {
 
-  test.description = 'src undefined'; //
+  test.description = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.quat.zero( src );
@@ -307,7 +307,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; //
+  test.description = 'src null'; /* */
 
   var src = null;
   var got = _.quat.zero( src );
@@ -315,7 +315,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'dst array'; //
+  test.description = 'dst array'; /* */
 
   var dst = [ 0,1,2,3 ];
   var got = _.quat.zero( dst );
@@ -323,7 +323,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst vector'; //
+  test.description = 'dst vector'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.quat.zero( dst );
@@ -331,7 +331,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'bad arguments'; //
+  test.description = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.quat.zero( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.zero([ 0,0,0 ]) );
@@ -345,7 +345,7 @@ function zero( test )
 function unit( test )
 {
 
-  test.description = 'src undefined'; //
+  test.description = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.quat.unit( src );
@@ -353,7 +353,7 @@ function unit( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; //
+  test.description = 'src null'; /* */
 
   var src = null;
   var got = _.quat.unit( src );
@@ -361,7 +361,7 @@ function unit( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'dst array'; //
+  test.description = 'dst array'; /* */
 
   var dst = [ 0,1,2,3 ];
   var got = _.quat.unit( dst );
@@ -369,7 +369,7 @@ function unit( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst vector'; //
+  test.description = 'dst vector'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.quat.unit( dst );
@@ -377,7 +377,7 @@ function unit( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'bad arguments'; //
+  test.description = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.quat.unit( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.unit([ 0,0,0 ]) );

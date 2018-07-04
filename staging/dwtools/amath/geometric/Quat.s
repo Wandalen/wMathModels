@@ -415,7 +415,7 @@ function fromEuler( dst, euler, v )
 function fromAxisAndAngle( dst, axisAndAngle, angle )
 {
 
-  _.assert( arguments.length === 2 || arguments.length === 3 );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
 
   dst = _.quat.from( dst );
   var dstv = _.vector.from( dst );
