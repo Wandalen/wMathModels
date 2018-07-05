@@ -13,6 +13,42 @@ var T = 0;
 var F = 0;
 var Z = 0;
 
+function onEach( euler, eulerEmpty )
+{
+  console.log('On Each');
+  var expected = _.euler.toQuat2( euler );
+  euler2 = _.euler.fromQuat2( expected, eulerEmpty  );
+  if( euler2 === 0 ){ Z = Z + 1; console.log( 'zero' ); }
+  else
+  {
+    var result = _.euler.toQuat2( euler2 );
+    console.log(expected);
+    console.log(result);
+    var positiveR0 = expected.eGet( 0 ) -  result.eGet( 0 );
+    var positiveR1 = expected.eGet( 1 ) -  result.eGet( 1 );
+    var positiveR2 = expected.eGet( 2 ) -  result.eGet( 2 );
+    var positiveR3 = expected.eGet( 3 ) -  result.eGet( 3 );
+    var negativeR0 = expected.eGet( 0 ) +  result.eGet( 0 );
+    var negativeR1 = expected.eGet( 1 ) +  result.eGet( 1 );
+    var negativeR2 = expected.eGet( 2 ) +  result.eGet( 2 );
+    var negativeR3 = expected.eGet( 3 ) +  result.eGet( 3 );
+
+    if( Math.abs( positiveR0 ) < 0.01 && Math.abs( positiveR1 ) < 0.01 && Math.abs( positiveR2 ) < 0.01 && Math.abs( positiveR3 ) < 0.01 )
+    { console.log( 'TRUE ****************************************' ); T = T+1; }
+    else if( Math.abs( negativeR0 ) < 0.01 && Math.abs( negativeR1 ) < 0.01 && Math.abs( negativeR2 ) < 0.01 && Math.abs( negativeR3 ) < 0.01 )
+    {
+      result.eSet( 0, - result.eGet( 0 ) );
+      result.eSet( 1, - result.eGet( 1 ) );
+      result.eSet( 2, - result.eGet( 2 ) );
+      result.eSet( 3, - result.eGet( 3 ) );
+      console.log('******** Changed to negative', result );
+      T = T+1;
+    }
+    else
+    { //console.log( 'FALSE', result,'   ',expected );
+    F = F +1; }
+   }
+}
 for( var i = 0; i < EulerSeqs.length; i++ )
 {
   var seq = EulerSeqs[ i ];
@@ -26,49 +62,13 @@ for( var i = 0; i < EulerSeqs.length; i++ )
         euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
         euler[ 1 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
         euler[ 2 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-        console.log( 'Euler : ', euler );
-        var expected = _.euler.toQuat2( euler );
-        var euler2 = _.euler.make2( null, seq );
-        euler2 = _.euler.fromQuat2( expected, euler2  );
-        console.log( 'Euler2 : ', euler2 );
-        if( euler2 === 0 ){ Z = Z + 1; console.log( 'zero' ); }
-        else
-        {
-          var result = _.euler.toQuat2( euler2 );
-          var positiveR0 = expected[ 0 ] - result[ 0 ];
-          var positiveR1 = expected[ 1 ] - result[ 1 ];
-          var positiveR2 = expected[ 2 ] - result[ 2 ];
-          var positiveR3 = expected[ 3 ] - result[ 3 ];
-          var negativeR0 = expected[ 0 ] + result[ 0 ];
-          var negativeR1 = expected[ 1 ] + result[ 1 ];
-          var negativeR2 = expected[ 2 ] + result[ 2 ];
-          var negativeR3 = expected[ 3 ] + result[ 3 ];
-
-          if( Math.abs( positiveR0 ) < 0.01 &&
-              Math.abs( positiveR1 ) < 0.01 &&
-              Math.abs( positiveR2 ) < 0.01 &&
-              Math.abs( positiveR3 ) < 0.01 )
-          { console.log( 'TRUE ****************************************' ); T = T+1; }
-          else if( expected[ 0 ] + result[ 0 ] <= 0.01 &&
-                   expected[ 0 ] + result[ 0 ] <= 0.01 &&
-                   expected[ 0 ] + result[ 0 ] <= 0.01 &&
-                   expected[ 0 ] + result[ 0 ] <= 0.01 )
-          {
-            console.log('***************** Positive   ', result );
-            result[ 0 ] = - result[ 0 ];
-            result[ 1 ] = - result[ 1 ];
-            result[ 2 ] = - result[ 2 ];
-            result[ 3 ] = - result[ 3 ];
-            console.log('******** Changed to negative', result );
-          }
-          else
-          { //console.log( 'FALSE', result,'   ',expected );
-          F = F +1; }
-        }
+        var eulerEmpty = _.euler.make2( null, seq );
+        onEach( euler, eulerEmpty );
       }
     }
   }
 }
+
 
 console.log( 'Z = ', Z);
 console.log( 'T = ', T);

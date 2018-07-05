@@ -2347,7 +2347,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
 }
 
-function checkQuatRoutines( test )
+function eachAngle( test )
 {
 
   var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
@@ -2424,7 +2424,7 @@ var Self =
     toMatrix2 : toMatrix2,
     eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
-    checkQuatRoutines : checkQuatRoutines,
+    eachAngle : eachAngle,
 
   },
 

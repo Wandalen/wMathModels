@@ -65,7 +65,7 @@ function make2( src, seq )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 2 );
   _.assert( src === undefined || src === null || _.euler.is( src ) );
-  _.assert( typeof seq === 'string' );
+  _.assert( typeof( seq ) === "string" );
   var result = _.euler.makeZero();
   if( _.euler.is( src ) )
   _.avector.assign( result, src );
