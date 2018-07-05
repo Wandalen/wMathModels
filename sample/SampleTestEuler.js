@@ -5,7 +5,7 @@ var _ = wTools;
 
 var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
 var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-var Quadrant = [ 0, 1, 2, 3 ];
+var Quadrant = [ 0, 2 ];
 var accuracy =  1e-7;
 var Delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy*accuracy ), 0, +( accuracy*accuracy ), +Math.sqrt( accuracy ), +0.1 ];
 
@@ -40,7 +40,12 @@ function onEach( euler, eulerEmpty )
   }
   else
   {
-    console.log( 'FALSE', euler[ 0 ],' ',euler[ 1 ],' ',euler[ 2 ], euler[ 3 ],' ',euler[ 4 ],' ',euler[ 5 ] );
+    result = _.vector.toArray( result );
+    expected = _.vector.toArray( expected );
+    console.log( 'FALSE :', euler[ 0 ],' ',euler[ 1 ],' ',euler[ 2 ], euler[ 3 ],' ',euler[ 4 ],' ',euler[ 5 ] );
+    console.log( 'Quat1:', expected[ 0 ],' ',expected[ 1 ],' ',expected[ 2 ], expected[ 3 ] );
+    console.log( 'Euler2:', euler2[ 0 ],' ',euler2[ 1 ],' ',euler2[ 2 ], euler2[ 3 ],' ',euler2[ 4 ],' ',euler2[ 5 ] );
+    console.log( 'Quat2:', result[ 0 ],' ',result[ 1 ],' ',result[ 2 ], result[ 3 ]);
     //console.log( 'euler: ', euler );
     //console.log( 'expected quat: ', expected );
     //console.log( 'euler2: ', euler2 );
