@@ -15,15 +15,16 @@ var Z = 0;
 
 function onEach( euler, eulerEmpty )
 {
-  console.log('On Each');
+  var dstEuler = euler.slice();
+  dstEuler[ 0 ] = 0;
+  dstEuler[ 1 ] = 0;
+  dstEuler[ 2 ] = 0;
   var expected = _.euler.toQuat2( euler );
-  euler2 = _.euler.fromQuat2( expected, eulerEmpty  );
-  if( euler2 === 0 ){ Z = Z + 1; console.log( 'zero' ); }
+  euler2 = _.euler.fromQuat2( expected, dstEuler );
+  if( euler2 === 0 ){ Z = Z + 1; console.log( 'zero' ); console.log('expected :',expected); console.log(' euler : ',euler); }
   else
   {
     var result = _.euler.toQuat2( euler2 );
-    console.log(expected);
-    console.log(result);
     var posDif0 = Math.abs( expected.eGet( 0 ) -  result.eGet( 0 ) );
     var posDif1 = Math.abs( expected.eGet( 1 ) -  result.eGet( 1 ) );
     var posDif2 = Math.abs( expected.eGet( 2 ) -  result.eGet( 2 ) );
@@ -33,22 +34,26 @@ function onEach( euler, eulerEmpty )
     var negDif2 = Math.abs( expected.eGet( 2 ) +  result.eGet( 2 ) );
     var negDif3 = Math.abs( expected.eGet( 3 ) +  result.eGet( 3 ) );
 
-    if( Math.abs( positiveR0 ) < 0.01 && Math.abs( positiveR1 ) < 0.01 && Math.abs( positiveR2 ) < 0.01 && Math.abs( positiveR3 ) < 0.01 )
-    { console.log( 'TRUE ****************************************' ); T = T+1; }
-    else if( Math.abs( negativeR0 ) < 0.01 && Math.abs( negativeR1 ) < 0.01 && Math.abs( negativeR2 ) < 0.01 && Math.abs( negativeR3 ) < 0.01 )
+    if( posDif0 < 0.01 && posDif1 < 0.01 && posDif2 < 0.01 && posDif3 < 0.01 )
+    { T = T+1; }
+    else if( negDif0 < 0.01 && negDif1 < 0.01 && negDif2 < 0.01 && negDif3 < 0.01 )
     {
       result.eSet( 0, - result.eGet( 0 ) );
       result.eSet( 1, - result.eGet( 1 ) );
       result.eSet( 2, - result.eGet( 2 ) );
       result.eSet( 3, - result.eGet( 3 ) );
-      console.log('******** Changed to negative', result );
       T = T+1;
     }
     else
-    { //console.log( 'FALSE', result,'   ',expected );
-    F = F +1; }
-   }
+    {
+      console.log( 'FALSE' );
+      console.log(expected);
+      console.log(result);
+
+      F = F +1; }
+    }
 }
+
 for( var i = 0; i < EulerSeqs.length; i++ )
 {
   var seq = EulerSeqs[ i ];
@@ -63,7 +68,7 @@ for( var i = 0; i < EulerSeqs.length; i++ )
         euler[ 1 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
         euler[ 2 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
         var eulerEmpty = _.euler.make2( null, seq );
-        onEach( euler, eulerEmpty );
+        onEach( euler );
       }
     }
   }
