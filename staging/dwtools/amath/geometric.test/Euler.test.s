@@ -2357,6 +2357,33 @@ function eachAngle( test )
   var Delta = [ -0.1, -Math.sqrt( Accuracy ), -( Accuracy*Accuracy ), 0, +( Accuracy*Accuracy ), +Math.sqrt( Accuracy ), +0.1 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
+  function onEach( euler, dstEuler)
+  {
+    var expected = _.euler.toQuat2( euler );
+    var euler2 = _.euler.fromQuat2( expected, dstEuler );
+    if( euler2 === 0 )
+    {
+      var euler2 = [ 0, 0, 0, 0, 0, 0 ];
+    }
+    else
+    {
+      var result = _.euler.toQuat2( euler2 );
+
+      var negDif0 = Math.abs( expected.eGet( 0 ) +  result.eGet( 0 ) );
+      var negDif1 = Math.abs( expected.eGet( 1 ) +  result.eGet( 1 ) );
+      var negDif2 = Math.abs( expected.eGet( 2 ) +  result.eGet( 2 ) );
+      var negDif3 = Math.abs( expected.eGet( 3 ) +  result.eGet( 3 ) );
+      if( negDif0 < Accuracy && negDif1 < Accuracy && negDif2 < Accuracy && negDif3 < Accuracy )
+      {
+        result.eSet( 0, - result.eGet( 0 ) );
+        result.eSet( 1, - result.eGet( 1 ) );
+        result.eSet( 2, - result.eGet( 2 ) );
+        result.eSet( 3, - result.eGet( 3 ) );
+      }
+    }
+    test.equivalent( result, expected );
+  }
+
   for( var i = 0; i < EulerSeqs.length; i++ )
   {
     var seq = EulerSeqs[ i ];
@@ -2370,17 +2397,9 @@ function eachAngle( test )
           euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
           euler[ 1 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
           euler[ 2 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
+          var dstEuler = _.euler.make2( null, seq );
 
-          var expected = _.euler.toQuat2( euler );
-          var euler2 = _.euler.make2( null, seq );
-          euler2 = _.euler.fromQuat2( expected, euler2  );
-          var result = _.euler.toQuat2( euler2 );
-          test.equivalent( result, expected );
-          if( expected[ 0 ] === - result[ 0 ] )
-          {
-            result = -1*result;
-          }
-          test.equivalent( result, expected );
+          onEach( euler, dstEuler);
         }
       }
     }
@@ -2398,7 +2417,7 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  routine : 'checkQuatRoutines',
+  routine : 'eachAngle',
   context :
   {
   },
