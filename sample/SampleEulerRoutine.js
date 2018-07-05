@@ -24,7 +24,7 @@ function onEach( euler)
   var expected = _.vector.toArray( expected );
   var positiveResult = _.vector.toArray( result );
   var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
-  var eq1 = _.entityEquivalent( positiveResult, expected);
+  var eq1 = _.entityEquivalent( positiveResult, expected );
   var eq2 = _.entityEquivalent( negativeResult, expected );
   if ( eq1 === 'true' || eq2 === 'true')
   {
@@ -71,5 +71,4 @@ euler[ 4 ] = 1;
 euler[ 5 ] = 2;
 
 onEach( euler );
-
 onEach1( euler );
