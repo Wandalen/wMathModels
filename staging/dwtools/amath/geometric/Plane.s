@@ -75,7 +75,7 @@ function from( plane )
   if( plane === null )
   plane = _.plane.make();
 
-  _.assert( arguments.length === 2 || arguments.length === 3 );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
   debugger;
   // throw _.err( 'not tested' );
 
