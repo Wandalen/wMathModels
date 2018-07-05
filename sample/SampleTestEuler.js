@@ -48,6 +48,7 @@ function onEach( euler, eulerEmpty )
     {
       console.log( 'FALSE' );
       console.log(expected);
+      console.log(euler);
       console.log(result);
 
       F = F +1; }
@@ -65,10 +66,19 @@ for( var i = 0; i < EulerSeqs.length; i++ )
       for( var d = 0; d < Delta.length; d++ )
       {
         euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-        euler[ 1 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-        euler[ 2 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-        var eulerEmpty = _.euler.make2( null, seq );
-        onEach( euler );
+        for( var ang2 = 0; ang2 < Angle.length; ang2++ )
+        {
+          for( var quad2 = 0; quad2 < Quadrant.length; quad2++ )
+          {
+            for( var d2 = 0; d2 < Delta.length; d2++ )
+            {
+              euler[ 1 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
+              euler[ 2 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
+              var eulerEmpty = _.euler.make2( null, seq );
+              onEach( euler );
+            }
+          }
+        }
       }
     }
   }
