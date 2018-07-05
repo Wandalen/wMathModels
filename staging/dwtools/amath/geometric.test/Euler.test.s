@@ -2347,14 +2347,14 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
 }
 
-function checkQuatRoutine( test )
+function eulerToQuatToEulerToQuat( test )
 {
 
-  var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-  var Quadrant = [ 0, 1, 2, 3 ];
-  var Accuracy =  1e-7;
-  var Delta = [ -0.1, -Math.sqrt( Accuracy ), -( Accuracy*Accuracy ), 0, +( Accuracy*Accuracy ), +Math.sqrt( Accuracy ), +0.1 ];
+  var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  var quadrant = [ 0, 1, 2, 3 ];
+  var accuracy =  1e-7;
+  var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy*accuracy ), 0, +( accuracy*accuracy ), +Math.sqrt( accuracy ), +0.1 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
   function onEach( euler)
@@ -2365,27 +2365,14 @@ function checkQuatRoutine( test )
     dstEuler[ 2 ] = 0;
     var expected = _.euler.toQuat2( euler );
     var euler2 = _.euler.fromQuat2( expected, dstEuler );
-    if( euler2 === 0 )
-    {
-      var euler2 = [ 0, 0, 0, 0, 0, 0 ];
-    }
-    else
-    {
-      var result = _.euler.toQuat2( euler2 );
+    var result = _.euler.toQuat2( euler2 );
 
-      var negDif0 = Math.abs( expected.eGet( 0 ) +  result.eGet( 0 ) );
-      var negDif1 = Math.abs( expected.eGet( 1 ) +  result.eGet( 1 ) );
-      var negDif2 = Math.abs( expected.eGet( 2 ) +  result.eGet( 2 ) );
-      var negDif3 = Math.abs( expected.eGet( 3 ) +  result.eGet( 3 ) );
-      if( negDif0 < Accuracy && negDif1 < Accuracy && negDif2 < Accuracy && negDif3 < Accuracy )
-      {
-        result.eSet( 0, - result.eGet( 0 ) );
-        result.eSet( 1, - result.eGet( 1 ) );
-        result.eSet( 2, - result.eGet( 2 ) );
-        result.eSet( 3, - result.eGet( 3 ) );
-      }
-    }
-    test.equivalent( result, expected );
+    var expected = _.vector.toArray( expected );
+    var positiveResult = _.vector.toArray( result );
+    var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
+    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
+    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
+    test.is( eq1 || eq2 );
   }
 
   function eachAngle( EulerSeqs, Angle, Quadrant, Accuracy, Delta )
@@ -2421,7 +2408,7 @@ function checkQuatRoutine( test )
     }
   }
 
-  eachAngle( EulerSeqs, Angle, Quadrant, Accuracy, Delta );
+  eachAngle( eulerSeqs, angle, quadrant, accuracy, delta );
 }
 
 
@@ -2434,7 +2421,7 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  routine : 'checkQuatRoutine',
+  routine : 'eulerToQuatToEulerToQuat',
   context :
   {
   },
@@ -2460,7 +2447,7 @@ var Self =
     toMatrix2 : toMatrix2,
     eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
-    checkQuatRoutine : checkQuatRoutine,
+    eulerToQuatToEulerToQuat : eulerToQuatToEulerToQuat,
 
   },
 
