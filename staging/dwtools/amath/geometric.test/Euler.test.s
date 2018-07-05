@@ -2347,7 +2347,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
 }
 
-function eachAngle( test )
+function checkQuatRoutine( test )
 {
 
   var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
@@ -2384,22 +2384,25 @@ function eachAngle( test )
     test.equivalent( result, expected );
   }
 
-  for( var i = 0; i < EulerSeqs.length; i++ )
+  function eachAngle( )
   {
-    var seq = EulerSeqs[ i ];
-    var euler = _.euler.make2( euler, seq );
-    for( var ang = 0; ang < Angle.length; ang++ )
+    for( var i = 0; i < EulerSeqs.length; i++ )
     {
-      for( var quad = 0; quad < Quadrant.length; quad++ )
+      var seq = EulerSeqs[ i ];
+      var euler = _.euler.make2( euler, seq );
+      for( var ang = 0; ang < Angle.length; ang++ )
       {
-        for( var d = 0; d < Delta.length; d++ )
+        for( var quad = 0; quad < Quadrant.length; quad++ )
         {
-          euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-          euler[ 1 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-          euler[ 2 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-          var dstEuler = _.euler.make2( null, seq );
+          for( var d = 0; d < Delta.length; d++ )
+          {
+            euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
+            euler[ 1 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
+            euler[ 2 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
+            var dstEuler = _.euler.make2( null, seq );
 
-          onEach( euler, dstEuler);
+            onEach( euler, dstEuler);
+          }
         }
       }
     }
@@ -2443,7 +2446,7 @@ var Self =
     toMatrix2 : toMatrix2,
     eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
-    eachAngle : eachAngle,
+    checkQuatRoutine : checkQuatRoutine,
 
   },
 

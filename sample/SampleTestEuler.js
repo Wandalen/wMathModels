@@ -24,14 +24,14 @@ function onEach( euler, eulerEmpty )
     var result = _.euler.toQuat2( euler2 );
     console.log(expected);
     console.log(result);
-    var positiveR0 = expected.eGet( 0 ) -  result.eGet( 0 );
-    var positiveR1 = expected.eGet( 1 ) -  result.eGet( 1 );
-    var positiveR2 = expected.eGet( 2 ) -  result.eGet( 2 );
-    var positiveR3 = expected.eGet( 3 ) -  result.eGet( 3 );
-    var negativeR0 = expected.eGet( 0 ) +  result.eGet( 0 );
-    var negativeR1 = expected.eGet( 1 ) +  result.eGet( 1 );
-    var negativeR2 = expected.eGet( 2 ) +  result.eGet( 2 );
-    var negativeR3 = expected.eGet( 3 ) +  result.eGet( 3 );
+    var posDif0 = Math.abs( expected.eGet( 0 ) -  result.eGet( 0 ) );
+    var posDif1 = Math.abs( expected.eGet( 1 ) -  result.eGet( 1 ) );
+    var posDif2 = Math.abs( expected.eGet( 2 ) -  result.eGet( 2 ) );
+    var posDif3 = Math.abs( expected.eGet( 3 ) -  result.eGet( 3 ) );
+    var negDif0 = Math.abs( expected.eGet( 0 ) +  result.eGet( 0 ) );
+    var negDif1 = Math.abs( expected.eGet( 1 ) +  result.eGet( 1 ) );
+    var negDif2 = Math.abs( expected.eGet( 2 ) +  result.eGet( 2 ) );
+    var negDif3 = Math.abs( expected.eGet( 3 ) +  result.eGet( 3 ) );
 
     if( Math.abs( positiveR0 ) < 0.01 && Math.abs( positiveR1 ) < 0.01 && Math.abs( positiveR2 ) < 0.01 && Math.abs( positiveR3 ) < 0.01 )
     { console.log( 'TRUE ****************************************' ); T = T+1; }
