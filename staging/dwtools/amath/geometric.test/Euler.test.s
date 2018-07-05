@@ -2357,8 +2357,13 @@ function checkQuatRoutine( test )
   var Delta = [ -0.1, -Math.sqrt( Accuracy ), -( Accuracy*Accuracy ), 0, +( Accuracy*Accuracy ), +Math.sqrt( Accuracy ), +0.1 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
-  function onEach( expected, dstEuler)
+  function onEach( euler)
   {
+    var dstEuler = euler.slice();
+    dstEuler[ 0 ] = 0;
+    dstEuler[ 1 ] = 0;
+    dstEuler[ 2 ] = 0;
+    var expected = _.euler.toQuat2( euler );
     var euler2 = _.euler.fromQuat2( expected, dstEuler );
     if( euler2 === 0 )
     {
@@ -2399,10 +2404,8 @@ function checkQuatRoutine( test )
             euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
             euler[ 1 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
             euler[ 2 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-            var dstEuler = _.euler.make2( null, seq );
-            var expected = _.euler.toQuat2( euler );
 
-            onEach( euler, dstEuler);
+            onEach( euler );
           }
         }
       }
@@ -2422,7 +2425,7 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  routine : 'eachAngle',
+  routine : 'checkQuatRoutine',
   context :
   {
   },
