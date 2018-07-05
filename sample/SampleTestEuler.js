@@ -5,13 +5,13 @@ var _ = wTools;
 
 var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
 var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-var Quadrant = [ 0, 2 ];
+var Quadrant = [ 0, 1, 2 ];
 var accuracy =  1e-7;
 var Delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy*accuracy ), 0, +( accuracy*accuracy ), +Math.sqrt( accuracy ), +0.1 ];
 
 var T = 0;
 var F = 0;
-var Z = 0;
+
 debugger;
 function onEach( euler, eulerEmpty )
 {
@@ -86,6 +86,5 @@ for( var i = 0; i < EulerSeqs.length; i++ )
 }
 
 
-console.log( 'Z = ', Z);
 console.log( 'T = ', T);
 console.log( 'F = ', F);

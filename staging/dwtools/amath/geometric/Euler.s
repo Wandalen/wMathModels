@@ -1386,6 +1386,7 @@ function fromQuat2( quat, dst )
   {
     if( - 1 < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 )
     {
+    console.log('Diff ', 2*( x*z + w*y ) );
       dstv.eSet( 2, atan2( 2*y*z + 2*w*x , z*z - y*y - x*x + w*w ) );
       dstv.eSet( 1, asin( 2*w*y - 2*x*z ) );
       dstv.eSet( 0, atan2( 2*x*y + 2*w*z , x*x + w*w - y*y - z*z ) );
