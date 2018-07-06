@@ -42,10 +42,10 @@ function onEach( euler, eulerEmpty )
   {
     result = _.vector.toArray( result );
     expected = _.vector.toArray( expected );
-    console.log( 'FALSE :', euler[ 0 ],' ',euler[ 1 ],' ',euler[ 2 ], euler[ 3 ],' ',euler[ 4 ],' ',euler[ 5 ] );
-    console.log( 'Quat1:', expected[ 0 ],' ',expected[ 1 ],' ',expected[ 2 ], expected[ 3 ] );
-    console.log( 'Euler2:', euler2[ 0 ],' ',euler2[ 1 ],' ',euler2[ 2 ], euler2[ 3 ],' ',euler2[ 4 ],' ',euler2[ 5 ] );
-    console.log( 'Quat2:', result[ 0 ],' ',result[ 1 ],' ',result[ 2 ], result[ 3 ]);
+    console.log( euler[ 0 ],euler[ 1 ],euler[ 2 ], euler[ 3 ],euler[ 4 ],euler[ 5 ] );
+    //console.log( 'Quat1:', expected[ 0 ],' ',expected[ 1 ],' ',expected[ 2 ], expected[ 3 ] );
+    //console.log( 'Euler2:', euler2[ 0 ],' ',euler2[ 1 ],' ',euler2[ 2 ], euler2[ 3 ],' ',euler2[ 4 ],' ',euler2[ 5 ] );
+    //console.log( 'Quat2:', result[ 0 ],' ',result[ 1 ],' ',result[ 2 ], result[ 3 ]);
     //console.log( 'euler: ', euler );
     //console.log( 'expected quat: ', expected );
     //console.log( 'euler2: ', euler2 );
@@ -74,9 +74,18 @@ for( var i = 0; i < EulerSeqs.length; i++ )
             for( var d2 = 0; d2 < Delta.length; d2++ )
             {
               euler[ 1 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
-              euler[ 2 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
-              var eulerEmpty = _.euler.make2( null, seq );
-              onEach( euler );
+              for( var ang3 = 0; ang3 < Angle.length; ang3++ )
+              {
+                for( var quad3 = 0; quad3 < Quadrant.length; quad3++ )
+                {
+                  for( var d3 = 0; d3 < Delta.length; d3++ )
+                  {
+                    euler[ 2 ] = Angle[ ang3 ] + Quadrant[ quad3 ]*Math.PI/2 + Delta[ d3 ];
+                    var eulerEmpty = _.euler.make2( null, seq );
+                    onEach( euler );
+                  }
+                }
+              }
             }
           }
         }
