@@ -23,8 +23,8 @@ var Matrix = _.Space.make( [ 3, 3 ] ).copy
   - 0.61427241, 0.6307470, 0.474159896
 ]);
 
-var euler = [ 0, 1, 0, 0, 1, 2 ];
-var dst = [ 0, 0, 0, 0, 1, 2 ];
+var euler = [ 4.28879020478639, 1.5707963267948866, 1.5707963267948866, 2, 1, 0 ];
+var dst = [ 0, 0, 0, 2, 1, 0 ];
 
 console.log( 'Euler:', euler);
 var quat = _.euler.toQuat2( euler );

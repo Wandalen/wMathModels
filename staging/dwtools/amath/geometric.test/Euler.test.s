@@ -2367,9 +2367,9 @@ function eulerToQuatToEulerToQuat( test )
     var euler2 = _.euler.fromQuat2( expected, dstEuler );
     var result = _.euler.toQuat2( euler2 );
 
-    var expected = _.vector.toArray( expected );
-    var positiveResult = _.vector.toArray( result );
+    var positiveResult = result.slice();
     var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
+    var expected = _.vector.toArray( expected );
     var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
     var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
     test.is( eq1 || eq2 );

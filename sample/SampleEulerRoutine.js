@@ -20,15 +20,21 @@ var dstEuler = euler.slice();
 dstEuler[ 0 ] = 0; dstEuler[ 1 ] = 0; dstEuler[ 2 ] = 0;
 
 var expected = _.euler.toQuat2( euler );
-console.log( 'Expected : ', expected );
 var euler2 = _.euler.fromQuat2( expected, dstEuler );
 var result = _.euler.toQuat2( euler2 );
 
 var positiveResult = result.slice();
 var negativeResult = _.avector.mul( result , -1 );
+console.log( 'Expected : ', expected );
 console.log( 'Positive Result : ', positiveResult );
+var expected = _.vector.toArray( expected );
+var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : 1e-3 }  );
+console.log( 'Expected : ', expected );
 console.log( 'Negative Result : ', negativeResult );
-var eq1 = _.entityEquivalent( positiveResult, expected );
-var eq2 = _.entityEquivalent( negativeResult, expected );
+var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : 1e-3 }  );
 
 console.log( eq1, eq2 );
+
+
+var eq1 = _.entityEquivalent( [ 0.001, 0.00000003], [ 0.001, 0.00000002], { accuracy : 1e-3 }  );
+console.log( eq1 );
