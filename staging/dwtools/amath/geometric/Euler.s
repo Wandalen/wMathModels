@@ -1689,7 +1689,6 @@ function toQuat2( euler )
     quatv.eSet( 2, sin( ( e0 + e2 )/2 )*cos( e1/2 ) );
     quatv.eSet( 3, cos( ( e0 + e2 )/2 )*cos( e1/2 ) );
   }
-
   else
   {
      return 0;

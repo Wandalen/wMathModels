@@ -2389,16 +2389,25 @@ function eulerToQuatToEulerToQuat( test )
           for( var d = 0; d < Delta.length; d++ )
           {
             euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-            for( var ang2 = 0; ang2 < Angle.length; ang2++ )
+            for( var ang2 = ang; ang2 < Angle.length; ang2++ )
             {
-              for( var quad2 = 0; quad2 < Quadrant.length; quad2++ )
+              for( var quad2 = quad; quad2 < Quadrant.length; quad2++ )
               {
-                for( var d2 = 0; d2 < Delta.length; d2++ )
+                for( var d2 = d; d2 < Delta.length; d2++ )
                 {
                   euler[ 1 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
-                  euler[ 2 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
+                  for( var ang3 = ang2; ang3 < Angle.length; ang3++ )
+                  {
+                    for( var quad3 = quad2; quad3 < Quadrant.length; quad3++ )
+                    {
+                      for( var d3 = d2; d3 < Delta.length; d3++ )
+                      {
+                        euler[ 2 ] = Angle[ ang3 ] + Quadrant[ quad3 ]*Math.PI/2 + Delta[ d3 ];
 
-                  onEach( euler );
+                        onEach( euler );
+                      }
+                    }
+                  }
                 }
               }
             }
