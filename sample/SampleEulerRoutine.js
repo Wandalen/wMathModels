@@ -5,14 +5,14 @@ require( 'wTesting' );
 var _ = wTools;
 
 var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+var Angle = [ 0, - Math.PI / 6, - Math.PI / 4, - Math.PI / 3 ];
 var Quadrant = [ 0, 1, 2, 3 ];
 var accuracy =  1e-7;
 var Delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy*accuracy ), 0, +( accuracy*accuracy ), +Math.sqrt( accuracy ), +0.1 ];
 var euler = [ 0, 0, 0, 0, 0, 0 ];
 
-euler[ 0 ] = Angle[ 3 ] + Quadrant[ 2 ]*Math.PI/2 + Delta[ 6 ];
-euler[ 1 ] = Angle[ 0 ] + Quadrant[ 1 ]*Math.PI/2 + Delta[ 2 ];
+euler[ 0 ] = Angle[ 3 ] + Quadrant[ 1 ]*Math.PI/2 + Delta[ 6 ];
+euler[ 1 ] = Angle[ 0 ] + Quadrant[ 2 ]*Math.PI/2 + Delta[ 2 ];
 euler[ 2 ] = Angle[ 0 ] + Quadrant[ 1 ]*Math.PI/2 + Delta[ 2 ];
 euler[ 3 ] = 2; euler[ 4 ] = 1; euler[ 5 ] = 0;
 console.log( 'Euler : ' );

@@ -1255,7 +1255,6 @@ function fromQuat2( quat, dst )
     y = y/norm;
     z = z/norm;
     w = w/norm;
-    norm = sqrt( x*x + y*y + z*z + w*w );
   }
 
   var ox = dstv.eGet( 3 );
@@ -1286,7 +1285,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 0 && oy === 2 && oz === 1 )
+  else if( ox === 0 && oy === 2 && oz === 1 )
   {
     if( - 1 + accuracy*accuracy < 2*x*y - 2*w*z && 2*x*y - 2*w*z < 1 - accuracy*accuracy )
     {
@@ -1310,7 +1309,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 1 && oy === 0 && oz === 2 )
+  else if( ox === 1 && oy === 0 && oz === 2 )
   {
     if( - 1 + accuracy*accuracy < ( 2*y*z - 2*w*x ) && ( 2*y*z - 2*w*x ) < 1 - accuracy*accuracy )
     {
@@ -1334,7 +1333,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 1 && oy === 2 && oz === 0 )
+  else if( ox === 1 && oy === 2 && oz === 0 )
   {
     if( - 1 + accuracy*accuracy < ( 2*x*y + 2*w*z ) && ( 2*x*y + 2*w*z ) < 1 - accuracy*accuracy )
     {
@@ -1358,7 +1357,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 2 && oy === 0 && oz === 1 )
+  else if( ox === 2 && oy === 0 && oz === 1 )
   {
     if( - 1 + accuracy*accuracy < ( 2*y*z + 2*w*x ) && ( 2*y*z + 2*w*x ) < 1 - accuracy*accuracy )
     {
@@ -1382,7 +1381,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 2 && oy === 1 && oz === 0 )
+  else if( ox === 2 && oy === 1 && oz === 0 )
   {
     if( - 1 + accuracy*accuracy < 2*( x*z - w*y ) && 2*( x*z - w*y ) < 1 - accuracy*accuracy )
     {
@@ -1406,7 +1405,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 0 && oy === 1 && oz === 0 )
+  else if( ox === 0 && oy === 1 && oz === 0 )
   {
 
     if( - 1 < (  x*x + w*w - z*z - y*y ) && (  x*x + w*w - z*z - y*y ) < 1 )
@@ -1431,7 +1430,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 0 && oy === 2 && oz === 0 )
+  else if( ox === 0 && oy === 2 && oz === 0 )
   {
 
     if( - 1 < (  x*x + w*w - z*z - y*y ) && (  x*x + w*w - z*z - y*y ) < 1 )
@@ -1456,7 +1455,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 1 && oy === 0 && oz === 1 )
+  else if( ox === 1 && oy === 0 && oz === 1 )
   {
 
     if( - 1 < ( y*y - z*z + w*w - x*x ) && ( y*y - z*z + w*w - x*x ) < 1 )
@@ -1481,7 +1480,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 1 && oy === 2 && oz === 1 )
+  else if( ox === 1 && oy === 2 && oz === 1 )
   {
       if( - 1 < ( y*y - z*z + w*w - x*x ) && ( y*y - z*z + w*w - x*x ) < 1 )
       {
@@ -1505,7 +1504,7 @@ function fromQuat2( quat, dst )
       }
   }
 
-  if( ox === 2 && oy === 0 && oz === 2 )
+  else if( ox === 2 && oy === 0 && oz === 2 )
   {
     if( -1 < ( z*z - x*x - y*y + w*w ) && ( z*z - x*x - y*y + w*w ) < 1 )
     {
@@ -1529,7 +1528,7 @@ function fromQuat2( quat, dst )
     }
   }
 
-  if( ox === 2 && oy === 1 && oz === 2 )
+  else if( ox === 2 && oy === 1 && oz === 2 )
   {
     if( -1 < ( z*z - x*x - y*y + w*w ) && ( z*z - x*x - y*y + w*w ) < 1 )
     {

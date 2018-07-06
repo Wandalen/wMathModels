@@ -1127,7 +1127,7 @@ var Self =
 
   name : 'Tools/Math/Quaternion',
   silencing : 1,
-
+  
   context :
   {
     _fromVectors : _fromVectors,
