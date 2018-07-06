@@ -23,5 +23,15 @@ var Matrix = _.Space.make( [ 3, 3 ] ).copy
   - 0.61427241, 0.6307470, 0.474159896
 ]);
 
-var gotEuler = _.euler.fromMatrix2( Matrix, dstYXZ );
-console.log( 'Euler from mat xyz:', gotMatrix);
+var euler = [ 0, 1, 0, 0, 1, 2 ];
+var dst = [ 0, 0, 0, 0, 1, 2 ];
+
+console.log( 'Euler:', euler);
+var quat = _.euler.toQuat2( euler );
+console.log( 'Quat:', quat);
+var gotEuler = _.euler.fromQuat2( quat, dst );
+
+console.log( 'Euler:', gotEuler);
+
+var quat = _.euler.toQuat2( gotEuler );
+console.log( 'Quat:', quat);
