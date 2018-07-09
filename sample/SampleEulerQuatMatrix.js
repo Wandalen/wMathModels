@@ -9,7 +9,7 @@ var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
 var Quadrant = [ 0 ];
 var Accuracy =  1e-7;
 // var Delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy*accuracy ), 0, +( accuracy*accuracy ), +Math.sqrt( accuracy ), +0.1 ];
-var Delta = [ 0 ];
+var Delta = [ -0.1, 0, +0.1 ];
 var Euler = [ 0, 0, 0, 0, 0, 0 ];
 
 var T = 0;
@@ -41,9 +41,9 @@ function onEach( euler, eulerEmpty )
   {
     result = _.vector.toArray( result );
     expected = _.vector.toArray( expected );
-    console.log( euler[ 0 ],euler[ 1 ],euler[ 2 ], euler[ 3 ],euler[ 4 ],euler[ 5 ] );
-    console.log( expected[ 0 ],expected[ 1 ],expected[ 2 ], expected[ 3 ] );
-    console.log( result[ 0 ],result[ 1 ],result[ 2 ], result[ 3 ] );
+    console.log( 'euler1: ',euler[ 0 ],euler[ 1 ],euler[ 2 ], euler[ 3 ],euler[ 4 ],euler[ 5 ] );
+    console.log( 'expected: ',expected[ 0 ],expected[ 1 ],expected[ 2 ], expected[ 3 ] );
+    console.log( 'result: ', result[ 0 ],result[ 1 ],result[ 2 ], result[ 3 ] );
     F = F +1; }
   }
 

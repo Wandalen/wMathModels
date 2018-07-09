@@ -1977,7 +1977,7 @@ function fromMatrix2( mat, dst )
     }
     else if( m22 >= 1 )
     {
-      eulerv.eSet( 0, atan2( - m01, m00 ) );
+      eulerv.eSet( 0, - atan2( m01, m00 ) );
       eulerv.eSet( 1, 0 );
       eulerv.eSet( 2, 0 );
     }
@@ -2196,7 +2196,7 @@ function toMatrix2( euler )
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
     mat.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
-    mat.atomSet( [ 0, 1 ], - se1*ce2*ce3 - ce1*ce3  );
+    mat.atomSet( [ 0, 1 ], - se1*ce2*ce3 - ce1*se3  );
     mat.atomSet( [ 0, 2 ], se1*se2 );
     mat.atomSet( [ 1, 0 ], ce1*ce2*se3 + se1*ce3 );
     mat.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
