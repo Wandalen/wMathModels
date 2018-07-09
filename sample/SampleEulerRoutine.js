@@ -5,7 +5,7 @@ require( 'wTesting' );
 var _ = wTools;
 
 var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-var Angle = [ 0, - Math.PI / 6, - Math.PI / 4, - Math.PI / 3 ];
+var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
 var Quadrant = [ 0, 1, 2, 3 ];
 var Delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
 var euler = [ 0, 0, 0, 0, 0, 0 ];

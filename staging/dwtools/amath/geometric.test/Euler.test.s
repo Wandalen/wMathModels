@@ -2353,7 +2353,9 @@ function eulerToQuatToEulerToQuat( test )
   var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
-  var delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
+  var accuracy =  _.EPS;
+  var accuracy2 =  _.EPS2;
+  var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
   function onEach( euler)
@@ -2369,8 +2371,8 @@ function eulerToQuatToEulerToQuat( test )
     var positiveResult = result.slice();
     var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
     var expected = _.vector.toArray( expected );
-    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
-    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
+    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
+    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
     test.is( eq1 || eq2 );
   }
 
@@ -2507,7 +2509,7 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  routine : 'eulerToQuatToMatrixToEulerToMatrixToQuat',
+  routine : 'eulerToQuatToEulerToQuat',
   context :
   {
   },
