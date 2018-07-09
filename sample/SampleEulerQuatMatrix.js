@@ -7,9 +7,8 @@ var _ = wTools;
 var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
 var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
 var Quadrant = [ 0 ];
-var Accuracy =  1e-7;
-// var Delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy*accuracy ), 0, +( accuracy*accuracy ), +Math.sqrt( accuracy ), +0.1 ];
-var Delta = [ -0.1, 0, +0.1 ];
+// var Delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
+var Delta = [ -Math.sqrt( _.EPS ) ];
 var Euler = [ 0, 0, 0, 0, 0, 0 ];
 
 var T = 0;
@@ -32,8 +31,8 @@ function onEach( euler, eulerEmpty )
   var positiveResult = result.slice();
   var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
   var expected = _.vector.toArray( q );
-  var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : Accuracy } );
-  var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : Accuracy } );
+  var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
+  var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
 
   if( eq1 === true || eq2 === true )
   { T = T+1; }

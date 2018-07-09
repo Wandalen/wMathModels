@@ -2353,8 +2353,7 @@ function eulerToQuatToEulerToQuat( test )
   var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
-  var accuracy =  1e-7;
-  var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy*accuracy ), 0, +( accuracy*accuracy ), +Math.sqrt( accuracy ), +0.1 ];
+  var delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
   function onEach( euler)
@@ -2370,12 +2369,12 @@ function eulerToQuatToEulerToQuat( test )
     var positiveResult = result.slice();
     var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
     var expected = _.vector.toArray( expected );
-    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
-    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
+    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
+    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
     test.is( eq1 || eq2 );
   }
 
-  function eachAngle( EulerSeqs, Angle, Quadrant, Accuracy, Delta )
+  function eachAngle( EulerSeqs, Angle, Quadrant, Delta )
   {
     var euler = [ 0, 0, 0, 0, 0, 0 ];
     for( var i = 0; i < EulerSeqs.length; i++ )
@@ -2416,7 +2415,7 @@ function eulerToQuatToEulerToQuat( test )
     }
   }
 
-  eachAngle( eulerSeqs, angle, quadrant, accuracy, delta );
+  eachAngle( eulerSeqs, angle, quadrant, delta );
 }
 
 //
@@ -2429,8 +2428,7 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
   var angle = [ Math.PI / 3 ];
   // var quadrant = [ 0, 1, 2, 3 ];
   var quadrant = [ 0 ];
-  var accuracy =  1e-7;
-  // var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy*accuracy ), 0, +( accuracy*accuracy ), +Math.sqrt( accuracy ), +0.1 ];
+  // var delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
   var delta = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
@@ -2450,12 +2448,12 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
     var positiveResult = result.slice();
     var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
     var expected = _.vector.toArray( expected );
-    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
-    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
+    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
+    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
     test.is( eq1 || eq2 );
   }
 
-  function eachAngle( EulerSeqs, Angle, Quadrant, Accuracy, Delta )
+  function eachAngle( EulerSeqs, Angle, Quadrant, Delta )
   {
     var euler = [ 0, 0, 0, 0, 0, 0 ];
     for( var i = 0; i < EulerSeqs.length; i++ )
@@ -2496,7 +2494,7 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
     }
   }
 
-  eachAngle( eulerSeqs, angle, quadrant, accuracy, delta );
+  eachAngle( eulerSeqs, angle, quadrant, delta );
 }
 
 
