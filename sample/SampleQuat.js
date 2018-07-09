@@ -6,7 +6,7 @@ var _ = wTools;
 
 var q = _.quat.from( [ 0.7, - 0.5, 0.5, 0.2 ] )
 var q2 = _.quat.from( [ 0, 0, 0, 0 ] )
-
+console.log( q );
 var matrix = _.quat.toMatrix( q );
 
 console.log( matrix );

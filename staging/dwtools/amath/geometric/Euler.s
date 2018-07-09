@@ -1971,13 +1971,13 @@ function fromMatrix2( mat, dst )
     }
     else if( m22 <= - 1 )
     {
-      eulerv.eSet( 0, atan2( m10, m00 ) );
+      eulerv.eSet( 0, atan2( m01, m00 ) );
       eulerv.eSet( 1, pi );
       eulerv.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
-      eulerv.eSet( 0, atan2( m10, m00 ) );
+      eulerv.eSet( 0, atan2( - m01, m00 ) );
       eulerv.eSet( 1, 0 );
       eulerv.eSet( 2, 0 );
     }
