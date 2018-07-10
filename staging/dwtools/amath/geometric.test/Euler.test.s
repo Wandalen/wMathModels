@@ -2352,19 +2352,23 @@ function eulerToQuatToEulerToQuat( test )
 
   var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-  //var quadrant = [ 0, 1, 2, 3 ];
-  var quadrant = [ 0 ];
+  var quadrant = [ 0, 1, 2, 3 ];
+  var quadrantLock = [ 0 ];
   var accuracy =  _.EPS;
   var accuracy2 =  _.EPS2;
-  //var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
-  var delta = [  +Math.sqrt( accuracy ) ];
+  var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
+  var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
-  var o = new Map();
-  o.set( 'Seq', eulerSeqs );
-  o.set( 'Ang', angle );
-  o.set( 'Quad', quadrant );
-  o.set( 'Delta', delta );
+  var angles = new Map();
+  angles.set( 'Seq', eulerSeqs );
+  angles.set( 'Ang', angle );
+  angles.set( 'Quad', quadrant );
+  angles.set( 'QuadL', quadrantLock );
+  angles.set( 'Acc', accuracy );
+  angles.set( 'Acc2', accuracy2 );
+  angles.set( 'Delta', delta );
+  angles.set( 'DeltaL', deltaLock );
 
   function onEach( euler )
   {
@@ -2384,20 +2388,24 @@ function eulerToQuatToEulerToQuat( test )
     test.is( eq1 || eq2 );
   }
 
-  o.set( 'Function', onEach );
-  this.eachAngle( o );
+  angles.set( 'Function', onEach );
+  this.eachAngle( angles );
 }
 
 //
 
-function eachAngle( o )
+function eachAngle( angles )
 {
-  _.mapMake(o);
-  var eulerSeqs = o.get('Seq');
-  var angle = o.get('Ang');
-  var quadrant = o.get('Quad');
-  var delta = o.get('Delta');
-  var onEach = o.get( 'Function' );
+  _.mapMake( angles );
+  var eulerSeqs = angles.get('Seq');
+  var angle = angles.get('Ang');
+  var quadrant = angles.get('Quad');
+  var quadrantLock = angles.get('QuadL');
+  var accuracy = angles.get('Acc');
+  var accuracy2 = angles.get('Acc2');
+  var delta = angles.get('Delta');
+  var deltaLock = angles.get('DeltaL');
+  var onEach = angles.get( 'Function' );
   var euler = [ 0, 0, 0, 0, 0, 0 ];
   for( var i = 0; i < eulerSeqs.length; i++ )
   {
@@ -2414,16 +2422,16 @@ function eachAngle( o )
           {
             for( var quad2 = quad; quad2 < quadrant.length; quad2++ )
             {
-              for( var d2 = d; d2 < delta.length; d2++ )
+              for( var d2 = 0; d2 < delta.length; d2++ )
               {
                 euler[ 1 ] = angle[ ang2 ] + quadrant[ quad2 ]*Math.PI/2 + delta[ d2 ];
-                for( var ang3 = ang2; ang3 < angle.length; ang3++ )
+                for( var ang3 = 0; ang3 < angle.length; ang3++ )
                 {
-                  for( var quad3 = quad2; quad3 < quadrant.length; quad3++ )
+                  for( var quad3 = 0; quad3 < quadrantLock.length; quad3++ )
                   {
-                    for( var d3 = d2; d3 < delta.length; d3++ )
+                    for( var d3 = 0; d3 < deltaLock.length; d3++ )
                     {
-                      euler[ 2 ] = angle[ ang3 ] + quadrant[ quad3 ]*Math.PI/2 + delta[ d3 ];
+                      euler[ 2 ] = angle[ ang3 ] + quadrantLock[ quad3 ]*Math.PI/2 + deltaLock[ d3 ];
                       onEach( euler );
                     }
                   }
@@ -2439,24 +2447,42 @@ function eachAngle( o )
 
 //
 
+eachAngle.defaults =
+{
+  'Seq': [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
+  'Ang': [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
+  'Quad': [ 0, 1, 2, 3 ],
+  'QuadL': [ 0 ],
+  'Acc': _.EPS,
+  'Acc2': _.EPS2,
+  'Delta': [ -0.1, -Math.sqrt( 'Acc' ), -( 'Acc2' ), 0, +( 'Acc2' ), +Math.sqrt( 'Acc' ), +0.1 ],
+  'DeltaL': [ 0 ],
+}
+
+//
+
 function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
 {
 
-  //var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  var eulerSeqs = [ 'xyz' ];
+  var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
-  //var delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
-  var delta = [ 0 ];
-  var angle3 = [ Math.PI / 6, Math.PI / 4 ];
-  var quadrant3 = [ 1, 3 ];
+  var quadrantLock = [ 0 ];
+  var accuracy = _.EPS;
+  var accuracy2= _.EPS2;
+  var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
+  var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
-  var o = new Map();
-  o.set( 'Seq', eulerSeqs );
-  o.set( 'Ang', angle );
-  o.set( 'Quad', quadrant );
-  o.set( 'Delta', delta );
+  var angles = new Map();
+  angles.set( 'Seq', eulerSeqs );
+  angles.set( 'Ang', angle );
+  angles.set( 'Quad', quadrant );
+  angles.set( 'QuadL', quadrantLock );
+  angles.set( 'Acc', accuracy );
+  angles.set( 'Acc2', accuracy2 );
+  angles.set( 'Delta', delta );
+  angles.set( 'DeltaL', deltaLock );
 
   function onEach( euler)
   {
@@ -2479,8 +2505,8 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
     test.is( eq1 || eq2 );
   }
 
-  o.set( 'Function', onEach );
-  this.eachAngle( o );
+  angles.set( 'Function', onEach );
+  this.eachAngle( angles );
 }
 
 
@@ -2493,7 +2519,7 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  routine : 'eulerToQuatToMatrixToEulerToMatrixToQuat',
+  routine : 'eulerToQuatToEulerToQuat',
   context :
   {
     eachAngle : eachAngle,
