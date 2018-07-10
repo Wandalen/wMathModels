@@ -2366,7 +2366,7 @@ function eulerToQuatToEulerToQuat( test )
   o.set( 'Quad', quadrant );
   o.set( 'Delta', delta );
 
-  function onEach( euler)
+  function onEach( euler )
   {
     var dstEuler = euler.slice();
     dstEuler[ 0 ] = 0;
@@ -2384,18 +2384,20 @@ function eulerToQuatToEulerToQuat( test )
     test.is( eq1 || eq2 );
   }
 
-  this.eachAngle( o, onEach );
+  o.set( 'Function', onEach );
+  this.eachAngle( o );
 }
 
 //
 
-function eachAngle( o , onEach)
+function eachAngle( o )
 {
   _.mapMake(o);
   var eulerSeqs = o.get('Seq');
   var angle = o.get('Ang');
   var quadrant = o.get('Quad');
   var delta = o.get('Delta');
+  var onEach = o.get( 'Function' );
   var euler = [ 0, 0, 0, 0, 0, 0 ];
   for( var i = 0; i < eulerSeqs.length; i++ )
   {
@@ -2450,6 +2452,12 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
   var quadrant3 = [ 1, 3 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
+  var o = new Map();
+  o.set( 'Seq', eulerSeqs );
+  o.set( 'Ang', angle );
+  o.set( 'Quad', quadrant );
+  o.set( 'Delta', delta );
+
   function onEach( euler)
   {
     var dstEuler = euler.slice();
@@ -2471,7 +2479,8 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
     test.is( eq1 || eq2 );
   }
 
-  this.eachAngle( eulerSeqs, angle, quadrant, delta, onEach );
+  o.set( 'Function', onEach );
+  this.eachAngle( o );
 }
 
 
@@ -2484,7 +2493,7 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  routine : 'eulerToQuatToEulerToQuat',
+  routine : 'eulerToQuatToMatrixToEulerToMatrixToQuat',
   context :
   {
     eachAngle : eachAngle,
