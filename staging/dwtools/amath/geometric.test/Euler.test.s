@@ -2378,36 +2378,40 @@ function eulerToQuatToEulerToQuat( test )
     test.is( eq1 || eq2 );
   }
 
-  function eachAngle( eulerSeqs, angle, quadrant, delta )
+  this.eachAngle( eulerSeqs, angle, quadrant, delta, onEach );
+}
+
+//
+
+function eachAngle( eulerSeqs, angle, quadrant, delta, onEach )
+{
+  var euler = [ 0, 0, 0, 0, 0, 0 ];
+  for( var i = 0; i < eulerSeqs.length; i++ )
   {
-    var euler = [ 0, 0, 0, 0, 0, 0 ];
-    for( var i = 0; i < eulerSeqs.length; i++ )
+    var seq = eulerSeqs[ i ];
+    var euler = _.euler.make2( euler, seq );
+    for( var ang = 0; ang < angle.length; ang++ )
     {
-      var seq = eulerSeqs[ i ];
-      var euler = _.euler.make2( euler, seq );
-      for( var ang = 0; ang < angle.length; ang++ )
+      for( var quad = 0; quad < quadrant.length; quad++ )
       {
-        for( var quad = 0; quad < quadrant.length; quad++ )
+        for( var d = 0; d < delta.length; d++ )
         {
-          for( var d = 0; d < delta.length; d++ )
+          euler[ 0 ] = angle[ ang ] + quadrant[ quad ]*Math.PI/2 + delta[ d ];
+          for( var ang2 = ang; ang2 < angle.length; ang2++ )
           {
-            euler[ 0 ] = angle[ ang ] + quadrant[ quad ]*Math.PI/2 + delta[ d ];
-            for( var ang2 = ang; ang2 < angle.length; ang2++ )
+            for( var quad2 = quad; quad2 < quadrant.length; quad2++ )
             {
-              for( var quad2 = quad; quad2 < quadrant.length; quad2++ )
+              for( var d2 = d; d2 < delta.length; d2++ )
               {
-                for( var d2 = d; d2 < delta.length; d2++ )
+                euler[ 1 ] = angle[ ang2 ] + quadrant[ quad2 ]*Math.PI/2 + delta[ d2 ];
+                for( var ang3 = ang2; ang3 < angle.length; ang3++ )
                 {
-                  euler[ 1 ] = angle[ ang2 ] + quadrant[ quad2 ]*Math.PI/2 + delta[ d2 ];
-                  for( var ang3 = ang2; ang3 < angle.length; ang3++ )
+                  for( var quad3 = quad2; quad3 < quadrant.length; quad3++ )
                   {
-                    for( var quad3 = quad2; quad3 < quadrant.length; quad3++ )
+                    for( var d3 = d2; d3 < delta.length; d3++ )
                     {
-                      for( var d3 = d2; d3 < delta.length; d3++ )
-                      {
-                        euler[ 2 ] = angle[ ang3 ] + quadrant[ quad3 ]*Math.PI/2 + delta[ d3 ];
-                        onEach( euler );
-                      }
+                      euler[ 2 ] = angle[ ang3 ] + quadrant[ quad3 ]*Math.PI/2 + delta[ d3 ];
+                      onEach( euler );
                     }
                   }
                 }
@@ -2418,8 +2422,6 @@ function eulerToQuatToEulerToQuat( test )
       }
     }
   }
-
-  eachAngle( eulerSeqs, angle, quadrant, delta );
 }
 
 //
@@ -2427,10 +2429,12 @@ function eulerToQuatToEulerToQuat( test )
 function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
 {
 
-  var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  //var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  var eulerSeqs = [ 'xyz' ];
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
-  var delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
+  //var delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
+  var delta = [ 0 ];
   var angle3 = [ Math.PI / 6, Math.PI / 4 ];
   var quadrant3 = [ 1, 3 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
@@ -2456,48 +2460,7 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
     test.is( eq1 || eq2 );
   }
 
-  function eachAngle( EulerSeqs, Angle, Quadrant, Delta, Angle3, Quadrant3 )
-  {
-    var euler = [ 0, 0, 0, 0, 0, 0 ];
-    for( var i = 0; i < EulerSeqs.length; i++ )
-    {
-      var seq = EulerSeqs[ i ];
-      var euler = _.euler.make2( euler, seq );
-      for( var ang = 0; ang < Angle.length; ang++ )
-      {
-        for( var quad = 0; quad < Quadrant.length; quad++ )
-        {
-          for( var d = 0; d < Delta.length; d++ )
-          {
-            euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-            for( var ang2 = ang; ang2 < Angle.length; ang2++ )
-            {
-              for( var quad2 = quad; quad2 < Quadrant.length; quad2++ )
-              {
-                for( var d2 = d; d2 < Delta.length; d2++ )
-                {
-                  euler[ 1 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
-                  for( var ang3 = 0; ang3 < Angle3.length; ang3++ )
-                  {
-                    for( var quad3 = 0; quad3 < Quadrant3.length; quad3++ )
-                    {
-                      //for( var d3 = 0; d3 < Delta.length; d3++ )
-                      //{
-                        euler[ 2 ] = Angle[ ang3 ] + Quadrant[ quad3 ]*Math.PI/2; // + Delta[ d3 ];
-                        onEach( euler );
-                      //}
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  eachAngle( eulerSeqs, angle, quadrant, delta, angle3, quadrant3 );
+  this.eachAngle( eulerSeqs, angle, quadrant, delta, onEach );
 }
 
 
@@ -2510,9 +2473,10 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  routine : 'eulerToQuatToEulerToQuat',
+  routine : 'eulerToQuatToMatrixToEulerToMatrixToQuat',
   context :
   {
+    eachAngle : eachAngle,
   },
 
   tests :
