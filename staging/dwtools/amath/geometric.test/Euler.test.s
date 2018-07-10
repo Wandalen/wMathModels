@@ -2469,7 +2469,7 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
   var quadrant = [ 0, 1, 2, 3 ];
   var quadrantLock = [ 0 ];
   var accuracy = _.EPS;
-  var accuracy2= _.EPS2;
+  var accuracy2 = _.EPS2;
   var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
   var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
@@ -2519,7 +2519,7 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  routine : 'eulerToQuatToEulerToQuat',
+  //routine : 'eulerToQuatToMatrixToEulerToMatrixToQuat',
   context :
   {
     eachAngle : eachAngle,
@@ -2546,8 +2546,8 @@ var Self =
     toMatrix2 : toMatrix2,
     eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
-    eulerToQuatToEulerToQuat : eulerToQuatToEulerToQuat,
-    eulerToQuatToMatrixToEulerToMatrixToQuat : eulerToQuatToMatrixToEulerToMatrixToQuat,
+    eulerToQuatToEulerToQuat : eulerToQuatToEulerToQuat, // execution duration = 12 minutes
+    // eulerToQuatToMatrixToEulerToMatrixToQuat : eulerToQuatToMatrixToEulerToMatrixToQuat, // Commented because execution is too long (21 minutes)
 
   },
 
