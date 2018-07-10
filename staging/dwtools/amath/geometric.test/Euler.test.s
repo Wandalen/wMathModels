@@ -2553,13 +2553,13 @@ Accuracy = epsilon, by default it is 1e-7
 
 Angle = set[ 0, PI / 6, PI / 4, PI / 3 ]
 Delta = set[ -0.1, -sqrt( Accuracy ), -sqr( Accuracy ), 0, +sqr( Accuracy ), +sqrt( Accuracy ), +0.1 ]
-Quadrant = [ 0, 1, 2, 3 ]
+Quadrant = set[ 0, 1, 2, 3 ]
 
 = Locked axis
 
 Angle = set[ 0, PI / 6, PI / 4, PI / 3 ]
 Delta = set[ 0 ]
-Quadrant = [ 0 ]
+Quadrant = set[ 0 ]
 
 = Total number of test cases
 
