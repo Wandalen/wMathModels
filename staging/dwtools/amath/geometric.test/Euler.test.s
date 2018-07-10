@@ -2545,16 +2545,30 @@ var Self =
 
 /*
 
+= Common for all axis
+
 Euler representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ]
-Angle = set[ 0, PI / 6, PI / 4, PI / 3 ]
 Accuracy = epsilon, by default it is 1e-7
+
+= Ordinary axis
+
+Angle = set[ 0, PI / 6, PI / 4, PI / 3 ]
 Delta = set[ -0.1, -sqrt( Accuracy ), -sqr( Accuracy ), 0, +sqr( Accuracy ), +sqrt( Accuracy ), +0.1 ]
+Quadrant = set[ 0, 1, 2, 3 ]
+
+= Locked axis
+
+Angle = set[ 0, PI / 6, PI / 4, PI / 3 ]
+Delta = set[ 0 ]
+Quadrant = set[ 0 ]
+
+= Total number of test cases
 
                       Angle + n*PI / 2 + Delta
-        0.5 *       (  4   *   4      *   7   )     ^ 3
-excluding half cases                            for three angles
+        0.5 *       (  4   *   4      *   7   )     ^ 2         *    ( 4 )
+excluding half cases                            for two angles    for locked axis
 
-702 464 premutations * 12 representations = 8 429 568 ordinary test cases
+25 088 premutations * 12 representations = 301 056 ordinary test cases
 
 */
 
