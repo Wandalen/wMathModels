@@ -3,14 +3,14 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-var Quadrant = [ 0, 1, 2, 3 ];
-var QuadrantLock = [ 0 ];
+var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+var quadrant = [ 0, 1, 2, 3 ];
+var quadrantLock = [ 0 ];
 var accuracy = _.EPS;
 var accuracy2 = _.EPS2;
-var Delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
-var DeltaLock = [ 0 ];
+var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
+var deltaLock = [ 0 ];
 var T = 0;
 var F = 0;
 
@@ -44,33 +44,33 @@ function onEach( euler, eulerEmpty )
   }
 
 
-for( var i = 0; i < EulerSeqs.length; i++ )
+for( var i = 0; i < eulerSeqs.length; i++ )
 {
-  var seq = EulerSeqs[ i ];
+  var seq = eulerSeqs[ i ];
   console.log('SEQUENCE ******************** ',seq);
   var euler = [ 0, 0, 0, 0, 0, 0 ];
   euler = _.euler.make2( euler, seq );
-  for( var ang = 0; ang < Angle.length; ang++ )
+  for( var ang = 0; ang < angle.length; ang++ )
   {
-    for( var quad = 0; quad < Quadrant.length; quad++ )
+    for( var quad = 0; quad < quadrant.length; quad++ )
     {
-      for( var d = 0; d < Delta.length; d++ )
+      for( var d = 0; d < delta.length; d++ )
       {
-        euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-        for( var ang2 = ang; ang2 < Angle.length; ang2++ )
+        euler[ 0 ] = angle[ ang ] + quadrant[ quad ]*Math.PI/2 + delta[ d ];
+        for( var ang2 = ang; ang2 < angle.length; ang2++ )
         {
-          for( var quad2 = quad; quad2 < Quadrant.length; quad2++ )
+          for( var quad2 = quad; quad2 < quadrant.length; quad2++ )
           {
-            for( var d2 = 0; d2 < Delta.length; d2++ )
+            for( var d2 = 0; d2 < delta.length; d2++ )
             {
-              euler[ 1 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
-              for( var ang3 = 0; ang3 < Angle.length; ang3++ )
+              euler[ 1 ] = angle[ ang2 ] + quadrant[ quad2 ]*Math.PI/2 + delta[ d2 ];
+              for( var ang3 = 0; ang3 < angle.length; ang3++ )
               {
-                for( var quad3 = 0; quad3 < QuadrantLock.length; quad3++ )
+                for( var quad3 = 0; quad3 < quadrantLock.length; quad3++ )
                 {
-                  for( var d3 = 0; d3 < DeltaLock.length; d3++ )
+                  for( var d3 = 0; d3 < deltaLock.length; d3++ )
                   {
-                    euler[ 2 ] = Angle[ ang3 ] + QuadrantLock[ quad3 ]*Math.PI/2 + DeltaLock[ d3 ];
+                    euler[ 2 ] = angle[ ang3 ] + quadrantLock[ quad3 ]*Math.PI/2 + deltaLock[ d3 ];
                     var eulerEmpty = _.euler.make2( null, seq );
                     onEach( euler );
                   }
