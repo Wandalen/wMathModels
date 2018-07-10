@@ -1231,7 +1231,7 @@ function fromQuat2( quat, dst )
   var dstv = _.vector.from( dst );
   var quatv = _.quat._from( quat );
   var accuracy =  _.EPS;
-  var accuracy2 = _.EPS*_.EPS;
+  var accuracy2 = _.EPS2;
 
   var ex,ey,ez;
 
@@ -1591,6 +1591,7 @@ function toQuat2( euler )
   var s0 = sin( e0/2 ); var c0 = cos( e0/2 );
   var s1 = sin( e1/2 ); var c1 = cos( e1/2 );
   var s2 = sin( e2/2 ); var c2 = cos( e2/2 );
+
   var s0p = sin( ( e0 + e2 )/2 ); var c0p = cos( ( e0 + e2 )/2 );
   var s0n = sin( ( e0 - e2 )/2 ); var c0n = cos( ( e0 - e2 )/2 );
 

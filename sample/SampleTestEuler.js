@@ -7,7 +7,7 @@ var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy',
 var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
 var Quadrant = [ 0, 1, 2, 3 ];
 var accuracy = _.EPS;
-var Delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS*_.EPS ), 0, +( _.EPS*_.EPS ), +Math.sqrt( _.EPS ), +0.1 ];
+var Delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
 var T = 0;
 var F = 0;
 
