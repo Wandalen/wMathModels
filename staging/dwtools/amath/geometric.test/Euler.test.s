@@ -2472,8 +2472,8 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
 
   var o =
   {
-  representation : eulerSeqs, angle : angle, quadrant : quadrant, quadrantLock : quadrantLock,
-  accuracy : accuracy, accuracy2 : accuracy2, delta: delta, deltaLock : deltaLock,
+    representation : eulerSeqs, angle : angle, quadrant : quadrant, quadrantLock : quadrantLock,
+    accuracy : accuracy, accuracy2 : accuracy2, delta: delta, deltaLock : deltaLock,
   }
 
   function onEach( euler)
