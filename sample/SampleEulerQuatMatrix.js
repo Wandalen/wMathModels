@@ -6,9 +6,8 @@ var _ = wTools;
 
 var EulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
 var Angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-var Quadrant = [ 0 ];
-// var Delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
-var Delta = [ -Math.sqrt( _.EPS ) ];
+var Quadrant = [ 0, 1, 2, 3 ];
+var Delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
 var Euler = [ 0, 0, 0, 0, 0, 0 ];
 
 var T = 0;
@@ -60,18 +59,18 @@ for( var i = 0; i < EulerSeqs.length; i++ )
       for( var d = 0; d < Delta.length; d++ )
       {
         euler[ 0 ] = Angle[ ang ] - Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-        for( var ang2 = 0; ang2 < Angle.length; ang2++ )
+        for( var ang2 = ang; ang2 < Angle.length; ang2++ )
         {
-          for( var quad2 = 0; quad2 < Quadrant.length; quad2++ )
+          for( var quad2 = quad; quad2 < Quadrant.length; quad2++ )
           {
-            for( var d2 = 0; d2 < Delta.length; d2++ )
+            for( var d2 = d; d2 < Delta.length; d2++ )
             {
               euler[ 1 ] = Angle[ ang2 ] - Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
-              for( var ang3 = 0; ang3 < Angle.length; ang3++ )
+              for( var ang3 = ang2; ang3 < Angle.length; ang3++ )
               {
-                for( var quad3 = 0; quad3 < Quadrant.length; quad3++ )
+                for( var quad3 = quad2; quad3 < Quadrant.length; quad3++ )
                 {
-                  for( var d3 = 0; d3 < Delta.length; d3++ )
+                  for( var d3 = d2; d3 < Delta.length; d3++ )
                   {
                     euler[ 2 ] = Angle[ ang3 ] - Quadrant[ quad3 ]*Math.PI/2 + Delta[ d3 ];
                     var eulerEmpty = _.euler.make2( null, seq );

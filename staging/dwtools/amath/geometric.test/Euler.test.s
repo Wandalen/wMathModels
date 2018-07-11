@@ -1114,7 +1114,7 @@ function fromQuat2( test )
 
   test.description = 'Euler XYZ'; /* */
 
-  var quat =  [ 0.4699079, 0.3649977, 0.3240739, 0.7354858 ] ;
+  var quat =  [ 0.46990785942494523, 0.3649976887426158, 0.32407387953254757, 0.7354858336283155 ] ;
   var dst = [ 0, 0, 0, 0, 1, 2 ];
   var expected = [ 1, 1, 0.25, 0, 1, 2 ];
 
@@ -1150,7 +1150,7 @@ function fromQuat2( test )
 
   test.description = 'Euler ZXY'; /* */
 
-  var quat = [ 0.3649977, 0.4699079, 0.3240739, 0.7354858 ];
+  var quat = [ 0.3649976887426158, 0.46990785942494523, 0.32407387953254757, 0.7354858336283155 ];
   var dst = [ 0, 0, 0, 2, 0, 1 ]
   var expected = [ 0.25, 1, 1, 2, 0, 1 ] ;
 
@@ -1852,9 +1852,9 @@ function toMatrix2( test )
   var oldEuler = euler.slice();
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.77015, -0.42073, 0.47942,
-    0.62244, 0.65995, - 0.42073,
-    - 0.13938, 0.62244, 0.77015
+    0.7701511383, -0.4207354784, 0.479425549507,
+    0.6224468350, 0.65995573997, - 0.420735478401,
+    - 0.13938128948, 0.622446835, 0.7701511383
   ]);
 
   var gotMatrix = _.euler.toMatrix2( euler );
@@ -1866,9 +1866,9 @@ function toMatrix2( test )
   var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.77015, -0.42073, 0.47942,
-    0.62244, 0.65995, - 0.42073,
-    - 0.13938, 0.62244, 0.77015
+    0.7701511383, -0.4207354784, 0.479425549507,
+    0.6224468350, 0.65995573997, - 0.420735478401,
+    - 0.13938128948, 0.622446835, 0.7701511383
   ]);
 
   var gotMatrix = _.euler.toMatrix2( euler );
@@ -1879,9 +1879,9 @@ function toMatrix2( test )
   var euler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.77015, -0.47942, 0.42073,
-    0.59907, 0.77015, - 0.21902,
-    - 0.21902, 0.42073, 0.88034
+    0.7701511383, -0.479425549507, 0.4207354784,
+    0.5990789532, 0.7701511383, - 0.21902415156,
+    - 0.21902415156, 0.4207354784, 0.8803465366
   ]);
 
   var gotMatrix = _.euler.toMatrix2( euler );
@@ -1892,9 +1892,9 @@ function toMatrix2( test )
   var euler =  [ 1, 0.5, 0.5, 1, 0, 2 ];
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.66757, 0.09500, 0.73846,
-    0.42073, 0.77015, - 0.47942,
-    - 0.61427, 0.63074, 0.47415
+    0.6675710082, 0.095001988, 0.738460242,
+    0.4207354784, 0.770151138, - 0.479425549,
+    - 0.6142724156, 0.6307470202, 0.474159896
   ]);
 
   var gotMatrix = _.euler.toMatrix2( euler );
@@ -1905,9 +1905,9 @@ function toMatrix2( test )
   var euler = [ 1, 0.25, 0.5, 1, 2, 0 ];
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.52350, 0.28611, 0.80254,
-    0.24740, 0.85030, - 0.46452,
-    - 0.81531, 0.44173, 0.37435
+    0.523505628, 0.286113649, 0.802544650,
+    0.247403864, 0.8503006696, - 0.464521348,
+    - 0.815311670, 0.441732704, 0.374351501
   ]);
 
   var gotMatrix = _.euler.toMatrix2( euler );
@@ -1918,9 +1918,9 @@ function toMatrix2( test )
   var euler = [ 0.25, 1, 0.5, 2, 0, 1 ] ;
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.75049, - 0.13367, 0.64721,
-    0.60799, 0.52350, - 0.59689,
-    - 0.25903, 0.84147, 0.47415
+    0.7504922747, - 0.1336729228, 0.64721935987,
+    0.607998669, 0.5235056281, - 0.5968915224,
+    - 0.259034723, 0.8414709568, 0.47415989637
   ]);
 
   var gotMatrix = _.euler.toMatrix2( euler );
@@ -1931,9 +1931,9 @@ function toMatrix2( test )
   var euler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
   var expected =  _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.47415, - 0.61427, 0.63074,
-    0.73846, 0.66757, 0.09500,
-    - 0.47942, 0.42073, 0.77015
+    0.4741598963737, - 0.6142724156, 0.6307470202,
+    0.7384602427, 0.6675710082, 0.095001988,
+    - 0.4794255495, 0.4207354784, 0.770151138
   ]);
 
   var gotMatrix = _.euler.toMatrix2( euler );
@@ -2023,16 +2023,16 @@ function toMatrix2( test )
 
   var matrix = _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.56843978166, - 1.139381289482, 0.229848861694,
-    0.789965629577, 0.44602233171, - 0.42073550820,
-    0.229848861694, 0.42073550820, 0.877582550048
+    0.568439841270, - 0.78996562957, 0.22984884679,
+    0.789965629577, 0.44602236151, - 0.4207354784,
+    0.229848867931, 0.4207354784, 0.877582550048
   ]);
   var dst = [ 0, 0, 0, 2, 0, 2 ] ;
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.56843978166, - 1.139381289482, 0.229848861694,
-    0.789965629577, 0.44602233171, - 0.42073550820,
-    0.229848861694, 0.42073550820, 0.877582550048
+    0.568439841270, - 0.78996562957, 0.22984884679,
+    0.789965629577, 0.44602236151, - 0.4207354784,
+    0.229848867931, 0.4207354784, 0.877582550048
   ]);
 
   var euler = _.euler.fromMatrix2( matrix, dst );
@@ -2353,12 +2353,110 @@ function eulerToQuatToEulerToQuat( test )
   var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
+  var quadrantLock = [ 0 ];
   var accuracy =  _.EPS;
   var accuracy2 =  _.EPS2;
   var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
+  var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
-  function onEach( euler)
+  var angles =
+  {
+  'Seq' : eulerSeqs, 'Ang' : angle, 'Quad' : quadrant, 'QuadL' : quadrantLock,
+  'Acc' : accuracy, 'Acc2' : accuracy2, 'Delta': delta, 'DeltaL' : deltaLock,
+  'Function': function onEach( euler )
+    {
+      var dstEuler = euler.slice();
+      dstEuler[ 0 ] = 0;
+      dstEuler[ 1 ] = 0;
+      dstEuler[ 2 ] = 0;
+      var expected = _.euler.toQuat2( euler );
+      var euler2 = _.euler.fromQuat2( expected, dstEuler );
+      var result = _.euler.toQuat2( euler2 );
+
+      var positiveResult = result.slice();
+      var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
+      var expected = _.vector.toArray( expected );
+      var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
+      var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
+      test.is( eq1 || eq2 );
+    }
+  }
+
+  this.eachAngle( angles );
+}
+
+//
+
+function eachAngle( angles )
+{
+
+  //_.assert( arguments.length === 1, 'expects single argument' );
+  _.routineOptions( eachAngle, angles );
+  var eulerSeqs = angles.Seq;
+  var angle = angles.Ang;
+  var quadrant = angles.Quad;
+  var quadrantLock = angles.QuadL;
+  var accuracy = angles.Acc;
+  var accuracy2 = angles.Acc2;
+  var delta = angles.Delta;
+  var deltaLock = angles.DeltaL;
+  var onEach = angles.Function;
+  var euler = [ 0, 0, 0, 0, 0, 0 ];
+  for( var i = 0; i < eulerSeqs.length; i++ )
+  {
+    var seq = eulerSeqs[ i ];
+    var euler = _.euler.make2( euler, seq );
+    for( var ang = 0; ang < angle.length; ang++ )
+    {
+      for( var quad = 0; quad < quadrant.length; quad++ )
+      {
+        for( var d = 0; d < delta.length; d++ )
+        {
+          euler[ 0 ] = angle[ ang ] + quadrant[ quad ]*Math.PI/2 + delta[ d ];
+          for( var ang2 = ang; ang2 < angle.length; ang2++ )
+          {
+            for( var quad2 = quad; quad2 < quadrant.length; quad2++ )
+            {
+              for( var d2 = 0; d2 < delta.length; d2++ )
+              {
+                euler[ 1 ] = angle[ ang2 ] + quadrant[ quad2 ]*Math.PI/2 + delta[ d2 ];
+                for( var ang3 = 0; ang3 < angle.length; ang3++ )
+                {
+                  for( var quad3 = 0; quad3 < quadrantLock.length; quad3++ )
+                  {
+                    for( var d3 = 0; d3 < deltaLock.length; d3++ )
+                    {
+                      euler[ 2 ] = angle[ ang3 ] + quadrantLock[ quad3 ]*Math.PI/2 + deltaLock[ d3 ];
+                      onEach( euler );
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//
+
+eachAngle.defaults =
+{
+  //'Seq' : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
+  'Seq' : [ 'xyz' ],
+  //'Ang' : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
+  'Ang' : [ 0 ],
+  //'Quad' : [ 0 ],
+  'Quad' : [ 0, 1, 2, 3 ],
+  'QuadL' : [ 0 ],
+  'Acc' : _.EPS,
+  'Acc2' : _.EPS2,
+  'Delta' : [ -0.1, -Math.sqrt( 'Acc' ), -( 'Acc2' ), 0, +( 'Acc2' ), +Math.sqrt( 'Acc' ), +0.1 ],
+  'DeltaL' : [ 0 ],
+  'Function' : function onEach( euler )
   {
     var dstEuler = euler.slice();
     dstEuler[ 0 ] = 0;
@@ -2375,49 +2473,6 @@ function eulerToQuatToEulerToQuat( test )
     var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
     test.is( eq1 || eq2 );
   }
-
-  function eachAngle( EulerSeqs, Angle, Quadrant, Delta )
-  {
-    var euler = [ 0, 0, 0, 0, 0, 0 ];
-    for( var i = 0; i < EulerSeqs.length; i++ )
-    {
-      var seq = EulerSeqs[ i ];
-      var euler = _.euler.make2( euler, seq );
-      for( var ang = 0; ang < Angle.length; ang++ )
-      {
-        for( var quad = 0; quad < Quadrant.length; quad++ )
-        {
-          for( var d = 0; d < Delta.length; d++ )
-          {
-            euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-            for( var ang2 = ang; ang2 < Angle.length; ang2++ )
-            {
-              for( var quad2 = quad; quad2 < Quadrant.length; quad2++ )
-              {
-                for( var d2 = d; d2 < Delta.length; d2++ )
-                {
-                  euler[ 1 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
-                  for( var ang3 = ang2; ang3 < Angle.length; ang3++ )
-                  {
-                    for( var quad3 = quad2; quad3 < Quadrant.length; quad3++ )
-                    {
-                      for( var d3 = d2; d3 < Delta.length; d3++ )
-                      {
-                        euler[ 2 ] = Angle[ ang3 ] + Quadrant[ quad3 ]*Math.PI/2 + Delta[ d3 ];
-                        onEach( euler );
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  eachAngle( eulerSeqs, angle, quadrant, delta );
 }
 
 //
@@ -2426,77 +2481,42 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
 {
 
   var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  // var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-  var angle = [ Math.PI / 3 ];
-  // var quadrant = [ 0, 1, 2, 3 ];
-  var quadrant = [ 0 ];
-  // var delta = [ -0.1, -Math.sqrt( _.EPS ), -( _.EPS2 ), 0, +( _.EPS2 ), +Math.sqrt( _.EPS ), +0.1 ];
-  var delta = [ 0 ];
+  var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  var quadrant = [ 0, 1, 2, 3 ];
+  var quadrantLock = [ 0 ];
+  var accuracy = _.EPS;
+  var accuracy2 = _.EPS2;
+  var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
+  var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
-  function onEach( euler)
+  var angles =
   {
-    var dstEuler = euler.slice();
-    dstEuler[ 0 ] = 0;
-    dstEuler[ 1 ] = 0;
-    dstEuler[ 2 ] = 0;
-    var expected = _.euler.toQuat2( euler );
-    var m = _.quat.toMatrix( expected );
-    var e = _.euler.fromMatrix2( m, dstEuler );
-    var m2 = _.euler.toMatrix2( e );
-    var result = _.quat.from( [ 0, 0, 0, 0 ] );
-    result = _.quat.fromMatrixRotation( result, m2 );
-
-    var positiveResult = result.slice();
-    var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
-    var expected = _.vector.toArray( expected );
-    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
-    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
-    test.is( eq1 || eq2 );
-  }
-
-  function eachAngle( EulerSeqs, Angle, Quadrant, Delta )
-  {
-    var euler = [ 0, 0, 0, 0, 0, 0 ];
-    for( var i = 0; i < EulerSeqs.length; i++ )
+  'Seq' : eulerSeqs, 'Ang' : angle, 'Quad' : quadrant, 'QuadL' : quadrantLock,
+  'Acc' : accuracy, 'Acc2' : accuracy2, 'Delta': delta, 'DeltaL' : deltaLock,
+  'Function': function onEach( euler)
     {
-      var seq = EulerSeqs[ i ];
-      var euler = _.euler.make2( euler, seq );
-      for( var ang = 0; ang < Angle.length; ang++ )
-      {
-        for( var quad = 0; quad < Quadrant.length; quad++ )
-        {
-          for( var d = 0; d < Delta.length; d++ )
-          {
-            euler[ 0 ] = Angle[ ang ] + Quadrant[ quad ]*Math.PI/2 + Delta[ d ];
-            for( var ang2 = ang; ang2 < Angle.length; ang2++ )
-            {
-              for( var quad2 = quad; quad2 < Quadrant.length; quad2++ )
-              {
-                for( var d2 = d; d2 < Delta.length; d2++ )
-                {
-                  euler[ 1 ] = Angle[ ang2 ] + Quadrant[ quad2 ]*Math.PI/2 + Delta[ d2 ];
-                  for( var ang3 = ang2; ang3 < Angle.length; ang3++ )
-                  {
-                    for( var quad3 = quad2; quad3 < Quadrant.length; quad3++ )
-                    {
-                      for( var d3 = d2; d3 < Delta.length; d3++ )
-                      {
-                        euler[ 2 ] = Angle[ ang3 ] + Quadrant[ quad3 ]*Math.PI/2 + Delta[ d3 ];
-                        onEach( euler );
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      var dstEuler = euler.slice();
+      dstEuler[ 0 ] = 0;
+      dstEuler[ 1 ] = 0;
+      dstEuler[ 2 ] = 0;
+      var expected = _.euler.toQuat2( euler );
+      var m = _.quat.toMatrix( expected );
+      var e = _.euler.fromMatrix2( m, dstEuler );
+      var m2 = _.euler.toMatrix2( e );
+      var result = _.quat.from( [ 0, 0, 0, 0 ] );
+      result = _.quat.fromMatrixRotation( result, m2 );
+
+      var positiveResult = result.slice();
+      var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
+      var expected = _.vector.toArray( expected );
+      var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
+      var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
+      test.is( eq1 || eq2 );
     }
   }
 
-  eachAngle( eulerSeqs, angle, quadrant, delta );
+  this.eachAngle( angles );
 }
 
 
@@ -2509,9 +2529,10 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  routine : 'eulerToQuatToEulerToQuat',
+  //routine : 'toMatrix2',
   context :
   {
+    eachAngle : eachAngle,
   },
 
   tests :
@@ -2535,8 +2556,8 @@ var Self =
     toMatrix2 : toMatrix2,
     eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
-    eulerToQuatToEulerToQuat : eulerToQuatToEulerToQuat,
-    eulerToQuatToMatrixToEulerToMatrixToQuat : eulerToQuatToMatrixToEulerToMatrixToQuat,
+    eulerToQuatToEulerToQuat : eulerToQuatToEulerToQuat, // execution duration = 12 minutes
+    // eulerToQuatToMatrixToEulerToMatrixToQuat : eulerToQuatToMatrixToEulerToMatrixToQuat, // Commented because execution is too long (21 minutes)
 
   },
 
