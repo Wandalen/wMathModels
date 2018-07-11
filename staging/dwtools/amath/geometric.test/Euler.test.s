@@ -2390,8 +2390,8 @@ function eulerToQuatToEulerToQuat( test )
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
   var quadrantLock = [ 0 ];
-  var accuracy =  _.EPS;
-  var accuracy2 =  _.EPS2;
+  // var accuracy =  _.EPS;
+  // var accuracy2 =  _.EPS2;
   var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
   var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
@@ -2505,7 +2505,7 @@ function eachAngle( o )
   var angle = o.angle.slice();
   var quadrant = o.quadrant.slice();
   var quadrantLock = o.quadrantLock.slice();
-  var delta = o.delta.slice( 0,1 );
+  var delta = o.delta.slice( 0, 1 );
   var deltaLock = o.deltaLock.slice();
 
   /**/
