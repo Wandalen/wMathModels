@@ -5,14 +5,10 @@ var _ = wTools;
 
 
 
-var q = _.euler.toQuat2( [ 0, 0, 0, 2, 0, 2 ] );
-console.log( 'q:  ', q );
 
-var q2 = _.quat.from( [ 0, 0, 0, 0 ] )
-var matrix = _.quat.toMatrix( q );
+  var angle = 1E-5;
+  var expected = [ 0.000004999999873689376,0,0,1 ];
+  var got = _.quat.fromAxisAndAngle( null,[ 1,0,0 ],angle );
 
-console.log( matrix );
 
-var q2 = _.quat.fromMatrixRotation( q2, matrix );
-
-console.log( 'qf: ',q2 );
+console.log( 'qf: ', got );
