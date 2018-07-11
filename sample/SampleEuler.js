@@ -17,7 +17,7 @@ var dstZXZ = [ 0, 0, 0, 2, 0, 2 ];
 var dstZYZ = [ 0, 0, 0, 2, 1, 2 ];
 
 var quat =  [ 0.46990785942494523, 0.3649976887426158, 0.32407387953254757, 0.7354858336283155 ] ;
-var euler = [  1, 0.5, 0.5, 2, 1, 0  ];
+var euler = [  1, 0.25, 0.5, 1, 2, 0  ];
 
 var gotEuler = _.euler.toMatrix2( euler );
 console.log( 'Euler:', gotEuler);

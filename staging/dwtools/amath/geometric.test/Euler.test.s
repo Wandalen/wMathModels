@@ -1936,9 +1936,9 @@ function toMatrix2( test )
   var euler = [ 1, 0.25, 0.5, 1, 2, 0 ];
   var expected = _.Space.make( [ 3, 3 ] ).copy
   ([
-    0.523505628, 0.286113649, 0.802544650,
-    0.247403864, 0.8503006696, - 0.464521348,
-    - 0.815311670, 0.441732704, 0.374351501
+    0.5235056281089, 0.286113649, 0.802546501,
+    0.2474039644002, 0.8503006696, - 0.464521348,
+    - 0.8153116703033, 0.441732704, 0.374351501
   ]);
 
   var gotMatrix = _.euler.toMatrix2( euler );
@@ -2390,8 +2390,8 @@ function eulerToQuatToEulerToQuat( test )
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
   var quadrantLock = [ 0 ];
-  // var accuracy =  _.EPS;
-  // var accuracy2 =  _.EPS2;
+  var accuracy =  _.EPS;
+  var accuracy2 =  _.EPS2;
   var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
   var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
@@ -2453,8 +2453,13 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
 
   var o =
   {
-    representation : eulerSeqs, angle : angle, quadrant : quadrant, quadrantLock : quadrantLock,
-    accuracy : accuracy, accuracy2 : accuracy2, delta: delta, deltaLock : deltaLock,
+    representation : eulerSeqs,
+    angle : angle,
+    quadrant : quadrant,
+    quadrantLock : quadrantLock,
+    delta: delta,
+    deltaLock : deltaLock,
+    onEach : onEach
   }
 
   this.eachAngle( o );
@@ -2493,22 +2498,15 @@ function eachAngle( o )
   _.routineOptions( eachAngle, o );
 
   var eulerSeqs = o.representation;
-  var angle = o.angle;
-  var quadrant = o.quadrant;
-  var quadrantLock = o.quadrantLock;
-  var accuracy = o.accuracy;
-  var accuracy2 = o.accuracy2;
-  var delta = o.delta;
-  var deltaLock = o.deltaLock;
   var euler = [ 0, 0, 0, 0, 0, 0 ];
 
   /**/
 
-  angle = angle.slice( 0,1 );
-  quadrant = o.quadrant.slice( 0,1 );
-  quadrantLock = o.quadrantLock.slice( 0,1 );
-  delta = o.delta.slice( 0,1 );
-  deltaLock = o.deltaLock.slice( 0,1 );
+  var angle = o.angle.slice();
+  var quadrant = o.quadrant.slice();
+  var quadrantLock = o.quadrantLock.slice();
+  var delta = o.delta.slice( 0,1 );
+  var deltaLock = o.deltaLock.slice();
 
   /**/
 
