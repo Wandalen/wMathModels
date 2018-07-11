@@ -2383,12 +2383,15 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 function eulerToQuatToEulerToQuat( test )
 {
 
+  var accuracy =  test.accuracy;
+  var accuracy2 = test.accuracy*test.accuracy;
+
   var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
   var quadrantLock = [ 0 ];
-  var accuracy =  _.EPS;
-  var accuracy2 =  _.EPS2;
+  // var accuracy =  _.EPS;
+  // var accuracy2 =  _.EPS2;
   var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
   var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
@@ -2399,11 +2402,16 @@ function eulerToQuatToEulerToQuat( test )
     angle : angle,
     quadrant : quadrant,
     quadrantLock : quadrantLock,
-    accuracy : accuracy,
-    accuracy2 : accuracy2,
-    delta: delta,
+    // accuracy : accuracy,
+    // accuracy2 : accuracy2,
+    delta : delta,
     deltaLock : deltaLock,
+    onEach : onEach,
   }
+
+  this.eachAngle( o );
+
+  /* */
 
   function onEach( euler )
   {
@@ -2423,16 +2431,67 @@ function eulerToQuatToEulerToQuat( test )
     test.is( eq1 || eq2 );
   }
 
-  this.eachAngle( o, onEach );
 }
 
 //
 
-function eachAngle( o, onEach )
+function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
 {
 
-  //_.assert( arguments.length === 1, 'expects single argument' );
+  var accuracy =  test.accuracy;
+  var accuracy2 = test.accuracy*test.accuracy;
+
+  var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  var quadrant = [ 0, 1, 2, 3 ];
+  var quadrantLock = [ 0 ];
+  // var accuracy = _.EPS;
+  // var accuracy2 = _.EPS2;
+  var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
+  var deltaLock = [ 0 ];
+  var euler = [ 0, 0, 0, 0, 0, 0 ];
+
+  var o =
+  {
+    representation : eulerSeqs, angle : angle, quadrant : quadrant, quadrantLock : quadrantLock,
+    accuracy : accuracy, accuracy2 : accuracy2, delta: delta, deltaLock : deltaLock,
+  }
+
+  this.eachAngle( o );
+
+  /* */
+
+  function onEach( euler )
+  {
+    var dstEuler = euler.slice();
+    dstEuler[ 0 ] = 0;
+    dstEuler[ 1 ] = 0;
+    dstEuler[ 2 ] = 0;
+    var expected = _.euler.toQuat2( euler );
+    var m = _.quat.toMatrix( expected );
+    var e = _.euler.fromMatrix2( m, dstEuler );
+    var m2 = _.euler.toMatrix2( e );
+    var result = _.quat.from( [ 0, 0, 0, 0 ] );
+    result = _.quat.fromMatrixRotation( result, m2 );
+
+    var positiveResult = result.slice();
+    var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
+    var expected = _.vector.toArray( expected );
+    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
+    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
+    test.is( eq1 || eq2 );
+  }
+
+}
+
+//
+
+function eachAngle( o )
+{
+
+  _.assert( arguments.length === 1, 'expects single argument' );
   _.routineOptions( eachAngle, o );
+
   var eulerSeqs = o.representation;
   var angle = o.angle;
   var quadrant = o.quadrant;
@@ -2442,6 +2501,17 @@ function eachAngle( o, onEach )
   var delta = o.delta;
   var deltaLock = o.deltaLock;
   var euler = [ 0, 0, 0, 0, 0, 0 ];
+
+  /**/
+
+  angle = angle.slice( 0,1 );
+  quadrant = o.quadrant.slice( 0,1 );
+  quadrantLock = o.quadrantLock.slice( 0,1 );
+  delta = o.delta.slice( 0,1 );
+  deltaLock = o.deltaLock.slice( 0,1 );
+
+  /**/
+
   for( var i = 0; i < eulerSeqs.length; i++ )
   {
     var seq = eulerSeqs[ i ];
@@ -2467,7 +2537,7 @@ function eachAngle( o, onEach )
                     for( var d3 = 0; d3 < deltaLock.length; d3++ )
                     {
                       euler[ 2 ] = angle[ ang3 ] + quadrantLock[ quad3 ]*Math.PI/2 + deltaLock[ d3 ];
-                      onEach( euler );
+                      o.onEach( euler );
                     }
                   }
                 }
@@ -2478,9 +2548,8 @@ function eachAngle( o, onEach )
       }
     }
   }
-}
 
-//
+}
 
 eachAngle.defaults =
 {
@@ -2488,58 +2557,12 @@ eachAngle.defaults =
   angle : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
   quadrant : [ 0, 1, 2, 3 ],
   quadrantLock : [ 0 ],
-  accuracy : _.EPS,
-  accuracy2 : _.EPS2,
+  // accuracy : _.EPS,
+  // accuracy2 : _.EPS2,
   delta : [ -0.1, -Math.sqrt( 'Acc' ), -( 'Acc2' ), 0, +( 'Acc2' ), +Math.sqrt( 'Acc' ), +0.1 ],
-  deltaLock : [ 0 ]
+  deltaLock : [ 0 ],
+  onEach : null,
 }
-
-//
-
-function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
-{
-
-  var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-  var quadrant = [ 0, 1, 2, 3 ];
-  var quadrantLock = [ 0 ];
-  var accuracy = _.EPS;
-  var accuracy2 = _.EPS2;
-  var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
-  var deltaLock = [ 0 ];
-  var euler = [ 0, 0, 0, 0, 0, 0 ];
-
-  var o =
-  {
-    representation : eulerSeqs, angle : angle, quadrant : quadrant, quadrantLock : quadrantLock,
-    accuracy : accuracy, accuracy2 : accuracy2, delta: delta, deltaLock : deltaLock,
-  }
-
-  function onEach( euler )
-  {
-    var dstEuler = euler.slice();
-    dstEuler[ 0 ] = 0;
-    dstEuler[ 1 ] = 0;
-    dstEuler[ 2 ] = 0;
-    var expected = _.euler.toQuat2( euler );
-    var m = _.quat.toMatrix( expected );
-    var e = _.euler.fromMatrix2( m, dstEuler );
-    var m2 = _.euler.toMatrix2( e );
-    var result = _.quat.from( [ 0, 0, 0, 0 ] );
-    result = _.quat.fromMatrixRotation( result, m2 );
-
-    var positiveResult = result.slice();
-    var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
-    var expected = _.vector.toArray( expected );
-    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
-    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
-    test.is( eq1 || eq2 );
-  }
-
-  this.eachAngle( o, onEach );
-
-}
-
 
 // --
 // define class
