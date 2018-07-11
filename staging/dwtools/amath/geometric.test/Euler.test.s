@@ -2378,6 +2378,8 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
 }
 
+//
+
 function eulerToQuatToEulerToQuat( test )
 {
 
@@ -2563,10 +2565,12 @@ var Self =
     fromQuat : fromQuat,
     fromMatrix : fromMatrix,
     fromMatrix : toMatrix,
+
     toQuat2 : toQuat2,
     fromQuat2 : fromQuat2,
     fromMatrix2 : fromMatrix2,
     toMatrix2 : toMatrix2,
+
     eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
 
