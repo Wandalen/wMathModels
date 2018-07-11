@@ -2567,7 +2567,7 @@ Quadrant = set[ 0 ]
         0.5 *       (  4   *   4      *   7   )     ^ 2         *    ( 4 )
 excluding half cases                            for two angles    for locked axis
 
-25 088 premutations * 12 representations = 301 056 ordinary test cases
+25 088 premutations * 12 representations = 301 056 test cases
 
 */
 
