@@ -16,18 +16,8 @@ var dstYZY = [ 0, 0, 0, 1, 2, 1 ];
 var dstZXZ = [ 0, 0, 0, 2, 0, 2 ];
 var dstZYZ = [ 0, 0, 0, 2, 1, 2 ];
 
-var Matrix = _.Space.make( [ 3, 3 ] ).copy
-([
-  0.568439841270, - 0.78996562957, 0.22984884679,
-  0.789965629577, 0.44602236151, - 0.4207354784,
-  0.229848867931, 0.4207354784, 0.877582550048
-]);
+var quat =  [ 0.46990785942494523, 0.3649976887426158, 0.32407387953254757, 0.7354858336283155 ] ;
+var euler = [  1, 0.5, 0.5, 2, 1, 0  ];
 
-var dst = [ 0, 0, 0, 2, 0, 2 ];
-
-console.log( 'Matrix:', Matrix );
-var euler = _.euler.fromMatrix2( Matrix, dst );
-console.log( 'Euler:', euler );
-euler = [ 0.5, 0.5, 0.5, 2, 0, 2 ];
 var gotEuler = _.euler.toMatrix2( euler );
-console.log( 'Matrix:', gotEuler);
+console.log( 'Euler:', gotEuler);
