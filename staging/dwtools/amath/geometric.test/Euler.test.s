@@ -2350,8 +2350,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 function eulerToQuatToEulerToQuat( test )
 {
 
-  //var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  var eulerSeqs = [ 'xyz' ];
+  var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
   var quadrantLock = [ 0 ];
