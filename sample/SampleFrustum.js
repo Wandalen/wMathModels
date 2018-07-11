@@ -13,8 +13,8 @@ var srcfrustum =  _.Space.make( [ 4, 6 ] ).copy
 
 debugger;
 
-var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
-var point = _.frustum.boxClosestPoint( srcfrustum, box );
+var box = [ 0.5, 1.5, 1, 0.01 ];
+var point = _.frustum.sphereClosestPoint( srcfrustum, box );
 console.log( 'final point inter outside: ', point );
 
 debugger;

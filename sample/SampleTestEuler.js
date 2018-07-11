@@ -57,9 +57,9 @@ for( var i = 0; i < eulerSeqs.length; i++ )
       for( var d = 0; d < delta.length; d++ )
       {
         euler[ 0 ] = angle[ ang ] + quadrant[ quad ]*Math.PI/2 + delta[ d ];
-        for( var ang2 = ang; ang2 < angle.length; ang2++ )
+        for( var ang2 = 0; ang2 < angle.length; ang2++ )
         {
-          for( var quad2 = quad; quad2 < quadrant.length; quad2++ )
+          for( var quad2 = 0; quad2 < quadrant.length; quad2++ )
           {
             for( var d2 = 0; d2 < delta.length; d2++ )
             {

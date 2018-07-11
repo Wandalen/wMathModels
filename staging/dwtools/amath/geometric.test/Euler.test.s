@@ -2383,7 +2383,6 @@ function eulerToQuatToEulerToQuat( test )
     }
   }
 
-  var angles = {};
   this.eachAngle( angles );
 }
 
