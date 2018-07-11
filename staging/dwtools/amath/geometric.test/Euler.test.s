@@ -2362,8 +2362,14 @@ function eulerToQuatToEulerToQuat( test )
 
   var o =
   {
-    representation : eulerSeqs, angle : angle, quadrant : quadrant, quadrantLock : quadrantLock,
-    accuracy : accuracy, accuracy2 : accuracy2, delta: delta, deltaLock : deltaLock,
+    representation : eulerSeqs,
+    angle : angle,
+    quadrant : quadrant,
+    quadrantLock : quadrantLock,
+    accuracy : accuracy,
+    accuracy2 : accuracy2,
+    delta: delta,
+    deltaLock : deltaLock,
   }
 
   function onEach( euler )
@@ -2476,25 +2482,25 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
     accuracy : accuracy, accuracy2 : accuracy2, delta: delta, deltaLock : deltaLock,
   }
 
-  function onEach( euler)
+  function onEach( euler )
   {
-  var dstEuler = euler.slice();
-  dstEuler[ 0 ] = 0;
-  dstEuler[ 1 ] = 0;
-  dstEuler[ 2 ] = 0;
-  var expected = _.euler.toQuat2( euler );
-  var m = _.quat.toMatrix( expected );
-  var e = _.euler.fromMatrix2( m, dstEuler );
-  var m2 = _.euler.toMatrix2( e );
-  var result = _.quat.from( [ 0, 0, 0, 0 ] );
-  result = _.quat.fromMatrixRotation( result, m2 );
+    var dstEuler = euler.slice();
+    dstEuler[ 0 ] = 0;
+    dstEuler[ 1 ] = 0;
+    dstEuler[ 2 ] = 0;
+    var expected = _.euler.toQuat2( euler );
+    var m = _.quat.toMatrix( expected );
+    var e = _.euler.fromMatrix2( m, dstEuler );
+    var m2 = _.euler.toMatrix2( e );
+    var result = _.quat.from( [ 0, 0, 0, 0 ] );
+    result = _.quat.fromMatrixRotation( result, m2 );
 
-  var positiveResult = result.slice();
-  var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
-  var expected = _.vector.toArray( expected );
-  var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
-  var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
-  test.is( eq1 || eq2 );
+    var positiveResult = result.slice();
+    var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
+    var expected = _.vector.toArray( expected );
+    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
+    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
+    test.is( eq1 || eq2 );
   }
 
   this.eachAngle( o, onEach );
