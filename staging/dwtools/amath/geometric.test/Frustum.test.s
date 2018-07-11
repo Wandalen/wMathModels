@@ -1148,7 +1148,7 @@ function boxClosestPoint( test )
   - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
-  var expected = [ 0.5, 1.6, 0.79999 ];
+  var expected = [ 0.5, 1.6, 0.79999999 ];
   var expected = _.vector.from( expected );
 
   var closestPoint = _.frustum.boxClosestPoint( f, box );
@@ -1310,7 +1310,7 @@ function sphereClosestPoint( test )
   - 3,   0, - 1,   0,   0, - 1
   ]);
   var sphere = [ 0.5, 1.5, 1, 0.01 ];
-  var expected = [ 0.5, 1.6, 0.79999 ];
+  var expected = [ 0.5, 1.6, 0.79999999 ];
   var expected = _.vector.from( expected );
 
   var closestPoint = _.frustum.sphereClosestPoint( f, sphere );
