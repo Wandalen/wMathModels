@@ -2359,13 +2359,16 @@ function represent( dstEuler, representation )
   _.assert( arguments.length === 2, 'expects two arguments' );
 
   if( dstEuler === null )
-  dstEuler = _.euler.make();
+  dstEuler = [ 0, 0, 0, 0, 1, 2 ];
 
-  var quaternion = _.euler.toQuat2( dstEuler );
+  var euler = dstEuler.slice();
+  var dstEulerv = _.vector.from( dstEuler );
+
+  var quaternion = _.euler.toQuat2( euler );
 
   if( _.strIs( representation ) )
   {
-    dstEuler = _.euler.make2( dstEuler, representation );
+    euler = _.euler.make2( euler, representation );
   }
 
   else if( _.arrayIs( representation ) )
@@ -2375,9 +2378,9 @@ function represent( dstEuler, representation )
         ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
         ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
     {
-      dstEuler[ 3 ] = representation[ 0 ];
-      dstEuler[ 4 ] = representation[ 1 ];
-      dstEuler[ 5 ] = representation[ 2 ];
+      euler[ 3 ] = representation[ 0 ]; //dstEulerv.eSet( 3, representation[ 0 ] );
+      euler[ 4 ] = representation[ 1 ];//dstEulerv.eSet( 4, representation[ 1 ] );
+      euler[ 5 ] = representation[ 2 ];//dstEulerv.eSet( 5, representation[ 2 ] );
     }
     else
     {
@@ -2385,8 +2388,11 @@ function represent( dstEuler, representation )
     }
   }
 
-  dstEuler = fromQuat2( quaternion, dstEuler );
+  euler = _.euler.fromQuat2( quaternion, euler );
+  _.vector.assign( dstEulerv, euler );
+  console.log(dstEulerv);
   return dstEuler;
+
 }
 
 // --

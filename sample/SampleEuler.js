@@ -6,7 +6,7 @@ var _ = wTools;
 var numXYZ = [ 0, 1, 2 ];
 var numXZY = [ 0, 2, 1 ];
 var txtXYZ = 'xyz';
-var txtXZY = 'xzy';
+var txtYZY = 'yzy';
 var dstYXZ = [ 0, 0, 0, 1, 0, 2 ];
 var dstYZX = [ 0, 0, 0, 1, 2, 0 ];
 var dstZXY = [ 0, 0, 0, 2, 0, 1 ];
@@ -20,9 +20,12 @@ var dstZYZ = [ 0, 0, 0, 2, 1, 2 ];
 
 debugger;
 
-var dstEuler = [  1, 0.25, 0.5, 0, 1, 2  ];
+var dstEulerN = null;
+var dstEuler = [ 1, 1, 1, 1, 0, 2 ];;
+//var resN = _.euler.represent( dstEulerN, txtYZY );
+var res = _.euler.represent( dstEuler, numXZY );
 
-var gotEuler = _.euler.represent( dstEuler, txtXZY );
-console.log( 'Euler:', gotEuler);
-var gotEuler = _.euler.represent( gotEuler, txtXYZ );
-console.log( 'Euler:', gotEuler);
+//console.log( 'Old Euler:', resN);
+//console.log( 'Old Euler:', dstEulerN);
+console.log( 'Old Euler:', res);
+console.log( 'Old Euler:', dstEuler);
