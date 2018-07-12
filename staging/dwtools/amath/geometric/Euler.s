@@ -1232,8 +1232,8 @@ function fromQuat2( quat, dst )
   var dst = _.euler.from( dst );
   var dstv = _.vector.from( dst );
   var quatv = _.quat._from( quat );
-  var accuracy =  _.EPS;
-  var accuracy2 = _.EPS2;
+  var accuracy =  test.accuracy;
+  var accuracy2 = test.accuracy*test.accuracy;
 
   var ex,ey,ez;
 

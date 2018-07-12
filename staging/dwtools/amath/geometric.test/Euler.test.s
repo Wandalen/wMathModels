@@ -2390,8 +2390,8 @@ function eulerToQuatToEulerToQuat( test )
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
   var quadrantLock = [ 0 ];
-  // var accuracy =  _.EPS;
-  // var accuracy2 =  _.EPS2;
+  // var accuracy =  test.accuracy;
+  // var accuracy2 =  test.accuracy*test.accuracy;
   var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
   var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
@@ -2445,8 +2445,8 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
   var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var quadrant = [ 0, 1, 2, 3 ];
   var quadrantLock = [ 0 ];
-  // var accuracy = _.EPS;
-  // var accuracy2 = _.EPS2;
+  // var accuracy = test.accuracy;
+  // var accuracy2 = test.accuracy*test.accuracy;
   var delta = [ -0.1, -Math.sqrt( accuracy ), -( accuracy2 ), 0, +( accuracy2 ), +Math.sqrt( accuracy ), +0.1 ];
   var deltaLock = [ 0 ];
   var euler = [ 0, 0, 0, 0, 0, 0 ];
@@ -2482,8 +2482,8 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
     var positiveResult = result.slice();
     var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
     var expected = _.vector.toArray( expected );
-    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : _.EPS } );
-    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : _.EPS } );
+    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
+    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
     test.is( eq1 || eq2 );
   }
 
@@ -2555,8 +2555,8 @@ eachAngle.defaults =
   angle : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
   quadrant : [ 0, 1, 2, 3 ],
   quadrantLock : [ 0 ],
-  // accuracy : _.EPS,
-  // accuracy2 : _.EPS2,
+  // accuracy : test.accuracy,
+  // accuracy2 : test.accuracy*test.accuracy,
   delta : [ -0.1, -Math.sqrt( 'Acc' ), -( 'Acc2' ), 0, +( 'Acc2' ), +Math.sqrt( 'Acc' ), +0.1 ],
   deltaLock : [ 0 ],
   onEach : null,
