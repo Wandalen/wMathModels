@@ -2562,6 +2562,298 @@ eachAngle.defaults =
   onEach : null,
 }
 
+
+//
+
+function represent( test )
+{
+
+  test.description = 'Euler representation remains unchanged'; //
+
+  var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var rep = [ 0, 2, 1 ];
+  var oldRep = rep.slice();
+
+  var gotEuler = _.euler.represent( dstEuler, rep );
+  test.equivalent( gotEuler, dstEuler );
+  test.equivalent( rep, oldRep );
+
+  test.description = 'Euler XYZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+  var oldRep = [ 0, 2, 1 ];
+  var rep = [ 0, 1, 2 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler XZY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 0, 2, 1 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler YXZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 1, 0, 2 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler YZX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 1, 2, 0 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler ZXY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 2, 0, 1 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler ZYX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 2, 1, 0 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler XYX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+  var oldRep = [ 0, 2, 1 ];
+  var rep = [ 0, 1, 0 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler XZX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 0, 2, 0 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler YXY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 1, 0, 1 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler YZY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 1, 2, 1 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler ZXZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 2, 0, 2 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler ZYZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldRep = [ 0, 1, 2 ];
+  var rep = [ 2, 1, 2 ];
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler XYZ'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+  var oldRep = 'xzx';
+  var rep = 'xyz';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler XZY'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+  var oldRep = 'xzx';
+  var rep = 'xzy';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler YXZ'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+  var oldRep = 'xzx';
+  var rep = 'yxz';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler YZX'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+  var oldRep = 'xzx';
+  var rep = 'yzx';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler ZXY'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+  var oldRep = 'xzx';
+  var rep = 'zxy';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler ZYX'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+  var oldRep = 'xzx';
+  var rep = 'zyx';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler XYX'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 2, 1 ];
+  var oldRep = 'xzy';
+  var rep = 'xyx';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler XZX'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+  var oldRep = 'xyz';
+  var rep = 'xzx';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler YXY'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+  var oldRep = 'xyz';
+  var rep = 'yxy';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler YZY'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+  var oldRep = 'xyz';
+  var rep = 'yzy';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler ZXZ'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+  var oldRep = 'xyz';
+  var rep = 'zxz';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler ZYZ'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+  var oldRep = 'xyz';
+  var rep = 'zyz';
+
+  var gotEuler = _.euler.represent( srcEuler.slice(), rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent( srcEuler, dstEuler );
+
+  test.description = 'Euler null'; //
+
+  var srcEuler = null;
+  var oldRep = 'xyz';
+  var rep = 'zyz';
+  var expected = [ 0, 0, 0, 0, 1, 2 ];
+
+  var gotEuler = _.euler.represent( srcEuler, rep );
+  var dstEuler = _.euler.represent( gotEuler.slice(), oldRep );
+  test.equivalent(expected, dstEuler );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.euler.represent( ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( [] ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( [ 0, 0, 0, 1, 2, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( [ 0, 0, 0, 1, 2, 0 ], [ 1, 2, 0 ], 'zyx' ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( [ 1, 2, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( 'xyz' ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 1, 2, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 1, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( [ 0, 0.2, 0, 1, 2, 0 ], 'not a good rep' ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( [ 0, 0.2, 0, 0, 1, 2, 0 ], [ 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( NaN, NaN ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( null, null ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( 'euler', 'representation' ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( [ 0, 0, 0, 1, 2, 0 ], 'representation' ) );
+  test.shouldThrowErrorSync( () => _.euler.represent( 'euler', 'xyz' ) );
+
+}
+
+
 // --
 // define class
 // --
@@ -2571,7 +2863,7 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  //routine : 'eulerToQuatToEulerToQuat',
+  routine : 'represent',
   context :
   {
     eachAngle : eachAngle,
@@ -2605,6 +2897,8 @@ var Self =
     eulerToQuatToEulerToQuat : eulerToQuatToEulerToQuat,
     /* Commented because execution is too long (21 minutes) */
     // eulerToQuatToMatrixToEulerToMatrixToQuat : eulerToQuatToMatrixToEulerToMatrixToQuat,
+
+    represent : represent,
 
   },
 

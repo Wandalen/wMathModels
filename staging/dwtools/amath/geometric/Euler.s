@@ -72,7 +72,7 @@ function make2( src, seq )
   if( _.euler.is( src ) )
     _.avector.assign( result, src );
 
-  // Sequence
+  // Representation
   if ( seq === 'xyz' )
   {
     result[ 3 ] = 0;
@@ -1205,10 +1205,10 @@ var Order =
 
 /**
   * Create a set of euler angles from a quaternion. Returns the created euler angles.
-  * Quaternion stay untouched, dst contains the euler angle sequence.
+  * Quaternion stay untouched, dst contains the euler angle representation.
   *
   * @param { Array } quat - Source quaternion.
-  * @param { Array } dst - Destination sequence of Euler angles with source euler angles code.
+  * @param { Array } dst - Destination representation of Euler angles with source euler angles code.
   *
   * @example
   * // returns [ 1, 0, 0, 0, 1, 2 ];
@@ -1557,7 +1557,7 @@ function fromQuat2( quat, dst )
   * Create the quaternion from a set of euler angles. Returns the created quaternion.
   * Euler angles stay untouched.
   *
-  * @param { Array } euler - Source sequence of Euler angles.
+  * @param { Array } euler - Source representation of Euler angles.
   *
   * @example
   * // returns [ 0.49794255, 0, 0, 0.8775826 ];
@@ -2119,7 +2119,7 @@ function fromMatrix2( mat, dst )
   * Create the rotation matrix from a set of euler angles. Returns the created matrix.
   * Euler angles stay untouched.
   *
-  * @param { Array } euler - Source sequence of Euler angles.
+  * @param { Array } euler - Source representation of Euler angles.
   *
   * @example
   * // returns [ 0.7701, -0.4207, 0.4794,
