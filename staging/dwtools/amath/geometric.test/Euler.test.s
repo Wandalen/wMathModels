@@ -2459,7 +2459,7 @@ function eulerToQuatToMatrixToEulerToMatrixToQuat( test )
     quadrantLock : quadrantLock,
     delta: delta,
     deltaLock : deltaLock,
-    onEach : onEach
+    onEach : onEach,
   }
 
   this.eachAngle( o );

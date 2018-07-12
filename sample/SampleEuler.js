@@ -20,13 +20,13 @@ var dstZYZ = [ 0, 0, 0, 2, 1, 2 ];
 
 debugger;
 
-var dstEuler = [  1, 0.25, 0.5, 0, 0, 0  ];
+var dstEuler = [  1, 0.25, 0.5, 0, 1, 2  ];
 
 var gotEuler = _.euler.represent( dstEuler, numXYZ );
 console.log( 'Euler:', gotEuler);
 var gotEuler = _.euler.represent( dstEuler, numXZY );
 console.log( 'Euler:', gotEuler);
-var gotEuler = _.euler.represent( dstEuler, txtXZY );
+var gotEuler = _.euler.represent( dstEuler, txtXYZ );
 console.log( 'Euler:', gotEuler);
 var gotEuler = _.euler.represent( dstEuler, txtXZY );
 console.log( 'Euler:', gotEuler);

@@ -72,83 +72,85 @@ function make2( src, seq )
   if( _.euler.is( src ) )
     _.avector.assign( result, src );
 
-   // Sequence
-   if ( seq === 'xyz' )
-   {
-     result[ 3 ] = 0;
-     result[ 4 ] = 1;
-     result[ 5 ] = 2;
-   }
-   else if ( seq === 'xzy' )
-   {
-     result[ 3 ] = 0;
-     result[ 4 ] = 2;
-     result[ 5 ] = 1;
-   }
-   else if ( seq === 'yxz' )
-   {
-     result[ 3 ] = 1;
-     result[ 4 ] = 0;
-     result[ 5 ] = 2;
-   }
-   else if ( seq === 'yzx' )
-   {
-     result[ 3 ] = 1;
-     result[ 4 ] = 2;
-     result[ 5 ] = 0;
-   }
-   else if ( seq === 'zxy' )
-   {
-     result[ 3 ] = 2;
-     result[ 4 ] = 0;
-     result[ 5 ] = 1;
-   }
-   else if ( seq === 'zyx' )
-   {
-     result[ 3 ] = 2;
-     result[ 4 ] = 1;
-     result[ 5 ] = 0;
-   }
-   else if ( seq === 'xyx' )
-   {
-     result[ 3 ] = 0;
-     result[ 4 ] = 1;
-     result[ 5 ] = 0;
-   }
-   else if ( seq === 'xzx' )
-   {
-     result[ 3 ] = 0;
-     result[ 4 ] = 2;
-     result[ 5 ] = 0;
-   }
-   else if ( seq === 'yxy' )
-   {
-     result[ 3 ] = 1;
-     result[ 4 ] = 0;
-     result[ 5 ] = 1;
-   }
-   else if ( seq === 'yzy' )
-   {
-     result[ 3 ] = 1;
-     result[ 4 ] = 2;
-     result[ 5 ] = 1;
-   }
-   else if ( seq === 'zxz' )
-   {
-     result[ 3 ] = 2;
-     result[ 4 ] = 0;
-     result[ 5 ] = 2;
-   }
-   else if ( seq === 'zyz' )
-   {
-     result[ 3 ] = 2;
-     result[ 4 ] = 1;
-     result[ 5 ] = 2;
-   }
-   else
-   {}
+  // Sequence
+  if ( seq === 'xyz' )
+  {
+    result[ 3 ] = 0;
+    result[ 4 ] = 1;
+    result[ 5 ] = 2;
+  }
+  else if ( seq === 'xzy' )
+  {
+    result[ 3 ] = 0;
+    result[ 4 ] = 2;
+    result[ 5 ] = 1;
+  }
+  else if ( seq === 'yxz' )
+  {
+    result[ 3 ] = 1;
+    result[ 4 ] = 0;
+    result[ 5 ] = 2;
+  }
+  else if ( seq === 'yzx' )
+  {
+    result[ 3 ] = 1;
+    result[ 4 ] = 2;
+    result[ 5 ] = 0;
+  }
+  else if ( seq === 'zxy' )
+  {
+    result[ 3 ] = 2;
+    result[ 4 ] = 0;
+    result[ 5 ] = 1;
+  }
+  else if ( seq === 'zyx' )
+  {
+    result[ 3 ] = 2;
+    result[ 4 ] = 1;
+    result[ 5 ] = 0;
+  }
+  else if ( seq === 'xyx' )
+  {
+    result[ 3 ] = 0;
+    result[ 4 ] = 1;
+    result[ 5 ] = 0;
+  }
+  else if ( seq === 'xzx' )
+  {
+    result[ 3 ] = 0;
+    result[ 4 ] = 2;
+    result[ 5 ] = 0;
+  }
+  else if ( seq === 'yxy' )
+  {
+    result[ 3 ] = 1;
+    result[ 4 ] = 0;
+    result[ 5 ] = 1;
+  }
+  else if ( seq === 'yzy' )
+  {
+    result[ 3 ] = 1;
+    result[ 4 ] = 2;
+    result[ 5 ] = 1;
+  }
+  else if ( seq === 'zxz' )
+  {
+    result[ 3 ] = 2;
+    result[ 4 ] = 0;
+    result[ 5 ] = 2;
+  }
+  else if ( seq === 'zyz' )
+  {
+    result[ 3 ] = 2;
+    result[ 4 ] = 1;
+    result[ 5 ] = 2;
+  }
+  else
+  {
+    throw _.err( 'Not an Euler Representation.' );
+  }
 
-   return result;
+  return result;
 }
 
 //
@@ -2328,11 +2330,11 @@ function toMatrix2( euler )
 //
 
 /**
-  * Changes the representation of an euler Angle in one of two format ( 'xyz or [ 0, 1, 2 ]').
+  * Changes the representation of an euler Angle in one of two format ( 'xyz' or [ 0, 1, 2 ] ).
   * Euler representation stay untouched, dstEuler changes.
   *
   * @param { Array } representation - Source representation of Euler angles.
-  * @param { Array } dstEuler - Destination Euler angle.
+  * @param { Array } dstEuler - Source and destination Euler angle.
   *
   * @example
   * // returns [ 0, 0, 0, 2, 0, 2 ]
@@ -2340,9 +2342,9 @@ function toMatrix2( euler )
   *
   * @example
   * // returns [ 0, 0, 0, 'yzx' ]
-  * _.represent( [ 0, 0, 0, 'yzx' ] );
+  * _.represent( [ 0, 0, 0, 1, 2, 0 ], 'yzx' );
   *
-  * @returns { Array } Returns the destination Euler angle with the corresponding representation..
+  * @returns { Array } Returns the destination Euler angle with the corresponding representation.
   * @function represent
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstEuler ) is not euler.
@@ -2359,19 +2361,11 @@ function represent( dstEuler, representation )
   if( dstEuler === null )
   dstEuler = _.euler.make();
 
+  var quaternion = _.euler.toQuat2( dstEuler );
+
   if( _.strIs( representation ) )
   {
-    if( representation === 'xyz' || representation === 'xzy' || representation === 'yxz' || representation === 'yzx' ||
-        representation === 'zxy' || representation === 'zyx' || representation === 'xyx' || representation === 'xzx' ||
-        representation === 'yxy' || representation === 'yzy' || representation === 'zxz' || representation === 'zyz' )
-    {
-      dstEuler = dstEuler.slice( 0, 3 );
-      dstEuler[ 3 ] = representation;
-    }
-    else
-    {
-      throw _.err( 'Not an Euler Representation.' );
-    }
+    dstEuler = _.euler.make2( dstEuler, representation );
   }
 
   else if( _.arrayIs( representation ) )
@@ -2381,7 +2375,6 @@ function represent( dstEuler, representation )
         ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
         ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
     {
-      dstEuler = dstEuler.slice( 0, 3 );
       dstEuler[ 3 ] = representation[ 0 ];
       dstEuler[ 4 ] = representation[ 1 ];
       dstEuler[ 5 ] = representation[ 2 ];
@@ -2392,6 +2385,7 @@ function represent( dstEuler, representation )
     }
   }
 
+  dstEuler = fromQuat2( quaternion, dstEuler );
   return dstEuler;
 }
 
