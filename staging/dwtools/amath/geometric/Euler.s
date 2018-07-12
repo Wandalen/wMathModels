@@ -2121,8 +2121,8 @@ function fromMatrix2( mat, dst )
   *
   * @example
   * // returns [ 0.7701, -0.4207, 0.4794,
-                 0.6224, 0.6599, - 0.4207,
-                 - 0.1393, 0.6224, 0.7701 ];
+  *              0.6224, 0.6599, - 0.4207,
+  *              - 0.1393, 0.6224, 0.7701 ];
   * _.toMatrix2( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
   *
   * @example
@@ -2325,6 +2325,76 @@ function toMatrix2( euler )
   return mat;
 }
 
+//
+
+/**
+  * Changes the representation of an euler Angle in one of two format ( 'xyz or [ 0, 1, 2 ]').
+  * Euler representation stay untouched, dstEuler changes.
+  *
+  * @param { Array } representation - Source representation of Euler angles.
+  * @param { Array } dstEuler - Destination Euler angle.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 2, 0, 2 ]
+  * _.represent( [ 0, 0, 0, 0, 0, 0 ], [ 2, 0, 2 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 'yzx' ]
+  * _.represent( [ 0, 0, 0, 'yzx' ] );
+  *
+  * @returns { Array } Returns the destination Euler angle with the corresponding representation..
+  * @function represent
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstEuler ) is not euler.
+  * @throws { Error } An Error if ( representation ) is not an euler angle representation.
+  * @memberof wTools.euler
+  */
+
+function represent( dstEuler, representation )
+{
+  _.assert( dstEuler === null || _.euler.is( dstEuler ) );
+  _.assert( _.arrayIs( representation ) || _.strIs( representation ) );
+  _.assert( arguments.length === 2, 'expects two arguments' );
+
+  if( dstEuler === null )
+  dstEuler = _.euler.make();
+
+  if( _.strIs( representation ) )
+  {
+    if( representation === 'xyz' || representation === 'xzy' || representation === 'yxz' || representation === 'yzx' ||
+        representation === 'zxy' || representation === 'zyx' || representation === 'xyx' || representation === 'xzx' ||
+        representation === 'yxy' || representation === 'yzy' || representation === 'zxz' || representation === 'zyz' )
+    {
+      dstEuler = dstEuler.slice( 0, 3 );
+      dstEuler[ 3 ] = representation;
+    }
+    else
+    {
+      throw _.err( 'Not an Euler Representation.' );
+    }
+  }
+
+  else if( _.arrayIs( representation ) )
+  {
+    _.assert( representation.length === 3 );
+    if( ( representation[ 0 ] === 0 || representation[ 0 ] === 1 || representation[ 0 ] === 2 ) &&
+        ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
+        ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
+    {
+      dstEuler = dstEuler.slice( 0, 3 );
+      dstEuler[ 3 ] = representation[ 0 ];
+      dstEuler[ 4 ] = representation[ 1 ];
+      dstEuler[ 5 ] = representation[ 2 ];
+    }
+    else
+    {
+      throw _.err( 'Not an Euler Representation.' );
+    }
+  }
+
+  return dstEuler;
+}
+
 // --
 // define class
 // --
@@ -2353,6 +2423,8 @@ var Proto =
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
   toMatrix2 : toMatrix2,
+
+  represent : represent,
 
   Order : Order,
 
