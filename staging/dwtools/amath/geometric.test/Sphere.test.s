@@ -908,8 +908,6 @@ function sphereIntersects( test )
 
   test.description = 'dst and src are nil';
 
-  test.description = 'src is nil';
-
   var sphere = _.sphere.makeNil();
   var sphere2 = _.sphere.makeNil();
   var expected = true;
@@ -923,13 +921,129 @@ function sphereIntersects( test )
   return;
 
     test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( ) );
-    test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( 'boxOne', 'boxTwo' ) );
-    test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ], 'boxTwo' ) );
-    test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( 'boxOne', [ 1,2,3,4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( 'sphereOne', 'sphereTwo' ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ], 'sphereTwo' ) );
+    test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( 'sphereOne', [ 1,2,3,4 ] ) );
     test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
     test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
     test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ] ) );
     test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+
+}
+
+//
+
+function boxIntersects( test )
+{
+  test.description = 'Sphere and box remain unchanged'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var oldSphere = [ 0, 0, 0, 1 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var oldBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.identical( gotBool, expected );
+  test.identical( sphere, oldSphere );
+  test.identical( box, oldBox );
+
+  test.description = 'Intersection of empty sphere and box'; /* */
+
+  var sphere = [ 0, 0, 0, 0 ];
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = true;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.description = 'Trivial intersection'; /* */
+
+  var sphere = [ - 1, 2, 0, 2 ];
+  var box = [ - 2, 0, 0, 0, 2, 1 ];
+  var expected = true;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.description = 'Sphere inside box'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = true;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.description = 'Box inside sphere'; /* */
+
+  var sphere = [ 0, 0, 0, 6 ];
+  var box = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = true;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.description = 'Just touching'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ 1, 0, 0, 2, 1, 1 ];
+  var expected = true;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.description = 'Not intersecting'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ 2, 2, 2, 3, 3, 3 ];
+  var expected = false;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.description = 'One corner of the box in sphere'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = true;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.description = 'Sphere is nil';
+
+  var sphere = _.sphere.makeNil();
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = true;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool,expected );
+
+  test.description = 'box is nil';
+
+  var sphere = [ 0,0,0,2 ];
+  var box = _.box.makeNil();
+  var expected = false;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool,expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1, 2, 3, 4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4, 5, 6 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( 'sphere', 'box' ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1, 2, 3, 4 ], 'box' ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( 'sphere', [ 1, 2, 3, 4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4, 5, 6, 7 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1, 2, 3, 4 ], null ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxIntersects( null, [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -2101,6 +2215,7 @@ var Self =
     sphereFromBox : sphereFromBox,
     sphereExpand : sphereExpand,
     sphereIntersects : sphereIntersects,
+    boxIntersects : boxIntersects,
 
     pointExpand : pointExpand,
 
