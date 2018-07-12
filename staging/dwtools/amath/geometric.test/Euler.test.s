@@ -2507,7 +2507,7 @@ function eachAngle( o )
   var quadrantLock = o.quadrantLock.slice();
   var delta = o.delta.slice( 0, 1 );
   var deltaLock = o.deltaLock.slice();
-
+  debugger;
   /**/
 
   for( var i = 0; i < eulerSeqs.length; i++ )
@@ -2576,7 +2576,7 @@ function represent( test )
   var oldRep = rep.slice();
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.equivalent( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   test.equivalent( rep, oldRep );
 
   test.description = 'Euler XYZ'; //
@@ -2587,7 +2587,7 @@ function represent( test )
   var rep = [ 0, 1, 2 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2599,7 +2599,7 @@ function represent( test )
   var rep = [ 0, 2, 1 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2611,7 +2611,7 @@ function represent( test )
   var rep = [ 1, 0, 2 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2623,7 +2623,7 @@ function represent( test )
   var rep = [ 1, 2, 0 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2635,7 +2635,7 @@ function represent( test )
   var rep = [ 2, 0, 1 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2647,7 +2647,7 @@ function represent( test )
   var rep = [ 2, 1, 0 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2659,7 +2659,7 @@ function represent( test )
   var rep = [ 0, 1, 0 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2671,7 +2671,7 @@ function represent( test )
   var rep = [ 0, 2, 0 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2683,7 +2683,7 @@ function represent( test )
   var rep = [ 1, 0, 1 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2695,7 +2695,7 @@ function represent( test )
   var rep = [ 1, 2, 1 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2707,7 +2707,7 @@ function represent( test )
   var rep = [ 2, 0, 2 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2719,7 +2719,7 @@ function represent( test )
   var rep = [ 2, 1, 2 ];
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2731,7 +2731,7 @@ function represent( test )
   var rep = 'xyz';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2743,7 +2743,7 @@ function represent( test )
   var rep = 'xzy';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2755,7 +2755,7 @@ function represent( test )
   var rep = 'yxz';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2767,7 +2767,7 @@ function represent( test )
   var rep = 'yzx';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2779,7 +2779,7 @@ function represent( test )
   var rep = 'zxy';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2791,7 +2791,7 @@ function represent( test )
   var rep = 'zyx';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2803,7 +2803,7 @@ function represent( test )
   var rep = 'xyx';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2815,7 +2815,7 @@ function represent( test )
   var rep = 'xzx';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2827,7 +2827,7 @@ function represent( test )
   var rep = 'yxy';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2839,7 +2839,7 @@ function represent( test )
   var rep = 'yzy';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2851,7 +2851,7 @@ function represent( test )
   var rep = 'zxz';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2863,7 +2863,7 @@ function represent( test )
   var rep = 'zyz';
 
   var gotEuler = _.euler.represent( dstEuler, rep );
-  test.identical( gotEuler, dstEuler );
+  test.is( gotEuler === dstEuler );
   var result = _.euler.represent( gotEuler, oldRep );
   test.equivalent( result, srcEuler );
 
@@ -2944,7 +2944,7 @@ var Self =
     /* execution duration = 12 minutes */
     eulerToQuatToEulerToQuat : eulerToQuatToEulerToQuat,
     /* Commented because execution is too long (21 minutes) */
-    // eulerToQuatToMatrixToEulerToMatrixToQuat : eulerToQuatToMatrixToEulerToMatrixToQuat,
+    //eulerToQuatToMatrixToEulerToMatrixToQuat : eulerToQuatToMatrixToEulerToMatrixToQuat,
 
     represent : represent,
 
