@@ -689,6 +689,60 @@ function sphereIntersects( sphere1, sphere2 )
 
 //
 
+/**
+  * Checks if a sphere and a box Intersect. Returns True if they intersect.
+  * Sphere and box remain unchanged.
+  *
+  * @param { Array } sphere - Source sphere.
+  * @param { Array } box - Source box
+  *
+  * @example
+  * // returns true
+  * _.boxIntersects( [ - 1, - 1, - 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @example
+  * // returns false
+  * _.boxIntersects( [ - 2, - 2, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the box and the sphere intersect and false if not.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+
+function boxIntersects( sphere, box )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  var _sphere = _.sphere._from( sphere );
+  var center = _.sphere.centerGet( _sphere );
+  var radius = _.sphere.radiusGet( _sphere );
+  var dimS = _.sphere.dimGet( _sphere );
+
+  var boxv = _.box._from( box );
+  var dimB = _.box.dimGet( boxv );
+
+  _.assert( dimS === dimB, 'Arguments must have same dimension' );
+
+  if( _.box.pointContains( boxv, center ) === true )
+  {
+    return true;
+  }
+  else
+  {
+    var distance = _.box.pointDistance( boxv, center );
+    console.log( distance );
+    if( distance <= radius )
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+//
+
 function matrixHomogenousApply( sphere,matrix )
 {
 
@@ -769,6 +823,7 @@ var Proto =
 
   sphereExpand : sphereExpand,
   sphereIntersects : sphereIntersects,
+  boxIntersects : boxIntersects,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

@@ -894,7 +894,7 @@ function pointDistance( box , point )
 
   var clamped = _.box.pointClamp( box, point.slice() );
 
-  return _.avector.distance( point,clamped );
+  return _.avector.distance( point, clamped );
 
   debugger;
 }
