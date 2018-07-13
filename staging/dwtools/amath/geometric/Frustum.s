@@ -362,7 +362,6 @@ function sphereIntersects( frustum , sphere )
 
 //
 
-
 /**
   * Check if a frustum and a box intersect. Returns true if they intersect.
   * Frustum and box remain unchanged.
@@ -450,7 +449,7 @@ function boxIntersects( frustum , box )
     {
       return true;
     }
-   }
+  }
   return false;
 }
 
@@ -639,7 +638,7 @@ function pointClosestPoint( frustum , point )
       {
         finalpoint = p ; d0 = d;
       }
-     }
+    }
       dstpoint = _.vector.from( finalpoint );
   }
 

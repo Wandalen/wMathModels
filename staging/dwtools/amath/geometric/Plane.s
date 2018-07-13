@@ -612,7 +612,6 @@ function lineIntersection( plane , line , point )
 
   if( Math.abs( dot ) < _.EPS2 )
   {
-
     if( _.plane.pointDistance( plane, line[ 0 ] ) < _.EPS2 )
     {
       _.avector.assign( point,line[ 0 ] );
@@ -670,23 +669,25 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
 
   var Ispoint = _.vector.dot( normalone, _.vector.cross( normaltwo.clone(), normalthree ) );
 
-  if( Ispoint != 0){
-  var cross23 = _.vector.cross( normaltwo.clone(), normalthree );
-  var cross31 = _.vector.cross( normalthree.clone(), normalone );
-  var cross12 = _.vector.cross( normalone.clone(), normaltwo );
+  if( Ispoint != 0)
+  {
+    var cross23 = _.vector.cross( normaltwo.clone(), normalthree );
+    var cross31 = _.vector.cross( normalthree.clone(), normalone );
+    var cross12 = _.vector.cross( normalone.clone(), normaltwo );
 
-  var Mcross23 = _.vector.mulScalar( cross23, - 1.0*biasone );
-  var Mcross31 = _.vector.mulScalar( cross31, - 1.0*biastwo );
-  var Mcross12 = _.vector.mulScalar( cross12, - 1.0*biasthree );
+    var Mcross23 = _.vector.mulScalar( cross23, - 1.0*biasone );
+    var Mcross31 = _.vector.mulScalar( cross31, - 1.0*biastwo );
+    var Mcross12 = _.vector.mulScalar( cross12, - 1.0*biasthree );
 
-  var point = _.vector.mulScalar( _.vector.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
+    var point = _.vector.mulScalar( _.vector.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
 
-  return point;
+    return point;
   }
 
-  else{
-  point = NaN;
-  return point;
+  else
+  {
+    point = NaN;
+    return point;
   }
 
 }
@@ -754,7 +755,7 @@ function translate( plane , offset )
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   debugger;
-//  throw _.err( 'not tested' );
+  //  throw _.err( 'not tested' );
 
   _.plane.biasSet( plane, bias - _.vector.dot( normal,_offset ) )
 

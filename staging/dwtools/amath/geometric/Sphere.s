@@ -226,7 +226,7 @@ function fromBox( sphere, box )
   var dim = _.sphere.dimGet( spherev );
 
   _.assert( dim === _.box.dimGet( box ) );
-//  _.assert( dim === _.sphere.dimGet(  sphere) );
+  //  _.assert( dim === _.sphere.dimGet(  sphere) );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   center.copy( min );

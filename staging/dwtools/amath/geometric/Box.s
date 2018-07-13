@@ -259,7 +259,6 @@ function fromCenterAndSize( box , center , size )
 
 //
 
-
 /**
   * Create or expand box from sphere. Returns the expanded box.
   * Box are stored in Array data structure. Sphere stays untouched, box changes.
@@ -945,16 +944,6 @@ function boxContains( box , box2 )
 }
 
 //
-
-
-/**
-*Expand destination box by source box. Returns destination box. Box are stored in Array data structure. Source box stays untouched.
-*
-* @param { Array } dstBox - box to be expanded.
-* @param { Array } srcBox - source box with expansion dimensions.
-* @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
-* @memberof wTools.box
-*/
 
 /**
   *Check if srcBox intersects with tstBox. Returns true if the boxes intersect, false if not (if only side is touching then they don´t intersect).
