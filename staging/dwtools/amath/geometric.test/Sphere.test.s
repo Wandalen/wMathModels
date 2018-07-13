@@ -1022,9 +1022,27 @@ function boxIntersects( test )
 
   test.description = 'box is nil';
 
-  var sphere = [ 0,0,0,2 ];
+  var sphere = [ 0, 0, 0, 2 ];
   var box = _.box.makeNil();
   var expected = false;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool,expected );
+
+  test.description = 'Negative distance no intersection';
+
+  var sphere = [ 0, 0, 0, 2 ];
+  var box = [ -4, -4, -4, -3, -3, -3 ];
+  var expected = false;
+  var gotBool = _.sphere.boxIntersects( sphere, box );
+
+  test.equivalent( gotBool,expected );
+
+  test.description = 'box is nil';
+
+  var sphere = [ 0, 0, 0, 2 ];
+  var box = [ -4, -4, -4, -1, -1, -1 ];
+  var expected = true;
   var gotBool = _.sphere.boxIntersects( sphere, box );
 
   test.equivalent( gotBool,expected );

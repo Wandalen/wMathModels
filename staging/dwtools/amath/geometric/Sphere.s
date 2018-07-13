@@ -743,6 +743,75 @@ function boxIntersects( sphere, box )
 
 //
 
+/**
+  * Expands an sphere with a box. Returns the expanded sphere.
+  * Sphere changes and box remain unchanged.
+  *
+  * @param { Array } dstSphere - Destination sphere.
+  * @param { Array } srcBox - Source box
+  *
+  * @example
+  * // returns true
+  * _.boxExpand( [ - 1, - 1, - 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @example
+  * // returns false
+  * _.boxExpand( [ - 2, - 2, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
+  *
+  * @returns { Sphere } Returns an array with the center and radius of the expanded sphere.
+  * @function boxExpand
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+function boxExpand( dstSphere, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( dimS === dimB );
+
+  var _sphere = _.sphere._from( dstSphere );
+  var center = _.sphere.centerGet( _sphere );
+  var radius = _.sphere.radiusGet( _sphere );
+  var dimS = _.sphere.dimGet( _sphere );
+
+  var boxv = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
+
+  /* box corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  min = _.vector.toArray( min ); max = _.vector.toArray( max );
+  var col = c.colVectorGet( 0 ); col.copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ min[ 0 ], min[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ max[ 0 ], max[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ min[ 0 ], max[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ max[ 0 ], min[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ max[ 0 ], max[ 1 ], min[ 2 ] ] );
+
+  var distance = radius;
+  var center = _.vector.toArray( center );
+  for( var j = 0 ; j < 8 ; j++ )
+  {
+    var corner = _.vector.toArray( c.colVectorGet( j ) );
+    var d = _.avector.distance( corner, center );
+    if( d > distance )
+    {
+      console.log(center,' - ',corner,'  Distance: ', d);
+      distance = d;
+    }
+  }
+
+  _.sphere.radiusSet( _sphere, distance );
+
+  return dstSphere;
+}
+
+//
+
 function matrixHomogenousApply( sphere,matrix )
 {
 
@@ -824,6 +893,7 @@ var Proto =
   sphereExpand : sphereExpand,
   sphereIntersects : sphereIntersects,
   boxIntersects : boxIntersects,
+  boxExpand : boxExpand,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
