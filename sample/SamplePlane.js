@@ -3,16 +3,13 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var plane1 = [ 1, 0, 0, -1 ];
-var plane2 = [ - 1, 0, 0, 0 ];
-var plane3 = [ 1, 0, 0, 2 ];
-
-var Intpoint = _.vector.from( [ 1.1, 1.1, 1.1 ] );
+var plane1 = [ 1, 0, 0, 0 ];
 
 
-IntPoint = _.plane.pointDistance( plane1, Intpoint);
-console.log('Point: ', IntPoint );
+var sphere = [  1, 0, 0, 1];
 
-IntPoint = _.plane.pointDistance( plane2, Intpoint);
-console.log('Point: ', IntPoint );
+var d = _.plane.sphereDistance( plane1, sphere );
+console.log( d );
+var i = _.plane.sphereIntersects( plane1, sphere );
+console.log( i );
 debugger;

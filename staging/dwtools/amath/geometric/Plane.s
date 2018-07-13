@@ -66,7 +66,7 @@ function is( plane )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( normal ) is not array.
   * @throws { Error } An Error if ( bias ) is not number.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function from( plane )
@@ -121,7 +121,7 @@ function from( plane )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( anormal ) is not array.
   * @throws { Error } An Error if ( apoint ) is not a point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function fromNormalAndPoint( plane, anormal, apoint )
@@ -168,7 +168,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
   * @throws { Error } An Error if ( a ) is not a point.
   * @throws { Error } An Error if ( b ) is not a point.
   * @throws { Error } An Error if ( c ) is not a point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function fromPoints( plane,a,b,c )
@@ -264,7 +264,7 @@ function biasSet( plane,bias )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not a vector.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function pointDistance( plane , point )
@@ -305,7 +305,7 @@ function pointDistance( plane , point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function pointCoplanarGet( plane , point )
@@ -358,6 +358,7 @@ function pointCoplanarGet( plane , point )
 /**
   * Get the distance between a plane and a sphere. Returns the distance value.
   * The sphere an the plane remain unchanged.
+  * If sphere and plane intersect, it returns a negative distance.
   *
   * @param { Array } plane - Source plane.
   * @param { Array } sphere - Source sphere.
@@ -371,7 +372,7 @@ function pointCoplanarGet( plane , point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function sphereDistance( plane , sphere )
@@ -389,14 +390,57 @@ function sphereDistance( plane , sphere )
   //throw _.err( 'not tested' );
 
   var d = _.plane.pointDistance( plane , center );
-  console.log('distance', d);
-  d = d - _.sphere.radiusGet( sphere );
-  console.log('distance', d, ' radius ', _.sphere.radiusGet( sphere ));
+  d = Math.abs( d ) - _.sphere.radiusGet( sphere );
   return d;
 }
 
 //
 
+//
+
+/**
+  * Check if a plane and a sphere intersect. Returns true if they intersect and false if not.
+  * The sphere an the plane remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.sphereIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 8 ]);
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the plane and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.plane
+  */
+
+function sphereIntersects( plane , sphere )
+{
+  var bool = false;
+  var _plane = _.plane._from( plane );
+  _.assert( _.sphere.is( sphere ) );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  debugger;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+
+  if( distance <= 0 )
+  {
+    bool = true;
+  }
+
+  return bool;
+}
+
+//
 
 /**
   * Check if a plane and a line intersect. Returns true if they intersect.
@@ -418,7 +462,7 @@ function sphereDistance( plane , sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function lineIntersects( plane , line )
@@ -462,7 +506,7 @@ function lineIntersects( plane , line )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function lineIntersection( plane , line , point )
@@ -522,7 +566,7 @@ function lineIntersection( plane , line , point )
   * @function threeIntersectionPoint
   * @throws { Error } An Error if ( arguments.length ) is different than three.
   * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function threeIntersectionPoint( planeone , planetwo , planethree )
@@ -614,7 +658,7 @@ function matrixHomogenousApply( plane , matrix )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( offset ) is not point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function translate( plane , offset )
@@ -654,7 +698,7 @@ function translate( plane , offset )
   * @function normalize
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function normalize( plane )
@@ -696,7 +740,7 @@ function normalize( plane )
   * @function negate
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function negate( plane )
@@ -740,6 +784,7 @@ var Proto =
   pointCoplanarGet : pointCoplanarGet,
 
   sphereDistance : sphereDistance,
+  sphereIntersects : sphereIntersects,
 
   lineIntersects : lineIntersects,
 

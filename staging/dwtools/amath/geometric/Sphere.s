@@ -174,7 +174,7 @@ function _from( sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( point ) is not array.
-  * @memberof wTools.box
+  * @memberof wTools.sphere
   */
 
 function fromPoints( sphere, points )
@@ -266,7 +266,7 @@ function fromBox( sphere, box )
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( center ) is not point.
   * @throws { Error } An Error if ( radius ) is not number.
-  * @memberof wTools.box
+  * @memberof wTools.sphere
   */
 
 function fromCenterAndRadius( sphere,center,radius )

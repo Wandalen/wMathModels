@@ -678,7 +678,7 @@ function sphereDistance( test )
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ 0, 3, 0, 1 ];
-  var expected = - 3;
+  var expected = 1;
 
   var distance = _.plane.sphereDistance( plane, sphere );
   test.identical( distance, expected );
@@ -1342,7 +1342,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'negate',
+  routine: 'sphereDistance',
 
   tests :
   {
