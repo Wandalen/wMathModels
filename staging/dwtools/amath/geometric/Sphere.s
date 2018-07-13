@@ -745,7 +745,7 @@ function boxIntersects( sphere, box )
 
 /**
   * Expands an sphere with a box. Returns the expanded sphere.
-  * Sphere changes and box remain unchanged.
+  * Sphere changes and box remains unchanged.
   *
   * @param { Array } dstSphere - Destination sphere.
   * @param { Array } srcBox - Source box
@@ -767,7 +767,6 @@ function boxIntersects( sphere, box )
 function boxExpand( dstSphere, srcBox )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( dimS === dimB );
 
   var _sphere = _.sphere._from( dstSphere );
   var center = _.sphere.centerGet( _sphere );
@@ -778,6 +777,8 @@ function boxExpand( dstSphere, srcBox )
   var dimB = _.box.dimGet( boxv );
   var min = _.box.cornerLeftGet( boxv );
   var max = _.box.cornerRightGet( boxv );
+
+  _.assert( dimS === dimB );
 
   /* box corners */
 

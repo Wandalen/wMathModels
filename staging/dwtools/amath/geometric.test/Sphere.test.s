@@ -1038,7 +1038,7 @@ function boxIntersects( test )
 
   test.equivalent( gotBool,expected );
 
-  test.description = 'box is nil';
+  test.description = 'Negative distance - intersection';
 
   var sphere = [ 0, 0, 0, 2 ];
   var box = [ -4, -4, -4, -1, -1, -1 ];
@@ -1062,6 +1062,151 @@ function boxIntersects( test )
     test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4, 5, 6, 7 ] ) );
     test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1, 2, 3, 4 ], null ) );
     test.shouldThrowErrorSync( () => _.sphere.boxIntersects( null, [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function boxExpand( test )
+{
+  test.description = 'Sphere changes and box remains unchanged'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var oldSphere = [ 0, 0, 0, 1 ];
+  var box = [ 0, 0, 0, 4, 3, 0 ];
+  var oldBox = [ 0, 0, 0, 4, 3, 0 ];
+  var expected = [ 0, 0, 0, 5 ];;
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.identical( gotSphere, expected );
+  test.identical( box, oldBox );
+
+  test.description = 'Expansion of empty sphere'; /* */
+
+  var sphere = [ 0, 0, 0, 0 ];
+  var box = [ 0, 0, 0, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 1 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.identical( gotSphere, expected );
+
+  test.description = 'Trivial expansion'; /* */
+
+  var sphere = [ - 1, 0, 0, 2 ];
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ - 1, 0, 0, 4.1231056256 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.equivalent( gotSphere, expected );
+
+  test.description = 'Expansion - box is point'; /* */
+
+  var sphere = [ - 1, 0, 0, 2 ];
+  var box = [ 3, 0, 0, 3, 0, 0 ];
+  var expected = [ - 1, 0, 0, 4 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.identical( gotSphere, expected );
+
+  test.description = 'Sphere inside box'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = [ 0, 0, 0, 3.46410161513 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.equivalent( gotSphere, expected );
+
+  test.description = 'Box inside sphere - no expansion'; /* */
+
+  var sphere = [ 0, 0, 0, 6 ];
+  var box = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = [ 0, 0, 0, 6 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.identical( gotSphere, expected );
+
+  test.description = 'Zero Box - no expansion'; /* */
+
+  var sphere = [ 0, 0, 0, 6 ];
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 6 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.identical( gotSphere, expected );
+
+  test.description = 'Just touching - expansion'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ 1, 0, 0, 2, 1, 1 ];
+  var expected = [ 0, 0, 0, 2.449489742 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.equivalent( gotSphere, expected );
+
+  test.description = 'Just touching - no expansion'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ 0, 0, 0, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 1 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.identical( gotSphere, expected );
+
+  test.description = 'One corner of the box in sphere'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ 0, 0, 0, 2, - 2, 2 ];
+  var expected = [ 0, 0, 0, 3.4641016151 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.equivalent( gotSphere, expected );
+
+  test.description = 'Sphere is nil';
+
+  var sphere = _.sphere.makeNil();
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected =  [ 0, 0, 0, 3.4641016151 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.equivalent( gotSphere,expected );
+
+  test.description = 'box is nil';
+
+  var sphere = [ 0, 0, 0, 2 ];
+  var box = _.box.makeNil();
+  var expected = [ 0, 0, 0, Infinity ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.identical( gotSphere,expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4, 5, 6 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( 'sphere', 'box' ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ], 'box' ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( 'sphere', [ 1, 2, 3, 4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4, 5, 6, 7 ] ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ], null ) );
+    test.shouldThrowErrorSync( () => _.sphere.boxExpand( null, [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -2212,7 +2357,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine : 'fromCenterAndRadius',
+  // routine : 'boxExpand',
 
   tests :
   {
@@ -2234,6 +2379,7 @@ var Self =
     sphereExpand : sphereExpand,
     sphereIntersects : sphereIntersects,
     boxIntersects : boxIntersects,
+    boxExpand : boxExpand,
 
     pointExpand : pointExpand,
 
