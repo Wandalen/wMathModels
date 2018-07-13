@@ -396,11 +396,9 @@ function sphereDistance( plane , sphere )
 
 //
 
-//
-
 /**
   * Check if a plane and a sphere intersect. Returns true if they intersect and false if not.
-  * The sphere an the plane remain unchanged.
+  * The sphere and the plane remain unchanged.
   *
   * @param { Array } plane - Source plane.
   * @param { Array } sphere - Source sphere.
@@ -437,6 +435,91 @@ function sphereIntersects( plane , sphere )
     bool = true;
   }
 
+  return bool;
+}
+
+//
+
+/**
+  * Check if a plane and a box intersect. Returns true if they intersect and false if not.
+  * The box and the plane remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.boxIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 8 ]);
+  *
+  * @example
+  * // returns false;
+  * _.boxIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the plane and the box intersect.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
+  * @memberof wTools.plane
+  */
+
+function boxIntersects( plane , srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  var bool = false;
+  var _plane = _.plane._from( plane );
+  var dimP = _.plane.dimGet( _plane );
+  var boxv = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
+
+  _.assert( dimP === dimB );
+
+  /* box corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  min = _.vector.toArray( min ); max = _.vector.toArray( max );
+  var col = c.colVectorGet( 0 ); col.copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ min[ 0 ], min[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ max[ 0 ], max[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ min[ 0 ], max[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ max[ 0 ], min[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ max[ 0 ], max[ 1 ], min[ 2 ] ] );
+
+  min = _.vector.fromArray( min );
+  var distance = _.plane.pointDistance( plane, min );
+  if( distance === 0 )
+  {
+    bool = true;
+  }
+  else
+  {
+    var side = distance/distance;
+    console.log(distance, '  -  ',side);
+    for( var j = 1 ; j < 8 ; j++ )
+    {
+      var corner = c.colVectorGet( j );
+      distance = _.plane.pointDistance( plane, corner );
+      if( distance === 0 )
+      {
+        bool = true;
+      }
+      else
+      {
+        var newSide = distance/distance;
+        console.log(distance, '  -  ',newSide);
+        if( side === - newSide )
+        {
+          bool = true;
+        }
+      }
+    }
+  }
   return bool;
 }
 
@@ -785,6 +868,7 @@ var Proto =
 
   sphereDistance : sphereDistance,
   sphereIntersects : sphereIntersects,
+  boxIntersects: boxIntersects,
 
   lineIntersects : lineIntersects,
 
