@@ -2909,8 +2909,8 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
-  //routine : 'represent',
-  accuracy : 1E-6,
+  enabled : 0,
+  //routine : 'eulerToQuatToEulerToQuat',
 
   context :
   {

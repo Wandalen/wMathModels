@@ -1127,7 +1127,7 @@ var Self =
 
   name : 'Tools/Math/Quaternion',
   silencing : 1,
-  accuracy : 1E-6,
+  enabled : 1,
 
   context :
   {

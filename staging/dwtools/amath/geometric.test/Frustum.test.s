@@ -1394,6 +1394,7 @@ var Self =
 
  name : 'Math.Frustum',
  silencing : 1,
+  enabled : 0,
  // verbosity : 7,
  // debug : 1,
  // routine: 'sphereIntersects',
