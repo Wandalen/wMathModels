@@ -2573,7 +2573,9 @@ var Self =
 
   name : 'Tools/Math/Euler',
   silencing : 1,
+  enabled : 0,
   //routine : 'eulerToQuatToEulerToQuat',
+
   context :
   {
     eachAngle : eachAngle,

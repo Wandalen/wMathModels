@@ -2078,6 +2078,7 @@ var Self =
 
   name : 'Tools/Math/Sphere',
   silencing : 1,
+  enabled : 0,
   // verbosity : 7,
   // debug : 1,
   // routine : 'fromCenterAndRadius',

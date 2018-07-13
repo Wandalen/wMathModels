@@ -1340,6 +1340,7 @@ var Self =
 
   name : 'Tools/Math/Plane',
   silencing : 1,
+  enabled : 0,
   // verbosity : 7,
   // debug : 1,
   // routine: 'negate',
