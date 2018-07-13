@@ -27,6 +27,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
 
+  require( '../geometric/aConcepts.s' );
   require( '../geometric/Plane.s' );
   require( '../geometric/Sphere.s' );
   require( '../geometric/Box.s' );
@@ -820,6 +821,147 @@ function sphereIntersects( test )
 
 //
 
+function boxIntersects( test )
+{
+
+  test.description = 'box and plane stay unchanged'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var oldPlane = plane.slice();
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var oldbox = box.slice();
+  var expected = false;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( expected, gotBool );
+  test.identical( plane, oldPlane );
+  test.identical( box, oldbox );
+
+  test.description = 'No intersection'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+
+  test.description = 'No intersection diagonal plane'; /* */
+
+  var plane = [ - 1, 1, 0, - 2 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+
+  test.description = 'Intersection x'; /* */
+
+  var plane = [ 3, 0, 0, - 2 ];
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Intersection y'; /* */
+
+  var plane = [ 0, 2, 0, - 2 ];
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+
+  test.description = 'Intersection z'; /* */
+
+  var plane = [ 0, 0, 1, - 2 ];
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+
+  test.description = 'Intersection diagonal plane'; /* */
+
+  var plane = [ 1, - 1, 0, 0 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Intersection one side of box in plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var box = [ 0, - 2, 0, 1, 3, 3 ];
+  var expected = true;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Intersection one edge of box in plane'; /* */
+
+  var plane = [ 1, - 1, 0, 0 ];
+  var box = [ 1, 1, - 1, 2, 1, 0 ];
+  var expected = true;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero box no intersection'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var box = _.box.makeZero( 3 );
+  var expected = false;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero box intersection'; /* */
+
+  var plane = [ 4, - 2, 1, 0 ];
+  var box = _.box.makeZero( 3 );
+  var expected = true;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+
+  test.description = 'Nil box'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var box = _.box.makeNil();
+  var expected = false;
+
+  var gotBool = _.plane.boxIntersects( plane, box );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0, 2, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1 ], [ 0, 0, 1, 0, 2, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( null, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( NaN, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], 'box' ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( 'plane', [ 0, 1, 0, 1 ] ));
+
+}
+
+//
+
 function pointCoplanarGet( test )
 {
 
@@ -1462,7 +1604,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'sphereIntersects',
+  // routine: 'boxIntersects',
 
   tests :
   {
@@ -1475,6 +1617,7 @@ var Self =
 
     sphereDistance : sphereDistance,
     sphereIntersects : sphereIntersects,
+    boxIntersects : boxIntersects,
 
     lineIntersects : lineIntersects,
     threeIntersectionPoint : threeIntersectionPoint,

@@ -499,7 +499,7 @@ function boxIntersects( plane , srcBox )
   }
   else
   {
-    var side = distance/distance;
+    var side = distance/ Math.abs( distance );
     console.log(distance, '  -  ',side);
     for( var j = 1 ; j < 8 ; j++ )
     {
@@ -511,7 +511,7 @@ function boxIntersects( plane , srcBox )
       }
       else
       {
-        var newSide = distance/distance;
+        var newSide = distance/ Math.abs( distance );
         console.log(distance, '  -  ',newSide);
         if( side === - newSide )
         {
