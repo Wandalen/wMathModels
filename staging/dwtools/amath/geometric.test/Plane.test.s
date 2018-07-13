@@ -700,6 +700,125 @@ function sphereDistance( test )
 
 }
 
+//
+
+function sphereIntersects( test )
+{
+
+  test.description = 'Sphere and plane stay unchanged'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var oldPlane = plane.slice();
+  var sphere = [ 2, 0, 0, 1 ];
+  var oldSphere = sphere.slice();
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( expected, gotBool );
+  test.identical( plane, oldPlane );
+  test.identical( sphere, oldSphere );
+
+  test.description = 'Trivial - no intersection'; /* */
+
+  var sphere = [ 2, 0, 0, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Trivial - intersection'; /* */
+
+  var plane = [ 0, 2, 0, - 2 ];
+  var sphere = [ 1, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Center in plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, - 1, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere cuts plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1.5 ];
+  var expected = true;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere touches plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere under plane'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ - 1, - 1, - 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere over plane'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ 0, 3, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero sphere'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = _.sphere.makeZero();
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Nil sphere'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = _.sphere.makeNil();
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( null, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( NaN, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], 'sphere' ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( 'plane', [ 0, 1, 0, 1 ] ));
+
+}
+
+//
 
 function pointCoplanarGet( test )
 {
@@ -1342,7 +1461,7 @@ var Self =
   silencing : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'sphereDistance',
+  routine: 'sphereIntersects',
 
   tests :
   {
@@ -1354,6 +1473,7 @@ var Self =
     pointCoplanarGet : pointCoplanarGet,
 
     sphereDistance : sphereDistance,
+    sphereIntersects : sphereIntersects,
 
     lineIntersects : lineIntersects,
     threeIntersectionPoint : threeIntersectionPoint,

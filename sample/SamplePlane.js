@@ -3,10 +3,10 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var plane1 = [ 1, 0, 0, 0 ];
+var plane1 = [ 0, 2, 0, -2 ];
 
 
-var sphere = [  1, 0, 0, 1];
+var sphere = [  1, 1, 1, 1];
 
 var d = _.plane.sphereDistance( plane1, sphere );
 console.log( d );
