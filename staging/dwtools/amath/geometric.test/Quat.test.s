@@ -455,7 +455,6 @@ function fromAxisAndAngle( test )
     var quat = _.quat.fromAxisAndAngle( null,axis );
     test.equivalent( quat, expected );
 
-    // debugger;
     if( _.avector.mag( axis ) !== 0 && abs( angle ) <= test.accuracy )
     return;
 
@@ -463,9 +462,6 @@ function fromAxisAndAngle( test )
 
     if( axis2[ 0 ]*axis[ 0 ] < 0 || axis2[ 1 ]*axis[ 1 ] < 0 || axis2[ 2 ]*axis[ 2 ] < 0 || axis2[ 3 ]*axis[ 3 ] < 0 )
     _.avector.mul( axis2,-1 );
-
-    // if( axis2[ 0 ]*axis[ 0 ] < 0 || axis2[ 1 ]*axis[ 1 ] < 0 || axis2[ 2 ]*axis[ 2 ] < 0 || axis2[ 3 ]*axis[ 3 ] < 0 )
-    // debugger;
 
     if( axis2[ 0 ]*axis[ 0 ] < 0 || axis2[ 1 ]*axis[ 1 ] < 0 || axis2[ 2 ]*axis[ 2 ] < 0 || axis2[ 3 ]*axis[ 3 ] < 0 )
     {
@@ -574,12 +570,14 @@ function fromAxisAndAngle( test )
 
 }
 
+fromAxisAndAngle.accuracy = [ 1e-5, 1e-1 ];
+
 //
 
 function fromEuler( test )
 {
 
-  var accuracy = _.EPS*0.1;
+  var accuracy = test.accuracy*0.1;
   var h = _.sqrt( 2 ) / 2;
 
   // debugger;
@@ -601,7 +599,6 @@ function fromEuler( test )
     // var quat3 = _.quat.fromEuler( null,euler2 );
     var m1 = _.quat.toMatrix( quat1,null );
     var euler3 = _.euler.fromMatrix( euler1.slice(),m1 );
-    // debugger;
     var quat3 = _.quat.fromEuler( null,euler3 );
 
     var applied1 = _.quat.applyTo( quat1,[ 0.25,0.5,1.0 ] );
@@ -675,16 +672,17 @@ function fromEuler( test )
 
   sampleTest();
 
-  debugger;
   // test.identical( 0,1 );
 }
+
+fromEuler.accuracy = 1e-15;
 
 //
 
 function _fromVectors( test,r,normalized )
 {
 
-  var accuracy = _.EPS*0.1;
+  var accuracy = test.accuracy*0.1;
   var h = _.sqrt( 2 ) / 2;
 
   test.description = 'same avectors'; /* */
@@ -738,7 +736,7 @@ function _fromVectors( test,r,normalized )
   {
 
     var got = _.quat[ r ]( null,v1,v2 );
-    test.equivalent( got,sample.e );
+    test.equivalent( got, sample.e );
 
   }
 
@@ -832,6 +830,8 @@ function fromVectors( test )
 
 }
 
+fromVectors.accuracy = [ 1e-9, 1e-3 ];
+
 //
 
 function fromNormalizedVectors( test )
@@ -840,6 +840,8 @@ function fromNormalizedVectors( test )
   this._fromVectors( test,'fromNormalizedVectors',1 );
 
 }
+
+fromNormalizedVectors.accuracy = 1e-7;
 
 //
 
@@ -850,7 +852,7 @@ function _fromMatrixRotation( test,precise,r )
 
   var axis = null;
   var h = _.sqrt( 2 ) / 2;
-  var accuracy = precise ? _.EPS*1e-1 : _.EPS*1e-2;
+  var accuracy = precise ? test.accuracy*1e-1 : test.accuracy*1e-2;
   var samples =
   [
 
@@ -1020,7 +1022,7 @@ function toMatrix( test )
 
   var axis = null;
   var h = _.sqrt( 2 ) / 2;
-  var accuracy = _.EPS*1e-1;
+  var accuracy = test.accuracy*1e-1;
   var samples =
   [
 
@@ -1108,15 +1110,19 @@ function toMatrix( test )
   var angle = pi/3;
   testSubCase();
 
+  /* qqq */
+
   var q1 = [ 0.25,0.5,0.82915619758885,0 ];
   var m1 = _.quat.toMatrix( q1,null );
   var applied1 = _.quat.applyTo( q1,[ 0.25,0.5,1.0 ] );
   var applied2 = m1.matrixApplyTo([ 0.25,0.5,1.0 ] );
-  test.equivalent( applied2,applied1 );
+  test.equivalent( applied2, applied1 );
 
   logger.log( 'm1',m1 );
 
 }
+
+toMatrix.accuracy = [ 1e-7, 1e-1 ];
 
 // --
 // define class
@@ -1128,6 +1134,7 @@ var Self =
   name : 'Tools/Math/Quaternion',
   silencing : 1,
   enabled : 1,
+  // accuracy : 1e-5,
 
   context :
   {

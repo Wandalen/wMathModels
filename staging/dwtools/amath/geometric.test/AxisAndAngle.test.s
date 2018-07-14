@@ -538,7 +538,7 @@ var Self =
 
   name : 'Tools/Math/AxisAndAngle',
   silencing : 1,
-  enabled : 0,
+  enabled : 1,
   // routine : 'isZero',
 
   context :

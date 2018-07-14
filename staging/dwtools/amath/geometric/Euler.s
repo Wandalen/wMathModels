@@ -258,7 +258,7 @@ function fromAxisAndAngle( dst, axis, angle )
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
   _.assert( _.numberIs( angle ) );
-  _.assert( this.EPS > 0 );
+  _.assert( this.accuracy > 0 );
 
   var s = sin( angle );
   var c = cos( angle );
@@ -268,7 +268,7 @@ function fromAxisAndAngle( dst, axis, angle )
   var y = axisv.eGet( 1 );
   var z = axisv.eGet( 2 );
 
-  if ( ( x*y*t + z*s ) > 1-this.EPS )
+  if ( ( x*y*t + z*s ) > 1-this.accuracy )
   {
     xxx
     dstv.eSet( 0, 2*atan2( x*sin( angle/2 ),cos( angle/2 ) ) );
@@ -276,7 +276,7 @@ function fromAxisAndAngle( dst, axis, angle )
     dstv.eSet( 2, bank = 0 );
     return dst;
   }
-  else if ( ( x*y*t + z*s ) < -1+this.EPS )
+  else if ( ( x*y*t + z*s ) < -1+this.accuracy )
   {
     yyy
     dstv.eSet( 0, -2*atan2( x*sin( angle/2 ),cos( angle/2 ) ) );
@@ -1230,8 +1230,8 @@ function fromQuat2( quat, dst )
   var dst = _.euler.from( dst );
   var dstv = _.vector.from( dst );
   var quatv = _.quat._from( quat );
-  var accuracy =  _.EPS;
-  var accuracy2 = _.EPS2;
+  var accuracy =  _.accuracy;
+  var accuracy2 = _.accuracy2;
 
   var ex,ey,ez;
 
