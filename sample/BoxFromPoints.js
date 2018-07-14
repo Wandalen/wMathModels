@@ -22,9 +22,7 @@ box = _.box.makeNil(dim);
 
 console.log( 'box centered :', box );
 
-
-
-var box = _.box.fromPoints( box, points );
+_.box.fromPoints( box, points );
 
 console.log( 'P1 :', pointOne );
 console.log( 'P2 :', pointTwo );

@@ -72,83 +72,85 @@ function make2( src, seq )
   if( _.euler.is( src ) )
     _.avector.assign( result, src );
 
-   // Sequence
-   if ( seq === 'xyz' )
-   {
-     result[ 3 ] = 0;
-     result[ 4 ] = 1;
-     result[ 5 ] = 2;
-   }
-   else if ( seq === 'xzy' )
-   {
-     result[ 3 ] = 0;
-     result[ 4 ] = 2;
-     result[ 5 ] = 1;
-   }
-   else if ( seq === 'yxz' )
-   {
-     result[ 3 ] = 1;
-     result[ 4 ] = 0;
-     result[ 5 ] = 2;
-   }
-   else if ( seq === 'yzx' )
-   {
-     result[ 3 ] = 1;
-     result[ 4 ] = 2;
-     result[ 5 ] = 0;
-   }
-   else if ( seq === 'zxy' )
-   {
-     result[ 3 ] = 2;
-     result[ 4 ] = 0;
-     result[ 5 ] = 1;
-   }
-   else if ( seq === 'zyx' )
-   {
-     result[ 3 ] = 2;
-     result[ 4 ] = 1;
-     result[ 5 ] = 0;
-   }
-   else if ( seq === 'xyx' )
-   {
-     result[ 3 ] = 0;
-     result[ 4 ] = 1;
-     result[ 5 ] = 0;
-   }
-   else if ( seq === 'xzx' )
-   {
-     result[ 3 ] = 0;
-     result[ 4 ] = 2;
-     result[ 5 ] = 0;
-   }
-   else if ( seq === 'yxy' )
-   {
-     result[ 3 ] = 1;
-     result[ 4 ] = 0;
-     result[ 5 ] = 1;
-   }
-   else if ( seq === 'yzy' )
-   {
-     result[ 3 ] = 1;
-     result[ 4 ] = 2;
-     result[ 5 ] = 1;
-   }
-   else if ( seq === 'zxz' )
-   {
-     result[ 3 ] = 2;
-     result[ 4 ] = 0;
-     result[ 5 ] = 2;
-   }
-   else if ( seq === 'zyz' )
-   {
-     result[ 3 ] = 2;
-     result[ 4 ] = 1;
-     result[ 5 ] = 2;
-   }
-   else
-   {}
+  // Representation
+  if ( seq === 'xyz' )
+  {
+    result[ 3 ] = 0;
+    result[ 4 ] = 1;
+    result[ 5 ] = 2;
+  }
+  else if ( seq === 'xzy' )
+  {
+    result[ 3 ] = 0;
+    result[ 4 ] = 2;
+    result[ 5 ] = 1;
+  }
+  else if ( seq === 'yxz' )
+  {
+    result[ 3 ] = 1;
+    result[ 4 ] = 0;
+    result[ 5 ] = 2;
+  }
+  else if ( seq === 'yzx' )
+  {
+    result[ 3 ] = 1;
+    result[ 4 ] = 2;
+    result[ 5 ] = 0;
+  }
+  else if ( seq === 'zxy' )
+  {
+    result[ 3 ] = 2;
+    result[ 4 ] = 0;
+    result[ 5 ] = 1;
+  }
+  else if ( seq === 'zyx' )
+  {
+    result[ 3 ] = 2;
+    result[ 4 ] = 1;
+    result[ 5 ] = 0;
+  }
+  else if ( seq === 'xyx' )
+  {
+    result[ 3 ] = 0;
+    result[ 4 ] = 1;
+    result[ 5 ] = 0;
+  }
+  else if ( seq === 'xzx' )
+  {
+    result[ 3 ] = 0;
+    result[ 4 ] = 2;
+    result[ 5 ] = 0;
+  }
+  else if ( seq === 'yxy' )
+  {
+    result[ 3 ] = 1;
+    result[ 4 ] = 0;
+    result[ 5 ] = 1;
+  }
+  else if ( seq === 'yzy' )
+  {
+    result[ 3 ] = 1;
+    result[ 4 ] = 2;
+    result[ 5 ] = 1;
+  }
+  else if ( seq === 'zxz' )
+  {
+    result[ 3 ] = 2;
+    result[ 4 ] = 0;
+    result[ 5 ] = 2;
+  }
+  else if ( seq === 'zyz' )
+  {
+    result[ 3 ] = 2;
+    result[ 4 ] = 1;
+    result[ 5 ] = 2;
+  }
+  else
+  {
+    throw _.err( 'Not an Euler Representation.' );
+  }
 
-   return result;
+  return result;
 }
 
 //
@@ -1203,10 +1205,10 @@ var Order =
 
 /**
   * Create a set of euler angles from a quaternion. Returns the created euler angles.
-  * Quaternion stay untouched, dst contains the euler angle sequence.
+  * Quaternion stay untouched, dst contains the euler angle representation.
   *
   * @param { Array } quat - Source quaternion.
-  * @param { Array } dst - Destination sequence of Euler angles with source euler angles code.
+  * @param { Array } dst - Destination representation of Euler angles with source euler angles code.
   *
   * @example
   * // returns [ 1, 0, 0, 0, 1, 2 ];
@@ -1474,27 +1476,27 @@ function fromQuat2( quat, dst )
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-      var lim = y2 - z2 + w2 - x2;
-      if( - 1 + accuracy2 < lim && lim < 1 - accuracy2 )
-      {
-        dstv.eSet( 2, atan2( yz2 - xw2 , xy2 + zw2 ) );
-        dstv.eSet( 1, acos( lim ) );
-        dstv.eSet( 0, atan2( yz2 + xw2 , -xy2 + zw2 ) );
-      }
-      else if( lim <= - 1 + accuracy2 )
-      {
-        // console.log('Indeterminate; We set angle y2 = 0. ');
-        dstv.eSet( 0, atan2( ( xz2 - yw2 ), 1 - 2*( y2 + x2 ) ) );
-        dstv.eSet( 1, pi );
-        dstv.eSet( 2, 0 );
-      }
-      else if( lim >= 1 - accuracy2 )
-      {
-        // console.log('Indeterminate; We set angle y2 = 0. ');
-        dstv.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( y2 + x2 ) ) );
-        dstv.eSet( 1, 0 );
-        dstv.eSet( 2, 0 );
-      }
+    var lim = y2 - z2 + w2 - x2;
+    if( - 1 + accuracy2 < lim && lim < 1 - accuracy2 )
+    {
+      dstv.eSet( 2, atan2( yz2 - xw2 , xy2 + zw2 ) );
+      dstv.eSet( 1, acos( lim ) );
+      dstv.eSet( 0, atan2( yz2 + xw2 , -xy2 + zw2 ) );
+    }
+    else if( lim <= - 1 + accuracy2 )
+    {
+      // console.log('Indeterminate; We set angle y2 = 0. ');
+      dstv.eSet( 0, atan2( ( xz2 - yw2 ), 1 - 2*( y2 + x2 ) ) );
+      dstv.eSet( 1, pi );
+      dstv.eSet( 2, 0 );
+    }
+    else if( lim >= 1 - accuracy2 )
+    {
+      // console.log('Indeterminate; We set angle y2 = 0. ');
+      dstv.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( y2 + x2 ) ) );
+      dstv.eSet( 1, 0 );
+      dstv.eSet( 2, 0 );
+    }
   }
 
   else if( ox === 2 && oy === 0 && oz === 2 )
@@ -1555,7 +1557,7 @@ function fromQuat2( quat, dst )
   * Create the quaternion from a set of euler angles. Returns the created quaternion.
   * Euler angles stay untouched.
   *
-  * @param { Array } euler - Source sequence of Euler angles.
+  * @param { Array } euler - Source representation of Euler angles.
   *
   * @example
   * // returns [ 0.49794255, 0, 0, 0.8775826 ];
@@ -1692,7 +1694,7 @@ function toQuat2( euler )
   }
   else
   {
-     return 0;
+    return 0;
   }
 
   return quatv;
@@ -2117,12 +2119,12 @@ function fromMatrix2( mat, dst )
   * Create the rotation matrix from a set of euler angles. Returns the created matrix.
   * Euler angles stay untouched.
   *
-  * @param { Array } euler - Source sequence of Euler angles.
+  * @param { Array } euler - Source representation of Euler angles.
   *
   * @example
   * // returns [ 0.7701, -0.4207, 0.4794,
-                 0.6224, 0.6599, - 0.4207,
-                 - 0.1393, 0.6224, 0.7701 ];
+  *              0.6224, 0.6599, - 0.4207,
+  *              - 0.1393, 0.6224, 0.7701 ];
   * _.toMatrix2( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
   *
   * @example
@@ -2325,6 +2327,74 @@ function toMatrix2( euler )
   return mat;
 }
 
+//
+
+/**
+  * Changes the representation of an euler Angle in one of two format ( 'xyz' or [ 0, 1, 2 ] ).
+  * Euler representation stay untouched, dstEuler changes.
+  *
+  * @param { Array } representation - Source representation of Euler angles.
+  * @param { Array } dstEuler - Source and destination Euler angle.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 2, 0, 2 ]
+  * _.represent( [ 0, 0, 0, 0, 0, 0 ], [ 2, 0, 2 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 'yzx' ]
+  * _.represent( [ 0, 0, 0, 1, 2, 0 ], 'yzx' );
+  *
+  * @returns { Array } Returns the destination Euler angle with the corresponding representation.
+  * @function represent
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstEuler ) is not euler.
+  * @throws { Error } An Error if ( representation ) is not an euler angle representation.
+  * @memberof wTools.euler
+  */
+
+function represent( dstEuler, representation )
+{
+  _.assert( dstEuler === null || _.euler.is( dstEuler ) );
+  _.assert( _.arrayIs( representation ) || _.strIs( representation ) );
+  _.assert( arguments.length === 2, 'expects two arguments' );
+
+  if( dstEuler === null )
+  dstEuler = [ 0, 0, 0, 0, 1, 2 ];
+
+  var euler = dstEuler.slice();
+  var dstEulerv = _.vector.from( dstEuler );
+
+  var quaternion = _.euler.toQuat2( euler );
+
+  if( _.strIs( representation ) )
+  {
+    euler = _.euler.make2( euler, representation );
+  }
+
+  else if( _.arrayIs( representation ) )
+  {
+    _.assert( representation.length === 3 );
+    if( ( representation[ 0 ] === 0 || representation[ 0 ] === 1 || representation[ 0 ] === 2 ) &&
+        ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
+        ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
+    {
+      euler[ 3 ] = representation[ 0 ]; //dstEulerv.eSet( 3, representation[ 0 ] );
+      euler[ 4 ] = representation[ 1 ];//dstEulerv.eSet( 4, representation[ 1 ] );
+      euler[ 5 ] = representation[ 2 ];//dstEulerv.eSet( 5, representation[ 2 ] );
+    }
+    else
+    {
+      throw _.err( 'Not an Euler Representation.' );
+    }
+  }
+
+  euler = _.euler.fromQuat2( quaternion, euler );
+  _.vector.assign( dstEulerv, euler );
+  console.log(dstEulerv);
+  return dstEuler;
+
+}
+
 // --
 // define class
 // --
@@ -2353,6 +2423,8 @@ var Proto =
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
   toMatrix2 : toMatrix2,
+
+  represent : represent,
 
   Order : Order,
 

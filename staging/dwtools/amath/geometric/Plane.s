@@ -66,7 +66,7 @@ function is( plane )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( normal ) is not array.
   * @throws { Error } An Error if ( bias ) is not number.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function from( plane )
@@ -121,7 +121,7 @@ function from( plane )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( anormal ) is not array.
   * @throws { Error } An Error if ( apoint ) is not a point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function fromNormalAndPoint( plane, anormal, apoint )
@@ -168,7 +168,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
   * @throws { Error } An Error if ( a ) is not a point.
   * @throws { Error } An Error if ( b ) is not a point.
   * @throws { Error } An Error if ( c ) is not a point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function fromPoints( plane,a,b,c )
@@ -264,7 +264,7 @@ function biasSet( plane,bias )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not a vector.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function pointDistance( plane , point )
@@ -305,7 +305,7 @@ function pointDistance( plane , point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function pointCoplanarGet( plane , point )
@@ -358,6 +358,7 @@ function pointCoplanarGet( plane , point )
 /**
   * Get the distance between a plane and a sphere. Returns the distance value.
   * The sphere an the plane remain unchanged.
+  * If sphere and plane intersect, it returns a negative distance.
   *
   * @param { Array } plane - Source plane.
   * @param { Array } sphere - Source sphere.
@@ -371,7 +372,7 @@ function pointCoplanarGet( plane , point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function sphereDistance( plane , sphere )
@@ -389,14 +390,140 @@ function sphereDistance( plane , sphere )
   //throw _.err( 'not tested' );
 
   var d = _.plane.pointDistance( plane , center );
-  console.log('distance', d);
-  d = d - _.sphere.radiusGet( sphere );
-  console.log('distance', d, ' radius ', _.sphere.radiusGet( sphere ));
+  d = Math.abs( d ) - _.sphere.radiusGet( sphere );
   return d;
 }
 
 //
 
+/**
+  * Check if a plane and a sphere intersect. Returns true if they intersect and false if not.
+  * The sphere and the plane remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.sphereIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 8 ]);
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the plane and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.plane
+  */
+
+function sphereIntersects( plane , sphere )
+{
+  var bool = false;
+  var _plane = _.plane._from( plane );
+  _.assert( _.sphere.is( sphere ) );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  debugger;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+
+  if( distance <= 0 )
+  {
+    bool = true;
+  }
+
+  return bool;
+}
+
+//
+
+/**
+  * Check if a plane and a box intersect. Returns true if they intersect and false if not.
+  * The box and the plane remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.boxIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 8 ]);
+  *
+  * @example
+  * // returns false;
+  * _.boxIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the plane and the box intersect.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
+  * @memberof wTools.plane
+  */
+
+function boxIntersects( plane , srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  var bool = false;
+  var _plane = _.plane._from( plane );
+  var dimP = _.plane.dimGet( _plane );
+  var boxv = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
+
+  _.assert( dimP === dimB );
+
+  /* box corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  min = _.vector.toArray( min ); max = _.vector.toArray( max );
+  var col = c.colVectorGet( 0 ); col.copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ min[ 0 ], min[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ max[ 0 ], max[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ min[ 0 ], max[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ max[ 0 ], min[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ max[ 0 ], max[ 1 ], min[ 2 ] ] );
+
+  min = _.vector.fromArray( min );
+  var distance = _.plane.pointDistance( plane, min );
+  if( distance === 0 )
+  {
+    bool = true;
+  }
+  else
+  {
+    var side = distance/ Math.abs( distance );
+    console.log(distance, '  -  ',side);
+    for( var j = 1 ; j < 8 ; j++ )
+    {
+      var corner = c.colVectorGet( j );
+      distance = _.plane.pointDistance( plane, corner );
+      if( distance === 0 )
+      {
+        bool = true;
+      }
+      else
+      {
+        var newSide = distance/ Math.abs( distance );
+        console.log(distance, '  -  ',newSide);
+        if( side === - newSide )
+        {
+          bool = true;
+        }
+      }
+    }
+  }
+  return bool;
+}
+
+//
 
 /**
   * Check if a plane and a line intersect. Returns true if they intersect.
@@ -418,7 +545,7 @@ function sphereDistance( plane , sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function lineIntersects( plane , line )
@@ -462,7 +589,7 @@ function lineIntersects( plane , line )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function lineIntersection( plane , line , point )
@@ -485,7 +612,6 @@ function lineIntersection( plane , line , point )
 
   if( Math.abs( dot ) < _.EPS2 )
   {
-
     if( _.plane.pointDistance( plane, line[ 0 ] ) < _.EPS2 )
     {
       _.avector.assign( point,line[ 0 ] );
@@ -522,7 +648,7 @@ function lineIntersection( plane , line , point )
   * @function threeIntersectionPoint
   * @throws { Error } An Error if ( arguments.length ) is different than three.
   * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function threeIntersectionPoint( planeone , planetwo , planethree )
@@ -543,23 +669,25 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
 
   var Ispoint = _.vector.dot( normalone, _.vector.cross( normaltwo.clone(), normalthree ) );
 
-  if( Ispoint != 0){
-  var cross23 = _.vector.cross( normaltwo.clone(), normalthree );
-  var cross31 = _.vector.cross( normalthree.clone(), normalone );
-  var cross12 = _.vector.cross( normalone.clone(), normaltwo );
+  if( Ispoint != 0)
+  {
+    var cross23 = _.vector.cross( normaltwo.clone(), normalthree );
+    var cross31 = _.vector.cross( normalthree.clone(), normalone );
+    var cross12 = _.vector.cross( normalone.clone(), normaltwo );
 
-  var Mcross23 = _.vector.mulScalar( cross23, - 1.0*biasone );
-  var Mcross31 = _.vector.mulScalar( cross31, - 1.0*biastwo );
-  var Mcross12 = _.vector.mulScalar( cross12, - 1.0*biasthree );
+    var Mcross23 = _.vector.mulScalar( cross23, - 1.0*biasone );
+    var Mcross31 = _.vector.mulScalar( cross31, - 1.0*biastwo );
+    var Mcross12 = _.vector.mulScalar( cross12, - 1.0*biasthree );
 
-  var point = _.vector.mulScalar( _.vector.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
+    var point = _.vector.mulScalar( _.vector.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
 
-  return point;
+    return point;
   }
 
-  else{
-  point = NaN;
-  return point;
+  else
+  {
+    point = NaN;
+    return point;
   }
 
 }
@@ -614,7 +742,7 @@ function matrixHomogenousApply( plane , matrix )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( offset ) is not point.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function translate( plane , offset )
@@ -627,7 +755,7 @@ function translate( plane , offset )
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   debugger;
-//  throw _.err( 'not tested' );
+  //  throw _.err( 'not tested' );
 
   _.plane.biasSet( plane, bias - _.vector.dot( normal,_offset ) )
 
@@ -654,7 +782,7 @@ function translate( plane , offset )
   * @function normalize
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function normalize( plane )
@@ -696,7 +824,7 @@ function normalize( plane )
   * @function negate
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof wTools.box
+  * @memberof wTools.plane
   */
 
 function negate( plane )
@@ -740,6 +868,8 @@ var Proto =
   pointCoplanarGet : pointCoplanarGet,
 
   sphereDistance : sphereDistance,
+  sphereIntersects : sphereIntersects,
+  boxIntersects: boxIntersects,
 
   lineIntersects : lineIntersects,
 

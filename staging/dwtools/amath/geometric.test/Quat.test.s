@@ -408,13 +408,13 @@ function fromAxisAndAngle( test )
   test.description = 'near zero'; /* */
 
   var angle = test.accuracy;
-  var expected = [ 0.000004999999873689376,0,0,1 ];
+  var expected = [ 0.00000004999999873689376,0,0,1 ];
   var got = _.quat.fromAxisAndAngle( null,[ 1,0,0 ],angle );
   test.equivalent( got,expected );
-  var expected = [ 0,0.000004999999873689376,0,1 ];
+  var expected = [ 0,0.00000004999999873689376,0,1 ];
   var got = _.quat.fromAxisAndAngle( null,[ 0,1,0 ],angle );
   test.equivalent( got,expected );
-  var expected = [ 0,0,0.000004999999873689376,1 ];
+  var expected = [ 0,0,0.00000004999999873689376,1 ];
   var got = _.quat.fromAxisAndAngle( null,[ 0,0,1 ],angle );
   test.equivalent( got,expected );
 
