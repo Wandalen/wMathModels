@@ -101,8 +101,10 @@ function from( quat )
   if( _.vectorIs( quat ) )
   {
     debugger;
-    throw _.err( 'not implemented' );
-    return quat.slice();
+    xxx
+    quat.toArray();
+    // throw _.err( 'not implemented' );
+    // return quat.slice();
   }
 
   return quat;
@@ -112,11 +114,11 @@ function from( quat )
 
 function _from( quat )
 {
-  _.assert( quat === null || _.quat.is( quat ),'expects quaternion' );
+  _.assert( /*quat === null ||*/ _.quat.is( quat ),'expects quaternion' );
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  if( quat === null )
-  quat = _.quat.make();
+  // if( quat === null )
+  // quat = _.quat.make();
 
   return _.vector.from( quat );
 }

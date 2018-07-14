@@ -2,6 +2,35 @@
 
 'use strict';
 
+/*
+
+qqq
+
+- CC
+
+if (
+
+- conversion case
+
+  {
+    return 0;
+  }
+
+- not good enough accuracy of const!
+
+- adjust converters according to make similar to toQuat2
+
+  fromQuat2 : fromQuat2,
+  fromMatrix2 : fromMatrix2,
+  toMatrix2 : toMatrix2,
+  ...
+
+- not good enough names
+function fromMatrix2( mat, dst )
+var eulerv = _.vector.from( euler );
+
+*/
+
 var _ = _global_.wTools;
 var avector = _.avector;
 var vector = _.vector;
@@ -49,119 +78,34 @@ function isZero( euler )
 
 //
 
-function make( src )
+function make( srcEuler, representation )
 {
-  _.assert( arguments.length === 0 || arguments.length === 1 );
-  _.assert( src === undefined || src === null || _.euler.is( src ) );
-  var result = _.euler.makeZero();
-  if( _.euler.is( src ) )
-  _.avector.assign( result,src );
-  return result;
-}
+  var result = _.euler.makeZero( representation );
 
-//
+  _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 1 );
+  _.assert( srcEuler === undefined || srcEuler === null || _.euler.is( srcEuler ) );
 
-function make2( src, seq )
-{
-  _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 2 );
-  _.assert( src === undefined || src === null || _.euler.is( src ) );
-  _.assert( typeof( seq ) === "string" );
-
-  var result = _.euler.makeZero();
-
-  if( _.euler.is( src ) )
-    _.avector.assign( result, src );
-
-  // Representation
-  if ( seq === 'xyz' )
-  {
-    result[ 3 ] = 0;
-    result[ 4 ] = 1;
-    result[ 5 ] = 2;
-  }
-  else if ( seq === 'xzy' )
-  {
-    result[ 3 ] = 0;
-    result[ 4 ] = 2;
-    result[ 5 ] = 1;
-  }
-  else if ( seq === 'yxz' )
-  {
-    result[ 3 ] = 1;
-    result[ 4 ] = 0;
-    result[ 5 ] = 2;
-  }
-  else if ( seq === 'yzx' )
-  {
-    result[ 3 ] = 1;
-    result[ 4 ] = 2;
-    result[ 5 ] = 0;
-  }
-  else if ( seq === 'zxy' )
-  {
-    result[ 3 ] = 2;
-    result[ 4 ] = 0;
-    result[ 5 ] = 1;
-  }
-  else if ( seq === 'zyx' )
-  {
-    result[ 3 ] = 2;
-    result[ 4 ] = 1;
-    result[ 5 ] = 0;
-  }
-  else if ( seq === 'xyx' )
-  {
-    result[ 3 ] = 0;
-    result[ 4 ] = 1;
-    result[ 5 ] = 0;
-  }
-  else if ( seq === 'xzx' )
-  {
-    result[ 3 ] = 0;
-    result[ 4 ] = 2;
-    result[ 5 ] = 0;
-  }
-  else if ( seq === 'yxy' )
-  {
-    result[ 3 ] = 1;
-    result[ 4 ] = 0;
-    result[ 5 ] = 1;
-  }
-  else if ( seq === 'yzy' )
-  {
-    result[ 3 ] = 1;
-    result[ 4 ] = 2;
-    result[ 5 ] = 1;
-  }
-  else if ( seq === 'zxz' )
-  {
-    result[ 3 ] = 2;
-    result[ 4 ] = 0;
-    result[ 5 ] = 2;
-  }
-  else if ( seq === 'zyz' )
-  {
-    result[ 3 ] = 2;
-    result[ 4 ] = 1;
-    result[ 5 ] = 2;
-  }
-  else
-  {
-    throw _.err( 'Not an Euler Representation.' );
-  }
+  if( _.euler.is( srcEuler ) )
+  _.avector.assign( result,srcEuler );
 
   return result;
 }
 
 //
 
-function makeZero()
+function makeZero( representation )
 {
-  _.assert( arguments.length === 0 );
   var result = _.dup( 0,6 );
   result[ 3 ] = 0;
   result[ 4 ] = 1;
   result[ 5 ] = 2;
+
+  _.assert( arguments.length === 0 || arguments.length === 1 );
+  _.assert( representation === undefined || representation );
+
+  if( representation )
+  _.euler.representationSet( result, representation );
+
   return result;
 }
 
@@ -198,8 +142,10 @@ function from( euler )
   if( _.vectorIs( euler ) )
   {
     debugger;
+    xxx
     //throw _.err( 'not implemented' );
-    return euler.slice();
+    // return euler.slice();
+    return euler.toArray();
   }
 
   return euler;
@@ -209,13 +155,107 @@ function from( euler )
 
 function _from( euler )
 {
-  _.assert( euler === null || _.euler.is( euler ) );
+  _.assert( _.euler.is( euler ) );
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  if( euler === null )
-  euler = _.euler.make();
-
   return _.vector.from( euler );
+}
+
+//
+
+function representationSet( dstEuler, representation )
+{
+  var dstEulerVector = _.euler._from( dstEuler );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( _.arrayIs( representation ) )
+  {
+    _.assert( representation.length === 3 );
+    dstEulerVector.eSet( 3, representation[ 0 ] );
+    dstEulerVector.eSet( 4, representation[ 1 ] );
+    dstEulerVector.eSet( 5, representation[ 2 ] );
+  }
+  else if( _.strIs( representation ) )
+  {
+
+    if( representation === 'xyz' )
+    {
+      dstEulerVector.eSet( 3, 0 );
+      dstEulerVector.eSet( 4, 1 );
+      dstEulerVector.eSet( 5, 2 );
+    }
+    else if( representation === 'xzy' )
+    {
+      dstEulerVector.eSet( 3, 0 );
+      dstEulerVector.eSet( 4, 2 );
+      dstEulerVector.eSet( 5, 1 );
+    }
+    else if( representation === 'yxz' )
+    {
+      dstEulerVector.eSet( 3, 1 );
+      dstEulerVector.eSet( 4, 0 );
+      dstEulerVector.eSet( 5, 2 );
+    }
+    else if( representation === 'yzx' )
+    {
+      dstEulerVector.eSet( 3, 1 );
+      dstEulerVector.eSet( 4, 2 );
+      dstEulerVector.eSet( 5, 0 );
+    }
+    else if( representation === 'zxy' )
+    {
+      dstEulerVector.eSet( 3, 2 );
+      dstEulerVector.eSet( 4, 0 );
+      dstEulerVector.eSet( 5, 1 );
+    }
+    else if( representation === 'zyx' )
+    {
+      dstEulerVector.eSet( 3, 2 );
+      dstEulerVector.eSet( 4, 1 );
+      dstEulerVector.eSet( 5, 0 );
+    }
+    else if( representation === 'xyx' )
+    {
+      dstEulerVector.eSet( 3, 0 );
+      dstEulerVector.eSet( 4, 1 );
+      dstEulerVector.eSet( 5, 0 );
+    }
+    else if( representation === 'xzx' )
+    {
+      dstEulerVector.eSet( 3, 0 );
+      dstEulerVector.eSet( 4, 2 );
+      dstEulerVector.eSet( 5, 0 );
+    }
+    else if( representation === 'yxy' )
+    {
+      dstEulerVector.eSet( 3, 1 );
+      dstEulerVector.eSet( 4, 0 );
+      dstEulerVector.eSet( 5, 1 );
+    }
+    else if( representation === 'yzy' )
+    {
+      dstEulerVector.eSet( 3, 1 );
+      dstEulerVector.eSet( 4, 2 );
+      dstEulerVector.eSet( 5, 1 );
+    }
+    else if( representation === 'zxz' )
+    {
+      dstEulerVector.eSet( 3, 2 );
+      dstEulerVector.eSet( 4, 0 );
+      dstEulerVector.eSet( 5, 2 );
+    }
+    else if( representation === 'zyz' )
+    {
+      dstEulerVector.eSet( 3, 2 );
+      dstEulerVector.eSet( 4, 1 );
+      dstEulerVector.eSet( 5, 2 );
+    }
+    else _.assert( 0, 'Not an Euler Representation', _.strQuote( representation ) );
+  }
+  else _.assert( 0, 'unknown type of {-representation-}', _.strTypeOf( representation ) )
+
+  return dstEuler;
 }
 
 //
@@ -226,17 +266,17 @@ function _from( euler )
   double t=1-c;
   //  if axis is not already normalised then uncomment this
   // double magnitude = Math.sqrt(x*x + y*y + z*z);
-  // if (magnitude==0) throw error;
+  // if(magnitude==0) throw error;
   // x /= magnitude;
   // y /= magnitude;
   // z /= magnitude;
-  if ((x*y*t + z*s) > 0.998) { // north pole singularity detected
+  if((x*y*t + z*s) > 0.998) { // north pole singularity detected
     heading = 2*atan2(x*Math.sin(angle/2),Math.cos(angle/2));
     attitude = Math.PI/2;
     bank = 0;
     return;
   }
-  if ((x*y*t + z*s) < -0.998) { // south pole singularity detected
+  if((x*y*t + z*s) < -0.998) { // south pole singularity detected
     heading = -2*atan2(x*Math.sin(angle/2),Math.cos(angle/2));
     attitude = -Math.PI/2;
     bank = 0;
@@ -270,7 +310,7 @@ function fromAxisAndAngle( dst, axis, angle )
   var y = axisv.eGet( 1 );
   var z = axisv.eGet( 2 );
 
-  if ( ( x*y*t + z*s ) > 1-this.accuracy )
+  if( ( x*y*t + z*s ) > 1-this.accuracy )
   {
     xxx
     dstv.eSet( 0, 2*atan2( x*sin( angle/2 ),cos( angle/2 ) ) );
@@ -278,7 +318,7 @@ function fromAxisAndAngle( dst, axis, angle )
     dstv.eSet( 2, bank = 0 );
     return dst;
   }
-  else if ( ( x*y*t + z*s ) < -1+this.accuracy )
+  else if( ( x*y*t + z*s ) < -1+this.accuracy )
   {
     yyy
     dstv.eSet( 0, -2*atan2( x*sin( angle/2 ),cos( angle/2 ) ) );
@@ -308,7 +348,7 @@ function fromAxisAndAngle( dst, axis, angle )
 
 //
 
-function fromQuat( dst,quat,v )
+function fromQuat( dst, quat, v )
 {
   var /*eps*/accuracy = 1e-9;
   var half = 0.5-/*eps*/accuracy;
@@ -1030,8 +1070,6 @@ function toMatrix( euler,mat,premutating )
     mat.atomSet( [ 1,2 ],+( +cx_sy*sz - sx_cz*sign ) );
     mat.atomSet( [ 2,2 ],+cx_cy );
 
-    // xxx
-
   }
   else
   {
@@ -1207,8 +1245,8 @@ var Order =
   * Create a set of euler angles from a quaternion. Returns the created euler angles.
   * Quaternion stay untouched, dst contains the euler angle representation.
   *
-  * @param { Array } quat - Source quaternion.
   * @param { Array } dst - Destination representation of Euler angles with source euler angles code.
+  * @param { Array } quat - Source quaternion.
   *
   * @example
   * // returns [ 1, 0, 0, 0, 1, 2 ];
@@ -1220,17 +1258,17 @@ var Order =
   *
   * @returns { Quat } Returns the corresponding quaternion.
   * @function fromQuat2
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( quat ) is not quat.
-  * @throws { Error } An Error if ( dst ) is not euler.
+  * @throws { Error } An Error if( arguments.length ) is different than two.
+  * @throws { Error } An Error if( quat ) is not quat.
+  * @throws { Error } An Error if( dst ) is not euler.
   * @memberof wTools.euler
   */
 
-function fromQuat2( quat, dst )
+function fromQuat2( dst, quat )
 {
 
   var dst = _.euler.from( dst );
-  var dstv = _.vector.from( dst );
+  var dstv = _.euler._from( dst );
   var quatv = _.quat._from( quat );
   var accuracy =  _.accuracy;
   var accuracySqr = _.accuracySqr;
@@ -1548,10 +1586,13 @@ function fromQuat2( quat, dst )
       dstv.eSet( 2, 0 );
     }
   }
-  return dst;
 
+  /* */
+
+  return dst;
 }
 
+//
 
 /**
   * Create the quaternion from a set of euler angles. Returns the created quaternion.
@@ -1569,26 +1610,27 @@ function fromQuat2( quat, dst )
   *
   * @returns { Quat } Returns the corresponding quaternion.
   * @function toQuat2
-  * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @throws { Error } An Error if ( euler ) is not euler.
+  * @throws { Error } An Error if( arguments.length ) is different than one.
+  * @throws { Error } An Error if( euler ) is not euler.
   * @memberof wTools.euler
   */
 
-function toQuat2( euler )
+function toQuat2( srcEuler, dstQuat )
 {
 
-  var euler = _.euler.from( euler );
-  var eulerv = _.vector.from( euler );
-  var quatv = _.quat._from( _.quat.makeUnit() );
+  var srcEuler = _.euler.from( srcEuler );
+  var srcEulerVector = _.euler._from( srcEuler );
+  var dstQuat = _.quat.from( dstQuat );
+  var dstQuatVector = _.quat._from( dstQuat );
 
-  _.assert( arguments.length === 1 );
+  _.assert( arguments.length === 2 );
 
-  var e0 = eulerv.eGet( 0 );
-  var e1 = eulerv.eGet( 1 );
-  var e2 = eulerv.eGet( 2 );
-  var ox = eulerv.eGet( 3 );
-  var oy = eulerv.eGet( 4 );
-  var oz = eulerv.eGet( 5 );
+  var e0 = srcEulerVector.eGet( 0 );
+  var e1 = srcEulerVector.eGet( 1 );
+  var e2 = srcEulerVector.eGet( 2 );
+  var ox = srcEulerVector.eGet( 3 );
+  var oy = srcEulerVector.eGet( 4 );
+  var oz = srcEulerVector.eGet( 5 );
 
   var s0 = sin( e0/2 ); var c0 = cos( e0/2 );
   var s1 = sin( e1/2 ); var c1 = cos( e1/2 );
@@ -1599,105 +1641,102 @@ function toQuat2( euler )
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    quatv.eSet( 0, s0*c1*c2 + c0*s1*s2 );
-    quatv.eSet( 1, c0*s1*c2 - s0*c1*s2 );
-    quatv.eSet( 2, c0*c1*s2 + s0*s1*c2 );
-    quatv.eSet( 3, c0*c1*c2 - s0*s1*s2 );
+    dstQuatVector.eSet( 0, s0*c1*c2 + c0*s1*s2 );
+    dstQuatVector.eSet( 1, c0*s1*c2 - s0*c1*s2 );
+    dstQuatVector.eSet( 2, c0*c1*s2 + s0*s1*c2 );
+    dstQuatVector.eSet( 3, c0*c1*c2 - s0*s1*s2 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    quatv.eSet( 0, s0*c1*c2 - c0*s1*s2 );
-    quatv.eSet( 1, c0*c1*s2 - s0*s1*c2 );
-    quatv.eSet( 2, c0*s1*c2 + s0*c1*s2 );
-    quatv.eSet( 3, c0*c1*c2 + s0*s1*s2 );
+    dstQuatVector.eSet( 0, s0*c1*c2 - c0*s1*s2 );
+    dstQuatVector.eSet( 1, c0*c1*s2 - s0*s1*c2 );
+    dstQuatVector.eSet( 2, c0*s1*c2 + s0*c1*s2 );
+    dstQuatVector.eSet( 3, c0*c1*c2 + s0*s1*s2 );
   }
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    quatv.eSet( 0, s0p*c1 );
-    quatv.eSet( 1, c0n*s1 );
-    quatv.eSet( 2, s0n*s1 );
-    quatv.eSet( 3, c0p*c1 );
+    dstQuatVector.eSet( 0, s0p*c1 );
+    dstQuatVector.eSet( 1, c0n*s1 );
+    dstQuatVector.eSet( 2, s0n*s1 );
+    dstQuatVector.eSet( 3, c0p*c1 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    quatv.eSet( 0, s0p*c1 );
-    quatv.eSet( 1, - s0n*s1 );
-    quatv.eSet( 2, c0n*s1 );
-    quatv.eSet( 3, c0p*c1 );
+    dstQuatVector.eSet( 0, s0p*c1 );
+    dstQuatVector.eSet( 1, - s0n*s1 );
+    dstQuatVector.eSet( 2, c0n*s1 );
+    dstQuatVector.eSet( 3, c0p*c1 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    quatv.eSet( 0, c0*s1*c2 + s0*c1*s2 );
-    quatv.eSet( 1, s0*c1*c2 - c0*s1*s2 );
-    quatv.eSet( 2, c0*c1*s2 - s0*s1*c2 );
-    quatv.eSet( 3, c0*c1*c2 + s0*s1*s2 );
+    dstQuatVector.eSet( 0, c0*s1*c2 + s0*c1*s2 );
+    dstQuatVector.eSet( 1, s0*c1*c2 - c0*s1*s2 );
+    dstQuatVector.eSet( 2, c0*c1*s2 - s0*s1*c2 );
+    dstQuatVector.eSet( 3, c0*c1*c2 + s0*s1*s2 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    quatv.eSet( 0, c0*c1*s2 + s0*s1*c2 );
-    quatv.eSet( 1, s0*c1*c2 + c0*s1*s2 );
-    quatv.eSet( 2, c0*s1*c2 - s0*c1*s2 );
-    quatv.eSet( 3, c0*c1*c2 - s0*s1*s2 );
+    dstQuatVector.eSet( 0, c0*c1*s2 + s0*s1*c2 );
+    dstQuatVector.eSet( 1, s0*c1*c2 + c0*s1*s2 );
+    dstQuatVector.eSet( 2, c0*s1*c2 - s0*c1*s2 );
+    dstQuatVector.eSet( 3, c0*c1*c2 - s0*s1*s2 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    quatv.eSet( 0, c0n*s1 );
-    quatv.eSet( 1, s0p*c1 );
-    quatv.eSet( 2, - s0n*s1 );
-    quatv.eSet( 3, c0p*c1 );
+    dstQuatVector.eSet( 0, c0n*s1 );
+    dstQuatVector.eSet( 1, s0p*c1 );
+    dstQuatVector.eSet( 2, - s0n*s1 );
+    dstQuatVector.eSet( 3, c0p*c1 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    quatv.eSet( 0, s0n*s1 );
-    quatv.eSet( 1, s0p*c1 );
-    quatv.eSet( 2, c0n*s1 );
-    quatv.eSet( 3, c0p*c1 );
+    dstQuatVector.eSet( 0, s0n*s1 );
+    dstQuatVector.eSet( 1, s0p*c1 );
+    dstQuatVector.eSet( 2, c0n*s1 );
+    dstQuatVector.eSet( 3, c0p*c1 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    quatv.eSet( 0, c0*c1*s2 - s0*s1*c2 );
-    quatv.eSet( 1, c0*s1*c2 + s0*c1*s2 );
-    quatv.eSet( 2, s0*c1*c2 - c0*s1*s2 );
-    quatv.eSet( 3, c0*c1*c2 + s0*s1*s2 );
+    dstQuatVector.eSet( 0, c0*c1*s2 - s0*s1*c2 );
+    dstQuatVector.eSet( 1, c0*s1*c2 + s0*c1*s2 );
+    dstQuatVector.eSet( 2, s0*c1*c2 - c0*s1*s2 );
+    dstQuatVector.eSet( 3, c0*c1*c2 + s0*s1*s2 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    quatv.eSet( 0, c0*s1*c2 - s0*c1*s2 );
-    quatv.eSet( 1, c0*c1*s2 + s0*s1*c2 );
-    quatv.eSet( 2, s0*c1*c2 + c0*s1*s2 );
-    quatv.eSet( 3, c0*c1*c2 - s0*s1*s2 );
+    dstQuatVector.eSet( 0, c0*s1*c2 - s0*c1*s2 );
+    dstQuatVector.eSet( 1, c0*c1*s2 + s0*s1*c2 );
+    dstQuatVector.eSet( 2, s0*c1*c2 + c0*s1*s2 );
+    dstQuatVector.eSet( 3, c0*c1*c2 - s0*s1*s2 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    quatv.eSet( 0, c0n*s1 );
-    quatv.eSet( 1, s0n*s1 );
-    quatv.eSet( 2, s0p*c1 );
-    quatv.eSet( 3, c0p*c1 );
+    dstQuatVector.eSet( 0, c0n*s1 );
+    dstQuatVector.eSet( 1, s0n*s1 );
+    dstQuatVector.eSet( 2, s0p*c1 );
+    dstQuatVector.eSet( 3, c0p*c1 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    quatv.eSet( 0, - s0n*s1 );
-    quatv.eSet( 1, c0n*s1 );
-    quatv.eSet( 2, s0p*c1 );
-    quatv.eSet( 3, c0p*c1 );
+    dstQuatVector.eSet( 0, - s0n*s1 );
+    dstQuatVector.eSet( 1, c0n*s1 );
+    dstQuatVector.eSet( 2, s0p*c1 );
+    dstQuatVector.eSet( 3, c0p*c1 );
   }
-  else
-  {
-    return 0;
-  }
+  else _.assert( 0 );
 
-  return quatv;
+  return dstQuat;
 }
 
 //
@@ -1719,9 +1758,9 @@ function toQuat2( euler )
   *
   * @returns { Array } Returns the corresponding euler angles.
   * @function fromMatrix2
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( dst ) is not euler.
-  * @throws { Error } An Error if ( mat ) is not matrix.
+  * @throws { Error } An Error if( arguments.length ) is different than two.
+  * @throws { Error } An Error if( dst ) is not euler.
+  * @throws { Error } An Error if( mat ) is not matrix.
   * @memberof wTools.euler
   */
 
@@ -2135,11 +2174,12 @@ function fromMatrix2( mat, dst )
   *
   * @returns { Space } Returns the corresponding rotation matrix.
   * @function toMatrix2
-  * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @throws { Error } An Error if ( euler ) is not euler.
+  * @throws { Error } An Error if( arguments.length ) is different than one.
+  * @throws { Error } An Error if( euler ) is not euler.
   * @memberof wTools.euler
   */
-/* qqq : adjust indentation of documentations */
+
+/* qqq : make similar to other converters */
 
 function toMatrix2( euler )
 {
@@ -2164,9 +2204,6 @@ function toMatrix2( euler )
   var se1 = sin( e1 );
   var se2 = sin( e2 );
   var se3 = sin( e3 );
-
-  /* qqq : should be if else if else */
-  /* qqq : not optimal */
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
@@ -2346,9 +2383,9 @@ function toMatrix2( euler )
   *
   * @returns { Array } Returns the destination Euler angle with the corresponding representation.
   * @function represent
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( dstEuler ) is not euler.
-  * @throws { Error } An Error if ( representation ) is not an euler angle representation.
+  * @throws { Error } An Error if( arguments.length ) is different than two.
+  * @throws { Error } An Error if( dstEuler ) is not euler.
+  * @throws { Error } An Error if( representation ) is not an euler angle representation.
   * @memberof wTools.euler
   */
 
@@ -2366,9 +2403,11 @@ function represent( dstEuler, representation )
 
   var quaternion = _.euler.toQuat2( euler );
 
-  if( _.strIs( representation ) )
+  xxx
+
+  if( representation )
   {
-    euler = _.euler.make2( euler, representation );
+    euler = _.euler.make( euler, representation );
   }
 
   else if( _.arrayIs( representation ) )
@@ -2406,13 +2445,13 @@ var Proto =
   isZero : isZero,
 
   make : make,
-  make2 : make2,
   makeZero : makeZero,
 
   zero : zero,
 
   from : from,
   _from : _from,
+  representationSet : representationSet,
 
   fromAxisAndAngle : fromAxisAndAngle,
   fromQuat : fromQuat,
