@@ -60,7 +60,7 @@ _.assert( sqrt );
 function is( test )
 {
 
-  test.description = 'array'; /* */
+  test.case = 'array'; /* */
 
   test.is( !_.axisAndAngle.is([]) );
   test.is( !_.axisAndAngle.is([ 0 ]) );
@@ -81,7 +81,7 @@ function is( test )
   test.is( !_.axisAndAngle.is([ 1,2,3,0,1,2 ]) );
   test.is( !_.axisAndAngle.is([ 0,0,0,0,0,0,0 ]) );
 
-  test.description = 'vector'; /* */
+  test.case = 'vector'; /* */
 
   test.is( !_.axisAndAngle.is( _.vector.fromArray([]) ) );
   test.is( !_.axisAndAngle.is( _.vector.fromArray([ 0 ]) ) );
@@ -100,7 +100,7 @@ function is( test )
   test.is( !_.axisAndAngle.is( _.vector.fromArray([ 1,2,3,0,1,2 ]) ) );
   test.is( !_.axisAndAngle.is( _.vector.fromArray([ 0,0,0,0,0,0,0 ]) ) );
 
-  test.description = 'not axisAndAngle'; /* */
+  test.case = 'not axisAndAngle'; /* */
 
   test.is( !_.axisAndAngle.is( 'abcdef' ) );
   test.is( !_.axisAndAngle.is( {} ) );
@@ -113,7 +113,7 @@ function is( test )
 function like( test )
 {
 
-  test.description = 'array'; /* */
+  test.case = 'array'; /* */
 
   test.is( !_.axisAndAngle.like([]) );
   test.is( !_.axisAndAngle.like([ 0 ]) );
@@ -134,7 +134,7 @@ function like( test )
   test.is( !_.axisAndAngle.like([ 1,2,3,0,1,2 ]) );
   test.is( !_.axisAndAngle.like([ 0,0,0,0,0,0,0 ]) );
 
-  test.description = 'vector'; /* */
+  test.case = 'vector'; /* */
 
   test.is( !_.axisAndAngle.like( _.vector.fromArray([]) ) );
   test.is( !_.axisAndAngle.like( _.vector.fromArray([ 0 ]) ) );
@@ -153,7 +153,7 @@ function like( test )
   test.is( !_.axisAndAngle.like( _.vector.fromArray([ 1,2,3,0,1,2 ]) ) );
   test.is( !_.axisAndAngle.like( _.vector.fromArray([ 0,0,0,0,0,0,0 ]) ) );
 
-  test.description = 'not axisAndAngle'; /* */
+  test.case = 'not axisAndAngle'; /* */
 
   test.is( !_.axisAndAngle.like( 'abcdef' ) );
   test.is( !_.axisAndAngle.like( {} ) );
@@ -166,7 +166,7 @@ function like( test )
 function isZero( test )
 {
 
-  test.description = 'zero'; /* */
+  test.case = 'zero'; /* */
 
   test.is( _.axisAndAngle.isZero([ 0,0,0,0 ]) );
   test.is( _.axisAndAngle.isZero([ 1,0,0,0 ]) );
@@ -175,7 +175,7 @@ function isZero( test )
 
   test.is( _.axisAndAngle.isZero( [ 0,0,1 ],0 ) );
 
-  test.description = 'not zero'; /* */
+  test.case = 'not zero'; /* */
 
   test.is( !_.axisAndAngle.isZero([ 0,0,0,+0.1 ]) );
   test.is( !_.axisAndAngle.isZero([ 1,0,0,+0.1 ]) );
@@ -207,7 +207,7 @@ function isZero( test )
 function make( test )
 {
 
-  test.description = 'src undefined'; /* */
+  test.case = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.axisAndAngle.make( src );
@@ -215,7 +215,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; /* */
+  test.case = 'src null'; /* */
 
   var src = null;
   var got = _.axisAndAngle.make( src );
@@ -223,7 +223,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src array'; /* */
+  test.case = 'src array'; /* */
 
   var src = [ 0,1,2,5, ];
   var got = _.axisAndAngle.make( src );
@@ -231,7 +231,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src array and angle'; /* */
+  test.case = 'src array and angle'; /* */
 
   var src = [ 0,1,2 ];
   var got = _.axisAndAngle.make( src,5 );
@@ -239,7 +239,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src vector'; /* */
+  test.case = 'src vector'; /* */
 
   var src = _.vector.fromArray([ 0,1,2,5 ]);
   var got = _.axisAndAngle.make( src );
@@ -247,7 +247,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src vector'; /* */
+  test.case = 'src vector'; /* */
 
   var src = _.vector.fromArray([ 0,1,2 ]);
   var got = _.axisAndAngle.make( src,5 );
@@ -258,7 +258,7 @@ function make( test )
   if( !Config.debug )
   return;
 
-  test.description = 'bad arguments'; /* */
+  test.case = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.axisAndAngle.make( 0 ) );
   test.shouldThrowErrorSync( () => _.axisAndAngle.make( 4 ) );
@@ -274,7 +274,7 @@ function make( test )
 function makeZero( test )
 {
 
-  test.description = 'trivial'; /* */
+  test.case = 'trivial'; /* */
 
   var got = _.axisAndAngle.makeZero();
   var expected = [ 0,0,0,0 ];
@@ -283,7 +283,7 @@ function makeZero( test )
   if( !Config.debug )
   return;
 
-  test.description = 'bad arguments'; /* */
+  test.case = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.axisAndAngle.makeZero( undefined ) );
   test.shouldThrowErrorSync( () => _.axisAndAngle.makeZero( null ) );
@@ -301,7 +301,7 @@ function makeZero( test )
 function from( test )
 {
 
-  test.description = 'from null'; /* */
+  test.case = 'from null'; /* */
 
   var src = null;
   var got = _.axisAndAngle.from( src );
@@ -309,7 +309,7 @@ function from( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'from null and null'; /* */
+  test.case = 'from null and null'; /* */
 
   var src = null;
   var got = _.axisAndAngle.from( src,null );
@@ -317,7 +317,7 @@ function from( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'from null and angle'; /* */
+  test.case = 'from null and angle'; /* */
 
   var src = null;
   var got = _.axisAndAngle.from( src,3 );
@@ -325,7 +325,7 @@ function from( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'from array and null'; /* */
+  test.case = 'from array and null'; /* */
 
   var src = [ 0,1,2 ];
   debugger;
@@ -334,7 +334,7 @@ function from( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'from array'; /* */
+  test.case = 'from array'; /* */
 
   var src = [ 0,1,2,3 ];
   var got = _.axisAndAngle.from( src );
@@ -342,7 +342,7 @@ function from( test )
   test.identical( got,expected );
   test.is( got === src );
 
-  test.description = 'from array and angle'; /* */
+  test.case = 'from array and angle'; /* */
 
   var src = [ 0,1,2 ];
   var got = _.axisAndAngle.from( src,3 );
@@ -350,7 +350,7 @@ function from( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'from vector'; /* */
+  test.case = 'from vector'; /* */
 
   var src = _.vector.from([ 0,1,2,3 ]);
   var got = _.axisAndAngle.from( src );
@@ -358,7 +358,7 @@ function from( test )
   test.identical( got,expected );
   test.is( got === src );
 
-  test.description = 'from vector and angle'; /* */
+  test.case = 'from vector and angle'; /* */
 
   debugger;
   var src = _.vector.from([ 0,1,2 ]);
@@ -370,7 +370,7 @@ function from( test )
   if( !Config.debug )
   return;
 
-  test.description = 'bad arguments'; /* */
+  test.case = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.axisAndAngle.from() );
   test.shouldThrowErrorSync( () => _.axisAndAngle.from( undefined ) );
@@ -388,7 +388,7 @@ function from( test )
 function _from( test )
 {
 
-  test.description = '_from null'; /* */
+  test.case = '_from null'; /* */
 
   var src = null;
   var got = _.axisAndAngle._from( src );
@@ -396,7 +396,7 @@ function _from( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = '_from null and null'; /* */
+  test.case = '_from null and null'; /* */
 
   var src = null;
   var got = _.axisAndAngle._from( src,null );
@@ -404,7 +404,7 @@ function _from( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = '_from null and angle'; /* */
+  test.case = '_from null and angle'; /* */
 
   var src = null;
   var got = _.axisAndAngle._from( src,3 );
@@ -412,7 +412,7 @@ function _from( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = '_from array and null'; /* */
+  test.case = '_from array and null'; /* */
 
   var src = [ 0,1,2 ];
   debugger;
@@ -423,7 +423,7 @@ function _from( test )
   test.is( got._vectorBuffer !== src );
   test.is( !!got._vectorBuffer );
 
-  test.description = '_from array'; /* */
+  test.case = '_from array'; /* */
 
   var src = [ 0,1,2,3 ];
   var got = _.axisAndAngle._from( src );
@@ -433,7 +433,7 @@ function _from( test )
   test.is( got._vectorBuffer === src );
   test.is( !!got._vectorBuffer );
 
-  test.description = '_from array and angle'; /* */
+  test.case = '_from array and angle'; /* */
 
   var src = [ 0,1,2 ];
   var got = _.axisAndAngle._from( src,3 );
@@ -443,7 +443,7 @@ function _from( test )
   test.is( got._vectorBuffer !== src );
   test.is( !!got._vectorBuffer );
 
-  test.description = '_from vector'; /* */
+  test.case = '_from vector'; /* */
 
   var src = _.vector.from([ 0,1,2,3 ]);
   var got = _.axisAndAngle._from( src );
@@ -451,7 +451,7 @@ function _from( test )
   test.identical( got,expected );
   test.is( got === src );
 
-  test.description = '_from vector and angle'; /* */
+  test.case = '_from vector and angle'; /* */
 
   var src = _.vector.from([ 0,1,2 ]);
   var got = _.axisAndAngle._from( src,3 );
@@ -464,7 +464,7 @@ function _from( test )
   if( !Config.debug )
   return;
 
-  test.description = 'bad arguments'; /* */
+  test.case = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.axisAndAngle._from() );
   test.shouldThrowErrorSync( () => _.axisAndAngle._from( undefined ) );
@@ -485,7 +485,7 @@ function _from( test )
 function zero( test )
 {
 
-  test.description = 'src undefined'; /* */
+  test.case = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.axisAndAngle.zero( src );
@@ -493,7 +493,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; /* */
+  test.case = 'src null'; /* */
 
   var src = null;
   var got = _.axisAndAngle.zero( src );
@@ -501,7 +501,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'dst array'; /* */
+  test.case = 'dst array'; /* */
 
   var dst = [ 0,1,2,5 ];
   var got = _.axisAndAngle.zero( dst );
@@ -509,7 +509,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst vector'; /* */
+  test.case = 'dst vector'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,5 ]);
   var got = _.axisAndAngle.zero( dst );
@@ -520,7 +520,7 @@ function zero( test )
   if( !Config.debug )
   return;
 
-  test.description = 'bad arguments'; /* */
+  test.case = 'bad arguments'; /* */
 
   test.shouldThrowErrorSync( () => _.axisAndAngle.zero( 4 ) );
   test.shouldThrowErrorSync( () => _.axisAndAngle.zero([ 0,0,0 ]) );

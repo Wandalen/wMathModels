@@ -52,21 +52,21 @@ _.assert( sqrt );
 function is( test )
 {
 
-  test.description = 'array'; /* */
+  test.case = 'array'; /* */
 
   test.is( _.box.is( [] ) );
   test.is( _.box.is([ 0,0 ]) );
   test.is( _.box.is([ 1,2,3,4 ]) );
   test.is( _.box.is([ 0,0,0,0,0,0 ]) );
 
-  test.description = 'vector'; /* */
+  test.case = 'vector'; /* */
 
   test.is( _.box.is( _.vector.fromArray([]) ) );
   test.is( _.box.is( _.vector.fromArray([ 0,0 ]) ) );
   test.is( _.box.is( _.vector.fromArray([ 1,2,3,4 ]) ) );
   test.is( _.box.is( _.vector.fromArray([ 0,0,0,0,0,0 ]) ) );
 
-  test.description = 'not box'; /* */
+  test.case = 'not box'; /* */
 
   test.is( !_.box.is([ 0 ]) );
   test.is( !_.box.is([ 0,0,0 ]) );
@@ -85,7 +85,7 @@ function is( test )
 function isEmpty( test )
 {
 
-  test.description = 'empty'; /* */
+  test.case = 'empty'; /* */
 
   test.is( _.box.isEmpty([]) );
   test.is( _.box.isEmpty([ 0,0 ]) );
@@ -106,7 +106,7 @@ function isEmpty( test )
   test.is( _.box.isEmpty([ 0.1,-Infinity ]) );
   test.is( _.box.isEmpty([ 0,0,0.1,-Infinity ]) );
 
-  test.description = 'not empty'; /* */
+  test.case = 'not empty'; /* */
 
   test.is( !_.box.isEmpty([ 0,1 ]) );
 
@@ -123,7 +123,7 @@ function isEmpty( test )
 function isZero( test )
 {
 
-  test.description = 'zero'; /* */
+  test.case = 'zero'; /* */
 
   test.is( _.box.isZero([]) );
   test.is( _.box.isZero([ 0,0 ]) );
@@ -132,7 +132,7 @@ function isZero( test )
   test.is( _.box.isZero([ 5,0,5,0 ]) );
   test.is( _.box.isZero([ -3,0,5,-3,0,5 ]) );
 
-  test.description = 'not zero'; /* */
+  test.case = 'not zero'; /* */
 
   test.is( !_.box.isZero([ 0,1 ]) );
   test.is( !_.box.isZero([ 0,0,0,1 ]) );
@@ -157,7 +157,7 @@ function isZero( test )
 function isNil( test )
 {
 
-  test.description = 'nil'; /* */
+  test.case = 'nil'; /* */
 
   test.is( _.box.isNil([ +Infinity,+Infinity,-Infinity,-Infinity ]) );
   test.is( _.box.isNil([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
@@ -165,7 +165,7 @@ function isNil( test )
   test.is( _.box.isNil([ +1,+1,-2,-5 ]) );
   test.is( _.box.isNil([ +1,+1,+1,-2,-3,-4 ]) );
 
-  test.description = 'not nil'; /* */
+  test.case = 'not nil'; /* */
 
   test.is( !_.box.isNil([ 0,Infinity ]) );
   test.is( !_.box.isNil([ 0,0,0,Infinity ]) );
@@ -180,7 +180,7 @@ function isNil( test )
 function make( test )
 {
 
-  test.description = 'src undefined'; /* */
+  test.case = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.box.make( src );
@@ -188,7 +188,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; /* */
+  test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.make( src );
@@ -196,7 +196,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src 2'; /* */
+  test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.make( src );
@@ -204,7 +204,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src array'; /* */
+  test.case = 'src array'; /* */
 
   var src = [ 0,1,2,3 ];
   var got = _.box.make( src );
@@ -212,7 +212,7 @@ function make( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src vector'; /* */
+  test.case = 'src vector'; /* */
 
   var src = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.box.make( src );
@@ -227,7 +227,7 @@ function make( test )
 function makeZero( test )
 {
 
-  test.description = 'src undefined'; /* */
+  test.case = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.box.makeZero( src );
@@ -235,7 +235,7 @@ function makeZero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; /* */
+  test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.makeZero( src );
@@ -243,7 +243,7 @@ function makeZero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src 2'; /* */
+  test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.makeZero( src );
@@ -251,7 +251,7 @@ function makeZero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src array'; /* */
+  test.case = 'src array'; /* */
 
   var src = [ 0,1,2,3 ];
   var got = _.box.makeZero( src );
@@ -259,7 +259,7 @@ function makeZero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src vector'; /* */
+  test.case = 'src vector'; /* */
 
   var src = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.box.makeZero( src );
@@ -274,7 +274,7 @@ function makeZero( test )
 function makeNil( test )
 {
 
-  test.description = 'src undefined'; /* */
+  test.case = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.box.makeNil( src );
@@ -282,7 +282,7 @@ function makeNil( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; /* */
+  test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.makeNil( src );
@@ -290,7 +290,7 @@ function makeNil( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src 2'; /* */
+  test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.makeNil( src );
@@ -298,7 +298,7 @@ function makeNil( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src array'; /* */
+  test.case = 'src array'; /* */
 
   var src = [ 0,1,2,3 ];
   var got = _.box.makeNil( src );
@@ -306,7 +306,7 @@ function makeNil( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src vector'; /* */
+  test.case = 'src vector'; /* */
 
   var src = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.box.makeNil( src );
@@ -321,7 +321,7 @@ function makeNil( test )
 function zero( test )
 {
 
-  test.description = 'src undefined'; /* */
+  test.case = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.box.zero( src );
@@ -329,7 +329,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; /* */
+  test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.zero( src );
@@ -337,7 +337,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src 2'; /* */
+  test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.zero( src );
@@ -345,7 +345,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'dst array'; /* */
+  test.case = 'dst array'; /* */
 
   var dst = [ 0,1,2,3 ];
   var got = _.box.zero( dst );
@@ -353,7 +353,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst vector'; /* */
+  test.case = 'dst vector'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.box.zero( dst );
@@ -361,7 +361,7 @@ function zero( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst array 1d'; /* */
+  test.case = 'dst array 1d'; /* */
 
   var dst = [ 0,1 ];
   var got = _.box.zero( dst );
@@ -376,7 +376,7 @@ function zero( test )
 function nil( test )
 {
 
-  test.description = 'src undefined'; /* */
+  test.case = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.box.nil( src );
@@ -384,7 +384,7 @@ function nil( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; /* */
+  test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.nil( src );
@@ -392,7 +392,7 @@ function nil( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src 2'; /* */
+  test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.nil( src );
@@ -400,7 +400,7 @@ function nil( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'dst array'; /* */
+  test.case = 'dst array'; /* */
 
   var dst = [ 0,1,2,3 ];
   var got = _.box.nil( dst );
@@ -408,7 +408,7 @@ function nil( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst vector'; /* */
+  test.case = 'dst vector'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.box.nil( dst );
@@ -416,7 +416,7 @@ function nil( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst array 2d'; /* */
+  test.case = 'dst array 2d'; /* */
 
   var dst = [ 1,3 ];
   var got = _.box.nil( dst );
@@ -431,7 +431,7 @@ function nil( test )
 function centeredOfSize( test )
 {
 
-  test.description = 'src undefined'; /* */
+  test.case = 'src undefined'; /* */
 
   var src = undefined;
   var got = _.box.centeredOfSize( src,2 );
@@ -439,7 +439,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null'; /* */
+  test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.centeredOfSize( src,2 );
@@ -447,7 +447,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src 2'; /* */
+  test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.centeredOfSize( src,2 );
@@ -455,7 +455,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'dst array'; /* */
+  test.case = 'dst array'; /* */
 
   var dst = [ 0,1,2,3 ];
   var got = _.box.centeredOfSize( dst,2 );
@@ -463,7 +463,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst vector'; /* */
+  test.case = 'dst vector'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.box.centeredOfSize( dst,2 );
@@ -471,7 +471,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst array 2d'; /* */
+  test.case = 'dst array 2d'; /* */
 
   var dst = [ 1,3 ];
   var got = _.box.centeredOfSize( dst,2 );
@@ -481,7 +481,7 @@ function centeredOfSize( test )
 
   /* */
 
-  test.description = 'src undefined, implicit size'; /* */
+  test.case = 'src undefined, implicit size'; /* */
 
   var src = undefined;
   var got = _.box.centeredOfSize( src );
@@ -489,7 +489,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null, implicit size'; /* */
+  test.case = 'src null, implicit size'; /* */
 
   var src = null;
   var got = _.box.centeredOfSize( src );
@@ -497,7 +497,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src 2, implicit size'; /* */
+  test.case = 'src 2, implicit size'; /* */
 
   var src = 2;
   var got = _.box.centeredOfSize( src );
@@ -505,7 +505,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'dst array, implicit size'; /* */
+  test.case = 'dst array, implicit size'; /* */
 
   var dst = [ 0,1,2,3 ];
   var got = _.box.centeredOfSize( dst );
@@ -513,7 +513,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst vector, implicit size'; /* */
+  test.case = 'dst vector, implicit size'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.box.centeredOfSize( dst );
@@ -521,7 +521,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst array 2d, implicit size'; /* */
+  test.case = 'dst array 2d, implicit size'; /* */
 
   var dst = [ 1,3 ];
   var got = _.box.centeredOfSize( dst );
@@ -531,7 +531,7 @@ function centeredOfSize( test )
 
   /* */
 
-  test.description = 'src undefined with sizes in array'; /* */
+  test.case = 'src undefined with sizes in array'; /* */
 
   var src = undefined;
   var got = _.box.centeredOfSize( src,[ 1,2,4 ] );
@@ -539,7 +539,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src null with sizes in array'; /* */
+  test.case = 'src null with sizes in array'; /* */
 
   var src = null;
   var got = _.box.centeredOfSize( src,[ 1,2,4 ] );
@@ -547,7 +547,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'src 2 with sizes in array'; /* */
+  test.case = 'src 2 with sizes in array'; /* */
 
   var src = 2;
   var got = _.box.centeredOfSize( src,[ 2,4 ] );
@@ -555,7 +555,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.description = 'dst array with sizes in array'; /* */
+  test.case = 'dst array with sizes in array'; /* */
 
   var dst = [ 0,1,2,3 ];
   var got = _.box.centeredOfSize( dst,[ 2,4 ] );
@@ -563,7 +563,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst vector with sizes in array'; /* */
+  test.case = 'dst vector with sizes in array'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,3 ]);
   var got = _.box.centeredOfSize( dst,[ 2,4 ] );
@@ -571,7 +571,7 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.description = 'dst array 2d with sizes in array'; /* */
+  test.case = 'dst array 2d with sizes in array'; /* */
 
   var dst = [ 1,3 ];
   var got = _.box.centeredOfSize( dst,[ 4 ] );
@@ -588,7 +588,7 @@ function boxFromBox( test )
 
   debugger;
 
-  test.description = 'trivial'; /* */
+  test.case = 'trivial'; /* */
 
   var expected = [ 0.5,0.5,0.5,sqrt( 0.5 ) ];
   var bbox = [ 0,0,0,0,0,0 ];
@@ -604,7 +604,7 @@ function boxFromBox( test )
   _.box.fromBox( bbox,bbox );
   test.equivalent( bbox,expected );
 
-  test.description = 'same sizes, different position'; /* */
+  test.case = 'same sizes, different position'; /* */
 
   var expected = [ -2.5,0.5,5.5,sqrt( 0.5 ) ];
   var bbox = [ 0,0,0,0,0,0 ];
@@ -620,7 +620,7 @@ function boxFromBox( test )
   _.box.fromBox( bbox,bbox );
   test.equivalent( bbox,expected );
 
-  test.description = 'different sizes, different position'; /* */
+  test.case = 'different sizes, different position'; /* */
 
   var expected = [ -2,0.5,7,sqrt( 5 ) ];
   var bbox = [ 0,0,0,0,0,0 ];
@@ -636,7 +636,7 @@ function boxFromBox( test )
   _.box.fromBox( bbox,bbox )
   test.equivalent( bbox,expected );
 
-  test.description = 'bad arguments'; /* */
+  test.case = 'bad arguments'; /* */
 
   if( !Config.debug )
   return;
@@ -676,7 +676,7 @@ function boxFromBox( test )
 function boxFromPoints( test )
 {
 
-  test.description = 'Box from two points'; /* */
+  test.case = 'Box from two points'; /* */
 
   var pointone = [ - 1, 2, - 3 ];
   var pointtwo = [ 1, - 2, 3 ];
@@ -688,7 +688,7 @@ function boxFromPoints( test )
   bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
-  test.description = 'Box from three points'; /* */
+  test.case = 'Box from three points'; /* */
 
   var pointone = [ - 1, 2, - 3 ];
   var pointtwo = [ 1, - 2, 3 ];
@@ -701,7 +701,7 @@ function boxFromPoints( test )
   bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
-  test.description = 'Box from six points'; /* */
+  test.case = 'Box from six points'; /* */
 
   var pointone = [ 0, 0, 3 ];
   var pointtwo = [ 0, 2, 0 ];
@@ -717,7 +717,7 @@ function boxFromPoints( test )
   bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
-  test.description = 'Box from two decimal points'; /* */
+  test.case = 'Box from two decimal points'; /* */
 
   var pointone = [ 0.001, -0.203, 0.889 ];
   var pointtwo = [ -0.991, 0.203, 0.005 ];
@@ -729,7 +729,7 @@ function boxFromPoints( test )
   bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
-  test.description = 'Box from Two points with initial box dimension'; /* */
+  test.case = 'Box from Two points with initial box dimension'; /* */
 
   var pointone = [ 3, 1, 3 ];
   var pointtwo = [ 3, 8, 3 ];
@@ -741,7 +741,7 @@ function boxFromPoints( test )
   bbox = _.box.fromPoints( bbox, points );
   test.equivalent( bbox, expected );
 
-  test.description = '0d Box from 0d points'; /* */
+  test.case = '0d Box from 0d points'; /* */
 
   var expected = [];
   var points = [ [], [], [] ];
@@ -755,45 +755,45 @@ function boxFromPoints( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
 
   test.shouldThrowError( function()
   {
     _.box.fromPoints( 'box', 'points' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
 
   test.shouldThrowError( function()
   {
     _.box.fromPoints( null, 4 );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], [ 1, 0, 1 ] ], [ 0, 1, 2 ] );
   });
 
-  test.description = 'Different dimensions between box and points'; /* */
+  test.case = 'Different dimensions between box and points'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], [ 1, 0 ] ]);
   });
 
-  test.description = 'Different dimensions between points'; /* */
+  test.case = 'Different dimensions between points'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], [ 1, 0 ], [ 0 ] ]);
@@ -805,7 +805,7 @@ function boxFromPoints( test )
 function pointExpand( test )
 {
 
-  test.description = 'Point remains unchanged and Destination box changes'; /* */
+  test.case = 'Point remains unchanged and Destination box changes'; /* */
 
   var dstBox = [ 0, 0, 1, 1 ];
   var point = [ 0, 2 ];
@@ -820,7 +820,7 @@ function pointExpand( test )
   var oldPoint = [ 0, 2 ];
   test.identical( point, oldPoint );
 
-  test.description = 'Null box expanded'; /* */
+  test.case = 'Null box expanded'; /* */
 
   var box = null;
   var point = [ 1, 2, 3 ];
@@ -829,7 +829,7 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
-  test.description = 'Null box NOT expanded'; /* */
+  test.case = 'Null box NOT expanded'; /* */
 
   var box = null;
   var point = [ 0, 0, 0 ];
@@ -838,7 +838,7 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
-  test.description = 'One point box expanded'; /* */
+  test.case = 'One point box expanded'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ - 1, 2, - 3 ];
@@ -847,7 +847,7 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
-  test.description = 'Box expanded'; /* */
+  test.case = 'Box expanded'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 1, 3, - 1 ];
@@ -856,7 +856,7 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
-  test.description = 'Box NOT expanded ( point inside box )'; /* */
+  test.case = 'Box NOT expanded ( point inside box )'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
@@ -865,7 +865,7 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
-  test.description = 'Box ( normalized to 1 ) expanded'; /* */
+  test.case = 'Box ( normalized to 1 ) expanded'; /* */
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var point = [ -0.900, 0, 0.900 ];
@@ -874,7 +874,7 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
-  test.description = 'Null box of four dimensions expanded'; /* */
+  test.case = 'Null box of four dimensions expanded'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
   var point = [ 1, 2, 3 , 4 ];
@@ -883,7 +883,7 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
-  test.description = 'Null box of 7 dimensions expanded'; /* */
+  test.case = 'Null box of 7 dimensions expanded'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var point = [ 1, 2, 3 , 4, 5, 6, 7 ];
@@ -892,7 +892,7 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
-  test.description = 'Box of 1 dimension expanded'; /* */
+  test.case = 'Box of 1 dimension expanded'; /* */
 
   var box = [ 0, 0 ];
   var point = [ 1 ];
@@ -901,7 +901,7 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
-  test.description = 'Box of 0 dimension expanded'; /* */
+  test.case = 'Box of 0 dimension expanded'; /* */
 
   var box = [ ];
   var point = [ ];
@@ -915,49 +915,49 @@ function pointExpand( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointExpand();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointExpand( 'box', 'points' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointExpand( null, 4 );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 4D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 2D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 2D vs point 1D)'; /* */
+  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0 ], [ 0 ] );
@@ -969,7 +969,7 @@ function pointExpand( test )
 function pointContains( test )
 {
 
-  test.description = 'Box and Point remain unchanged'; /* */
+  test.case = 'Box and Point remain unchanged'; /* */
 
   var box = [  - 1,  - 1 , 1, 1 ];
   var oldBox = box.slice();
@@ -982,7 +982,7 @@ function pointContains( test )
   test.identical( box, oldBox );
   test.identical( point, oldPoint );
 
-  test.description = 'Null box contains empty point'; /* */
+  test.case = 'Null box contains empty point'; /* */
 
   var box = null;
   var point = [ 0, 0, 0 ];
@@ -991,7 +991,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Empty box doesn´t contain empty point'; /* */
+  test.case = 'Empty box doesn´t contain empty point'; /* */
 
   var box = [];
   var point = [];
@@ -1000,7 +1000,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Point Box contains Point'; /* */
+  test.case = 'Point Box contains Point'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -1009,7 +1009,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box contains point'; /* */
+  test.case = 'Box contains point'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
@@ -1018,7 +1018,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box under point'; /* */
+  test.case = 'Box under point'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 1, 1, 3 ];
@@ -1027,7 +1027,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box over point'; /* */
+  test.case = 'Box over point'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 1, 1, 1 ];
@@ -1036,7 +1036,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box ( normalized to 1 ) contains point'; /* */
+  test.case = 'Box ( normalized to 1 ) contains point'; /* */
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, 0.000 ];
@@ -1045,7 +1045,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box ( normalized to 1 ) doesn´t contain point'; /* */
+  test.case = 'Box ( normalized to 1 ) doesn´t contain point'; /* */
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, - 0.303 ];
@@ -1054,7 +1054,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box of four dimensions contains point'; /* */
+  test.case = 'Box of four dimensions contains point'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 0 ];
@@ -1063,7 +1063,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box of four dimensions doesn´t contain point'; /* */
+  test.case = 'Box of four dimensions doesn´t contain point'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, - 2, 0 , 2 ];
@@ -1072,7 +1072,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box of 7 dimensions contains point'; /* */
+  test.case = 'Box of 7 dimensions contains point'; /* */
 
   var box = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
   var point = [ 0, -1, -1, 0, -1, 0, 0 ];
@@ -1081,7 +1081,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box of 7 dimensions doesn´t contain point'; /* */
+  test.case = 'Box of 7 dimensions doesn´t contain point'; /* */
 
   var box = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
   var point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
@@ -1090,7 +1090,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box of 1 dimension contains point'; /* */
+  test.case = 'Box of 1 dimension contains point'; /* */
 
   var box = [ 0, 2 ];
   var point = [ 1 ];
@@ -1099,7 +1099,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box of 1 dimension desn´t contain point (too big)'; /* */
+  test.case = 'Box of 1 dimension desn´t contain point (too big)'; /* */
 
   var box = [ 0, 2 ];
   var point = [ 3 ];
@@ -1108,7 +1108,7 @@ function pointContains( test )
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool,  expected );
 
-  test.description = 'Box of 1 dimension desn´t contain point (too small)'; /* */
+  test.case = 'Box of 1 dimension desn´t contain point (too small)'; /* */
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
@@ -1122,50 +1122,50 @@ function pointContains( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointContains();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointContains( 'box', 'point' );
   });
 
-  test.description = 'Point Null'; /* */
+  test.case = 'Point Null'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointContains( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointContains( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointContains( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 4D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointContains( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 2D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointContains( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 2D vs point 1D)'; /* */
+  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointContains( [ 0, 0, 0, 0 ], [ 0 ] );
@@ -1177,7 +1177,7 @@ function pointContains( test )
 function pointRelative( test )
 {
 
-  test.description = 'Returns same instance point, box remains unchanged'; /* */
+  test.case = 'Returns same instance point, box remains unchanged'; /* */
 
   var box = [ 0, 0, 2, 2 ];
   var oldBox = box.slice();
@@ -1193,7 +1193,7 @@ function pointRelative( test )
   var oldBox = [ 0, 0, 2, 2 ];
   test.equivalent( oldBox, box );
 
-  test.description = 'Empty point relative to null box'; /* */
+  test.case = 'Empty point relative to null box'; /* */
 
   var box = null;
   var point = [ 0, 0, 0 ];
@@ -1202,7 +1202,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Empty point relative to empty box'; /* */
+  test.case = 'Empty point relative to empty box'; /* */
 
   var box = [];
   var point = [];
@@ -1211,7 +1211,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point relative to zero box'; /* */
+  test.case = 'Point relative to zero box'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -1220,7 +1220,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point in medium of box'; /* */
+  test.case = 'Point in medium of box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
@@ -1229,7 +1229,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point with 1D out of box'; /* */
+  test.case = 'Point with 1D out of box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 1, 1, 3 ];
@@ -1238,7 +1238,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point with 1D under box'; /* */
+  test.case = 'Point with 1D under box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 1, 1, 1 ];
@@ -1247,7 +1247,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point (normalized to one) in box'; /* */
+  test.case = 'Point (normalized to one) in box'; /* */
 
   var box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
   var point = [ 0.100, 0.025, 0.050 ];
@@ -1256,7 +1256,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point (normalized to one) not in box'; /* */
+  test.case = 'Point (normalized to one) not in box'; /* */
 
   var box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
   var point = [ 0.075, 0.075, 0.075 ];
@@ -1265,7 +1265,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point in four dimensions box'; /* */
+  test.case = 'Point in four dimensions box'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 0 ];
@@ -1274,7 +1274,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point out of four dimensions box'; /* */
+  test.case = 'Point out of four dimensions box'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, - 2, 0 , 2 ];
@@ -1283,7 +1283,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point in seven dimensions box'; /* */
+  test.case = 'Point in seven dimensions box'; /* */
 
   var box = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
   var point = [ - 0.5, - 2, 1, - 3.5, 4, - 5, 7 ];
@@ -1292,7 +1292,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point in one dimension box'; /* */
+  test.case = 'Point in one dimension box'; /* */
 
   var box = [ 0, 2 ];
   var point = [ 1 ];
@@ -1301,7 +1301,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point out of one dimension box (smaller)'; /* */
+  test.case = 'Point out of one dimension box (smaller)'; /* */
 
   var box = [ 0, 2 ];
   var point = [ 3 ];
@@ -1310,7 +1310,7 @@ function pointRelative( test )
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
 
-  test.description = 'Point out of one dimension box (bigger)'; /* */
+  test.case = 'Point out of one dimension box (bigger)'; /* */
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
@@ -1324,50 +1324,50 @@ function pointRelative( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointRelative();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointRelative( 'box', 'point' );
   });
 
-  test.description = 'Point Null'; /* */
+  test.case = 'Point Null'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 4D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 2D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 2D vs point 1D)'; /* */
+  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 0 ], [ 0 ] );
@@ -1379,7 +1379,7 @@ function pointRelative( test )
 function pointClamp( test )
 {
 
-  test.description = 'Returns same instance point, box remains unchanged'; /* */
+  test.case = 'Returns same instance point, box remains unchanged'; /* */
 
   var box = [ 1, 1, 1, 3, 3, 3 ];
   var oldBox = box.slice();
@@ -1390,7 +1390,7 @@ function pointClamp( test )
   test.identical( gotClamped, point );
   test.identical( oldBox, box );
 
-  test.description = 'Empty point relative to null box'; /* */
+  test.case = 'Empty point relative to null box'; /* */
 
   var box = null;
   var point = [ 0, 0, 0 ];
@@ -1399,7 +1399,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Empty point relative to empty box'; /* */
+  test.case = 'Empty point relative to empty box'; /* */
 
   var box = [];
   var point = [];
@@ -1408,7 +1408,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point relative to zero box'; /* */
+  test.case = 'Point relative to zero box'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -1417,7 +1417,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point in box'; /* */
+  test.case = 'Point in box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
@@ -1426,7 +1426,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point over box'; /* */
+  test.case = 'Point over box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 1, 1, 3 ];
@@ -1435,7 +1435,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point under box'; /* */
+  test.case = 'Point under box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 1, 1, 1 ];
@@ -1444,7 +1444,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point (normalized to one) in box'; /* */
+  test.case = 'Point (normalized to one) in box'; /* */
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, 0 ];
@@ -1453,7 +1453,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point (normalized to one) not in box'; /* */
+  test.case = 'Point (normalized to one) not in box'; /* */
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, - 0.303 ];
@@ -1462,7 +1462,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point in four dimensions box'; /* */
+  test.case = 'Point in four dimensions box'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 0 ];
@@ -1471,7 +1471,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point out of four dimensions box'; /* */
+  test.case = 'Point out of four dimensions box'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, - 2, 0 , 2 ];
@@ -1480,7 +1480,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point in seven dimensions box'; /* */
+  test.case = 'Point in seven dimensions box'; /* */
 
   var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
   var point = [ 0, 4, 3.5, 0, 4, 2, 2 ];
@@ -1489,7 +1489,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point out of seven dimensions box'; /* */
+  test.case = 'Point out of seven dimensions box'; /* */
 
   var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
   var point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
@@ -1498,7 +1498,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point in one dimension box'; /* */
+  test.case = 'Point in one dimension box'; /* */
 
   var box = [ 0, 2 ];
   var point = [ 1 ];
@@ -1507,7 +1507,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point out of one dimension box (smaller)'; /* */
+  test.case = 'Point out of one dimension box (smaller)'; /* */
 
   var box = [ 0, 2 ];
   var point = [ 3 ];
@@ -1516,7 +1516,7 @@ function pointClamp( test )
   var gotClamped = _.box.pointClamp( box, point );
   test.identical( gotClamped,  expected );
 
-  test.description = 'Point out of one dimension box (bigger)'; /* */
+  test.case = 'Point out of one dimension box (bigger)'; /* */
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
@@ -1530,50 +1530,50 @@ function pointClamp( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointClamp();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointClamp( 'box', 'point' );
   });
 
-  test.description = 'Point Null'; /* */
+  test.case = 'Point Null'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointClamp( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointClamp( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointClamp( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 4D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointClamp( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 2D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointClamp( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 2D vs point 1D)'; /* */
+  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointClamp( [ 0, 0, 0, 0 ], [ 0 ] );
@@ -1583,7 +1583,7 @@ function pointClamp( test )
 function pointDistance( test )
 {
 
-  test.description = 'Box and Point remain unchanged'; /* */
+  test.case = 'Box and Point remain unchanged'; /* */
 
   var box = [ 0, 0, 2, 2 ];
   var oldBox = box.slice();
@@ -1595,7 +1595,7 @@ function pointDistance( test )
   test.equivalent( oldBox,oldBox );
   test.equivalent( point, oldPoint );
 
-  test.description = 'Empty point relative to null box'; /* */
+  test.case = 'Empty point relative to null box'; /* */
 
   var box = null;
   var point = [ 0, 0, 0 ];
@@ -1604,7 +1604,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Empty point relative to empty box'; /* */
+  test.case = 'Empty point relative to empty box'; /* */
 
   var box = [];
   var point = [];
@@ -1613,7 +1613,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point relative to zero box'; /* */
+  test.case = 'Point relative to zero box'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -1622,7 +1622,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point in box'; /* */
+  test.case = 'Point in box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
@@ -1631,7 +1631,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point over box in one dimension'; /* */
+  test.case = 'Point over box in one dimension'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 1, 1, 3 ];
@@ -1640,7 +1640,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point under box'; /* */
+  test.case = 'Point under box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 1, 1, 1 ];
@@ -1649,7 +1649,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point away from box in two dimensions'; /* */
+  test.case = 'Point away from box in two dimensions'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 0, - 1, - 1 ];
@@ -1658,7 +1658,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point away from box in three dimensions'; /* */
+  test.case = 'Point away from box in three dimensions'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 3, - 1, - 1 ];
@@ -1667,7 +1667,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point (normalized to one) in box'; /* */
+  test.case = 'Point (normalized to one) in box'; /* */
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, 0.000 ];
@@ -1676,7 +1676,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point (normalized to one) not in box'; /* */
+  test.case = 'Point (normalized to one) not in box'; /* */
 
   var box = [ - 0.050, 0.002, -0.203, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, - 0.303 ];
@@ -1685,7 +1685,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point in four dimensions box'; /* */
+  test.case = 'Point in four dimensions box'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 0 ];
@@ -1694,7 +1694,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point out of four dimensions box'; /* */
+  test.case = 'Point out of four dimensions box'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, - 2, 0 , 2 ];
@@ -1703,7 +1703,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point in seven dimensions box'; /* */
+  test.case = 'Point in seven dimensions box'; /* */
 
   var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
   var point = [ 0, 4, 3.5, 0, 3, 2, 2 ];
@@ -1712,7 +1712,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point out of seven dimensions box'; /* */
+  test.case = 'Point out of seven dimensions box'; /* */
 
   var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
   var point = [ 0, 4, 3.5, 0, 4, 2, 7 ];
@@ -1721,7 +1721,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point in one dimension box'; /* */
+  test.case = 'Point in one dimension box'; /* */
 
   var box = [ 0, 2 ];
   var point = [ 1 ];
@@ -1730,7 +1730,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point out of one dimension box (smaller)'; /* */
+  test.case = 'Point out of one dimension box (smaller)'; /* */
 
   var box = [ 0, 2 ];
   var point = [ 3 ];
@@ -1739,7 +1739,7 @@ function pointDistance( test )
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( gotDist, expected );
 
-  test.description = 'Point out of one dimension box (bigger)'; /* */
+  test.case = 'Point out of one dimension box (bigger)'; /* */
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
@@ -1753,49 +1753,49 @@ function pointDistance( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointDistance();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointDistance( 'box', 'point' );
   });
 
-  test.description = 'Point Null'; /* */
+  test.case = 'Point Null'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 4D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
-  test.description = 'Wrong point dimension (box 3D vs point 2D)'; /* */
+  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
   });
 
-  test.description = 'Wrong point dimension (box 2D vs point 1D)'; /* */
+  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 0 ], [ 0 ] );
@@ -1807,7 +1807,7 @@ function pointDistance( test )
 function boxContains( test )
 {
 
-  test.description = 'Source box and Destination box remain unchanged'; /* */
+  test.case = 'Source box and Destination box remain unchanged'; /* */
 
   // qqq : vars in case
   var srcBox = [ 0, 0, 3, 3 ];
@@ -1820,7 +1820,7 @@ function boxContains( test )
   test.identical( srcBox, oldSrcBox );
   test.identical( tstBox, oldTstBox );
 
-  test.description = 'Empty box to empty box'; /* */
+  test.case = 'Empty box to empty box'; /* */
 
   var box = [];
   var boxTwo = [];
@@ -1829,7 +1829,7 @@ function boxContains( test )
   var gotBool = _.box.boxContains( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Zero box to zero box'; /* */
+  test.case = 'Zero box to zero box'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var boxTwo = [ 0, 0, 0, 0, 0, 0 ];
@@ -1838,7 +1838,7 @@ function boxContains( test )
   var gotBool = _.box.boxContains( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Same boxes'; /* */
+  test.case = 'Same boxes'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 0, 0, 0, 4, 4, 4 ];
@@ -1847,7 +1847,7 @@ function boxContains( test )
   var gotBool = _.box.boxContains( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box in box with a common side'; /* */
+  test.case = 'Box in box with a common side'; /* */
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var boxTwo = [ 1, 1, 1, 2, 2, 3 ];
@@ -1856,7 +1856,7 @@ function boxContains( test )
   var gotBool = _.box.boxContains( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box in box'; /* */
+  test.case = 'Box in box'; /* */
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var boxTwo = [ 1, 1, 1, 2, 2, 2 ];
@@ -1865,7 +1865,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box in box (other way aroud)'; /* */
+  test.case = 'Box in box (other way aroud)'; /* */
 
   var box = [ 1, 1, 1, 2, 2, 2 ];
   var boxTwo = [ 0, 0, 0, 3, 3, 3 ];
@@ -1874,7 +1874,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box half in box'; /* */
+  test.case = 'Box half in box'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 2, 2, 2, 6, 6, 6 ];
@@ -1883,7 +1883,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box totally out of box'; /* */
+  test.case = 'Box totally out of box'; /* */
 
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var boxTwo = [ 2, 2, 2, 3, 3, 3 ];
@@ -1892,7 +1892,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box out of box in two dimensions'; /* */
+  test.case = 'Box out of box in two dimensions'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 0, - 1, - 1, 1, 0, 0 ];
@@ -1901,7 +1901,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box out of box in one dimensions'; /* */
+  test.case = 'Box out of box in one dimensions'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 1, 1, 1, 3, 3, 5 ];
@@ -1910,7 +1910,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box in box (both normalized to one)'; /* */
+  test.case = 'Box in box (both normalized to one)'; /* */
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
@@ -1919,7 +1919,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box out of box (normalized to one)'; /* */
+  test.case = 'Box out of box (normalized to one)'; /* */
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
@@ -1928,7 +1928,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box in box (four dimensions)'; /* */
+  test.case = 'Box in box (four dimensions)'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
   var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
@@ -1937,7 +1937,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box out of box (four dimensions)'; /* */
+  test.case = 'Box out of box (four dimensions)'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
   var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
@@ -1946,7 +1946,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box in box (one dimensions)'; /* */
+  test.case = 'Box in box (one dimensions)'; /* */
 
   var box = [ - 1, 2 ];
   var boxTwo = [ 0, 1 ];
@@ -1955,7 +1955,7 @@ function boxContains( test )
   var gotBool= _.box.boxContains( box, boxTwo );
   test.identical( gotBool,expected );
 
-  test.description = 'Box out of box (four dimensions)'; /* */
+  test.case = 'Box out of box (four dimensions)'; /* */
 
   var box = [ - 1, 2 ];
   var boxTwo = [ 0, 4 ];
@@ -1969,50 +1969,50 @@ function boxContains( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxContains();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxContains( 'box', 'box2' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxContains( null, [] );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxContains( [], null );
   });
 
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxContains( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxContains( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
   });
 
-  test.description = 'Different box dimensions (box 3D vs box 2D)'; /* */
+  test.case = 'Different box dimensions (box 3D vs box 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxContains( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxContains( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
@@ -2023,7 +2023,7 @@ function boxContains( test )
 function boxIntersects( test )
 {
 
-test.description = 'Source box and Test box remain unchanged'; /* */
+test.case = 'Source box and Test box remain unchanged'; /* */
 
   var srcBox = [ 0, 0, 2, 2 ];
   var oldsrcBox = srcBox.slice();
@@ -2035,7 +2035,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   test.identical( srcBox, oldsrcBox );
   test.identical( tstBox, oldtstBox );
 
-  test.description = 'Empty box to empty box'; /* */
+  test.case = 'Empty box to empty box'; /* */
 
   var box = [];
   var boxTwo = [];
@@ -2045,7 +2045,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   test.identical( gotBool, expected );
 
 
-  test.description = 'Zero box to zero box'; /* */
+  test.case = 'Zero box to zero box'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var boxTwo = [ 0, 0, 0, 0, 0, 0 ]; // qqq : why was false?
@@ -2054,7 +2054,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Same boxes'; /* */
+  test.case = 'Same boxes'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 0, 0, 0, 4, 4, 4 ];
@@ -2063,7 +2063,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box in box with a common side'; /* */
+  test.case = 'Box in box with a common side'; /* */
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var boxTwo = [ 1, 1, 1, 2, 2, 3 ];
@@ -2073,7 +2073,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   test.identical( gotBool, expected );
 
 
-  test.description = 'Box out of box with a common side'; /* */
+  test.case = 'Box out of box with a common side'; /* */
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var boxTwo = [ 4, 4, 3, 5, 5, 5 ];
@@ -2082,7 +2082,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box in box'; /* */
+  test.case = 'Box in box'; /* */
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var boxTwo = [ 1, 1, 1, 2, 2, 2 ];
@@ -2091,7 +2091,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box half in box'; /* */
+  test.case = 'Box half in box'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 2, 2, 2, 6, 6, 6 ];
@@ -2100,7 +2100,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box totally out of box'; /* */
+  test.case = 'Box totally out of box'; /* */
 
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var boxTwo = [ 2, 2, 2, 3, 3, 3 ];
@@ -2109,7 +2109,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box out of box in two dimensions'; /* */
+  test.case = 'Box out of box in two dimensions'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 0, - 1, - 1, 1, 0, 0 ];
@@ -2118,7 +2118,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box out of box in one dimensions'; /* */
+  test.case = 'Box out of box in one dimensions'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 1, 1, 1, 3, 3, 5 ];
@@ -2127,7 +2127,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box in box (both normalized to one)'; /* */
+  test.case = 'Box in box (both normalized to one)'; /* */
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
@@ -2136,7 +2136,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box out of box (normalized to one)'; /* */
+  test.case = 'Box out of box (normalized to one)'; /* */
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
@@ -2145,7 +2145,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box in box (four dimensions)'; /* */
+  test.case = 'Box in box (four dimensions)'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
   var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
@@ -2154,7 +2154,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box out of box in 1D (four dimensions)'; /* */
+  test.case = 'Box out of box in 1D (four dimensions)'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
   var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
@@ -2163,7 +2163,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box out of box in 1D (four dimensions)'; /* */
+  test.case = 'Box out of box in 1D (four dimensions)'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
   var boxTwo = [ 3, 3, 3, 3, 4, 4, 4, 4 ];
@@ -2172,7 +2172,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box in box (one dimensions)'; /* */
+  test.case = 'Box in box (one dimensions)'; /* */
 
   var box = [ - 1, 2 ];
   var boxTwo = [ 0, 1 ];
@@ -2181,7 +2181,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box intersects box (one dimensions)'; /* */
+  test.case = 'Box intersects box (one dimensions)'; /* */
 
   var box = [ - 1, 2 ];
   var boxTwo = [ 0, 4 ];
@@ -2190,7 +2190,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
 
-  test.description = 'Box out of box (one dimensions)'; /* */
+  test.case = 'Box out of box (one dimensions)'; /* */
 
   var box = [ - 1, 2 ];
   var boxTwo = [ 3, 4 ];
@@ -2204,49 +2204,49 @@ test.description = 'Source box and Test box remain unchanged'; /* */
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxIntersects();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxIntersects( 'box', 'box2' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxIntersects( null, [] );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxIntersects( [], null );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxIntersects( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
   });
 
-  test.description = 'Different box dimensions (box 3D vs box 2D)'; /* */
+  test.case = 'Different box dimensions (box 3D vs box 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxIntersects( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxIntersects( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
@@ -2257,7 +2257,7 @@ test.description = 'Source box and Test box remain unchanged'; /* */
 function boxExpand( test )
 {
 
-  test.description = 'Source box remains unchanged and Destination box changes'; /* */
+  test.case = 'Source box remains unchanged and Destination box changes'; /* */
 
   var dstBox = [ 0, 0, 1, 1 ];
   var srcBox = [ - 1, - 1, 0, 2 ];
@@ -2268,7 +2268,7 @@ function boxExpand( test )
   test.identical( dstBox, gotBox );
   test.identical( srcBox, oldSrcBox );
 
-  test.description = 'Empty box expands empty box'; /* */
+  test.case = 'Empty box expands empty box'; /* */
 
   var box = [];
   var boxTwo = [];
@@ -2278,7 +2278,7 @@ function boxExpand( test )
   test.identical( gotBox, expected );
 
 
-  test.description = 'Zero box expands zero box'; /* */
+  test.case = 'Zero box expands zero box'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var boxTwo = [ 0, 0, 0, 0, 0, 0 ];
@@ -2287,7 +2287,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Same boxes (no expansion)'; /* */
+  test.case = 'Same boxes (no expansion)'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 0, 0, 0, 4, 4, 4 ];
@@ -2296,7 +2296,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Smaller box (no expansion)'; /* */
+  test.case = 'Smaller box (no expansion)'; /* */
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var boxTwo = [ 1, 1, 1, 2, 2, 2 ];
@@ -2305,7 +2305,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = '1D expansion'; /* */
+  test.case = '1D expansion'; /* */
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var boxTwo = [ 1, 1, 1, 2, 2, 4 ];
@@ -2314,7 +2314,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = '2D expansion'; /* */
+  test.case = '2D expansion'; /* */
 
   var box = [ 0, 0, 0, 4, 4, 4 ];
   var boxTwo = [ 2, - 2, - 2, 4, 6, 6 ];
@@ -2323,7 +2323,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = '3D expansion'; /* */
+  test.case = '3D expansion'; /* */
 
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var boxTwo = [ - 2, - 2, - 2, 3, 3, 3 ];
@@ -2332,7 +2332,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Random expansion'; /* */
+  test.case = 'Random expansion'; /* */
 
   var box = [ 0, - 5, 3, 2, 3, 3 ];
   var boxTwo = [ - 1, - 1, - 1, 2.5, 2.5, 2.5 ];
@@ -2341,7 +2341,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Box expanded (normalized to one)'; /* */
+  test.case = 'Box expanded (normalized to one)'; /* */
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.90 ];
@@ -2350,7 +2350,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Box not expanded (normalized to one)'; /* */
+  test.case = 'Box not expanded (normalized to one)'; /* */
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.70 ];
@@ -2359,7 +2359,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Box expanded (four dimensions)'; /* */
+  test.case = 'Box expanded (four dimensions)'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
   var boxTwo = [ 0, 0, 0, 0, 3, 3, 3, 3 ];
@@ -2368,7 +2368,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Box not expanded (four dimensions)'; /* */
+  test.case = 'Box not expanded (four dimensions)'; /* */
 
   var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
   var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
@@ -2377,7 +2377,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Box expanded (one dimension)'; /* */
+  test.case = 'Box expanded (one dimension)'; /* */
 
   var box = [ - 1, 2 ];
   var boxTwo = [ - 2, 10 ];
@@ -2386,7 +2386,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Box expanded on one side (one dimension)'; /* */
+  test.case = 'Box expanded on one side (one dimension)'; /* */
 
   var box = [ - 1, 2 ];
   var boxTwo = [ 0, 4 ];
@@ -2395,7 +2395,7 @@ function boxExpand( test )
   var gotBox = _.box.boxExpand( box, boxTwo );
   test.identical( gotBox, expected );
 
-  test.description = 'Box not expanded (one dimension)'; /* */
+  test.case = 'Box not expanded (one dimension)'; /* */
 
   var box = [ - 1, 3 ];
   var boxTwo = [ 0, 1 ];
@@ -2409,49 +2409,49 @@ function boxExpand( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxExpand();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxExpand( 'box', 'box2' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxExpand( null, [] );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxExpand( [], null );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxExpand( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxExpand( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
   });
 
-  test.description = 'Different box dimensions (box 3D vs box 2D)'; /* */
+  test.case = 'Different box dimensions (box 3D vs box 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxExpand( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.boxExpand( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
@@ -2462,7 +2462,7 @@ function boxExpand( test )
 function dimGet( test )
 {
 
-  test.description = 'Source box remains unchanged'; /* */
+  test.case = 'Source box remains unchanged'; /* */
 
   var srcBox = [ 0, 0, 1, 1 ];
   var oldsrcBox = srcBox.slice();
@@ -2472,7 +2472,7 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.identical( srcBox, oldsrcBox );
 
-  test.description = 'Empty box'; /* */
+  test.case = 'Empty box'; /* */
 
   var box = [];
   var expected = 0;
@@ -2480,7 +2480,7 @@ function dimGet( test )
   var gotDim = _.box.dimGet( box );
   test.identical( gotDim, expected );
 
-  test.description = 'One dimension box'; /* */
+  test.case = 'One dimension box'; /* */
 
   var box = [ 0, 0 ];
   var expected = 1;
@@ -2488,7 +2488,7 @@ function dimGet( test )
   var gotDim = _.box.dimGet( box );
   test.identical( gotDim, expected );
 
-  test.description = 'Two dimension box'; /* */
+  test.case = 'Two dimension box'; /* */
 
   var box = [ 0, 0, 1, 1 ];
   var expected = 2;
@@ -2496,7 +2496,7 @@ function dimGet( test )
   var gotDim = _.box.dimGet( box );
   test.identical( gotDim, expected );
 
-  test.description = 'Three dimension box'; /* */
+  test.case = 'Three dimension box'; /* */
 
   var box = [ - 1, - 2, - 3, 0, 1, 2 ];
   var expected = 3;
@@ -2504,7 +2504,7 @@ function dimGet( test )
   var gotDim = _.box.dimGet( box );
   test.identical( gotDim, expected );
 
-  test.description = 'Four dimension box'; /* */
+  test.case = 'Four dimension box'; /* */
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   var expected = 4;
@@ -2512,7 +2512,7 @@ function dimGet( test )
   var gotDim = _.box.dimGet( box );
   test.identical( gotDim, expected );
 
-  test.description = 'Eight dimension box'; /* */
+  test.case = 'Eight dimension box'; /* */
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 3.5, 5.5, 2.3, 27, 2.2, 540 ];
   var expected = 8;
@@ -2521,7 +2521,7 @@ function dimGet( test )
   test.identical( gotDim, expected );
 
 
-  test.description = 'NaN'; /* */
+  test.case = 'NaN'; /* */
 
   var box = [ 'Hi', 'world' ];
   var expected = 1;
@@ -2529,7 +2529,7 @@ function dimGet( test )
   var gotDim = _.box.dimGet( box );
   test.identical( gotDim, expected );
 
-  test.description = 'NaN'; /* */
+  test.case = 'NaN'; /* */
 
   var box = [ 'Hi', 'world', null, null, NaN, NaN ];
   var expected = 3;
@@ -2542,25 +2542,25 @@ function dimGet( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.dimGet();
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.dimGet( [ 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.dimGet( [ 0, 0, 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.dimGet( [ 0, 0, 0, 0, 0 ] );
@@ -2570,7 +2570,7 @@ function dimGet( test )
 function centerGet( test )
 {
 
-  test.description = 'Source box remains unchanged, point changes'; /* */
+  test.case = 'Source box remains unchanged, point changes'; /* */
 
   var srcBox = [ 0, 0, 1, 1 ];
   var oldSrcBox = srcBox.slice();
@@ -2582,7 +2582,7 @@ function centerGet( test )
   test.equivalent( point, expected );
   test.equivalent( srcBox, oldSrcBox );
 
-  test.description = 'Empty box'; /* */
+  test.case = 'Empty box'; /* */
 
   var box = [];
   var point = [];
@@ -2595,7 +2595,7 @@ function centerGet( test )
   test.equivalent( gotCenter,expected );
   debugger;
 
-  test.description = 'One dimension box'; /* */
+  test.case = 'One dimension box'; /* */
 
   var box = [ 0, 0 ];
   var point = [ 0 ];
@@ -2608,7 +2608,7 @@ function centerGet( test )
   var gotCenter = _.box.centerGet( box );
   test.equivalent( gotCenter,expected );
 
-  test.description = 'Two dimension box'; /* */
+  test.case = 'Two dimension box'; /* */
 
   var box = [ 0, 0, 1, 2 ];
   var point = [ 1, 1 ];
@@ -2621,7 +2621,7 @@ function centerGet( test )
   var gotCenter = _.box.centerGet( box, point );
   test.equivalent( gotCenter,expected );
 
-  test.description = 'Three dimension box'; /* */
+  test.case = 'Three dimension box'; /* */
 
   var box = [ 0, - 1, - 2, 0, 1, 2 ];
   var expected = [ 0, 0, 0 ];
@@ -2635,7 +2635,7 @@ function centerGet( test )
   var gotCenter = _.box.centerGet( box, point );
   test.equivalent( gotCenter,expected );
 
-  test.description = 'Four dimension box'; /* */
+  test.case = 'Four dimension box'; /* */
 
   var box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
   var expected = [ 0, 0, 0, 4 ];
@@ -2649,7 +2649,7 @@ function centerGet( test )
   var gotCenter = _.box.centerGet( box, point );
   test.identical( gotCenter, expected );
 
-  test.description = 'Eight dimension box'; /* */
+  test.case = 'Eight dimension box'; /* */
 
   var box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
   var point = [ 2, 4, - 6, 2, 2, 4, - 6, 2 ];
@@ -2662,7 +2662,7 @@ function centerGet( test )
   var gotCenter = _.box.centerGet( box, point );
   test.identical( gotCenter, expected );
 
-  test.description = 'Point is vector'; /* */
+  test.case = 'Point is vector'; /* */
 
   var box = [ 0, 0, 1, 2 ];
   var point = _.vector.from( [ 1, 1 ] );
@@ -2676,7 +2676,7 @@ function centerGet( test )
   var gotCenter = _.box.centerGet( box, point );
   test.equivalent( gotCenter,expv );
 
-  test.description = 'Point is null'; /* */
+  test.case = 'Point is null'; /* */
 
   var box = [ 0, 0, 1, 2 ];
   var point = null;
@@ -2689,7 +2689,7 @@ function centerGet( test )
   var gotCenter = _.box.centerGet( box, point );
   test.equivalent( gotCenter,expected );
 
-  test.description = 'Point is NaN'; /* */
+  test.case = 'Point is NaN'; /* */
 
   var box = [ 0, 0, 1, 2 ];
   var point = NaN;
@@ -2708,68 +2708,68 @@ function centerGet( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet();
   });
 
-  test.description = 'Too many arguments'; /* */
+  test.case = 'Too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( [ 0, 0, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] );
   });
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( null );
   });
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( 'string' );
   });
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( null, [ 0, 0 ] );
   });
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( 'string', [ 0, 0 ] );
   });
 
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( [ 0, 0, 1, 1 ], 'string' );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( [ 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( [ 0, 0, 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( [ 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'Different dimension between box and point'; /* */
+  test.case = 'Different dimension between box and point'; /* */
   test.shouldThrowError( function()
   {
     _.box.centerGet( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0 ] );
@@ -2781,7 +2781,7 @@ function centerGet( test )
 function cornerLeftGet( test )
 {
 
-  test.description = 'Source box remains unchanged'; /* */
+  test.case = 'Source box remains unchanged'; /* */
 
   var srcBox = [ 0, 0, 1, 1 ];
   var oldsrcBox = srcBox.slice();
@@ -2792,7 +2792,7 @@ function cornerLeftGet( test )
   test.identical( gotCorner, expected );
   test.identical( srcBox, oldsrcBox );
 
-  test.description = 'Empty box'; /* */
+  test.case = 'Empty box'; /* */
 
   var box = [];
   var expected = [];
@@ -2801,7 +2801,7 @@ function cornerLeftGet( test )
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'One dimension box'; /* */
+  test.case = 'One dimension box'; /* */
 
   var box = [ 0, 1 ];
   var expected = [ 0 ];
@@ -2810,7 +2810,7 @@ function cornerLeftGet( test )
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Two dimension box'; /* */
+  test.case = 'Two dimension box'; /* */
 
   var box = [ 0, 0, 1, 1 ];
   var expected = [ 0, 0 ];
@@ -2819,7 +2819,7 @@ function cornerLeftGet( test )
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Three dimension box'; /* */
+  test.case = 'Three dimension box'; /* */
 
   var box = [ - 1, - 2, - 3, 0, 1, 2 ];
   var expected = [ - 1, - 2, - 3 ];
@@ -2828,7 +2828,7 @@ function cornerLeftGet( test )
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Four dimension box'; /* */
+  test.case = 'Four dimension box'; /* */
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   var expected = [ - 1, - 2.2, - 3, 5 ];
@@ -2837,7 +2837,7 @@ function cornerLeftGet( test )
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Eight dimension box'; /* */
+  test.case = 'Eight dimension box'; /* */
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 3.5, 5.5, 2.3, 27, 2.2, 540 ];
   var expected = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
@@ -2846,7 +2846,7 @@ function cornerLeftGet( test )
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Inverted box'; /* */
+  test.case = 'Inverted box'; /* */
 
   var box = [ 1, 1, 0, 0 ];
   var expected = [ 1, 1 ];
@@ -2860,49 +2860,49 @@ function cornerLeftGet( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerLeftGet();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerLeftGet( null );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerLeftGet( NaN );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerLeftGet( 'Hello' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerLeftGet( [ 'Hello', world ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerLeftGet( [ 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerLeftGet( [ 0, 0, 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerLeftGet( [ 0, 0, 0, 0, 0 ] );
@@ -2913,7 +2913,7 @@ function cornerLeftGet( test )
 function cornerRightGet( test )
 {
 
-  test.description = 'Source box remains unchanged'; /* */
+  test.case = 'Source box remains unchanged'; /* */
 
   var srcBox = [ 0, 0, 1, 1 ];
   var oldSrcBox = srcBox.slice();
@@ -2924,7 +2924,7 @@ function cornerRightGet( test )
   test.identical( gotCorner, expected );
   test.identical( srcBox, oldSrcBox );
 
-  test.description = 'Empty box'; /* */
+  test.case = 'Empty box'; /* */
 
   var box = [];
   var expected = [];
@@ -2933,7 +2933,7 @@ function cornerRightGet( test )
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'One dimension box'; /* */
+  test.case = 'One dimension box'; /* */
 
   var box = [ 0, 1 ];
   var expected = [ 1 ];
@@ -2942,7 +2942,7 @@ function cornerRightGet( test )
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Two dimension box'; /* */
+  test.case = 'Two dimension box'; /* */
 
   var box = [ 0, 0, 1, 1 ];
   var expected = [ 1, 1 ];
@@ -2951,7 +2951,7 @@ function cornerRightGet( test )
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Three dimension box'; /* */
+  test.case = 'Three dimension box'; /* */
 
   var box = [ - 1, - 2, - 3, 0, 1, 2 ];
   var expected = [ 0, 1, 2 ];
@@ -2960,7 +2960,7 @@ function cornerRightGet( test )
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Four dimension box'; /* */
+  test.case = 'Four dimension box'; /* */
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   var expected = [ 0.1, 1, 2, 5.4 ];
@@ -2969,7 +2969,7 @@ function cornerRightGet( test )
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Eight dimension box'; /* */
+  test.case = 'Eight dimension box'; /* */
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ];
   var expected = [ -1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ];
@@ -2978,7 +2978,7 @@ function cornerRightGet( test )
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
 
-  test.description = 'Empty box at [ 1, 1 ]'; /* */
+  test.case = 'Empty box at [ 1, 1 ]'; /* */
 
   var box = [ 1, 1, 0, 0 ];
   var expected = [ 0, 0 ];
@@ -2992,49 +2992,49 @@ function cornerRightGet( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerRightGet();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerRightGet( null );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerRightGet( NaN );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerRightGet( 'Hello' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerRightGet( [ 'Hello', world ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerRightGet( [ 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerRightGet( [ 0, 0, 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.cornerRightGet( [ 0, 0, 0, 0, 0 ] );
@@ -3045,7 +3045,7 @@ function cornerRightGet( test )
 function sizeGet( test )
 {
 
-  test.description = 'Source box remains unchanged, point changes'; /* */
+  test.case = 'Source box remains unchanged, point changes'; /* */
 
   var srcBox = [ 0, 0, 1, 1 ];
   var oldSrcBox = srcBox.slice();
@@ -3057,7 +3057,7 @@ function sizeGet( test )
   test.equivalent( point, expected );
   test.equivalent( srcBox, oldSrcBox );
 
-  test.description = 'Empty box'; /* */
+  test.case = 'Empty box'; /* */
 
   var box = [];
   var point = [];
@@ -3070,7 +3070,7 @@ function sizeGet( test )
   test.identical( gotSize, expected );
   debugger;
 
-  test.description = 'One dimension box'; /* */
+  test.case = 'One dimension box'; /* */
 
   var box = [ 0, 0 ];
   var point = [ 0 ];
@@ -3083,7 +3083,7 @@ function sizeGet( test )
   var gotSize = _.box.sizeGet( box );
   test.identical( gotSize, expected );
 
-  test.description = 'Two dimension box'; /* */
+  test.case = 'Two dimension box'; /* */
 
   var box = [ 0, 1, 1, 2 ];
   var point = [ 2, 4 ];
@@ -3096,7 +3096,7 @@ function sizeGet( test )
   var gotSize = _.box.sizeGet( box, point );
   test.identical( gotSize, expected );
 
-  test.description = 'Three dimension box'; /* */
+  test.case = 'Three dimension box'; /* */
 
   var box = [ 0, - 1, - 2, 0, 1, 2 ];
   var expected = [ 0, 2, 4 ];
@@ -3110,7 +3110,7 @@ function sizeGet( test )
   var gotSize = _.box.sizeGet( box, point );
   test.identical( gotSize, expected );
 
-  test.description = 'Four dimension box'; /* */
+  test.case = 'Four dimension box'; /* */
 
   var box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
   var expected = [ 0, 2, 4, 4 ];
@@ -3124,7 +3124,7 @@ function sizeGet( test )
   var gotSize = _.box.sizeGet( box, point );
   test.identical( gotSize, expected );
 
-  test.description = 'Eight dimension box'; /* */
+  test.case = 'Eight dimension box'; /* */
 
   var box = [  0, - 1, - 2, 2, 0, 1, 2, 6, 0, - 1, - 2, 2, 0, 1, 2, 6 ];
   var point = [ 2, 4, - 6, 2, 2, 4, - 6, 2 ];
@@ -3138,7 +3138,7 @@ function sizeGet( test )
   test.identical( gotSize, expected );
 
 
-  test.description = 'Point is vector'; /* */
+  test.case = 'Point is vector'; /* */
 
   var box = [ 0, 0, 1, 2 ];
   var point = _.vector.from( [ 1, 1 ] );
@@ -3152,7 +3152,7 @@ function sizeGet( test )
   var gotSize = _.box.sizeGet( box, point );
   test.identical( gotSize, expv );
 
-  test.description = 'Point is null'; /* */
+  test.case = 'Point is null'; /* */
 
   var box = [ 0, 0, 1, 2 ];
   var point = null;
@@ -3165,7 +3165,7 @@ function sizeGet( test )
   var gotSize = _.box.sizeGet( box, point );
   test.identical( gotSize, expected );
 
-  test.description = 'Point is NaN'; /* */
+  test.case = 'Point is NaN'; /* */
 
   var box = [ 0, 0, 1, 2 ];
   var point = NaN;
@@ -3178,7 +3178,7 @@ function sizeGet( test )
   var gotSize = _.box.sizeGet( box, point );
   test.identical( gotSize, expected );
 
-  test.description = 'Empty box'; /* */
+  test.case = 'Empty box'; /* */
 
   var box = [ 1, 1, 0, 0 ];
   var point = NaN;
@@ -3196,68 +3196,68 @@ function sizeGet( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet();
   });
 
-  test.description = 'Too many arguments'; /* */
+  test.case = 'Too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet( [ 0, 0, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] );
   });
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet( null );
   });
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet( 'string' );
   });
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet( null, [ 0, 0 ] );
   });
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet( 'string', [ 0, 0 ] );
   });
 
-  test.description = 'Wrong type of arguments'; /* */
+  test.case = 'Wrong type of arguments'; /* */
 
   test.shouldThrowError( function()
   {
     _.box.sizeGet( [ 0, 0, 1, 1 ], 'string' );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet( [ 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet( [ 0, 0, 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet( [ 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'Different dimension between box and point'; /* */
+  test.case = 'Different dimension between box and point'; /* */
   test.shouldThrowError( function()
   {
     _.box.sizeGet( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0 ] );
@@ -3270,7 +3270,7 @@ function sizeGet( test )
 function fromPoints( test )
 {
 
-  test.description = 'Points remain unchanged and Destination box changes'; /* */
+  test.case = 'Points remain unchanged and Destination box changes'; /* */
 
   var points = [ [ 1, 1 ], [ 0, 0 ], [ 0, 2 ] ];
   var expected = [ 0, 0, 1, 2 ];
@@ -3283,7 +3283,7 @@ function fromPoints( test )
   var oldpoints = [ [ 1, 1 ], [ 0, 0 ], [ 0, 2 ] ];
   test.identical( points, oldpoints );
 
-  test.description = 'Create box of two dimensions'; /* */
+  test.case = 'Create box of two dimensions'; /* */
 
   var box = null;
   var points = [ [ 1, 0 ], [ 0, - 2 ], [ 0, 3 ], [ - 1, 2 ] ];
@@ -3292,7 +3292,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points );
   test.identical( gotBox, expected );
 
-  test.description = 'Create box three dimensions'; /* */
+  test.case = 'Create box three dimensions'; /* */
 
   var box = null;
   var points = [ [ 1, 0, 0 ], [ 0, 2, 0 ], [ 0, 0, 3 ] ];
@@ -3301,7 +3301,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points );
   test.identical( gotBox, expected );
 
-  test.description = 'Zero points - box not expanded'; /* */
+  test.case = 'Zero points - box not expanded'; /* */
 
   var box = null;
   var points = [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
@@ -3310,7 +3310,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
 
-  test.description = 'Box expanded'; /* */
+  test.case = 'Box expanded'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var points = [ [ - 1, 0, - 1 ], [ 0, 3, 0 ], [ 0, - 3, 0 ], [ 2, 2, 3 ] ] ;
@@ -3319,7 +3319,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
 
-  test.description = 'Box out of one point'; /* */
+  test.case = 'Box out of one point'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var points = [ [ - 1, 0, - 1 ] ] ;
@@ -3328,7 +3328,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
 
-  test.description = 'Box NOT expanded ( points inside box )'; /* */
+  test.case = 'Box NOT expanded ( points inside box )'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var points = [ [ 0, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] ];
@@ -3337,7 +3337,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
 
-  test.description = 'Box ( normalized to 1 ) expanded'; /* */
+  test.case = 'Box ( normalized to 1 ) expanded'; /* */
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var points = [ [ - 0.900, 0, 0.900 ], [ 0, - 0.001, 0 ], [ 0.900, 0, - 0.900 ] ];
@@ -3346,7 +3346,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
 
-  test.description = 'Null box of four dimensions expanded'; /* */
+  test.case = 'Null box of four dimensions expanded'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
   var points = [ [ - 1, - 2, - 3 , - 4 ], [ 1, 2, 3 , 4 ] ];
@@ -3355,7 +3355,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
 
-  test.description = 'Null box of 7 dimensions expanded'; /* */
+  test.case = 'Null box of 7 dimensions expanded'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var points = [ [ 1, 2, 3 , 0, 0, 0, 0 ], [ 0, 0, 0 , 4, 5, 6, 7 ] ] ;
@@ -3364,7 +3364,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
 
-  test.description = 'Box of 1 dimension expanded'; /* */
+  test.case = 'Box of 1 dimension expanded'; /* */
 
   var box = [ 0, 0 ];
   var points = [ [ - 1 ], [ 0 ], [ 1 ] ];
@@ -3373,7 +3373,7 @@ function fromPoints( test )
   var gotBox = _.box.fromPoints( box, points);
   test.identical( gotBox, expected );
 
-  test.description = 'Box of 0 dimension expanded'; /* */
+  test.case = 'Box of 0 dimension expanded'; /* */
 
   var box = [ ];
   var points= [ [], [] ];
@@ -3387,55 +3387,55 @@ function fromPoints( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( 'box', 'points' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( null, 4 );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'Too few arguments - one point'; /* */
+  test.case = 'Too few arguments - one point'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ]);
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ], [ 1, 0, 1 ] );
   });
 
-  test.description = 'Wrong points dimension (box 3D vs points 4D)'; /* */
+  test.case = 'Wrong points dimension (box 3D vs points 4D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0, 2 ], [ 0, 1, - 3, 4 ] ] );
   });
 
-  test.description = 'Wrong points dimension (box 3D vs points 2D)'; /* */
+  test.case = 'Wrong points dimension (box 3D vs points 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ] );
   });
 
-  test.description = 'Wrong points dimension (box 2D vs points 1D)'; /* */
+  test.case = 'Wrong points dimension (box 2D vs points 1D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0 ], [ [ 1 ], [ 0 ] ] );
@@ -3449,7 +3449,7 @@ function fromPoints( test )
 function fromCenterAndSize( test )
 {
 
-  test.description = 'Center and size remain unchanged and Destination box changes'; /* */
+  test.case = 'Center and size remain unchanged and Destination box changes'; /* */
 
   var dstBox = [ 0, 0, 1, 1 ];
   var center = [ 1, 1 ];
@@ -3464,7 +3464,7 @@ function fromCenterAndSize( test )
   test.identical( center, oldcenter );
   test.identical( size, oldsize );
 
-  test.description = 'Empty box'; /* */
+  test.case = 'Empty box'; /* */
 
   var box = [ ];
   var center = [ ];
@@ -3474,7 +3474,7 @@ function fromCenterAndSize( test )
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
 
-  test.description = 'Trivial expansion'; /* */
+  test.case = 'Trivial expansion'; /* */
 
   var box = [ 0, 1, 1, 0 ];
   var center = [ 1, 1 ];
@@ -3484,7 +3484,7 @@ function fromCenterAndSize( test )
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
 
-  test.description = 'Different sizes expansion'; /* */
+  test.case = 'Different sizes expansion'; /* */
 
   var box = [ 2, 2, 3, 3 ];
   var center = [ 1, 1 ];
@@ -3494,7 +3494,7 @@ function fromCenterAndSize( test )
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
 
-  test.description = 'Decimal values'; /* */
+  test.case = 'Decimal values'; /* */
 
   var box = [ 1.2, 2.4, 3.3, 4.8 ];
   var center = [ 1.5, 0.79 ];
@@ -3504,7 +3504,7 @@ function fromCenterAndSize( test )
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.equivalent( gotBox, expected );
 
-  test.description = 'Negative size'; /* */
+  test.case = 'Negative size'; /* */
 
   var box = [ 0, 0, 0, 0 ];
   var center = [ 0, 0 ];
@@ -3514,7 +3514,7 @@ function fromCenterAndSize( test )
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
 
-  test.description = 'Box of three dimensions'; /* */
+  test.case = 'Box of three dimensions'; /* */
 
   var box = [ 1, 3, 2, 2, 4, 4 ];
   var center = [ 1, 1, 1 ];
@@ -3524,7 +3524,7 @@ function fromCenterAndSize( test )
   var gotBox = _.box.fromCenterAndSize( box, center, size );
   test.identical( gotBox, expected );
 
-  test.description = 'NaN box'; /* */
+  test.case = 'NaN box'; /* */
 
   var box = [ NaN, NaN, NaN, NaN ];
   var center = [ NaN, NaN ];
@@ -3539,55 +3539,55 @@ function fromCenterAndSize( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( 'box', 'center', 'size' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( null, 4, 5 );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ]);
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] );
   });
 
-  test.description = 'Wrong points dimension (box 3D vs points 4D)'; /* */
+  test.case = 'Wrong points dimension (box 3D vs points 4D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ], [ 0, 1, - 3, 4 ] );
   });
 
-  test.description = 'Wrong points dimension (box 3D vs points 2D)'; /* */
+  test.case = 'Wrong points dimension (box 3D vs points 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ], [ 2, 1 ] );
   });
 
-  test.description = 'Wrong points dimension (box 2D vs points 1D)'; /* */
+  test.case = 'Wrong points dimension (box 2D vs points 1D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0 ],  [ 1 ], [ 0 ]  );
@@ -3601,7 +3601,7 @@ function fromCenterAndSize( test )
 function fromSphere( test )
 {
 
-  test.description = 'Center and size remain unchanged and Destination box changes'; /* */
+  test.case = 'Center and size remain unchanged and Destination box changes'; /* */
 
   var dstBox = [ 0, 0, 1, 1 ];
   var sphere = [ 1, 1, 1 ];
@@ -3613,7 +3613,7 @@ function fromSphere( test )
   test.identical( dstBox, expected );
   test.identical( sphere, oldsphere );
 
-  test.description = 'Create box from sphere 1D same center'; /* */
+  test.case = 'Create box from sphere 1D same center'; /* */
 
   var box = [ 0, 0 ];
   var sphere = [ 0, 1 ];
@@ -3622,7 +3622,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'Create box from sphere 1D different centers'; /* */
+  test.case = 'Create box from sphere 1D different centers'; /* */
 
   var box = [ 0, 0 ];
   var sphere = [ 1, 1 ];
@@ -3631,7 +3631,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'Expand from sphere - sphere in box'; /* */
+  test.case = 'Expand from sphere - sphere in box'; /* */
 
   var box = [ 0, 2 ];
   var sphere = [ 1, 1 ];
@@ -3640,7 +3640,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'Expand from sphere - sphere out of box'; /* */
+  test.case = 'Expand from sphere - sphere out of box'; /* */
 
   var box = [ 0, 2 ];
   var sphere = [ 3, 1 ];
@@ -3649,7 +3649,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'Create box from sphere 3D same center'; /* */
+  test.case = 'Create box from sphere 3D same center'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -3658,7 +3658,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'Create box from sphere 3D different center'; /* */
+  test.case = 'Create box from sphere 3D different center'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 1, 1, 1, 1 ];
@@ -3667,7 +3667,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'Expand from sphere 3D sphere in box'; /* */
+  test.case = 'Expand from sphere 3D sphere in box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 3 ];
   var sphere = [ 1, 1, 1, 1 ];
@@ -3676,7 +3676,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'Expand from sphere 3D sphere out box'; /* */
+  test.case = 'Expand from sphere 3D sphere out box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 3 ];
   var sphere = [ 3, 3, 3, 1 ];
@@ -3685,7 +3685,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'Contract Sphere - sphere in box'; /* */
+  test.case = 'Contract Sphere - sphere in box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 3 ];
   var sphere = [ 1, 1, 1, - 1 ];
@@ -3694,7 +3694,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'Contract Sphere - sphere out of box'; /* */
+  test.case = 'Contract Sphere - sphere out of box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 3 ];
   var sphere = [ 3, 3, 3, - 1 ];
@@ -3703,7 +3703,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'NaN box'; /* */
+  test.case = 'NaN box'; /* */
 
   var box = [ NaN, NaN ];
   var sphere = [ 1, 1 ];
@@ -3712,7 +3712,7 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
-  test.description = 'NaN Sphere'; /* */
+  test.case = 'NaN Sphere'; /* */
 
   var box = [ 0, 2 ];
   var sphere = [ NaN, NaN ];
@@ -3726,61 +3726,61 @@ function fromSphere( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere( 'box', 'sphere' );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere( null, [ 0, 1 ] );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere( [ 0, 1 ], null );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ]);
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1, 1], [ 1, 1, 0, 0 ] );
   });
 
-  test.description = 'Wrong box dimension'; /* */
+  test.case = 'Wrong box dimension'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere( [ 0 ], [ 0 ] );
   });
 
-  test.description = 'Wrong dimension (box 3D vs sphere 4D)'; /* */
+  test.case = 'Wrong dimension (box 3D vs sphere 4D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2, 1 ] );
   });
 
-  test.description = 'Wrong dimension (box 3D vs sphere 2D)'; /* */
+  test.case = 'Wrong dimension (box 3D vs sphere 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ], [ 0, 2, 1 ] );
   });
 
-  test.description = 'Wrong dimension (box 2D vs sphere 1D)'; /* */
+  test.case = 'Wrong dimension (box 2D vs sphere 1D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0 ],  [ 0, 1 ]  );
@@ -3794,7 +3794,7 @@ function fromSphere( test )
 function expand( test )
 {
 
-  test.description = 'Expansion array remains unchanged and Destination box changes'; /* */
+  test.case = 'Expansion array remains unchanged and Destination box changes'; /* */
 
   var dstBox = [ 0, 0, 1, 1 ];
   var expand = [ 0, 2 ];
@@ -3806,7 +3806,7 @@ function expand( test )
   test.identical( dstBox, expected );
   test.identical( expand, oldexpand );
 
-  test.description = 'Null box expanded'; /* */
+  test.case = 'Null box expanded'; /* */
 
   var box = null;
   var expand = [ 1, 2, 3 ];
@@ -3815,7 +3815,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Null box NOT expanded'; /* */
+  test.case = 'Null box NOT expanded'; /* */
 
   var box = null;
   var expand = [ 0, 0, 0 ];
@@ -3824,7 +3824,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'One side box expanded'; /* */
+  test.case = 'One side box expanded'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
   var expand = [ 0, 0,  3 ];
@@ -3833,7 +3833,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Box expanded'; /* */
+  test.case = 'Box expanded'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expand = [ 1, 3, 1 ];
@@ -3842,7 +3842,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Box expanded by value'; /* */
+  test.case = 'Box expanded by value'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expand = 1;
@@ -3851,7 +3851,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Box NOT expanded ( empty expand array )'; /* */
+  test.case = 'Box NOT expanded ( empty expand array )'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expand = [  0, 0, 0 ];
@@ -3860,7 +3860,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Box contracted'; /* */
+  test.case = 'Box contracted'; /* */
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var expand = [ - 1, - 1, - 1 ];
@@ -3869,7 +3869,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Box with decimal numbers expanded'; /* */
+  test.case = 'Box with decimal numbers expanded'; /* */
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var expand = [ -0.100, 0, 0.100 ];
@@ -3878,7 +3878,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.equivalent( gotBox, expected );
 
-  test.description = 'Null box of four dimensions expanded'; /* */
+  test.case = 'Null box of four dimensions expanded'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
   var expand = [ 1, 2, 3 , 4 ];
@@ -3887,7 +3887,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Null box of 7 dimensions expanded'; /* */
+  test.case = 'Null box of 7 dimensions expanded'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var expand = [ 1, 2, 3 , 4, 5, 6, 7 ];
@@ -3896,7 +3896,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Box of 1 dimension expanded'; /* */
+  test.case = 'Box of 1 dimension expanded'; /* */
 
   var box = [ 0, 0 ];
   var expand = [ 1 ];
@@ -3905,7 +3905,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Box of 0 dimension expanded'; /* */
+  test.case = 'Box of 0 dimension expanded'; /* */
 
   var box = [ ];
   var expand = [ ];
@@ -3914,7 +3914,7 @@ function expand( test )
   var gotBox = _.box.expand( box, expand );
   test.identical( gotBox, expected );
 
-  test.description = 'Null box expanded by value'; /* */
+  test.case = 'Null box expanded by value'; /* */
 
   var box = null;
   var expand =  4 ;
@@ -3928,49 +3928,49 @@ function expand( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.expand();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.expand( 'box', 'expand' );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.expand( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.expand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
-  test.description = 'Wrong expand array dimension (box 3D vs array 4D)'; /* */
+  test.case = 'Wrong expand array dimension (box 3D vs array 4D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.expand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ] );
   });
 
-  test.description = 'Wrong expand array dimension (box 3D vs array 2D)'; /* */
+  test.case = 'Wrong expand array dimension (box 3D vs array 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.expand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ] );
   });
 
-  test.description = 'Wrong expand array dimension (box 2D vs array 1D)'; /* */
+  test.case = 'Wrong expand array dimension (box 2D vs array 1D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.expand( [ 0, 0, 0, 0 ], [ 0 ] );
   });
 
-  test.description = 'Wrong expand array dimension (null box vs array 2D)'; /* */
+  test.case = 'Wrong expand array dimension (null box vs array 2D)'; /* */
   test.shouldThrowError( function()
   {
     _.box.expand( null, [ 0, 1 ] );
@@ -3983,7 +3983,7 @@ function expand( test )
 function fromCube( test )
 {
 
-  test.description = 'Cube remains unchanged and Destination box changes'; /* */
+  test.case = 'Cube remains unchanged and Destination box changes'; /* */
 
   var dstBox = [ 0, 0, 1, 1 ];
   var cube = 1;
@@ -3996,7 +3996,7 @@ function fromCube( test )
   var oldcube = 1;
   test.identical( cube, oldcube );
 
-  test.description = 'Null box from cube'; /* */
+  test.case = 'Null box from cube'; /* */
 
   var box = null;
   var fromCube = 2;
@@ -4005,7 +4005,7 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.description = 'Null box NOT from cube'; /* */
+  test.case = 'Null box NOT from cube'; /* */
 
   /* qqq : the first case has different style, should has the same */
 
@@ -4016,7 +4016,7 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.description = 'Box from cube'; /* */
+  test.case = 'Box from cube'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var fromCube = 6;
@@ -4025,7 +4025,7 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.description = 'clean box'; /* */
+  test.case = 'clean box'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var fromCube =  0;
@@ -4034,7 +4034,7 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.description = 'Box contracted'; /* */
+  test.case = 'Box contracted'; /* */
 
   var box = [ 0, 0, 0, 3, 3, 3 ];
   var fromCube = - 1;
@@ -4043,7 +4043,7 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.description = 'Box with decimal numbers from cube'; /* */
+  test.case = 'Box with decimal numbers from cube'; /* */
 
   var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
   var fromCube =  0.100;
@@ -4052,7 +4052,7 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.equivalent( gotBox, expected );
 
-  test.description = 'Null box of four dimensions from cube'; /* */
+  test.case = 'Null box of four dimensions from cube'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
   var fromCube = 4;
@@ -4061,7 +4061,7 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.description = 'Null box of 7 dimensions from cube'; /* */
+  test.case = 'Null box of 7 dimensions from cube'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var fromCube = 8;
@@ -4075,60 +4075,59 @@ function fromCube( test )
   if( !Config.debug )
   return;
 
-  test.description = 'No arguments'; /* */
+  test.case = 'No arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCube();
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCube( 'box', 'cube' );
   });
 
-  test.description = 'Cube not number'; /* */
+  test.case = 'Cube not number'; /* */
 
   test.shouldThrowError( function()
   {
     _.box.fromCube( [ 0, 0, 1, 1 ], [ 1, 2 ] );
   });
 
-  test.description = 'Cube not number'; /* */
+  test.case = 'Cube not number'; /* */
 
   test.shouldThrowError( function()
   {
     _.box.fromCube( [ 0, 0 ], [ 1 ] );
   });
 
-  test.description = 'Empty cube and box'; /* */
+  test.case = 'Empty cube and box'; /* */
 
   test.shouldThrowError( function()
   {
     _.box.fromCube( [ ], [ ] );
   });
 
-  test.description = 'Wrong type of argument'; /* */
+  test.case = 'Wrong type of argument'; /* */
 
   test.shouldThrowError( function()
   {
     _.box.fromCube( 'box', 3 );
   });
 
-  test.description = 'Too few arguments'; /* */
+  test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCube( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.description = 'too many arguments'; /* */
+  test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
     _.box.fromCube( [ 0, 0, 0, 0, 0, 0 ], 2, 3 );
   });
 
 }
-
 
 // --
 // define class

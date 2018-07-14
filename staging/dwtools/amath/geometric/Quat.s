@@ -437,7 +437,7 @@ function fromAxisAndAngle( dst, axisAndAngle, angle )
 function toAxisAndAngle( quat, axisAndAngle )
 {
 
-  _.assert( _.accuracy2 > 0 );
+  _.assert( _.accuracySqr > 0 );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   var quat = _.quat.from( quat );
@@ -447,7 +447,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 
   var w = quatv.eGet( 3 );
 
-  if( abs( w-1 ) < _.accuracy2 )
+  if( abs( w-1 ) < _.accuracySqr )
   {
     axisAndAnglev.assign( 0 );
     axisAndAnglev.eSet( 3,0 );

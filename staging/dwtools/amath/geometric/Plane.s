@@ -610,10 +610,10 @@ function lineIntersection( plane , line , point )
 
   var dot = _.vector.dot( normal , direction );
 
-  if( Math.abs( dot ) < _.accuracy2 )
+  if( Math.abs( dot ) < _.accuracySqr )
   {
 
-    if( _.plane.pointDistance( plane, line[ 0 ] ) < _.accuracy2 )
+    if( _.plane.pointDistance( plane, line[ 0 ] ) < _.accuracySqr )
     {
       _.avector.assign( point,line[ 0 ] );
       return point
