@@ -174,7 +174,7 @@ function _from( sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( point ) is not array.
-  * @memberof wTools.box
+  * @memberof wTools.sphere
   */
 
 function fromPoints( sphere, points )
@@ -226,7 +226,7 @@ function fromBox( sphere, box )
   var dim = _.sphere.dimGet( spherev );
 
   _.assert( dim === _.box.dimGet( box ) );
-//  _.assert( dim === _.sphere.dimGet(  sphere) );
+  //  _.assert( dim === _.sphere.dimGet(  sphere) );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   center.copy( min );
@@ -266,7 +266,7 @@ function fromBox( sphere, box )
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( center ) is not point.
   * @throws { Error } An Error if ( radius ) is not number.
-  * @memberof wTools.box
+  * @memberof wTools.sphere
   */
 
 function fromCenterAndRadius( sphere,center,radius )
@@ -689,6 +689,130 @@ function sphereIntersects( sphere1, sphere2 )
 
 //
 
+/**
+  * Checks if a sphere and a box Intersect. Returns True if they intersect.
+  * Sphere and box remain unchanged.
+  *
+  * @param { Array } sphere - Source sphere.
+  * @param { Array } box - Source box
+  *
+  * @example
+  * // returns true
+  * _.boxIntersects( [ - 1, - 1, - 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @example
+  * // returns false
+  * _.boxIntersects( [ - 2, - 2, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the box and the sphere intersect and false if not.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+
+function boxIntersects( sphere, box )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  var _sphere = _.sphere._from( sphere );
+  var center = _.sphere.centerGet( _sphere );
+  var radius = _.sphere.radiusGet( _sphere );
+  var dimS = _.sphere.dimGet( _sphere );
+
+  var boxv = _.box._from( box );
+  var dimB = _.box.dimGet( boxv );
+
+  _.assert( dimS === dimB, 'Arguments must have same dimension' );
+
+  if( _.box.pointContains( boxv, center ) === true )
+  {
+    return true;
+  }
+  else
+  {
+    var distance = _.box.pointDistance( boxv, center );
+    console.log( distance );
+    if( distance <= radius )
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+//
+
+/**
+  * Expands an sphere with a box. Returns the expanded sphere.
+  * Sphere changes and box remains unchanged.
+  *
+  * @param { Array } dstSphere - Destination sphere.
+  * @param { Array } srcBox - Source box
+  *
+  * @example
+  * // returns true
+  * _.boxExpand( [ - 1, - 1, - 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @example
+  * // returns false
+  * _.boxExpand( [ - 2, - 2, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
+  *
+  * @returns { Sphere } Returns an array with the center and radius of the expanded sphere.
+  * @function boxExpand
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+function boxExpand( dstSphere, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  var _sphere = _.sphere._from( dstSphere );
+  var center = _.sphere.centerGet( _sphere );
+  var radius = _.sphere.radiusGet( _sphere );
+  var dimS = _.sphere.dimGet( _sphere );
+
+  var boxv = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxv );
+  var min = _.box.cornerLeftGet( boxv );
+  var max = _.box.cornerRightGet( boxv );
+
+  _.assert( dimS === dimB );
+
+  /* box corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  min = _.vector.toArray( min ); max = _.vector.toArray( max );
+  var col = c.colVectorGet( 0 ); col.copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ min[ 0 ], min[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ max[ 0 ], max[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ min[ 0 ], max[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ max[ 0 ], min[ 1 ], max[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ max[ 0 ], max[ 1 ], min[ 2 ] ] );
+
+  var distance = radius;
+  var center = _.vector.toArray( center );
+  for( var j = 0 ; j < 8 ; j++ )
+  {
+    var corner = _.vector.toArray( c.colVectorGet( j ) );
+    var d = _.avector.distance( corner, center );
+    if( d > distance )
+    {
+      console.log(center,' - ',corner,'  Distance: ', d);
+      distance = d;
+    }
+  }
+
+  _.sphere.radiusSet( _sphere, distance );
+
+  return dstSphere;
+}
+
+//
+
 function matrixHomogenousApply( sphere,matrix )
 {
 
@@ -769,6 +893,8 @@ var Proto =
 
   sphereExpand : sphereExpand,
   sphereIntersects : sphereIntersects,
+  boxIntersects : boxIntersects,
+  boxExpand : boxExpand,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
