@@ -132,7 +132,7 @@ function from( box )
   // if( box === null || box === undefined )
   // box = this.make();
 
-  _.assert( _.box.is( box ) || box == null );
+  _.assert( _.box.is( box ) || box === null );
   _.assert( arguments.length === 1, 'expects single argument' );
 
   if( box === null )
