@@ -465,6 +465,69 @@ function centeredOfSize( test )
 
 //
 
+function from( test )
+{
+
+  test.case = 'Same instance returned - array'; /* */
+
+  var srcBox = [ 0, 0, 2, 2 ];
+  var expected = [ 0, 0, 2, 2 ];
+
+  var gotBox = _.box.from( srcBox );
+  test.identical( gotBox, expected );
+  test.is( srcBox === gotBox );
+
+  test.case = 'Different instance returned - vector -> array'; /* */
+
+  var srcBox = _.vector.fromArray( [ 0, 0, 2, 2 ] );
+  var expected =  [ 0, 0, 2, 2 ];
+
+  var gotBox = _.box.from( srcBox );
+  test.identical( gotBox, expected );
+  test.is( srcBox !== gotBox );
+
+  test.case = 'Same instance returned - empty array'; /* */
+
+  var srcBox = [];
+  var expected =  [];
+
+  var gotBox = _.box.from( srcBox );
+  test.identical( gotBox, expected );
+  test.is( srcBox === gotBox );
+
+  test.case = 'Different instance returned - null -> array'; /* */
+
+  var srcBox = null;
+  var expected =  [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.box.from( srcBox );
+  test.identical( gotBox, expected );
+  test.is( srcBox !== gotBox );
+
+  test.case = 'Different instance returned - undefined -> array'; /* */
+
+  var srcBox = undefined;
+  var expected =  [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.box.from( srcBox );
+  test.identical( gotBox, expected );
+  test.is( srcBox !== gotBox );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.from( ));
+  test.shouldThrowErrorSync( () => _.box.from( [ 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.box.from( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.box.from( 'box' ));
+  test.shouldThrowErrorSync( () => _.box.from( NaN ));
+
+}
+
+//
+
 function fromPoints( test )
 {
 
@@ -4028,6 +4091,7 @@ var Self =
     nil : nil,
     centeredOfSize : centeredOfSize,
 
+    from : from,
     fromPoints : fromPoints,
     fromCenterAndSize : fromCenterAndSize,
     fromSphere : fromSphere,

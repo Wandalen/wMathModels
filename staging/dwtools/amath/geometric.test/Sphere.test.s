@@ -2378,7 +2378,7 @@ var Self =
     centeredOfRadius : centeredOfRadius,
 
     fromPoints : fromPoints,
-    fromBox : sphereFromBox,
+    fromBox : fromBox,
     fromCenterAndRadius : fromCenterAndRadius,
 
     is : is,

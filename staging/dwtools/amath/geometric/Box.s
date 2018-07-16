@@ -124,9 +124,13 @@ function from( box )
 
   if( _.objectIs( box ) )
   {
-    _.assertMapHasFields( box,{ min : 'min' , max : 'max' } );
-    box = _.arrayAppendArrays( [],[ box.min,box.max ] );
+    // _.assertMapHasFields( box,{ min : 'min' , max : 'max' } );
+    debugger;
+    //  box = _.arrayAppendArrays( [],[ box.min,box.max ] );
   }
+
+  if( box === null || box === undefined )
+  box = this.make();
 
   _.assert( _.box.is( box ) );
   _.assert( arguments.length === 1, 'expects single argument' );
@@ -134,7 +138,7 @@ function from( box )
   if( _.vectorIs( box ) )
   {
     debugger;
-    throw _.err( 'not implemented' );
+    //throw _.err( 'not implemented' );
     return box.slice();
   }
 

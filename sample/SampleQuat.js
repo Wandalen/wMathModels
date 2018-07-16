@@ -14,4 +14,4 @@ debugger;
 //console.log( 'qf: ', got );
 dst = [ 1,3 ];
 _.avector.add( dst, [ 11,13 ] );
-console.log( _.assert( 0 ) );
+console.log( dst ) ;
