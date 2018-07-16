@@ -2390,7 +2390,6 @@ function represent( dstEuler, representation )
 
   euler = _.euler.fromQuat2( quaternion, euler );
   _.vector.assign( dstEulerv, euler );
-  console.log(dstEulerv);
   return dstEuler;
 
 }
