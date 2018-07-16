@@ -101,8 +101,10 @@ function from( quat )
   if( _.vectorIs( quat ) )
   {
     debugger;
-    throw _.err( 'not implemented' );
-    return quat.slice();
+    xxx
+    quat.toArray();
+    // throw _.err( 'not implemented' );
+    // return quat.slice();
   }
 
   return quat;
@@ -112,11 +114,11 @@ function from( quat )
 
 function _from( quat )
 {
-  _.assert( quat === null || _.quat.is( quat ),'expects quaternion' );
+  _.assert( /*quat === null ||*/ _.quat.is( quat ),'expects quaternion' );
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  if( quat === null )
-  quat = _.quat.make();
+  // if( quat === null )
+  // quat = _.quat.make();
 
   return _.vector.from( quat );
 }
@@ -437,7 +439,7 @@ function fromAxisAndAngle( dst, axisAndAngle, angle )
 function toAxisAndAngle( quat, axisAndAngle )
 {
 
-  _.assert( _.EPS2 > 0 );
+  _.assert( _.accuracySqr > 0 );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   var quat = _.quat.from( quat );
@@ -447,7 +449,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 
   var w = quatv.eGet( 3 );
 
-  if( abs( w-1 ) < _.EPS2 )
+  if( abs( w-1 ) < _.accuracySqr )
   {
     axisAndAnglev.assign( 0 );
     axisAndAnglev.eSet( 3,0 );
@@ -509,18 +511,18 @@ function fromVectors2( src1,src2,axis )
   src1 = _.vector.slice( src1 );
   src2 = _.vector.slice( src2 );
 
-  var EPS = 0.01;
+  var accuracy = 0.01;
   var v1 = src1.slice().normalize();
   var v2 = src2.slice().normalize();
   var d = v1.dot( v2 );
   var result = [ 0,0,0,1 ];
 
-  if( d >= 1 - EPS )
+  if( d >= 1 - accuracy )
   {
     return result;
   }
 
-  if( d <= EPS - 1 )
+  if( d <= accuracy - 1 )
   {
     if( axis )
     result.setFromAxisAngle( axis,Math.PI )
@@ -771,20 +773,17 @@ function fromPlane( plane,origin )
 
 //
 
-function toMatrix( quat,mat )
+function toMatrix( quat, mat )
 {
-
-  _.assert( arguments.length === 1 || arguments.length === 2 );
-  _.assert( _.quat.is( quat ) );
-  // _.assert( _.Space.is( mat ) );
-  // _.assert( mat.dims[ 0 ] >= 3 );
-  // _.assert( mat.dims[ 1 ] >= 3 );
-
 
   if( mat === null || mat === undefined )
   mat = _.Space.make([ 3,3 ]);
 
-  // debugger;
+  _.assert( arguments.length === 1 || arguments.length === 2 );
+  _.assert( _.quat.is( quat ) );
+  _.assert( _.Space.is( mat ) );
+  _.assert( mat.dims[ 0 ] >= 3 );
+  _.assert( mat.dims[ 1 ] >= 3 );
 
   mat.fromQuat( quat );
 
@@ -827,8 +826,6 @@ function isZero( quat )
 
   var quatv = _.quat._from( quat );
 
-  debugger;
-
   if( quatv.eGet( 3 ) !== 0 )
   return false;
 
@@ -856,8 +853,6 @@ function conjugate( dst )
 
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  debugger;
-
   dstv.eSet( 0,-dstv.eGet( 0 ) );
   dstv.eSet( 1,-dstv.eGet( 1 ) );
   dstv.eSet( 2,-dstv.eGet( 2 ) );
@@ -872,8 +867,6 @@ function inv( dst )
   var dstv = _.quat._from( dst );
 
   _.assert( arguments.length === 1, 'expects single argument' );
-
-  debugger;
 
   this.normalize( this.conjugate( dst ) );
 
