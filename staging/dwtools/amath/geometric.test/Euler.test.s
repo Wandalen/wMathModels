@@ -911,221 +911,6 @@ function toMatrix( test )
 
 //
 
-function toQuat2( test )
-{
-
-  test.case = 'Euler remains unchanged'; /* */
-
-  var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
-  var oldEuler =   euler.slice();
-  var expected = [ 0.29156661, 0.1729548, 0.2915666, 0.8944633 ];
-
-  /* qqq : not good enough accuracy of const! */
-
-  var gotQuat = _.euler.toQuat2( euler, null );
-  test.equivalent( gotQuat, expected );
-  test.equivalent( euler, oldEuler );
-
-  test.case = 'Euler XYZ'; /* */
-
-  var euler = [ 1, 1, 0.25, 0, 1, 2 ];
-  var expected = _.quat._from( [ 0.4699079, 0.3649977, 0.3240739, 0.7354858 ] );
-
-  var gotQuat = _.euler.toQuat2( euler, null );
-  test.equivalent( gotQuat, expected );
-
-  test.case = 'Euler XZY'; /* */
-
-  var euler = [ 1, 0.25, 0.5, 0, 2, 1 ];
-  var expected =  _.quat._from( [ 0.433828, 0.1575093, 0.2236973, 0.8584542] );
-
-  var gotQuat = _.euler.toQuat2( euler, null );
-  test.equivalent( gotQuat, expected );
-
-  test.case = 'Euler YXZ'; /* */
-
-  var euler = [ 1, 2, 0.25, 1, 0, 2 ];
-  var expected =  _.quat._from( [ 0.7649936, 0.1649463, - 0.3411593, 0.5207569] );
-
-  var gotQuat = _.euler.toQuat2( euler, null );
-  test.equivalent( gotQuat, expected );
-
-  test.case = 'Euler YZX'; /* */
-
-  var euler = [ 1, 0.25, 2, 1, 2, 0 ];
-  var expected =  _.quat._from( [ 0.7649936, 0.349081, -0.3411593, 0.4201637] );
-
-  var gotQuat = _.euler.toQuat2( euler, null );
-  test.equivalent( gotQuat, expected );
-
-  test.case = 'Euler ZXY'; /* */
-
-  var euler = [ 0.25, 1, 1, 2, 0, 1 ];
-  var expected =  _.quat._from( [ 0.3649977, 0.4699079, 0.3240739, 0.7354858 ] );
-
-  var gotQuat = _.euler.toQuat2( euler, null );
-  test.equivalent( gotQuat, expected );
-
-  test.case = 'Euler ZYX'; /* */
-
-  var euler = [ 0.25, 1, 0.5, 2, 1, 0 ];
-  var expected =  _.quat._from( [ 0.1575093, 0.4879661, -0.0116753, 0.8584542 ] );
-
-  var gotQuat = _.euler.toQuat2( euler, null );
-  test.equivalent( gotQuat, expected );
-
-  test.case = 'Euler XYZ -> Quat -> Euler'; /* */
-
-  var euler = [ 1, 1, 0.25, 0, 1, 2 ];
-  var dst = [ 0, 0, 0, 0, 1, 2 ];
-  var expected = [ 1, 1, 0.25, 0, 1, 2 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler XZY -> Quat -> Euler'; /* */
-
-  var euler = [ 1, 0.25, 0.5, 0, 2, 1 ];
-  var dst = [ 0, 0, 0, 0, 2, 1 ];
-  var expected =  [ 1, 0.25, 0.5, 0, 2, 1 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler YXZ -> Quat -> Euler'; /* */
-
-  var euler = [ 2, 1, 0.25, 1, 0, 2 ];
-  var dst = [ 0, 0, 0, 1, 0, 2 ];
-  var expected = [ 2, 1, 0.25, 1, 0, 2 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler YZX -> Quat -> Euler'; /* */
-
-  var euler = [ 1, 0.25, 2, 1, 2, 0 ];
-  var dst = [ 0, 0, 0, 1, 2, 0 ];
-  var expected =  [ 1, 0.25, 2, 1, 2, 0 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler ZXY -> Quat -> Euler'; /* */
-
-  var euler = [ 0.25, 1, 1, 2, 0, 1 ];
-  var dst = [ 0, 0, 0, 2, 0, 1 ];
-  var expected =  [ 0.25, 1, 1, 2, 0, 1 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler ZYX -> Quat -> Euler'; /* */
-
-  var euler = [ 0.25, 1, 0.5, 2, 1, 0 ];
-  var dst = [ 0, 0, 0, 2, 1, 0 ];
-  var expected = [ 0.25, 1, 0.5, 2, 1, 0 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler XYX -> Quat -> Euler'; /* */
-
-  var euler = [ 1, 1, 0.25, 0, 1, 0 ];
-  var dst = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = [ 1, 1, 0.25, 0, 1, 0 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler XZX -> Quat -> Euler'; /* */
-
-  var euler = [ 1, 0.25, 0.5, 0, 2, 0 ];
-  var dst = [ 0, 0, 0, 0, 2, 0 ];
-  var expected =  [ 1, 0.25, 0.5, 0, 2, 0 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler YXY -> Quat -> Euler'; /* */
-
-  var euler = [ 1, 2, 0.25, 1, 0, 1 ];
-  var dst = [ 0, 0, 0, 1, 0, 1 ];
-  var expected = [ 1, 2, 0.25, 1, 0, 1 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler YZY -> Quat -> Euler'; /* */
-
-  var euler = [ 1, 0.25, 2, 1, 2, 1 ];
-  var dst = [ 0, 0, 0, 1, 2, 1 ];
-  var expected =  [ 1, 0.25, 2, 1, 2, 1 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler ZXZ -> Quat -> Euler'; /* */
-
-  var euler = [ 0.25, 1, 1, 2, 0, 2 ];
-  var dst = [ 0, 0, 0, 2, 0, 2 ];
-  var expected =  [ 0.25, 1, 1, 2, 0, 2 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler ZYZ -> Quat -> Euler'; /* */
-
-  var euler = [ 0.25, 1, 0.5, 2, 1, 2 ];
-  var dst = [ 0, 0, 0, 2, 1, 2 ];
-  var expected = [ 0.25, 1, 0.5, 2, 1, 2 ];
-
-  var quat = _.euler.toQuat2( euler, null );
-  var gotEuler = _.euler.fromQuat2( dst, quat );
-  test.equivalent( gotEuler, expected );
-
-  test.case = 'Euler null'; /* */
-
-  var euler = null;
-  var expected =  _.quat._from( [ 0, 0, 0, 1 ] );
-
-  var gotQuat = _.euler.toQuat2( euler, null );
-  test.equivalent( gotQuat, expected );
-
-  test.case = 'Euler bad euler representation'; /* */
-
-  var euler = [ 1, 0, 0, 1, 2, 3 ];
-  var expected = 0;
-
-  var gotQuat = _.euler.toQuat2( euler, null );
-  test.equivalent( gotQuat, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.euler.toQuat2( ));
-  test.shouldThrowErrorSync( () => _.euler.toQuat2( [] ));
-  test.shouldThrowErrorSync( () => _.euler.toQuat2( [ 0, 0, 0, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.euler.toQuat2( [ 0, 0, 0, 1, 2, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.euler.toQuat2( euler, euler ));
-  test.shouldThrowErrorSync( () => _.euler.toQuat2( NaN));
-
-}
-
-//
-
 function fromQuat2( test )
 {
 
@@ -1339,6 +1124,221 @@ function fromQuat2( test )
   test.shouldThrowErrorSync( () => _.euler.fromQuat2( [ 0, 0, 0, 1 ], [ 0, 0, 0, 0, 2 ] ));
   test.shouldThrowErrorSync( () => _.euler.fromQuat2( [ 0, 0, 0, 1, 2, 0, 0 ], [ 0, 0, 0, 0, 1, 2 ] ));
   test.shouldThrowErrorSync( () => _.euler.fromQuat2( NaN, [ 0, 0, 0, 0, 1, 2 ] ));
+
+}
+
+//
+
+function toQuat2( test )
+{
+
+  test.case = 'Euler remains unchanged'; /* */
+
+  var euler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldEuler =   euler.slice();
+  var expected = [ 0.29156661, 0.1729548, 0.2915666, 0.8944633 ];
+
+  /* qqq : not good enough accuracy of const! */
+
+  var gotQuat = _.euler.toQuat2( euler, null );
+  test.equivalent( gotQuat, expected );
+  test.equivalent( euler, oldEuler );
+
+  test.case = 'Euler XYZ'; /* */
+
+  var euler = [ 1, 1, 0.25, 0, 1, 2 ];
+  var expected = _.quat._from( [ 0.4699079, 0.3649977, 0.3240739, 0.7354858 ] );
+
+  var gotQuat = _.euler.toQuat2( euler, null );
+  test.equivalent( gotQuat, expected );
+
+  test.case = 'Euler XZY'; /* */
+
+  var euler = [ 1, 0.25, 0.5, 0, 2, 1 ];
+  var expected =  _.quat._from( [ 0.433828, 0.1575093, 0.2236973, 0.8584542] );
+
+  var gotQuat = _.euler.toQuat2( euler, null );
+  test.equivalent( gotQuat, expected );
+
+  test.case = 'Euler YXZ'; /* */
+
+  var euler = [ 1, 2, 0.25, 1, 0, 2 ];
+  var expected =  _.quat._from( [ 0.7649936, 0.1649463, - 0.3411593, 0.5207569] );
+
+  var gotQuat = _.euler.toQuat2( euler, null );
+  test.equivalent( gotQuat, expected );
+
+  test.case = 'Euler YZX'; /* */
+
+  var euler = [ 1, 0.25, 2, 1, 2, 0 ];
+  var expected =  _.quat._from( [ 0.7649936, 0.349081, -0.3411593, 0.4201637] );
+
+  var gotQuat = _.euler.toQuat2( euler, null );
+  test.equivalent( gotQuat, expected );
+
+  test.case = 'Euler ZXY'; /* */
+
+  var euler = [ 0.25, 1, 1, 2, 0, 1 ];
+  var expected =  _.quat._from( [ 0.3649977, 0.4699079, 0.3240739, 0.7354858 ] );
+
+  var gotQuat = _.euler.toQuat2( euler, null );
+  test.equivalent( gotQuat, expected );
+
+  test.case = 'Euler ZYX'; /* */
+
+  var euler = [ 0.25, 1, 0.5, 2, 1, 0 ];
+  var expected =  _.quat._from( [ 0.1575093, 0.4879661, -0.0116753, 0.8584542 ] );
+
+  var gotQuat = _.euler.toQuat2( euler, null );
+  test.equivalent( gotQuat, expected );
+
+  test.case = 'Euler XYZ -> Quat -> Euler'; /* */
+
+  var euler = [ 1, 1, 0.25, 0, 1, 2 ];
+  var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var expected = [ 1, 1, 0.25, 0, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler XZY -> Quat -> Euler'; /* */
+
+  var euler = [ 1, 0.25, 0.5, 0, 2, 1 ];
+  var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var expected =  [ 1, 0.25, 0.5, 0, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler YXZ -> Quat -> Euler'; /* */
+
+  var euler = [ 2, 1, 0.25, 1, 0, 2 ];
+  var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var expected = [ 2, 1, 0.25, 1, 0, 2 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler YZX -> Quat -> Euler'; /* */
+
+  var euler = [ 1, 0.25, 2, 1, 2, 0 ];
+  var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var expected =  [ 1, 0.25, 2, 1, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler ZXY -> Quat -> Euler'; /* */
+
+  var euler = [ 0.25, 1, 1, 2, 0, 1 ];
+  var dst = [ 0, 0, 0, 2, 0, 1 ];
+  var expected =  [ 0.25, 1, 1, 2, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler ZYX -> Quat -> Euler'; /* */
+
+  var euler = [ 0.25, 1, 0.5, 2, 1, 0 ];
+  var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var expected = [ 0.25, 1, 0.5, 2, 1, 0 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler XYX -> Quat -> Euler'; /* */
+
+  var euler = [ 1, 1, 0.25, 0, 1, 0 ];
+  var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var expected = [ 1, 1, 0.25, 0, 1, 0 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler XZX -> Quat -> Euler'; /* */
+
+  var euler = [ 1, 0.25, 0.5, 0, 2, 0 ];
+  var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var expected =  [ 1, 0.25, 0.5, 0, 2, 0 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler YXY -> Quat -> Euler'; /* */
+
+  var euler = [ 1, 2, 0.25, 1, 0, 1 ];
+  var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var expected = [ 1, 2, 0.25, 1, 0, 1 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler YZY -> Quat -> Euler'; /* */
+
+  var euler = [ 1, 0.25, 2, 1, 2, 1 ];
+  var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var expected =  [ 1, 0.25, 2, 1, 2, 1 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler ZXZ -> Quat -> Euler'; /* */
+
+  var euler = [ 0.25, 1, 1, 2, 0, 2 ];
+  var dst = [ 0, 0, 0, 2, 0, 2 ];
+  var expected =  [ 0.25, 1, 1, 2, 0, 2 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler ZYZ -> Quat -> Euler'; /* */
+
+  var euler = [ 0.25, 1, 0.5, 2, 1, 2 ];
+  var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var expected = [ 0.25, 1, 0.5, 2, 1, 2 ];
+
+  var quat = _.euler.toQuat2( euler, null );
+  var gotEuler = _.euler.fromQuat2( dst, quat );
+  test.equivalent( gotEuler, expected );
+
+  test.case = 'Euler null'; /* */
+
+  var euler = null;
+  var expected =  _.quat._from( [ 0, 0, 0, 1 ] );
+
+  var gotQuat = _.euler.toQuat2( euler, null );
+  test.equivalent( gotQuat, expected );
+
+  test.case = 'Euler bad euler representation'; /* */
+
+  var euler = [ 1, 0, 0, 1, 2, 3 ];
+  var expected = 0;
+
+  var gotQuat = _.euler.toQuat2( euler, null );
+  test.equivalent( gotQuat, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( [] ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( [ 0, 0, 0, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( [ 0, 0, 0, 1, 2, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( euler, euler ));
+  test.shouldThrowErrorSync( () => _.euler.toQuat2( NaN));
 
 }
 
@@ -3052,14 +3052,14 @@ var Self =
     //fromAxisAndAngle : fromAxisAndAngle,
     fromQuat : fromQuat,
     fromMatrix : fromMatrix,
-    fromMatrix : toMatrix,
+    toMatrix : toMatrix,
 
-    // toQuat2 : toQuat2, /* qqq : clean me */
     // fromQuat2 : fromQuat2, /* qqq : clean me */
+    // toQuat2 : toQuat2, /* qqq : clean me */
+    eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
+
     fromMatrix2 : fromMatrix2,
     toMatrix2 : toMatrix2, /* qqq : clean me */
-
-    eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
 
     /* takes 10 seconds */

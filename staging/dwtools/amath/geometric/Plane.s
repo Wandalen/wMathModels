@@ -632,69 +632,6 @@ function lineIntersection( plane , line , point )
 
 //
 
-/**
-  * Returns the intersection point between three planes. Returns the intersection point coordinates, NaN if the plane´s intersection is not a point.
-  * The planes remain unchanged.
-  *
-  * @param { Array } planeone - Source plane.
-  * @param { Array } planetwo - Source plane.
-  * @param { Array } planethree - Source plane.
-  *
-  * @example
-  * // returns [ 0, 0, 0 ];
-  * _.threeIntersectionPoint( [ 1, 0, 0, 0 ] , [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ] );
-  *
-  *
-  * @returns { Point } Returns the point of intersection between three planes.
-  * @function threeIntersectionPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than three.
-  * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof wTools.plane
-  */
-
-function threeIntersectionPoint( planeone , planetwo , planethree )
-{
-
-  var _planeone = _.plane._from( planeone );
-  var normalone = _.plane.normalGet( _planeone );
-  var biasone = _.plane.biasGet( _planeone );
-  var _planetwo = _.plane._from( planetwo );
-  var normaltwo = _.plane.normalGet( _planetwo );
-  var biastwo = _.plane.biasGet( _planetwo );
-  var _planethree = _.plane._from( planethree );
-  var normalthree = _.plane.normalGet( _planethree );
-  var biasthree = _.plane.biasGet( _planethree );
-
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
-  _.assert( normalone.length === normaltwo.length && normaltwo.length == normalthree.length );
-
-  var Ispoint = _.vector.dot( normalone, _.vector.cross( normaltwo.clone(), normalthree ) );
-
-  if( Ispoint != 0)
-  {
-    var cross23 = _.vector.cross( normaltwo.clone(), normalthree );
-    var cross31 = _.vector.cross( normalthree.clone(), normalone );
-    var cross12 = _.vector.cross( normalone.clone(), normaltwo );
-
-    var Mcross23 = _.vector.mulScalar( cross23, - 1.0*biasone );
-    var Mcross31 = _.vector.mulScalar( cross31, - 1.0*biastwo );
-    var Mcross12 = _.vector.mulScalar( cross12, - 1.0*biasthree );
-
-    var point = _.vector.mulScalar( _.vector.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
-
-    return point;
-  }
-
-  else
-  {
-    point = NaN;
-    return point;
-  }
-
-}
-
-//
-
 function matrixHomogenousApply( plane , matrix )
 {
 
@@ -806,7 +743,6 @@ function normalize( plane )
 
 //
 
-
 /**
   * Negate a plane coordinates. Returns the negated plane coordinates.
   * The plane changes.
@@ -845,6 +781,70 @@ function negate( plane )
   return plane;
 }
 
+//
+
+/**
+  * Returns the intersection point between three planes. Returns the intersection point coordinates, NaN if the plane´s intersection is not a point.
+  * The planes remain unchanged.
+  *
+  * @param { Array } planeone - Source plane.
+  * @param { Array } planetwo - Source plane.
+  * @param { Array } planethree - Source plane.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.threeIntersectionPoint( [ 1, 0, 0, 0 ] , [ 0, 1, 0, 0 ], [ 0, 0, 1, 0 ] );
+  *
+  *
+  * @returns { Point } Returns the point of intersection between three planes.
+  * @function threeIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @memberof wTools.plane
+  */
+
+function threeIntersectionPoint( planeone , planetwo , planethree )
+{
+
+  var _planeone = _.plane._from( planeone );
+  var normalone = _.plane.normalGet( _planeone );
+  var biasone = _.plane.biasGet( _planeone );
+  var _planetwo = _.plane._from( planetwo );
+  var normaltwo = _.plane.normalGet( _planetwo );
+  var biastwo = _.plane.biasGet( _planetwo );
+  var _planethree = _.plane._from( planethree );
+  var normalthree = _.plane.normalGet( _planethree );
+  var biasthree = _.plane.biasGet( _planethree );
+
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
+  _.assert( normalone.length === normaltwo.length && normaltwo.length == normalthree.length );
+
+  var Ispoint = _.vector.dot( normalone, _.vector.cross( normaltwo.clone(), normalthree ) );
+
+  if( Ispoint != 0)
+  {
+    var cross23 = _.vector.cross( normaltwo.clone(), normalthree );
+    var cross31 = _.vector.cross( normalthree.clone(), normalone );
+    var cross12 = _.vector.cross( normalone.clone(), normaltwo );
+
+    var Mcross23 = _.vector.mulScalar( cross23, - 1.0*biasone );
+    var Mcross31 = _.vector.mulScalar( cross31, - 1.0*biastwo );
+    var Mcross12 = _.vector.mulScalar( cross12, - 1.0*biasthree );
+
+    var point = _.vector.mulScalar( _.vector.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
+
+    return point;
+  }
+
+  else
+  {
+    point = NaN;
+    return point;
+  }
+
+}
+
+
 // --
 // define class
 // --
@@ -873,6 +873,7 @@ var Proto =
   boxIntersects: boxIntersects,
 
   lineIntersects : lineIntersects,
+  lineIntersection : lineIntersection,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

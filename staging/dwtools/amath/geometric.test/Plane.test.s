@@ -605,6 +605,112 @@ function pointDistance( test )
   test.shouldThrowErrorSync( () => _.plane.pointDistance( NaN, [ 0, 1, 0 ] ));
 }
 
+//
+
+
+function pointCoplanarGet( test )
+{
+
+  test.case = 'Plane remains unchanged, point changes'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var oldPlane = plane.slice();
+  var point = [ 2, 0, 2 ];
+  var expected = [ - 1, 0, 2 ];
+
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, point );
+  test.identical( expected, gotPoint );
+  test.identical( plane, oldPlane );
+
+  test.case = 'No point'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var expected = [ - 1, 0, 0 ];
+
+  var gotPoint = _.plane.pointCoplanarGet( plane );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Null point'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = null;
+  var expected = [ - 1, 0, 0 ];
+
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
+
+  test.case = 'NaN point'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = NaN;
+  var expected = [ - 1, 0, 0 ];
+
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
+
+  test.case = 'NaN array point'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = [ NaN, NaN, NaN ];
+  var expected = [ NaN, NaN, NaN ];
+
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Trivial'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = [ 1, 3, 2 ];
+  var expected = [ - 1, 3, 2 ];
+
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Trivial 2'; /* */
+
+  var plane = [ 1, 0 , - 1, 0 ];
+  var point = [ 2, 3, 2 ];
+  var expected = [ 2, 3, 2 ];
+
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Proyection 3D'; /* */
+
+  var plane = [ 2, - 1 , 3, 1 ];
+  var point = [ 4, 1, -3 ];
+  var expected = [ 29/7, 13/14, -39/14  ];
+
+  var gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.equivalent( expected, gotPoint );
+
+  test.case = 'Point in plane'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = [ - 1, 2, 3 ];
+  var expected = [ - 1, 2, 3 ];
+
+  gotPoint = _.plane.pointCoplanarGet( plane, point );
+  test.identical( expected, gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN, 'point' ));
+
+}
+
+//
+
 function sphereDistance( test )
 {
 
@@ -962,107 +1068,6 @@ function boxIntersects( test )
 
 //
 
-function pointCoplanarGet( test )
-{
-
-  test.case = 'Plane remains unchanged, point changes'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var oldPlane = plane.slice();
-  var point = [ 2, 0, 2 ];
-  var expected = [ - 1, 0, 2 ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, point );
-  test.identical( expected, gotPoint );
-  test.identical( plane, oldPlane );
-
-  test.case = 'No point'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var expected = [ - 1, 0, 0 ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane );
-  test.identical( expected, gotPoint );
-
-  test.case = 'Null point'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var point = null;
-  var expected = [ - 1, 0, 0 ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, gotPoint );
-
-  test.case = 'NaN point'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var point = NaN;
-  var expected = [ - 1, 0, 0 ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, gotPoint );
-
-  test.case = 'NaN array point'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var point = [ NaN, NaN, NaN ];
-  var expected = [ NaN, NaN, NaN ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, gotPoint );
-
-  test.case = 'Trivial'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var point = [ 1, 3, 2 ];
-  var expected = [ - 1, 3, 2 ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, gotPoint );
-
-  test.case = 'Trivial 2'; /* */
-
-  var plane = [ 1, 0 , - 1, 0 ];
-  var point = [ 2, 3, 2 ];
-  var expected = [ 2, 3, 2 ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, gotPoint );
-
-  test.case = 'Proyection 3D'; /* */
-
-  var plane = [ 2, - 1 , 3, 1 ];
-  var point = [ 4, 1, -3 ];
-  var expected = [ 29/7, 13/14, -39/14  ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.equivalent( expected, gotPoint );
-
-  test.case = 'Point in plane'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var point = [ - 1, 2, 3 ];
-  var expected = [ - 1, 2, 3 ];
-
-  gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, gotPoint );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( null, [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN, [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN, 'point' ));
-
-}
-
 function lineIntersects( test )
 {
 
@@ -1162,108 +1167,7 @@ function lineIntersects( test )
   test.shouldThrowErrorSync( () => _.plane.lineIntersects( 'plane', 'line' ));
 }
 
-
-function threeIntersectionPoint( test )
-{
-
-  test.case = 'Planes remain unchanged'; /* */
-
-  var plane1 = [ 1, 0 , 0, 1 ];
-  var oldPlane1 = plane1.slice();
-  var plane2 = [ 1, 1 , 0, 1 ];
-  var oldPlane2 = plane2.slice();
-  var plane3 = [ 1, 0 , 1, 1 ];
-  var oldPlane3 = plane3.slice();
-  var expected = [ - 1, 0, 0 ];
-  expected = _.vector.from( expected );
-
-  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, interPoint );
-  test.identical( plane1, oldPlane1 );
-  test.identical( plane2, oldPlane2 );
-  test.identical( plane3, oldPlane3 );
-
-  test.case = 'Parallel planes'; /* */
-
-  var plane1 = [ 1, 0 , 0, 1 ];
-  var plane2 = [ 2, 0 , 0, 4 ];
-  var plane3 = [ 3, 0 , 0, 7 ];
-  var expected = NaN;
-
-  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, interPoint );
-
-  test.case = '2 Parallel planes'; /* */
-
-  var plane1 = [ 1, 0 , 0, 1 ];
-  var plane2 = [ 2, 0 , 0, 4 ];
-  var plane3 = [ 3, 1 , 4, 7 ];
-  var expected = NaN;
-
-  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, interPoint );
-
-  test.case = 'Perpendicular planes in origin'; /* */
-
-  var plane1 = [ 1, 0 , 0, 0 ];
-  var plane2 = [ 0, 1 , 0, 0 ];
-  var plane3 = [ 0, 0 , 1, 0 ];
-  var expected = [ 0, 0, 0 ];
-  expected = _.vector.from( expected );
-
-  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.equivalent( expected, interPoint );
-  debugger;
-  test.case = 'Planes in origin'; /* */
-
-  var plane1 = [ - 1, 1, 0, 0 ];
-  var plane2 = [ 0, 1 , 0, 0 ];
-  var plane3 = [ 0, - 1, 6, 0 ];
-  var expected = [ 0, 0, 0 ];
-  expected = _.vector.from( expected );
-
-  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.equivalent( expected, interPoint );
-
-  test.case = 'Perpendicular planes'; /* */
-
-  var plane1 = [ 3, 0 , 0, 3 ];
-  var plane2 = [ 0, - 4 , 0, 4 ];
-  var plane3 = [ 0, 0 , 5, 5 ];
-  var expected = [ - 1, 1, - 1 ];
-  expected = _.vector.from( expected );
-
-  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, interPoint );
-
-  test.case = 'Trivial'; /* */
-
-  var plane1 = [ 2, 1, 2, 4 ];
-  var plane2 = [ 1, 1 , 0, - 5 ];
-  var plane3 = [ 1, - 1 , 6, 0 ];
-  var expected = [ - 32, 37, 11.5 ];
-  expected = _.vector.from( expected );
-
-  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, interPoint );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ], [ 0, 3, 1, 2 ]  ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2, 3 ], [ 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2, 4 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( null, [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ]  ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], NaN, [ 0, 3, 1, 2 ], ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ ], [ ], [ ] ));
-
-}
+//
 
 function translate( test )
 {
@@ -1352,6 +1256,7 @@ function translate( test )
 
 }
 
+//
 
 function normalize( test )
 {
@@ -1467,6 +1372,7 @@ function normalize( test )
 
 }
 
+//
 
 function negate( test )
 {
@@ -1592,6 +1498,110 @@ function negate( test )
 
 }
 
+//
+
+function threeIntersectionPoint( test )
+{
+
+  test.case = 'Planes remain unchanged'; /* */
+
+  var plane1 = [ 1, 0 , 0, 1 ];
+  var oldPlane1 = plane1.slice();
+  var plane2 = [ 1, 1 , 0, 1 ];
+  var oldPlane2 = plane2.slice();
+  var plane3 = [ 1, 0 , 1, 1 ];
+  var oldPlane3 = plane3.slice();
+  var expected = [ - 1, 0, 0 ];
+  expected = _.vector.from( expected );
+
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
+  test.identical( plane1, oldPlane1 );
+  test.identical( plane2, oldPlane2 );
+  test.identical( plane3, oldPlane3 );
+
+  test.case = 'Parallel planes'; /* */
+
+  var plane1 = [ 1, 0 , 0, 1 ];
+  var plane2 = [ 2, 0 , 0, 4 ];
+  var plane3 = [ 3, 0 , 0, 7 ];
+  var expected = NaN;
+
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
+
+  test.case = '2 Parallel planes'; /* */
+
+  var plane1 = [ 1, 0 , 0, 1 ];
+  var plane2 = [ 2, 0 , 0, 4 ];
+  var plane3 = [ 3, 1 , 4, 7 ];
+  var expected = NaN;
+
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
+
+  test.case = 'Perpendicular planes in origin'; /* */
+
+  var plane1 = [ 1, 0 , 0, 0 ];
+  var plane2 = [ 0, 1 , 0, 0 ];
+  var plane3 = [ 0, 0 , 1, 0 ];
+  var expected = [ 0, 0, 0 ];
+  expected = _.vector.from( expected );
+
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.equivalent( expected, interPoint );
+  debugger;
+  test.case = 'Planes in origin'; /* */
+
+  var plane1 = [ - 1, 1, 0, 0 ];
+  var plane2 = [ 0, 1 , 0, 0 ];
+  var plane3 = [ 0, - 1, 6, 0 ];
+  var expected = [ 0, 0, 0 ];
+  expected = _.vector.from( expected );
+
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.equivalent( expected, interPoint );
+
+  test.case = 'Perpendicular planes'; /* */
+
+  var plane1 = [ 3, 0 , 0, 3 ];
+  var plane2 = [ 0, - 4 , 0, 4 ];
+  var plane3 = [ 0, 0 , 5, 5 ];
+  var expected = [ - 1, 1, - 1 ];
+  expected = _.vector.from( expected );
+
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
+
+  test.case = 'Trivial'; /* */
+
+  var plane1 = [ 2, 1, 2, 4 ];
+  var plane2 = [ 1, 1 , 0, - 5 ];
+  var plane3 = [ 1, - 1 , 6, 0 ];
+  var expected = [ - 32, 37, 11.5 ];
+  expected = _.vector.from( expected );
+
+  var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
+  test.identical( expected, interPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ], [ 0, 3, 1, 2 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2, 3 ], [ 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2, 4 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( null, [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], NaN, [ 0, 3, 1, 2 ], ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ ], [ ], [ ] ));
+
+}
+
 // --
 // define class
 // --
@@ -1612,6 +1622,7 @@ var Self =
     from : from,
     fromNormalAndPoint : fromNormalAndPoint,
     fromPoints : fromPoints,
+
     pointDistance : pointDistance,
     pointCoplanarGet : pointCoplanarGet,
 
@@ -1620,13 +1631,14 @@ var Self =
     boxIntersects : boxIntersects,
 
     lineIntersects : lineIntersects,
-    threeIntersectionPoint : threeIntersectionPoint,
 
     //matrixHomogenousApply : matrixHomogenousApply,
     translate : translate,
 
     normalize : normalize,
     negate : negate,
+
+    threeIntersectionPoint : threeIntersectionPoint,
 
   }
 
