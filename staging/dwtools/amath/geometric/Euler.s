@@ -158,7 +158,7 @@ function from( euler )
   if( _.vectorIs( euler ) )
   {
     debugger;
-    xxx
+
     //throw _.err( 'not implemented' );
     // return euler.slice();
     return euler.toArray();
@@ -2200,15 +2200,16 @@ function fromMatrix2( mat, dst )
 
 /* qqq : make similar to other converters */
 
-function toMatrix2( euler )
+function toMatrix2( euler, dstMatrix )
 {
 
   var euler = _.euler.from( euler );
   var eulerv = _.vector.from( euler );
-  var mat =  _.Space.makeZero( [ 3, 3 ] );
 
-  _.assert( _.Space.is( mat ) );
-  _.assert( arguments.length === 1 );
+  _.assert( _.Space.is( dstMatrix ) );
+  _.assert( dstMatrix.dims[ 0 ] === 3 );
+  _.assert( dstMatrix.dims[ 1 ] === 3 );
+  _.assert( arguments.length === 2 );
 
   var e1 = eulerv.eGet( 0 );
   var e2 = eulerv.eGet( 1 );
@@ -2226,161 +2227,165 @@ function toMatrix2( euler )
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    mat.atomSet( [ 0, 0 ], ce2*ce3 );
-    mat.atomSet( [ 0, 1 ], - ce2*se3 );
-    mat.atomSet( [ 0, 2 ], se2 );
-    mat.atomSet( [ 1, 0 ], se1*se2*ce3 + ce1*se3 );
-    mat.atomSet( [ 1, 1 ], -se1*se2*se3 + ce1*ce3 );
-    mat.atomSet( [ 1, 2 ], -se1*ce2 );
-    mat.atomSet( [ 2, 0 ], -ce1*se2*ce3 + se1*se3 );
-    mat.atomSet( [ 2, 1 ], ce1*se2*se3+ se1*ce3 );
-    mat.atomSet( [ 2, 2 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 0, 0 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], - ce2*se3 );
+    dstMatrix.atomSet( [ 0, 2 ], se2 );
+    dstMatrix.atomSet( [ 1, 0 ], se1*se2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], -se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], -se1*ce2 );
+    dstMatrix.atomSet( [ 2, 0 ], -ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], ce1*se2*se3+ se1*ce3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce1*ce2 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    mat.atomSet( [ 0, 0 ], ce2*ce3 );
-    mat.atomSet( [ 0, 1 ], - se2 );
-    mat.atomSet( [ 0, 2 ], ce2*se3 );
-    mat.atomSet( [ 1, 0 ], ce1*se2*ce3 + se1*se3 );
-    mat.atomSet( [ 1, 1 ], ce1*ce2 );
-    mat.atomSet( [ 1, 2 ], ce1*se2*se3 - se1*ce3 );
-    mat.atomSet( [ 2, 0 ], se1*se2*ce3 - ce1*se3 );
-    mat.atomSet( [ 2, 1 ], se1*ce2 );
-    mat.atomSet( [ 2, 2 ], se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], - se2 );
+    dstMatrix.atomSet( [ 0, 2 ], ce2*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 1, 2 ], ce1*se2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 2, 0 ], se1*se2*ce3 - ce1*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*ce2 );
+    dstMatrix.atomSet( [ 2, 2 ], se1*se2*se3 + ce1*ce3 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    mat.atomSet( [ 0, 0 ], se1*se2*se3 + ce1*ce3 );
-    mat.atomSet( [ 0, 1 ], se1*se2*ce3 - ce1*se3 );
-    mat.atomSet( [ 0, 2 ], se1*ce2 );
-    mat.atomSet( [ 1, 0 ], ce2*se3 );
-    mat.atomSet( [ 1, 1 ], ce2*ce3 );
-    mat.atomSet( [ 1, 2 ], -se2 );
-    mat.atomSet( [ 2, 0 ], ce1*se2*se3 - se1*ce3 );
-    mat.atomSet( [ 2, 1 ], ce1*se2*ce3+ se1*se3 );
-    mat.atomSet( [ 2, 2 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 0, 0 ], se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], se1*se2*ce3 - ce1*se3 );
+    dstMatrix.atomSet( [ 0, 2 ], se1*ce2 );
+    dstMatrix.atomSet( [ 1, 0 ], ce2*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], -se2 );
+    dstMatrix.atomSet( [ 2, 0 ], ce1*se2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 2, 1 ], ce1*se2*ce3+ se1*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce1*ce2 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    mat.atomSet( [ 0, 0 ], ce1*ce2 );
-    mat.atomSet( [ 0, 1 ], - ce1*se2*ce3 + se1*se3 );
-    mat.atomSet( [ 0, 2 ], ce1*se2*se3 + se1*ce3 );
-    mat.atomSet( [ 1, 0 ], se2 );
-    mat.atomSet( [ 1, 1 ], ce2*ce3 );
-    mat.atomSet( [ 1, 2 ], - ce2*se3 );
-    mat.atomSet( [ 2, 0 ], - se1*ce2 );
-    mat.atomSet( [ 2, 1 ], se1*se2*ce3+ ce1*se3 );
-    mat.atomSet( [ 2, 2 ], - se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 0, 1 ], - ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 0, 2 ], ce1*se2*se3 + se1*ce3 );
+    dstMatrix.atomSet( [ 1, 0 ], se2 );
+    dstMatrix.atomSet( [ 1, 1 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce2*se3 );
+    dstMatrix.atomSet( [ 2, 0 ], - se1*ce2 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*se2*ce3+ ce1*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], - se1*se2*se3 + ce1*ce3 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    mat.atomSet( [ 0, 0 ], - se1*se2*se3 + ce1*ce3 );
-    mat.atomSet( [ 0, 1 ], - se1*ce2 );
-    mat.atomSet( [ 0, 2 ], se1*se2*ce3 + ce1*se3 );
-    mat.atomSet( [ 1, 0 ], ce1*se2*se3 + se1*ce3 );
-    mat.atomSet( [ 1, 1 ], ce1*ce2 );
-    mat.atomSet( [ 1, 2 ], - ce1*se2*ce3 + se1*se3 );
-    mat.atomSet( [ 2, 0 ], - ce2*se3 );
-    mat.atomSet( [ 2, 1 ], se2 );
-    mat.atomSet( [ 2, 2 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], - se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], - se1*ce2 );
+    dstMatrix.atomSet( [ 0, 2 ], se1*se2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], ce1*se2*se3 + se1*ce3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 2, 0 ], - ce2*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], se2 );
+    dstMatrix.atomSet( [ 2, 2 ], ce2*ce3 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    mat.atomSet( [ 0, 0 ], ce1*ce2 );
-    mat.atomSet( [ 0, 1 ], ce1*se2*se3 - se1*ce3 );
-    mat.atomSet( [ 0, 2 ], ce1*se2*ce3 + se1*se3 );
-    mat.atomSet( [ 1, 0 ], se1*ce2 );
-    mat.atomSet( [ 1, 1 ], se1*se2*se3 + ce1*ce3 );
-    mat.atomSet( [ 1, 2 ], se1*se2*ce3 - ce1*se3 );
-    mat.atomSet( [ 2, 0 ], - se2 );
-    mat.atomSet( [ 2, 1 ], ce2*se3 );
-    mat.atomSet( [ 2, 2 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 0, 1 ], ce1*se2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 0, 2 ], ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], se1*ce2 );
+    dstMatrix.atomSet( [ 1, 1 ], se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], se1*se2*ce3 - ce1*se3 );
+    dstMatrix.atomSet( [ 2, 0 ], - se2 );
+    dstMatrix.atomSet( [ 2, 1 ], ce2*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce2*ce3 );
   }
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    mat.atomSet( [ 0, 0 ], ce2 );
-    mat.atomSet( [ 0, 1 ], se2*se3 );
-    mat.atomSet( [ 0, 2 ], se2*ce3 );
-    mat.atomSet( [ 1, 0 ], se1*se2 );
-    mat.atomSet( [ 1, 1 ], ce1*ce3 - se1*ce2*se3 );
-    mat.atomSet( [ 1, 2 ], - ce1*se3 - se1*ce2*ce3 );
-    mat.atomSet( [ 2, 0 ], - ce1*se2 );
-    mat.atomSet( [ 2, 1 ], se1*ce3 + ce1*ce2*se3  );
-    mat.atomSet( [ 2, 2 ], - se1*se3 + ce1*ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce2 );
+    dstMatrix.atomSet( [ 0, 1 ], se2*se3 );
+    dstMatrix.atomSet( [ 0, 2 ], se2*ce3 );
+    dstMatrix.atomSet( [ 1, 0 ], se1*se2 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce3 - se1*ce2*se3 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce1*se3 - se1*ce2*ce3 );
+    dstMatrix.atomSet( [ 2, 0 ], - ce1*se2 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*ce3 + ce1*ce2*se3  );
+    dstMatrix.atomSet( [ 2, 2 ], - se1*se3 + ce1*ce2*ce3 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    mat.atomSet( [ 0, 0 ], ce2 );
-    mat.atomSet( [ 0, 1 ], - se2*ce3 );
-    mat.atomSet( [ 0, 2 ], se2*se3 );
-    mat.atomSet( [ 1, 0 ], ce1*se2 );
-    mat.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
-    mat.atomSet( [ 1, 2 ], - ce1*ce2*se3 - se1*ce3 );
-    mat.atomSet( [ 2, 0 ], se1*se2 );
-    mat.atomSet( [ 2, 1 ], se1*ce2*ce3 + ce1*se3 );
-    mat.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce2 );
+    dstMatrix.atomSet( [ 0, 1 ], - se2*ce3 );
+    dstMatrix.atomSet( [ 0, 2 ], se2*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], ce1*se2 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce1*ce2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 2, 0 ], se1*se2 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*ce2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    mat.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
-    mat.atomSet( [ 0, 1 ], se1*se2 );
-    mat.atomSet( [ 0, 2 ], se1*ce2*ce3 + ce1*se3 );
-    mat.atomSet( [ 1, 0 ], se2*se3 );
-    mat.atomSet( [ 1, 1 ], ce2 );
-    mat.atomSet( [ 1, 2 ], - se2*ce3 );
-    mat.atomSet( [ 2, 0 ], - ce1*ce2*se3 - se1*ce3 );
-    mat.atomSet( [ 2, 1 ], ce1*se2 );
-    mat.atomSet( [ 2, 2 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], se1*se2 );
+    dstMatrix.atomSet( [ 0, 2 ], se1*ce2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], se2*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce2 );
+    dstMatrix.atomSet( [ 1, 2 ], - se2*ce3 );
+    dstMatrix.atomSet( [ 2, 0 ], - ce1*ce2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 2, 1 ], ce1*se2 );
+    dstMatrix.atomSet( [ 2, 2 ], ce1*ce2*ce3 - se1*se3 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    mat.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
-    mat.atomSet( [ 0, 1 ], - ce1*se2 );
-    mat.atomSet( [ 0, 2 ], ce1*ce2*se3 + se1*ce3 );
-    mat.atomSet( [ 1, 0 ], se2*ce3 );
-    mat.atomSet( [ 1, 1 ], ce2 );
-    mat.atomSet( [ 1, 2 ], se2*se3 );
-    mat.atomSet( [ 2, 0 ], - se1*ce2*ce3 - ce1*se3 );
-    mat.atomSet( [ 2, 1 ], se1*se2 );
-    mat.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 0, 1 ], - ce1*se2 );
+    dstMatrix.atomSet( [ 0, 2 ], ce1*ce2*se3 + se1*ce3 );
+    dstMatrix.atomSet( [ 1, 0 ], se2*ce3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce2 );
+    dstMatrix.atomSet( [ 1, 2 ], se2*se3 );
+    dstMatrix.atomSet( [ 2, 0 ], - se1*ce2*ce3 - ce1*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*se2 );
+    dstMatrix.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    mat.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
-    mat.atomSet( [ 0, 1 ], - se1*ce2*ce3 - ce1*se3  );
-    mat.atomSet( [ 0, 2 ], se1*se2 );
-    mat.atomSet( [ 1, 0 ], ce1*ce2*se3 + se1*ce3 );
-    mat.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
-    mat.atomSet( [ 1, 2 ], - ce1*se2 );
-    mat.atomSet( [ 2, 0 ], se2*se3 );
-    mat.atomSet( [ 2, 1 ], se2*ce3 );
-    mat.atomSet( [ 2, 2 ], ce2 );
+    dstMatrix.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], - se1*ce2*ce3 - ce1*se3  );
+    dstMatrix.atomSet( [ 0, 2 ], se1*se2 );
+    dstMatrix.atomSet( [ 1, 0 ], ce1*ce2*se3 + se1*ce3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce1*se2 );
+    dstMatrix.atomSet( [ 2, 0 ], se2*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], se2*ce3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce2 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    mat.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
-    mat.atomSet( [ 0, 1 ], - ce1*ce2*se3 - se1*ce3 );
-    mat.atomSet( [ 0, 2 ], ce1*se2 );
-    mat.atomSet( [ 1, 0 ], se1*ce2*ce3 + ce1*se3 );
-    mat.atomSet( [ 1, 1 ], - se1*ce2*se3 + ce1*ce3 );
-    mat.atomSet( [ 1, 2 ], se1*se2 );
-    mat.atomSet( [ 2, 0 ], - se2*ce3 );
-    mat.atomSet( [ 2, 1 ], se2*se3 );
-    mat.atomSet( [ 2, 2 ], ce2 );
+    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 0, 1 ], - ce1*ce2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 0, 2 ], ce1*se2 );
+    dstMatrix.atomSet( [ 1, 0 ], se1*ce2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], se1*se2 );
+    dstMatrix.atomSet( [ 2, 0 ], - se2*ce3 );
+    dstMatrix.atomSet( [ 2, 1 ], se2*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce2 );
+  }
+  else
+  {
+    throw _.err( 'Not an Euler Representation.' );
   }
 
-  return mat;
+  return dstMatrix;
 }
 
 //
@@ -2419,10 +2424,8 @@ function represent( dstEuler, representation )
 
   var euler = dstEuler.slice();
   var dstEulerv = _.vector.from( dstEuler );
-
-  var quaternion = _.euler.toQuat2( euler );
-
-  xxx
+  var dstQuat = [ 0, 0, 0, 0 ];
+  var quaternion = _.euler.toQuat2( euler, dstQuat );
 
   if( representation )
   {
@@ -2448,7 +2451,6 @@ function represent( dstEuler, representation )
 
   euler = _.euler.fromQuat2( quaternion, euler );
   _.vector.assign( dstEulerv, euler );
-  console.log(dstEulerv);
   return dstEuler;
 
 }
@@ -2484,7 +2486,7 @@ var Proto =
 
   represent : represent,
 
-  Order : Order,
+  // Order : Order,
 
 }
 

@@ -103,102 +103,6 @@ function eachQuat( onQuat )
 // test
 // --
 
-function is( test )
-{
-
-  test.case = 'array'; /* */
-
-  test.is( !_.quat.is([ 0 ]) );
-  test.is( !_.quat.is([ 0,0 ]) );
-  test.is( !_.quat.is([ 0,0,0 ]) );
-  test.is( _.quat.is([ 0,0,0,0 ]) );
-  test.is( !_.quat.is([ 0,0,0,0,0 ]) );
-
-  test.case = 'vector'; /* */
-
-  test.is( !_.quat.is( _.vector.fromArray([ 0 ]) ) );
-  test.is( !_.quat.is( _.vector.fromArray([ 0,0 ]) ) );
-  test.is( !_.quat.is( _.vector.fromArray([ 0,0,0 ]) ) );
-  test.is( _.quat.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
-  test.is( !_.quat.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
-
-  test.case = 'not quat'; /* */
-
-  test.is( !_.quat.is( [] ) );
-  test.is( !_.quat.is( _.vector.fromArray([]) ) );
-  test.is( !_.quat.is( 'abc' ) );
-  test.is( !_.quat.is( { center : [ 0,0,0 ], radius : 1 } ) );
-  test.is( !_.quat.is( function( a,b,c ){} ) );
-
-}
-
-//
-
-function isZero( test )
-{
-
-  test.case = 'zero'; /* */
-
-  test.is( _.quat.isZero([ 0,0,0,0 ]) );
-
-  test.case = 'not zero'; /* */
-
-  test.is( !_.quat.isZero([ 0,0,0,1 ]) );
-  test.is( !_.quat.isZero([ 0,0,0,1.1 ]) );
-  test.is( !_.quat.isZero([ 0,0,0,Infinity ]) );
-
-  test.is( !_.quat.isZero([ 1,0,0,0 ]) );
-  test.is( !_.quat.isZero([ 0,1,0,0 ]) );
-  test.is( !_.quat.isZero([ 0,0,1,0 ]) );
-
-  test.is( !_.quat.isZero([ 1,0,0,1 ]) );
-  test.is( !_.quat.isZero([ 0,1,0,1 ]) );
-  test.is( !_.quat.isZero([ 0,0,1,1 ]) );
-
-  test.is( !_.quat.isZero([ 0.1,0,0,0 ]) );
-  test.is( !_.quat.isZero([ 0,0.1,0,0 ]) );
-  test.is( !_.quat.isZero([ 0,0,0.1,0 ]) );
-
-  test.is( !_.quat.isZero([ 0.1,0,0,1 ]) );
-  test.is( !_.quat.isZero([ 0,0.1,0,1 ]) );
-  test.is( !_.quat.isZero([ 0,0,0.1,1 ]) );
-
-}
-
-//
-
-function isUnit( test )
-{
-
-  test.case = 'zero'; /* */
-
-  test.is( _.quat.isUnit([ 0,0,0,1 ]) );
-
-  test.case = 'not zero'; /* */
-
-  test.is( !_.quat.isUnit([ 0,0,0,0 ]) );
-  test.is( !_.quat.isUnit([ 0,0,0,1.1 ]) );
-  test.is( !_.quat.isUnit([ 0,0,0,Infinity ]) );
-
-  test.is( !_.quat.isUnit([ 1,0,0,0 ]) );
-  test.is( !_.quat.isUnit([ 0,1,0,0 ]) );
-  test.is( !_.quat.isUnit([ 0,0,1,0 ]) );
-
-  test.is( !_.quat.isUnit([ 1,0,0,1 ]) );
-  test.is( !_.quat.isUnit([ 0,1,0,1 ]) );
-  test.is( !_.quat.isUnit([ 0,0,1,1 ]) );
-
-  test.is( !_.quat.isUnit([ 0.1,0,0,0 ]) );
-  test.is( !_.quat.isUnit([ 0,0.1,0,0 ]) );
-  test.is( !_.quat.isUnit([ 0,0,0.1,0 ]) );
-
-  test.is( !_.quat.isUnit([ 0.1,0,0,1 ]) );
-  test.is( !_.quat.isUnit([ 0,0.1,0,1 ]) );
-  test.is( !_.quat.isUnit([ 0,0,0.1,1 ]) );
-
-}
-
-//
 
 function make( test )
 {
@@ -388,6 +292,111 @@ function unit( test )
 
 //
 
+function fromEuler( test )
+{
+
+  var accuracy = test.accuracy*0.1;
+  var h = _.sqrt( 2 ) / 2;
+
+  // debugger;
+  // for( var order in _.euler.Order )
+  // {
+  //   var euler = _.arrayAppendArray( [ 1,1,1 ],_.euler.Order[ order ] );
+  //   logger.log( order,_.quat.fromEuler( null,euler ) );
+  // }
+  // debugger;
+
+  function sampleTest( signs )
+  {
+
+    euler1 = _.euler.fromQuat( euler1,quat1 );
+
+    var quat2 = _.quat.fromEuler( null,euler1 );
+    var euler2 = _.euler.fromQuat( euler1.slice(),quat2 );
+
+    // var quat3 = _.quat.fromEuler( null,euler2 );
+    var m1 = _.quat.toMatrix( quat1,null );
+    var euler3 = _.euler.fromMatrix( euler1.slice(),m1 );
+    var quat3 = _.quat.fromEuler( null,euler3 );
+
+    var applied1 = _.quat.applyTo( quat1,[ 0.25,0.5,1.0 ] );
+    var applied2 = _.quat.applyTo( quat2,[ 0.25,0.5,1.0 ] );
+    var applied3 = _.quat.applyTo( quat3,[ 0.25,0.5,1.0 ] );
+
+    // test.equivalent( quat1,quat3 );
+    // test.equivalent( quat2,quat3 );
+    // test.equivalent( euler2,euler1 );
+
+    test.equivalent( applied2,applied1 );
+    // test.equivalent( applied3,applied1 );
+
+    // logger.log( 'signs',signs );
+
+    logger.log( 'quat1',quat1 );
+    logger.log( 'quat2',quat2 );
+    logger.log( 'quat3',quat3 );
+
+    logger.log( 'applied1',applied1 );
+    logger.log( 'applied2',applied2 );
+    logger.log( 'applied3',applied3 );
+
+    logger.log( 'euler1',euler1 );
+    logger.log( 'euler2',euler2 );
+    logger.log( 'euler3',euler3 );
+
+    // [ x: -1.1460588, y: 0.4274791, z: -2.863293 ]
+
+  }
+
+  test.case = 'trivial xyz'; /* */
+
+  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
+  var euler1 = [ 0,0,0, 0,1,2 ];
+
+  sampleTest();
+
+  test.case = 'trivial xzy'; /* */
+
+  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
+  var euler1 = [ 0,0,0,0,2,1 ];
+
+  sampleTest();
+
+  test.case = 'trivial yxz'; /* */
+
+  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
+  var euler1 = [ 0,0,0,1,0,2 ];
+
+  sampleTest();
+
+  test.case = 'trivial yzx'; /* */
+
+  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
+  var euler1 = [ 0,0,0,1,2,0 ];
+
+  sampleTest();
+
+  test.case = 'trivial zxy'; /* */
+
+  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
+  var euler1 = [ 0,0,0,2,0,1 ];
+
+  sampleTest();
+
+  test.case = 'trivial zyx'; /* */
+
+  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
+  var euler1 = [ 0,0,0,2,1,0 ];
+
+  sampleTest();
+
+  // test.identical( 0,1 );
+}
+
+fromEuler.accuracy = 1e-15;
+
+//
+
 function fromAxisAndAngle( test )
 {
 
@@ -571,111 +580,6 @@ function fromAxisAndAngle( test )
 }
 
 fromAxisAndAngle.accuracy = [ _.accuracy * 1e+2, 1e-1 ];
-
-//
-
-function fromEuler( test )
-{
-
-  var accuracy = test.accuracy*0.1;
-  var h = _.sqrt( 2 ) / 2;
-
-  // debugger;
-  // for( var order in _.euler.Order )
-  // {
-  //   var euler = _.arrayAppendArray( [ 1,1,1 ],_.euler.Order[ order ] );
-  //   logger.log( order,_.quat.fromEuler( null,euler ) );
-  // }
-  // debugger;
-
-  function sampleTest( signs )
-  {
-
-    euler1 = _.euler.fromQuat( euler1,quat1 );
-
-    var quat2 = _.quat.fromEuler( null,euler1 );
-    var euler2 = _.euler.fromQuat( euler1.slice(),quat2 );
-
-    // var quat3 = _.quat.fromEuler( null,euler2 );
-    var m1 = _.quat.toMatrix( quat1,null );
-    var euler3 = _.euler.fromMatrix( euler1.slice(),m1 );
-    var quat3 = _.quat.fromEuler( null,euler3 );
-
-    var applied1 = _.quat.applyTo( quat1,[ 0.25,0.5,1.0 ] );
-    var applied2 = _.quat.applyTo( quat2,[ 0.25,0.5,1.0 ] );
-    var applied3 = _.quat.applyTo( quat3,[ 0.25,0.5,1.0 ] );
-
-    // test.equivalent( quat1,quat3 );
-    // test.equivalent( quat2,quat3 );
-    // test.equivalent( euler2,euler1 );
-
-    test.equivalent( applied2,applied1 );
-    // test.equivalent( applied3,applied1 );
-
-    // logger.log( 'signs',signs );
-
-    logger.log( 'quat1',quat1 );
-    logger.log( 'quat2',quat2 );
-    logger.log( 'quat3',quat3 );
-
-    logger.log( 'applied1',applied1 );
-    logger.log( 'applied2',applied2 );
-    logger.log( 'applied3',applied3 );
-
-    logger.log( 'euler1',euler1 );
-    logger.log( 'euler2',euler2 );
-    logger.log( 'euler3',euler3 );
-
-    // [ x: -1.1460588, y: 0.4274791, z: -2.863293 ]
-
-  }
-
-  test.case = 'trivial xyz'; /* */
-
-  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
-  var euler1 = [ 0,0,0, 0,1,2 ];
-
-  sampleTest();
-
-  test.case = 'trivial xzy'; /* */
-
-  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
-  var euler1 = [ 0,0,0,0,2,1 ];
-
-  sampleTest();
-
-  test.case = 'trivial yxz'; /* */
-
-  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
-  var euler1 = [ 0,0,0,1,0,2 ];
-
-  sampleTest();
-
-  test.case = 'trivial yzx'; /* */
-
-  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
-  var euler1 = [ 0,0,0,1,2,0 ];
-
-  sampleTest();
-
-  test.case = 'trivial zxy'; /* */
-
-  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
-  var euler1 = [ 0,0,0,2,0,1 ];
-
-  sampleTest();
-
-  test.case = 'trivial zyx'; /* */
-
-  var quat1 = [ 0.25,0.5,0.82915619758885,0 ];
-  var euler1 = [ 0,0,0,2,1,0 ];
-
-  sampleTest();
-
-  // test.identical( 0,1 );
-}
-
-fromEuler.accuracy = 1e-15;
 
 //
 
@@ -1121,6 +1025,103 @@ function toMatrix( test )
 
 toMatrix.accuracy = [ _.accuracy, 1e-1 ];
 
+//
+
+function is( test )
+{
+
+  test.case = 'array'; /* */
+
+  test.is( !_.quat.is([ 0 ]) );
+  test.is( !_.quat.is([ 0,0 ]) );
+  test.is( !_.quat.is([ 0,0,0 ]) );
+  test.is( _.quat.is([ 0,0,0,0 ]) );
+  test.is( !_.quat.is([ 0,0,0,0,0 ]) );
+
+  test.case = 'vector'; /* */
+
+  test.is( !_.quat.is( _.vector.fromArray([ 0 ]) ) );
+  test.is( !_.quat.is( _.vector.fromArray([ 0,0 ]) ) );
+  test.is( !_.quat.is( _.vector.fromArray([ 0,0,0 ]) ) );
+  test.is( _.quat.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
+  test.is( !_.quat.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
+
+  test.case = 'not quat'; /* */
+
+  test.is( !_.quat.is( [] ) );
+  test.is( !_.quat.is( _.vector.fromArray([]) ) );
+  test.is( !_.quat.is( 'abc' ) );
+  test.is( !_.quat.is( { center : [ 0,0,0 ], radius : 1 } ) );
+  test.is( !_.quat.is( function( a,b,c ){} ) );
+
+}
+
+//
+
+function isZero( test )
+{
+
+  test.case = 'zero'; /* */
+
+  test.is( _.quat.isZero([ 0,0,0,0 ]) );
+
+  test.case = 'not zero'; /* */
+
+  test.is( !_.quat.isZero([ 0,0,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,0,0,1.1 ]) );
+  test.is( !_.quat.isZero([ 0,0,0,Infinity ]) );
+
+  test.is( !_.quat.isZero([ 1,0,0,0 ]) );
+  test.is( !_.quat.isZero([ 0,1,0,0 ]) );
+  test.is( !_.quat.isZero([ 0,0,1,0 ]) );
+
+  test.is( !_.quat.isZero([ 1,0,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,1,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,0,1,1 ]) );
+
+  test.is( !_.quat.isZero([ 0.1,0,0,0 ]) );
+  test.is( !_.quat.isZero([ 0,0.1,0,0 ]) );
+  test.is( !_.quat.isZero([ 0,0,0.1,0 ]) );
+
+  test.is( !_.quat.isZero([ 0.1,0,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,0.1,0,1 ]) );
+  test.is( !_.quat.isZero([ 0,0,0.1,1 ]) );
+
+}
+
+//
+
+function isUnit( test )
+{
+
+  test.case = 'zero'; /* */
+
+  test.is( _.quat.isUnit([ 0,0,0,1 ]) );
+
+  test.case = 'not zero'; /* */
+
+  test.is( !_.quat.isUnit([ 0,0,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,0,0,1.1 ]) );
+  test.is( !_.quat.isUnit([ 0,0,0,Infinity ]) );
+
+  test.is( !_.quat.isUnit([ 1,0,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,1,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,0,1,0 ]) );
+
+  test.is( !_.quat.isUnit([ 1,0,0,1 ]) );
+  test.is( !_.quat.isUnit([ 0,1,0,1 ]) );
+  test.is( !_.quat.isUnit([ 0,0,1,1 ]) );
+
+  test.is( !_.quat.isUnit([ 0.1,0,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,0.1,0,0 ]) );
+  test.is( !_.quat.isUnit([ 0,0,0.1,0 ]) );
+
+  test.is( !_.quat.isUnit([ 0.1,0,0,1 ]) );
+  test.is( !_.quat.isUnit([ 0,0.1,0,1 ]) );
+  test.is( !_.quat.isUnit([ 0,0,0.1,1 ]) );
+
+}
+
 // --
 // define class
 // --
@@ -1142,10 +1143,6 @@ var Self =
   tests :
   {
 
-    is : is,
-    isZero : isZero,
-    isUnit : isUnit,
-
     make : make,
     makeZero : makeZero,
     makeUnit : makeUnit,
@@ -1153,9 +1150,9 @@ var Self =
     zero : zero,
     unit : unit,
 
-    fromAxisAndAngle : fromAxisAndAngle,
-
     fromEuler : fromEuler,
+
+    fromAxisAndAngle : fromAxisAndAngle,
 
     fromVectors : fromVectors,
     fromNormalizedVectors : fromNormalizedVectors,
@@ -1164,6 +1161,10 @@ var Self =
     // fromMatrixRotation2 : fromMatrixRotation2,
 
     toMatrix : toMatrix,
+
+    is : is,
+    isZero : isZero,
+    isUnit : isUnit,
 
   },
 
