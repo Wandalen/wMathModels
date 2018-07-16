@@ -480,11 +480,11 @@ function from( test )
   test.case = 'Different instance returned - vector -> array'; /* */
 
   var srcBox = _.vector.fromArray( [ 0, 0, 2, 2 ] );
-  var expected =  [ 0, 0, 2, 2 ];
+  var expected = _.vector.fromArray( [ 0, 0, 2, 2 ] );
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
-  test.is( srcBox !== gotBox );
+  test.is( srcBox === gotBox );
 
   test.case = 'Same instance returned - empty array'; /* */
 
@@ -503,16 +503,6 @@ function from( test )
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
   test.is( srcBox !== gotBox );
-
-  test.case = 'Different instance returned - undefined -> array'; /* */
-
-  var srcBox = undefined;
-  var expected =  [ 0, 0, 0, 0, 0, 0 ];
-
-  var gotBox = _.box.from( srcBox );
-  test.identical( gotBox, expected );
-  test.is( srcBox !== gotBox );
-
   /* */
 
   if( !Config.debug )
@@ -523,6 +513,8 @@ function from( test )
   test.shouldThrowErrorSync( () => _.box.from( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.box.from( 'box' ));
   test.shouldThrowErrorSync( () => _.box.from( NaN ));
+  test.shouldThrowErrorSync( () => _.box.from( undefined ));
+
 
 }
 
