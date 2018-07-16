@@ -1,4 +1,4 @@
-(function _Geometric_s_(){
+(function _Sphere_s_(){
 
 'use strict';
 
