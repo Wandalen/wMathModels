@@ -28,7 +28,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathVector' );
   _.include( 'wMathSpace' );
 
-  require( './Ray.s' );
+  // require( './Ray.s' );
   require( './Box.s' );
   require( './Sphere.s' );
   require( './Plane.s' );

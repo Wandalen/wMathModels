@@ -350,8 +350,7 @@ function fromCube( box , size )
   var dim = _.box.dimGet( boxv );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  //_.assert( ! isNaN( size ) );
-  _.assert( _.numberIs( size ) ); /* qqq : for type checking should be used _.[type]Is  */
+  _.assert( _.numberIs( size ) );
 
   _.vector.assignScalar( min,-size/2 );
   _.vector.assignScalar( max,+size/2 );

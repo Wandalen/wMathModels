@@ -1109,8 +1109,6 @@ function toMatrix( test )
   var angle = pi/3;
   testSubCase();
 
-  /* qqq */
-
   var q1 = [ 0.25,0.5,0.82915619758885,0 ];
   var m1 = _.quat.toMatrix( q1,null );
   var applied1 = _.quat.applyTo( q1,[ 0.25,0.5,1.0 ] );
