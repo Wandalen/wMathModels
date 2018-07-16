@@ -23,9 +23,8 @@ debugger;
 var dstEulerN = null;
 var dstEuler = [ 1, 1, 1, 1, 0, 2 ];;
 //var resN = _.euler.represent( dstEulerN, txtYZY );
-var res = _.euler.represent( dstEuler, numXZY );
+var res = _.euler.toQuat2( srcEuler, numXZY );
 
 //console.log( 'Old Euler:', resN);
 //console.log( 'Old Euler:', dstEulerN);
 console.log( 'Old Euler:', res);
-console.log( 'Old Euler:', dstEuler);

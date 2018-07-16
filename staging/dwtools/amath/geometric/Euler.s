@@ -158,7 +158,7 @@ function from( euler )
   if( _.vectorIs( euler ) )
   {
     debugger;
-    xxx
+
     //throw _.err( 'not implemented' );
     // return euler.slice();
     return euler.toArray();
@@ -2206,8 +2206,8 @@ function toMatrix2( euler, dstMatrix )
   var eulerv = _.vector.from( euler );
 
   _.assert( _.Space.is( dstMatrix ) );
-  _.assert( dstMatrix.dims[ 0 ] >= 3 );
-  _.assert( dstMatrix.dims[ 1 ] >= 3 );
+  _.assert( dstMatrix.dims[ 0 ] === 3 );
+  _.assert( dstMatrix.dims[ 1 ] === 3 );
   _.assert( arguments.length === 2 );
 
   var e1 = eulerv.eGet( 0 );
@@ -2423,8 +2423,8 @@ function represent( dstEuler, representation )
 
   var euler = dstEuler.slice();
   var dstEulerv = _.vector.from( dstEuler );
-
-  var quaternion = _.euler.toQuat2( euler );
+  var dstQuat = [ 0, 0, 0, 0 ];
+  var quaternion = _.euler.toQuat2( euler, dstQuat );
 
   if( representation )
   {

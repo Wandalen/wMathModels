@@ -1712,6 +1712,7 @@ function fromMatrix2( test )
 
   var euler = [ 1, 0.5, 0.5, 0, 1, 2 ];
   var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.5, 0.5, 0, 1, 2 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1723,6 +1724,7 @@ function fromMatrix2( test )
 
   var euler = [ 1, 0.5, 0.25, 0, 2, 1 ];
   var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.5, 0.25, 0, 2, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1734,6 +1736,7 @@ function fromMatrix2( test )
 
   var euler = [ 1, 0.25, 0.25, 1, 0, 2 ];
   var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.25, 0.25, 1, 0, 2 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1745,6 +1748,7 @@ function fromMatrix2( test )
 
   var euler = [ 0.5, 0.25, - 0.25, 1, 2, 0 ];
   var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.5, 0.25, - 0.25, 1, 2, 0 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1756,6 +1760,7 @@ function fromMatrix2( test )
 
   var euler = [ 0.5, 0.75, - 0.25, 2, 0, 1 ];
   var dst = [ 0, 0, 0, 2, 0, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.5, 0.75, - 0.25, 2, 0, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1767,6 +1772,7 @@ function fromMatrix2( test )
 
   var euler = [ 0.25, 0.75, - 0.25, 2, 1, 0 ];
   var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.25, 0.75, - 0.25, 2, 1, 0 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1778,6 +1784,7 @@ function fromMatrix2( test )
 
   var euler = [ 1, 1, 0.25, 0, 1, 0 ];
   var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 1, 1, 0.25, 0, 1, 0 ]; ;
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1789,6 +1796,7 @@ function fromMatrix2( test )
 
   var euler =  [ 1, 0.25, 0.5, 0, 2, 0 ] ;
   var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.25, 0.5, 0, 2, 0 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1800,6 +1808,7 @@ function fromMatrix2( test )
 
   var euler = [ 1, 0.5, 0.5, 1, 0, 1 ];
   var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 1, 0.5, 0.5, 1, 0, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1811,6 +1820,7 @@ function fromMatrix2( test )
 
   var euler = [ 1, 0.25, 2, 1, 2, 1 ];
   var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.25, 2, 1, 2, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1821,7 +1831,8 @@ function fromMatrix2( test )
   test.case = 'Euler ZXZ - Euler -> Matrix -> Euler'; /* */
 
   var euler = [ 0.25, 1, 1, 2, 0, 2 ];
-  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var dst = [ 0, 0, 0, 2, 0, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.25, 1, 1, 2, 0, 2 ] ;
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -1833,6 +1844,7 @@ function fromMatrix2( test )
 
   var euler =  [ 1, 0.5, 0.5, 2, 1, 2 ];
   var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 1, 0.5, 0.5, 2, 1, 2 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2101,8 +2113,8 @@ function toMatrix2( test )
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ], dstMatrix, dstMatrix ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0.1, 0, 0, 1, 2, 0, 0 ], dstMatrix ) );
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0.1, 0, 1, 1, 2, 3 ], dstMatrix ) );  
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ], _.Space.makeZero( [ 4, 4 ] ); ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0.1, 0, 1, 1, 2, 3 ], dstMatrix ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ], _.Space.makeZero( [ 4, 4 ] ) ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 0.2, 0, 1, 2, 0 ] ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( NaN, dstMatrix ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( 'euler', dstMatrix ) );
@@ -2119,6 +2131,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ - 0.1, 1.570796327, 0, 0, 1, 2 ];
   var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ - 0.1, 1.570796327, 0, 0, 1, 2 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2130,6 +2143,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ 0.1, - 1.570796327, 0, 0, 1, 2 ];
   var dst = [ 0, 0, 0, 0, 1, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, - 1.570796327, 0, 0, 1, 2 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2141,6 +2155,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler =  [ 0.1, 1.570796327, 0, 0, 2, 1 ] ;
   var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, 1.570796327, 0, 0, 2, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2152,6 +2167,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler =  [ 0.1, - 1.570796327, 0, 0, 2, 1 ] ;
   var dst = [ 0, 0, 0, 0, 2, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, - 1.570796327, 0, 0, 2, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2163,6 +2179,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ 0.1, 1.570796327, 0, 1, 0, 2 ];
   var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, 1.570796327, 0, 1, 0, 2 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2174,6 +2191,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ - 0.1, - 1.570796327, 0, 1, 0, 2 ];
   var dst = [ 0, 0, 0, 1, 0, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ - 0.1, - 1.570796327, 0, 1, 0, 2 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2185,6 +2203,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ - 0.1, (Math.PI/2), 0, 1, 2, 0 ];
   var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ - 0.1, (Math.PI/2), 0, 1, 2, 0 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2196,6 +2215,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ - 0.1, - 1.570796327, 0, 1, 2, 0 ];
   var dst = [ 0, 0, 0, 1, 2, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ - 0.1, - 1.570796327, 0, 1, 2, 0 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2206,7 +2226,8 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   test.case = 'Euler ZXY - Gimbal Lock angle x = pi/2'; /* */
 
   var euler = [ - 0.1, (Math.PI/2), 0, 2, 0, 1 ];
-  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var dst = [ 0, 0, 0, 2, 0, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ - 0.1, (Math.PI/2), 0, 2, 0, 1 ] ;
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2217,7 +2238,8 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   test.case = 'Euler ZXY - Gimbal Lock angle x = - pi/2'; /* */
 
   var euler = [ - 0.1, - 1.570796327, 0, 2, 0, 1 ];
-  var dst = [ 0, 0, 0, 2, 0, 1 ]
+  var dst = [ 0, 0, 0, 2, 0, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ - 0.1, - 1.570796327, 0, 2, 0, 1 ] ;
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2229,6 +2251,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler =  [ - 0.1, 1.570796327, 0, 2, 1, 0 ];
   var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ - 0.1, 1.570796327, 0, 2, 1, 0 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2240,6 +2263,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler =  [ - 0.1, - 1.570796327, 0, 2, 1, 0 ];
   var dst = [ 0, 0, 0, 2, 1, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ - 0.1, - 1.570796327, 0, 2, 1, 0 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2251,6 +2275,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ 0.1, 0, 0, 0, 1, 0 ];
   var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, 0, 0, 0, 1, 0 ]; ;
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2262,6 +2287,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ 0.1, Math.PI, 0, 0, 1, 0 ];
   var dst = [ 0, 0, 0, 0, 1, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, Math.PI, 0, 0, 1, 0 ]; ;
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2273,6 +2299,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler =  [ 0.1, 0, 0, 0, 2, 0 ] ;
   var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, 0, 0, 0, 2, 0 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2284,6 +2311,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler =  [ 0.1, Math.PI, 0, 0, 2, 0 ] ;
   var dst = [ 0, 0, 0, 0, 2, 0 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, Math.PI, 0, 0, 2, 0 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2295,6 +2323,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ 0.1, 0, 0, 1, 0, 1 ];
   var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, 0, 0, 1, 0, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2306,6 +2335,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ 0.1, Math.PI, 0, 1, 0, 1 ];
   var dst = [ 0, 0, 0, 1, 0, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, Math.PI, 0, 1, 0, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2317,6 +2347,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ 0.1, 0, 0, 1, 2, 1 ];
   var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, 0, 0, 1, 2, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2328,6 +2359,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler = [ 0.2, Math.PI, 0, 1, 2, 1 ];
   var dst = [ 0, 0, 0, 1, 2, 1 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.2, Math.PI, 0, 1, 2, 1 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2338,7 +2370,8 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   test.case = 'Euler ZXZ - Gimbal Lock angle z = 0'; /* */
 
   var euler = [ 0.2, 0, 0, 2, 0, 2 ];
-  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var dst = [ 0, 0, 0, 2, 0, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.2, 0, 0, 2, 0, 2 ] ;
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2349,7 +2382,8 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   test.case = 'Euler ZXZ - Gimbal Lock angle z = pi'; /* */
 
   var euler = [ 0.1, Math.PI, 0, 2, 0, 2 ];
-  var dst = [ 0, 0, 0, 2, 0, 2 ]
+  var dst = [ 0, 0, 0, 2, 0, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, Math.PI, 0, 2, 0, 2 ] ;
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2361,6 +2395,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler =  [ 0.1, 0, 0, 2, 1, 2 ];
   var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, 0, 0, 2, 1, 2 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2372,6 +2407,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var euler =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
   var dst = [ 0, 0, 0, 2, 1, 2 ];
+  var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
 
   var matrix = _.euler.toMatrix2( euler, dstMatrix  );
@@ -2545,7 +2581,8 @@ function eulerToQuatToMatrixToEulerToMatrixToQuatFast( test )
     var expected = _.euler.toQuat2( euler, null );
     var m = _.quat.toMatrix( expected );
     var e = _.euler.fromMatrix2( m, dstEuler );
-    var m2 = _.euler.toMatrix2( e );
+    var dstMatrix = _.Spcae.makeZero( [ 3, 3 ] );
+    var m2 = _.euler.toMatrix2( e, dstMatrix );
     var result = _.quat.from([ 0, 0, 0, 0 ]);
     result = _.quat.fromMatrixRotation( result, m2 );
 
@@ -2994,7 +3031,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 1,
   enabled : 1,
-  routine: 'toMatrix2',
+  //routine: 'eulerToQuatToEulerToQuatFast',
 
   context :
   {
