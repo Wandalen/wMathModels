@@ -62,6 +62,7 @@ _.assert( sqrt );
 function is( test )
 {
 
+  debugger;
   test.case = 'array'; /* */
 
   test.is( _.box.is( [] ) );
@@ -1968,7 +1969,7 @@ test.case = 'Source box and Test box remain unchanged'; /* */
   test.case = 'Zero box to zero box'; /* */
 
   var box = [ 0, 0, 0, 0, 0, 0 ];
-  var boxTwo = [ 0, 0, 0, 0, 0, 0 ]; // qqq : why was false?
+  var boxTwo = [ 0, 0, 0, 0, 0, 0 ];
   var expected = true;
 
   var gotBool = _.box.boxIntersects( box, boxTwo );
@@ -2060,7 +2061,7 @@ test.case = 'Source box and Test box remain unchanged'; /* */
 
   var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
   var boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
-  var expected = true; // qqq : why false??
+  var expected = true;
 
   var gotBool = _.box.boxIntersects( box, boxTwo );
   test.identical( gotBool, expected );
@@ -3927,8 +3928,6 @@ function fromCube( test )
 
   test.case = 'Null box NOT from cube'; /* */
 
-  /* qqq : the first case has different style, should has the same */
-
   var box = null;
   var fromCube = 0 ;
   var expected = [ -0, -0, -0, 0, 0, 0 ];
@@ -4100,7 +4099,7 @@ var Self =
     fromPoints : fromPoints,
     fromCenterAndSize : fromCenterAndSize,
     fromSphere : fromSphere,
-    fromCube : fromCube, /* qqq : has problems */
+    fromCube : fromCube,
   }
 
 }
