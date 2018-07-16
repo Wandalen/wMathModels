@@ -1634,12 +1634,13 @@ function fromQuat2( dst, quat )
 function toQuat2( srcEuler, dstQuat )
 {
 
+  _.assert( arguments.length === 2 );
+  _.assert( _.euler.is( srcEuler ) );
+
   var srcEuler = _.euler.from( srcEuler );
   var srcEulerVector = _.euler._from( srcEuler );
   var dstQuat = _.quat.from( dstQuat );
   var dstQuatVector = _.quat._from( dstQuat );
-
-  _.assert( arguments.length === 2 );
 
   var e0 = srcEulerVector.eGet( 0 );
   var e1 = srcEulerVector.eGet( 1 );
