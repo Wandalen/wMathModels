@@ -124,7 +124,7 @@ function from( box )
 
   if( _.objectIs( box ) )
   {
-    _.assertMapHasOnly( box,{ min : 'min' , max : 'max' } );
+    _.assertMapHasFields( box,{ min : 'min' , max : 'max' } );
     box = _.arrayAppendArrays( [],[ box.min,box.max ] );
   }
 
