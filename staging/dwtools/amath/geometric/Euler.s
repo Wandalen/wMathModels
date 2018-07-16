@@ -29,6 +29,18 @@ if (
 function fromMatrix2( mat, dst )
 var eulerv = _.vector.from( euler );
 
+- not optimal
+
+- remove multiline if
+
+- first argument dst convention
+
+- play
+_.avector.sub( dst,[ 3,4,5 ],[ 6,7,8 ] )
+_.avector.sub( null, dst,[ 3,4,5 ],[ 6,7,8 ] )
+
+- do by analogy ( toQuat2 )
+
 */
 
 var _ = _global_.wTools;
@@ -80,13 +92,17 @@ function isZero( euler )
 
 function make( srcEuler, representation )
 {
-  var result = _.euler.makeZero( representation );
+  var result = _.euler.makeZero();
 
   _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 1 );
   _.assert( srcEuler === undefined || srcEuler === null || _.euler.is( srcEuler ) );
+  _.assert( representation === undefined || representation );
 
   if( _.euler.is( srcEuler ) )
-  _.avector.assign( result,srcEuler );
+  _.avector.assign( result, srcEuler );
+
+  if( representation )
+  _.euler.representationSet( result, representation );
 
   return result;
 }
@@ -1635,6 +1651,8 @@ function toQuat2( srcEuler, dstQuat )
   var s0 = sin( e0/2 ); var c0 = cos( e0/2 );
   var s1 = sin( e1/2 ); var c1 = cos( e1/2 );
   var s2 = sin( e2/2 ); var c2 = cos( e2/2 );
+
+  /* qqq : not optimal */
 
   var s0p = sin( ( e0 + e2 )/2 ); var c0p = cos( ( e0 + e2 )/2 );
   var s0n = sin( ( e0 - e2 )/2 ); var c0n = cos( ( e0 - e2 )/2 );

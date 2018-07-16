@@ -2,6 +2,16 @@
 
 'use strict';
 
+/*
+
+qqq : lack of tests for box
+
+  from : from,
+
+qqq : sort routines impelmentations
+
+*/
+
 if( typeof module !== 'undefined' )
 {
 
@@ -579,96 +589,6 @@ function centeredOfSize( test )
   test.identical( got,expected );
   test.is( got === dst );
 
-}
-
-//
-
-function boxFromBox( test )
-{
-
-  debugger;
-
-  test.case = 'trivial'; /* */
-
-  var expected = [ 0.5,0.5,0.5,sqrt( 0.5 ) ];
-  var bbox = [ 0,0,0,0,0,0 ];
-  var bbox = [ 0,0,0,1,1,1 ];
-
-  _.box.fromBox( bbox,bbox );
-  test.equivalent( bbox,expected );
-
-  var expected = vec( expected );
-  var bbox = vec([ 0,0,0,0,0,0 ]);
-  var bbox = vec( bbox );
-
-  _.box.fromBox( bbox,bbox );
-  test.equivalent( bbox,expected );
-
-  test.case = 'same sizes, different position'; /* */
-
-  var expected = [ -2.5,0.5,5.5,sqrt( 0.5 ) ];
-  var bbox = [ 0,0,0,0,0,0 ];
-  var bbox = [ -3,0,5,-2,1,6 ];
-
-  _.box.fromBox( bbox,bbox );
-  test.equivalent( bbox,expected );
-
-  var expected = vec( expected );
-  var bbox = vec([ 0,0,0,0,0,0 ]);
-  var bbox = vec( bbox );
-
-  _.box.fromBox( bbox,bbox );
-  test.equivalent( bbox,expected );
-
-  test.case = 'different sizes, different position'; /* */
-
-  var expected = [ -2,0.5,7,sqrt( 5 ) ];
-  var bbox = [ 0,0,0,0,0,0 ];
-  var bbox = [ -3,0,5,-1,1,9 ];
-
-  _.box.fromBox( bbox,bbox );
-  test.equivalent( bbox,expected );
-
-  var expected = vec( expected );
-  var bbox = vec([ 0,0,0,0,0,0 ]);
-  var bbox = vec( bbox );
-
-  _.box.fromBox( bbox,bbox )
-  test.equivalent( bbox,expected );
-
-  test.case = 'bad arguments'; /* */
-
-  if( !Config.debug )
-  return;
-
-  function shouldThrowError( rname )
-  {
-
-    test.shouldThrowErrorSync( () => _.avector[ rname ]() );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],[ 5 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],1 ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],undefined ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],'1' ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3,4 ],[ 1,2,3,4,5 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3 ],[ 1,2,3,4,5,6 ] ) );
-
-    test.shouldThrowErrorSync( () => _.vector[ rname ]() );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),vec([ 5 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),1 ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),undefined ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),'1' ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2,3,4 ]),vec([ 1,2,3,4,5 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2,3 ]),vec([ 1,2,3,4,5,6 ]) ) );
-
-  }
-
-  shouldThrowError( 'boxFromBox' );
-
-  debugger;
 }
 
 //
