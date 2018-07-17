@@ -1,6 +1,6 @@
 (function _Euler_s_(){
 
-'use strict';
+'use strict'; /**/
 
 /*
 
