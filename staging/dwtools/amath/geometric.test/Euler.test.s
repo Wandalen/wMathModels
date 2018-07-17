@@ -1,6 +1,6 @@
 ( function _Euler_test_s_( ) {
 
-'use strict'; /**/
+'use strict';
 
 /*
 
@@ -2470,7 +2470,7 @@ function eulerToQuatToEulerToQuatFast( test )
 
 }
 
-eulerToQuatToEulerToQuatFast.timeOut = 15000;
+eulerToQuatToEulerToQuatFast.timeOut = 30000;
 eulerToQuatToEulerToQuatFast.usingSourceCode = 0;
 eulerToQuatToEulerToQuatFast.rapidity = 3;
 
