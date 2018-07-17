@@ -2590,7 +2590,6 @@ function eulerToQuatToEulerToQuatSlow( test )
 
   function onEach( euler1 )
   {
-
     quat1 = _.euler.toQuat2( euler1, quat1 );
     euler2 = _.euler.fromQuat2( euler2, quat1 );
     quat2 = _.euler.toQuat2( euler2, quat2 );
@@ -2624,23 +2623,26 @@ function eulerToQuatToMatrixToEulerToMatrixToQuatFast( test )
   var quat2b = _.quat.make();
 
   // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  // var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   // var quadrants = [ 0, 1, 2, 3 ];
   // var quadrantsLocked = [ 0 ];
-  var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
+  // var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
+  var deltas = [ -( accuracySqr ), 0, +( accuracySqr ), +0.1 ];
   // var deltasLocked = [ 0 ];
   // var euler = [ 0, 0, 0, 0, 0, 0 ];
+  var anglesLocked = [ Math.PI / 3 ];
+
 
   /* */
 
   var o =
   {
     // representations : representations,
-    // angles : angles,
+    angles : angles,
     // quadrants : quadrants,
     // quadrantsLocked : quadrantsLocked,
     deltas : deltas,
-    // deltasLocked : deltasLocked,
+    anglesLocked : anglesLocked,
     onEach : onEach,
     dst : euler1,
   }
@@ -2651,28 +2653,26 @@ function eulerToQuatToMatrixToEulerToMatrixToQuatFast( test )
 
   function onEach( euler )
   {
-    var dstEuler = euler.slice();
-    dstEuler[ 0 ] = 0;
-    dstEuler[ 1 ] = 0;
-    dstEuler[ 2 ] = 0;
 
-    var expected = _.euler.toQuat2( euler, null );
-    var m = _.quat.toMatrix( expected );
-    var e = _.euler.fromMatrix2( m, dstEuler );
-    var dstMatrix = _.Spcae.makeZero( [ 3, 3 ] );
-    var m2 = _.euler.toMatrix2( e, dstMatrix );
-    var result = _.quat.from([ 0, 0, 0, 0 ]);
-    result = _.quat.fromMatrixRotation( result, m2 );
+    var gotQuat = _.euler.toQuat2( euler, null );
+    var gotMatrix = _.quat.toMatrix( gotQuat, null );
+    var gotEuler = _.euler.fromMatrix2( null, gotMatrix );
+    var gotMatrix2 = _.euler.toMatrix2( null, gotEuler );
+    var gotFinalQuat = _.quat.fromMatrixRotation( null, gotMatrix2 );
 
-    var positiveResult = result.slice();
-    var negativeResult = _.avector.mul( _.vector.toArray( result ), -1 );
-    var expected = _.vector.toArray( expected );
+    var positiveResult = gotFinalQuat.slice();
+    var negativeResult = _.avector.mul( _.vector.toArray( gotFinalQuat ), -1 );
+    var expected = _.vector.toArray( gotQuat );
     var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
     var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
     test.is( eq1 || eq2 );
   }
 
 }
+
+eulerToQuatToMatrixToEulerToMatrixToQuatFast.timeOut = 200000;
+eulerToQuatToMatrixToEulerToMatrixToQuatFast.usingSourceCode = 0;
+eulerToQuatToMatrixToEulerToMatrixToQuatFast.rapidity = 3;
 
 //
 
@@ -3120,7 +3120,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 1,
   enabled : 1,
-  //routine: 'eulerToQuatToEulerToQuatFast',
+  //routine: 'eulerToQuatToMatrixToEulerToMatrixToQuatFast',
 
   context :
   {
@@ -3151,13 +3151,13 @@ var Self =
     toMatrix2 : toMatrix2, /* qqq : clean me */
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
 
-    /* takes 10 seconds */
+    /* takes 12 seconds */
     eulerToQuatToEulerToQuatFast : eulerToQuatToEulerToQuatFast,
     /* takes 75 seconds */
     eulerToQuatToEulerToQuatSlow : eulerToQuatToEulerToQuatSlow,
 
-    /* takes 20 minutes */
-    // eulerToQuatToMatrixToEulerToMatrixToQuatFast : eulerToQuatToMatrixToEulerToMatrixToQuatFast, /* qqq : clean me */
+    /* takes 37 seconds */
+    eulerToQuatToMatrixToEulerToMatrixToQuatFast : eulerToQuatToMatrixToEulerToMatrixToQuatFast, /* qqq : clean me */
 
     represent : represent, /* qqq : clean me */
 
