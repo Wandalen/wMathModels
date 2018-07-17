@@ -2223,7 +2223,7 @@ function toMatrix2( dstMatrix, srcEuler )
   var srcEuler = _.euler.from( srcEuler );
   var srcEulerVector = _.vector.from( srcEuler );
 
-  _.assert( _.Space.is( dstMatrix ) || dstMatrix === nul || dstMatrix === undefined );
+  _.assert( _.Space.is( dstMatrix ) || dstMatrix === null || dstMatrix === undefined );
   if( dstMatrix === null || dstMatrix === undefined )
   dstMatrix = _.Space.makeZero( [ 3, 3 ] );
 
@@ -2456,8 +2456,8 @@ function represent( dstEuler, representation )
   {
     _.assert( representation.length === 3 );
     if( ( representation[ 0 ] === 0 || representation[ 0 ] === 1 || representation[ 0 ] === 2 ) &&
-        ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
-        ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
+      ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
+      ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
     {
       euler[ 3 ] = representation[ 0 ]; //dstEulerv.eSet( 3, representation[ 0 ] );
       euler[ 4 ] = representation[ 1 ];//dstEulerv.eSet( 4, representation[ 1 ] );

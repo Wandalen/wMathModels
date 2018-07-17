@@ -924,6 +924,7 @@ function fromQuat2( test )
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
   test.equivalent( srcQuat, oldQuat );
+  test.is( gotEuler === dstEuler );
 
   test.case = 'Euler XYZ'; /* */
 
@@ -1107,6 +1108,7 @@ function fromQuat2( test )
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
+  test.is( gotEuler !== dstEuler );
 
   test.case = 'dstEuler null'; //
 
@@ -1116,6 +1118,7 @@ function fromQuat2( test )
 
   var gotEuler = _.euler.fromQuat2( dstEuler, srcQuat );
   test.equivalent( gotEuler, expected );
+  test.is( gotEuler !== dstEuler );
 
   if( !Config.debug )
   return;
@@ -1140,29 +1143,35 @@ function toQuat2( test )
 
   var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var oldEuler =   srcEuler.slice();
+  var dstQuat = [ 0, 0, 0, 1 ];
   var expected = [ 0.29156656802867026, 0.17295479161025828, 0.29156656802867026, 0.89446325406638 ];
 
   /* qqq : not good enough accuracy of const! */
 
-  var gotQuat = _.euler.toQuat2( srcEuler, null );
+  var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
   test.equivalent( srcEuler, oldEuler );
+  test.is( gotQuat === dstQuat );
 
   test.case = 'Euler XYZ'; /* */
 
   var srcEuler = [ 1, 1, 0.25, 0, 1, 2 ];
+  var dstQuat = null;
   var expected = [ 0.46990785942494523, 0.3649976887426158, 0.32407387953254757, 0.7354858336283155 ];
 
-  var gotQuat = _.euler.toQuat2( srcEuler, null );
+  var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
+  test.is( gotQuat !== dstQuat );
 
   test.case = 'Euler XZY'; /* */
 
   var srcEuler = [ 1, 0.25, 0.5, 0, 2, 1 ];
+  var dstQuat = undefined;
   var expected = [ 0.43382795540572155, 0.15750930151157658, 0.22369733411737125, 0.8584542083038603 ];
 
-  var gotQuat = _.euler.toQuat2( srcEuler, null );
+  var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
+  test.is( gotQuat !== dstQuat );
 
   test.case = 'Euler YXZ'; /* */
 
@@ -1615,6 +1624,7 @@ function fromMatrix2( test )
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
+  test.is( gotEuler === dstEuler );
 
   var oldMatrix = _.Space.make([ 3, 3 ]).copy
   ([
@@ -1729,6 +1739,7 @@ function fromMatrix2( test )
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
+  test.is( gotEuler !== dstEuler );
 
   test.case = 'dstEuler = undefined'; /* */
 
@@ -1744,6 +1755,7 @@ function fromMatrix2( test )
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
+  test.is( gotEuler !== dstEuler );
 
   test.case = 'Euler XYZ - Euler -> Matrix -> Euler'; /* */
 
@@ -1922,7 +1934,7 @@ function toMatrix2( test )
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
   test.is( gotMatrix === dstMatrix );
   test.equivalent( gotMatrix, expected );
   test.equivalent( srcEuler, oldEuler );
@@ -1938,7 +1950,7 @@ function toMatrix2( test )
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler XZY'; //
@@ -1952,7 +1964,7 @@ function toMatrix2( test )
     - 0.21902415156, 0.4207354784, 0.8803465366
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler YXZ'; //
@@ -1966,7 +1978,7 @@ function toMatrix2( test )
     - 0.6142724156, 0.6307470202, 0.474159896
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler YZX'; //
@@ -1980,7 +1992,7 @@ function toMatrix2( test )
     - 0.8153116703033, 0.441732704, 0.374351501
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler ZXY'; //
@@ -1994,7 +2006,7 @@ function toMatrix2( test )
     - 0.259034723, 0.8414709568, 0.47415989637
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler ZYX'; //
@@ -2008,8 +2020,38 @@ function toMatrix2( test )
     - 0.4794255495, 0.4207354784, 0.770151138
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
   test.equivalent( gotMatrix, expected );
+
+  test.case = 'dstMatrix = null'; //
+
+  var srcEuler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+  var dstMatrix = null;
+  var expected =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0.4741598963737, - 0.6142724156, 0.6307470202,
+    0.7384602427, 0.6675710082, 0.095001988,
+    - 0.4794255495, 0.4207354784, 0.770151138
+  ]);
+
+  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  test.equivalent( gotMatrix, expected );
+  test.is( dstMatrix !== gotMatrix );
+
+  test.case = 'dstMatrix = undefined'; //
+
+  var srcEuler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
+  var dstMatrix = undefined;
+  var expected =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0.4741598963737, - 0.6142724156, 0.6307470202,
+    0.7384602427, 0.6675710082, 0.095001988,
+    - 0.4794255495, 0.4207354784, 0.770151138
+  ]);
+
+  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  test.equivalent( gotMatrix, expected );
+  test.is( dstMatrix !== gotMatrix );
 
   test.case = 'Euler XYX - Matrix -> Euler -> Matrix'; //
 
