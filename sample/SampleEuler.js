@@ -27,14 +27,6 @@ var euler =[ 0.25, 1, 0.5, 2, 1, 0 ];
 var res = _.euler.toQuat2( euler, null );
 console.log( 'Old Euler:', res);
 
-var Matrix = _.Space.make([ 3, 3 ]).copy
-([
-  0.77015113, -0.42073547, 0.47942554,
-  0.62244683, 0.65995573, - 0.42073547,
-  - 0.13938129, 0.62244683, 0.77015113
-]);
-
-var gotEuler = _.euler.fromMatrix2( Matrix, dstXYZ );
-gotEuler = _.vector.toArray( gotEuler );
+var gotEuler = _.euler.represent( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 1, 3 ] );
 
 console.log( 'Old Euler:', gotEuler);

@@ -2763,308 +2763,319 @@ function represent( test )
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var rep = [ 0, 2, 1 ];
-  var oldRep = rep.slice();
+  var representation = [ 0, 2, 1 ];
+  var oldRepresentation = representation.slice();
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  test.equivalent( rep, oldRep );
+  test.equivalent( representation, oldRepresentation );
 
   test.case = 'Euler XYZ'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 2, 1 ];
-  var rep = [ 0, 1, 2 ];
+  var oldRepresentation = [ 0, 2, 1 ];
+  var representation = [ 0, 1, 2 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler XZY'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 0, 2, 1 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 0, 2, 1 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler YXZ'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 1, 0, 2 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 1, 0, 2 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler YZX'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 1, 2, 0 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 1, 2, 0 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler ZXY'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 2, 0, 1 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 2, 0, 1 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler ZYX'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 2, 1, 0 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 2, 1, 0 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler XYX'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 2, 1 ];
-  var rep = [ 0, 1, 0 ];
+  var oldRepresentation = [ 0, 2, 1 ];
+  var representation = [ 0, 1, 0 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler XZX'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 0, 2, 0 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 0, 2, 0 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler YXY'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 1, 0, 1 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 1, 0, 1 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler YZY'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 1, 2, 1 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 1, 2, 1 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler ZXZ'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 2, 0, 2 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 2, 0, 2 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler ZYZ'; //
 
   var dstEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = [ 0, 1, 2 ];
-  var rep = [ 2, 1, 2 ];
+  var oldRepresentation = [ 0, 1, 2 ];
+  var representation = [ 2, 1, 2 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler XYZ'; //
 
   var dstEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xzx';
-  var rep = 'xyz';
+  var oldRepresentation = 'xzx';
+  var representation = 'xyz';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler XZY'; //
 
   var dstEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xzx';
-  var rep = 'xzy';
+  var oldRepresentation = 'xzx';
+  var representation = 'xzy';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler YXZ'; //
 
   var dstEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xzx';
-  var rep = 'yxz';
+  var oldRepresentation = 'xzx';
+  var representation = 'yxz';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler YZX'; //
 
   var dstEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xzx';
-  var rep = 'yzx';
+  var oldRepresentation = 'xzx';
+  var representation = 'yzx';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler ZXY'; //
 
   var dstEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xzx';
-  var rep = 'zxy';
+  var oldRepresentation = 'xzx';
+  var representation = 'zxy';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler ZYX'; //
 
   var dstEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xzx';
-  var rep = 'zyx';
+  var oldRepresentation = 'xzx';
+  var representation = 'zyx';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler XYX'; //
 
   var dstEuler = [ - 0.5, 0.5, 1, 0, 2, 1 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xzy';
-  var rep = 'xyx';
+  var oldRepresentation = 'xzy';
+  var representation = 'xyx';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler XZX'; //
 
   var dstEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xyz';
-  var rep = 'xzx';
+  var oldRepresentation = 'xyz';
+  var representation = 'xzx';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler YXY'; //
 
   var dstEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xyz';
-  var rep = 'yxy';
+  var oldRepresentation = 'xyz';
+  var representation = 'yxy';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler YZY'; //
 
   var dstEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xyz';
-  var rep = 'yzy';
+  var oldRepresentation = 'xyz';
+  var representation = 'yzy';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler ZXZ'; //
 
   var dstEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xyz';
-  var rep = 'zxz';
+  var oldRepresentation = 'xyz';
+  var representation = 'zxz';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler ZYZ'; //
 
   var dstEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
   var srcEuler = dstEuler.slice();
-  var oldRep = 'xyz';
-  var rep = 'zyz';
+  var oldRepresentation = 'xyz';
+  var representation = 'zyz';
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
   test.is( gotEuler === dstEuler );
-  var result = _.euler.represent( gotEuler, oldRep );
+  var result = _.euler.represent( gotEuler, oldRepresentation );
   test.equivalent( result, srcEuler );
 
   test.case = 'Euler null'; //
 
   var dstEuler = null;
-  var rep = 'zyz';
+  var representation = 'zyz';
   var expected = [ 0, 0, 0, 2, 1, 2 ];
 
-  var gotEuler = _.euler.represent( dstEuler, rep );
+  var gotEuler = _.euler.represent( dstEuler, representation );
+  test.is( dstEuler !== gotEuler );
+  test.equivalent(expected, gotEuler );
+
+  test.case = 'Euler undefined'; //
+
+  var dstEuler = undefined;
+  var representation = 'zyz';
+  var expected = [ 0, 0, 0, 2, 1, 2 ];
+
+  var gotEuler = _.euler.represent( dstEuler, representation );
+  test.is( dstEuler !== gotEuler );
   test.equivalent(expected, gotEuler );
 
   /* */
@@ -3148,7 +3159,7 @@ var Self =
     /* takes 20 minutes */
     // eulerToQuatToMatrixToEulerToMatrixToQuatFast : eulerToQuatToMatrixToEulerToMatrixToQuatFast, /* qqq : clean me */
 
-    // represent : represent, /* qqq : clean me */
+    represent : represent, /* qqq : clean me */
 
   },
 

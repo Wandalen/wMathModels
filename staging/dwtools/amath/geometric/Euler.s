@@ -94,7 +94,7 @@ function make( srcEuler, representation )
 {
   var result = _.euler.makeZero();
 
-  _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 1 );
+  _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 2 );
   _.assert( srcEuler === undefined || srcEuler === null || _.euler.is( srcEuler ) );
   _.assert( representation === undefined || representation );
 
@@ -185,7 +185,10 @@ function representationSet( dstEuler, representation )
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  if( _.arrayIs( representation ) )
+  if( _.arrayIs( representation ) &&
+      ( representation[ 0 ] === 0 || representation[ 0 ] === 1 || representation[ 0 ] === 2 ) &&
+      ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
+      ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
   {
     _.assert( representation.length === 3 );
     dstEulerVector.eSet( 3, representation[ 0 ] );
@@ -2435,42 +2438,25 @@ function toMatrix2( dstMatrix, srcEuler )
 
 function represent( dstEuler, representation )
 {
-  _.assert( dstEuler === null || _.euler.is( dstEuler ) );
+  _.assert( dstEuler === null || dstEuler === undefined || _.euler.is( dstEuler ) );
   _.assert( _.arrayIs( representation ) || _.strIs( representation ) );
   _.assert( arguments.length === 2, 'expects two arguments' );
 
-  if( dstEuler === null )
+  if( dstEuler === null || dstEuler === undefined )
   dstEuler = [ 0, 0, 0, 0, 1, 2 ];
 
-  var euler = dstEuler.slice();
-  var dstEulerv = _.vector.from( dstEuler );
+  var eulerArray = dstEuler.slice();
+  var dstEulerVector = _.vector.from( dstEuler );
   var dstQuat = [ 0, 0, 0, 0 ];
-  var quaternion = _.euler.toQuat2( euler, dstQuat );
+  var gotQuaternion = _.euler.toQuat2( eulerArray, dstQuat );
 
   if( representation )
   {
-    euler = _.euler.make( euler, representation );
+    eulerArray = _.euler.make( eulerArray, representation );
   }
 
-  else if( _.arrayIs( representation ) )
-  {
-    _.assert( representation.length === 3 );
-    if( ( representation[ 0 ] === 0 || representation[ 0 ] === 1 || representation[ 0 ] === 2 ) &&
-      ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
-      ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
-    {
-      euler[ 3 ] = representation[ 0 ]; //dstEulerv.eSet( 3, representation[ 0 ] );
-      euler[ 4 ] = representation[ 1 ];//dstEulerv.eSet( 4, representation[ 1 ] );
-      euler[ 5 ] = representation[ 2 ];//dstEulerv.eSet( 5, representation[ 2 ] );
-    }
-    else
-    {
-      throw _.err( 'Not an Euler Representation.' );
-    }
-  }
-
-  euler = _.euler.fromQuat2( quaternion, euler );
-  _.vector.assign( dstEulerv, euler );
+  eulerArray = _.euler.fromQuat2( eulerArray, gotQuaternion );
+  _.vector.assign( dstEulerVector, eulerArray );
   return dstEuler;
 
 }
