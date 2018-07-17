@@ -1280,51 +1280,57 @@ var Order =
   * @memberof wTools.euler
   */
 
-function fromQuat2( dst, quat )
+function fromQuat2( dstEuler, srcQuat )
 {
 
-  var dst = _.euler.from( dst );
-  var dstv = _.euler._from( dst );
-  var quatv = _.quat._from( quat );
+  _.assert( arguments.length === 2 );
+  _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
+
+  if( dstEuler === undefined || dstEuler === null )
+  dstEuler = _.euler.makeZero();
+
+  var dstEuler = _.euler.from( dstEuler );
+  var dstEulerVector = _.euler._from( dstEuler );
+  var srcQuatVector = _.quat._from( srcQuat );
   var accuracy =  _.accuracy;
   var accuracySqr = _.accuracySqr;
 
   var ex,ey,ez;
 
-  var x = quatv.eGet( 0 ); var x2 = x*x;
-  var y = quatv.eGet( 1 ); var y2 = y*y;
-  var z = quatv.eGet( 2 ); var z2 = z*z;
-  var w = quatv.eGet( 3 ); var w2 = w*w;
+  var x = srcQuatVector.eGet( 0 ); var x2 = x*x;
+  var y = srcQuatVector.eGet( 1 ); var y2 = y*y;
+  var z = srcQuatVector.eGet( 2 ); var z2 = z*z;
+  var w = srcQuatVector.eGet( 3 ); var w2 = w*w;
 
   var xy2 = 2*x*y; var xz2 = 2*x*z; var xw2 = 2*x*w;
   var yz2 = 2*y*z; var yw2 = 2*y*w; var zw2 = 2*z*w;
 
-  var ox = dstv.eGet( 3 );
-  var oy = dstv.eGet( 4 );
-  var oz = dstv.eGet( 5 );
+  var ox = dstEulerVector.eGet( 3 );
+  var oy = dstEulerVector.eGet( 4 );
+  var oz = dstEulerVector.eGet( 5 );
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
     var lim = xz2 + yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( -( xy2 - zw2 ) , w2  + x2 - z2 - y2 ) );
-      dstv.eSet( 1, asin( lim ) );
-      dstv.eSet( 0, atan2( - ( yz2 - xw2 ) , z2 - y2 - x2 + w2 ) );
+      dstEulerVector.eSet( 2, atan2( -( xy2 - zw2 ) , w2  + x2 - z2 - y2 ) );
+      dstEulerVector.eSet( 1, asin( lim ) );
+      dstEulerVector.eSet( 0, atan2( - ( yz2 - xw2 ) , z2 - y2 - x2 + w2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstv.eSet( 0, - atan2( ( xy2 + zw2 ), ( xz2 - yw2 ) ) );
-      dstv.eSet( 1, - pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, - atan2( ( xy2 + zw2 ), ( xz2 - yw2 ) ) );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstv.eSet( 0, - atan2( -1*( xy2 + zw2 ), -1*( xz2 - yw2 ) ) );
-      dstv.eSet( 1, pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, - atan2( -1*( xy2 + zw2 ), -1*( xz2 - yw2 ) ) );
+      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1333,23 +1339,23 @@ function fromQuat2( dst, quat )
     var lim = xy2 - zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( xz2 + yw2 , x2 + w2 - z2 - y2 ) );
-      dstv.eSet( 1, - asin( lim ) );
-      dstv.eSet( 0, atan2( yz2 + xw2 , y2 - z2 + w2 - x2 ) );
+      dstEulerVector.eSet( 2, atan2( xz2 + yw2 , x2 + w2 - z2 - y2 ) );
+      dstEulerVector.eSet( 1, - asin( lim ) );
+      dstEulerVector.eSet( 0, atan2( yz2 + xw2 , y2 - z2 + w2 - x2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstv.eSet( 0, atan2( (xz2 - yw2 ), ( xy2 + zw2 ) ) );
-      dstv.eSet( 1, pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( (xz2 - yw2 ), ( xy2 + zw2 ) ) );
+      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstv.eSet( 0, atan2( -1*( yz2 - xw2 ), 1-2*( x2 + y2 ) ) );
-      dstv.eSet( 1, - pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( -1*( yz2 - xw2 ), 1-2*( x2 + y2 ) ) );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1358,23 +1364,23 @@ function fromQuat2( dst, quat )
     var lim = yz2 - xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( xy2 + zw2 , y2 - z2 + w2 - x2 ) );
-      dstv.eSet( 1, - asin( lim ) );
-      dstv.eSet( 0, atan2( xz2 + yw2 , z2 - y2 - x2 + w2 ) );
+      dstEulerVector.eSet( 2, atan2( xy2 + zw2 , y2 - z2 + w2 - x2 ) );
+      dstEulerVector.eSet( 1, - asin( lim ) );
+      dstEulerVector.eSet( 0, atan2( xz2 + yw2 , z2 - y2 - x2 + w2 ) );
     }
     else if( lim <= -1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstv.eSet( 0, atan2( ( xy2 - zw2 ), ( yz2 + xw2 ) ) );
-      dstv.eSet( 1, pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( xy2 - zw2 ), ( yz2 + xw2 ) ) );
+      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstv.eSet( 0, atan2( -1*( xz2 - yw2 ), 1-2*( y2 + z2 ) ) );
-      dstv.eSet( 1, - pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( -1*( xz2 - yw2 ), 1-2*( y2 + z2 ) ) );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1383,23 +1389,23 @@ function fromQuat2( dst, quat )
     var lim = xy2 + zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( - yz2 + xw2 , y2 - z2 + w2 - x2 ) );
-      dstv.eSet( 1, asin( lim ) );
-      dstv.eSet( 0, atan2( - xz2 + yw2 , x2 + w2 - z2 - y2  ) );
+      dstEulerVector.eSet( 2, atan2( - yz2 + xw2 , y2 - z2 + w2 - x2 ) );
+      dstEulerVector.eSet( 1, asin( lim ) );
+      dstEulerVector.eSet( 0, atan2( - xz2 + yw2 , x2 + w2 - z2 - y2  ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( (xz2 + yw2 ), ( xy2 - zw2 ) ) );
-      dstv.eSet( 1, - pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( (xz2 + yw2 ), ( xy2 - zw2 ) ) );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( ( xy2 + zw2 ) >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( xz2 + yw2, 1-2*( x2 + y2 ) ) );
-      dstv.eSet( 1, + pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( xz2 + yw2, 1-2*( x2 + y2 ) ) );
+      dstEulerVector.eSet( 1, + pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1408,23 +1414,23 @@ function fromQuat2( dst, quat )
     var lim = yz2 + xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( - xz2 + yw2 , z2 - y2 - x2 + w2  ) );
-      dstv.eSet( 1, asin( lim ) );
-      dstv.eSet( 0, atan2( - xy2 + zw2 , y2 - z2 + w2 - x2  ) );
+      dstEulerVector.eSet( 2, atan2( - xz2 + yw2 , z2 - y2 - x2 + w2  ) );
+      dstEulerVector.eSet( 1, asin( lim ) );
+      dstEulerVector.eSet( 0, atan2( - xy2 + zw2 , y2 - z2 + w2 - x2  ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstv.eSet( 0, atan2( ( xy2 + zw2 ), ( yz2 - xw2 ) ) );
-      dstv.eSet( 1, - pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( xy2 + zw2 ), ( yz2 - xw2 ) ) );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstv.eSet( 0, atan2( xy2 + zw2, 1-2*( y2 + z2 ) ) );
-      dstv.eSet( 1, pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( xy2 + zw2, 1-2*( y2 + z2 ) ) );
+      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1433,23 +1439,23 @@ function fromQuat2( dst, quat )
     var lim = xz2 - yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( yz2 + xw2 , z2 - y2 - x2 + w2 ) );
-      dstv.eSet( 1, asin( - lim ) );
-      dstv.eSet( 0, atan2( xy2 + zw2 , x2 + w2 - y2 - z2 ) );
+      dstEulerVector.eSet( 2, atan2( yz2 + xw2 , z2 - y2 - x2 + w2 ) );
+      dstEulerVector.eSet( 1, asin( - lim ) );
+      dstEulerVector.eSet( 0, atan2( xy2 + zw2 , x2 + w2 - y2 - z2 ) );
     }
     else if( lim <= - 1 + accuracy*accuracy )
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, - atan2( ( xy2 - zw2 ), ( xz2 + yw2 ) ) );
-      dstv.eSet( 1, pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, - atan2( ( xy2 - zw2 ), ( xz2 + yw2 ) ) );
+      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracy*accuracy)
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstv.eSet( 0, atan2( -1*( xy2 - zw2 ), -1*( xz2 + yw2 ) ) );
-      dstv.eSet( 1, - pi/2 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( -1*( xy2 - zw2 ), -1*( xz2 + yw2 ) ) );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1458,23 +1464,23 @@ function fromQuat2( dst, quat )
     var lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( xy2 - zw2 , xz2 + yw2 ) );
-      dstv.eSet( 1, acos( lim ) );
-      dstv.eSet( 0, atan2( xy2 + zw2 , -xz2 + yw2 ) );
+      dstEulerVector.eSet( 2, atan2( xy2 - zw2 , xz2 + yw2 ) );
+      dstEulerVector.eSet( 1, acos( lim ) );
+      dstEulerVector.eSet( 0, atan2( xy2 + zw2 , -xz2 + yw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstv.eSet( 0, atan2( ( yz2 - xw2 ), 1 - 2*( x2 + z2 ) ) );
-      dstv.eSet( 1, pi );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( yz2 - xw2 ), 1 - 2*( x2 + z2 ) ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstv.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + z2 ) ) );
-      dstv.eSet( 1, 0 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + z2 ) ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1483,23 +1489,23 @@ function fromQuat2( dst, quat )
     var lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr)
     {
-      dstv.eSet( 2, atan2( xz2 + yw2 , -xy2 + zw2 ) );
-      dstv.eSet( 1, acos( lim ) );
-      dstv.eSet( 0, atan2( xz2 - yw2 , xy2 + zw2 ) );
+      dstEulerVector.eSet( 2, atan2( xz2 + yw2 , -xy2 + zw2 ) );
+      dstEulerVector.eSet( 1, acos( lim ) );
+      dstEulerVector.eSet( 0, atan2( xz2 - yw2 , xy2 + zw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstv.eSet( 0, - atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
-      dstv.eSet( 1, pi );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, - atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstv.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
-      dstv.eSet( 1, 0 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1508,23 +1514,23 @@ function fromQuat2( dst, quat )
     var lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( xy2 + zw2 , -yz2 + xw2 ) );
-      dstv.eSet( 1, acos( lim ) );
-      dstv.eSet( 0, atan2( xy2 - zw2 , yz2 + xw2 ) );
+      dstEulerVector.eSet( 2, atan2( xy2 + zw2 , -yz2 + xw2 ) );
+      dstEulerVector.eSet( 1, acos( lim ) );
+      dstEulerVector.eSet( 0, atan2( xy2 - zw2 , yz2 + xw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstv.eSet( 0, - atan2( ( xz2 - yw2 ), 1 - 2*( z2 + y2 ) ) );
-      dstv.eSet( 1, pi );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, - atan2( ( xz2 - yw2 ), 1 - 2*( z2 + y2 ) ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstv.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( z2 + y2 ) ) );
-      dstv.eSet( 1, 0 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( z2 + y2 ) ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1533,23 +1539,23 @@ function fromQuat2( dst, quat )
     var lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( yz2 - xw2 , xy2 + zw2 ) );
-      dstv.eSet( 1, acos( lim ) );
-      dstv.eSet( 0, atan2( yz2 + xw2 , -xy2 + zw2 ) );
+      dstEulerVector.eSet( 2, atan2( yz2 - xw2 , xy2 + zw2 ) );
+      dstEulerVector.eSet( 1, acos( lim ) );
+      dstEulerVector.eSet( 0, atan2( yz2 + xw2 , -xy2 + zw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstv.eSet( 0, atan2( ( xz2 - yw2 ), 1 - 2*( y2 + x2 ) ) );
-      dstv.eSet( 1, pi );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( xz2 - yw2 ), 1 - 2*( y2 + x2 ) ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstv.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( y2 + x2 ) ) );
-      dstv.eSet( 1, 0 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( y2 + x2 ) ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1558,23 +1564,23 @@ function fromQuat2( dst, quat )
     var lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-        dstv.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
-        dstv.eSet( 1, acos( lim ) );
-        dstv.eSet( 0, atan2( ( xz2 + yw2 ), - ( yz2 - xw2 ) ) );
+        dstEulerVector.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
+        dstEulerVector.eSet( 1, acos( lim ) );
+        dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), - ( yz2 - xw2 ) ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstv.eSet( 0, atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
-      dstv.eSet( 1, pi );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstv.eSet( 0, - atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
-      dstv.eSet( 1, 0 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, - atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
@@ -1583,29 +1589,29 @@ function fromQuat2( dst, quat )
     var lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstv.eSet( 2, atan2( ( yz2 + xw2 ), ( - xz2 + yw2 ) ) );
-      dstv.eSet( 1, acos( lim ) );
-      dstv.eSet( 0, atan2( ( yz2 - xw2 ), ( xz2 + yw2 ) ) );
+      dstEulerVector.eSet( 2, atan2( ( yz2 + xw2 ), ( - xz2 + yw2 ) ) );
+      dstEulerVector.eSet( 1, acos( lim ) );
+      dstEulerVector.eSet( 0, atan2( ( yz2 - xw2 ), ( xz2 + yw2 ) ) );
     }
     else if( lim <= -1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstv.eSet( 0, atan2( -( xy2 - zw2 ), 1 - 2*( x2 + z2 ) ) );
-      dstv.eSet( 1, pi );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( -( xy2 - zw2 ), 1 - 2*( x2 + z2 ) ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstv.eSet( 0, atan2( ( xy2 + zw2 ), 1 - 2*( x2 + z2 ) ) );
-      dstv.eSet( 1, 0 );
-      dstv.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( ( xy2 + zw2 ), 1 - 2*( x2 + z2 ) ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
   /* */
 
-  return dst;
+  return dstEuler;
 }
 
 //
