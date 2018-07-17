@@ -1261,8 +1261,8 @@ var Order =
   * Create a set of euler angles from a quaternion. Returns the created euler angles.
   * Quaternion stay untouched, dst contains the euler angle representation.
   *
-  * @param { Array } dst - Destination representation of Euler angles with source euler angles code.
-  * @param { Array } quat - Source quaternion.
+  * @param { Array } dstEuler - Destination representation of Euler angles with source euler angles code.
+  * @param { Array } srcQuat - Source quaternion.
   *
   * @example
   * // returns [ 1, 0, 0, 0, 1, 2 ];
@@ -1275,8 +1275,8 @@ var Order =
   * @returns { Quat } Returns the corresponding quaternion.
   * @function fromQuat2
   * @throws { Error } An Error if( arguments.length ) is different than two.
-  * @throws { Error } An Error if( quat ) is not quat.
-  * @throws { Error } An Error if( dst ) is not euler.
+  * @throws { Error } An Error if( srcQuat ) is not quat.
+  * @throws { Error } An Error if( dstEuler ) is not euler ( or null/undefined ).
   * @memberof wTools.euler
   */
 
@@ -1620,20 +1620,21 @@ function fromQuat2( dstEuler, srcQuat )
   * Create the quaternion from a set of euler angles. Returns the created quaternion.
   * Euler angles stay untouched.
   *
-  * @param { Array } euler - Source representation of Euler angles.
+  * @param { Array } srcEuler - Source representation of Euler angles.
+  * @param { Array } dstQuat - Destination quaternion array.
   *
   * @example
   * // returns [ 0.49794255, 0, 0, 0.8775826 ];
-  * _.toQuat2( [ 1, 0, 0, 0, 1, 2 ] );
+  * _.toQuat2( [ 1, 0, 0, 0, 1, 2 ], null );
   *
   * @example
   * // returns [ 0, 0.4794255, 0, 0.8775826 ];
-  * _.toQuat2( [ 0, 1, 0, 2, 1, 0 ] );
+  * _.toQuat2( [ 0, 1, 0, 2, 1, 0 ], null );
   *
   * @returns { Quat } Returns the corresponding quaternion.
   * @function toQuat2
   * @throws { Error } An Error if( arguments.length ) is different than one.
-  * @throws { Error } An Error if( euler ) is not euler.
+  * @throws { Error } An Error if( srcEuler ) is not euler.
   * @memberof wTools.euler
   */
 
@@ -1642,6 +1643,10 @@ function toQuat2( srcEuler, dstQuat )
 
   _.assert( arguments.length === 2 );
   _.assert( _.euler.is( srcEuler ) );
+  _.assert( dstQuat === undefined || dstQuat === null || _.quat.is( dstQuat ) );
+
+  if( dstQuat === undefined || dstQuat === null )
+  dstQuat = _.quat.makeUnit();
 
   var srcEuler = _.euler.from( srcEuler );
   var srcEulerVector = _.euler._from( srcEuler );
@@ -1770,411 +1775,416 @@ function toQuat2( srcEuler, dstQuat )
   * Create the euler angle from a rotation matrix. Returns the created euler angle.
   * Rotation matrix stays untouched.
   *
-  * @param { Space } mat - Source rotation matrix.
-  * @param { Array } dst - Destination array with euler angle source code.
+  * @param { Array } dstEuler - Destination array with euler angle source code.
+  * @param { Space } srcMatrix - Source rotation matrix.
   *
   * @example
   * // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
-  *  mat  = _.Space.make( [ 3, 3 ] ).copy(
+  *  srcMatrix  = _.Space.make( [ 3, 3 ] ).copy(
   *            [ 0.7701, -0.4207, 0.4794,
   *             0.6224, 0.6599, - 0.4207,
   *           - 0.1393, 0.6224, 0.7701 ] );
-  * _.fromMatrix2( mat, [ 0, 0, 0, 0, 1, 2 ] );
+  * _.fromMatrix2( srcMatrix, [ 0, 0, 0, 0, 1, 2 ] );
   *
   * @returns { Array } Returns the corresponding euler angles.
   * @function fromMatrix2
   * @throws { Error } An Error if( arguments.length ) is different than two.
-  * @throws { Error } An Error if( dst ) is not euler.
-  * @throws { Error } An Error if( mat ) is not matrix.
+  * @throws { Error } An Error if( dstEuler ) is not euler.
+  * @throws { Error } An Error if( srcMatrix ) is not matrix.
   * @memberof wTools.euler
   */
 
-function fromMatrix2( mat, dst )
+function fromMatrix2( dstEuler, srcMatrix )
 {
 
-  var euler = _.euler.from( dst );
-  var eulerv = _.vector.from( euler );
-
-  _.assert( _.Space.is( mat ) );
-  _.assert( mat.dims[ 0 ] >= 3 );
-  _.assert( mat.dims[ 1 ] >= 3 );
   _.assert( arguments.length === 2 );
+  _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
-  var ox = eulerv.eGet( 3 );
-  var oy = eulerv.eGet( 4 );
-  var oz = eulerv.eGet( 5 );
+  if( dstEuler === undefined || dstEuler === null )
+  dstEuler = _.euler.makeZero();
+
+  var dstEuler = _.euler.from( dstEuler );
+  var dstEulerVector = _.vector.from( dstEuler );
+
+  _.assert( _.Space.is( srcMatrix ) );
+  _.assert( srcMatrix.dims[ 0 ] >= 3 );
+  _.assert( srcMatrix.dims[ 1 ] >= 3 );
+
+  var ox = dstEulerVector.eGet( 3 );
+  var oy = dstEulerVector.eGet( 4 );
+  var oz = dstEulerVector.eGet( 5 );
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    var m02 = mat.atomGet( [ 0, 2 ] );
+    var m02 = srcMatrix.atomGet( [ 0, 2 ] );
     if( - 1 < m02 && m02 < 1 )
     {
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      eulerv.eSet( 0, atan2( - m12, m22 ) );
-      eulerv.eSet( 1, atan2( m02, sqrt( 1 - m02*m02 ) ) );
-      eulerv.eSet( 2, atan2( - m01, m00 ) );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      dstEulerVector.eSet( 0, atan2( - m12, m22 ) );
+      dstEulerVector.eSet( 1, atan2( m02, sqrt( 1 - m02*m02 ) ) );
+      dstEulerVector.eSet( 2, atan2( - m01, m00 ) );
     }
     else if( m02 <= - 1 )
     {
-      var m10 = mat.atomGet( [ 1, 0 ] ); var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 0, - atan2( m10, m11 ) );
-      eulerv.eSet( 1, - pi/2 );
-      eulerv.eSet( 2, 0 );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] ); var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 0, - atan2( m10, m11 ) );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( m02 >= 1 )
     {
-      var m10 = mat.atomGet( [ 1, 0 ] ); var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 0, atan2( m10, m11 ) );
-      eulerv.eSet( 1, pi/2 );
-      eulerv.eSet( 2, 0 );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] ); var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 0, atan2( m10, m11 ) );
+      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    var m01 = mat.atomGet( [ 0,1 ] );
+    var m01 = srcMatrix.atomGet( [ 0,1 ] );
     if( - 1 < m01 && m01 < 1 )
     {
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      eulerv.eSet( 0, atan2( m21, m11 ) );
-      eulerv.eSet( 2, atan2( m02, m00 ) );
-      eulerv.eSet( 1, asin( - m01) );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      dstEulerVector.eSet( 0, atan2( m21, m11 ) );
+      dstEulerVector.eSet( 2, atan2( m02, m00 ) );
+      dstEulerVector.eSet( 1, asin( - m01) );
     }
     else if( m01 >= 1 )
     {
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      eulerv.eSet( 0, atan2( - m20, m22 ) );
-      eulerv.eSet( 2, 0 );
-      eulerv.eSet( 1, - pi/2 );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      dstEulerVector.eSet( 0, atan2( - m20, m22 ) );
+      dstEulerVector.eSet( 2, 0 );
+      dstEulerVector.eSet( 1, - pi/2 );
     }
     else if( m01 <= - 1 )
     {
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      eulerv.eSet( 0, - atan2( - m20, m22 ) );
-      eulerv.eSet( 2, 0 );
-      eulerv.eSet( 1, pi/2 );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      dstEulerVector.eSet( 0, - atan2( - m20, m22 ) );
+      dstEulerVector.eSet( 2, 0 );
+      dstEulerVector.eSet( 1, pi/2 );
     }
   }
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    var m12 = mat.atomGet( [ 1, 2 ] );
+    var m12 = srcMatrix.atomGet( [ 1, 2 ] );
     if( - 1 < m12 && m12 < 1 )
     {
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      var m10 = mat.atomGet( [ 1, 0 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 1, asin( -m12 ) );
-      eulerv.eSet( 0, atan2( m02, m22 ) );
-      eulerv.eSet( 2, atan2( m10, m11 ) );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 1, asin( -m12 ) );
+      dstEulerVector.eSet( 0, atan2( m02, m22 ) );
+      dstEulerVector.eSet( 2, atan2( m10, m11 ) );
     }
     else if( m12 >= 1 )
     {
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      eulerv.eSet( 1, - pi/2 );
-      eulerv.eSet( 0, atan2( - m01, m00 ) );
-      eulerv.eSet( 2, 0 );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 0, atan2( - m01, m00 ) );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( m12 <= - 1 )
     {
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      eulerv.eSet( 1, pi/2);
-      eulerv.eSet( 0, - atan2( - m01, m00 )  );
-      eulerv.eSet( 2, 0 );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      dstEulerVector.eSet( 1, pi/2);
+      dstEulerVector.eSet( 0, - atan2( - m01, m00 )  );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    var m10 = mat.atomGet( [ 1, 0 ] );
+    var m10 = srcMatrix.atomGet( [ 1, 0 ] );
     if( - 1 < m10 && m10 < 1 )
     {
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      eulerv.eSet( 2, atan2( - m12, m11 ) );
-      eulerv.eSet( 0, atan2( - m20, m00 ) );
-      eulerv.eSet( 1, asin( m10 ) );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      dstEulerVector.eSet( 2, atan2( - m12, m11 ) );
+      dstEulerVector.eSet( 0, atan2( - m20, m00 ) );
+      dstEulerVector.eSet( 1, asin( m10 ) );
     }
     else if( m10 <= - 1 )
     {
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      eulerv.eSet( 2, 0 );
-      eulerv.eSet( 0, - atan2( m21, m22 ) );
-      eulerv.eSet( 1, - pi/2 );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      dstEulerVector.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, - atan2( m21, m22 ) );
+      dstEulerVector.eSet( 1, - pi/2 );
     }
     else if( m10 >= 1 )
     {
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      eulerv.eSet( 2, 0 );
-      eulerv.eSet( 0, atan2( m21, m22 )  );
-      eulerv.eSet( 1, pi/2 );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      dstEulerVector.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( m21, m22 )  );
+      dstEulerVector.eSet( 1, pi/2 );
     }
   }
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    var m21 = mat.atomGet( [ 2, 1 ] );
+    var m21 = srcMatrix.atomGet( [ 2, 1 ] );
     if( - 1 < m21 && m21 < 1 )
     {
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 1, asin( m21 ) );
-      eulerv.eSet( 2, atan2( - m20, m22 ) );
-      eulerv.eSet( 0, atan2( - m01, m11 ) );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 1, asin( m21 ) );
+      dstEulerVector.eSet( 2, atan2( - m20, m22 ) );
+      dstEulerVector.eSet( 0, atan2( - m01, m11 ) );
     }
     else if( m21 <= - 1 )
     {
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      eulerv.eSet( 1, - pi/2 );
-      eulerv.eSet( 2, 0 );
-      eulerv.eSet( 0, - atan2( m02, m00 ) );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, - atan2( m02, m00 ) );
     }
     else if( m21 >= 1 )
     {
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      eulerv.eSet( 1, pi/2 );
-      eulerv.eSet( 2, 0 );
-      eulerv.eSet( 0, atan2( m02, m00 ) );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerVector.eSet( 2, 0 );
+      dstEulerVector.eSet( 0, atan2( m02, m00 ) );
     }
   }
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    var m20 = mat.atomGet( [ 2, 0 ] );
+    var m20 = srcMatrix.atomGet( [ 2, 0 ] );
     if( - 1 < m20 && m20 < 1 )
     {
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      var m10 = mat.atomGet( [ 1, 0 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      eulerv.eSet( 2, atan2( m21, m22 ) );
-      eulerv.eSet( 1, asin( - m20 ) );
-      eulerv.eSet( 0, atan2( m10, m00 ) );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      dstEulerVector.eSet( 2, atan2( m21, m22 ) );
+      dstEulerVector.eSet( 1, asin( - m20 ) );
+      dstEulerVector.eSet( 0, atan2( m10, m00 ) );
     }
     else if( m20 <= - 1 )
     {
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 2, 0 );
-      eulerv.eSet( 1, pi/2 );
-      eulerv.eSet( 0, - atan2( - m12, m11 ) );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 2, 0 );
+      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerVector.eSet( 0, - atan2( - m12, m11 ) );
     }
     else if( m20 >= 1 )
     {
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 2, 0 );
-      eulerv.eSet( 1, - pi/2 );
-      eulerv.eSet( 0, atan2( - m12, m11 ) );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 2, 0 );
+      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerVector.eSet( 0, atan2( - m12, m11 ) );
     }
   }
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    var m00 = mat.atomGet( [ 0, 0 ] );
+    var m00 = srcMatrix.atomGet( [ 0, 0 ] );
     if( - 1 < m00 && m00 < 1 )
     {
-      var m10 = mat.atomGet( [ 1, 0 ] );
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      eulerv.eSet( 0, atan2( m10, - m20 ) );
-      eulerv.eSet( 1, acos( m00 ) );
-      eulerv.eSet( 2, atan2( m01, m02 ) );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      dstEulerVector.eSet( 0, atan2( m10, - m20 ) );
+      dstEulerVector.eSet( 1, acos( m00 ) );
+      dstEulerVector.eSet( 2, atan2( m01, m02 ) );
     }
     else if( m00 <= - 1 )
     {
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 0, - atan2( - m12, m11 ) );
-      eulerv.eSet( 1, pi );
-      eulerv.eSet( 2, 0 );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 0, - atan2( - m12, m11 ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( m00 >= 1 )
     {
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 0, atan2( - m12, m11 ) );
-      eulerv.eSet( 1, 0 );
-      eulerv.eSet( 2, 0 );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 0, atan2( - m12, m11 ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    var m00 = mat.atomGet( [ 0, 0 ] );
+    var m00 = srcMatrix.atomGet( [ 0, 0 ] );
     if( - 1 < m00 && m00 < 1 )
     {
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      var m10 = mat.atomGet( [ 1, 0 ] );
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      eulerv.eSet( 0, atan2( m20, m10 ) );
-      eulerv.eSet( 1, acos( m00 ) );
-      eulerv.eSet( 2, atan2( m02, - m01 ) );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      dstEulerVector.eSet( 0, atan2( m20, m10 ) );
+      dstEulerVector.eSet( 1, acos( m00 ) );
+      dstEulerVector.eSet( 2, atan2( m02, - m01 ) );
     }
     else if( m00 <= - 1 )
     {
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      eulerv.eSet( 0, - atan2( m21, m22 ) );
-      eulerv.eSet( 1, pi );
-      eulerv.eSet( 2, 0 );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      dstEulerVector.eSet( 0, - atan2( m21, m22 ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( m00 >= 1 )
     {
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      eulerv.eSet( 0, atan2( m21, m22 ) );
-      eulerv.eSet( 1, 0 );
-      eulerv.eSet( 2, 0 );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      dstEulerVector.eSet( 0, atan2( m21, m22 ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    var m11 = mat.atomGet( [ 1, 1 ] );
+    var m11 = srcMatrix.atomGet( [ 1, 1 ] );
     if( - 1 < m11 && m11 < 1 )
     {
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      var m10 = mat.atomGet( [ 1, 0 ] );
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      eulerv.eSet( 0, atan2( m01, m21 ) );
-      eulerv.eSet( 1, acos( m11 ) );
-      eulerv.eSet( 2, atan2( m10, - m12 ) );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      dstEulerVector.eSet( 0, atan2( m01, m21 ) );
+      dstEulerVector.eSet( 1, acos( m11 ) );
+      dstEulerVector.eSet( 2, atan2( m10, - m12 ) );
     }
     else if( m11 <= - 1 )
     {
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      eulerv.eSet( 0, - atan2( m02, m00 ) );
-      eulerv.eSet( 1, pi );
-      eulerv.eSet( 2, 0 );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      dstEulerVector.eSet( 0, - atan2( m02, m00 ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( m11 >= 1 )
     {
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      eulerv.eSet( 0, atan2( m02, m00 ) );
-      eulerv.eSet( 1, 0 );
-      eulerv.eSet( 2, 0 );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      dstEulerVector.eSet( 0, atan2( m02, m00 ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    var m11 = mat.atomGet( [ 1, 1 ] );
+    var m11 = srcMatrix.atomGet( [ 1, 1 ] );
     if( - 1 < m11 && m11 < 1 )
     {
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      var m10 = mat.atomGet( [ 1, 0 ] );
-      eulerv.eSet( 0, atan2( m21, - m01 ) );
-      eulerv.eSet( 1, acos( m11 ) );
-      eulerv.eSet( 2, atan2( m12, m10 ) );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      dstEulerVector.eSet( 0, atan2( m21, - m01 ) );
+      dstEulerVector.eSet( 1, acos( m11 ) );
+      dstEulerVector.eSet( 2, atan2( m12, m10 ) );
     }
     else if( m11 <= - 1 )
     {
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      eulerv.eSet( 0, atan2( m20, m22 ) );
-      eulerv.eSet( 1, pi );
-      eulerv.eSet( 2, 0 );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      dstEulerVector.eSet( 0, atan2( m20, m22 ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( m11 >= 1 )
     {
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      var m22 = mat.atomGet( [ 2, 2 ] );
-      eulerv.eSet( 0, atan2( - m20, m22 ) );
-      eulerv.eSet( 1, 0 );
-      eulerv.eSet( 2, 0 );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      dstEulerVector.eSet( 0, atan2( - m20, m22 ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    var m22 = mat.atomGet( [ 2, 2 ] );
+    var m22 = srcMatrix.atomGet( [ 2, 2 ] );
     if( - 1 < m22 && m22 < 1 )
     {
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      eulerv.eSet( 0, atan2( m02, - m12 ) );
-      eulerv.eSet( 1, acos( m22 ) );
-      eulerv.eSet( 2, atan2( m20, m21 ) );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      dstEulerVector.eSet( 0, atan2( m02, - m12 ) );
+      dstEulerVector.eSet( 1, acos( m22 ) );
+      dstEulerVector.eSet( 2, atan2( m20, m21 ) );
     }
     else if( m22 <= - 1 )
     {
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      eulerv.eSet( 0, atan2( m01, m00 ) );
-      eulerv.eSet( 1, pi );
-      eulerv.eSet( 2, 0 );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      dstEulerVector.eSet( 0, atan2( m01, m00 ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
-      var m01 = mat.atomGet( [ 0, 1 ] );
-      var m00 = mat.atomGet( [ 0, 0 ] );
-      eulerv.eSet( 0, - atan2( m01, m00 ) );
-      eulerv.eSet( 1, 0 );
-      eulerv.eSet( 2, 0 );
+      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      dstEulerVector.eSet( 0, - atan2( m01, m00 ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    var m22 = mat.atomGet( [ 2, 2 ] );
+    var m22 = srcMatrix.atomGet( [ 2, 2 ] );
     if( - 1 < m22 && m22 < 1 )
     {
-      var m12 = mat.atomGet( [ 1, 2 ] );
-      var m02 = mat.atomGet( [ 0, 2 ] );
-      var m21 = mat.atomGet( [ 2, 1 ] );
-      var m20 = mat.atomGet( [ 2, 0 ] );
-      eulerv.eSet( 0, atan2( m12, m02 ) );
-      eulerv.eSet( 1, acos( m22 ) );
-      eulerv.eSet( 2, atan2( m21, - m20 ) );
+      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      dstEulerVector.eSet( 0, atan2( m12, m02 ) );
+      dstEulerVector.eSet( 1, acos( m22 ) );
+      dstEulerVector.eSet( 2, atan2( m21, - m20 ) );
     }
     else if( m22 <= - 1 )
     {
-      var m10 = mat.atomGet( [ 1, 0 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 0, - atan2( m10, m11 ) );
-      eulerv.eSet( 1, pi );
-      eulerv.eSet( 2, 0 );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 0, - atan2( m10, m11 ) );
+      dstEulerVector.eSet( 1, pi );
+      dstEulerVector.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
-      var m10 = mat.atomGet( [ 1, 0 ] );
-      var m11 = mat.atomGet( [ 1, 1 ] );
-      eulerv.eSet( 0, atan2( m10, m11 ) );
-      eulerv.eSet( 1, 0 );
-      eulerv.eSet( 2, 0 );
+      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      dstEulerVector.eSet( 0, atan2( m10, m11 ) );
+      dstEulerVector.eSet( 1, 0 );
+      dstEulerVector.eSet( 2, 0 );
     }
   }
 
-  return eulerv;
+  return dstEuler;
 }
 
 //
@@ -2183,46 +2193,50 @@ function fromMatrix2( mat, dst )
   * Create the rotation matrix from a set of euler angles. Returns the created matrix.
   * Euler angles stay untouched.
   *
-  * @param { Array } euler - Source representation of Euler angles.
+  * @param { Array } srcEuler - Source representation of Euler angles.
+  * @param { Space } dstMatrix - Destination matrix.
   *
   * @example
   * // returns [ 0.7701, -0.4207, 0.4794,
   *              0.6224, 0.6599, - 0.4207,
   *              - 0.1393, 0.6224, 0.7701 ];
-  * _.toMatrix2( [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+  * _.toMatrix2( null, [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
   *
   * @example
   * // returns [ 0.4741, - 0.6142, 0.6307,
   * //           0.7384, 0.6675, 0.0950,
   * //           - 0.4794, 0.4207, 0.7701 ]
-  * _.toMatrix2( [ 1, 0.5, 0.5, 2, 1, 0 ] );
+  * _.toMatrix2( null, [ 1, 0.5, 0.5, 2, 1, 0 ] );
   *
   * @returns { Space } Returns the corresponding rotation matrix.
   * @function toMatrix2
   * @throws { Error } An Error if( arguments.length ) is different than one.
-  * @throws { Error } An Error if( euler ) is not euler.
+  * @throws { Error } An Error if( srcEuler ) is not euler.
   * @memberof wTools.euler
   */
 
 /* qqq : make similar to other converters */
 
-function toMatrix2( euler, dstMatrix )
+function toMatrix2( dstMatrix, srcEuler )
 {
 
-  var euler = _.euler.from( euler );
-  var eulerv = _.vector.from( euler );
+  var srcEuler = _.euler.from( srcEuler );
+  var srcEulerVector = _.vector.from( srcEuler );
 
-  _.assert( _.Space.is( dstMatrix ) );
+  _.assert( _.Space.is( dstMatrix ) || dstMatrix === nul || dstMatrix === undefined );
+  if( dstMatrix === null || dstMatrix === undefined )
+  dstMatrix = _.Space.makeZero( [ 3, 3 ] );
+
   _.assert( dstMatrix.dims[ 0 ] === 3 );
   _.assert( dstMatrix.dims[ 1 ] === 3 );
   _.assert( arguments.length === 2 );
 
-  var e1 = eulerv.eGet( 0 );
-  var e2 = eulerv.eGet( 1 );
-  var e3 = eulerv.eGet( 2 );
-  var ox = eulerv.eGet( 3 );
-  var oy = eulerv.eGet( 4 );
-  var oz = eulerv.eGet( 5 );
+  var e1 = srcEulerVector.eGet( 0 );
+  var e2 = srcEulerVector.eGet( 1 );
+  var e3 = srcEulerVector.eGet( 2 );
+  var ox = srcEulerVector.eGet( 3 );
+  var oy = srcEulerVector.eGet( 4 );
+  var oz = srcEulerVector.eGet( 5 );
 
   var ce1 = cos( e1 );
   var ce2 = cos( e2 );
