@@ -474,11 +474,11 @@ function radiusSet( sphere,radius )
 
   //if( _.vectorIs( sphere ) )
   //{
-    var spherev = _.sphere._from( sphere );
+  var spherev = _.sphere._from( sphere );
   //return spherev.eSet( sphere.length-1, radius );
   //console.log('vector');
-    spherev.eSet( sphere.length-1, radius );
-    return spherev;
+  spherev.eSet( sphere.length-1, radius );
+  return spherev;
   //}
 
   // Alternative solution
@@ -597,6 +597,24 @@ function pointExpand( sphere , point )
 }
 
 //
+
+
+/**
+  * Expands an sphere with a second sphere. Returns an array with the corrdinates of the expanded sphere
+  *
+  * @param { Array } sphereDst - Destination sphere.
+  * @param { Array } sphereSrc - Source Sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 3 ]
+  * _.sphereExpand( [ 0, 0, 0, 2 ], [ 0, 0, 0, 3 ] );
+  *
+  * @returns { Array } Returns an array with the coordinates of the expanded sphere.
+  * @function sphereExpand
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
 
 function sphereExpand( sphereDst, sphereSrc )
 {

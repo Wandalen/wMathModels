@@ -1453,7 +1453,6 @@ function dimGet( test )
   var gotDim = _.box.dimGet( box );
   test.identical( gotDim, expected );
 
-
   test.case = 'NaN'; /* */
 
   var box = [ 'Hi', 'world' ];
@@ -3140,7 +3139,6 @@ function pointClamp( test )
     _.box.pointClamp( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
-
   test.case = 'Too few arguments'; /* */
   test.shouldThrowError( function()
   {
@@ -3619,7 +3617,7 @@ function boxContains( test )
 function boxIntersects( test )
 {
 
-test.case = 'Source box and Test box remain unchanged'; /* */
+  test.case = 'Source box and Test box remain unchanged'; /* */
 
   var srcBox = [ 0, 0, 2, 2 ];
   var oldsrcBox = srcBox.slice();
