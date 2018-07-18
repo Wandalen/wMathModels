@@ -1308,8 +1308,6 @@ function fromQuat2( dstEuler, srcQuat )
   var accuracy =  _.accuracy;
   var accuracySqr = _.accuracySqr;
 
-  var ex,ey,ez;
-
   var x = srcQuatVector.eGet( 0 ); var x2 = x*x;
   var y = srcQuatVector.eGet( 1 ); var y2 = y*y;
   var z = srcQuatVector.eGet( 2 ); var z2 = z*z;
@@ -2499,11 +2497,24 @@ function isGimbalLock( srcEuler )
 {
 
   _.assert( arguments.length === 1 );
-  _.assert( _.euler.is( dstEuler ) );
+  _.assert( _.euler.is( srcEuler ) );
 
-  if( dstEuler === undefined || dstEuler === null )
-  dstEuler = _.euler.makeZero();
+  var dstEuler = _.euler.from( dstEuler );
+  var accuracy =  _.accuracy;
+  var accuracySqr = _.accuracySqr;
 
+  var srcQuatVector = _.vector.fromArray( _.euler.toQuat2( dstEuler ) );
+  var x = srcQuatVector.eGet( 0 ); var x2 = x*x;
+  var y = srcQuatVector.eGet( 1 ); var y2 = y*y;
+  var z = srcQuatVector.eGet( 2 ); var z2 = z*z;
+  var w = srcQuatVector.eGet( 3 ); var w2 = w*w;
+
+  var xy2 = 2*x*y; var xz2 = 2*x*z; var xw2 = 2*x*w;
+  var yz2 = 2*y*z; var yw2 = 2*y*w; var zw2 = 2*z*w;
+
+  var ox = dstEulerVector.eGet( 3 );
+  var oy = dstEulerVector.eGet( 4 );
+  var oz = dstEulerVector.eGet( 5 );
 
 }
 
