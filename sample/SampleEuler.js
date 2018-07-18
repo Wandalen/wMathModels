@@ -27,6 +27,10 @@ var euler =[ 0.25, 1, 0.5, 2, 1, 0 ];
 var res = _.euler.toQuat2( euler, null );
 console.log( 'Old Euler:', res);
 
-var gotEuler = _.euler.represent( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 1, 3 ] );
+var gotEuler = _.euler.represent( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 1, 2 ] );
 
 console.log( 'Old Euler:', gotEuler);
+
+var i = [1, 1, 1];
+_.avector.addScalar( i, -2*Math.PI);
+console.log( i );
