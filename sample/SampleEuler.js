@@ -22,11 +22,14 @@ var dstZYZ = [ 0, 0, 0, 2, 1, 2 ];
 
 debugger;
 
-var euler =[ 1, 0.25, 2, 1, 2, 0 ];
+var euler =[ 0.25, 1, 0.5, 2, 1, 0 ];
 //var resN = _.euler.represent( dstEulerN, txtYZY );
 var res = _.euler.toQuat2( euler, null );
 console.log( 'Old Euler:', res);
 
-var quat = [ 0.3252921697349392, 0.39636481102592414, 0.09544332266900905, 0.8532118805123485];
-res = _.euler.fromQuat2( dstYXZ, quat );
+var gotEuler = _.euler.represent( euler, [ 0, 1, 2 ] );
+
+console.log( 'Old Euler:', gotEuler);
+var res = _.euler.toQuat2( gotEuler, null );
+
 console.log( 'Old Euler:', res);

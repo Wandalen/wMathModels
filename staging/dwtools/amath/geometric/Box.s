@@ -313,7 +313,6 @@ function fromSphere( box , sphere )
   debugger;
   //throw _.err( 'not tested' );
 
-
   _.box.fromPoints( boxv, [ center ] );
   _.box.expand( boxv, radius );
 
@@ -809,7 +808,7 @@ function pointRelative( box , point )
 
   _.vector.divAssigning( _.vector.subAssigning( _point , min ) , _.vector.subAssigning( max.clone() , min ) );
 
-  return point
+  return point;
 }
 
 /**
