@@ -2534,7 +2534,7 @@ function eulerToQuatToEulerToQuatFast( test )
 
   function onEach( euler1 )
   {
-
+    euler2 = euler1.slice();
     quat1 = _.euler.toQuat2( euler1, quat1 );
     euler2 = _.euler.fromQuat2( euler2, quat1 );
     quat2 = _.euler.toQuat2( euler2, quat2 );
@@ -2568,7 +2568,7 @@ function eulerToQuatToEulerToQuatSlow( test )
   var quat2b = _.quat.make();
 
   // var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
-  var deltas = [ -( accuracySqr ), 0, +( accuracySqr ), +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
+  var deltas = [ -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
   // var deltas = [ -( accuracySqr ), 0, +0.1 ];
   var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   var anglesLocked = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
@@ -2591,6 +2591,7 @@ function eulerToQuatToEulerToQuatSlow( test )
 
   function onEach( euler1 )
   {
+    euler2 = euler1.slice();
     quat1 = _.euler.toQuat2( euler1, quat1 );
     euler2 = _.euler.fromQuat2( euler2, quat1 );
     quat2 = _.euler.toQuat2( euler2, quat2 );
@@ -2609,7 +2610,6 @@ eulerToQuatToEulerToQuatSlow.timeOut = 200000;
 eulerToQuatToEulerToQuatSlow.usingSourceCode = 0;
 eulerToQuatToEulerToQuatSlow.rapidity = 2;
 eulerToQuatToEulerToQuatSlow.accuracy = [ 1e-10, 1e-1 ];
-
 //
 
 function eulerToQuatToMatrixToEulerToMatrixToQuatFast( test )
@@ -2618,29 +2618,30 @@ function eulerToQuatToMatrixToEulerToMatrixToQuatFast( test )
   var accuracy =  test.accuracy;
   var accuracySqr = test.accuracy*test.accuracy;
   var euler1 = _.euler.make();
-//  var euler2 = _.euler.make();
-//  var quat1 = _.quat.make();
-//  var quat2 = _.quat.make();
-//  var quat2b = _.quat.make();
+  var euler2 = _.euler.make();
+  var matrix1 = _.Space.makeZero( [ 3, 3 ] );
+  var matrix2 = _.Space.makeZero( [ 3, 3 ] );
+  var quat1 = _.quat.make();
+  var quat2 = _.quat.make();
+  var quat2b = _.quat.make();
 
-  // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-  // var quadrants = [ 0, 1, 2, 3 ];
+  var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  var angles = [ 0, Math.PI/2, Math.PI ];
+  var quadrants = [ 0, 1, 2, 3 ];
   // var quadrantsLocked = [ 0 ];
   // var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
-  var deltas = [ -( accuracySqr ), 0, +( accuracySqr ), +0.1 ];
+  var deltas = [ -Math.sqrt( accuracy ), +Math.sqrt( accuracy ) ];
   // var deltasLocked = [ 0 ];
   // var euler = [ 0, 0, 0, 0, 0, 0 ];
   var anglesLocked = [ Math.PI / 3 ];
-
 
   /* */
 
   var o =
   {
-    // representations : representations,
+    representations : representations,
     angles : angles,
-    // quadrants : quadrants,
+    quadrants : quadrants,
     // quadrantsLocked : quadrantsLocked,
     deltas : deltas,
     anglesLocked : anglesLocked,
@@ -2652,26 +2653,34 @@ function eulerToQuatToMatrixToEulerToMatrixToQuatFast( test )
 
   /* */
 
-  function onEach( euler )
+  function onEach( euler1 )
   {
+    euler2[ 3 ] = euler1[ 3 ]; euler2[ 4 ] = euler1[ 4 ]; euler2[ 5 ] = euler1[ 5 ];
+    quat1 = _.euler.toQuat2( euler1, quat1 );
+    matrix1 = _.quat.toMatrix( quat1, matrix1 );
+    euler2 = _.euler.fromMatrix2( euler2, matrix1 );
+    matrix2 = _.euler.toMatrix2( matrix2, euler2 );
+    quat2 = _.quat.fromMatrixRotation( quat2, matrix2 );
 
-    var gotQuat = _.euler.toQuat2( euler, null );
-    var gotMatrix = _.quat.toMatrix( gotQuat, null );
-    var gotEuler = _.euler.fromMatrix2( null, gotMatrix );
-    var gotMatrix2 = _.euler.toMatrix2( null, gotEuler );
-    var gotFinalQuat = _.quat.fromMatrixRotation( null, gotMatrix2 );
+    var positiveResult = quat2;
+    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
+    var eq = false;
+    eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
 
-    var positiveResult = gotFinalQuat.slice();
-    var negativeResult = _.avector.mul( _.vector.toArray( gotFinalQuat ), -1 );
-    var expected = _.vector.toArray( gotQuat );
-    var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
-    var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
-    test.is( eq1 || eq2 );
+    console.log( eq );
+    console.log( 'quat1:',quat1[ 0 ], quat1[ 1 ], quat1[ 2 ], quat1[ 3 ] );
+    console.log( 'quat2:',quat2[ 0 ], quat2[ 1 ], quat2[ 2 ], quat2[ 3 ] );
+    console.log( 'euler1:',euler1[ 0 ], euler1[ 1 ], euler1[ 2 ], euler1[ 3 ], euler1[ 4 ], euler1[ 5 ] );
+    console.log( 'euler2:',euler2[ 0 ], euler2[ 1 ], euler2[ 2 ], euler2[ 3 ], euler2[ 4 ], euler2[ 5 ] );
+
+    test.is( eq );
+
   }
 
 }
 
-eulerToQuatToMatrixToEulerToMatrixToQuatFast.timeOut = 50000;
+eulerToQuatToMatrixToEulerToMatrixToQuatFast.timeOut = 20000;
 eulerToQuatToMatrixToEulerToMatrixToQuatFast.usingSourceCode = 0;
 eulerToQuatToMatrixToEulerToMatrixToQuatFast.rapidity = 3;
 
@@ -3189,9 +3198,9 @@ var Self =
 {
 
   name : 'Tools/Math/Euler',
-  silencing : 1,
+  silencing : 0,
   enabled : 1,
-  // routine: 'representFullCoverage',
+  routine: 'eulerToQuatToMatrixToEulerToMatrixToQuatFast',
 
   context :
   {
@@ -3224,11 +3233,13 @@ var Self =
 
     /* takes 12 seconds */
     eulerToQuatToEulerToQuatFast : eulerToQuatToEulerToQuatFast,
-    /* takes 75 seconds */
+    /* takes 60 seconds */
     eulerToQuatToEulerToQuatSlow : eulerToQuatToEulerToQuatSlow,
 
-    /* takes 37 seconds */
+    /* takes 12 seconds */
     eulerToQuatToMatrixToEulerToMatrixToQuatFast : eulerToQuatToMatrixToEulerToMatrixToQuatFast, /* qqq : clean me */
+    /* takes 12 seconds */
+    //eulerToQuatToMatrixToEulerToMatrixToQuatSlow : eulerToQuatToMatrixToEulerToMatrixToQuatSlow,
 
     represent : represent, /* qqq : clean me */
 

@@ -1807,7 +1807,6 @@ function toQuat2( srcEuler, dstQuat )
 
 function fromMatrix2( dstEuler, srcMatrix )
 {
-
   _.assert( arguments.length === 2 );
   _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
