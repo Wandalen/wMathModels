@@ -24,12 +24,6 @@ debugger;
 
 var euler =[ 0.25, 1, 0.5, 2, 1, 0 ];
 //var resN = _.euler.represent( dstEulerN, txtYZY );
-var res = _.euler.toQuat2( euler, null );
-console.log( 'Old Euler:', res);
-
-var gotEuler = _.euler.represent( euler, [ 0, 1, 2 ] );
-
-console.log( 'Old Euler:', gotEuler);
-var res = _.euler.toQuat2( gotEuler, null );
+var res = _.euler.represent( euler, [ 2, 1, 3 ] );
 
 console.log( 'Old Euler:', res);

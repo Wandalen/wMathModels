@@ -185,15 +185,25 @@ function representationSet( dstEuler, representation )
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  if( _.arrayIs( representation ) &&
-      ( representation[ 0 ] === 0 || representation[ 0 ] === 1 || representation[ 0 ] === 2 ) &&
-      ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
-      ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
+  if( _.arrayIs( representation ) )
   {
     _.assert( representation.length === 3 );
-    dstEulerVector.eSet( 3, representation[ 0 ] );
-    dstEulerVector.eSet( 4, representation[ 1 ] );
-    dstEulerVector.eSet( 5, representation[ 2 ] );
+    var rep = true;
+    for( var i = 0; i < 3; i++ )
+    {
+      if( representation[ i ] !== 0 && representation[ i ] !== 1 && representation[ i ] !== 2 )
+      {
+        rep = false;
+      }
+    }
+
+    if( rep )
+    {
+      dstEulerVector.eSet( 3, representation[ 0 ] );
+      dstEulerVector.eSet( 4, representation[ 1 ] );
+      dstEulerVector.eSet( 5, representation[ 2 ] );
+    }
+    else _.assert( 0, 'Not an Euler Representation' );
   }
   else if( _.strIs( representation ) )
   {
@@ -2461,6 +2471,42 @@ function represent( dstEuler, representation )
 
 }
 
+//
+
+
+/**
+  * Check if a set of Euler angles is in a Gimbal Lock situation. Returns true if there is Gimbal Lock.
+  * The Euler angles stay untouched.
+  *
+  * @param { Array } srcEuler - Source set of Euler angles.
+  *
+  * @example
+  * // returns true
+  * _.isGimbalLock( [ 0, 0, 0, 0, 1, 2 ] );
+  *
+  * @example
+  * // returns false
+  * _.isGimbalLock( [ 0, 0, 0, 2, 1, 0 ] );
+  *
+  * @returns { Bool } Returns true if there is Gimbal Lock, false if not.
+  * @function isGimbalLock
+  * @throws { Error } An Error if( arguments.length ) is different than one.
+  * @throws { Error } An Error if( srcEuler ) is not an Euler angle.
+  * @memberof wTools.euler
+  */
+
+function isGimbalLock( srcEuler )
+{
+
+  _.assert( arguments.length === 1 );
+  _.assert( _.euler.is( dstEuler ) );
+
+  if( dstEuler === undefined || dstEuler === null )
+  dstEuler = _.euler.makeZero();
+
+
+}
+
 // --
 // define class
 // --
@@ -2491,6 +2537,7 @@ var Proto =
   toMatrix2 : toMatrix2,
 
   represent : represent,
+  isGimbalLock : isGimbalLock,
 
   // Order : Order,
 

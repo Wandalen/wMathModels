@@ -3166,7 +3166,7 @@ function representFullCoverage( test )
 
 }
 
-representFullCoverage.timeOut = 300000;
+representFullCoverage.timeOut = 150000;
 representFullCoverage.usingSourceCode = 0;
 representFullCoverage.rapidity = 3;
 
@@ -3190,7 +3190,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 0,
   enabled : 1,
-  routine: 'representFullCoverage',
+  // routine: 'representFullCoverage',
 
   context :
   {
