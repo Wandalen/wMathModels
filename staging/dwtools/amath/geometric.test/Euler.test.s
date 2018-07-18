@@ -3111,23 +3111,20 @@ function representFullCoverage( test )
   var euler1 = _.euler.make();
 
   // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  var representations = [ 'xyz' ];
-  //var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
-  var angles = [ 0, Math.PI / 3 ];
+  // var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   // var quadrants = [ 0, 1, 2, 3 ];
   // var quadrantsLocked = [ 0 ];
   // var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
   var deltas = [ -( accuracySqr ), 0, +( accuracySqr ), +0.1 ];
   // var deltasLocked = [ 0 ];
-  // var euler = [ 0, 0, 0, 0, 0, 0 ];
   var anglesLocked = [ Math.PI / 3 ];
 
   /* */
 
   var o =
   {
-     representations : representations,
-    angles : angles,
+    // representations : representations,
+    // angles : angles,
     // quadrants : quadrants,
     // quadrantsLocked : quadrantsLocked,
     deltas : deltas,
@@ -3142,51 +3139,34 @@ function representFullCoverage( test )
 
   function onEach( euler )
   {
-    console.log( euler );
     //var representationsFull = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz',
-                        //      [ 0, 1, 2 ], [ 0, 2, 1 ], [ 1, 0, 2 ], [ 1, 2, 0 ], [ 2, 0, 1 ], [ 2, 1, 0 ],
-                        //      [ 0, 1, 0], [ 0, 2, 0 ], [ 1, 0, 1], [ 1, 2, 1 ], [ 2, 0, 2 ], [ 2, 1, 2 ] ];
+                              //  [ 0, 1, 2 ], [ 0, 2, 1 ], [ 1, 0, 2 ], [ 1, 2, 0 ], [ 2, 0, 1 ], [ 2, 1, 0 ],
+                              //  [ 0, 1, 0], [ 0, 2, 0 ], [ 1, 0, 1], [ 1, 2, 1 ], [ 2, 0, 2 ], [ 2, 1, 2 ] ];
 
-    var representationsFull = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+    var representationsFull = [ 'xyz', 'yzx', 'zxy', 'xyx', 'yzy', 'zyz', [ 0, 2, 1 ], [ 1, 0, 2 ], [ 2, 1, 0 ], [ 0, 2, 0 ], [ 1, 2, 1 ], [ 2, 0, 2 ] ];
+
     for( var i = 0; i < representationsFull.length; i++ )
     {
+      var srcEuler = euler.slice();
+      var gotQuat1 = _.euler.toQuat2( srcEuler, null );
 
-      var dstEuler = euler.slice();
-      var srcEuler = dstEuler.slice();
-      var oldRepresentation = [ 0, 0, 0 ];
-      oldRepresentation[ 0 ] = euler[ 3 ];
-      oldRepresentation[ 1 ] = euler[ 4 ];
-      oldRepresentation[ 2 ] = euler[ 5 ];
       var representation = representationsFull[ i ];
+      var gotEuler = _.euler.represent( srcEuler, representation );
+      var gotQuat2 = _.euler.toQuat2( gotEuler, null );
 
-      var gotEuler = _.euler.represent( dstEuler, representation );
-      //test.is( gotEuler === dstEuler );
-      var result = _.euler.represent( gotEuler, oldRepresentation );
-      //test.equivalent( result, srcEuler );
-
-      var positiveResult = result.slice();
-      var negativeResult = result.slice();
-      positiveResult[ 0 ] = result[ 0 ] + 2*Math.PI;
-      positiveResult[ 1 ] = result[ 1 ] + 2*Math.PI;
-      positiveResult[ 2 ] = result[ 2 ] + 2*Math.PI;
-      negativeResult[ 0 ] = result[ 0 ] - 2*Math.PI;
-      negativeResult[ 1 ] = result[ 1 ] - 2*Math.PI;
-      negativeResult[ 2 ] = result[ 2 ] - 2*Math.PI;
-      var eq1 = _.entityEquivalent( result, srcEuler, { accuracy : test.accuracy } );
-      var eq2 = _.entityEquivalent( negativeResult, srcEuler, { accuracy : test.accuracy } );
-      var eq3 = _.entityEquivalent( positiveResult, srcEuler, { accuracy : test.accuracy } );
-      console.log( srcEuler[0],' ',srcEuler[1],' ',srcEuler[2]);
-      console.log( result[0],' ',result[1],' ',result[2]);
-      console.log( positiveResult[0],' ',positiveResult[1],' ',positiveResult[2]);
-      console.log( negativeResult[0],' ',negativeResult[1],' ',negativeResult[2]);
-      test.is( eq1 || eq2 || eq3 );
+      var positiveResult = gotQuat2.slice();
+      var negativeResult = _.avector.mul( _.vector.toArray( gotQuat2 ), -1 );
+      var expected = _.vector.toArray( gotQuat1 );
+      var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
+      var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
+      test.is( eq1 || eq2 );
 
     }
   }
 
 }
 
-representFullCoverage.timeOut = 200000;
+representFullCoverage.timeOut = 300000;
 representFullCoverage.usingSourceCode = 0;
 representFullCoverage.rapidity = 3;
 
@@ -3250,6 +3230,8 @@ var Self =
     eulerToQuatToMatrixToEulerToMatrixToQuatFast : eulerToQuatToMatrixToEulerToMatrixToQuatFast, /* qqq : clean me */
 
     represent : represent, /* qqq : clean me */
+
+    /* takes 130 seconds */
     representFullCoverage : representFullCoverage,
 
   },
