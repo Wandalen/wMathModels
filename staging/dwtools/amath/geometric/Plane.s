@@ -1,6 +1,6 @@
 (function _Plane_s_() {
 
-'use strict'; /**/
+'use strict';
 
 var _ = _global_.wTools;
 var avector = _.avector;

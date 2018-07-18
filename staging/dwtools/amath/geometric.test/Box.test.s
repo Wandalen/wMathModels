@@ -1,6 +1,6 @@
 ( function _Box_test_s_( ) {
 
-'use strict'; /**/
+'use strict';
 
 /*
 
