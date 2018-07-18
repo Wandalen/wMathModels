@@ -1,6 +1,7 @@
 ( function _Euler_test_s_( ) {
 
-'use strict'; /**/
+'use strict';
+
 
 /*
 
