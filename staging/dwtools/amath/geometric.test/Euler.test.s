@@ -2,6 +2,7 @@
 
 'use strict';
 
+
 /*
 
 == Test cases calculations
