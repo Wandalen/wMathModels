@@ -2625,7 +2625,8 @@ function eulerToQuatToMatrixToEulerToMatrixToQuatFast( test )
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
 
-  var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  //var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  var representations = [ 'xyz' ];
   var angles = [ 0, Math.PI/2, Math.PI ];
   var quadrants = [ 0, 1, 2, 3 ];
   // var quadrantsLocked = [ 0 ];
@@ -2655,7 +2656,7 @@ function eulerToQuatToMatrixToEulerToMatrixToQuatFast( test )
 
   function onEach( euler1 )
   {
-    euler2[ 3 ] = euler1[ 3 ]; euler2[ 4 ] = euler1[ 4 ]; euler2[ 5 ] = euler1[ 5 ];
+    //euler2[ 3 ] = euler1[ 3 ]; //euler2[ 4 ] = euler1[ 4 ]; //euler2[ 5 ] = euler1[ 5 ];
     quat1 = _.euler.toQuat2( euler1, quat1 );
     matrix1 = _.quat.toMatrix( quat1, matrix1 );
     euler2 = _.euler.fromMatrix2( euler2, matrix1 );

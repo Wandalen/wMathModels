@@ -1855,6 +1855,8 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
+
+    console.log('xzy');
     var m01 = srcMatrix.atomGet( [ 0,1 ] );
     if( - 1 < m01 && m01 < 1 )
     {
