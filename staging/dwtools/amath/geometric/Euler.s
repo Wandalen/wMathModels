@@ -1575,9 +1575,9 @@ function fromQuat2( dstEuler, srcQuat )
     var lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-        dstEulerVector.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
-        dstEulerVector.eSet( 1, acos( lim ) );
-        dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), - ( yz2 - xw2 ) ) );
+      dstEulerVector.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
+      dstEulerVector.eSet( 1, acos( lim ) );
+      dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), - ( yz2 - xw2 ) ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
@@ -2498,11 +2498,11 @@ function isGimbalLock( srcEuler )
   _.assert( arguments.length === 1 );
   _.assert( _.euler.is( srcEuler ) );
 
-  var dstEuler = _.euler.from( dstEuler );
+  var srcEuler = _.euler.from( srcEuler );
   var accuracy =  _.accuracy;
   var accuracySqr = _.accuracySqr;
 
-  var srcQuatVector = _.vector.fromArray( _.euler.toQuat2( dstEuler ) );
+  var srcQuatVector = _.vector.fromArray( _.euler.toQuat2( srcEuler, null ) );
   var x = srcQuatVector.eGet( 0 ); var x2 = x*x;
   var y = srcQuatVector.eGet( 1 ); var y2 = y*y;
   var z = srcQuatVector.eGet( 2 ); var z2 = z*z;
@@ -2514,6 +2514,210 @@ function isGimbalLock( srcEuler )
   var ox = dstEulerVector.eGet( 3 );
   var oy = dstEulerVector.eGet( 4 );
   var oz = dstEulerVector.eGet( 5 );
+
+  if( ox === 0 && oy === 1 && oz === 2 )
+  {
+    var lim = xz2 + yw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 0 && oy === 2 && oz === 1 )
+  {
+    var lim = xy2 - zw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 1 && oy === 0 && oz === 2 )
+  {
+    var lim = yz2 - xw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= -1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 1 && oy === 2 && oz === 0 )
+  {
+    var lim = xy2 + zw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( ( xy2 + zw2 ) >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 2 && oy === 0 && oz === 1 )
+  {
+    var lim = yz2 + xw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 2 && oy === 1 && oz === 0 )
+  {
+    var lim = xz2 - yw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracy*accuracy )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracy*accuracy)
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 0 && oy === 1 && oz === 0 )
+  {
+    var lim = x2 + w2 - z2 - y2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 0 && oy === 2 && oz === 0 )
+  {
+    var lim = x2 + w2 - z2 - y2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr)
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 1 && oy === 0 && oz === 1 )
+  {
+    var lim = y2 - z2 + w2 - x2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 1 && oy === 2 && oz === 1 )
+  {
+    var lim = y2 - z2 + w2 - x2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 2 && oy === 0 && oz === 2 )
+  {
+    var lim = z2 - x2 - y2 + w2;
+    if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 2 && oy === 1 && oz === 2 )
+  {
+    var lim = z2 - x2 - y2 + w2;
+    if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= -1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
 
 }
 
