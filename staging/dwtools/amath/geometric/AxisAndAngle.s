@@ -28,7 +28,7 @@ function is( axisAndAngle,angle )
 {
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
-  if( !_.arrayLike( axisAndAngle ) && !_.vectorIs( axisAndAngle ) )
+  if( !_.longIs( axisAndAngle ) && !_.vectorIs( axisAndAngle ) )
   return false;
 
   return ( ( axisAndAngle.length === 4 ) && ( angle === undefined ) ) || ( ( axisAndAngle.length === 3 ) && ( _.numberIs( angle ) ) );
@@ -46,7 +46,7 @@ function like( axisAndAngle,angle )
   if( axisAndAngle === null )
   return true;
 
-  if( !_.arrayLike( axisAndAngle ) && !_.vectorIs( axisAndAngle ) )
+  if( !_.longIs( axisAndAngle ) && !_.vectorIs( axisAndAngle ) )
   return false;
 
   return ( ( axisAndAngle.length === 4 ) && ( angle === undefined ) ) || ( ( axisAndAngle.length === 3 ) && ( _.numberIs( angle ) || angle === null ) );

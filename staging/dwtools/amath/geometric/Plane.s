@@ -26,7 +26,7 @@ function make( dim )
 function _from( plane )
 {
   _.assert( _.plane.is( plane ) );
-  _.assert( _.vectorIs( plane ) || _.arrayLike( plane ) );
+  _.assert( _.vectorIs( plane ) || _.longIs( plane ) );
   _.assert( arguments.length === 1, 'expects single argument' );
   return _.vector.from( plane );
 }
@@ -36,7 +36,7 @@ function _from( plane )
 function is( plane )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
-  return ( _.arrayLike( plane ) || _.vectorIs( plane ) ) && plane.length >= 1;
+  return ( _.longIs( plane ) || _.vectorIs( plane ) ) && plane.length >= 1;
 }
 
 //
