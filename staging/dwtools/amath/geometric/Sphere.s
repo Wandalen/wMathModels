@@ -131,7 +131,7 @@ function from( sphere )
     _.assert( arguments.length === 1, 'expects single argument' );
   }
 
-  _.assert( _.vectorIs( sphere ) || _.arrayLike( sphere ) );
+  _.assert( _.vectorIs( sphere ) || _.longIs( sphere ) );
 
   if( _.vectorIs( sphere ) )
   {
@@ -280,7 +280,7 @@ function fromCenterAndRadius( sphere,center,radius )
   var _dim = _.sphere.dimGet( spherev );
 
   _.assert( arguments.length === 3, 'expects exactly three argument' );
-  _.assert( _.arrayLike( center ) );
+  _.assert( _.longIs( center ) );
   _.assert( _.numberIs( radius ) );
   _.assert( center.length === _dim );
 
@@ -295,7 +295,7 @@ function fromCenterAndRadius( sphere,center,radius )
 function is( sphere )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
-  return ( _.arrayLike( sphere ) || _.vectorIs( sphere ) ) && sphere.length > 0;
+  return ( _.longIs( sphere ) || _.vectorIs( sphere ) ) && sphere.length > 0;
 }
 
 //
@@ -482,7 +482,7 @@ function radiusSet( sphere,radius )
   //}
 
   // Alternative solution
-  //if( _.arrayLike( sphere ) )
+  //if( _.longIs( sphere ) )
   //{
   //  sphere[ sphere.length-1 ] = radius;
   //  return sphere;

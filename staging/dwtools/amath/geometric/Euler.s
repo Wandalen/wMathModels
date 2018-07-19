@@ -69,7 +69,7 @@ var Self = _.euler = _.euler || Object.create( _.avector );
 function is( euler )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
-  return ( _.arrayLike( euler ) || _.vectorIs( euler ) ) && ( euler.length === 6 );
+  return ( _.longIs( euler ) || _.vectorIs( euler ) ) && ( euler.length === 6 );
 }
 
 //

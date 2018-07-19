@@ -795,7 +795,7 @@ function toMatrix( quat, mat )
 function is( quat )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
-  return ( _.arrayLike( quat ) || _.vectorIs( quat ) ) && ( quat.length === 4 );
+  return ( _.longIs( quat ) || _.vectorIs( quat ) ) && ( quat.length === 4 );
 }
 
 //

@@ -370,7 +370,7 @@ function is( box )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
   // _.assert( !box.some( isNaN ) );
-  return ( _.arrayLike( box ) || _.vectorIs( box ) ) && ( box.length >= 0 ) && ( box.length % 2 === 0 );
+  return ( _.longIs( box ) || _.vectorIs( box ) ) && ( box.length >= 0 ) && ( box.length % 2 === 0 );
 }
 
 //
