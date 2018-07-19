@@ -1930,7 +1930,6 @@ function fromMatrix2( dstEuler, srcMatrix )
     }
     else if( m10 <= - 1 )
     {
-      logger.log('Gimbal -1');
       var m21 = srcMatrix.atomGet( [ 2, 1 ] );
       var m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 2, 0 );
@@ -1939,7 +1938,6 @@ function fromMatrix2( dstEuler, srcMatrix )
     }
     else if( m10 >= 1 )
     {
-      logger.log('Gimbal 1');
       var m21 = srcMatrix.atomGet( [ 2, 1 ] );
       var m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 2, 0 );
@@ -2272,7 +2270,6 @@ function toMatrix2( dstMatrix, srcEuler )
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    logger.log('xzy sourceEULER', srcEuler);
     dstMatrix.atomSet( [ 0, 0 ], ce2*ce3 );
     dstMatrix.atomSet( [ 0, 1 ], - se2 );
     dstMatrix.atomSet( [ 0, 2 ], ce2*se3 );
@@ -2299,7 +2296,6 @@ function toMatrix2( dstMatrix, srcEuler )
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    logger.log(120);
     dstMatrix.atomSet( [ 0, 0 ], ce1*ce2 );
     dstMatrix.atomSet( [ 0, 1 ], - ce1*se2*ce3 + se1*se3 );
     dstMatrix.atomSet( [ 0, 2 ], ce1*se2*se3 + se1*ce3 );

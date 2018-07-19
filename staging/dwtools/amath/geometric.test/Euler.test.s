@@ -2626,7 +2626,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
   var quat2b = _.quat.make();
 
   // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  //var angles = [ 0, Math.PI/2, Math.PI ];
+  //var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   // var quadrants = [ 0 ];
   // var quadrantsLocked = [ 0 ];
   // var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
@@ -2676,9 +2676,8 @@ eulerToQuatToMatrixToQuatSlow.usingSourceCode = 0;
 eulerToQuatToMatrixToQuatSlow.rapidity = 3;
 
 //
-//
 
-function eulerToQuatToMatrixToEulerFast( test )
+function eulerToQuatToMatrixToEulerSlow( test )
 {
 
   var accuracy =  test.accuracy;
@@ -2690,31 +2689,31 @@ function eulerToQuatToMatrixToEulerFast( test )
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
 
-  // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-  var representations = [ 'xyz' ];
-  //var angles = [ 0, Math.PI/2, Math.PI ];
-  // var quadrants = [ 0 ];
+  var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  // var representations = [ 'xyz' ];
+  // var angles = [ 0 ];
   // var quadrantsLocked = [ 0 ];
-  // var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
-  var deltas = [ -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
+   var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
+  // var deltas = [ -Math.sqrt( accuracy ), +Math.sqrt( accuracy ) ];
   // var deltasLocked = [ 0 ];
   // var euler = [ 0, 0, 0, 0, 0, 0 ];
-  var anglesLocked = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  var anglesLocked = [ Math.PI / 6 ];
 
   /* */
 
   var o =
   {
-    representations : representations,
-    //angles : angles,
-    //quadrants : quadrants,
+    // representations : representations,
+    // angles : angles,
+    // quadrants : quadrants,
     // quadrantsLocked : quadrantsLocked,
     deltas : deltas,
-    anglesLocked : anglesLocked,
+    // anglesLocked : anglesLocked,
     onEach : onEach,
     dst : euler1,
   }
 
+  var fails = 0;
   this.eachAngle( o );
 
   /* */
@@ -2733,10 +2732,16 @@ function eulerToQuatToMatrixToEulerFast( test )
     eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
     eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
 
-    console.log( eq );
-    console.log( 'quat1:',quat1[ 0 ], quat1[ 1 ], quat1[ 2 ], quat1[ 3 ] );
-    console.log( 'quat2:',quat2[ 0 ], quat2[ 1 ], quat2[ 2 ], quat2[ 3 ] );
-    console.log( 'euler1:',euler1[ 0 ], euler1[ 1 ], euler1[ 2 ], euler1[ 3 ], euler1[ 4 ], euler1[ 5 ] );
+    if( eq === false )
+    {
+      fails = fails+1;
+      logger.log( 'quat1:',quat1[ 0 ], quat1[ 1 ], quat1[ 2 ], quat1[ 3 ] );
+      logger.log( 'quat2:',quat2[ 0 ], quat2[ 1 ], quat2[ 2 ], quat2[ 3 ] );
+      logger.log( 'euler1:',euler1[ 0 ], euler1[ 1 ], euler1[ 2 ], euler1[ 3 ], euler1[ 4 ], euler1[ 5 ] );
+      logger.log( 'euler2:',euler2[ 0 ], euler2[ 1 ], euler2[ 2 ], euler2[ 3 ], euler2[ 4 ], euler2[ 5 ] );
+      logger.log( matrix1 );
+      logger.log( fails );
+    }
 
     test.is( eq );
 
@@ -2744,9 +2749,10 @@ function eulerToQuatToMatrixToEulerFast( test )
 
 }
 
-eulerToQuatToMatrixToQuatSlow.timeOut = 200000;
-eulerToQuatToMatrixToQuatSlow.usingSourceCode = 0;
-eulerToQuatToMatrixToQuatSlow.rapidity = 3;
+eulerToQuatToMatrixToEulerSlow.timeOut = 80000;
+eulerToQuatToMatrixToEulerSlow.usingSourceCode = 0;
+eulerToQuatToMatrixToEulerSlow.rapidity = 3;
+eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-5, 1e-1 ];
 
 //
 
@@ -3262,9 +3268,9 @@ var Self =
 {
 
   name : 'Tools/Math/Euler',
-  silencing : 1,
+  silencing : 0,
   enabled : 1,
-  // routine: 'representFullCoverage',
+  routine: 'eulerToQuatToMatrixToEulerSlow',
 
   context :
   {
@@ -3303,8 +3309,8 @@ var Self =
     /* takes 140 seconds */
     eulerToQuatToMatrixToQuatSlow : eulerToQuatToMatrixToQuatSlow,
 
-    /* takes 12 seconds */
-    //eulerToQuatToMatrixToEulerFast : eulerToQuatToMatrixToEulerFast,
+    /* takes 50 seconds - accuracy is 1E-5 */
+    eulerToQuatToMatrixToEulerSlow : eulerToQuatToMatrixToEulerSlow,
 
     represent : represent, /* qqq : clean me */
 
