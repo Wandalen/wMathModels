@@ -2227,7 +2227,7 @@ function fromMatrix2( dstEuler, srcMatrix )
 
 /* qqq : make similar to other converters */
 
-function toMatrix2( dstMatrix, srcEuler )
+function toMatrix2( srcEuler, dstMatrix )
 {
 
   var srcEuler = _.euler.from( srcEuler );
