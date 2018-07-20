@@ -1677,9 +1677,6 @@ function toQuat2( srcEuler, dstQuat )
 
   /* qqq : not optimal */
 
-  var s0p = sin( ( e0 + e2 )/2 ); var c0p = cos( ( e0 + e2 )/2 );
-  var s0n = sin( ( e0 - e2 )/2 ); var c0n = cos( ( e0 - e2 )/2 );
-
   if( ox === 0 && oy === 1 && oz === 2 )
   {
     dstQuatVector.eSet( 0, s0*c1*c2 + c0*s1*s2 );
@@ -1698,18 +1695,24 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    dstQuatVector.eSet( 0, s0p*c1 );
-    dstQuatVector.eSet( 1, c0n*s1 );
-    dstQuatVector.eSet( 2, s0n*s1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, sin( sum )*c1 );
+    dstQuatVector.eSet( 1, cos( dif )*s1 );
+    dstQuatVector.eSet( 2, sin( dif )*s1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    dstQuatVector.eSet( 0, s0p*c1 );
-    dstQuatVector.eSet( 1, - s0n*s1 );
-    dstQuatVector.eSet( 2, c0n*s1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, sin( sum )*c1 );
+    dstQuatVector.eSet( 1, - sin( dif )*s1 );
+    dstQuatVector.eSet( 2, cos( dif )*s1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 2 )
@@ -1730,18 +1733,24 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    dstQuatVector.eSet( 0, c0n*s1 );
-    dstQuatVector.eSet( 1, s0p*c1 );
-    dstQuatVector.eSet( 2, - s0n*s1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, cos( dif )*s1 );
+    dstQuatVector.eSet( 1, sin( sum )*c1 );
+    dstQuatVector.eSet( 2, - sin( dif )*s1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    dstQuatVector.eSet( 0, s0n*s1 );
-    dstQuatVector.eSet( 1, s0p*c1 );
-    dstQuatVector.eSet( 2, c0n*s1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, sin( dif )*s1 );
+    dstQuatVector.eSet( 1, sin( sum )*c1 );
+    dstQuatVector.eSet( 2, cos( dif )*s1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 0 )
@@ -1762,18 +1771,24 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    dstQuatVector.eSet( 0, c0n*s1 );
-    dstQuatVector.eSet( 1, s0n*s1 );
-    dstQuatVector.eSet( 2, s0p*c1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, cos( dif )*s1 );
+    dstQuatVector.eSet( 1, sin( dif )*s1 );
+    dstQuatVector.eSet( 2, sin( sum )*c1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    dstQuatVector.eSet( 0, - s0n*s1 );
-    dstQuatVector.eSet( 1, c0n*s1 );
-    dstQuatVector.eSet( 2, s0p*c1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, - sin( dif )*s1 );
+    dstQuatVector.eSet( 1, cos( dif )*s1 );
+    dstQuatVector.eSet( 2, sin( sum )*c1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
   else _.assert( 0 );
 
