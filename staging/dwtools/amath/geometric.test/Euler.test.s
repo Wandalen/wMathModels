@@ -2756,86 +2756,6 @@ eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-5, 1e-1 ];
 
 //
 
-function eachAngle( o )
-{
-
-  _.assert( arguments.length === 1, 'expects single argument' );
-  _.routineOptions( eachAngle, o );
-
-  /**/
-
-  // o.angles = o.angles.slice( 0, 1 );
-  // o.quadrants = o.quadrants.slice( 0, 1 );
-  // o.quadrantsLocked = o.quadrantsLocked.slice( 0, 1 );
-  // o.deltas = o.deltas.slice( 0, 1 );
-  // o.deltasLocked = o.deltasLocked.slice( 0, 1 );
-
-  /**/
-
-  // o.angles = o.angles;
-  // o.quadrants = o.quadrants;
-  // o.quadrantsLocked = o.quadrantsLocked;
-  // o.deltas = o.deltas.slice( 0,1 );
-  // o.deltasLocked = o.deltasLocked.slice( 0,1 );
-
-  /**/
-
-  var euler = _.euler.from( o.dst );
-  for( var r = 0; r < o.representations.length; r++ )
-  {
-    var representation = o.representations[ r ];
-    _.euler.representationSet( euler, representation );
-    for( var ang1 = 0; ang1 < o.angles.length; ang1++ )
-    {
-      for( var quad1 = 0; quad1 < o.quadrants.length; quad1++ )
-      {
-        for( var d = 0; d < o.deltas.length; d++ )
-        {
-          euler[ 0 ] = o.angles[ ang1 ] + o.quadrants[ quad1 ]*Math.PI/2 + o.deltas[ d ];
-          for( var ang2 = ang1; ang2 < o.angles.length; ang2++ )
-          {
-            for( var quad2 = quad1; quad2 < o.quadrants.length; quad2++ )
-            {
-              for( var d2 = 0; d2 < o.deltas.length; d2++ )
-              {
-                euler[ 1 ] = o.angles[ ang2 ] + o.quadrants[ quad2 ]*Math.PI/2 + o.deltas[ d2 ];
-                for( var ang3 = 0; ang3 < o.anglesLocked.length; ang3++ )
-                {
-                  for( var quad3 = 0; quad3 < o.quadrantsLocked.length; quad3++ )
-                  {
-                    for( var d3 = 0; d3 < o.deltasLocked.length; d3++ )
-                    {
-                      euler[ 2 ] = o.anglesLocked[ ang3 ] + o.quadrantsLocked[ quad3 ]*Math.PI/2 + o.deltasLocked[ d3 ];
-                      o.onEach( euler );
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-}
-
-eachAngle.defaults =
-{
-  representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
-  angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
-  anglesLocked : [ 0, Math.PI / 3 ],
-  quadrants : [ 0, 1, 2, 3 ],
-  quadrantsLocked : [ 0 ],
-  deltas : null,
-  deltasLocked : [ 0 ],
-  onEach : null,
-  dst : null,
-}
-
-
-//
-
 function represent( test )
 {
 
@@ -3328,6 +3248,287 @@ representFullCoverageSlow.usingSourceCode = 0;
 representFullCoverageSlow.rapidity = 1;
 
 //
+
+function isGimbalLock( test )
+{
+
+  test.case = 'Euler remains unchanged'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldSrcEuler = srcEuler.slice();
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( oldSrcEuler, srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XYZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XZY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YXZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YZX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZXY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZYX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XYX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XZX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YXY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YZY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZXZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZYZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XYZ'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XZY'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YXZ'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YZX'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZXY'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZYX'; //
+
+  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XYX'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 2, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XZX'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YXY'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YZY'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZXZ'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZYZ'; //
+
+  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [ 0, 0, 0, 1, 2, 0 ], [ 1, 2, 0, 1, 2, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [ 0, 0, 0, 1, 2, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [ 1, 2, 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [ 0, 0.2, 0, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( 'eulerAngle' ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( NaN ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( null ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( undefined ) );
+
+}
+
+//
+
+function eachAngle( o )
+{
+
+  _.assert( arguments.length === 1, 'expects single argument' );
+  _.routineOptions( eachAngle, o );
+
+  /**/
+
+  // o.angles = o.angles.slice( 0, 1 );
+  // o.quadrants = o.quadrants.slice( 0, 1 );
+  // o.quadrantsLocked = o.quadrantsLocked.slice( 0, 1 );
+  // o.deltas = o.deltas.slice( 0, 1 );
+  // o.deltasLocked = o.deltasLocked.slice( 0, 1 );
+
+  /**/
+
+  // o.angles = o.angles;
+  // o.quadrants = o.quadrants;
+  // o.quadrantsLocked = o.quadrantsLocked;
+  // o.deltas = o.deltas.slice( 0,1 );
+  // o.deltasLocked = o.deltasLocked.slice( 0,1 );
+
+  /**/
+
+  var euler = _.euler.from( o.dst );
+  for( var r = 0; r < o.representations.length; r++ )
+  {
+    var representation = o.representations[ r ];
+    _.euler.representationSet( euler, representation );
+    for( var ang1 = 0; ang1 < o.angles.length; ang1++ )
+    {
+      for( var quad1 = 0; quad1 < o.quadrants.length; quad1++ )
+      {
+        for( var d = 0; d < o.deltas.length; d++ )
+        {
+          euler[ 0 ] = o.angles[ ang1 ] + o.quadrants[ quad1 ]*Math.PI/2 + o.deltas[ d ];
+          for( var ang2 = ang1; ang2 < o.angles.length; ang2++ )
+          {
+            for( var quad2 = quad1; quad2 < o.quadrants.length; quad2++ )
+            {
+              for( var d2 = 0; d2 < o.deltas.length; d2++ )
+              {
+                euler[ 1 ] = o.angles[ ang2 ] + o.quadrants[ quad2 ]*Math.PI/2 + o.deltas[ d2 ];
+                for( var ang3 = 0; ang3 < o.anglesLocked.length; ang3++ )
+                {
+                  for( var quad3 = 0; quad3 < o.quadrantsLocked.length; quad3++ )
+                  {
+                    for( var d3 = 0; d3 < o.deltasLocked.length; d3++ )
+                    {
+                      euler[ 2 ] = o.anglesLocked[ ang3 ] + o.quadrantsLocked[ quad3 ]*Math.PI/2 + o.deltasLocked[ d3 ];
+                      o.onEach( euler );
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+eachAngle.defaults =
+{
+  representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
+  angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
+  anglesLocked : [ 0, Math.PI / 3 ],
+  quadrants : [ 0, 1, 2, 3 ],
+  quadrantsLocked : [ 0 ],
+  deltas : null,
+  deltasLocked : [ 0 ],
+  onEach : null,
+  dst : null,
+}
+
+//
+
+//
 //
 //
 // _.include( 'wConsequence' );
@@ -3347,7 +3548,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 0,
   enabled : 1,
-  routine: 'representFullCoverageFast',
+  routine: 'isGimbalLock',
 
   context :
   {
@@ -3397,6 +3598,7 @@ var Self =
     /* takes 110 seconds */
     representFullCoverageSlow : representFullCoverageSlow,
 
+    isGimbalLock : isGimbalLock,
   },
 
 }

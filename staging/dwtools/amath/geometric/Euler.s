@@ -2483,7 +2483,7 @@ function represent( dstEuler, representation )
   *
   * @example
   * // returns false
-  * _.isGimbalLock( [ 0, 0, 0, 2, 1, 0 ] );
+  * _.isGimbalLock( [ 0, 0, 0, 0, 1, 2 ] );
   *
   * @returns { Bool } Returns true if there is Gimbal Lock, false if not.
   * @function isGimbalLock
@@ -2499,6 +2499,7 @@ function isGimbalLock( srcEuler )
   _.assert( _.euler.is( srcEuler ) );
 
   var srcEuler = _.euler.from( srcEuler );
+  var srcEulerVector = _.vector.fromArray( srcEuler );
   var accuracy =  _.accuracy;
   var accuracySqr = _.accuracySqr;
 
@@ -2511,9 +2512,9 @@ function isGimbalLock( srcEuler )
   var xy2 = 2*x*y; var xz2 = 2*x*z; var xw2 = 2*x*w;
   var yz2 = 2*y*z; var yw2 = 2*y*w; var zw2 = 2*z*w;
 
-  var ox = dstEulerVector.eGet( 3 );
-  var oy = dstEulerVector.eGet( 4 );
-  var oz = dstEulerVector.eGet( 5 );
+  var ox = srcEulerVector.eGet( 3 );
+  var oy = srcEulerVector.eGet( 4 );
+  var oz = srcEulerVector.eGet( 5 );
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
@@ -2717,6 +2718,10 @@ function isGimbalLock( srcEuler )
     {
       return true;
     }
+  }
+  else
+  {
+    throw _.err( 'Not an Euler Representation.' );
   }
 
 }
