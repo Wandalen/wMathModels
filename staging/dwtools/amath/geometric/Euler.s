@@ -185,15 +185,25 @@ function representationSet( dstEuler, representation )
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  if( _.arrayIs( representation ) &&
-      ( representation[ 0 ] === 0 || representation[ 0 ] === 1 || representation[ 0 ] === 2 ) &&
-      ( representation[ 1 ] === 0 || representation[ 1 ] === 1 || representation[ 1 ] === 2 ) &&
-      ( representation[ 2 ] === 0 || representation[ 2 ] === 1 || representation[ 2 ] === 2 ) )
+  if( _.arrayIs( representation ) )
   {
     _.assert( representation.length === 3 );
-    dstEulerVector.eSet( 3, representation[ 0 ] );
-    dstEulerVector.eSet( 4, representation[ 1 ] );
-    dstEulerVector.eSet( 5, representation[ 2 ] );
+    var rep = true;
+    for( var i = 0; i < 3; i++ )
+    {
+      if( representation[ i ] !== 0 && representation[ i ] !== 1 && representation[ i ] !== 2 )
+      {
+        rep = false;
+      }
+    }
+
+    if( rep )
+    {
+      dstEulerVector.eSet( 3, representation[ 0 ] );
+      dstEulerVector.eSet( 4, representation[ 1 ] );
+      dstEulerVector.eSet( 5, representation[ 2 ] );
+    }
+    else _.assert( 0, 'Not an Euler Representation' );
   }
   else if( _.strIs( representation ) )
   {
@@ -1298,8 +1308,6 @@ function fromQuat2( dstEuler, srcQuat )
   var accuracy =  _.accuracy;
   var accuracySqr = _.accuracySqr;
 
-  var ex,ey,ez;
-
   var x = srcQuatVector.eGet( 0 ); var x2 = x*x;
   var y = srcQuatVector.eGet( 1 ); var y2 = y*y;
   var z = srcQuatVector.eGet( 2 ); var z2 = z*z;
@@ -1567,9 +1575,9 @@ function fromQuat2( dstEuler, srcQuat )
     var lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-        dstEulerVector.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
-        dstEulerVector.eSet( 1, acos( lim ) );
-        dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), - ( yz2 - xw2 ) ) );
+      dstEulerVector.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
+      dstEulerVector.eSet( 1, acos( lim ) );
+      dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), - ( yz2 - xw2 ) ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
@@ -1799,7 +1807,6 @@ function toQuat2( srcEuler, dstQuat )
 
 function fromMatrix2( dstEuler, srcMatrix )
 {
-
   _.assert( arguments.length === 2 );
   _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
@@ -2461,6 +2468,260 @@ function represent( dstEuler, representation )
 
 }
 
+//
+
+
+/**
+  * Check if a set of Euler angles is in a Gimbal Lock situation. Returns true if there is Gimbal Lock.
+  * The Euler angles stay untouched.
+  *
+  * @param { Array } srcEuler - Source set of Euler angles.
+  *
+  * @example
+  * // returns true
+  * _.isGimbalLock( [ 0, 0, 0, 0, 1, 2 ] );
+  *
+  * @example
+  * // returns false
+  * _.isGimbalLock( [ 0, 0, 0, 2, 1, 0 ] );
+  *
+  * @returns { Bool } Returns true if there is Gimbal Lock, false if not.
+  * @function isGimbalLock
+  * @throws { Error } An Error if( arguments.length ) is different than one.
+  * @throws { Error } An Error if( srcEuler ) is not an Euler angle.
+  * @memberof wTools.euler
+  */
+
+function isGimbalLock( srcEuler )
+{
+
+  _.assert( arguments.length === 1 );
+  _.assert( _.euler.is( srcEuler ) );
+
+  var srcEuler = _.euler.from( srcEuler );
+  var accuracy =  _.accuracy;
+  var accuracySqr = _.accuracySqr;
+
+  var srcQuatVector = _.vector.fromArray( _.euler.toQuat2( srcEuler, null ) );
+  var x = srcQuatVector.eGet( 0 ); var x2 = x*x;
+  var y = srcQuatVector.eGet( 1 ); var y2 = y*y;
+  var z = srcQuatVector.eGet( 2 ); var z2 = z*z;
+  var w = srcQuatVector.eGet( 3 ); var w2 = w*w;
+
+  var xy2 = 2*x*y; var xz2 = 2*x*z; var xw2 = 2*x*w;
+  var yz2 = 2*y*z; var yw2 = 2*y*w; var zw2 = 2*z*w;
+
+  var ox = dstEulerVector.eGet( 3 );
+  var oy = dstEulerVector.eGet( 4 );
+  var oz = dstEulerVector.eGet( 5 );
+
+  if( ox === 0 && oy === 1 && oz === 2 )
+  {
+    var lim = xz2 + yw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 0 && oy === 2 && oz === 1 )
+  {
+    var lim = xy2 - zw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 1 && oy === 0 && oz === 2 )
+  {
+    var lim = yz2 - xw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= -1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 1 && oy === 2 && oz === 0 )
+  {
+    var lim = xy2 + zw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( ( xy2 + zw2 ) >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 2 && oy === 0 && oz === 1 )
+  {
+    var lim = yz2 + xw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 2 && oy === 1 && oz === 0 )
+  {
+    var lim = xz2 - yw2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracy*accuracy )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracy*accuracy)
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 0 && oy === 1 && oz === 0 )
+  {
+    var lim = x2 + w2 - z2 - y2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 0 && oy === 2 && oz === 0 )
+  {
+    var lim = x2 + w2 - z2 - y2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr)
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 1 && oy === 0 && oz === 1 )
+  {
+    var lim = y2 - z2 + w2 - x2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 1 && oy === 2 && oz === 1 )
+  {
+    var lim = y2 - z2 + w2 - x2;
+    if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 2 && oy === 0 && oz === 2 )
+  {
+    var lim = z2 - x2 - y2 + w2;
+    if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= - 1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+  else if( ox === 2 && oy === 1 && oz === 2 )
+  {
+    var lim = z2 - x2 - y2 + w2;
+    if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
+    {
+      return false;
+    }
+    else if( lim <= -1 + accuracySqr )
+    {
+      return true;
+    }
+    else if( lim >= 1 - accuracySqr )
+    {
+      return true;
+    }
+  }
+
+}
+
+
 // --
 // define class
 // --
@@ -2491,6 +2752,7 @@ var Proto =
   toMatrix2 : toMatrix2,
 
   represent : represent,
+  isGimbalLock : isGimbalLock,
 
   // Order : Order,
 
