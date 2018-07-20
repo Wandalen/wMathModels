@@ -2673,11 +2673,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
 
 eulerToQuatToMatrixToQuatSlow.timeOut = 200000;
 eulerToQuatToMatrixToQuatSlow.usingSourceCode = 0;
-<<<<<<< HEAD
-eulerToQuatToMatrixToQuatSlow.rapidity = 1;
-=======
 eulerToQuatToMatrixToQuatSlow.rapidity = 2;
->>>>>>> upstream/master
 
 //
 
@@ -2756,11 +2752,7 @@ function eulerToQuatToMatrixToEulerSlow( test )
 
 eulerToQuatToMatrixToEulerSlow.timeOut = 80000;
 eulerToQuatToMatrixToEulerSlow.usingSourceCode = 0;
-<<<<<<< HEAD
-eulerToQuatToMatrixToEulerSlow.rapidity = 1;
-=======
 eulerToQuatToMatrixToEulerSlow.rapidity = 2;
->>>>>>> upstream/master
 eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-5, 1e-1 ];
 
 //
@@ -3130,19 +3122,11 @@ function representFullCoverageFast( test )
   var representationsFull = [ 'xyz', 'yzx', 'zxy', 'xyx', 'yzy', 'zyz', [ 0, 2, 1 ], [ 1, 0, 2 ], [ 2, 1, 0 ], [ 0, 2, 0 ], [ 1, 2, 1 ], [ 2, 0, 2 ] ];
 
   // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
-<<<<<<< HEAD
-  var angles = [ 0, Math.PI / 6, Math.PI / 4 ];
-  // var quadrants = [ 0, 3 ];
-  var quadrantsLocked = [ 0 ];
-  // var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
-  var deltas = [ -( accuracySqr ), +Math.sqrt( accuracy ) ];
-=======
   // var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   // var quadrants = [ 0, 1, 2, 3 ];
   // var quadrantsLocked = [ 0 ];
   // var deltas = [ -0.1, -accuracySqrt, -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
   var deltas = [ -accuracySqr, 0, +accuracySqr, +0.1 ];
->>>>>>> upstream/master
   // var deltasLocked = [ 0 ];
   var anglesLocked = [ Math.PI / 3 ];
 
@@ -3531,7 +3515,6 @@ function eachAngle( o )
 
 }
 
-<<<<<<< HEAD
 eachAngle.defaults =
 {
   representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
@@ -3544,13 +3527,6 @@ eachAngle.defaults =
   onEach : null,
   dst : null,
 }
-
-//
-=======
-representFullCoverage.timeOut = 150000;
-representFullCoverage.usingSourceCode = 0;
-representFullCoverage.rapidity = 2;
->>>>>>> upstream/master
 
 //
 //
@@ -3572,11 +3548,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 1,
   enabled : 1,
-<<<<<<< HEAD
-  routine: 'isGimbalLock',
-=======
   // routine : 'eulerToQuatToMatrixToEulerSlow',
->>>>>>> upstream/master
 
   context :
   {
