@@ -273,7 +273,7 @@ function pointDistance( plane , point )
   var _plane = _.plane._from( plane );
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
-  var _point = _.vector.fromArray( point );
+  var pointVector = _.vector.fromArray( point );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
@@ -314,12 +314,12 @@ function pointCoplanarGet( plane , point )
   if( !point )
   point = [ 0,0,0 ];
 
-  var _point = _.vector.fromArray( point );
+  var pointVector = _.vector.fromArray( point );
   var _plane = _.plane._from( plane.slice() );
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  var lambda = - (( _.vector.dot( normal , _point ) + bias ) / _.vector.dot( normal, normal ) ) ;
+  var lambda = - (( _.vector.dot( normal , pointVector ) + bias ) / _.vector.dot( normal, normal ) ) ;
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
   debugger;
@@ -327,9 +327,9 @@ function pointCoplanarGet( plane , point )
 
   var movement = _.vector.mulScalar( normal, lambda );
 
-  _point = _.avector.add( _point ,  movement  );
+  pointVector = _.avector.add( pointVector ,  movement  );
 
-  return _point;
+  return pointVector;
 }
 
 // function pointCoplanarGet( plane , point )
@@ -338,7 +338,7 @@ function pointCoplanarGet( plane , point )
 //  if( !point )
 //  point = [ 0,0,0 ];
 
-//  var _point = _.vector.fromArray( point );
+//  var pointVector = _.vector.fromArray( point );
 //  var _plane = _.plane._from( plane );
 //  var normal = _.plane.normalGet( _plane );
 //  var bias = _.plane.biasGet( _plane );
@@ -347,8 +347,8 @@ function pointCoplanarGet( plane , point )
 //  debugger;
 //  throw _.err( 'not tested' );
 
-//  _.avector.assign( _point , normal  );
-//  _.avector.mulScalar( _point, -bias );
+//  _.avector.assign( pointVector , normal  );
+//  _.avector.mulScalar( pointVector, -bias );
 
 //  return point
 //  }
@@ -471,10 +471,10 @@ function boxIntersects( plane , srcBox )
   var bool = false;
   var _plane = _.plane._from( plane );
   var dimP = _.plane.dimGet( _plane );
-  var boxv = _.box._from( srcBox );
-  var dimB = _.box.dimGet( boxv );
-  var min = _.box.cornerLeftGet( boxv );
-  var max = _.box.cornerRightGet( boxv );
+  var boxVector = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
 
   _.assert( dimP === dimB );
 
@@ -867,10 +867,12 @@ var Proto =
 
   pointDistance : pointDistance,
   pointCoplanarGet : pointCoplanarGet,
+  // pointClosestPoint : pointClosestPoint, /* qqq : imeplement me */
 
   sphereDistance : sphereDistance,
   sphereIntersects : sphereIntersects,
-  boxIntersects: boxIntersects,
+
+  boxIntersects : boxIntersects,
 
   lineIntersects : lineIntersects,
   lineIntersection : lineIntersection,

@@ -211,11 +211,11 @@ function fromPoints( sphere, points )
 function fromBox( sphere, box )
 {
 
-  var boxv = _.box._from( box );
-  var dim = _.box.dimGet( boxv );
-  var min = _.box.cornerLeftGet( boxv );
-  var max = _.box.cornerRightGet( boxv );
-  var size = _.box.sizeGet( boxv );
+  var boxVector = _.box._from( box );
+  var dim = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
+  var size = _.box.sizeGet( boxVector );
 
   if( sphere === null )
   sphere = _.sphere.make( dim );
@@ -529,7 +529,7 @@ function pointDistance( sphere,point )
 
 //
 
-function pointClamp( sphere, point )
+function pointClosestPoint( sphere, point )
 {
 
   var spherev = _.sphere._from( sphere );
@@ -738,18 +738,18 @@ function boxIntersects( sphere, box )
   var radius = _.sphere.radiusGet( _sphere );
   var dimS = _.sphere.dimGet( _sphere );
 
-  var boxv = _.box._from( box );
-  var dimB = _.box.dimGet( boxv );
+  var boxVector = _.box._from( box );
+  var dimB = _.box.dimGet( boxVector );
 
   _.assert( dimS === dimB, 'Arguments must have same dimension' );
 
-  if( _.box.pointContains( boxv, center ) === true )
+  if( _.box.pointContains( boxVector, center ) === true )
   {
     return true;
   }
   else
   {
-    var distance = _.box.pointDistance( boxv, center );
+    var distance = _.box.pointDistance( boxVector, center );
     console.log( distance );
     if( distance <= radius )
     {
@@ -791,10 +791,10 @@ function boxExpand( dstSphere, srcBox )
   var radius = _.sphere.radiusGet( _sphere );
   var dimS = _.sphere.dimGet( _sphere );
 
-  var boxv = _.box._from( srcBox );
-  var dimB = _.box.dimGet( boxv );
-  var min = _.box.cornerLeftGet( boxv );
-  var max = _.box.cornerRightGet( boxv );
+  var boxVector = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
 
   _.assert( dimS === dimB );
 
@@ -906,13 +906,19 @@ var Proto =
 
   pointContains : pointContains,
   pointDistance : pointDistance,
-  pointClamp : pointClamp,
+  pointClosestPoint : pointClosestPoint,
   pointExpand : pointExpand,
+  // pointClosestPoint : pointClosestPoint, /* qqq : imeplement me */
 
   sphereExpand : sphereExpand,
   sphereIntersects : sphereIntersects,
+  // sphereContains : sphereContains, /* qqq : imeplement me */
+  // sphereDistance : sphereDistance, /* qqq : imeplement me */
+
   boxIntersects : boxIntersects,
   boxExpand : boxExpand,
+  // boxContains : boxContains, /* qqq : imeplement me */
+  // boxDistance : boxDistance, /* qqq : imeplement me */
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
