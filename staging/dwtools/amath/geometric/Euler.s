@@ -3,44 +3,6 @@
 'use strict';
 
 /*
-
-qqq
-
-- CC
-
-if (
-
-- conversion case
-
-  {
-    return 0;
-  }
-
-- not good enough accuracy of const!
-
-- adjust converters according to make similar to toQuat2
-
-  fromQuat2 : fromQuat2,
-  fromMatrix2 : fromMatrix2,
-  toMatrix2 : toMatrix2,
-  ...
-
-- not good enough names
-function fromMatrix2( mat, dst )
-var eulerv = _.vector.from( euler );
-
-- not optimal
-
-- remove multiline if
-
-- first argument dst convention
-
-- play
-_.avector.sub( dst,[ 3,4,5 ],[ 6,7,8 ] )
-_.avector.sub( null, dst,[ 3,4,5 ],[ 6,7,8 ] )
-
-- do by analogy ( toQuat2 )
-
 */
 
 var _ = _global_.wTools;
@@ -2226,6 +2188,7 @@ function fromMatrix2( dstEuler, srcMatrix )
   */
 
 /* qqq : make similar to other converters */
+/* qqq : because of name dstMatrix should be the second argument */
 
 function toMatrix2( dstMatrix, srcEuler )
 {

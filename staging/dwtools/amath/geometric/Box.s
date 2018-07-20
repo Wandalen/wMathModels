@@ -16,6 +16,13 @@ qqq : make sure all routines in all files of such kind in order
   *ClosestPoint : *ClosestPoint,
   *Expand : *Expand,
 
+- *Distance returns 0 if intersection
+- _.*.*ClosestPoint does not accept undefines or null
+- _.*.pointClosestPoint writes result into 2-nd argument
+- other _.*.*ClosestPoint makes new Array for result
+- no need in _.frustum.*Expand
+- no need in _.*.pointIntersects
+
 */
 
 // --
