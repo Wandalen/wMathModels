@@ -249,241 +249,6 @@ function cornersGet( srcfrustum )
 //
 
 /**
-  * Check if a frustum intersects with another frustum. Returns true if they intersect.
-  * Both frustums remain unchanged.
-  *
-  * @param { Frustum } srcfrustum - Source frustum.
-  * @param { Frustum } testfrustum - Frustum to test if it intersects.
-  *
-  * @example
-  * // returns true;
-  * var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
-  *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  *   );
-  * var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
-  *   ([
-  *    0,   0,   0,   0, - 1,   1,
-  *    1, - 1,   0,   0,   0,   0,
-  *    0,   0,   1, - 1,   0,   0,
-  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
-  *   );
-  * _.frustumIntersects( srcfrustum , testfrustum );
-  *
-  * @returns { Boolean } Returns true if the frustums intersect.
-  * @function frustumIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( frustum ) is not frustum.
-  * @memberof wTools.frustum
-  */
-
-function frustumIntersects( srcfrustum , testfrustum )
-{
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( srcfrustum ) );
-  _.assert( _.frustum.is( testfrustum ) );
-  debugger;
-
-  var points = _.frustum.cornersGet( srcfrustum );
-
-  for( var i = 0 ; i < points.length ; i += 1 )
-  {
-    var point = points.colVectorGet( i );
-    var c = _.frustum.pointContains( testfrustum, point );
-    if( c == true )
-    return true;
-
-  }
-
-  var points2 = _.frustum.cornersGet( testfrustum );
-
-  for( var i = 0 ; i < points2.length ; i += 1 )
-  {
-    var point = points2.colVectorGet( i );
-    var c = _.frustum.pointContains( srcfrustum, point );
-    if( c == true )
-    return true;
-
-  }
-
-  return false;
-}
-
-//
-
-/**
-  * Check if a frustum and a sphere intersect. Returns true if they intersect.
-  * Frustum and sphere remain unchanged.
-  *
-  * @param { Frustum } frustum - Source frustum.
-  * @param { Sphere } sphere - Source sphere.
-  *
-  * @example
-  * // returns false;
-  * _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
-  **
-  * @returns { Boolean } Returns true if the frustum and the sphere intersect.
-  * @function sphereIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( frustum ) is not frustum.
-  * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.frustum
-  */
-
-function sphereIntersects( frustum , sphere )
-{
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( frustum ) );
-
-  var center = _.sphere.centerGet( sphere );
-  var radius = _.sphere.radiusGet( sphere );
-
-  if( _.frustum.pointContains( frustum, _.vector.from( center )) == true )
-  {
-    return true;
-  }
-  else
-  {
-    var newc = _.vector.from( center.slice() );
-    var proj = _.frustum.pointClosestPoint( frustum, center );
-    var d = _.avector.distance( _.vector.toArray( proj ), _.vector.toArray( center ) );
-    if( d <= radius )
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-//
-
-/**
-  * Check if a frustum and a box intersect. Returns true if they intersect.
-  * Frustum and box remain unchanged.
-  *
-  * @param { Frustum } frustum - Source frustum.
-  * @param { Array } box - Source box.
-  *
-  * @example
-  * // returns false;
-  * _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
-  **
-  * @returns { Boolean } Returns true if the frustum and the box intersect.
-  * @function boxIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( frustum ) is not frustum.
-  * @throws { Error } An Error if ( box ) is not box.
-  * @memberof wTools.frustum
-  */
-
-function boxIntersects( frustum , box )
-{
-
-  var _box = _.box._from( box );
-  var dim1 = _.box.dimGet( _box );
-  var min1 = _.box.cornerLeftGet( _box );
-  var max1 = _.box.cornerRightGet( _box );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( frustum ) );
-  debugger;
-
-  var c0 = _.vector.from(_.vector.toArray( min1 ));
-  var c4 = _.vector.from(_.vector.toArray( max1 ));
-  var c0 = _.vector.toArray( c0 );
-  var c4 = _.vector.toArray( c4 );
-
-  var c1 = c0.slice(); c1[0] = c4[ 0 ];
-  var c2 = c0.slice(); c2[1] = c4[ 1 ];
-  var c3 = c0.slice(); c3[2] = c4[ 2 ];
-  var c5 = c0.slice(); c5[0] = c4[ 0 ]; c5[ 2 ] = c4[ 2 ];
-  var c6 = c0.slice(); c6[1] = c4[ 1 ]; c6[ 0 ] = c4[ 0 ];
-  var c7 = c0.slice(); c7[2] = c4[ 2 ]; c7[ 1 ] = c4[ 1 ];
-
-  if( _.frustum.pointContains( frustum, _.vector.from( c0.slice( ) ) ) == true )
-  {
-    return true;
-  }
-  if( _.frustum.pointContains( frustum, _.vector.from( c1.slice( ) ) ) == true )
-  {
-    return true;
-  }
-  if( _.frustum.pointContains( frustum, _.vector.from( c2.slice( ) ) ) == true )
-  {
-    return true;
-  }
-  if( _.frustum.pointContains( frustum, _.vector.from( c3.slice( ) ) ) == true )
-  {
-    return true;
-  }
-  if( _.frustum.pointContains( frustum, _.vector.from( c4.slice( ) ) ) == true )
-  {
-    return true;
-  }
-  if( _.frustum.pointContains( frustum, _.vector.from( c5.slice( ) ) ) == true )
-  {
-    return true;
-  }
-  if( _.frustum.pointContains( frustum, _.vector.from( c6.slice( ) ) ) == true )
-  {
-    return true;
-  }
-  if( _.frustum.pointContains( frustum, _.vector.from( c7.slice( ) ) ) == true )
-  {
-    return true;
-  }
-
-  var fpoints = _.frustum.cornersGet( frustum );
-  _.assert( _.spaceIs( fpoints ) );
-
-  for( var i = 0 ; i < 6 ; i += 1 )
-  {
-    var point = _.vector.toArray( fpoints.colVectorGet( i ) );
-    var point = _.vector.from( point );
-
-    if( _.box.pointContains( box, point ) == true )
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-//function boxIntersects( frustum , box )
-//{
-//
-//  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-//  _.assert( _.frustum.is( frustum ) );
-//  debugger;
-//
-//  var p1 = [];
-//  var p2 = [];
-//
-//  for( var i = 0 ; i < 6 ; i += 1 )
-//  {
-//    var plane = frustum.colVectorGet( i );
-//
-//    p1 = _.box.cornerLeftGet( box );
-//    p2 = _.box.cornerRightGet( box );
-//
-//    var d1 = _.plane.pointDistance( plane,p1 );
-//    var d2 = _.plane.pointDistance( plane,p2 );
-//
-//    if( d1 < 0 && d2 < 0 )
-//    return false;
-//
-//  }
-//
-//  return true;
-//}
-
-//
-
-/**
   * Check if a frustum contains a point. Returns true if it contains it.
   * Frustum and point remain unchanged.
   *
@@ -652,6 +417,127 @@ function pointClosestPoint( frustum , dstPoint )
 //
 
 /**
+  * Check if a frustum and a box intersect. Returns true if they intersect.
+  * Frustum and box remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
+  **
+  * @returns { Boolean } Returns true if the frustum and the box intersect.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.frustum
+  */
+
+function boxIntersects( frustum , box )
+{
+
+  var _box = _.box._from( box );
+  var dim1 = _.box.dimGet( _box );
+  var min1 = _.box.cornerLeftGet( _box );
+  var max1 = _.box.cornerRightGet( _box );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  debugger;
+
+  var c0 = _.vector.from(_.vector.toArray( min1 ));
+  var c4 = _.vector.from(_.vector.toArray( max1 ));
+  var c0 = _.vector.toArray( c0 );
+  var c4 = _.vector.toArray( c4 );
+
+  var c1 = c0.slice(); c1[0] = c4[ 0 ];
+  var c2 = c0.slice(); c2[1] = c4[ 1 ];
+  var c3 = c0.slice(); c3[2] = c4[ 2 ];
+  var c5 = c0.slice(); c5[0] = c4[ 0 ]; c5[ 2 ] = c4[ 2 ];
+  var c6 = c0.slice(); c6[1] = c4[ 1 ]; c6[ 0 ] = c4[ 0 ];
+  var c7 = c0.slice(); c7[2] = c4[ 2 ]; c7[ 1 ] = c4[ 1 ];
+
+  if( _.frustum.pointContains( frustum, _.vector.from( c0.slice( ) ) ) == true )
+  {
+    return true;
+  }
+  if( _.frustum.pointContains( frustum, _.vector.from( c1.slice( ) ) ) == true )
+  {
+    return true;
+  }
+  if( _.frustum.pointContains( frustum, _.vector.from( c2.slice( ) ) ) == true )
+  {
+    return true;
+  }
+  if( _.frustum.pointContains( frustum, _.vector.from( c3.slice( ) ) ) == true )
+  {
+    return true;
+  }
+  if( _.frustum.pointContains( frustum, _.vector.from( c4.slice( ) ) ) == true )
+  {
+    return true;
+  }
+  if( _.frustum.pointContains( frustum, _.vector.from( c5.slice( ) ) ) == true )
+  {
+    return true;
+  }
+  if( _.frustum.pointContains( frustum, _.vector.from( c6.slice( ) ) ) == true )
+  {
+    return true;
+  }
+  if( _.frustum.pointContains( frustum, _.vector.from( c7.slice( ) ) ) == true )
+  {
+    return true;
+  }
+
+  var fpoints = _.frustum.cornersGet( frustum );
+  _.assert( _.spaceIs( fpoints ) );
+
+  for( var i = 0 ; i < 6 ; i += 1 )
+  {
+    var point = _.vector.toArray( fpoints.colVectorGet( i ) );
+    var point = _.vector.from( point );
+
+    if( _.box.pointContains( box, point ) == true )
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+//function boxIntersects( frustum , box )
+//{
+//
+//  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+//  _.assert( _.frustum.is( frustum ) );
+//  debugger;
+//
+//  var p1 = [];
+//  var p2 = [];
+//
+//  for( var i = 0 ; i < 6 ; i += 1 )
+//  {
+//    var plane = frustum.colVectorGet( i );
+//
+//    p1 = _.box.cornerLeftGet( box );
+//    p2 = _.box.cornerRightGet( box );
+//
+//    var d1 = _.plane.pointDistance( plane,p1 );
+//    var d2 = _.plane.pointDistance( plane,p2 );
+//
+//    if( d1 < 0 && d2 < 0 )
+//    return false;
+//
+//  }
+//
+//  return true;
+//}
+
+//
+
+/**
   * Returns the closest point in a frustum to a box. Returns the coordinates of the closest point.
   * Frustum and box remain unchanged.
   *
@@ -742,6 +628,53 @@ function boxClosestPoint( frustum , box )
 //
 
 /**
+  * Check if a frustum and a sphere intersect. Returns true if they intersect.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Sphere } sphere - Source sphere.
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
+  **
+  * @returns { Boolean } Returns true if the frustum and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.frustum
+  */
+
+function sphereIntersects( frustum , sphere )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  var center = _.sphere.centerGet( sphere );
+  var radius = _.sphere.radiusGet( sphere );
+
+  if( _.frustum.pointContains( frustum, _.vector.from( center )) == true )
+  {
+    return true;
+  }
+  else
+  {
+    var newc = _.vector.from( center.slice() );
+    var proj = _.frustum.pointClosestPoint( frustum, center );
+    var d = _.avector.distance( _.vector.toArray( proj ), _.vector.toArray( center ) );
+    if( d <= radius )
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+//
+
+/**
   * Returns the closest point in a frustum to a sphere. Returns the coordinates of the closest point.
   * Frustum and sphere remain unchanged.
   *
@@ -785,6 +718,74 @@ function sphereClosestPoint( frustum , sphere )
 
 }
 
+//
+
+/**
+  * Check if a frustum intersects with another frustum. Returns true if they intersect.
+  * Both frustums remain unchanged.
+  *
+  * @param { Frustum } srcfrustum - Source frustum.
+  * @param { Frustum } testfrustum - Frustum to test if it intersects.
+  *
+  * @example
+  * // returns true;
+  * var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+  *   ([
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
+  *   );
+  * _.frustumIntersects( srcfrustum , testfrustum );
+  *
+  * @returns { Boolean } Returns true if the frustums intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @memberof wTools.frustum
+  */
+
+function frustumIntersects( srcfrustum , testfrustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcfrustum ) );
+  _.assert( _.frustum.is( testfrustum ) );
+  debugger;
+
+  var points = _.frustum.cornersGet( srcfrustum );
+
+  for( var i = 0 ; i < points.length ; i += 1 )
+  {
+    var point = points.colVectorGet( i );
+    var c = _.frustum.pointContains( testfrustum, point );
+    if( c == true )
+    return true;
+
+  }
+
+  var points2 = _.frustum.cornersGet( testfrustum );
+
+  for( var i = 0 ; i < points2.length ; i += 1 )
+  {
+    var point = points2.colVectorGet( i );
+    var c = _.frustum.pointContains( srcfrustum, point );
+    if( c == true )
+    return true;
+
+  }
+
+  return false;
+}
+
+
 // --
 // define class
 // --
@@ -800,21 +801,28 @@ var Proto =
 
   cornersGet : cornersGet,
 
-  frustumIntersects : frustumIntersects,
-
   pointContains : pointContains,
+  // pointDistance : pointDistance, /* qqq : implement me */
   pointClosestPoint : pointClosestPoint, /* qqq : review please */
-  // pointDistance : pointDistance, /* qqq : imeplement me */
 
-  // sphereContains : sphereContains, /* qqq : imeplement me */
+  // boxContains : boxContains, /* qqq : implement me */
+  boxIntersects : boxIntersects,
+  // boxDistance : boxDistance, /* qqq : implement me */
+  boxClosestPoint : boxClosestPoint,
+
+  // sphereContains : sphereContains, /* qqq : implement me */
   sphereIntersects : sphereIntersects,
-  // sphereDistance : sphereDistance, /* qqq : imeplement me */
+  // sphereDistance : sphereDistance, /* qqq : implement me */
   sphereClosestPoint : sphereClosestPoint,
 
-  boxIntersects : boxIntersects,
-  boxClosestPoint : boxClosestPoint,
-  // boxContains : boxContains, /* qqq : imeplement me */
-  // boxDistance : boxDistance, /* qqq : imeplement me */
+  // planeIntersects : planeIntersects, /* qqq : implement me */
+  // planeDistance : planeDistance, /* qqq : implement me */
+  // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
+
+  // frustumContains : frustumContains, /* qqq : implement me */
+  frustumIntersects : frustumIntersects,
+  // frustumDistance : frustumDistance, /* qqq : implement me */
+  // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
 
 }
 

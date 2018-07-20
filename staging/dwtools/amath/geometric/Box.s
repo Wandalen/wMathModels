@@ -688,52 +688,6 @@ function expand( box , expand )
 //
 
 /**
-  *Expand box by point. Returns the expanded box. Box are stored in Array data structure. Point stays untouched, dstBox changes.
-  *
-  * @param { Array } dstBox - box to be expanded.
-  * @param { Array } point - Point of reference with expansion dimensions.
-  *
-  * @example
-  * // returns [ 0, 0, 3, 3 ];
-  * _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
-  *
-  * @example
-  * // returns [ 0, 0, 2, 2 ];
-  * _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
-  *
-  * @returns { Array } Returns the array of the box expanded.
-  * @function pointExpand
-  * @throws { Error } An Error if ( dim ) is different than point.length (the box and the point don´t have the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( box ) is not box.
-  * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.box
-  */
-
-function pointExpand( dstBox , point )
-{
-
-  if( dstBox === null )
-  dstBox = _.box.makeNil();
-
-  var boxVector = _.box._from( dstBox );
-  var dim = _.box.dimGet( boxVector );
-  var min = _.box.cornerLeftGet( boxVector );
-  var max = _.box.cornerRightGet( boxVector );
-  var point = _.vector.from( point );
-
-  _.assert( dim === point.length );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  _.vector.minVectors( min , point );
-  _.vector.maxVectors( max , point );
-
-  return dstBox;
-}
-
-//
-
-/**
   * Check if a given point is contained inside a box. Returs true if it is contained, false if not. Point and box stay untouched.
   *
   * @param { Array } box - The box to check if the point is inside.
@@ -783,51 +737,48 @@ function pointContains( box , point )
 //
 
 /**
-  * Get the relative coordinates of a point regarding a given box. Returns the point in relative coordinates.
-  * Source box remains untouched.
+  *Calulate distance between point and box ( distance between point and nearest point in box ). Returns distance value.
+  * Point and box stay untouched.
   *
-  * @param { Array } box - Source box.
-  * @param { Array } point - The point to calculate its relative reference.
-  *
-  * @example
-  * // returns [ 0.5, 1 ]
-  * _.pointRelative( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+  * @param { Array } box - source box.
+  * @param { Array } point - source point.
   *
   * @example
-  * // returns [ - 1.5, 2 ]
-  * _.pointRelative( [ 0, 0, 2, 2 ], [ - 3, 4 ] );
+  * // returns 1;
+  * _.pointDistance( [ 0, 0, 2, 2 ], [ 0, 3 ] );
   *
-  * @returns { Array } Returns the relative coordinates of the point against the box coordinates.
-  * @function pointRelative
-  * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
+  * @example
+  * // returns 0;
+  * _.pointDistance( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+  *
+  * @returns { Number } Returns the distance between the point and the nearest point in the box.
+  * @function pointDistance
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the point and the box don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( box ) is not box.
-  * @throws { Error } An Error if ( point ) is not point.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( point ) is not point
   * @memberof wTools.box
   */
 
-function pointRelative( box , point )
+function pointDistance( box , point )
 {
 
   if( box === null )
   box = _.box.make();
 
-  var boxVector = _.box._from( box );
-  var dim = _.box.dimGet( boxVector );
-  var min = _.box.cornerLeftGet( boxVector );
-  var max = _.box.cornerRightGet( boxVector );
-  var pointVector = _.vector.from( point );
-
-  _.assert( dim === point.length );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   debugger;
-  // throw _.err( 'not tested' );
+  //  throw _.err( 'not tested' );
 
-  _.vector.divAssigning( _.vector.subAssigning( pointVector , min ) , _.vector.subAssigning( max.clone() , min ) );
+  var clamped = _.box.pointClosestPoint( box, point.slice() );
 
-  return point;
+  return _.avector.distance( point, clamped );
+
+  debugger;
 }
+
+//
 
 /**
   * Clamp a point to a box. Returns the clamped point. Box stays untouched, point gets clamped.
@@ -880,45 +831,96 @@ function pointClosestPoint( box , point )
 //
 
 /**
-  *Calulate distance between point and box ( distance between point and nearest point in box ). Returns distance value.
-  * Point and box stay untouched.
+  *Expand box by point. Returns the expanded box. Box are stored in Array data structure. Point stays untouched, dstBox changes.
   *
-  * @param { Array } box - source box.
-  * @param { Array } point - source point.
-  *
-  * @example
-  * // returns 1;
-  * _.pointDistance( [ 0, 0, 2, 2 ], [ 0, 3 ] );
+  * @param { Array } dstBox - box to be expanded.
+  * @param { Array } point - Point of reference with expansion dimensions.
   *
   * @example
-  * // returns 0;
-  * _.pointDistance( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+  * // returns [ 0, 0, 3, 3 ];
+  * _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
   *
-  * @returns { Number } Returns the distance between the point and the nearest point in the box.
-  * @function pointDistance
-  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the point and the box don´t have the same dimension).
+  * @example
+  * // returns [ 0, 0, 2, 2 ];
+  * _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+  *
+  * @returns { Array } Returns the array of the box expanded.
+  * @function pointExpand
+  * @throws { Error } An Error if ( dim ) is different than point.length (the box and the point don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( box ) is not box
-  * @throws { Error } An Error if ( point ) is not point
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( point ) is not point.
   * @memberof wTools.box
   */
 
-function pointDistance( box , point )
+function pointExpand( dstBox , point )
+{
+
+  if( dstBox === null )
+  dstBox = _.box.makeNil();
+
+  var boxVector = _.box._from( dstBox );
+  var dim = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
+  var point = _.vector.from( point );
+
+  _.assert( dim === point.length );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  _.vector.minVectors( min , point );
+  _.vector.maxVectors( max , point );
+
+  return dstBox;
+}
+
+//
+
+/**
+  * Get the relative coordinates of a point regarding a given box. Returns the point in relative coordinates.
+  * Source box remains untouched.
+  *
+  * @param { Array } box - Source box.
+  * @param { Array } point - The point to calculate its relative reference.
+  *
+  * @example
+  * // returns [ 0.5, 1 ]
+  * _.pointRelative( [ 0, 0, 2, 2 ], [ 1, 2 ] );
+  *
+  * @example
+  * // returns [ - 1.5, 2 ]
+  * _.pointRelative( [ 0, 0, 2, 2 ], [ - 3, 4 ] );
+  *
+  * @returns { Array } Returns the relative coordinates of the point against the box coordinates.
+  * @function pointRelative
+  * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.box
+  */
+
+function pointRelative( box , point )
 {
 
   if( box === null )
   box = _.box.make();
 
+  var boxVector = _.box._from( box );
+  var dim = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
+  var pointVector = _.vector.from( point );
+
+  _.assert( dim === point.length );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   debugger;
-  //  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
-  var clamped = _.box.pointClosestPoint( box, point.slice() );
+  _.vector.divAssigning( _.vector.subAssigning( pointVector , min ) , _.vector.subAssigning( max.clone() , min ) );
 
-  return _.avector.distance( point, clamped );
-
-  debugger;
+  return point;
 }
 
 //
@@ -1268,20 +1270,33 @@ var Proto =
   expand : expand,
 
   pointContains : pointContains,
-  pointClosestPoint : pointClosestPoint,
   pointDistance : pointDistance,
+  pointClosestPoint : pointClosestPoint,
   pointExpand : pointExpand,
   pointRelative : pointRelative,
 
-  boxExpand : boxExpand,
-  boxIntersects : boxIntersects,
   boxContains : boxContains,
-  // boxDistance : boxDistance, /* qqq : imeplement me */
+  boxIntersects : boxIntersects,
+  // boxDistance : boxDistance, /* qqq : implement me */
+  // boxClosestPoint : boxClosestPoint, /* qqq : implement me */
+  boxExpand : boxExpand,
 
-  // sphereExpand : sphereExpand, /* qqq : imeplement me */
-  // sphereIntersects : sphereIntersects, /* qqq : imeplement me */
-  // sphereContains : sphereContains, /* qqq : imeplement me */
-  // sphereDistance : sphereDistance, /* qqq : imeplement me */
+  // sphereContains : sphereContains, /* qqq : implement me */
+  // sphereIntersects : sphereIntersects, /* qqq : implement me */
+  // sphereDistance : sphereDistance, /* qqq : implement me */
+  // sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
+  // sphereExpand : sphereExpand, /* qqq : implement me */
+
+  // planeIntersects : planeIntersects, /* qqq : implement me */
+  // planeDistance : planeDistance, /* qqq : implement me */
+  // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
+  // planeExpand : planeExpand, /* qqq : implement me */
+
+  // frustumContains : frustumContains, /* qqq : implement me */
+  // frustumIntersects : frustumIntersects, /* qqq : implement me */
+  // frustumDistance : frustumDistance, /* qqq : implement me */
+  // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
+  // frustumExpand : frustumExpand, /* qqq : implement me */
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

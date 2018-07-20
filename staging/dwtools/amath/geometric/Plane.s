@@ -356,91 +356,6 @@ function pointCoplanarGet( plane , point )
 //
 
 /**
-  * Get the distance between a plane and a sphere. Returns the distance value.
-  * The sphere an the plane remain unchanged.
-  * If sphere and plane intersect, it returns a negative distance.
-  *
-  * @param { Array } plane - Source plane.
-  * @param { Array } sphere - Source sphere.
-  *
-  * @example
-  * // returns 1;
-  * _.sphereDistance( [ 0, 1, 0, 1 ] , [ 0, 0, 2, 1 ]);
-  *
-  * @returns { Number } Returns the distance from the sphere to the plane.
-  * @function sphereDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( plane ) is not plane.
-  * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.plane
-  */
-
-function sphereDistance( plane , sphere )
-{
-
-  var _plane = _.plane._from( plane );
-  var normal = _.plane.normalGet( _plane );
-  var bias = _.plane.biasGet( _plane );
-
-  var center = _.sphere.centerGet( sphere );
-  center = _.vector.from( center );
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  debugger;
-  //throw _.err( 'not tested' );
-
-  var d = _.plane.pointDistance( plane , center );
-  d = Math.abs( d ) - _.sphere.radiusGet( sphere );
-  return d;
-}
-
-//
-
-/**
-  * Check if a plane and a sphere intersect. Returns true if they intersect and false if not.
-  * The sphere and the plane remain unchanged.
-  *
-  * @param { Array } plane - Source plane.
-  * @param { Array } sphere - Source sphere.
-  *
-  * @example
-  * // returns true;
-  * _.sphereIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 8 ]);
-  *
-  * @example
-  * // returns false;
-  * _.sphereIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2 ]);
-  *
-  * @returns { Boolean } Returns true if the plane and the sphere intersect.
-  * @function sphereIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( plane ) is not plane.
-  * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.plane
-  */
-
-function sphereIntersects( plane , sphere )
-{
-  var bool = false;
-  var _plane = _.plane._from( plane );
-  _.assert( _.sphere.is( sphere ) );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  debugger;
-
-  var distance = _.plane.sphereDistance( plane, sphere );
-
-  if( distance <= 0 )
-  {
-    bool = true;
-  }
-
-  return bool;
-}
-
-//
-
-/**
   * Check if a plane and a box intersect. Returns true if they intersect and false if not.
   * The box and the plane remain unchanged.
   *
@@ -521,6 +436,91 @@ function boxIntersects( plane , srcBox )
     }
   }
   return bool;
+}
+
+//
+
+/**
+  * Check if a plane and a sphere intersect. Returns true if they intersect and false if not.
+  * The sphere and the plane remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.sphereIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 8 ]);
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the plane and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.plane
+  */
+
+function sphereIntersects( plane , sphere )
+{
+  var bool = false;
+  var _plane = _.plane._from( plane );
+  _.assert( _.sphere.is( sphere ) );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  debugger;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+
+  if( distance <= 0 )
+  {
+    bool = true;
+  }
+
+  return bool;
+}
+
+//
+
+/**
+  * Get the distance between a plane and a sphere. Returns the distance value.
+  * The sphere an the plane remain unchanged.
+  * If sphere and plane intersect, it returns a negative distance.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns 1;
+  * _.sphereDistance( [ 0, 1, 0, 1 ] , [ 0, 0, 2, 1 ]);
+  *
+  * @returns { Number } Returns the distance from the sphere to the plane.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.plane
+  */
+
+function sphereDistance( plane , sphere )
+{
+
+  var _plane = _.plane._from( plane );
+  var normal = _.plane.normalGet( _plane );
+  var bias = _.plane.biasGet( _plane );
+
+  var center = _.sphere.centerGet( sphere );
+  center = _.vector.from( center );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  debugger;
+  //throw _.err( 'not tested' );
+
+  var d = _.plane.pointDistance( plane , center );
+  d = Math.abs( d ) - _.sphere.radiusGet( sphere );
+  return d;
 }
 
 //
@@ -865,14 +865,25 @@ var Proto =
   biasGet : biasGet,
   biasSet : biasSet,
 
+  // pointContains : pointContains, /* qqq : implement me */
   pointDistance : pointDistance,
   pointCoplanarGet : pointCoplanarGet,
-  // pointClosestPoint : pointClosestPoint, /* qqq : imeplement me */
-
-  sphereDistance : sphereDistance,
-  sphereIntersects : sphereIntersects,
+  // pointClosestPoint : pointClosestPoint, /* qqq : implement me - done in pointCoplanarGet */
 
   boxIntersects : boxIntersects,
+  // boxDistance : boxDistance, /* qqq: implement me */
+  // boxClosestPoint : boxClosestPoint, /* qqq: implement me */
+
+  sphereIntersects : sphereIntersects,
+  sphereDistance : sphereDistance,
+  // sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
+
+  // planeIntersects : planeIntersects, /* qqq: implement me */
+  // planeDistance : planeDistance, /* qqq: implement me */
+
+  // frustumIntersects : frustumIntersects, /* qqq: implement me */
+  // frustumDistance : frustumDistance, /* qqq: implement me */
+  // frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
 
   lineIntersects : lineIntersects,
   lineIntersection : lineIntersection,

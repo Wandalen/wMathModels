@@ -1764,7 +1764,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.5, 0.5, 0, 1, 2 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1776,7 +1776,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.5, 0.25, 0, 2, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1788,7 +1788,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.25, 0.25, 1, 0, 2 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1800,7 +1800,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.5, 0.25, - 0.25, 1, 2, 0 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1812,7 +1812,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.5, 0.75, - 0.25, 2, 0, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1824,7 +1824,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.25, 0.75, - 0.25, 2, 1, 0 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1836,7 +1836,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 1, 1, 0.25, 0, 1, 0 ]; ;
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1848,7 +1848,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.25, 0.5, 0, 2, 0 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1860,7 +1860,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 1, 0.5, 0.5, 1, 0, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1872,7 +1872,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 1, 0.25, 2, 1, 2, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1884,7 +1884,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.25, 1, 1, 2, 0, 2 ] ;
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1896,7 +1896,7 @@ function fromMatrix2( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 1, 0.5, 0.5, 2, 1, 2 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -1934,7 +1934,7 @@ function toMatrix2( test )
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.is( gotMatrix === dstMatrix );
   test.equivalent( gotMatrix, expected );
   test.equivalent( srcEuler, oldEuler );
@@ -1950,7 +1950,7 @@ function toMatrix2( test )
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler XZY'; /**/
@@ -1964,7 +1964,7 @@ function toMatrix2( test )
     - 0.21902415156, 0.4207354784, 0.8803465366
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler YXZ'; /**/
@@ -1978,7 +1978,7 @@ function toMatrix2( test )
     - 0.6142724156, 0.6307470202, 0.474159896
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler YZX'; /**/
@@ -1992,7 +1992,7 @@ function toMatrix2( test )
     - 0.8153116703033, 0.441732704, 0.374351501
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler ZXY'; /**/
@@ -2006,7 +2006,7 @@ function toMatrix2( test )
     - 0.259034723, 0.8414709568, 0.47415989637
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler ZYX'; /**/
@@ -2020,7 +2020,7 @@ function toMatrix2( test )
     - 0.4794255495, 0.4207354784, 0.770151138
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'dstMatrix = null'; /**/
@@ -2034,7 +2034,7 @@ function toMatrix2( test )
     - 0.4794255495, 0.4207354784, 0.770151138
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
   test.is( dstMatrix !== gotMatrix );
 
@@ -2049,7 +2049,7 @@ function toMatrix2( test )
     - 0.4794255495, 0.4207354784, 0.770151138
   ]);
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
   test.is( dstMatrix !== gotMatrix );
 
@@ -2071,7 +2071,7 @@ function toMatrix2( test )
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, gotEuler );
+  var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler XZX - Matrix -> Euler -> Matrix'; /**/
@@ -2092,7 +2092,7 @@ function toMatrix2( test )
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, gotEuler );
+  var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler YXY - Matrix -> Euler -> Matrix'; /**/
@@ -2113,7 +2113,7 @@ function toMatrix2( test )
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, gotEuler );
+  var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler YZY - Matrix -> Euler -> Matrix'; /**/
@@ -2134,7 +2134,7 @@ function toMatrix2( test )
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, gotEuler );
+  var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler ZXZ - Matrix -> Euler -> Matrix'; /**/
@@ -2155,7 +2155,7 @@ function toMatrix2( test )
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, gotEuler );
+  var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler ZYZ - Matrix -> Euler -> Matrix'; /**/
@@ -2176,7 +2176,7 @@ function toMatrix2( test )
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, gotEuler );
+  var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   /* */
@@ -2189,14 +2189,14 @@ function toMatrix2( test )
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [], [] ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( dstMatrix, dstMatrix, [ 0, 0, 1, 0, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( dstMatrix, [ 0.1, 0, 0, 1, 2, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( dstMatrix, [ 0.1, 0, 1, 1, 2, 3 ] ) );
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( _.Space.makeZero( [ 4, 4 ] ), [ 0, 0, 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ], dstMatrix, dstMatrix ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0.1, 0, 0, 1, 2, 0, 0 ], dstMatrix ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0.1, 0, 1, 1, 2, 3 ], dstMatrix ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ], _.Space.makeZero( [ 4, 4 ] ) ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 0.2, 0, 1, 2, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( dstMatrix, NaN) );
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( dstMatrix, 'euler' ) );
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( 'dstMatrix', [ 0, 1, 0.5, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( NaN, dstMatrix ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( 'euler', dstMatrix ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 1, 0.5, 0, 1, 2 ], 'dstMatrix' ) );
 
 }
 
@@ -2212,7 +2212,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ - 0.1, Math.PI/2, 0, 0, 1, 2 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2224,7 +2224,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, - Math.PI/2, 0, 0, 1, 2 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2236,7 +2236,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, Math.PI/2, 0, 0, 2, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2248,7 +2248,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, - Math.PI/2, 0, 0, 2, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2260,7 +2260,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, Math.PI/2, 0, 1, 0, 2 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2272,7 +2272,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2284,7 +2284,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ - 0.1, Math.PI/2, 0, 1, 2, 0 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2296,7 +2296,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2308,7 +2308,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ - 0.1, Math.PI/2, 0, 2, 0, 1 ] ;
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2320,7 +2320,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ - 0.1, - Math.PI/2, 0, 2, 0, 1 ] ;
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2332,7 +2332,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ - 0.1, Math.PI/2, 0, 2, 1, 0 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2344,7 +2344,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2356,7 +2356,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, 0, 0, 0, 1, 0 ]; ;
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2368,7 +2368,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, Math.PI, 0, 0, 1, 0 ]; ;
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2380,7 +2380,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, 0, 0, 0, 2, 0 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2392,7 +2392,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, Math.PI, 0, 0, 2, 0 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2404,7 +2404,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, 0, 0, 1, 0, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2416,7 +2416,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, Math.PI, 0, 1, 0, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2428,7 +2428,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, 0, 0, 1, 2, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2440,7 +2440,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.2, Math.PI, 0, 1, 2, 1 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2452,7 +2452,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.2, 0, 0, 2, 0, 2 ] ;
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2464,7 +2464,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected = [ 0.1, Math.PI, 0, 2, 0, 2 ] ;
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2476,7 +2476,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, 0, 0, 2, 1, 2 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2488,7 +2488,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
   var dstMatrix = _.Space.makeZero( [ 3, 3 ] );
   var expected =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
 
-  var gotMatrix = _.euler.toMatrix2( dstMatrix, srcEuler  );
+  var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
   var gotEuler = _.euler.fromMatrix2( dstEuler, gotMatrix );
   gotEuler = _.vector.toArray( gotEuler );
   test.equivalent( gotEuler, expected );
@@ -2513,7 +2513,7 @@ function eulerToQuatToEulerToQuatFast( test )
   // var deltas = [ -0.1, -accuracySqrt, -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
   // var deltas = [ -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
   var deltas = [ -accuracySqr, 0, +accuracySqr, +0.1 ];
-  var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  var angles = [ 0, Math.PI / 6, Math.PI / 4 ];
   // var anglesLocked = [ 0, Math.PI / 3 ];
   var anglesLocked = [ Math.PI / 3 ];
 
@@ -2549,7 +2549,7 @@ function eulerToQuatToEulerToQuatFast( test )
 
 }
 
-eulerToQuatToEulerToQuatFast.timeOut = 30000;
+eulerToQuatToEulerToQuatFast.timeOut = 50000;
 eulerToQuatToEulerToQuatFast.usingSourceCode = 0;
 eulerToQuatToEulerToQuatFast.rapidity = 3;
 
@@ -2656,7 +2656,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
   function onEach( euler1 )
   {
     quat1 = _.euler.toQuat2( euler1, quat1 );
-    matrix1 = _.euler.toMatrix2( matrix1, euler1 );
+    matrix1 = _.euler.toMatrix2( euler1, matrix1 );
     quat2 = _.quat.fromMatrixRotation( quat2, matrix1 );
 
     var positiveResult = quat2;
@@ -2754,86 +2754,6 @@ eulerToQuatToMatrixToEulerSlow.timeOut = 80000;
 eulerToQuatToMatrixToEulerSlow.usingSourceCode = 0;
 eulerToQuatToMatrixToEulerSlow.rapidity = 2;
 eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-6, 1e-1 ];
-
-//
-
-function eachAngle( o )
-{
-
-  _.assert( arguments.length === 1, 'expects single argument' );
-  _.routineOptions( eachAngle, o );
-
-  /**/
-
-  // o.angles = o.angles.slice( 0, 1 );
-  // o.quadrants = o.quadrants.slice( 0, 1 );
-  // o.quadrantsLocked = o.quadrantsLocked.slice( 0, 1 );
-  // o.deltas = o.deltas.slice( 0, 1 );
-  // o.deltasLocked = o.deltasLocked.slice( 0, 1 );
-
-  /**/
-
-  // o.angles = o.angles;
-  // o.quadrants = o.quadrants;
-  // o.quadrantsLocked = o.quadrantsLocked;
-  // o.deltas = o.deltas.slice( 0,1 );
-  // o.deltasLocked = o.deltasLocked.slice( 0,1 );
-
-  /**/
-
-  var euler = _.euler.from( o.dst );
-  for( var r = 0; r < o.representations.length; r++ )
-  {
-    var representation = o.representations[ r ];
-    _.euler.representationSet( euler, representation );
-    for( var ang1 = 0; ang1 < o.angles.length; ang1++ )
-    {
-      for( var quad1 = 0; quad1 < o.quadrants.length; quad1++ )
-      {
-        for( var d = 0; d < o.deltas.length; d++ )
-        {
-          euler[ 0 ] = o.angles[ ang1 ] + o.quadrants[ quad1 ]*Math.PI/2 + o.deltas[ d ];
-          for( var ang2 = ang1; ang2 < o.angles.length; ang2++ )
-          {
-            for( var quad2 = quad1; quad2 < o.quadrants.length; quad2++ )
-            {
-              for( var d2 = 0; d2 < o.deltas.length; d2++ )
-              {
-                euler[ 1 ] = o.angles[ ang2 ] + o.quadrants[ quad2 ]*Math.PI/2 + o.deltas[ d2 ];
-                for( var ang3 = 0; ang3 < o.anglesLocked.length; ang3++ )
-                {
-                  for( var quad3 = 0; quad3 < o.quadrantsLocked.length; quad3++ )
-                  {
-                    for( var d3 = 0; d3 < o.deltasLocked.length; d3++ )
-                    {
-                      euler[ 2 ] = o.anglesLocked[ ang3 ] + o.quadrantsLocked[ quad3 ]*Math.PI/2 + o.deltasLocked[ d3 ];
-                      o.onEach( euler );
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-}
-
-eachAngle.defaults =
-{
-  representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
-  angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
-  anglesLocked : [ 0, Math.PI / 3 ],
-  quadrants : [ 0, 1, 2, 3 ],
-  quadrantsLocked : [ 0 ],
-  deltas : null,
-  deltasLocked : [ 0 ],
-  onEach : null,
-  dst : null,
-}
-
 
 //
 
@@ -3184,13 +3104,22 @@ function represent( test )
 
 //
 
-function representFullCoverage( test )
+function representFullCoverageFast( test )
 {
 
   var accuracy =  test.accuracy;
   var accuracySqr = test.accuracy*test.accuracy;
   var accuracySqrt = Math.sqrt( test.accuracy );
   var euler1 = _.euler.make();
+  var euler2 = _.euler.make();
+  var quat1 = _.quat.make();
+  var quat2 = _.quat.make();
+  var quat2b = _.quat.make();
+  var representation = [];
+  var positiveResult = [];
+  var negativeResult = [];
+  var eq = false;
+  var representationsFull = [ 'xyz', 'yzx', 'zxy', 'xyx', 'yzy', 'zyz', [ 0, 2, 1 ], [ 1, 0, 2 ], [ 2, 1, 0 ], [ 0, 2, 0 ], [ 1, 2, 1 ], [ 2, 0, 2 ] ];
 
   // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   // var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
@@ -3219,38 +3148,469 @@ function representFullCoverage( test )
 
   /* */
 
-  function onEach( euler )
+  function onEach( euler1 )
   {
-    //var representationsFull = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz',
-                              //  [ 0, 1, 2 ], [ 0, 2, 1 ], [ 1, 0, 2 ], [ 1, 2, 0 ], [ 2, 0, 1 ], [ 2, 1, 0 ],
-                              //  [ 0, 1, 0], [ 0, 2, 0 ], [ 1, 0, 1], [ 1, 2, 1 ], [ 2, 0, 2 ], [ 2, 1, 2 ] ];
-
-    var representationsFull = [ 'xyz', 'yzx', 'zxy', 'xyx', 'yzy', 'zyz', [ 0, 2, 1 ], [ 1, 0, 2 ], [ 2, 1, 0 ], [ 0, 2, 0 ], [ 1, 2, 1 ], [ 2, 0, 2 ] ];
 
     for( var i = 0; i < representationsFull.length; i++ )
     {
-      var srcEuler = euler.slice();
-      var gotQuat1 = _.euler.toQuat2( srcEuler, null );
+      euler2 = euler1.slice();
+      quat1 = _.euler.toQuat2( euler2, quat1 );
 
-      var representation = representationsFull[ i ];
-      var gotEuler = _.euler.represent( srcEuler, representation );
-      var gotQuat2 = _.euler.toQuat2( gotEuler, null );
+      representation = representationsFull[ i ];
+      euler2 = _.euler.represent( euler2, representation );
+      quat2 = _.euler.toQuat2( euler2, quat2 );
 
-      var positiveResult = gotQuat2.slice();
-      var negativeResult = _.avector.mul( _.vector.toArray( gotQuat2 ), -1 );
-      var expected = _.vector.toArray( gotQuat1 );
-      var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : test.accuracy } );
-      var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : test.accuracy } );
-      test.is( eq1 || eq2 );
-
+      positiveResult = quat2;
+      negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
+      eq = false;
+      eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+      eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
+      test.is( eq );
     }
   }
 
 }
 
-representFullCoverage.timeOut = 150000;
-representFullCoverage.usingSourceCode = 0;
-representFullCoverage.rapidity = 2;
+representFullCoverageFast.timeOut = 100000;
+representFullCoverageFast.usingSourceCode = 0;
+representFullCoverageFast.rapidity = 3;
+
+//
+
+function representFullCoverageSlow( test )
+{
+
+  var accuracy =  test.accuracy;
+  var accuracySqr = test.accuracy*test.accuracy;
+  var euler1 = _.euler.make();
+  var euler2 = _.euler.make();
+  var quat1 = _.quat.make();
+  var quat2 = _.quat.make();
+  var quat2b = _.quat.make();
+  var representation = [];
+  var positiveResult = [];
+  var negativeResult = [];
+  var eq = false;
+  var representationsFull = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz',
+    [ 0, 1, 2 ], [ 0, 2, 1 ], [ 1, 0, 2 ], [ 1, 2, 0 ], [ 2, 0, 1 ], [ 2, 1, 0 ],
+    [ 0, 1, 0], [ 0, 2, 0 ], [ 1, 0, 1], [ 1, 2, 1 ], [ 2, 0, 2 ], [ 2, 1, 2 ] ];
+
+  // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  var angles = [ 0, Math.PI / 6, Math.PI / 4 ];
+  // var quadrants = [ 0, 1, 2, 3 ];
+  var quadrantsLocked = [ 0 ];
+  // var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
+  var deltas = [ -( accuracySqr ), 0, +Math.sqrt( accuracy ), +0.1 ];
+  // var deltasLocked = [ 0 ];
+  var anglesLocked = [ Math.PI / 3 ];
+
+  /* */
+
+  var o =
+  {
+    // representations : representations,
+    angles : angles,
+    // quadrants : quadrants,
+    quadrantsLocked : quadrantsLocked,
+    deltas : deltas,
+    anglesLocked : anglesLocked,
+    onEach : onEach,
+    dst : euler1,
+  }
+
+  this.eachAngle( o );
+
+  /* */
+
+  function onEach( euler1 )
+  {
+
+    for( var i = 0; i < representationsFull.length; i++ )
+    {
+      euler2 = euler1.slice();
+      quat1 = _.euler.toQuat2( euler2, quat1 );
+
+      representation = representationsFull[ i ];
+      euler2 = _.euler.represent( euler2, representation );
+      quat2 = _.euler.toQuat2( euler2, quat2 );
+
+      positiveResult = quat2;
+      negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
+      eq = false;
+      eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+      eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
+      test.is( eq );
+    }
+  }
+
+}
+
+representFullCoverageSlow.timeOut = 150000;
+representFullCoverageSlow.usingSourceCode = 0;
+representFullCoverageSlow.rapidity = 2;
+
+//
+
+function isGimbalLock( test )
+{
+
+  test.case = 'Euler remains unchanged'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+  var oldSrcEuler = srcEuler.slice();
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( oldSrcEuler, srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XYZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XZY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YXZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YZX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZXY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZYX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XYX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XZX'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YXY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler YZY'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZXZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler ZYZ'; //
+
+  var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, false );
+
+  test.case = 'Euler XYZ - Gimbal Lock angle y = pi/2'; /**/
+
+  var srcEuler = [ - 0.1, Math.PI/2, 0, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XYZ - Gimbal Lock angle y = -pi/2'; /**/
+
+  var srcEuler = [ 0.1, - Math.PI/2, 0, 0, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XZY - Gimbal Lock angle z = pi/2'; /**/
+
+  var srcEuler =  [ 0.1, Math.PI/2, 0, 0, 2, 1 ] ;
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XZY - Gimbal Lock angle z = - pi/2'; /**/
+
+  var srcEuler =  [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] ;
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YXZ - Gimbal Lock angle x = pi/2'; /**/
+
+  var srcEuler = [ 0.1, Math.PI/2, 0, 1, 0, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YXZ - Gimbal Lock angle x = - pi/2'; /**/
+
+  var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YZX - Gimbal Lock angle z = pi/2'; /**/
+
+  var srcEuler = [ - 0.1, Math.PI/2, 0, 1, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YZX - Gimbal Lock angle z = - pi/2'; /**/
+
+  var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZXY - Gimbal Lock angle x = pi/2'; /**/
+
+  var srcEuler = [ - 0.1, Math.PI/2, 0, 2, 0, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZXY - Gimbal Lock angle x = - pi/2'; /**/
+
+  var srcEuler = [ - 0.1, - Math.PI/2, 0, 2, 0, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZYX - Gimbal Lock angle x = pi/2'; /**/
+
+  var srcEuler =  [ - 0.1, Math.PI/2, 0, 2, 1, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZYX - Gimbal Lock angle x = - pi/2'; /**/
+
+  var srcEuler =  [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XYX - Gimbal Lock angle y = pi'; /**/
+
+  var srcEuler = [ 0.1, Math.PI, 0, 0, 1, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XYX - Gimbal Lock angle y = 0'; /**/
+
+  var srcEuler = [ 0.1, 0, 0, 0, 1, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XZX - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler =  [ 0.1, Math.PI, 0, 0, 2, 0 ] ;
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XZX - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler =  [ 0.1, 0, 0, 0, 2, 0 ] ;
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YXY - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler = [ 0.1, Math.PI, 0, 1, 0, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YXY - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler = [ 0.1, 0, 0, 1, 0, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YZY - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler = [ 0.1, Math.PI, 0, 1, 2, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YZY - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler = [ 0.1, 0, 0, 1, 2, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZXZ - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler = [ 0.1, Math.PI, 0, 2, 0, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZXZ - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler = [ 0.1, 0, 0, 2, 0, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZYZ - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZYZ - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler =  [ 0.1, 0, 0, 2, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [ 0, 0, 0, 1, 2, 0 ], [ 1, 2, 0, 1, 2, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [ 0, 0, 0, 1, 2, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [ 1, 2, 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( [ 0, 0.2, 0, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( 'eulerAngle' ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( NaN ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( null ) );
+  test.shouldThrowErrorSync( () => _.euler.isGimbalLock( undefined ) );
+
+}
+
+//
+
+function eachAngle( o )
+{
+
+  _.assert( arguments.length === 1, 'expects single argument' );
+  _.routineOptions( eachAngle, o );
+
+  /**/
+
+  // o.angles = o.angles.slice( 0, 1 );
+  // o.quadrants = o.quadrants.slice( 0, 1 );
+  // o.quadrantsLocked = o.quadrantsLocked.slice( 0, 1 );
+  // o.deltas = o.deltas.slice( 0, 1 );
+  // o.deltasLocked = o.deltasLocked.slice( 0, 1 );
+
+  /**/
+
+  // o.angles = o.angles;
+  // o.quadrants = o.quadrants;
+  // o.quadrantsLocked = o.quadrantsLocked;
+  // o.deltas = o.deltas.slice( 0,1 );
+  // o.deltasLocked = o.deltasLocked.slice( 0,1 );
+
+  /**/
+
+  var euler = _.euler.from( o.dst );
+  for( var r = 0; r < o.representations.length; r++ )
+  {
+    var representation = o.representations[ r ];
+    _.euler.representationSet( euler, representation );
+    for( var ang1 = 0; ang1 < o.angles.length; ang1++ )
+    {
+      for( var quad1 = 0; quad1 < o.quadrants.length; quad1++ )
+      {
+        for( var d = 0; d < o.deltas.length; d++ )
+        {
+          euler[ 0 ] = o.angles[ ang1 ] + o.quadrants[ quad1 ]*Math.PI/2 + o.deltas[ d ];
+          for( var ang2 = ang1; ang2 < o.angles.length; ang2++ )
+          {
+            for( var quad2 = quad1; quad2 < o.quadrants.length; quad2++ )
+            {
+              for( var d2 = 0; d2 < o.deltas.length; d2++ )
+              {
+                euler[ 1 ] = o.angles[ ang2 ] + o.quadrants[ quad2 ]*Math.PI/2 + o.deltas[ d2 ];
+                for( var ang3 = 0; ang3 < o.anglesLocked.length; ang3++ )
+                {
+                  for( var quad3 = 0; quad3 < o.quadrantsLocked.length; quad3++ )
+                  {
+                    for( var d3 = 0; d3 < o.deltasLocked.length; d3++ )
+                    {
+                      euler[ 2 ] = o.anglesLocked[ ang3 ] + o.quadrantsLocked[ quad3 ]*Math.PI/2 + o.deltasLocked[ d3 ];
+                      o.onEach( euler );
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+eachAngle.defaults =
+{
+  representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
+  angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
+  anglesLocked : [ 0, Math.PI / 3 ],
+  quadrants : [ 0, 1, 2, 3 ],
+  quadrantsLocked : [ 0 ],
+  deltas : null,
+  deltasLocked : [ 0 ],
+  onEach : null,
+  dst : null,
+}
 
 //
 //
@@ -3272,7 +3632,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 1,
   enabled : 1,
-  // routine : 'eulerToQuatToMatrixToEulerSlow',
+  // routine : 'eulerToQuatToEulerToQuatSlow',
 
   context :
   {
@@ -3305,7 +3665,7 @@ var Self =
 
     /* takes 10 seconds */
     eulerToQuatToEulerToQuatFast : eulerToQuatToEulerToQuatFast,
-    /* takes 70 seconds - accuracy [ 1e-10, 1e-1 ] */
+    /* takes 88 seconds - accuracy [ 1e-10, 1e-1 ] */
     eulerToQuatToEulerToQuatSlow : eulerToQuatToEulerToQuatSlow,
 
     /* takes 140 seconds */
@@ -3316,9 +3676,13 @@ var Self =
 
     represent : represent,
 
-    /* takes 130 seconds */
-    representFullCoverage : representFullCoverage,
+    /* takes 16 seconds */
+    representFullCoverageFast : representFullCoverageFast,
 
+    /* takes 110 seconds */
+    representFullCoverageSlow : representFullCoverageSlow,
+
+    isGimbalLock : isGimbalLock,
   },
 
 }
