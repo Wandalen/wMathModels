@@ -2673,7 +2673,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
 
 eulerToQuatToMatrixToQuatSlow.timeOut = 200000;
 eulerToQuatToMatrixToQuatSlow.usingSourceCode = 0;
-eulerToQuatToMatrixToQuatSlow.rapidity = 3;
+eulerToQuatToMatrixToQuatSlow.rapidity = 1;
 
 //
 
@@ -2751,7 +2751,7 @@ function eulerToQuatToMatrixToEulerSlow( test )
 
 eulerToQuatToMatrixToEulerSlow.timeOut = 80000;
 eulerToQuatToMatrixToEulerSlow.usingSourceCode = 0;
-eulerToQuatToMatrixToEulerSlow.rapidity = 3;
+eulerToQuatToMatrixToEulerSlow.rapidity = 1;
 eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-5, 1e-1 ];
 
 //
@@ -3183,6 +3183,78 @@ function represent( test )
 
 //
 
+function representFullCoverageFast( test )
+{
+
+  var accuracy =  test.accuracy;
+  var accuracySqr = test.accuracy*test.accuracy;
+  var euler1 = _.euler.make();
+  var euler2 = _.euler.make();
+  var quat1 = _.quat.make();
+  var quat2 = _.quat.make();
+  var quat2b = _.quat.make();
+  var representation = [];
+  var positiveResult = [];
+  var negativeResult = [];
+  var eq = false;
+  var representationsFull = [ 'xyz', 'yzx', 'zxy', 'xyx', 'yzy', 'zyz', [ 0, 2, 1 ], [ 1, 0, 2 ], [ 2, 1, 0 ], [ 0, 2, 0 ], [ 1, 2, 1 ], [ 2, 0, 2 ] ];
+
+  // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  var angles = [ 0, Math.PI / 6, Math.PI / 4 ];
+  // var quadrants = [ 0, 3 ];
+  var quadrantsLocked = [ 0 ];
+  // var deltas = [ -0.1, -Math.sqrt( accuracy ), -( accuracySqr ), 0, +( accuracySqr ), +Math.sqrt( accuracy ), +0.1 ];
+  var deltas = [ -( accuracySqr ), +Math.sqrt( accuracy ) ];
+  // var deltasLocked = [ 0 ];
+  var anglesLocked = [ Math.PI / 3 ];
+
+  /* */
+
+  var o =
+  {
+    // representations : representations,
+    angles : angles,
+    // quadrants : quadrants,
+    quadrantsLocked : quadrantsLocked,
+    deltas : deltas,
+    anglesLocked : anglesLocked,
+    onEach : onEach,
+    dst : euler1,
+  }
+
+  this.eachAngle( o );
+
+  /* */
+
+  function onEach( euler1 )
+  {
+
+    for( var i = 0; i < representationsFull.length; i++ )
+    {
+      euler2 = euler1.slice();
+      quat1 = _.euler.toQuat2( euler2, quat1 );
+
+      representation = representationsFull[ i ];
+      euler2 = _.euler.represent( euler2, representation );
+      quat2 = _.euler.toQuat2( euler2, quat2 );
+
+      positiveResult = quat2;
+      negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
+      eq = false;
+      eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+      eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
+      test.is( eq );
+    }
+  }
+
+}
+
+representFullCoverageFast.timeOut = 20000;
+representFullCoverageFast.usingSourceCode = 0;
+representFullCoverageFast.rapidity = 3;
+
+//
+
 function representFullCoverageSlow( test )
 {
 
@@ -3200,8 +3272,6 @@ function representFullCoverageSlow( test )
   var representationsFull = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz',
     [ 0, 1, 2 ], [ 0, 2, 1 ], [ 1, 0, 2 ], [ 1, 2, 0 ], [ 2, 0, 1 ], [ 2, 1, 0 ],
     [ 0, 1, 0], [ 0, 2, 0 ], [ 1, 0, 1], [ 1, 2, 1 ], [ 2, 0, 2 ], [ 2, 1, 2 ] ];
-
-  //var representationsFull = [ 'xyz', 'yzx', 'zxy', 'xyx', 'yzy', 'zyz', [ 0, 2, 1 ], [ 1, 0, 2 ], [ 2, 1, 0 ], [ 0, 2, 0 ], [ 1, 2, 1 ], [ 2, 0, 2 ] ];
 
   // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   var angles = [ 0, Math.PI / 6, Math.PI / 4 ];
@@ -3255,7 +3325,7 @@ function representFullCoverageSlow( test )
 
 representFullCoverageSlow.timeOut = 150000;
 representFullCoverageSlow.usingSourceCode = 0;
-representFullCoverageSlow.rapidity = 3;
+representFullCoverageSlow.rapidity = 1;
 
 //
 //
@@ -3277,7 +3347,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 0,
   enabled : 1,
-  routine: 'representFullCoverageSlow',
+  routine: 'representFullCoverageFast',
 
   context :
   {
@@ -3321,7 +3391,10 @@ var Self =
 
     represent : represent, /* qqq : clean me */
 
-    /* takes 130 seconds */
+    /* takes 16 seconds */
+    representFullCoverageFast : representFullCoverageFast,
+
+    /* takes 110 seconds */
     representFullCoverageSlow : representFullCoverageSlow,
 
   },
