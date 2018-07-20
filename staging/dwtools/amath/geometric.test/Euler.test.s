@@ -2736,10 +2736,10 @@ function eulerToQuatToMatrixToEulerSlow( test )
     if( eq === false )
     {
       fails = fails+1;
-      logger.log( 'quat1:',quat1[ 0 ], quat1[ 1 ], quat1[ 2 ], quat1[ 3 ] );
-      logger.log( 'quat2:',quat2[ 0 ], quat2[ 1 ], quat2[ 2 ], quat2[ 3 ] );
-      logger.log( 'euler1:',euler1[ 0 ], euler1[ 1 ], euler1[ 2 ], euler1[ 3 ], euler1[ 4 ], euler1[ 5 ] );
-      logger.log( 'euler2:',euler2[ 0 ], euler2[ 1 ], euler2[ 2 ], euler2[ 3 ], euler2[ 4 ], euler2[ 5 ] );
+      logger.log( 'quat1 :',quat1[ 0 ], quat1[ 1 ], quat1[ 2 ], quat1[ 3 ] );
+      logger.log( 'quat2 :',quat2[ 0 ], quat2[ 1 ], quat2[ 2 ], quat2[ 3 ] );
+      logger.log( 'euler1 :',euler1[ 0 ], euler1[ 1 ], euler1[ 2 ], euler1[ 3 ], euler1[ 4 ], euler1[ 5 ] );
+      logger.log( 'euler2 :',euler2[ 0 ], euler2[ 1 ], euler2[ 2 ], euler2[ 3 ], euler2[ 4 ], euler2[ 5 ] );
       logger.log( matrix1 );
       logger.log( fails );
     }
@@ -2753,7 +2753,7 @@ function eulerToQuatToMatrixToEulerSlow( test )
 eulerToQuatToMatrixToEulerSlow.timeOut = 80000;
 eulerToQuatToMatrixToEulerSlow.usingSourceCode = 0;
 eulerToQuatToMatrixToEulerSlow.rapidity = 2;
-eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-5, 1e-1 ];
+eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-6, 1e-1 ];
 
 //
 
@@ -3660,7 +3660,7 @@ var Self =
     eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
 
     fromMatrix2 : fromMatrix2,
-    toMatrix2 : toMatrix2, /* qqq : clean me */
+    toMatrix2 : toMatrix2,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
 
     /* takes 10 seconds */
@@ -3674,7 +3674,7 @@ var Self =
     /* takes 50 seconds - accuracy is 1E-5 */
     eulerToQuatToMatrixToEulerSlow : eulerToQuatToMatrixToEulerSlow,
 
-    represent : represent, /* qqq : clean me */
+    represent : represent,
 
     /* takes 16 seconds */
     representFullCoverageFast : representFullCoverageFast,
