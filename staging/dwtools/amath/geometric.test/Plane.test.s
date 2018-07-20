@@ -711,222 +711,6 @@ function pointCoplanarGet( test )
 
 //
 
-function sphereDistance( test )
-{
-
-  test.case = 'Sphere and plane stay unchanged'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var oldPlane = plane.slice();
-  var sphere = [ 2, 0, 0, 1 ];
-  var oldSphere = sphere.slice();
-  var expected = 2;
-
-  var distance = _.plane.sphereDistance( plane, sphere );
-  test.identical( expected, distance );
-  test.identical( plane, oldPlane );
-  test.identical( sphere, oldSphere );
-
-  test.case = 'Trivial'; /* */
-
-  var sphere = [ 2, 0, 0, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 2;
-
-  var distance = _.plane.sphereDistance( plane, sphere );
-  test.identical( distance, expected );
-
-  test.case = 'Trivial 2'; /* */
-
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 1, 1, 1, 1 ];
-  var expected = 1;
-
-  var distance = _.plane.sphereDistance( plane, sphere );
-  test.identical( distance, expected );
-
-  test.case = 'Center in plane'; /* */
-
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0, - 1, 0, 1 ];
-  var expected = - 1;
-
-  var distance = _.plane.sphereDistance( plane, sphere );
-  test.identical( distance, expected );
-
-  test.case = 'Sphere cuts plane'; /* */
-
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0, 0, 0, 1.5 ];
-  var expected = - 0.5;
-
-  var distance = _.plane.sphereDistance( plane, sphere );
-  test.identical( distance, expected );
-
-  test.case = 'Sphere touches plane'; /* */
-
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var distance = _.plane.sphereDistance( plane, sphere );
-  test.identical( distance, expected );
-
-  test.case = 'Sphere under plane'; /* */
-
-  var plane = [ 0, - 2, 0, 2 ];
-  var sphere = [ - 1, - 1, - 1, 1 ];
-  var expected = 1;
-
-  var distance = _.plane.sphereDistance( plane, sphere );
-  test.identical( distance, expected );
-
-  test.case = 'Sphere over plane'; /* */
-
-  var plane = [ 0, - 2, 0, 2 ];
-  var sphere = [ 0, 3, 0, 1 ];
-  var expected = 1;
-
-  var distance = _.plane.sphereDistance( plane, sphere );
-  test.identical( distance, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], null ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( null, [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], NaN ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( NaN, [ 0, 1, 0 ] ));
-
-}
-
-//
-
-function sphereIntersects( test )
-{
-
-  test.case = 'Sphere and plane stay unchanged'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var oldPlane = plane.slice();
-  var sphere = [ 2, 0, 0, 1 ];
-  var oldSphere = sphere.slice();
-  var expected = false;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( expected, gotBool );
-  test.identical( plane, oldPlane );
-  test.identical( sphere, oldSphere );
-
-  test.case = 'Trivial - no intersection'; /* */
-
-  var sphere = [ 2, 0, 0, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = false;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( gotBool, expected );
-
-  test.case = 'Trivial - intersection'; /* */
-
-  var plane = [ 0, 2, 0, - 2 ];
-  var sphere = [ 1, 1, 1, 1 ];
-  var expected = true;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( gotBool, expected );
-
-  test.case = 'Center in plane'; /* */
-
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0, - 1, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( gotBool, expected );
-
-  test.case = 'Sphere cuts plane'; /* */
-
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0, 0, 0, 1.5 ];
-  var expected = true;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( gotBool, expected );
-
-  test.case = 'Sphere touches plane'; /* */
-
-  var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( gotBool, expected );
-
-  test.case = 'Sphere under plane'; /* */
-
-  var plane = [ 0, - 2, 0, 2 ];
-  var sphere = [ - 1, - 1, - 1, 1 ];
-  var expected = false;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( gotBool, expected );
-
-  test.case = 'Sphere over plane'; /* */
-
-  var plane = [ 0, - 2, 0, 2 ];
-  var sphere = [ 0, 3, 0, 1 ];
-  var expected = false;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( gotBool, expected );
-
-  test.case = 'Zero sphere'; /* */
-
-  var plane = [ 0, - 2, 0, 2 ];
-  var sphere = _.sphere.makeZero();
-  var expected = false;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( gotBool, expected );
-
-  test.case = 'Nil sphere'; /* */
-
-  var plane = [ 0, - 2, 0, 2 ];
-  var sphere = _.sphere.makeNil();
-  var expected = false;
-
-  var gotBool = _.plane.sphereIntersects( plane, sphere );
-  test.identical( gotBool, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], null ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( null, [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], NaN ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( NaN, [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], 'sphere' ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( 'plane', [ 0, 1, 0, 1 ] ));
-
-}
-
-//
-
 function boxIntersects( test )
 {
 
@@ -1063,6 +847,222 @@ function boxIntersects( test )
   test.shouldThrowErrorSync( () => _.plane.boxIntersects( NaN, [ 0, 1, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], 'box' ));
   test.shouldThrowErrorSync( () => _.plane.boxIntersects( 'plane', [ 0, 1, 0, 1 ] ));
+
+}
+
+//
+
+function sphereIntersects( test )
+{
+
+  test.case = 'Sphere and plane stay unchanged'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var oldPlane = plane.slice();
+  var sphere = [ 2, 0, 0, 1 ];
+  var oldSphere = sphere.slice();
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( expected, gotBool );
+  test.identical( plane, oldPlane );
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Trivial - no intersection'; /* */
+
+  var sphere = [ 2, 0, 0, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Trivial - intersection'; /* */
+
+  var plane = [ 0, 2, 0, - 2 ];
+  var sphere = [ 1, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Center in plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, - 1, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere cuts plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1.5 ];
+  var expected = true;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere touches plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere under plane'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ - 1, - 1, - 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere over plane'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ 0, 3, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Zero sphere'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = _.sphere.makeZero();
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Nil sphere'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = _.sphere.makeNil();
+  var expected = false;
+
+  var gotBool = _.plane.sphereIntersects( plane, sphere );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( null, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( NaN, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], 'sphere' ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( 'plane', [ 0, 1, 0, 1 ] ));
+
+}
+
+//
+
+function sphereDistance( test )
+{
+
+  test.case = 'Sphere and plane stay unchanged'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var oldPlane = plane.slice();
+  var sphere = [ 2, 0, 0, 1 ];
+  var oldSphere = sphere.slice();
+  var expected = 2;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+  test.identical( expected, distance );
+  test.identical( plane, oldPlane );
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Trivial'; /* */
+
+  var sphere = [ 2, 0, 0, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 2;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+  test.identical( distance, expected );
+
+  test.case = 'Trivial 2'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 1, 1, 1, 1 ];
+  var expected = 1;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+  test.identical( distance, expected );
+
+  test.case = 'Center in plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, - 1, 0, 1 ];
+  var expected = - 1;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+  test.identical( distance, expected );
+
+  test.case = 'Sphere cuts plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1.5 ];
+  var expected = - 0.5;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+  test.identical( distance, expected );
+
+  test.case = 'Sphere touches plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+  test.identical( distance, expected );
+
+  test.case = 'Sphere under plane'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ - 1, - 1, - 1, 1 ];
+  var expected = 1;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+  test.identical( distance, expected );
+
+  test.case = 'Sphere over plane'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ 0, 3, 0, 1 ];
+  var expected = 1;
+
+  var distance = _.plane.sphereDistance( plane, sphere );
+  test.identical( distance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( NaN, [ 0, 1, 0 ] ));
 
 }
 
@@ -1626,9 +1626,10 @@ var Self =
     pointDistance : pointDistance,
     pointCoplanarGet : pointCoplanarGet,
 
-    sphereDistance : sphereDistance,
-    sphereIntersects : sphereIntersects,
     boxIntersects : boxIntersects,
+
+    sphereIntersects : sphereIntersects,
+    sphereDistance : sphereDistance,
 
     lineIntersects : lineIntersects,
 

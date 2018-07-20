@@ -2393,170 +2393,6 @@ function expand( test )
 
 //
 
-function pointExpand( test )
-{
-
-  test.case = 'Point remains unchanged and Destination box changes'; /* */
-
-  var dstBox = [ 0, 0, 1, 1 ];
-  var point = [ 0, 2 ];
-  var oldPoint = point.slice();
-
-  var gotBox = _.box.pointExpand( dstBox, point );
-  test.identical( gotBox, dstBox );
-  test.identical( point, oldPoint );
-
-  var expected = [ 0, 0, 1, 2 ];
-  test.identical( gotBox, expected );
-  var oldPoint = [ 0, 2 ];
-  test.identical( point, oldPoint );
-
-  test.case = 'Null box expanded'; /* */
-
-  var box = null;
-  var point = [ 1, 2, 3 ];
-  var expected = [ 1, 2, 3, 1, 2, 3 ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  test.case = 'Null box NOT expanded'; /* */
-
-  var box = null;
-  var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  test.case = 'One point box expanded'; /* */
-
-  var box = [ 0, 0, 0, 0, 0, 0 ];
-  var point = [ - 1, 2, - 3 ];
-  var expected = [ - 1,  0, - 3, 0, 2, 0 ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  test.case = 'Box expanded'; /* */
-
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ - 1, 3, - 1 ];
-  var expected = [ - 1, 0, - 1, 2, 3, 2 ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  test.case = 'Box NOT expanded ( point inside box )'; /* */
-
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [  1, 1, 1 ];
-  var expected = [ 0,  0, 0, 2, 2, 2 ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  test.case = 'Box ( normalized to 1 ) expanded'; /* */
-
-  var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
-  var point = [ -0.900, 0, 0.900 ];
-  var expected = [ - 0.900,  0, -0.238, 0.194, 0.766, 0.900 ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  test.case = 'Null box of four dimensions expanded'; /* */
-
-  var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
-  var point = [ 1, 2, 3 , 4 ];
-  var expected = [ 0, 0, 0, 0, 1, 2, 3, 4 ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  test.case = 'Null box of 7 dimensions expanded'; /* */
-
-  var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
-  var point = [ 1, 2, 3 , 4, 5, 6, 7 ];
-  var expected = [ 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7 ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  test.case = 'Box of 1 dimension expanded'; /* */
-
-  var box = [ 0, 0 ];
-  var point = [ 1 ];
-  var expected = [ 0, 1 ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  test.case = 'Box of 0 dimension expanded'; /* */
-
-  var box = [ ];
-  var point = [ ];
-  var expected = [ ];
-
-  var gotBox = _.box.pointExpand( box, point );
-  test.identical( gotBox, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointExpand();
-  });
-
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointExpand( 'box', 'points' );
-  });
-
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointExpand( null, 4 );
-  });
-
-  test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ] );
-  });
-
-  test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
-  });
-
-  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ] );
-  });
-
-  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ] );
-  });
-
-  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointExpand( [ 0, 0, 0, 0 ], [ 0 ] );
-  });
-}
-
-//
-
 function pointContains( test )
 {
 
@@ -2760,413 +2596,6 @@ function pointContains( test )
   test.shouldThrowError( function()
   {
     _.box.pointContains( [ 0, 0, 0, 0 ], [ 0 ] );
-  });
-}
-
-//
-
-function pointRelative( test )
-{
-
-  test.case = 'Returns same instance point, box remains unchanged'; /* */
-
-  var box = [ 0, 0, 2, 2 ];
-  var oldBox = box.slice();
-  var point = [ 0, 1 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, point );
-  test.equivalent( oldBox, box );
-
-  var expected = [ 0, 0.5 ];
-  test.equivalent( gotPoint, expected );
-
-  var oldBox = [ 0, 0, 2, 2 ];
-  test.equivalent( oldBox, box );
-
-  test.case = 'Empty point relative to null box'; /* */
-
-  var box = null;
-  var point = [ 0, 0, 0 ];
-  var expected = [ NaN, NaN, NaN ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Empty point relative to empty box'; /* */
-
-  var box = [];
-  var point = [];
-  var expected = [];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point relative to zero box'; /* */
-
-  var box = [ 0, 0, 0, 0, 0, 0 ];
-  var point = [ 0, 0, 0 ];
-  var expected = [ NaN, NaN, NaN ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point in medium of box'; /* */
-
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [  1, 1, 1 ];
-  var expected = [ 0.5, 0.5, 0.5 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point with 1D out of box'; /* */
-
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ 1, 1, 3 ];
-  var expected = [ 0.5, 0.5, 1.5 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point with 1D under box'; /* */
-
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ - 1, 1, 1 ];
-  var expected = [ - 0.5, 0.5, 0.5 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point (normalized to one) in box'; /* */
-
-  var box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
-  var point = [ 0.100, 0.025, 0.050 ];
-  var expected = [ 2, 0.5, 1 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point (normalized to one) not in box'; /* */
-
-  var box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
-  var point = [ 0.075, 0.075, 0.075 ];
-  var expected = [ 1.5, 1.5, 1.5 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point in four dimensions box'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
-  var point = [ 0, 0, 0 , 0 ];
-  var expected = [ 0.5, 0.5, 0.5 , 0.5 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point out of four dimensions box'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
-  var point = [ 0, - 2, 0 , 2 ];
-  var expected = [ 0.5, - 0.5, 0.5 , 1.5 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point in seven dimensions box'; /* */
-
-  var box = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
-  var point = [ - 0.5, - 2, 1, - 3.5, 4, - 5, 7 ];
-  var expected = [ 0.5, 0, 1, - 0.5, 2, - 1, 3 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point in one dimension box'; /* */
-
-  var box = [ 0, 2 ];
-  var point = [ 1 ];
-  var expected = [ 0.5 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point out of one dimension box (smaller)'; /* */
-
-  var box = [ 0, 2 ];
-  var point = [ 3 ];
-  var expected = [ 1.5 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  test.case = 'Point out of one dimension box (bigger)'; /* */
-
-  var box = [ 0, 2 ];
-  var point = [ - 3 ];
-  var expected = [ - 1.5 ];
-
-  var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointRelative();
-  });
-
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointRelative( 'box', 'point' );
-  });
-
-  test.case = 'Point Null'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointRelative( [ 0, 0, 0, 1, 1, 1 ], null );
-  });
-
-
-  test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ] );
-  });
-
-  test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
-  });
-
-  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointRelative( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
-  });
-
-  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointRelative( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
-  });
-
-  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointRelative( [ 0, 0, 0, 0 ], [ 0 ] );
-  });
-}
-
-//
-
-function pointClosestPoint( test )
-{
-
-  test.case = 'Returns same instance point, box remains unchanged'; /* */
-
-  var box = [ 1, 1, 1, 3, 3, 3 ];
-  var oldBox = box.slice();
-  var point = [ 0, 1, 2 ];
-  var expected = [ 1, 1, 2 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped, point );
-  test.identical( oldBox, box );
-
-  test.case = 'Empty point relative to null box'; /* */
-
-  var box = null;
-  var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Empty point relative to empty box'; /* */
-
-  var box = [];
-  var point = [];
-  var expected = [];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point relative to zero box'; /* */
-
-  var box = [ 0, 0, 0, 0, 0, 0 ];
-  var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point in box'; /* */
-
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [  1, 1, 1 ];
-  var expected = [ 1, 1, 1 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point over box'; /* */
-
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ 1, 1, 3 ];
-  var expected = [ 1, 1, 2 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point under box'; /* */
-
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ - 1, 1, 1 ];
-  var expected = [ 0, 1, 1 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point (normalized to one) in box'; /* */
-
-  var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
-  var point = [ 0.050, 0.500, 0 ];
-  var expected = [ 0.050, 0.500, 0 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point (normalized to one) not in box'; /* */
-
-  var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
-  var point = [ 0.050, 0.500, - 0.303 ];
-  var expected = [ 0.050, 0.500, -0.238 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point in four dimensions box'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
-  var point = [ 0, 0, 0 , 0 ];
-  var expected = [ 0, 0, 0 , 0 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point out of four dimensions box'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
-  var point = [ 0, - 2, 0 , 2 ];
-  var expected = [ 0, - 1, 0 , 1 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point in seven dimensions box'; /* */
-
-  var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  var point = [ 0, 4, 3.5, 0, 4, 2, 2 ];
-  var expected = [ 0, 4, 3.5, 0, 4, 2, 2 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point out of seven dimensions box'; /* */
-
-  var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
-  var point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
-  var expected = [ 0, 4, 3.5, 0, 4, 2, 3 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point in one dimension box'; /* */
-
-  var box = [ 0, 2 ];
-  var point = [ 1 ];
-  var expected = [ 1 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point out of one dimension box (smaller)'; /* */
-
-  var box = [ 0, 2 ];
-  var point = [ 3 ];
-  var expected = [ 2 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  test.case = 'Point out of one dimension box (bigger)'; /* */
-
-  var box = [ 0, 2 ];
-  var point = [ - 3 ];
-  var expected = [ 0 ];
-
-  var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointClosestPoint();
-  });
-
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointClosestPoint( 'box', 'point' );
-  });
-
-  test.case = 'Point Null'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointClosestPoint( [ 0, 0, 0, 1, 1, 1 ], null );
-  });
-
-  test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ] );
-  });
-
-  test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
-  });
-
-  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointClosestPoint( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
-  });
-
-  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
-  });
-
-  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.pointClosestPoint( [ 0, 0, 0, 0 ], [ 0 ] );
   });
 }
 
@@ -3391,6 +2820,578 @@ function pointDistance( test )
   test.shouldThrowError( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 0 ], [ 0 ] );
+  });
+}
+
+
+//
+
+function pointClosestPoint( test )
+{
+
+  test.case = 'Returns same instance point, box remains unchanged'; /* */
+
+  var box = [ 1, 1, 1, 3, 3, 3 ];
+  var oldBox = box.slice();
+  var point = [ 0, 1, 2 ];
+  var expected = [ 1, 1, 2 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped, point );
+  test.identical( oldBox, box );
+
+  test.case = 'Empty point relative to null box'; /* */
+
+  var box = null;
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Empty point relative to empty box'; /* */
+
+  var box = [];
+  var point = [];
+  var expected = [];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point relative to zero box'; /* */
+
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point in box'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point over box'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ 1, 1, 3 ];
+  var expected = [ 1, 1, 2 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point under box'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ - 1, 1, 1 ];
+  var expected = [ 0, 1, 1 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point (normalized to one) in box'; /* */
+
+  var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, 0 ];
+  var expected = [ 0.050, 0.500, 0 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point (normalized to one) not in box'; /* */
+
+  var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = [ 0.050, 0.500, -0.238 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point in four dimensions box'; /* */
+
+  var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 0 ];
+  var expected = [ 0, 0, 0 , 0 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point out of four dimensions box'; /* */
+
+  var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, - 2, 0 , 2 ];
+  var expected = [ 0, - 1, 0 , 1 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point in seven dimensions box'; /* */
+
+  var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  var point = [ 0, 4, 3.5, 0, 4, 2, 2 ];
+  var expected = [ 0, 4, 3.5, 0, 4, 2, 2 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point out of seven dimensions box'; /* */
+
+  var box = [ - 2, 3, 3, - 1, 2, 1, 1, 1, 5, 4, 2, 4, 3, 3 ];
+  var point = [ 0, 4, 3.5, 0, 5, 2, 7 ];
+  var expected = [ 0, 4, 3.5, 0, 4, 2, 3 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point in one dimension box'; /* */
+
+  var box = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = [ 1 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point out of one dimension box (smaller)'; /* */
+
+  var box = [ 0, 2 ];
+  var point = [ 3 ];
+  var expected = [ 2 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  test.case = 'Point out of one dimension box (bigger)'; /* */
+
+  var box = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = [ 0 ];
+
+  var gotClamped = _.box.pointClosestPoint( box, point );
+  test.identical( gotClamped,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( 'box', 'point' );
+  });
+
+  test.case = 'Point Null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 1, 1, 1 ], null );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+  });
+
+  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
+  });
+
+  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 0 ], [ 0 ] );
+  });
+}
+
+//
+
+function pointExpand( test )
+{
+
+  test.case = 'Point remains unchanged and Destination box changes'; /* */
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var point = [ 0, 2 ];
+  var oldPoint = point.slice();
+
+  var gotBox = _.box.pointExpand( dstBox, point );
+  test.identical( gotBox, dstBox );
+  test.identical( point, oldPoint );
+
+  var expected = [ 0, 0, 1, 2 ];
+  test.identical( gotBox, expected );
+  var oldPoint = [ 0, 2 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null box expanded'; /* */
+
+  var box = null;
+  var point = [ 1, 2, 3 ];
+  var expected = [ 1, 2, 3, 1, 2, 3 ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  test.case = 'Null box NOT expanded'; /* */
+
+  var box = null;
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  test.case = 'One point box expanded'; /* */
+
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ - 1, 2, - 3 ];
+  var expected = [ - 1,  0, - 3, 0, 2, 0 ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box expanded'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ - 1, 3, - 1 ];
+  var expected = [ - 1, 0, - 1, 2, 3, 2 ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box NOT expanded ( point inside box )'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = [ 0,  0, 0, 2, 2, 2 ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box ( normalized to 1 ) expanded'; /* */
+
+  var box = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766 ];
+  var point = [ -0.900, 0, 0.900 ];
+  var expected = [ - 0.900,  0, -0.238, 0.194, 0.766, 0.900 ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  test.case = 'Null box of four dimensions expanded'; /* */
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var point = [ 1, 2, 3 , 4 ];
+  var expected = [ 0, 0, 0, 0, 1, 2, 3, 4 ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  test.case = 'Null box of 7 dimensions expanded'; /* */
+
+  var box = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var point = [ 1, 2, 3 , 4, 5, 6, 7 ];
+  var expected = [ 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7 ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box of 1 dimension expanded'; /* */
+
+  var box = [ 0, 0 ];
+  var point = [ 1 ];
+  var expected = [ 0, 1 ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box of 0 dimension expanded'; /* */
+
+  var box = [ ];
+  var point = [ ];
+  var expected = [ ];
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( 'box', 'points' );
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( null, 4 );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+  });
+
+  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ] );
+  });
+
+  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointExpand( [ 0, 0, 0, 0 ], [ 0 ] );
+  });
+}
+
+//
+
+function pointRelative( test )
+{
+
+  test.case = 'Returns same instance point, box remains unchanged'; /* */
+
+  var box = [ 0, 0, 2, 2 ];
+  var oldBox = box.slice();
+  var point = [ 0, 1 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, point );
+  test.equivalent( oldBox, box );
+
+  var expected = [ 0, 0.5 ];
+  test.equivalent( gotPoint, expected );
+
+  var oldBox = [ 0, 0, 2, 2 ];
+  test.equivalent( oldBox, box );
+
+  test.case = 'Empty point relative to null box'; /* */
+
+  var box = null;
+  var point = [ 0, 0, 0 ];
+  var expected = [ NaN, NaN, NaN ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Empty point relative to empty box'; /* */
+
+  var box = [];
+  var point = [];
+  var expected = [];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point relative to zero box'; /* */
+
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = [ NaN, NaN, NaN ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point in medium of box'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = [ 0.5, 0.5, 0.5 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point with 1D out of box'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ 1, 1, 3 ];
+  var expected = [ 0.5, 0.5, 1.5 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point with 1D under box'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ - 1, 1, 1 ];
+  var expected = [ - 0.5, 0.5, 0.5 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point (normalized to one) in box'; /* */
+
+  var box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
+  var point = [ 0.100, 0.025, 0.050 ];
+  var expected = [ 2, 0.5, 1 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point (normalized to one) not in box'; /* */
+
+  var box = [ 0.000, 0.000, 0.000, 0.050, 0.050, 0.050 ];
+  var point = [ 0.075, 0.075, 0.075 ];
+  var expected = [ 1.5, 1.5, 1.5 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point in four dimensions box'; /* */
+
+  var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 0 ];
+  var expected = [ 0.5, 0.5, 0.5 , 0.5 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point out of four dimensions box'; /* */
+
+  var box = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, - 2, 0 , 2 ];
+  var expected = [ 0.5, - 0.5, 0.5 , 1.5 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point in seven dimensions box'; /* */
+
+  var box = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
+  var point = [ - 0.5, - 2, 1, - 3.5, 4, - 5, 7 ];
+  var expected = [ 0.5, 0, 1, - 0.5, 2, - 1, 3 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point in one dimension box'; /* */
+
+  var box = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = [ 0.5 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point out of one dimension box (smaller)'; /* */
+
+  var box = [ 0, 2 ];
+  var point = [ 3 ];
+  var expected = [ 1.5 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  test.case = 'Point out of one dimension box (bigger)'; /* */
+
+  var box = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = [ - 1.5 ];
+
+  var gotPoint = _.box.pointRelative( box, point );
+  test.equivalent( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( 'box', 'point' );
+  });
+
+  test.case = 'Point Null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 1, 1, 1 ], null );
+  });
+
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+  });
+
+  test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
+  });
+
+  test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
+  });
+
+  test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointRelative( [ 0, 0, 0, 0 ], [ 0 ] );
   });
 }
 
@@ -4100,11 +4101,11 @@ var Self =
 
     expand : expand,
 
-    pointExpand : pointExpand,
     pointContains : pointContains,
-    pointRelative : pointRelative,
-    pointClosestPoint : pointClosestPoint,
     pointDistance : pointDistance,
+    pointClosestPoint : pointClosestPoint,
+    pointExpand : pointExpand,
+    pointRelative : pointRelative,
 
     boxContains : boxContains,
     boxIntersects : boxIntersects,

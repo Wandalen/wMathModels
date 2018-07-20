@@ -598,115 +598,6 @@ function pointExpand( sphere , point )
 
 //
 
-
-/**
-  * Expands an sphere with a second sphere. Returns an array with the corrdinates of the expanded sphere
-  *
-  * @param { Array } sphereDst - Destination sphere.
-  * @param { Array } sphereSrc - Source Sphere.
-  *
-  * @example
-  * // returns [ 0, 0, 0, 3 ]
-  * _.sphereExpand( [ 0, 0, 0, 2 ], [ 0, 0, 0, 3 ] );
-  *
-  * @returns { Array } Returns an array with the coordinates of the expanded sphere.
-  * @function sphereExpand
-  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
-  */
-
-function sphereExpand( sphereDst, sphereSrc )
-{
-
-  var _sphereDst = _.sphere._from( sphereDst );
-  var centerDst = _.sphere.centerGet( _sphereDst );
-  var radiusDst = _.sphere.radiusGet( _sphereDst );
-  var dimDst = _.sphere.dimGet( _sphereDst );
-
-  var _sphereSrc = _.sphere._from( sphereSrc );
-  var centerSrc = _.sphere.centerGet( _sphereSrc );
-  var radiusSrc = _.sphere.radiusGet( _sphereSrc );
-  var dimSrc = _.sphere.dimGet( _sphereSrc );
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( dimDst === dimSrc );
-
-  if( radiusSrc === -Infinity )
-  {
-    return sphereDst;
-  }
-
-  if( radiusDst === -Infinity )
-  {
-    _sphereDst.copy( _sphereSrc );
-    return sphereDst;
-  }
-
-  var distance = _.vector.distance( centerDst,centerSrc );
-  if( radiusDst < distance+radiusSrc )
-  {
-
-    if( distance > 0 )
-    _.vector.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
-
-    if( distance > 0 )
-    _.sphere.radiusSet( _sphereDst,( distance+radiusSrc+radiusDst ) / 2 );
-    else
-    _.sphere.radiusSet( _sphereDst,Math.max( radiusDst,radiusSrc ) );
-
-  }
-
-  return sphereDst;
-}
-
-//
-
-/**
-  * Returns true if the two spheres intersect.
-  *
-  * @param { Array } sphere one
-  * @param { Array } sphere two
-  *
-  * @example
-  * // returns true
-  * _.sphereIntersects( [ - 1, 0, 0, 2 ], [ 1, 0, 0, 2 ] );
-  *
-  * @example
-  * // returns false
-  * _.sphereIntersects( [ - 2, 0, 0, 1 ], [ 2, 0, 0, 1 ] );
-  *
-  * @returns { Boolean } Returns true if the two spheres intersect and false if not.
-  * @function sphereIntersects
-  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
-  */
-
-function sphereIntersects( sphere1, sphere2 )
-{
-
-  var _sphere1 = _.sphere._from( sphere1 );
-  var center1 = _.sphere.centerGet( _sphere1 );
-  var radius1 = _.sphere.radiusGet( _sphere1 );
-  var dim1 = _.sphere.dimGet( _sphere1 );
-
-  var _sphere2 = _.sphere._from( sphere2 );
-  var center2 = _.sphere.centerGet( _sphere2 );
-  var radius2 = _.sphere.radiusGet( _sphere2 );
-  var dim2 = _.sphere.dimGet( _sphere2 );
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( dim1 === dim2 );
-  debugger;
-  // throw _.err( 'not tested' );
-
-  var r = radius1 + radius2;
-  return _.vector.distanceSqr( center1,center2 ) <= r*r;
-}
-
-//
-
 /**
   * Checks if a sphere and a box Intersect. Returns True if they intersect.
   * Sphere and box remain unchanged.
@@ -831,6 +722,114 @@ function boxExpand( dstSphere, srcBox )
 
 //
 
+/**
+  * Returns true if the two spheres intersect.
+  *
+  * @param { Array } sphere one
+  * @param { Array } sphere two
+  *
+  * @example
+  * // returns true
+  * _.sphereIntersects( [ - 1, 0, 0, 2 ], [ 1, 0, 0, 2 ] );
+  *
+  * @example
+  * // returns false
+  * _.sphereIntersects( [ - 2, 0, 0, 1 ], [ 2, 0, 0, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the two spheres intersect and false if not.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+
+function sphereIntersects( sphere1, sphere2 )
+{
+
+  var _sphere1 = _.sphere._from( sphere1 );
+  var center1 = _.sphere.centerGet( _sphere1 );
+  var radius1 = _.sphere.radiusGet( _sphere1 );
+  var dim1 = _.sphere.dimGet( _sphere1 );
+
+  var _sphere2 = _.sphere._from( sphere2 );
+  var center2 = _.sphere.centerGet( _sphere2 );
+  var radius2 = _.sphere.radiusGet( _sphere2 );
+  var dim2 = _.sphere.dimGet( _sphere2 );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( dim1 === dim2 );
+  debugger;
+  // throw _.err( 'not tested' );
+
+  var r = radius1 + radius2;
+  return _.vector.distanceSqr( center1,center2 ) <= r*r;
+}
+
+//
+
+/**
+  * Expands an sphere with a second sphere. Returns an array with the corrdinates of the expanded sphere
+  *
+  * @param { Array } sphereDst - Destination sphere.
+  * @param { Array } sphereSrc - Source Sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 3 ]
+  * _.sphereExpand( [ 0, 0, 0, 2 ], [ 0, 0, 0, 3 ] );
+  *
+  * @returns { Array } Returns an array with the coordinates of the expanded sphere.
+  * @function sphereExpand
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+
+function sphereExpand( sphereDst, sphereSrc )
+{
+
+  var _sphereDst = _.sphere._from( sphereDst );
+  var centerDst = _.sphere.centerGet( _sphereDst );
+  var radiusDst = _.sphere.radiusGet( _sphereDst );
+  var dimDst = _.sphere.dimGet( _sphereDst );
+
+  var _sphereSrc = _.sphere._from( sphereSrc );
+  var centerSrc = _.sphere.centerGet( _sphereSrc );
+  var radiusSrc = _.sphere.radiusGet( _sphereSrc );
+  var dimSrc = _.sphere.dimGet( _sphereSrc );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( dimDst === dimSrc );
+
+  if( radiusSrc === -Infinity )
+  {
+    return sphereDst;
+  }
+
+  if( radiusDst === -Infinity )
+  {
+    _sphereDst.copy( _sphereSrc );
+    return sphereDst;
+  }
+
+  var distance = _.vector.distance( centerDst,centerSrc );
+  if( radiusDst < distance+radiusSrc )
+  {
+
+    if( distance > 0 )
+    _.vector.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
+
+    if( distance > 0 )
+    _.sphere.radiusSet( _sphereDst,( distance+radiusSrc+radiusDst ) / 2 );
+    else
+    _.sphere.radiusSet( _sphereDst,Math.max( radiusDst,radiusSrc ) );
+
+  }
+
+  return sphereDst;
+}
+
+//
+
 function matrixHomogenousApply( sphere,matrix )
 {
 
@@ -907,18 +906,31 @@ var Proto =
   pointContains : pointContains,
   pointDistance : pointDistance,
   pointClosestPoint : pointClosestPoint,
+  // pointClosestPoint : pointClosestPoint, /* qqq : implement me - Already implemented - to test */
   pointExpand : pointExpand,
-  // pointClosestPoint : pointClosestPoint, /* qqq : imeplement me */
 
-  sphereExpand : sphereExpand,
-  sphereIntersects : sphereIntersects,
-  // sphereContains : sphereContains, /* qqq : imeplement me */
-  // sphereDistance : sphereDistance, /* qqq : imeplement me */
-
+  // boxContains : boxContains, /* qqq : implement me */
   boxIntersects : boxIntersects,
+  // boxDistance : boxDistance, /* qqq : implement me */
+  // boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
-  // boxContains : boxContains, /* qqq : imeplement me */
-  // boxDistance : boxDistance, /* qqq : imeplement me */
+
+  // sphereContains : sphereContains, /* qqq : implement me */
+  sphereIntersects : sphereIntersects,
+  // sphereDistance : sphereDistance, /* qqq : implement me */
+  // sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
+  sphereExpand : sphereExpand,
+
+  // planeIntersects : planeIntersects, /* qqq : implement me */
+  // planeDistance : planeDistance, /* qqq : implement me */
+  // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
+  // planeExpand : planeExpand, /* qqq : implement me */
+
+  // frustumContains : frustumContains, /* qqq : implement me */
+  // frustumIntersects : frustumIntersects, /* qqq : implement me */
+  // frustumDistance : frustumDistance, /* qqq : implement me */
+  // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
+  // frustumExpand : frustumExpand, /* qqq : implement me */
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
