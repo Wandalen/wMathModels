@@ -126,16 +126,16 @@ function is( frustum )
   *     0, 0, 1, - 1, 0, 0,
   *     - 1, 0, - 1, 0, 0, - 1 ] );
   *
-  * _.frustumCorners( srcfrustum );
+  * _.cornersGet( srcfrustum );
   *
   * @returns { Space } Returns the coordintes of the points in the frustum corners.
-  * @function frustumCorners
+  * @function cornersGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @memberof wTools.frustum
   */
 
-function frustumCorners( srcfrustum )
+function cornersGet( srcfrustum )
 {
 
   _.assert( arguments.length === 1, 'expects single argument' );
@@ -288,7 +288,7 @@ function frustumIntersects( srcfrustum , testfrustum )
   _.assert( _.frustum.is( testfrustum ) );
   debugger;
 
-  var points = _.frustum.frustumCorners( srcfrustum );
+  var points = _.frustum.cornersGet( srcfrustum );
 
   for( var i = 0 ; i < points.length ; i += 1 )
   {
@@ -299,7 +299,7 @@ function frustumIntersects( srcfrustum , testfrustum )
 
   }
 
-  var points2 = _.frustum.frustumCorners( testfrustum );
+  var points2 = _.frustum.cornersGet( testfrustum );
 
   for( var i = 0 ; i < points2.length ; i += 1 )
   {
@@ -437,7 +437,7 @@ function boxIntersects( frustum , box )
     return true;
   }
 
-  var fpoints = _.frustum.frustumCorners( frustum );
+  var fpoints = _.frustum.cornersGet( frustum );
   _.assert( _.spaceIs( fpoints ) );
 
   for( var i = 0 ; i < 6 ; i += 1 )
@@ -548,19 +548,21 @@ function pointContains( frustum , point )
   * @memberof wTools.frustum
   */
 
-function pointClosestPoint( frustum , point )
+/* qqq : dstPoint is destination */
+
+function pointClosestPoint( frustum , dstPoint )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( frustum ) );
-  var point = _.vector.from( point );
-  var _point = _.vector.from( point.slice() );
+  var dstPoint = _.vector.from( dstPoint );  /* qqq : problem */
+  var pointVector = _.vector.from( dstPoint.slice() );
   var dstpoint = _.vector.fromArray( [ 0, 0, 0 ] );
   var dims = _.Space.dimsOf( frustum ) ;
   var rows = dims[ 0 ];
   var cols = dims[ 1 ];
-  var fpoints = _.frustum.frustumCorners( frustum );
+  var fpoints = _.frustum.cornersGet( frustum );
 
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
   _.assert( _.spaceIs( fpoints ) );
   _.assert( fpoints.hasShape([ 3, 8 ] ) );
 
@@ -569,7 +571,7 @@ function pointClosestPoint( frustum , point )
   max = _.vector.toArray( max );
   min = _.vector.toArray( min );
   dstpoint = _.vector.toArray( dstpoint );
-  var _point = _.vector.toArray( _point.slice() );
+  var pointVector = _.vector.toArray( pointVector.slice() );
 
   for( var j = 1 ; j < cols ; j++ )
   {
@@ -602,17 +604,17 @@ function pointClosestPoint( frustum , point )
 
   for( var i = 0 ; i < 3 ; i++ )
   {
-    if( _point[ i ] >= max[ i ] )
+    if( pointVector[ i ] >= max[ i ] )
     {
       dstpoint[ i ] = max[ i ];
     }
-    else if( _point[ i ] <= min[ i ] )
+    else if( pointVector[ i ] <= min[ i ] )
     {
       dstpoint[ i ] = min[ i ];
     }
     else
     {
-      dstpoint[ i ] = _point[ i ];
+      dstpoint[ i ] = pointVector[ i ];
     }
   }
 
@@ -625,7 +627,7 @@ function pointClosestPoint( frustum , point )
   else
   {
     var d0 = Infinity;
-    var _point = _.vector.toArray( _point );
+    var pointVector = _.vector.toArray( pointVector );
     var finalpoint = dstpoint;
 
     for( var i = 0 ; i < cols ; i++ )
@@ -633,7 +635,7 @@ function pointClosestPoint( frustum , point )
       var plane = _.vector.from( frustum.colVectorGet( i ) );
       var p =  _.plane.pointCoplanarGet( plane, _.vector.from( dstpoint.slice() ) );
       p = _.vector.toArray( p );
-      var d = _.avector.distance( _point, p );
+      var d = _.avector.distance( pointVector, p );
       if( d < d0  && _.frustum.pointContains( frustum, _.vector.from( p ) ) )
       {
         finalpoint = p ; d0 = d;
@@ -693,7 +695,7 @@ function boxClosestPoint( frustum , box )
 
   /* frustum corners */
 
-  var fpoints = _.frustum.frustumCorners( frustum );
+  var fpoints = _.frustum.cornersGet( frustum );
   var dist = Infinity;
   for ( var j = 0 ; j < cols ; j++ )
   {
@@ -787,6 +789,8 @@ function sphereClosestPoint( frustum , sphere )
 // define class
 // --
 
+/* qqq : please sort */
+
 var Proto =
 {
 
@@ -794,16 +798,23 @@ var Proto =
   fromMatrixHomogenous : fromMatrixHomogenous,
   is : is,
 
-  frustumCorners : frustumCorners,
+  cornersGet : cornersGet,
 
   frustumIntersects : frustumIntersects,
-  sphereIntersects : sphereIntersects,
-  boxIntersects : boxIntersects,
-  pointContains : pointContains,
 
-  pointClosestPoint : pointClosestPoint,
-  boxClosestPoint : boxClosestPoint,
+  pointContains : pointContains,
+  pointClosestPoint : pointClosestPoint, /* qqq : review please */
+  // pointDistance : pointDistance, /* qqq : imeplement me */
+
+  // sphereContains : sphereContains, /* qqq : imeplement me */
+  sphereIntersects : sphereIntersects,
+  // sphereDistance : sphereDistance, /* qqq : imeplement me */
   sphereClosestPoint : sphereClosestPoint,
+
+  boxIntersects : boxIntersects,
+  boxClosestPoint : boxClosestPoint,
+  // boxContains : boxContains, /* qqq : imeplement me */
+  // boxDistance : boxDistance, /* qqq : imeplement me */
 
 }
 
