@@ -3135,9 +3135,9 @@ function representFullCoverageFast( test )
   var o =
   {
     // representations : representations,
-    angles : angles,
+    // angles : angles,
     // quadrants : quadrants,
-    quadrantsLocked : quadrantsLocked,
+    // quadrantsLocked : quadrantsLocked,
     deltas : deltas,
     anglesLocked : anglesLocked,
     onEach : onEach,
@@ -3171,7 +3171,7 @@ function representFullCoverageFast( test )
 
 }
 
-representFullCoverageFast.timeOut = 20000;
+representFullCoverageFast.timeOut = 100000;
 representFullCoverageFast.usingSourceCode = 0;
 representFullCoverageFast.rapidity = 3;
 
@@ -3247,7 +3247,7 @@ function representFullCoverageSlow( test )
 
 representFullCoverageSlow.timeOut = 150000;
 representFullCoverageSlow.usingSourceCode = 0;
-representFullCoverageSlow.rapidity = 1;
+representFullCoverageSlow.rapidity = 2;
 
 //
 
@@ -3347,89 +3347,173 @@ function isGimbalLock( test )
   var gotBool = _.euler.isGimbalLock( srcEuler );
   test.identical( gotBool, false );
 
-  test.case = 'Euler XYZ'; //
+  test.case = 'Euler XYZ - Gimbal Lock angle y = pi/2'; /**/
 
-  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
-
-  var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
-
-  test.case = 'Euler XZY'; //
-
-  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+  var srcEuler = [ - 0.1, Math.PI/2, 0, 0, 1, 2 ];
 
   var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
+  test.identical( gotBool, true );
 
-  test.case = 'Euler YXZ'; //
+  test.case = 'Euler XYZ - Gimbal Lock angle y = -pi/2'; /**/
 
-  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
-
-  var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
-
-  test.case = 'Euler YZX'; //
-
-  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+  var srcEuler = [ 0.1, - Math.PI/2, 0, 0, 1, 2 ];
 
   var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
+  test.identical( gotBool, true );
 
-  test.case = 'Euler ZXY'; //
+  test.case = 'Euler XZY - Gimbal Lock angle z = pi/2'; /**/
 
-  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
-
-  var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
-
-  test.case = 'Euler ZYX'; //
-
-  var srcEuler = [ 1, 0.25, 0.75, 0, 2, 0 ];
+  var srcEuler =  [ 0.1, Math.PI/2, 0, 0, 2, 1 ] ;
 
   var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
+  test.identical( gotBool, true );
 
-  test.case = 'Euler XYX'; //
+  test.case = 'Euler XZY - Gimbal Lock angle z = - pi/2'; /**/
 
-  var srcEuler = [ - 0.5, 0.5, 1, 0, 2, 1 ];
-
-  var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
-
-  test.case = 'Euler XZX'; //
-
-  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+  var srcEuler =  [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] ;
 
   var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
+  test.identical( gotBool, true );
 
-  test.case = 'Euler YXY'; //
+  test.case = 'Euler YXZ - Gimbal Lock angle x = pi/2'; /**/
 
-  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
-
-  var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
-
-  test.case = 'Euler YZY'; //
-
-  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+  var srcEuler = [ 0.1, Math.PI/2, 0, 1, 0, 2 ];
 
   var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
+  test.identical( gotBool, true );
 
-  test.case = 'Euler ZXZ'; //
+  test.case = 'Euler YXZ - Gimbal Lock angle x = - pi/2'; /**/
 
-  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
-
-  var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
-
-  test.case = 'Euler ZYZ'; //
-
-  var srcEuler = [ - 0.5, 0.5, 1, 0, 1, 2 ];
+  var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ];
 
   var gotBool = _.euler.isGimbalLock( srcEuler );
-  test.identical( gotBool, false );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YZX - Gimbal Lock angle z = pi/2'; /**/
+
+  var srcEuler = [ - 0.1, Math.PI/2, 0, 1, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YZX - Gimbal Lock angle z = - pi/2'; /**/
+
+  var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZXY - Gimbal Lock angle x = pi/2'; /**/
+
+  var srcEuler = [ - 0.1, Math.PI/2, 0, 2, 0, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZXY - Gimbal Lock angle x = - pi/2'; /**/
+
+  var srcEuler = [ - 0.1, - Math.PI/2, 0, 2, 0, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZYX - Gimbal Lock angle x = pi/2'; /**/
+
+  var srcEuler =  [ - 0.1, Math.PI/2, 0, 2, 1, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZYX - Gimbal Lock angle x = - pi/2'; /**/
+
+  var srcEuler =  [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XYX - Gimbal Lock angle y = pi'; /**/
+
+  var srcEuler = [ 0.1, Math.PI, 0, 0, 1, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XYX - Gimbal Lock angle y = 0'; /**/
+
+  var srcEuler = [ 0.1, 0, 0, 0, 1, 0 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XZX - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler =  [ 0.1, Math.PI, 0, 0, 2, 0 ] ;
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler XZX - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler =  [ 0.1, 0, 0, 0, 2, 0 ] ;
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YXY - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler = [ 0.1, Math.PI, 0, 1, 0, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YXY - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler = [ 0.1, 0, 0, 1, 0, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YZY - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler = [ 0.1, Math.PI, 0, 1, 2, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler YZY - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler = [ 0.1, 0, 0, 1, 2, 1 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZXZ - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler = [ 0.1, Math.PI, 0, 2, 0, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZXZ - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler = [ 0.1, 0, 0, 2, 0, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZYZ - Gimbal Lock angle z = pi'; /**/
+
+  var srcEuler =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
+
+  test.case = 'Euler ZYZ - Gimbal Lock angle z = 0'; /**/
+
+  var srcEuler =  [ 0.1, 0, 0, 2, 1, 2 ];
+
+  var gotBool = _.euler.isGimbalLock( srcEuler );
+  test.identical( gotBool, true );
 
   /* */
 
@@ -3548,7 +3632,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 1,
   enabled : 1,
-  // routine : 'eulerToQuatToMatrixToEulerSlow',
+  // routine : 'isGimbalLock',
 
   context :
   {
