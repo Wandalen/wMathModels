@@ -2421,23 +2421,23 @@ function toMatrix2( srcEuler, dstMatrix )
 function fromAxisAndAngle2( dstEuler, axis, angle )
 {
 
-  var dstEulerVector = _.euler.from( dstEuler );
+  var dstEuler = _.euler.from( dstEuler );
+  var dstEulerVector = _.vector.from( dstEuler );
+  var srcAxisVector = _.vector.from( axis );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
 
-  if( angle === undefined )
-  {
-    var angle = axis[ 3 ];
-    var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
-  }
-  else
+  if( arguments.length === 2 )
   {
     var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis );
   }
+  else
+  {
+    var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
+  }
 
   var dstEulerVector = _.euler.fromQuat2( dstEulerVector, quat );
-
   return dstEuler;
 }
 
