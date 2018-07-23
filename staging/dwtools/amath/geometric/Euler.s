@@ -2402,7 +2402,7 @@ function toMatrix2( srcEuler, dstMatrix )
   * Create the euler angle from an axis and angle rotation. Returns the created euler angle.
   * Axis and Angle stay unchanged.
   *
-  * @param { Array } euler - Destination array with euler angle source code.
+  * @param { Array } dstEuler - Destination array with euler angle source code.
   * @param { Axis } axis - Source rotation axis.
   * @param { Angle } angle - Source rotation angle.
   *
@@ -2413,17 +2413,15 @@ function toMatrix2( srcEuler, dstMatrix )
   * @returns { Array } Returns the corresponding euler angles.
   * @function fromAxisAndAngle2
   * @throws { Error } An Error if( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if( euler ) is not euler.
+  * @throws { Error } An Error if( dstEuler ) is not euler.
   * @throws { Error } An Error if( axis ) is not axis or axis and angle.
   * @memberof wTools.euler
   */
 
-function fromAxisAndAngle2( euler, axis, angle )
+function fromAxisAndAngle2( dstEuler, axis, angle )
 {
 
-  var dstEuler = _.euler.from( euler );
-  var dstEulerVector = _.vector.from( dstEuler );
-  var axisVector = _.vector.from( axis );
+  var dstEulerVector = _.euler.from( dstEuler );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
@@ -2438,9 +2436,46 @@ function fromAxisAndAngle2( euler, axis, angle )
     var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis );
   }
 
-  var dst = _.euler.fromQuat2( dstEuler, quat );
+  var dstEulerVector = _.euler.fromQuat2( dstEulerVector, quat );
 
-  return dst;
+  return dstEuler;
+}
+
+//
+
+/**
+  * Create an axis and angle rotation from an euler angle. Returns the created AxisAndAngle.
+  * Euler angle stay unchanged.
+  *
+  * @param { Array } euler - Source euler angle.
+  * @param { Array } axisAndAngle - Destination rotation axis and angle.
+  *
+  * @example
+  * // returns [ 1, 1, 0, PI ]
+  * _.fromaxisAndAngle2( [ PI, PI/2, 0, 2, 1, 0 ], [ 0, 0, 0, 0 ] );
+  *
+  * @returns { Array } Returns the corresponding axis and angle.
+  * @function toAxisAndAngle2
+  * @throws { Error } An Error if( arguments.length ) is different than two.
+  * @throws { Error } An Error if( euler ) is not euler.
+  * @throws { Error } An Error if( axisAndAngle ) is not axis and angle.
+  * @memberof wTools.euler
+  */
+
+function toAxisAndAngle2( euler, axisAndAngle )
+{
+
+  var srcEuler = _.euler.from( euler );
+  var srcEulerVector = _.vector.from( dstEuler );
+
+  _.assert( arguments.length === 2, 'expects two arguments' );
+  _.assert( axisAndAngle.length === 4 );
+
+  var quat = _.euler.toQuat2( dstEuler, [ 0, 0, 0, 0 ] );
+
+  var axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
+  return axisAndAngle;
+
 }
 
 //
@@ -2781,6 +2816,7 @@ var Proto =
   fromMatrix2 : fromMatrix2,
   toMatrix2 : toMatrix2,
   fromAxisAndAngle2 : fromAxisAndAngle2,
+  toAxisAndAngle2 : toAxisAndAngle2,
 
   represent : represent,
   isGimbalLock : isGimbalLock,
