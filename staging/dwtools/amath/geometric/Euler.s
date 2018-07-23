@@ -2466,12 +2466,11 @@ function toAxisAndAngle2( euler, axisAndAngle )
 {
 
   var srcEuler = _.euler.from( euler );
-  var srcEulerVector = _.vector.from( dstEuler );
 
   _.assert( arguments.length === 2, 'expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
 
-  var quat = _.euler.toQuat2( dstEuler, [ 0, 0, 0, 0 ] );
+  var quat = _.euler.toQuat2( srcEuler, [ 0, 0, 0, 0 ] );
 
   var axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
   return axisAndAngle;
