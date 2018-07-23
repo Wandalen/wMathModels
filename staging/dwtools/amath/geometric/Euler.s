@@ -2399,6 +2399,53 @@ function toMatrix2( srcEuler, dstMatrix )
 //
 
 /**
+  * Create the euler angle from an axis and angle rotation. Returns the created euler angle.
+  * Axis and Angle stay unchanged.
+  *
+  * @param { Array } euler - Destination array with euler angle source code.
+  * @param { Axis } axis - Source rotation axis.
+  * @param { Angle } angle - Source rotation angle.
+  *
+  * @example
+  * // returns [ PI, PI/2, 0, 2, 1, 0 ]
+  * _.fromaxisAndAngle2( [ 0, 0, 0, 1, 2, 0 ], [ 1, 1, 0 ], PI );
+  *
+  * @returns { Array } Returns the corresponding euler angles.
+  * @function fromAxisAndAngle2
+  * @throws { Error } An Error if( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if( euler ) is not euler.
+  * @throws { Error } An Error if( axis ) is not axis or axis and angle.
+  * @memberof wTools.euler
+  */
+
+function fromAxisAndAngle2( euler, axis, angle )
+{
+
+  var dstEuler = _.euler.from( euler );
+  var dstEulerVector = _.vector.from( dstEuler );
+  var axisVector = _.vector.from( axis );
+
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( axis.length === 3 || axis.length === 4 );
+
+  if( angle === undefined )
+  {
+    var angle = axis[ 3 ];
+    var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
+  }
+  else
+  {
+    var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis );
+  }
+
+  var dst = _.euler.fromQuat2( dstEuler, quat );
+
+  return dst;
+}
+
+//
+
+/**
   * Changes the representation of an euler Angle in one of two format ( 'xyz' or [ 0, 1, 2 ] ).
   * Euler representation stay untouched, dstEuler changes.
   *
@@ -2733,6 +2780,7 @@ var Proto =
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
   toMatrix2 : toMatrix2,
+  fromAxisAndAngle2 : fromAxisAndAngle2,
 
   represent : represent,
   isGimbalLock : isGimbalLock,
