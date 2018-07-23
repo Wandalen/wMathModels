@@ -3123,10 +3123,11 @@ function representFullCoverageFast( test )
 
   // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   // var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  var angles = [ 0, Math.PI / 6, Math.PI / 4 ];
   // var quadrants = [ 0, 1, 2, 3 ];
-  // var quadrantsLocked = [ 0 ];
+  var quadrantsLocked = [ 0 ];
   // var deltas = [ -0.1, -accuracySqrt, -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
-  var deltas = [ -accuracySqr, 0, +accuracySqr, +0.1 ];
+  var deltas = [ -accuracySqr, +accuracySqr ];
   // var deltasLocked = [ 0 ];
   var anglesLocked = [ Math.PI / 3 ];
 
@@ -3135,9 +3136,9 @@ function representFullCoverageFast( test )
   var o =
   {
     // representations : representations,
-    // angles : angles,
+    angles : angles,
     // quadrants : quadrants,
-    // quadrantsLocked : quadrantsLocked,
+    quadrantsLocked : quadrantsLocked,
     deltas : deltas,
     anglesLocked : anglesLocked,
     onEach : onEach,
@@ -3632,7 +3633,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 1,
   enabled : 1,
-  // routine : 'eulerToQuatToEulerToQuatSlow',
+  routine : 'representFullCoverageFast',
 
   context :
   {
@@ -3663,7 +3664,7 @@ var Self =
     toMatrix2 : toMatrix2,
     eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
 
-    /* takes 10 seconds */
+    /* takes 6 seconds */
     eulerToQuatToEulerToQuatFast : eulerToQuatToEulerToQuatFast,
     /* takes 88 seconds - accuracy [ 1e-10, 1e-1 ] */
     eulerToQuatToEulerToQuatSlow : eulerToQuatToEulerToQuatSlow,
@@ -3679,7 +3680,7 @@ var Self =
     /* takes 16 seconds */
     representFullCoverageFast : representFullCoverageFast,
 
-    /* takes 110 seconds */
+    /* takes 117 seconds */
     representFullCoverageSlow : representFullCoverageSlow,
 
     isGimbalLock : isGimbalLock,
