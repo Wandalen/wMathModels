@@ -421,7 +421,7 @@ function fromAxisAndAngle( dst, axisAndAngle, angle )
 
   dst = _.quat.from( dst );
   var dstv = _.vector.from( dst );
-  var axisAndAnglev = _.axisAndAngle._from( axisAndAngle,angle );
+  var axisAndAnglev = _.axisAndAngle._from( axisAndAngle, angle );
 
   var halfAngle = axisAndAnglev.eGet( 3 ) / 2;
   var s = sin( halfAngle );

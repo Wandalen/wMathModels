@@ -315,28 +315,35 @@ function pointContains( frustum , point )
 
 /* qqq : dstPoint is destination */
 
-function pointClosestPoint( frustum , dstPoint )
+function pointClosestPoint( frustum , srcPoint, dstPoint )
 {
 
-  var dstPoint = _.vector.from( dstPoint );  /* qqq : problem */
-  var pointVector = _.vector.from( dstPoint.slice() );
-  var dstpoint = _.vector.fromArray( [ 0, 0, 0 ] );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  if( arguments.length === 2 )
+  var dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  var srcPointVector = _.vector.from( srcPoint );  /* qqq : problem */
+  var dstPointVector = _.vector.from( dstPoint );
   var dims = _.Space.dimsOf( frustum ) ;
   var rows = dims[ 0 ];
   var cols = dims[ 1 ];
   var fpoints = _.frustum.cornersGet( frustum );
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( frustum ) );
   _.assert( _.spaceIs( fpoints ) );
   _.assert( fpoints.hasShape([ 3, 8 ] ) );
+  _.assert( rows -1 === srcPointVector.length );
+  _.assert( dstPointVector.length === srcPointVector.length );
 
   var max = fpoints.colVectorGet( 0 );
   var min = fpoints.colVectorGet( 0 );
   max = _.vector.toArray( max );
   min = _.vector.toArray( min );
-  dstpoint = _.vector.toArray( dstpoint );
-  var pointVector = _.vector.toArray( pointVector.slice() );
+  var srcPointArray = _.vector.toArray( srcPointVector );
+  var dstPointArray = _.vector.toArray( dstPointVector );
 
   for( var j = 1 ; j < cols ; j++ )
   {
@@ -369,49 +376,55 @@ function pointClosestPoint( frustum , dstPoint )
 
   for( var i = 0 ; i < 3 ; i++ )
   {
-    if( pointVector[ i ] >= max[ i ] )
+    if( srcPointArray[ i ] >= max[ i ] )
     {
-      dstpoint[ i ] = max[ i ];
+      dstPointArray[ i ] = max[ i ];
     }
-    else if( pointVector[ i ] <= min[ i ] )
+    else if( srcPointArray[ i ] <= min[ i ] )
     {
-      dstpoint[ i ] = min[ i ];
+      dstPointArray[ i ] = min[ i ];
     }
     else
     {
-      dstpoint[ i ] = pointVector[ i ];
+      dstPointArray[ i ] = srcPointArray[ i ];
     }
   }
 
-  dstpoint = _.vector.from( dstpoint );
-  if( _.frustum.pointContains( frustum, dstpoint ) == true )
+  if( _.frustum.pointContains( frustum, dstPointVector ) === true )
   {
-    return dstpoint;
+    return dstPoint;
   }
 
   else
   {
     var d0 = Infinity;
-    var pointVector = _.vector.toArray( pointVector );
-    var finalpoint = dstpoint;
+    var finalPointArray = dstPointVector.slice();
 
     for( var i = 0 ; i < cols ; i++ )
     {
       var plane = _.vector.from( frustum.colVectorGet( i ) );
-      var p =  _.plane.pointCoplanarGet( plane, _.vector.from( dstpoint.slice() ) );
-      p = _.vector.toArray( p );
-      var d = _.avector.distance( pointVector, p );
-      if( d < d0  && _.frustum.pointContains( frustum, _.vector.from( p ) ) )
+
+      var p =  _.plane.pointCoplanarGet( plane, _.vector.toArray( dstPointVector ).slice() );
+
+      var d = _.avector.distance( _.vector.toArray( dstPointVector ), p );
+
+      var pVector = _.vector.from( p );
+      if( d < d0  && _.frustum.pointContains( frustum, pVector ) )
       {
-        finalpoint = p ; d0 = d;
+        finalPointArray[ 0 ] = pVector.eGet( 0 );
+        finalPointArray[ 1 ] = pVector.eGet( 1 );
+        finalPointArray[ 2 ] = pVector.eGet( 2 );
+        d0 = d;
       }
     }
-      dstpoint = _.vector.from( finalpoint );
-  }
 
-  dstpoint = _.vector.from( dstpoint );
-  _.assert( _.frustum.pointContains( frustum, dstpoint ) == true );
-  return dstpoint;
+    dstPointVector.eSet( 0, finalPointArray[ 0 ] );
+    dstPointVector.eSet( 1, finalPointArray[ 1 ] );
+    dstPointVector.eSet( 2, finalPointArray[ 2 ] );
+
+    _.assert( _.frustum.pointContains( frustum, dstPointVector ) === true );
+    return dstPoint;
+  }
 }
 
 //

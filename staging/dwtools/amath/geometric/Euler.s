@@ -1639,9 +1639,6 @@ function toQuat2( srcEuler, dstQuat )
 
   /* qqq : not optimal */
 
-  var s0p = sin( ( e0 + e2 )/2 ); var c0p = cos( ( e0 + e2 )/2 );
-  var s0n = sin( ( e0 - e2 )/2 ); var c0n = cos( ( e0 - e2 )/2 );
-
   if( ox === 0 && oy === 1 && oz === 2 )
   {
     dstQuatVector.eSet( 0, s0*c1*c2 + c0*s1*s2 );
@@ -1660,18 +1657,24 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    dstQuatVector.eSet( 0, s0p*c1 );
-    dstQuatVector.eSet( 1, c0n*s1 );
-    dstQuatVector.eSet( 2, s0n*s1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, sin( sum )*c1 );
+    dstQuatVector.eSet( 1, cos( dif )*s1 );
+    dstQuatVector.eSet( 2, sin( dif )*s1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    dstQuatVector.eSet( 0, s0p*c1 );
-    dstQuatVector.eSet( 1, - s0n*s1 );
-    dstQuatVector.eSet( 2, c0n*s1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, sin( sum )*c1 );
+    dstQuatVector.eSet( 1, - sin( dif )*s1 );
+    dstQuatVector.eSet( 2, cos( dif )*s1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 2 )
@@ -1692,18 +1695,24 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    dstQuatVector.eSet( 0, c0n*s1 );
-    dstQuatVector.eSet( 1, s0p*c1 );
-    dstQuatVector.eSet( 2, - s0n*s1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, cos( dif )*s1 );
+    dstQuatVector.eSet( 1, sin( sum )*c1 );
+    dstQuatVector.eSet( 2, - sin( dif )*s1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    dstQuatVector.eSet( 0, s0n*s1 );
-    dstQuatVector.eSet( 1, s0p*c1 );
-    dstQuatVector.eSet( 2, c0n*s1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, sin( dif )*s1 );
+    dstQuatVector.eSet( 1, sin( sum )*c1 );
+    dstQuatVector.eSet( 2, cos( dif )*s1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 0 )
@@ -1724,18 +1733,24 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    dstQuatVector.eSet( 0, c0n*s1 );
-    dstQuatVector.eSet( 1, s0n*s1 );
-    dstQuatVector.eSet( 2, s0p*c1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, cos( dif )*s1 );
+    dstQuatVector.eSet( 1, sin( dif )*s1 );
+    dstQuatVector.eSet( 2, sin( sum )*c1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    dstQuatVector.eSet( 0, - s0n*s1 );
-    dstQuatVector.eSet( 1, c0n*s1 );
-    dstQuatVector.eSet( 2, s0p*c1 );
-    dstQuatVector.eSet( 3, c0p*c1 );
+    var sum = ( e0 + e2 )/2;
+    var dif = ( e0 - e2 )/2;
+
+    dstQuatVector.eSet( 0, - sin( dif )*s1 );
+    dstQuatVector.eSet( 1, cos( dif )*s1 );
+    dstQuatVector.eSet( 2, sin( sum )*c1 );
+    dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
   else _.assert( 0 );
 
@@ -2161,6 +2176,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
 //
 
+function fromMatrix3( dstEuler, srcMatrix )
+{
+  _.assert( arguments.length === 2 );
+  _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
+
+  if( dstEuler === undefined || dstEuler === null )
+  dstEuler = _.euler.makeZero();
+
+  var dstEuler = _.euler.from( dstEuler );
+
+  _.assert( _.Space.is( srcMatrix ) );
+  _.assert( srcMatrix.dims[ 0 ] >= 3 );
+  _.assert( srcMatrix.dims[ 1 ] >= 3 );
+
+  var quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+  dstEuler = _.euler.fromQuat2( dstEuler, quat );
+
+  return dstEuler;
+
+}
+
+//
+
 /**
   * Create the rotation matrix from a set of euler angles. Returns the created matrix.
   * Euler angles stay untouched.
@@ -2379,6 +2417,87 @@ function toMatrix2( srcEuler, dstMatrix )
   }
 
   return dstMatrix;
+}
+
+//
+
+/**
+  * Create the euler angle from an axis and angle rotation. Returns the created euler angle.
+  * Axis and Angle stay unchanged.
+  *
+  * @param { Array } dstEuler - Destination array with euler angle source code.
+  * @param { Axis } axis - Source rotation axis.
+  * @param { Angle } angle - Source rotation angle.
+  *
+  * @example
+  * // returns [ PI, PI/2, 0, 2, 1, 0 ]
+  * _.fromaxisAndAngle2( [ 0, 0, 0, 1, 2, 0 ], [ 1, 1, 0 ], PI );
+  *
+  * @returns { Array } Returns the corresponding euler angles.
+  * @function fromAxisAndAngle2
+  * @throws { Error } An Error if( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if( dstEuler ) is not euler.
+  * @throws { Error } An Error if( axis ) is not axis or axis and angle.
+  * @memberof wTools.euler
+  */
+
+function fromAxisAndAngle2( dstEuler, axis, angle )
+{
+
+  var dstEuler = _.euler.from( dstEuler );
+  var dstEulerVector = _.vector.from( dstEuler );
+  var srcAxisVector = _.vector.from( axis );
+
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( axis.length === 3 || axis.length === 4 );
+
+  if( arguments.length === 2 )
+  {
+    var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis );
+  }
+  else
+  {
+    var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
+  }
+
+  var dstEulerVector = _.euler.fromQuat2( dstEulerVector, quat );
+  return dstEuler;
+}
+
+//
+
+/**
+  * Create an axis and angle rotation from an euler angle. Returns the created AxisAndAngle.
+  * Euler angle stay unchanged.
+  *
+  * @param { Array } euler - Source euler angle.
+  * @param { Array } axisAndAngle - Destination rotation axis and angle.
+  *
+  * @example
+  * // returns [ 1, 1, 0, PI ]
+  * _.fromaxisAndAngle2( [ PI, PI/2, 0, 2, 1, 0 ], [ 0, 0, 0, 0 ] );
+  *
+  * @returns { Array } Returns the corresponding axis and angle.
+  * @function toAxisAndAngle2
+  * @throws { Error } An Error if( arguments.length ) is different than two.
+  * @throws { Error } An Error if( euler ) is not euler.
+  * @throws { Error } An Error if( axisAndAngle ) is not axis and angle.
+  * @memberof wTools.euler
+  */
+
+function toAxisAndAngle2( euler, axisAndAngle )
+{
+
+  var srcEuler = _.euler.from( euler );
+
+  _.assert( arguments.length === 2, 'expects two arguments' );
+  _.assert( axisAndAngle.length === 4 );
+
+  var quat = _.euler.toQuat2( srcEuler, [ 0, 0, 0, 0 ] );
+
+  var axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
+  return axisAndAngle;
+
 }
 
 //
@@ -2717,7 +2836,10 @@ var Proto =
   fromQuat2 : fromQuat2,
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
+  fromMatrix3 : fromMatrix3,
   toMatrix2 : toMatrix2,
+  fromAxisAndAngle2 : fromAxisAndAngle2,
+  toAxisAndAngle2 : toAxisAndAngle2,
 
   represent : represent,
   isGimbalLock : isGimbalLock,

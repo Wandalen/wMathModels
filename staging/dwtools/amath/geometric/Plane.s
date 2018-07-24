@@ -285,6 +285,7 @@ function pointDistance( plane , point )
   // distance = Math.abs( distance );
 
   return distance;
+
 }
 
 //
@@ -520,7 +521,12 @@ function sphereDistance( plane , sphere )
 
   var d = _.plane.pointDistance( plane , center );
   d = Math.abs( d ) - _.sphere.radiusGet( sphere );
+
+  if( d < 0 )
+  return 0;
+  else
   return d;
+
 }
 
 //
