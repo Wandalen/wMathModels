@@ -231,6 +231,90 @@ function zero( axisAndAngle,angle )
   return axisAndAngle;
 }
 
+//
+
+/**
+  * Create an axis and angle rotation from a matrix rotation. Returns the created AxisAndAngle.
+  * Matrix rotation stays unchanged.
+  *
+  * @param { Array } srcMatrix - Source matrix rotation.
+  * @param { Array } axisAndAngle - Destination rotation axis and angle.
+  *
+  * @example
+  * // returns [ 0.6520678, 0.38680106, 0.6520678, 0.92713394 ]
+  * var srcMatrix = _.Space.make([ 3, 3 ]).copy
+  * ([
+  *   0.7701511383, -0.4207354784, 0.479425549507,
+  *   0.6224468350, 0.65995573997, - 0.420735478401,
+  *   - 0.13938128948, 0.622446835, 0.7701511383
+  * ]);
+  * _.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+  *
+  * @returns { Array } Returns the corresponding axis and angle.
+  * @function fromMatrixRotation
+  * @throws { Error } An Error if( arguments.length ) is different than two.
+  * @throws { Error } An Error if( srcMatrix ) is not a rotation matrix.
+  * @throws { Error } An Error if( axisAndAngle ) is not axis and angle.
+  * @memberof wTools.axisAndAngle
+  */
+
+function fromMatrixRotation( axisAndAngle, srcMatrix )
+{
+
+  _.assert( arguments.length === 2, 'expects two arguments' );
+  _.assert( axisAndAngle.length === 4 );
+  _.assert( _.Space.is( srcMatrix ) );
+  _.assert( srcMatrix.hasShape([ 3, 3 ]) );
+
+
+  var quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+  var axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
+
+  return axisAndAngle;
+
+}
+
+//
+
+/**
+  * Create a matrix rotation from an axis and angle rotation. Returns the created matrix.
+  * Axis Angle stays unchanged.
+  *
+  * @param { Array } dstMatrix - Destination matrix rotation.
+  * @param { Array } axisAndAngle - Source rotation axis and angle.
+  *
+  * @example
+  * // returns
+  * ([
+  *   0.7701511383, -0.4207354784, 0.479425549507,
+  *   0.6224468350, 0.65995573997, - 0.420735478401,
+  *   - 0.13938128948, 0.622446835, 0.7701511383
+  * ]);
+  * _.toMatrixRotation( [ 0.6520678, 0.38680106, 0.6520678, 0.92713394 ], srcMatrix );
+  *
+  * @returns { Space } Returns the corresponding matrix rotation.
+  * @function toMatrixRotation
+  * @throws { Error } An Error if( arguments.length ) is different than two.
+  * @throws { Error } An Error if( dstMatrix ) is not matrix.
+  * @throws { Error } An Error if( axisAndAngle ) is not axis and angle.
+  * @memberof wTools.axisAndAngle
+  */
+
+function toMatrixRotation( axisAndAngle, dstMatrix )
+{
+
+  _.assert( arguments.length === 2, 'expects two arguments' );
+  _.assert( axisAndAngle.length === 4 );
+  _.assert( _.Space.is( dstMatrix ) );
+  _.assert( dstMatrix.hasShape([ 3, 3 ]) );
+
+  var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axisAndAngle );
+  var dstMatrix = _.quat.toMatrix( quat, dstMatrix );
+
+  return dstMatrix;
+
+}
+
 // --
 // define class
 // --
@@ -249,6 +333,9 @@ var Proto =
   _from : _from,
 
   zero : zero,
+
+  fromMatrixRotation : fromMatrixRotation,
+  toMatrixRotation : toMatrixRotation,
 
 }
 

@@ -583,6 +583,61 @@ fromAxisAndAngle.accuracy = [ _.accuracy * 1e+2, 1e-1 ];
 
 //
 
+function eulerToQuatToAxisAndAngleToQuatSlow( test )
+{
+  debugger;
+
+  var accuracy =  test.accuracy;
+  var accuracySqr = test.accuracy*test.accuracy;
+  var accuracySqrt = Math.sqrt( test.accuracy );
+  var euler = _.euler.make();
+  var quat1 = _.quat.make();
+  var axisAngle = _.axisAndAngle.makeZero();
+  var quat2 = _.quat.make();
+  var quat2b = _.quat.make();
+
+  var deltas = [ -0.1, -accuracySqrt, -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
+  var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI/6 ];
+  // var anglesLocked = [ 0, Math.PI / 3 ];
+  var anglesLocked =  [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+
+  /* */
+
+  var o =
+  {
+    deltas : deltas,
+    angles : angles,
+    anglesLocked : anglesLocked,
+    onEach : onEach,
+    dst : euler,
+  }
+
+  this.eachAngle( o );
+
+  /* */
+
+  function onEach( euler )
+  {
+    quat1 = _.euler.toQuat2( euler, quat1 );
+    axisAngle = _.quat.toAxisAndAngle( quat1, axisAngle );
+    quat2 = _.quat.fromAxisAndAngle( quat2, axisAngle );
+
+    var positiveResult = quat2;
+    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
+    var eq = false;
+    eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
+    test.is( eq );
+  }
+
+}
+
+eulerToQuatToAxisAndAngleToQuatSlow.timeOut = 100000;
+eulerToQuatToAxisAndAngleToQuatSlow.usingSourceCode = 0;
+eulerToQuatToAxisAndAngleToQuatSlow.rapidity = 2;
+
+//
+
 function _fromVectors( test,r,normalized )
 {
 
@@ -1323,7 +1378,7 @@ var Self =
   name : 'Tools/Math/Quaternion',
   silencing : 1,
   enabled : 1,
-  routine: 'eulerToQuatToMatrixToQuatSlow',
+  routine: 'eulerToQuatToMatrixToQuatFast',
   // accuracy : 1e-5,
 
   context :
@@ -1346,6 +1401,8 @@ var Self =
     fromEuler : fromEuler,
 
     fromAxisAndAngle : fromAxisAndAngle,
+    /* takes 88 seconds */
+    eulerToQuatToAxisAndAngleToQuatSlow : eulerToQuatToAxisAndAngleToQuatSlow,
 
     fromVectors : fromVectors,
     fromNormalizedVectors : fromNormalizedVectors,

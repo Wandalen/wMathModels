@@ -31,6 +31,8 @@ if( typeof module !== 'undefined' )
 
   require( '../geometric/AxisAndAngle.s' );
   require( '../geometric/Quat.s' );
+  require( '../geometric.test/Quat.test.s' );
+  require( '../geometric/aConcepts.s' );
 
 }
 
@@ -529,6 +531,128 @@ function zero( test )
 
 }
 
+//
+
+function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast( test )
+{
+  debugger;
+
+  var accuracy =  test.accuracy;
+  var accuracySqr = test.accuracy*test.accuracy;
+  var accuracySqrt = Math.sqrt( test.accuracy );
+  var euler = _.euler.make();
+  var quat1 = _.quat.make();
+  var matrix = _.Space.makeZero( [ 3, 3 ] );
+  var quat2 = _.quat.make();
+  var quat2b = _.quat.make();
+  var axisAngle1 = _.axisAndAngle.makeZero();
+  var axisAngle2 = _.axisAndAngle.makeZero();
+
+  // var deltas = [ -0.1, -accuracySqrt, -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
+  // var deltas = [ -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
+  var deltas = [ -accuracySqr, 0, +accuracySqr, +0.1 ];
+  var angles = [ 0, Math.PI / 6, Math.PI / 4 ];
+  // var anglesLocked = [ 0, Math.PI / 3 ];
+  var anglesLocked = [ Math.PI / 3 ];
+
+  /* */
+
+  var o =
+  {
+    deltas : deltas,
+    angles : angles,
+    anglesLocked : anglesLocked,
+    onEach : onEach,
+    dst : euler,
+  }
+
+  this.eachAngle( o );
+
+  /* */
+
+  function onEach( euler )
+  {
+    quat1 = _.euler.toQuat2( euler, quat1 );
+    axisAngle1 = _.quat.toAxisAndAngle( quat1, axisAngle1 );
+    matrix = _.axisAndAngle.toMatrixRotation( axisAngle1, matrix );
+    axisAngle2 = _.axisAndAngle.fromMatrixRotation( axisAngle2, matrix );
+    quat2 = _.quat.fromAxisAndAngle( quat2, axisAngle2 );
+
+    var positiveResult = quat2;
+    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
+    var eq = false;
+    eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
+    test.is( eq );
+  }
+
+}
+
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast.timeOut = 20000;
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast.usingSourceCode = 0;
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast.rapidity = 3;
+
+//
+
+function eachAngle( o )
+{
+
+  _.assert( arguments.length === 1, 'expects single argument' );
+  _.routineOptions( eachAngle, o );
+
+  var euler = _.euler.from( o.dst );
+  for( var r = 0; r < o.representations.length; r++ )
+  {
+    var representation = o.representations[ r ];
+    _.euler.representationSet( euler, representation );
+    for( var ang1 = 0; ang1 < o.angles.length; ang1++ )
+    {
+      for( var quad1 = 0; quad1 < o.quadrants.length; quad1++ )
+      {
+        for( var d = 0; d < o.deltas.length; d++ )
+        {
+          euler[ 0 ] = o.angles[ ang1 ] + o.quadrants[ quad1 ]*Math.PI/2 + o.deltas[ d ];
+          for( var ang2 = ang1; ang2 < o.angles.length; ang2++ )
+          {
+            for( var quad2 = quad1; quad2 < o.quadrants.length; quad2++ )
+            {
+              for( var d2 = 0; d2 < o.deltas.length; d2++ )
+              {
+                euler[ 1 ] = o.angles[ ang2 ] + o.quadrants[ quad2 ]*Math.PI/2 + o.deltas[ d2 ];
+                for( var ang3 = 0; ang3 < o.anglesLocked.length; ang3++ )
+                {
+                  for( var quad3 = 0; quad3 < o.quadrantsLocked.length; quad3++ )
+                  {
+                    for( var d3 = 0; d3 < o.deltasLocked.length; d3++ )
+                    {
+                      euler[ 2 ] = o.anglesLocked[ ang3 ] + o.quadrantsLocked[ quad3 ]*Math.PI/2 + o.deltasLocked[ d3 ];
+                      o.onEach( euler );
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+eachAngle.defaults =
+{
+  representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
+  angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
+  anglesLocked : [ 0, Math.PI / 3 ],
+  quadrants : [ 0, 1, 2, 3 ],
+  quadrantsLocked : [ 0 ],
+  deltas : null,
+  deltasLocked : [ 0 ],
+  onEach : null,
+  dst : null,
+}
+
 // --
 // define class
 // --
@@ -539,10 +663,11 @@ var Self =
   name : 'Tools/Math/AxisAndAngle',
   silencing : 1,
   enabled : 1,
-  // routine : 'isZero',
+  routine : 'eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast',
 
   context :
   {
+    eachAngle : eachAngle,
   },
 
   tests :
@@ -559,6 +684,8 @@ var Self =
     _from : _from,
 
     zero : zero,
+
+    eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast : eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast,
 
   },
 
