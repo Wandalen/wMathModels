@@ -594,6 +594,65 @@ eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast.rapidity = 3;
 
 //
 
+function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow( test )
+{
+  debugger;
+
+  var accuracy =  test.accuracy;
+  var accuracySqr = test.accuracy*test.accuracy;
+  var accuracySqrt = Math.sqrt( test.accuracy );
+  var euler = _.euler.make();
+  var quat1 = _.quat.make();
+  var matrix = _.Space.makeZero( [ 3, 3 ] );
+  var quat2 = _.quat.make();
+  var quat2b = _.quat.make();
+  var axisAngle1 = _.axisAndAngle.makeZero();
+  var axisAngle2 = _.axisAndAngle.makeZero();
+
+  var deltas = [ -0.1, -accuracySqrt, -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
+  var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI/6 ];
+  // var anglesLocked = [ 0, Math.PI / 3 ];
+  var anglesLocked =  [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+
+  /* */
+
+  var o =
+  {
+    deltas : deltas,
+    angles : angles,
+    anglesLocked : anglesLocked,
+    onEach : onEach,
+    dst : euler,
+  }
+
+  this.eachAngle( o );
+
+  /* */
+
+  function onEach( euler )
+  {
+    quat1 = _.euler.toQuat2( euler, quat1 );
+    axisAngle1 = _.quat.toAxisAndAngle( quat1, axisAngle1 );
+    matrix = _.axisAndAngle.toMatrixRotation( axisAngle1, matrix );
+    axisAngle2 = _.axisAndAngle.fromMatrixRotation( axisAngle2, matrix );
+    quat2 = _.quat.fromAxisAndAngle( quat2, axisAngle2 );
+
+    var positiveResult = quat2;
+    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
+    var eq = false;
+    eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
+    test.is( eq );
+  }
+
+}
+
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow.timeOut =100000;
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow.usingSourceCode = 0;
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow.rapidity = 2;
+
+//
+
 function eachAngle( o )
 {
 
@@ -663,7 +722,7 @@ var Self =
   name : 'Tools/Math/AxisAndAngle',
   silencing : 1,
   enabled : 1,
-  routine : 'eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast',
+  // routine : 'eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow',
 
   context :
   {
@@ -685,7 +744,10 @@ var Self =
 
     zero : zero,
 
+    /* takes 6 seconds */
     eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast : eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast,
+    /* takes  seconds */
+    eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow : eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow,
 
   },
 

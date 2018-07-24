@@ -1401,7 +1401,8 @@ var Self =
     fromEuler : fromEuler,
 
     fromAxisAndAngle : fromAxisAndAngle,
-    /* takes 88 seconds */
+
+    /* takes 79 seconds */
     eulerToQuatToAxisAndAngleToQuatSlow : eulerToQuatToAxisAndAngleToQuatSlow,
 
     fromVectors : fromVectors,
