@@ -2691,6 +2691,11 @@ function eulerToQuatToMatrixToEulerSlow( test )
   // var anglesLocked = [ 0, Math.PI / 3 ];
   var anglesLocked =  [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
 
+  // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx' ];
+  // var deltas = [ -accuracySqrt ];
+  // var angles = [ 0 ];
+  // var quadrants = [ 1 ];
+
   /* */
 
   var o =
@@ -3756,7 +3761,7 @@ var Self =
   name : 'Tools/Math/Euler',
   silencing : 1,
   enabled : 1,
-  // routine : 'eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow',
+  // routine : 'eulerToQuatToMatrixToEulerSlow',
 
   context :
   {

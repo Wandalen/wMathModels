@@ -2176,6 +2176,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
 //
 
+function fromMatrix3( dstEuler, srcMatrix )
+{
+  _.assert( arguments.length === 2 );
+  _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
+
+  if( dstEuler === undefined || dstEuler === null )
+  dstEuler = _.euler.makeZero();
+
+  var dstEuler = _.euler.from( dstEuler );
+
+  _.assert( _.Space.is( srcMatrix ) );
+  _.assert( srcMatrix.dims[ 0 ] >= 3 );
+  _.assert( srcMatrix.dims[ 1 ] >= 3 );
+
+  var quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+  dstEuler = _.euler.fromQuat2( dstEuler, quat );
+
+  return dstEuler;
+
+}
+
+//
+
 /**
   * Create the rotation matrix from a set of euler angles. Returns the created matrix.
   * Euler angles stay untouched.
@@ -2813,6 +2836,7 @@ var Proto =
   fromQuat2 : fromQuat2,
   toQuat2 : toQuat2,
   fromMatrix2 : fromMatrix2,
+  fromMatrix3 : fromMatrix3,
   toMatrix2 : toMatrix2,
   fromAxisAndAngle2 : fromAxisAndAngle2,
   toAxisAndAngle2 : toAxisAndAngle2,

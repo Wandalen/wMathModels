@@ -511,20 +511,26 @@ function pointContains( sphere,point )
 
 //
 
-function pointDistance( sphere,point )
+function pointDistance( sphere, point )
 {
 
   var spherev = _.sphere._from( sphere );
   var center = _.sphere.centerGet( spherev );
   var radius = _.sphere.radiusGet( spherev );
+  var dim = _.sphere.dimGet( spherev );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === point.length );
 
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
-  return( vector.distance( vector.from( point ) , center ) - radius );
+  var distance = vector.distance( vector.from( point ) , center ) - radius;
+
+  if( distance < 0 )
+  return 0;
+  else
+  return distance;
 }
 
 //

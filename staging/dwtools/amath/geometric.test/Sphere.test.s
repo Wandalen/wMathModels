@@ -1733,6 +1733,123 @@ function radiusSet( test )
 
 //
 
+function pointDistance( test )
+{
+  test.case = 'Sphere and point remain unchanged';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 0, 0, 2 ];
+  var oldSphere = [ 0, 0, 0, 1 ];
+  var oldPoint = [ 0, 0, 2 ];
+  var expected = 1;
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.identical( gotDistance, expected );
+  test.identical( sphere, oldSphere );
+  test.identical( point, oldPoint );
+
+  test.case = 'Distance in 1D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 3, 0, 0 ];
+  var expected = 2;
+
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.identical( gotDistance, expected );
+
+  test.case = 'Distance in 2D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 3, 4, 0 ];
+  var expected = 4;
+
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.identical( gotDistance, expected );
+
+  test.case = 'Distance in 3D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 3, 3, 3 ];
+  var expected = 4.196152422706632;
+
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Point below the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ - 3, - 3, - 3 ];
+  var expected = 4.196152422706632;
+
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Point touching the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 1, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.identical( gotDistance, expected );
+
+  test.case = 'Point inside the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 0, 0, 0.5 ];
+  var expected = 0;
+
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.identical( gotDistance, expected );
+
+  test.case = 'Point in the middle of the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.identical( gotDistance, expected );
+
+  test.case = 'Center of the sphere not in the origin - point inside';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var point = [ 1, 1, 1.5 ];
+  var expected = 0;
+
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.identical( gotDistance, expected );
+
+  test.case = 'Center of the sphere not in the origin - point outside';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var point = [ 1, 1, 4.3 ];
+  var expected = 1.3;
+
+  var gotDistance = _.sphere.pointDistance( sphere, point );
+
+  test.equivalent( gotDistance, expected );
+
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0, 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0, 0, 0, 1 ], [ 1, 2, 3 ], [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 1, 2, 3, 4 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 1, 2, 3, 4, 5 ], [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( null, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0, 0, 0, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( NaN, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0, 0, 0, 1 ], NaN ) );
+}
+
 function pointExpand( test )
 {
   debugger;
@@ -2364,7 +2481,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine : 'boxExpand',
+  // routine : 'pointDistance',
 
   tests :
   {
@@ -2391,6 +2508,7 @@ var Self =
     radiusGet : radiusGet,
     radiusSet : radiusSet,
 
+    pointDistance : pointDistance,
     pointExpand : pointExpand,
 
     boxIntersects : boxIntersects,

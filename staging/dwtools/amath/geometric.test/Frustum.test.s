@@ -1420,30 +1420,30 @@ function frustumIntersects( test )
 var Self =
 {
 
- name : 'Math.Frustum',
- silencing : 1,
+  name : 'Math.Frustum',
+  silencing : 1,
   enabled : 1,
- // verbosity : 7,
- // debug : 1,
- //  routine: 'pointClosestPoint',
+  // verbosity : 7,
+  // debug : 1,
+  // routine: 'pointClosestPoint',
 
- tests :
- {
+  tests :
+  {
 
- cornersGet : cornersGet,
+    cornersGet : cornersGet,
 
- pointContains : pointContains,
- pointClosestPoint : pointClosestPoint,
+    pointContains : pointContains,
+    pointClosestPoint : pointClosestPoint,
 
- boxIntersects : boxIntersects,
- boxClosestPoint : boxClosestPoint,
+    boxIntersects : boxIntersects,
+    boxClosestPoint : boxClosestPoint,
 
- sphereIntersects : sphereIntersects,
- sphereClosestPoint : sphereClosestPoint,
+    sphereIntersects : sphereIntersects,
+    sphereClosestPoint : sphereClosestPoint,
 
- frustumIntersects : frustumIntersects,
+    frustumIntersects : frustumIntersects,
 
- }
+  }
 
 }
 
