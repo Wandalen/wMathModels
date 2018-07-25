@@ -1378,6 +1378,53 @@ function sphereContains( srcBox , tstSphere )
 
 //
 
+/**
+  * Calculates the distance between a box and a sphere. Returns the calculated distance.
+  * Box and sphere are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcBox - The source box.
+  * @param { Array } tstSphere - The tested sphere (the sphere to calculate the distance).
+  *
+  * @example
+  * // returns 0
+  * _.sphereDistance( [ 0, 0, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  *
+  * @example
+  * // returns 3
+  * _.sphereDistance( [ 0, 0, 2, 2 ], [ 4, 4, 4, 1 ] );
+  *
+  * @returns { Number } Returns the distance between the box and the sphere.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box
+  * @throws { Error } An Error if ( tstSphere ) is not sphere
+  * @memberof wTools.box
+  */
+
+function sphereDistance( srcBox , tstSphere )
+{
+  var _tstSphere = _.sphere._from( tstSphere );
+  var center = _.sphere.centerGet( _tstSphere );
+  var radius = _.sphere.radiusGet( _tstSphere );
+  var dimS = _.sphere.dimGet( _tstSphere );
+
+  var boxVector = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxVector );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( dimS === dimB );
+
+  if( _.sphere.boxIntersects( _tstSphere, boxVector ) )
+  return 0
+  else
+  var distance = _.box.pointDistance( boxVector, center ) - radius;
+
+  return distance;
+}
+
+//
+
 function matrixHomogenousApply( box , matrix )
 {
 
@@ -1597,8 +1644,8 @@ var Proto =
   boxExpand : boxExpand,
 
   sphereContains : sphereContains, /* qqq : implement me */
-  // sphereIntersects : sphereIntersects, /* qqq : implement me */
-  // sphereDistance : sphereDistance, /* qqq : implement me */
+  // sphereIntersects : sphereIntersects, /* qqq : implement me - Same as _.sphere.boxIntersects */
+  sphereDistance : sphereDistance, /* qqq : implement me */
   // sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   // sphereExpand : sphereExpand, /* qqq : implement me */
 

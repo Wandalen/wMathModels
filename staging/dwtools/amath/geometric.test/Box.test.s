@@ -4329,6 +4329,111 @@ function sphereContains( test )
 
 }
 
+//
+
+function sphereDistance( test )
+{
+
+  test.case = 'Source box and test sphere remain unchanged'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var oldSrcBox = srcBox.slice();
+  var tstSphere = [ 1, 1, 2, 1 ];
+  var oldTstSphere = tstSphere.slice();
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( expected, gotBool );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( tstSphere, oldTstSphere );
+
+  test.case = 'Zero box to zero sphere'; /* */
+
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var tstSphere = [ 0, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'box contains sphere in middle'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 2, 1 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere not in middle'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 1, 3, 2, 0.5 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere touches box borders'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 4, 4, 6, 2 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere bigger than box'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 2, 4 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere out of box intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 7, 7, 7, 6 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere out of box don´t intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 7, 7, 7, 2 ];
+  var expected = Math.sqrt( 27 ) - 2;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere under box'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ -7, -7, -7, 2 ];
+  var expected = Math.sqrt( 147 ) - 2;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( 'box', 'sphere' ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
+
+}
 
 // --
 // define class
@@ -4342,7 +4447,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'sphereContains',
+  // routine: 'sphereDistance',
 
   tests :
   {
@@ -4387,6 +4492,8 @@ var Self =
     boxExpand : boxExpand,
 
     sphereContains : sphereContains,
+    sphereDistance : sphereDistance,
+
   }
 
 }
