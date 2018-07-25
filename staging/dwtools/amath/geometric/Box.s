@@ -1011,42 +1011,43 @@ function boxIntersects( srcBox , tstBox )
   debugger;
   // throw _.err( 'not tested' );
 
-  /* tst box corners */
+  srcMin = _.vector.toArray( srcMin );
+  srcMax = _.vector.toArray( srcMax );
+  tstMin = _.vector.toArray( tstMin );
+  tstMax = _.vector.toArray( tstMax );
 
-  var c = _.Space.makeZero( [ 3, 8 ] );
-  tstMin = _.vector.toArray( tstMin ); tstMax = _.vector.toArray( tstMax );
-  var col = c.colVectorGet( 0 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
-  var col = c.colVectorGet( 1 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
-  var col = c.colVectorGet( 2 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
-  var col = c.colVectorGet( 3 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 4 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 5 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 6 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 7 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
+  var interX = false;
+  if( srcMin[ 0 ] <= tstMin[ 0 ] && tstMin[ 0 ] <= srcMax[ 0 ] )
+  interX = true;
+  else if( srcMin[ 0 ] <= tstMax[ 0 ] && tstMax[ 0 ] <= srcMax[ 0 ] )
+  interX = true;
+  else if( tstMin[ 0 ] <= srcMin[ 0 ] && srcMin[ 0 ] <= tstMax[ 0 ] )
+  interX = true;
+  else if( tstMin[ 0 ] <= srcMax[ 0 ] && srcMax[ 0 ] <= tstMax[ 0 ] )
+  interX = true;
 
-  /* src box corners */
+  var interY = false;
+  if( srcMin[ 1 ] <= tstMin[ 1 ] && tstMin[ 1 ] <= srcMax[ 1 ] )
+  interY = true;
+  else if( srcMin[ 1 ] <= tstMax[ 1 ] && tstMax[ 1 ] <= srcMax[ 1 ] )
+  interY = true;
+  else if( tstMin[ 1 ] <= srcMin[ 1 ] && srcMin[ 1 ] <= tstMax[ 1 ] )
+  interY = true;
+  else if( tstMin[ 1 ] <= srcMax[ 1 ] && srcMax[ 1 ] <= tstMax[ 1 ] )
+  interY = true;
 
-  var cs = _.Space.makeZero( [ 3, 8 ] );
-  srcMin = _.vector.toArray( srcMin ); srcMax = _.vector.toArray( srcMax );
-  var col = cs.colVectorGet( 0 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
-  var col = cs.colVectorGet( 1 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
-  var col = cs.colVectorGet( 2 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
-  var col = cs.colVectorGet( 3 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
-  var col = cs.colVectorGet( 4 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
-  var col = cs.colVectorGet( 5 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
-  var col = cs.colVectorGet( 6 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
-  var col = cs.colVectorGet( 7 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+  var interZ = false;
+  if( srcMin[ 2 ] <= tstMin[ 2 ] && tstMin[ 2 ] <= srcMax[ 2 ] )
+  interZ = true;
+  else if( srcMin[ 2 ] <= tstMax[ 2 ] && tstMax[ 2 ] <= srcMax[ 2 ] )
+  interZ = true;
+  else if( tstMin[ 2 ] <= srcMin[ 2 ] && srcMin[ 2 ] <= tstMax[ 2 ] )
+  interZ = true;
+  else if( tstMin[ 2 ] <= srcMax[ 2 ] && srcMax[ 2 ] <= tstMax[ 2 ] )
+  interZ = true;
 
-
-  for( var j = 0 ; j < 8 ; j++ )
-  {
-    var tstCorner = _.vector.toArray( c.colVectorGet( j ) );
-    var srcCorner = _.vector.toArray( cs.colVectorGet( j ) );
-
-    if( _.box.pointContains( srcBoxVector, tstCorner ) === true || _.box.pointContains( tstBoxVector, srcCorner ) === true )
-    return true;
-
-  }
+  if( interX && interY && interZ )
+  return true;
 
   return false;
 }

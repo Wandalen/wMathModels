@@ -3741,6 +3741,16 @@ function boxIntersects( test )
   var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
+  test.case = 'Empty boxes'; /* */
+
+  var srcBox = [ ];
+  var tstBox = [ ];
+  var expected = false;
+
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
+  test.identical( gotBool, expected );
+
+
   /* */
 
   if( !Config.debug )
@@ -3748,7 +3758,6 @@ function boxIntersects( test )
 
   test.shouldThrowErrorSync( () => _.box.boxIntersects( ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects( [] ) );
-  test.shouldThrowErrorSync( () => _.box.boxIntersects( [], [] ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects( 'box', 'box2' ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects(  null, NaN ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] ) );
@@ -4069,7 +4078,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'boxDistance',
+  routine: 'boxIntersects',
 
   tests :
   {
