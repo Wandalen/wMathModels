@@ -1322,6 +1322,62 @@ function boxExpand( dstBox , srcBox )
 
 //
 
+/**
+  *Check if the source box contains test sphere. Returns true if it is contained, false if not.
+  * Box and sphere are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcBox - The source box (container).
+  * @param { Array } tstSphere - The tested sphere (the sphere to check if it is contained in srcBox).
+  *
+  * @example
+  * // returns true
+  * _.sphereContains( [ 0, 0, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.sphereContains( [ 0, 0, 2, 2 ], [ 0, 0, 1, 2.5 ] );
+  *
+  * @returns { Boolean } Returns true if the sphere is contained and false if not.
+  * @function sphereContains
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box
+  * @throws { Error } An Error if ( tstSphere ) is not sphere
+  * @memberof wTools.box
+  */
+
+function sphereContains( srcBox , tstSphere )
+{
+  var _tstSphere = _.sphere._from( tstSphere );
+  var center = _.sphere.centerGet( _tstSphere );
+  var radius = _.sphere.radiusGet( _tstSphere );
+  var dimS = _.sphere.dimGet( _tstSphere );
+
+  var boxVector = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxVector );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( dimS === dimB );
+
+  var pointp = center.slice();
+  var pointn = center.slice();
+  for( var i = 0; i < dimS; i++ )
+  {
+    pointp[ i ] = pointp[ i ] + radius;
+    pointn[ i ] = pointn[ i ] - radius;
+
+    if( !_.box.pointContains( boxVector, pointp ) )
+    return false;
+
+    if( !_.box.pointContains( boxVector, pointn ) )
+    return false;
+  }
+
+  return true;
+}
+
+//
+
 function matrixHomogenousApply( box , matrix )
 {
 
@@ -1540,7 +1596,7 @@ var Proto =
   boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 
-  // sphereContains : sphereContains, /* qqq : implement me */
+  sphereContains : sphereContains, /* qqq : implement me */
   // sphereIntersects : sphereIntersects, /* qqq : implement me */
   // sphereDistance : sphereDistance, /* qqq : implement me */
   // sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */

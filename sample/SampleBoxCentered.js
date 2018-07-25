@@ -5,8 +5,8 @@ require( 'wmathconcepts' );
 var _ = wTools;
 
 var srcBox = [ 0, 0, 0, 4, 4, 4 ];
-var tstBox = [ 5, 5, 5, 6, 6, 6 ];
+var tstSphere = [ 2, 2, 3, 2 ];
 
-var gotBool = _.box.boxClosestPoint( srcBox, tstBox, _.vector.fromArray([ 0, 0, 0 ]) );
+var gotBool = _.box.sphereContains( srcBox, tstSphere );
 debugger;
 console.log( gotBool );
