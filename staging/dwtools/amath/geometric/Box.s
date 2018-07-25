@@ -1165,7 +1165,7 @@ function boxDistance( srcBox , tstBox )
   * Box are stored in Array data structure. Source box and Test box stay untouched.
   *
   * @param { Array } srcBox - Source box
-  * @param { Array } tstBox - Test box to calculate the closest point
+  * @param { Array } tstBox - Test box to calculate the closest point in it.
   * @param { Array } dstPoint - Destination point
   *
   * @example
@@ -1425,6 +1425,73 @@ function sphereDistance( srcBox , tstSphere )
 
 //
 
+/**
+  * Gets the closest point in a sphere to a box. Returns the closest point.
+  * Box and sphere are stored in Array data structure and remain unchanged.
+  *
+  * @param { Array } srcBox - The source box.
+  * @param { Array } tstSphere - The tested sphere.
+  * @param { Array } dstPoint - The closest point in the sphere to the box.
+  *
+  * @example
+  * // returns 0
+  * _.sphereClosestPoint( [ 0, 0, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  *
+  * @example
+  * // returns 3
+  * _.sphereClosestPoint( [ 0, 0, 2, 2 ], [ 4, 4, 4, 1 ] );
+  *
+  * @returns { Array } Returns the closest point to the box in the sphere.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( tstSphere ) is not sphere.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @memberof wTools.box
+  */
+
+function sphereClosestPoint( srcBox , tstSphere, dstPoint )
+{
+
+  var _tstSphere = _.sphere._from( tstSphere );
+  var center = _.sphere.centerGet( _tstSphere );
+  var radius = _.sphere.radiusGet( _tstSphere );
+  var dimS = _.sphere.dimGet( _tstSphere );
+
+  var boxVector = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxVector );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( dimS === dimB );
+  _.assert( dimS === dstPoint.length );
+
+  if( _.sphere.boxIntersects( _tstSphere, boxVector ) )
+  return 0
+  else
+  {
+    var p = _.box.pointClosestPoint( boxVector, center );
+
+    for( var i = 0; i < dimB; i++ )
+    {
+    dstPointVector.eSet( i, p[ i ] );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 function matrixHomogenousApply( box , matrix )
 {
 
@@ -1646,7 +1713,7 @@ var Proto =
   sphereContains : sphereContains, /* qqq : implement me */
   // sphereIntersects : sphereIntersects, /* qqq : implement me - Same as _.sphere.boxIntersects */
   sphereDistance : sphereDistance, /* qqq : implement me */
-  // sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
+  sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   // sphereExpand : sphereExpand, /* qqq : implement me */
 
   // planeIntersects : planeIntersects, /* qqq : implement me */
