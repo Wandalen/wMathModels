@@ -4,15 +4,10 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var box = _.box.centeredOfSize( null );
-console.log( 'box centered :',box );
+var srcBox = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+var tstBox = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
+var expected = true;
 
-// var expected = [ -0.5,-0.5,-0.5,+0.5,+0.5,+0.5 ];
+var gotBool = _.box.boxIntersects( srcBox, tstBox );
 
- var box = [ 0, 0, 2, 2 ];
- var box = _.vector.fromArray( box );
- var box = undefined;
- var box = _.box.from( box );
-
- console.log( box );
-debugger;
+console.log( gotBool );

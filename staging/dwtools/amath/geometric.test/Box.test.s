@@ -3622,9 +3622,9 @@ function boxIntersects( test )
 
   test.case = 'Source box and Test box remain unchanged'; /* */
 
-  var srcBox = [ 0, 0, 2, 2 ];
+  var srcBox = [ 0, 0, 0, 2, 2, 2 ];
   var oldsrcBox = srcBox.slice();
-  var tstBox = [  1,  1, 3, 3 ];
+  var tstBox = [ 1, 1, 1, 3, 3, 3 ];
   var oldtstBox = tstBox.slice();
   var gotBool = _.box.boxIntersects( srcBox, tstBox );
   var expected = true;
@@ -3632,168 +3632,113 @@ function boxIntersects( test )
   test.identical( srcBox, oldsrcBox );
   test.identical( tstBox, oldtstBox );
 
-  test.case = 'Empty box to empty box'; /* */
-
-  var box = [];
-  var boxTwo = [];
-  var expected = false;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-
   test.case = 'Zero box to zero box'; /* */
 
-  var box = [ 0, 0, 0, 0, 0, 0 ];
-  var boxTwo = [ 0, 0, 0, 0, 0, 0 ];
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var tstBox = [ 0, 0, 0, 0, 0, 0 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Same boxes'; /* */
 
-  var box = [ 0, 0, 0, 4, 4, 4 ];
-  var boxTwo = [ 0, 0, 0, 4, 4, 4 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 0, 0, 0, 4, 4, 4 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box in box with a common side'; /* */
 
-  var box = [ 0, 0, 0, 3, 3, 3 ];
-  var boxTwo = [ 1, 1, 1, 2, 2, 3 ];
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var tstBox = [ 1, 1, 1, 2, 2, 3 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
 
   test.case = 'Box out of box with a common side'; /* */
 
-  var box = [ 0, 0, 0, 3, 3, 3 ];
-  var boxTwo = [ 4, 4, 3, 5, 5, 5 ];
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var tstBox = [ 4, 4, 3, 5, 5, 5 ];
   var expected = false;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box in box'; /* */
 
-  var box = [ 0, 0, 0, 3, 3, 3 ];
-  var boxTwo = [ 1, 1, 1, 2, 2, 2 ];
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var tstBox = [ 1, 1, 1, 2, 2, 2 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box half in box'; /* */
 
-  var box = [ 0, 0, 0, 4, 4, 4 ];
-  var boxTwo = [ 2, 2, 2, 6, 6, 6 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 2, 2, 2, 6, 6, 6 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box totally out of box'; /* */
 
-  var box = [ 0, 0, 0, 1, 1, 1 ];
-  var boxTwo = [ 2, 2, 2, 3, 3, 3 ];
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ 2, 2, 2, 3, 3, 3 ];
   var expected = false;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box out of box in two dimensions'; /* */
 
-  var box = [ 0, 0, 0, 4, 4, 4 ];
-  var boxTwo = [ 0, - 1, - 1, 1, 0, 0 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 0, - 1, - 1, 1, 0, 0 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box out of box in one dimensions'; /* */
 
-  var box = [ 0, 0, 0, 4, 4, 4 ];
-  var boxTwo = [ 1, 1, 1, 3, 3, 5 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 1, 1, 1, 3, 3, 5 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box in box (both normalized to one)'; /* */
 
-  var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  var boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
+  var srcBox = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  var tstBox = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box out of box (normalized to one)'; /* */
 
-  var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  var boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
-  var expected = true;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-  test.case = 'Box in box (four dimensions)'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-  var expected = true;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-  test.case = 'Box out of box in 1D (four dimensions)'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
-  var expected = true;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-  test.case = 'Box out of box in 1D (four dimensions)'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  var boxTwo = [ 3, 3, 3, 3, 4, 4, 4, 4 ];
+  var srcBox = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  var tstBox = [ 0.06, 0.8, 0.91, 0.64, 0.085, 0.99 ];
   var expected = false;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
-  test.case = 'Box in box (one dimensions)'; /* */
+  test.case = 'Box half in box'; /* */
 
-  var box = [ - 1, 2 ];
-  var boxTwo = [ 0, 1 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 2, 2, 2, 6, 6, 6 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-  test.case = 'Box intersects box (one dimensions)'; /* */
-
-  var box = [ - 1, 2 ];
-  var boxTwo = [ 0, 4 ];
-  var expected = true;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-  test.case = 'Box out of box (one dimensions)'; /* */
-
-  var box = [ - 1, 2 ];
-  var boxTwo = [ 3, 4 ];
-  var expected = false;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   /* */
@@ -3801,53 +3746,14 @@ function boxIntersects( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects();
-  });
-
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( 'box', 'box2' );
-  });
-
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( null, [] );
-  });
-
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [], null );
-  });
-
-  test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] );
-  });
-
-  test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
-  });
-
-  test.case = 'Different box dimensions (box 3D vs box 2D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
-  });
-
-  test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
-  });
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [] ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( 'box', 'box2' ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
 
 }
 
@@ -3855,6 +3761,7 @@ function boxIntersects( test )
 
 function boxDistance( test )
 {
+
   test.case = 'Source and test box remain unchanged'; /* */
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
@@ -3881,7 +3788,7 @@ function boxDistance( test )
 
   var srcBox = [ 0, 0, 0, 1, 1, 1 ];
   var tstBox = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = Math.sqrt( 3 );
+  var expected = Math.sqrt( 12 );
 
   var gotDistance = _.box.boxDistance( tstBox, srcBox );
   test.equivalent( gotDistance, expected );
@@ -3899,7 +3806,7 @@ function boxDistance( test )
 
   var srcBox = [ 0, 0, 0, 1, 1 , 0];
   var tstBox = [ -3, -3, 0, -2, -2, 0 ];
-  var expected = Math.sqrt( 2 );
+  var expected = Math.sqrt( 8 );
 
   var gotDistance = _.box.boxDistance( tstBox, srcBox );
   test.equivalent( gotDistance, expected );
@@ -3917,11 +3824,28 @@ function boxDistance( test )
 
   var srcBox = [ 0, 0, 0, 1, 1, 1 ];
   var tstBox = [ - 3, 0, 0, - 2, 1, 1 ];
-  var expected = Math.sqrt( 2 );
+  var expected = 2;
 
   var gotDistance = _.box.boxDistance( tstBox, srcBox );
   test.equivalent( gotDistance, expected );
 
+  test.case = 'srcBox inside tstBox'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ -1, -1, -1, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'tstBox inside srcBox'; /* */
+
+  var srcBox = [ -1, -1, -1, 2, 2, 2 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
 
 }
 
