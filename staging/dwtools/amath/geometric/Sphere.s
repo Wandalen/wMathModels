@@ -647,7 +647,6 @@ function boxIntersects( sphere, box )
   else
   {
     var distance = _.box.pointDistance( boxVector, center );
-    console.log( distance );
     if( distance <= radius )
     {
       return true;
@@ -716,7 +715,6 @@ function boxExpand( dstSphere, srcBox )
     var d = _.avector.distance( corner, center );
     if( d > distance )
     {
-      console.log(center,' - ',corner,'  Distance: ', d);
       distance = d;
     }
   }

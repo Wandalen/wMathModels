@@ -38,8 +38,10 @@ if( typeof module !== 'undefined' )
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
 
-  require( '../geometric/Box.s' );
-  require( '../geometric/Sphere.s' );
+//  require( '../geometric/Box.s' );
+//  require( '../geometric/Sphere.s' );
+  require( '../geometric/aConcepts.s' );
+
 
 }
 
@@ -2834,11 +2836,13 @@ function pointClosestPoint( test )
   var box = [ 1, 1, 1, 3, 3, 3 ];
   var oldBox = box.slice();
   var point = [ 0, 1, 2 ];
+  var oldPoint = [ 0, 1, 2 ];
   var expected = [ 1, 1, 2 ];
 
   var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped, point );
+  test.identical( gotClamped, expected );
   test.identical( oldBox, box );
+  test.identical( oldPoint, point );
 
   test.case = 'Empty point relative to null box'; /* */
 
@@ -2975,6 +2979,17 @@ function pointClosestPoint( test )
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped,  expected );
 
+  test.case = 'dstPoint is vector'; /* */
+
+  var box = [ 0, 2 ];
+  var point = [ - 3 ];
+  var dstPoint = _.vector.fromArray( [ 5 ] );
+  var expected = _.vector.fromArray( [ 0 ] );
+
+  var gotClamped = _.box.pointClosestPoint( box, point, dstPoint );
+  test.identical( gotClamped,  expected );
+  test.identical( gotClamped,  dstPoint );
+
   /* */
 
   if( !Config.debug )
@@ -3007,7 +3022,20 @@ function pointClosestPoint( test )
   test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
-    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ], [ 1, 0, 0 ] );
+  });
+
+  test.case = 'dstPoint is null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], null );
+  });
+
+
+  test.case = 'dstPoint is undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], undefined );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
@@ -3620,9 +3648,9 @@ function boxIntersects( test )
 
   test.case = 'Source box and Test box remain unchanged'; /* */
 
-  var srcBox = [ 0, 0, 2, 2 ];
+  var srcBox = [ 0, 0, 0, 2, 2, 2 ];
   var oldsrcBox = srcBox.slice();
-  var tstBox = [  1,  1, 3, 3 ];
+  var tstBox = [ 1, 1, 1, 3, 3, 3 ];
   var oldtstBox = tstBox.slice();
   var gotBool = _.box.boxIntersects( srcBox, tstBox );
   var expected = true;
@@ -3630,222 +3658,352 @@ function boxIntersects( test )
   test.identical( srcBox, oldsrcBox );
   test.identical( tstBox, oldtstBox );
 
-  test.case = 'Empty box to empty box'; /* */
-
-  var box = [];
-  var boxTwo = [];
-  var expected = false;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-
   test.case = 'Zero box to zero box'; /* */
 
-  var box = [ 0, 0, 0, 0, 0, 0 ];
-  var boxTwo = [ 0, 0, 0, 0, 0, 0 ];
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var tstBox = [ 0, 0, 0, 0, 0, 0 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Same boxes'; /* */
 
-  var box = [ 0, 0, 0, 4, 4, 4 ];
-  var boxTwo = [ 0, 0, 0, 4, 4, 4 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 0, 0, 0, 4, 4, 4 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box in box with a common side'; /* */
 
-  var box = [ 0, 0, 0, 3, 3, 3 ];
-  var boxTwo = [ 1, 1, 1, 2, 2, 3 ];
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var tstBox = [ 1, 1, 1, 2, 2, 3 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
 
   test.case = 'Box out of box with a common side'; /* */
 
-  var box = [ 0, 0, 0, 3, 3, 3 ];
-  var boxTwo = [ 4, 4, 3, 5, 5, 5 ];
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var tstBox = [ 4, 4, 3, 5, 5, 5 ];
   var expected = false;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box in box'; /* */
 
-  var box = [ 0, 0, 0, 3, 3, 3 ];
-  var boxTwo = [ 1, 1, 1, 2, 2, 2 ];
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var tstBox = [ 1, 1, 1, 2, 2, 2 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box half in box'; /* */
 
-  var box = [ 0, 0, 0, 4, 4, 4 ];
-  var boxTwo = [ 2, 2, 2, 6, 6, 6 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 2, 2, 2, 6, 6, 6 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box totally out of box'; /* */
 
-  var box = [ 0, 0, 0, 1, 1, 1 ];
-  var boxTwo = [ 2, 2, 2, 3, 3, 3 ];
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ 2, 2, 2, 3, 3, 3 ];
   var expected = false;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box out of box in two dimensions'; /* */
 
-  var box = [ 0, 0, 0, 4, 4, 4 ];
-  var boxTwo = [ 0, - 1, - 1, 1, 0, 0 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 0, - 1, - 1, 1, 0, 0 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box out of box in one dimensions'; /* */
 
-  var box = [ 0, 0, 0, 4, 4, 4 ];
-  var boxTwo = [ 1, 1, 1, 3, 3, 5 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 1, 1, 1, 3, 3, 5 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box in box (both normalized to one)'; /* */
 
-  var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  var boxTwo = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
+  var srcBox = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  var tstBox = [ - 0.01, 0, - 0.02, 0.30, 0, 0.64 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
   test.case = 'Box out of box (normalized to one)'; /* */
 
-  var box = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-  var boxTwo = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
-  var expected = true;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-  test.case = 'Box in box (four dimensions)'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-  var expected = true;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-  test.case = 'Box out of box in 1D (four dimensions)'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  var boxTwo = [ 0, 0, 0, 0, 1, 1, 1, 3 ];
-  var expected = true;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-  test.case = 'Box out of box in 1D (four dimensions)'; /* */
-
-  var box = [ - 1, - 1, - 1, - 1, 2, 2, 2, 2 ];
-  var boxTwo = [ 3, 3, 3, 3, 4, 4, 4, 4 ];
+  var srcBox = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
+  var tstBox = [ 0.06, 0.8, 0.91, 0.64, 0.085, 0.99 ];
   var expected = false;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
-  test.case = 'Box in box (one dimensions)'; /* */
+  test.case = 'Box half in box'; /* */
 
-  var box = [ - 1, 2 ];
-  var boxTwo = [ 0, 1 ];
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 2, 2, 2, 6, 6, 6 ];
   var expected = true;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
-  test.case = 'Box intersects box (one dimensions)'; /* */
+  test.case = 'Empty boxes'; /* */
 
-  var box = [ - 1, 2 ];
-  var boxTwo = [ 0, 4 ];
-  var expected = true;
-
-  var gotBool = _.box.boxIntersects( box, boxTwo );
-  test.identical( gotBool, expected );
-
-  test.case = 'Box out of box (one dimensions)'; /* */
-
-  var box = [ - 1, 2 ];
-  var boxTwo = [ 3, 4 ];
+  var srcBox = [ ];
+  var tstBox = [ ];
   var expected = false;
 
-  var gotBool = _.box.boxIntersects( box, boxTwo );
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
+
 
   /* */
 
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects();
-  });
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [] ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( 'box', 'box2' ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
 
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( 'box', 'box2' );
-  });
+}
 
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( null, [] );
-  });
+//
 
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [], null );
-  });
+function boxDistance( test )
+{
 
-  test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] );
-  });
+  test.case = 'Source and test box remain unchanged'; /* */
 
-  test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
-  });
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var oldSrcBox = srcBox.slice();
+  var oldTstBox = tstBox.slice();
+  var expected = 0;
 
-  test.case = 'Different box dimensions (box 3D vs box 2D)'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
-  });
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.identical( gotDistance, expected );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( tstBox, oldTstBox );
 
-  test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.boxIntersects( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
-  });
+  test.case = 'Corner distance 3D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ 2, 2, 2, 3, 3, 3 ];
+  var expected = Math.sqrt( 3 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Opposite Corner distance 3D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = Math.sqrt( 12 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Corner distance 2D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 0 ];
+  var tstBox = [ 2, 2, 0, 3, 3, 0 ];
+  var expected = Math.sqrt( 2 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Opposite Corner distance 2D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1 , 0];
+  var tstBox = [ -3, -3, 0, -2, -2, 0 ];
+  var expected = Math.sqrt( 8 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Corner distance 1D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ 2, 0, 0, 3, 1, 1 ];
+  var expected = Math.sqrt( 1 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Opposite Corner distance 1D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ - 3, 0, 0, - 2, 1, 1 ];
+  var expected = 2;
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'srcBox inside tstBox'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ -1, -1, -1, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'tstBox inside srcBox'; /* */
+
+  var srcBox = [ -1, -1, -1, 2, 2, 2 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.boxDistance( ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( [] ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( 'box', 'box2' ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+}
+
+//
+
+function boxClosestPoint( test )
+{
+
+  test.case = 'Source and test box remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var oldSrcBox = srcBox.slice();
+  var oldTstBox = tstBox.slice();
+  var expected = 0;
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( tstBox, oldTstBox );
+
+  test.case = 'Boxes intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Boxes touching in corner'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Tst Corner'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Tst Corner opposite side'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstBox = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = [ -2, -2, -2 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Src bigger than Tst side'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 1, 1, 5, 3, 3, 6 ];
+  var expected = [ 3, 3, 5 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Tst bigger than Src side'; /* */
+
+  var srcBox = [ 1, 1, 5, 3, 3, 6 ];
+  var tstBox = [ 0, 0, 0, 4, 4, 4 ];
+  var expected = [ 3, 3, 4 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ -1, -2, -3, 3, 2, -1 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 3, 2, -1 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
+  test.identical( expected, gotBox );
+  test.is( dstPoint === gotBox );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ -1, -2, -3, 3, 2, -1 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 3, 2, -1 ] );
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
+  test.identical( expected, gotBox );
+  test.is( dstPoint === gotBox );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( 'box', 'box2' ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
 
 }
 
@@ -4056,6 +4214,361 @@ function boxExpand( test )
 
 }
 
+//
+
+function sphereContains( test )
+{
+
+  test.case = 'Source box and test sphere remain unchanged'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var oldSrcBox = srcBox.slice();
+  var tstSphere = [ 1, 1, 2, 1 ];
+  var oldTstSphere = tstSphere.slice();
+  var expected = true;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( expected, gotBool );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( tstSphere, oldTstSphere );
+
+  test.case = 'Zero box to zero sphere'; /* */
+
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var tstSphere = [ 0, 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'box contains sphere in middle'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 2, 1 ];
+  var expected = true;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere not in middle'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 1, 3, 2, 0.5 ];
+  var expected = true;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere touches box borders'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere not in middle touches box border'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 3, 2, 1 ];
+  var expected = true;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere bigger than box'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 2, 4 ];
+  var expected = false;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere bigger than box just on one side'; /* */
+
+  var srcBox = [ 0, 0, 1, 4, 4, 3 ];
+  var tstSphere = [ 2, 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere out of box intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 7, 7, 7, 5 ];
+  var expected = false;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere out of box doesn´t intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 7, 7, 7, 2 ];
+  var expected = false;
+
+  var gotBool = _.box.sphereContains( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.sphereContains( ) );
+  test.shouldThrowErrorSync( () => _.box.sphereContains( [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereContains( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereContains( 'box', 'sphere' ) );
+  test.shouldThrowErrorSync( () => _.box.sphereContains(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.sphereContains( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereContains( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereContains( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
+
+}
+
+//
+
+function sphereDistance( test )
+{
+
+  test.case = 'Source box and test sphere remain unchanged'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var oldSrcBox = srcBox.slice();
+  var tstSphere = [ 1, 1, 2, 1 ];
+  var oldTstSphere = tstSphere.slice();
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( expected, gotBool );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( tstSphere, oldTstSphere );
+
+  test.case = 'Zero box to zero sphere'; /* */
+
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var tstSphere = [ 0, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'box contains sphere in middle'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 2, 1 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere not in middle'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 1, 3, 2, 0.5 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere touches box borders'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 4, 4, 6, 2 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere bigger than box'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 2, 4 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere out of box intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 7, 7, 7, 6 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere out of box don´t intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 7, 7, 7, 2 ];
+  var expected = Math.sqrt( 27 ) - 2;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere under box'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ -7, -7, -7, 2 ];
+  var expected = Math.sqrt( 147 ) - 2;
+
+  var gotBool = _.box.sphereDistance( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( 'box', 'sphere' ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereDistance( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
+
+}
+
+//
+
+function sphereClosestPoint( test )
+{
+
+  test.case = 'Source box and test sphere remain unchanged'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var oldSrcBox = srcBox.slice();
+  var tstSphere = [ 1, 1, 2, 1 ];
+  var oldTstSphere = tstSphere.slice();
+  var expected = 0;
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( expected, gotBool );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( tstSphere, oldTstSphere );
+
+  test.case = 'Zero box to zero sphere'; /* */
+
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var tstSphere = [ 0, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Zero box to point sphere'; /* */
+
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var tstSphere = [ 1, 2, 3, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+
+  test.case = 'box contains sphere in middle'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 2, 1 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere not in middle'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 1, 3, 2, 0.5 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere touches box borders'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 4, 4, 6, 2 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere bigger than box'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 2, 4 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere out of box intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 7, 7, 7, 6 ];
+  var expected = 0;
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere out of box don´t intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 7, 7, 7, 2 ];
+  var expected = [ 4, 4, 4 ];
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere under box'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ -7, -7, -7, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere over box face'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 2, 2, 6, 1 ];
+  var expected = [ 2, 2, 4 ];
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere next to box corner'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSphere = [ 0, 6, 6, 1 ];
+  var expected = [ 0, 4, 4 ];
+
+  var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.sphereClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.box.sphereClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereClosestPoint( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereClosestPoint( 'box', 'sphere' ) );
+  test.shouldThrowErrorSync( () => _.box.sphereClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.sphereClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
+
+}
+
 
 // --
 // define class
@@ -4065,11 +4578,11 @@ var Self =
 {
 
   name : 'Tools/Math/Box',
-  silencing : 1,
+  silencing : 0,
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'fromCube',
+  // routine: 'sphereClosestPoint',
 
   tests :
   {
@@ -4109,7 +4622,13 @@ var Self =
 
     boxContains : boxContains,
     boxIntersects : boxIntersects,
+    boxDistance : boxDistance,
+    boxClosestPoint : boxClosestPoint,
     boxExpand : boxExpand,
+
+    sphereContains : sphereContains,
+    sphereDistance : sphereDistance,
+    sphereClosestPoint : sphereClosestPoint,
 
   }
 
