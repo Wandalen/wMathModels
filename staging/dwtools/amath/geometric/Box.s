@@ -816,6 +816,7 @@ function pointClosestPoint( box , point )
   var pointVector = _.vector.from( point );
 
   _.assert( dim === point.length );
+
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   debugger;
@@ -1013,6 +1014,80 @@ function boxIntersects( srcBox , tstBox )
   return true;
 
   return false;
+}
+
+//
+
+/**
+  * Calculates the distance between two boxes. Returns the distance value, 0 if intersection.
+  * Box are stored in Array data structure. Source box and Test box stay untouched.
+  *
+  * @param { Array } srcBox - Source box
+  * @param { Array } tstBox - Test box to calculate the distance
+  *
+  * @example
+  * // returns 0
+  * _.boxDistance( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
+  *
+  * @example
+  * // returns 1
+  * _.boxDistance( [ 0, 0, 2, 2 ], [ 0, 3, 2, 4 ] );
+  *
+  * @returns { Number } Returns the distance between the two boxes.
+  * @function boxDistance
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.box
+  */
+
+function boxDistance( srcBox , tstBox )
+{
+
+  var srcBoxVector = _.box._from( srcBox );
+  var srcDim = _.box.dimGet( srcBoxVector );
+  var srcMin = _.box.cornerLeftGet( srcBoxVector );
+  var srcMax = _.box.cornerRightGet( srcBoxVector );
+
+  var tstBoxVector = _.box._from( tstBox );
+  var tstDim = _.box.dimGet( tstBoxVector );
+  var tstMin = _.box.cornerLeftGet( tstBoxVector );
+  var tstMax = _.box.cornerRightGet( tstBoxVector );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( tstDim === srcDim );
+
+  debugger;
+  // throw _.err( 'not tested' );
+
+  /* box corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  tstMin = _.vector.toArray( tstMin ); tstMax = _.vector.toArray( tstMax );
+  var col = c.colVectorGet( 0 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
+
+  var distance = Infinity;
+  for( var j = 0 ; j < 8 ; j++ )
+  {
+    var corner = _.vector.toArray( c.colVectorGet( j ) );
+    var d = _.box.pointDistance( srcBox, corner );
+    if( d < distance )
+    {
+      distance = d;
+    }
+
+  }
+
+  if( boxIntersects( srcBox , tstBox ) === true )
+  return 0;
+  else
+  return distance;
 }
 
 //
@@ -1277,7 +1352,7 @@ var Proto =
 
   boxContains : boxContains,
   boxIntersects : boxIntersects,
-  // boxDistance : boxDistance, /* qqq : implement me */
+  boxDistance : boxDistance, /* qqq : implement me */
   // boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 

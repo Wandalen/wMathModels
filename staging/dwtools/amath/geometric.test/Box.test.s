@@ -38,8 +38,10 @@ if( typeof module !== 'undefined' )
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
 
-  require( '../geometric/Box.s' );
-  require( '../geometric/Sphere.s' );
+//  require( '../geometric/Box.s' );
+//  require( '../geometric/Sphere.s' );
+  require( '../geometric/aConcepts.s' );
+
 
 }
 
@@ -3851,6 +3853,80 @@ function boxIntersects( test )
 
 //
 
+function boxDistance( test )
+{
+  test.case = 'Source and test box remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var oldSrcBox = srcBox.slice();
+  var oldTstBox = tstBox.slice();
+  var expected = 0;
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.identical( gotDistance, expected );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( tstBox, oldTstBox );
+
+  test.case = 'Corner distance 3D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ 2, 2, 2, 3, 3, 3 ];
+  var expected = Math.sqrt( 3 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Opposite Corner distance 3D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = Math.sqrt( 3 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Corner distance 2D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 0 ];
+  var tstBox = [ 2, 2, 0, 3, 3, 0 ];
+  var expected = Math.sqrt( 2 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Opposite Corner distance 2D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1 , 0];
+  var tstBox = [ -3, -3, 0, -2, -2, 0 ];
+  var expected = Math.sqrt( 2 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Corner distance 1D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ 2, 0, 0, 3, 1, 1 ];
+  var expected = Math.sqrt( 1 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Opposite Corner distance 1D'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var tstBox = [ - 3, 0, 0, - 2, 1, 1 ];
+  var expected = Math.sqrt( 2 );
+
+  var gotDistance = _.box.boxDistance( tstBox, srcBox );
+  test.equivalent( gotDistance, expected );
+
+
+}
+
+//
+
 function boxExpand( test )
 {
 
@@ -4065,11 +4141,11 @@ var Self =
 {
 
   name : 'Tools/Math/Box',
-  silencing : 1,
+  silencing : 0,
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'fromCube',
+  routine: 'boxDistance',
 
   tests :
   {
@@ -4109,6 +4185,7 @@ var Self =
 
     boxContains : boxContains,
     boxIntersects : boxIntersects,
+    boxDistance : boxDistance,
     boxExpand : boxExpand,
 
   }
