@@ -4,9 +4,9 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var srcBox = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-var point = [ -1, 3, 0 ];
+var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+var tstBox = [ 5, 5, 5, 6, 6, 6 ];
 
-var gotBool = _.box.pointClosestPoint( srcBox, point );
-
+var gotBool = _.box.boxClosestPoint( srcBox, tstBox, _.vector.fromArray([ 0, 0, 0 ]) );
+debugger;
 console.log( gotBool );

@@ -1107,24 +1107,44 @@ function boxDistance( srcBox , tstBox )
   debugger;
   // throw _.err( 'not tested' );
 
-  /* box corners */
+  /* src corners */
 
   var c = _.Space.makeZero( [ 3, 8 ] );
+  srcMin = _.vector.toArray( srcMin ); srcMax = _.vector.toArray( srcMax );
+  var col = c.colVectorGet( 0 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+
+  /* tst box corners */
+
+  var c1 = _.Space.makeZero( [ 3, 8 ] );
   tstMin = _.vector.toArray( tstMin ); tstMax = _.vector.toArray( tstMax );
-  var col = c.colVectorGet( 0 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
-  var col = c.colVectorGet( 1 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
-  var col = c.colVectorGet( 2 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
-  var col = c.colVectorGet( 3 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 4 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 5 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 6 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 7 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
+  var col = c1.colVectorGet( 0 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
+  var col = c1.colVectorGet( 1 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
+  var col = c1.colVectorGet( 2 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
+  var col = c1.colVectorGet( 3 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
+  var col = c1.colVectorGet( 4 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
+  var col = c1.colVectorGet( 5 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
+  var col = c1.colVectorGet( 6 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
+  var col = c1.colVectorGet( 7 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
 
   var distance = Infinity;
   for( var j = 0 ; j < 8 ; j++ )
   {
-    var corner = _.vector.toArray( c.colVectorGet( j ) );
-    var d = _.box.pointDistance( srcBox, corner );
+    var srcCorner = _.vector.toArray( c.colVectorGet( j ) );
+    var tstCorner = _.vector.toArray( c1.colVectorGet( j ) );
+    var dSrc = _.box.pointDistance( srcBox, tstCorner );
+    var dTst = _.box.pointDistance( tstBox, srcCorner );
+
+    if( dSrc < dTst )
+    var d = dSrc;
+    else
+    var d = dTst;
     if( d < distance )
     {
       distance = d;
@@ -1146,6 +1166,7 @@ function boxDistance( srcBox , tstBox )
   *
   * @param { Array } srcBox - Source box
   * @param { Array } tstBox - Test box to calculate the closest point
+  * @param { Array } dstPoint - Destination point
   *
   * @example
   * // returns 0
@@ -1158,11 +1179,11 @@ function boxDistance( srcBox , tstBox )
   * @returns { Array } Returns the coordinates of the closest point.
   * @function boxClosestPoint
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @memberof wTools.box
   */
 
-function boxDistance( srcBox , tstBox )
+function boxClosestPoint( srcBox , tstBox, dstPoint )
 {
 
   var srcBoxVector = _.box._from( srcBox );
@@ -1175,41 +1196,82 @@ function boxDistance( srcBox , tstBox )
   var tstMin = _.box.cornerLeftGet( tstBoxVector );
   var tstMax = _.box.cornerRightGet( tstBoxVector );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
   _.assert( tstDim === srcDim );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( tstDim );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  _.assert( tstDim === dstPoint.length );
+
+  var dstPointVector = _.vector.from( dstPoint );
 
   debugger;
   // throw _.err( 'not tested' );
 
-  /* box corners */
-
-  var c = _.Space.makeZero( [ 3, 8 ] );
-  tstMin = _.vector.toArray( tstMin ); tstMax = _.vector.toArray( tstMax );
-  var col = c.colVectorGet( 0 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
-  var col = c.colVectorGet( 1 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
-  var col = c.colVectorGet( 2 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
-  var col = c.colVectorGet( 3 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 4 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 5 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 6 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
-  var col = c.colVectorGet( 7 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
-
-  var distance = Infinity;
-  for( var j = 0 ; j < 8 ; j++ )
-  {
-    var corner = _.vector.toArray( c.colVectorGet( j ) );
-    var d = _.box.pointDistance( srcBox, corner );
-    if( d < distance )
-    {
-      distance = d;
-    }
-
-  }
-
   if( boxIntersects( srcBox , tstBox ) === true )
   return 0;
   else
-  return distance;
+  {
+    /* src corners */
+
+    var c = _.Space.makeZero( [ 3, 8 ] );
+    srcMin = _.vector.toArray( srcMin ); srcMax = _.vector.toArray( srcMax );
+    var col = c.colVectorGet( 0 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+    var col = c.colVectorGet( 1 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+    var col = c.colVectorGet( 2 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+    var col = c.colVectorGet( 3 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+    var col = c.colVectorGet( 4 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+    var col = c.colVectorGet( 5 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+    var col = c.colVectorGet( 6 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+    var col = c.colVectorGet( 7 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+
+    /* tst box corners */
+
+    var c1 = _.Space.makeZero( [ 3, 8 ] );
+    tstMin = _.vector.toArray( tstMin ); tstMax = _.vector.toArray( tstMax );
+    var col = c1.colVectorGet( 0 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
+    var col = c1.colVectorGet( 1 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
+    var col = c1.colVectorGet( 2 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
+    var col = c1.colVectorGet( 3 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
+    var col = c1.colVectorGet( 4 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
+    var col = c1.colVectorGet( 5 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
+    var col = c1.colVectorGet( 6 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
+    var col = c1.colVectorGet( 7 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
+
+    var distance = Infinity;
+    var point = _.array.makeArrayOfLength( tstDim );
+    for( var j = 0 ; j < 8 ; j++ )
+    {
+      var srcCorner = _.vector.toArray( c.colVectorGet( j ) );
+      var tstCorner = _.vector.toArray( c1.colVectorGet( j ) );
+      var dSrc = _.box.pointDistance( srcBox, tstCorner );
+      var dTst = _.box.pointDistance( tstBox, srcCorner );
+
+      if( dSrc < dTst && dSrc <= distance )
+      {
+        distance = dSrc;
+        point = tstCorner;
+      }
+      else if( dTst <= dSrc && dTst <= distance )
+      {
+        distance = dTst;
+        point = _.box.pointClosestPoint( tstBox, srcCorner );
+      }
+    }
+
+    for( var i = 0; i < tstDim; i++ )
+    {
+      dstPointVector.eSet( i, point[ i ] );
+      debugger;
+    }
+
+    return dstPoint;
+  }
+
 }
 
 //
@@ -1475,7 +1537,7 @@ var Proto =
   boxContains : boxContains,
   boxIntersects : boxIntersects,
   boxDistance : boxDistance, /* qqq : implement me */
-//  boxClosestPoint : boxClosestPoint, /* qqq : implement me */
+  boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 
   // sphereContains : sphereContains, /* qqq : implement me */

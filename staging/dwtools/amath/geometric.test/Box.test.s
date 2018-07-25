@@ -3882,6 +3882,11 @@ function boxDistance( test )
   var gotDistance = _.box.boxDistance( tstBox, srcBox );
   test.equivalent( gotDistance, expected );
 
+  /* */
+
+  if( !Config.debug )
+  return;
+
   test.shouldThrowErrorSync( () => _.box.boxDistance( ) );
   test.shouldThrowErrorSync( () => _.box.boxDistance( [] ) );
   test.shouldThrowErrorSync( () => _.box.boxDistance( 'box', 'box2' ) );
@@ -3889,6 +3894,117 @@ function boxDistance( test )
   test.shouldThrowErrorSync( () => _.box.boxDistance( [ 0, 0, 0, 0, 0, 0 ] ) );
   test.shouldThrowErrorSync( () => _.box.boxDistance( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.box.boxDistance( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+}
+
+//
+
+function boxClosestPoint( test )
+{
+
+  test.case = 'Source and test box remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var oldSrcBox = srcBox.slice();
+  var oldTstBox = tstBox.slice();
+  var expected = 0;
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( tstBox, oldTstBox );
+
+  test.case = 'Boxes intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Boxes touching in corner'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Tst Corner'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Tst Corner opposite side'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstBox = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = [ -2, -2, -2 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Src bigger than Tst side'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ 1, 1, 5, 3, 3, 6 ];
+  var expected = [ 3, 3, 5 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'Tst bigger than Src side'; /* */
+
+  var srcBox = [ 1, 1, 5, 3, 3, 6 ];
+  var tstBox = [ 0, 0, 0, 4, 4, 4 ];
+  var expected = [ 3, 3, 4 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
+  test.identical( expected, gotBox );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ -1, -2, -3, 3, 2, -1 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 3, 2, -1 ];
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
+  test.identical( expected, gotBox );
+  test.is( dstPoint === gotBox );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstBox = [ -1, -2, -3, 3, 2, -1 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 3, 2, -1 ] );
+
+  var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
+  test.identical( expected, gotBox );
+  test.is( dstPoint === gotBox );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( 'box', 'box2' ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.boxClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
 }
 
 //
@@ -4152,6 +4268,7 @@ var Self =
     boxContains : boxContains,
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
+    boxClosestPoint : boxClosestPoint,
     boxExpand : boxExpand,
 
   }
