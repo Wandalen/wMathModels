@@ -5,9 +5,8 @@ require( 'wmathconcepts' );
 var _ = wTools;
 
 var srcBox = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.80 ];
-var tstBox = [ - 0.02, - 0.10, - 0.04, 0.56, 0.07, 0.90 ];
-var expected = true;
+var point = [ -1, 3, 0 ];
 
-var gotBool = _.box.boxIntersects2( srcBox, tstBox );
+var gotBool = _.box.pointClosestPoint( srcBox, point );
 
 console.log( gotBool );

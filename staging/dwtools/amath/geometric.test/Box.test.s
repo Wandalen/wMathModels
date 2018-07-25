@@ -2836,11 +2836,13 @@ function pointClosestPoint( test )
   var box = [ 1, 1, 1, 3, 3, 3 ];
   var oldBox = box.slice();
   var point = [ 0, 1, 2 ];
+  var oldPoint = [ 0, 1, 2 ];
   var expected = [ 1, 1, 2 ];
 
   var gotClamped = _.box.pointClosestPoint( box, point );
-  test.identical( gotClamped, point );
+  test.identical( gotClamped, expected );
   test.identical( oldBox, box );
+  test.identical( oldPoint, point );
 
   test.case = 'Empty point relative to null box'; /* */
 
@@ -2977,6 +2979,17 @@ function pointClosestPoint( test )
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped,  expected );
 
+  test.case = 'dstPoint is vector'; /* */
+
+  var box = [ 0, 2 ];
+  var point = [ - 3 ];
+  var dstPoint = _.vector.fromArray( [ 5 ] );
+  var expected = _.vector.fromArray( [ 0 ] );
+
+  var gotClamped = _.box.pointClosestPoint( box, point, dstPoint );
+  test.identical( gotClamped,  expected );
+  test.identical( gotClamped,  dstPoint );
+
   /* */
 
   if( !Config.debug )
@@ -3009,7 +3022,20 @@ function pointClosestPoint( test )
   test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
-    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ], [ 1, 0, 0 ] );
+  });
+
+  test.case = 'dstPoint is null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], null );
+  });
+
+
+  test.case = 'dstPoint is undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], undefined );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
@@ -3856,6 +3882,13 @@ function boxDistance( test )
   var gotDistance = _.box.boxDistance( tstBox, srcBox );
   test.equivalent( gotDistance, expected );
 
+  test.shouldThrowErrorSync( () => _.box.boxDistance( ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( [] ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( 'box', 'box2' ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boxDistance( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
 }
 
 //
@@ -4078,7 +4111,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'boxIntersects',
+  // routine: 'pointClosestPoint',
 
   tests :
   {

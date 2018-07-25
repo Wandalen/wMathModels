@@ -797,36 +797,48 @@ function pointDistance( box , point )
   * @returns { Array } Returns an array with the coordinates of the clamped point.
   * @function pointClosestPoint
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
+  * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
   * @memberof wTools.box
   */
 
-function pointClosestPoint( box , point )
+function pointClosestPoint( box , point, dstPoint )
 {
 
   if( box === null )
   box = _.box.make();
 
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = point.slice();
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
   var boxVector = _.box._from( box );
   var dim = _.box.dimGet( boxVector );
   var min = _.box.cornerLeftGet( boxVector );
   var max = _.box.cornerRightGet( boxVector );
-  var pointVector = _.vector.from( point );
+  var pointVector = _.vector.from( point.slice() );
+  var dstPointVector = _.vector.from( dstPoint );
 
   _.assert( dim === point.length );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   debugger;
   //  throw _.err( 'not tested' );
+  var v = _.vector.clamp( pointVector, min, max );
 
-  _.vector.clamp( pointVector, min, max );
+  for( var i = 0; i < pointVector.length; i++ )
+  {
+    dstPointVector.eSet( i, v.eGet( i ) );
+    debugger;
+  }
 
-  debugger;
-
-  return point;
+  return dstPoint;
 }
 
 //
@@ -1071,6 +1083,80 @@ function boxIntersects( srcBox , tstBox )
   *
   * @returns { Number } Returns the distance between the two boxes.
   * @function boxDistance
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.box
+  */
+
+function boxDistance( srcBox , tstBox )
+{
+
+  var srcBoxVector = _.box._from( srcBox );
+  var srcDim = _.box.dimGet( srcBoxVector );
+  var srcMin = _.box.cornerLeftGet( srcBoxVector );
+  var srcMax = _.box.cornerRightGet( srcBoxVector );
+
+  var tstBoxVector = _.box._from( tstBox );
+  var tstDim = _.box.dimGet( tstBoxVector );
+  var tstMin = _.box.cornerLeftGet( tstBoxVector );
+  var tstMax = _.box.cornerRightGet( tstBoxVector );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( tstDim === srcDim );
+
+  debugger;
+  // throw _.err( 'not tested' );
+
+  /* box corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  tstMin = _.vector.toArray( tstMin ); tstMax = _.vector.toArray( tstMax );
+  var col = c.colVectorGet( 0 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMin[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ tstMin[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ tstMin[ 0 ], tstMax[ 1 ], tstMax[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ tstMax[ 0 ], tstMin[ 1 ], tstMax[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ tstMax[ 0 ], tstMax[ 1 ], tstMin[ 2 ] ] );
+
+  var distance = Infinity;
+  for( var j = 0 ; j < 8 ; j++ )
+  {
+    var corner = _.vector.toArray( c.colVectorGet( j ) );
+    var d = _.box.pointDistance( srcBox, corner );
+    if( d < distance )
+    {
+      distance = d;
+    }
+
+  }
+
+  if( boxIntersects( srcBox , tstBox ) === true )
+  return 0;
+  else
+  return distance;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box. Returns the closest point coordinates.
+  * Box are stored in Array data structure. Source box and Test box stay untouched.
+  *
+  * @param { Array } srcBox - Source box
+  * @param { Array } tstBox - Test box to calculate the closest point
+  *
+  * @example
+  * // returns 0
+  * _.boxClosestPoint( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
+  *
+  * @example
+  * // returns [ 3, 3 ]
+  * _.boxClosestPoint( [ 0, 0, 2, 2 ], [ 3, 3, 4, 4 ] );
+  *
+  * @returns { Array } Returns the coordinates of the closest point.
+  * @function boxClosestPoint
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @memberof wTools.box
@@ -1389,7 +1475,7 @@ var Proto =
   boxContains : boxContains,
   boxIntersects : boxIntersects,
   boxDistance : boxDistance, /* qqq : implement me */
-  // boxClosestPoint : boxClosestPoint, /* qqq : implement me */
+//  boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 
   // sphereContains : sphereContains, /* qqq : implement me */
