@@ -1,6 +1,6 @@
 {
   "name": "wmathconcepts",
-  "version": "0.3.78",
+  "version": "0.3.79",
   "engine": "node >= 6.0.0",
   "description": "Collection of routines for work with several common math concepts",
   "author": "Kostiantyn Wandalen <wanalen@willbe.so>",
