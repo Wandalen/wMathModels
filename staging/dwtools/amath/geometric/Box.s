@@ -781,7 +781,7 @@ function pointDistance( box , point )
 //
 
 /**
-  * Clamp a point to a box. Returns the clamped point. Box stays untouched, point gets clamped.
+  * Clamp a point to a box. Returns the clamped point. Box and point stay unchanged.
   *
   * @param { Array } box - The source box.
   * @param { Array } point - The point to be clamped against the box.
@@ -796,7 +796,7 @@ function pointDistance( box , point )
   *
   * @returns { Array } Returns an array with the coordinates of the clamped point.
   * @function pointClosestPoint
-  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the point don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
@@ -1597,7 +1597,90 @@ function planeDistance( srcBox, plane )
   return 0;
   else
   {
+    /* box corners */
 
+    var c = _.Space.makeZero( [ 3, 8 ] );
+    min = _.vector.toArray( min ); max = _.vector.toArray( max );
+    var col = c.colVectorGet( 0 ); col.copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
+    var col = c.colVectorGet( 1 ); col.copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
+    var col = c.colVectorGet( 2 ); col.copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
+    var col = c.colVectorGet( 3 ); col.copy( [ min[ 0 ], min[ 1 ], max[ 2 ] ] );
+    var col = c.colVectorGet( 4 ); col.copy( [ max[ 0 ], max[ 1 ], max[ 2 ] ] );
+    var col = c.colVectorGet( 5 ); col.copy( [ min[ 0 ], max[ 1 ], max[ 2 ] ] );
+    var col = c.colVectorGet( 6 ); col.copy( [ max[ 0 ], min[ 1 ], max[ 2 ] ] );
+    var col = c.colVectorGet( 7 ); col.copy( [ max[ 0 ], max[ 1 ], min[ 2 ] ] );
+
+    var distance = Infinity;
+    var d = 0;
+    for( var j = 0 ; j < 8 ; j++ )
+    {
+      var corner = c.colVectorGet( j );
+      d = Math.abs( _.plane.pointDistance( plane, corner ) );
+
+      if( d < distance )
+      {
+        distance = d;
+      }
+
+    }
+
+    return distance;
+  }
+}
+
+//
+
+/**
+  * Get the closest point in a box to a plane. Returns the closest point. Box and plane stay untouched.
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } plane - The source plane.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 2 ]
+  * _.planeClosestPoint( [ 0, 0, 2, 2 ], [ 0, 3 ] );
+  *
+  * @example
+  * // returns [ 0, 1 ]
+  * _.planeClosestPoint( [ 0, 0, 2, 2 ], [ 0, 1 ] );
+  *
+  * @returns { Array } Returns an array with the coordinates of the closest point.
+  * @function planeClosestPoint
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
+  * @memberof wTools.box
+  */
+function planeClosestPoint( srcBox, plane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  var boxVector = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
+
+  var _plane = _.plane._from( plane );
+  var dimP = _.plane.dimGet( _plane );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimP === dimB );
+  _.assert( dimP === dstPoint.length );
+
+  if( _.plane.boxIntersects( _plane, boxVector ) )
+  return 0;
+  else
+  {
 
     /* box corners */
 
@@ -1614,7 +1697,8 @@ function planeDistance( srcBox, plane )
 
     var distance = Infinity;
     var d = 0;
-    for( var j = 1 ; j < 8 ; j++ )
+    var point = _.array.makeArrayOfLength( dimB );
+    for( var j = 0 ; j < 8 ; j++ )
     {
       var corner = c.colVectorGet( j );
       d = Math.abs( _.plane.pointDistance( plane, corner ) );
@@ -1622,11 +1706,17 @@ function planeDistance( srcBox, plane )
       if( d < distance )
       {
         distance = d;
+        point = corner;
       }
 
     }
 
-    return distance;
+    for( var i = 0; i < point.length; i++ )
+    {
+      dstPointVector.eSet( i, point.eGet( i ) );
+    }
+
+    return dstPoint;
   }
 }
 
@@ -1858,7 +1948,7 @@ var Proto =
 
   // planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.boxIntersects */
   planeDistance : planeDistance, /* qqq : implement me */
-  // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
+  planeClosestPoint : planeClosestPoint, /* qqq : implement me */
   // planeExpand : planeExpand, /* qqq : implement me */
 
   // frustumContains : frustumContains, /* qqq : implement me */

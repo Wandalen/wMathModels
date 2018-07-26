@@ -4653,7 +4653,7 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 2, 2, 2 ];
   var srcSphere = [ 3, 3, 3, Infinity ];
-  var expected = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -4797,6 +4797,126 @@ function planeDistance( test )
 
 }
 
+//
+
+function planeClosestPoint( test )
+{
+
+  test.case = 'Source plane and box remain unchanged'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var oldSrcBox = srcBox.slice();
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = [ 0, 0, 0 ];
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( srcPlane, oldSrcPlane );
+
+  test.case = 'Plane and box intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, - 1 ];
+  var expected = 0;
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane is box side'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane parallel to box side x = 0'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane parallel to box side y = 0'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 0, 1, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane parallel to box side x = 3'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, - 4 ];
+  var expected = [ 3, 0, 0 ];
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane parallel to box side y = 3'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 0, 1, 0, - 4 ];
+  var expected = [ 0, 3, 0 ];
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane next to box corner [ 0, 0, 0 ]'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 1, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane next to box corner [ 3, 3, 3 ]'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 1, 0, - 7 ];
+  var expected = [ 3, 3, 3 ];
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane next to box corner [ 3, 0, 0 ]'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, - 1, 0, - 7 ];
+  var expected = [ 3, 0, 0 ];
+
+  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( 'box', 'plane' ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( null, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
+
+}
 
 // --
 // define class
@@ -4810,7 +4930,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'planeDistance',
+  // routine: 'planeClosestPoint',
 
   tests :
   {
@@ -4860,6 +4980,7 @@ var Self =
     sphereExpand : sphereExpand,
 
     planeDistance : planeDistance,
+    planeClosestPoint : planeClosestPoint,
 
   }
 
