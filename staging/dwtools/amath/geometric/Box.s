@@ -1482,11 +1482,77 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 
     for( var i = 0; i < dimB; i++ )
     {
-    dstPointVector.eSet( i, p[ i ] );
+      dstPointVector.eSet( i, p[ i ] );
     }
 
     return dstPoint;
   }
+
+}
+//
+
+/**
+  * Expand destination box by source sphere. Returns destination box.
+  * Box and sphere are stored in Array data structure. Source sphere stays untouched.
+  *
+  * @param { Array } dstBox - box to be expanded.
+  * @param { Array } srcSphere - source sphere with expansion dimensions.
+  *
+  * @example
+  * // returns [ -2, -2, 3, 3 ];
+  * _.sphereExpand( [ 1, 1, 3, 3 ], [ 0, 0, 0, 2 ] );
+  *
+  * @returns { Array } Returns the array of the expanded box, that contains new element ( src sphere ).
+  * @function sphereExpand
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcSphere ) is not sphere
+  * @memberof wTools.box
+  */
+
+function sphereExpand( dstBox , srcSphere )
+{
+
+  var _dstBox = _.box._from( dstBox );
+  var dimB = _.box.dimGet( _dstBox );
+  var min1 = _.box.cornerLeftGet( _dstBox );
+  var max1 = _.box.cornerRightGet( _dstBox );
+
+  var _srcSphere = _.sphere._from( srcSphere );
+  var center = _.sphere.centerGet( _srcSphere );
+  var radius = _.sphere.radiusGet( _srcSphere );
+  var dimS = _.sphere.dimGet( _srcSphere );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( dimB === dimS );
+
+  /* Sphere limits */
+
+  var c1 = _.Space.makeZero( [ 3, 6 ] );
+  center = _.vector.toArray( center );
+  var col = c1.colVectorGet( 0 ); col.copy( [ center[ 0 ] + radius, center[ 1 ], center[ 2 ] ] );
+  var col = c1.colVectorGet( 1 ); col.copy( [ center[ 0 ] - radius, center[ 1 ], center[ 2 ] ] );
+  var col = c1.colVectorGet( 2 ); col.copy( [ center[ 0 ], center[ 1 ] + radius, center[ 2 ] ] );
+  var col = c1.colVectorGet( 3 ); col.copy( [ center[ 0 ], center[ 1 ] - radius, center[ 2 ] ] );
+  var col = c1.colVectorGet( 4 ); col.copy( [ center[ 0 ], center[ 1 ], center[ 2 ] + radius ] );
+  var col = c1.colVectorGet( 5 ); col.copy( [ center[ 0 ], center[ 1 ], center[ 2 ] - radius ] );
+
+  var box = _dstBox.slice();
+  for( var j = 0 ; j < 6 ; j++ )
+  {
+    var srcCorner = _.vector.toArray( c1.colVectorGet( j ) );
+    box = _.box.pointExpand( box, srcCorner );
+  }
+  _dstBox.eSet( 0, box[ 0 ] );
+  _dstBox.eSet( 1, box[ 1 ] );
+  _dstBox.eSet( 2, box[ 2 ] );
+  _dstBox.eSet( 3, box[ 3 ] );
+  _dstBox.eSet( 4, box[ 4 ] );
+  _dstBox.eSet( 5, box[ 5 ] );
+
+
+  return dstBox;
 
 }
 
@@ -1714,7 +1780,7 @@ var Proto =
   // sphereIntersects : sphereIntersects, /* qqq : implement me - Same as _.sphere.boxIntersects */
   sphereDistance : sphereDistance, /* qqq : implement me */
   sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
-  // sphereExpand : sphereExpand, /* qqq : implement me */
+  sphereExpand : sphereExpand, /* qqq : implement me */
 
   // planeIntersects : planeIntersects, /* qqq : implement me */
   // planeDistance : planeDistance, /* qqq : implement me */

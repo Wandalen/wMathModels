@@ -4569,6 +4569,132 @@ function sphereClosestPoint( test )
 
 }
 
+//
+
+function sphereExpand( test )
+{
+
+  test.case = 'Source sphere remains unchanged'; /* */
+
+  var dstBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcSphere = [ 1, 1, 2, 1 ];
+  var oldSrcSphere = srcSphere.slice();
+  var expected = [ 0, 0, 0, 3, 3, 3 ];
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( expected, gotBox );
+  test.identical( srcSphere, oldSrcSphere );
+  test.is( dstBox === gotBox );
+
+  test.case = 'Zero box to zero sphere'; /* */
+
+  var dstBox = [ 0, 0, 0, 0, 0, 0 ];
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Sphere inside box'; /* */
+
+  var dstBox = [ 0, 0, 0, 4, 4, 4 ];
+  var srcSphere = [ 2, 2, 2, 1 ];
+  var expected = [ 0, 0, 0, 4, 4, 4 ];
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Point box and point Sphere'; /* */
+
+  var dstBox = [ 0, 0, 0, 0, 0, 0 ];
+  var srcSphere = [ 3, 3, 3, 0 ];
+  var expected = [ 0, 0, 0, 3, 3, 3 ];
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box inside Sphere'; /* */
+
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var srcSphere = [ 0, 0, 0, 3 ];
+  var expected = [ -3, -3, -3, 3, 3, 3 ];
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Sphere outside box'; /* */
+
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var srcSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 0, 0, 0, 8, 8, 8 ];
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox vector'; /* */
+
+  var dstBox = _.vector.from( [ 0, 0, 0, 1, 1, 1 ] );
+  var srcSphere = [ 5, 5, 5, 3 ];
+  var expected = _.vector.from( [ 0, 0, 0, 8, 8, 8 ] );
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Sphere Intersects with box'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var srcSphere = [ 3, 3, 3, 2 ];
+  var expected = [ 0, 0, 0, 5, 5, 5 ];
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Infinity Sphere'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var srcSphere = [ 3, 3, 3, Infinity ];
+  var expected = [ 0, 0, 0, 5, 5, 5 ];
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'sphere.Expand + sphere.Contains'; /* */
+
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var srcSphere = [ 5, 5, 5, 2 ];
+  var expectedBool = false;
+  var gotBool = _.box.sphereContains( dstBox, srcSphere );
+  test.identical( gotBool, expectedBool );
+
+  var expected = [ 0, 0, 0, 7, 7, 7 ];
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  var expectedBool = true;
+  var gotBool = _.box.sphereContains( dstBox, srcSphere );
+  test.identical( gotBool, expectedBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( 'box', 'sphere' ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( null, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
+
+
+}
 
 // --
 // define class
@@ -4582,7 +4708,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'sphereClosestPoint',
+  routine: 'sphereExpand',
 
   tests :
   {
@@ -4629,6 +4755,7 @@ var Self =
     sphereContains : sphereContains,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
+    sphereExpand : sphereExpand,
 
   }
 
