@@ -623,8 +623,7 @@ function boxClosestPoint( frustum , box )
 
   for( var j = 0 ; j < 8 ; j++ )
   {
-    var corner = _.vector.toArray( c.colVectorGet( j ) );
-    corner = _.vector.from( corner );
+    var corner = c.colVectorGet( j );
     var proj = _.frustum.pointClosestPoint( frustum, corner );
     var d = _.avector.distance( corner, _.vector.toArray( proj ) );
     if( d < dist )
@@ -667,7 +666,7 @@ function sphereIntersects( frustum , sphere )
   var center = _.sphere.centerGet( sphere );
   var radius = _.sphere.radiusGet( sphere );
 
-  if( _.frustum.pointContains( frustum, _.vector.from( center )) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( center )) === true )
   {
     return true;
   }
@@ -778,7 +777,7 @@ function frustumIntersects( srcfrustum , testfrustum )
   {
     var point = points.colVectorGet( i );
     var c = _.frustum.pointContains( testfrustum, point );
-    if( c == true )
+    if( c === true )
     return true;
 
   }
@@ -789,7 +788,7 @@ function frustumIntersects( srcfrustum , testfrustum )
   {
     var point = points2.colVectorGet( i );
     var c = _.frustum.pointContains( srcfrustum, point );
-    if( c == true )
+    if( c === true )
     return true;
 
   }

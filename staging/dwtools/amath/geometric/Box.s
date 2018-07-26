@@ -1776,6 +1776,35 @@ function planeExpand( dstBox, srcPlane )
 
 //
 
+/**
+  * Check if a box contains a frustum. Returns true if it is contained, false if not.
+  * Box and frustum remain unchanged
+  *
+  * @param { Array } box - The source box (container).
+  * @param { Array } frustum - The tested frustum (the frustum to check if it is contained in box).
+  *
+  * @example
+  * // returns true
+  * var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumContains( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns false
+  * _.frustumContains( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Boolean } Returns true if the frustum is contained and false if not.
+  * @function frustumContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @memberof wTools.box
+  */
 function frustumContains( box, frustum )
 {
 
@@ -1799,6 +1828,84 @@ function frustumContains( box, frustum )
     }
   }
   return true;
+}
+
+//
+
+/**
+  * Calculates the distance between a box and a frustum. Returns the calculated distance.
+  * Box and frustum remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } frustum - The source frustum.
+  *
+  * @example
+  * // returns 0
+  * var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns 1
+  * _.frustumDistance( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Number } Returns the distance between the box and the point.
+  * @function frustumDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @memberof wTools.box
+  */
+function frustumDistance( box, frustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  var _box = _.box._from( box );
+
+  var dim = _.box.dimGet( _box );
+  _.assert( dim === 3 );
+  var min = _.box.cornerLeftGet( _box );
+  var max = _.box.cornerRightGet( _box );
+
+  if( _.frustum.boxIntersects( frustum, _box ) )
+  return 0;
+
+  var frustumPoint = _.frustum.boxClosestPoint( frustum, _box );
+
+  /* box corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  var min1 = _.vector.toArray( min ); var max1 = _.vector.toArray( max );
+  var col = c.colVectorGet( 0 ); col.copy( [ min1[ 0 ], min1[ 1 ], min1[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ max1[ 0 ], min1[ 1 ], min1[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ min1[ 0 ], max1[ 1 ], min1[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ min1[ 0 ], min1[ 1 ], max1[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ max1[ 0 ], max1[ 1 ], max1[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ min1[ 0 ], max1[ 1 ], max1[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ max1[ 0 ], min1[ 1 ], max1[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ max1[ 0 ], max1[ 1 ], min1[ 2 ] ] );
+
+  var distance = Infinity;
+  for( var j = 0 ; j < 8 ; j++ )
+  {
+    var corner = c.colVectorGet( j );
+    var proj = _.frustum.pointClosestPoint( frustum, corner );
+    var d = _.avector.distance( corner, frustumPoint.slice() );
+    if( d < distance )
+    {
+      distance = d;
+    }
+  }
+
+  return distance;
+
 }
 
 //
@@ -2033,8 +2140,8 @@ var Proto =
   planeExpand : planeExpand, /* qqq : implement me */
 
   frustumContains : frustumContains, /* qqq : implement me */
-  // frustumIntersects : frustumIntersects, /* qqq : implement me */
-  // frustumDistance : frustumDistance, /* qqq : implement me */
+  // frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
+  frustumDistance : frustumDistance, /* qqq : implement me */
   // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
   // frustumExpand : frustumExpand, /* qqq : implement me */
 

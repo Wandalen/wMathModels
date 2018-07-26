@@ -5207,6 +5207,163 @@ function frustumContains( test )
   box = [ 0, 0, 1, 1, 2, 2, 2 ];
   test.shouldThrowErrorSync( () => _.box.frustumContains( box, frustum ));
 
+}
+
+//
+
+function frustumDistance( test )
+{
+
+  test.description = 'Frustum and box remain unchanged'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var oldBox = box.slice();
+  var expected = 0;
+
+  var gotDistance = _.box.frustumDistance( box, frustum );
+  test.equivalent( gotDistance, expected );
+  test.identical( box, oldBox );
+
+  var oldF = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( frustum, oldF );
+
+  test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 1, 1, 1 )'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
+  var expected = Math.sqrt( 3 );
+
+  var gotDistance = _.box.frustumDistance( box, frustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 0, 0, 0 )'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
+  var expected = Math.sqrt( 0.75 );
+ debugger;
+  var gotDistance = _.box.frustumDistance( box, frustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Box and frustum intersect'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
+  var expected = 0;
+
+  var gotDistance = _.box.frustumDistance( box, frustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Point in inclined frustum side'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
+    - 3,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
+  var expected = Math.sqrt( 0.05 );
+
+  var gotDistance = _.box.frustumDistance( box, frustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Diagonal frustum plane'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
+    - 3,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ -2, -2, 2, 0, 0, 4 ];
+  var expected = Math.sqrt( 3.4 );
+
+  var gotDistance = _.box.frustumDistance( box, frustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'PointBox'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
+    - 3,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ -2, -2, -2, -2, -2, -2 ];
+  var expected = Math.sqrt( 12 );
+
+  var gotDistance = _.box.frustumDistance( box, frustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'PointBox on side'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
+  var expected = 0.1;
+
+  var gotDistance = _.box.frustumDistance( box, frustum );
+  test.equivalent( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( frustum, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( null ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( NaN ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( [ 0, 0, 2, 1 ], frustum));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( [ 0, 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( [ ] ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( [ 0, 0, 0, 0, 0, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( [ 0, 0, 0, 0, 0, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( null, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( NaN, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( [ 0, 0, 0, 0, 0, 0 ], frustum, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumDistance( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0 ], frustum ));
 
 }
 
@@ -5222,7 +5379,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'frustumContains',
+  // routine: 'frustumDistance',
 
   tests :
   {
@@ -5276,6 +5433,7 @@ var Self =
     planeExpand : planeExpand,
 
     frustumContains : frustumContains,
+    frustumDistance : frustumDistance,
   }
 
 }
