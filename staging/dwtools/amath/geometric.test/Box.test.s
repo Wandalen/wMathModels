@@ -5522,6 +5522,189 @@ function frustumClosestPoint( test )
 
 }
 
+function frustumExpand( test )
+{
+
+  test.description = 'Frustum remains unchanged'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var expected = [ 0, 0, 0, 1.5, 1.5, 1.5 ];
+
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.equivalent( gotBox, expected );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum Expands box'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   0, - 2,   0,   0, - 2
+  ]);
+  var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var expected = [ 0, 0, 0, 2, 2, 2 ];
+
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.identical( gotBox, expected );
+
+  test.description = 'Frustrum expands only one side of box'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 0, - 2,   0,   0, - 2
+  ]);
+  var box = [ 0, 0, 0.5, 1.5, 2, 2 ];
+  var expected = [ 0, 0, 0, 2, 2, 2 ];
+
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.identical( gotBox, expected );
+
+    test.description = 'Box outside frustum'; //
+
+    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      - 1,   0, - 1,   0,   0, - 1
+    ]);
+    var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
+    var expected = [ 0, 0, 0, 2.5, 2.5, 2.5 ];
+
+    var gotBox = _.box.frustumExpand( box, srcFrustum );
+    test.identical( gotBox, expected );
+
+    test.description = 'Box outside frustum opposite side'; //
+
+    var frustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      - 1,   0, - 1,   0,   0, - 1
+    ]);
+    var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
+    var expected = [ -1, -1, -1, 1, 1, 1 ];
+
+    var gotBox = _.box.frustumExpand( box, srcFrustum );
+    test.identical( gotBox, expected );
+
+    test.description = 'Box and frustum intersect'; //
+
+    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      - 1,   0, - 1,   0,   0, - 1
+    ]);
+    var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
+    var expected = [ -1, -1, -1, 1, 1, 1 ];
+
+    var gotBox = _.box.frustumExpand( box, srcFrustum );
+    test.identical( gotBox, expected );
+
+    test.description = 'Point in inclined frustum side'; //
+
+    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   2,   1, - 1,   0,   0,
+      - 3,   0, - 1,   0,   0, - 1
+    ]);
+    var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
+    var expected = [ -1, -1, 0, 1, 3, 2 ];
+
+    var gotBox = _.box.frustumExpand( box, srcFrustum );
+    test.identical( gotBox, expected );
+
+    test.description = 'Diagonal frustum plane'; //
+
+    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   2,   1, - 1,   0,   0,
+      - 3,   0, - 1,   0,   0, - 1 ]
+    );
+    var box = [ -2, -2, 2, 0, 0, 4 ];
+    var expected = [ -2, -2, 0, 1, 3, 4 ];
+
+    var gotBox = _.box.frustumExpand( box, srcFrustum );
+    test.identical( gotBox, expected );
+
+    test.description = 'PointBox'; //
+
+    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   2,   1, - 1,   0,   0,
+      - 3,   0, - 1,   0,   0, - 1
+    ]);
+    var box = [ -2, -2, -2, -2, -2, -2 ];
+    var expected = [ -2, -2, -2, 1, 3, 1 ];
+
+    var gotBox = _.box.frustumExpand( box, srcFrustum );
+    test.identical( gotBox, expected );
+
+    test.description = 'PointBox on side'; //
+
+    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      - 1,   0, - 1,   0,   0, - 1
+    ]);
+    var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
+    var expected = [ 0, 0, 0, 1.1, 1, 1 ];
+
+    var gotBox = _.box.frustumExpand( box, srcFrustum );
+    test.identical( gotBox, expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( frustum, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( null ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( NaN ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( [ 0, 0, 2, 1 ], frustum));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( [ 0, 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( [ ] ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( [ 0, 0, 0, 0, 0, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( [ 0, 0, 0, 0, 0, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( null, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( NaN, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( [ 0, 0, 0, 0, 0, 0 ], frustum, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0 ], frustum ));
+
+}
+
 // --
 // define class
 // --
@@ -5534,7 +5717,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'frustumClosestPoint',
+  // routine: 'frustumExpand',
 
   tests :
   {
@@ -5590,6 +5773,7 @@ var Self =
     frustumContains : frustumContains,
     frustumDistance : frustumDistance,
     frustumClosestPoint : frustumClosestPoint,
+    frustumExpand : frustumExpand,
 
   }
 

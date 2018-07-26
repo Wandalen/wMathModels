@@ -4,14 +4,14 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var box = [ 3, 3, 3, 4, 4, 4 ];
-var frustum =  _.Space.make( [ 4, 6 ] ).copy
+var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
 ([
   0,   0,   0,   0, - 1,   1,
   1, - 1,   0,   0,   0,   0,
   0,   0,   1, - 1,   0,   0,
-  - 1,   0, - 1,   0,   0, - 1 ]
-);
+  - 1,   0, - 1,   0,   0, - 1
+]);
+var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
 
-var gotBool = _.box.frustumClosestPoint( box, frustum );
+var gotBool = _.box.frustumExpand( box, srcFrustum );
 console.log( gotBool );

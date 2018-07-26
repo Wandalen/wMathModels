@@ -1927,11 +1927,11 @@ function frustumDistance( box, frustum )
   *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
-  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ], frustum );
   *
   * @example
   * // returns [ 2, 2, 2 ]
-  * _.frustumDistance( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  * _.frustumClosestPoint [ 2, 2, 2, 3, 3, 3 ], frustum );
   *
   * @returns { Array } Returns the closest point to the frustum.
   * @function frustumClosestPoint
@@ -2000,11 +2000,73 @@ function frustumClosestPoint( box, frustum, dstPoint )
     {
       dstPointVector.eSet( i, point[ i ] );
     }
-    
+
     return dstPoint;
   }
 
+}
 
+//
+
+/**
+  * Expand a box with a frustum. Returns the expanded box.
+  * Frustum remains unchanged
+  *
+  * @param { Array } dstBox - The destination box.
+  * @param { Space } srcFrustum - The source frustum.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 2, 2, 2 ]
+  * var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumExpand( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 3, 3, 3 ]
+  * _.frustumExpand( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Array } Returns the expanded box.
+  * @function frustumExpand
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum
+  * @memberof wTools.box
+  */
+function frustumExpand( dstBox, srcFrustum )
+{
+
+_.assert( arguments.length === 2, 'expects exactly two arguments' );
+_.assert( _.frustum.is( srcFrustum ) );
+
+var _box = _.box._from( dstBox );
+
+var dim = _.box.dimGet( _box );
+_.assert( dim === 3 );
+var min = _.box.cornerLeftGet( _box );
+var max = _.box.cornerRightGet( _box );
+
+var fpoints = _.frustum.cornersGet( srcFrustum );
+_.assert( _.spaceIs( fpoints ) );
+_.assert( fpoints.hasShape([ 3, 8 ] ) );
+
+var box2 = _box.slice();
+for( var j = 0 ; j < 8 ; j++ )
+{
+  var newp = _.vector.toArray( fpoints.colVectorGet( j ) );
+  box2 = _.box.pointExpand( box2, newp );
+}
+
+for( var j = 0 ; j < 6 ; j++ )
+{
+  _box.eSet( j,  box2[ j ] );
+}
+
+  return dstBox;
 }
 
 //
@@ -2242,7 +2304,7 @@ var Proto =
   // frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
   frustumDistance : frustumDistance, /* qqq : implement me */
   frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
-  // frustumExpand : frustumExpand, /* qqq : implement me */
+  frustumExpand : frustumExpand, /* qqq : implement me */
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
