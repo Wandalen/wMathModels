@@ -459,8 +459,8 @@ function boxIntersects( frustum , box )
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
-  var c0 = _.vector.from(_.vector.toArray( min1 ));
-  var c4 = _.vector.from(_.vector.toArray( max1 ));
+  var c0 = _.vector.from( min1 );
+  var c4 = _.vector.from( max1 );
   var c0 = _.vector.toArray( c0 );
   var c4 = _.vector.toArray( c4 );
 
@@ -471,35 +471,35 @@ function boxIntersects( frustum , box )
   var c6 = c0.slice(); c6[1] = c4[ 1 ]; c6[ 0 ] = c4[ 0 ];
   var c7 = c0.slice(); c7[2] = c4[ 2 ]; c7[ 1 ] = c4[ 1 ];
 
-  if( _.frustum.pointContains( frustum, _.vector.from( c0.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c0.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c1.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c1.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c2.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c2.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c3.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c3.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c4.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c4.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c5.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c5.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c6.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c6.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c7.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c7.slice( ) ) ) === true )
   {
     return true;
   }
@@ -507,12 +507,11 @@ function boxIntersects( frustum , box )
   var fpoints = _.frustum.cornersGet( frustum );
   _.assert( _.spaceIs( fpoints ) );
 
-  for( var i = 0 ; i < 6 ; i += 1 )
+  for( var i = 0 ; i < 6 ; i ++ )
   {
-    var point = _.vector.toArray( fpoints.colVectorGet( i ) );
-    var point = _.vector.from( point );
+    var point = fpoints.colVectorGet( i );
 
-    if( _.box.pointContains( box, point ) == true )
+    if( _.box.pointContains( box, point ) === true )
     {
       return true;
     }

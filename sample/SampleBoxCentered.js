@@ -4,9 +4,14 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-var srcPlane = [ 1, 0, 0, 2 ];
+var box = [ 0, 0, 0, 0.5, 1, 1 ];
+var frustum =  _.Space.make( [ 4, 6 ] ).copy
+([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1 ]
+);
 
-var gotBool = _.box.planeExpand( srcBox, srcPlane );
-debugger;
+var gotBool = _.box.frustumContains( box, frustum );
 console.log( gotBool );

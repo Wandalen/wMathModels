@@ -5056,6 +5056,160 @@ function planeExpand( test )
 
 }
 
+//
+
+function frustumContains( test )
+{
+  test.description = 'Frustum and box remain unchanged'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 1, 1, 1, 3, 3, 3 ];
+  var oldBox = box.slice();
+  var expected = false;
+
+  var gotBool = _.box.frustumContains( box, frustum );
+  test.identical( gotBool, expected );
+  test.identical( box, oldBox );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( frustum, oldFrustum );
+
+  test.description = 'Box contains frustum'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ -1, -1, -1, 3, 3, 3 ];
+  var expected = true;
+
+  var gotBool = _.box.frustumContains( box, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Box contains Zero frustum'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0,   0,   0 ]
+  );
+
+  var box = [ -1, -1, -1, 3, 3, 3 ];
+  var expected = true;
+
+  var gotBool = _.box.frustumContains( box, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Box contains frustum, touching sides'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.box.frustumContains( box, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum contains box'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 0.1, 0.1, 0.1, 0.5, 0.5, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.box.frustumContains( box, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and box intersect'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 0.1, 0.1, 0.1, 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.box.frustumContains( box, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and box in different places'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = false;
+
+  var gotBool = _.box.frustumContains( box, frustum );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.box.frustumContains( ));
+  test.shouldThrowErrorSync( () => _.box.frustumContains( box ));
+  test.shouldThrowErrorSync( () => _.box.frustumContains( frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumContains( box, frustum, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumContains( box, box, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumContains( box, null ));
+  test.shouldThrowErrorSync( () => _.box.frustumContains( null, frustum ));
+  test.shouldThrowErrorSync( () => _.box.frustumContains( box, NaN ));
+  test.shouldThrowErrorSync( () => _.box.frustumContains( NaN, frustum ));
+
+  box = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.box.frustumContains( box, frustum ));
+  box = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.box.frustumContains( box, frustum ));
+  box = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.box.frustumContains( box, frustum ));
+
+
+}
+
 // --
 // define class
 // --
@@ -5068,7 +5222,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'planeExpand',
+  // routine: 'frustumContains',
 
   tests :
   {
@@ -5121,6 +5275,7 @@ var Self =
     planeClosestPoint : planeClosestPoint,
     planeExpand : planeExpand,
 
+    frustumContains : frustumContains,
   }
 
 }

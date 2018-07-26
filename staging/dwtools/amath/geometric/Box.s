@@ -1776,6 +1776,33 @@ function planeExpand( dstBox, srcPlane )
 
 //
 
+function frustumContains( box, frustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  var _box = _.box._from( box );
+  var dim = _.box.dimGet( _box );
+  var min = _.box.cornerLeftGet( _box );
+  var max = _.box.cornerRightGet( _box );
+
+  var fpoints = _.frustum.cornersGet( frustum );
+  _.assert( _.spaceIs( fpoints ) );
+
+  for( var i = 0 ; i < 6 ; i += 1 )
+  {
+    var point = fpoints.colVectorGet( i );
+
+    if( _.box.pointContains( box, point ) !== true )
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+//
+
 function matrixHomogenousApply( box , matrix )
 {
 
@@ -2005,7 +2032,7 @@ var Proto =
   planeClosestPoint : planeClosestPoint, /* qqq : implement me */
   planeExpand : planeExpand, /* qqq : implement me */
 
-  // frustumContains : frustumContains, /* qqq : implement me */
+  frustumContains : frustumContains, /* qqq : implement me */
   // frustumIntersects : frustumIntersects, /* qqq : implement me */
   // frustumDistance : frustumDistance, /* qqq : implement me */
   // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
