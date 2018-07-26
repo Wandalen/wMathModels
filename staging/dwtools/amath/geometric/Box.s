@@ -1781,7 +1781,7 @@ function planeExpand( dstBox, srcPlane )
   * Box and frustum remain unchanged
   *
   * @param { Array } box - The source box (container).
-  * @param { Array } frustum - The tested frustum (the frustum to check if it is contained in box).
+  * @param { Space } frustum - The tested frustum (the frustum to check if it is contained in box).
   *
   * @example
   * // returns true
@@ -1837,7 +1837,7 @@ function frustumContains( box, frustum )
   * Box and frustum remain unchanged
   *
   * @param { Array } box - The source box.
-  * @param { Array } frustum - The source frustum.
+  * @param { Space } frustum - The source frustum.
   *
   * @example
   * // returns 0
@@ -1905,6 +1905,105 @@ function frustumDistance( box, frustum )
   }
 
   return distance;
+
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a frustum. Returns the calculated point.
+  * Box and frustum remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Space } frustum - The source frustum.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.frustumDistance( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Array } Returns the closest point to the frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function frustumClosestPoint( box, frustum, dstPoint )
+{
+
+  _.assert( _.frustum.is( frustum ) );
+
+  var _box = _.box._from( box );
+  var dimB = _.box.dimGet( _box );
+  _.assert( dimB === 3 );
+  var min = _.box.cornerLeftGet( _box );
+  var max = _.box.cornerRightGet( _box );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( dimB === 3 );
+  _.assert( dimB === dstPoint.length );
+
+  if( _.frustum.boxIntersects( frustum, _box ) )
+  return 0
+  else
+  {
+    var frustumPoint = _.frustum.boxClosestPoint( frustum, _box );
+
+    /* box corners */
+
+    var c = _.Space.makeZero( [ 3, 8 ] );
+    var min1 = _.vector.toArray( min ); var max1 = _.vector.toArray( max );
+    var col = c.colVectorGet( 0 ); col.copy( [ min1[ 0 ], min1[ 1 ], min1[ 2 ] ] );
+    var col = c.colVectorGet( 1 ); col.copy( [ max1[ 0 ], min1[ 1 ], min1[ 2 ] ] );
+    var col = c.colVectorGet( 2 ); col.copy( [ min1[ 0 ], max1[ 1 ], min1[ 2 ] ] );
+    var col = c.colVectorGet( 3 ); col.copy( [ min1[ 0 ], min1[ 1 ], max1[ 2 ] ] );
+    var col = c.colVectorGet( 4 ); col.copy( [ max1[ 0 ], max1[ 1 ], max1[ 2 ] ] );
+    var col = c.colVectorGet( 5 ); col.copy( [ min1[ 0 ], max1[ 1 ], max1[ 2 ] ] );
+    var col = c.colVectorGet( 6 ); col.copy( [ max1[ 0 ], min1[ 1 ], max1[ 2 ] ] );
+    var col = c.colVectorGet( 7 ); col.copy( [ max1[ 0 ], max1[ 1 ], min1[ 2 ] ] );
+
+    var distance = Infinity;
+    var point = [ 0, 0, 0 ];
+    for( var j = 0 ; j < 8 ; j++ )
+    {
+      var corner = c.colVectorGet( j );
+      var d = _.avector.distance( corner, frustumPoint.slice() );
+      if( d < distance )
+      {
+        distance = d;
+        point = corner.slice();
+      }
+    }
+
+    for( var i = 0; i < dimB; i++ )
+    {
+      dstPointVector.eSet( i, point[ i ] );
+    }
+    
+    return dstPoint;
+  }
+
 
 }
 
@@ -2142,7 +2241,7 @@ var Proto =
   frustumContains : frustumContains, /* qqq : implement me */
   // frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
   frustumDistance : frustumDistance, /* qqq : implement me */
-  // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
+  frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
   // frustumExpand : frustumExpand, /* qqq : implement me */
 
   matrixHomogenousApply : matrixHomogenousApply,

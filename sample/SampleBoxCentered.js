@@ -13,5 +13,5 @@ var frustum =  _.Space.make( [ 4, 6 ] ).copy
   - 1,   0, - 1,   0,   0, - 1 ]
 );
 
-var gotBool = _.box.frustumDistance( box, frustum );
+var gotBool = _.box.frustumClosestPoint( box, frustum );
 console.log( gotBool );
