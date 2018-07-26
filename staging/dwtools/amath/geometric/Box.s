@@ -1722,6 +1722,60 @@ function planeClosestPoint( srcBox, plane, dstPoint )
 
 //
 
+/**
+  * Expand a box with a plane equation. Returns the expanded box.
+  * Plane stay untouched, box changes.
+  *
+  * @param { Array } dstBox - The destination box.
+  * @param { Array } srcPlane - The source plane.
+  *
+  * @example
+  * // returns [ -1, -1, -1, 2, 2, 2 ]
+  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 1 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 2, 2, 2 ]
+  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 0 ] );
+  *
+  * @returns { Array } Returns an array with the coordinates of the expanded box.
+  * @function planeExpand
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @memberof wTools.box
+  */
+function planeExpand( dstBox, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects two arguments' );
+
+  var boxVector = _.box._from( dstBox );
+  var dimB = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
+
+  var _plane = _.plane._from( srcPlane );
+  var dimP = _.plane.dimGet( _plane );
+
+  _.assert( dimP === dimB );
+
+  if( _.plane.boxIntersects( _plane, boxVector ) )
+  return dstBox;
+  else
+  {
+    var boxPoint = _.box.planeClosestPoint( boxVector.slice(), _plane );
+    var planePoint = _.plane.pointCoplanarGet( _plane, boxPoint );
+    var box = _.box.pointExpand( boxVector.slice(), planePoint);
+    for( var i = 0; i < box.length; i++ )
+    {
+      boxVector.eSet( i, box[ i ] );
+    }
+    return dstBox;
+  }
+}
+
+//
+
 function matrixHomogenousApply( box , matrix )
 {
 
@@ -1949,7 +2003,7 @@ var Proto =
   // planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.boxIntersects */
   planeDistance : planeDistance, /* qqq : implement me */
   planeClosestPoint : planeClosestPoint, /* qqq : implement me */
-  // planeExpand : planeExpand, /* qqq : implement me */
+  planeExpand : planeExpand, /* qqq : implement me */
 
   // frustumContains : frustumContains, /* qqq : implement me */
   // frustumIntersects : frustumIntersects, /* qqq : implement me */

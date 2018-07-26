@@ -4810,8 +4810,8 @@ function planeClosestPoint( test )
   var oldSrcPlane = srcPlane.slice();
   var expected = [ 0, 0, 0 ];
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
   test.identical( srcBox, oldSrcBox );
   test.identical( srcPlane, oldSrcPlane );
 
@@ -4821,8 +4821,8 @@ function planeClosestPoint( test )
   var srcPlane = [ 1, 0, 0, - 1 ];
   var expected = 0;
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
 
   test.case = 'Plane is box side'; /* */
 
@@ -4830,8 +4830,8 @@ function planeClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 0 ];
   var expected = 0;
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
 
   test.case = 'Plane parallel to box side x = 0'; /* */
 
@@ -4839,8 +4839,8 @@ function planeClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 1 ];
   var expected = [ 0, 0, 0 ];
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
 
   test.case = 'Plane parallel to box side y = 0'; /* */
 
@@ -4848,8 +4848,8 @@ function planeClosestPoint( test )
   var srcPlane = [ 0, 1, 0, 1 ];
   var expected = [ 0, 0, 0 ];
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
 
   test.case = 'Plane parallel to box side x = 3'; /* */
 
@@ -4857,8 +4857,8 @@ function planeClosestPoint( test )
   var srcPlane = [ 1, 0, 0, - 4 ];
   var expected = [ 3, 0, 0 ];
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
 
   test.case = 'Plane parallel to box side y = 3'; /* */
 
@@ -4866,8 +4866,8 @@ function planeClosestPoint( test )
   var srcPlane = [ 0, 1, 0, - 4 ];
   var expected = [ 0, 3, 0 ];
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
 
   test.case = 'Plane next to box corner [ 0, 0, 0 ]'; /* */
 
@@ -4875,8 +4875,8 @@ function planeClosestPoint( test )
   var srcPlane = [ 1, 1, 0, 1 ];
   var expected = [ 0, 0, 0 ];
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
 
   test.case = 'Plane next to box corner [ 3, 3, 3 ]'; /* */
 
@@ -4884,8 +4884,8 @@ function planeClosestPoint( test )
   var srcPlane = [ 1, 1, 0, - 7 ];
   var expected = [ 3, 3, 3 ];
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
 
   test.case = 'Plane next to box corner [ 3, 0, 0 ]'; /* */
 
@@ -4893,10 +4893,30 @@ function planeClosestPoint( test )
   var srcPlane = [ 1, - 1, 0, - 7 ];
   var expected = [ 3, 0, 0 ];
 
-  var gotDistance = _.box.planeClosestPoint( srcBox, srcPlane );
-  test.identical( expected, gotDistance );
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
+  test.identical( expected, gotPoint );
 
+  test.case = 'dstPoint is array'; /* */
 
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, - 1, 0, - 7 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 3, 0, 0 ];
+
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane, dstPoint );
+  test.identical( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, - 1, 0, - 7 ];
+  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
+  var expected = _.vector.fromArray( [ 3, 0, 0 ] );
+
+  var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane, dstPoint );
+  test.identical( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
   /* */
 
   if( !Config.debug )
@@ -4918,6 +4938,124 @@ function planeClosestPoint( test )
 
 }
 
+//
+
+function planeExpand( test )
+{
+
+  test.case = 'Source plane remains unchanged'; /* */
+
+  var dstBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = [ -1, 0, 0, 3, 3, 3 ];
+
+  var gotBox = _.box.planeExpand( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+  test.is( gotBox === dstBox );
+  test.identical( srcPlane, oldSrcPlane );
+
+  test.case = 'Plane and box intersect - no expansion'; /* */
+
+  var dstBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, - 1 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = [ 0, 0, 0, 3, 3, 3 ];
+
+  var gotBox = _.box.planeExpand( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+
+  test.case = 'Box expanded by min'; /* */
+
+  var dstBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 1, 1, 3 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = [ -1, -1, -1, 3, 3, 3 ];
+
+  var gotBox = _.box.planeExpand( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+
+  test.case = 'Box expanded by max'; /* */
+
+  var dstBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 1, 1, - 12 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = [ 0, 0, 0, 4, 4, 4 ];
+
+  var gotBox = _.box.planeExpand( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+
+  test.case = 'Box expanded on two sides - by min'; /* */
+
+  var dstBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 1, 0, 8 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = [ -4, -4, 0, 3, 3, 3 ];
+
+  var gotBox = _.box.planeExpand( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+
+  test.case = 'Box expanded on two sides - by max'; /* */
+
+  var dstBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 1, 0, - 8 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = [ 0, 0, 0, 4, 4, 3 ];
+
+  var gotBox = _.box.planeExpand( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+
+  test.case = 'Box expanded on one side by min'; /* */
+
+  var dstBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, 3 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = [ -3, 0, 0, 3, 3, 3 ];
+
+  var gotBox = _.box.planeExpand( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+
+  test.case = 'Box expanded on one side by max'; /* */
+
+  var dstBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, - 4 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = [ 0, 0, 0, 4, 3, 3 ];
+
+  var gotBox = _.box.planeExpand( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+
+  test.case = 'dstBox is vector'; /* */
+
+  var dstBox = _.vector.fromArray( [ 0, 0, 0, 3, 3, 3 ] );
+  var srcPlane = [ 1, 1, 0, - 8 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = _.vector.fromArray( [ 0, 0, 0, 4, 4, 3 ] );
+
+  var gotBox = _.box.planeExpand( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.planeExpand( ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [] ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( 'box', 'plane' ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( null, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
+
+}
+
 // --
 // define class
 // --
@@ -4930,7 +5068,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'planeClosestPoint',
+  // routine: 'planeExpand',
 
   tests :
   {
@@ -4981,6 +5119,7 @@ var Self =
 
     planeDistance : planeDistance,
     planeClosestPoint : planeClosestPoint,
+    planeExpand : planeExpand,
 
   }
 
