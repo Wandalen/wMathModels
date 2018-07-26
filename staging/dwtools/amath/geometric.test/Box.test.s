@@ -4693,8 +4693,110 @@ function sphereExpand( test )
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
 
+}
+
+//
+
+function planeDistance( test )
+{
+
+  test.case = 'Source plane and box remain unchanged'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var oldSrcBox = srcBox.slice();
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var oldSrcPlane = srcPlane.slice();
+  var expected = 1;
+
+  var gotDistance = _.box.planeDistance( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+  test.identical( srcBox, oldSrcBox );
+  test.identical( srcPlane, oldSrcPlane );
+
+  test.case = 'Plane as box side'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, - 3 ];
+  var expected = 0;
+
+  var gotDistance = _.box.planeDistance( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane touching box corner'; /* */
+
+  var srcBox = [ 0, 1, 2, 1, 1, 3 ];
+  var srcPlane = [ 1, -1, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.box.planeDistance( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane crossing box'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, - 1 ];
+  var expected = 0;
+
+  var gotDistance = _.box.planeDistance( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane under box parallel to side'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, 3 ];
+  var expected = 3;
+
+  var gotDistance = _.box.planeDistance( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane over box'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var srcPlane = [ 1, 0, 0, - 6 ];
+  var expected = 3;
+
+  var gotDistance = _.box.planeDistance( srcBox, srcPlane );
+  test.identical( expected, gotDistance );
+
+  test.case = 'Plane close to box corner'; /* */
+
+  var srcBox = [ 3, 0, 2, 4, 1, 2 ];
+  var srcPlane = [ 1, -1, 0, 0 ];
+  var expected = Math.sqrt( 2 );
+
+  var gotDistance = _.box.planeDistance( srcBox, srcPlane );
+  test.equivalent( expected, gotDistance );
+
+  test.case = 'Zero box'; /* */
+
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var srcPlane = [ 1, -1, 4, 3 ];
+  var expected = Math.sqrt( 2 )/2;
+
+  var gotDistance = _.box.planeDistance( srcBox, srcPlane );
+  test.equivalent( expected, gotDistance );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.planeDistance( ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( [] ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( 'box', 'plane' ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( null, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.planeDistance( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
 
 }
+
 
 // --
 // define class
@@ -4708,7 +4810,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'sphereExpand',
+  routine: 'planeDistance',
 
   tests :
   {
@@ -4756,6 +4858,8 @@ var Self =
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
     sphereExpand : sphereExpand,
+
+    planeDistance : planeDistance,
 
   }
 

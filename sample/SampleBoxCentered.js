@@ -4,9 +4,9 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var dstBox = _.vector.from( [ 0, 0, 0, 4, 4, 4 ] );
-var srcSphere = [ 0, 7, 7, 5 ];
+var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+var srcPlane = [ 1, 0, 0, - 6 ];
 
-var gotBool = _.box.sphereExpand( dstBox, srcSphere );
+var gotBool = _.box.planeDistance( srcBox, srcPlane );
 debugger;
 console.log( gotBool );

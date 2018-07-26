@@ -1555,6 +1555,80 @@ function sphereExpand( dstBox , srcSphere )
   return dstBox;
 
 }
+/**
+  * Calculates the distance between a plane and a box. Returns the distance between the two elements.
+  * The box and the plane remain unchanged.
+  *
+  * @param { Array } srcBox - Source box.
+  * @param { Array } plane - Source plane.
+  *
+  * @example
+  * // returns 0;
+  * _.planeDistance( [ 1, 0, 0, 1 ] , [ -1, 2, 2, -1, 2, 8 ]);
+  *
+  * @example
+  * // returns 3;
+  * _.planeDistance( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the distance between the plane and the box.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
+  * @memberof wTools.box
+  */
+
+function planeDistance( srcBox, plane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  var boxVector = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
+
+  var _plane = _.plane._from( plane );
+  var dimP = _.plane.dimGet( _plane );
+
+  _.assert( dimP === dimB );
+
+  if( _.plane.boxIntersects( _plane, boxVector ) )
+  return 0;
+  else
+  {
+
+
+    /* box corners */
+
+    var c = _.Space.makeZero( [ 3, 8 ] );
+    min = _.vector.toArray( min ); max = _.vector.toArray( max );
+    var col = c.colVectorGet( 0 ); col.copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
+    var col = c.colVectorGet( 1 ); col.copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
+    var col = c.colVectorGet( 2 ); col.copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
+    var col = c.colVectorGet( 3 ); col.copy( [ min[ 0 ], min[ 1 ], max[ 2 ] ] );
+    var col = c.colVectorGet( 4 ); col.copy( [ max[ 0 ], max[ 1 ], max[ 2 ] ] );
+    var col = c.colVectorGet( 5 ); col.copy( [ min[ 0 ], max[ 1 ], max[ 2 ] ] );
+    var col = c.colVectorGet( 6 ); col.copy( [ max[ 0 ], min[ 1 ], max[ 2 ] ] );
+    var col = c.colVectorGet( 7 ); col.copy( [ max[ 0 ], max[ 1 ], min[ 2 ] ] );
+
+    var distance = Infinity;
+    var d = 0;
+    for( var j = 1 ; j < 8 ; j++ )
+    {
+      var corner = c.colVectorGet( j );
+      d = Math.abs( _.plane.pointDistance( plane, corner ) );
+
+      if( d < distance )
+      {
+        distance = d;
+      }
+
+    }
+
+    return distance;
+  }
+}
 
 //
 
@@ -1782,8 +1856,8 @@ var Proto =
   sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   sphereExpand : sphereExpand, /* qqq : implement me */
 
-  // planeIntersects : planeIntersects, /* qqq : implement me */
-  // planeDistance : planeDistance, /* qqq : implement me */
+  // planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.boxIntersects */
+  planeDistance : planeDistance, /* qqq : implement me */
   // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
   // planeExpand : planeExpand, /* qqq : implement me */
 
