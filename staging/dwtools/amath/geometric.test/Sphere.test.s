@@ -3076,6 +3076,127 @@ function sphereDistance( test )
 
 //
 
+function sphereClosestPoint( test )
+{
+  test.case = 'Source and test spheres remain unchanged'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstSphere = [ 0, 0, 0, 0 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrcSphere = [ 0, 0, 0, 0 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstSphere = [ 0, 0, 0, 0 ];
+  test.identical( tstSphere, oldTstSphere );
+
+  test.case = 'Empty spheres'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstSphere = [ 0, 0, 0, 0 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Same spheres'; /* */
+
+  var srcSphere = [ 0, 1, 0, 2 ];
+  var tstSphere = [ 0, 1, 0, 2 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Intersection'; /* */
+
+  var srcSphere = [ - 1, 2, 0, 2 ];
+  var tstSphere = [ 1, 3, 0, 2 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Different centers 1D'; /* */
+
+  var srcSphere = [ 2, 0, 0, 1 ];
+  var tstSphere = [ -2, 0, 0, 1 ];
+  var expected = [ 1, 0, 0 ];
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Different centers 2D'; /* */
+
+  var srcSphere = [ 2, 2, 0, 1 ];
+  var tstSphere = [ -2, -2, 0, 1 ];
+  var expected = [ 1.2928932188134525,  1.2928932188134525, 0 ];
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Different centers 3D'; /* */
+
+  var srcSphere = [ 2, 2, 2, 1 ];
+  var tstSphere = [ -2, -2, -2, 1 ];
+  var expected = [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ];
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Different centers - different radius 1D'; /* */
+
+  var srcSphere = [ 2, 0, 0, 1 ];
+  var tstSphere = [ -2, 0, 0, 2 ];
+  var expected = [ 1, 0, 0 ];
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'DstPoint is array'; /* */
+
+  var srcSphere = [ 2, 2, 0, 1 ];
+  var tstSphere = [ -2, -2, 0, 2 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 1.2928932188134525,  1.2928932188134525, 0 ];
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere, dstPoint );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'DstPoint is vector'; /* */
+
+  var srcSphere = [ 2, 2, 2, 1 ];
+  var tstSphere = [ -2, -2, -2, 1 ];
+  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
+  var expected = _.vector.fromArray( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
+  var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere, dstPoint );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+
+}
+
+//
+
 function sphereExpand( test )
 {
 
@@ -3297,6 +3418,7 @@ var Self =
     sphereContains : sphereContains,
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
+    sphereClosestPoint : sphereClosestPoint,
     sphereExpand : sphereExpand,
 
 

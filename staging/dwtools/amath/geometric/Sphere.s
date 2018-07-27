@@ -1032,6 +1032,75 @@ function sphereDistance( srcSphere, tstSphere )
 //
 
 /**
+  * Calculates the closest point in a sphere to another sphere. Returns the calculated point.
+  * Spheres are stored in Array data structure and remain unchanged.
+  *
+  * @param { Array } srcSphere - The source sphere.
+  * @param { Array } tstSphere - The test sphere.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * _.sphereClosestPoint( [ 0, 0, 0, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 2 ]
+  * _.sphereClosestPoint( [ 0, 0, 0, 2 ], [ 0, 0, 4, 1 ] );
+  *
+  * @returns { Array } Returns the calculated point.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( dim ) is different than dimGet( sphere ) ( The two spheres don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( tstSphere ) is not sphere.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @memberof wTools.sphere
+  */
+
+function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  var _srcSphere = _.sphere._from( srcSphere );
+  var srcCenter = _.sphere.centerGet( _srcSphere );
+  var srcRadius = _.sphere.radiusGet( _srcSphere );
+  var srcDim = _.sphere.dimGet( _srcSphere );
+
+  var _tstSphere = _.sphere._from( tstSphere );
+  var tstCenter = _.sphere.centerGet( _tstSphere );
+  var tstRadius = _.sphere.radiusGet( _tstSphere );
+  var tstDim = _.sphere.dimGet( _tstSphere );
+
+  _.assert( srcDim === tstDim );
+
+  debugger;
+  // throw _.err( 'not tested' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcDim );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  _.assert( srcDim === dstPoint.length );
+  var dstPointv = _.vector.from( dstPoint );
+
+  if( _.sphere.sphereIntersects( srcSphere, tstSphere ) )
+  return 0;
+
+  var point = _.sphere.pointClosestPoint( _srcSphere, tstCenter );
+
+  for( var i = 0; i < point.length; i++ )
+  {
+    dstPointv.eSet( i, point[ i ] );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
   * Expands an sphere with a second sphere. Returns an array with the corrdinates of the expanded sphere
   *
   * @param { Array } sphereDst - Destination sphere.
@@ -1182,7 +1251,7 @@ var Proto =
   sphereContains : sphereContains, /* qqq : implement me */
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance, /* qqq : implement me */
-  // sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
+  sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   sphereExpand : sphereExpand,
 
   // planeIntersects : planeIntersects, /* qqq : implement me */
