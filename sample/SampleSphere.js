@@ -5,7 +5,7 @@ require( 'wmathconcepts' );
 var _ = wTools;
 
 var sphere = [ -1, 0, 0, 2 ];
-var point = [ 1, 0, 0 ];
+var point = [ 1, 1, 1  ];
 
 var result = _.sphere.pointContains( sphere, point );
 

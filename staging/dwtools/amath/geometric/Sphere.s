@@ -506,6 +506,7 @@ function pointContains( sphere,point )
   debugger;
   //throw _.err( 'not tested' );
 
+  console.log(vector.distanceSqr( vector.from( point ) , center ), radius * radius )
   return ( vector.distanceSqr( vector.from( point ) , center ) <= ( radius * radius ) );
 }
 
@@ -636,6 +637,73 @@ function pointExpand( sphere , point )
   }
 
   return sphere;
+}
+
+//
+
+/**
+  * Checks if a sphere contains a box. Returns True if the sphere contains the box.
+  * Sphere and box remain unchanged.
+  *
+  * @param { Array } sphere - Source sphere.
+  * @param { Array } box - Source box
+  *
+  * @example
+  * // returns true
+  * _.boxContains( [ 1, 1, 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @example
+  * // returns false
+  * _.boxContains( [ - 2, - 2, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the sphere contains the box, and false if not.
+  * @function boxContains
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+
+function boxContains( sphere, box )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  var _sphere = _.sphere._from( sphere );
+  var center = _.sphere.centerGet( _sphere );
+  var radius = _.sphere.radiusGet( _sphere );
+  var dimS = _.sphere.dimGet( _sphere );
+
+  var boxVector = _.box._from( box );
+  var dimB = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
+
+  _.assert( dimS === dimB, 'Arguments must have same dimension' );
+
+  /* src corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  var srcMin = _.vector.toArray( min ); var srcMax = _.vector.toArray( max );
+  var col = c.colVectorGet( 0 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+
+  for( var j = 0 ; j < 8 ; j++ )
+  {
+    var srcCorner = _.vector.toArray( c.colVectorGet( j ) );
+
+    if( _.sphere.pointContains( _sphere, srcCorner ) === false )
+    {
+    console.log( srcCorner )
+    return false;
+    }
+  }
+
+  return true;
 }
 
 //
@@ -949,7 +1017,7 @@ var Proto =
   // pointClosestPoint : pointClosestPoint, /* qqq : implement me - Already implemented - to test */
   pointExpand : pointExpand,
 
-  // boxContains : boxContains, /* qqq : implement me */
+  boxContains : boxContains, /* qqq : implement me */
   boxIntersects : boxIntersects,
   // boxDistance : boxDistance, /* qqq : implement me */
   // boxClosestPoint : boxClosestPoint, /* qqq : implement me */

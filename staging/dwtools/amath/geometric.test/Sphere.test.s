@@ -1840,6 +1840,11 @@ function pointContains( test )
 
   test.equivalent( gotContains, expected );
 
+  /* */
+
+  if( !Config.debug )
+  return;
+
   test.shouldThrowErrorSync( () => _.sphere.pointContains( ) );
   test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0, 0, 0, 1 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 2, 3, 4 ] ) );
@@ -1958,6 +1963,11 @@ function pointDistance( test )
   var gotDistance = _.sphere.pointDistance( sphere, point );
 
   test.equivalent( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
 
   test.shouldThrowErrorSync( () => _.sphere.pointDistance( ) );
   test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0, 0, 0, 1 ] ) );
@@ -2100,7 +2110,10 @@ function pointClosestPoint( test )
 
   test.equivalent( gotClosestPoint, expected );
 
+  /* */
 
+  if( !Config.debug )
+  return;
 
   test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 0, 0, 0, 1 ] ) );
@@ -2170,6 +2183,140 @@ function pointExpand( test )
 
   test.equivalent( got,expected );
   test.is( got === sphere );
+
+}
+
+//
+
+function boxContains( test )
+{
+  test.case = 'Sphere and box remain unchanged'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var oldSphere = [ 0, 0, 0, 1 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var oldBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = false;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.identical( gotBool, expected );
+  test.identical( sphere, oldSphere );
+  test.identical( box, oldBox );
+
+  test.case = 'Empty sphere contains empty box'; /* */
+
+  var sphere = [ 0, 0, 0, 0 ];
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = true;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Sphere contains box'; /* */
+
+  var sphere = [ 0, 0, 0, 2 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Sphere inside box'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = false;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Box inside sphere'; /* */
+
+  var sphere = [ 0, 0, 0, 6 ];
+  var box = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = true;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Just touching'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ 1, 0, 0, 2, 1, 1 ];
+  var expected = false;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Not intersecting'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ 2, 2, 2, 3, 3, 3 ];
+  var expected = false;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.case = 'One corner of the box in sphere'; /* */
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = false;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Sphere is nil';
+
+  var sphere = _.sphere.makeNil();
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = true;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool,expected );
+
+  test.case = 'box is nil';
+
+  var sphere = [ 0, 0, 0, 2 ];
+  var box = _.box.makeNil();
+  var expected = false;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool,expected );
+
+  test.case = 'Negative distance no intersection';
+
+  var sphere = [ 0, 0, 0, 2 ];
+  var box = [ -4, -4, -4, -3, -3, -3 ];
+  var expected = false;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool,expected );
+
+  test.case = 'Negative distance - sphere contains box';
+
+  var sphere = [ -3, -3, -3, 4 ];
+  var box = [ -4, -4, -4, -1, -1, -1 ];
+  var expected = true;
+  var gotBool = _.sphere.boxContains( sphere, box );
+
+  test.equivalent( gotBool,expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( 'sphere', 'box' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1, 2, 3, 4 ], 'box' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( 'sphere', [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4, 5, 6, 7 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1, 2, 3, 4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( null, [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -2746,7 +2893,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine : 'pointClosestPoint',
+  routine : 'boxContains',
 
   tests :
   {
@@ -2778,6 +2925,7 @@ var Self =
     pointClosestPoint : pointClosestPoint,
     pointExpand : pointExpand,
 
+    boxContains : boxContains,
     boxIntersects : boxIntersects,
     boxExpand : boxExpand,
 
