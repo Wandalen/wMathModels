@@ -907,7 +907,6 @@ function boxExpand( dstSphere, srcBox )
   * @memberof wTools.sphere
   */
 
-
 function sphereContains( srcSphere, tstSphere )
 {
 
@@ -936,7 +935,7 @@ function sphereContains( srcSphere, tstSphere )
 //
 
 /**
-  * Returns true if the two spheres intersect.
+  * Returns true if the two spheres intersect. Spheres remain unchanged.
   *
   * @param { Array } sphere one
   * @param { Array } sphere two
@@ -976,6 +975,58 @@ function sphereIntersects( sphere1, sphere2 )
 
   var r = radius1 + radius2;
   return _.vector.distanceSqr( center1,center2 ) <= r*r;
+}
+
+//
+
+/**
+  * Calculates the distance between two spheres. Returns the distance value, 0 if they intersect.
+  * Spheres are stored in Array data structure and remain unchanged.
+  *
+  * @param { Array } srcSphere - The source sphere.
+  * @param { Array } tstSphere - The tested sphere (the sphere to calculate the distance to).
+  *
+  * @example
+  * // returns 0
+  * _.sphereDistance( [ 0, 0, 0, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  *
+  * @example
+  * // returns 1
+  * _.sphereDistance( [ 0, 0, 0, 2 ], [ 0, 0, 4, 1 ] );
+  *
+  * @returns { Number } Returns the calculated distance.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( dim ) is different than dimGet( sphere ) ( The two spheres don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere
+  * @throws { Error } An Error if ( tstSphere ) is not sphere
+  * @memberof wTools.sphere
+  */
+
+function sphereDistance( srcSphere, tstSphere )
+{
+
+  var _srcSphere = _.sphere._from( srcSphere );
+  var srcCenter = _.sphere.centerGet( _srcSphere );
+  var srcRadius = _.sphere.radiusGet( _srcSphere );
+  var srcDim = _.sphere.dimGet( _srcSphere );
+
+  var _tstSphere = _.sphere._from( tstSphere );
+  var tstCenter = _.sphere.centerGet( _tstSphere );
+  var tstRadius = _.sphere.radiusGet( _tstSphere );
+  var tstDim = _.sphere.dimGet( _tstSphere );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( srcDim === tstDim );
+  debugger;
+  // throw _.err( 'not tested' );
+
+  if( _.sphere.sphereIntersects( srcSphere, tstSphere ) )
+  return 0;
+
+  var distance = _.vector.distance( srcCenter, tstCenter ) - tstRadius - srcRadius;
+
+  return distance;
 }
 
 //
@@ -1130,7 +1181,7 @@ var Proto =
 
   sphereContains : sphereContains, /* qqq : implement me */
   sphereIntersects : sphereIntersects,
-  // sphereDistance : sphereDistance, /* qqq : implement me */
+  sphereDistance : sphereDistance, /* qqq : implement me */
   // sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   sphereExpand : sphereExpand,
 
