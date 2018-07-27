@@ -4,9 +4,9 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var sphere = [ -1, 0, 0, 2 ];
-var point = [ 3, 3, 3, 4, 4, 4 ];
+var sphere = [ 0, 0, 0, 0 ];
+var point = [ 0, 0, 0, 0 ];
 
-var result = _.sphere.boxClosestPoint( sphere, point );
+var result = _.sphere.sphereContains( sphere, point );
 
 console.log( 'result: ', result );

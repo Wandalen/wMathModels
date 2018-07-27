@@ -2736,6 +2736,134 @@ function boxExpand( test )
 
 //
 
+function sphereContains( test )
+{
+  test.case = 'Source and test spheres remain unchanged'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstSphere = [ 0, 0, 0, 0 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+  test.identical( gotSphere, expected );
+
+  var oldSrcSphere = [ 0, 0, 0, 0 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstSphere = [ 0, 0, 0, 0 ];
+  test.identical( tstSphere, oldTstSphere );
+
+  test.case = 'Empty sphere contains empty sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstSphere = [ 0, 0, 0, 0 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'Same spheres'; /* */
+
+  var srcSphere = [ 0, 1, 0, 2 ];
+  var tstSphere = [ 0, 1, 0, 2 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'Trivial intersection - not contained'; /* */
+
+  var srcSphere = [ - 1, 2, 0, 2 ];
+  var tstSphere = [ 1, 3, 0, 2 ];
+  var expected = false;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'Different radius - src > tst'; /* */
+
+  var srcSphere = [ 1, 0, 0, 3 ];
+  var tstSphere = [ 1, 0, 0, 2 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'Different radius - tst > src'; /* */
+
+  var srcSphere = [ 1, 0, 0, 2 ];
+  var tstSphere = [ 1, 0, 0, 3 ];
+  var expected = false;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'Just touching'; /* */
+
+  var srcSphere = [ - 1, 0, 0, 1 ];
+  var tstSphere = [ 1, 0, 0, 1 ];
+  var expected = false;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'Not intersecting'; /* */
+
+  var srcSphere = [ - 1.5, 0, 0, 1 ];
+  var tstSphere = [ 1.5, 0, 0, 1 ];
+  var expected = false;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'One inside another different centers'; /* */
+
+  var srcSphere = [ 0, 0, 0, 3 ];
+  var tstSphere = [ 1, 1, 1, 1 ];
+  var expected = true;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'src is nil';
+
+  var srcSphere = _.sphere.makeNil();
+  var tstSphere = [ 0,0,0,2 ];
+  var expected = false;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'tst is nil';
+
+  var srcSphere = [ 0,0,0,2 ];
+  var tstSphere = _.sphere.makeNil();
+  var expected = true;
+  var gotSphere = _.sphere.sphereContains( srcSphere, tstSphere );
+
+  test.equivalent( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+
+}
+
+//
+
 function sphereIntersects( test )
 {
 
@@ -3028,7 +3156,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine : 'boxClosestPoint',
+  routine : 'sphereContains',
 
   tests :
   {
@@ -3065,6 +3193,7 @@ var Self =
     boxClosestPoint : boxClosestPoint,
     boxExpand : boxExpand,
 
+    sphereContains : sphereContains,
     sphereIntersects : sphereIntersects,
     sphereExpand : sphereExpand,
 

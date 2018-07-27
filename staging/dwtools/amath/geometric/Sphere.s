@@ -884,6 +884,58 @@ function boxExpand( dstSphere, srcBox )
 //
 
 /**
+  *Check if the source sphere contains test sphere. Returns true if it is contained, false if not.
+  * Spheres are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcSphere - The source sphere (container).
+  * @param { Array } tstSphere - The tested sphere (the sphere to check if it is contained in srcSphere).
+  *
+  * @example
+  * // returns true
+  * _.sphereContains( [ 0, 0, 0, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.sphereContains( [ 0, 0, 0, 2 ], [ 0, 0, 1, 2.5 ] );
+  *
+  * @returns { Boolean } Returns true if the sphere is contained and false if not.
+  * @function sphereContains
+  * @throws { Error } An Error if ( dim ) is different than dimGet( sphere ) ( The two spheres don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere
+  * @throws { Error } An Error if ( tstSphere ) is not sphere
+  * @memberof wTools.sphere
+  */
+
+
+function sphereContains( srcSphere, tstSphere )
+{
+
+  var _srcSphere = _.sphere._from( srcSphere );
+  var srcCenter = _.sphere.centerGet( _srcSphere );
+  var srcRadius = _.sphere.radiusGet( _srcSphere );
+  var srcDim = _.sphere.dimGet( _srcSphere );
+
+  var _tstSphere = _.sphere._from( tstSphere );
+  var tstCenter = _.sphere.centerGet( _tstSphere );
+  var tstRadius = _.sphere.radiusGet( _tstSphere );
+  var tstDim = _.sphere.dimGet( _tstSphere );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( srcDim === tstDim );
+  debugger;
+  // throw _.err( 'not tested' );
+
+  var d = _.sphere.pointDistance( _srcSphere, tstCenter ) + tstRadius;
+  if( d <= srcRadius )
+  return true;
+  else
+  return false;
+}
+
+//
+
+/**
   * Returns true if the two spheres intersect.
   *
   * @param { Array } sphere one
@@ -1076,7 +1128,7 @@ var Proto =
   boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 
-  // sphereContains : sphereContains, /* qqq : implement me */
+  sphereContains : sphereContains, /* qqq : implement me */
   sphereIntersects : sphereIntersects,
   // sphereDistance : sphereDistance, /* qqq : implement me */
   // sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
