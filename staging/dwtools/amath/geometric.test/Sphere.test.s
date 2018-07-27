@@ -1733,6 +1733,127 @@ function radiusSet( test )
 
 //
 
+function pointContains( test )
+{
+  test.case = 'Sphere and point remain unchanged';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 0, 0, 2 ];
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  var expected = false;
+  test.identical( gotContains, expected );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  var oldPoint = [ 0, 0, 2 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Not contained in 1D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 3, 0, 0 ];
+
+  var expected = false;
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  test.identical( gotContains, expected );
+
+  test.case = 'Not contained in 2D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 3, 4, 0 ];
+
+  var expected = false;
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  test.identical( gotContains, expected );
+
+  test.case = 'Not contained in 3D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 3, 3, 3 ];
+
+  var expected = false;
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  test.equivalent( gotContains, expected );
+
+  test.case = 'Point below the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ - 3, - 3, - 3 ];
+
+  var expected = false;
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  test.equivalent( gotContains, expected );
+
+  test.case = 'Point touching the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 1, 0, 0 ];
+
+  var expected = true;
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  test.identical( gotContains, expected );
+
+  test.case = 'Point inside the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 0, 0, 0.5 ];
+  var expected = true;
+
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  test.identical( gotContains, expected );
+
+  test.case = 'Point in the middle of the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 0, 0, 0 ];
+  var expected = true;
+
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  test.identical( gotContains, expected );
+
+  test.case = 'Center of the sphere not in the origin - point inside';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var point = [ 1, 1, 1.5 ];
+  var expected = true;
+
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  test.identical( gotContains, expected );
+
+  test.case = 'Center of the sphere not in the origin - point outside';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var point = [ 1, 1, 4.3 ];
+  var expected = false;
+
+  var gotContains = _.sphere.pointContains( sphere, point );
+
+  test.equivalent( gotContains, expected );
+
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0, 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0, 0, 0, 1 ], [ 1, 2, 3 ], [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 1, 2, 3, 4 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 1, 2, 3, 4, 5 ], [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( null, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0, 0, 0, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( NaN, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0, 0, 0, 1 ], NaN ) );
+}
+
+//
+
 function pointDistance( test )
 {
   test.case = 'Sphere and point remain unchanged';
@@ -1849,6 +1970,150 @@ function pointDistance( test )
   test.shouldThrowErrorSync( () => _.sphere.pointDistance( NaN, [ 1, 2, 3 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0, 0, 0, 1 ], NaN ) );
 }
+
+//
+
+function pointClosestPoint( test )
+{
+  test.case = 'Sphere and point remain unchanged';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 0, 0, 2 ];
+  var oldSphere = [ 0, 0, 0, 1 ];
+  var oldPoint = [ 0, 0, 2 ];
+  var expected = [ 0, 0, 1 ];
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.identical( gotClosestPoint, expected );
+  test.identical( sphere, oldSphere );
+  test.identical( point, oldPoint );
+
+  test.case = 'ClosestPoint in 1D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 3, 0, 0 ];
+  var expected = [ 1, 0, 0 ];
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'ClosestPoint in 2D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 3, 4, 0 ];
+  var expected = [ 0.6, 0.8, 0 ];
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'ClosestPoint in 3D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 2, 4, 6 ];
+  var expected = [ 0.2672612419124244, 0.5345224838248488, 0.8017837257372732 ];
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Point below the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ - 3, - 3, - 3 ];
+  var expected = [ -0.5773502691896257, -0.5773502691896257, -0.5773502691896257 ];
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Point touching the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 1, 0, 0 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Point inside the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 0, 0, 0.5 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Point in the middle of the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Center of the sphere not in the origin - point inside';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var point = [ 1, 1, 1.5 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Center of the sphere not in the origin - point outside';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var point = [ 1, 1, 4.3 ];
+  var expected = [ 1, 1, 3 ];
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'dstPoint is array';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var point = [ 1, 1, 4.3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 1, 1, 3 ];
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point, dstPoint );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'dstPoint is vector';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var point = [ 1, 1, 4.3 ];
+  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
+  var expected = [ 1, 1, 3 ];
+
+  var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
+
+  test.equivalent( gotClosestPoint, expected );
+
+
+
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 0, 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 1, 2, 3, 4 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 1, 2, 3, 4, 5 ], [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( null, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 0, 0, 0, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( NaN, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 0, 0, 0, 1 ], NaN ) );
+}
+
+//
 
 function pointExpand( test )
 {
@@ -2481,7 +2746,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine : 'pointDistance',
+  // routine : 'pointClosestPoint',
 
   tests :
   {
@@ -2508,7 +2773,9 @@ var Self =
     radiusGet : radiusGet,
     radiusSet : radiusSet,
 
+    pointContains : pointContains,
     pointDistance : pointDistance,
+    pointClosestPoint : pointClosestPoint,
     pointExpand : pointExpand,
 
     boxIntersects : boxIntersects,

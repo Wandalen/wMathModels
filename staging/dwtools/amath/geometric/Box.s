@@ -785,6 +785,7 @@ function pointDistance( box , point )
   *
   * @param { Array } box - The source box.
   * @param { Array } point - The point to be clamped against the box.
+  * @param { Array } dstPoint - The destination point.
   *
   * @example
   * // returns [ 0, 2 ]

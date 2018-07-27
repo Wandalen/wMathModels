@@ -504,7 +504,7 @@ function pointContains( sphere,point )
   _.assert( dim === point.length );
 
   debugger;
-  throw _.err( 'not tested' );
+  //throw _.err( 'not tested' );
 
   return ( vector.distanceSqr( vector.from( point ) , center ) <= ( radius * radius ) );
 }
@@ -535,34 +535,70 @@ function pointDistance( sphere, point )
 
 //
 
-function pointClosestPoint( sphere, point )
+/**
+  * Clamp a point to a sphere. Returns the closest point in the sphere. Sphere and point stay unchanged.
+  *
+  * @param { Array } sphere - The source sphere.
+  * @param { Array } point - The point to be clamped against the box.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 3, 0, 0 ]
+  * _.pointClosestPoint( [ 1, 0, 0, 2 ], [ 4, 0, 0 ] );
+  *
+  *
+  * @returns { Array } Returns an array with the coordinates of the clamped point.
+  * @function pointClosestPoint
+  * @throws { Error } An Error if ( dim ) is different than dimGet( sphere ) (the sphere and the point don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
+  * @memberof wTools.sphere
+  */
+
+function pointClosestPoint( sphere, srcPoint, dstPoint )
 {
+
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
 
   var spherev = _.sphere._from( sphere );
   var center = _.sphere.centerGet( spherev );
   var radius = _.sphere.radiusGet( spherev );
   var dim = _.sphere.dimGet( spherev );
-  var pointv = vector.from( point );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( dim === point.length );
+  if( arguments.length === 2 )
+  dstPoint = srcPoint.slice();
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  _.assert( dim === srcPoint.length );
+  var srcPointv = vector.from( srcPoint );
+  _.assert( dim === dstPoint.length );
+  var dstPointv = _.vector.from( dstPoint );
+
+  if( _.sphere.pointContains( spherev, srcPointv ) )
+  return 0;
 
   debugger;
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
-  var distanseSqr = vector.distanceSqr( pointv , center );
-
-  if( distanseSqr > radius * radius )
+  for( var i = 0; i < dim; i++ )
   {
-
-    _.vector.subVectors( pointv,center );
-    _.vector.normalize( pointv );
-    _.vector.mulScalar( pointv,radius );
-    _.vector.addVectors( pointv,center );
-
+    dstPointv.eSet( i, srcPointv.eGet( i ) );
   }
 
-  return sphere;
+  var distanseSqr = vector.distanceSqr( srcPointv , center );
+  if( distanseSqr > radius * radius )
+  {
+    _.vector.subVectors( dstPointv,center );
+    _.vector.normalize( dstPointv );
+    _.vector.mulScalar( dstPointv,radius );
+    _.vector.addVectors( dstPointv,center );
+  }
+
+  return dstPoint;
 }
 
 //
