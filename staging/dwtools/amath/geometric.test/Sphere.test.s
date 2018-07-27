@@ -3365,6 +3365,117 @@ function sphereExpand( test )
 
 }
 
+//
+
+function planeClosestPoint( test )
+{
+  test.case = 'Source sphere and test plane remain unchanged'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrcSphere = [ 0, 0, 0, 0 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstSphere = [ 1, 0, 0, 0 ];
+  test.identical( tstPlane, oldTstSphere );
+
+  test.case = 'Empty sphere in plane'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Empty sphere not in plane'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Intersection'; /* */
+
+  var srcSphere = [ 0, 0, 0, 2 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Plane touches sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Plane separate from sphere - plane under sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, 3 ];
+  var expected = [ -1, 0, 0 ];
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Plane separate from sphere - plane over sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, - 3 ];
+  var expected = [ 1, 0, 0 ];
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'DstPoint is array'; /* */
+
+  var srcSphere = [ 2, 2, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 1.2928932188134525,  1.2928932188134525, 0 ];
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'DstPoint is vector'; /* */
+
+  var srcSphere = [ 2, 2, 2, 1 ];
+  var tstPlane = [ 1, 1, 1, 0 ];
+  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
+  var expected = _.vector.fromArray( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+
+}
 
 // --
 // define class
@@ -3378,7 +3489,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine : 'sphereDistance',
+  // routine : 'planeClosestPoint',
 
   tests :
   {
@@ -3421,6 +3532,7 @@ var Self =
     sphereClosestPoint : sphereClosestPoint,
     sphereExpand : sphereExpand,
 
+    planeClosestPoint : planeClosestPoint,
 
   }
 

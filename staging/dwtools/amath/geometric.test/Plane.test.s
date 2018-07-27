@@ -1624,7 +1624,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'boxIntersects',
+  // routine: 'sphereIntersects',
 
   tests :
   {

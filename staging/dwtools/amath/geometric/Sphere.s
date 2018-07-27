@@ -1163,6 +1163,74 @@ function sphereExpand( sphereDst, sphereSrc )
 
 //
 
+/**
+  * Returns the closest point in a sphere to a plane.
+  * Sphere and plane remain unchanged.
+  *
+  * @param { Array } sphere - Source sphere
+  * @param { Array } plane - Source plane
+  * @param { Array } dstPoint - Destination point
+  *
+  * @example
+  * // returns 0
+  * _.planeIntersects( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
+  *
+  * @example
+  * // returns [ -2, 0, 0 ]
+  * _.planeIntersects( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
+  *
+  * @returns { Array } Returns the calculated point.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @memberof wTools.sphere
+  */
+
+function planeClosestPoint( sphere, plane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  var _sphere = _.sphere._from( sphere );
+  var center = _.sphere.centerGet( _sphere );
+  var radius = _.sphere.radiusGet( _sphere );
+  var dim = _.sphere.dimGet( _sphere );
+
+  var _plane = _.plane._from( plane );
+  var normal = _.plane.normalGet( _plane );
+  var bias = _.plane.biasGet( _plane );
+  var dimP = _.plane.dimGet( _plane );
+
+  _.assert( dim === dimP );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dim );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  _.assert( dim === dstPoint.length );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
+  if( _.plane.sphereIntersects( _plane, _sphere ) )
+  return 0;
+
+  debugger;
+  // throw _.err( 'not tested' );
+  
+  var planePoint = _.plane.pointCoplanarGet( _plane, center.slice() );
+  var spherePoint = _.sphere.pointClosestPoint( _sphere, planePoint );
+
+  for ( var i = 0; i < spherePoint.length; i++ )
+  {
+    dstPointVector.eSet( i, spherePoint[ i ] );
+  }
+
+  return dstPoint;
+}
+
+//
+
 function matrixHomogenousApply( sphere,matrix )
 {
 
@@ -1254,9 +1322,9 @@ var Proto =
   sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   sphereExpand : sphereExpand,
 
-  // planeIntersects : planeIntersects, /* qqq : implement me */
-  // planeDistance : planeDistance, /* qqq : implement me */
-  // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
+  // planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.sphereIntersects */
+  // planeDistance : planeDistance, /* qqq : implement me - Same as _.plane.sphereDistance */
+  planeClosestPoint : planeClosestPoint, /* qqq : implement me */
   // planeExpand : planeExpand, /* qqq : implement me */
 
   // frustumContains : frustumContains, /* qqq : implement me */
