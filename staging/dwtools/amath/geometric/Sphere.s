@@ -630,8 +630,9 @@ function pointExpand( sphere , point )
 
     _.assert( distance > 0 );
 
-    _.vector.mix( center, point, 0.5 + ( -radius ) / ( distance*2 ) );
-    _.sphere.radiusSet( spherev,( distance+radius ) / 2 );
+    // _.vector.mix( center, point, 0.5 + ( -radius ) / ( distance*2 ) );
+    // _.sphere.radiusSet( spherev,( distance+radius ) / 2 );
+    _.sphere.radiusSet( spherev, distance );
 
   }
 
@@ -1147,14 +1148,14 @@ function sphereExpand( sphereDst, sphereSrc )
   var distance = _.vector.distance( centerDst,centerSrc );
   if( radiusDst < distance+radiusSrc )
   {
+    //if( distance > 0 )
+    //_.vector.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
 
-    if( distance > 0 )
-    _.vector.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
-
-    if( distance > 0 )
-    _.sphere.radiusSet( _sphereDst,( distance+radiusSrc+radiusDst ) / 2 );
-    else
-    _.sphere.radiusSet( _sphereDst,Math.max( radiusDst,radiusSrc ) );
+    //if( distance > 0 )
+    //_.sphere.radiusSet( _sphereDst,( distance+radiusSrc+radiusDst ) / 2 );
+    _.sphere.radiusSet( _sphereDst,( distance + radiusSrc ) );
+    //else
+    //_.sphere.radiusSet( _sphereDst,Math.max( radiusDst,radiusSrc ) );
 
   }
 
@@ -1217,7 +1218,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
 
   debugger;
   // throw _.err( 'not tested' );
-  
+
   var planePoint = _.plane.pointCoplanarGet( _plane, center.slice() );
   var spherePoint = _.sphere.pointClosestPoint( _sphere, planePoint );
 
@@ -1227,6 +1228,63 @@ function planeClosestPoint( sphere, plane, dstPoint )
   }
 
   return dstPoint;
+}
+
+//
+
+/**
+  * Expands a sphere with a plane equation.
+  * Plane remains unchanged.
+  *
+  * @param { Array } dstSphere - Destination sphere
+  * @param { Array } srcPlane - Source plane
+  *
+  * @example
+  * // returns [ 0, 0, 0, 2 ]
+  * _.planeExpand( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 3 ]
+  * _.planeExpand( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
+  *
+  * @returns { Array } Returns the expanded sphere.
+  * @function planeExpand
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+
+function planeExpand( dstSphere, srcPlane )
+{
+  _.assert( arguments.length === 2 , 'expects two arguments' );
+
+  var _sphere = _.sphere._from( dstSphere );
+  var center = _.sphere.centerGet( _sphere );
+  var radius = _.sphere.radiusGet( _sphere );
+  var dim = _.sphere.dimGet( _sphere );
+
+  var _plane = _.plane._from( srcPlane );
+  var normal = _.plane.normalGet( _plane );
+  var bias = _.plane.biasGet( _plane );
+  var dimP = _.plane.dimGet( _plane );
+
+  _.assert( dim === dimP );
+
+  if( _.plane.sphereIntersects( _plane, _sphere ) )
+  return dstSphere;
+
+  debugger;
+  // throw _.err( 'not tested' );
+
+  var planePoint = _.plane.pointCoplanarGet( _plane, center.slice() );
+  var sphere = _.sphere.pointExpand( _sphere.slice(), planePoint );
+
+  for ( var i = 0; i < sphere.length; i++ )
+  {
+    _sphere.eSet( i, sphere[ i ] );
+  }
+
+  return dstSphere;
 }
 
 //
@@ -1325,7 +1383,7 @@ var Proto =
   // planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.sphereIntersects */
   // planeDistance : planeDistance, /* qqq : implement me - Same as _.plane.sphereDistance */
   planeClosestPoint : planeClosestPoint, /* qqq : implement me */
-  // planeExpand : planeExpand, /* qqq : implement me */
+  planeExpand : planeExpand, /* qqq : implement me */
 
   // frustumContains : frustumContains, /* qqq : implement me */
   // frustumIntersects : frustumIntersects, /* qqq : implement me */

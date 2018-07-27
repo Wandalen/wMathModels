@@ -2134,9 +2134,9 @@ function pointExpand( test )
 
   test.case = 'expand zero by zero';
 
-  var sphere = [ 0,0,0,0 ];
-  var point = [ 0,0,0 ];
-  var expected = [ 0,0,0,0 ];
+  var sphere = [ 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
@@ -2145,44 +2145,65 @@ function pointExpand( test )
   test.case = 'expand zero by non zero';
 
   var sphere = [ 0, 0, 0, 0 ];
-  var center = _.sphere.centerGet( sphere );
-  var point = [ 1,1,1 ];
-  var expected = [ 0.5,0.5,0.5,_.sqrt( 3 ) / 2 ];
+  //var center = _.sphere.centerGet( sphere );
+  var point = [ 1, 1, 1 ];
+  var expected = [ 0, 0, 0, _.sqrt( 3 ) ];
   var got = _.sphere.pointExpand( sphere, point );
-  var d1 = _.avector.distance( point, center );
+  //var d1 = _.avector.distance( point, center );
   debugger;
-  var d2 = _.avector.distance( _.dup( 0,3 ),center );
+  //var d2 = _.avector.distance( _.dup( 0,3 ), center );
 
   test.equivalent( got,expected );
-  test.equivalent( d1,d2 );
-  test.equivalent( d1,_.sphere.radiusGet( sphere ) );
+  // test.equivalent( d1, d2 );
+  // test.equivalent( d1,_.sphere.radiusGet( sphere ) );
   test.is( got === sphere );
 
   test.case = 'expand non zero by non zero';
 
-  var sphere = [ 1,1,1,1 ];
+  var sphere = [ 1, 1, 1, 1 ];
   var center = _.sphere.centerGet( sphere );
-  var point = [ -1,-1,-1 ];
-  var expected = [ 0.28867513459481287, 0.28867513459481287, 0.28867513459481287,2.232050807568877 ];
-  var got = _.sphere.pointExpand( sphere,point );
-  var d1 = _.avector.distance( point,center );
-  var d2 = _.avector.distance( _.dup( 1+_.sqrt( 3 ) / 3, 3 ),center );
+  var point = [ -1, -1, -1 ];
+  var expected = [ 1, 1, 1, 3.4641016151377544 ];
+  var got = _.sphere.pointExpand( sphere, point );
+  // var d1 = _.avector.distance( point, center );
+  // var d2 = _.avector.distance( _.dup( 1+_.sqrt( 3 ) / 3, 3 ),center );
 
   test.equivalent( got,expected );
-  test.equivalent( d1,d2 );
-  test.equivalent( d1,_.sphere.radiusGet( sphere ) );
+  // test.equivalent( d1,d2 );
+  // test.equivalent( d1,_.sphere.radiusGet( sphere ) );
   test.is( got === sphere );
 
   test.case = 'expand nil sphere by point';
 
-  var sphere = [ 1,1,1,-Infinity ];
+  var sphere = [ 1, 1, 1, -Infinity ];
   var center = _.sphere.centerGet( sphere );
-  var point = [ -1,-1,-1 ];
-  var expected = [ -1,-1,-1,0 ];
+  var point = [ -1, -1, -1 ];
+  var expected = [ -1, -1, -1, 0 ];
   var got = _.sphere.pointExpand( sphere,point );
 
   test.equivalent( got,expected );
   test.is( got === sphere );
+
+  test.case = 'Point in sphere - no expansion';
+
+  var sphere = [ 1, 1, 1, 3 ];
+  var point = [ 0, 0, 0 ];
+  var expected = [ 1, 1, 1, 3 ];
+  var got = _.sphere.pointExpand( sphere,point );
+
+  test.equivalent( got,expected );
+  test.is( got === sphere );
+
+  test.case = 'Point out of sphere - expansion';
+
+  var sphere = [ 1, 1, 1, 3 ];
+  var point = [ 1, 5, 1 ];
+  var expected = [ 1, 1, 1, 4 ];
+  var got = _.sphere.pointExpand( sphere,point );
+
+  test.equivalent( got,expected );
+  test.is( got === sphere );
+
 
 }
 
@@ -3202,153 +3223,153 @@ function sphereExpand( test )
 
   test.case = 'trivial';
 
-  var s1 = [ -2,0,0,1 ];
-  var s2 = [ +2,0,0,1 ];
+  var s1 = [ -2, 0, 0, 1 ];
+  var s2 = [ +2, 0, 0, 1 ];
 
-  var expected = [ 0,0,0,3 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var expected = [ -2, 0, 0, 5 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'different radius';
 
-  var s1 = [ -2,0,0,2 ];
-  var s2 = [ +2,0,0,1 ];
-  var expected = [ -0.5,0,0,3.5 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ -2, 0, 0, 2 ];
+  var s2 = [ +2, 0, 0, 1 ];
+  var expected = [ -2, 0, 0, 5 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'different radius, one inside of another 1';
 
-  var s1 = [ -2,0,0,3 ];
-  var s2 = [ 0,0,0,1 ];
-  var expected = [ -2,0,0,3 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ -2, 0, 0, 3 ];
+  var s2 = [ 0, 0, 0, 1 ];
+  var expected = [ -2, 0, 0, 3 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'different radius, one inside of another 2';
 
-  var s1 = [ -2,0,0,3 ];
-  var s2 = [ +0,0,0,0.5 ];
-  var expected = [ -2,0,0,3 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ -2, 0, 0, 3 ];
+  var s2 = [ +0, 0, 0, 0.5 ];
+  var expected = [ -2, 0, 0, 3 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'different radius, overlap';
 
-  var s1 = [ -2,0,0,3 ];
-  var s2 = [ +1,0,0,2 ];
-  var expected = [ -1,0,0,4 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ -2, 0, 0, 3 ];
+  var s2 = [ +1, 0, 0, 2 ];
+  var expected = [ -2, 0, 0, 5 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.equivalent( got,expected );
+  test.equivalent( got, expected );
   test.is( got === s1 );
 
   test.case = 'different radius, overlap';
 
-  var s1 = [ 1,2,3,5 ];
-  var s2 = [ -1,-2,-3,5 ];
-  var expected = [ 0,0,0,8.74165738677394 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ 1, 2, 3, 5 ];
+  var s2 = [ -1, -2, -3, 5 ];
+  var expected = [ 1, 2, 3, 12.483314773547882 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.equivalent( got,expected );
+  test.equivalent( got, expected );
   test.is( got === s1 );
 
   test.case = 'empty by identity';
 
-  var s1 = [ 0,0,0,0 ];
-  var s2 = [ 0,0,0,1 ];
-  var expected = [ 0,0,0,1 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ 0, 0, 0, 0 ];
+  var s2 = [ 0, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 1 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'empty by empty at zero';
 
-  var s1 = [ 0,0,0,0 ];
-  var s2 = [ 0,0,0,0 ];
-  var expected = [ 0,0,0,0 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ 0, 0, 0, 0 ];
+  var s2 = [ 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'empty by empty not at zero';
 
-  var s1 = [ 0,0,0,0 ];
-  var s2 = [ 1,1,1,0 ];
-  var expected = [ 0.5,0.5,0.5,_.sqrt( 3 )/2 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ 0, 0, 0, 0 ];
+  var s2 = [ 1, 1, 1, 0 ];
+  var expected = [ 0, 0, 0, _.sqrt( 3 ) ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.equivalent( got,expected );
+  test.equivalent( got, expected );
   test.is( got === s1 );
 
   test.case = 'overlap';
 
-  var s1 = [ -3,0,0,3 ];
-  var s2 = [ +1,0,0,2 ];
-  var expected = [ -1.5,0,0,4.5 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ -3, 0, 0, 3 ];
+  var s2 = [ +1, 0, 0, 2 ];
+  var expected = [ -3, 0, 0, 6 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'inside, different centers';
 
-  var s1 = [ 0,0,0,5 ];
-  var s2 = [ 1,1,1,2 ];
-  var expected = [ 0,0,0,5 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ 0, 0, 0, 5 ];
+  var s2 = [ 1, 1, 1, 2 ];
+  var expected = [ 0, 0, 0, 5 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'inside, same centers';
 
-  var s1 = [ 0,0,0,5 ];
-  var s2 = [ 0,0,0,2 ];
-  var expected = [ 0,0,0,5 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s1 = [ 0, 0, 0, 5 ];
+  var s2 = [ 0, 0, 0, 2 ];
+  var expected = [ 0, 0, 0, 5 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'dst is nil';
 
   var s1 = _.sphere.makeNil();
-  var s2 = [ 0,0,0,2 ];
-  var expected = [ 0,0,0,2 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var s2 = [ 0, 0, 0, 2 ];
+  var expected = [ 0, 0, 0, 2 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'src is nil';
 
-  var s1 = [ 0,0,0,2 ];
+  var s1 = [ 0, 0, 0, 2 ];
   var s2 = _.sphere.makeNil();
-  var expected = [ 0,0,0,2 ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var expected = [ 0, 0, 0, 2 ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   test.case = 'dst and src are nil';
 
   var s1 = _.sphere.makeNil();
   var s2 = _.sphere.makeNil();
-  var expected = [ 0,0,0,-Infinity ];
-  var got = _.sphere.sphereExpand( s1,s2 );
+  var expected = [ 0, 0, 0, -Infinity ];
+  var got = _.sphere.sphereExpand( s1, s2 );
 
-  test.identical( got,expected );
+  test.identical( got, expected );
   test.is( got === s1 );
 
   if( !Config.debug )
@@ -3380,8 +3401,8 @@ function planeClosestPoint( test )
   var oldSrcSphere = [ 0, 0, 0, 0 ];
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldTstSphere = [ 1, 0, 0, 0 ];
-  test.identical( tstPlane, oldTstSphere );
+  var oldTstPlane = [ 1, 0, 0, 0 ];
+  test.identical( tstPlane, oldTstPlane );
 
   test.case = 'Empty sphere in plane'; /* */
 
@@ -3477,6 +3498,116 @@ function planeClosestPoint( test )
 
 }
 
+//
+
+function planeExpand( test )
+{
+  test.case = 'Source sphere and test plane remain unchanged'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+  test.identical( gotExpand, expected );
+
+  var oldSrcSphere = [ 0, 0, 0, 0 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstPlane = [ 1, 0, 0, 0 ];
+  test.identical( tstPlane, oldTstPlane );
+
+  test.case = 'Empty sphere in plane - no expansion'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.identical( gotExpand, expected );
+
+  test.case = 'Empty sphere not in plane - expansion'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 1 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.identical( gotExpand, expected );
+
+  test.case = 'Intersection'; /* */
+
+  var srcSphere = [ 0, 0, 0, 2 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 2 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.identical( gotExpand, expected );
+
+  test.case = 'Plane touches sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 1 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.identical( gotExpand, expected );
+
+  test.case = 'Plane separate from sphere - plane under sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, 3 ];
+  var expected = [ 0, 0, 0, 3 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.equivalent( gotExpand, expected );
+
+  test.case = 'Plane separate from sphere - plane over sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, - 3 ];
+  var expected = [ 0, 0, 0, 3 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.equivalent( gotExpand, expected );
+
+  test.case = 'Expansion 2D'; /* */
+
+  var srcSphere = [ 2, 2, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
+  var expected = [ 2, 2, 0, 2.8284271247461903 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.equivalent( gotExpand, expected );
+
+  test.case = 'Expansion 3D'; /* */
+
+  var srcSphere = [ 2, 2, 2, 1 ];
+  var tstPlane = [ 1, 1, 1, 0 ];
+  var expected = [ 2, 2, 2, 3.4641016151377544 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.equivalent( gotExpand, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+
+}
+
 // --
 // define class
 // --
@@ -3489,7 +3620,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine : 'planeClosestPoint',
+  // routine : 'sphereExpand',
 
   tests :
   {
@@ -3533,6 +3664,7 @@ var Self =
     sphereExpand : sphereExpand,
 
     planeClosestPoint : planeClosestPoint,
+    planeExpand : planeExpand,
 
   }
 
