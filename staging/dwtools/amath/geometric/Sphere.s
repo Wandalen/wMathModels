@@ -506,7 +506,6 @@ function pointContains( sphere,point )
   debugger;
   //throw _.err( 'not tested' );
 
-  console.log(vector.distanceSqr( vector.from( point ) , center ), radius * radius )
   return ( vector.distanceSqr( vector.from( point ) , center ) <= ( radius * radius ) );
 }
 
@@ -698,7 +697,6 @@ function boxContains( sphere, box )
 
     if( _.sphere.pointContains( _sphere, srcCorner ) === false )
     {
-    console.log( srcCorner )
     return false;
     }
   }
@@ -762,19 +760,74 @@ function boxIntersects( sphere, box )
 //
 
 /**
-  * Expands an sphere with a box. Returns the expanded sphere.
+  * Gets the closest point in a sphere to a box. Returns the calculated point.
+  * Sphere and box remain unchanged.
+  *
+  * @param { Array } srcSphere - Source sphere.
+  * @param { Array } srcBox - Source box.
+  * @param { Array } dstPoint - Destination point (optional).
+  *
+  * @example
+  * // returns Math.sqrt( 27 ) - 2
+  * _.boxClosestPoint( [ 0, 0, 0, 1 ], [ 2, 0, 0, 4, 0, 0 ] );
+  *
+  * @returns { Array } Returns the closest point in a sphere to a box.
+  * @function boxClosestPoint
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @memberof wTools.sphere
+  */
+function boxClosestPoint( srcSphere, srcBox, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  var _sphere = _.sphere._from( srcSphere );
+  var center = _.sphere.centerGet( _sphere );
+  var radius = _.sphere.radiusGet( _sphere );
+  var dimS = _.sphere.dimGet( _sphere );
+
+  var boxVector = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
+
+  _.assert( dimS === dimB );
+
+  if( arguments.length === 2 )
+  dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  _.assert( dimB === dstPoint.length );
+  var dstPointVector = _.vector.from( dstPoint );
+
+  if( _.sphere.boxIntersects( _sphere, boxVector ) )
+  return 0;
+
+  var boxPoint = _.box.sphereClosestPoint( boxVector, _sphere );
+  var point = _.sphere.pointClosestPoint( _sphere, boxPoint );
+
+  for( var i = 0; i < point.length; i++ )
+  {
+    dstPointVector.eSet( i, point[ i ] );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
+  * Expands a sphere with a box. Returns the expanded sphere.
   * Sphere changes and box remains unchanged.
   *
   * @param { Array } dstSphere - Destination sphere.
   * @param { Array } srcBox - Source box
   *
   * @example
-  * // returns true
+  * // returns [ -1, -1, -1, Math.sqrt( 27 )]
   * _.boxExpand( [ - 1, - 1, - 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
-  *
-  * @example
-  * // returns false
-  * _.boxExpand( [ - 2, - 2, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
   *
   * @returns { Sphere } Returns an array with the center and radius of the expanded sphere.
   * @function boxExpand
@@ -1019,8 +1072,8 @@ var Proto =
 
   boxContains : boxContains, /* qqq : implement me */
   boxIntersects : boxIntersects,
-  // boxDistance : boxDistance, /* qqq : implement me */
-  // boxClosestPoint : boxClosestPoint, /* qqq : implement me */
+  // boxDistance : boxDistance, /* qqq : implement me - Same as _.box.sphereDistance */
+  boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 
   // sphereContains : sphereContains, /* qqq : implement me */
