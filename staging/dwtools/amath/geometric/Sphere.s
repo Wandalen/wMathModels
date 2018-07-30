@@ -1399,7 +1399,7 @@ function frustumDistance( srcSphere, tstFrustum )
   *
   * @returns { Array } Returns the closest point to a frustum.
   * @function frustumClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( arguments.length ) is different than two pr three.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( tstFrustum ) is not frustum.
   * @throws { Error } An Error if ( dstPoint ) is not point.
@@ -1441,6 +1441,58 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Expands an sphere with a frustum. Returns the expanded sphere.
+  * Frustum remains unchanged.
+  *
+  * @param { Sphere } dstSphere - Destination sphere.
+  * @param { Frustum } tstFrustum - Source frustum.
+  *
+  * @example
+  * // returns [ 3, 0, 0, 3.3166247903554 ];
+  * var frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.frustumExpand( [ 3, 0, 0, 1 ], frustum );
+  *
+  * @returns { Array } Returns an array with the expanded sphere dimensions.
+  * @function frustumExpand
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( tstFrustum ) is not frustum.
+  * @memberof wTools.sphere
+  */
+
+function frustumExpand( dstSphere, srcFrustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  var dstSphereVector = _.sphere._from( dstSphere );
+  var center = _.sphere.centerGet( dstSphereVector );
+  var radius = _.sphere.radiusGet( dstSphereVector );
+  var dimS = _.sphere.dimGet( dstSphereVector );
+
+  if( _.sphere.frustumContains( dstSphereVector, srcFrustum ) )
+  return dstSphere;
+
+  var points = _.frustum.cornersGet( srcFrustum );
+
+  for( var i = 0 ; i < points.length ; i += 1 )
+  {
+    var point = points.colVectorGet( i );
+    if( _.sphere.pointContains( dstSphereVector, point ) === false )
+    _.sphere.pointExpand( dstSphereVector, point )
+
+  }
+
+  return dstSphere;
+}
 
 //
 
@@ -1544,7 +1596,7 @@ var Proto =
   // frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
   frustumDistance : frustumDistance, /* qqq : implement me */
   frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
-  // frustumExpand : frustumExpand, /* qqq : implement me */
+  frustumExpand : frustumExpand, /* qqq : implement me */
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
