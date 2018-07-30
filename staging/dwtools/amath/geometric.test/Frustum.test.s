@@ -1728,6 +1728,145 @@ function sphereClosestPoint( test )
 
 //
 
+function planeIntersects( test )
+{
+
+  test.description = 'Frustum and plane remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 1, 0, 0, 2 ];
+  var expected = false;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( srcFrustum, oldFrustum );
+
+  var oldPlane = [ 1, 0, 0, 2 ];
+  test.identical( plane, oldPlane );
+
+  test.description = 'Frustum and plane intersect'; //
+
+  var plane = [ 1, 0, 0, - 0.4 ];
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var expected = true;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Plane cuts Frustum in diagonal'; //
+
+  var plane = [ 0.3, 0.3, 0.3, 0 ];
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var expected = true;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Plane is frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0, 1, 0, 0];
+  var expected = true;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and plane don´t intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0, 1, 2, 4 ];
+  var expected = false;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustums almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0 , 1, 0, - 1.1 ];
+  var expected = false;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and plane don´t intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0, 2, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( srcFrustum, [ 0, 0, 1, 1 ], [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( null, [ 1, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( NaN, [ 1, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( srcFrustum, NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( [], [ 1, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 1, 0, 0, 1 ] ));
+
+}
+
+//
+
 function frustumIntersects( test )
 {
 
@@ -1934,7 +2073,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'sphereContains',
+  routine: 'planeIntersects',
 
   tests :
   {
@@ -1952,6 +2091,8 @@ var Self =
     sphereContains : sphereContains,
     sphereIntersects : sphereIntersects,
     sphereClosestPoint : sphereClosestPoint,
+
+    planeIntersects : planeIntersects,
 
     frustumIntersects : frustumIntersects,
 

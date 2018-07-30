@@ -917,6 +917,56 @@ function sphereClosestPoint( frustum , sphere )
 //
 
 /**
+  * Check if a frustum and a plane intersect. Returns true if they intersect.
+  * Frustum and plane remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Plane } plane - Source plane.
+  *
+  * @example
+  * // returns false;
+  * _.planeIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
+  **
+  * @returns { Boolean } Returns true if the frustum and the plane intersect.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not plane.
+  * @memberof wTools.frustum
+  */
+
+function planeIntersects( frustum, plane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  var _plane = _.plane._from( plane );
+  var corners = _.frustum.cornersGet( frustum );
+  for( var j = 0 ; j < 8 ; j = j + 1 )
+  {
+    var corner = corners.colVectorGet( j );
+    var distance = _.plane.pointDistance( _plane, corner );
+    if( distance === 0 )
+    return true;
+
+    if( j > 0 )
+    {
+      var newSide = distance/ Math.abs( distance );
+      if( side === - newSide )
+      {
+        return true;
+      }
+      side = newSide;
+    }
+    var side = distance/ Math.abs( distance );
+  }
+
+  return false;
+}
+
+//
+
+/**
   * Check if a frustum intersects with another frustum. Returns true if they intersect.
   * Both frustums remain unchanged.
   *
@@ -1011,7 +1061,7 @@ var Proto =
   // sphereDistance : sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
   sphereClosestPoint : sphereClosestPoint,
 
-  // planeIntersects : planeIntersects, /* qqq : implement me */
+  planeIntersects : planeIntersects, /* qqq : implement me */
   // planeDistance : planeDistance, /* qqq : implement me */
   // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
 

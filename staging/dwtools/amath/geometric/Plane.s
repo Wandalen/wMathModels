@@ -431,6 +431,7 @@ function boxIntersects( plane , srcBox )
         {
           bool = true;
         }
+        side = newSide;
       }
     }
   }
@@ -885,7 +886,7 @@ var Proto =
   // planeIntersects : planeIntersects, /* qqq: implement me */
   // planeDistance : planeDistance, /* qqq: implement me */
 
-  // frustumIntersects : frustumIntersects, /* qqq: implement me */
+  // frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   // frustumDistance : frustumDistance, /* qqq: implement me */
   // frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
 
