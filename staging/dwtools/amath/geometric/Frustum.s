@@ -511,6 +511,70 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 //
 
 /**
+  * Check if a frustum contains a box. Returns true if the frustrum contains the box.
+  * Frustum and box remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns false;
+  * _.boxContains( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
+  **
+  * @returns { Boolean } Returns true if the frustum contains the box.
+  * @function boxContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.frustum
+  */
+
+function boxContains( frustum, box )
+{
+
+  var _box = _.box._from( box );
+  var dim1 = _.box.dimGet( _box );
+  var min1 = _.box.cornerLeftGet( _box );
+  var max1 = _.box.cornerRightGet( _box );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  debugger;
+
+  var dims = _.Space.dimsOf( frustum ) ;
+  var rows = dims[ 0 ];
+  var cols = dims[ 1 ];
+  _.assert( rows -1 === dim1 );
+
+  /* src corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  var srcMin = _.vector.toArray( min1 ); var srcMax = _.vector.toArray( max1 );
+  var col = c.colVectorGet( 0 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+
+  var distance = Infinity;
+  for( var j = 0 ; j < 8 ; j++ )
+  {
+    var srcCorner = _.vector.toArray( c.colVectorGet( j ) );
+    if( _.frustum.pointContains( frustum, srcCorner ) === false )
+    {
+      return false;
+    }
+  }
+
+  return true;
+
+}
+
+//
+
+/**
   * Check if a frustum and a box intersect. Returns true if they intersect.
   * Frustum and box remain unchanged.
   *
@@ -897,7 +961,7 @@ var Proto =
   pointDistance : pointDistance, /* qqq : implement me */
   pointClosestPoint : pointClosestPoint, /* qqq : review please */
 
-  // boxContains : boxContains, /* qqq : implement me */
+  boxContains : boxContains, /* qqq : implement me */
   boxIntersects : boxIntersects,
   // boxDistance : boxDistance, /* qqq : implement me */
   boxClosestPoint : boxClosestPoint,

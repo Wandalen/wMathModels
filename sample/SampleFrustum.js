@@ -10,9 +10,9 @@ var srcFrustum= _.Space.make( [ 4, 6 ] ).copy
   0,   0,   1, - 1,   0,   0,
   - 1,   0, - 1,   0,   0, - 1
 ]);
-var srcPoint = [ 0.5, 0.5, 1.5 ];
+var srcBox = [ 0.5, 0.5, 0.5, 0.9, 0.9, 0.9 ];
 
-var result = _.frustum.pointDistance( srcFrustum, srcPoint )
+var result = _.frustum.boxContains( srcFrustum, srcBox )
 console.log( 'Result: ', result );
 
 debugger;
