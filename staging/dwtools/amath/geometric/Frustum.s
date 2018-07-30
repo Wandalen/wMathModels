@@ -823,7 +823,7 @@ var Proto =
 
   // sphereContains : sphereContains, /* qqq : implement me */
   sphereIntersects : sphereIntersects,
-  // sphereDistance : sphereDistance, /* qqq : implement me */
+  // sphereDistance : sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
   sphereClosestPoint : sphereClosestPoint,
 
   // planeIntersects : planeIntersects, /* qqq : implement me */

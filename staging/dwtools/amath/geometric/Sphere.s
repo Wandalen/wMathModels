@@ -1304,7 +1304,7 @@ function planeExpand( dstSphere, srcPlane )
   * @function frustumContains
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
-  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( tstFrustum ) is not frustum.
   * @memberof wTools.sphere
   */
 
@@ -1332,6 +1332,53 @@ function frustumContains( srcSphere, tstFrustum )
   return true;
 }
 
+//
+
+/**
+  * Calculates the distance between a sphere and a frustum. Returns the calculated distance.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Sphere } srcSphere - Source sphere.
+  * @param { Frustum } tstFrustum - Test frustum.
+  *
+  * @example
+  * // returns 1;
+  * var frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.frustumDistance( [ 1, 3, 1, 1 ], frustum );
+  *
+  * @returns { Number } Returns the distance between sphere and frustum.
+  * @function frustumDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( tstFrustum ) is not frustum.
+  * @memberof wTools.sphere
+  */
+
+function frustumDistance( srcSphere, tstFrustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( tstFrustum ) );
+
+  var srcSphereVector = _.sphere._from( srcSphere );
+  var center = _.sphere.centerGet( srcSphereVector );
+  var radius = _.sphere.radiusGet( srcSphereVector );
+  var dimS = _.sphere.dimGet( srcSphereVector );
+
+  var points = _.frustum.cornersGet( tstFrustum );
+
+  if( _.frustum.sphereIntersects( tstFrustum, srcSphereVector ) )
+  return 0;
+
+  var closestPoint = _.frustum.sphereClosestPoint( tstFrustum, srcSphereVector );
+  var distance = _.avector.distance( closestPoint, center ) - radius;
+
+  return distance;
+}
 
 //
 
@@ -1433,7 +1480,7 @@ var Proto =
 
   frustumContains : frustumContains, /* qqq : implement me */
   // frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
-  // frustumDistance : frustumDistance, /* qqq : implement me */
+  frustumDistance : frustumDistance, /* qqq : implement me */
   // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
   // frustumExpand : frustumExpand, /* qqq : implement me */
 
