@@ -280,7 +280,7 @@ function pointDistance( plane , point )
   var mod = _.vector.dot(normal, normal);
   mod = Math.sqrt(mod);
 
-  var distance = ( _.vector.dot( normal , point ) + bias ) / mod ;
+  var distance = ( _.vector.dot( normal , pointVector ) + bias ) / mod ;
 
   // distance = Math.abs( distance );
 
@@ -365,11 +365,11 @@ function pointCoplanarGet( plane , point )
   *
   * @example
   * // returns true;
-  * _.boxIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 8 ]);
+  * _.boxIntersects( [ 1, 0, 0, 1 ] , [ -1, 2, 2, -1, 2, 8 ]);
   *
   * @example
   * // returns false;
-  * _.boxIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2 ]);
+  * _.boxIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Boolean } Returns true if the plane and the box intersect.
   * @function boxIntersects
@@ -416,7 +416,6 @@ function boxIntersects( plane , srcBox )
   else
   {
     var side = distance/ Math.abs( distance );
-    console.log(distance, '  -  ',side);
     for( var j = 1 ; j < 8 ; j++ )
     {
       var corner = c.colVectorGet( j );
@@ -428,11 +427,11 @@ function boxIntersects( plane , srcBox )
       else
       {
         var newSide = distance/ Math.abs( distance );
-        console.log(distance, '  -  ',newSide);
         if( side === - newSide )
         {
           bool = true;
         }
+        side = newSide;
       }
     }
   }
@@ -877,7 +876,7 @@ var Proto =
   // pointClosestPoint : pointClosestPoint, /* qqq : implement me - done in pointCoplanarGet */
 
   boxIntersects : boxIntersects,
-  // boxDistance : boxDistance, /* qqq: implement me */
+  // boxDistance : boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
   // boxClosestPoint : boxClosestPoint, /* qqq: implement me */
 
   sphereIntersects : sphereIntersects,
@@ -887,7 +886,7 @@ var Proto =
   // planeIntersects : planeIntersects, /* qqq: implement me */
   // planeDistance : planeDistance, /* qqq: implement me */
 
-  // frustumIntersects : frustumIntersects, /* qqq: implement me */
+  // frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   // frustumDistance : frustumDistance, /* qqq: implement me */
   // frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
 

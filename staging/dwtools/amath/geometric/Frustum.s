@@ -290,6 +290,87 @@ function pointContains( frustum , point )
 //
 
 /**
+  * Calculates the distance between a frustum and a point. Returns the calculated distance.
+  * Frustum and point remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } point - Source point.
+  *
+  * @example
+  * // returns 1;
+  * var frustum = _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.pointDistance( frustum, [ 1, 1, 2 ] );
+  **
+  * @returns { Distance } Returns the distance between the frustum and the point.
+  * @function pointDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.frustum
+  */
+
+function pointDistance( frustum, point )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  var dims = _.Space.dimsOf( frustum ) ;
+  var rows = dims[ 0 ];
+  var cols = dims[ 1 ];
+  _.assert( rows - 1 === point.length );
+
+  debugger;
+
+  if( _.frustum.pointContains( frustum, point ) )
+  return 0;
+
+  var corners = _.frustum.cornersGet( frustum );
+
+  var distanceCorner = Infinity;
+  var distancePlane = Infinity;
+  for( var i = 0 ; i < 6 ; i ++ )
+  {
+    var plane = frustum.colVectorGet( i );
+
+    var newDistPlane = Math.abs( _.plane.pointDistance( plane, point.slice() ) );
+    if( newDistPlane < distancePlane )
+    {
+      var projection = _.plane.pointCoplanarGet( plane, point.slice() );
+      if( _.frustum.pointContains( frustum, projection ))
+      {
+        distancePlane = newDistPlane;
+      }
+    }
+  }
+
+  for( var i = 0 ; i < 8 ; i++ )
+  {
+    var corner = corners.colVectorGet( i );
+
+    var newDistCorner = _.avector.distance( point.slice(), corner.slice() );
+    if( newDistCorner < distanceCorner )
+    distanceCorner = newDistCorner;
+
+  }
+
+  var distance = distanceCorner;
+
+  if( distancePlane < distance )
+  distance = distancePlane;
+
+  return distance;
+}
+
+//
+
+/**
   * Returns the closest point in a frustum to a point. Returns the coordinates of the closest point.
   * Frustum and point remain unchanged.
   *
@@ -430,6 +511,70 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 //
 
 /**
+  * Check if a frustum contains a box. Returns true if the frustrum contains the box.
+  * Frustum and box remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns false;
+  * _.boxContains( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
+  **
+  * @returns { Boolean } Returns true if the frustum contains the box.
+  * @function boxContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.frustum
+  */
+
+function boxContains( frustum, box )
+{
+
+  var _box = _.box._from( box );
+  var dim1 = _.box.dimGet( _box );
+  var min1 = _.box.cornerLeftGet( _box );
+  var max1 = _.box.cornerRightGet( _box );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  debugger;
+
+  var dims = _.Space.dimsOf( frustum ) ;
+  var rows = dims[ 0 ];
+  var cols = dims[ 1 ];
+  _.assert( rows -1 === dim1 );
+
+  /* src corners */
+
+  var c = _.Space.makeZero( [ 3, 8 ] );
+  var srcMin = _.vector.toArray( min1 ); var srcMax = _.vector.toArray( max1 );
+  var col = c.colVectorGet( 0 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 1 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 2 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+  var col = c.colVectorGet( 3 ); col.copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 4 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 5 ); col.copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 6 ); col.copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
+  var col = c.colVectorGet( 7 ); col.copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+
+  var distance = Infinity;
+  for( var j = 0 ; j < 8 ; j++ )
+  {
+    var srcCorner = _.vector.toArray( c.colVectorGet( j ) );
+    if( _.frustum.pointContains( frustum, srcCorner ) === false )
+    {
+      return false;
+    }
+  }
+
+  return true;
+
+}
+
+//
+
+/**
   * Check if a frustum and a box intersect. Returns true if they intersect.
   * Frustum and box remain unchanged.
   *
@@ -438,7 +583,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   *
   * @example
   * // returns false;
-  * _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
+  * _.boxIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
   **
   * @returns { Boolean } Returns true if the frustum and the box intersect.
   * @function boxIntersects
@@ -459,8 +604,8 @@ function boxIntersects( frustum , box )
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
-  var c0 = _.vector.from(_.vector.toArray( min1 ));
-  var c4 = _.vector.from(_.vector.toArray( max1 ));
+  var c0 = _.vector.from( min1 );
+  var c4 = _.vector.from( max1 );
   var c0 = _.vector.toArray( c0 );
   var c4 = _.vector.toArray( c4 );
 
@@ -471,35 +616,35 @@ function boxIntersects( frustum , box )
   var c6 = c0.slice(); c6[1] = c4[ 1 ]; c6[ 0 ] = c4[ 0 ];
   var c7 = c0.slice(); c7[2] = c4[ 2 ]; c7[ 1 ] = c4[ 1 ];
 
-  if( _.frustum.pointContains( frustum, _.vector.from( c0.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c0.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c1.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c1.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c2.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c2.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c3.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c3.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c4.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c4.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c5.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c5.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c6.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c6.slice( ) ) ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c7.slice( ) ) ) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( c7.slice( ) ) ) === true )
   {
     return true;
   }
@@ -507,12 +652,11 @@ function boxIntersects( frustum , box )
   var fpoints = _.frustum.cornersGet( frustum );
   _.assert( _.spaceIs( fpoints ) );
 
-  for( var i = 0 ; i < 6 ; i += 1 )
+  for( var i = 0 ; i < 6 ; i ++ )
   {
-    var point = _.vector.toArray( fpoints.colVectorGet( i ) );
-    var point = _.vector.from( point );
+    var point = fpoints.colVectorGet( i );
 
-    if( _.box.pointContains( box, point ) == true )
+    if( _.box.pointContains( box, point ) === true )
     {
       return true;
     }
@@ -624,8 +768,7 @@ function boxClosestPoint( frustum , box )
 
   for( var j = 0 ; j < 8 ; j++ )
   {
-    var corner = _.vector.toArray( c.colVectorGet( j ) );
-    corner = _.vector.from( corner );
+    var corner = c.colVectorGet( j );
     var proj = _.frustum.pointClosestPoint( frustum, corner );
     var d = _.avector.distance( corner, _.vector.toArray( proj ) );
     if( d < dist )
@@ -636,6 +779,46 @@ function boxClosestPoint( frustum , box )
   }
 
   return dstpoint;
+}
+
+//
+
+/**
+  * Check if a frustum contains a sphere. Returns true it contains the sphere.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Sphere } sphere - Source sphere.
+  *
+  * @example
+  * // returns false;
+  * _.sphereContains( _.frustum.make() , [ 2, 2, 2, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the frustum contains the sphere.
+  * @function sphereContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.frustum
+  */
+
+function sphereContains( frustum , sphere )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  var center = _.sphere.centerGet( sphere );
+  var radius = _.sphere.radiusGet( sphere );
+
+  for( var i = 0 ; i < 6 ; i += 1 )
+  {
+    var plane = frustum.colVectorGet( i );
+    if( _.plane.pointDistance( plane, center ) > - radius + 1E-12 )
+    return false;
+  }
+
+  return true;
 }
 
 //
@@ -668,7 +851,7 @@ function sphereIntersects( frustum , sphere )
   var center = _.sphere.centerGet( sphere );
   var radius = _.sphere.radiusGet( sphere );
 
-  if( _.frustum.pointContains( frustum, _.vector.from( center )) == true )
+  if( _.frustum.pointContains( frustum, _.vector.from( center )) === true )
   {
     return true;
   }
@@ -734,6 +917,56 @@ function sphereClosestPoint( frustum , sphere )
 //
 
 /**
+  * Check if a frustum and a plane intersect. Returns true if they intersect.
+  * Frustum and plane remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Plane } plane - Source plane.
+  *
+  * @example
+  * // returns false;
+  * _.planeIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
+  **
+  * @returns { Boolean } Returns true if the frustum and the plane intersect.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not plane.
+  * @memberof wTools.frustum
+  */
+
+function planeIntersects( frustum, plane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  var _plane = _.plane._from( plane );
+  var corners = _.frustum.cornersGet( frustum );
+  for( var j = 0 ; j < 8 ; j = j + 1 )
+  {
+    var corner = corners.colVectorGet( j );
+    var distance = _.plane.pointDistance( _plane, corner );
+    if( distance === 0 )
+    return true;
+
+    if( j > 0 )
+    {
+      var newSide = distance/ Math.abs( distance );
+      if( side === - newSide )
+      {
+        return true;
+      }
+      side = newSide;
+    }
+    var side = distance/ Math.abs( distance );
+  }
+
+  return false;
+}
+
+//
+
+/**
   * Check if a frustum intersects with another frustum. Returns true if they intersect.
   * Both frustums remain unchanged.
   *
@@ -779,7 +1012,7 @@ function frustumIntersects( srcfrustum , testfrustum )
   {
     var point = points.colVectorGet( i );
     var c = _.frustum.pointContains( testfrustum, point );
-    if( c == true )
+    if( c === true )
     return true;
 
   }
@@ -790,7 +1023,7 @@ function frustumIntersects( srcfrustum , testfrustum )
   {
     var point = points2.colVectorGet( i );
     var c = _.frustum.pointContains( srcfrustum, point );
-    if( c == true )
+    if( c === true )
     return true;
 
   }
@@ -815,20 +1048,20 @@ var Proto =
   cornersGet : cornersGet,
 
   pointContains : pointContains,
-  // pointDistance : pointDistance, /* qqq : implement me */
+  pointDistance : pointDistance, /* qqq : implement me */
   pointClosestPoint : pointClosestPoint, /* qqq : review please */
 
-  // boxContains : boxContains, /* qqq : implement me */
+  boxContains : boxContains, /* qqq : implement me */
   boxIntersects : boxIntersects,
-  // boxDistance : boxDistance, /* qqq : implement me */
+  // boxDistance : boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
   boxClosestPoint : boxClosestPoint,
 
-  // sphereContains : sphereContains, /* qqq : implement me */
+  sphereContains : sphereContains, /* qqq : implement me */
   sphereIntersects : sphereIntersects,
-  // sphereDistance : sphereDistance, /* qqq : implement me */
+  // sphereDistance : sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
   sphereClosestPoint : sphereClosestPoint,
 
-  // planeIntersects : planeIntersects, /* qqq : implement me */
+  planeIntersects : planeIntersects, /* qqq : implement me */
   // planeDistance : planeDistance, /* qqq : implement me */
   // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
 

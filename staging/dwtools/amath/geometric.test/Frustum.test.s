@@ -383,6 +383,177 @@ function pointContains( test )
 
 //
 
+function pointDistance( test )
+{
+
+  test.description = 'Frustum and point remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 3, 3, 3 ];
+
+  var expected = Math.sqrt( 12 );
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  var oldPoint = point.slice();
+  test.identical( point, oldPoint );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum contains point in corner'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Point near border'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0.9, 0.9, 0.9 ];
+  var expected = 0;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Point on side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0.5, 0.5, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Point just outside frustum'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 1, 1, 1.1 ];
+  var expected = 0.1;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Point out of frustum - 1D'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0.5 , 0.5, 5 ];
+  var expected = 4;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Point out of frustum - 2D'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 1 , 4, 5 ];
+  var expected = 5;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Point out of frustum - 3D'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 5, 5, 5 ];
+  var expected = Math.sqrt( 48 );
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.equivalent( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var f =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0, - 10, 5 ];
+  point = _.vector.from( point );
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, f, point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, point, point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( null, point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, null));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( NaN, point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, NaN));
+
+  point = [ 0, 1];
+  point = _.vector.from( point );
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, point ));
+  point = [ 0, 0, 1, 1];
+  point = _.vector.from( point );
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, point ));
+
+}
+
+//
+
 function pointClosestPoint( test )
 {
 
@@ -521,7 +692,6 @@ function pointClosestPoint( test )
   test.equivalent( closestPoint, expected );
   test.identical( closestPoint, dstPoint );
 
-
   /* */
 
   if( !Config.debug )
@@ -542,6 +712,171 @@ function pointClosestPoint( test )
   test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( srcFrustum, [ 0, 0, 2 ], undefined ));
   test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( srcFrustum, [ 0, 0, 2 ], NaN ));
   test.shouldThrowErrorSync( () => _.frustum.pointClosestPoint( srcFrustum, [ 0, 0, 2 ], [ 0, 0, 2, 3 ] ));
+
+}
+
+//
+
+function boxContains( test )
+{
+
+  test.description = 'Frustum and box remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 1, 1, 1, 3, 3, 3 ];
+  var oldBox = box.slice();
+  var expected = false;
+
+  var gotBool = _.frustum.boxContains( srcFrustum, box );
+  test.identical( gotBool, expected );
+  test.identical( box, oldBox );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Same dimensions'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.frustum.boxContains( srcFrustum, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and box intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var expected = false;
+
+  var gotBool = _.frustum.boxContains( srcFrustum, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Box bigger than frustum'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.frustum.boxContains( srcFrustum, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum bigger than frustum'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 0.2, 0.2, 0.2, 0.4, 0.4, 0.4 ];
+  var expected = true;
+
+  var gotBool = _.frustum.boxContains( srcFrustum, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and box not intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 4, 4, 4, 5, 5, 5 ];
+  var expected = false;
+
+  var gotBool = _.frustum.boxContains( srcFrustum, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Box and Frustum with common side - contained'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 0, 0, 0, 0.6 , 0.6, 0.6 ];
+  var expected = true;
+
+  var gotBool = _.frustum.boxContains( srcFrustum, box );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and box with common corner - not contained'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ 1, 1, 1, 5 , 5, 5 ];
+  var expected = false;
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( ));
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( srcFrustum, srcFrustum, box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( srcFrustum, box, box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( null, box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( NaN, box ));
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( srcFrustum, NaN));
+
+  box = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( srcFrustum, box ));
+  box = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( srcFrustum, box ));
+  box = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.frustum.boxContains( srcFrustum, box ));
 
 }
 
@@ -890,6 +1225,180 @@ function boxClosestPoint( test )
 
 //
 
+function sphereContains( test )
+{
+
+  test.description = 'Frustum and sphere remain unchanged'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 3, 3, 3, 1 ];
+  var oldSphere = sphere.slice();
+  var expected = false;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+  test.identical( sphere, oldSphere );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum contains sphere'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 0.5, 0.5, 0.5, 0.4 ];
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere bigger than frustum'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 0.5, 0.5, 0.5, 1 ];
+  var expected = false;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and sphere don´t intersect'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 5, 5, 5, 2 ];
+  var expected = false;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and sphere intersect'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 1, 1, 1, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum contains sphere not in the middle'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 0.4, 0.3, 0.6, 0.1 ];
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and sphere contained and touching'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 0.5, 0.5, 0.5, 0.5 ];
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero sphere'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = _.sphere.makeZero();
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero frustum'; //
+
+  var srcFrustum = _.frustum.make();
+  var sphere = [ 0, 0, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var sphere = [ 0, 0, 1, 2];
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, srcFrustum, sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, sphere, sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( null, sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( NaN, sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, NaN));
+
+  var sphere = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, sphere ));
+
+}
+
+//
+
 function sphereIntersects( test )
 {
 
@@ -1219,6 +1728,145 @@ function sphereClosestPoint( test )
 
 //
 
+function planeIntersects( test )
+{
+
+  test.description = 'Frustum and plane remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 1, 0, 0, 2 ];
+  var expected = false;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( srcFrustum, oldFrustum );
+
+  var oldPlane = [ 1, 0, 0, 2 ];
+  test.identical( plane, oldPlane );
+
+  test.description = 'Frustum and plane intersect'; //
+
+  var plane = [ 1, 0, 0, - 0.4 ];
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var expected = true;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Plane cuts Frustum in diagonal'; //
+
+  var plane = [ 0.3, 0.3, 0.3, 0 ];
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var expected = true;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Plane is frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0, 1, 0, 0];
+  var expected = true;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and plane don´t intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0, 1, 2, 4 ];
+  var expected = false;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustums almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0 , 1, 0, - 1.1 ];
+  var expected = false;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and plane don´t intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0, 2, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( srcFrustum, [ 0, 0, 1, 1 ], [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( null, [ 1, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( NaN, [ 1, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( srcFrustum, NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( [], [ 1, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeIntersects( [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 1, 0, 0, 1 ] ));
+
+}
+
+//
+
 function frustumIntersects( test )
 {
 
@@ -1425,7 +2073,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'pointClosestPoint',
+  routine: 'planeIntersects',
 
   tests :
   {
@@ -1433,13 +2081,18 @@ var Self =
     cornersGet : cornersGet,
 
     pointContains : pointContains,
+    pointDistance : pointDistance,
     pointClosestPoint : pointClosestPoint,
 
+    boxContains : boxContains,
     boxIntersects : boxIntersects,
     boxClosestPoint : boxClosestPoint,
 
+    sphereContains : sphereContains,
     sphereIntersects : sphereIntersects,
     sphereClosestPoint : sphereClosestPoint,
+
+    planeIntersects : planeIntersects,
 
     frustumIntersects : frustumIntersects,
 
