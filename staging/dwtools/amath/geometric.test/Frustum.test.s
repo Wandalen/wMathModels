@@ -383,6 +383,177 @@ function pointContains( test )
 
 //
 
+function pointDistance( test )
+{
+
+  test.description = 'Frustum and point remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 3, 3, 3 ];
+
+  var expected = Math.sqrt( 12 );
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  var oldPoint = point.slice();
+  test.identical( point, oldPoint );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum contains point in corner'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Point near border'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0.9, 0.9, 0.9 ];
+  var expected = 0;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Point on side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0.5, 0.5, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Point just outside frustum'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 1, 1, 1.1 ];
+  var expected = 0.1;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Point out of frustum - 1D'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0.5 , 0.5, 5 ];
+  var expected = 4;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Point out of frustum - 2D'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 1 , 4, 5 ];
+  var expected = 5;
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Point out of frustum - 3D'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 5, 5, 5 ];
+  var expected = Math.sqrt( 48 );
+
+  var gotDistance = _.frustum.pointDistance( srcFrustum, point );
+  test.equivalent( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var f =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var point = [ 0, - 10, 5 ];
+  point = _.vector.from( point );
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, f, point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, point, point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( null, point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, null));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( NaN, point ));
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, NaN));
+
+  point = [ 0, 1];
+  point = _.vector.from( point );
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, point ));
+  point = [ 0, 0, 1, 1];
+  point = _.vector.from( point );
+  test.shouldThrowErrorSync( () => _.frustum.pointDistance( f, point ));
+
+}
+
+//
+
 function pointClosestPoint( test )
 {
 
@@ -1433,6 +1604,7 @@ var Self =
     cornersGet : cornersGet,
 
     pointContains : pointContains,
+    pointDistance : pointDistance,
     pointClosestPoint : pointClosestPoint,
 
     boxIntersects : boxIntersects,

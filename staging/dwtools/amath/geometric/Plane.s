@@ -280,7 +280,7 @@ function pointDistance( plane , point )
   var mod = _.vector.dot(normal, normal);
   mod = Math.sqrt(mod);
 
-  var distance = ( _.vector.dot( normal , point ) + bias ) / mod ;
+  var distance = ( _.vector.dot( normal , pointVector ) + bias ) / mod ;
 
   // distance = Math.abs( distance );
 

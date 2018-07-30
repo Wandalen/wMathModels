@@ -290,6 +290,87 @@ function pointContains( frustum , point )
 //
 
 /**
+  * Calculates the distance between a frustum and a point. Returns the calculated distance.
+  * Frustum and point remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } point - Source point.
+  *
+  * @example
+  * // returns 1;
+  * var frustum = _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.pointDistance( frustum, [ 1, 1, 2 ] );
+  **
+  * @returns { Distance } Returns the distance between the frustum and the point.
+  * @function pointDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.frustum
+  */
+
+function pointDistance( frustum, point )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  var dims = _.Space.dimsOf( frustum ) ;
+  var rows = dims[ 0 ];
+  var cols = dims[ 1 ];
+  _.assert( rows - 1 === point.length );
+
+  debugger;
+
+  if( _.frustum.pointContains( frustum, point ) )
+  return 0;
+
+  var corners = _.frustum.cornersGet( frustum );
+
+  var distanceCorner = Infinity;
+  var distancePlane = Infinity;
+  for( var i = 0 ; i < 6 ; i ++ )
+  {
+    var plane = frustum.colVectorGet( i );
+
+    var newDistPlane = Math.abs( _.plane.pointDistance( plane, point.slice() ) );
+    if( newDistPlane < distancePlane )
+    {
+      var projection = _.plane.pointCoplanarGet( plane, point.slice() );
+      if( _.frustum.pointContains( frustum, projection ))
+      {
+        distancePlane = newDistPlane;
+      }
+    }
+  }
+
+  for( var i = 0 ; i < 8 ; i++ )
+  {
+    var corner = corners.colVectorGet( i );
+
+    var newDistCorner = _.avector.distance( point.slice(), corner.slice() );
+    if( newDistCorner < distanceCorner )
+    distanceCorner = newDistCorner;
+
+  }
+
+  var distance = distanceCorner;
+
+  if( distancePlane < distance )
+  distance = distancePlane;
+
+  return distance;
+}
+
+//
+
+/**
   * Returns the closest point in a frustum to a point. Returns the coordinates of the closest point.
   * Frustum and point remain unchanged.
   *
@@ -813,7 +894,7 @@ var Proto =
   cornersGet : cornersGet,
 
   pointContains : pointContains,
-  // pointDistance : pointDistance, /* qqq : implement me */
+  pointDistance : pointDistance, /* qqq : implement me */
   pointClosestPoint : pointClosestPoint, /* qqq : review please */
 
   // boxContains : boxContains, /* qqq : implement me */

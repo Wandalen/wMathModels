@@ -605,8 +605,6 @@ function pointDistance( test )
   test.shouldThrowErrorSync( () => _.plane.pointDistance( ));
   test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ] ));
   test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 1, 0, 0 ], [ 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0, 0 ], [ 2, 1, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], [ 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], null ));
