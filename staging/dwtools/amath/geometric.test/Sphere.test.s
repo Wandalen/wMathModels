@@ -3608,6 +3608,161 @@ function planeExpand( test )
 
 }
 
+function frustumContains( test )
+{
+  test.description = 'Frustum and sphere remain unchanged'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 3, 3, 3, 2 ];
+
+  var expected = false;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  var oldSrcSphere = srcSphere.slice();
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( tstFrustum, oldFrustum );
+
+  test.description = 'Sphere contains frustum'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = true;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere contains frustum - near corner'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
+
+  var expected = true;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere contains frustum - touching corner'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + test.accuracy ];
+
+  var expected = true;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere doesn´t contains frustum - just outside corner'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
+
+  var expected = false;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere doesn´t contain frustum'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 5, 5, 5, 1 ];
+
+  var expected = false;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere doesn´t contain frustum - intersection'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 2, 2, 2, 2 ];
+
+  var expected = false;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero frustum'; //
+
+  var tstFrustum =  _.frustum.make();
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = true;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( null, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( NaN, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3 ] , tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
+
+}
+
 // --
 // define class
 // --
@@ -3620,7 +3775,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine : 'sphereExpand',
+  // routine : 'frustumContains',
 
   tests :
   {
@@ -3666,6 +3821,7 @@ var Self =
     planeClosestPoint : planeClosestPoint,
     planeExpand : planeExpand,
 
+    frustumContains : frustumContains,
   }
 
 }

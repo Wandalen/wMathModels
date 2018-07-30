@@ -4,9 +4,14 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var sphere = _.vector.from([ 0, 0, 0, 1 ]);
-var plane = [ 1, 0, 0, 2 ];
+var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1 ]
+);
+var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) ];
+var result = _.sphere.frustumContains( srcSphere, tstFrustum );
 
-var result = _.sphere.planeExpand( sphere, plane );
-
-console.log( 'sphere: ', result)
+logger.log( result )

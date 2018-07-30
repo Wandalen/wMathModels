@@ -438,7 +438,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   *
   * @example
   * // returns false;
-  * _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
+  * _.boxIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
   **
   * @returns { Boolean } Returns true if the frustum and the box intersect.
   * @function boxIntersects

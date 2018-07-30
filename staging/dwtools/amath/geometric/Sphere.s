@@ -1289,6 +1289,52 @@ function planeExpand( dstSphere, srcPlane )
 
 //
 
+/**
+  * Check if a sphere contains a frustum. Returns true if frustum is contained.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Sphere } srcSphere - Source sphere.
+  * @param { Frustum } tstFrustum - Test frustum.
+  *
+  * @example
+  * // returns false;
+  * _.frustumContains( [ 2, 2, 2, 1 ], _.frustum.make() );
+  **
+  * @returns { Boolean } Returns true if the sphere contains the frustum.
+  * @function frustumContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @memberof wTools.sphere
+  */
+
+function frustumContains( srcSphere, tstFrustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( tstFrustum ) );
+
+  var srcSphereVector = _.sphere._from( srcSphere );
+  var center = _.sphere.centerGet( srcSphereVector );
+  var radius = _.sphere.radiusGet( srcSphereVector );
+  var dimS = _.sphere.dimGet( srcSphereVector );
+
+  var points = _.frustum.cornersGet( tstFrustum );
+
+  for( var i = 0 ; i < points.length ; i += 1 )
+  {
+    var point = points.colVectorGet( i );
+    var c = _.sphere.pointContains( srcSphereVector, point );
+    if( c === false )
+    return false;
+  }
+
+  return true;
+}
+
+
+//
+
 function matrixHomogenousApply( sphere,matrix )
 {
 
@@ -1385,8 +1431,8 @@ var Proto =
   planeClosestPoint : planeClosestPoint, /* qqq : implement me */
   planeExpand : planeExpand, /* qqq : implement me */
 
-  // frustumContains : frustumContains, /* qqq : implement me */
-  // frustumIntersects : frustumIntersects, /* qqq : implement me */
+  frustumContains : frustumContains, /* qqq : implement me */
+  // frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
   // frustumDistance : frustumDistance, /* qqq : implement me */
   // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
   // frustumExpand : frustumExpand, /* qqq : implement me */
