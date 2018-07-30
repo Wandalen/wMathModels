@@ -784,6 +784,46 @@ function boxClosestPoint( frustum , box )
 //
 
 /**
+  * Check if a frustum contains a sphere. Returns true it contains the sphere.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Sphere } sphere - Source sphere.
+  *
+  * @example
+  * // returns false;
+  * _.sphereContains( _.frustum.make() , [ 2, 2, 2, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the frustum contains the sphere.
+  * @function sphereContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.frustum
+  */
+
+function sphereContains( frustum , sphere )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  var center = _.sphere.centerGet( sphere );
+  var radius = _.sphere.radiusGet( sphere );
+
+  for( var i = 0 ; i < 6 ; i += 1 )
+  {
+    var plane = frustum.colVectorGet( i );
+    if( _.plane.pointDistance( plane, center ) > - radius + 1E-12 )
+    return false;
+  }
+
+  return true;
+}
+
+//
+
+/**
   * Check if a frustum and a sphere intersect. Returns true if they intersect.
   * Frustum and sphere remain unchanged.
   *
@@ -963,10 +1003,10 @@ var Proto =
 
   boxContains : boxContains, /* qqq : implement me */
   boxIntersects : boxIntersects,
-  // boxDistance : boxDistance, /* qqq : implement me */
+  // boxDistance : boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
   boxClosestPoint : boxClosestPoint,
 
-  // sphereContains : sphereContains, /* qqq : implement me */
+  sphereContains : sphereContains, /* qqq : implement me */
   sphereIntersects : sphereIntersects,
   // sphereDistance : sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
   sphereClosestPoint : sphereClosestPoint,

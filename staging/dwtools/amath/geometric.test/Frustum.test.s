@@ -1225,6 +1225,180 @@ function boxClosestPoint( test )
 
 //
 
+function sphereContains( test )
+{
+
+  test.description = 'Frustum and sphere remain unchanged'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 3, 3, 3, 1 ];
+  var oldSphere = sphere.slice();
+  var expected = false;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+  test.identical( sphere, oldSphere );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum contains sphere'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 0.5, 0.5, 0.5, 0.4 ];
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere bigger than frustum'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 0.5, 0.5, 0.5, 1 ];
+  var expected = false;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and sphere don´t intersect'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 5, 5, 5, 2 ];
+  var expected = false;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and sphere intersect'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 1, 1, 1, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum contains sphere not in the middle'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 0.4, 0.3, 0.6, 0.1 ];
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and sphere contained and touching'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = [ 0.5, 0.5, 0.5, 0.5 ];
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero sphere'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var sphere = _.sphere.makeZero();
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero frustum'; //
+
+  var srcFrustum = _.frustum.make();
+  var sphere = [ 0, 0, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.frustum.sphereContains( srcFrustum, sphere );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var sphere = [ 0, 0, 1, 2];
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, srcFrustum, sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, sphere, sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( null, sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( NaN, sphere ));
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, NaN));
+
+  var sphere = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.frustum.sphereContains( srcFrustum, sphere ));
+
+}
+
+//
+
 function sphereIntersects( test )
 {
 
@@ -1760,7 +1934,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'boxContains',
+  // routine: 'sphereContains',
 
   tests :
   {
@@ -1775,6 +1949,7 @@ var Self =
     boxIntersects : boxIntersects,
     boxClosestPoint : boxClosestPoint,
 
+    sphereContains : sphereContains,
     sphereIntersects : sphereIntersects,
     sphereClosestPoint : sphereClosestPoint,
 
