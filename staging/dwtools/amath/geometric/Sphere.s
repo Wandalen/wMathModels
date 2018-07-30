@@ -1369,8 +1369,6 @@ function frustumDistance( srcSphere, tstFrustum )
   var radius = _.sphere.radiusGet( srcSphereVector );
   var dimS = _.sphere.dimGet( srcSphereVector );
 
-  var points = _.frustum.cornersGet( tstFrustum );
-
   if( _.frustum.sphereIntersects( tstFrustum, srcSphereVector ) )
   return 0;
 
@@ -1379,6 +1377,70 @@ function frustumDistance( srcSphere, tstFrustum )
 
   return distance;
 }
+
+//
+
+/**
+  * Calculates the closest point in a sphere to a frustum. Returns the calculated point.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Sphere } srcSphere - Source sphere.
+  * @param { Frustum } tstFrustum - Test frustum.
+  * @param { Point } dstPoint - Destination point.
+  *
+  * @example
+  * // returns [ 2, 0, 0 ];
+  * var frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.frustumClosestPoint( [ 3, 0, 0, 1 ], frustum );
+  *
+  * @returns { Array } Returns the closest point to a frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( tstFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @memberof wTools.sphere
+  */
+
+function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
+{
+
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( _.frustum.is( tstFrustum ) );
+
+  if( arguments.length === 2 )
+  dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
+  var srcSphereVector = _.sphere._from( srcSphere );
+  var center = _.sphere.centerGet( srcSphereVector );
+  var radius = _.sphere.radiusGet( srcSphereVector );
+  var dimS = _.sphere.dimGet( srcSphereVector );
+
+  _.assert( dimS === dstPoint.length );
+
+  if( _.frustum.sphereIntersects( tstFrustum, srcSphereVector ) )
+  return 0;
+
+  var fClosestPoint = _.frustum.sphereClosestPoint( tstFrustum, srcSphereVector );
+  var sClosestPoint = _.sphere.pointClosestPoint( srcSphereVector, fClosestPoint );
+
+  for( var i = 0; i < sClosestPoint.length; i++ )
+  {
+    dstPointVector.eSet( i, sClosestPoint[ i ] );
+  }
+
+  return dstPoint;
+}
+
 
 //
 
@@ -1481,7 +1543,7 @@ var Proto =
   frustumContains : frustumContains, /* qqq : implement me */
   // frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
   frustumDistance : frustumDistance, /* qqq : implement me */
-  // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
+  frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
   // frustumExpand : frustumExpand, /* qqq : implement me */
 
   matrixHomogenousApply : matrixHomogenousApply,
