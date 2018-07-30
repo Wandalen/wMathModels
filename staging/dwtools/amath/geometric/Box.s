@@ -804,6 +804,8 @@ function pointDistance( box , point )
   * @memberof wTools.box
   */
 
+/* qqq : not 3 */
+
 function pointClosestPoint( box , point, dstPoint )
 {
 

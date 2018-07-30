@@ -1258,7 +1258,7 @@ var Order =
 function fromQuat2( dstEuler, srcQuat )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
   if( dstEuler === undefined || dstEuler === null )
@@ -1614,7 +1614,7 @@ function fromQuat2( dstEuler, srcQuat )
 function toQuat2( srcEuler, dstQuat )
 {
 
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.euler.is( srcEuler ) );
   _.assert( dstQuat === undefined || dstQuat === null || _.quat.is( dstQuat ) );
 
@@ -1784,7 +1784,7 @@ function toQuat2( srcEuler, dstQuat )
 
 function fromMatrix2( dstEuler, srcMatrix )
 {
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
   if( dstEuler === undefined || dstEuler === null )
@@ -2178,7 +2178,7 @@ function fromMatrix2( dstEuler, srcMatrix )
 
 function fromMatrix3( dstEuler, srcMatrix )
 {
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
   if( dstEuler === undefined || dstEuler === null )
@@ -2240,7 +2240,7 @@ function toMatrix2( srcEuler, dstMatrix )
 
   _.assert( dstMatrix.dims[ 0 ] === 3 );
   _.assert( dstMatrix.dims[ 1 ] === 3 );
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   var e1 = srcEulerVector.eGet( 0 );
   var e2 = srcEulerVector.eGet( 1 );
