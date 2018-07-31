@@ -19,7 +19,7 @@ var sqr = _.sqr;
 var sqrt = _.sqrt;
 var clamp = _.clamp;
 
-_.assert( clamp )
+_.assert( _.routineIs( clamp ) )
 _.assert( !_.euler );
 
 var Self = _.euler = _.euler || Object.create( _.avector );

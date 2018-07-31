@@ -83,7 +83,7 @@ var sqr = _.sqr;
 var sqrt = _.sqrt;
 var clamp = _.clamp;
 
-_.assert( sqrt );
+_.assert( _.routineIs( sqrt ) );
 
 // --
 // test

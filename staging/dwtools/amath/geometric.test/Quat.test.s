@@ -44,7 +44,7 @@ var sqrt = _.sqrt;
 var abs = Math.abs;
 var pi = Math.PI;
 
-_.assert( sqrt );
+_.assert( _.routineIs( sqrt ) );
 
 // --
 // routines
