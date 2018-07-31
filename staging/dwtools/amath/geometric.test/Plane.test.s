@@ -206,6 +206,8 @@ function from( test )
 
 }
 
+//
+
 function fromNormalAndPoint( test )
 {
 
@@ -352,6 +354,7 @@ function fromNormalAndPoint( test )
   test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], NaN ));
 }
 
+//
 
 function fromPoints( test )
 {
@@ -486,6 +489,131 @@ function fromPoints( test )
   test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0, 0 ], [ 0, 4, 1, 0 ], [ 0, 0, 1, 1 ], [ 0, 2, 2, 0 ] ));
 }
 
+//
+
+function pointContains( test )
+{
+
+  test.case = 'Point and plane stay unchanged'; /* */
+
+  var plane = [ 0, 0, 1, 2 ];
+  var point = [ 0, 1, 0 ];
+  var expected = false;
+
+  var distance = _.plane.pointContains( plane, point );
+  test.identical( expected, distance );
+
+  var oldPlane = [ 0, 0, 1, 2 ];;
+  test.identical( plane, oldPlane );
+
+  var oldPoint = [ 0, 1, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Trivial - Contained'; /* */
+
+  var plane = [ 2, 1, 0, 0 ];
+  var point = [ 6, 3, -4 ];
+  point = _.vector.from( point );
+  var expected = false;
+
+  var distance = _.plane.pointContains( plane, point );
+  test.identical( distance, expected );
+
+  test.case = 'NaN plane'; /* */
+
+  var plane = [ NaN, NaN, NaN, NaN ];
+  var point = [ 2, 1, 0 ];
+  point = _.vector.from( point );
+  var expected = false;
+
+  var distance = _.plane.pointContains( plane, point );
+  test.identical( distance, expected );
+
+  test.case = 'NaN point'; /* */
+
+  var plane = [ 0, 0, 0, 0 ];
+  var point = [ NaN, NaN, NaN ];
+  point = _.vector.from( point );
+  var expected = false;
+
+  var distance = _.plane.pointContains( plane, point );
+  test.identical( distance, expected );
+
+  test.case = 'Point under plane'; /* */
+
+  var plane = [ 0, 0, 1, 1 ];
+  var point = [ 0, 0, - 2 ];
+  point = _.vector.from( point );
+  var expected = false;
+
+  var distance = _.plane.pointContains( plane, point );
+  test.identical( distance, expected );
+
+  test.case = 'Point over plane'; /* */
+
+  var plane = [ 0, 0, 1, 1 ];
+  var point = [ 0, 0, 2 ];
+  var expected = false;
+
+  var distance = _.plane.pointContains( plane, point );
+  test.identical( distance, expected );
+
+  test.case = 'Contained - Decimal numbers'; /* */
+
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var point = [ 0, 0.2, 0.6 ];
+  var expected = true;
+
+  var distance = _.plane.pointContains( plane, point );
+  test.equivalent( distance, expected );
+
+  test.case = 'Not Contained - Decimal numbers'; /* */
+
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var point = [ 0, 0.1, 0.6 ];
+  var expected = false;
+
+  var distance = _.plane.pointContains( plane, point );
+  test.equivalent( distance, expected );
+
+  test.case = 'Points in plane'; /* */
+
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var a = [ 0, 0, 1 ];
+  var b = [ 0, 1, 0 ];
+  var c = [ 0, 0, 3 ];
+  var expected = [ - 1, 0, 0, 0 ];
+
+  var plane = _.plane.fromPoints( plane, a, b, c );
+  test.equivalent( plane, expected );
+
+  expected = true;
+
+  var gotBool = _.plane.pointContains( plane, a );
+  test.equivalent( gotBool, expected );
+  var gotBool = _.plane.pointContains( plane, b );
+  test.equivalent( gotBool, expected );
+  var gotBool = _.plane.pointContains( plane, c );
+  test.equivalent( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.pointContains( ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], [ 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( NaN, [ 0, 1, 0 ] ));
+}
+
+//
+
 function pointDistance( test )
 {
 
@@ -614,7 +742,6 @@ function pointDistance( test )
 }
 
 //
-
 
 function pointCoplanarGet( test )
 {
@@ -1622,7 +1749,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'sphereIntersects',
+  // routine: 'pointContains',
 
   tests :
   {
@@ -1631,6 +1758,7 @@ var Self =
     fromNormalAndPoint : fromNormalAndPoint,
     fromPoints : fromPoints,
 
+    pointContains : pointContains,
     pointDistance : pointDistance,
     pointCoplanarGet : pointCoplanarGet,
 
