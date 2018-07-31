@@ -398,7 +398,6 @@ function pointDistance( frustum, point )
 
 function pointClosestPoint( frustum , srcPoint, dstPoint )
 {
-
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
@@ -1347,7 +1346,7 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  var dstPointVector = _.vector.from( dstPoint );  /* qqq : problem */
+  var dstPointVector = _.vector.from( dstPoint );
 
   debugger;
 

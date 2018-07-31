@@ -337,26 +337,34 @@ function pointDistance( plane , point )
   *
   * @returns { Array } Returns the new point in the plane.
   * @function pointCoplanarGet
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not point.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
   * @memberof wTools.plane
   */
 
-function pointCoplanarGet( plane , point )
+function pointCoplanarGet( plane , point, dstPoint )
 {
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
 
-  if( !point )
-  point = [ 0,0,0 ];
+  if( arguments.length === 2 )
+  var dstPoint = [ 0, 0, 0 ];
 
-  var pointVector = _.vector.fromArray( point );
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+  var pointVector = _.vector.fromArray( point.slice() );
   var _plane = _.plane._from( plane.slice() );
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
+  _.assert( plane.length - 1 === point.length , 'Plane and point have different dimensions' );
+  _.assert( dstPoint.length === point.length , 'Source and test points have different dimensions' );
+
   var lambda = - (( _.vector.dot( normal , pointVector ) + bias ) / _.vector.dot( normal, normal ) ) ;
 
-  _.assert( arguments.length === 1 || arguments.length === 2 );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -364,7 +372,11 @@ function pointCoplanarGet( plane , point )
 
   pointVector = _.avector.add( pointVector ,  movement  );
 
-  return pointVector;
+  for( var i = 0; i < pointVector.length; i++ )
+  {
+    dstPointVector.eSet( i, pointVector[ i ] );
+  }
+  return dstPoint;
 }
 
 // function pointCoplanarGet( plane , point )
@@ -470,6 +482,68 @@ function boxIntersects( plane , srcBox )
     }
   }
   return bool;
+}
+
+//
+
+/**
+  * Get the closest point in a plane to a box. Returns the calculated point.
+  * The box and the plane remain unchanged.
+  *
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } srcBox - Source box.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns [ 2, 2, 2 ];
+  * _.boxClosestPoint( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Array } Returns the closest point in the plane to the box.
+  * @function boxClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
+  * @memberof wTools.plane
+  */
+
+function boxClosestPoint( srcPlane , srcBox, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  var dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
+  var _plane = _.plane._from( srcPlane );
+  var dimP = _.plane.dimGet( _plane );
+
+  var boxVector = _.box._from( srcBox );
+  var dimB = _.box.dimGet( boxVector );
+  var min = _.box.cornerLeftGet( boxVector );
+  var max = _.box.cornerRightGet( boxVector );
+
+  _.assert( dimP === dimB );
+  _.assert( dimP === dstPointVector.length );
+
+  if( _.plane.boxIntersects( _plane, boxVector ) )
+  return 0;
+
+  var boxPoint = _.box.planeClosestPoint( boxVector, _plane );
+
+  var planePoint = _.plane.pointCoplanarGet( _plane, boxPoint );
+
+  for( var i = 0; i < planePoint.length; i++ )
+  {
+    dstPointVector.eSet( i, planePoint[ i ] );
+  }
+
+  return dstPoint;
 }
 
 //
@@ -911,7 +985,7 @@ var Proto =
 
   boxIntersects : boxIntersects,
   // boxDistance : boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
-  // boxClosestPoint : boxClosestPoint, /* qqq: implement me */
+  boxClosestPoint : boxClosestPoint, /* qqq: implement me */
 
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,

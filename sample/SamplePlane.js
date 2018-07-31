@@ -3,10 +3,10 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var plane1 = [ 3, 0, 0, - 2 ];
+var plane1 = [ 1, 0, 0, -4 ];
 
 var box = [  0, 0, 0, 2, 2, 2 ];
 
-var i = _.plane.boxIntersects( plane1, box );
+var i = _.plane.boxClosestPoint( plane1, box, _.vector.from( [ 0, 0, 0 ] ) );
 console.log( i );
 debugger;

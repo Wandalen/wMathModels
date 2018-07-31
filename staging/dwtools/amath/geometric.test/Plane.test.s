@@ -746,43 +746,20 @@ function pointDistance( test )
 function pointCoplanarGet( test )
 {
 
-  test.case = 'Plane remains unchanged, point changes'; /* */
+  test.case = 'Plane and point remain unchanged'; /* */
 
-  var plane = [ 1, 0 , 0, 1 ];
-  var oldPlane = plane.slice();
+  var plane = [ 1, 0, 0, 1 ];
   var point = [ 2, 0, 2 ];
   var expected = [ - 1, 0, 2 ];
 
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, point );
   test.identical( expected, gotPoint );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
-  test.case = 'No point'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var expected = [ - 1, 0, 0 ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane );
-  test.identical( expected, gotPoint );
-
-  test.case = 'Null point'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var point = null;
-  var expected = [ - 1, 0, 0 ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, gotPoint );
-
-  test.case = 'NaN point'; /* */
-
-  var plane = [ 1, 0 , 0, 1 ];
-  var point = NaN;
-  var expected = [ - 1, 0, 0 ];
-
-  var gotPoint = _.plane.pointCoplanarGet( plane, point );
-  test.identical( expected, gotPoint );
+  var oldPoint = [ 2, 0, 2 ];
+  test.identical( point, oldPoint );
 
   test.case = 'NaN array point'; /* */
 
@@ -829,18 +806,32 @@ function pointCoplanarGet( test )
   gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
 
+  test.case = 'Destination point is vector'; /* */
+
+  var plane = [ 1, 0 , 0, 1 ];
+  var point = [ - 1, 2, 3 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ - 1, 2, 3 ] );
+
+  gotPoint = _.plane.pointCoplanarGet( plane, point, dstPoint );
+  test.identical( expected, gotPoint );
+  test.identical( dstPoint, gotPoint );
+
   /* */
 
   if( !Config.debug )
   return;
 
   test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
   test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
   test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 1, 0, 1 ], null ));
   test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN, [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN, 'point' ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( 'plane', [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], 'point' ));
 
 }
 
@@ -982,6 +973,107 @@ function boxIntersects( test )
   test.shouldThrowErrorSync( () => _.plane.boxIntersects( NaN, [ 0, 1, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], 'box' ));
   test.shouldThrowErrorSync( () => _.plane.boxIntersects( 'plane', [ 0, 1, 0, 1 ] ));
+
+}
+
+//
+
+function boxClosestPoint( test )
+{
+
+  test.case = 'box and plane stay unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ - 1, 0, 0 ];
+
+  var gotPoint = _.plane.boxClosestPoint( plane, box );
+  test.identical( expected, gotPoint );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldbox = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( box, oldbox );
+
+  test.case = 'Trivial'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, - 3 ];
+  var expected = [ 3, 0, 0 ];
+
+  var gotPoint = _.plane.boxClosestPoint( plane, box );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Diagonal plane'; /* */
+
+  var plane = [ - 1, 1, 0, - 2 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ -0.5, 1.5, 0 ];
+
+  var gotPoint = _.plane.boxClosestPoint( plane, box );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Intersection z'; /* */
+
+  var plane = [ 0, 0, 1, - 2 ];
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.boxClosestPoint( plane, box );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Intersection diagonal plane'; /* */
+
+  var plane = [ 1, - 1, 0, 0 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.boxClosestPoint( plane, box );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Intersection one side of box in plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var box = [ 0, - 2, 0, 1, 3, 3 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.boxClosestPoint( plane, box );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Intersection one edge of box in plane'; /* */
+
+  var plane = [ 1, - 1, 0, 0 ];
+  var box = [ 1, 1, - 1, 2, 1, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.boxClosestPoint( plane, box );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Zero box'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var box = _.box.makeZero( 3 );
+  var expected = [ 0, 1, 0 ];
+
+  var gotPoint = _.plane.boxClosestPoint( plane, box );
+  test.identical( gotPoint, expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0, 2, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1 ], [ 0, 0, 1, 0, 2, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( null, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( NaN, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], 'box' ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( 'plane', [ 0, 1, 0, 1 ] ));
 
 }
 
@@ -1749,7 +1841,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'pointContains',
+  // routine: 'boxClosestPoint',
 
   tests :
   {
@@ -1763,6 +1855,7 @@ var Self =
     pointCoplanarGet : pointCoplanarGet,
 
     boxIntersects : boxIntersects,
+    boxClosestPoint : boxClosestPoint,
 
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
