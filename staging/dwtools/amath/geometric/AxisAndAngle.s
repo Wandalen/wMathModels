@@ -16,7 +16,7 @@ var sqr = _.sqr;
 var sqrt = _.sqrt;
 
 _.assert( !_.axisAndAngle );
-_.assert( _.avector );
+_.assert( _.objectIs( _.avector ) );
 
 var Self = _.axisAndAngle = _.axisAndAngle || Object.create( _.avector );
 

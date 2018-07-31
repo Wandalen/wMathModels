@@ -55,7 +55,7 @@ var avector = _.avector;
 var sqrt = _.sqrt;
 var Parent = _.Tester;
 
-_.assert( sqrt );
+_.assert( _.routineIs( sqrt ) );
 
 // --
 // test
