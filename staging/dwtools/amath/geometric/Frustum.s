@@ -718,7 +718,7 @@ function boxIntersects( frustum , box )
   * @memberof wTools.frustum
   */
 
-function boxClosestPoint( frustum , box )
+function boxClosestPoint( frustum, box, dstPoint )
 {
   var _box = _.box._from( box );
   var dim1 = _.box.dimGet( _box );
@@ -727,30 +727,36 @@ function boxClosestPoint( frustum , box )
   var dims = _.Space.dimsOf( frustum ) ;
   var rows = dims[ 0 ];
   var cols = dims[ 1 ];
-  var dstpoint = _.vector.fromArray( [ 0, 0, 0 ] );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   _.assert( dim1 === 3 );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  if( arguments.length === 2 )
+  var dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  var dstPointVector = _.vector.from( dstPoint );
 
   if( _.frustum.boxIntersects( frustum, _box ) )
   return 0;
 
+  var point = _.vector.from( [ 0, 0, 0 ] );
   /* frustum corners */
 
   var fpoints = _.frustum.cornersGet( frustum );
   var dist = Infinity;
   for ( var j = 0 ; j < cols ; j++ )
   {
-    var newp = _.vector.from( _.vector.toArray( fpoints.colVectorGet( j ) ) );
+    var newp = fpoints.colVectorGet( j );
     var d = _.box.pointDistance( _box, newp );
 
     if( d < dist )
     {
-      dstpoint = newp;
+      point = _.vector.from( newp.slice() );
       dist = d;
     }
-
   }
 
   /* box corners */
@@ -772,13 +778,16 @@ function boxClosestPoint( frustum , box )
     var proj = _.frustum.pointClosestPoint( frustum, corner );
     var d = _.avector.distance( corner, _.vector.toArray( proj ) );
     if( d < dist )
-    { dstpoint = proj;
+    {
+      point = _.vector.from( proj.slice() );
       dist = d;
     }
-
   }
+  dstPointVector.eSet( 0, point.eGet( 0 ) );
+  dstPointVector.eSet( 1, point.eGet( 1 ) );
+  dstPointVector.eSet( 2, point.eGet( 2 ) );
 
-  return dstpoint;
+  return dstPoint;
 }
 
 //
@@ -894,23 +903,36 @@ function sphereIntersects( frustum , sphere )
   * @memberof wTools.frustum
   */
 
-function sphereClosestPoint( frustum , sphere )
+function sphereClosestPoint( frustum , sphere, dstPoint )
 {
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
   var spherev = _.sphere._from( sphere );
   var center = _.sphere.centerGet( spherev );
   var radius = _.sphere.radiusGet( spherev );
   var dim = _.sphere.dimGet( spherev );
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === 3 );
+
+  if( arguments.length === 2 )
+  var dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
   _.assert( _.frustum.is( frustum ) );
 
   if( _.frustum.sphereIntersects( frustum, spherev ) == true )
   return 0;
 
-  var dstpoint = _.frustum.pointClosestPoint( frustum, center );
+  var point = _.frustum.pointClosestPoint( frustum, center );
 
-  return dstpoint;
+  dstPointVector.eSet( 0, point[ 0 ] );
+  dstPointVector.eSet( 1, point[ 1 ] );
+  dstPointVector.eSet( 2, point[ 2 ] );
+
+  return dstPoint;
 
 }
 
@@ -1017,6 +1039,74 @@ function planeDistance( frustum, plane )
 //
 
 /**
+  * Calculates the closest point in a frustum to a plane. Returns the calculated point.
+  * Frustum and plane remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Plane } plane - Source plane.
+  * @param { Point } dstPoint - Destination point.
+  *
+  * @example
+  * // returns [ 1, 1, 1 ];
+  * var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.planeClosestPoint( frustum , [ 1, 1, 1, 6 ] );
+  *
+  * @returns { Array } Returns the coordinates of the closest point.
+  * @function planeClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not plane.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @memberof wTools.frustum
+  */
+
+function planeClosestPoint( frustum, plane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  if( arguments.length === 2 )
+  var dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
+  var _plane = _.plane._from( plane );
+  if( _.frustum.planeIntersects( frustum, _plane ) )
+  return 0;
+
+  var corners = _.frustum.cornersGet( frustum );
+  var distance = Infinity;
+  var point = [ 0, 0, 0 ];
+  for( var j = 0 ; j < 8 ; j = j + 1 )
+  {
+    var corner = corners.colVectorGet( j );
+    var dist = Math.abs( _.plane.pointDistance( _plane, corner ) );
+    if( dist < distance )
+    {
+      distance = dist;
+      point = _.vector.from( corner.slice() );
+    }
+  }
+
+  dstPointVector.eSet( 0, point.eGet( 0 ) );
+  dstPointVector.eSet( 1, point.eGet( 1 ) );
+  dstPointVector.eSet( 2, point.eGet( 2 ) );
+
+  return dstPoint;
+}
+
+//
+
+/**
   * Check if a frustum intersects with another frustum. Returns true if they intersect.
   * Both frustums remain unchanged.
   *
@@ -1113,7 +1203,7 @@ var Proto =
 
   planeIntersects : planeIntersects, /* qqq : implement me */
   planeDistance : planeDistance, /* qqq : implement me */
-  // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
+  planeClosestPoint : planeClosestPoint, /* qqq : implement me */
 
   // frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects,
