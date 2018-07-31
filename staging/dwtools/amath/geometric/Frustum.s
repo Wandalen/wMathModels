@@ -1167,7 +1167,7 @@ return true;
   * Both frustums remain unchanged.
   *
   * @param { Frustum } srcfrustum - Source frustum.
-  * @param { Frustum } testfrustum - Frustum to test if it intersects.
+  * @param { Frustum } tstfrustum - Frustum to test if it intersects.
   *
   * @example
   * // returns true;
@@ -1178,14 +1178,14 @@ return true;
   *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
-  * var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+  * var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
   *   ([
   *    0,   0,   0,   0, - 1,   1,
   *    1, - 1,   0,   0,   0,   0,
   *    0,   0,   1, - 1,   0,   0,
   *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
   *   );
-  * _.frustumIntersects( srcfrustum , testfrustum );
+  * _.frustumIntersects( srcFrustum , tstFrustum );
   *
   * @returns { Boolean } Returns true if the frustums intersect.
   * @function frustumIntersects
@@ -1194,12 +1194,12 @@ return true;
   * @memberof wTools.frustum
   */
 
-function frustumIntersects( srcfrustum , testfrustum )
+function frustumIntersects( srcfrustum , tstfrustum )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( srcfrustum ) );
-  _.assert( _.frustum.is( testfrustum ) );
+  _.assert( _.frustum.is( tstfrustum ) );
   debugger;
 
   var points = _.frustum.cornersGet( srcfrustum );
@@ -1207,13 +1207,13 @@ function frustumIntersects( srcfrustum , testfrustum )
   for( var i = 0 ; i < points.length ; i += 1 )
   {
     var point = points.colVectorGet( i );
-    var c = _.frustum.pointContains( testfrustum, point );
+    var c = _.frustum.pointContains( tstfrustum, point );
     if( c === true )
     return true;
 
   }
 
-  var points2 = _.frustum.cornersGet( testfrustum );
+  var points2 = _.frustum.cornersGet( tstfrustum );
 
   for( var i = 0 ; i < points2.length ; i += 1 )
   {
@@ -1227,6 +1227,71 @@ function frustumIntersects( srcfrustum , testfrustum )
   return false;
 }
 
+//
+
+/**
+  * Calculates the distance between two frustums. Returns the calculated distance.
+  * Both frustums remain unchanged.
+  *
+  * @param { Frustum } srcfrustum - Source frustum.
+  * @param { Frustum } testfrustum - Frustum to calculate the distance.
+  *
+  * @example
+  * // returns 0;
+  * var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  *   ([
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
+  *   );
+  * _.frustumDistance( srcfrustum , testfrustum );
+  *
+  * @returns { Number } Returns the distance between the two frustums.
+  * @function frustumDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( tstFrustum ) is not frustum.
+  * @memberof wTools.frustum
+  */
+
+function frustumDistance( srcfrustum , testfrustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcfrustum ) );
+  _.assert( _.frustum.is( testfrustum ) );
+  debugger;
+
+  var distance = Infinity;
+
+  var points = _.frustum.cornersGet( srcfrustum );
+  for( var i = 0 ; i < points.length ; i += 1 )
+  {
+    var point = points.colVectorGet( i );
+    var d = _.frustum.pointDistance( testfrustum, point );
+    if( d < distance )
+    distance = d;
+  }
+
+  var points2 = _.frustum.cornersGet( testfrustum );
+  for( var i = 0 ; i < points2.length ; i += 1 )
+  {
+    var point = points2.colVectorGet( i );
+    var d2 = _.frustum.pointDistance( srcfrustum, point );
+    if( d2 < distance )
+    distance = d2;
+  }
+
+  return distance;
+}
 
 
 // --
@@ -1264,7 +1329,7 @@ var Proto =
 
   frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects,
-  // frustumDistance : frustumDistance, /* qqq : implement me */
+  frustumDistance : frustumDistance, /* qqq : implement me */
   // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
 
 }
