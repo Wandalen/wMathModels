@@ -1797,7 +1797,7 @@ function planeIntersects( test )
     0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1 ]
   );
-  var plane = [ 0, 1, 0, 0];
+  var plane = [ 0, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.frustum.planeIntersects( srcFrustum, plane );
@@ -1862,6 +1862,160 @@ function planeIntersects( test )
   test.shouldThrowErrorSync( () => _.frustum.planeIntersects( srcFrustum, NaN ));
   test.shouldThrowErrorSync( () => _.frustum.planeIntersects( [], [ 1, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.frustum.planeIntersects( [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 1, 0, 0, 1 ] ));
+
+}
+
+//
+
+function planeDistance( test )
+{
+
+  test.description = 'Frustum and plane remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 1, 0, 0, 2 ];
+  var expected = 2;
+
+  var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
+  test.identical( gotDistance, expected );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( srcFrustum, oldFrustum );
+
+  var oldPlane = [ 1, 0, 0, 2 ];
+  test.identical( plane, oldPlane );
+
+  test.description = 'Frustum and plane intersect'; //
+
+  var plane = [ 1, 0, 0, - 0.4 ];
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var expected = 0;
+
+  var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Plane cuts Frustum in diagonal'; //
+
+  var plane = [ 0.3, 0.3, 0.3, 0 ];
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var expected = 0;
+
+  var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Plane is frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum corner in plane'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 1, 1, 1, -3 ];
+  var expected = 0;
+
+  var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustums almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0 , 1, 0, - 1.1 ];
+  var expected = 0.1;
+
+  var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Plane parallel to frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 0, 1, 0, 4 ];
+  var expected = 4;
+
+  var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Plane opposite to frustum´s corner'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var plane = [ 1, 1, 1, - 6 ];
+  var expected = Math.sqrt( 3 );
+
+  var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
+  test.equivalent( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.planeDistance( ));
+  test.shouldThrowErrorSync( () => _.frustum.planeDistance( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.planeDistance( srcFrustum, [ 0, 0, 1, 1 ], [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeDistance( null, [ 1, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeDistance( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.frustum.planeDistance( NaN, [ 1, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeDistance( srcFrustum, NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.planeDistance( [], [ 1, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.planeDistance( [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 1, 0, 0, 1 ] ));
 
 }
 
@@ -2073,7 +2227,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'planeIntersects',
+  // routine: 'planeDistance',
 
   tests :
   {
@@ -2093,6 +2247,7 @@ var Self =
     sphereClosestPoint : sphereClosestPoint,
 
     planeIntersects : planeIntersects,
+    planeDistance : planeDistance,
 
     frustumIntersects : frustumIntersects,
 

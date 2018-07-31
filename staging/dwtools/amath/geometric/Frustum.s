@@ -967,6 +967,56 @@ function planeIntersects( frustum, plane )
 //
 
 /**
+  * Calculates the distance between a frustum and a plane. Returns the calculated distance.
+  * Frustum and plane remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Plane } plane - Source plane.
+  *
+  * @example
+  * // returns 2;
+  * var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.planeDistance( frustum , [ 1, 0, 0, 2 ] );
+  **
+  * @returns { Number } Returns the distance between the frustum and the plane.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not plane.
+  * @memberof wTools.frustum
+  */
+
+function planeDistance( frustum, plane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  var _plane = _.plane._from( plane );
+  if( _.frustum.planeIntersects( frustum, _plane ) )
+  return 0;
+
+  var corners = _.frustum.cornersGet( frustum );
+  var distance = Infinity;
+  for( var j = 0 ; j < 8 ; j = j + 1 )
+  {
+    var corner = corners.colVectorGet( j );
+    var dist = Math.abs( _.plane.pointDistance( _plane, corner ) );
+    if( dist < distance )
+    distance = dist;
+  }
+
+  return distance;
+}
+
+//
+
+/**
   * Check if a frustum intersects with another frustum. Returns true if they intersect.
   * Both frustums remain unchanged.
   *
@@ -1062,7 +1112,7 @@ var Proto =
   sphereClosestPoint : sphereClosestPoint,
 
   planeIntersects : planeIntersects, /* qqq : implement me */
-  // planeDistance : planeDistance, /* qqq : implement me */
+  planeDistance : planeDistance, /* qqq : implement me */
   // planeClosestPoint : planeClosestPoint, /* qqq : implement me */
 
   // frustumContains : frustumContains, /* qqq : implement me */
