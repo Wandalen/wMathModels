@@ -3,10 +3,10 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var plane1 = [ 1, 0, 0, -4 ];
+var plane1 = [ 1, 0, 0, -1 ];
 
-var box = [  0, 0, 0, 2, 2, 2 ];
+var sphere = [  0, 0, 0, 2 ];
 
-var i = _.plane.boxClosestPoint( plane1, box, _.vector.from( [ 0, 0, 0 ] ) );
+var i = _.plane.sphereClosestPoint( plane1, sphere, _.vector.from( [ 0, 0, 0 ] ) );
 console.log( i );
 debugger;

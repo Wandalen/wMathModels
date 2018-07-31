@@ -1841,7 +1841,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'boxClosestPoint',
+  routine: 'sphereClosestPoint',
 
   tests :
   {
@@ -1859,6 +1859,7 @@ var Self =
 
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
+    sphereClosestPoint : sphereClosestPoint,
 
     lineIntersects : lineIntersects,
 

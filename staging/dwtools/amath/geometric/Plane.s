@@ -676,20 +676,20 @@ function sphereClosestPoint( plane , sphere, dstPoint )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
-  var center = _.sphere.centerGet( sphere );
-  center = _.vector.from( center );
+  var spherev = _.sphere._from( sphere );
+  var center = _.sphere.centerGet( spherev );
 
-  debugger;
-  //throw _.err( 'not tested' );
-
-  var d = _.plane.pointDistance( plane , center );
-  d = Math.abs( d ) - _.sphere.radiusGet( sphere );
-
-  if( d < 0 )
+  if( _.plane.sphereIntersects( _plane, spherev ) === true )
   return 0;
-  else
-  return d;
 
+  var point = _.plane.pointCoplanarGet( _plane, center );
+
+  for( var i = 0; i < point.length; i++ )
+  {
+    dstPointVector.eSet( i, point[ i ] );
+  }
+
+  return dstPoint;
 }
 
 //
