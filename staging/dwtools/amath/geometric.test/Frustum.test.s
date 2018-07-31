@@ -3061,7 +3061,7 @@ function frustumClosestPoint( test )
 var Self =
 {
 
-  name : 'Math.Frustum',
+  name : 'Tools/Math/Frustum',
   silencing : 1,
   enabled : 1,
   // verbosity : 7,
