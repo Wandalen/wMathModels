@@ -676,6 +676,8 @@ function sphereClosestPoint( plane , sphere, dstPoint )
   var normal = _.plane.normalGet( _plane );
   var bias = _.plane.biasGet( _plane );
 
+  _.assert( _plane.length - 1 === dstPoint.length , 'Plane and point must have same dimension' );
+
   var spherev = _.sphere._from( sphere );
   var center = _.sphere.centerGet( spherev );
 

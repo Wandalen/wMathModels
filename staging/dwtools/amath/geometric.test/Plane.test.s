@@ -1295,6 +1295,106 @@ function sphereDistance( test )
 
 //
 
+function sphereClosestPoint( test )
+{
+
+  test.case = 'Sphere and plane stay unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var sphere = [ 2, 0, 0, 1 ];
+  var expected = [ -1, 0, 0 ];
+
+  var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
+  test.identical( expected, gotPoint );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldSphere = [ 2, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Trivial'; /* */
+
+  var sphere = [ 2, 0, 0, 1 ];
+  var plane = [ 1, 0, 0, 2 ];
+  var expected = [ -2, 0, 0 ];
+
+  var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Trivial 2'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 1, 1, 1, 1 ];
+  var expected = [ 1, - 1, 1 ];
+
+  var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Center in plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, - 1, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Sphere cuts plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1.5 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Sphere touches plane'; /* */
+
+  var plane = [ 0, 2, 0, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Sphere under plane'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ - 1, - 1, - 1, 1 ];
+  var expected = [ -1, 1, -1 ];
+
+  var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Sphere over plane'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ 0, 3, 0, 1 ];
+  var expected = [ 0, 1, 0 ];
+
+  var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
+  test.identical( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( NaN, [ 0, 1, 0 ] ));
+
+}
+
+//
+
 function lineIntersects( test )
 {
 
