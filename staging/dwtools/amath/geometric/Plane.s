@@ -595,7 +595,7 @@ function sphereIntersects( plane , sphere )
 /**
   * Get the distance between a plane and a sphere. Returns the distance value.
   * The sphere an the plane remain unchanged.
-  * If sphere and plane intersect, it returns a negative distance.
+  * If sphere and plane intersect, it returns 0.
   *
   * @param { Array } plane - Source plane.
   * @param { Array } sphere - Source sphere.
@@ -623,6 +623,62 @@ function sphereDistance( plane , sphere )
   center = _.vector.from( center );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  debugger;
+  //throw _.err( 'not tested' );
+
+  var d = _.plane.pointDistance( plane , center );
+  d = Math.abs( d ) - _.sphere.radiusGet( sphere );
+
+  if( d < 0 )
+  return 0;
+  else
+  return d;
+
+}
+
+//
+
+/**
+  * Get the closest point in a plane to a sphere. Returns the calculated point.
+  * The sphere an the plane remain unchanged.
+  * If sphere and plane intersect, it returns 0.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } sphere - Source sphere.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns [ 0, 2, 0 ];
+  * _.sphereClosestPoint( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
+  *
+  * @returns { Array } Returns the distance from the sphere to the plane.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @memberof wTools.plane
+  */
+
+function sphereClosestPoint( plane , sphere, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  var dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
+  var _plane = _.plane._from( plane );
+  var normal = _.plane.normalGet( _plane );
+  var bias = _.plane.biasGet( _plane );
+
+  var center = _.sphere.centerGet( sphere );
+  center = _.vector.from( center );
+
   debugger;
   //throw _.err( 'not tested' );
 
@@ -989,7 +1045,7 @@ var Proto =
 
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
-  // sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
+  sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
 
   // planeIntersects : planeIntersects, /* qqq: implement me */
   // planeDistance : planeDistance, /* qqq: implement me */
