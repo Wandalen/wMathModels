@@ -1107,6 +1107,62 @@ function planeClosestPoint( frustum, plane, dstPoint )
 //
 
 /**
+* Check if a frustum contains another frustum. Returns true if it contains the frustum.
+* Both frustums remain unchanged.
+*
+* @param { Frustum } srcfrustum - Source frustum ( container ).
+* @param { Frustum } tstfrustum - Frustum to test if it is contained.
+*
+* @example
+* // returns true;
+* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+*  ([
+*     0,   0,   0,   0, - 1,   1,
+*     1, - 1,   0,   0,   0,   0,
+*     0,   0,   1, - 1,   0,   0,
+*   - 1,   0, - 1,   0,   0, - 1 ]
+*   );
+* var tstfrustum = _.Space.make( [ 4, 6 ] ).copy
+*   ([
+*    0,   0,   0,   0, - 1,   1,
+*    1, - 1,   0,   0,   0,   0,
+*    0,   0,   1, - 1,   0,   0,
+*   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
+*   );
+* _.frustumContains( srcfrustum , tstfrustum );
+*
+* @returns { Boolean } Returns true if the srcFrustum contains the tstFrustum.
+* @function frustumContains
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( frustum ) is not frustum.
+* @memberof wTools.frustum
+*/
+
+function frustumContains( srcfrustum , tstfrustum )
+{
+
+_.assert( arguments.length === 2, 'expects exactly two arguments' );
+_.assert( _.frustum.is( srcfrustum ) );
+_.assert( _.frustum.is( tstfrustum ) );
+debugger;
+
+var points = _.frustum.cornersGet( tstfrustum );
+
+for( var i = 0 ; i < points.length ; i += 1 )
+{
+var point = points.colVectorGet( i );
+var c = _.frustum.pointContains( srcfrustum, point );
+if( c !== true )
+return false;
+
+}
+
+return true;
+}
+
+//
+
+/**
   * Check if a frustum intersects with another frustum. Returns true if they intersect.
   * Both frustums remain unchanged.
   *
@@ -1172,6 +1228,7 @@ function frustumIntersects( srcfrustum , testfrustum )
 }
 
 
+
 // --
 // define class
 // --
@@ -1205,7 +1262,7 @@ var Proto =
   planeDistance : planeDistance, /* qqq : implement me */
   planeClosestPoint : planeClosestPoint, /* qqq : implement me */
 
-  // frustumContains : frustumContains, /* qqq : implement me */
+  frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects,
   // frustumDistance : frustumDistance, /* qqq : implement me */
   // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
