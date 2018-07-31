@@ -18,7 +18,7 @@ var tstFrustum= _.Space.make( [ 4, 6 ] ).copy
   1,   - 2, 1, - 2,  - 2,  1
 ]);
 
-var result = _.frustum.frustumDistance( srcFrustum, tstFrustum )
+var result = _.frustum.frustumClosestPoint( tstFrustum, srcFrustum )
 console.log( 'Result: ', result );
 
 debugger;

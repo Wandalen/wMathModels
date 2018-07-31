@@ -1956,10 +1956,10 @@ function planeDistance( test )
 
   var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
   ([
-  0,   0,   0,   0, - 1,   1,
-  1, - 1,   0,   0,   0,   0,
-  0,   0,   1, - 1,   0,   0,
-  - 1,   0, - 1,   0,   0, - 1
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
   ]);
   var plane = [ 0 , 1, 0, - 1.1 ];
   var expected = 0.1;
@@ -2656,17 +2656,17 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
   ([
-  0,   0,   0,   0, - 1,   1,
-  1, - 1,   0,   0,   0,   0,
-  0,   0,   1, - 1,   0,   0,
-  - 1,   0, - 1,   0,   0, - 1
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
   ]);
   var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
   ([
-  0,   0,   0,   0, - 1,   1,
-  1, - 1,   0,   0,   0,   0,
-  0,   0,   1, - 1,   0,   0,
-  - 2,   1, - 2,   1,   1, - 2
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   1, - 2,   1,   1, - 2
   ]);
   var expected = 0;
 
@@ -2677,17 +2677,17 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
   ([
-  0,   0,   0,   0, - 1,   1,
-  1, - 1,   0,   0,   0,   0,
-  0,   0,   1, - 1,   0,   0,
-  - 1,   0, - 1,   0,   0, - 1
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
   ]);
   var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
   ([
-  0,   0,   0,   0, - 1,   1,
-  1, - 1,   0,   0,   0,   0,
-  0,   0,   1, - 1,   0,   0,
-  - 2, 0.9, - 2, 0.9,   1, 0.9
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 0.9, - 2, 0.9,   1, 0.9
   ]);
   var expected = 0;
 
@@ -2789,6 +2789,271 @@ function frustumDistance( test )
 
 }
 
+//
+
+function frustumClosestPoint( test )
+{
+
+  test.description = 'Frustums remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.identical( gotPoint, expected );
+
+  var oldSrcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldSrcFrustum );
+
+  var oldTstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( tstFrustum, oldTstFrustum );
+
+  test.description = 'Frustum Contains frustum'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 0.5, 0.4, - 0.5, 0.4, 0.4, - 0.4
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Frustums just touching'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   1, - 2,   1,   1, - 2
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Frustums just intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 0.9, - 2, 0.9,   1, 0.9
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Frustums don´t intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3,   4, - 3,   4,   4, - 3
+  ]);
+  var expected = [ 1, 1, 1 ];
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Frustums don´t intersect - exchange tst and src frustums'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3,   4, - 3,   4,   4, - 3
+  ]);
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = [ 3, 3, 3 ];
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Frustums with parallel side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    -1,   0, - 3,   2,   0, - 1
+  ]);
+  var expected = [ 0, 1, 1 ];
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Frustums with parallel side - exchange tst and src frustums'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    -1,   0, - 3,   2,   0, - 1
+  ]);
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = [ 0, 1, 2 ];
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Frustums almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   1.1, - 2,   1.1,   1.1, - 2
+  ]);
+  var expected = [ 1, 1, 1 ];
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Frustums almost intersecting - exchange tst and src frustums'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 2,   1.1, - 2,   1.1,   1.1, - 2
+  ]);
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = [ 1.1, 1.1, 1.1 ];
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Zero frustum, intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstFrustum = _.frustum.make();
+  var expected = 0;
+
+  var gotPoint = _.frustum.frustumClosestPoint( srcFrustum, tstFrustum );
+  test.identical( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.frustumClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumClosestPoint( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumClosestPoint( srcFrustum, srcFrustum, frustum ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumClosestPoint( null, frustum ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumClosestPoint( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.frustum.frustumClosestPoint( NaN, frustum ));
+  test.shouldThrowErrorSync( () => _.frustum.frustumClosestPoint( srcFrustum, NaN));
+  test.shouldThrowErrorSync( () => _.frustum.frustumClosestPoint( [], srcFrustum));
+  test.shouldThrowErrorSync( () => _.frustum.frustumClosestPoint( [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], srcFrustum));
+
+}
+
 // --
 // define class
 // --
@@ -2801,7 +3066,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'frustumDistance',
+  // routine: 'frustumClosestPoint',
 
   tests :
   {
@@ -2827,6 +3092,7 @@ var Self =
     frustumContains : frustumContains,
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,
+    frustumClosestPoint : frustumClosestPoint,
 
   }
 

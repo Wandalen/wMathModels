@@ -1110,48 +1110,49 @@ function planeClosestPoint( frustum, plane, dstPoint )
 * Check if a frustum contains another frustum. Returns true if it contains the frustum.
 * Both frustums remain unchanged.
 *
-* @param { Frustum } srcfrustum - Source frustum ( container ).
-* @param { Frustum } tstfrustum - Frustum to test if it is contained.
+* @param { Frustum } srcFrustum - Source frustum ( container ).
+* @param { Frustum } tstFrustum - Frustum to test if it is contained.
 *
 * @example
 * // returns true;
-* var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+* var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
 *  ([
 *     0,   0,   0,   0, - 1,   1,
 *     1, - 1,   0,   0,   0,   0,
 *     0,   0,   1, - 1,   0,   0,
 *   - 1,   0, - 1,   0,   0, - 1 ]
 *   );
-* var tstfrustum = _.Space.make( [ 4, 6 ] ).copy
+* var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
 *   ([
 *    0,   0,   0,   0, - 1,   1,
 *    1, - 1,   0,   0,   0,   0,
 *    0,   0,   1, - 1,   0,   0,
 *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
 *   );
-* _.frustumContains( srcfrustum , tstfrustum );
+* _.frustumContains( srcFrustum , tstFrustum );
 *
 * @returns { Boolean } Returns true if the srcFrustum contains the tstFrustum.
 * @function frustumContains
 * @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( frustum ) is not frustum.
+* @throws { Error } An Error if ( srcFrustum ) is not frustum.
+* @throws { Error } An Error if ( tstFrustum ) is not frustum.
 * @memberof wTools.frustum
 */
 
-function frustumContains( srcfrustum , tstfrustum )
+function frustumContains( srcFrustum , tstFrustum )
 {
 
 _.assert( arguments.length === 2, 'expects exactly two arguments' );
-_.assert( _.frustum.is( srcfrustum ) );
-_.assert( _.frustum.is( tstfrustum ) );
+_.assert( _.frustum.is( srcFrustum ) );
+_.assert( _.frustum.is( tstFrustum ) );
 debugger;
 
-var points = _.frustum.cornersGet( tstfrustum );
+var points = _.frustum.cornersGet( tstFrustum );
 
 for( var i = 0 ; i < points.length ; i += 1 )
 {
 var point = points.colVectorGet( i );
-var c = _.frustum.pointContains( srcfrustum, point );
+var c = _.frustum.pointContains( srcFrustum, point );
 if( c !== true )
 return false;
 
@@ -1166,12 +1167,12 @@ return true;
   * Check if a frustum intersects with another frustum. Returns true if they intersect.
   * Both frustums remain unchanged.
   *
-  * @param { Frustum } srcfrustum - Source frustum.
-  * @param { Frustum } tstfrustum - Frustum to test if it intersects.
+  * @param { Frustum } srcFrustum - Source frustum.
+  * @param { Frustum } tstFrustum - Frustum to test if it intersects.
   *
   * @example
   * // returns true;
-  * var srcfrustum = _.Space.make( [ 4, 6 ] ).copy
+  * var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
   *  ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
@@ -1190,35 +1191,36 @@ return true;
   * @returns { Boolean } Returns true if the frustums intersect.
   * @function frustumIntersects
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( tstFrustum ) is not frustum.
   * @memberof wTools.frustum
   */
 
-function frustumIntersects( srcfrustum , tstfrustum )
+function frustumIntersects( srcFrustum , tstFrustum )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( srcfrustum ) );
-  _.assert( _.frustum.is( tstfrustum ) );
+  _.assert( _.frustum.is( srcFrustum ) );
+  _.assert( _.frustum.is( tstFrustum ) );
   debugger;
 
-  var points = _.frustum.cornersGet( srcfrustum );
+  var points = _.frustum.cornersGet( srcFrustum );
 
   for( var i = 0 ; i < points.length ; i += 1 )
   {
     var point = points.colVectorGet( i );
-    var c = _.frustum.pointContains( tstfrustum, point );
+    var c = _.frustum.pointContains( tstFrustum, point );
     if( c === true )
     return true;
 
   }
 
-  var points2 = _.frustum.cornersGet( tstfrustum );
+  var points2 = _.frustum.cornersGet( tstFrustum );
 
   for( var i = 0 ; i < points2.length ; i += 1 )
   {
     var point = points2.colVectorGet( i );
-    var c = _.frustum.pointContains( srcfrustum, point );
+    var c = _.frustum.pointContains( srcFrustum, point );
     if( c === true )
     return true;
 
@@ -1233,8 +1235,8 @@ function frustumIntersects( srcfrustum , tstfrustum )
   * Calculates the distance between two frustums. Returns the calculated distance.
   * Both frustums remain unchanged.
   *
-  * @param { Frustum } srcfrustum - Source frustum.
-  * @param { Frustum } testfrustum - Frustum to calculate the distance.
+  * @param { Frustum } srcFrustum - Source frustum.
+  * @param { Frustum } tstFrustum - Frustum to calculate the distance.
   *
   * @example
   * // returns 0;
@@ -1252,7 +1254,7 @@ function frustumIntersects( srcfrustum , tstfrustum )
   *    0,   0,   1, - 1,   0,   0,
   *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
   *   );
-  * _.frustumDistance( srcfrustum , testfrustum );
+  * _.frustumDistance( srcFrustum , tstFrustum );
   *
   * @returns { Number } Returns the distance between the two frustums.
   * @function frustumDistance
@@ -1262,30 +1264,33 @@ function frustumIntersects( srcfrustum , tstfrustum )
   * @memberof wTools.frustum
   */
 
-function frustumDistance( srcfrustum , testfrustum )
+function frustumDistance( srcFrustum , tstFrustum )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( srcfrustum ) );
-  _.assert( _.frustum.is( testfrustum ) );
+  _.assert( _.frustum.is( srcFrustum ) );
+  _.assert( _.frustum.is( tstFrustum ) );
   debugger;
+
+  if( _.frustum.frustumIntersects( srcFrustum, tstFrustum ) )
+  return 0;
 
   var distance = Infinity;
 
-  var points = _.frustum.cornersGet( srcfrustum );
+  var points = _.frustum.cornersGet( srcFrustum );
   for( var i = 0 ; i < points.length ; i += 1 )
   {
     var point = points.colVectorGet( i );
-    var d = _.frustum.pointDistance( testfrustum, point );
+    var d = _.frustum.pointDistance( tstFrustum, point );
     if( d < distance )
     distance = d;
   }
 
-  var points2 = _.frustum.cornersGet( testfrustum );
+  var points2 = _.frustum.cornersGet( tstFrustum );
   for( var i = 0 ; i < points2.length ; i += 1 )
   {
     var point = points2.colVectorGet( i );
-    var d2 = _.frustum.pointDistance( srcfrustum, point );
+    var d2 = _.frustum.pointDistance( srcFrustum, point );
     if( d2 < distance )
     distance = d2;
   }
@@ -1293,6 +1298,95 @@ function frustumDistance( srcfrustum , testfrustum )
   return distance;
 }
 
+//
+
+/**
+  * Calculates the closest point in a frustum to another frustum. Returns the calculated point.
+  * Both frustums remain unchanged.
+  *
+  * @param { Frustum } srcFrustum - Source frustum ( closest point in it ).
+  * @param { Frustum } tstFrustum - Test frustum.
+  * @param { Point } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * var tstFrustum = _.Space.make( [ 4, 6 ] ).copy
+  *   ([
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
+  *   );
+  * _.frustumClosestPoint( srcFrustum , testFrustum );
+  *
+  * @returns { Number } Returns the closest point to a frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( tstFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @memberof wTools.frustum
+  */
+
+function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+  _.assert( _.frustum.is( tstFrustum ) );
+
+  if( arguments.length === 2 )
+  var dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  var dstPointVector = _.vector.from( dstPoint );  /* qqq : problem */
+
+  debugger;
+
+  if( _.frustum.frustumIntersects( srcFrustum, tstFrustum ) )
+  return 0;
+
+  var distance = Infinity;
+  var finalPoint = [ 0, 0, 0 ];
+
+  var points = _.frustum.cornersGet( srcFrustum );
+  for( var i = 0 ; i < points.length ; i += 1 )
+  {
+    var point = points.colVectorGet( i );
+    var d = _.frustum.pointDistance( tstFrustum, point );
+    if( d < distance )
+    {
+      distance = d;
+      finalPoint = point.slice();
+    }
+  }
+
+  var points2 = _.frustum.cornersGet( tstFrustum );
+  for( var i = 0 ; i < points2.length ; i += 1 )
+  {
+    var point = points2.colVectorGet( i );
+    var d2 = _.frustum.pointDistance( srcFrustum, point );
+    if( d2 < distance )
+    {
+      distance = d2;
+      var finalPoint = point.slice();
+    }
+  }
+
+  dstPointVector.eSet( 0, finalPoint[ 0 ] );
+  dstPointVector.eSet( 1, finalPoint[ 1 ] );
+  dstPointVector.eSet( 2, finalPoint[ 2 ] );
+
+  return dstPoint;
+}
 
 // --
 // define class
@@ -1330,7 +1424,7 @@ var Proto =
   frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance, /* qqq : implement me */
-  // frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
+  frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
 
 }
 
