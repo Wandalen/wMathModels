@@ -697,6 +697,55 @@ function sphereClosestPoint( plane , sphere, dstPoint )
 //
 
 /**
+  * Check if two planes intersect. Returns true if they intersect.
+  * The planes remain unchanged.
+  *
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } tstPlane - Test plane.
+  *
+  * @example
+  * // returns [ 0, 2, 0 ];
+  * _.planeIntersects( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the planes intersect, false if not.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( tstPlane ) is not plane.
+  * @memberof wTools.plane
+  */
+
+function planeIntersects( srcPlane, tstPlane )
+{
+  var _srcPlane = _.plane._from( srcPlane );
+  var srcNormal = _.plane.normalGet( _srcPlane );
+  var srcBias = _.plane.biasGet( _srcPlane );
+
+  var _tstPlane = _.plane._from( tstPlane );
+  var tstNormal = _.plane.normalGet( _tstPlane );
+  var tstBias = _.plane.biasGet( _tstPlane );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  debugger;
+  //throw _.err( 'not tested' );
+
+  srcNormal.normalize();
+  tstNormal.normalize();
+
+  for( var i = 0; i < srcNormal.length ; i++ )
+  {
+    if( Math.abs( tstNormal.eGet( i ) - srcNormal.eGet( i ) ) > 1E-7 )
+    return true;
+  }
+
+  if( Math.abs( tstBias - srcBias ) < 1E-7 )
+  return true;
+
+  return false;
+}
+//
+
+/**
   * Check if a plane and a line intersect. Returns true if they intersect.
   * The plane and line remain unchanged.
   *
@@ -1049,7 +1098,7 @@ var Proto =
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
 
-  // planeIntersects : planeIntersects, /* qqq: implement me */
+  planeIntersects : planeIntersects, /* qqq: implement me */
   // planeDistance : planeDistance, /* qqq: implement me */
 
   // frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */

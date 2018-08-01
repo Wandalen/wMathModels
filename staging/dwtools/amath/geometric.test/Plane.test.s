@@ -1395,6 +1395,87 @@ function sphereClosestPoint( test )
 
 //
 
+function planeIntersects( test )
+{
+  test.case = 'Planes remain unchanged'; /* */
+
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
+  test.identical( expected, gotBool );
+
+  var oldSrcPlane = [ 1, 0, 0, 1 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldtstPlane = [ 1 / Math.sqrt( 2 ), 1 / Math.sqrt( 2 ), 0, 1 ];
+  test.identical( tstPlane, oldtstPlane );
+
+  test.case = 'tstPlane and plane intersect'; /* */
+
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 1, 0 ];
+  var expected = true;
+
+  var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
+  test.identical( expected, gotBool );
+
+  test.case = 'tstPlane and Plane don´t intersect'; /* */
+
+  var srcPlane = [ 1, 0 , - 1, 0 ];
+  var tstPlane = [ 1, 0, -1, 2 ];
+  var expected = false;
+
+  var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
+  test.identical( expected, gotBool );
+
+  test.case = 'tstPlane and Plane don´t intersect'; /* */
+
+  var srcPlane = [ 1, 0 , - 1, 0 ];
+  var tstPlane = [ 2, 0, -2, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
+  test.identical( expected, gotBool );
+
+  test.case = 'tstPlane and srcPlane are the same'; /* */
+
+  var srcPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'tstPlane and srcPlane are the same'; /* */
+
+  var srcPlane = [ 1, 0, 2, 0 ];
+  var tstPlane = [ 2, 0, 4, 0 ];
+  var expected = true;
+
+  var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
+  test.equivalent( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( null , [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( NaN, [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( 'plane', [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 1, 0, 0 ], 'plane' ));
+}
+
+//
+
 function lineIntersects( test )
 {
 
@@ -1941,7 +2022,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'sphereClosestPoint',
+  // routine: 'planeIntersects',
 
   tests :
   {
@@ -1960,6 +2041,8 @@ var Self =
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
+
+    planeIntersects : planeIntersects,
 
     lineIntersects : lineIntersects,
 
