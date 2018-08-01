@@ -704,7 +704,7 @@ function sphereClosestPoint( plane , sphere, dstPoint )
   * @param { Array } tstPlane - Test plane.
   *
   * @example
-  * // returns [ 0, 2, 0 ];
+  * // returns true;
   * _.planeIntersects( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
   *
   * @returns { Boolean } Returns true if the planes intersect, false if not.
@@ -717,11 +717,11 @@ function sphereClosestPoint( plane , sphere, dstPoint )
 
 function planeIntersects( srcPlane, tstPlane )
 {
-  var _srcPlane = _.plane._from( srcPlane );
+  var _srcPlane = _.plane._from( srcPlane.slice() );
   var srcNormal = _.plane.normalGet( _srcPlane );
   var srcBias = _.plane.biasGet( _srcPlane );
 
-  var _tstPlane = _.plane._from( tstPlane );
+  var _tstPlane = _.plane._from( tstPlane.slice() );
   var tstNormal = _.plane.normalGet( _tstPlane );
   var tstBias = _.plane.biasGet( _tstPlane );
 
@@ -729,6 +729,7 @@ function planeIntersects( srcPlane, tstPlane )
   debugger;
   //throw _.err( 'not tested' );
 
+  var factor = srcNormal.eGet( 0 ) / tstNormal.eGet( 0 );
   srcNormal.normalize();
   tstNormal.normalize();
 
@@ -738,11 +739,64 @@ function planeIntersects( srcPlane, tstPlane )
     return true;
   }
 
-  if( Math.abs( tstBias - srcBias ) < 1E-7 )
+  if( Math.abs( tstBias*factor - srcBias ) < 1E-7 )
   return true;
 
   return false;
 }
+
+//
+
+/**
+  * Calculates the distance between two planes. Returns the calculated distance.
+  * The planes remain unchanged.
+  *
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } tstPlane - Test plane.
+  *
+  * @example
+  * // returns 0;
+  * _.planeDistance( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between the two planes.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( tstPlane ) is not plane.
+  * @memberof wTools.plane
+  */
+
+function planeDistance( srcPlane, tstPlane )
+{
+  var _srcPlane = _.plane._from( srcPlane );
+  var srcNormal = _.plane.normalGet( _srcPlane );
+  var srcBias = _.plane.biasGet( _srcPlane );
+
+  var _tstPlane = _.plane._from( tstPlane );
+  var tstNormal = _.plane.normalGet( _tstPlane );
+  var tstBias = _.plane.biasGet( _tstPlane );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _srcPlane.length === _tstPlane.length, 'Planes must have same dimension' );
+
+  debugger;
+  //throw _.err( 'not tested' );
+
+  if( _.plane.planeIntersects( _srcPlane, _tstPlane ) === true )
+  return 0;
+
+  var factor = srcNormal.eGet( 0 ) / tstNormal.eGet( 0 );
+  _tstPlane.mulScalar( factor )
+
+  var a2 =  srcNormal.eGet( 0 ) * srcNormal.eGet( 0 );
+  var b2 =  srcNormal.eGet( 1 ) * srcNormal.eGet( 1 );
+  var c2 =  srcNormal.eGet( 2 ) * srcNormal.eGet( 2 );
+  var module = Math.sqrt( a2 + b2 + c2 );
+
+  var distance = Math.abs( tstBias*factor - srcBias ) / module;
+  return distance;
+}
+
 //
 
 /**
@@ -1099,7 +1153,7 @@ var Proto =
   sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
 
   planeIntersects : planeIntersects, /* qqq: implement me */
-  // planeDistance : planeDistance, /* qqq: implement me */
+  planeDistance : planeDistance, /* qqq: implement me */
 
   // frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   // frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */

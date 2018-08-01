@@ -1409,7 +1409,7 @@ function planeIntersects( test )
   var oldSrcPlane = [ 1, 0, 0, 1 ];
   test.identical( srcPlane, oldSrcPlane );
 
-  var oldtstPlane = [ 1 / Math.sqrt( 2 ), 1 / Math.sqrt( 2 ), 0, 1 ];
+  var oldtstPlane = [ 1, 1, 0, 1 ];
   test.identical( tstPlane, oldtstPlane );
 
   test.case = 'tstPlane and plane intersect'; /* */
@@ -1450,12 +1450,22 @@ function planeIntersects( test )
 
   test.case = 'tstPlane and srcPlane are the same'; /* */
 
-  var srcPlane = [ 1, 0, 2, 0 ];
-  var tstPlane = [ 2, 0, 4, 0 ];
+  var srcPlane = [ 1, 0, 2, 1 ];
+  var tstPlane = [ 2, 0, 4, 2 ];
   var expected = true;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
   test.equivalent( expected, gotBool );
+
+  test.case = 'tstPlane and srcPlane are parallel'; /* */
+
+  var srcPlane = [ 1, 0, 2, 1 ];
+  var tstPlane = [ 2, 0, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
+  test.equivalent( expected, gotBool );
+
 
   /* */
 
@@ -1472,6 +1482,105 @@ function planeIntersects( test )
   test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, - 1, 0, 2 ], NaN ));
   test.shouldThrowErrorSync( () => _.plane.planeIntersects( 'plane', [ 0, 1, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 1, 0, 0 ], 'plane' ));
+}
+
+//
+
+function planeDistance( test )
+{
+  test.case = 'Planes remain unchanged'; /* */
+
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 1 ];
+  var expected = 0;
+
+  var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
+  test.identical( expected, gotDist );
+
+  var oldSrcPlane = [ 1, 0, 0, 1 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldtstPlane = [ 1, 1, 0, 1 ];
+  test.identical( tstPlane, oldtstPlane );
+
+  test.case = 'tstPlane and plane intersect'; /* */
+
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
+  test.identical( expected, gotDist );
+
+  test.case = 'tstPlane and Plane don´t intersect'; /* */
+
+  var srcPlane = [ 2, 4, - 4, - 6 ];
+  var tstPlane = [ 1, 2, - 2, 9 ];
+  var expected = 4;
+
+  var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
+  test.identical( expected, gotDist );
+
+  test.case = 'tstPlane and Plane don´t intersect'; /* */
+
+  var srcPlane = [ 1, 0 , - 1, 0 ];
+  var tstPlane = [ 2, 0, -2, 1 ];
+  var expected = 0.5 / Math.sqrt( 2 );
+
+  var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
+  test.identical( expected, gotDist );
+
+  test.case = 'tstPlane and srcPlane are the same'; /* */
+
+  var srcPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
+  test.equivalent( expected, gotDist );
+
+  test.case = 'tstPlane and srcPlane are the same'; /* */
+
+  var srcPlane = [ 1, 0, 2, 1 ];
+  var tstPlane = [ 2, 0, 4, 2 ];
+  var expected = 0;
+
+  var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
+  test.equivalent( expected, gotDist );
+
+  test.case = 'tstPlane and srcPlane are parallel'; /* */
+
+  var srcPlane = [ 1, 0, 2, 1 ];
+  var tstPlane = [ 2, 0, 4, 1 ];
+  var expected = 0.5 / Math.sqrt( 5 );
+
+  var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
+  test.equivalent( expected, gotDist );
+
+  test.case = 'tstPlane and srcPlane exchange - same result'; /* */
+
+  var srcPlane = [ 2, 0, 4, 1 ];
+  var tstPlane = [ 1, 0, 2, 1 ];
+  var expected = 0.5 / Math.sqrt( 5 );
+
+  var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
+  test.equivalent( expected, gotDist );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( null , [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( NaN, [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( 'plane', [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 1, 0, 0 ], 'plane' ));
 }
 
 //
@@ -2022,7 +2131,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  // routine: 'planeIntersects',
+  // routine: 'planeDistance',
 
   tests :
   {
@@ -2043,6 +2152,7 @@ var Self =
     sphereClosestPoint : sphereClosestPoint,
 
     planeIntersects : planeIntersects,
+    planeDistance, planeDistance,
 
     lineIntersects : lineIntersects,
 
