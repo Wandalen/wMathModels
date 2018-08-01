@@ -3,12 +3,17 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var plane1 = [ 2, 4, -4, -6 ];
+var plane1 = [ 1, 0, 0, -2.5 ];
 
-var plane2 = [  1, 2, -2, -3 ];
 
-var j = _.plane.planeIntersects( plane1, plane2 )
+var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1
+]);
+
+var j = _.plane.frustumClosestPoint( plane1, srcFrustum, _.vector.from( [ 0, 0, 0 ] ) )
 console.log( j );
-var i = _.plane.planeDistance( plane1, plane2 );
-console.log( i );
 debugger;

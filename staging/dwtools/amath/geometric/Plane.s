@@ -800,6 +800,74 @@ function planeDistance( srcPlane, tstPlane )
 //
 
 /**
+  * Get the closest point in a plane to a frustum. Returns the calculated point.
+  * The box and the frustum remain unchanged.
+  *
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } srcFrustum - Source frustum.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns [ 0, 1, 1 ];
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumClosestPoint( [ 0, 1, 0, 1 ] , srcFrustum );
+  *
+  * @returns { Array } Returns the closest point in the plane to the frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the plane and frustum don´t have the same dimension).
+  * @memberof wTools.plane
+  */
+
+function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  if( arguments.length === 2 )
+  var dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  var dstPointVector = _.vector.from( dstPoint );
+
+  var _plane = _.plane._from( srcPlane );
+  var dimP = _.plane.dimGet( _plane );
+  _.assert( dimP === dstPointVector.length );
+
+  var dimF = _.Space.dimsOf( srcFrustum ) ;
+  var rows = dimF[ 0 ];
+  var cols = dimF[ 1 ];
+  _.assert( dimP === rows - 1 );
+
+  if( _.frustum.planeIntersects( srcFrustum, _plane ) )
+  return 0;
+
+  var frustumPoint = _.frustum.planeClosestPoint( srcFrustum, _plane );
+
+  var planePoint = _.plane.pointCoplanarGet( _plane, frustumPoint );
+
+  for( var i = 0; i < planePoint.length; i++ )
+  {
+    dstPointVector.eSet( i, planePoint[ i ] );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
   * Check if a plane and a line intersect. Returns true if they intersect.
   * The plane and line remain unchanged.
   *
@@ -1157,7 +1225,7 @@ var Proto =
 
   // frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   // frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
-  // frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
+  frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
 
   lineIntersects : lineIntersects,
   lineIntersection : lineIntersection,
