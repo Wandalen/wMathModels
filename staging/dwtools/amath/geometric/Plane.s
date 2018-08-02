@@ -487,6 +487,44 @@ function boxIntersects( plane , srcBox )
 //
 
 /**
+  * Get the distance between a plane and a box. Returns the calculated distance.
+  * The box and the plane remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns 0;
+  * _.boxDistance( [ 1, 0, 0, 1 ] , [ -1, 2, 2, -1, 2, 8 ]);
+  *
+  * @example
+  * // returns 3;
+  * _.boxDistance( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the distance between the plane and the box.
+  * @function boxDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
+  * @memberof wTools.plane
+  */
+
+function boxDistance( plane , srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let _plane = _.plane._from( plane );
+  let boxVector = _.box._from( srcBox );
+
+  let distance = _.box.planeDistance( boxVector, _plane );
+  
+  return distance;
+}
+
+//
+
+/**
   * Get the closest point in a plane to a box. Returns the calculated point.
   * The box and the plane remain unchanged.
   *
@@ -800,8 +838,87 @@ function planeDistance( srcPlane, tstPlane )
 //
 
 /**
+  * Check if a plane and a frustum intersect. Returns true if they intersect.
+  * The plane and the frustum remain unchanged.
+  *
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns false;
+  * let srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumIntersects( [ 0, 1, 0, 1 ] , srcFrustum );
+  *
+  * @returns { Boolean } Returns true if the plane and the frustum intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the plane and frustum don´t have the same dimension).
+  * @memberof wTools.plane
+  */
+
+function frustumIntersects( srcPlane, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+  let srcPlaneVector = _.plane._from( srcPlane );
+
+  let gotBool = _.frustum.planeIntersects( srcFrustum, srcPlaneVector );
+
+  return gotBool;
+}
+
+//
+
+/**
+  * Get the distance between a plane and a frustum. Returns the calculated distance.
+  * The plane and the frustum remain unchanged.
+  *
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns 1;
+  * let srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumDistance( [ 0, 1, 0, 1 ] , srcFrustum );
+  *
+  * @returns { Array } Returns the distance between the plane and the frustum.
+  * @function frustumDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the plane and frustum don´t have the same dimension).
+  * @memberof wTools.plane
+  */
+
+function frustumDistance( srcPlane , srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+  let srcPlaneVector = _.plane._from( srcPlane );
+
+  let distance = _.frustum.planeDistance( srcFrustum, srcPlaneVector );
+  return distance;
+}
+
+//
+
+/**
   * Get the closest point in a plane to a frustum. Returns the calculated point.
-  * The box and the frustum remain unchanged.
+  * The plane and the frustum remain unchanged.
   *
   * @param { Array } srcPlane - Source plane.
   * @param { Array } srcFrustum - Source frustum.
@@ -1214,7 +1331,7 @@ let Proto =
   // pointClosestPoint : pointClosestPoint, /* qqq : implement me - done in pointCoplanarGet */
 
   boxIntersects : boxIntersects,
-  // boxDistance : boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
+  boxDistance : boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
   boxClosestPoint : boxClosestPoint, /* qqq: implement me */
 
   sphereIntersects : sphereIntersects,
@@ -1224,8 +1341,8 @@ let Proto =
   planeIntersects : planeIntersects, /* qqq: implement me */
   planeDistance : planeDistance, /* qqq: implement me */
 
-  // frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
-  // frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
+  frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
+  frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
   frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
 
   lineIntersects : lineIntersects,
