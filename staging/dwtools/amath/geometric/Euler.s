@@ -1573,7 +1573,7 @@ function fromQuat2( dstEuler, srcQuat )
       dstEulerVector.eSet( 1, pi );
       dstEulerVector.eSet( 2, 0 );
     }
-    else if( lim >= 1 - accuracySqr )
+    else if( lim >= 1 )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
       dstEulerVector.eSet( 0, atan2( ( xy2 + zw2 ), 1 - 2*( x2 + z2 ) ) );
@@ -2179,22 +2179,17 @@ function fromMatrix2( dstEuler, srcMatrix )
 function fromMatrix3( dstEuler, srcMatrix )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
-
-  if( dstEuler === undefined || dstEuler === null )
-  dstEuler = _.euler.makeZero();
-
-  var dstEuler = _.euler.from( dstEuler );
+  _.assert( _.euler.is( dstEuler ) );
 
   _.assert( _.Space.is( srcMatrix ) );
   _.assert( srcMatrix.dims[ 0 ] >= 3 );
   _.assert( srcMatrix.dims[ 1 ] >= 3 );
 
   var quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+
   dstEuler = _.euler.fromQuat2( dstEuler, quat );
 
   return dstEuler;
-
 }
 
 //

@@ -2606,7 +2606,7 @@ function eulerToQuatToEulerToQuatSlow( test )
 
 }
 
-eulerToQuatToEulerToQuatSlow.timeOut = 100000;
+eulerToQuatToEulerToQuatSlow.timeOut = 120000;
 eulerToQuatToEulerToQuatSlow.usingSourceCode = 0;
 eulerToQuatToEulerToQuatSlow.rapidity = 2;
 eulerToQuatToEulerToQuatSlow.accuracy = [ 1e-10, 1e-1 ];
@@ -2732,10 +2732,10 @@ function eulerToQuatToMatrixToEulerSlow( test )
     if( eq === false )
     {
       fails = fails+1;
-      logger.log( 'quat1 :',quat1[ 0 ], quat1[ 1 ], quat1[ 2 ], quat1[ 3 ] );
-      logger.log( 'quat2 :',quat2[ 0 ], quat2[ 1 ], quat2[ 2 ], quat2[ 3 ] );
-      logger.log( 'euler1 :',euler1[ 0 ], euler1[ 1 ], euler1[ 2 ], euler1[ 3 ], euler1[ 4 ], euler1[ 5 ] );
-      logger.log( 'euler2 :',euler2[ 0 ], euler2[ 1 ], euler2[ 2 ], euler2[ 3 ], euler2[ 4 ], euler2[ 5 ] );
+      logger.log( 'quat1 :', quat1[ 0 ], quat1[ 1 ], quat1[ 2 ], quat1[ 3 ] );
+      logger.log( 'quat2 :', quat2[ 0 ], quat2[ 1 ], quat2[ 2 ], quat2[ 3 ] );
+      logger.log( 'euler1 :', euler1[ 0 ], euler1[ 1 ], euler1[ 2 ], euler1[ 3 ], euler1[ 4 ], euler1[ 5 ] );
+      logger.log( 'euler2 :', euler2[ 0 ], euler2[ 1 ], euler2[ 2 ], euler2[ 3 ], euler2[ 4 ], euler2[ 5 ] );
       logger.log( matrix1 );
       logger.log( fails );
     }
@@ -2746,10 +2746,10 @@ function eulerToQuatToMatrixToEulerSlow( test )
 
 }
 
-eulerToQuatToMatrixToEulerSlow.timeOut = 100000;
+eulerToQuatToMatrixToEulerSlow.timeOut = 180000;
 eulerToQuatToMatrixToEulerSlow.usingSourceCode = 0;
 eulerToQuatToMatrixToEulerSlow.rapidity = 2;
-eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-6, 1e-1 ];
+//eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-7, 1e-1 ];
 
 //
 
@@ -3759,7 +3759,7 @@ var Self =
 {
 
   name : 'Tools/Math/Euler',
-  silencing : 1,
+  silencing : 0,
   enabled : 1,
   // routine : 'eulerToQuatToMatrixToEulerSlow',
 
