@@ -761,6 +761,42 @@ function boxIntersects( sphere, box )
 //
 
 /**
+  * Calculates the distance between a sphere and a box. Returns the calculated distance.
+  * Sphere and box remain unchanged.
+  *
+  * @param { Array } sphere - Source sphere.
+  * @param { Array } box - Source box
+  *
+  * @example
+  * // returns 0
+  * _.boxDistance( [ - 1, - 1, - 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @example
+  * // returns 1
+  * _.boxDistance( [ 0, 0, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
+  *
+  * @returns { Boolean } Returns the distance between the sphere and the plane.
+  * @function boxDistance
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+
+function boxDistance( sphere, box )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let sphereVector = _.sphere._from( sphere );
+  let boxVector = _.box._from( box );
+
+  let distance = _.box.sphereDistance( boxVector, sphereVector );
+  
+  return distance;
+}
+
+//
+
+/**
   * Gets the closest point in a sphere to a box. Returns the calculated point.
   * Sphere and box remain unchanged.
   *
@@ -1165,7 +1201,79 @@ function sphereExpand( sphereDst, sphereSrc )
 //
 
 /**
-  * Returns the closest point in a sphere to a plane.
+  * Check if a plane and a sphere intersect.
+  * Sphere and plane remain unchanged.
+  *
+  * @param { Array } sphere - Source sphere
+  * @param { Array } plane - Source plane
+  *
+  * @example
+  * // returns true
+  * _.planeIntersects( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.planeIntersects( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
+  *
+  * @returns { Boolean } Returns true of they intersect, false if not.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @memberof wTools.sphere
+  */
+
+function planeIntersects( sphere, plane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let _sphere = _.sphere._from( sphere );
+  let _plane = _.plane._from( plane );
+
+  let gotBool = _.plane.sphereIntersects( _plane, _sphere );
+
+  return gotBool;
+}
+
+//
+
+/**
+  * Return the distance between a sphere and a plane.
+  * Sphere and plane remain unchanged.
+  *
+  * @param { Array } sphere - Source sphere
+  * @param { Array } plane - Source plane
+  *
+  * @example
+  * // returns 0
+  * _.planeDistance( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
+  *
+  * @example
+  * // returns 1
+  * _.planeDistance( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
+  *
+  * @returns { Array } Returns the calculated distance.
+  * @function planeDistance
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @memberof wTools.sphere
+  */
+
+function planeDistance( sphere, plane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let _sphere = _.sphere._from( sphere );
+  let _plane = _.plane._from( plane );
+
+  let distance = _.plane.sphereDistance( _plane, _sphere );
+
+  return distance;
+}
+
+//
+
+/**
+  * Calculate the closest point in a sphere to a plane.
   * Sphere and plane remain unchanged.
   *
   * @param { Array } sphere - Source sphere
@@ -1174,14 +1282,14 @@ function sphereExpand( sphereDst, sphereSrc )
   *
   * @example
   * // returns 0
-  * _.planeIntersects( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
+  * _.planeClosestPoint( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
   *
   * @example
   * // returns [ -2, 0, 0 ]
-  * _.planeIntersects( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
+  * _.planeClosestPoint( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
   *
   * @returns { Array } Returns the calculated point.
-  * @function planeIntersects
+  * @function planeClosestPoint
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @memberof wTools.sphere
@@ -1330,6 +1438,39 @@ function frustumContains( srcSphere, tstFrustum )
   }
 
   return true;
+}
+
+//
+
+/**
+  * Check if a sphere and a frustum intersect. Returns true if frustum is contained.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Sphere } srcSphere - Source sphere.
+  * @param { Frustum } tstFrustum - Test frustum.
+  *
+  * @example
+  * // returns false;
+  * _.frustumIntersects( [ 2, 2, 2, 1 ], _.frustum.make() );
+  **
+  * @returns { Boolean } Returns true if the sphere and the frustum intersect, false if not.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( tstFrustum ) is not frustum.
+  * @memberof wTools.sphere
+  */
+
+function frustumIntersects( srcSphere, tstFrustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( tstFrustum ) );
+  let srcSphereVector = _.sphere._from( srcSphere );
+
+  let gotBool = _.frustum.sphereIntersects( tstFrustum, srcSphereVector );
+
+  return gotBool;
 }
 
 //
@@ -1577,7 +1718,7 @@ let Proto =
 
   boxContains : boxContains, /* qqq : implement me */
   boxIntersects : boxIntersects,
-  // boxDistance : boxDistance, /* qqq : implement me - Same as _.box.sphereDistance */
+  boxDistance : boxDistance, /* qqq : implement me - Same as _.box.sphereDistance */
   boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 
@@ -1587,13 +1728,13 @@ let Proto =
   sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   sphereExpand : sphereExpand,
 
-  // planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.sphereIntersects */
-  // planeDistance : planeDistance, /* qqq : implement me - Same as _.plane.sphereDistance */
+  planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.sphereIntersects */
+  planeDistance : planeDistance, /* qqq : implement me - Same as _.plane.sphereDistance */
   planeClosestPoint : planeClosestPoint, /* qqq : implement me */
   planeExpand : planeExpand, /* qqq : implement me */
 
   frustumContains : frustumContains, /* qqq : implement me */
-  // frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
+  frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
   frustumDistance : frustumDistance, /* qqq : implement me */
   frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
   frustumExpand : frustumExpand, /* qqq : implement me */
