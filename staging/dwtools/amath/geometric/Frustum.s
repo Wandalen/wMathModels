@@ -689,6 +689,44 @@ function boxIntersects( frustum , box )
 //
 
 /**
+  * Get the distance between a frustum and a box. Returns the calculated distance.
+  * Frustum and box remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns 1;
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.boxDistance( frustum , [ 0, 0, 2, 3, 3, 3 ] );
+  *
+  * @returns { Number } Returns the distance between the frustum and the box.
+  * @function boxDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.frustum
+  */
+
+function boxDistance( frustum, box )
+{
+  let _box = _.box._from( box );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  debugger;
+
+  let distance = _.box.frustumDistance( _box, frustum );
+
+  return distance;
+}
+
+//
+
+/**
   * Returns the closest point in a frustum to a box. Returns the coordinates of the closest point.
   * Frustum and box remain unchanged.
   *
@@ -869,6 +907,45 @@ function sphereIntersects( frustum , sphere )
     }
   }
   return false;
+}
+
+//
+
+/**
+  * Get the distance between a frustum and a sphere. Returns the calculated distance.
+  * Frustum and sphere remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Sphere } sphere - Source sphere.
+  *
+  * @example
+  * // returns 1;
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.sphereDistance( frustum , [ 0, 0, 3, 1 ] );
+  *
+  * @returns { Number } Returns the distance between the frustum and the sphere.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.frustum
+  */
+
+function sphereDistance( frustum, sphere )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  let spherev = _.sphere._from( sphere );
+
+  let distance = _.sphere.frustumDistance( spherev, frustum );
+
+  return distance;
 }
 
 //
@@ -1404,12 +1481,12 @@ let Proto =
 
   boxContains : boxContains, /* qqq : implement me */
   boxIntersects : boxIntersects,
-  // boxDistance : boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
+  boxDistance : boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
   boxClosestPoint : boxClosestPoint,
 
   sphereContains : sphereContains, /* qqq : implement me */
   sphereIntersects : sphereIntersects,
-  // sphereDistance : sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
+  sphereDistance : sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
   sphereClosestPoint : sphereClosestPoint,
 
   planeIntersects : planeIntersects, /* qqq : implement me */
