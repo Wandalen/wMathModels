@@ -2811,7 +2811,7 @@ function eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast( test )
 
 }
 
-eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.timeOut = 15000;
+eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.timeOut = 60000;
 eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.usingSourceCode = 0;
 eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.rapidity = 3;
 eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.accuracy = [ 1e-10, 1e-1 ];
