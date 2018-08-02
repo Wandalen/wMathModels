@@ -1335,11 +1335,11 @@ function boxExpand( dstBox , srcBox )
   *
   * @example
   * // returns true
-  * _.sphereContains( [ 0, 0, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  * _.sphereContains( [ 0, 0, 0, 2, 2, 2 ], [ 1, 1, 1, 1 ] );
   *
   * @example
   * // returns false
-  * _.sphereContains( [ 0, 0, 2, 2 ], [ 0, 0, 1, 2.5 ] );
+  * _.sphereContains( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 1, 2.5 ] );
   *
   * @returns { Boolean } Returns true if the sphere is contained and false if not.
   * @function sphereContains
@@ -1383,6 +1383,43 @@ function sphereContains( srcBox , tstSphere )
 //
 
 /**
+  *Check if the source box intersects with test sphere. Returns true if it they intersect, false if not.
+  * Box and sphere are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcBox - The source box.
+  * @param { Array } tstSphere - The tested sphere.
+  *
+  * @example
+  * // returns true
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 4, 4, 4, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the sphere and the box intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box
+  * @throws { Error } An Error if ( tstSphere ) is not sphere
+  * @memberof wTools.box
+  */
+
+function sphereIntersects( srcBox , tstSphere )
+{
+  let _tstSphere = _.sphere._from( tstSphere );
+  let boxVector = _.box._from( srcBox );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let gotBool = _.sphere.boxIntersects( _tstSphere, boxVector );
+
+  return gotBool;
+}
+
+//
+
+/**
   * Calculates the distance between a box and a sphere. Returns the calculated distance.
   * Box and sphere are stored in Array data structure and remain unchanged
   *
@@ -1391,11 +1428,11 @@ function sphereContains( srcBox , tstSphere )
   *
   * @example
   * // returns 0
-  * _.sphereDistance( [ 0, 0, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
   *
   * @example
-  * // returns 3
-  * _.sphereDistance( [ 0, 0, 2, 2 ], [ 4, 4, 4, 1 ] );
+  * // returns 1
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 4, 1 ] );
   *
   * @returns { Number } Returns the distance between the box and the sphere.
   * @function sphereDistance
@@ -1431,7 +1468,7 @@ function sphereDistance( srcBox , tstSphere )
 //
 
 /**
-  * Gets the closest point in a sphere to a box. Returns the closest point.
+  * Gets the closest point in a box to a sphere. Returns the closest point.
   * Box and sphere are stored in Array data structure and remain unchanged.
   *
   * @param { Array } srcBox - The source box.
@@ -1440,13 +1477,13 @@ function sphereDistance( srcBox , tstSphere )
   *
   * @example
   * // returns 0
-  * _.sphereClosestPoint( [ 0, 0, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
   *
   * @example
-  * // returns 3
-  * _.sphereClosestPoint( [ 0, 0, 2, 2 ], [ 4, 4, 4, 1 ] );
+  * // returns [ 0, 0, 2 ]
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 4, 1 ] );
   *
-  * @returns { Array } Returns the closest point to the box in the sphere.
+  * @returns { Array } Returns the closest point in the box to the sphere.
   * @function sphereClosestPoint
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and sphere don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
@@ -1504,8 +1541,8 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   * @param { Array } srcSphere - source sphere with expansion dimensions.
   *
   * @example
-  * // returns [ -2, -2, 3, 3 ];
-  * _.sphereExpand( [ 1, 1, 3, 3 ], [ 0, 0, 0, 2 ] );
+  * // returns [ -2, -2, -2, 3, 3, 3 ];
+  * _.sphereExpand( [ 1, 1, 1, 3, 3, 3 ], [ 0, 0, 0, 2 ] );
   *
   * @returns { Array } Returns the array of the expanded box, that contains new element ( src sphere ).
   * @function sphereExpand
@@ -1560,6 +1597,46 @@ function sphereExpand( dstBox , srcSphere )
   return dstBox;
 
 }
+
+//
+
+/**
+  *Check if the source box intersects with test plane. Returns true if it they intersect, false if not.
+  * Box and plane are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcBox - The source box.
+  * @param { Array } tstPlane - The tested plane.
+  *
+  * @example
+  * // returns true
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, -1 ] );
+  *
+  * @example
+  * // returns false
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the plane and the box intersect.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box
+  * @throws { Error } An Error if ( tstPlane ) is not plane
+  * @memberof wTools.box
+  */
+
+function planeIntersects( srcBox , tstPlane )
+{
+  let _tstPlane = _.plane._from( tstPlane );
+  let boxVector = _.box._from( srcBox );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let gotBool = _.plane.boxIntersects( _tstPlane, boxVector );
+
+  return gotBool;
+}
+
+//
+
 /**
   * Calculates the distance between a plane and a box. Returns the distance between the two elements.
   * The box and the plane remain unchanged.
@@ -1833,6 +1910,47 @@ function frustumContains( box, frustum )
     }
   }
   return true;
+}
+
+//
+
+/**
+  * Check if a box and a frustum intersect. Returns true if they intersect, false if not.
+  * Box and frustum remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Space } frustum - The tested frustum.
+  *
+  * @example
+  * // returns true
+  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns false
+  * _.frustumIntersects( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Boolean } Returns true if the frustum and the box intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @memberof wTools.box
+  */
+function frustumIntersects( box, frustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  let _box = _.box._from( box );
+
+  let gotBool = _.frustum.boxIntersects( frustum, _box );
+  return gotBool;
 }
 
 //
@@ -2295,18 +2413,18 @@ let Proto =
   boxExpand : boxExpand,
 
   sphereContains : sphereContains, /* qqq : implement me */
-  // sphereIntersects : sphereIntersects, /* qqq : implement me - Same as _.sphere.boxIntersects */
+  sphereIntersects : sphereIntersects, /* qqq : implement me - Same as _.sphere.boxIntersects */
   sphereDistance : sphereDistance, /* qqq : implement me */
   sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   sphereExpand : sphereExpand, /* qqq : implement me */
 
-  // planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.boxIntersects */
+  planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.boxIntersects */
   planeDistance : planeDistance, /* qqq : implement me */
   planeClosestPoint : planeClosestPoint, /* qqq : implement me */
   planeExpand : planeExpand, /* qqq : implement me */
 
   frustumContains : frustumContains, /* qqq : implement me */
-  // frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
+  frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
   frustumDistance : frustumDistance, /* qqq : implement me */
   frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
   frustumExpand : frustumExpand, /* qqq : implement me */

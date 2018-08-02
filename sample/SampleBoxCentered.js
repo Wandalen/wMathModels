@@ -4,14 +4,17 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+let frustum =  _.Space.make( [ 4, 6 ] ).copy
 ([
-  0,   0,   0,   0, - 1,   1,
-  1, - 1,   0,   0,   0,   0,
-  0,   0,   1, - 1,   0,   0,
-  - 1,   0, - 1,   0,   0, - 1
-]);
-var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+ 0,   0,   0,   0, - 1,   1,
+ 1, - 1,   0,   0,   0,   0,
+ 0,   0,   1, - 1,   0,   0,
+ - 1,   0, - 1,   0,   0, - 1 ]
+);
+let box = [ 3, 3, 3, 4, 4, 4 ];
 
-var gotBool = _.box.frustumExpand( box, srcFrustum );
+
+let gotBool = _.box.frustumIntersects( box, frustum );
+console.log( gotBool );
+gotBool = _.frustum.boxIntersects( frustum, box );
 console.log( gotBool );
