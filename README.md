@@ -8,3 +8,4 @@ Collection of functions to operate such geometrical concepts as Sphere, Box, Pla
 npm install
 node sample/Sample.s
 ```
+
