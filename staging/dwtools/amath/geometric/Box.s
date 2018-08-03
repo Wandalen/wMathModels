@@ -2399,6 +2399,31 @@ for( let j = 0 ; j < 6 ; j++ )
 
 //
 
+/**
+  * Apply a space transformation to a box. Returns the transformed box.
+  *
+  * @param { Array } box - The destination box.
+  * @param { Space } matrix - The transformation matrix.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 1, 1, 1 ]
+  * var matrix = _.Space.make( [ 4, 4 ] ).copy
+  *  ([
+  *    0.5, 0, 0, 0,
+  *    0, 0.5, 0, 0,
+  *    0, 0, 0.5, 0,
+  *    0, 0, 0, 1
+  *  ]);
+  * _.matrixHomogenousApply( [ 0, 0, 0, 2, 2, 2 ], matrix );
+  *
+  * @returns { Array } Returns the transformed box.
+  * @function matrixHomogenousApply
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( matrix ) is not space
+  * @memberof wTools.box
+  */
+
 function matrixHomogenousApply( box , matrix )
 {
 
@@ -2421,6 +2446,7 @@ function matrixHomogenousApply( box , matrix )
     for( let i = 0 ; i < dim ; i++ )
     point[ i ] = sample[ i ] ? max.eGet( i ) : min.eGet( i );
     matrix.matrixHomogenousApply( point );
+    debugger;
     _.box.pointExpand( box2,point );
 
   });
