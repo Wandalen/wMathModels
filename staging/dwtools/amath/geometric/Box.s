@@ -29,6 +29,27 @@ qqq : make sure all routines in all files of such kind in order
 //
 // --
 
+//
+
+/**
+  *Create a box of dimension dim. Returns the created box. Box is stored in Array data structure.
+  * Dim remains unchanged.
+  *
+  * @param { Number } dim - Dimension of the created box.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0, 0, 0 ];
+  * _.make( 3 );
+  *
+  * @example
+  * // returns [ 0, 0, 1, 1 ];
+  * _.make( [ 0, 0, 1, 1 ] );
+  *
+  * @returns { Array } Returns the array of the created box.
+  * @function make
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.box
+  */
 function make( dim )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 );
@@ -40,6 +61,24 @@ function make( dim )
 
 //
 
+/**
+  *Create a box of zeros of dimension dim. Returns the created box. Box is stored in Array data structure.
+  * Dim remains unchanged.
+  *
+  * @param { Number } dim - Dimension of the created box.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0, 0, 0 ];
+  * _.makeZero( 3 );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0 ];
+  * _.makeZero( [ 1, 1, 2, 2] );
+  *
+  * @function makeZero
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.box
+  */
 function makeZero( dim )
 {
   if( _.box.is( dim ) )
@@ -54,6 +93,24 @@ function makeZero( dim )
 
 //
 
+/**
+  *Create a nil box of dimension dim. Returns the created box. Box is stored in Array data structure.
+  * Dim remains unchanged.
+  *
+  * @param { Number } dim - Dimension of the created box.
+  *
+  * @example
+  * // returns [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  * _.makeNil( 3 );
+  *
+  * @example
+  * // returns [ Infinity, Infinity, - Infinity, - Infinity ];
+  * _.makeNil( [ 1, 1, 2, 2] );
+  *
+  * @function makeNil
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.box
+  */
 function makeNil( dim )
 {
   if( _.box.is( dim ) )
@@ -72,6 +129,23 @@ function makeNil( dim )
 
 //
 
+/**
+  *Transform a box in a box of zeros. Returns the created box. Box is stored in Array data structure.
+  *
+  * @param { Array } box - Destination box.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0 ];
+  * _.zero( [ 1, 1, 2, 2] );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0, 0, 0 ];
+  * _.zero( 3 );
+  *
+  * @function zero
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.box
+  */
 function zero( box )
 {
 
@@ -89,6 +163,23 @@ function zero( box )
 
 //
 
+/**
+  *Transform a box in a nil box. Returns the created box. Box is stored in Array data structure.
+  *
+  * @param { Array } box - Destination box.
+  *
+  * @example
+  * // returns [ Infinity, Infinity, - Infinity, - Infinity ];
+  * _.nil( [ 1, 1, 2, 2] );
+  *
+  * @example
+  * // returns [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  * _.nil( 3 );
+  *
+  * @function nil
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.box
+  */
 function nil( box )
 {
 
@@ -111,6 +202,30 @@ function nil( box )
 
 //
 
+/**
+  *Transform a box in a box centered in the origin of a given size. Returns the created box.
+  * Box is stored in Array data structure.
+  *
+  * @param { Array } box - Destination box.
+  * @param { Number } size - Source size.
+  *
+  * @example
+  * // returns [ -0.5, -0.5, 0.5, 0.5 ];
+  * _.centeredOfSize( [ 1, 1, 2, 2] );
+  *
+  * @example
+  * // returns [ - 1.5, -1.5, -1.5, 1.5, 1.5, 1.5 ];
+  * _.centeredOfSize( 3 );
+  *
+  * @example
+  * // returns [ - 1.5, -1.5, 1.5, 1.5 ];
+  * _.centeredOfSize( [ 1, 1, 2, 2], 3 );
+  *
+  * @returns { Array } Returns the created box.
+  * @function centeredOfSize
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @memberof wTools.box
+  */
 function centeredOfSize( box, size )
 {
 
@@ -137,6 +252,23 @@ function centeredOfSize( box, size )
 
 //
 
+/**
+  *Create or return a box. Returns the created box.
+  *
+  * @param { Array } box - Destination box.
+  *
+  * @example
+  * // returns [ 1, 1, 2, 2 ];
+  * _.from( [ 1, 1, 2, 2 ] );
+  *
+  * @example
+  * // returns _.vector.from( [ 1, 1, 2, 2 ] );
+  * _.from( _.vector.from( [ 1, 1, 2, 2 ] ) );
+  *
+  * @function from
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.box
+  */
 function from( box )
 {
 
@@ -168,6 +300,20 @@ function from( box )
 
 //
 
+/**
+  *Create or return a box vector. Returns the created box.
+  *
+  * @param { Array } box - Destination box.
+  *
+  * @example
+  * // returns _.vector.from( [ 1, 1, 2, 2 ] );
+  * _._from( [ 1, 1, 2, 2 ] );
+  *
+  * @returns { Vector } Returns the vector of the box.
+  * @function _from
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.box
+  */
 function _from( box )
 {
   _.assert( _.box.is( box ) );
@@ -176,7 +322,6 @@ function _from( box )
 }
 
 //
-
 
 /**
   *Create or expand box from an array of points. Returns the expanded box. Box are stored in Array data structure.
@@ -384,6 +529,21 @@ function fromCube( box , size )
 
 //
 
+/**
+  * Check if input is a box. Returns true if it is a box and false if not.
+  *
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.is( [ 0, 0, 1, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the input is box.
+  * @function is
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.box
+  */
+
 function is( box )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
@@ -392,6 +552,21 @@ function is( box )
 }
 
 //
+
+/**
+  * Check if input box is empty. Returns true if it is empty and false if not.
+  *
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.isEmpty( [ 1, 1, 0, 0 ] );
+  *
+  * @returns { Boolean } Returns true if the input is an empty box.
+  * @function isEmpty
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.box
+  */
 
 function isEmpty( box )
 {
@@ -415,6 +590,21 @@ function isEmpty( box )
 
 //
 
+/**
+  * Check if input is a zero box. Returns true if it is a zero box and false if not.
+  *
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.isZero( [ 1, 1, 1, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the input is a zero box.
+  * @function isZero
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.box
+  */
+
 function isZero( box )
 {
 
@@ -433,6 +623,21 @@ function isZero( box )
 }
 
 //
+
+/**
+  * Check if input is a nil box. Returns true if it is a nil box and false if not.
+  *
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.isNil( [ 2, 2, 1, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the input is a nil box.
+  * @function isNil
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.box
+  */
 
 function isNil( box )
 {
@@ -493,7 +698,7 @@ function dimGet( box )
   * _.cornerLeftGet( [ 0, 2 ] );
   *
   * @example
-  * // returns  0, 1
+  * // returns  [ 0, 1 ]
   * _.cornerLeftGet( [ 0, 1, 2, 3 ] );
   *
   * @returns { Vector } Returns a vector with the left corner of the box.
@@ -942,7 +1147,7 @@ function pointRelative( box , point )
 //
 
 /**
-  *Check if the source box contains tested box (if a side is touching then it doesn´t contain it).
+  *Check if the source box contains tested box.
   *Returns true if it is contained, false if not. Box are stored in Array data structure. Source and tested boxes remain unchanged
   *
   * @param { Array } srcBox - The source box (container).
@@ -958,7 +1163,7 @@ function pointRelative( box , point )
   *
   * @returns { Boolean } Returns true if the box is contained and false if not.
   * @function boxContains
-  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
   * @memberof wTools.box
@@ -987,7 +1192,7 @@ function boxContains( box , box2 )
 //
 
 /**
-  *Check if srcBox intersects with tstBox. Returns true if the boxes intersect, false if not (if only side is touching then they don´t intersect).
+  *Check if srcBox intersects with tstBox. Returns true if the boxes intersect, false if not.
   * Box are stored in Array data structure. Source box and Test box stay untouched.
   *
   * @param { Array } srcBox - Source box
@@ -2227,15 +2432,50 @@ function matrixHomogenousApply( box , matrix )
 
 //
 
-function translate( box , offset )
+/**
+  * Translate a box by a given offset. Returns the translated box.
+  *
+  * @param { Array } box - The destination box.
+  * @param { Number } offset - The translation offset.
+  *
+  * @example
+  * // returns [ 3, 3, 3, 5, 5, 5 ]
+  * _.translate( [ 0, 0, 0, 2, 2, 2 ], 3 );
+  *
+  * @returns { Array } Returns the translated box.
+  * @function translate
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @memberof wTools.box
+  */
+
+function translate( box, offset )
 {
 
-  this.min.add( offset );
-  this.max.add( offset );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let boxVector = _.box._from( box );
+
+  boxVector.addScalar( offset );
 
   return box;
 
 }
+
+//
+
+/*
+*
+*  function translate( box , offset )
+*  {
+*
+*    this.min.add( offset );
+*    this.max.add( offset );
+*
+*    return box;
+*
+*  }
+*/
+
 
 // //
 //
