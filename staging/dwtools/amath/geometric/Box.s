@@ -2247,9 +2247,9 @@ function translate( box , offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   var boxVector = _.box._from( box );
-//   var center = _.box.centerGet( boxVector );
-//   var radius = _.box.radiusGet( boxVector );
+//   let boxVector = _.box._from( box );
+//   let center = _.box.centerGet( boxVector );
+//   let radius = _.box.radiusGet( boxVector );
 //
 //   return( vector.distanceSqr( vector.from( point ) , center ) <= ( radius * radius ) );
 // }
@@ -2264,9 +2264,9 @@ function translate( box , offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   var boxVector = _.box._from( box );
-//   var center = _.box.centerGet( boxVector );
-//   var radius = _.box.radiusGet( boxVector );
+//   let boxVector = _.box._from( box );
+//   let center = _.box.centerGet( boxVector );
+//   let radius = _.box.radiusGet( boxVector );
 //
 //   return( vector.distance( vector.from( point ) , center ) - radius );
 // }
@@ -2281,12 +2281,12 @@ function translate( box , offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   var pointVector = vector.from( point );
-//   var boxVector = _.box._from( box );
-//   var center = _.box.centerGet( boxVector );
-//   var radius = _.box.radiusGet( boxVector );
+//   let pointVector = vector.from( point );
+//   let boxVector = _.box._from( box );
+//   let center = _.box.centerGet( boxVector );
+//   let radius = _.box.radiusGet( boxVector );
 //
-//   var distanseSqr = vector.distanceSqr( pointVector , center );
+//   let distanseSqr = vector.distanceSqr( pointVector , center );
 //
 //   if( distanseSqr > radius * radius )
 //   {
@@ -2312,15 +2312,15 @@ function translate( box , offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   var _box1 = _.box._from( box1 );
-//   var center1 = _.box.centerGet( _box1 );
-//   var radius1 = _.box.radiusGet( _box1 );
+//   let _box1 = _.box._from( box1 );
+//   let center1 = _.box.centerGet( _box1 );
+//   let radius1 = _.box.radiusGet( _box1 );
 //
-//   var _box2 = _.box._from( box2 );
-//   var center2 = _.box.centerGet( _box2 );
-//   var radius2 = _.box.radiusGet( _box2 );
+//   let _box2 = _.box._from( box2 );
+//   let center2 = _.box.centerGet( _box2 );
+//   let radius2 = _.box.radiusGet( _box2 );
 //
-//   var r = radius1 + radius2;
+//   let r = radius1 + radius2;
 //   return _.vector.distanceSqr( center1,center2 ) <= r*r;
 // }
 //
@@ -2335,9 +2335,9 @@ function translate( box , offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   var boxVector = _.box._from( box );
-//   var center = _.box.centerGet( boxVector );
-//   var radius = _.box.radiusGet( boxVector );
+//   let boxVector = _.box._from( box );
+//   let center = _.box.centerGet( boxVector );
+//   let radius = _.box.radiusGet( boxVector );
 //
 //   matrix.matrixHomogenousApply( center );
 //   _.box.radiusSet( radius,matrix.scaleMaxGet() )
@@ -2356,9 +2356,9 @@ function translate( box , offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   var boxVector = _.box._from( box );
-//   var center = _.box.centerGet( boxVector );
-//   var radius = _.box.radiusGet( boxVector );
+//   let boxVector = _.box._from( box );
+//   let center = _.box.centerGet( boxVector );
+//   let radius = _.box.radiusGet( boxVector );
 //
 //   center.add( offset );
 //
