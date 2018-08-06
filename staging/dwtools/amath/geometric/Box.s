@@ -574,18 +574,18 @@ function centerGet( box , dst )
 
   if( !dst )
   dst = _.dup( 0,dim ) ;
-  debugger;
+  // debugger;
   var dstv = _.vector.from( dst );
 
   _.assert( dim === dst.length );
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
-  debugger;
+  // debugger;
   // throw _.err( 'not tested' );
 
   _.vector.addAssigning( dstv.copy( min ), max ).mulScalar( 0.5 );
 
-  debugger;
+  // debugger;
   return dst;
 }
 
