@@ -2270,7 +2270,7 @@ var Self =
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
-  routine: 'frustumClosestPoint',
+  // routine: 'frustumClosestPoint',
 
   tests :
   {

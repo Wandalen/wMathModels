@@ -5,24 +5,24 @@
 /*
 */
 
-var _ = _global_.wTools;
-var avector = _.avector;
-var vector = _.vector;
-var pi = Math.PI;
-var sin = Math.sin;
-var cos = Math.cos;
-var atan2 = Math.atan2;
-var asin = Math.asin;
-var acos = Math.acos;
-var abs = Math.abs;
-var sqr = _.sqr;
-var sqrt = _.sqrt;
-var clamp = _.clamp;
+let _ = _global_.wTools;
+let avector = _.avector;
+let vector = _.vector;
+let pi = Math.PI;
+let sin = Math.sin;
+let cos = Math.cos;
+let atan2 = Math.atan2;
+let asin = Math.asin;
+let acos = Math.acos;
+let abs = Math.abs;
+let sqr = _.sqr;
+let sqrt = _.sqrt;
+let clamp = _.clamp;
 
 _.assert( _.routineIs( clamp ) )
 _.assert( !_.euler );
 
-var Self = _.euler = _.euler || Object.create( _.avector );
+let Self = _.euler = _.euler || Object.create( _.avector );
 
 // --
 //
@@ -41,9 +41,9 @@ function isZero( euler )
 
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  var eulerv = _.euler._from( euler );
+  let eulerv = _.euler._from( euler );
 
-  for( var d = 0 ; d < 3 ; d++ )
+  for( let d = 0 ; d < 3 ; d++ )
   if( eulerv.eGet( d ) !== 0 )
   return false;
 
@@ -54,7 +54,7 @@ function isZero( euler )
 
 function make( srcEuler, representation )
 {
-  var result = _.euler.makeZero();
+  let result = _.euler.makeZero();
 
   _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 2 );
   _.assert( srcEuler === undefined || srcEuler === null || _.euler.is( srcEuler ) );
@@ -73,7 +73,7 @@ function make( srcEuler, representation )
 
 function makeZero( representation )
 {
-  var result = _.dup( 0,6 );
+  let result = _.dup( 0,6 );
   result[ 3 ] = 0;
   result[ 4 ] = 1;
   result[ 5 ] = 2;
@@ -97,8 +97,8 @@ function zero( euler )
 
   if( _.euler.is( euler ) )
   {
-    var eulerv = _.euler._from( euler );
-    for( var i = 0 ; i < 3 ; i++ )
+    let eulerv = _.euler._from( euler );
+    for( let i = 0 ; i < 3 ; i++ )
     eulerv.eSet( i,0 );
     return euler;
   }
@@ -143,15 +143,15 @@ function _from( euler )
 
 function representationSet( dstEuler, representation )
 {
-  var dstEulerVector = _.euler._from( dstEuler );
+  let dstEulerVector = _.euler._from( dstEuler );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   if( _.arrayIs( representation ) )
   {
     _.assert( representation.length === 3 );
-    var rep = true;
-    for( var i = 0; i < 3; i++ )
+    let rep = true;
+    for( let i = 0; i < 3; i++ )
     {
       if( representation[ i ] !== 0 && representation[ i ] !== 1 && representation[ i ] !== 2 )
       {
@@ -282,8 +282,8 @@ function fromAxisAndAngle( dst, axis, angle )
 {
 
   dst = _.euler.from( dst );
-  var dstv = _.vector.from( dst );
-  var axisv = _.vector.from( axis );
+  let dstv = _.vector.from( dst );
+  let axisv = _.vector.from( axis );
 
   if( angle === undefined )
   angle = axis[ 3 ];
@@ -293,13 +293,13 @@ function fromAxisAndAngle( dst, axis, angle )
   _.assert( _.numberIs( angle ) );
   _.assert( this.accuracy > 0 );
 
-  var s = sin( angle );
-  var c = cos( angle );
-  var t = 1-c;
+  let s = sin( angle );
+  let c = cos( angle );
+  let t = 1-c;
 
-  var x = axisv.eGet( 0 );
-  var y = axisv.eGet( 1 );
-  var z = axisv.eGet( 2 );
+  let x = axisv.eGet( 0 );
+  let y = axisv.eGet( 1 );
+  let z = axisv.eGet( 2 );
 
   if( ( x*y*t + z*s ) > 1-this.accuracy )
   {
@@ -318,9 +318,9 @@ function fromAxisAndAngle( dst, axis, angle )
     return dst;
   }
 
-  var x2 = x*x;
-  var y2 = y*y;
-  var z2 = z*z;
+  let x2 = x*x;
+  let y2 = y*y;
+  let z2 = z*z;
 
   // xyz
 
@@ -341,21 +341,21 @@ function fromAxisAndAngle( dst, axis, angle )
 
 function fromQuat( dst, quat, v )
 {
-  var /*eps*/accuracy = 1e-9;
-  var half = 0.5-/*eps*/accuracy;
+  let /*eps*/accuracy = 1e-9;
+  let half = 0.5-/*eps*/accuracy;
 
-  var dst = _.euler.from( dst );
-  var dstv = _.vector.from( dst );
-  var quatv = _.quat._from( quat );
+  dst = _.euler.from( dst );
+  let dstv = _.vector.from( dst );
+  let quatv = _.quat._from( quat );
 
   // _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  var ox = dstv.eGet( 3 );
-  var oy = dstv.eGet( 4 );
-  var oz = dstv.eGet( 5 );
-  var same = ox === oz;
+  let ox = dstv.eGet( 3 );
+  let oy = dstv.eGet( 4 );
+  let oz = dstv.eGet( 5 );
+  let same = ox === oz;
 
-  var sign;
+  let sign;
 
   // if( same )
   // {
@@ -375,22 +375,22 @@ function fromQuat( dst, quat, v )
   sign = sign ? -1 : + 1;
   // console.log( 'sign',sign );
 
-  var ex,ey,ez;
+  let ex,ey,ez;
 
-  // var x = quatv.eGet( ox );
-  // var y = quatv.eGet( oy );
-  // var z = quatv.eGet( oz );
-  // var w = quatv.eGet( 3 );
+  // let x = quatv.eGet( ox );
+  // let y = quatv.eGet( oy );
+  // let z = quatv.eGet( oz );
+  // let w = quatv.eGet( 3 );
 
-  var x = quatv.eGet( 0 );
-  var y = quatv.eGet( 1 );
-  var z = quatv.eGet( 2 );
-  var w = quatv.eGet( 3 );
+  let x = quatv.eGet( 0 );
+  let y = quatv.eGet( 1 );
+  let z = quatv.eGet( 2 );
+  let w = quatv.eGet( 3 );
 
-  var sqx = x*x;
-  var sqy = y*y;
-  var sqz = z*z;
-  var sqw = w*w;
+  let sqx = x*x;
+  let sqy = y*y;
+  let sqz = z*z;
+  let sqw = w*w;
 
   //
 
@@ -421,8 +421,8 @@ function fromQuat( dst, quat, v )
 //   else
 //   {
 //
-//     // var test = ( v.xz1*x*z + v.yw1*y*w );
-//     var test = ( x*z - y*w );
+//     // let test = ( v.xz1*x*z + v.yw1*y*w );
+//     let test = ( x*z - y*w );
 //
 //     if( test > +half )
 //     {
@@ -528,10 +528,10 @@ function fromQuat( dst, quat, v )
 // //   sqz2 : -1
 // // }
 //
-//       // var x = quatv.eGet( 0 );
-//       // var y = quatv.eGet( 1 );
-//       // var z = quatv.eGet( 2 );
-//       // var w = quatv.eGet( 3 );
+//       // let x = quatv.eGet( 0 );
+//       // let y = quatv.eGet( 1 );
+//       // let z = quatv.eGet( 2 );
+//       // let w = quatv.eGet( 3 );
 //
 //       // dstv.eSet( ox, -sign * atan2( 2 * ( x * w + y * z ) , ( sqw - sqx - sqy + sqz ) ) );
 //       // dstv.eSet( oy, -asin( clamp( 2 * test, - 1, 1 ) ) );
@@ -547,7 +547,7 @@ function fromQuat( dst, quat, v )
 //
 //       // /* xzy */
 //       //
-//       // var sign = 1;
+//       // let sign = 1;
 //       // dstv.eSet( ox, atan2( 2 * ( x * w + y * z ) , ( sqw - sqx - sqy + sqz ) ) );
 //       // dstv.eSet( oy, asin( clamp( 2 * ( w*y - x*z ), - 1, 1 ) ) );
 //       // dstv.eSet( oz, atan2( 2 * ( z * w + x * y ) , ( sqw + sqx - sqy - sqz ) ) );
@@ -715,7 +715,7 @@ function fromQuat( dst, quat, v )
 
   // {
   //
-  //   var test = ( x * z + y * w );
+  //   let test = ( x * z + y * w );
   //   if( test > +half )
   //   {
   //     xxx
@@ -884,15 +884,15 @@ function fromQuat( dst, quat, v )
 
 function fromMatrix( euler,mat )
 {
-  var /*eps*/accuracy = 1e-7;
-  var one = 1-/*eps*/accuracy;
+  let /*eps*/accuracy = 1e-7;
+  let one = 1-/*eps*/accuracy;
 
-  var euler = _.euler.from( euler );
-  var eulerv = _.vector.from( euler );
+  euler = _.euler.from( euler );
+  let eulerv = _.vector.from( euler );
 
-  var s00 = mat.atomGet([ 0,0 ]), s10 = mat.atomGet([ 1,0 ]), s20 = mat.atomGet([ 2,0 ]);
-  var s01 = mat.atomGet([ 0,1 ]), s11 = mat.atomGet([ 1,1 ]), s21 = mat.atomGet([ 2,1 ]);
-  var s02 = mat.atomGet([ 0,2 ]), s12 = mat.atomGet([ 1,2 ]), s22 = mat.atomGet([ 2,2 ]);
+  let s00 = mat.atomGet([ 0,0 ]), s10 = mat.atomGet([ 1,0 ]), s20 = mat.atomGet([ 2,0 ]);
+  let s01 = mat.atomGet([ 0,1 ]), s11 = mat.atomGet([ 1,1 ]), s21 = mat.atomGet([ 2,1 ]);
+  let s02 = mat.atomGet([ 0,2 ]), s12 = mat.atomGet([ 1,2 ]), s22 = mat.atomGet([ 2,2 ]);
 
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
@@ -968,13 +968,13 @@ function fromMatrix( euler,mat )
 // [  sy*sz, cx*cz - cy*sx*sz, - cz*sx - cx*cy*sz]
 // [ -cz*sy, cx*sz + cy*cz*sx,   cx*cy*cz - sx*sz]
 
-  // var sx = sin( x );
-  // var sy = sin( y );
-  // var sz = sin( z );
+  // let sx = sin( x );
+  // let sy = sin( y );
+  // let sz = sin( z );
   //
-  // var cx = cos( x );
-  // var cy = cos( y );
-  // var cz = cos( z );
+  // let cx = cos( x );
+  // let cy = cos( y );
+  // let cz = cos( z );
 
   return euler;
 }
@@ -983,14 +983,14 @@ function fromMatrix( euler,mat )
 
 function toMatrix( euler,mat,premutating )
 {
-  // var /*eps*/accuracy = 1e-9;
-  // var half = 0.5-/*eps*/accuracy;
+  // let /*eps*/accuracy = 1e-9;
+  // let half = 0.5-/*eps*/accuracy;
 
   if( mat === null || mat === undefined )
   mat = _.Space.make([ 3,3 ]);
 
-  var euler = _.euler.from( euler );
-  var eulerv = _.vector.from( euler );
+  euler = _.euler.from( euler );
+  let eulerv = _.vector.from( euler );
 
   if( premutating === undefined )
   premutating = true;
@@ -1003,48 +1003,48 @@ function toMatrix( euler,mat,premutating )
 
   // debugger;
 
-  var ox = eulerv.eGet( 3 );
-  var oy = eulerv.eGet( 4 );
-  var oz = eulerv.eGet( 5 );
+  let ox = eulerv.eGet( 3 );
+  let oy = eulerv.eGet( 4 );
+  let oz = eulerv.eGet( 5 );
 
-  // var ox = 0;
-  // var oy = 1;
-  // var oz = 2;
+  // let ox = 0;
+  // let oy = 1;
+  // let oz = 2;
 
-  var x = eulerv.eGet( ox );
-  var y = eulerv.eGet( oy );
-  var z = eulerv.eGet( oz );
+  let x = eulerv.eGet( ox );
+  let y = eulerv.eGet( oy );
+  let z = eulerv.eGet( oz );
 
-  var sign = ( ( ox !== 0 ) + ( oy !== 1 ) + ( oz !== 2 ) ) === 2;
+  let sign = ( ( ox !== 0 ) + ( oy !== 1 ) + ( oz !== 2 ) ) === 2;
   sign = sign ? -1 : + 1;
   // console.log( 'sign',sign );
 
-  // var sx = ( ox === 0 && sign === 1 ) ? sin( x ) : cos( x );
-  var sx = sin( x );
-  var sy = sin( y );
-  var sz = sin( z );
+  // let sx = ( ox === 0 && sign === 1 ) ? sin( x ) : cos( x );
+  let sx = sin( x );
+  let sy = sin( y );
+  let sz = sin( z );
 
-  // var cx = ( ox === 0 && sign === 1 ) ? cos( x ) : sin( x );
-  var cx = cos( x );
-  var cy = cos( y );
-  var cz = cos( z );
+  // let cx = ( ox === 0 && sign === 1 ) ? cos( x ) : sin( x );
+  let cx = cos( x );
+  let cy = cos( y );
+  let cz = cos( z );
 
-  var cx_sy = cx*sy;
-  var sx_sy = sx*sy;
-  var cx_sz = cx*sz;
-  var sx_sz = sx*sz;
-  var cx_cy = cx*cy;
-  var sx_cy = sx*cy;
-  var cx_cz = cx*cz;
-  var sx_cz = sx*cz;
-  var cy_sz = cy*sz;
-  var sy_sz = sy*sz;
-  var cy_cz = cy*cz;
-  var sy_cz = sy*cz;
+  let cx_sy = cx*sy;
+  let sx_sy = sx*sy;
+  let cx_sz = cx*sz;
+  let sx_sz = sx*sz;
+  let cx_cy = cx*cy;
+  let sx_cy = sx*cy;
+  let cx_cz = cx*cz;
+  let sx_cz = sx*cz;
+  let cy_sz = cy*sz;
+  let sy_sz = sy*sz;
+  let cy_cz = cy*cz;
+  let sy_cz = sy*cz;
 
-  var m00,m01,m02;
-  var m10,m11,m12;
-  var m20,m21,m22;
+  let m00,m01,m02;
+  let m10,m11,m12;
+  let m20,m21,m22;
 
   if( premutating )
   {
@@ -1117,33 +1117,33 @@ function toMatrix( euler,mat,premutating )
   // if( ox === 0 && oy === 1 && oz === 2 ) /* xyz */
   // {
   //
-  //   var m00 = +cy_cz;
-  //   var m10 = +cy_sz;
-  //   var m20 = -sy;
+  //   let m00 = +cy_cz;
+  //   let m10 = +cy_sz;
+  //   let m20 = -sy;
   //
-  //   var m01 = +sx_sy*cz - cx_sz;
-  //   var m11 = +cx_cz + sx_sy*sz;
-  //   var m21 = +sx_cy;
+  //   let m01 = +sx_sy*cz - cx_sz;
+  //   let m11 = +cx_cz + sx_sy*sz;
+  //   let m21 = +sx_cy;
   //
-  //   var m02 = +sx_sz + cx_sy*cz;
-  //   var m12 = +cx_sy*sz - sx_cz;
-  //   var m22 = +cx_cy;
+  //   let m02 = +sx_sz + cx_sy*cz;
+  //   let m12 = +cx_sy*sz - sx_cz;
+  //   let m22 = +cx_cy;
   //
   // }
   // else if( ox === 0 && oy === 2 && oz === 1 ) /* xzy */
   // {
   //
-    // var m00 = +cy_cz;
-    // var m10 = +sz;
-    // var m20 = -sy_cz;
+    // let m00 = +cy_cz;
+    // let m10 = +sz;
+    // let m20 = -sy_cz;
     //
-    // var m01 = +sx_sy - cx_cy*sz;
-    // var m11 = +cx_cz;
-    // var m21 = +sx_cy + cx_sy*sz;
+    // let m01 = +sx_sy - cx_cy*sz;
+    // let m11 = +cx_cz;
+    // let m21 = +sx_cy + cx_sy*sz;
     //
-    // var m02 = +cx_sy + sx_cy*sz;
-    // var m12 = -sx_cz;
-    // var m22 = +cx_cy - sx_sy*sz;
+    // let m02 = +cx_sy + sx_cy*sz;
+    // let m12 = -sx_cz;
+    // let m22 = +cx_cy - sx_sy*sz;
   //
   // }
   // else _.assert( 0 );
@@ -1216,10 +1216,10 @@ function toMatrix( euler,mat,premutating )
 }
 
 // --
-// var
+// let
 // --
 
-var Order =
+let Order =
 {
 
   'xyz' : [ 0,1,2 ],
@@ -1264,27 +1264,28 @@ function fromQuat2( dstEuler, srcQuat )
   if( dstEuler === undefined || dstEuler === null )
   dstEuler = _.euler.makeZero();
 
-  var dstEuler = _.euler.from( dstEuler );
-  var dstEulerVector = _.euler._from( dstEuler );
-  var srcQuatVector = _.quat._from( srcQuat );
-  var accuracy =  _.accuracy;
-  var accuracySqr = _.accuracySqr;
+  dstEuler = _.euler.from( dstEuler );
+  let dstEulerVector = _.euler._from( dstEuler );
+  let srcQuatVector = _.quat._from( srcQuat );
+  let accuracy =  _.accuracy;
+  let accuracySqr = _.accuracySqr;
 
-  var x = srcQuatVector.eGet( 0 ); var x2 = x*x;
-  var y = srcQuatVector.eGet( 1 ); var y2 = y*y;
-  var z = srcQuatVector.eGet( 2 ); var z2 = z*z;
-  var w = srcQuatVector.eGet( 3 ); var w2 = w*w;
+  let x = srcQuatVector.eGet( 0 ); let x2 = x*x;
+  let y = srcQuatVector.eGet( 1 ); let y2 = y*y;
+  let z = srcQuatVector.eGet( 2 ); let z2 = z*z;
+  let w = srcQuatVector.eGet( 3 ); let w2 = w*w;
 
-  var xy2 = 2*x*y; var xz2 = 2*x*z; var xw2 = 2*x*w;
-  var yz2 = 2*y*z; var yw2 = 2*y*w; var zw2 = 2*z*w;
+  let xy2 = 2*x*y; let xz2 = 2*x*z; let xw2 = 2*x*w;
+  let yz2 = 2*y*z; let yw2 = 2*y*w; let zw2 = 2*z*w;
 
-  var ox = dstEulerVector.eGet( 3 );
-  var oy = dstEulerVector.eGet( 4 );
-  var oz = dstEulerVector.eGet( 5 );
+  let ox = dstEulerVector.eGet( 3 );
+  let oy = dstEulerVector.eGet( 4 );
+  let oz = dstEulerVector.eGet( 5 );
 
+  let lim;
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    var lim = xz2 + yw2;
+    lim = xz2 + yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( -( xy2 - zw2 ) , w2  + x2 - z2 - y2 ) );
@@ -1309,7 +1310,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    var lim = xy2 - zw2;
+    lim = xy2 - zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( xz2 + yw2 , x2 + w2 - z2 - y2 ) );
@@ -1334,7 +1335,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    var lim = yz2 - xw2;
+    lim = yz2 - xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( xy2 + zw2 , y2 - z2 + w2 - x2 ) );
@@ -1359,7 +1360,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    var lim = xy2 + zw2;
+    lim = xy2 + zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( - yz2 + xw2 , y2 - z2 + w2 - x2 ) );
@@ -1384,7 +1385,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    var lim = yz2 + xw2;
+    lim = yz2 + xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( - xz2 + yw2 , z2 - y2 - x2 + w2  ) );
@@ -1409,7 +1410,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    var lim = xz2 - yw2;
+    lim = xz2 - yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( yz2 + xw2 , z2 - y2 - x2 + w2 ) );
@@ -1434,7 +1435,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    var lim = x2 + w2 - z2 - y2;
+    lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( xy2 - zw2 , xz2 + yw2 ) );
@@ -1459,7 +1460,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    var lim = x2 + w2 - z2 - y2;
+    lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr)
     {
       dstEulerVector.eSet( 2, atan2( xz2 + yw2 , -xy2 + zw2 ) );
@@ -1484,7 +1485,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    var lim = y2 - z2 + w2 - x2;
+    lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( xy2 + zw2 , -yz2 + xw2 ) );
@@ -1509,7 +1510,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    var lim = y2 - z2 + w2 - x2;
+    lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( yz2 - xw2 , xy2 + zw2 ) );
@@ -1534,7 +1535,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    var lim = z2 - x2 - y2 + w2;
+    lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
@@ -1559,7 +1560,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    var lim = z2 - x2 - y2 + w2;
+    lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       dstEulerVector.eSet( 2, atan2( ( yz2 + xw2 ), ( - xz2 + yw2 ) ) );
@@ -1573,7 +1574,7 @@ function fromQuat2( dstEuler, srcQuat )
       dstEulerVector.eSet( 1, pi );
       dstEulerVector.eSet( 2, 0 );
     }
-    else if( lim >= 1 - accuracySqr )
+    else if( lim >= 1 )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
       dstEulerVector.eSet( 0, atan2( ( xy2 + zw2 ), 1 - 2*( x2 + z2 ) ) );
@@ -1621,24 +1622,24 @@ function toQuat2( srcEuler, dstQuat )
   if( dstQuat === undefined || dstQuat === null )
   dstQuat = _.quat.makeUnit();
 
-  var srcEuler = _.euler.from( srcEuler );
-  var srcEulerVector = _.euler._from( srcEuler );
-  var dstQuat = _.quat.from( dstQuat );
-  var dstQuatVector = _.quat._from( dstQuat );
+  srcEuler = _.euler.from( srcEuler );
+  let srcEulerVector = _.euler._from( srcEuler );
+  dstQuat = _.quat.from( dstQuat );
+  let dstQuatVector = _.quat._from( dstQuat );
 
-  var e0 = srcEulerVector.eGet( 0 );
-  var e1 = srcEulerVector.eGet( 1 );
-  var e2 = srcEulerVector.eGet( 2 );
-  var ox = srcEulerVector.eGet( 3 );
-  var oy = srcEulerVector.eGet( 4 );
-  var oz = srcEulerVector.eGet( 5 );
+  let e0 = srcEulerVector.eGet( 0 );
+  let e1 = srcEulerVector.eGet( 1 );
+  let e2 = srcEulerVector.eGet( 2 );
+  let ox = srcEulerVector.eGet( 3 );
+  let oy = srcEulerVector.eGet( 4 );
+  let oz = srcEulerVector.eGet( 5 );
 
-  var s0 = sin( e0/2 ); var c0 = cos( e0/2 );
-  var s1 = sin( e1/2 ); var c1 = cos( e1/2 );
-  var s2 = sin( e2/2 ); var c2 = cos( e2/2 );
+  let s0 = sin( e0/2 ); let c0 = cos( e0/2 );
+  let s1 = sin( e1/2 ); let c1 = cos( e1/2 );
+  let s2 = sin( e2/2 ); let c2 = cos( e2/2 );
 
   /* qqq : not optimal */
-
+  let sum, dif;
   if( ox === 0 && oy === 1 && oz === 2 )
   {
     dstQuatVector.eSet( 0, s0*c1*c2 + c0*s1*s2 );
@@ -1657,8 +1658,8 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    var sum = ( e0 + e2 )/2;
-    var dif = ( e0 - e2 )/2;
+    sum = ( e0 + e2 )/2;
+    dif = ( e0 - e2 )/2;
 
     dstQuatVector.eSet( 0, sin( sum )*c1 );
     dstQuatVector.eSet( 1, cos( dif )*s1 );
@@ -1668,8 +1669,8 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    var sum = ( e0 + e2 )/2;
-    var dif = ( e0 - e2 )/2;
+    sum = ( e0 + e2 )/2;
+    dif = ( e0 - e2 )/2;
 
     dstQuatVector.eSet( 0, sin( sum )*c1 );
     dstQuatVector.eSet( 1, - sin( dif )*s1 );
@@ -1695,8 +1696,8 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    var sum = ( e0 + e2 )/2;
-    var dif = ( e0 - e2 )/2;
+    sum = ( e0 + e2 )/2;
+    dif = ( e0 - e2 )/2;
 
     dstQuatVector.eSet( 0, cos( dif )*s1 );
     dstQuatVector.eSet( 1, sin( sum )*c1 );
@@ -1706,8 +1707,8 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    var sum = ( e0 + e2 )/2;
-    var dif = ( e0 - e2 )/2;
+    sum = ( e0 + e2 )/2;
+    dif = ( e0 - e2 )/2;
 
     dstQuatVector.eSet( 0, sin( dif )*s1 );
     dstQuatVector.eSet( 1, sin( sum )*c1 );
@@ -1733,8 +1734,8 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    var sum = ( e0 + e2 )/2;
-    var dif = ( e0 - e2 )/2;
+    sum = ( e0 + e2 )/2;
+    dif = ( e0 - e2 )/2;
 
     dstQuatVector.eSet( 0, cos( dif )*s1 );
     dstQuatVector.eSet( 1, sin( dif )*s1 );
@@ -1744,8 +1745,8 @@ function toQuat2( srcEuler, dstQuat )
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    var sum = ( e0 + e2 )/2;
-    var dif = ( e0 - e2 )/2;
+    sum = ( e0 + e2 )/2;
+    dif = ( e0 - e2 )/2;
 
     dstQuatVector.eSet( 0, - sin( dif )*s1 );
     dstQuatVector.eSet( 1, cos( dif )*s1 );
@@ -1790,40 +1791,40 @@ function fromMatrix2( dstEuler, srcMatrix )
   if( dstEuler === undefined || dstEuler === null )
   dstEuler = _.euler.makeZero();
 
-  var dstEuler = _.euler.from( dstEuler );
-  var dstEulerVector = _.vector.from( dstEuler );
+  dstEuler = _.euler.from( dstEuler );
+  let dstEulerVector = _.vector.from( dstEuler );
 
   _.assert( _.Space.is( srcMatrix ) );
   _.assert( srcMatrix.dims[ 0 ] >= 3 );
   _.assert( srcMatrix.dims[ 1 ] >= 3 );
 
-  var ox = dstEulerVector.eGet( 3 );
-  var oy = dstEulerVector.eGet( 4 );
-  var oz = dstEulerVector.eGet( 5 );
+  let ox = dstEulerVector.eGet( 3 );
+  let oy = dstEulerVector.eGet( 4 );
+  let oz = dstEulerVector.eGet( 5 );
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+    let m02 = srcMatrix.atomGet( [ 0, 2 ] );
     if( - 1 < m02 && m02 < 1 )
     {
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       dstEulerVector.eSet( 0, atan2( - m12, m22 ) );
       dstEulerVector.eSet( 1, atan2( m02, sqrt( 1 - m02*m02 ) ) );
       dstEulerVector.eSet( 2, atan2( - m01, m00 ) );
     }
     else if( m02 <= - 1 )
     {
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] ); var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] ); let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 0, - atan2( m10, m11 ) );
       dstEulerVector.eSet( 1, - pi/2 );
       dstEulerVector.eSet( 2, 0 );
     }
     else if( m02 >= 1 )
     {
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] ); var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] ); let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 0, atan2( m10, m11 ) );
       dstEulerVector.eSet( 1, pi/2 );
       dstEulerVector.eSet( 2, 0 );
@@ -1832,29 +1833,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    var m01 = srcMatrix.atomGet( [ 0,1 ] );
+    let m01 = srcMatrix.atomGet( [ 0,1 ] );
     if( - 1 < m01 && m01 < 1 )
     {
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       dstEulerVector.eSet( 0, atan2( m21, m11 ) );
       dstEulerVector.eSet( 2, atan2( m02, m00 ) );
       dstEulerVector.eSet( 1, asin( - m01) );
     }
     else if( m01 >= 1 )
     {
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 0, atan2( - m20, m22 ) );
       dstEulerVector.eSet( 2, 0 );
       dstEulerVector.eSet( 1, - pi/2 );
     }
     else if( m01 <= - 1 )
     {
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 0, - atan2( - m20, m22 ) );
       dstEulerVector.eSet( 2, 0 );
       dstEulerVector.eSet( 1, pi/2 );
@@ -1863,29 +1864,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+    let m12 = srcMatrix.atomGet( [ 1, 2 ] );
     if( - 1 < m12 && m12 < 1 )
     {
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 1, asin( -m12 ) );
       dstEulerVector.eSet( 0, atan2( m02, m22 ) );
       dstEulerVector.eSet( 2, atan2( m10, m11 ) );
     }
     else if( m12 >= 1 )
     {
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       dstEulerVector.eSet( 1, - pi/2 );
       dstEulerVector.eSet( 0, atan2( - m01, m00 ) );
       dstEulerVector.eSet( 2, 0 );
     }
     else if( m12 <= - 1 )
     {
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       dstEulerVector.eSet( 1, pi/2);
       dstEulerVector.eSet( 0, - atan2( - m01, m00 )  );
       dstEulerVector.eSet( 2, 0 );
@@ -1894,29 +1895,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+    let m10 = srcMatrix.atomGet( [ 1, 0 ] );
     if( - 1 < m10 && m10 < 1 )
     {
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       dstEulerVector.eSet( 2, atan2( - m12, m11 ) );
       dstEulerVector.eSet( 0, atan2( - m20, m00 ) );
       dstEulerVector.eSet( 1, asin( m10 ) );
     }
     else if( m10 <= - 1 )
     {
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 2, 0 );
       dstEulerVector.eSet( 0, - atan2( m21, m22 ) );
       dstEulerVector.eSet( 1, - pi/2 );
     }
     else if( m10 >= 1 )
     {
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 2, 0 );
       dstEulerVector.eSet( 0, atan2( m21, m22 )  );
       dstEulerVector.eSet( 1, pi/2 );
@@ -1925,29 +1926,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+    let m21 = srcMatrix.atomGet( [ 2, 1 ] );
     if( - 1 < m21 && m21 < 1 )
     {
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 1, asin( m21 ) );
       dstEulerVector.eSet( 2, atan2( - m20, m22 ) );
       dstEulerVector.eSet( 0, atan2( - m01, m11 ) );
     }
     else if( m21 <= - 1 )
     {
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       dstEulerVector.eSet( 1, - pi/2 );
       dstEulerVector.eSet( 2, 0 );
       dstEulerVector.eSet( 0, - atan2( m02, m00 ) );
     }
     else if( m21 >= 1 )
     {
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       dstEulerVector.eSet( 1, pi/2 );
       dstEulerVector.eSet( 2, 0 );
       dstEulerVector.eSet( 0, atan2( m02, m00 ) );
@@ -1956,29 +1957,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+    let m20 = srcMatrix.atomGet( [ 2, 0 ] );
     if( - 1 < m20 && m20 < 1 )
     {
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       dstEulerVector.eSet( 2, atan2( m21, m22 ) );
       dstEulerVector.eSet( 1, asin( - m20 ) );
       dstEulerVector.eSet( 0, atan2( m10, m00 ) );
     }
     else if( m20 <= - 1 )
     {
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 2, 0 );
       dstEulerVector.eSet( 1, pi/2 );
       dstEulerVector.eSet( 0, - atan2( - m12, m11 ) );
     }
     else if( m20 >= 1 )
     {
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 2, 0 );
       dstEulerVector.eSet( 1, - pi/2 );
       dstEulerVector.eSet( 0, atan2( - m12, m11 ) );
@@ -1987,29 +1988,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+    let m00 = srcMatrix.atomGet( [ 0, 0 ] );
     if( - 1 < m00 && m00 < 1 )
     {
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       dstEulerVector.eSet( 0, atan2( m10, - m20 ) );
       dstEulerVector.eSet( 1, acos( m00 ) );
       dstEulerVector.eSet( 2, atan2( m01, m02 ) );
     }
     else if( m00 <= - 1 )
     {
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 0, - atan2( - m12, m11 ) );
       dstEulerVector.eSet( 1, pi );
       dstEulerVector.eSet( 2, 0 );
     }
     else if( m00 >= 1 )
     {
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 0, atan2( - m12, m11 ) );
       dstEulerVector.eSet( 1, 0 );
       dstEulerVector.eSet( 2, 0 );
@@ -2018,29 +2019,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+    let m00 = srcMatrix.atomGet( [ 0, 0 ] );
     if( - 1 < m00 && m00 < 1 )
     {
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       dstEulerVector.eSet( 0, atan2( m20, m10 ) );
       dstEulerVector.eSet( 1, acos( m00 ) );
       dstEulerVector.eSet( 2, atan2( m02, - m01 ) );
     }
     else if( m00 <= - 1 )
     {
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 0, - atan2( m21, m22 ) );
       dstEulerVector.eSet( 1, pi );
       dstEulerVector.eSet( 2, 0 );
     }
     else if( m00 >= 1 )
     {
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 0, atan2( m21, m22 ) );
       dstEulerVector.eSet( 1, 0 );
       dstEulerVector.eSet( 2, 0 );
@@ -2049,29 +2050,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+    let m11 = srcMatrix.atomGet( [ 1, 1 ] );
     if( - 1 < m11 && m11 < 1 )
     {
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       dstEulerVector.eSet( 0, atan2( m01, m21 ) );
       dstEulerVector.eSet( 1, acos( m11 ) );
       dstEulerVector.eSet( 2, atan2( m10, - m12 ) );
     }
     else if( m11 <= - 1 )
     {
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       dstEulerVector.eSet( 0, - atan2( m02, m00 ) );
       dstEulerVector.eSet( 1, pi );
       dstEulerVector.eSet( 2, 0 );
     }
     else if( m11 >= 1 )
     {
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       dstEulerVector.eSet( 0, atan2( m02, m00 ) );
       dstEulerVector.eSet( 1, 0 );
       dstEulerVector.eSet( 2, 0 );
@@ -2080,29 +2081,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+    let m11 = srcMatrix.atomGet( [ 1, 1 ] );
     if( - 1 < m11 && m11 < 1 )
     {
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
       dstEulerVector.eSet( 0, atan2( m21, - m01 ) );
       dstEulerVector.eSet( 1, acos( m11 ) );
       dstEulerVector.eSet( 2, atan2( m12, m10 ) );
     }
     else if( m11 <= - 1 )
     {
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 0, atan2( m20, m22 ) );
       dstEulerVector.eSet( 1, pi );
       dstEulerVector.eSet( 2, 0 );
     }
     else if( m11 >= 1 )
     {
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerVector.eSet( 0, atan2( - m20, m22 ) );
       dstEulerVector.eSet( 1, 0 );
       dstEulerVector.eSet( 2, 0 );
@@ -2111,29 +2112,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+    let m22 = srcMatrix.atomGet( [ 2, 2 ] );
     if( - 1 < m22 && m22 < 1 )
     {
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       dstEulerVector.eSet( 0, atan2( m02, - m12 ) );
       dstEulerVector.eSet( 1, acos( m22 ) );
       dstEulerVector.eSet( 2, atan2( m20, m21 ) );
     }
     else if( m22 <= - 1 )
     {
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       dstEulerVector.eSet( 0, atan2( m01, m00 ) );
       dstEulerVector.eSet( 1, pi );
       dstEulerVector.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
-      var m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      var m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       dstEulerVector.eSet( 0, - atan2( m01, m00 ) );
       dstEulerVector.eSet( 1, 0 );
       dstEulerVector.eSet( 2, 0 );
@@ -2142,29 +2143,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    var m22 = srcMatrix.atomGet( [ 2, 2 ] );
+    let m22 = srcMatrix.atomGet( [ 2, 2 ] );
     if( - 1 < m22 && m22 < 1 )
     {
-      var m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      var m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      var m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      var m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       dstEulerVector.eSet( 0, atan2( m12, m02 ) );
       dstEulerVector.eSet( 1, acos( m22 ) );
       dstEulerVector.eSet( 2, atan2( m21, - m20 ) );
     }
     else if( m22 <= - 1 )
     {
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 0, - atan2( m10, m11 ) );
       dstEulerVector.eSet( 1, pi );
       dstEulerVector.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
-      var m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      var m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerVector.eSet( 0, atan2( m10, m11 ) );
       dstEulerVector.eSet( 1, 0 );
       dstEulerVector.eSet( 2, 0 );
@@ -2179,22 +2180,17 @@ function fromMatrix2( dstEuler, srcMatrix )
 function fromMatrix3( dstEuler, srcMatrix )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
-
-  if( dstEuler === undefined || dstEuler === null )
-  dstEuler = _.euler.makeZero();
-
-  var dstEuler = _.euler.from( dstEuler );
+  _.assert( _.euler.is( dstEuler ) );
 
   _.assert( _.Space.is( srcMatrix ) );
   _.assert( srcMatrix.dims[ 0 ] >= 3 );
   _.assert( srcMatrix.dims[ 1 ] >= 3 );
 
-  var quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+  let quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+
   dstEuler = _.euler.fromQuat2( dstEuler, quat );
 
   return dstEuler;
-
 }
 
 //
@@ -2231,8 +2227,8 @@ function fromMatrix3( dstEuler, srcMatrix )
 function toMatrix2( srcEuler, dstMatrix )
 {
 
-  var srcEuler = _.euler.from( srcEuler );
-  var srcEulerVector = _.vector.from( srcEuler );
+  srcEuler = _.euler.from( srcEuler );
+  let srcEulerVector = _.vector.from( srcEuler );
 
   _.assert( _.Space.is( dstMatrix ) || dstMatrix === null || dstMatrix === undefined );
   if( dstMatrix === null || dstMatrix === undefined )
@@ -2242,19 +2238,19 @@ function toMatrix2( srcEuler, dstMatrix )
   _.assert( dstMatrix.dims[ 1 ] === 3 );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  var e1 = srcEulerVector.eGet( 0 );
-  var e2 = srcEulerVector.eGet( 1 );
-  var e3 = srcEulerVector.eGet( 2 );
-  var ox = srcEulerVector.eGet( 3 );
-  var oy = srcEulerVector.eGet( 4 );
-  var oz = srcEulerVector.eGet( 5 );
+  let e1 = srcEulerVector.eGet( 0 );
+  let e2 = srcEulerVector.eGet( 1 );
+  let e3 = srcEulerVector.eGet( 2 );
+  let ox = srcEulerVector.eGet( 3 );
+  let oy = srcEulerVector.eGet( 4 );
+  let oz = srcEulerVector.eGet( 5 );
 
-  var ce1 = cos( e1 );
-  var ce2 = cos( e2 );
-  var ce3 = cos( e3 );
-  var se1 = sin( e1 );
-  var se2 = sin( e2 );
-  var se3 = sin( e3 );
+  let ce1 = cos( e1 );
+  let ce2 = cos( e2 );
+  let ce3 = cos( e3 );
+  let se1 = sin( e1 );
+  let se2 = sin( e2 );
+  let se3 = sin( e3 );
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
@@ -2444,23 +2440,24 @@ function toMatrix2( srcEuler, dstMatrix )
 function fromAxisAndAngle2( dstEuler, axis, angle )
 {
 
-  var dstEuler = _.euler.from( dstEuler );
-  var dstEulerVector = _.vector.from( dstEuler );
-  var srcAxisVector = _.vector.from( axis );
+  dstEuler = _.euler.from( dstEuler );
+  let dstEulerVector = _.vector.from( dstEuler );
+  let srcAxisVector = _.vector.from( axis );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
 
+  let quat;
   if( arguments.length === 2 )
   {
-    var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis );
+    quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis );
   }
   else
   {
-    var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
+    quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
   }
 
-  var dstEulerVector = _.euler.fromQuat2( dstEulerVector, quat );
+  dstEulerVector = _.euler.fromQuat2( dstEulerVector, quat );
   return dstEuler;
 }
 
@@ -2488,14 +2485,14 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
 function toAxisAndAngle2( euler, axisAndAngle )
 {
 
-  var srcEuler = _.euler.from( euler );
+  let srcEuler = _.euler.from( euler );
 
   _.assert( arguments.length === 2, 'expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
 
-  var quat = _.euler.toQuat2( srcEuler, [ 0, 0, 0, 0 ] );
+  let quat = _.euler.toQuat2( srcEuler, [ 0, 0, 0, 0 ] );
 
-  var axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
+  axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
   return axisAndAngle;
 
 }
@@ -2534,10 +2531,10 @@ function represent( dstEuler, representation )
   if( dstEuler === null || dstEuler === undefined )
   dstEuler = [ 0, 0, 0, 0, 1, 2 ];
 
-  var eulerArray = dstEuler.slice();
-  var dstEulerVector = _.vector.from( dstEuler );
-  var dstQuat = [ 0, 0, 0, 0 ];
-  var gotQuaternion = _.euler.toQuat2( eulerArray, dstQuat );
+  let eulerArray = dstEuler.slice();
+  let dstEulerVector = _.vector.from( dstEuler );
+  let dstQuat = [ 0, 0, 0, 0 ];
+  let gotQuaternion = _.euler.toQuat2( eulerArray, dstQuat );
 
   if( representation )
   {
@@ -2580,27 +2577,28 @@ function isGimbalLock( srcEuler )
   _.assert( arguments.length === 1 );
   _.assert( _.euler.is( srcEuler ) );
 
-  var srcEuler = _.euler.from( srcEuler );
-  var srcEulerVector = _.vector.fromArray( srcEuler );
-  var accuracy =  _.accuracy;
-  var accuracySqr = _.accuracySqr;
+  srcEuler = _.euler.from( srcEuler );
+  let srcEulerVector = _.vector.fromArray( srcEuler );
+  let accuracy =  _.accuracy;
+  let accuracySqr = _.accuracySqr;
 
-  var srcQuatVector = _.vector.fromArray( _.euler.toQuat2( srcEuler, null ) );
-  var x = srcQuatVector.eGet( 0 ); var x2 = x*x;
-  var y = srcQuatVector.eGet( 1 ); var y2 = y*y;
-  var z = srcQuatVector.eGet( 2 ); var z2 = z*z;
-  var w = srcQuatVector.eGet( 3 ); var w2 = w*w;
+  let srcQuatVector = _.vector.fromArray( _.euler.toQuat2( srcEuler, null ) );
+  let x = srcQuatVector.eGet( 0 ); let x2 = x*x;
+  let y = srcQuatVector.eGet( 1 ); let y2 = y*y;
+  let z = srcQuatVector.eGet( 2 ); let z2 = z*z;
+  let w = srcQuatVector.eGet( 3 ); let w2 = w*w;
 
-  var xy2 = 2*x*y; var xz2 = 2*x*z; var xw2 = 2*x*w;
-  var yz2 = 2*y*z; var yw2 = 2*y*w; var zw2 = 2*z*w;
+  let xy2 = 2*x*y; let xz2 = 2*x*z; let xw2 = 2*x*w;
+  let yz2 = 2*y*z; let yw2 = 2*y*w; let zw2 = 2*z*w;
 
-  var ox = srcEulerVector.eGet( 3 );
-  var oy = srcEulerVector.eGet( 4 );
-  var oz = srcEulerVector.eGet( 5 );
+  let ox = srcEulerVector.eGet( 3 );
+  let oy = srcEulerVector.eGet( 4 );
+  let oz = srcEulerVector.eGet( 5 );
 
+  let lim;
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    var lim = xz2 + yw2;
+    lim = xz2 + yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2617,7 +2615,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    var lim = xy2 - zw2;
+    lim = xy2 - zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2634,7 +2632,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    var lim = yz2 - xw2;
+    lim = yz2 - xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2651,7 +2649,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    var lim = xy2 + zw2;
+    lim = xy2 + zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2668,7 +2666,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    var lim = yz2 + xw2;
+    lim = yz2 + xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2685,7 +2683,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    var lim = xz2 - yw2;
+    lim = xz2 - yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2702,7 +2700,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    var lim = x2 + w2 - z2 - y2;
+    lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2719,7 +2717,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    var lim = x2 + w2 - z2 - y2;
+    lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr)
     {
       return false;
@@ -2736,7 +2734,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    var lim = y2 - z2 + w2 - x2;
+    lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2753,7 +2751,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    var lim = y2 - z2 + w2 - x2;
+    lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2770,7 +2768,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    var lim = z2 - x2 - y2 + w2;
+    lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2787,7 +2785,7 @@ function isGimbalLock( srcEuler )
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    var lim = z2 - x2 - y2 + w2;
+    lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
       return false;
@@ -2813,7 +2811,7 @@ function isGimbalLock( srcEuler )
 // define class
 // --
 
-var Proto =
+let Proto =
 {
 
   is : is,
