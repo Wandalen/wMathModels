@@ -2,23 +2,23 @@
 
 'use strict';
 
-var _ = _global_.wTools;
-var avector = _.avector;
-var vector = _.vector;
-var pi = Math.PI;
-var sin = Math.sin;
-var cos = Math.cos;
-var atan2 = Math.atan2;
-var asin = Math.asin;
-var acos = Math.acos;
-var abs = Math.abs;
-var sqr = _.sqr;
-var sqrt = _.sqrt;
+let _ = _global_.wTools;
+let avector = _.avector;
+let vector = _.vector;
+let pi = Math.PI;
+let sin = Math.sin;
+let cos = Math.cos;
+let atan2 = Math.atan2;
+let asin = Math.asin;
+let acos = Math.acos;
+let abs = Math.abs;
+let sqr = _.sqr;
+let sqrt = _.sqrt;
 
 _.assert( !_.axisAndAngle );
 _.assert( _.objectIs( _.avector ) );
 
-var Self = _.axisAndAngle = _.axisAndAngle || Object.create( _.avector );
+let Self = _.axisAndAngle = _.axisAndAngle || Object.create( _.avector );
 
 // --
 //
@@ -79,10 +79,10 @@ function make( axisAndAngle,angle )
   _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 2 );
   _.assert( axisAndAngle === undefined || axisAndAngle === null || _.axisAndAngle.is( axisAndAngle,angle ) );
 
-  var result = _.axisAndAngle.makeZero();
-  var resultv = _.vector.from( result );
+  let result = _.axisAndAngle.makeZero();
+  let resultv = _.vector.from( result );
 
-  var axisAndAnglev;
+  let axisAndAnglev;
   if( axisAndAngle )
   axisAndAnglev = _.vector.from( axisAndAngle );
 
@@ -106,7 +106,7 @@ function make( axisAndAngle,angle )
 function makeZero()
 {
   _.assert( arguments.length === 0 );
-  var result = _.dup( 0,4 );
+  let result = _.dup( 0,4 );
   return result;
 }
 
@@ -130,7 +130,7 @@ function from( axisAndAngle,angle )
       return axisAndAngle;
     }
     debugger;
-    var result = axisAndAngle.resizedArray( 0,4 );
+    let result = axisAndAngle.resizedArray( 0,4 );
     if( angle !== undefined && angle !== null )
     result[ 3 ] = angle;
     return result;
@@ -168,7 +168,7 @@ function _from( axisAndAngle,angle )
       return axisAndAngle;
     }
     debugger;
-    var result = axisAndAngle.resizedVector( 0,4 );
+    let result = axisAndAngle.resizedVector( 0,4 );
     if( angle !== undefined && angle !== null )
     result.eSet( 3 , angle );
     return result;
@@ -196,7 +196,7 @@ function _from( axisAndAngle,angle )
 //   {
 //     debugger;
 //     throw _.err( 'not implemented' );
-//     var result = axisAndAngle.slice( 0,4 );
+//     let result = axisAndAngle.slice( 0,4 );
 //     if( angle !== undefined )
 //     result[ 3 ] = angle;
 //     return result;
@@ -224,7 +224,7 @@ function zero( axisAndAngle,angle )
   if( axisAndAngle === undefined || axisAndAngle === null )
   return _.axisAndAngle.makeZero();
 
-  var axisAndAnglev = _.vector.from( axisAndAngle );
+  let axisAndAnglev = _.vector.from( axisAndAngle );
 
   axisAndAnglev.eSet( 3,0 );
 
@@ -242,7 +242,7 @@ function zero( axisAndAngle,angle )
   *
   * @example
   * // returns [ 0.6520678, 0.38680106, 0.6520678, 0.92713394 ]
-  * var srcMatrix = _.Space.make([ 3, 3 ]).copy
+  * let srcMatrix = _.Space.make([ 3, 3 ]).copy
   * ([
   *   0.7701511383, -0.4207354784, 0.479425549507,
   *   0.6224468350, 0.65995573997, - 0.420735478401,
@@ -267,8 +267,8 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
   _.assert( srcMatrix.hasShape([ 3, 3 ]) );
 
 
-  var quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
-  var axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
+  let quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+  axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
 
   return axisAndAngle;
 
@@ -308,8 +308,8 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
   _.assert( _.Space.is( dstMatrix ) );
   _.assert( dstMatrix.hasShape([ 3, 3 ]) );
 
-  var quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axisAndAngle );
-  var dstMatrix = _.quat.toMatrix( quat, dstMatrix );
+  let quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axisAndAngle );
+  dstMatrix = _.quat.toMatrix( quat, dstMatrix );
 
   return dstMatrix;
 
@@ -319,7 +319,7 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
 // define class
 // --
 
-var Proto =
+let Proto =
 {
 
   is : is,

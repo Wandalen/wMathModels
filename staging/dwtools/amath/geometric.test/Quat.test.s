@@ -580,6 +580,7 @@ function fromAxisAndAngle( test )
 }
 
 fromAxisAndAngle.accuracy = [ _.accuracy * 1e+2, 1e-1 ];
+fromAxisAndAngle.timeOut = 10000;
 
 //
 
@@ -1378,7 +1379,7 @@ var Self =
   name : 'Tools/Math/Quaternion',
   silencing : 1,
   enabled : 1,
-  routine: 'eulerToQuatToMatrixToQuatFast',
+  // routine: 'eulerToQuatToMatrixToQuatFast',
   // accuracy : 1e-5,
 
   context :
