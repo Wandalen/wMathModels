@@ -188,6 +188,7 @@ function zero( box )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
+
 function nil( box )
 {
 
@@ -239,6 +240,8 @@ function centeredOfSize( box, size )
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
+  /* qqq : in routines like this "box" and "null" are only valid first argument */
+
   if( size === undefined )
   size = 1;
 
@@ -277,6 +280,7 @@ function centeredOfSize( box, size )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
+
 function from( box )
 {
 
@@ -1016,8 +1020,6 @@ function pointDistance( box , point )
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
   * @memberof wTools.box
   */
-
-/* qqq : not 3 */
 
 function pointClosestPoint( box , point, dstPoint )
 {
