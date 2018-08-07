@@ -27,7 +27,7 @@ qqq : make sure all routines in all files of such kind in order
 
 /*
 qqq
-- avoid toArray
+- avoid toArray - use eGet, eSet instead
 - CC break : identation
 */
 
@@ -85,6 +85,7 @@ function make( dim )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
+
 function makeZero( dim )
 {
   if( _.box.is( dim ) )
@@ -117,6 +118,7 @@ function makeZero( dim )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
+
 function makeNil( dim )
 {
   if( _.box.is( dim ) )
