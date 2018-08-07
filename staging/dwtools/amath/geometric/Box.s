@@ -57,8 +57,10 @@ function make( dim )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 );
   let result = _.box.makeZero( dim );
+
   if( _.box.is( dim ) )
   _.avector.assign( result, dim );
+
   return result;
 }
 
@@ -87,8 +89,10 @@ function makeZero( dim )
 {
   if( _.box.is( dim ) )
   dim = _.box.dimGet( dim );
+
   if( dim === undefined || dim === null )
   dim = 3;
+
   _.assert( dim >= 0 );
   _.assert( arguments.length === 0 || arguments.length === 1 );
   let result = _.dup( 0, dim*2 );
@@ -115,17 +119,19 @@ function makeZero( dim )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
-
 function makeNil( dim )
 {
   if( _.box.is( dim ) )
   dim = _.box.dimGet( dim );
+
   if( dim === undefined || dim === null )
   dim = 3;
 
   let result = [];
+
   for( let i = 0 ; i < dim ; i++ )
   result[ i ] = +Infinity;
+
   for( let i = 0 ; i < dim ; i++ )
   result[ dim + i ] = -Infinity;
 
@@ -153,7 +159,6 @@ function makeNil( dim )
   */
 function zero( box )
 {
-
   _.assert( arguments.length === 0 || arguments.length === 1 );
 
   if( _.box.is( box ) )
@@ -234,7 +239,6 @@ function nil( box )
   */
 function centeredOfSize( box, size )
 {
-
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
   /* qqq : in routines like this "box" and "null" are only valid first argument */
@@ -281,13 +285,12 @@ function centeredOfSize( box, size )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
-
 function from( box )
 {
 
   // if( _.objectIs( box ) )
   // {
-  //    _.assertMapHasFields( box,{ min : 'min' , max : 'max' } );
+  //   _.assertMapHasFields( box,{ min : 'min' , max : 'max' } );
   //   debugger;
   //   box = _.arrayAppendArrays( [],[ box.min,box.max ] );
   // }
@@ -419,8 +422,7 @@ function fromPoints( box, points )
   * @throws { Error } An Error if ( size ) is not array.
   * @memberof wTools.box
   */
-
-function fromCenterAndSize( box , center , size )
+function fromCenterAndSize( box, center, size )
 {
   _.assert( arguments.length === 3, 'expects exactly three argument' );
 
@@ -487,7 +489,6 @@ function fromCenterAndSize( box , center , size )
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @memberof wTools.box
   */
-
 function fromSphere( box, sphere )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -547,7 +548,6 @@ function fromSphere( box, sphere )
   * @throws { Error } An Error if ( size ) is not a number.
   * @memberof wTools.box
   */
-
 function fromCube( box, size )
 {
 
@@ -592,7 +592,6 @@ function fromCube( box, size )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @memberof wTools.box
   */
-
 function is( box )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
@@ -616,10 +615,8 @@ function is( box )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @memberof wTools.box
   */
-
 function isEmpty( box )
 {
-
   _.assert( arguments.length === 1, 'expects single argument' );
 
   let boxVector = _.box._from( box );
@@ -653,7 +650,6 @@ function isEmpty( box )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @memberof wTools.box
   */
-
 function isZero( box )
 {
 
@@ -664,10 +660,10 @@ function isZero( box )
   let min = _.box.cornerLeftGet( boxVector );
   let max = _.box.cornerRightGet( boxVector );
 
-  for( let d = 0 ; d < dim ; d++ )
-  if( min.eGet( d ) !== max.eGet( d ) )
-  return false;
-
+  for( let d = 0 ; d < dim ; d++ ){
+    if( min.eGet( d ) !== max.eGet( d ) )
+    return false;
+  }
   return true;
 }
 
@@ -687,10 +683,8 @@ function isZero( box )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @memberof wTools.box
   */
-
 function isNil( box )
 {
-
   _.assert( arguments.length === 1, 'expects single argument' );
 
   let boxVector = _.box._from( box );
@@ -698,9 +692,10 @@ function isNil( box )
   let min = _.box.cornerLeftGet( boxVector );
   let max = _.box.cornerRightGet( boxVector );
 
-  for( let d = 0 ; d < dim ; d++ )
-  if( min.eGet( d ) > max.eGet( d ) )
-  return true;
+  for( let d = 0 ; d < dim ; d++ ){
+    if( min.eGet( d ) > max.eGet( d ) )
+    return true;
+  }
 
   return false;
 }
@@ -726,7 +721,6 @@ function isNil( box )
   * @throws { Error } An Error if ( box ) is not box.
   * @memberof wTools.box
   */
-
 function dimGet( box )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
@@ -756,7 +750,6 @@ function dimGet( box )
   * @throws { Error } An Error if ( box ) is not box.
   * @memberof wTools.box
   */
-
 function cornerLeftGet( box )
 {
   let boxVector = _.box._from( box );
@@ -786,11 +779,10 @@ function cornerLeftGet( box )
   * @throws { Error } An Error if ( box ) is not box.
   * @memberof wTools.box
   */
-
 function cornerRightGet( box )
 {
-  let boxVector = _.box._from( box );
   _.assert( arguments.length === 1, 'expects single argument' );
+  let boxVector = _.box._from( box );
   return boxVector.subarray( box.length / 2 , box.length );
 }
 
@@ -817,7 +809,6 @@ function cornerRightGet( box )
   * @throws { Error } An Error if ( dst ) is not point.
   * @memberof wTools.box
   */
-
 function centerGet( box , dst )
 {
 
@@ -828,6 +819,7 @@ function centerGet( box , dst )
 
   if( !dst )
   dst = _.dup( 0,dim ) ;
+
   var dstv = _.vector.from( dst );
 
   _.assert( dim === dst.length );
@@ -866,9 +858,9 @@ function centerGet( box , dst )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof wTools.box
   */
-
 function sizeGet( box , dst )
 {
+  _.assert( arguments.length === 1 || arguments.length === 2 );
 
   let boxVector = _.box._from( box );
   let dim = _.box.dimGet( boxVector );
@@ -880,7 +872,6 @@ function sizeGet( box , dst )
   let dstv = _.vector.from( dst );
 
   _.assert( dim === dst.length );
-  _.assert( arguments.length === 1 || arguments.length === 2 );
 
   _.vector.subVectors( dstv.copy( max ), min );
 
@@ -913,7 +904,6 @@ function sizeGet( box , dst )
   * @throws { Error } An Error if ( expand ) is not an array.
   * @memberof wTools.box
   */
-
 function expand( box , expand )
 {
 
@@ -969,7 +959,6 @@ function expand( box , expand )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof wTools.box
   */
-
 function pointContains( box , point )
 {
 
@@ -1019,7 +1008,6 @@ function pointContains( box , point )
   * @throws { Error } An Error if ( point ) is not point
   * @memberof wTools.box
   */
-
 function pointDistance( box , point )
 {
 
@@ -1064,7 +1052,6 @@ function pointDistance( box , point )
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
   * @memberof wTools.box
   */
-
 function pointClosestPoint( box , point, dstPoint )
 {
 
@@ -1126,7 +1113,6 @@ function pointClosestPoint( box , point, dstPoint )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof wTools.box
   */
-
 function pointExpand( dstBox , point )
 {
 
@@ -1180,7 +1166,6 @@ function pointExpand( dstBox , point )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof wTools.box
   */
-
 function pointRelative( box , point, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
@@ -1236,7 +1221,6 @@ function pointRelative( box , point, dstPoint )
   * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
   * @memberof wTools.box
   */
-
 function boxContains( box , box2 )
 {
 
@@ -1280,7 +1264,6 @@ function boxContains( box , box2 )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @memberof wTools.box
   */
-
 function boxIntersects( srcBox , tstBox )
 {
   let srcBoxVector = _.box._from( srcBox );
@@ -1301,33 +1284,33 @@ function boxIntersects( srcBox , tstBox )
 
   let interX = false;
   if( srcMin.eGet( 0 ) <= tstMin.eGet( 0 ) && tstMin.eGet( 0 ) <= srcMax.eGet( 0 ) )
-  interX = true;
+    interX = true;
   else if( srcMin.eGet( 0 ) <= tstMax.eGet( 0 ) && tstMax.eGet( 0 ) <= srcMax.eGet( 0 ) )
-  interX = true;
+    interX = true;
   else if( tstMin.eGet( 0 ) <= srcMin.eGet( 0 ) && srcMin.eGet( 0 ) <= tstMax.eGet( 0 ) )
-  interX = true;
+    interX = true;
   else if( tstMin.eGet( 0 ) <= srcMax.eGet( 0 ) && srcMax.eGet( 0 ) <= tstMax.eGet( 0 ) )
-  interX = true;
+    interX = true;
 
   let interY = false;
   if( srcMin.eGet( 1 ) <= tstMin.eGet( 1 ) && tstMin.eGet( 1 ) <= srcMax.eGet( 1 ) )
-  interY = true;
+    interY = true;
   else if( srcMin.eGet( 1 ) <= tstMax.eGet( 1 ) && tstMax.eGet( 1 ) <= srcMax.eGet( 1 ) )
-  interY = true;
+    interY = true;
   else if( tstMin.eGet( 1 ) <= srcMin.eGet( 1 ) && srcMin.eGet( 1 ) <= tstMax.eGet( 1 ) )
-  interY = true;
+    interY = true;
   else if( tstMin.eGet( 1 ) <= srcMax.eGet( 1 ) && srcMax.eGet( 1 ) <= tstMax.eGet( 1 ) )
-  interY = true;
+    interY = true;
 
   let interZ = false;
   if( srcMin.eGet( 2 ) <= tstMin.eGet( 2 ) && tstMin.eGet( 2 ) <= srcMax.eGet( 2 ) )
-  interZ = true;
+    interZ = true;
   else if( srcMin.eGet( 2 ) <= tstMax.eGet( 2 ) && tstMax.eGet( 2 ) <= srcMax.eGet( 2 ) )
-  interZ = true;
+    interZ = true;
   else if( tstMin.eGet( 2 ) <= srcMin.eGet( 2 ) && srcMin.eGet( 2 ) <= tstMax.eGet( 2 ) )
-  interZ = true;
+    interZ = true;
   else if( tstMin.eGet( 2 ) <= srcMax.eGet( 2 ) && srcMax.eGet( 2 ) <= tstMax.eGet( 2 ) )
-  interZ = true;
+    interZ = true;
 
   if( interX && interY && interZ )
   return true;
@@ -1358,7 +1341,6 @@ function boxIntersects( srcBox , tstBox )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @memberof wTools.box
   */
-
 function boxDistance( srcBox , tstBox )
 {
 
@@ -1412,9 +1394,9 @@ function boxDistance( srcBox , tstBox )
 
     let d;
     if( dSrc < dTst )
-    d = dSrc;
+      d = dSrc;
     else
-    d = dTst;
+      d = dTst;
     if( d < distance )
     {
       distance = d;
@@ -1423,9 +1405,9 @@ function boxDistance( srcBox , tstBox )
   }
 
   if( boxIntersects( srcBox , tstBox ) === true )
-  return 0;
+    return 0;
   else
-  return distance;
+    return distance;
 }
 
 //
@@ -1483,9 +1465,8 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   // throw _.err( 'not tested' );
 
   if( boxIntersects( srcBox , tstBox ) === true )
-  return 0;
-  else
-  {
+    return 0;
+  else{
     /* src corners */
 
     let c = _.Space.makeZero( [ 3, 8 ] );
@@ -1565,7 +1546,6 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
   * @memberof wTools.box
   */
-
 function boxExpand( dstBox , srcBox )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -1676,7 +1656,6 @@ function sphereContains( srcBox , tstSphere )
   * @throws { Error } An Error if ( tstSphere ) is not sphere
   * @memberof wTools.box
   */
-
 function sphereIntersects( srcBox , tstSphere )
 {
   let _tstSphere = _.sphere._from( tstSphere );
@@ -1713,7 +1692,6 @@ function sphereIntersects( srcBox , tstSphere )
   * @throws { Error } An Error if ( tstSphere ) is not sphere
   * @memberof wTools.box
   */
-
 function sphereDistance( srcBox , tstSphere )
 {
   let _tstSphere = _.sphere._from( tstSphere );
@@ -1729,9 +1707,9 @@ function sphereDistance( srcBox , tstSphere )
 
   let distance = 0;
   if( _.sphere.boxIntersects( _tstSphere, boxVector ) )
-  return distance;
+    return distance;
   else
-  distance = _.box.pointDistance( boxVector, center ) - radius;
+    distance = _.box.pointDistance( boxVector, center ) - radius;
 
   return distance;
 }
@@ -1763,7 +1741,6 @@ function sphereDistance( srcBox , tstSphere )
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @memberof wTools.box
   */
-
 function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 {
 
@@ -1788,7 +1765,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   _.assert( dimS === dstPoint.length );
 
   if( _.sphere.boxIntersects( _tstSphere, boxVector ) )
-  return 0
+    return 0
   else
   {
     let p = _.box.pointClosestPoint( boxVector, center );
@@ -1800,8 +1777,8 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 
     return dstPoint;
   }
-
 }
+
 //
 
 /**
@@ -1823,7 +1800,6 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   * @throws { Error } An Error if ( srcSphere ) is not sphere
   * @memberof wTools.box
   */
-
 function sphereExpand( dstBox , srcSphere )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -1891,12 +1867,11 @@ function sphereExpand( dstBox , srcSphere )
   * @throws { Error } An Error if ( tstPlane ) is not plane
   * @memberof wTools.box
   */
-
 function planeIntersects( srcBox , tstPlane )
 {
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   let _tstPlane = _.plane._from( tstPlane );
   let boxVector = _.box._from( srcBox );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   let gotBool = _.plane.boxIntersects( _tstPlane, boxVector );
 
@@ -1928,7 +1903,6 @@ function planeIntersects( srcBox , tstPlane )
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
   * @memberof wTools.box
   */
-
 function planeDistance( srcBox, plane )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -1944,7 +1918,7 @@ function planeDistance( srcBox, plane )
   _.assert( dimP === dimB );
 
   if( _.plane.boxIntersects( _plane, boxVector ) )
-  return 0;
+    return 0;
   else
   {
     /* box corners */
@@ -1971,7 +1945,6 @@ function planeDistance( srcBox, plane )
       {
         distance = d;
       }
-
     }
 
     return distance;
@@ -2028,10 +2001,9 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   _.assert( dimP === dstPoint.length );
 
   if( _.plane.boxIntersects( _plane, boxVector ) )
-  return 0;
+    return 0;
   else
   {
-
     /* box corners */
 
     let c = _.Space.makeZero( [ 3, 8 ] );
@@ -2057,7 +2029,6 @@ function planeClosestPoint( srcBox, plane, dstPoint )
         distance = d;
         point = corner;
       }
-
     }
 
     for( let i = 0; i < point.length; i++ )
@@ -2163,7 +2134,6 @@ function planeExpand( dstBox, srcPlane )
   */
 function frustumContains( box, frustum )
 {
-
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   let _box = _.box._from( box );
@@ -2301,7 +2271,6 @@ function frustumDistance( box, frustum )
   }
 
   return distance;
-
 }
 
 //
@@ -2337,10 +2306,8 @@ function frustumDistance( box, frustum )
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @memberof wTools.box
   */
-
 function frustumClosestPoint( box, frustum, dstPoint )
 {
-
   _.assert( _.frustum.is( frustum ) );
 
   let _box = _.box._from( box );
@@ -2433,29 +2400,28 @@ function frustumClosestPoint( box, frustum, dstPoint )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
   * @memberof wTools.box
   */
-
 function frustumExpand( dstBox, srcFrustum )
 {
 
-_.assert( arguments.length === 2, 'expects exactly two arguments' );
-_.assert( _.frustum.is( srcFrustum ) );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
 
-let _box = _.box._from( dstBox );
+  let _box = _.box._from( dstBox );
 
-let dim = _.box.dimGet( _box );
-_.assert( dim === 3 );
-let min = _.box.cornerLeftGet( _box );
-let max = _.box.cornerRightGet( _box );
+  let dim = _.box.dimGet( _box );
+  _.assert( dim === 3 );
+  let min = _.box.cornerLeftGet( _box );
+  let max = _.box.cornerRightGet( _box );
 
-let fpoints = _.frustum.cornersGet( srcFrustum );
-_.assert( _.spaceIs( fpoints ) );
-_.assert( fpoints.hasShape([ 3, 8 ] ) );
+  let fpoints = _.frustum.cornersGet( srcFrustum );
+  _.assert( _.spaceIs( fpoints ) );
+  _.assert( fpoints.hasShape([ 3, 8 ] ) );
 
-for( let j = 0 ; j < 8 ; j++ )
-{
-  let newp = fpoints.colVectorGet( j );
-  _box = _.box.pointExpand( _box, newp );
-}
+  for( let j = 0 ; j < 8 ; j++ )
+  {
+    let newp = fpoints.colVectorGet( j );
+    _box = _.box.pointExpand( _box, newp );
+  }
 
   return dstBox;
 }
@@ -2486,7 +2452,6 @@ for( let j = 0 ; j < 8 ; j++ )
   * @throws { Error } An Error if ( matrix ) is not space
   * @memberof wTools.box
   */
-
 function matrixHomogenousApply( box , matrix )
 {
 
@@ -2537,7 +2502,6 @@ function matrixHomogenousApply( box , matrix )
   * @throws { Error } An Error if ( dstBox ) is not box
   * @memberof wTools.box
   */
-
 function translate( box, offset )
 {
 
@@ -2554,7 +2518,6 @@ function translate( box, offset )
   boxVector.addScalar( offset );
 
   return box;
-
 }
 
 //
