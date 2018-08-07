@@ -243,12 +243,7 @@ function centeredOfSize( box, size )
 
   /* qqq : in routines like this "box" and "null" are only valid first argument */
 
-  if( size === null ){
-    size = 1;
-  }
-  else if( size === undefined ){
-    throw _.err( 'Size can not be undefined' );
-  }
+  _.assert( _.numberIs( size ) || _.arrayIs( size ) || _.vectorIs( size ) );
 
   if( !_.box.is( box ) )
   box = _.box.make( box );
@@ -368,13 +363,6 @@ function fromPoints( box, points )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.arrayIs( points ) );
 
-  if( points === null ){
-    points = [ 0, 0, 0, 1, 1, 1 ];
-  }
-  else if( points === undefined ){
-    throw _.err( 'Points can not be undefined' );
-  }
-
   let dimp = points[0].length;
 
   if( box === null )
@@ -429,19 +417,8 @@ function fromCenterAndSize( box, center, size )
   if( box === null )
   box = _.box.make( center.length );
 
-  if( center === null ){
-    center = [ 0, 0, 0 ];
-  }
-  else if( center === undefined ){
-    throw _.err( 'Center can not be undefined' );
-  }
-
-  if( size === null ){
-    size = 1;
-  }
-  else if( size === undefined ){
-    throw _.err( 'Size can not be undefined' );
-  }
+  _.assert( _.arrayIs( center ) || _.vectorIs( center ) );
+  _.assert( _.numberIs( size ) || _.arrayIs( size ) || _.vectorIs( size ) );
 
   let boxVector = _.box._from( box );
   let min = _.box.cornerLeftGet( boxVector );
@@ -492,13 +469,7 @@ function fromCenterAndSize( box, center, size )
 function fromSphere( box, sphere )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  if( sphere === null ){
-    sphere = [ 0, 0, 0, 1 ];
-  }
-  else if( sphere === undefined ){
-    throw _.err( 'Sphere can not be undefined' );
-  }
+  _.assert( _.sphere.is( sphere ) );
 
   let _sphere = _.sphere._from( sphere );
   let dim1 = _.sphere.dimGet( _sphere );
@@ -554,13 +525,7 @@ function fromCube( box, size )
   if( box === null )
   box = _.box.make();
 
-
-  if( size === null ){
-    size = 1;
-  }
-  else if( size === undefined ){
-    throw _.err( 'Size can not be undefined' );
-  }
+  _.assert( _.numberIs( size ) || _.arrayIs( size ) || _.vectorIs( size ) );
 
   let boxVector = _.box._from( box );
   let min = _.box.cornerLeftGet( boxVector );
@@ -910,12 +875,7 @@ function expand( box , expand )
   if( box === null )
   box = _.box.make();
 
-  if( expand === null){
-    expand = 0;
-  }
-  else if( expand === undefined ){
-    throw _.err( 'Expansion array can not be undefined' );
-  }
+  _.assert( _.numberIs( expand ) || _.arrayIs( expand ) || _.vectorIs( expand ) );
 
   let boxVector = _.box._from( box );
   let dim = _.box.dimGet( boxVector );
@@ -1119,12 +1079,7 @@ function pointExpand( dstBox , point )
   if( dstBox === null )
   dstBox = _.box.makeNil();
 
-  if( point === null){
-    point = [ 0, 0, 0 ];
-  }
-  else if( point === undefined ){
-    throw _.err( 'Point can not be undefined' );
-  }
+  _.assert( _.arrayIs( point ) || _.vectorIs( point ) );
 
   let boxVector = _.box._from( dstBox );
   let dim = _.box.dimGet( boxVector );
@@ -1555,13 +1510,7 @@ function boxExpand( dstBox , srcBox )
   let min1 = _.box.cornerLeftGet( _dstBox );
   let max1 = _.box.cornerRightGet( _dstBox );
 
-  if( srcBox === null){
-    srcBox = [ 0, 0, 0, 1, 1, 1 ];
-  }
-  else if( srcBox === undefined ){
-    throw _.err( 'srcBox can not be undefined' );
-  }
-
+  _.assert( _.box.is( srcBox ) );
   let _srcBox = _.box._from( srcBox );
   let dim2 = _.box.dimGet( _srcBox );
   let min2 = _.box.cornerLeftGet( _srcBox );
@@ -1809,13 +1758,7 @@ function sphereExpand( dstBox , srcSphere )
   let min1 = _.box.cornerLeftGet( _dstBox );
   let max1 = _.box.cornerRightGet( _dstBox );
 
-  if( srcSphere === null){
-    srcSphere = [ 0, 0, 0, 1 ];
-  }
-  else if( srcSphere === undefined ){
-    throw _.err( 'srcSphere can not be undefined' );
-  }
-
+  _.assert( _.sphere.is( srcSphere ) );
   let _srcSphere = _.sphere._from( srcSphere );
   let center = _.sphere.centerGet( _srcSphere );
   let radius = _.sphere.radiusGet( _srcSphere );
@@ -2074,12 +2017,7 @@ function planeExpand( dstBox, srcPlane )
   let min = _.box.cornerLeftGet( boxVector );
   let max = _.box.cornerRightGet( boxVector );
 
-  if( srcPlane === null){
-    srcPlane = [ 0, 0, 0, 1 ];
-  }
-  else if( srcPlane === undefined ){
-    throw _.err( 'srcPlane can not be undefined' );
-  }
+  _.assert( _.plane.is( srcPlane ) );
 
   let _plane = _.plane._from( srcPlane );
   let dimP = _.plane.dimGet( _plane );
@@ -2507,13 +2445,7 @@ function translate( box, offset )
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   let boxVector = _.box._from( box );
-
-  if( offset === null){
-    offset = 0;
-  }
-  else if( offset === undefined ){
-    throw _.err( 'Offset can not be undefined' );
-  }
+  _.assert( _.numberIs( offset ) );
 
   boxVector.addScalar( offset );
 

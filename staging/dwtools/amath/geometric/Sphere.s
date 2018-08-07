@@ -210,19 +210,13 @@ function nil( sphere )
 
 function centeredOfRadius( sphere, radius )
 {
-  sphere = _.sphere.zero( sphere );
+  _.assert( arguments.length === 1 || arguments.length === 2 );
+  _.assert( _.numberIs( radius ) );
 
-  if( radius === null ){
-    radius = 0.5;
-  }
-  else if( radius === undefined ){
-    throw _.err( 'Radius can not be undefined' );
-  }
+  sphere = _.sphere.zero( sphere );
+  _.assert( _.sphere.is( sphere ) );
 
   _.sphere.radiusSet( sphere,radius );
-
-  _.assert( arguments.length === 1 || arguments.length === 2 );
-  _.assert( _.sphere.is( sphere ) );
 
   return sphere;
 }
@@ -359,16 +353,11 @@ function fromPoints( sphere, points )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.arrayIs( points ) );
 
   debugger;
   //throw _.err( 'not tested' );
 
-  if( points === null ){
-    points = [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
-  }
-  else if( points === undefined ){
-    throw _.err( 'Points can not be undefined' );
-  }
 
   let dimp = points[0].length;
 
@@ -415,12 +404,7 @@ function fromBox( sphere, box )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  if( box === null ){
-    box = [ 0, 0, 0, 0, 0, 0 ];
-  }
-  else if( box === undefined ){
-    throw _.err( 'Box can not be undefined' );
-  }
+  _.assert( _.box.is( box ) );
 
   let boxVector = _.box._from( box );
   let dimB = _.box.dimGet( boxVector );
@@ -482,30 +466,17 @@ function fromBox( sphere, box )
 
 function fromCenterAndRadius( sphere, center, radius )
 {
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
+  _.assert( _.longIs( center ) );
+  _.assert( _.numberIs( radius ) );
 
   if( sphere === null )
   sphere = _.sphere.make( center.length );
-
-  if( center === null ){
-    center = [ 0, 0, 0 ];
-  }
-  else if( center === undefined ){
-    throw _.err( 'Center can not be undefined' );
-  }
-  if( radius === null ){
-    radius = 0;
-  }
-  else if( radius === undefined ){
-    throw _.err( 'Radius can not be undefined' );
-  }
 
   let spherev = _.sphere._from( sphere );
   let _center = _.sphere.centerGet( spherev );
   let _dim = _.sphere.dimGet( spherev );
 
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
-  _.assert( _.longIs( center ) );
-  _.assert( _.numberIs( radius ) );
   _.assert( center.length === _dim );
 
   _center.copy( center );
@@ -754,14 +725,6 @@ function radiusSet( sphere, radius )
 {
   _.assert( _.sphere.is( sphere ) );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  if( radius === null ){
-    radius = 0;
-  }
-  else if( radius === undefined ){
-    throw _.err( 'Radius can not be undefined' );
-  }
-
   _.assert( _.numberIs( radius ) );
 
   //if( _.vectorIs( sphere ) )
@@ -951,18 +914,12 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
 function pointExpand( sphere , point )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
+  _.assert( _.arrayIs( point ) || _.vectorIs( point ) );
   let spherev = _.sphere._from( sphere );
   let center = _.sphere.centerGet( spherev );
   let radius = _.sphere.radiusGet( spherev );
   let dim = _.sphere.dimGet( spherev );
 
-  if( point === null ){
-    point = [ 0, 0, 0 ];
-  }
-  else if( point === undefined ){
-    throw _.err( 'Point can not be undefined' );
-  }
 
   let pointv = vector.from( point );
 
@@ -1233,13 +1190,7 @@ function boxExpand( dstSphere, srcBox )
   let radius = _.sphere.radiusGet( _sphere );
   let dimS = _.sphere.dimGet( _sphere );
 
-  if( srcBox === null ){
-    srcBox = [ 0, 0, 0, 0, 0, 0 ];
-  }
-  else if( srcBox === undefined ){
-    throw _.err( 'srcBox can not be undefined' );
-  }
-
+  _.assert( _.box.is( srcBox ) );
   let boxVector = _.box._from( srcBox );
   let dimB = _.box.dimGet( boxVector );
   let min = _.box.cornerLeftGet( boxVector );
@@ -1519,12 +1470,7 @@ function sphereExpand( sphereDst, sphereSrc )
   let radiusDst = _.sphere.radiusGet( _sphereDst );
   let dimDst = _.sphere.dimGet( _sphereDst );
 
-  if( sphereSrc === null ){
-    sphereSrc = [ 0, 0, 0, 0 ];
-  }
-  else if( sphereSrc === undefined ){
-    throw _.err( 'sphereSrc can not be undefined' );
-  }
+  _.assert( _.sphere.is( sphereSrc ) );
 
   let _sphereSrc = _.sphere._from( sphereSrc );
   let centerSrc = _.sphere.centerGet( _sphereSrc );
@@ -1735,12 +1681,7 @@ function planeExpand( dstSphere, srcPlane )
   let radius = _.sphere.radiusGet( _sphere );
   let dim = _.sphere.dimGet( _sphere );
 
-  if( srcPlane === null ){
-    srcPlane = [ 0, 0, 0, 0 ];
-  }
-  else if( srcPlane === undefined ){
-    throw _.err( 'srcPlane can not be undefined' );
-  }
+  _.assert( _.plane.is( srcPlane ) );
 
   let _plane = _.plane._from( srcPlane );
   let normal = _.plane.normalGet( _plane );

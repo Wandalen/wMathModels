@@ -365,42 +365,42 @@ function centeredOfSize( test )
 
   /* */
 
-  test.case = 'src null, implicit size'; /* */
+  test.case = 'src null'; /* */
 
   var src = null;
-  var got = _.box.centeredOfSize( null, null );
+  var got = _.box.centeredOfSize( null, 1 );
   var expected = [ -0.5,-0.5,-0.5,+0.5,+0.5,+0.5 ];
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.case = 'src 2, implicit size'; /* */
+  test.case = 'src 2'; /* */
 
   var src = 2;
-  var got = _.box.centeredOfSize( src, null );
+  var got = _.box.centeredOfSize( src, 1 );
   var expected = [ -0.5,-0.5,+0.5,+0.5 ];
   test.identical( got,expected );
   test.is( got !== src );
 
-  test.case = 'dst array, implicit size'; /* */
+  test.case = 'dst array'; /* */
 
   var dst = [ 0,1,2,3 ];
-  var got = _.box.centeredOfSize( dst, null );
+  var got = _.box.centeredOfSize( dst, 1 );
   var expected = [ -0.5,-0.5,+0.5,+0.5 ];
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.case = 'dst vector, implicit size'; /* */
+  test.case = 'dst vector'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,3 ] );
-  var got = _.box.centeredOfSize( dst, null );
+  var got = _.box.centeredOfSize( dst, 1 );
   var expected = _.vector.fromArray([ -0.5,-0.5,+0.5,+0.5 ]);
   test.identical( got,expected );
   test.is( got === dst );
 
-  test.case = 'dst array 2d, implicit size'; /* */
+  test.case = 'dst array 2d'; /* */
 
   var dst = [ 1,3 ];
-  var got = _.box.centeredOfSize( dst, null );
+  var got = _.box.centeredOfSize( dst, 1 );
   var expected = [ -0.5,+0.5 ];
   test.identical( got,expected );
   test.is( got === dst );
@@ -1133,15 +1133,6 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.case = 'Null box from NULL cube'; /* */
-
-  var box = null;
-  var fromCube = null ;
-  var expected = [ -0.5, -0.5, -0.5, 0.5, 0.5, 0.5 ];
-
-  var gotBox = _.box.fromCube( box, fromCube );
-  test.identical( gotBox, expected );
-
   test.case = 'Box from cube'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
@@ -1218,6 +1209,13 @@ function fromCube( test )
   test.shouldThrowError( function()
   {
     _.box.fromCube( [ 0, 0, 1, 1 ], [ 1, 2 ] );
+  });
+
+  test.case = 'Null box from null cube'; /* */
+
+  test.shouldThrowError( function()
+  {
+    _.box.fromCube( null, null );
   });
 
   test.case = 'Cube not number'; /* */
@@ -4624,15 +4622,6 @@ function sphereExpand( test )
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
-  test.case = 'Sphere is Null - default sphere [ 0, 0, 0, 1 ]'; /* */
-
-  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
-  var srcSphere = null;
-  var expected = [ -1, -1, -1, 1, 1, 1 ];
-
-  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
-  test.identical( gotBox, expected );
-
   test.case = 'dstBox vector'; /* */
 
   var dstBox = _.vector.from( [ 0, 0, 0, 1, 1, 1 ] );
@@ -4690,6 +4679,7 @@ function sphereExpand( test )
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( null, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], null ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( NaN, [ 1, 0, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );

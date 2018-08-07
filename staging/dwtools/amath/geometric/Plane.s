@@ -68,7 +68,6 @@ function is( plane )
   * @throws { Error } An Error if ( bias ) is not number.
   * @memberof wTools.plane
   */
-
 function from( plane )
 {
 
@@ -123,7 +122,6 @@ function from( plane )
   * @throws { Error } An Error if ( apoint ) is not a point.
   * @memberof wTools.plane
   */
-
 function fromNormalAndPoint( plane, anormal, apoint )
 {
 
@@ -170,7 +168,6 @@ function fromNormalAndPoint( plane, anormal, apoint )
   * @throws { Error } An Error if ( c ) is not a point.
   * @memberof wTools.plane
   */
-
 function fromPoints( plane,a,b,c )
 {
 
@@ -272,7 +269,7 @@ function pointContains( plane , point )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   let _plane = _.plane._from( plane );
-  let pointVector = _.vector.fromArray( point );
+  let pointVector = _.vector.from( point );
 
   if( Math.abs( _.plane.pointDistance( plane, pointVector ) ) < 1E-12 )
   return true;
@@ -300,14 +297,13 @@ function pointContains( plane , point )
   * @throws { Error } An Error if ( point ) is not a vector.
   * @memberof wTools.plane
   */
-
 function pointDistance( plane , point )
 {
 
   let _plane = _.plane._from( plane );
   let normal = _.plane.normalGet( _plane );
   let bias = _.plane.biasGet( _plane );
-  let pointVector = _.vector.fromArray( point );
+  let pointVector = _.vector.from( point );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
@@ -343,7 +339,6 @@ function pointDistance( plane , point )
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @memberof wTools.plane
   */
-
 function pointCoplanarGet( plane , point, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
@@ -355,7 +350,7 @@ function pointCoplanarGet( plane , point, dstPoint )
   throw _.err( 'Not a valid destination point' );
 
   let dstPointVector = _.vector.from( dstPoint );
-  let pointVector = _.vector.fromArray( point.slice() );
+  let pointVector = _.vector.from( point.slice() );
   let _plane = _.plane._from( plane.slice() );
   let normal = _.plane.normalGet( _plane );
   let bias = _.plane.biasGet( _plane );
@@ -370,11 +365,11 @@ function pointCoplanarGet( plane , point, dstPoint )
 
   let movement = _.vector.mulScalar( normal, lambda );
 
-  pointVector = _.avector.add( pointVector ,  movement  );
+  pointVector = _.vector.add( pointVector ,  movement  );
 
   for( let i = 0; i < pointVector.length; i++ )
   {
-    dstPointVector.eSet( i, pointVector[ i ] );
+    dstPointVector.eSet( i, pointVector.eGet( i ) );
   }
   return dstPoint;
 }
@@ -385,7 +380,7 @@ function pointCoplanarGet( plane , point, dstPoint )
 //  if( !point )
 //  point = [ 0,0,0 ];
 
-//  let pointVector = _.vector.fromArray( point );
+//  let pointVector = _.vector.from( point );
 //  let _plane = _.plane._from( plane );
 //  let normal = _.plane.normalGet( _plane );
 //  let bias = _.plane.biasGet( _plane );
@@ -425,7 +420,6 @@ function pointCoplanarGet( plane , point, dstPoint )
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
   * @memberof wTools.plane
   */
-
 function boxIntersects( plane , srcBox )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -443,17 +437,16 @@ function boxIntersects( plane , srcBox )
   /* box corners */
 
   let c = _.Space.makeZero( [ 3, 8 ] );
-  min = _.vector.toArray( min ); max = _.vector.toArray( max );
-  c.colVectorGet( 0 ).copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
-  c.colVectorGet( 1 ).copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
-  c.colVectorGet( 2 ).copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
-  c.colVectorGet( 3 ).copy( [ min[ 0 ], min[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 4 ).copy( [ max[ 0 ], max[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 5 ).copy( [ min[ 0 ], max[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 6 ).copy( [ max[ 0 ], min[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 7 ).copy( [ max[ 0 ], max[ 1 ], min[ 2 ] ] );
+  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
 
-  min = _.vector.fromArray( min );
+  min = _.vector.from( min );
   let distance = _.plane.pointDistance( plane, min );
   if( distance === 0 )
   {
@@ -509,7 +502,6 @@ function boxIntersects( plane , srcBox )
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
   * @memberof wTools.plane
   */
-
 function boxDistance( plane , srcBox )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -518,7 +510,7 @@ function boxDistance( plane , srcBox )
   let boxVector = _.box._from( srcBox );
 
   let distance = _.box.planeDistance( boxVector, _plane );
-  
+
   return distance;
 }
 
@@ -545,7 +537,6 @@ function boxDistance( plane , srcBox )
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
   * @memberof wTools.plane
   */
-
 function boxClosestPoint( srcPlane , srcBox, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
@@ -608,7 +599,6 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @memberof wTools.plane
   */
-
 function sphereIntersects( plane , sphere )
 {
   let bool = false;
@@ -649,7 +639,6 @@ function sphereIntersects( plane , sphere )
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @memberof wTools.plane
   */
-
 function sphereDistance( plane , sphere )
 {
 
@@ -697,7 +686,6 @@ function sphereDistance( plane , sphere )
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @memberof wTools.plane
   */
-
 function sphereClosestPoint( plane , sphere, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
@@ -752,7 +740,6 @@ function sphereClosestPoint( plane , sphere, dstPoint )
   * @throws { Error } An Error if ( tstPlane ) is not plane.
   * @memberof wTools.plane
   */
-
 function planeIntersects( srcPlane, tstPlane )
 {
   let _srcPlane = _.plane._from( srcPlane.slice() );
@@ -803,7 +790,6 @@ function planeIntersects( srcPlane, tstPlane )
   * @throws { Error } An Error if ( tstPlane ) is not plane.
   * @memberof wTools.plane
   */
-
 function planeDistance( srcPlane, tstPlane )
 {
   let _srcPlane = _.plane._from( srcPlane );
@@ -863,7 +849,6 @@ function planeDistance( srcPlane, tstPlane )
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the plane and frustum don´t have the same dimension).
   * @memberof wTools.plane
   */
-
 function frustumIntersects( srcPlane, srcFrustum )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -903,7 +888,6 @@ function frustumIntersects( srcPlane, srcFrustum )
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the plane and frustum don´t have the same dimension).
   * @memberof wTools.plane
   */
-
 function frustumDistance( srcPlane , srcFrustum )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -944,7 +928,6 @@ function frustumDistance( srcPlane , srcFrustum )
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the plane and frustum don´t have the same dimension).
   * @memberof wTools.plane
   */
-
 function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
@@ -1006,7 +989,6 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
   * @throws { Error } An Error if ( line ) is not line.
   * @memberof wTools.plane
   */
-
 function lineIntersects( plane , line )
 {
 
@@ -1050,15 +1032,22 @@ function lineIntersects( plane , line )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof wTools.plane
   */
-
 function lineIntersection( plane , line , point )
 {
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three argument' );
+
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   let _plane = _.plane._from( plane );
   let normal = _.plane.normalGet( _plane );
   let bias = _.plane.biasGet( _plane );
+  let line_ = _.vector.from( line );
 
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
   debugger;
   throw _.err( 'not tested' );
 
@@ -1072,21 +1061,21 @@ function lineIntersection( plane , line , point )
   if( Math.abs( dot ) < _.accuracySqr )
   {
 
-    if( _.plane.pointDistance( plane, line[ 0 ] ) < _.accuracySqr )
+    if( _.plane.pointDistance( plane, line_.eGet( 0 ) ) < _.accuracySqr )
     {
-      _.avector.assign( point,line[ 0 ] );
+      _.avector.assign( point, line_.eGet( 0 ) );
       return point
     }
 
     return false;
   }
 
-  let t = - ( _.vector.dot( line[ 0 ] , this.normal ) + bias ) / dot;
+  let t = - ( _.vector.dot( line_.eGet( 0 ) , this.normal ) + bias ) / dot;
 
   if( t < 0 || t > 1 )
   return false;
 
-  return _.line.at( [ line[ 0 ],direction ] , t );
+  return _.line.at( [ line_.eGet( 0 ),direction ] , t );
 }
 
 //
@@ -1145,7 +1134,7 @@ function matrixHomogenousApply( plane , matrix )
 function translate( plane , offset )
 {
 
-  let _offset = _.vector.fromArray( offset );
+  let _offset = _.vector.from( offset );
   let _plane = _.plane._from( plane );
   let normal = _.plane.normalGet( _plane );
   let bias = _.plane.biasGet( _plane );
