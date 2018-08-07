@@ -25,6 +25,12 @@ qqq : make sure all routines in all files of such kind in order
 
 */
 
+/*
+qqq
+- avoid toArray
+- CC break : identation
+*/
+
 // --
 //
 // --
@@ -1886,7 +1892,7 @@ function planeDistance( srcBox, plane )
     /* box corners */
 
     let c = _.Space.makeZero( [ 3, 8 ] );
-    min = _.vector.toArray( min ); max = _.vector.toArray( max );
+    min = _.vector.toArray( min ); max = _.vector.toArray( max ); /* qqq : avoid toArray */
     c.colVectorGet( 0 ).copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
     c.colVectorGet( 1 ).copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
     c.colVectorGet( 2 ).copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
@@ -2268,6 +2274,7 @@ function frustumDistance( box, frustum )
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @memberof wTools.box
   */
+
 function frustumClosestPoint( box, frustum, dstPoint )
 {
 
@@ -2315,11 +2322,11 @@ function frustumClosestPoint( box, frustum, dstPoint )
     for( let j = 0 ; j < 8 ; j++ )
     {
       let corner = c.colVectorGet( j );
-      let d = _.avector.distance( corner, frustumPoint.slice() );
+      let d = _.avector.distance( corner, frustumPoint.slice() ); /* qqq : why slice??? */
       if( d < distance )
       {
         distance = d;
-        point = corner.slice();
+        point = corner.slice(); /* qqq : no clone principle */
       }
     }
 
@@ -2364,6 +2371,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
   * @memberof wTools.box
   */
+
 function frustumExpand( dstBox, srcFrustum )
 {
 
@@ -2500,7 +2508,6 @@ function translate( box, offset )
 *
 *  }
 */
-
 
 // //
 //
