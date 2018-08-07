@@ -25,6 +25,12 @@ qqq : make sure all routines in all files of such kind in order
 
 */
 
+/*
+qqq
+- avoid toArray - use eGet, eSet instead
+- CC break : identation
+*/
+
 // --
 //
 // --
@@ -79,6 +85,7 @@ function make( dim )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
+
 function makeZero( dim )
 {
   if( _.box.is( dim ) )
@@ -111,6 +118,7 @@ function makeZero( dim )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
+
 function makeNil( dim )
 {
   if( _.box.is( dim ) )
@@ -180,6 +188,7 @@ function zero( box )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
+
 function nil( box )
 {
 
@@ -231,6 +240,8 @@ function centeredOfSize( box, size )
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
+  /* qqq : in routines like this "box" and "null" are only valid first argument */
+
   if( size === undefined )
   size = 1;
 
@@ -269,6 +280,7 @@ function centeredOfSize( box, size )
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @memberof wTools.box
   */
+
 function from( box )
 {
 
@@ -779,18 +791,17 @@ function centerGet( box , dst )
 
   if( !dst )
   dst = _.dup( 0,dim ) ;
-  debugger;
-  let dstv = _.vector.from( dst );
+  var dstv = _.vector.from( dst );
 
   _.assert( dim === dst.length );
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
-  debugger;
+  // debugger;
   // throw _.err( 'not tested' );
 
   _.vector.addAssigning( dstv.copy( min ), max ).mulScalar( 0.5 );
 
-  debugger;
+  // debugger;
   return dst;
 }
 
@@ -1009,8 +1020,6 @@ function pointDistance( box , point )
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
   * @memberof wTools.box
   */
-
-/* qqq : not 3 */
 
 function pointClosestPoint( box , point, dstPoint )
 {
@@ -1887,7 +1896,7 @@ function planeDistance( srcBox, plane )
     /* box corners */
 
     let c = _.Space.makeZero( [ 3, 8 ] );
-    min = _.vector.toArray( min ); max = _.vector.toArray( max );
+    min = _.vector.toArray( min ); max = _.vector.toArray( max ); /* qqq : avoid toArray */
     c.colVectorGet( 0 ).copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
     c.colVectorGet( 1 ).copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
     c.colVectorGet( 2 ).copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
@@ -2269,6 +2278,7 @@ function frustumDistance( box, frustum )
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @memberof wTools.box
   */
+
 function frustumClosestPoint( box, frustum, dstPoint )
 {
 
@@ -2316,11 +2326,11 @@ function frustumClosestPoint( box, frustum, dstPoint )
     for( let j = 0 ; j < 8 ; j++ )
     {
       let corner = c.colVectorGet( j );
-      let d = _.avector.distance( corner, frustumPoint.slice() );
+      let d = _.avector.distance( corner, frustumPoint.slice() ); /* qqq : why slice??? */
       if( d < distance )
       {
         distance = d;
-        point = corner.slice();
+        point = corner.slice(); /* qqq : no clone principle */
       }
     }
 
@@ -2365,6 +2375,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
   * @memberof wTools.box
   */
+
 function frustumExpand( dstBox, srcFrustum )
 {
 
@@ -2501,7 +2512,6 @@ function translate( box, offset )
 *
 *  }
 */
-
 
 // //
 //
