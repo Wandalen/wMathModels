@@ -305,18 +305,10 @@ function nil( test )
 function centeredOfRadius( test )
 {
 
-  test.case = 'src undefined'; /* */
-
-  var src = undefined;
-  var got = _.sphere.centeredOfRadius( src );
-  var expected = [ 0,0,0,0.5 ];
-  test.identical( got,expected );
-  test.is( got !== src );
-
   test.case = 'src null'; /* */
 
   var src = null;
-  var got = _.sphere.centeredOfRadius( src );
+  var got = _.sphere.centeredOfRadius( null, src );
   var expected = [ 0,0,0,0.5 ];
   test.identical( got,expected );
   test.is( got !== src );
@@ -324,15 +316,15 @@ function centeredOfRadius( test )
   test.case = 'src 2'; /* */
 
   var src = 2;
-  var got = _.sphere.centeredOfRadius( src );
-  var expected = [ 0,0,0.5 ];
+  var got = _.sphere.centeredOfRadius(  null, src );
+  var expected = [ 0, 0, 0,2 ];
   test.identical( got,expected );
   test.is( got !== src );
 
   test.case = 'dst array'; /* */
 
   var dst = [ 0,1,2,3 ];
-  var got = _.sphere.centeredOfRadius( dst );
+  var got = _.sphere.centeredOfRadius( dst, null );
   var expected = [ 0,0,0,0.5 ];
   test.identical( got,expected );
   test.is( got === dst );
@@ -340,7 +332,7 @@ function centeredOfRadius( test )
   test.case = 'dst vector'; /* */
 
   var dst = _.vector.fromArray([ 0,1,2,3 ]);
-  var got = _.sphere.centeredOfRadius( dst );
+  var got = _.sphere.centeredOfRadius( dst, null );
   var expected = _.vector.fromArray([ 0,0,0,0.5 ]);
   test.identical( got,expected );
   test.is( got === dst );
@@ -348,7 +340,7 @@ function centeredOfRadius( test )
   test.case = 'dst array 2d'; /* */
 
   var dst = [ 0,1,5 ];
-  var got = _.sphere.centeredOfRadius( dst );
+  var got = _.sphere.centeredOfRadius( dst, null );
   var expected = [ 0,0,0.5 ];
   test.identical( got,expected );
   test.is( got === dst );
@@ -445,6 +437,15 @@ function fromPoints( test )
 
   var dstSphere = null;
   var points= [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.sphere.fromPoints( dstSphere, points);
+  test.identical( gotSphere, expected );
+
+  test.case = 'Zero points - Points are null ( returns Zero sphere )'; /* */
+
+  var dstSphere = null;
+  var points= null;
   var expected = [ 0, 0, 0, 0 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere, points);
@@ -610,7 +611,7 @@ function fromBox( test )
 
   test.case = 'trivial'; /* */
 
-  var expected = [ 0.5,0.5,0.5,sqrt( 0.5 ) ];
+  var expected = [ 0.5,0.5,0.5,sqrt( 0.75 ) ];
   var bsphere = [ 0,0,0,0 ];
   var bbox = [ 0,0,0,1,1,1 ];
 
@@ -626,7 +627,7 @@ function fromBox( test )
 
   test.case = 'same sizes, different position'; /* */
 
-  var expected = [ -2.5,0.5,5.5,sqrt( 0.5 ) ];
+  var expected = [ -2.5,0.5,5.5,sqrt( 0.75 ) ];
   var bsphere = [ 0,0,0,0 ];
   var bbox = [ -3,0,5,-2,1,6 ];
 
@@ -642,7 +643,7 @@ function fromBox( test )
 
   test.case = 'different sizes, different position'; /* */
 
-  var expected = [ -2,0.5,7,sqrt( 5 ) ];
+  var expected = [ -2,0.5,7,sqrt( 21 )/2 ];
   var bsphere = [ 0,0,0,0 ];
   var bbox = [ -3,0,5,-1,1,9 ];
 
@@ -2737,6 +2738,16 @@ function boxExpand( test )
   test.is( gotSphere === sphere );
   test.identical( gotSphere,expected );
 
+  test.case = 'box is null';
+
+  var sphere = [ 0, 0, 0, 2 ];
+  var box = null;
+  var expected = [ 0, 0, 0, 2 ];
+  var gotSphere = _.sphere.boxExpand( sphere, box );
+
+  test.is( gotSphere === sphere );
+  test.identical( gotSphere,expected );
+
   /* */
 
   if( !Config.debug )
@@ -2750,7 +2761,7 @@ function boxExpand( test )
   test.shouldThrowErrorSync( () => _.sphere.boxExpand( 'sphere', [ 1, 2, 3, 4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ] , [ 1, 2, 3, 4, 5, 6, 7 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1, 2, 3, 4 ], undefined ) );
   test.shouldThrowErrorSync( () => _.sphere.boxExpand( null, [ 1, 2, 3, 4 ] ) );
 
 }
@@ -3588,6 +3599,15 @@ function planeExpand( test )
 
   test.equivalent( gotExpand, expected );
 
+  test.case = 'Plane is nukl'; /* */
+
+  var srcSphere = [ 2, 2, 2, 1 ];
+  var tstPlane = null;
+  var expected = [ 2, 2, 2, 1 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.equivalent( gotExpand, expected );
+
   /* */
 
   if( !Config.debug )
@@ -3597,7 +3617,6 @@ function planeExpand( test )
   test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', 'sphereTwo' ) );
   test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], 'sphereTwo' ) );
   test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], null ) );
   test.shouldThrowErrorSync( () => _.sphere.planeExpand( null, [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], NaN ) );
   test.shouldThrowErrorSync( () => _.sphere.planeExpand( NaN, [ 1,2,3,4 ] ) );

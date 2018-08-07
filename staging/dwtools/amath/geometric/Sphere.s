@@ -208,12 +208,16 @@ function nil( sphere )
   * @memberof wTools.sphere
   */
 
-function centeredOfRadius( sphere,radius )
+function centeredOfRadius( sphere, radius )
 {
   sphere = _.sphere.zero( sphere );
 
-  if( radius === undefined )
-  radius = 0.5;
+  if( radius === null ){
+    radius = 0.5;
+  }
+  else if( radius === undefined ){
+    throw _.err( 'Radius can not be undefined' );
+  }
 
   _.sphere.radiusSet( sphere,radius );
 
@@ -359,6 +363,12 @@ function fromPoints( sphere, points )
   debugger;
   //throw _.err( 'not tested' );
 
+  if( points === null ){
+    points = [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
+  }
+  else if( points === undefined ){
+    throw _.err( 'Points can not be undefined' );
+  }
 
   let dimp = points[0].length;
 
@@ -403,6 +413,14 @@ function fromPoints( sphere, points )
 
 function fromBox( sphere, box )
 {
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( box === null ){
+    box = [ 0, 0, 0, 0, 0, 0 ];
+  }
+  else if( box === undefined ){
+    throw _.err( 'Box can not be undefined' );
+  }
 
   let boxVector = _.box._from( box );
   let dimB = _.box.dimGet( boxVector );
@@ -420,7 +438,6 @@ function fromBox( sphere, box )
 
   _.assert( dimS === dimB );
   //  _.assert( dim === _.sphere.dimGet(  sphere) );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   center.copy( min );
   vector.addVectors( center,max );
@@ -429,9 +446,9 @@ function fromBox( sphere, box )
   /* radius based on 2 major dimensions */
 
   // debugger;
-  _.avector.sort( size );
+  // _.avector.sort( size );
   // _.sphere.radiusSet( spherev , _.avector.mag( size.slice( 1, 3 ) ) / 2 );
-  _.sphere.radiusSet( spherev , _.avector.mag( size.slice( ) ) / 2 );
+  _.sphere.radiusSet( spherev , _.avector.mag( size ) / 2 );
 
   return sphere;
 }
@@ -468,6 +485,19 @@ function fromCenterAndRadius( sphere, center, radius )
 
   if( sphere === null )
   sphere = _.sphere.make( center.length );
+
+  if( center === null ){
+    center = [ 0, 0, 0 ];
+  }
+  else if( center === undefined ){
+    throw _.err( 'Center can not be undefined' );
+  }
+  if( radius === null ){
+    radius = 0;
+  }
+  else if( radius === undefined ){
+    throw _.err( 'Radius can not be undefined' );
+  }
 
   let spherev = _.sphere._from( sphere );
   let _center = _.sphere.centerGet( spherev );
@@ -722,9 +752,17 @@ function radiusGet( sphere )
 
 function radiusSet( sphere, radius )
 {
-  _.assert( _.numberIs( radius ) );
   _.assert( _.sphere.is( sphere ) );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( radius === null ){
+    radius = 0;
+  }
+  else if( radius === undefined ){
+    throw _.err( 'Radius can not be undefined' );
+  }
+
+  _.assert( _.numberIs( radius ) );
 
   //if( _.vectorIs( sphere ) )
   //{
@@ -912,14 +950,22 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
 
 function pointExpand( sphere , point )
 {
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   let spherev = _.sphere._from( sphere );
   let center = _.sphere.centerGet( spherev );
   let radius = _.sphere.radiusGet( spherev );
   let dim = _.sphere.dimGet( spherev );
+
+  if( point === null ){
+    point = [ 0, 0, 0 ];
+  }
+  else if( point === undefined ){
+    throw _.err( 'Point can not be undefined' );
+  }
+
   let pointv = vector.from( point );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === point.length );
 
   // debugger;
@@ -989,19 +1035,18 @@ function boxContains( sphere, box )
   /* src corners */
 
   let c = _.Space.makeZero( [ 3, 8 ] );
-  let srcMin = _.vector.toArray( min ); let srcMax = _.vector.toArray( max );
-  c.colVectorGet( 0 ).copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
-  c.colVectorGet( 1 ).copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
-  c.colVectorGet( 2 ).copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
-  c.colVectorGet( 3 ).copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 4 ).copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 5 ).copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 6 ).copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 7 ).copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
 
   for( let j = 0 ; j < 8 ; j++ )
   {
-    let srcCorner = _.vector.toArray( c.colVectorGet( j ) );
+    let srcCorner = c.colVectorGet( j );
 
     if( _.sphere.pointContains( _sphere, srcCorner ) === false )
     {
@@ -1188,6 +1233,13 @@ function boxExpand( dstSphere, srcBox )
   let radius = _.sphere.radiusGet( _sphere );
   let dimS = _.sphere.dimGet( _sphere );
 
+  if( srcBox === null ){
+    srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  }
+  else if( srcBox === undefined ){
+    throw _.err( 'srcBox can not be undefined' );
+  }
+
   let boxVector = _.box._from( srcBox );
   let dimB = _.box.dimGet( boxVector );
   let min = _.box.cornerLeftGet( boxVector );
@@ -1198,21 +1250,19 @@ function boxExpand( dstSphere, srcBox )
   /* box corners */
 
   let c = _.Space.makeZero( [ 3, 8 ] );
-  min = _.vector.toArray( min ); max = _.vector.toArray( max );
-  c.colVectorGet( 0 ).copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
-  c.colVectorGet( 1 ).copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
-  c.colVectorGet( 2 ).copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
-  c.colVectorGet( 3 ).copy( [ min[ 0 ], min[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 4 ).copy( [ max[ 0 ], max[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 5 ).copy( [ min[ 0 ], max[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 6 ).copy( [ max[ 0 ], min[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 7 ).copy( [ max[ 0 ], max[ 1 ], min[ 2 ] ] );
+  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
 
   let distance = radius;
-  center = _.vector.toArray( center );
   for( let j = 0 ; j < 8 ; j++ )
   {
-    let corner = _.vector.toArray( c.colVectorGet( j ) );
+    let corner = c.colVectorGet( j );
     let d = _.avector.distance( corner, center );
     if( d > distance )
     {
@@ -1469,6 +1519,13 @@ function sphereExpand( sphereDst, sphereSrc )
   let radiusDst = _.sphere.radiusGet( _sphereDst );
   let dimDst = _.sphere.dimGet( _sphereDst );
 
+  if( sphereSrc === null ){
+    sphereSrc = [ 0, 0, 0, 0 ];
+  }
+  else if( sphereSrc === undefined ){
+    throw _.err( 'sphereSrc can not be undefined' );
+  }
+
   let _sphereSrc = _.sphere._from( sphereSrc );
   let centerSrc = _.sphere.centerGet( _sphereSrc );
   let radiusSrc = _.sphere.radiusGet( _sphereSrc );
@@ -1634,7 +1691,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  let planePoint = _.plane.pointCoplanarGet( _plane, center.slice() );
+  let planePoint = _.plane.pointCoplanarGet( _plane, center );
   let spherePoint = _.sphere.pointClosestPoint( _sphere, planePoint );
 
   for ( let i = 0; i < spherePoint.length; i++ )
@@ -1678,6 +1735,13 @@ function planeExpand( dstSphere, srcPlane )
   let radius = _.sphere.radiusGet( _sphere );
   let dim = _.sphere.dimGet( _sphere );
 
+  if( srcPlane === null ){
+    srcPlane = [ 0, 0, 0, 0 ];
+  }
+  else if( srcPlane === undefined ){
+    throw _.err( 'srcPlane can not be undefined' );
+  }
+
   let _plane = _.plane._from( srcPlane );
   let normal = _.plane.normalGet( _plane );
   let bias = _.plane.biasGet( _plane );
@@ -1691,13 +1755,8 @@ function planeExpand( dstSphere, srcPlane )
   debugger;
   // throw _.err( 'not tested' );
 
-  let planePoint = _.plane.pointCoplanarGet( _plane, center.slice() );
-  let sphere = _.sphere.pointExpand( _sphere.slice(), planePoint );
-
-  for ( let i = 0; i < sphere.length; i++ )
-  {
-    _sphere.eSet( i, sphere[ i ] );
-  }
+  let planePoint = _.plane.pointCoplanarGet( _plane, center );
+  _.sphere.pointExpand( _sphere, planePoint );
 
   return dstSphere;
 }
