@@ -382,8 +382,6 @@ function fromPoints( sphere, points )
 
 //
 
-//
-
 /**
   * Create or expand a sphere from a box. Returns the expanded sphere. Spheres are stored in Array data structure.
   * Box stay untouched, sphere changes.
@@ -432,7 +430,6 @@ function fromBox( sphere, box )
 
   // debugger;
   _.avector.sort( size );
-  console.log( size.slice( ))
   // _.sphere.radiusSet( spherev , _.avector.mag( size.slice( 1, 3 ) ) / 2 );
   _.sphere.radiusSet( spherev , _.avector.mag( size.slice( ) ) / 2 );
 
@@ -891,6 +888,27 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
 }
 
 //
+
+
+//
+
+/**
+  * Expand a sphere with a point. Returns the new sphere.
+  * Point remains unchanged, sphere changes.
+  *
+  * @param { Array } sphere - Destination sphere.
+  * @param { Array } point - Source point.
+  *
+  * @example
+  * // returns [ 0, 0, 0, Math.sqrt( 27 ) ];
+  * _.pointExpand( [ 0, 0, 0, 1 ], [ 3, 3, 3 ] );
+  *
+  * @returns { Array } Returns the coordinates of the expanded sphere
+  * @function pointExpand
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( sphere ) is not a sphere.
+  * @memberof wTools.sphere
+  */
 
 function pointExpand( sphere , point )
 {

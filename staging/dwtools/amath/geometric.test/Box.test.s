@@ -365,18 +365,10 @@ function centeredOfSize( test )
 
   /* */
 
-  test.case = 'src undefined, implicit size'; /* */
-
-  var src = undefined;
-  var got = _.box.centeredOfSize( src );
-  var expected = [ -0.5,-0.5,-0.5,+0.5,+0.5,+0.5 ];
-  test.identical( got,expected );
-  test.is( got !== src );
-
   test.case = 'src null, implicit size'; /* */
 
   var src = null;
-  var got = _.box.centeredOfSize( src );
+  var got = _.box.centeredOfSize( null, null );
   var expected = [ -0.5,-0.5,-0.5,+0.5,+0.5,+0.5 ];
   test.identical( got,expected );
   test.is( got !== src );
@@ -384,7 +376,7 @@ function centeredOfSize( test )
   test.case = 'src 2, implicit size'; /* */
 
   var src = 2;
-  var got = _.box.centeredOfSize( src );
+  var got = _.box.centeredOfSize( src, null );
   var expected = [ -0.5,-0.5,+0.5,+0.5 ];
   test.identical( got,expected );
   test.is( got !== src );
@@ -392,15 +384,15 @@ function centeredOfSize( test )
   test.case = 'dst array, implicit size'; /* */
 
   var dst = [ 0,1,2,3 ];
-  var got = _.box.centeredOfSize( dst );
+  var got = _.box.centeredOfSize( dst, null );
   var expected = [ -0.5,-0.5,+0.5,+0.5 ];
   test.identical( got,expected );
   test.is( got === dst );
 
   test.case = 'dst vector, implicit size'; /* */
 
-  var dst = _.vector.fromArray([ 0,1,2,3 ]);
-  var got = _.box.centeredOfSize( dst );
+  var dst = _.vector.fromArray([ 0,1,2,3 ] );
+  var got = _.box.centeredOfSize( dst, null );
   var expected = _.vector.fromArray([ -0.5,-0.5,+0.5,+0.5 ]);
   test.identical( got,expected );
   test.is( got === dst );
@@ -408,7 +400,7 @@ function centeredOfSize( test )
   test.case = 'dst array 2d, implicit size'; /* */
 
   var dst = [ 1,3 ];
-  var got = _.box.centeredOfSize( dst );
+  var got = _.box.centeredOfSize( dst, null );
   var expected = [ -0.5,+0.5 ];
   test.identical( got,expected );
   test.is( got === dst );
@@ -1141,11 +1133,11 @@ function fromCube( test )
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
 
-  test.case = 'Null box NOT from cube'; /* */
+  test.case = 'Null box from NULL cube'; /* */
 
   var box = null;
-  var fromCube = 0 ;
-  var expected = [ -0, -0, -0, 0, 0, 0 ];
+  var fromCube = null ;
+  var expected = [ -0.5, -0.5, -0.5, 0.5, 0.5, 0.5 ];
 
   var gotBox = _.box.fromCube( box, fromCube );
   test.identical( gotBox, expected );
@@ -3167,6 +3159,15 @@ function pointExpand( test )
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
 
+  test.case = 'Box is vector'; /* */
+
+  var box = _.vector.from( [ 0, 1, 2, 3, 4, 5 ] );
+  var point = [ 0, 0, 0 ];
+  var expected = _.vector.from( [ 0, 0, 0, 3, 4, 5 ] );
+
+  var gotBox = _.box.pointExpand( box, point );
+  test.identical( gotBox, expected );
+
   /* */
 
   if( !Config.debug )
@@ -3233,11 +3234,12 @@ function pointRelative( test )
   var point = [ 0, 1 ];
 
   var gotPoint = _.box.pointRelative( box, point );
-  test.equivalent( gotPoint, point );
-  test.equivalent( oldBox, box );
 
   var expected = [ 0, 0.5 ];
   test.equivalent( gotPoint, expected );
+
+  var oldPoint = [ 0, 1 ];
+  test.equivalent( oldPoint, point );
 
   var oldBox = [ 0, 0, 2, 2 ];
   test.equivalent( oldBox, box );
@@ -3401,7 +3403,7 @@ function pointRelative( test )
   test.case = 'too many arguments'; /* */
   test.shouldThrowError( function()
   {
-    _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
+    _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ], [ 1, 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
@@ -3767,16 +3769,6 @@ function boxIntersects( test )
   var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
-  test.case = 'Empty boxes'; /* */
-
-  var srcBox = [ ];
-  var tstBox = [ ];
-  var expected = false;
-
-  var gotBool = _.box.boxIntersects( srcBox, tstBox );
-  test.identical( gotBool, expected );
-
-
   /* */
 
   if( !Config.debug )
@@ -3784,6 +3776,7 @@ function boxIntersects( test )
 
   test.shouldThrowErrorSync( () => _.box.boxIntersects( ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects( [] ) );
+  test.shouldThrowErrorSync( () => _.box.boxIntersects( [], [] ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects( 'box', 'box2' ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects(  null, NaN ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] ) );
@@ -4280,7 +4273,7 @@ function sphereContains( test )
   test.case = 'Sphere bigger than box'; /* */
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
-  var tstSphere = [ 2, 2, 2, 4 ];
+  var tstSphere = [ 2, 2, 2, 6 ];
   var expected = false;
 
   var gotBool = _.box.sphereContains( srcBox, tstSphere );
@@ -4631,6 +4624,15 @@ function sphereExpand( test )
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
+  test.case = 'Sphere is Null - default sphere [ 0, 0, 0, 1 ]'; /* */
+
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var srcSphere = null;
+  var expected = [ -1, -1, -1, 1, 1, 1 ];
+
+  var gotBox = _.box.sphereExpand( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
   test.case = 'dstBox vector'; /* */
 
   var dstBox = _.vector.from( [ 0, 0, 0, 1, 1, 1 ] );
@@ -4688,7 +4690,6 @@ function sphereExpand( test )
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3 ] ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( null, [ 1, 0, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], null ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( NaN, [ 1, 0, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
   test.shouldThrowErrorSync( () => _.box.sphereExpand( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
@@ -5579,110 +5580,111 @@ function frustumExpand( test )
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.identical( gotBox, expected );
 
-    test.description = 'Box outside frustum'; //
+  test.description = 'Box outside frustum'; //
 
-    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
-    ([
-      0,   0,   0,   0, - 1,   1,
-      1, - 1,   0,   0,   0,   0,
-      0,   0,   1, - 1,   0,   0,
-      - 1,   0, - 1,   0,   0, - 1
-    ]);
-    var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
-    var expected = [ 0, 0, 0, 2.5, 2.5, 2.5 ];
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
+  var expected = [ 0, 0, 0, 2.5, 2.5, 2.5 ];
 
-    var gotBox = _.box.frustumExpand( box, srcFrustum );
-    test.identical( gotBox, expected );
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.identical( gotBox, expected );
 
-    test.description = 'Box outside frustum opposite side'; //
+  test.description = 'Box outside frustum opposite side'; //
 
-    var frustum = _.Space.make( [ 4, 6 ] ).copy
-    ([
-      0,   0,   0,   0, - 1,   1,
-      1, - 1,   0,   0,   0,   0,
-      0,   0,   1, - 1,   0,   0,
-      - 1,   0, - 1,   0,   0, - 1
-    ]);
-    var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
-    var expected = [ -1, -1, -1, 1, 1, 1 ];
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
+  var expected = [ -1, -1, -1, 1, 1, 1 ];
 
-    var gotBox = _.box.frustumExpand( box, srcFrustum );
-    test.identical( gotBox, expected );
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.identical( gotBox, expected );
 
-    test.description = 'Box and frustum intersect'; //
+  test.description = 'Box and frustum intersect'; //
 
-    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
-    ([
-      0,   0,   0,   0, - 1,   1,
-      1, - 1,   0,   0,   0,   0,
-      0,   0,   1, - 1,   0,   0,
-      - 1,   0, - 1,   0,   0, - 1
-    ]);
-    var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
-    var expected = [ -1, -1, -1, 1, 1, 1 ];
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
+  var expected = [ -1, -1, -1, 1, 1, 1 ];
 
-    var gotBox = _.box.frustumExpand( box, srcFrustum );
-    test.identical( gotBox, expected );
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.identical( gotBox, expected );
 
-    test.description = 'Point in inclined frustum side'; //
+  test.description = 'Point in inclined frustum side'; //
 
-    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
-    ([
-      0,   0,   0,   0, - 1,   1,
-      1, - 1,   0,   0,   0,   0,
-      0,   2,   1, - 1,   0,   0,
-      - 3,   0, - 1,   0,   0, - 1
-    ]);
-    var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
-    var expected = [ -1, -1, 0, 1, 3, 2 ];
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
+    - 3,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
+  var expected = [ -1, -1, 0, 1, 3, 2 ];
 
-    var gotBox = _.box.frustumExpand( box, srcFrustum );
-    test.identical( gotBox, expected );
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.identical( gotBox, expected );
 
-    test.description = 'Diagonal frustum plane'; //
+  test.description = 'Diagonal frustum plane'; //
 
-    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
-    ([
-      0,   0,   0,   0, - 1,   1,
-      1, - 1,   0,   0,   0,   0,
-      0,   2,   1, - 1,   0,   0,
-      - 3,   0, - 1,   0,   0, - 1 ]
-    );
-    var box = [ -2, -2, 2, 0, 0, 4 ];
-    var expected = [ -2, -2, 0, 1, 3, 4 ];
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
+    - 3,   0, - 1,   0,   0, - 1 ]
+  );
+  var box = [ -2, -2, 2, 0, 0, 4 ];
+  var expected = [ -2, -2, 0, 1, 3, 4 ];
 
-    var gotBox = _.box.frustumExpand( box, srcFrustum );
-    test.identical( gotBox, expected );
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.identical( gotBox, expected );
 
-    test.description = 'PointBox'; //
+  test.description = 'PointBox'; //
 
-    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
-    ([
-      0,   0,   0,   0, - 1,   1,
-      1, - 1,   0,   0,   0,   0,
-      0,   2,   1, - 1,   0,   0,
-      - 3,   0, - 1,   0,   0, - 1
-    ]);
-    var box = [ -2, -2, -2, -2, -2, -2 ];
-    var expected = [ -2, -2, -2, 1, 3, 1 ];
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
+    - 3,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ -2, -2, -2, -2, -2, -2 ];
+  var expected = [ -2, -2, -2, 1, 3, 1 ];
 
-    var gotBox = _.box.frustumExpand( box, srcFrustum );
-    test.identical( gotBox, expected );
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.identical( gotBox, expected );
 
-    test.description = 'PointBox on side'; //
+  test.description = 'PointBox on side'; //
 
-    var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
-    ([
-      0,   0,   0,   0, - 1,   1,
-      1, - 1,   0,   0,   0,   0,
-      0,   0,   1, - 1,   0,   0,
-      - 1,   0, - 1,   0,   0, - 1
-    ]);
-    var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
-    var expected = [ 0, 0, 0, 1.1, 1, 1 ];
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
+  var expected = [ 0, 0, 0, 1.1, 1, 1 ];
 
-    var gotBox = _.box.frustumExpand( box, srcFrustum );
-    test.identical( gotBox, expected );
+  var gotBox = _.box.frustumExpand( box, srcFrustum );
+  test.identical( gotBox, expected );
+
   /* */
 
   if( !Config.debug )
