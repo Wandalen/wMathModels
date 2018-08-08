@@ -45,6 +45,8 @@ function makeNil( dim )
   if( dim === undefined || dim === null )
   dim = 3;
 
+  _.assert( dim >= 0 );
+  _.assert( arguments.length === 0 || arguments.length === 1 );
   var result = [];
   for( var i = 0 ; i < dim ; i++ )
   result[ i ] = +Infinity;
@@ -81,8 +83,10 @@ function nil( ray )
   if( _.ray.is( ray ) )
   {
     var rayv = _.ray._from( ray );
-    var min = _.ray.cornerLeftGet( rayv );
-    var max = _.ray.cornerRightGet( rayv );
+    // var min = _.ray.cornerLeftGet( rayv );
+    // var max = _.ray.cornerRightGet( rayv );
+    var min = _.ray.originGet( rayv );
+    var max = _.ray.directionGet( rayv );
 
     _.vector.assign( min, +Infinity );
     _.vector.assign( max, -Infinity );

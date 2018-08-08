@@ -8,12 +8,18 @@
   Rays are stored as flat vectors according to the following convention: ray = [ x0, x1, ..., xn, d0, d1, ..., dn ];
 
 ### Functions:
-  - is( ray ): Checks if the input is a ray.
-  - make( dim ): makes a ray of dimension dim ( default dim = 3 ).
+  - make( dim ): Returns a ray of dimension dim ( default dim = 3 ).
+
+  - is( ray ): Checks if the input is a ray.      
+  - dimGet( ray ): Returns the input ray´s dimension.
+  - originGet( ray ): Returs the input ray´s origin.
+  - directionGet( ray ): Returns the input ray´s direction.
+
   - fromPair: Creates a ray out of two points ( first point is used as origin ).
     @Example
     // returns [ 0, 1, 2, 0, 0, 3 ];
     // fromPair( [ 0, 1, 2 ], [ 0, 1, 5 ] );
+
   - rayAt: Gets a point in a ray with a factor.
     @Example
     // returns [ 0, 2, 4 ];

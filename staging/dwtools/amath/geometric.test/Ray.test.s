@@ -51,8 +51,6 @@ _.assert( _.routineIs( sqrt ) );
 // test
 // --
 
-
-
 function make( test )
 {
   test.case = 'srcDim undefined'; /* */
@@ -101,7 +99,216 @@ function make( test )
   return;
   test.shouldThrowErrorSync( () => _.ray.make( [ 0, 0 ], [ 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.ray.make( 'ray' ));
+}
 
+//
+
+function makeZero( test )
+{
+  test.case = 'srcDim undefined'; /* */
+
+  var srcDim = undefined;
+  var gotRay = _.ray.makeZero( srcDim );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim null'; /* */
+
+  var srcDim = null;
+  var gotRay = _.ray.makeZero( srcDim );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim 2'; /* */
+
+  var srcDim = 2;
+  var gotRay = _.ray.makeZero( srcDim );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim array'; /* */
+
+  var srcDim = [ 0, 1, 2, 3 ];
+  var gotRay = _.ray.makeZero( srcDim );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim vector'; /* */
+
+  var srcDim = _.vector.fromArray([ 0, 1, 2, 3 ]);
+  var gotRay = _.ray.makeZero( srcDim );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.makeZero( [ 0, 0 ], [ 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.ray.makeZero( 'ray' ));
+
+}
+
+//
+
+function makeNil( test )
+{
+  test.case = 'srcDim undefined'; /* */
+
+  var srcDim = undefined;
+  var gotRay = _.ray.makeNil( srcDim );
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim null'; /* */
+
+  var srcDim = null;
+  var gotRay = _.ray.makeNil( srcDim );
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim 2'; /* */
+
+  var srcDim = 2;
+  var gotRay = _.ray.makeNil( srcDim );
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim array'; /* */
+
+  var srcDim = [ 0, 1, 2, 3 ];
+  var gotRay = _.ray.makeNil( srcDim );
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim vector'; /* */
+
+  var srcDim = _.vector.fromArray([ 0, 1, 2, 3 ]);
+  var gotRay = _.ray.makeNil( srcDim );
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.makeNil( [ 0, 0 ], [ 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.ray.makeNil( 'ray' ));
+}
+
+//
+
+function zero( test )
+{
+  test.case = 'srcRay undefined'; /* */
+
+  var srcRay = undefined;
+  var gotRay = _.ray.zero( srcRay );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcRay );
+
+  test.case = 'srcRay null'; /* */
+
+  var srcRay = null;
+  var gotRay = _.ray.zero( srcRay );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcRay );
+
+  test.case = 'srcRay 2'; /* */
+
+  var srcRay = 2;
+  var gotRay = _.ray.zero( srcRay );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcRay );
+
+  test.case = 'srcRay array'; /* */
+
+  var srcRay = [ 0, 1, 2, 3 ];
+  var gotRay = _.ray.zero( srcRay );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay === srcRay );
+
+  test.case = 'srcRay vector'; /* */
+
+  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var gotRay = _.ray.zero( srcRay );
+  var expected =  _.vector.fromArray( [ 0, 0, 0, 0 ] );
+  test.identical( gotRay, expected );
+  test.is( gotRay === srcRay );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.zero( [ 0, 0 ], [ 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.ray.zero( 'ray' ));
+
+}
+
+//
+
+function nil( test )
+{
+  test.case = 'srcRay undefined'; /* */
+
+  var srcRay = undefined;
+  var gotRay = _.ray.nil( srcRay );
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcRay );
+
+  test.case = 'srcRay null'; /* */
+
+  var srcRay = null;
+  var gotRay = _.ray.nil( srcRay );
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcRay );
+
+  test.case = 'srcRay 2'; /* */
+
+  var srcRay = 2;
+  var gotRay = _.ray.nil( srcRay );
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcRay );
+
+  test.case = 'srcRay array'; /* */
+
+  var srcRay = [ 0, 1, 2, 3 ];
+  var gotRay = _.ray.nil( srcRay );
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  test.identical( gotRay, expected );
+  test.is( gotRay === srcRay );
+
+  test.case = 'srcRay vector'; /* */
+
+  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var gotRay = _.ray.nil( srcRay );
+  var expected = _.vector.fromArray( [ Infinity, Infinity, - Infinity, - Infinity ] );
+  test.identical( gotRay, expected );
+  test.is( gotRay === srcRay );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.nil( [ 0, 0 ], [ 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.ray.nil( 'ray' ));
 }
 
 //
@@ -398,6 +605,11 @@ var Self =
   tests :
   {
     make : make,
+    makeZero : makeZero,
+    makeNil : makeNil,
+
+    zero : zero,
+    nil : nil,
 
     is : is,
 
