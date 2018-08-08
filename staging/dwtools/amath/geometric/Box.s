@@ -2457,7 +2457,6 @@ function matrixHomogenousApply( box , matrix )
     for( let i = 0 ; i < dim ; i++ )
     point[ i ] = sample[ i ] ? max.eGet( i ) : min.eGet( i );
     matrix.matrixHomogenousApply( point );
-    debugger;
     _.box.pointExpand( box2,point );
 
   });
