@@ -11,6 +11,26 @@ let Self = _.sphere = _.sphere || Object.create( null );
 //
 // --
 
+/**
+  *Create a sphere of dimension dim. Returns the created sphere. Sphere is stored in Array data structure.
+  * Dim remains unchanged.
+  *
+  * @param { Number } dim - Dimension of the created sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0 ];
+  * _.make( 3 );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 1 ];
+  * _.make( [ 0, 0, 0, 1 ] );
+  *
+  * @returns { Array } Returns the array of the created sphere.
+  * @function make
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.sphere
+  */
+
 function make( dim )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 );
@@ -21,6 +41,26 @@ function make( dim )
 }
 
 //
+
+/**
+  *Create a zero sphere of dimension dim. Returns the created sphere. Sphere is stored in Array data structure.
+  * Dim remains unchanged.
+  *
+  * @param { Number } dim - Dimension of the created sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0 ];
+  * _.makeZero( 3 );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0 ];
+  * _.makeZero( [ 0, 0, 0, 1 ] );
+  *
+  * @returns { Array } Returns the array of the created sphere.
+  * @function makeZero
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.sphere
+  */
 
 function makeZero( dim )
 {
@@ -40,6 +80,26 @@ function makeZero( dim )
 
 //
 
+/**
+  *Create a nil sphere of dimension dim. Returns the created sphere. Sphere is stored in Array data structure.
+  * Dim remains unchanged.
+  *
+  * @param { Number } dim - Dimension of the created sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, - Infinity ];
+  * _.makeNil( 3 );
+  *
+  * @example
+  * // returns [ 0, 0, 0, - Infinity ];
+  * _.makeNil( [ 0, 2, 0, 1 ] );
+  *
+  * @returns { Array } Returns the array of the created sphere.
+  * @function makeNil
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.sphere
+  */
+
 function makeNil( dim )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 );
@@ -49,6 +109,25 @@ function makeNil( dim )
 }
 
 //
+
+/**
+  *Transform a sphere to a zero sphere. Returns the transformed sphere. Sphere is stored in Array data structure.
+  *
+  * @param { Array } sphere - Destination sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0 ];
+  * _.zero( 3 );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0 ];
+  * _.zero( [ 0, 2, 0, 1 ] );
+  *
+  * @returns { Array } Returns the array of the transformed sphere.
+  * @function zero
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.sphere
+  */
 
 function zero( sphere )
 {
@@ -66,6 +145,25 @@ function zero( sphere )
 }
 
 //
+
+/**
+  *Transform a sphere to a nil sphere. Returns the transformed sphere. Sphere is stored in Array data structure.
+  *
+  * @param { Array } sphere - Destination sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, - Infinity ];
+  * _.nil( 3 );
+  *
+  * @example
+  * // returns [ 0, 0, 0, - Infinity ];
+  * _.nil( [ 0, 2, 0, 1 ] );
+  *
+  * @returns { Array } Returns the array of the transformed sphere.
+  * @function nil
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.sphere
+  */
 
 function nil( sphere )
 {
@@ -85,22 +183,62 @@ function nil( sphere )
 
 //
 
-function centeredOfRadius( sphere,radius )
-{
-  sphere = _.sphere.zero( sphere );
+/**
+  *Transform a sphere to a sphere centered in the origin with a given radius. Returns the created sphere.
+  * Sphere is stored in Array data structure.
+  *
+  * @param { Array } sphere - Destination sphere.
+  * @param { Number } radius - Source radius.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 0.5 ];
+  * _.centeredOfRadius( [ 1, 1, 1, 2] );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 3 ];
+  * _.centeredOfRadius( 3 );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 3 ];
+  * _.centeredOfSize( [ 1, 1, 2, 2], 3 );
+  *
+  * @returns { Array } Returns the created sphere.
+  * @function centeredOfRadius
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @memberof wTools.sphere
+  */
 
-  if( radius === undefined )
-  radius = 0.5;
+function centeredOfRadius( sphere, radius )
+{
+  _.assert( arguments.length === 1 || arguments.length === 2 );
+  _.assert( _.numberIs( radius ) );
+
+  sphere = _.sphere.zero( sphere );
+  _.assert( _.sphere.is( sphere ) );
 
   _.sphere.radiusSet( sphere,radius );
-
-  _.assert( arguments.length === 1 || arguments.length === 2 );
-  _.assert( _.sphere.is( sphere ) );
 
   return sphere;
 }
 
 //
+
+/**
+  *Transform a sphere to a string. Returns the created string.
+  * Sphere is stored in Array data structure.
+  *
+  * @param { Array } sphere - Destination sphere.
+  * @param { Number } options - Source options.
+  *
+  * @example
+  * // returns [ 1, 1, 2, 2 ];
+  * _.toStr( [ 1, 1, 2, 2] );
+  *
+  * @returns { String } Returns an string with the box information.
+  * @function toStr
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @memberof wTools.sphere
+  */
 
 function toStr( sphere,options )
 {
@@ -113,9 +251,28 @@ function toStr( sphere,options )
   // let dim = _.sphere.dimGet( spherev );
 
   return _.toStr( sphere,options );
+  debugger;
 }
 
 //
+
+/**
+  *Create or return a sphere. Returns the created sphere.
+  *
+  * @param { Array } sphere - Destination sphere.
+  *
+  * @example
+  * // returns [ 1, 1, 2, 2 ];
+  * _.from( [ 1, 1, 2, 2 ] );
+  *
+  * @example
+  * // returns _.vector.from( [ 1, 1, 2, 2 ] );
+  * _.from( _.vector.from( [ 1, 1, 2, 2 ] ) );
+  *
+  * @function from
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.sphere
+  */
 
 function from( sphere )
 {
@@ -144,6 +301,21 @@ function from( sphere )
 }
 
 //
+
+/**
+  *Create or return a sphere vector. Returns the created sphere.
+  *
+  * @param { Array } sphere - Destination sphere.
+  *
+  * @example
+  * // returns _.vector.from( [ 1, 1, 2, 2 ] );
+  * _._from( [ 1, 1, 2, 2 ] );
+  *
+  * @returns { Vector } Returns the vector of the sphere.
+  * @function _from
+  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+  * @memberof wTools.sphere
+  */
 
 function _from( sphere )
 {
@@ -181,6 +353,7 @@ function fromPoints( sphere, points )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.arrayIs( points ) );
 
   debugger;
   //throw _.err( 'not tested' );
@@ -208,8 +381,30 @@ function fromPoints( sphere, points )
 
 //
 
+/**
+  * Create or expand a sphere from a box. Returns the expanded sphere. Spheres are stored in Array data structure.
+  * Box stay untouched, sphere changes.
+  *
+  * @param { Array } sphere - sphere to be expanded.
+  * @param { Array } box - box of reference with expansion dimensions.
+  *
+  * @example
+  * // returns [ 0, 0, 0, Math.sqrt( 27 ) ];
+  * _.fromBox( null , [ - 3, - 3, -3, 3, 3, 3 ] );
+  *
+  * @returns { Array } Returns the array of the sphere expanded.
+  * @function fromBox
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @throws { Error } An Error if ( point ) is not array.
+  * @memberof wTools.sphere
+  */
+
 function fromBox( sphere, box )
 {
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  _.assert( _.box.is( box ) );
 
   let boxVector = _.box._from( box );
   let dimB = _.box.dimGet( boxVector );
@@ -227,7 +422,6 @@ function fromBox( sphere, box )
 
   _.assert( dimS === dimB );
   //  _.assert( dim === _.sphere.dimGet(  sphere) );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   center.copy( min );
   vector.addVectors( center,max );
@@ -236,8 +430,9 @@ function fromBox( sphere, box )
   /* radius based on 2 major dimensions */
 
   // debugger;
-  _.avector.sort( size );
-  _.sphere.radiusSet( spherev , _.avector.mag( size.slice( 1,3 ) ) / 2 );
+  // _.avector.sort( size );
+  // _.sphere.radiusSet( spherev , _.avector.mag( size.slice( 1, 3 ) ) / 2 );
+  _.sphere.radiusSet( spherev , _.avector.mag( size ) / 2 );
 
   return sphere;
 }
@@ -271,6 +466,9 @@ function fromBox( sphere, box )
 
 function fromCenterAndRadius( sphere, center, radius )
 {
+  _.assert( arguments.length === 3, 'expects exactly three argument' );
+  _.assert( _.longIs( center ) );
+  _.assert( _.numberIs( radius ) );
 
   if( sphere === null )
   sphere = _.sphere.make( center.length );
@@ -279,9 +477,6 @@ function fromCenterAndRadius( sphere, center, radius )
   let _center = _.sphere.centerGet( spherev );
   let _dim = _.sphere.dimGet( spherev );
 
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
-  _.assert( _.longIs( center ) );
-  _.assert( _.numberIs( radius ) );
   _.assert( center.length === _dim );
 
   _center.copy( center );
@@ -292,6 +487,21 @@ function fromCenterAndRadius( sphere, center, radius )
 
 //
 
+/**
+  * Check if input is a sphere. Returns true if it is a sphere and false if not.
+  *
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.is( [ 0, 0, 0, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the input is sphere
+  * @function is
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.sphere
+  */
+
 function is( sphere )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
@@ -299,6 +509,21 @@ function is( sphere )
 }
 
 //
+
+/**
+  * Check if input is an empty sphere. Returns true if it is an empty sphere and false if not.
+  *
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.isEmpty( [ 0, 0, 0, 0 ] );
+  *
+  * @returns { Boolean } Returns true if the input is an empty sphere
+  * @function isEmpty
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.sphere
+  */
 
 function isEmpty( sphere )
 {
@@ -314,6 +539,21 @@ function isEmpty( sphere )
 
 //
 
+/**
+  * Check if input is a zero sphere. Returns true if it is a zero sphere and false if not.
+  *
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.isZero( [ 0, 0, 0, 0 ] );
+  *
+  * @returns { Boolean } Returns true if the input is a zero sphere
+  * @function isZero
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.sphere
+  */
+
 function isZero( sphere )
 {
 
@@ -327,6 +567,21 @@ function isZero( sphere )
 }
 
 //
+
+/**
+  * Check if input is a nil sphere. Returns true if it is a nil sphere and false if not.
+  *
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.isNil( [ 0, 0, 0, - Infinity ] );
+  *
+  * @returns { Boolean } Returns true if the input is a nil sphere
+  * @function isNil
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.sphere
+  */
 
 function isNil( sphere )
 {
@@ -468,9 +723,9 @@ function radiusGet( sphere )
 
 function radiusSet( sphere, radius )
 {
-  _.assert( _.numberIs( radius ) );
   _.assert( _.sphere.is( sphere ) );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.numberIs( radius ) );
 
   //if( _.vectorIs( sphere ) )
   //{
@@ -492,7 +747,23 @@ function radiusSet( sphere, radius )
 
 //
 
-function pointContains( sphere,point )
+/**
+  * Check if a sphere contains a point. Returns true if it is contained and false if not.
+  *
+  * @param { Array } sphere - Source sphere.
+  * @param { Array } point - Source point.
+  *
+  * @example
+  * // returns true;
+  * _.pointContains( [ 0, 0, 0, 1 ], [ 0, 0, 0 ] );
+  *
+  * @returns { Boolean } Returns true if the sphere contains the point
+  * @function pointContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
+
+function pointContains( sphere, point )
 {
 
   let spherev = _.sphere._from( sphere );
@@ -510,6 +781,22 @@ function pointContains( sphere,point )
 }
 
 //
+
+/**
+  * Calculate the distance between a sphere and a point. Returns the calculated distance.
+  *
+  * @param { Array } sphere - Source sphere.
+  * @param { Array } point - Source point.
+  *
+  * @example
+  * // returns 0;
+  * _.pointDistance( [ 0, 0, 0, 1 ], [ 0, 0, 0 ] );
+  *
+  * @returns { Number } Returns the distance between the sphere and the point
+  * @function pointDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @memberof wTools.sphere
+  */
 
 function pointDistance( sphere, point )
 {
@@ -603,16 +890,39 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
 
 //
 
+
+//
+
+/**
+  * Expand a sphere with a point. Returns the new sphere.
+  * Point remains unchanged, sphere changes.
+  *
+  * @param { Array } sphere - Destination sphere.
+  * @param { Array } point - Source point.
+  *
+  * @example
+  * // returns [ 0, 0, 0, Math.sqrt( 27 ) ];
+  * _.pointExpand( [ 0, 0, 0, 1 ], [ 3, 3, 3 ] );
+  *
+  * @returns { Array } Returns the coordinates of the expanded sphere
+  * @function pointExpand
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( sphere ) is not a sphere.
+  * @memberof wTools.sphere
+  */
+
 function pointExpand( sphere , point )
 {
-
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.arrayIs( point ) || _.vectorIs( point ) );
   let spherev = _.sphere._from( sphere );
   let center = _.sphere.centerGet( spherev );
   let radius = _.sphere.radiusGet( spherev );
   let dim = _.sphere.dimGet( spherev );
+
+
   let pointv = vector.from( point );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === point.length );
 
   // debugger;
@@ -682,19 +992,18 @@ function boxContains( sphere, box )
   /* src corners */
 
   let c = _.Space.makeZero( [ 3, 8 ] );
-  let srcMin = _.vector.toArray( min ); let srcMax = _.vector.toArray( max );
-  c.colVectorGet( 0 ).copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
-  c.colVectorGet( 1 ).copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
-  c.colVectorGet( 2 ).copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
-  c.colVectorGet( 3 ).copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 4 ).copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 5 ).copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 6 ).copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 7 ).copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
 
   for( let j = 0 ; j < 8 ; j++ )
   {
-    let srcCorner = _.vector.toArray( c.colVectorGet( j ) );
+    let srcCorner = c.colVectorGet( j );
 
     if( _.sphere.pointContains( _sphere, srcCorner ) === false )
     {
@@ -790,7 +1099,7 @@ function boxDistance( sphere, box )
   let boxVector = _.box._from( box );
 
   let distance = _.box.sphereDistance( boxVector, sphereVector );
-  
+
   return distance;
 }
 
@@ -881,6 +1190,7 @@ function boxExpand( dstSphere, srcBox )
   let radius = _.sphere.radiusGet( _sphere );
   let dimS = _.sphere.dimGet( _sphere );
 
+  _.assert( _.box.is( srcBox ) );
   let boxVector = _.box._from( srcBox );
   let dimB = _.box.dimGet( boxVector );
   let min = _.box.cornerLeftGet( boxVector );
@@ -891,21 +1201,19 @@ function boxExpand( dstSphere, srcBox )
   /* box corners */
 
   let c = _.Space.makeZero( [ 3, 8 ] );
-  min = _.vector.toArray( min ); max = _.vector.toArray( max );
-  c.colVectorGet( 0 ).copy( [ min[ 0 ], min[ 1 ], min[ 2 ] ] );
-  c.colVectorGet( 1 ).copy( [ max[ 0 ], min[ 1 ], min[ 2 ] ] );
-  c.colVectorGet( 2 ).copy( [ min[ 0 ], max[ 1 ], min[ 2 ] ] );
-  c.colVectorGet( 3 ).copy( [ min[ 0 ], min[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 4 ).copy( [ max[ 0 ], max[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 5 ).copy( [ min[ 0 ], max[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 6 ).copy( [ max[ 0 ], min[ 1 ], max[ 2 ] ] );
-  c.colVectorGet( 7 ).copy( [ max[ 0 ], max[ 1 ], min[ 2 ] ] );
+  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
 
   let distance = radius;
-  center = _.vector.toArray( center );
   for( let j = 0 ; j < 8 ; j++ )
   {
-    let corner = _.vector.toArray( c.colVectorGet( j ) );
+    let corner = c.colVectorGet( j );
     let d = _.avector.distance( corner, center );
     if( d > distance )
     {
@@ -1162,6 +1470,8 @@ function sphereExpand( sphereDst, sphereSrc )
   let radiusDst = _.sphere.radiusGet( _sphereDst );
   let dimDst = _.sphere.dimGet( _sphereDst );
 
+  _.assert( _.sphere.is( sphereSrc ) );
+
   let _sphereSrc = _.sphere._from( sphereSrc );
   let centerSrc = _.sphere.centerGet( _sphereSrc );
   let radiusSrc = _.sphere.radiusGet( _sphereSrc );
@@ -1327,7 +1637,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  let planePoint = _.plane.pointCoplanarGet( _plane, center.slice() );
+  let planePoint = _.plane.pointCoplanarGet( _plane, center );
   let spherePoint = _.sphere.pointClosestPoint( _sphere, planePoint );
 
   for ( let i = 0; i < spherePoint.length; i++ )
@@ -1371,6 +1681,8 @@ function planeExpand( dstSphere, srcPlane )
   let radius = _.sphere.radiusGet( _sphere );
   let dim = _.sphere.dimGet( _sphere );
 
+  _.assert( _.plane.is( srcPlane ) );
+
   let _plane = _.plane._from( srcPlane );
   let normal = _.plane.normalGet( _plane );
   let bias = _.plane.biasGet( _plane );
@@ -1384,13 +1696,8 @@ function planeExpand( dstSphere, srcPlane )
   debugger;
   // throw _.err( 'not tested' );
 
-  let planePoint = _.plane.pointCoplanarGet( _plane, center.slice() );
-  let sphere = _.sphere.pointExpand( _sphere.slice(), planePoint );
-
-  for ( let i = 0; i < sphere.length; i++ )
-  {
-    _sphere.eSet( i, sphere[ i ] );
-  }
+  let planePoint = _.plane.pointCoplanarGet( _plane, center );
+  _.sphere.pointExpand( _sphere, planePoint );
 
   return dstSphere;
 }
