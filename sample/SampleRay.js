@@ -7,13 +7,10 @@ var _ = wTools;
 var ray = _.ray.make( );
 console.log( '_.ray.make( ) = ', ray );
 
-var ray = _.ray.fromPair( [ [ 0, 1, 2 ],[ 0, 1, 5 ] ] );
-console.log( ray );
+ray = _.ray.from( [ 1, 2, 3, 4, 5, 6] );
+console.log( '_.ray.:_from( ray ) = ', ray );
 
-var rayPoint = _.ray.rayAt( ray, 1 );
-console.log( rayPoint );
+let or = _.ray.originGet( ray );
+let dir = _.ray.directionGet( ray );
 
-ray = [ 0, 1, 2, 0, 1, 5 ];
-var rayPoint = _.ray.rayAt( ray, 1 );
-console.log( rayPoint );
-debugger;
+console.log( or.slice(), dir.slice() );

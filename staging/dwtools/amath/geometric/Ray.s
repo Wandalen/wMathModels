@@ -154,10 +154,112 @@ fromPair.shaderChunk =
 
 //
 
+/**
+  * Check if input is a ray. Returns true if it is a ray and false if not.
+  *
+  * @param { Vector } ray - Source ray.
+  *
+  * @example
+  * // returns true;
+  * _.is( [ 0, 0, 1, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the input is ray.
+  * @function is
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.ray
+  */
 function is( ray )
 {
-_.assert( arguments.length === 1, 'expects single argument' );
-return ( _.longIs( ray ) || _.vectorIs( ray ) ) && ( ray.length >= 0 ) && ( ray.length % 2 === 0 );
+  _.assert( arguments.length === 1, 'expects single argument' );
+  return ( _.longIs( ray ) || _.vectorIs( ray ) ) && ( ray.length >= 0 ) && ( ray.length % 2 === 0 );
+}
+
+//
+
+/**
+  * Get ray dimension. Returns the dimension of the ray. Ray stays untouched.
+  *
+  * @param { Vector } ray - The source ray.
+  *
+  * @example
+  * // returns 2
+  * _.dimGet( [ 0, 0, 2, 2 ] );
+  *
+  * @example
+  * // returns 1
+  * _.dimGet( [ 0, 1 ] );
+  *
+  * @returns { Number } Returns the dimension of the ray.
+  * @function dimGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @memberof wTools.ray
+  */
+function dimGet( ray )
+{
+  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( _.ray.is( ray ) );
+  return ray.length / 2;
+}
+
+//
+
+/**
+  * Get the origin of a ray. Returns a vector with the coordinates of the origin of the ray.
+  * Ray stays untouched.
+  *
+  * @param { Vector } ray - The source ray.
+  *
+  * @example
+  * // returns   0, 0
+  * _.originGet( [ 0, 0, 2, 2 ] );
+  *
+  * @example
+  * // returns  1
+  * _.originGet( [ 1, 2 ] );
+  *
+  * @returns { Vector } Returns the coordinates of the origin of the ray.
+  * @function originGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @memberof wTools.ray
+  */
+
+function originGet( ray )
+{
+  _.assert( arguments.length === 1, 'expects single argument' );
+  let rayv = _.ray._from( ray );
+  return rayv.subarray( 0, ray.length/ 2 );
+}
+
+//
+
+/**
+  * Get the direction of a ray. Returns a vector with the coordinates of the direction of the ray.
+  * Ray stays untouched.
+  *
+  * @param { Vector } ray - The source ray.
+  *
+  * @example
+  * // returns   2, 2
+  * _.directionGet( [ 0, 0, 2, 2 ] );
+  *
+  * @example
+  * // returns  2
+  * _.directionGet( [ 1, 2 ] );
+  *
+  * @returns { Vector } Returns the direction of the ray.
+  * @function directionGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @memberof wTools.ray
+  */
+
+function directionGet( ray )
+{
+  _.assert( arguments.length === 1, 'expects single argument' );
+  let rayv = _.ray._from( ray );
+  return rayv.subarray( ray.length/ 2, ray.length );
 }
 
 //
@@ -315,19 +417,22 @@ rayIntersectionPointAccurate.shaderChunk =
 var Proto =
 {
 
-  make : make,           /* Need _.ray.is funcion */
-  makeZero : makeZero,   /* Need _.ray.is funcion */
-  makeNil : makeNil,     /* Need _.ray.is funcion */
+  make : make,
+  makeZero : makeZero,
+  makeNil : makeNil,
 
-  zero : zero,           /* Need _.ray.is funcion */
-  nil : nil,             /* Need _.ray.is funcion */
+  zero : zero,
+  nil : nil,
 
-  from : from,           /* Need _.ray.is funcion */
-  _from : _from,         /* Need _.ray.is funcion */
+  from : from,
+  _from : _from,
 
   fromPair : fromPair,
 
   is : is,
+  dimGet : dimGet,
+  originGet : originGet,
+  directionGet : directionGet,
 
   rayAt : rayAt,         /* Factor can not be negative */
 

@@ -51,6 +51,61 @@ _.assert( _.routineIs( sqrt ) );
 // test
 // --
 
+
+
+function make( test )
+{
+  test.case = 'srcDim undefined'; /* */
+
+  var srcDim = undefined;
+  var gotRay = _.ray.make( srcDim );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( gotRay, expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim null'; /* */
+
+  var srcDim = null;
+  var gotRay = _.ray.make( srcDim );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( gotRay,expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim 2'; /* */
+
+  var srcDim = 2;
+  var gotRay = _.ray.make( srcDim );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( gotRay,expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim array'; /* */
+
+  var srcDim = [ 0, 1, 2, 3 ];
+  var gotRay = _.ray.make( srcDim );
+  var expected = [ 0, 1, 2, 3 ];
+  test.identical( gotRay,expected );
+  test.is( gotRay !== srcDim );
+
+  test.case = 'srcDim vector'; /* */
+
+  var srcDim = _.vector.fromArray([ 0, 1, 2, 3 ]);
+  var gotRay = _.ray.make( srcDim );
+  var expected = [ 0,1,2,3 ];
+  test.identical( gotRay,expected );
+  test.is( gotRay !== srcDim );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.make( [ 0, 0 ], [ 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.ray.make( 'ray' ));
+
+}
+
+//
+
 function is( test )
 {
   debugger;
@@ -124,6 +179,8 @@ var Self =
 
   tests :
   {
+    make : make,
+
     is : is,
 
     fromPoints : fromPoints,
