@@ -156,19 +156,17 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    point = _.vector.toArray( point );
-    pointsFru.atomSet( [ 0, 0 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 0 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 0 ], point[ 2 ] );
+    pointsFru.atomSet( [ 0, 0 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 0 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 0 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( far, top, left );
-  if( ! _.vectorIs( point) )
+  if( ! _.vectorIs( point ) )
   {
     return false;
   }
   else
   {
-    point = _.vector.toArray( point );
-    pointsFru.atomSet( [ 0, 1 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 1 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 1 ], point[ 2 ] );
+    pointsFru.atomSet( [ 0, 1 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 1 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 1 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( far, bottom, right );
@@ -178,8 +176,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    point = _.vector.toArray( point );
-    pointsFru.atomSet( [ 0, 2 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 2 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 2 ], point[ 2 ] );
+    pointsFru.atomSet( [ 0, 2 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 2 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 2 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( far, bottom, left );
@@ -189,8 +186,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    point = _.vector.toArray( point );
-    pointsFru.atomSet( [ 0, 3 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 3 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 3 ], point[ 2 ] );
+    pointsFru.atomSet( [ 0, 3 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 3 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 3 ], point.eGet( 2 ) );
   }
 
   point = _.plane.threeIntersectionPoint( near, top, right );
@@ -200,8 +196,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    point = _.vector.toArray( point );
-    pointsFru.atomSet( [ 0, 4 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 4 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 4 ], point[ 2 ] );
+    pointsFru.atomSet( [ 0, 4 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 4 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 4 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( near, top, left );
@@ -211,8 +206,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    point = _.vector.toArray( point );
-    pointsFru.atomSet( [ 0, 5 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 5 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 5 ], point[ 2 ] );
+    pointsFru.atomSet( [ 0, 5 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 5 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 5 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( near, bottom, right );
@@ -222,8 +216,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    point = _.vector.toArray( point );
-    pointsFru.atomSet( [ 0, 6 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 6 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 6 ], point[ 2 ] );
+    pointsFru.atomSet( [ 0, 6 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 6 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 6 ], point.eGet( 2 ) );
   }
 
   point = _.plane.threeIntersectionPoint( near, bottom, left );
@@ -233,8 +226,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    point = _.vector.toArray( point );
-    pointsFru.atomSet( [ 0, 7 ], point[ 0 ] ); pointsFru.atomSet( [ 1, 7 ], point[ 1 ] ); pointsFru.atomSet( [ 2, 7 ], point[ 2 ] );
+    pointsFru.atomSet( [ 0, 7 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 7 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 7 ], point.eGet( 2 ) );
   }
   debugger;
 
@@ -334,10 +326,10 @@ function pointDistance( frustum, point )
   {
     let plane = frustum.colVectorGet( i );
 
-    let newDistPlane = Math.abs( _.plane.pointDistance( plane, point.slice() ) );
+    let newDistPlane = Math.abs( _.plane.pointDistance( plane, point ) );
     if( newDistPlane < distancePlane )
     {
-      let projection = _.plane.pointCoplanarGet( plane, point.slice() );
+      let projection = _.plane.pointCoplanarGet( plane, point );
       if( _.frustum.pointContains( frustum, projection ))
       {
         distancePlane = newDistPlane;
@@ -349,7 +341,7 @@ function pointDistance( frustum, point )
   {
     let corner = corners.colVectorGet( i );
 
-    let newDistCorner = _.avector.distance( point.slice(), corner.slice() );
+    let newDistCorner = _.avector.distance( point, corner );
     if( newDistCorner < distanceCorner )
     distanceCorner = newDistCorner;
 
@@ -409,59 +401,56 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   let cols = dims[ 1 ];
   let fpoints = _.frustum.cornersGet( frustum );
   _.assert( _.spaceIs( fpoints ) );
-  _.assert( fpoints.hasShape([ 3, 8 ] ) );
+  _.assert( fpoints.hasShape( [ 3, 8 ] ) );
   _.assert( rows -1 === srcPointVector.length );
   _.assert( dstPointVector.length === srcPointVector.length );
 
-  let max = fpoints.colVectorGet( 0 );
-  let min = fpoints.colVectorGet( 0 );
-  max = _.vector.toArray( max );
-  min = _.vector.toArray( min );
-  let srcPointArray = _.vector.toArray( srcPointVector );
-  let dstPointArray = _.vector.toArray( dstPointVector );
+  let max = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
+  let min = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
 
-  for( let j = 1 ; j < cols ; j++ )
+  for( let j = 1 ; j < _.Space.dimsOf( fpoints )[ 1 ] ; j++ )
   {
-    let newp = _.vector.toArray( fpoints.colVectorGet( j ) );
-    if( newp[ 0 ] < min[ 0 ] )
+    let newp = fpoints.colVectorGet( j );
+
+    if( newp.eGet( 0 ) < min.eGet( 0 ) )
     {
-      min[ 0 ] = newp[ 0 ];
+      min.eSet( 0, newp.eGet( 0 ) );
     }
-    if( newp[ 1 ] < min[ 1 ] )
+    if( newp.eGet( 1 ) < min.eGet( 1 ) )
     {
-      min[ 1 ] = newp[ 1 ];
+      min.eSet( 1, newp.eGet( 1 ) );
     }
-    if( newp[ 2 ] < min[ 2 ] )
+    if( newp.eGet( 2 ) < min.eGet( 2 ) )
     {
-      min[ 2 ] = newp[ 2 ];
+      min.eSet( 2, newp.eGet( 2 ) );
     }
-    if( newp[ 0 ] > max[ 0 ] )
+    if( newp.eGet( 0 ) > max.eGet( 0 ) )
     {
-      max[ 0 ] = newp[ 0 ];
+      max.eSet( 0, newp.eGet( 0 ) );
     }
-    if( newp[ 1 ] > max[ 1 ] )
+    if( newp.eGet( 1 ) > max.eGet( 1 ) )
     {
-      max[ 1 ] = newp[ 1 ];
+      max.eSet( 1, newp.eGet( 1 ) );
     }
-    if( newp[ 2 ] > max[ 2 ] )
+    if( newp.eGet( 2 ) > max.eGet( 2 ) )
     {
-      max[ 2 ] = newp[ 2 ];
+      max.eSet( 2, newp.eGet( 2 ) );
     }
   }
 
   for( let i = 0 ; i < 3 ; i++ )
   {
-    if( srcPointArray[ i ] >= max[ i ] )
+    if( srcPointVector.eGet( i ) >= max.eGet( i ) )
     {
-      dstPointArray[ i ] = max[ i ];
+      dstPointVector.eSet( i, max.eGet( i ) );
     }
-    else if( srcPointArray[ i ] <= min[ i ] )
+    else if( srcPointVector.eGet( i ) <= min.eGet( i ) )
     {
-      dstPointArray[ i ] = min[ i ];
+      dstPointVector.eSet( i, min.eGet( i ) );
     }
     else
     {
-      dstPointArray[ i ] = srcPointArray[ i ];
+      dstPointVector.eSet( i, srcPointVector.eGet( i ) );
     }
   }
 
@@ -473,29 +462,32 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   else
   {
     let d0 = Infinity;
-    let finalPointArray = dstPointVector.slice();
+    let finalPoint = _.vector.from( dstPointVector.slice() );
 
     for( let i = 0 ; i < cols ; i++ )
     {
       let plane = _.vector.from( frustum.colVectorGet( i ) );
 
-      let p =  _.plane.pointCoplanarGet( plane, _.vector.toArray( dstPointVector ).slice() );
+      let p =  _.plane.pointCoplanarGet( plane, dstPointVector );
 
-      let d = _.avector.distance( _.vector.toArray( dstPointVector ), p );
+      let d = _.avector.distance( dstPointVector, p );
 
       let pVector = _.vector.from( p );
       if( d < d0  && _.frustum.pointContains( frustum, pVector ) )
       {
-        finalPointArray[ 0 ] = pVector.eGet( 0 );
-        finalPointArray[ 1 ] = pVector.eGet( 1 );
-        finalPointArray[ 2 ] = pVector.eGet( 2 );
+        for( var j = 0; j < finalPoint.length; j++ )
+        {
+          finalPoint.eSet( j, pVector.eGet( j ) );
+        }
+
         d0 = d;
       }
     }
 
-    dstPointVector.eSet( 0, finalPointArray[ 0 ] );
-    dstPointVector.eSet( 1, finalPointArray[ 1 ] );
-    dstPointVector.eSet( 2, finalPointArray[ 2 ] );
+    for( var i = 0; i < finalPoint.length ; i++ )
+    {
+      dstPointVector.eSet( i, finalPoint.eGet( i ) );
+    }
 
     _.assert( _.frustum.pointContains( frustum, dstPointVector ) === true );
     return dstPoint;
@@ -528,8 +520,8 @@ function boxContains( frustum, box )
 
   let _box = _.box._from( box );
   let dim1 = _.box.dimGet( _box );
-  let min1 = _.box.cornerLeftGet( _box );
-  let max1 = _.box.cornerRightGet( _box );
+  let srcMin = _.box.cornerLeftGet( _box );
+  let srcMax = _.box.cornerRightGet( _box );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   debugger;
@@ -542,20 +534,19 @@ function boxContains( frustum, box )
   /* src corners */
 
   let c = _.Space.makeZero( [ 3, 8 ] );
-  let srcMin = _.vector.toArray( min1 ); let srcMax = _.vector.toArray( max1 );
-  c.colVectorGet( 0 ).copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
-  c.colVectorGet( 1 ).copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMin[ 2 ] ] );
-  c.colVectorGet( 2 ).copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
-  c.colVectorGet( 3 ).copy( [ srcMin[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 4 ).copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 5 ).copy( [ srcMin[ 0 ], srcMax[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 6 ).copy( [ srcMax[ 0 ], srcMin[ 1 ], srcMax[ 2 ] ] );
-  c.colVectorGet( 7 ).copy( [ srcMax[ 0 ], srcMax[ 1 ], srcMin[ 2 ] ] );
+  c.colVectorGet( 0 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 )] );
 
   let distance = Infinity;
   for( let j = 0 ; j < 8 ; j++ )
   {
-    let srcCorner = _.vector.toArray( c.colVectorGet( j ) );
+    let srcCorner = c.colVectorGet( j );
     if( _.frustum.pointContains( frustum, srcCorner ) === false )
     {
       return false;
@@ -598,47 +589,45 @@ function boxIntersects( frustum , box )
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
-  let c0 = _.vector.from( min1 );
-  let c4 = _.vector.from( max1 );
-  c0 = _.vector.toArray( c0 );
-  c4 = _.vector.toArray( c4 );
+  let c0 = _.vector.from( min1.slice() );
+  let c4 = _.vector.from( max1.slice() );
 
-  let c1 = c0.slice(); c1[0] = c4[ 0 ];
-  let c2 = c0.slice(); c2[1] = c4[ 1 ];
-  let c3 = c0.slice(); c3[2] = c4[ 2 ];
-  let c5 = c0.slice(); c5[0] = c4[ 0 ]; c5[ 2 ] = c4[ 2 ];
-  let c6 = c0.slice(); c6[1] = c4[ 1 ]; c6[ 0 ] = c4[ 0 ];
-  let c7 = c0.slice(); c7[2] = c4[ 2 ]; c7[ 1 ] = c4[ 1 ];
+  let c1 = _.vector.from( c0.slice() ); c1.eSet( 0, c4.eGet( 0 ) );
+  let c2 = _.vector.from( c0.slice() ); c2.eSet( 1, c4.eGet( 1 ) );
+  let c3 = _.vector.from( c0.slice() ); c3.eSet( 2, c4.eGet( 2 ) );
+  let c5 = _.vector.from( c4.slice() ); c5.eSet( 0, c0.eGet( 0 ) );
+  let c6 = _.vector.from( c4.slice() ); c6.eSet( 1, c0.eGet( 1 ) );
+  let c7 = _.vector.from( c4.slice() ); c7.eSet( 2, c0.eGet( 2 ) );
 
-  if( _.frustum.pointContains( frustum, _.vector.from( c0.slice( ) ) ) === true )
+  if( _.frustum.pointContains( frustum, c0 ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c1.slice( ) ) ) === true )
+  else if( _.frustum.pointContains( frustum, c1 ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c2.slice( ) ) ) === true )
+  else if( _.frustum.pointContains( frustum, c2 ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c3.slice( ) ) ) === true )
+  else if( _.frustum.pointContains( frustum, c3 ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c4.slice( ) ) ) === true )
+  else if( _.frustum.pointContains( frustum, c4 ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c5.slice( ) ) ) === true )
+  else if( _.frustum.pointContains( frustum, c5 ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c6.slice( ) ) ) === true )
+  else if( _.frustum.pointContains( frustum, c6 ) === true )
   {
     return true;
   }
-  if( _.frustum.pointContains( frustum, _.vector.from( c7.slice( ) ) ) === true )
+  else if( _.frustum.pointContains( frustum, c7 ) === true )
   {
     return true;
   }
@@ -763,8 +752,9 @@ function boxClosestPoint( frustum, box, dstPoint )
   _.assert( _.frustum.is( frustum ) );
   _.assert( dim1 === 3 );
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
   if( arguments.length === 2 )
-  dstPoint = [ 0, 0, 0 ];
+  dstPoint = _.array.makeArrayOfLength( rows - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -774,7 +764,8 @@ function boxClosestPoint( frustum, box, dstPoint )
   if( _.frustum.boxIntersects( frustum, _box ) )
   return 0;
 
-  let point = _.vector.from( [ 0, 0, 0 ] );
+  let point = _.vector.from( _.array.makeArrayOfLength( rows - 1 ) );
+
   /* frustum corners */
 
   let fpoints = _.frustum.cornersGet( frustum );
@@ -794,30 +785,31 @@ function boxClosestPoint( frustum, box, dstPoint )
   /* box corners */
 
   let c = _.Space.makeZero( [ 3, 8 ] );
-  min1 = _.vector.toArray( min1 ); max1 = _.vector.toArray( max1 );
-  c.colVectorGet( 0 ).copy( [ min1[ 0 ], min1[ 1 ], min1[ 2 ] ] );
-  c.colVectorGet( 1 ).copy( [ max1[ 0 ], min1[ 1 ], min1[ 2 ] ] );
-  c.colVectorGet( 2 ).copy( [ min1[ 0 ], max1[ 1 ], min1[ 2 ] ] );
-  c.colVectorGet( 3 ).copy( [ min1[ 0 ], min1[ 1 ], max1[ 2 ] ] );
-  c.colVectorGet( 4 ).copy( [ max1[ 0 ], max1[ 1 ], max1[ 2 ] ] );
-  c.colVectorGet( 5 ).copy( [ min1[ 0 ], max1[ 1 ], max1[ 2 ] ] );
-  c.colVectorGet( 6 ).copy( [ max1[ 0 ], min1[ 1 ], max1[ 2 ] ] );
-  c.colVectorGet( 7 ).copy( [ max1[ 0 ], max1[ 1 ], min1[ 2 ] ] );
+  c.colVectorGet( 0 ).copy( [ min1.eGet( 0 ), min1.eGet( 1 ), min1.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ max1.eGet( 0 ), min1.eGet( 1 ), min1.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ min1.eGet( 0 ), max1.eGet( 1 ), min1.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ min1.eGet( 0 ), min1.eGet( 1 ), max1.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ max1.eGet( 0 ), max1.eGet( 1 ), max1.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ min1.eGet( 0 ), max1.eGet( 1 ), max1.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ max1.eGet( 0 ), min1.eGet( 1 ), max1.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ max1.eGet( 0 ), max1.eGet( 1 ), min1.eGet( 2 ) ] );
 
   for( let j = 0 ; j < 8 ; j++ )
   {
     let corner = c.colVectorGet( j );
     let proj = _.frustum.pointClosestPoint( frustum, corner );
-    let d = _.avector.distance( corner, _.vector.toArray( proj ) );
+    let d = _.avector.distance( corner, proj );
     if( d < dist )
     {
       point = _.vector.from( proj.slice() );
       dist = d;
     }
   }
-  dstPointVector.eSet( 0, point.eGet( 0 ) );
-  dstPointVector.eSet( 1, point.eGet( 1 ) );
-  dstPointVector.eSet( 2, point.eGet( 2 ) );
+
+  for( var i = 0; i < dstPointVector.length; i++ )
+  {
+    dstPointVector.eSet( i, point.eGet( i ) );
+  }
 
   return dstPoint;
 }
@@ -898,9 +890,8 @@ function sphereIntersects( frustum , sphere )
   }
   else
   {
-    let newc = _.vector.from( center.slice() );
     let proj = _.frustum.pointClosestPoint( frustum, center );
-    let d = _.avector.distance( _.vector.toArray( proj ), _.vector.toArray( center ) );
+    let d = _.avector.distance( proj, center );
     if( d <= radius )
     {
       return true;
@@ -985,7 +976,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   _.assert( dim === 3 );
 
   if( arguments.length === 2 )
-  dstPoint = [ 0, 0, 0 ];
+  dstPoint = _.array.makeArrayOfLength( dim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -999,9 +990,10 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
 
   let point = _.frustum.pointClosestPoint( frustum, center );
 
-  dstPointVector.eSet( 0, point[ 0 ] );
-  dstPointVector.eSet( 1, point[ 1 ] );
-  dstPointVector.eSet( 2, point[ 2 ] );
+  for( var i = 0; i < point.length; i++ )
+  {
+    dstPointVector.eSet( i, point[ i ] );
+  }
 
   return dstPoint;
 
@@ -1144,7 +1136,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
   _.assert( _.frustum.is( frustum ) );
 
   if( arguments.length === 2 )
-  dstPoint = [ 0, 0, 0 ];
+  dstPoint = _.array.makeArrayOfLength( plane.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1157,7 +1149,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
 
   let corners = _.frustum.cornersGet( frustum );
   let distance = Infinity;
-  let point = [ 0, 0, 0 ];
+  let point = _.array.makeArrayOfLength( plane.length - 1 );
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
     let corner = corners.colVectorGet( j );
@@ -1169,9 +1161,10 @@ function planeClosestPoint( frustum, plane, dstPoint )
     }
   }
 
-  dstPointVector.eSet( 0, point.eGet( 0 ) );
-  dstPointVector.eSet( 1, point.eGet( 1 ) );
-  dstPointVector.eSet( 2, point.eGet( 2 ) );
+  for( var i = 0; i < dstPointVector.length; i++ )
+  {
+    dstPointVector.eSet( i, point.eGet( i ) );
+  }
 
   return dstPoint;
 }
@@ -1413,8 +1406,12 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   _.assert( _.frustum.is( srcFrustum ) );
   _.assert( _.frustum.is( tstFrustum ) );
 
+  let dims = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dims[ 0 ];
+  let cols = dims[ 1 ];
+
   if( arguments.length === 2 )
-  dstPoint = [ 0, 0, 0 ];
+  dstPoint = _.array.makeArrayOfLength( rows - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1427,12 +1424,12 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   return 0;
 
   let distance = Infinity;
-  let finalPoint = [ 0, 0, 0 ];
+  let finalPoint = _.array.makeArrayOfLength( rows - 1 );
 
-  let points = _.frustum.cornersGet( srcFrustum );
-  for( let i = 0 ; i < points.length ; i += 1 )
+  let srcPoints = _.frustum.cornersGet( srcFrustum );
+  for( let i = 0 ; i < srcPoints.length ; i += 1 )
   {
-    let point = points.colVectorGet( i );
+    let point = srcPoints.colVectorGet( i );
     let d = _.frustum.pointDistance( tstFrustum, point );
     if( d < distance )
     {
@@ -1441,10 +1438,10 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
     }
   }
 
-  let points2 = _.frustum.cornersGet( tstFrustum );
-  for( let i = 0 ; i < points2.length ; i += 1 )
+  let tstPoints = _.frustum.cornersGet( tstFrustum );
+  for( let i = 0 ; i < tstPoints.length ; i += 1 )
   {
-    let point = points2.colVectorGet( i );
+    let point = tstPoints.colVectorGet( i );
     let d2 = _.frustum.pointDistance( srcFrustum, point );
     if( d2 < distance )
     {
@@ -1453,9 +1450,10 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
     }
   }
 
-  dstPointVector.eSet( 0, finalPoint[ 0 ] );
-  dstPointVector.eSet( 1, finalPoint[ 1 ] );
-  dstPointVector.eSet( 2, finalPoint[ 2 ] );
+  for( var i = 0; i < finalPoint.length; i++ )
+  {
+    dstPointVector.eSet( i, finalPoint[ i ] );
+  }
 
   return dstPoint;
 }
