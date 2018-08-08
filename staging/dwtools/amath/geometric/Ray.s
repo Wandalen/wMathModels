@@ -10,6 +10,8 @@ var Self = _.ray = _.ray || Object.create( null );
 // --
 //
 // --
+//
+
 
 function make( dim )
 {
@@ -131,6 +133,7 @@ function fromPair( pair )
   var result = [];
   result[ 0 ] = pair[ 0 ];
   result[ 1 ] = avector.sub( null, pair[ 1 ], pair[ 0 ] );
+  debugger;
   return result;
 }
 
@@ -148,6 +151,14 @@ fromPair.shaderChunk =
     dstRay[ 1 ] = pair[ 1 ] - pair[ 0 ];
   }
 `
+
+//
+
+function is( ray )
+{
+_.assert( arguments.length === 1, 'expects single argument' );
+return ( _.longIs( ray ) || _.vectorIs( ray ) ) && ( ray.length >= 0 ) && ( ray.length % 2 === 0 );
+}
 
 //
 
@@ -169,8 +180,6 @@ rayAt.shaderChunk =
     return result;
   }
 `
-
-//
 
 //
 
@@ -306,18 +315,21 @@ rayIntersectionPointAccurate.shaderChunk =
 var Proto =
 {
 
-  make : make,
-  makeZero : makeZero,
-  makeNil : makeNil,
+  make : make,           /* Need _.ray.is funcion */
+  makeZero : makeZero,   /* Need _.ray.is funcion */
+  makeNil : makeNil,     /* Need _.ray.is funcion */
 
-  zero : zero,
-  nil : nil,
+  zero : zero,           /* Need _.ray.is funcion */
+  nil : nil,             /* Need _.ray.is funcion */
 
-  from : from,
-  _from : _from,
+  from : from,           /* Need _.ray.is funcion */
+  _from : _from,         /* Need _.ray.is funcion */
 
   fromPair : fromPair,
-  rayAt : rayAt,
+
+  is : is,
+
+  rayAt : rayAt,         /* Factor can not be negative */
 
   rayParallel : rayParallel,
   rayIntersectionFactors : rayIntersectionFactors,
