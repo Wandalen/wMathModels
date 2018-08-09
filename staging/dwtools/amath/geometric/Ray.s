@@ -354,8 +354,6 @@ rayAt.shaderChunk =
 
 //
 
-//
-
 /**
   * Ckeck if two rays are parallel. Returns true if they are parallel and false if not.
   * Rays and accuracySqr stay untouched. Only for 3D.
@@ -408,26 +406,77 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
 
 //
 
+/**
+  * Ckeck if two rays are parallel. Returns true if they are parallel and false if not.
+  * Rays and accuracySqr stay untouched. Only for 3D.
+  *
+  * @param { Vector } src1Ray - The first source ray.
+  * @param { Vector } src2Ray - The second source ray.
+  * @param { Vector } accuracySqr - The accuracy.
+  *
+  * @example
+  * // returns   true
+  * _.rayParallel( [ 0, 0, 2, 2 ], [ 1, 2, 4, 4 ] );
+  *
+  * @example
+  * // returns  false
+  * _.rayParallel( [ 1, 2, 1, 2 ], [ 1, 2, 3, 3 ] );
+  *
+  * @returns { Boolean } Returns true if the rays are parallel.
+  * @function rayParallel
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( src1Ray ) is not ray.
+  * @throws { Error } An Error if ( src2Ray ) is not ray.
+  * @throws { Error } An Error if ( accuracySqr ) is not number.
+  * @memberof wTools.ray
+  */
 function rayIntersectionFactors( r1,r2 )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( r1[ 0 ].length === 2,'implemented only for d2' );
-  _.assert( r2[ 0 ].length === 2,'implemented only for d2' );
+  //_.assert( r1[ 0 ].length === 2,'implemented only for d2' );
+  //_.assert( r2[ 0 ].length === 2,'implemented only for d2' );
+  _.assert( r1.length === 4,'implemented only for d2' );
+  _.assert( r2.length === 4,'implemented only for d2' );
 
-  var dorigin = avector.subVectors( r2[ 0 ].slice() , r1[ 0 ] );
+  // var dorigin = avector.subVectors( r2[ 0 ].slice() , r1[ 0 ] );
 
-  var y = [];
-  y[ 0 ] = + dorigin[ 0 ];
-  y[ 1 ] = - dorigin[ 1 ];
+  // var y = [];
+  // y[ 0 ] = + dorigin[ 0 ];
+  // y[ 1 ] = - dorigin[ 1 ];
 
-  var m = [];
-  m[ 0 ] = + r1[ 1 ][ 0 ];
-  m[ 1 ] = - r1[ 1 ][ 1 ];
-  m[ 2 ] = - r2[ 1 ][ 0 ];
-  m[ 3 ] = + r2[ 1 ][ 1 ];
+  // var m = [];
+  // m[ 0 ] = + r1[ 1 ][ 0 ];
+  // m[ 1 ] = - r1[ 1 ][ 1 ];
+  // m[ 2 ] = - r2[ 1 ][ 0 ];
+  // m[ 3 ] = + r2[ 1 ][ 1 ];
 
-  var x = d2linearEquationSolve( m,y );
+  // var x = d2linearEquationSolve( m,y );
+  // debbuger;
+  // return x;
+  var r1View = _.ray._from( r1 );
+  var r2View = _.ray._from( r2 );
+  var origin1 = _.ray.originGet( r1View );
+  var origin2 = _.ray.originGet( r2View );
+
+  if( origin1.slice()[ 0 ] === origin2.slice()[ 0 ] && origin1.slice()[ 1 ] === origin2.slice()[ 1 ] )
+  return [ 0, 0 ];
+
+  var x = [];
+
+  // x[ 0 ] = ( r2View.eGet( 2 )*( r1View.eGet( 1 ) - r2View.eGet( 1 ) ) + r2View.eGet( 3 )*( r2View.eGet( 0 ) - r1View.eGet( 0 ) ) ) / ( r2View.eGet( 3 )*r1View.eGet( 2 ) - r2View.eGet( 2 )*r1View.eGet( 3 ) );
+  x[ 1 ] = ( r1View.eGet( 2 )*( r2View.eGet( 1 ) - r1View.eGet( 1 ) ) + r1View.eGet( 3 )*( r1View.eGet( 0 ) - r2View.eGet( 0 ) ) ) / ( r2View.eGet( 2 )*r1View.eGet( 3 ) - r2View.eGet( 3 )*r1View.eGet( 2 ) );
+  x[ 0 ] = ( r2View.eGet( 0 ) + r2View.eGet( 2 )*x[ 1 ] - r1View.eGet( 0 ) )/ r1View.eGet( 2 );
+
+  if(  x[ 0 ] <= 0 - _.accuracySqr || x[ 1 ] <= 0 - _.accuracySqr )
+  return 0;
+
+  if(  x[ 0 ] === Infinity || x[ 1 ] === Infinity )
+  return 0;
+
+  if(  !_.numberIs( x[ 0 ] ) || !_.numberIs( x[ 1 ] ) )
+  return 0;
+
   return x;
 }
 
