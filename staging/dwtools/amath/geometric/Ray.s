@@ -354,16 +354,56 @@ rayAt.shaderChunk =
 
 //
 
+//
+
+/**
+  * Ckeck if two rays are parallel. Returns true if they are parallel and false if not.
+  * Rays and accuracySqr stay untouched. Only for 3D.
+  *
+  * @param { Vector } src1Ray - The first source ray.
+  * @param { Vector } src2Ray - The second source ray.
+  * @param { Vector } accuracySqr - The accuracy.
+  *
+  * @example
+  * // returns   true
+  * _.rayParallel( [ 0, 0, 2, 2 ], [ 1, 2, 4, 4 ] );
+  *
+  * @example
+  * // returns  false
+  * _.rayParallel( [ 1, 2, 1, 2 ], [ 1, 2, 3, 3 ] );
+  *
+  * @returns { Boolean } Returns true if the rays are parallel.
+  * @function rayParallel
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( src1Ray ) is not ray.
+  * @throws { Error } An Error if ( src2Ray ) is not ray.
+  * @throws { Error } An Error if ( accuracySqr ) is not number.
+  * @memberof wTools.ray
+  */
 function rayParallel( src1Ray, src2Ray, accuracySqr )
 {
-  _.assert( src1Ray.length === 3 );
-  _.assert( src2Ray.length === 3 );
+  // _.assert( src1Ray.length === 3 );
+  // _.assert( src2Ray.length === 3 );
+  // _.assert( arguments.length === 2 || arguments.length === 3 );
+
+  // if( accuracySqr === undefined )
+  // accuracySqr = Self.accuracySqr;
+
+  // return _magSqr( avector.cross( src1Ray[ 1 ], src2Ray[ 1 ] ) ) <= Self.accuracySqr;
+
+  _.assert( _.ray.is( src1Ray ) );
+  _.assert( _.ray.is( src2Ray ) );
   _.assert( arguments.length === 2 || arguments.length === 3 );
 
-  if( accuracySqr === undefined )
-  accuracySqr = Self.accuracySqr;
+  if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
+  accuracySqr = _.accuracySqr;;
 
-  return _magSqr( avector.cross( src1Ray[ 1 ], src2Ray[ 1 ] ) ) <= Self.accuracySqr;
+  let direction1 = _.ray.directionGet( src1Ray );
+  let direction2 = _.ray.directionGet( src2Ray );
+
+  debugger;
+  return avector.magSqr( avector.cross( null, direction1, direction2 )) <= accuracySqr;
+
 }
 
 //

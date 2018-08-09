@@ -26,10 +26,15 @@
   - `originGet( ray )` Returs the input ray´s origin.
   - `directionGet( ray )`: Returns the input ray´s direction.
 
-  - `rayAt`: Gets a point in a ray with a factor.
+  - `rayAt( ray, factor )`: Gets a point in a ray with a factor.
       @Example
       // returns [ 0, 2, 4 ];
       // rayAt( [ 0, 1, 2, 0, 1, 2 ], 1 )
+
+  - `rayParallel( src1Ray, src2Ray, accuracySqr )`: Checks if two rays are parallel
+      @Example
+      // returns true
+      // rayParallel( [ 0, 1, 3, 4 ], [ 5, 5, 3, 4 ] );
 
 ### Try out  
 ```
