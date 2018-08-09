@@ -36,6 +36,14 @@
       // returns true
       // rayParallel( [ 0, 1, 3, 4 ], [ 5, 5, 3, 4 ] );
 
+  - `rayIntersectionFactors( src1Ray, src2Ray )`: Get the factors of two rays intersecting in a point
+  If the rays don´t intersect, it returns 0.
+      @Example
+      // returns [ 4, 1 ]
+      // rayParallel( [ -4, 0, 1, 0 ], [ 0, -2, 0, 2 ] );
+  - `rayIntersectionPoints( src1Ray, src2Ray )`: Return the intersection points of the two rays.
+
+
 ### Try out  
 ```
 npm install

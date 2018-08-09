@@ -364,11 +364,11 @@ rayAt.shaderChunk =
   *
   * @example
   * // returns   true
-  * _.rayParallel( [ 0, 0, 2, 2 ], [ 1, 2, 4, 4 ] );
+  * _.rayParallel( [ 0, 0, 0, 2, 2, 2 ], [ 1, 2, 1, 4, 4, 4 ] );
   *
   * @example
   * // returns  false
-  * _.rayParallel( [ 1, 2, 1, 2 ], [ 1, 2, 3, 3 ] );
+  * _.rayParallel( [ 1, 2, 1, 1, 1, 2 ], [ 1, 2, 1, 1, 3, 3 ] );
   *
   * @returns { Boolean } Returns true if the rays are parallel.
   * @function rayParallel
@@ -407,27 +407,25 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
 //
 
 /**
-  * Ckeck if two rays are parallel. Returns true if they are parallel and false if not.
-  * Rays and accuracySqr stay untouched. Only for 3D.
+  * Returns the factors for the intersection of two rays. Returns an array with the intersection factors, 0 if there is no intersection.
+  * Rays stay untouched. Only for 2D.
   *
   * @param { Vector } src1Ray - The first source ray.
   * @param { Vector } src2Ray - The second source ray.
-  * @param { Vector } accuracySqr - The accuracy.
   *
   * @example
-  * // returns   true
-  * _.rayParallel( [ 0, 0, 2, 2 ], [ 1, 2, 4, 4 ] );
+  * // returns   0
+  * _.rayIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  false
-  * _.rayParallel( [ 1, 2, 1, 2 ], [ 1, 2, 3, 3 ] );
+  * // returns  [ 2, 1 ]
+  * _.rayIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
   *
-  * @returns { Boolean } Returns true if the rays are parallel.
-  * @function rayParallel
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @returns { Array } Returns the factors for the two rays intersection.
+  * @function rayIntersectionFactors
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Ray ) is not ray.
   * @throws { Error } An Error if ( src2Ray ) is not ray.
-  * @throws { Error } An Error if ( accuracySqr ) is not number.
   * @memberof wTools.ray
   */
 function rayIntersectionFactors( r1,r2 )
@@ -505,12 +503,38 @@ rayIntersectionFactors.shaderChunk =
 
 //
 
+/**
+  * Returns the points of the intersection of two rays. Returns an array with the intersection points, 0 if there is no intersection.
+  * Rays stay untouched. Only for 2D.
+  *
+  * @param { Vector } src1Ray - The first source ray.
+  * @param { Vector } src2Ray - The second source ray.
+  *
+  * @example
+  * // returns   0
+  * _.rayIntersectionPoints( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  [ [ 0, 0 ], [ 0, 0 ] ]
+  * _.rayIntersectionPoints( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
+  *
+  * @returns { Array } Returns the points of intersection of the two rays.
+  * @function rayIntersectionPoints
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Ray ) is not ray.
+  * @throws { Error } An Error if ( src2Ray ) is not ray.
+  * @memberof wTools.ray
+  */
+
 function rayIntersectionPoints( r1,r2 )
 {
   var factors = rayIntersectionFactors( r1,r2 );
+
+  if( factors === 0 )
+  return 0;
+
   var result = [ Self.rayAt( r1,factors[ 0 ] ),Self.rayAt( r2,factors[ 1 ] ) ];
   return result;
-
 }
 
 rayIntersectionPoints.shaderChunk =
