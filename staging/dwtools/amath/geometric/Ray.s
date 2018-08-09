@@ -525,7 +525,6 @@ rayIntersectionFactors.shaderChunk =
   * @throws { Error } An Error if ( src2Ray ) is not ray.
   * @memberof wTools.ray
   */
-
 function rayIntersectionPoints( r1,r2 )
 {
   var factors = rayIntersectionFactors( r1,r2 );
@@ -551,10 +550,36 @@ rayIntersectionPoints.shaderChunk =
 
 //
 
+/**
+  * Returns the point of the intersection of two rays. Returns an array with the intersection point, 0 if there is no intersection.
+  * Rays stay untouched. Only for 2D.
+  *
+  * @param { Vector } src1Ray - The first source ray.
+  * @param { Vector } src2Ray - The second source ray.
+  *
+  * @example
+  * // returns   0
+  * _.rayIntersectionPoint( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  [ [ 0, 0 ], [ 0, 0 ] ]
+  * _.rayIntersectionPoint( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
+  *
+  * @returns { Array } Returns the point of intersection of the two rays.
+  * @function rayIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Ray ) is not ray.
+  * @throws { Error } An Error if ( src2Ray ) is not ray.
+  * @memberof wTools.ray
+  */
 function rayIntersectionPoint( r1,r2 )
 {
 
   var factors = Self.rayIntersectionFactors( r1,r2 );
+
+  if( factors === 0 )
+  return 0;
+
   return Self.rayAt( r1,factors[ 0 ] );
 
 }
