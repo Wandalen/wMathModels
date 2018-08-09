@@ -4,9 +4,9 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let p1 = [ 0, 1, 2 ];
-let p2 = [ 0, 1, 2 ];
+let ray = [ 0, 1, 2, 2 ];
+let factor = 1;
 
-let ray = _.ray.fromPair( [ p1, p2 ] );
+let point = _.ray.rayAt( ray, factor );
 
-logger.log( ray );
+logger.log( point );

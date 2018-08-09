@@ -65,8 +65,8 @@ function zero( ray )
 
   if( _.ray.is( ray ) )
   {
-    let rayv = _.ray._from( ray );
-    rayv.assign( 0 );
+    let rayView = _.ray._from( ray );
+    rayView.assign( 0 );
     return ray;
   }
 
@@ -82,11 +82,11 @@ function nil( ray )
 
   if( _.ray.is( ray ) )
   {
-    let rayv = _.ray._from( ray );
-    // let min = _.ray.cornerLeftGet( rayv );
-    // let max = _.ray.cornerRightGet( rayv );
-    let min = _.ray.originGet( rayv );
-    let max = _.ray.directionGet( rayv );
+    let rayView = _.ray._from( ray );
+    // let min = _.ray.cornerLeftGet( rayView );
+    // let max = _.ray.cornerRightGet( rayView );
+    let min = _.ray.originGet( rayView );
+    let max = _.ray.directionGet( rayView );
 
     _.vector.assign( min, +Infinity );
     _.vector.assign( max, -Infinity );
@@ -157,6 +157,10 @@ function fromPair( pair )
 //  let result = [];
 //  result[ 0 ] = pair[ 0 ];
 //  result[ 1 ] = avector.sub( null, pair[ 1 ], pair[ 0 ] );
+
+  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( pair.length === 2, 'expects two points' );
+  _.assert( pair[ 0 ].length === pair[ 1 ].length, 'expects two points' );
 
   let result = _.array.makeArrayOfLength( pair[ 0 ].length * 2 );
 
@@ -260,8 +264,8 @@ function dimGet( ray )
 function originGet( ray )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
-  let rayv = _.ray._from( ray );
-  return rayv.subarray( 0, ray.length/ 2 );
+  let rayView = _.ray._from( ray );
+  return rayView.subarray( 0, ray.length/ 2 );
 }
 
 //
@@ -289,16 +293,50 @@ function originGet( ray )
 function directionGet( ray )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
-  let rayv = _.ray._from( ray );
-  return rayv.subarray( ray.length/ 2, ray.length );
+  let rayView = _.ray._from( ray );
+  return rayView.subarray( ray.length/ 2, ray.length );
 }
 
 //
 
-function rayAt( srcRay,factor )
+/**
+  * Get a point in a ray. Returns a vector with the coordinates of the point of the ray.
+  * Ray and factor stay untouched.
+  *
+  * @param { Vector } ray - The source ray.
+  * @param { Vector } factor - The source factor.
+  *
+  * @example
+  * // returns   4, 4
+  * _.rayAt( [ 0, 0, 2, 2 ], 2 );
+  *
+  * @example
+  * // returns  1
+  * _.rayAt( [ 1, 2 ], 0 );
+  *
+  * @returns { Vector } Returns a point in the ray at a given factor.
+  * @function rayAt
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( factor ) is not number.
+  * @memberof wTools.ray
+  */
+function rayAt( srcRay, factor )
 {
-  let result = avector.mul( null, srcRay[ 1 ], factor );
-  avector.add( result, srcRay[ 0 ] );
+  // let result = avector.mul( null, srcRay[ 1 ], factor );
+  // avector.add( result, srcRay[ 0 ] );
+
+  _.assert( arguments.length === 2, 'expects single argument' );
+  _.assert( _.ray.is( srcRay ) );
+  _.assert( factor >= 0, 'Factor can not be negative ( point must be in the ray )');
+
+  let rayView = _.ray._from( srcRay )
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
+
+  let result = avector.mul( null, direction, factor );
+  result = avector.add( result, origin );
+
   return result;
 }
 

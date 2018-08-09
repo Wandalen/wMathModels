@@ -444,7 +444,13 @@ function fromPair( test )
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
 
+  test.case = 'Ray goes up in y and down in z'; /* */
 
+  var pair = [ [ 0, 1, 2 ], [ 0, 3, 1 ] ];
+  var expected = [ 0, 1, 2, 0, 2, -1 ];
+
+  var gotRay = _.ray.fromPair( pair );
+  test.identical( gotRay, expected );
 
   /* */
 
@@ -452,6 +458,9 @@ function fromPair( test )
   return;
   test.shouldThrowErrorSync( () => _.ray.fromPair( ));
   test.shouldThrowErrorSync( () => _.ray.fromPair( null ));
+  test.shouldThrowErrorSync( () => _.ray.fromPair( [ 2, 4 ], [ 3, 6 ] ));
+  test.shouldThrowErrorSync( () => _.ray.fromPair( [ 2, 4 ], [ 3, 6, 2 ] ));
+  test.shouldThrowErrorSync( () => _.ray.fromPair( [ [ 2, 4 ], [ 3, 6 ], [ 3, 6 ] ] ));
   test.shouldThrowErrorSync( () => _.ray.fromPair( undefined ));
 
 }
@@ -719,6 +728,98 @@ function directionGet( test )
 
 }
 
+//
+
+function rayAt( test )
+{
+  test.case = 'Source ray and factor remain unchanged'; /* */
+
+  var srcRay = [ 0, 0, 1, 1 ];
+  var factor = 1;
+  var expected = [ 1, 1 ];
+
+  var gotPoint = _.ray.rayAt( srcRay, factor );
+  test.identical( gotPoint, expected );
+
+  var oldSrcRay = [ 0, 0, 1, 1 ];
+  test.equivalent( srcRay, oldSrcRay );
+
+  var oldFactor = 1;
+  test.equivalent( factor, oldFactor );
+
+  test.case = 'Factor = null, return origin'; /* */
+
+  var srcRay = [ 0, 0, 1, 1 ];
+  var factor = 0;
+  var expected = [ 0, 0 ];
+
+  var gotPoint = _.ray.rayAt( srcRay, factor );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Factor = 0, return origin'; /* */
+
+  var srcRay = [ 0, 0, 1, 1 ];
+  var factor = 0;
+  var expected = [ 0, 0 ];
+
+  var gotPoint = _.ray.rayAt( srcRay, factor );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Factor = 1, return origin + direction'; /* */
+
+  var srcRay = [ 0, 1, 1, 1 ];
+  var factor = 1;
+  var expected = [ 1, 2 ];
+
+  var gotPoint = _.ray.rayAt( srcRay, factor );
+  test.identical( gotPoint, expected );
+
+  test.case = '3D ray'; /* */
+
+  var srcRay = [ 0, 1, 2, 1, 1, 1 ];
+  var factor = 1;
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.ray.rayAt( srcRay, factor );
+  test.identical( gotPoint, expected );
+
+  test.case = 'factor smaller than 1'; /* */
+
+  var srcRay = [ 0, 1, 2, 2, 2, 2 ];
+  var factor = 0.5;
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.ray.rayAt( srcRay, factor );
+  test.identical( gotPoint, expected );
+
+  test.case = 'factor bigger than one'; /* */
+
+  var srcRay = [ 0, 1, 2, 1, 1, 1 ];
+  var factor = 5;
+  var expected = [ 5, 6, 7 ];
+
+  var gotPoint = _.ray.rayAt( srcRay, factor );
+  test.identical( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.rayAt( ) );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( [ 0, 0 ], [ 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( 'ray', 1 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( [ 0, 0 ], 'factor') );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( null, 1 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( undefined, 1 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayAt( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+
 // --
 // define class
 // --
@@ -749,6 +850,8 @@ var Self =
     dimGet : dimGet,
     originGet : originGet,
     directionGet : directionGet,
+
+    rayAt : rayAt,
 
 
   }
