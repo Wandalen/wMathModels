@@ -1079,7 +1079,7 @@ function pointExpand( dstBox , point )
   if( dstBox === null )
   dstBox = _.box.makeNil();
 
-  _.assert( _.arrayIs( point ) || _.vectorIs( point ) );
+  _.assert( _.longIs( point ) || _.vectorIs( point ) );
 
   let boxVector = _.box._from( dstBox );
   let dim = _.box.dimGet( boxVector );
