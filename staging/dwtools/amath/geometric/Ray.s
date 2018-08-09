@@ -2,10 +2,10 @@
 
 'use strict';
 
-var _ = _global_.wTools;
-var avector = _.avector;
-var vector = _.vector;
-var Self = _.ray = _.ray || Object.create( null );
+let _ = _global_.wTools;
+let avector = _.avector;
+let vector = _.vector;
+let Self = _.ray = _.ray || Object.create( null );
 
 // --
 //
@@ -16,7 +16,7 @@ var Self = _.ray = _.ray || Object.create( null );
 function make( dim )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  var result = _.ray.makeZero( dim );
+  let result = _.ray.makeZero( dim );
   if( _.ray.is( dim ) )
   _.avector.assign( result,dim );
   return result;
@@ -32,7 +32,7 @@ function makeZero( dim )
   dim = 3;
   _.assert( dim >= 0 );
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  var result = _.dup( 0,dim*2 );
+  let result = _.dup( 0,dim*2 );
   return result;
 }
 
@@ -47,10 +47,10 @@ function makeNil( dim )
 
   _.assert( dim >= 0 );
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  var result = [];
-  for( var i = 0 ; i < dim ; i++ )
+  let result = [];
+  for( let i = 0 ; i < dim ; i++ )
   result[ i ] = +Infinity;
-  for( var i = 0 ; i < dim ; i++ )
+  for( let i = 0 ; i < dim ; i++ )
   result[ dim+i ] = -Infinity;
 
   return result;
@@ -65,7 +65,7 @@ function zero( ray )
 
   if( _.ray.is( ray ) )
   {
-    var rayv = _.ray._from( ray );
+    let rayv = _.ray._from( ray );
     rayv.assign( 0 );
     return ray;
   }
@@ -82,11 +82,11 @@ function nil( ray )
 
   if( _.ray.is( ray ) )
   {
-    var rayv = _.ray._from( ray );
-    // var min = _.ray.cornerLeftGet( rayv );
-    // var max = _.ray.cornerRightGet( rayv );
-    var min = _.ray.originGet( rayv );
-    var max = _.ray.directionGet( rayv );
+    let rayv = _.ray._from( ray );
+    // let min = _.ray.cornerLeftGet( rayv );
+    // let max = _.ray.cornerRightGet( rayv );
+    let min = _.ray.originGet( rayv );
+    let max = _.ray.directionGet( rayv );
 
     _.vector.assign( min, +Infinity );
     _.vector.assign( max, -Infinity );
@@ -102,21 +102,25 @@ function nil( ray )
 function from( ray )
 {
 
-  if( _.objectIs( ray ) )
-  {
-    _.assertMapHasFields( ray,{ min : 'min' , max : 'max' } );
-    ray = _.arrayAppendArrays( [],[ ray.min,ray.max ] );
-  }
 
-  _.assert( _.ray.is( ray ) );
+//  if( _.objectIs( ray ) )
+//  {
+//    _.assertMapHasFields( ray,{ min : 'min' , max : 'max' } );
+//    ray = _.arrayAppendArrays( [],[ ray.min,ray.max ] );
+//  }
+
+  _.assert( _.ray.is( ray ) || ray === null );
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  if( _.vectorIs( ray ) )
-  {
-    debugger;
-    throw _.err( 'not implemented' );
-    return ray.slice();
-  }
+//  if( _.vectorIs( ray ) )
+//  {
+//    debugger;
+//    throw _.err( 'not implemented' );
+//    return ray.slice();
+//  }
+
+  if( ray === null )
+  return _.ray.make();
 
   return ray;
 }
@@ -132,11 +136,36 @@ function _from( ray )
 
 //
 
+/**
+  * Get a ray out of two points. Returns a vector with the coordinates of the ray.
+  * The pair of points stays untouched.
+  *
+  * @param { Array } pair - The source points.
+  *
+  * @example
+  * // returns  [ 1, 2, 1, 2 ]
+  * _.fromPair( [ 1, 2 ], [ 3, 4 ] );
+  *
+  * @returns { Vector } Returns the ray containing the two points.
+  * @function fromPair
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( pair ) is not array.
+  * @memberof wTools.ray
+  */
 function fromPair( pair )
 {
-  var result = [];
-  result[ 0 ] = pair[ 0 ];
-  result[ 1 ] = avector.sub( null, pair[ 1 ], pair[ 0 ] );
+//  let result = [];
+//  result[ 0 ] = pair[ 0 ];
+//  result[ 1 ] = avector.sub( null, pair[ 1 ], pair[ 0 ] );
+
+  let result = _.array.makeArrayOfLength( pair[ 0 ].length * 2 );
+
+  for( var i = 0; i < pair[ 0 ].length ; i++ )
+  {
+    result[ i ] = pair[ 0 ][ i ];
+    result[ pair[ 0 ].length + i ] = avector.sub( null, pair[ 1 ], pair[ 0 ] )[ i ];
+  }
+
   debugger;
   return result;
 }
@@ -228,7 +257,6 @@ function dimGet( ray )
   * @throws { Error } An Error if ( ray ) is not ray.
   * @memberof wTools.ray
   */
-
 function originGet( ray )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
@@ -258,7 +286,6 @@ function originGet( ray )
   * @throws { Error } An Error if ( ray ) is not ray.
   * @memberof wTools.ray
   */
-
 function directionGet( ray )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
@@ -270,7 +297,7 @@ function directionGet( ray )
 
 function rayAt( srcRay,factor )
 {
-  var result = avector.mul( null, srcRay[ 1 ], factor );
+  let result = avector.mul( null, srcRay[ 1 ], factor );
   avector.add( result, srcRay[ 0 ] );
   return result;
 }

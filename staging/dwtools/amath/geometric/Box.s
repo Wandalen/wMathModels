@@ -163,8 +163,8 @@ function zero( box )
 
   if( _.box.is( box ) )
   {
-    let boxVector = _.box._from( box );
-    boxVector.assign( 0 );
+    let boxView = _.box._from( box );
+    boxView.assign( 0 );
     return box;
   }
 
@@ -198,9 +198,9 @@ function nil( box )
 
   if( _.box.is( box ) )
   {
-    let boxVector = _.box._from( box );
-    let min = _.box.cornerLeftGet( boxVector );
-    let max = _.box.cornerRightGet( boxVector );
+    let boxView = _.box._from( box );
+    let min = _.box.cornerLeftGet( boxView );
+    let max = _.box.cornerRightGet( boxView );
 
     _.vector.assign( min, +Infinity );
     _.vector.assign( max, -Infinity );
@@ -248,9 +248,9 @@ function centeredOfSize( box, size )
   if( !_.box.is( box ) )
   box = _.box.make( box );
 
-  let boxVector = _.box._from( box );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   size = _.numbersSlice( size );
   size = _.avector.mulScalar( size, 0.5 );
@@ -368,16 +368,16 @@ function fromPoints( box, points )
   if( box === null )
   box = _.box.makeNil( dimp );
 
-  let boxVector = _.box._from( box );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   debugger;
   // throw _.err( 'not tested' );
 
   for( let i = 0 ; i < points.length ; i += 1 )
   {
-    _.box.pointExpand( boxVector, points[ i ] );
+    _.box.pointExpand( boxView, points[ i ] );
   }
 
   return box;
@@ -420,10 +420,10 @@ function fromCenterAndSize( box, center, size )
   _.assert( _.arrayIs( center ) || _.vectorIs( center ) );
   _.assert( _.numberIs( size ) || _.arrayIs( size ) || _.vectorIs( size ) );
 
-  let boxVector = _.box._from( box );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
-  let dim = _.box.dimGet( boxVector );
+  let boxView = _.box._from( box );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+  let dim = _.box.dimGet( boxView );
   let center_ = _.vector.from( center );
   let size_ = _.vector.from( size );
 
@@ -471,26 +471,26 @@ function fromSphere( box, sphere )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.sphere.is( sphere ) );
 
-  let _sphere = _.sphere._from( sphere );
-  let dim1 = _.sphere.dimGet( _sphere );
-  let center = _.sphere.centerGet( _sphere );
-  let radius = _.sphere.radiusGet( _sphere );
+  let sphereView = _.sphere._from( sphere );
+  let dim1 = _.sphere.dimGet( sphereView );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
 
   if( box === null )
   box = _.box.make( dim );
 
-  let boxVector = _.box._from( box );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
-  let dim2 = _.box.dimGet( boxVector );
+  let boxView = _.box._from( box );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+  let dim2 = _.box.dimGet( boxView );
 
   _.assert( dim1 === dim2 );
 
   debugger;
   //throw _.err( 'not tested' );
 
-  _.box.fromPoints( boxVector, [ center ] );
-  _.box.expand( boxVector, radius );
+  _.box.fromPoints( boxView, [ center ] );
+  _.box.expand( boxView, radius );
 
   return box;
 }
@@ -527,10 +527,10 @@ function fromCube( box, size )
 
   _.assert( _.numberIs( size ) || _.arrayIs( size ) || _.vectorIs( size ) );
 
-  let boxVector = _.box._from( box );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
-  let dim = _.box.dimGet( boxVector );
+  let boxView = _.box._from( box );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+  let dim = _.box.dimGet( boxView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.numberIs( size ) );
@@ -584,10 +584,10 @@ function isEmpty( box )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   for( let d = 0 ; d < dim ; d++ )
   if( min.eGet( d ) >= max.eGet( d ) )
@@ -620,10 +620,10 @@ function isZero( box )
 
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   for( let d = 0 ; d < dim ; d++ ){
     if( min.eGet( d ) !== max.eGet( d ) )
@@ -652,10 +652,10 @@ function isNil( box )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   for( let d = 0 ; d < dim ; d++ ){
     if( min.eGet( d ) > max.eGet( d ) )
@@ -717,9 +717,9 @@ function dimGet( box )
   */
 function cornerLeftGet( box )
 {
-  let boxVector = _.box._from( box );
+  let boxView = _.box._from( box );
   _.assert( arguments.length === 1, 'expects single argument' );
-  return boxVector.subarray( 0 , box.length / 2 );
+  return boxView.subarray( 0 , box.length / 2 );
 }
 
 //
@@ -747,8 +747,8 @@ function cornerLeftGet( box )
 function cornerRightGet( box )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
-  let boxVector = _.box._from( box );
-  return boxVector.subarray( box.length / 2 , box.length );
+  let boxView = _.box._from( box );
+  return boxView.subarray( box.length / 2 , box.length );
 }
 
 //
@@ -777,10 +777,10 @@ function cornerRightGet( box )
 function centerGet( box , dst )
 {
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   if( !dst )
   dst = _.dup( 0,dim ) ;
@@ -827,10 +827,10 @@ function sizeGet( box , dst )
 {
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   if( !dst )
   dst = _.dup( 0,dim );
@@ -877,10 +877,10 @@ function expand( box , expand )
 
   _.assert( _.numberIs( expand ) || _.arrayIs( expand ) || _.vectorIs( expand ) );
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
   expand = _.vector.fromMaybeNumber( expand,dim );
 
   _.assert( dim === expand.length );
@@ -925,10 +925,10 @@ function pointContains( box , point )
   if( box === null )
   box = _.box.make();
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
   let pointv = _.vector.from( point );
 
   _.assert( dim === pointv.length );
@@ -1026,10 +1026,10 @@ function pointClosestPoint( box , point, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
   let pointVector = _.vector.from( point.slice() );
   let dstPointVector = _.vector.from( dstPoint );
 
@@ -1081,10 +1081,10 @@ function pointExpand( dstBox , point )
 
   _.assert( _.arrayIs( point ) || _.vectorIs( point ) );
 
-  let boxVector = _.box._from( dstBox );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( dstBox );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
   let pointv = _.vector.from( point );
 
   _.assert( dim === pointv.length );
@@ -1134,10 +1134,10 @@ function pointRelative( box , point, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
   let pointVector = _.vector.from( point );
   let dstPointVector = _.vector.from( dstPoint );
 
@@ -1179,10 +1179,10 @@ function pointRelative( box , point, dstPoint )
 function boxContains( box , box2 )
 {
 
-  let boxVector = _.box._from( box2 );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box2 );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === _.box.dimGet( box ) );
@@ -1221,15 +1221,15 @@ function boxContains( box , box2 )
   */
 function boxIntersects( srcBox , tstBox )
 {
-  let srcBoxVector = _.box._from( srcBox );
-  let srcDim = _.box.dimGet( srcBoxVector );
-  let srcMin = _.box.cornerLeftGet( srcBoxVector );
-  let srcMax = _.box.cornerRightGet( srcBoxVector );
+  let srcBoxView = _.box._from( srcBox );
+  let srcDim = _.box.dimGet( srcBoxView );
+  let srcMin = _.box.cornerLeftGet( srcBoxView );
+  let srcMax = _.box.cornerRightGet( srcBoxView );
 
-  let tstBoxVector = _.box._from( tstBox );
-  let tstDim = _.box.dimGet( tstBoxVector );
-  let tstMin = _.box.cornerLeftGet( tstBoxVector );
-  let tstMax = _.box.cornerRightGet( tstBoxVector );
+  let tstBoxView = _.box._from( tstBox );
+  let tstDim = _.box.dimGet( tstBoxView );
+  let tstMin = _.box.cornerLeftGet( tstBoxView );
+  let tstMax = _.box.cornerRightGet( tstBoxView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( tstDim === srcDim );
@@ -1299,15 +1299,15 @@ function boxIntersects( srcBox , tstBox )
 function boxDistance( srcBox , tstBox )
 {
 
-  let srcBoxVector = _.box._from( srcBox );
-  let srcDim = _.box.dimGet( srcBoxVector );
-  let srcMin = _.box.cornerLeftGet( srcBoxVector );
-  let srcMax = _.box.cornerRightGet( srcBoxVector );
+  let srcBoxView = _.box._from( srcBox );
+  let srcDim = _.box.dimGet( srcBoxView );
+  let srcMin = _.box.cornerLeftGet( srcBoxView );
+  let srcMax = _.box.cornerRightGet( srcBoxView );
 
-  let tstBoxVector = _.box._from( tstBox );
-  let tstDim = _.box.dimGet( tstBoxVector );
-  let tstMin = _.box.cornerLeftGet( tstBoxVector );
-  let tstMax = _.box.cornerRightGet( tstBoxVector );
+  let tstBoxView = _.box._from( tstBox );
+  let tstDim = _.box.dimGet( tstBoxView );
+  let tstMin = _.box.cornerLeftGet( tstBoxView );
+  let tstMax = _.box.cornerRightGet( tstBoxView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( tstDim === srcDim );
@@ -1393,15 +1393,15 @@ function boxDistance( srcBox , tstBox )
 function boxClosestPoint( srcBox , tstBox, dstPoint )
 {
 
-  let srcBoxVector = _.box._from( srcBox );
-  let srcDim = _.box.dimGet( srcBoxVector );
-  let srcMin = _.box.cornerLeftGet( srcBoxVector );
-  let srcMax = _.box.cornerRightGet( srcBoxVector );
+  let srcBoxView = _.box._from( srcBox );
+  let srcDim = _.box.dimGet( srcBoxView );
+  let srcMin = _.box.cornerLeftGet( srcBoxView );
+  let srcMax = _.box.cornerRightGet( srcBoxView );
 
-  let tstBoxVector = _.box._from( tstBox );
-  let tstDim = _.box.dimGet( tstBoxVector );
-  let tstMin = _.box.cornerLeftGet( tstBoxVector );
-  let tstMax = _.box.cornerRightGet( tstBoxVector );
+  let tstBoxView = _.box._from( tstBox );
+  let tstDim = _.box.dimGet( tstBoxView );
+  let tstMin = _.box.cornerLeftGet( tstBoxView );
+  let tstMax = _.box.cornerRightGet( tstBoxView );
 
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
   _.assert( tstDim === srcDim );
@@ -1557,8 +1557,8 @@ function sphereContains( srcBox , tstSphere )
   let radius = _.sphere.radiusGet( _tstSphere );
   let dimS = _.sphere.dimGet( _tstSphere );
 
-  let boxVector = _.box._from( srcBox );
-  let dimB = _.box.dimGet( boxVector );
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dimS === dimB );
@@ -1570,10 +1570,10 @@ function sphereContains( srcBox , tstSphere )
     pointp.eSet( i, pointp.eGet( i ) + radius );
     pointn.eSet( i, pointn.eGet( i ) - radius );
 
-    if( !_.box.pointContains( boxVector, pointp ) )
+    if( !_.box.pointContains( boxView, pointp ) )
     return false;
 
-    if( !_.box.pointContains( boxVector, pointn ) )
+    if( !_.box.pointContains( boxView, pointn ) )
     return false;
   }
 
@@ -1608,10 +1608,10 @@ function sphereContains( srcBox , tstSphere )
 function sphereIntersects( srcBox , tstSphere )
 {
   let _tstSphere = _.sphere._from( tstSphere );
-  let boxVector = _.box._from( srcBox );
+  let boxView = _.box._from( srcBox );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  let gotBool = _.sphere.boxIntersects( _tstSphere, boxVector );
+  let gotBool = _.sphere.boxIntersects( _tstSphere, boxView );
 
   return gotBool;
 }
@@ -1648,17 +1648,17 @@ function sphereDistance( srcBox , tstSphere )
   let radius = _.sphere.radiusGet( _tstSphere );
   let dimS = _.sphere.dimGet( _tstSphere );
 
-  let boxVector = _.box._from( srcBox );
-  let dimB = _.box.dimGet( boxVector );
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dimS === dimB );
 
   let distance = 0;
-  if( _.sphere.boxIntersects( _tstSphere, boxVector ) )
+  if( _.sphere.boxIntersects( _tstSphere, boxView ) )
     return distance;
   else
-    distance = _.box.pointDistance( boxVector, center ) - radius;
+    distance = _.box.pointDistance( boxView, center ) - radius;
 
   return distance;
 }
@@ -1698,8 +1698,8 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   let radius = _.sphere.radiusGet( _tstSphere );
   let dimS = _.sphere.dimGet( _tstSphere );
 
-  let boxVector = _.box._from( srcBox );
-  let dimB = _.box.dimGet( boxVector );
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( dimB );
@@ -1713,11 +1713,11 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   _.assert( dimS === dimB );
   _.assert( dimS === dstPoint.length );
 
-  if( _.sphere.boxIntersects( _tstSphere, boxVector ) )
+  if( _.sphere.boxIntersects( _tstSphere, boxView ) )
     return 0
   else
   {
-    let p = _.box.pointClosestPoint( boxVector, center );
+    let p = _.box.pointClosestPoint( boxView, center );
 
     for( let i = 0; i < dimB; i++ )
     {
@@ -1814,9 +1814,9 @@ function planeIntersects( srcBox , tstPlane )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   let _tstPlane = _.plane._from( tstPlane );
-  let boxVector = _.box._from( srcBox );
+  let boxView = _.box._from( srcBox );
 
-  let gotBool = _.plane.boxIntersects( _tstPlane, boxVector );
+  let gotBool = _.plane.boxIntersects( _tstPlane, boxView );
 
   return gotBool;
 }
@@ -1850,17 +1850,17 @@ function planeDistance( srcBox, plane )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  let boxVector = _.box._from( srcBox );
-  let dimB = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
-  let _plane = _.plane._from( plane );
-  let dimP = _.plane.dimGet( _plane );
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
 
   _.assert( dimP === dimB );
 
-  if( _.plane.boxIntersects( _plane, boxVector ) )
+  if( _.plane.boxIntersects( planeView, boxView ) )
     return 0;
   else
   {
@@ -1924,13 +1924,13 @@ function planeClosestPoint( srcBox, plane, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
 
-  let boxVector = _.box._from( srcBox );
-  let dimB = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
-  let _plane = _.plane._from( plane );
-  let dimP = _.plane.dimGet( _plane );
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( dimB );
@@ -1943,7 +1943,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   _.assert( dimP === dimB );
   _.assert( dimP === dstPoint.length );
 
-  if( _.plane.boxIntersects( _plane, boxVector ) )
+  if( _.plane.boxIntersects( planeView, boxView ) )
     return 0;
   else
   {
@@ -2012,28 +2012,28 @@ function planeExpand( dstBox, srcPlane )
 {
   _.assert( arguments.length === 2, 'expects two arguments' );
 
-  let boxVector = _.box._from( dstBox );
-  let dimB = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( dstBox );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   _.assert( _.plane.is( srcPlane ) );
 
-  let _plane = _.plane._from( srcPlane );
-  let dimP = _.plane.dimGet( _plane );
+  let planeView = _.plane._from( srcPlane );
+  let dimP = _.plane.dimGet( planeView );
 
   _.assert( dimP === dimB );
 
-  if( _.plane.boxIntersects( _plane, boxVector ) )
+  if( _.plane.boxIntersects( planeView, boxView ) )
   return dstBox;
   else
   {
-    let boxPoint = _.box.planeClosestPoint( boxVector, _plane );
-    let planePoint = _.plane.pointCoplanarGet( _plane, boxPoint );
-    let box = _.box.pointExpand( boxVector, planePoint);
+    let boxPoint = _.box.planeClosestPoint( boxView, planeView );
+    let planePoint = _.plane.pointCoplanarGet( planeView, boxPoint );
+    let box = _.box.pointExpand( boxView, planePoint);
     for( let i = 0; i < box.length; i++ )
     {
-      boxVector.eSet( i, box.eGet( i ) );
+      boxView.eSet( i, box.eGet( i ) );
     }
     return dstBox;
   }
@@ -2074,10 +2074,10 @@ function frustumContains( box, frustum )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
-  let _box = _.box._from( box );
-  let dim = _.box.dimGet( _box );
-  let min = _.box.cornerLeftGet( _box );
-  let max = _.box.cornerRightGet( _box );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   let fpoints = _.frustum.cornersGet( frustum );
   _.assert( _.spaceIs( fpoints ) );
@@ -2129,9 +2129,9 @@ function frustumIntersects( box, frustum )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
-  let _box = _.box._from( box );
+  let boxView = _.box._from( box );
 
-  let gotBool = _.frustum.boxIntersects( frustum, _box );
+  let gotBool = _.frustum.boxIntersects( frustum, boxView );
   return gotBool;
 }
 
@@ -2172,17 +2172,17 @@ function frustumDistance( box, frustum )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
-  let _box = _.box._from( box );
+  let boxView = _.box._from( box );
 
-  let dim = _.box.dimGet( _box );
+  let dim = _.box.dimGet( boxView );
   _.assert( dim === 3 );
-  let min = _.box.cornerLeftGet( _box );
-  let max = _.box.cornerRightGet( _box );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
-  if( _.frustum.boxIntersects( frustum, _box ) )
+  if( _.frustum.boxIntersects( frustum, boxView ) )
   return 0;
 
-  let frustumPoint = _.frustum.boxClosestPoint( frustum, _box );
+  let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
 
   /* box corners */
 
@@ -2248,11 +2248,11 @@ function frustumClosestPoint( box, frustum, dstPoint )
 {
   _.assert( _.frustum.is( frustum ) );
 
-  let _box = _.box._from( box );
-  let dimB = _.box.dimGet( _box );
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
   _.assert( dimB === 3 );
-  let min = _.box.cornerLeftGet( _box );
-  let max = _.box.cornerRightGet( _box );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( dimB );
@@ -2266,11 +2266,11 @@ function frustumClosestPoint( box, frustum, dstPoint )
   _.assert( dimB === 3 );
   _.assert( dimB === dstPoint.length );
 
-  if( _.frustum.boxIntersects( frustum, _box ) )
+  if( _.frustum.boxIntersects( frustum, boxView ) )
   return 0
   else
   {
-    let frustumPoint = _.frustum.boxClosestPoint( frustum, _box );
+    let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
 
     /* box corners */
 
@@ -2344,12 +2344,12 @@ function frustumExpand( dstBox, srcFrustum )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let _box = _.box._from( dstBox );
+  let boxView = _.box._from( dstBox );
 
-  let dim = _.box.dimGet( _box );
+  let dim = _.box.dimGet( boxView );
   _.assert( dim === 3 );
-  let min = _.box.cornerLeftGet( _box );
-  let max = _.box.cornerRightGet( _box );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   let fpoints = _.frustum.cornersGet( srcFrustum );
   _.assert( _.spaceIs( fpoints ) );
@@ -2358,7 +2358,7 @@ function frustumExpand( dstBox, srcFrustum )
   for( let j = 0 ; j < 8 ; j++ )
   {
     let newp = fpoints.colVectorGet( j );
-    _box = _.box.pointExpand( _box, newp );
+    boxView = _.box.pointExpand( boxView, newp );
   }
 
   return dstBox;
@@ -2393,10 +2393,10 @@ function frustumExpand( dstBox, srcFrustum )
 function matrixHomogenousApply( box , matrix )
 {
 
-  let boxVector = _.box._from( box );
-  let dim = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.spaceIs( matrix ) );
@@ -2417,7 +2417,7 @@ function matrixHomogenousApply( box , matrix )
 
   });
 
-  boxVector.copy( box2 );
+  boxView.copy( box2 );
 
   return box;
 }
@@ -2444,10 +2444,10 @@ function translate( box, offset )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  let boxVector = _.box._from( box );
+  let boxView = _.box._from( box );
   _.assert( _.numberIs( offset ) );
 
-  boxVector.addScalar( offset );
+  boxView.addScalar( offset );
 
   return box;
 }
@@ -2477,9 +2477,9 @@ function translate( box, offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   let boxVector = _.box._from( box );
-//   let center = _.box.centerGet( boxVector );
-//   let radius = _.box.radiusGet( boxVector );
+//   let boxView = _.box._from( box );
+//   let center = _.box.centerGet( boxView );
+//   let radius = _.box.radiusGet( boxView );
 //
 //   return( vector.distanceSqr( vector.from( point ) , center ) <= ( radius * radius ) );
 // }
@@ -2494,9 +2494,9 @@ function translate( box, offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   let boxVector = _.box._from( box );
-//   let center = _.box.centerGet( boxVector );
-//   let radius = _.box.radiusGet( boxVector );
+//   let boxView = _.box._from( box );
+//   let center = _.box.centerGet( boxView );
+//   let radius = _.box.radiusGet( boxView );
 //
 //   return( vector.distance( vector.from( point ) , center ) - radius );
 // }
@@ -2512,9 +2512,9 @@ function translate( box, offset )
 //   throw _.err( 'not implemented' );
 //
 //   let pointVector = vector.from( point );
-//   let boxVector = _.box._from( box );
-//   let center = _.box.centerGet( boxVector );
-//   let radius = _.box.radiusGet( boxVector );
+//   let boxView = _.box._from( box );
+//   let center = _.box.centerGet( boxView );
+//   let radius = _.box.radiusGet( boxView );
 //
 //   let distanseSqr = vector.distanceSqr( pointVector , center );
 //
@@ -2542,13 +2542,13 @@ function translate( box, offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   let _box1 = _.box._from( box1 );
-//   let center1 = _.box.centerGet( _box1 );
-//   let radius1 = _.box.radiusGet( _box1 );
+//   let boxView1 = _.box._from( box1 );
+//   let center1 = _.box.centerGet( boxView1 );
+//   let radius1 = _.box.radiusGet( boxView1 );
 //
-//   let _box2 = _.box._from( box2 );
-//   let center2 = _.box.centerGet( _box2 );
-//   let radius2 = _.box.radiusGet( _box2 );
+//   let boxView2 = _.box._from( box2 );
+//   let center2 = _.box.centerGet( boxView2 );
+//   let radius2 = _.box.radiusGet( boxView2 );
 //
 //   let r = radius1 + radius2;
 //   return _.vector.distanceSqr( center1,center2 ) <= r*r;
@@ -2565,9 +2565,9 @@ function translate( box, offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   let boxVector = _.box._from( box );
-//   let center = _.box.centerGet( boxVector );
-//   let radius = _.box.radiusGet( boxVector );
+//   let boxView = _.box._from( box );
+//   let center = _.box.centerGet( boxView );
+//   let radius = _.box.radiusGet( boxView );
 //
 //   matrix.matrixHomogenousApply( center );
 //   _.box.radiusSet( radius,matrix.scaleMaxGet() )
@@ -2586,9 +2586,9 @@ function translate( box, offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   let boxVector = _.box._from( box );
-//   let center = _.box.centerGet( boxVector );
-//   let radius = _.box.radiusGet( boxVector );
+//   let boxView = _.box._from( box );
+//   let center = _.box.centerGet( boxView );
+//   let radius = _.box.radiusGet( boxView );
 //
 //   center.add( offset );
 //

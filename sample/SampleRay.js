@@ -2,15 +2,11 @@
 if( typeof module !== 'undefined' )
 require( 'wmathconcepts' );
 
-var _ = wTools;
+let _ = wTools;
 
-var ray = _.ray.make( );
-console.log( '_.ray.make( ) = ', ray );
+let p1 = [ 0, 1, 2 ];
+let p2 = [ 0, 1, 2 ];
 
-ray = _.ray.from( [ 1, 2, 3, 4, 5, 6] );
-console.log( '_.ray.:_from( ray ) = ', ray );
+let ray = _.ray.fromPair( [ p1, p2 ] );
 
-let or = _.ray.originGet( ray );
-let dir = _.ray.directionGet( ray );
-
-console.log( or.slice(), dir.slice() );
+logger.log( ray );

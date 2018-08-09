@@ -313,6 +313,151 @@ function nil( test )
 
 //
 
+function from( test )
+{
+  test.case = 'Same instance returned - array'; /* */
+
+  var srcRay = [ 0, 0, 2, 2 ];
+  var expected = [ 0, 0, 2, 2 ];
+
+  var gotRay = _.ray.from( srcRay );
+  test.identical( gotRay, expected );
+  test.is( srcRay === gotRay );
+
+  test.case = 'Different instance returned - vector -> array'; /* */
+
+  var srcRay = _.vector.fromArray( [ 0, 0, 2, 2 ] );
+  var expected = _.vector.fromArray( [ 0, 0, 2, 2 ] );
+
+  var gotRay = _.ray.from( srcRay );
+  test.identical( gotRay, expected );
+  test.is( srcRay === gotRay );
+
+  test.case = 'Same instance returned - empty array'; /* */
+
+  var srcRay = [];
+  var expected =  [];
+
+  var gotRay = _.ray.from( srcRay );
+  test.identical( gotRay, expected );
+  test.is( srcRay === gotRay );
+
+  test.case = 'Different instance returned - null -> array'; /* */
+
+  var srcRay = null;
+  var expected =  [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotRay = _.ray.from( srcRay );
+  test.identical( gotRay, expected );
+  test.is( srcRay !== gotRay );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.from( ));
+  test.shouldThrowErrorSync( () => _.ray.from( [ 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.ray.from( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.ray.from( 'ray' ));
+  test.shouldThrowErrorSync( () => _.ray.from( NaN ));
+  test.shouldThrowErrorSync( () => _.ray.from( undefined ));
+}
+
+//
+
+function _from( test )
+{
+  test.case = 'Same instance returned - vector'; /* */
+
+  var srcRay = [ 0, 0, 2, 2 ];
+  var expected = _.vector.from( [ 0, 0, 2, 2 ] );
+
+  var gotRay = _.ray._from( srcRay );
+  test.identical( gotRay, expected );
+  test.is( srcRay !== gotRay );
+
+  test.case = 'Different instance returned - vector -> vector'; /* */
+
+  var srcRay = _.vector.from( [ 0, 0, 2, 2 ] );
+  var expected = _.vector.from( [ 0, 0, 2, 2 ] );
+
+  var gotRay = _.ray._from( srcRay );
+  test.identical( gotRay, expected );
+  test.is( srcRay === gotRay );
+
+  test.case = 'Same instance returned - empty vector'; /* */
+
+  var srcRay = [];
+  var expected =  _.vector.from( [] );
+
+  var gotRay = _.ray._from( srcRay );
+  test.identical( gotRay, expected );
+  test.is( srcRay !== gotRay );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray._from( ));
+  test.shouldThrowErrorSync( () => _.ray._from( [ 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.ray._from( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.ray._from( 'ray' ));
+  test.shouldThrowErrorSync( () => _.ray._from( NaN ));
+  test.shouldThrowErrorSync( () => _.ray._from( null ));
+  test.shouldThrowErrorSync( () => _.ray._from( undefined ));
+}
+
+//
+
+function fromPair( test )
+{
+  test.case = 'Pair stay unchanged'; /* */
+
+  var pair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
+  var expected = [ 0, 1, 2, 0, 1, 2 ];
+
+  var gotRay = _.ray.fromPair( pair );
+  test.identical( gotRay, expected );
+
+  test.case = 'Ray starts in origin'; /* */
+
+  var pair = [ [ 0, 0, 0 ], [ 0, 1, 2 ] ];
+  var expected = [ 0, 0, 0, 0, 1, 2 ];
+
+  var gotRay = _.ray.fromPair( pair );
+  test.identical( gotRay, expected );
+
+  test.case = 'Ray is point'; /* */
+
+  var pair = [ [ 0, 1, 2 ], [ 0, 1, 2 ] ];
+  var expected = [ 0, 1, 2, 0, 0, 0 ];
+
+  var gotRay = _.ray.fromPair( pair );
+  test.identical( gotRay, expected );
+
+  test.case = 'Ray of 1 dimension'; /* */
+
+  var pair = [ [ 3 ], [ 4 ] ];
+  var expected = [ 3, 1 ];
+
+  var gotRay = _.ray.fromPair( pair );
+  test.identical( gotRay, expected );
+
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.fromPair( ));
+  test.shouldThrowErrorSync( () => _.ray.fromPair( null ));
+  test.shouldThrowErrorSync( () => _.ray.fromPair( undefined ));
+
+}
+
+//
+
 function is( test )
 {
   debugger;
@@ -574,22 +719,6 @@ function directionGet( test )
 
 }
 
-//
-
-function fromPoints( test )
-{
-
-  /* */
-
-  if( !Config.debug )
-  return;
-  test.shouldThrowErrorSync( () => _.ray.fromPoints( ));
-  test.shouldThrowErrorSync( () => _.ray.fromPoints( null ));
-  test.shouldThrowErrorSync( () => _.ray.fromPoints( undefined ));
-  test.shouldThrowErrorSync( () => _.ray.fromPoints( [ 0, 0 ], [ 1, 1 ], [ 2, 2 ] ));
-
-}
-
 // --
 // define class
 // --
@@ -613,11 +742,14 @@ var Self =
 
     is : is,
 
+    from: from,
+    _from : _from,
+    fromPair : fromPair,
+
     dimGet : dimGet,
     originGet : originGet,
     directionGet : directionGet,
 
-    fromPoints : fromPoints,
 
   }
 
