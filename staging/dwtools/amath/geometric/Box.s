@@ -785,7 +785,7 @@ function centerGet( box , dst )
   if( !dst )
   dst = _.dup( 0,dim ) ;
 
-  var dstv = _.vector.from( dst );
+  let dstv = _.vector.from( dst );
 
   _.assert( dim === dst.length );
   _.assert( arguments.length === 1 || arguments.length === 2 );
@@ -1238,37 +1238,25 @@ function boxIntersects( srcBox , tstBox )
   debugger;
   // throw _.err( 'not tested' );
 
-  let interX = false;
-  if( srcMin.eGet( 0 ) <= tstMin.eGet( 0 ) && tstMin.eGet( 0 ) <= srcMax.eGet( 0 ) )
-    interX = true;
-  else if( srcMin.eGet( 0 ) <= tstMax.eGet( 0 ) && tstMax.eGet( 0 ) <= srcMax.eGet( 0 ) )
-    interX = true;
-  else if( tstMin.eGet( 0 ) <= srcMin.eGet( 0 ) && srcMin.eGet( 0 ) <= tstMax.eGet( 0 ) )
-    interX = true;
-  else if( tstMin.eGet( 0 ) <= srcMax.eGet( 0 ) && srcMax.eGet( 0 ) <= tstMax.eGet( 0 ) )
-    interX = true;
+  let intTrue = 0;
 
-  let interY = false;
-  if( srcMin.eGet( 1 ) <= tstMin.eGet( 1 ) && tstMin.eGet( 1 ) <= srcMax.eGet( 1 ) )
-    interY = true;
-  else if( srcMin.eGet( 1 ) <= tstMax.eGet( 1 ) && tstMax.eGet( 1 ) <= srcMax.eGet( 1 ) )
-    interY = true;
-  else if( tstMin.eGet( 1 ) <= srcMin.eGet( 1 ) && srcMin.eGet( 1 ) <= tstMax.eGet( 1 ) )
-    interY = true;
-  else if( tstMin.eGet( 1 ) <= srcMax.eGet( 1 ) && srcMax.eGet( 1 ) <= tstMax.eGet( 1 ) )
-    interY = true;
+  for( let i = 0; i < srcDim; i++ )
+  {
+    let inter = false;
+    if( srcMin.eGet( i ) <= tstMin.eGet( i ) && tstMin.eGet( i ) <= srcMax.eGet( i ) )
+    inter = true;
+    else if( srcMin.eGet( i ) <= tstMax.eGet( i ) && tstMax.eGet( i ) <= srcMax.eGet( i ) )
+    inter = true;
+    else if( tstMin.eGet( i ) <= srcMin.eGet( i ) && srcMin.eGet( i ) <= tstMax.eGet( i ) )
+    inter = true;
+    else if( tstMin.eGet( i ) <= srcMax.eGet( i ) && srcMax.eGet( i ) <= tstMax.eGet( i ) )
+    inter = true;
 
-  let interZ = false;
-  if( srcMin.eGet( 2 ) <= tstMin.eGet( 2 ) && tstMin.eGet( 2 ) <= srcMax.eGet( 2 ) )
-    interZ = true;
-  else if( srcMin.eGet( 2 ) <= tstMax.eGet( 2 ) && tstMax.eGet( 2 ) <= srcMax.eGet( 2 ) )
-    interZ = true;
-  else if( tstMin.eGet( 2 ) <= srcMin.eGet( 2 ) && srcMin.eGet( 2 ) <= tstMax.eGet( 2 ) )
-    interZ = true;
-  else if( tstMin.eGet( 2 ) <= srcMax.eGet( 2 ) && srcMax.eGet( 2 ) <= tstMax.eGet( 2 ) )
-    interZ = true;
+    if( inter === true )
+    intTrue = intTrue + 1;
+  }
 
-  if( interX && interY && interZ )
+  if( intTrue === srcDim )
   return true;
 
   return false;
@@ -2375,7 +2363,7 @@ function frustumExpand( dstBox, srcFrustum )
   *
   * @example
   * // returns [ 0, 0, 0, 1, 1, 1 ]
-  * var matrix = _.Space.make( [ 4, 4 ] ).copy
+  * let matrix = _.Space.make( [ 4, 4 ] ).copy
   *  ([
   *    0.5, 0, 0, 0,
   *    0, 0.5, 0, 0,
