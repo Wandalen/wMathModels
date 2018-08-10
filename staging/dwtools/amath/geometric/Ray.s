@@ -503,13 +503,12 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   * @throws { Error } An Error if ( src2Ray ) is not ray.
   * @memberof wTools.ray
   */
-function rayIntersectionFactorsPaused( r1, r2 )
+function rayIntersectionFactors( r1, r2 )
 {
-
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
   //_.assert( r1[ 0 ].length === 2,'implemented only for d2' );
   //_.assert( r2[ 0 ].length === 2,'implemented only for d2' );
-  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
 
   // let dorigin = avector.subVectors( r2[ 0 ].slice() , r1[ 0 ] );
 
@@ -526,38 +525,6 @@ function rayIntersectionFactorsPaused( r1, r2 )
   // let x = d2linearEquationSolve( m,y );
   // debbuger;
   // return x;
-  let r1View = _.ray._from( r1 );
-  let r2View = _.ray._from( r2 );
-  let origin1 = _.ray.originGet( r1View );
-  let origin2 = _.ray.originGet( r2View );
-
-  if( origin1.slice()[ 0 ] === origin2.slice()[ 0 ] && origin1.slice()[ 1 ] === origin2.slice()[ 1 ] )
-  return [ 0, 0 ];
-
-  let x = [];
-
-  // x[ 0 ] = ( r2View.eGet( 2 )*( r1View.eGet( 1 ) - r2View.eGet( 1 ) ) + r2View.eGet( 3 )*( r2View.eGet( 0 ) - r1View.eGet( 0 ) ) ) / ( r2View.eGet( 3 )*r1View.eGet( 2 ) - r2View.eGet( 2 )*r1View.eGet( 3 ) );
-  x[ 1 ] = ( r1View.eGet( 2 )*( r2View.eGet( 1 ) - r1View.eGet( 1 ) ) + r1View.eGet( 3 )*( r1View.eGet( 0 ) - r2View.eGet( 0 ) ) ) / ( r2View.eGet( 2 )*r1View.eGet( 3 ) - r2View.eGet( 3 )*r1View.eGet( 2 ) );
-  x[ 0 ] = ( r2View.eGet( 0 ) + r2View.eGet( 2 )*x[ 1 ] - r1View.eGet( 0 ) )/ r1View.eGet( 2 );
-
-  if(  x[ 0 ] <= 0 - _.accuracySqr || x[ 1 ] <= 0 - _.accuracySqr )
-  return 0;
-
-  if(  x[ 0 ] === Infinity || x[ 1 ] === Infinity )
-  return 0;
-
-  if(  !_.numberIs( x[ 0 ] ) || !_.numberIs( x[ 1 ] ) )
-  return 0;
-
-  return x;
-}
-
-//
-
-function rayIntersectionFactors( r1, r2 )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
 
   let r1View = _.ray._from( r1 );
   let origin1 = _.ray.originGet( r1View );
