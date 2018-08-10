@@ -878,10 +878,28 @@ function rayParallel( test )
   var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
   test.identical( isParallel, expected );
 
+  test.case = 'Rays are parallel ( src1Ray is a point )'; /* */
+
+  var src1Ray = [ 3, 7, 1, 0, 0, 0 ];
+  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
   test.case = 'Rays are parallel ( src2Ray is a point )'; /* */
 
   var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
   var src2Ray = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel ( src2Ray is a point - 4D )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 1, 0, 0, 0, 0 ];
   var expected = true;
 
   var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
@@ -905,13 +923,85 @@ function rayParallel( test )
   var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
   test.identical( isParallel, expected );
 
+  test.case = 'Rays are parallel to x'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel but in a opposite direction'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, - 1, 0, 0 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel 2D'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 3, 7, - 2, - 2 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are not parallel 2D'; /* */
+
+  var src1Ray = [ 3, 7, 1, - 1 ];
+  var src2Ray = [ 3, 7, 7, 7 ];
+  var expected = false;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel 4D'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1, 0, 1, 2, 3 ];
+  var src2Ray = [ 3, 7, - 2, - 2, 0, 2, 4, 6 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are not parallel 4D'; /* */
+
+  var src1Ray = [ 3, 7, 1, - 1, 3, 7, 1, - 1 ];
+  var src2Ray = [ 3, 7, 7, 7, 3, 7, 7, 7 ];
+  var expected = false;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel 6D'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1, 1, 1, 0, 1, 2, 3, 4, 5 ];
+  var src2Ray = [ 3, 7, - 2, - 2, 0, 0, 0, 2, 4, 6, 8, 10 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are not parallel 6D'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1, 1, 1, 0, 1, 2, 3, 4, 5 ];
+  var src2Ray = [ 3, 7, - 2, - 2, 0, 0, 0, 2, 8, 6, 8, 10 ];
+  var expected = false;
+
+  var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
   /* */
 
   if( !Config.debug )
   return;
   test.shouldThrowErrorSync( () => _.ray.rayParallel( ) );
   test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0 ], [ 1, 1 ] ) );
+//  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0 ], [ 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayParallel( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0 ], 'factor') );
   test.shouldThrowErrorSync( () => _.ray.rayParallel( 0 ) );
@@ -1350,12 +1440,11 @@ var Self =
     zero : zero,
     nil : nil,
 
-    is : is,
-
     from: from,
     _from : _from,
     fromPair : fromPair,
 
+    is : is,
     dimGet : dimGet,
     originGet : originGet,
     directionGet : directionGet,

@@ -164,7 +164,7 @@ function fromPair( pair )
 
   let result = _.array.makeArrayOfLength( pair[ 0 ].length * 2 );
 
-  for( var i = 0; i < pair[ 0 ].length ; i++ )
+  for( let i = 0; i < pair[ 0 ].length ; i++ )
   {
     result[ i ] = pair[ 0 ][ i ];
     result[ pair[ 0 ].length + i ] = avector.sub( null, pair[ 1 ], pair[ 0 ] )[ i ];
@@ -378,7 +378,7 @@ rayAt.shaderChunk =
   * @throws { Error } An Error if ( accuracySqr ) is not number.
   * @memberof wTools.ray
   */
-function rayParallel( src1Ray, src2Ray, accuracySqr )
+function rayParallel2D( src1Ray, src2Ray, accuracySqr )
 {
   // _.assert( src1Ray.length === 3 );
   // _.assert( src2Ray.length === 3 );
@@ -402,6 +402,81 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   debugger;
   return avector.magSqr( avector.cross( null, direction1, direction2 )) <= accuracySqr;
 
+}
+
+//
+
+function rayParallel( src1Ray, src2Ray, accuracySqr )
+{
+  // _.assert( src1Ray.length === 3 );
+  // _.assert( src2Ray.length === 3 );
+  // _.assert( arguments.length === 2 || arguments.length === 3 );
+
+  // if( accuracySqr === undefined )
+  // accuracySqr = Self.accuracySqr;
+
+  // return _magSqr( avector.cross( src1Ray[ 1 ], src2Ray[ 1 ] ) ) <= Self.accuracySqr;
+
+  _.assert( _.ray.is( src1Ray ) );
+  _.assert( _.ray.is( src2Ray ) );
+  _.assert( arguments.length === 2 || arguments.length === 3 );
+  _.assert( src1Ray.length === src2Ray.length );
+
+  if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
+  accuracySqr = _.accuracySqr;;
+
+  let direction1 = _.ray.directionGet( src1Ray );
+  let direction2 = _.ray.directionGet( src2Ray );
+  let proportion = undefined;
+
+  let zeros1 = 0;
+  for( let i = 0; i < direction1.length ; i++  )
+  {
+    if( direction1.eGet( i ) === 0 )
+    {
+      zeros1 = zeros1 + 1;
+    }
+    if( zeros1 === direction1.length )
+    return true;
+  }
+
+  let zeros2 = 0;
+  for( let i = 0; i < direction2.length ; i++  )
+  {
+    if( direction2.eGet( i ) === 0 )
+    {
+      zeros2 = zeros2 + 1;
+    }
+    if( zeros2 === direction2.length )
+    return true;
+  }
+
+  debugger;
+
+  for( let i = 0; i < direction1.length ; i++  )
+  {
+    if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
+    {
+      if( direction1.eGet( i ) !== direction2.eGet( i ) )
+      {
+        return false;
+      }
+    }
+    else
+    {
+      let newProportion = direction1.eGet( i ) / direction2.eGet( i );
+
+      if( proportion !== undefined )
+      {
+        if( Math.abs( proportion - newProportion ) > accuracySqr)
+        return false
+      }
+
+      proportion = newProportion;
+    }
+  }
+
+  return true;
 }
 
 //
@@ -437,30 +512,30 @@ function rayIntersectionFactors( r1,r2 )
   _.assert( r1.length === 4,'implemented only for d2' );
   _.assert( r2.length === 4,'implemented only for d2' );
 
-  // var dorigin = avector.subVectors( r2[ 0 ].slice() , r1[ 0 ] );
+  // let dorigin = avector.subVectors( r2[ 0 ].slice() , r1[ 0 ] );
 
-  // var y = [];
+  // let y = [];
   // y[ 0 ] = + dorigin[ 0 ];
   // y[ 1 ] = - dorigin[ 1 ];
 
-  // var m = [];
+  // let m = [];
   // m[ 0 ] = + r1[ 1 ][ 0 ];
   // m[ 1 ] = - r1[ 1 ][ 1 ];
   // m[ 2 ] = - r2[ 1 ][ 0 ];
   // m[ 3 ] = + r2[ 1 ][ 1 ];
 
-  // var x = d2linearEquationSolve( m,y );
+  // let x = d2linearEquationSolve( m,y );
   // debbuger;
   // return x;
-  var r1View = _.ray._from( r1 );
-  var r2View = _.ray._from( r2 );
-  var origin1 = _.ray.originGet( r1View );
-  var origin2 = _.ray.originGet( r2View );
+  let r1View = _.ray._from( r1 );
+  let r2View = _.ray._from( r2 );
+  let origin1 = _.ray.originGet( r1View );
+  let origin2 = _.ray.originGet( r2View );
 
   if( origin1.slice()[ 0 ] === origin2.slice()[ 0 ] && origin1.slice()[ 1 ] === origin2.slice()[ 1 ] )
   return [ 0, 0 ];
 
-  var x = [];
+  let x = [];
 
   // x[ 0 ] = ( r2View.eGet( 2 )*( r1View.eGet( 1 ) - r2View.eGet( 1 ) ) + r2View.eGet( 3 )*( r2View.eGet( 0 ) - r1View.eGet( 0 ) ) ) / ( r2View.eGet( 3 )*r1View.eGet( 2 ) - r2View.eGet( 2 )*r1View.eGet( 3 ) );
   x[ 1 ] = ( r1View.eGet( 2 )*( r2View.eGet( 1 ) - r1View.eGet( 1 ) ) + r1View.eGet( 3 )*( r1View.eGet( 0 ) - r2View.eGet( 0 ) ) ) / ( r2View.eGet( 2 )*r1View.eGet( 3 ) - r2View.eGet( 3 )*r1View.eGet( 2 ) );
@@ -527,12 +602,12 @@ rayIntersectionFactors.shaderChunk =
   */
 function rayIntersectionPoints( r1,r2 )
 {
-  var factors = rayIntersectionFactors( r1,r2 );
+  let factors = rayIntersectionFactors( r1,r2 );
 
   if( factors === 0 )
   return 0;
 
-  var result = [ Self.rayAt( r1,factors[ 0 ] ),Self.rayAt( r2,factors[ 1 ] ) ];
+  let result = [ Self.rayAt( r1,factors[ 0 ] ),Self.rayAt( r2,factors[ 1 ] ) ];
   return result;
 }
 
@@ -575,7 +650,7 @@ rayIntersectionPoints.shaderChunk =
 function rayIntersectionPoint( r1,r2 )
 {
 
-  var factors = Self.rayIntersectionFactors( r1,r2 );
+  let factors = Self.rayIntersectionFactors( r1,r2 );
 
   if( factors === 0 )
   return 0;
@@ -622,7 +697,7 @@ rayIntersectionPoint.shaderChunk =
 function rayIntersectionPointAccurate( r1,r2 )
 {
 
-  var closestPoints = Self.rayIntersectionPoints( r1,r2 );
+  let closestPoints = Self.rayIntersectionPoints( r1,r2 );
   // return closestPoints[ 0 ].add( closestPoints[ 1 ] ).mul( 0.5 );
   debugger;
 
@@ -649,7 +724,7 @@ rayIntersectionPointAccurate.shaderChunk =
 // define class
 // --
 
-var Proto =
+let Proto =
 {
 
   make : make,

@@ -361,7 +361,7 @@ function fromPoints( box, points )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.arrayIs( points ) );
+  _.assert( _.vectorIs( points ) || _.arrayIs( points ) || _.longIs( points ) );
 
   let dimp = points[0].length;
 
@@ -1080,6 +1080,7 @@ function pointExpand( dstBox , point )
   dstBox = _.box.makeNil();
 
   _.assert( _.longIs( point ) || _.vectorIs( point ) );
+  debugger;
 
   let boxView = _.box._from( dstBox );
   let dim = _.box.dimGet( boxView );

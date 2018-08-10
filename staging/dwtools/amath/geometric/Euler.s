@@ -147,7 +147,7 @@ function representationSet( dstEuler, representation )
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  if( _.arrayIs( representation ) )
+  if( _.arrayIs( representation ) || _.longIs( representation ) )
   {
     _.assert( representation.length === 3 );
     let rep = true;
@@ -2525,7 +2525,7 @@ function toAxisAndAngle2( euler, axisAndAngle )
 function represent( dstEuler, representation )
 {
   _.assert( dstEuler === null || dstEuler === undefined || _.euler.is( dstEuler ) );
-  _.assert( _.arrayIs( representation ) || _.strIs( representation ) );
+  _.assert( _.longIs( representation ) || _.arrayIs( representation ) || _.strIs( representation ) );
   _.assert( arguments.length === 2, 'expects two arguments' );
 
   if( dstEuler === null || dstEuler === undefined )

@@ -4,10 +4,9 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let ray1 = [ 0, 0, 1, 1 ];
-let ray2 = [2, 0, - 1, 1 ];
+var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
 
+var isParallel = _.ray.rayParallel( src1Ray, src2Ray );
 
-let point = _.ray.rayIntersectionPointAccurate( ray1, ray2 );
-
-logger.log( point );
+logger.log( isParallel );
