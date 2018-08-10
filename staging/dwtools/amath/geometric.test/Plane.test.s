@@ -2259,7 +2259,7 @@ function threeIntersectionPoint( test )
 }
 
 // --
-// define class
+// declare
 // --
 
 var Self =

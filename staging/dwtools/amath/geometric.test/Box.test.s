@@ -5698,7 +5698,7 @@ function frustumExpand( test )
 }
 
 // --
-// define class
+// declare
 // --
 
 var Self =

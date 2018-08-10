@@ -1033,7 +1033,7 @@ function applyTo( quat,vector )
 }
 
 // --
-// define class
+// declare
 // --
 
 let Proto =

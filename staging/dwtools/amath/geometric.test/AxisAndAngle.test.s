@@ -713,7 +713,7 @@ eachAngle.defaults =
 }
 
 // --
-// define class
+// declare
 // --
 
 var Self =

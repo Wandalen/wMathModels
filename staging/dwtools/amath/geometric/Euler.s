@@ -2808,7 +2808,7 @@ function isGimbalLock( srcEuler )
 
 
 // --
-// define class
+// declare
 // --
 
 let Proto =
