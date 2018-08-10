@@ -597,11 +597,39 @@ rayIntersectionPoint.shaderChunk =
 
 //
 
+/**
+  * Returns the point of the intersection of two rays. Returns an array with the intersection point, 0 if there is no intersection.
+  * Rays stay untouched. Only for 2D.
+  *
+  * @param { Vector } src1Ray - The first source ray.
+  * @param { Vector } src2Ray - The second source ray.
+  *
+  * @example
+  * // returns   0
+  * _.rayIntersectionPointAccurate( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  [ [ 0, 0 ], [ 0, 0 ] ]
+  * _.rayIntersectionPointAccurate( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
+  *
+  * @returns { Array } Returns the point of intersection of the two rays.
+  * @function rayIntersectionPointAccurate
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Ray ) is not ray.
+  * @throws { Error } An Error if ( src2Ray ) is not ray.
+  * @memberof wTools.ray
+  */
 function rayIntersectionPointAccurate( r1,r2 )
 {
 
   var closestPoints = Self.rayIntersectionPoints( r1,r2 );
-  return closestPoints[ 0 ].slice().add( closestPoints[ 1 ] ).mul( 0.5 );
+  // return closestPoints[ 0 ].add( closestPoints[ 1 ] ).mul( 0.5 );
+  debugger;
+
+  if( closestPoints === 0)
+  return 0;
+
+  return _.avector.mulScalar( _.avector.add( null, closestPoints[ 0 ], closestPoints[ 1 ] ), 0.5 );
 
 }
 

@@ -42,6 +42,8 @@
       // returns [ 4, 1 ]
       // rayParallel( [ -4, 0, 1, 0 ], [ 0, -2, 0, 2 ] );
   - `rayIntersectionPoints( src1Ray, src2Ray )`: Return the intersection points of the two rays.
+  - `rayIntersectionPoint( src1Ray, src2Ray )`: Return the intersection point of the two rays.
+  - `rayIntersectionPointAccurate( src1Ray, src2Ray )`: Return the mean of rayIntersectionPoints.
 
 
 ### Try out  

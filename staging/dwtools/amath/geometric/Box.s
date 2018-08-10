@@ -243,7 +243,7 @@ function centeredOfSize( box, size )
 
   /* qqq : in routines like this "box" and "null" are only valid first argument */
 
-  _.assert( _.numberIs( size ) || _.arrayIs( size ) || _.vectorIs( size ) );
+  _.assert( _.numberIs( size ) || _.longIs( size ) || _.vectorIs( size ) );
 
   if( !_.box.is( box ) )
   box = _.box.make( box );
@@ -417,8 +417,8 @@ function fromCenterAndSize( box, center, size )
   if( box === null )
   box = _.box.make( center.length );
 
-  _.assert( _.arrayIs( center ) || _.vectorIs( center ) );
-  _.assert( _.numberIs( size ) || _.arrayIs( size ) || _.vectorIs( size ) );
+  _.assert( _.longIs( center ) || _.vectorIs( center ) );
+  _.assert( _.numberIs( size ) || _.longIs( size ) || _.vectorIs( size ) );
 
   let boxView = _.box._from( box );
   let min = _.box.cornerLeftGet( boxView );
@@ -525,7 +525,7 @@ function fromCube( box, size )
   if( box === null )
   box = _.box.make();
 
-  _.assert( _.numberIs( size ) || _.arrayIs( size ) || _.vectorIs( size ) );
+  _.assert( _.numberIs( size ) || _.longIs( size ) || _.vectorIs( size ) );
 
   let boxView = _.box._from( box );
   let min = _.box.cornerLeftGet( boxView );
@@ -875,7 +875,7 @@ function expand( box , expand )
   if( box === null )
   box = _.box.make();
 
-  _.assert( _.numberIs( expand ) || _.arrayIs( expand ) || _.vectorIs( expand ) );
+  _.assert( _.numberIs( expand ) || _.longIs( expand ) || _.vectorIs( expand ) );
 
   let boxView = _.box._from( box );
   let dim = _.box.dimGet( boxView );
@@ -1079,7 +1079,7 @@ function pointExpand( dstBox , point )
   if( dstBox === null )
   dstBox = _.box.makeNil();
 
-  _.assert( _.arrayIs( point ) || _.vectorIs( point ) );
+  _.assert( _.longIs( point ) || _.vectorIs( point ) );
 
   let boxView = _.box._from( dstBox );
   let dim = _.box.dimGet( boxView );
