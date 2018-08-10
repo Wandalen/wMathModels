@@ -134,9 +134,9 @@ function zero( sphere )
   if( !_.sphere.is( sphere ) )
   return _.sphere.makeZero( sphere );
 
-  let spherev = _.sphere._from( sphere );
-  for( let i = 0 ; i < spherev.length ; i++ )
-  spherev.eSet( i,0 );
+  let sphereView = _.sphere._from( sphere );
+  for( let i = 0 ; i < sphereView.length ; i++ )
+  sphereView.eSet( i,0 );
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
   _.assert( _.sphere.is( sphere ) );
@@ -170,10 +170,10 @@ function nil( sphere )
   if( !_.sphere.is( sphere ) )
   return _.sphere.makeNil( sphere );
 
-  let spherev = _.sphere._from( sphere );
-  for( let i = 0 ; i < spherev.length-1 ; i++ )
-  spherev.eSet( i,0 );
-  spherev.eSet( spherev.length-1,-Infinity );
+  let sphereView = _.sphere._from( sphere );
+  for( let i = 0 ; i < sphereView.length-1 ; i++ )
+  sphereView.eSet( i,0 );
+  sphereView.eSet( sphereView.length-1,-Infinity );
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
   _.assert( _.sphere.is( sphere ) );
@@ -245,10 +245,10 @@ function toStr( sphere,options )
   _.assert( arguments.length === 1 || arguments.length === 2 );
   _.assert( _.sphere.is( sphere ) );
 
-  // let spherev = _.sphere._from( sphere );
-  // let center = _.sphere.centerGet( spherev );
-  // let radius = _.sphere.radiusGet( spherev );
-  // let dim = _.sphere.dimGet( spherev );
+  // let sphereView = _.sphere._from( sphere );
+  // let center = _.sphere.centerGet( sphereView );
+  // let radius = _.sphere.radiusGet( sphereView );
+  // let dim = _.sphere.dimGet( sphereView );
 
   return _.toStr( sphere,options );
   debugger;
@@ -353,7 +353,7 @@ function fromPoints( sphere, points )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.arrayIs( points ) );
+  _.assert( _.arrayIs( points )  || _.longIs( points ) );
 
   debugger;
   //throw _.err( 'not tested' );
@@ -364,8 +364,8 @@ function fromPoints( sphere, points )
   if( sphere === null )
   sphere = _.sphere.make(dimp);
 
-  let spherev = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
   let maxr = 0;
 
   for ( let i = 0 ; i < points.length ; i += 1 )
@@ -406,19 +406,19 @@ function fromBox( sphere, box )
 
   _.assert( _.box.is( box ) );
 
-  let boxVector = _.box._from( box );
-  let dimB = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
-  let size = _.box.sizeGet( boxVector );
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+  let size = _.box.sizeGet( boxView );
 
   if( sphere === null )
   sphere = _.sphere.make( dim );
 
-  let spherev = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( spherev );
-  let radius = _.sphere.radiusGet( spherev );
-  let dimS = _.sphere.dimGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimS = _.sphere.dimGet( sphereView );
 
   _.assert( dimS === dimB );
   //  _.assert( dim === _.sphere.dimGet(  sphere) );
@@ -431,8 +431,8 @@ function fromBox( sphere, box )
 
   // debugger;
   // _.avector.sort( size );
-  // _.sphere.radiusSet( spherev , _.avector.mag( size.slice( 1, 3 ) ) / 2 );
-  _.sphere.radiusSet( spherev , _.avector.mag( size ) / 2 );
+  // _.sphere.radiusSet( sphereView , _.avector.mag( size.slice( 1, 3 ) ) / 2 );
+  _.sphere.radiusSet( sphereView , _.avector.mag( size ) / 2 );
 
   return sphere;
 }
@@ -473,14 +473,14 @@ function fromCenterAndRadius( sphere, center, radius )
   if( sphere === null )
   sphere = _.sphere.make( center.length );
 
-  let spherev = _.sphere._from( sphere );
-  let _center = _.sphere.centerGet( spherev );
-  let _dim = _.sphere.dimGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let _center = _.sphere.centerGet( sphereView );
+  let _dim = _.sphere.dimGet( sphereView );
 
   _.assert( center.length === _dim );
 
   _center.copy( center );
-  _.sphere.radiusSet( spherev , radius );
+  _.sphere.radiusSet( sphereView , radius );
 
   return sphere;
 }
@@ -531,8 +531,8 @@ function isEmpty( sphere )
   _.assert( arguments.length === 1, 'expects single argument' );
   _.assert( _.sphere.is( sphere ) );
 
-  let spherev = _.sphere._from( sphere );
-  let radius = _.sphere.radiusGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let radius = _.sphere.radiusGet( sphereView );
 
   return( radius <= 0 );
 }
@@ -560,8 +560,8 @@ function isZero( sphere )
   _.assert( arguments.length === 1, 'expects single argument' );
   _.assert( _.sphere.is( sphere ) );
 
-  let spherev = _.sphere._from( sphere );
-  let radius = _.sphere.radiusGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let radius = _.sphere.radiusGet( sphereView );
 
   return( radius === 0 );
 }
@@ -591,9 +591,9 @@ function isNil( sphere )
   // debugger;
   // throw _.err( 'not tested' );
 
-  let spherev = _.sphere._from( sphere );
-  let radius = _.sphere.radiusGet( spherev );
-  let center = _.sphere.centerGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let radius = _.sphere.radiusGet( sphereView );
+  let center = _.sphere.centerGet( sphereView );
 
   // debugger;
 
@@ -661,8 +661,8 @@ function dimGet( sphere )
 function centerGet( sphere )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
-  let spherev = _.sphere._from( sphere );
-  return spherev.subarray( 0,sphere.length-1 );
+  let sphereView = _.sphere._from( sphere );
+  return sphereView.subarray( 0,sphere.length-1 );
 }
 
 //
@@ -691,8 +691,8 @@ function centerGet( sphere )
 function radiusGet( sphere )
 {
   _.assert( arguments.length === 1, 'expects single argument' );
-  let spherev = _.sphere._from( sphere );
-  return spherev.eGet( sphere.length-1 );
+  let sphereView = _.sphere._from( sphere );
+  return sphereView.eGet( sphere.length-1 );
 }
 
 //
@@ -729,11 +729,11 @@ function radiusSet( sphere, radius )
 
   //if( _.vectorIs( sphere ) )
   //{
-  let spherev = _.sphere._from( sphere );
-  //return spherev.eSet( sphere.length-1, radius );
+  let sphereView = _.sphere._from( sphere );
+  //return sphereView.eSet( sphere.length-1, radius );
   //console.log('vector');
-  spherev.eSet( sphere.length-1, radius );
-  return spherev;
+  sphereView.eSet( sphere.length-1, radius );
+  return sphereView;
   //}
 
   // Alternative solution
@@ -766,10 +766,10 @@ function radiusSet( sphere, radius )
 function pointContains( sphere, point )
 {
 
-  let spherev = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( spherev );
-  let radius = _.sphere.radiusGet( spherev );
-  let dim = _.sphere.dimGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === point.length );
@@ -801,10 +801,10 @@ function pointContains( sphere, point )
 function pointDistance( sphere, point )
 {
 
-  let spherev = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( spherev );
-  let radius = _.sphere.radiusGet( spherev );
-  let dim = _.sphere.dimGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim === point.length );
@@ -849,10 +849,10 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
 
-  let spherev = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( spherev );
-  let radius = _.sphere.radiusGet( spherev );
-  let dim = _.sphere.dimGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
 
   if( arguments.length === 2 )
   dstPoint = srcPoint.slice();
@@ -865,7 +865,7 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
   _.assert( dim === dstPoint.length );
   let dstPointv = _.vector.from( dstPoint );
 
-  if( _.sphere.pointContains( spherev, srcPointv ) )
+  if( _.sphere.pointContains( sphereView, srcPointv ) )
   return 0;
 
   debugger;
@@ -915,10 +915,10 @@ function pointExpand( sphere , point )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.longIs( point ) || _.vectorIs( point ) );
-  let spherev = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( spherev );
-  let radius = _.sphere.radiusGet( spherev );
-  let dim = _.sphere.dimGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
 
 
   let pointv = vector.from( point );
@@ -930,7 +930,7 @@ function pointExpand( sphere , point )
   if( radius === -Infinity )
   {
     center.copy( point );
-    _.sphere.radiusSet( spherev,0 );
+    _.sphere.radiusSet( sphereView,0 );
     return sphere;
   }
 
@@ -941,8 +941,8 @@ function pointExpand( sphere , point )
     _.assert( distance > 0 );
 
     // _.vector.mix( center, point, 0.5 + ( -radius ) / ( distance*2 ) );
-    // _.sphere.radiusSet( spherev,( distance+radius ) / 2 );
-    _.sphere.radiusSet( spherev, distance );
+    // _.sphere.radiusSet( sphereView,( distance+radius ) / 2 );
+    _.sphere.radiusSet( sphereView, distance );
 
   }
 
@@ -977,15 +977,15 @@ function boxContains( sphere, box )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  let _sphere = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( _sphere );
-  let radius = _.sphere.radiusGet( _sphere );
-  let dimS = _.sphere.dimGet( _sphere );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimS = _.sphere.dimGet( sphereView );
 
-  let boxVector = _.box._from( box );
-  let dimB = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   _.assert( dimS === dimB, 'Arguments must have same dimension' );
 
@@ -1005,7 +1005,7 @@ function boxContains( sphere, box )
   {
     let srcCorner = c.colVectorGet( j );
 
-    if( _.sphere.pointContains( _sphere, srcCorner ) === false )
+    if( _.sphere.pointContains( sphereView, srcCorner ) === false )
     {
     return false;
     }
@@ -1042,23 +1042,23 @@ function boxIntersects( sphere, box )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  let _sphere = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( _sphere );
-  let radius = _.sphere.radiusGet( _sphere );
-  let dimS = _.sphere.dimGet( _sphere );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimS = _.sphere.dimGet( sphereView );
 
-  let boxVector = _.box._from( box );
-  let dimB = _.box.dimGet( boxVector );
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
 
   _.assert( dimS === dimB, 'Arguments must have same dimension' );
 
-  if( _.box.pointContains( boxVector, center ) === true )
+  if( _.box.pointContains( boxView, center ) === true )
   {
     return true;
   }
   else
   {
-    let distance = _.box.pointDistance( boxVector, center );
+    let distance = _.box.pointDistance( boxView, center );
     if( distance <= radius )
     {
       return true;
@@ -1095,10 +1095,10 @@ function boxDistance( sphere, box )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  let sphereVector = _.sphere._from( sphere );
-  let boxVector = _.box._from( box );
+  let sphereView = _.sphere._from( sphere );
+  let boxView = _.box._from( box );
 
-  let distance = _.box.sphereDistance( boxVector, sphereVector );
+  let distance = _.box.sphereDistance( boxView, sphereView );
 
   return distance;
 }
@@ -1127,15 +1127,15 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
 
-  let _sphere = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( _sphere );
-  let radius = _.sphere.radiusGet( _sphere );
-  let dimS = _.sphere.dimGet( _sphere );
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimS = _.sphere.dimGet( sphereView );
 
-  let boxVector = _.box._from( srcBox );
-  let dimB = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   _.assert( dimS === dimB );
 
@@ -1148,11 +1148,11 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   _.assert( dimB === dstPoint.length );
   let dstPointVector = _.vector.from( dstPoint );
 
-  if( _.sphere.boxIntersects( _sphere, boxVector ) )
+  if( _.sphere.boxIntersects( sphereView, boxView ) )
   return 0;
 
-  let boxPoint = _.box.sphereClosestPoint( boxVector, _sphere );
-  let point = _.sphere.pointClosestPoint( _sphere, boxPoint );
+  let boxPoint = _.box.sphereClosestPoint( boxView, sphereView );
+  let point = _.sphere.pointClosestPoint( sphereView, boxPoint );
 
   for( let i = 0; i < point.length; i++ )
   {
@@ -1185,16 +1185,16 @@ function boxExpand( dstSphere, srcBox )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  let _sphere = _.sphere._from( dstSphere );
-  let center = _.sphere.centerGet( _sphere );
-  let radius = _.sphere.radiusGet( _sphere );
-  let dimS = _.sphere.dimGet( _sphere );
+  let sphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimS = _.sphere.dimGet( sphereView );
 
   _.assert( _.box.is( srcBox ) );
-  let boxVector = _.box._from( srcBox );
-  let dimB = _.box.dimGet( boxVector );
-  let min = _.box.cornerLeftGet( boxVector );
-  let max = _.box.cornerRightGet( boxVector );
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
 
   _.assert( dimS === dimB );
 
@@ -1221,7 +1221,7 @@ function boxExpand( dstSphere, srcBox )
     }
   }
 
-  _.sphere.radiusSet( _sphere, distance );
+  _.sphere.radiusSet( sphereView, distance );
 
   return dstSphere;
 }
@@ -1303,15 +1303,15 @@ function sphereContains( srcSphere, tstSphere )
 function sphereIntersects( sphere1, sphere2 )
 {
 
-  let _sphere1 = _.sphere._from( sphere1 );
-  let center1 = _.sphere.centerGet( _sphere1 );
-  let radius1 = _.sphere.radiusGet( _sphere1 );
-  let dim1 = _.sphere.dimGet( _sphere1 );
+  let sphereView1 = _.sphere._from( sphere1 );
+  let center1 = _.sphere.centerGet( sphereView1 );
+  let radius1 = _.sphere.radiusGet( sphereView1 );
+  let dim1 = _.sphere.dimGet( sphereView1 );
 
-  let _sphere2 = _.sphere._from( sphere2 );
-  let center2 = _.sphere.centerGet( _sphere2 );
-  let radius2 = _.sphere.radiusGet( _sphere2 );
-  let dim2 = _.sphere.dimGet( _sphere2 );
+  let sphereView2 = _.sphere._from( sphere2 );
+  let center2 = _.sphere.centerGet( sphereView2 );
+  let radius2 = _.sphere.radiusGet( sphereView2 );
+  let dim2 = _.sphere.dimGet( sphereView2 );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dim1 === dim2 );
@@ -1465,17 +1465,17 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
 function sphereExpand( sphereDst, sphereSrc )
 {
 
-  let _sphereDst = _.sphere._from( sphereDst );
-  let centerDst = _.sphere.centerGet( _sphereDst );
-  let radiusDst = _.sphere.radiusGet( _sphereDst );
-  let dimDst = _.sphere.dimGet( _sphereDst );
+  let sphereViewDst = _.sphere._from( sphereDst );
+  let centerDst = _.sphere.centerGet( sphereViewDst );
+  let radiusDst = _.sphere.radiusGet( sphereViewDst );
+  let dimDst = _.sphere.dimGet( sphereViewDst );
 
   _.assert( _.sphere.is( sphereSrc ) );
 
-  let _sphereSrc = _.sphere._from( sphereSrc );
-  let centerSrc = _.sphere.centerGet( _sphereSrc );
-  let radiusSrc = _.sphere.radiusGet( _sphereSrc );
-  let dimSrc = _.sphere.dimGet( _sphereSrc );
+  let sphereViewSrc = _.sphere._from( sphereSrc );
+  let centerSrc = _.sphere.centerGet( sphereViewSrc );
+  let radiusSrc = _.sphere.radiusGet( sphereViewSrc );
+  let dimSrc = _.sphere.dimGet( sphereViewSrc );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( dimDst === dimSrc );
@@ -1487,7 +1487,7 @@ function sphereExpand( sphereDst, sphereSrc )
 
   if( radiusDst === -Infinity )
   {
-    _sphereDst.copy( _sphereSrc );
+    sphereViewDst.copy( sphereViewSrc );
     return sphereDst;
   }
 
@@ -1498,10 +1498,10 @@ function sphereExpand( sphereDst, sphereSrc )
     //_.vector.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
 
     //if( distance > 0 )
-    //_.sphere.radiusSet( _sphereDst,( distance+radiusSrc+radiusDst ) / 2 );
-    _.sphere.radiusSet( _sphereDst,( distance + radiusSrc ) );
+    //_.sphere.radiusSet( sphereViewDst,( distance+radiusSrc+radiusDst ) / 2 );
+    _.sphere.radiusSet( sphereViewDst,( distance + radiusSrc ) );
     //else
-    //_.sphere.radiusSet( _sphereDst,Math.max( radiusDst,radiusSrc ) );
+    //_.sphere.radiusSet( sphereViewDst,Math.max( radiusDst,radiusSrc ) );
 
   }
 
@@ -1536,10 +1536,10 @@ function planeIntersects( sphere, plane )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  let _sphere = _.sphere._from( sphere );
-  let _plane = _.plane._from( plane );
+  let sphereView = _.sphere._from( sphere );
+  let planeView = _.plane._from( plane );
 
-  let gotBool = _.plane.sphereIntersects( _plane, _sphere );
+  let gotBool = _.plane.sphereIntersects( planeView, sphereView );
 
   return gotBool;
 }
@@ -1572,10 +1572,10 @@ function planeDistance( sphere, plane )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  let _sphere = _.sphere._from( sphere );
-  let _plane = _.plane._from( plane );
+  let sphereView = _.sphere._from( sphere );
+  let planeView = _.plane._from( plane );
 
-  let distance = _.plane.sphereDistance( _plane, _sphere );
+  let distance = _.plane.sphereDistance( planeView, sphereView );
 
   return distance;
 }
@@ -1609,15 +1609,15 @@ function planeClosestPoint( sphere, plane, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
 
-  let _sphere = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( _sphere );
-  let radius = _.sphere.radiusGet( _sphere );
-  let dim = _.sphere.dimGet( _sphere );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
 
-  let _plane = _.plane._from( plane );
-  let normal = _.plane.normalGet( _plane );
-  let bias = _.plane.biasGet( _plane );
-  let dimP = _.plane.dimGet( _plane );
+  let planeView = _.plane._from( plane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimP = _.plane.dimGet( planeView );
 
   _.assert( dim === dimP );
 
@@ -1631,14 +1631,14 @@ function planeClosestPoint( sphere, plane, dstPoint )
 
   let dstPointVector = _.vector.from( dstPoint );
 
-  if( _.plane.sphereIntersects( _plane, _sphere ) )
+  if( _.plane.sphereIntersects( planeView, sphereView ) )
   return 0;
 
   debugger;
   // throw _.err( 'not tested' );
 
-  let planePoint = _.plane.pointCoplanarGet( _plane, center );
-  let spherePoint = _.sphere.pointClosestPoint( _sphere, planePoint );
+  let planePoint = _.plane.pointCoplanarGet( planeView, center );
+  let spherePoint = _.sphere.pointClosestPoint( sphereView, planePoint );
 
   for ( let i = 0; i < spherePoint.length; i++ )
   {
@@ -1676,28 +1676,28 @@ function planeExpand( dstSphere, srcPlane )
 {
   _.assert( arguments.length === 2 , 'expects two arguments' );
 
-  let _sphere = _.sphere._from( dstSphere );
-  let center = _.sphere.centerGet( _sphere );
-  let radius = _.sphere.radiusGet( _sphere );
-  let dim = _.sphere.dimGet( _sphere );
+  let sphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
 
   _.assert( _.plane.is( srcPlane ) );
 
-  let _plane = _.plane._from( srcPlane );
-  let normal = _.plane.normalGet( _plane );
-  let bias = _.plane.biasGet( _plane );
-  let dimP = _.plane.dimGet( _plane );
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimP = _.plane.dimGet( planeView );
 
   _.assert( dim === dimP );
 
-  if( _.plane.sphereIntersects( _plane, _sphere ) )
+  if( _.plane.sphereIntersects( planeView, sphereView ) )
   return dstSphere;
 
   debugger;
   // throw _.err( 'not tested' );
 
-  let planePoint = _.plane.pointCoplanarGet( _plane, center );
-  _.sphere.pointExpand( _sphere, planePoint );
+  let planePoint = _.plane.pointCoplanarGet( planeView, center );
+  _.sphere.pointExpand( sphereView, planePoint );
 
   return dstSphere;
 }
@@ -1729,17 +1729,17 @@ function frustumContains( srcSphere, tstFrustum )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( tstFrustum ) );
 
-  let srcSphereVector = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( srcSphereVector );
-  let radius = _.sphere.radiusGet( srcSphereVector );
-  let dimS = _.sphere.dimGet( srcSphereVector );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( srcSphereView );
+  let radius = _.sphere.radiusGet( srcSphereView );
+  let dimS = _.sphere.dimGet( srcSphereView );
 
   let points = _.frustum.cornersGet( tstFrustum );
 
   for( let i = 0 ; i < points.length ; i += 1 )
   {
     let point = points.colVectorGet( i );
-    let c = _.sphere.pointContains( srcSphereVector, point );
+    let c = _.sphere.pointContains( srcSphereView, point );
     if( c === false )
     return false;
   }
@@ -1773,9 +1773,9 @@ function frustumIntersects( srcSphere, tstFrustum )
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( tstFrustum ) );
-  let srcSphereVector = _.sphere._from( srcSphere );
+  let srcSphereView = _.sphere._from( srcSphere );
 
-  let gotBool = _.frustum.sphereIntersects( tstFrustum, srcSphereVector );
+  let gotBool = _.frustum.sphereIntersects( tstFrustum, srcSphereView );
 
   return gotBool;
 }
@@ -1812,15 +1812,15 @@ function frustumDistance( srcSphere, tstFrustum )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( tstFrustum ) );
 
-  let srcSphereVector = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( srcSphereVector );
-  let radius = _.sphere.radiusGet( srcSphereVector );
-  let dimS = _.sphere.dimGet( srcSphereVector );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( srcSphereView );
+  let radius = _.sphere.radiusGet( srcSphereView );
+  let dimS = _.sphere.dimGet( srcSphereView );
 
-  if( _.frustum.sphereIntersects( tstFrustum, srcSphereVector ) )
+  if( _.frustum.sphereIntersects( tstFrustum, srcSphereView ) )
   return 0;
 
-  let closestPoint = _.frustum.sphereClosestPoint( tstFrustum, srcSphereVector );
+  let closestPoint = _.frustum.sphereClosestPoint( tstFrustum, srcSphereView );
   let distance = _.avector.distance( closestPoint, center ) - radius;
 
   return distance;
@@ -1868,18 +1868,18 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
 
   let dstPointVector = _.vector.from( dstPoint );
 
-  let srcSphereVector = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( srcSphereVector );
-  let radius = _.sphere.radiusGet( srcSphereVector );
-  let dimS = _.sphere.dimGet( srcSphereVector );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( srcSphereView );
+  let radius = _.sphere.radiusGet( srcSphereView );
+  let dimS = _.sphere.dimGet( srcSphereView );
 
   _.assert( dimS === dstPoint.length );
 
-  if( _.frustum.sphereIntersects( tstFrustum, srcSphereVector ) )
+  if( _.frustum.sphereIntersects( tstFrustum, srcSphereView ) )
   return 0;
 
-  let fClosestPoint = _.frustum.sphereClosestPoint( tstFrustum, srcSphereVector );
-  let sClosestPoint = _.sphere.pointClosestPoint( srcSphereVector, fClosestPoint );
+  let fClosestPoint = _.frustum.sphereClosestPoint( tstFrustum, srcSphereView );
+  let sClosestPoint = _.sphere.pointClosestPoint( srcSphereView, fClosestPoint );
 
   for( let i = 0; i < sClosestPoint.length; i++ )
   {
@@ -1921,12 +1921,12 @@ function frustumExpand( dstSphere, srcFrustum )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dstSphereVector = _.sphere._from( dstSphere );
-  let center = _.sphere.centerGet( dstSphereVector );
-  let radius = _.sphere.radiusGet( dstSphereVector );
-  let dimS = _.sphere.dimGet( dstSphereVector );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radius = _.sphere.radiusGet( dstSphereView );
+  let dimS = _.sphere.dimGet( dstSphereView );
 
-  if( _.sphere.frustumContains( dstSphereVector, srcFrustum ) )
+  if( _.sphere.frustumContains( dstSphereView, srcFrustum ) )
   return dstSphere;
 
   let points = _.frustum.cornersGet( srcFrustum );
@@ -1934,8 +1934,8 @@ function frustumExpand( dstSphere, srcFrustum )
   for( let i = 0 ; i < points.length ; i += 1 )
   {
     let point = points.colVectorGet( i );
-    if( _.sphere.pointContains( dstSphereVector, point ) === false )
-    _.sphere.pointExpand( dstSphereVector, point )
+    if( _.sphere.pointContains( dstSphereView, point ) === false )
+    _.sphere.pointExpand( dstSphereView, point )
 
   }
 
@@ -1947,17 +1947,17 @@ function frustumExpand( dstSphere, srcFrustum )
 function matrixHomogenousApply( sphere,matrix )
 {
 
-  let spherev = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( spherev );
-  let radius = _.sphere.radiusGet( spherev );
-  let dim = _.sphere.dimGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.spaceIs( matrix ) );
   _.assert( dim+1 === matrix.ncol );
 
   matrix.matrixHomogenousApply( center );
-  _.sphere.radiusSet( spherev,radius * matrix.scaleMaxGet() )
+  _.sphere.radiusSet( sphereView,radius * matrix.scaleMaxGet() )
 
   return sphere;
 }
@@ -1972,10 +1972,10 @@ function translate( sphere,offset )
   debugger;
   throw _.err( 'not tested' );
 
-  let spherev = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( spherev );
-  let radius = _.sphere.radiusGet( spherev );
-  let dim = _.sphere.dimGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
 
   debugger;
 

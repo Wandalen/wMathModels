@@ -518,10 +518,10 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 function boxContains( frustum, box )
 {
 
-  let _box = _.box._from( box );
-  let dim1 = _.box.dimGet( _box );
-  let srcMin = _.box.cornerLeftGet( _box );
-  let srcMax = _.box.cornerRightGet( _box );
+  let boxView = _.box._from( box );
+  let dim1 = _.box.dimGet( boxView );
+  let srcMin = _.box.cornerLeftGet( boxView );
+  let srcMax = _.box.cornerRightGet( boxView );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   debugger;
@@ -581,10 +581,10 @@ function boxContains( frustum, box )
 function boxIntersects( frustum , box )
 {
 
-  let _box = _.box._from( box );
-  let dim1 = _.box.dimGet( _box );
-  let min1 = _.box.cornerLeftGet( _box );
-  let max1 = _.box.cornerRightGet( _box );
+  let boxView = _.box._from( box );
+  let dim1 = _.box.dimGet( boxView );
+  let min1 = _.box.cornerLeftGet( boxView );
+  let max1 = _.box.cornerRightGet( boxView );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   debugger;
@@ -703,12 +703,12 @@ function boxIntersects( frustum , box )
 
 function boxDistance( frustum, box )
 {
-  let _box = _.box._from( box );
+  let boxView = _.box._from( box );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
-  let distance = _.box.frustumDistance( _box, frustum );
+  let distance = _.box.frustumDistance( boxView, frustum );
 
   return distance;
 }
@@ -741,10 +741,10 @@ function boxDistance( frustum, box )
 
 function boxClosestPoint( frustum, box, dstPoint )
 {
-  let _box = _.box._from( box );
-  let dim1 = _.box.dimGet( _box );
-  let min1 = _.box.cornerLeftGet( _box );
-  let max1 = _.box.cornerRightGet( _box );
+  let boxView = _.box._from( box );
+  let dim1 = _.box.dimGet( boxView );
+  let min1 = _.box.cornerLeftGet( boxView );
+  let max1 = _.box.cornerRightGet( boxView );
   let dims = _.Space.dimsOf( frustum ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
@@ -761,7 +761,7 @@ function boxClosestPoint( frustum, box, dstPoint )
 
   let dstPointVector = _.vector.from( dstPoint );
 
-  if( _.frustum.boxIntersects( frustum, _box ) )
+  if( _.frustum.boxIntersects( frustum, boxView ) )
   return 0;
 
   let point = _.vector.from( _.array.makeArrayOfLength( rows - 1 ) );
@@ -773,7 +773,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   for ( let j = 0 ; j < cols ; j++ )
   {
     let newp = fpoints.colVectorGet( j );
-    let d = _.box.pointDistance( _box, newp );
+    let d = _.box.pointDistance( boxView, newp );
 
     if( d < dist )
     {
@@ -932,9 +932,9 @@ function sphereDistance( frustum, sphere )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
-  let spherev = _.sphere._from( sphere );
+  let sphereView = _.sphere._from( sphere );
 
-  let distance = _.sphere.frustumDistance( spherev, frustum );
+  let distance = _.sphere.frustumDistance( sphereView, frustum );
 
   return distance;
 }
@@ -969,10 +969,10 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
 
-  let spherev = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( spherev );
-  let radius = _.sphere.radiusGet( spherev );
-  let dim = _.sphere.dimGet( spherev );
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
   _.assert( dim === 3 );
 
   if( arguments.length === 2 )
@@ -985,7 +985,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
 
   _.assert( _.frustum.is( frustum ) );
 
-  if( _.frustum.sphereIntersects( frustum, spherev ) == true )
+  if( _.frustum.sphereIntersects( frustum, sphereView ) == true )
   return 0;
 
   let point = _.frustum.pointClosestPoint( frustum, center );
@@ -1025,13 +1025,13 @@ function planeIntersects( frustum, plane )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
-  let _plane = _.plane._from( plane );
+  let planeView = _.plane._from( plane );
   let corners = _.frustum.cornersGet( frustum );
   let side;
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
     let corner = corners.colVectorGet( j );
-    let distance = _.plane.pointDistance( _plane, corner );
+    let distance = _.plane.pointDistance( planeView, corner );
     if( distance === 0 )
     return true;
 
@@ -1083,8 +1083,8 @@ function planeDistance( frustum, plane )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
-  let _plane = _.plane._from( plane );
-  if( _.frustum.planeIntersects( frustum, _plane ) )
+  let planeView = _.plane._from( plane );
+  if( _.frustum.planeIntersects( frustum, planeView ) )
   return 0;
 
   let corners = _.frustum.cornersGet( frustum );
@@ -1092,7 +1092,7 @@ function planeDistance( frustum, plane )
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
     let corner = corners.colVectorGet( j );
-    let dist = Math.abs( _.plane.pointDistance( _plane, corner ) );
+    let dist = Math.abs( _.plane.pointDistance( planeView, corner ) );
     if( dist < distance )
     distance = dist;
   }
@@ -1143,8 +1143,8 @@ function planeClosestPoint( frustum, plane, dstPoint )
 
   let dstPointVector = _.vector.from( dstPoint );
 
-  let _plane = _.plane._from( plane );
-  if( _.frustum.planeIntersects( frustum, _plane ) )
+  let planeView = _.plane._from( plane );
+  if( _.frustum.planeIntersects( frustum, planeView ) )
   return 0;
 
   let corners = _.frustum.cornersGet( frustum );
@@ -1153,7 +1153,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
     let corner = corners.colVectorGet( j );
-    let dist = Math.abs( _.plane.pointDistance( _plane, corner ) );
+    let dist = Math.abs( _.plane.pointDistance( planeView, corner ) );
     if( dist < distance )
     {
       distance = dist;

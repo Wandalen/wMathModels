@@ -4,13 +4,9 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var b = [ 4, 4, 5, 5 ];
-var mat = _.Space.make( [ 3, 3 ] ).copy
-  ([
-    0.5, 0, 0,
-    0, 0.5, 0,
-    0, 0, 1
-  ]);
-var box = _.box.matrixHomogenousApply( b, mat );
+var dst = [ Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity ];
+// var point = new Float32Array([ 454.8794860839844, 7893.02783203125, -7698.6318359375 ]);
+var point = _.vector.from( [ 454.8794860839844, 7893.02783203125, -7698.6318359375 ] );
+var box = _.box.pointExpand( dst, point );
 console.log( box )
 debugger;

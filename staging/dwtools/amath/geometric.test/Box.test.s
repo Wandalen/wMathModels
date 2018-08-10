@@ -3685,7 +3685,6 @@ function boxIntersects( test )
   var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
-
   test.case = 'Box out of box with a common side'; /* */
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
@@ -3767,6 +3766,24 @@ function boxIntersects( test )
   var gotBool = _.box.boxIntersects( srcBox, tstBox );
   test.identical( gotBool, expected );
 
+  test.case = 'Box of dimension 2'; /* */
+
+  var srcBox = [ 0, 0, 4, 4 ];
+  var tstBox = [ 2, 2, 6, 6 ];
+  var expected = true;
+
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
+  test.identical( gotBool, expected );
+
+  test.case = 'Empty boxes intersect'; /* */
+
+  var srcBox = [ ];
+  var tstBox = [ ];
+  var expected = true;
+
+  var gotBool = _.box.boxIntersects( srcBox, tstBox );
+  test.identical( gotBool, expected );
+
   /* */
 
   if( !Config.debug )
@@ -3774,7 +3791,6 @@ function boxIntersects( test )
 
   test.shouldThrowErrorSync( () => _.box.boxIntersects( ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects( [] ) );
-  test.shouldThrowErrorSync( () => _.box.boxIntersects( [], [] ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects( 'box', 'box2' ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects(  null, NaN ) );
   test.shouldThrowErrorSync( () => _.box.boxIntersects( [ 0, 0, 0, 0, 0, 0 ] ) );
