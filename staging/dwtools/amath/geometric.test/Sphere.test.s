@@ -1764,6 +1764,7 @@ function pointContains( test )
   var point = [ 3, 3, 3 ];
 
 
+
   var expected = false;
   var gotContains = _.sphere.pointContains( sphere, point );
 
