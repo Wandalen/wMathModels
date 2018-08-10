@@ -378,7 +378,7 @@ rayAt.shaderChunk =
   * @throws { Error } An Error if ( accuracySqr ) is not number.
   * @memberof wTools.ray
   */
-function rayParallel2D( src1Ray, src2Ray, accuracySqr )
+function rayParallel3D( src1Ray, src2Ray, accuracySqr )
 {
   // _.assert( src1Ray.length === 3 );
   // _.assert( src2Ray.length === 3 );
@@ -429,7 +429,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   let direction2 = _.ray.directionGet( src2Ray );
   let proportion = undefined;
 
-  let zeros1 = 0;
+  let zeros1 = 0;                               // Check if Ray1 is a point
   for( let i = 0; i < direction1.length ; i++  )
   {
     if( direction1.eGet( i ) === 0 )
@@ -440,7 +440,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
     return true;
   }
 
-  let zeros2 = 0;
+  let zeros2 = 0;                               // Check if Ray2 is a point
   for( let i = 0; i < direction2.length ; i++  )
   {
     if( direction2.eGet( i ) === 0 )
@@ -503,14 +503,13 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   * @throws { Error } An Error if ( src2Ray ) is not ray.
   * @memberof wTools.ray
   */
-function rayIntersectionFactors( r1,r2 )
+function rayIntersectionFactorsPaused( r1, r2 )
 {
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   //_.assert( r1[ 0 ].length === 2,'implemented only for d2' );
   //_.assert( r2[ 0 ].length === 2,'implemented only for d2' );
-  _.assert( r1.length === 4,'implemented only for d2' );
-  _.assert( r2.length === 4,'implemented only for d2' );
+  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
 
   // let dorigin = avector.subVectors( r2[ 0 ].slice() , r1[ 0 ] );
 
@@ -549,6 +548,75 @@ function rayIntersectionFactors( r1,r2 )
 
   if(  !_.numberIs( x[ 0 ] ) || !_.numberIs( x[ 1 ] ) )
   return 0;
+
+  return x;
+}
+
+//
+
+function rayIntersectionFactors( r1, r2 )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
+
+  let r1View = _.ray._from( r1 );
+  let origin1 = _.ray.originGet( r1View );
+  let direction1 = _.ray.directionGet( r1View );
+  let r2View = _.ray._from( r2 );
+  let origin2 = _.ray.originGet( r2View );
+  let direction2 = _.ray.directionGet( r2View );
+
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < origin1.length; i++ )
+  {
+    if( origin1.slice()[ i ] === origin2.slice()[ i ] )
+    identOrigin = identOrigin + 1;
+  }
+  if( identOrigin === origin1.length )
+  return [ 0, 0 ];
+
+  // Parallel rays
+  if( rayParallel( r1, r2 ) === true )
+  return 0;
+
+  let x = [];
+  let origin1x = origin1.eGet( 0 ); let origin1y = origin1.eGet( 1 );
+  let dir1x = direction1.eGet( 0 ); let dir1y = direction1.eGet( 1 );
+  let origin2x = origin2.eGet( 0 ); let origin2y = origin2.eGet( 1 );
+  let dir2x = direction2.eGet( 0 ); let dir2y = direction2.eGet( 1 );
+  x[ 1 ] = ( dir1x*( origin2y - origin1y ) + dir1y*( origin1x -origin2x ) ) / ( dir2x*dir1y - dir2y*dir1x );
+
+  let w = 1;
+  while( isNaN( x[ 1 ] ) && w < origin1.length - 1 )
+  {
+    let origin1y = origin1.eGet( w + 1 ); let dir1y = direction1.eGet( w + 1 );
+    let origin2y = origin1.eGet( w + 1 ); let dir2y = direction1.eGet( w + 1 );
+    x[ 1 ] = ( dir1x*( origin2y - origin1y ) + dir1y*( origin1x -origin2x ) ) / ( dir2x*dir1y - dir2y*dir1x );
+    w = w + 1;
+  }
+  x[ 0 ] = ( origin2x + dir2x*x[ 1 ] - origin1x )/ dir1x;
+
+  // Factors can not be negative
+  if(  x[ 0 ] <= 0 - _.accuracySqr || x[ 1 ] <= 0 - _.accuracySqr )
+  return 0;
+
+  if(  x[ 0 ] === Infinity || x[ 1 ] === Infinity )
+  return 0;
+
+  if(  !_.numberIs( x[ 0 ] ) || isNaN( x[ 0 ] ) || !_.numberIs( x[ 1 ] ) || isNaN( x[ 1 ] ) )
+  return 0;
+
+  // Check other dimensions in ray cohincide with the calculated factor
+  for( let i = 0; i < origin1.length; i++ )
+  {
+    let point1 = origin1.eGet( i ) + direction1.eGet( i )*x[ 0 ];
+    let point2 = origin2.eGet( i ) + direction2.eGet( i )*x[ 1 ];
+    if( Math.abs( point1 - point2 ) > 1E-7 )
+    return 0;
+  }
+
+
 
   return x;
 }

@@ -1001,8 +1001,7 @@ function rayParallel( test )
   return;
   test.shouldThrowErrorSync( () => _.ray.rayParallel( ) );
   test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0, 0 ] ) );
-//  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0 ], [ 1, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+   test.shouldThrowErrorSync( () => _.ray.rayParallel( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0 ], 'factor') );
   test.shouldThrowErrorSync( () => _.ray.rayParallel( 0 ) );
   test.shouldThrowErrorSync( () => _.ray.rayParallel( null, [ 1, 1, 1, 2, 2, 2 ] ) );
@@ -1096,13 +1095,57 @@ function rayIntersectionFactors( test )
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.identical( isIntersectionFactors, expected );
 
+  test.case = 'Rays 3D intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 3, 3, 0, 1, 4 ];
+  var expected = [ 3, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
+  test.case = 'Rays 3D no intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 3, 5, 0, 1, 4 ];
+  var expected = 0;
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays 4D intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 3, 3, 3, 0, 2, 1, 4 ];
+  var expected = [ 3, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
+  test.case = 'Rays 4D no intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 3, 5, 3, 0, 0, 1, 4 ];
+  var expected = 0;
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays 4D no intersection out of 3D intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1, 1, -1 ];
+  var src2Ray = [ 3, 3, 3, 2, 0, 1, 4, 3 ];
+  var expected = 0;
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
   /* */
 
   if( !Config.debug )
   return;
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors( ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors( [ 0, 0 ], [ 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors( 'ray', [ 1, 1, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors( [ 1, 1, 2, 2 ], 'ray') );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors( 0 ) );
@@ -1203,7 +1246,6 @@ function rayIntersectionPoints( test )
   return;
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoints( ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoints( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoints( [ 0, 0 ], [ 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoints( 'ray', [ 1, 1, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoints( [ 1, 1, 2, 2 ], 'ray') );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoints( 0 ) );
@@ -1304,7 +1346,6 @@ function rayIntersectionPoint( test )
   return;
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoint( ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoint( [ 0, 0 ], [ 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoint( 'ray', [ 1, 1, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoint( [ 1, 1, 2, 2 ], 'ray') );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPoint( 0 ) );
@@ -1405,7 +1446,6 @@ function rayIntersectionPointAccurate( test )
   return;
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPointAccurate( ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPointAccurate( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersectionPointAccurate( [ 0, 0 ], [ 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPointAccurate( 'ray', [ 1, 1, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPointAccurate( [ 1, 1, 2, 2 ], 'ray') );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionPointAccurate( 0 ) );
