@@ -60,8 +60,8 @@ function zero( quat )
 
   if( _.quat.is( quat ) )
   {
-    let quatv = _.quat._from( quat );
-    quatv.assign( 0 );
+    let quatView = _.quat._from( quat );
+    quatView.assign( 0 );
     return quat;
   }
 
@@ -78,9 +78,9 @@ function unit( quat )
 
   if( _.quat.is( quat ) )
   {
-    let quatv = _.quat._from( quat );
-    quatv.assign( 0 );
-    quatv.eSet( 3,1 );
+    let quatView = _.quat._from( quat );
+    quatView.assign( 0 );
+    quatView.eSet( 3,1 );
     return quat;
   }
 
@@ -132,15 +132,15 @@ function fromEuler( dst, euler, v )
 
   dst = _.quat.from( dst );
   let dstv = _.vector.from( dst );
-  let eulerv = _.euler._from( euler );
+  let eulerView = _.euler._from( euler );
 
-  let ox = eulerv.eGet( 3 );
-  let oy = eulerv.eGet( 4 );
-  let oz = eulerv.eGet( 5 );
+  let ox = eulerView.eGet( 3 );
+  let oy = eulerView.eGet( 4 );
+  let oz = eulerView.eGet( 5 );
 
-  let e1 = eulerv.eGet( 0 );
-  let e2 = eulerv.eGet( 1 );
-  let e3 = eulerv.eGet( 2 );
+  let e1 = eulerView.eGet( 0 );
+  let e2 = eulerView.eGet( 1 );
+  let e3 = eulerView.eGet( 2 );
 
   let c1 = cos( e1 / 2 );
   let c2 = cos( e2 / 2 );
@@ -443,11 +443,11 @@ function toAxisAndAngle( quat, axisAndAngle )
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   quat = _.quat.from( quat );
-  let quatv = _.vector.from( quat );
+  let quatView = _.vector.from( quat );
   axisAndAngle = _.axisAndAngle.from( axisAndAngle );
   let axisAndAnglev = _.vector.from( axisAndAngle );
 
-  let w = quatv.eGet( 3 );
+  let w = quatView.eGet( 3 );
 
   if( abs( w-1 ) < _.accuracySqr )
   {
@@ -459,9 +459,9 @@ function toAxisAndAngle( quat, axisAndAngle )
   let halfAngle = acos( w );
   let s = sin( halfAngle );
 
-  axisAndAnglev.eSet( 0, quatv.eGet( 0 ) / s );
-  axisAndAnglev.eSet( 1, quatv.eGet( 1 ) / s );
-  axisAndAnglev.eSet( 2, quatv.eGet( 2 ) / s );
+  axisAndAnglev.eSet( 0, quatView.eGet( 0 ) / s );
+  axisAndAnglev.eSet( 1, quatView.eGet( 1 ) / s );
+  axisAndAnglev.eSet( 2, quatView.eGet( 2 ) / s );
   axisAndAnglev.eSet( 3, halfAngle * 2 );
 
   return axisAndAngle;
@@ -805,13 +805,13 @@ function isUnit( quat )
 
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  let quatv = _.quat._from( quat );
+  let quatView = _.quat._from( quat );
 
-  if( quatv.eGet( 3 ) !== 1 )
+  if( quatView.eGet( 3 ) !== 1 )
   return false;
 
   for( let d = 0 ; d < 3 ; d++ )
-  if( quatv.eGet( d ) !== 0 )
+  if( quatView.eGet( d ) !== 0 )
   return false;
 
   return true;
@@ -824,13 +824,13 @@ function isZero( quat )
 
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  let quatv = _.quat._from( quat );
+  let quatView = _.quat._from( quat );
 
-  if( quatv.eGet( 3 ) !== 0 )
+  if( quatView.eGet( 3 ) !== 0 )
   return false;
 
   for( let d = 0 ; d < 3 ; d++ )
-  if( quatv.eGet( d ) !== 0 )
+  if( quatView.eGet( d ) !== 0 )
   return false;
 
   return true;
@@ -1008,17 +1008,17 @@ function mix( dst, src, val )
 function applyTo( quat,vector )
 {
 
-  let quatv = _.quat._from( quat );
+  let quatView = _.quat._from( quat );
   let vectorv = _.vector.from( vector );
 
   let x = vectorv.eGet( 0 );
   let y = vectorv.eGet( 1 );
   let z = vectorv.eGet( 2 );
 
-  let qx = quatv.eGet( 0 );
-  let qy = quatv.eGet( 1 );
-  let qz = quatv.eGet( 2 );
-  let qw = quatv.eGet( 3 );
+  let qx = quatView.eGet( 0 );
+  let qy = quatView.eGet( 1 );
+  let qz = quatView.eGet( 2 );
+  let qw = quatView.eGet( 3 );
 
   let ix = + qw * x + qy * z - qz * y;
   let iy = + qw * y + qz * x - qx * z;

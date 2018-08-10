@@ -41,10 +41,10 @@ function isZero( euler )
 
   _.assert( arguments.length === 1, 'expects single argument' );
 
-  let eulerv = _.euler._from( euler );
+  let eulerView = _.euler._from( euler );
 
   for( let d = 0 ; d < 3 ; d++ )
-  if( eulerv.eGet( d ) !== 0 )
+  if( eulerView.eGet( d ) !== 0 )
   return false;
 
   return true;
@@ -97,9 +97,9 @@ function zero( euler )
 
   if( _.euler.is( euler ) )
   {
-    let eulerv = _.euler._from( euler );
+    let eulerView = _.euler._from( euler );
     for( let i = 0 ; i < 3 ; i++ )
-    eulerv.eSet( i,0 );
+    eulerView.eSet( i,0 );
     return euler;
   }
 
@@ -143,11 +143,11 @@ function _from( euler )
 
 function representationSet( dstEuler, representation )
 {
-  let dstEulerVector = _.euler._from( dstEuler );
+  let dstEulerView = _.euler._from( dstEuler );
 
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  if( _.arrayIs( representation ) )
+  if( _.arrayIs( representation ) || _.longIs( representation ) )
   {
     _.assert( representation.length === 3 );
     let rep = true;
@@ -161,9 +161,9 @@ function representationSet( dstEuler, representation )
 
     if( rep )
     {
-      dstEulerVector.eSet( 3, representation[ 0 ] );
-      dstEulerVector.eSet( 4, representation[ 1 ] );
-      dstEulerVector.eSet( 5, representation[ 2 ] );
+      dstEulerView.eSet( 3, representation[ 0 ] );
+      dstEulerView.eSet( 4, representation[ 1 ] );
+      dstEulerView.eSet( 5, representation[ 2 ] );
     }
     else _.assert( 0, 'Not an Euler Representation' );
   }
@@ -172,75 +172,75 @@ function representationSet( dstEuler, representation )
 
     if( representation === 'xyz' )
     {
-      dstEulerVector.eSet( 3, 0 );
-      dstEulerVector.eSet( 4, 1 );
-      dstEulerVector.eSet( 5, 2 );
+      dstEulerView.eSet( 3, 0 );
+      dstEulerView.eSet( 4, 1 );
+      dstEulerView.eSet( 5, 2 );
     }
     else if( representation === 'xzy' )
     {
-      dstEulerVector.eSet( 3, 0 );
-      dstEulerVector.eSet( 4, 2 );
-      dstEulerVector.eSet( 5, 1 );
+      dstEulerView.eSet( 3, 0 );
+      dstEulerView.eSet( 4, 2 );
+      dstEulerView.eSet( 5, 1 );
     }
     else if( representation === 'yxz' )
     {
-      dstEulerVector.eSet( 3, 1 );
-      dstEulerVector.eSet( 4, 0 );
-      dstEulerVector.eSet( 5, 2 );
+      dstEulerView.eSet( 3, 1 );
+      dstEulerView.eSet( 4, 0 );
+      dstEulerView.eSet( 5, 2 );
     }
     else if( representation === 'yzx' )
     {
-      dstEulerVector.eSet( 3, 1 );
-      dstEulerVector.eSet( 4, 2 );
-      dstEulerVector.eSet( 5, 0 );
+      dstEulerView.eSet( 3, 1 );
+      dstEulerView.eSet( 4, 2 );
+      dstEulerView.eSet( 5, 0 );
     }
     else if( representation === 'zxy' )
     {
-      dstEulerVector.eSet( 3, 2 );
-      dstEulerVector.eSet( 4, 0 );
-      dstEulerVector.eSet( 5, 1 );
+      dstEulerView.eSet( 3, 2 );
+      dstEulerView.eSet( 4, 0 );
+      dstEulerView.eSet( 5, 1 );
     }
     else if( representation === 'zyx' )
     {
-      dstEulerVector.eSet( 3, 2 );
-      dstEulerVector.eSet( 4, 1 );
-      dstEulerVector.eSet( 5, 0 );
+      dstEulerView.eSet( 3, 2 );
+      dstEulerView.eSet( 4, 1 );
+      dstEulerView.eSet( 5, 0 );
     }
     else if( representation === 'xyx' )
     {
-      dstEulerVector.eSet( 3, 0 );
-      dstEulerVector.eSet( 4, 1 );
-      dstEulerVector.eSet( 5, 0 );
+      dstEulerView.eSet( 3, 0 );
+      dstEulerView.eSet( 4, 1 );
+      dstEulerView.eSet( 5, 0 );
     }
     else if( representation === 'xzx' )
     {
-      dstEulerVector.eSet( 3, 0 );
-      dstEulerVector.eSet( 4, 2 );
-      dstEulerVector.eSet( 5, 0 );
+      dstEulerView.eSet( 3, 0 );
+      dstEulerView.eSet( 4, 2 );
+      dstEulerView.eSet( 5, 0 );
     }
     else if( representation === 'yxy' )
     {
-      dstEulerVector.eSet( 3, 1 );
-      dstEulerVector.eSet( 4, 0 );
-      dstEulerVector.eSet( 5, 1 );
+      dstEulerView.eSet( 3, 1 );
+      dstEulerView.eSet( 4, 0 );
+      dstEulerView.eSet( 5, 1 );
     }
     else if( representation === 'yzy' )
     {
-      dstEulerVector.eSet( 3, 1 );
-      dstEulerVector.eSet( 4, 2 );
-      dstEulerVector.eSet( 5, 1 );
+      dstEulerView.eSet( 3, 1 );
+      dstEulerView.eSet( 4, 2 );
+      dstEulerView.eSet( 5, 1 );
     }
     else if( representation === 'zxz' )
     {
-      dstEulerVector.eSet( 3, 2 );
-      dstEulerVector.eSet( 4, 0 );
-      dstEulerVector.eSet( 5, 2 );
+      dstEulerView.eSet( 3, 2 );
+      dstEulerView.eSet( 4, 0 );
+      dstEulerView.eSet( 5, 2 );
     }
     else if( representation === 'zyz' )
     {
-      dstEulerVector.eSet( 3, 2 );
-      dstEulerVector.eSet( 4, 1 );
-      dstEulerVector.eSet( 5, 2 );
+      dstEulerView.eSet( 3, 2 );
+      dstEulerView.eSet( 4, 1 );
+      dstEulerView.eSet( 5, 2 );
     }
     else _.assert( 0, 'Not an Euler Representation', _.strQuote( representation ) );
   }
@@ -888,7 +888,7 @@ function fromMatrix( euler,mat )
   let one = 1-/*eps*/accuracy;
 
   euler = _.euler.from( euler );
-  let eulerv = _.vector.from( euler );
+  let eulerView = _.vector.from( euler );
 
   let s00 = mat.atomGet([ 0,0 ]), s10 = mat.atomGet([ 1,0 ]), s20 = mat.atomGet([ 2,0 ]);
   let s01 = mat.atomGet([ 0,1 ]), s11 = mat.atomGet([ 1,1 ]), s21 = mat.atomGet([ 2,1 ]);
@@ -910,20 +910,20 @@ function fromMatrix( euler,mat )
 
   // debugger; xxx
 
-  eulerv.eSet( 1,asin( clamp( s02, - 1, + 1 ) ) );
+  eulerView.eSet( 1,asin( clamp( s02, - 1, + 1 ) ) );
 
   if( abs( /*eps*/accuracy ) < one )
   {
-    eulerv.eSet( 0,atan2( - s12, s22 ) );
-    eulerv.eSet( 2,atan2( - s01, s00 ) );
-    // eulerv.eSet( 0,atan2( s12, s22 ) );
-    // eulerv.eSet( 2,atan2( s01, s00 ) );
+    eulerView.eSet( 0,atan2( - s12, s22 ) );
+    eulerView.eSet( 2,atan2( - s01, s00 ) );
+    // eulerView.eSet( 0,atan2( s12, s22 ) );
+    // eulerView.eSet( 2,atan2( s01, s00 ) );
   }
   else
   {
     bbb
-    eulerv.eSet( 0,atan2( s21, s11 ) );
-    eulerv.eSet( 2,0 );
+    eulerView.eSet( 0,atan2( s21, s11 ) );
+    eulerView.eSet( 2,0 );
   }
 
 // rz*ry*rx
@@ -990,7 +990,7 @@ function toMatrix( euler,mat,premutating )
   mat = _.Space.make([ 3,3 ]);
 
   euler = _.euler.from( euler );
-  let eulerv = _.vector.from( euler );
+  let eulerView = _.vector.from( euler );
 
   if( premutating === undefined )
   premutating = true;
@@ -1003,17 +1003,17 @@ function toMatrix( euler,mat,premutating )
 
   // debugger;
 
-  let ox = eulerv.eGet( 3 );
-  let oy = eulerv.eGet( 4 );
-  let oz = eulerv.eGet( 5 );
+  let ox = eulerView.eGet( 3 );
+  let oy = eulerView.eGet( 4 );
+  let oz = eulerView.eGet( 5 );
 
   // let ox = 0;
   // let oy = 1;
   // let oz = 2;
 
-  let x = eulerv.eGet( ox );
-  let y = eulerv.eGet( oy );
-  let z = eulerv.eGet( oz );
+  let x = eulerView.eGet( ox );
+  let y = eulerView.eGet( oy );
+  let z = eulerView.eGet( oz );
 
   let sign = ( ( ox !== 0 ) + ( oy !== 1 ) + ( oz !== 2 ) ) === 2;
   sign = sign ? -1 : + 1;
@@ -1265,7 +1265,7 @@ function fromQuat2( dstEuler, srcQuat )
   dstEuler = _.euler.makeZero();
 
   dstEuler = _.euler.from( dstEuler );
-  let dstEulerVector = _.euler._from( dstEuler );
+  let dstEulerView = _.euler._from( dstEuler );
   let srcQuatVector = _.quat._from( srcQuat );
   let accuracy =  _.accuracy;
   let accuracySqr = _.accuracySqr;
@@ -1278,9 +1278,9 @@ function fromQuat2( dstEuler, srcQuat )
   let xy2 = 2*x*y; let xz2 = 2*x*z; let xw2 = 2*x*w;
   let yz2 = 2*y*z; let yw2 = 2*y*w; let zw2 = 2*z*w;
 
-  let ox = dstEulerVector.eGet( 3 );
-  let oy = dstEulerVector.eGet( 4 );
-  let oz = dstEulerVector.eGet( 5 );
+  let ox = dstEulerView.eGet( 3 );
+  let oy = dstEulerView.eGet( 4 );
+  let oz = dstEulerView.eGet( 5 );
 
   let lim;
   if( ox === 0 && oy === 1 && oz === 2 )
@@ -1288,23 +1288,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = xz2 + yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( -( xy2 - zw2 ) , w2  + x2 - z2 - y2 ) );
-      dstEulerVector.eSet( 1, asin( lim ) );
-      dstEulerVector.eSet( 0, atan2( - ( yz2 - xw2 ) , z2 - y2 - x2 + w2 ) );
+      dstEulerView.eSet( 2, atan2( -( xy2 - zw2 ) , w2  + x2 - z2 - y2 ) );
+      dstEulerView.eSet( 1, asin( lim ) );
+      dstEulerView.eSet( 0, atan2( - ( yz2 - xw2 ) , z2 - y2 - x2 + w2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstEulerVector.eSet( 0, - atan2( ( xy2 + zw2 ), ( xz2 - yw2 ) ) );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( ( xy2 + zw2 ), ( xz2 - yw2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstEulerVector.eSet( 0, - atan2( -1*( xy2 + zw2 ), -1*( xz2 - yw2 ) ) );
-      dstEulerVector.eSet( 1, pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( -1*( xy2 + zw2 ), -1*( xz2 - yw2 ) ) );
+      dstEulerView.eSet( 1, pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1313,23 +1313,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = xy2 - zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( xz2 + yw2 , x2 + w2 - z2 - y2 ) );
-      dstEulerVector.eSet( 1, - asin( lim ) );
-      dstEulerVector.eSet( 0, atan2( yz2 + xw2 , y2 - z2 + w2 - x2 ) );
+      dstEulerView.eSet( 2, atan2( xz2 + yw2 , x2 + w2 - z2 - y2 ) );
+      dstEulerView.eSet( 1, - asin( lim ) );
+      dstEulerView.eSet( 0, atan2( yz2 + xw2 , y2 - z2 + w2 - x2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstEulerVector.eSet( 0, atan2( (xz2 - yw2 ), ( xy2 + zw2 ) ) );
-      dstEulerVector.eSet( 1, pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( (xz2 - yw2 ), ( xy2 + zw2 ) ) );
+      dstEulerView.eSet( 1, pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstEulerVector.eSet( 0, atan2( -1*( yz2 - xw2 ), 1-2*( x2 + y2 ) ) );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( -1*( yz2 - xw2 ), 1-2*( x2 + y2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1338,23 +1338,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = yz2 - xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( xy2 + zw2 , y2 - z2 + w2 - x2 ) );
-      dstEulerVector.eSet( 1, - asin( lim ) );
-      dstEulerVector.eSet( 0, atan2( xz2 + yw2 , z2 - y2 - x2 + w2 ) );
+      dstEulerView.eSet( 2, atan2( xy2 + zw2 , y2 - z2 + w2 - x2 ) );
+      dstEulerView.eSet( 1, - asin( lim ) );
+      dstEulerView.eSet( 0, atan2( xz2 + yw2 , z2 - y2 - x2 + w2 ) );
     }
     else if( lim <= -1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( xy2 - zw2 ), ( yz2 + xw2 ) ) );
-      dstEulerVector.eSet( 1, pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( xy2 - zw2 ), ( yz2 + xw2 ) ) );
+      dstEulerView.eSet( 1, pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstEulerVector.eSet( 0, atan2( -1*( xz2 - yw2 ), 1-2*( y2 + z2 ) ) );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( -1*( xz2 - yw2 ), 1-2*( y2 + z2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1363,23 +1363,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = xy2 + zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( - yz2 + xw2 , y2 - z2 + w2 - x2 ) );
-      dstEulerVector.eSet( 1, asin( lim ) );
-      dstEulerVector.eSet( 0, atan2( - xz2 + yw2 , x2 + w2 - z2 - y2  ) );
+      dstEulerView.eSet( 2, atan2( - yz2 + xw2 , y2 - z2 + w2 - x2 ) );
+      dstEulerView.eSet( 1, asin( lim ) );
+      dstEulerView.eSet( 0, atan2( - xz2 + yw2 , x2 + w2 - z2 - y2  ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstEulerVector.eSet( 0, atan2( (xz2 + yw2 ), ( xy2 - zw2 ) ) );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( (xz2 + yw2 ), ( xy2 - zw2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( ( xy2 + zw2 ) >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstEulerVector.eSet( 0, atan2( xz2 + yw2, 1-2*( x2 + y2 ) ) );
-      dstEulerVector.eSet( 1, + pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( xz2 + yw2, 1-2*( x2 + y2 ) ) );
+      dstEulerView.eSet( 1, + pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1388,23 +1388,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = yz2 + xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( - xz2 + yw2 , z2 - y2 - x2 + w2  ) );
-      dstEulerVector.eSet( 1, asin( lim ) );
-      dstEulerVector.eSet( 0, atan2( - xy2 + zw2 , y2 - z2 + w2 - x2  ) );
+      dstEulerView.eSet( 2, atan2( - xz2 + yw2 , z2 - y2 - x2 + w2  ) );
+      dstEulerView.eSet( 1, asin( lim ) );
+      dstEulerView.eSet( 0, atan2( - xy2 + zw2 , y2 - z2 + w2 - x2  ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( xy2 + zw2 ), ( yz2 - xw2 ) ) );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( xy2 + zw2 ), ( yz2 - xw2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstEulerVector.eSet( 0, atan2( xy2 + zw2, 1-2*( y2 + z2 ) ) );
-      dstEulerVector.eSet( 1, pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( xy2 + zw2, 1-2*( y2 + z2 ) ) );
+      dstEulerView.eSet( 1, pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1413,23 +1413,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = xz2 - yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( yz2 + xw2 , z2 - y2 - x2 + w2 ) );
-      dstEulerVector.eSet( 1, asin( - lim ) );
-      dstEulerVector.eSet( 0, atan2( xy2 + zw2 , x2 + w2 - y2 - z2 ) );
+      dstEulerView.eSet( 2, atan2( yz2 + xw2 , z2 - y2 - x2 + w2 ) );
+      dstEulerView.eSet( 1, asin( - lim ) );
+      dstEulerView.eSet( 0, atan2( xy2 + zw2 , x2 + w2 - y2 - z2 ) );
     }
     else if( lim <= - 1 + accuracy*accuracy )
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstEulerVector.eSet( 0, - atan2( ( xy2 - zw2 ), ( xz2 + yw2 ) ) );
-      dstEulerVector.eSet( 1, pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( ( xy2 - zw2 ), ( xz2 + yw2 ) ) );
+      dstEulerView.eSet( 1, pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracy*accuracy)
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstEulerVector.eSet( 0, atan2( -1*( xy2 - zw2 ), -1*( xz2 + yw2 ) ) );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( -1*( xy2 - zw2 ), -1*( xz2 + yw2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1438,23 +1438,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( xy2 - zw2 , xz2 + yw2 ) );
-      dstEulerVector.eSet( 1, acos( lim ) );
-      dstEulerVector.eSet( 0, atan2( xy2 + zw2 , -xz2 + yw2 ) );
+      dstEulerView.eSet( 2, atan2( xy2 - zw2 , xz2 + yw2 ) );
+      dstEulerView.eSet( 1, acos( lim ) );
+      dstEulerView.eSet( 0, atan2( xy2 + zw2 , -xz2 + yw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( yz2 - xw2 ), 1 - 2*( x2 + z2 ) ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( yz2 - xw2 ), 1 - 2*( x2 + z2 ) ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + z2 ) ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + z2 ) ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1463,23 +1463,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr)
     {
-      dstEulerVector.eSet( 2, atan2( xz2 + yw2 , -xy2 + zw2 ) );
-      dstEulerVector.eSet( 1, acos( lim ) );
-      dstEulerVector.eSet( 0, atan2( xz2 - yw2 , xy2 + zw2 ) );
+      dstEulerView.eSet( 2, atan2( xz2 + yw2 , -xy2 + zw2 ) );
+      dstEulerView.eSet( 1, acos( lim ) );
+      dstEulerView.eSet( 0, atan2( xz2 - yw2 , xy2 + zw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstEulerVector.eSet( 0, - atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1488,23 +1488,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( xy2 + zw2 , -yz2 + xw2 ) );
-      dstEulerVector.eSet( 1, acos( lim ) );
-      dstEulerVector.eSet( 0, atan2( xy2 - zw2 , yz2 + xw2 ) );
+      dstEulerView.eSet( 2, atan2( xy2 + zw2 , -yz2 + xw2 ) );
+      dstEulerView.eSet( 1, acos( lim ) );
+      dstEulerView.eSet( 0, atan2( xy2 - zw2 , yz2 + xw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstEulerVector.eSet( 0, - atan2( ( xz2 - yw2 ), 1 - 2*( z2 + y2 ) ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( ( xz2 - yw2 ), 1 - 2*( z2 + y2 ) ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( z2 + y2 ) ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( z2 + y2 ) ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1513,23 +1513,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( yz2 - xw2 , xy2 + zw2 ) );
-      dstEulerVector.eSet( 1, acos( lim ) );
-      dstEulerVector.eSet( 0, atan2( yz2 + xw2 , -xy2 + zw2 ) );
+      dstEulerView.eSet( 2, atan2( yz2 - xw2 , xy2 + zw2 ) );
+      dstEulerView.eSet( 1, acos( lim ) );
+      dstEulerView.eSet( 0, atan2( yz2 + xw2 , -xy2 + zw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( xz2 - yw2 ), 1 - 2*( y2 + x2 ) ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( xz2 - yw2 ), 1 - 2*( y2 + x2 ) ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( y2 + x2 ) ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( y2 + x2 ) ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1538,23 +1538,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
-      dstEulerVector.eSet( 1, acos( lim ) );
-      dstEulerVector.eSet( 0, atan2( ( xz2 + yw2 ), - ( yz2 - xw2 ) ) );
+      dstEulerView.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
+      dstEulerView.eSet( 1, acos( lim ) );
+      dstEulerView.eSet( 0, atan2( ( xz2 + yw2 ), - ( yz2 - xw2 ) ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstEulerVector.eSet( 0, - atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1563,23 +1563,23 @@ function fromQuat2( dstEuler, srcQuat )
     lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerVector.eSet( 2, atan2( ( yz2 + xw2 ), ( - xz2 + yw2 ) ) );
-      dstEulerVector.eSet( 1, acos( lim ) );
-      dstEulerVector.eSet( 0, atan2( ( yz2 - xw2 ), ( xz2 + yw2 ) ) );
+      dstEulerView.eSet( 2, atan2( ( yz2 + xw2 ), ( - xz2 + yw2 ) ) );
+      dstEulerView.eSet( 1, acos( lim ) );
+      dstEulerView.eSet( 0, atan2( ( yz2 - xw2 ), ( xz2 + yw2 ) ) );
     }
     else if( lim <= -1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstEulerVector.eSet( 0, atan2( -( xy2 - zw2 ), 1 - 2*( x2 + z2 ) ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( -( xy2 - zw2 ), 1 - 2*( x2 + z2 ) ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstEulerVector.eSet( 0, atan2( ( xy2 + zw2 ), 1 - 2*( x2 + z2 ) ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( ( xy2 + zw2 ), 1 - 2*( x2 + z2 ) ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1623,16 +1623,16 @@ function toQuat2( srcEuler, dstQuat )
   dstQuat = _.quat.makeUnit();
 
   srcEuler = _.euler.from( srcEuler );
-  let srcEulerVector = _.euler._from( srcEuler );
+  let srcEulerView = _.euler._from( srcEuler );
   dstQuat = _.quat.from( dstQuat );
   let dstQuatVector = _.quat._from( dstQuat );
 
-  let e0 = srcEulerVector.eGet( 0 );
-  let e1 = srcEulerVector.eGet( 1 );
-  let e2 = srcEulerVector.eGet( 2 );
-  let ox = srcEulerVector.eGet( 3 );
-  let oy = srcEulerVector.eGet( 4 );
-  let oz = srcEulerVector.eGet( 5 );
+  let e0 = srcEulerView.eGet( 0 );
+  let e1 = srcEulerView.eGet( 1 );
+  let e2 = srcEulerView.eGet( 2 );
+  let ox = srcEulerView.eGet( 3 );
+  let oy = srcEulerView.eGet( 4 );
+  let oz = srcEulerView.eGet( 5 );
 
   let s0 = sin( e0/2 ); let c0 = cos( e0/2 );
   let s1 = sin( e1/2 ); let c1 = cos( e1/2 );
@@ -1792,15 +1792,15 @@ function fromMatrix2( dstEuler, srcMatrix )
   dstEuler = _.euler.makeZero();
 
   dstEuler = _.euler.from( dstEuler );
-  let dstEulerVector = _.vector.from( dstEuler );
+  let dstEulerView = _.vector.from( dstEuler );
 
   _.assert( _.Space.is( srcMatrix ) );
   _.assert( srcMatrix.dims[ 0 ] >= 3 );
   _.assert( srcMatrix.dims[ 1 ] >= 3 );
 
-  let ox = dstEulerVector.eGet( 3 );
-  let oy = dstEulerVector.eGet( 4 );
-  let oz = dstEulerVector.eGet( 5 );
+  let ox = dstEulerView.eGet( 3 );
+  let oy = dstEulerView.eGet( 4 );
+  let oz = dstEulerView.eGet( 5 );
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
@@ -1811,23 +1811,23 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      dstEulerVector.eSet( 0, atan2( - m12, m22 ) );
-      dstEulerVector.eSet( 1, atan2( m02, sqrt( 1 - m02*m02 ) ) );
-      dstEulerVector.eSet( 2, atan2( - m01, m00 ) );
+      dstEulerView.eSet( 0, atan2( - m12, m22 ) );
+      dstEulerView.eSet( 1, atan2( m02, sqrt( 1 - m02*m02 ) ) );
+      dstEulerView.eSet( 2, atan2( - m01, m00 ) );
     }
     else if( m02 <= - 1 )
     {
       let m10 = srcMatrix.atomGet( [ 1, 0 ] ); let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 0, - atan2( m10, m11 ) );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( m10, m11 ) );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( m02 >= 1 )
     {
       let m10 = srcMatrix.atomGet( [ 1, 0 ] ); let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 0, atan2( m10, m11 ) );
-      dstEulerVector.eSet( 1, pi/2 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( m10, m11 ) );
+      dstEulerView.eSet( 1, pi/2 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1840,25 +1840,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerVector.eSet( 0, atan2( m21, m11 ) );
-      dstEulerVector.eSet( 2, atan2( m02, m00 ) );
-      dstEulerVector.eSet( 1, asin( - m01) );
+      dstEulerView.eSet( 0, atan2( m21, m11 ) );
+      dstEulerView.eSet( 2, atan2( m02, m00 ) );
+      dstEulerView.eSet( 1, asin( - m01) );
     }
     else if( m01 >= 1 )
     {
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerVector.eSet( 0, atan2( - m20, m22 ) );
-      dstEulerVector.eSet( 2, 0 );
-      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 0, atan2( - m20, m22 ) );
+      dstEulerView.eSet( 2, 0 );
+      dstEulerView.eSet( 1, - pi/2 );
     }
     else if( m01 <= - 1 )
     {
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerVector.eSet( 0, - atan2( - m20, m22 ) );
-      dstEulerVector.eSet( 2, 0 );
-      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerView.eSet( 0, - atan2( - m20, m22 ) );
+      dstEulerView.eSet( 2, 0 );
+      dstEulerView.eSet( 1, pi/2 );
     }
   }
 
@@ -1871,25 +1871,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m10 = srcMatrix.atomGet( [ 1, 0 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 1, asin( -m12 ) );
-      dstEulerVector.eSet( 0, atan2( m02, m22 ) );
-      dstEulerVector.eSet( 2, atan2( m10, m11 ) );
+      dstEulerView.eSet( 1, asin( -m12 ) );
+      dstEulerView.eSet( 0, atan2( m02, m22 ) );
+      dstEulerView.eSet( 2, atan2( m10, m11 ) );
     }
     else if( m12 >= 1 )
     {
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 0, atan2( - m01, m00 ) );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 0, atan2( - m01, m00 ) );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( m12 <= - 1 )
     {
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      dstEulerVector.eSet( 1, pi/2);
-      dstEulerVector.eSet( 0, - atan2( - m01, m00 )  );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 1, pi/2);
+      dstEulerView.eSet( 0, - atan2( - m01, m00 )  );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -1902,25 +1902,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerVector.eSet( 2, atan2( - m12, m11 ) );
-      dstEulerVector.eSet( 0, atan2( - m20, m00 ) );
-      dstEulerVector.eSet( 1, asin( m10 ) );
+      dstEulerView.eSet( 2, atan2( - m12, m11 ) );
+      dstEulerView.eSet( 0, atan2( - m20, m00 ) );
+      dstEulerView.eSet( 1, asin( m10 ) );
     }
     else if( m10 <= - 1 )
     {
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerVector.eSet( 2, 0 );
-      dstEulerVector.eSet( 0, - atan2( m21, m22 ) );
-      dstEulerVector.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( m21, m22 ) );
+      dstEulerView.eSet( 1, - pi/2 );
     }
     else if( m10 >= 1 )
     {
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerVector.eSet( 2, 0 );
-      dstEulerVector.eSet( 0, atan2( m21, m22 )  );
-      dstEulerVector.eSet( 1, pi/2 );
+      dstEulerView.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( m21, m22 )  );
+      dstEulerView.eSet( 1, pi/2 );
     }
   }
 
@@ -1933,25 +1933,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 1, asin( m21 ) );
-      dstEulerVector.eSet( 2, atan2( - m20, m22 ) );
-      dstEulerVector.eSet( 0, atan2( - m01, m11 ) );
+      dstEulerView.eSet( 1, asin( m21 ) );
+      dstEulerView.eSet( 2, atan2( - m20, m22 ) );
+      dstEulerView.eSet( 0, atan2( - m01, m11 ) );
     }
     else if( m21 <= - 1 )
     {
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 2, 0 );
-      dstEulerVector.eSet( 0, - atan2( m02, m00 ) );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( m02, m00 ) );
     }
     else if( m21 >= 1 )
     {
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerVector.eSet( 1, pi/2 );
-      dstEulerVector.eSet( 2, 0 );
-      dstEulerVector.eSet( 0, atan2( m02, m00 ) );
+      dstEulerView.eSet( 1, pi/2 );
+      dstEulerView.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( m02, m00 ) );
     }
   }
 
@@ -1964,25 +1964,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       let m10 = srcMatrix.atomGet( [ 1, 0 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerVector.eSet( 2, atan2( m21, m22 ) );
-      dstEulerVector.eSet( 1, asin( - m20 ) );
-      dstEulerVector.eSet( 0, atan2( m10, m00 ) );
+      dstEulerView.eSet( 2, atan2( m21, m22 ) );
+      dstEulerView.eSet( 1, asin( - m20 ) );
+      dstEulerView.eSet( 0, atan2( m10, m00 ) );
     }
     else if( m20 <= - 1 )
     {
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 2, 0 );
-      dstEulerVector.eSet( 1, pi/2 );
-      dstEulerVector.eSet( 0, - atan2( - m12, m11 ) );
+      dstEulerView.eSet( 2, 0 );
+      dstEulerView.eSet( 1, pi/2 );
+      dstEulerView.eSet( 0, - atan2( - m12, m11 ) );
     }
     else if( m20 >= 1 )
     {
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 2, 0 );
-      dstEulerVector.eSet( 1, - pi/2 );
-      dstEulerVector.eSet( 0, atan2( - m12, m11 ) );
+      dstEulerView.eSet( 2, 0 );
+      dstEulerView.eSet( 1, - pi/2 );
+      dstEulerView.eSet( 0, atan2( - m12, m11 ) );
     }
   }
 
@@ -1995,25 +1995,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      dstEulerVector.eSet( 0, atan2( m10, - m20 ) );
-      dstEulerVector.eSet( 1, acos( m00 ) );
-      dstEulerVector.eSet( 2, atan2( m01, m02 ) );
+      dstEulerView.eSet( 0, atan2( m10, - m20 ) );
+      dstEulerView.eSet( 1, acos( m00 ) );
+      dstEulerView.eSet( 2, atan2( m01, m02 ) );
     }
     else if( m00 <= - 1 )
     {
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 0, - atan2( - m12, m11 ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( - m12, m11 ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( m00 >= 1 )
     {
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 0, atan2( - m12, m11 ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( - m12, m11 ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -2026,25 +2026,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m10 = srcMatrix.atomGet( [ 1, 0 ] );
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      dstEulerVector.eSet( 0, atan2( m20, m10 ) );
-      dstEulerVector.eSet( 1, acos( m00 ) );
-      dstEulerVector.eSet( 2, atan2( m02, - m01 ) );
+      dstEulerView.eSet( 0, atan2( m20, m10 ) );
+      dstEulerView.eSet( 1, acos( m00 ) );
+      dstEulerView.eSet( 2, atan2( m02, - m01 ) );
     }
     else if( m00 <= - 1 )
     {
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerVector.eSet( 0, - atan2( m21, m22 ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( m21, m22 ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( m00 >= 1 )
     {
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerVector.eSet( 0, atan2( m21, m22 ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( m21, m22 ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -2057,25 +2057,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       let m10 = srcMatrix.atomGet( [ 1, 0 ] );
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      dstEulerVector.eSet( 0, atan2( m01, m21 ) );
-      dstEulerVector.eSet( 1, acos( m11 ) );
-      dstEulerVector.eSet( 2, atan2( m10, - m12 ) );
+      dstEulerView.eSet( 0, atan2( m01, m21 ) );
+      dstEulerView.eSet( 1, acos( m11 ) );
+      dstEulerView.eSet( 2, atan2( m10, - m12 ) );
     }
     else if( m11 <= - 1 )
     {
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerVector.eSet( 0, - atan2( m02, m00 ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( m02, m00 ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( m11 >= 1 )
     {
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerVector.eSet( 0, atan2( m02, m00 ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( m02, m00 ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -2088,25 +2088,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      dstEulerVector.eSet( 0, atan2( m21, - m01 ) );
-      dstEulerVector.eSet( 1, acos( m11 ) );
-      dstEulerVector.eSet( 2, atan2( m12, m10 ) );
+      dstEulerView.eSet( 0, atan2( m21, - m01 ) );
+      dstEulerView.eSet( 1, acos( m11 ) );
+      dstEulerView.eSet( 2, atan2( m12, m10 ) );
     }
     else if( m11 <= - 1 )
     {
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerVector.eSet( 0, atan2( m20, m22 ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( m20, m22 ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( m11 >= 1 )
     {
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerVector.eSet( 0, atan2( - m20, m22 ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( - m20, m22 ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -2119,25 +2119,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      dstEulerVector.eSet( 0, atan2( m02, - m12 ) );
-      dstEulerVector.eSet( 1, acos( m22 ) );
-      dstEulerVector.eSet( 2, atan2( m20, m21 ) );
+      dstEulerView.eSet( 0, atan2( m02, - m12 ) );
+      dstEulerView.eSet( 1, acos( m22 ) );
+      dstEulerView.eSet( 2, atan2( m20, m21 ) );
     }
     else if( m22 <= - 1 )
     {
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerVector.eSet( 0, atan2( m01, m00 ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( m01, m00 ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerVector.eSet( 0, - atan2( m01, m00 ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( m01, m00 ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -2150,25 +2150,25 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      dstEulerVector.eSet( 0, atan2( m12, m02 ) );
-      dstEulerVector.eSet( 1, acos( m22 ) );
-      dstEulerVector.eSet( 2, atan2( m21, - m20 ) );
+      dstEulerView.eSet( 0, atan2( m12, m02 ) );
+      dstEulerView.eSet( 1, acos( m22 ) );
+      dstEulerView.eSet( 2, atan2( m21, - m20 ) );
     }
     else if( m22 <= - 1 )
     {
       let m10 = srcMatrix.atomGet( [ 1, 0 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 0, - atan2( m10, m11 ) );
-      dstEulerVector.eSet( 1, pi );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, - atan2( m10, m11 ) );
+      dstEulerView.eSet( 1, pi );
+      dstEulerView.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
       let m10 = srcMatrix.atomGet( [ 1, 0 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerVector.eSet( 0, atan2( m10, m11 ) );
-      dstEulerVector.eSet( 1, 0 );
-      dstEulerVector.eSet( 2, 0 );
+      dstEulerView.eSet( 0, atan2( m10, m11 ) );
+      dstEulerView.eSet( 1, 0 );
+      dstEulerView.eSet( 2, 0 );
     }
   }
 
@@ -2228,7 +2228,7 @@ function toMatrix2( srcEuler, dstMatrix )
 {
 
   srcEuler = _.euler.from( srcEuler );
-  let srcEulerVector = _.vector.from( srcEuler );
+  let srcEulerView = _.vector.from( srcEuler );
 
   _.assert( _.Space.is( dstMatrix ) || dstMatrix === null || dstMatrix === undefined );
   if( dstMatrix === null || dstMatrix === undefined )
@@ -2238,12 +2238,12 @@ function toMatrix2( srcEuler, dstMatrix )
   _.assert( dstMatrix.dims[ 1 ] === 3 );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  let e1 = srcEulerVector.eGet( 0 );
-  let e2 = srcEulerVector.eGet( 1 );
-  let e3 = srcEulerVector.eGet( 2 );
-  let ox = srcEulerVector.eGet( 3 );
-  let oy = srcEulerVector.eGet( 4 );
-  let oz = srcEulerVector.eGet( 5 );
+  let e1 = srcEulerView.eGet( 0 );
+  let e2 = srcEulerView.eGet( 1 );
+  let e3 = srcEulerView.eGet( 2 );
+  let ox = srcEulerView.eGet( 3 );
+  let oy = srcEulerView.eGet( 4 );
+  let oz = srcEulerView.eGet( 5 );
 
   let ce1 = cos( e1 );
   let ce2 = cos( e2 );
@@ -2441,7 +2441,7 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
 {
 
   dstEuler = _.euler.from( dstEuler );
-  let dstEulerVector = _.vector.from( dstEuler );
+  let dstEulerView = _.vector.from( dstEuler );
   let srcAxisVector = _.vector.from( axis );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
@@ -2457,7 +2457,7 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
     quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
   }
 
-  dstEulerVector = _.euler.fromQuat2( dstEulerVector, quat );
+  dstEulerView = _.euler.fromQuat2( dstEulerView, quat );
   return dstEuler;
 }
 
@@ -2525,14 +2525,14 @@ function toAxisAndAngle2( euler, axisAndAngle )
 function represent( dstEuler, representation )
 {
   _.assert( dstEuler === null || dstEuler === undefined || _.euler.is( dstEuler ) );
-  _.assert( _.arrayIs( representation ) || _.strIs( representation ) );
+  _.assert( _.longIs( representation ) || _.arrayIs( representation ) || _.strIs( representation ) );
   _.assert( arguments.length === 2, 'expects two arguments' );
 
   if( dstEuler === null || dstEuler === undefined )
   dstEuler = [ 0, 0, 0, 0, 1, 2 ];
 
   let eulerArray = dstEuler.slice();
-  let dstEulerVector = _.vector.from( dstEuler );
+  let dstEulerView = _.vector.from( dstEuler );
   let dstQuat = [ 0, 0, 0, 0 ];
   let gotQuaternion = _.euler.toQuat2( eulerArray, dstQuat );
 
@@ -2542,7 +2542,7 @@ function represent( dstEuler, representation )
   }
 
   eulerArray = _.euler.fromQuat2( eulerArray, gotQuaternion );
-  _.vector.assign( dstEulerVector, eulerArray );
+  _.vector.assign( dstEulerView, eulerArray );
   return dstEuler;
 
 }
@@ -2578,7 +2578,7 @@ function isGimbalLock( srcEuler )
   _.assert( _.euler.is( srcEuler ) );
 
   srcEuler = _.euler.from( srcEuler );
-  let srcEulerVector = _.vector.fromArray( srcEuler );
+  let srcEulerView = _.vector.fromArray( srcEuler );
   let accuracy =  _.accuracy;
   let accuracySqr = _.accuracySqr;
 
@@ -2591,9 +2591,9 @@ function isGimbalLock( srcEuler )
   let xy2 = 2*x*y; let xz2 = 2*x*z; let xw2 = 2*x*w;
   let yz2 = 2*y*z; let yw2 = 2*y*w; let zw2 = 2*z*w;
 
-  let ox = srcEulerVector.eGet( 3 );
-  let oy = srcEulerVector.eGet( 4 );
-  let oz = srcEulerVector.eGet( 5 );
+  let ox = srcEulerView.eGet( 3 );
+  let oy = srcEulerView.eGet( 4 );
+  let oz = srcEulerView.eGet( 5 );
 
   let lim;
   if( ox === 0 && oy === 1 && oz === 2 )
