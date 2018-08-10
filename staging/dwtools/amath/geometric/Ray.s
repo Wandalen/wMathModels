@@ -101,8 +101,6 @@ function nil( ray )
 
 function from( ray )
 {
-
-
 //  if( _.objectIs( ray ) )
 //  {
 //    _.assertMapHasFields( ray,{ min : 'min' , max : 'max' } );
@@ -537,7 +535,7 @@ function rayIntersectionFactors( r1, r2 )
   let identOrigin = 0;
   for( let i = 0; i < origin1.length; i++ )
   {
-    if( origin1.slice()[ i ] === origin2.slice()[ i ] )
+    if( origin1.eGet( i ) === origin2.eGet( i ) )
     identOrigin = identOrigin + 1;
   }
   if( identOrigin === origin1.length )
@@ -771,7 +769,6 @@ let Proto =
 
   from : from,
   _from : _from,
-
   fromPair : fromPair,
 
   is : is,
@@ -779,7 +776,7 @@ let Proto =
   originGet : originGet,
   directionGet : directionGet,
 
-  rayAt : rayAt,         /* Factor can not be negative */
+  rayAt : rayAt,         
 
   rayParallel : rayParallel,
   rayIntersectionFactors : rayIntersectionFactors,

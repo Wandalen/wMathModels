@@ -26,23 +26,29 @@
   - `originGet( ray )` Returs the input ray´s origin.
   - `directionGet( ray )`: Returns the input ray´s direction.
 
-  - `rayAt( ray, factor )`: Gets a point in a ray with a factor.
+  - `rayAt( ray, factor )`: Gets a point in a ray with a factor. Factor can not be negative.
       @Example
       // returns [ 0, 2, 4 ];
       // rayAt( [ 0, 1, 2, 0, 1, 2 ], 1 )
 
-  - `rayParallel( src1Ray, src2Ray, accuracySqr )`: Checks if two rays are parallel
+  - `rayParallel( src1Ray, src2Ray, accuracySqr )`: Checks if two rays are parallel.
       @Example
       // returns true
       // rayParallel( [ 0, 1, 3, 4 ], [ 5, 5, 3, 4 ] );
 
-  - `rayIntersectionFactors( src1Ray, src2Ray )`: Get the factors of two rays intersecting in a point
+  - `rayIntersectionFactors( src1Ray, src2Ray )`: Get the factors of two rays intersecting in a point.
   If the rays don´t intersect, it returns 0.
       @Example
       // returns [ 4, 1 ]
       // rayParallel( [ -4, 0, 1, 0 ], [ 0, -2, 0, 2 ] );
   - `rayIntersectionPoints( src1Ray, src2Ray )`: Return the intersection points of the two rays.
+      @Example
+      // returns [ [ 0, 0 ], [ 0, 0 ] ]
+      // rayParallel( [ -4, 0, 1, 0 ], [ 0, -2, 0, 2 ] );
   - `rayIntersectionPoint( src1Ray, src2Ray )`: Return the intersection point of the two rays.
+      @Example
+      // returns [ 0, 0 ]
+      // rayParallel( [ -4, 0, 1, 0 ], [ 0, -2, 0, 2 ] );
   - `rayIntersectionPointAccurate( src1Ray, src2Ray )`: Return the mean of rayIntersectionPoints.
 
 
