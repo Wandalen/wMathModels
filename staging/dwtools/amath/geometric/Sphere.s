@@ -914,11 +914,11 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
 function pointExpand( sphere , point )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.arrayIs( point ) || _.vectorIs( point ) );
-  let sphereView = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dim = _.sphere.dimGet( sphereView );
+  _.assert( _.longIs( point ) || _.vectorIs( point ) );
+  let spherev = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( spherev );
+  let radius = _.sphere.radiusGet( spherev );
+  let dim = _.sphere.dimGet( spherev );
 
 
   let pointv = vector.from( point );
