@@ -1140,6 +1140,15 @@ function rayIntersectionFactors( test )
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.identical( isIntersectionFactors, expected );
 
+  test.case = 'Rays 8D intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1  ];
+  var src2Ray = [ 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 1, 4, 0, 2, 1, 4 ];
+  var expected = [ 3, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
   /* */
 
   if( !Config.debug )
@@ -1236,6 +1245,42 @@ function rayIntersectionPoints( test )
   var src1Ray = [ -3, 0, 1, 0 ];
   var src2Ray = [ 0, -2, 0, 1 ];
   var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+
+  var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Rays don´t intersect 3D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Rays intersect 3D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 3, 1, 4 ];
+  var expected = [ [ 9, 9, 9 ], [ 9, 9, 9 ] ];
+
+  var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Rays don´t intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Rays intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
+  var expected = [ [ 9, 9, 9, 10 ], [ 9, 9, 9, 10 ] ];
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
@@ -1340,6 +1385,42 @@ function rayIntersectionPoint( test )
   var isIntersectionPoint = _.ray.rayIntersectionPoint( src1Ray, src2Ray );
   test.identical( isIntersectionPoint, expected );
 
+  test.case = 'Rays don´t intersect 3D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoint = _.ray.rayIntersectionPoint( src1Ray, src2Ray );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Rays intersect 3D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 3, 1, 4 ];
+  var expected = [ 9, 9, 9 ];
+
+  var isIntersectionPoint = _.ray.rayIntersectionPoint( src1Ray, src2Ray );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Rays don´t intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoint = _.ray.rayIntersectionPoint( src1Ray, src2Ray );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Rays intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
+  var expected = [ 9, 9, 9, 10 ];
+
+  var isIntersectionPoint = _.ray.rayIntersectionPoint( src1Ray, src2Ray );
+  test.identical( isIntersectionPoint, expected );
+
   /* */
 
   if( !Config.debug )
@@ -1436,6 +1517,42 @@ function rayIntersectionPointAccurate( test )
   var src1Ray = [ -3, 0, 1, 0 ];
   var src2Ray = [ 0, -2, 0, 1 ];
   var expected = [ 0, 0 ];
+
+  var isIntersectionPoint = _.ray.rayIntersectionPointAccurate( src1Ray, src2Ray );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Rays don´t intersect 3D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoint = _.ray.rayIntersectionPointAccurate( src1Ray, src2Ray );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Rays intersect 3D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 3, 1, 4 ];
+  var expected = [ 9, 9, 9 ];
+
+  var isIntersectionPoint = _.ray.rayIntersectionPointAccurate( src1Ray, src2Ray );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Rays don´t intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoint = _.ray.rayIntersectionPointAccurate( src1Ray, src2Ray );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Rays intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
+  var expected = [ 9, 9, 9, 10 ];
 
   var isIntersectionPoint = _.ray.rayIntersectionPointAccurate( src1Ray, src2Ray );
   test.identical( isIntersectionPoint, expected );
