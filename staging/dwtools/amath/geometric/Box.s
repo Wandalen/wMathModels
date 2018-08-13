@@ -929,15 +929,15 @@ function pointContains( box , point )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
-  let pointv = _.vector.from( point );
+  let pointView = _.vector.from( point );
 
-  _.assert( dim === pointv.length );
+  _.assert( dim === pointView.length );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  if( _.vector.anyLess( pointv , min ) )
+  if( _.vector.anyLess( pointView , min ) )
   return false;
 
-  if( _.vector.anyGreater( pointv , max ) )
+  if( _.vector.anyGreater( pointView , max ) )
   return false;
 
   return true;
@@ -1080,19 +1080,18 @@ function pointExpand( dstBox , point )
   dstBox = _.box.makeNil();
 
   _.assert( _.longIs( point ) || _.vectorIs( point ) );
-  debugger;
 
   let boxView = _.box._from( dstBox );
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
-  let pointv = _.vector.from( point );
+  let pointView = _.vector.from( point );
 
-  _.assert( dim === pointv.length );
+  _.assert( dim === pointView.length );
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
-  _.vector.minVectors( min , pointv );
-  _.vector.maxVectors( max , pointv );
+  _.vector.minVectors( min , pointView );
+  _.vector.maxVectors( max , pointView );
 
   return dstBox;
 }
