@@ -353,7 +353,96 @@ rayAt.shaderChunk =
 //
 
 /**
-  * Ckeck if two rays are parallel. Returns true if they are parallel and false if not.
+* Get the factor of a point inside a ray. Returs the calculated factor. Point and ray stay untouched.
+*
+* @param { Array } srcRay - The ray to check if the point is inside.
+* @param { Array } srcPoint - The point to check.
+*
+* @example
+* // returns 0.5
+* _.getFactor( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+*
+* @example
+* // returns false
+* _.getFactor( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
+*
+* @returns { Number } Returns the factor if the point is inside the ray, and false if the point is outside it.
+* @function getFactor
+* @throws { Error } An Error if ( dim ) is different than point.length (ray and point have not the same dimension).
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( srcRay ) is not ray.
+* @throws { Error } An Error if ( srcPoint ) is not point.
+* @memberof wTools.ray
+*/
+function getFactor( srcRay, srcPoint )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcPoint.length );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimension  = _.ray.dimGet( srcRayView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+
+  _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
+  let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+
+  let factor;
+  if( direction.eGet( 0 ) === 0 )
+  {
+    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    {
+      return false;
+    }
+    else
+    {
+      factor = 0;
+    }
+  }
+  else
+  {
+    factor = dOrigin.eGet( 0 ) / direction.eGet( 0 );
+  }
+
+  // Factor can not be negative
+  if(  factor <= 0 - _.accuracySqr )
+  return false;
+
+  for( var i = 1; i < dOrigin.length; i++ )
+  {
+    let newFactor;
+    if( direction.eGet( i ) === 0 )
+    {
+      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      {
+        return false;
+      }
+      else
+      {
+        newFactor = 0;
+      }
+    }
+    else
+    {
+      newFactor = dOrigin.eGet( i ) / direction.eGet( i );
+      if( Math.abs( newFactor - factor ) > _.accuracySqr && newFactor !== 0 && factor !== 0 )
+      {
+        return false;
+      }
+      factor = newFactor;
+    }
+  }
+
+  return factor;
+}
+
+//
+
+/**
+  * Check if two rays are parallel. Returns true if they are parallel and false if not.
   * Rays and accuracySqr stay untouched. Only for 3D.
   *
   * @param { Vector } src1Ray - The first source ray.
@@ -859,7 +948,6 @@ rayIntersectionPointAccurate.shaderChunk =
 `
 
 //
-//
 
 /**
   * Check if a given point is contained inside a ray. Returs true if it is contained, false if not. Point and ray stay untouched.
@@ -899,7 +987,22 @@ function pointContains( srcRay, srcPoint )
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
   let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
 
-  let factor = dOrigin.eGet( 0 ) / direction.eGet( 0 );
+  let factor;
+  if( direction.eGet( 0 ) === 0 )
+  {
+    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    {
+      return false;
+    }
+    else
+    {
+      factor = 0;
+    }
+  }
+  else
+  {
+    factor = dOrigin.eGet( 0 ) / direction.eGet( 0 );
+  }
 
   // Factor can not be negative
   if(  factor <= 0 - _.accuracySqr )
@@ -907,15 +1010,33 @@ function pointContains( srcRay, srcPoint )
 
   for( var i = 1; i < dOrigin.length; i++ )
   {
-    let newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-    if( Math.abs( newFactor - factor ) > _.accuracySqr )
+    let newFactor;
+    if( direction.eGet( i ) === 0 )
     {
-      return false;
+      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      {
+        return false;
+      }
+      else
+      {
+        newFactor = 0;
+      }
+    }
+    else
+    {
+      newFactor = dOrigin.eGet( i ) / direction.eGet( i );
+      if( Math.abs( newFactor - factor ) > _.accuracySqr && newFactor !== 0 && factor !== 0 )
+      {
+        return false;
+      }
+      factor = newFactor;
     }
   }
 
   return true;
 }
+
+
 // --
 // define class
 // --
@@ -940,6 +1061,7 @@ let Proto =
   directionGet : directionGet,
 
   rayAt : rayAt,
+  getFactor : getFactor,
 
   rayParallel : rayParallel,
   rayIntersectionFactors : rayIntersectionFactors,

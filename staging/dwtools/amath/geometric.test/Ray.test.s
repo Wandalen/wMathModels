@@ -821,6 +821,169 @@ function rayAt( test )
 
 //
 
+function getFactor( test )
+{
+
+  test.case = 'Ray and Point remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = 1;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor, expected );
+
+  var oldray = [  - 1,  - 1 , 1, 1 ];
+  test.identical( ray, oldray );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null ray contains empty point'; /* */
+
+  var ray = null;
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Point ray contains Point'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Factor smaller than one'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = 0.5;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Factor bigger than one'; /* */
+
+  var ray = [ 0, 0, 0, 1, 1, 1 ];
+  var point = [  6, 6, 6 ];
+  var expected = 6;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Direction with different values'; /* */
+
+  var ray = [ 0, 0, 0, 1, 2, 3 ];
+  var point = [  6, 12, 18 ];
+  var expected = 6;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Direction with different values ( one of them 0 )'; /* */
+
+  var ray = [ 0, 0, 0, 1, 2, 0 ];
+  var point = [  6, 12, 0 ];
+  var expected = 6;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Direction with different values ( one of them 0 )'; /* */
+
+  var ray = [ 0, 0, 0, 0, 2, 3 ];
+  var point = [  0, 12, 18 ];
+  var expected = 6;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Direction with different values ( one of them 0 )'; /* */
+
+  var ray = [ 0, 0, 0, 1, 2, 0 ];
+  var point = [  6, 12, 18];
+  var expected = false;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Ray under point'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ 1, 1, 3 ];
+  var expected = false;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Ray ( normalized to 1 )'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = 1/ Math.sqrt( 2 );
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.equivalent( gotFactor,  expected );
+
+  test.case = 'Ray of four dimensions'; /* */
+
+  var ray = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0, 0 ];
+  var expected = 1;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Ray of 7 dimensions'; /* */
+
+  var ray = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
+  var point = [ - 1, -1, -1, -1, -1, -1, -1 ];
+  var expected = 1;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Ray of 1 dimension contains point'; /* */
+
+  var ray = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = 0.5;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Ray of 1 dimension desn´t contain point '; /* */
+
+  var ray = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = false;
+
+  var gotFactor = _.ray.getFactor( ray, point );
+  test.identical( gotFactor,  expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.getFactor( ) );
+  test.shouldThrowErrorSync( () => _.ray.getFactor( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.getFactor( 'ray', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.getFactor( [ 1, 1, 2, 2 ], 'factor') );
+  test.shouldThrowErrorSync( () => _.ray.getFactor( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.getFactor( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.getFactor( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.getFactor( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.getFactor( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.getFactor( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
 function rayParallel( test )
 {
   test.case = 'Source rays and accuracySqr remain unchanged'; /* */
@@ -1917,6 +2080,7 @@ var Self =
     directionGet : directionGet,
 
     rayAt : rayAt,
+    getFactor : getFactor,
 
     rayParallel : rayParallel,
     rayIntersectionFactors : rayIntersectionFactors,
