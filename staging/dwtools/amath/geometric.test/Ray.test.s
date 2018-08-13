@@ -1021,7 +1021,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 1, 1 ];
   var src2Ray = [ 0, 0, 2, 2 ];
-  var expected = [ 0, 0 ];
+  var expected = _.vector.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.identical( isIntersectionFactors, expected );
@@ -1036,7 +1036,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 1, 1 ];
   var src2Ray = [ 0, 0, 1, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.vector.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.identical( isIntersectionFactors, expected );
@@ -1072,7 +1072,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 3, 7, 1, 0 ];
   var src2Ray = [ 3, 7, 0, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.vector.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.identical( isIntersectionFactors, expected );
@@ -1081,25 +1081,25 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 1, 0 ];
   var src2Ray = [ -2, -6, 1, 2 ];
-  var expected = [ 1, 3 ];
+  var expected = _.vector.from( [ 1, 3 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
-  test.identical( isIntersectionFactors, expected );
+  test.equivalent( isIntersectionFactors, expected );
 
   test.case = 'Rays are perpendicular '; /* */
 
   var src1Ray = [ -3, 0, 1, 0 ];
   var src2Ray = [ 0, -2, 0, 1 ];
-  var expected = [ 3, 2 ];
+  var expected = _.vector.from( [ 3, 2 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
-  test.identical( isIntersectionFactors, expected );
+  test.equivalent( isIntersectionFactors, expected );
 
   test.case = 'Rays 3D intersection'; /* */
 
   var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
   var src2Ray = [ 3, 3, 3, 0, 1, 4 ];
-  var expected = [ 3, 0 ];
+  var expected = _.vector.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1117,7 +1117,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Ray = [ 3, 3, 3, 3, 0, 2, 1, 4 ];
-  var expected = [ 3, 0 ];
+  var expected = _.vector.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1144,7 +1144,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1  ];
   var src2Ray = [ 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 1, 4, 0, 2, 1, 4 ];
-  var expected = [ 3, 0 ];
+  var expected = _.vector.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1164,6 +1164,160 @@ function rayIntersectionFactors( test )
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors( [ 1, 1, 2, 2 ], undefined ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors( [ 1, 1, 2, 2 ], - 2 ) );
   test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function rayIntersectionFactors2( test )
+{
+  test.case = 'Source rays remain unchanged'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 0, 0, 2, 2 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  var oldSrc1Ray = [ 0, 0, 1, 1 ];
+  test.equivalent( src1Ray, oldSrc1Ray );
+
+  var oldSrc2Ray = [ 0, 0, 2, 2 ];
+  test.equivalent( src2Ray, oldSrc2Ray );
+
+  test.case = 'Rays are the same'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 0, 0, 1, 1 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays are parallel ( different origin - same direction )'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 1 ];
+  var expected = 0;
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays are parallel ( different origin - different direction )'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 3, 7, 7, 7 ];
+  var expected = 0;
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays don´t intersect'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 3, 0, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays intersect in their origin'; /* */
+
+  var src1Ray = [ 3, 7, 1, 0 ];
+  var src2Ray = [ 3, 7, 0, 1 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays intersect '; /* */
+
+  var src1Ray = [ 0, 0, 1, 0 ];
+  var src2Ray = [ -2, -6, 1, 2 ];
+  var expected = [ 1, 3 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
+  test.case = 'Rays are perpendicular '; /* */
+
+  var src1Ray = [ -3, 0, 1, 0 ];
+  var src2Ray = [ 0, -2, 0, 1 ];
+  var expected = [ 3, 2 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
+  test.case = 'Rays 3D intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 3, 3, 0, 1, 4 ];
+  var expected = [ 3, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
+  test.case = 'Rays 3D no intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 3, 5, 0, 1, 4 ];
+  var expected = 0;
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays 4D intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 3, 3, 3, 0, 2, 1, 4 ];
+  var expected = [ 3, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
+  test.case = 'Rays 4D no intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 3, 5, 3, 0, 0, 1, 4 ];
+  var expected = 0;
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays 4D no intersection out of 3D intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1, 1, -1 ];
+  var src2Ray = [ 3, 3, 3, 2, 0, 1, 4, 3 ];
+  var expected = 0;
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.identical( isIntersectionFactors, expected );
+
+  test.case = 'Rays 8D intersection'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1  ];
+  var src2Ray = [ 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 1, 4, 0, 2, 1, 4 ];
+  var expected = [ 3, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( 'ray', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( [ 1, 1, 2, 2 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( null, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersectionFactors2( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
 
 }
 
@@ -1610,6 +1764,7 @@ var Self =
 
     rayParallel : rayParallel,
     rayIntersectionFactors : rayIntersectionFactors,
+    rayIntersectionFactors2 : rayIntersectionFactors2,
     rayIntersectionPoints : rayIntersectionPoints,
     rayIntersectionPoint : rayIntersectionPoint,
     rayIntersectionPointAccurate : rayIntersectionPointAccurate,

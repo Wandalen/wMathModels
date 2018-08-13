@@ -481,7 +481,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
 
 /**
   * Returns the factors for the intersection of two rays. Returns an array with the intersection factors, 0 if there is no intersection.
-  * Rays stay untouched. Only for 2D.
+  * Rays stay untouched.
   *
   * @param { Vector } src1Ray - The first source ray.
   * @param { Vector } src2Ray - The second source ray.
@@ -503,8 +503,6 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   */
 function rayIntersectionFactors( r1, r2 )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
   //_.assert( r1[ 0 ].length === 2,'implemented only for d2' );
   //_.assert( r2[ 0 ].length === 2,'implemented only for d2' );
 
@@ -523,6 +521,93 @@ function rayIntersectionFactors( r1, r2 )
   // let x = d2linearEquationSolve( m,y );
   // debbuger;
   // return x;
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
+
+  let r1View = _.ray._from( r1.slice() );
+  let r2View = _.ray._from( r2.slice() );
+
+  let origin1 = _.ray.originGet( r1View );
+  let origin2 = _.ray.originGet( r2View );
+  let dOrigin = _.vector.from( avector.subVectors( origin2.slice(), origin1.slice() ) );
+
+  let direction1 = _.ray.directionGet( r1View );
+  let direction2 = _.ray.directionGet( r2View );
+  let directions = _.Space.make( [ r1.length / 2 , 2 ] );
+  directions.colVectorGet( 0 ).copy( direction1 );
+  directions.colVectorGet( 1 ).copy( direction2.mulScalar( - 1 ) );
+
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < origin1.length; i++ )
+  {
+    if( origin1.eGet( i ) === origin2.eGet( i ) )
+    identOrigin = identOrigin + 1;
+  }
+  if( identOrigin === origin1.length )
+  return _.vector.from( [ 0, 0 ] );
+
+  // Parallel rays
+  if( rayParallel( r1, r2 ) === true )
+  return 0;
+
+  let result = _.vector.from( [ 0, 0 ] );
+
+  debugger;
+
+  for( let i = 0; i < dOrigin.length - 1 ; i++ )
+  {
+    let m = _.Space.make( [ 2, 2 ] );
+    m.rowSet( 0, directions.rowVectorGet( i ) );
+    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+
+    let or = _.Space.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+
+    let o =
+    {
+      x : null,
+      m : m,
+      y : or,
+      kernel : null,
+      pivoting : 1,
+    }
+
+    let x = _.Space.solveGeneral( o );
+
+    if( i > 0)
+    {
+      let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
+      let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
+      let diff1 = Math.abs( x1 - result.eGet( 0 ) );
+      let diff2 = Math.abs( x1 - result.eGet( 1 ) );
+      let diff3 = Math.abs( x2 - result.eGet( 0 ) );
+      let diff4 = Math.abs( x2 - result.eGet( 1 ) );
+      if( ( diff1 < 1E-6 || diff2 < 1E-6 ) && ( diff3 < 1E-6 || diff4 < 1E-6 ) )
+      {
+      }
+      else
+      {
+        return 0;
+      }
+    }
+
+    result = _.vector.from( x.base )
+  }
+
+  // Factors can not be negative
+  if(  result.eGet( 0 ) <= 0 - _.accuracySqr || result.eGet( 1 ) <= 0 - _.accuracySqr )
+  return 0;
+
+  return result;
+}
+
+//
+
+function rayIntersectionFactors2( r1, r2 )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
 
   let r1View = _.ray._from( r1 );
   let origin1 = _.ray.originGet( r1View );
@@ -581,50 +666,7 @@ function rayIntersectionFactors( r1, r2 )
     return 0;
   }
 
-
-
   return x;
-}
-
-
-
-function rayIntersectionFactors2( r1, r2 )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
-
-  let r1View = _.ray._from( r1 );
-  let origin1 = _.ray.originGet( r1View );
-  let direction1 = _.ray.directionGet( r1View );
-  let r2View = _.ray._from( r2 );
-  let origin2 = _.ray.originGet( r2View );
-  let direction2 = _.ray.directionGet( r2View );
-
-  let dOrigin = _.vector.from( avector.subVectors( origin2.slice(), origin1.slice() ) );
-
-  debugger;
-
-  let directions = _.Space.make( [ r1.length / 2 , 2 ] )
-  directions.colVectorGet( 0 ).copy( direction1.slice() );
-  directions.colVectorGet( 1 ).copy( direction2.mulScalar( - 1 ).slice() );
-
-  debugger;
-
-  var y = _.Space.makeCol( dOrigin );
-  console.log( 'y', y );
-  console.log( 'directions', directions )
-
-  let o =
-  {
-    x : null,
-    m : directions,
-    y : dOrigin,
-    kernel : null,
-    pivoting : 1,
-  }
-
-  var x = _.Space.solveGeneral( o );
-
 }
 
 rayIntersectionFactors.shaderChunk =
@@ -677,11 +719,10 @@ rayIntersectionFactors.shaderChunk =
 function rayIntersectionPoints( r1,r2 )
 {
   let factors = rayIntersectionFactors( r1,r2 );
-
   if( factors === 0 )
   return 0;
 
-  let result = [ Self.rayAt( r1,factors[ 0 ] ),Self.rayAt( r2,factors[ 1 ] ) ];
+  let result = [ Self.rayAt( r1,factors.eGet( 0 ) ),Self.rayAt( r2,factors.eGet( 1 ) ) ];
   return result;
 }
 
@@ -729,7 +770,7 @@ function rayIntersectionPoint( r1,r2 )
   if( factors === 0 )
   return 0;
 
-  return Self.rayAt( r1,factors[ 0 ] );
+  return Self.rayAt( r1,factors.eGet( 0 ) );
 
 }
 
