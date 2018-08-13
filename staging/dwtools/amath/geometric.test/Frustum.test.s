@@ -3055,7 +3055,7 @@ function frustumClosestPoint( test )
 }
 
 // --
-// define class
+// declare
 // --
 
 var Self =

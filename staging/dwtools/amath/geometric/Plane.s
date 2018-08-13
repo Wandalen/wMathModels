@@ -1295,7 +1295,7 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
 
 
 // --
-// define class
+// declare
 // --
 
 let Proto =

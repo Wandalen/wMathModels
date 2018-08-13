@@ -2584,7 +2584,7 @@ function translate( box, offset )
 // }
 
 // --
-// define class
+// declare
 // --
 
 let Proto =

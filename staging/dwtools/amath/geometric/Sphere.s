@@ -1985,7 +1985,7 @@ function translate( sphere,offset )
 }
 
 // --
-// define class
+// declare
 // --
 
 let Proto =

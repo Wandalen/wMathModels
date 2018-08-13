@@ -1459,7 +1459,7 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
 }
 
 // --
-// define class
+// declare
 // --
 
 /* qqq : please sort */

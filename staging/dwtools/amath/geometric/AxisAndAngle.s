@@ -316,7 +316,7 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
 }
 
 // --
-// define class
+// declare
 // --
 
 let Proto =
