@@ -301,7 +301,7 @@ function directionGet( ray )
   * Get a point in a ray. Returns a vector with the coordinates of the point of the ray.
   * Ray and factor stay untouched.
   *
-  * @param { Vector } ray - The source ray.
+  * @param { Vector } srcRay - The source ray.
   * @param { Vector } factor - The source factor.
   *
   * @example
@@ -480,7 +480,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
 //
 
 /**
-  * Returns the factors for the intersection of two rays. Returns an array with the intersection factors, 0 if there is no intersection.
+  * Returns the factors for the intersection of two rays. Returns a vector with the intersection factors, 0 if there is no intersection.
   * Rays stay untouched.
   *
   * @param { Vector } src1Ray - The first source ray.
@@ -491,7 +491,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   * _.rayIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  [ 2, 1 ]
+  * // returns  _.vector.from( [ 2, 1 ] )
   * _.rayIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
   *
   * @returns { Array } Returns the factors for the two rays intersection.
@@ -604,6 +604,29 @@ function rayIntersectionFactors( r1, r2 )
 
 //
 
+/**
+  * Returns the factors for the intersection of two rays. Returns an array with the intersection factors, 0 if there is no intersection.
+  * Rays stay untouched.
+  *
+  * @param { Vector } src1Ray - The first source ray.
+  * @param { Vector } src2Ray - The second source ray.
+  *
+  * @example
+  * // returns   0
+  * _.rayIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  _.vector.from( [ 2, 1 ] )
+  * _.rayIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
+  *
+  * @returns { Array } Returns the factors for the two rays intersection.
+  * @function rayIntersectionFactors
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Ray ) is not ray.
+  * @throws { Error } An Error if ( src2Ray ) is not ray.
+  * @memberof wTools.ray
+  */
+
 function rayIntersectionFactors2( r1, r2 )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -657,7 +680,7 @@ function rayIntersectionFactors2( r1, r2 )
   if(  !_.numberIs( x[ 0 ] ) || isNaN( x[ 0 ] ) || !_.numberIs( x[ 1 ] ) || isNaN( x[ 1 ] ) )
   return 0;
 
-  // Check other dimensions in ray cohincide with the calculated factor
+  // Check other dimensions in ray coincide with the calculated factor
   for( let i = 0; i < origin1.length; i++ )
   {
     let point1 = origin1.eGet( i ) + direction1.eGet( i )*x[ 0 ];
@@ -835,6 +858,64 @@ rayIntersectionPointAccurate.shaderChunk =
   }
 `
 
+//
+//
+
+/**
+  * Check if a given point is contained inside a ray. Returs true if it is contained, false if not. Point and ray stay untouched.
+  *
+  * @param { Array } srcRay - The ray to check if the point is inside.
+  * @param { Array } srcPoint - The point to check.
+  *
+  * @example
+  * // returns true
+  * _.pointContains( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
+  *
+  * @returns { Boolen } Returns true if the point is inside the ray, and false if the point is outside it.
+  * @function pointContains
+  * @throws { Error } An Error if ( dim ) is different than point.length (ray and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.ray
+  */
+function pointContains( srcRay, srcPoint )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcPoint.length );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimension  = _.ray.dimGet( srcRayView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+
+  _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
+  let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+
+  let factor = dOrigin.eGet( 0 ) / direction.eGet( 0 );
+
+  // Factor can not be negative
+  if(  factor <= 0 - _.accuracySqr )
+  return false;
+
+  for( var i = 1; i < dOrigin.length; i++ )
+  {
+    let newFactor = dOrigin.eGet( i ) / direction.eGet( i );
+    if( Math.abs( newFactor - factor ) > _.accuracySqr )
+    {
+      return false;
+    }
+  }
+
+  return true;
+}
 // --
 // define class
 // --
@@ -851,7 +932,7 @@ let Proto =
 
   from : from,
   _from : _from,
-  fromPair : fromPair,
+  fromPair : fromPair, // fromPoints : fromPoints,
 
   is : is,
   dimGet : dimGet,
@@ -867,7 +948,25 @@ let Proto =
   rayIntersectionPoint : rayIntersectionPoint,
   rayIntersectionPointAccurate : rayIntersectionPointAccurate,
 
-  // fromPoints : fromPoints,
+  pointContains : pointContains,
+  // pointDistance : pointDistance,
+  // pointClosestPoint : pointClosestPoint,
+
+  // boxIntersects : boxIntersects,
+  // boxDistance : boxDistance,
+  // boxClosestPoint : boxClosestPoint,
+
+  // sphereIntersects : sphereIntersects,
+  // sphereDistance : sphereDistance,
+  // sphereClosestPoint : sphereClosestPoint,
+
+  // planeIntersects : planeIntersects,
+  // planeDistance : planeDistance,
+  // planeClosestPoint : planeClosestPoint,
+
+  // frustumIntersects : frustumIntersects,
+  // frustumDistance : frustumDistance,
+  // frustumClosestPoint : frustumClosestPoint,
 
 }
 

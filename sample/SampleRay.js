@@ -4,9 +4,9 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-var src2Ray = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+var srcRay = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+var srcPoint = [ 5, 5, 5.000000001, 5 ];
 
-let result = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
+let result = _.ray.pointContains( srcRay, srcPoint );
 
 logger.log('Final result: ', result );
