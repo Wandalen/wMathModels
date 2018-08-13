@@ -586,6 +586,47 @@ function rayIntersectionFactors( r1, r2 )
   return x;
 }
 
+
+
+function rayIntersectionFactors2( r1, r2 )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
+
+  let r1View = _.ray._from( r1 );
+  let origin1 = _.ray.originGet( r1View );
+  let direction1 = _.ray.directionGet( r1View );
+  let r2View = _.ray._from( r2 );
+  let origin2 = _.ray.originGet( r2View );
+  let direction2 = _.ray.directionGet( r2View );
+
+  let dOrigin = _.vector.from( avector.subVectors( origin2.slice(), origin1.slice() ) );
+
+  debugger;
+
+  let directions = _.Space.make( [ r1.length / 2 , 2 ] )
+  directions.colVectorGet( 0 ).copy( direction1.slice() );
+  directions.colVectorGet( 1 ).copy( direction2.mulScalar( - 1 ).slice() );
+
+  debugger;
+
+  var y = _.Space.makeCol( dOrigin );
+  console.log( 'y', y );
+  console.log( 'directions', directions )
+
+  let o =
+  {
+    x : null,
+    m : directions,
+    y : dOrigin,
+    kernel : null,
+    pivoting : 1,
+  }
+
+  var x = _.Space.solveGeneral( o );
+
+}
+
 rayIntersectionFactors.shaderChunk =
 `
   vec2 rayIntersectionFactors( vec2 r1[ 2 ], vec2 r2[ 2 ] )
@@ -776,10 +817,11 @@ let Proto =
   originGet : originGet,
   directionGet : directionGet,
 
-  rayAt : rayAt,         
+  rayAt : rayAt,
 
   rayParallel : rayParallel,
   rayIntersectionFactors : rayIntersectionFactors,
+  rayIntersectionFactors2 : rayIntersectionFactors2,
   rayIntersectionPoints : rayIntersectionPoints,
   rayIntersectionPoint : rayIntersectionPoint,
   rayIntersectionPointAccurate : rayIntersectionPointAccurate,
