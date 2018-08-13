@@ -4,8 +4,9 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var srcRay = [ 0, 0, 0, 0, 2, 3 ];
-var srcPoint = [  0, 12, 18 ];
-let result = _.ray.getFactor( srcRay, srcPoint );
-
+var ray = [ 0, 2 ];
+var point = [ - 3 ];
+let result = _.ray.pointClosestPoint( ray, point );
+logger.log('Final result: ', result );
+result = _.ray.pointDistance( ray, point );
 logger.log('Final result: ', result );

@@ -344,7 +344,7 @@ function pointCoplanarGet( plane , point, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = [ 0, 0, 0 ];
+  dstPoint = _.array.makeArrayOfLength( point.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );

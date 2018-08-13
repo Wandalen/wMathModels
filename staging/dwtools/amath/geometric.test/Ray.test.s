@@ -1907,8 +1907,8 @@ function pointContains( test )
   var gotBool = _.ray.pointContains( ray, point );
   test.identical( gotBool, expected );
 
-  var oldray = [  - 1,  - 1 , 1, 1 ];
-  test.identical( ray, oldray );
+  var oldRay = [  - 1,  - 1 , 1, 1 ];
+  test.identical( ray, oldRay );
 
   var oldPoint = [ 0, 0 ];
   test.identical( point, oldPoint );
@@ -2047,6 +2047,296 @@ function pointContains( test )
 
 }
 
+//
+
+function pointDistance( test )
+{
+
+  test.case = 'Ray and Point remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance, expected );
+
+  var oldRay = [  - 1,  - 1 , 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null ray Distance empty point'; /* */
+
+  var ray = null;
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point ray Distance same Point'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point ray Distance other Point'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 3, 4, 0 ];
+  var expected = 5;
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray contains point'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray under point'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ 1, 1, 4 ];
+  var expected = Math.sqrt( 6 );
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray over point'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ - 2, 1, 1 ];
+  var expected = Math.sqrt( 6 );
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) Distance point'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) doesn´t contain point'; /* */
+
+  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = 0.568342039793567;
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.equivalent( gotDistance,  expected );
+
+  test.case = 'Ray of four dimensions distance '; /* */
+
+  var ray = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 4 ];
+  var expected = Math.sqrt( 12 );
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray of 7 dimensions distance'; /* */
+
+  var ray = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
+  var point = [ 2, 2, 2, 2, 2, 2, 2 ];
+  var expected = Math.sqrt( 96 );
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray of 1 dimension contains point'; /* */
+
+  var ray = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray of 1 dimension distance'; /* */
+
+  var ray = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = 3;
+
+  var gotDistance = _.ray.pointDistance( ray, point );
+  test.identical( gotDistance,  expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( ) );
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( 'ray', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( [ 1, 1, 2, 2 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.pointDistance( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function pointClosestPoint( test )
+{
+
+  test.case = 'Ray and Point remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint, expected );
+
+  var oldRay = [  - 1,  - 1 , 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null ray - empty point'; /* */
+
+  var ray = null;
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point ray - same Point'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point ray - other Point'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 3, 4, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray contains point'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ 1, 1, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray over point'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ 1, 1, 4 ];
+  var expected = [ 2, 2, 2 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray under point'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ - 2, 1, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) Distance point'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = [ 0.5, 0.5, 0 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) doesn´t contain point'; /* */
+
+  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = [ 0.02572500470627867, 0.10157398765468795, 0.10157398765468795 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.equivalent( gotClosestPoint,  expected );
+
+  test.case = 'Ray of four dimensions distance '; /* */
+
+  var ray = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 4 ];
+  var expected = [ 1, 1, 1, 1 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray of 7 dimensions distance'; /* */
+
+  var ray = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
+  var point = [ 2, 2, 2, 2, 2, 2, 2 ];
+  var expected = [ - 2, - 2, - 2, - 2, - 2, - 2, 2 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray of 1 dimension contains point'; /* */
+
+  var ray = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = [ 1 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray of 1 dimension distance'; /* */
+
+  var ray = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = [ 0 ];
+
+  var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
+  test.identical( gotClosestPoint,  expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( 'ray', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( [ 1, 1, 2, 2 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.pointClosestPoint( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
 
 
 // --
@@ -2090,6 +2380,8 @@ var Self =
     rayIntersectionPointAccurate : rayIntersectionPointAccurate,
 
     pointContains : pointContains,
+    pointDistance : pointDistance,
+    pointClosestPoint : pointClosestPoint,
 
   }
 
