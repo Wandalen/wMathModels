@@ -1940,19 +1940,19 @@ function pointContains( test )
   var gotBool = _.ray.pointContains( ray, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Ray under point'; /* */
+  test.case = 'Ray over point'; /* */
 
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ 1, 1, 3 ];
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
   var expected = false;
 
   var gotBool = _.ray.pointContains( ray, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Ray over point'; /* */
+  test.case = 'Point closer to origin'; /* */
 
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ - 1, 1, 1 ];
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 0, -2 ];
   var expected = false;
 
   var gotBool = _.ray.pointContains( ray, point );
@@ -2103,20 +2103,20 @@ function pointDistance( test )
   var gotDistance = _.ray.pointDistance( ray, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Ray under point'; /* */
+  test.case = 'Ray over point'; /* */
 
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ 1, 1, 4 ];
-  var expected = Math.sqrt( 6 );
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
+  var expected = 1;
 
   var gotDistance = _.ray.pointDistance( ray, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Ray over point'; /* */
+  test.case = 'Point closer to origin'; /* */
 
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ - 2, 1, 1 ];
-  var expected = Math.sqrt( 6 );
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 0, -2 ];
+  var expected = 2;
 
   var gotDistance = _.ray.pointDistance( ray, point );
   test.identical( gotDistance,  expected );
@@ -2232,9 +2232,9 @@ function pointClosestPoint( test )
 
   test.case = 'Point ray - other Point'; /* */
 
-  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
   var point = [ 3, 4, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = [ 1, 2, 3 ];
 
   var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
   test.identical( gotClosestPoint,  expected );
@@ -2250,17 +2250,17 @@ function pointClosestPoint( test )
 
   test.case = 'Ray over point'; /* */
 
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ 1, 1, 4 ];
-  var expected = [ 2, 2, 2 ];
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
+  var expected = [ 0, 0, 4 ];
 
   var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
   test.identical( gotClosestPoint,  expected );
 
-  test.case = 'Ray under point'; /* */
+  test.case = 'Point closer to origin'; /* */
 
   var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var point = [ - 2, 1, 1 ];
+  var point = [ - 2, - 2, - 2 ];
   var expected = [ 0, 0, 0 ];
 
   var gotClosestPoint = _.ray.pointClosestPoint( ray, point );

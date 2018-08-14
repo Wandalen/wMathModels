@@ -1030,6 +1030,9 @@ function pointContains( srcRay, srcPoint )
         return false;
       }
       factor = newFactor;
+
+      if(  factor <= 0 - _.accuracySqr )
+      return false;
     }
   }
 
@@ -1077,18 +1080,21 @@ function pointDistance( srcRay, srcPoint )
 
   if( _.ray.pointContains( srcRayView, srcPointView ) )
   {
+    console.log( 'contained');
     return 0;
   }
   else
   {
-    if( _.ray.getFactor === false )
+    let projection = _.ray.pointClosestPoint( srcRayView, srcPointView );
+    let factor = _.ray.getFactor( srcRayView, projection );
+    console.log( projection, factor )
+    if( factor === false )
     {
       let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
       return Math.norm( dOrigin );
     }
     else
     {
-      let projection = _.ray.pointClosestPoint( srcRayView, srcPointView );
       let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
       debugger;
       let mod = _.vector.dot( dPoints, dPoints );
