@@ -1193,7 +1193,77 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
   return dstPoint;
 }
 
+//
 
+/**
+  * Check if a ray and a box intersect. Returns true if they intersect and false if not.
+  * The box and the ray remain unchanged. Only for 3D
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.boxIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.boxIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the ray and the box intersect.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the ray and box don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function boxIntersects( srcRay, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcBox.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let boxView = _.box._from( srcBox );
+  let dimBox = _.box.dimGet( boxView );
+  let min = _.vector.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vector.from( _.box.cornerRightGet( boxView ) );
+
+  _.assert( dimRay === dimBox );
+
+  if( _.box.pointContains( boxView, origin ) )
+  return true;
+
+  /* box corners */
+
+  let c = _.Space.makeZero( [ 3, 8 ] );
+  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+
+  for( let j = 0 ; j < 8 ; j++ )
+  {
+    let corner = c.colVectorGet( j );
+    let projection = _.ray.pointClosestPoint( srcRayView, corner );
+
+    if( _.box.pointContains( boxView, projection ) )
+    return true;
+  }
+
+  return false;
+
+}
 // --
 // define class
 // --
@@ -1231,7 +1301,7 @@ let Proto =
   pointDistance : pointDistance,
   pointClosestPoint : pointClosestPoint,
 
-  // boxIntersects : boxIntersects,
+  boxIntersects : boxIntersects,
   // boxDistance : boxDistance,
   // boxClosestPoint : boxClosestPoint,
 

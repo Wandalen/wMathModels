@@ -4,11 +4,7 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var ray = [ 0, 0, 0, 0, 0, 0 ];
-var point = [ 0, 0, 0 ];
-let result = _.ray.pointContains( ray, point );
-logger.log('Final result: ', result );
-result = _.ray.pointClosestPoint( ray, point );
-logger.log('Final result: ', result );
-result = _.ray.pointDistance( ray, point );
+var ray = [  - 1,  - 1 , 1, 1 ];
+var box = [ 0, 0, 1, 1 ];
+result = _.ray.boxIntersects( ray, box );
 logger.log('Final result: ', result );
