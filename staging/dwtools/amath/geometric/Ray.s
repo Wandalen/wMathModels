@@ -1025,7 +1025,7 @@ function pointContains( srcRay, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && newFactor !== 0 && factor !== 0 )
+      if( Math.abs( newFactor - factor ) > _.accuracySqr )
       {
         return false;
       }
@@ -1080,6 +1080,7 @@ function pointDistance( srcRay, srcPoint )
 
   if( _.ray.pointContains( srcRayView, srcPointView ) )
   {
+    console.log('contained')
     return 0;
   }
   else
@@ -1486,6 +1487,59 @@ function sphereIntersects( srcRay, srcSphere )
 
 }
 
+//
+
+/**
+  * Get the distance between a ray and a sphere. Returns the calculated distance.
+  * The sphere and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcSphere - Source sphere.
+  *
+  * @example
+  * // returns 0;
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 27 ) -1;
+  * _.sphereDistance( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns the distance between the ray and the sphere.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function sphereDistance( srcRay, srcSphere )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcSphere.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  _.assert( dimRay === dimSphere );
+
+  if( _.ray.sphereIntersects( srcRayView, sphereView ) )
+  return 0;
+
+  return _.ray.pointDistance( srcRayView, center ) - radius;
+
+
+}
+
 
 // --
 // define class
@@ -1529,7 +1583,7 @@ let Proto =
   boxClosestPoint : boxClosestPoint,
 
   sphereIntersects : sphereIntersects,
-  // sphereDistance : sphereDistance,
+  sphereDistance : sphereDistance,
   // sphereClosestPoint : sphereClosestPoint,
 
   // planeIntersects : planeIntersects,
