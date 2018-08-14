@@ -921,7 +921,7 @@ function pointExpand( sphere , point )
   let dim = _.sphere.dimGet( sphereView );
 
 
-  let pointv = vector.from( point );
+  let pointView = vector.from( point );
 
   _.assert( dim === point.length );
 
@@ -934,7 +934,7 @@ function pointExpand( sphere , point )
     return sphere;
   }
 
-  let distance = _.vector.distance( center , pointv );
+  let distance = _.vector.distance( center , pointView );
   if( radius < distance )
   {
 
