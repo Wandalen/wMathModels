@@ -1669,6 +1669,8 @@ function planeIntersects( srcRay, srcPlane )
   return false;
 }
 
+//
+
 /**
   * Get the distance between a ray and a plane. Returns the calculated distance.
   * The plane and the ray remain unchanged.
@@ -1715,6 +1717,72 @@ function planeDistance( srcRay, srcPlane )
   return 0;
 
   return Math.abs( _.plane.pointDistance( planeView, origin ) );
+}
+
+//
+
+/**
+  * Get the closest point between a ray and a plane. Returns the calculated point.
+  * The plane and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns [ 0, -1, 0 ];
+  * _.planeClosestPoint( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Array } Returns the closest point in the ray to the plane.
+  * @function planeClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function planeClosestPoint( srcRay, srcPlane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcPlane.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimRay === dimPlane );
+
+  if( _.ray.planeIntersects( srcRayView, planeView ) )
+  return 0;
+
+  origin = _.vector.from( origin );
+  for( let i = 0; i < origin.length; i++ )
+  {
+    dstPointView.eSet( i, origin.eGet( i ) );
+  }
+
+
+  return dstPoint;
 }
 
 
@@ -1766,7 +1834,7 @@ let Proto =
 
   planeIntersects : planeIntersects,
   planeDistance : planeDistance,
-  // planeClosestPoint : planeClosestPoint,
+  planeClosestPoint : planeClosestPoint,
 
   // frustumIntersects : frustumIntersects,
   // frustumDistance : frustumDistance,

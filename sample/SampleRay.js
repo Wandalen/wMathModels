@@ -10,5 +10,5 @@ result = _.ray.planeIntersects( ray, plane );
 logger.log('Final result: ', result );
 result = _.ray.planeDistance( ray, plane );
 logger.log('Final result: ', result );
-//result = _.ray.planeClosestPoint( ray, plane );
-//logger.log('Final result: ', result );
+result = _.ray.planeClosestPoint( ray, plane );
+logger.log('Final result: ', result );

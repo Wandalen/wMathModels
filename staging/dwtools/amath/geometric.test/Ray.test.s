@@ -3370,9 +3370,162 @@ function planeDistance( test )
 
 }
 
+//
 
+function planeClosestPoint( test )
+{
 
+  test.case = 'Ray and plane remain unchanged'; /* */
 
+  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint, expected );
+
+  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null ray - empty plane'; /* */
+
+  var ray = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point ray - no intersection'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point ray in plane'; /* */
+
+  var ray = [ - 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Ray and plane intersect'; /* */
+
+  var ray = [ -2, -2, -2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Ray over plane'; /* */
+
+  var ray = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = [ 0, -6, 4 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var plane = [ 0, 2, 0, - 2 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
+
+  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var plane = [ 3, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'plane parallel to ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane parallel contains ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane perpendicular to ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'dstPoint is array'; /* */
+
+  var ray = [ 0, -6, 24, 1, 1, 1 ];
+  var plane = [ 1, 0, 1, 3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 0, -6, 24 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane, dstPoint );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var ray = [ 0, -6, 24, 1, 1, 1 ];
+  var plane = [ 1, 0, 1, 3 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, -6, 24 ] );
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane, dstPoint );
+  test.identical( gotPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
 
 
 // --
@@ -3429,6 +3582,7 @@ var Self =
 
     planeIntersects : planeIntersects,
     planeDistance : planeDistance,
+    planeClosestPoint : planeClosestPoint,
 
   }
 
