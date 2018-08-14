@@ -1080,14 +1080,13 @@ function pointDistance( srcRay, srcPoint )
 
   if( _.ray.pointContains( srcRayView, srcPointView ) )
   {
-    console.log( 'contained');
     return 0;
   }
   else
   {
     let projection = _.ray.pointClosestPoint( srcRayView, srcPointView );
     let factor = _.ray.getFactor( srcRayView, projection );
-    console.log( projection, factor )
+
     if( factor === false )
     {
       let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
@@ -1098,8 +1097,8 @@ function pointDistance( srcRay, srcPoint )
       let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
       debugger;
       let mod = _.vector.dot( dPoints, dPoints );
-      console.log( mod )
       mod = Math.sqrt( mod );
+
       return mod;
     }
 
@@ -1264,6 +1263,85 @@ function boxIntersects( srcRay, srcBox )
   return false;
 
 }
+
+//
+
+/**
+  * Get the distance between a ray and a box intersect. Returns the calculated distance.
+  * The box and the ray remain unchanged. Only for 3D
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.boxDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.boxDistance( [ 0, -1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the distance between the ray and the box.
+  * @function boxDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the ray and box don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function boxDistance( srcRay, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcBox.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let boxView = _.box._from( srcBox );
+  let dimBox = _.box.dimGet( boxView );
+  let min = _.vector.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vector.from( _.box.cornerRightGet( boxView ) );
+
+  _.assert( dimRay === dimBox );
+
+  if( _.ray.boxIntersects( srcRayView, boxView ) )
+  return 0;
+
+  /* box corners */
+
+  let c = _.Space.makeZero( [ 3, 8 ] );
+  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+
+  let distance = _.box.pointDistance( boxView, origin );
+  let d = 0;
+  for( let j = 0 ; j < 8 ; j++ )
+  {
+    let corner = c.colVectorGet( j );
+    d = Math.abs( _.ray.pointDistance( srcRayView, corner ) );
+
+    if( d < distance )
+    {
+      distance = d;
+    }
+  }
+
+
+
+  return distance;
+
+}
+
 // --
 // define class
 // --
@@ -1302,7 +1380,7 @@ let Proto =
   pointClosestPoint : pointClosestPoint,
 
   boxIntersects : boxIntersects,
-  // boxDistance : boxDistance,
+  boxDistance : boxDistance,
   // boxClosestPoint : boxClosestPoint,
 
   // sphereIntersects : sphereIntersects,
