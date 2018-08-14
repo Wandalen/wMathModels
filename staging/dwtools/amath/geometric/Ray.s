@@ -1609,7 +1609,7 @@ function sphereClosestPoint( srcRay, srcSphere, dstPoint )
 
 /**
   * Check if a ray and a plane intersect. Returns true if they intersect and false if not.
-  * The plane and the ray remain unchanged. Only for 3D
+  * The plane and the ray remain unchanged.
   *
   * @param { Array } srcRay - Source ray.
   * @param { Array } srcPlane - Source plane.
@@ -1669,6 +1669,54 @@ function planeIntersects( srcRay, srcPlane )
   return false;
 }
 
+/**
+  * Get the distance between a ray and a plane. Returns the calculated distance.
+  * The plane and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcPlane - Source plane.
+  *
+  * @example
+  * // returns 0;
+  * _.planeDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns 1;
+  * _.planeDistance( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Number } Returns the distance between the ray and the plane.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function planeDistance( srcRay, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcPlane.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  _.assert( dimRay === dimPlane );
+
+  if( _.ray.planeIntersects( srcRayView, planeView ) )
+  return 0;
+
+  return Math.abs( _.plane.pointDistance( planeView, origin ) );
+}
+
 
 
 // --
@@ -1717,7 +1765,7 @@ let Proto =
   sphereClosestPoint : sphereClosestPoint,
 
   planeIntersects : planeIntersects,
-  // planeDistance : planeDistance,
+  planeDistance : planeDistance,
   // planeClosestPoint : planeClosestPoint,
 
   // frustumIntersects : frustumIntersects,
