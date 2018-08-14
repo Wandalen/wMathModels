@@ -1267,19 +1267,19 @@ function boxIntersects( srcRay, srcBox )
 //
 
 /**
-  * Get the distance between a ray and a box intersect. Returns the calculated distance.
+  * Get the distance between a ray and a box. Returns the calculated distance.
   * The box and the ray remain unchanged. Only for 3D
   *
   * @param { Array } srcRay - Source ray.
   * @param { Array } srcBox - Source box.
   *
   * @example
-  * // returns true;
+  * // returns 0;
   * _.boxDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
-  * // returns false;
-  * _.boxDistance( [ 0, -1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  * // returns Math.sqrt( 12 );
+  * _.boxDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the distance between the ray and the box.
   * @function boxDistance
@@ -1336,10 +1336,97 @@ function boxDistance( srcRay, srcBox )
     }
   }
 
-
-
   return distance;
+}
 
+//
+
+/**
+  * Get the closest point in a ray to a box. Returns the calculated point.
+  * The box and the ray remain unchanged. Only for 3D
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns 0;
+  * _.boxClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, - 1, 0 ];
+  * _.boxClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the closest point in the ray to the box.
+  * @function boxClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the ray and box don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function boxClosestPoint( srcRay, srcBox , dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcBox.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcBox.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let boxView = _.box._from( srcBox );
+  let dimBox = _.box.dimGet( boxView );
+  let min = _.vector.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vector.from( _.box.cornerRightGet( boxView ) );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dimRay === dimBox );
+
+  if( _.ray.boxIntersects( srcRayView, boxView ) )
+  return 0;
+
+  /* box corners */
+  let c = _.Space.makeZero( [ 3, 8 ] );
+  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+
+  let distance = _.box.pointDistance( boxView, origin );
+  let d = 0;
+  let pointView = _.vector.from( origin.slice() );
+
+  for( let j = 0 ; j < 8 ; j++ )
+  {
+    let corner = c.colVectorGet( j );
+    d = Math.abs( _.ray.pointDistance( srcRayView, corner ) );
+
+    if( d < distance )
+    {
+      distance = d;
+      pointView = _.ray.pointClosestPoint( srcRayView, corner );
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
 }
 
 // --
@@ -1381,7 +1468,7 @@ let Proto =
 
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
-  // boxClosestPoint : boxClosestPoint,
+  boxClosestPoint : boxClosestPoint,
 
   // sphereIntersects : sphereIntersects,
   // sphereDistance : sphereDistance,

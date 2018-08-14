@@ -349,7 +349,7 @@ function pointCoplanarGet( plane , point, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
   let pointVector = _.vector.from( point.slice() );
   let planeView = _.plane._from( plane.slice() );
   let normal = _.plane.normalGet( planeView );
@@ -369,7 +369,7 @@ function pointCoplanarGet( plane , point, dstPoint )
 
   for( let i = 0; i < pointVector.length; i++ )
   {
-    dstPointVector.eSet( i, pointVector.eGet( i ) );
+    dstPointView.eSet( i, pointVector.eGet( i ) );
   }
   return dstPoint;
 }
@@ -547,7 +547,7 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   let planeView = _.plane._from( srcPlane );
   let dimP = _.plane.dimGet( planeView );
@@ -558,7 +558,7 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
   let max = _.box.cornerRightGet( boxView );
 
   _.assert( dimP === dimB );
-  _.assert( dimP === dstPointVector.length );
+  _.assert( dimP === dstPointView.length );
 
   if( _.plane.boxIntersects( planeView, boxView ) )
   return 0;
@@ -569,7 +569,7 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
 
   for( let i = 0; i < planePoint.length; i++ )
   {
-    dstPointVector.eSet( i, planePoint[ i ] );
+    dstPointView.eSet( i, planePoint[ i ] );
   }
 
   return dstPoint;
@@ -696,7 +696,7 @@ function sphereClosestPoint( plane , sphere, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   let planeView = _.plane._from( plane );
   let normal = _.plane.normalGet( planeView );
@@ -714,7 +714,7 @@ function sphereClosestPoint( plane , sphere, dstPoint )
 
   for( let i = 0; i < point.length; i++ )
   {
-    dstPointVector.eSet( i, point[ i ] );
+    dstPointView.eSet( i, point[ i ] );
   }
 
   return dstPoint;
@@ -939,11 +939,11 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   let planeView = _.plane._from( srcPlane );
   let dimP = _.plane.dimGet( planeView );
-  _.assert( dimP === dstPointVector.length );
+  _.assert( dimP === dstPointView.length );
 
   let dimF = _.Space.dimsOf( srcFrustum ) ;
   let rows = dimF[ 0 ];
@@ -959,7 +959,7 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
 
   for( let i = 0; i < planePoint.length; i++ )
   {
-    dstPointVector.eSet( i, planePoint[ i ] );
+    dstPointView.eSet( i, planePoint[ i ] );
   }
 
   return dstPoint;

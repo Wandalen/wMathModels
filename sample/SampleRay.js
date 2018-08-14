@@ -10,3 +10,5 @@ result = _.ray.boxIntersects( ray, box );
 logger.log('Final result: ', result );
 result = _.ray.boxDistance( ray, box );
 logger.log('Final result: ', result );
+result = _.ray.boxClosestPoint( ray, box, _.vector.from( [ 0, 0, 0 ]) );
+logger.log('Final result: ', result );
