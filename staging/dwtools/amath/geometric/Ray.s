@@ -1429,6 +1429,64 @@ function boxClosestPoint( srcRay, srcBox , dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Check if a ray and a sphere intersect. Returns true if they intersect and false if not.
+  * The sphere and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcSphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the ray and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function sphereIntersects( srcRay, srcSphere )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcSphere.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  _.assert( dimRay === dimSphere );
+
+  if( _.sphere.pointContains( sphereView, origin ) )
+  return true;
+
+  let distance = _.ray.pointDistance( srcRayView, center );
+
+  if( distance <= radius)
+  return true;
+
+  return false;
+
+}
+
+
 // --
 // define class
 // --
@@ -1470,7 +1528,7 @@ let Proto =
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
 
-  // sphereIntersects : sphereIntersects,
+  sphereIntersects : sphereIntersects,
   // sphereDistance : sphereDistance,
   // sphereClosestPoint : sphereClosestPoint,
 

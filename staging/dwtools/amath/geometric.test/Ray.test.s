@@ -2719,6 +2719,126 @@ function boxClosestPoint( test )
 
 }
 
+//
+
+function sphereIntersects( test )
+{
+
+  test.case = 'Ray and sphere remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool, expected );
+
+  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldsphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldsphere );
+
+  test.case = 'Null ray - empty sphere'; /* */
+
+  var ray = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point ray center of sphere'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point ray - no intersection'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point ray in sphere'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray and sphere intersect'; /* */
+
+  var ray = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray over sphere'; /* */
+
+  var ray = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
+
+  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var sphere = [ 3, 3, 3, 1 ];
+  var expected = false;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.equivalent( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+
 
 
 // --
@@ -2768,6 +2888,8 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+
+    sphereIntersects : sphereIntersects,
 
   }
 
