@@ -1536,8 +1536,73 @@ function sphereDistance( srcRay, srcSphere )
   return 0;
 
   return _.ray.pointDistance( srcRayView, center ) - radius;
+}
 
+//
 
+/**
+  * Get the closest point in a ray to a sphere. Returns the calculated point.
+  * The sphere and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcSphere - Source sphere.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.sphereClosestPoint( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns the closest point in a ray to a sphere.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function sphereClosestPoint( srcRay, srcSphere, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcSphere.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcSphere.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimRay === dimSphere );
+
+  if( _.ray.sphereIntersects( srcRayView, sphereView ) )
+  return 0;
+
+  let pointVector = _.vector.from( _.ray.pointClosestPoint( srcRayView, center ) );
+
+  for( let i = 0; i < pointVector.length; i++ )
+  {
+    dstPointView.eSet( i, pointVector.eGet( i ) );
+  }
+
+  return dstPoint;
 }
 
 
@@ -1584,7 +1649,7 @@ let Proto =
 
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
-  // sphereClosestPoint : sphereClosestPoint,
+  sphereClosestPoint : sphereClosestPoint,
 
   // planeIntersects : planeIntersects,
   // planeDistance : planeDistance,
