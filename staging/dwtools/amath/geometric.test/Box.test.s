@@ -1977,13 +1977,14 @@ function sizeGet( test )
   test.case = 'Source box remains unchanged, point changes'; /* */
 
   var srcBox = [ 0, 0, 1, 1 ];
-  var oldSrcBox = srcBox.slice();
   var point = [ 0, 5 ];
   var expected = [ 1, 1 ];
 
   var gotSize = _.box.sizeGet( srcBox, point );
   test.equivalent( gotSize, expected );
   test.equivalent( point, expected );
+
+  var oldSrcBox = srcBox.slice();
   test.equivalent( srcBox, oldSrcBox );
 
   test.case = 'Empty box'; /* */
@@ -2203,12 +2204,13 @@ function expand( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var expand = [ 0, 2 ];
-  var oldexpand = expand.slice();
   var expected = [ 0, - 2, 1, 3 ];
 
   var gotBox = _.box.expand( dstBox, expand );
   test.identical( gotBox, expected );
   test.identical( dstBox, expected );
+
+  var oldexpand = [ 0, 2 ];
   test.identical( expand, oldexpand );
 
   test.case = 'Null box expanded'; /* */
@@ -2391,14 +2393,16 @@ function pointContains( test )
   test.case = 'Box and Point remain unchanged'; /* */
 
   var box = [  - 1,  - 1 , 1, 1 ];
-  var oldBox = box.slice();
   var point = [ 0, 0 ];
-  var oldPoint = point.slice();
   var expected = true;
 
   var gotBool = _.box.pointContains( box, point );
   test.identical( gotBool, expected );
+
+  var oldBox = [  - 1,  - 1 , 1, 1 ];
   test.identical( box, oldBox );
+
+  var oldPoint = [ 0, 0 ];
   test.identical( point, oldPoint );
 
   test.case = 'Null box contains empty point'; /* */
@@ -2599,13 +2603,15 @@ function pointDistance( test )
   test.case = 'Box and Point remain unchanged'; /* */
 
   var box = [ 0, 0, 2, 2 ];
-  var oldBox = box.slice();
   var point = [ 0, 3 ];
-  var oldPoint = point.slice();
   var expected = 1;
   var gotDist = _.box.pointDistance( box, point );
   test.equivalent( expected, gotDist );
+
+  var oldBox = box.slice();
   test.equivalent( oldBox,oldBox );
+
+  var oldPoint = point.slice();
   test.equivalent( point, oldPoint );
 
   test.case = 'Empty point relative to null box'; /* */
@@ -2824,14 +2830,16 @@ function pointClosestPoint( test )
   test.case = 'Returns same instance point, box remains unchanged'; /* */
 
   var box = [ 1, 1, 1, 3, 3, 3 ];
-  var oldBox = box.slice();
   var point = [ 0, 1, 2 ];
-  var oldPoint = [ 0, 1, 2 ];
   var expected = [ 1, 1, 2 ];
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
+
+  var oldBox = box.slice();
   test.identical( oldBox, box );
+
+  var oldPoint = [ 0, 1, 2 ];
   test.identical( oldPoint, point );
 
   test.case = 'Empty point relative to null box'; /* */
@@ -3056,10 +3064,11 @@ function pointExpand( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var point = [ 0, 2 ];
-  var oldPoint = point.slice();
 
   var gotBox = _.box.pointExpand( dstBox, point );
   test.identical( gotBox, dstBox );
+
+  var oldPoint = point.slice();
   test.identical( point, oldPoint );
 
   var expected = [ 0, 0, 1, 2 ];
@@ -3228,7 +3237,6 @@ function pointRelative( test )
   test.case = 'Returns same instance point, box remains unchanged'; /* */
 
   var box = [ 0, 0, 2, 2 ];
-  var oldBox = box.slice();
   var point = [ 0, 1 ];
 
   var gotPoint = _.box.pointRelative( box, point );
@@ -3432,13 +3440,15 @@ function boxContains( test )
 
   // qqq : vars in case
   var srcBox = [ 0, 0, 3, 3 ];
-  var oldSrcBox = srcBox.slice();
   var tstBox = [ 1, 1, 2, 2 ];
-  var oldTstBox = tstBox.slice();
   var expected = true;
   var gotBool = _.box.boxContains( srcBox, tstBox );
   test.identical( expected, gotBool );
+
+  var oldSrcBox = srcBox.slice();
   test.identical( srcBox, oldSrcBox );
+
+  var oldTstBox = tstBox.slice();
   test.identical( tstBox, oldTstBox );
 
   test.case = 'Empty box to empty box'; /* */
@@ -3649,13 +3659,15 @@ function boxIntersects( test )
   test.case = 'Source box and Test box remain unchanged'; /* */
 
   var srcBox = [ 0, 0, 0, 2, 2, 2 ];
-  var oldsrcBox = srcBox.slice();
   var tstBox = [ 1, 1, 1, 3, 3, 3 ];
-  var oldtstBox = tstBox.slice();
   var gotBool = _.box.boxIntersects( srcBox, tstBox );
   var expected = true;
   test.identical( expected, gotBool );
+
+  var oldsrcBox = srcBox.slice();
   test.identical( srcBox, oldsrcBox );
+
+  var oldtstBox = tstBox.slice();
   test.identical( tstBox, oldtstBox );
 
   test.case = 'Zero box to zero box'; /* */
@@ -3808,13 +3820,15 @@ function boxDistance( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
   var tstBox = [ 0, 0, 0, 1, 1, 1 ];
-  var oldSrcBox = srcBox.slice();
-  var oldTstBox = tstBox.slice();
   var expected = 0;
 
   var gotDistance = _.box.boxDistance( tstBox, srcBox );
   test.identical( gotDistance, expected );
+
+  var oldSrcBox =  [ - 1, - 1, -1, 0, 0, 2 ];
   test.identical( srcBox, oldSrcBox );
+
+  var oldTstBox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstBox, oldTstBox );
 
   test.case = 'Corner distance 3D'; /* */
@@ -3912,13 +3926,15 @@ function boxClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
   var tstBox = [ 0, 0, 0, 1, 1, 1 ];
-  var oldSrcBox = srcBox.slice();
-  var oldTstBox = tstBox.slice();
   var expected = 0;
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
   test.identical( expected, gotBox );
+
+  var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
   test.identical( srcBox, oldSrcBox );
+
+  var oldTstBox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstBox, oldTstBox );
 
   test.case = 'Boxes intersect'; /* */
@@ -4023,11 +4039,12 @@ function boxExpand( test )
 
   var dstBox = [ 0, 0, 1, 1 ];
   var srcBox = [ - 1, - 1, 0, 2 ];
-  var oldSrcBox = srcBox.slice();
   var expected = [ - 1, - 1, 1, 2 ];
 
   var gotBox = _.box.boxExpand( dstBox, srcBox );
   test.identical( dstBox, gotBox );
+
+  var oldSrcBox = [ - 1, - 1, 0, 2 ];
   test.identical( srcBox, oldSrcBox );
 
   test.case = 'Empty box expands empty box'; /* */
@@ -4229,14 +4246,16 @@ function sphereContains( test )
   test.case = 'Source box and test sphere remain unchanged'; /* */
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var oldSrcBox = srcBox.slice();
   var tstSphere = [ 1, 1, 2, 1 ];
-  var oldTstSphere = tstSphere.slice();
   var expected = true;
 
   var gotBool = _.box.sphereContains( srcBox, tstSphere );
   test.identical( expected, gotBool );
+
+  var oldSrcBox = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcBox, oldSrcBox );
+
+  var oldTstSphere = [ 1, 1, 2, 1 ];
   test.identical( tstSphere, oldTstSphere );
 
   test.case = 'Zero box to zero sphere'; /* */
@@ -4344,14 +4363,16 @@ function sphereDistance( test )
   test.case = 'Source box and test sphere remain unchanged'; /* */
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var oldSrcBox = srcBox.slice();
   var tstSphere = [ 1, 1, 2, 1 ];
-  var oldTstSphere = tstSphere.slice();
   var expected = 0;
 
   var gotBool = _.box.sphereDistance( srcBox, tstSphere );
   test.identical( expected, gotBool );
+
+  var oldSrcBox = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcBox, oldSrcBox );
+
+  var oldTstSphere = [ 1, 1, 2, 1 ];
   test.identical( tstSphere, oldTstSphere );
 
   test.case = 'Zero box to zero sphere'; /* */
@@ -4450,14 +4471,16 @@ function sphereClosestPoint( test )
   test.case = 'Source box and test sphere remain unchanged'; /* */
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var oldSrcBox = srcBox.slice();
   var tstSphere = [ 1, 1, 2, 1 ];
-  var oldTstSphere = tstSphere.slice();
   var expected = 0;
 
   var gotBool = _.box.sphereClosestPoint( srcBox, tstSphere );
   test.identical( expected, gotBool );
+
+  var oldSrcBox = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcBox, oldSrcBox );
+
+  var oldTstSphere = [ 1, 1, 2, 1 ];
   test.identical( tstSphere, oldTstSphere );
 
   test.case = 'Zero box to zero sphere'; /* */
@@ -4585,13 +4608,14 @@ function sphereExpand( test )
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcSphere = [ 1, 1, 2, 1 ];
-  var oldSrcSphere = srcSphere.slice();
   var expected = [ 0, 0, 0, 3, 3, 3 ];
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( expected, gotBox );
-  test.identical( srcSphere, oldSrcSphere );
   test.is( dstBox === gotBox );
+
+  var oldSrcSphere = [ 1, 1, 2, 1 ];
+  test.identical( srcSphere, oldSrcSphere );
 
   test.case = 'Zero box to zero sphere'; /* */
 
