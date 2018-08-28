@@ -980,7 +980,7 @@ function pointDistance( box , point )
   //  throw _.err( 'not tested' );
 
   let clamped = _.box.pointClosestPoint( box, point );
-
+  logger.log('clamped', clamped)
   return _.avector.distance( point, clamped );
 
   debugger;

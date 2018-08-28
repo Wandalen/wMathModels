@@ -1496,32 +1496,8 @@ function boxDistance( srcRay, srcBox )
   if( _.ray.boxIntersects( srcRayView, boxView ) )
   return 0;
 
-  /* box corners */
-
-  let c = _.Space.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-
-  let distance = _.box.pointDistance( boxView, origin );
-  let d = 0;
-  for( let j = 0 ; j < 8 ; j++ )
-  {
-    let corner = c.colVectorGet( j );
-    d = Math.abs( _.ray.pointDistance( srcRayView, corner ) );
-
-    if( d < distance )
-    {
-      distance = d;
-    }
-  }
-
-  return distance;
+  let closestPoint = _.ray.boxClosestPoint( srcRayView, boxView );
+  return _.box.pointDistance( boxView, closestPoint );
 }
 
 //
@@ -1549,7 +1525,7 @@ function boxDistance( srcRay, srcBox )
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the ray and box don´t have the same dimension).
   * @memberof wTools.ray
   */
-function boxClosestPoint( srcRay, srcBox , dstPoint )
+function boxClosestPoint( srcRay, srcBox, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
 
@@ -1597,7 +1573,6 @@ function boxClosestPoint( srcRay, srcBox , dstPoint )
   {
     let corner = c.colVectorGet( j );
     d = Math.abs( _.ray.pointDistance( srcRayView, corner ) );
-
     if( d < distance )
     {
       distance = d;
@@ -2040,6 +2015,88 @@ function frustumIntersects( srcRay, srcFrustum )
 
 }
 
+//
+
+/**
+  * Get the closest point in a ray to a frustum. Returns the calculated point.
+  * The frustum and the ray remain unchanged. Only for 3D
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns 0;
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, - 1, 0 ];
+  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the closest point in the ray to the frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcFrustum.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcFrustum.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dimRay === rows - 1 );
+
+  if( _.ray.frustumIntersects( srcRayView, srcFrustum ) )
+  return 0;
+
+  /* frustum corners */
+  let corners = _.frustum.cornersGet( srcFrustum );
+  let cornersLength = _.Space.dimsOf( corners )[ 1 ];
+
+  let distance = _.frustum.pointDistance( srcFrustum, origin );
+  let d = 0;
+  let pointView = _.vector.from( origin );
+
+  for( let j = 0 ; j < 8 ; j++ )
+  {
+    let corner = corners.colVectorGet( j );
+    d = Math.abs( _.ray.pointDistance( srcRayView, corner ) );
+    if( d < distance )
+    {
+      distance = d;
+      pointView = _.ray.pointClosestPoint( srcRayView, corner );
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
 
 
 
@@ -2096,7 +2153,8 @@ let Proto =
 
   frustumIntersects : frustumIntersects,
   // frustumDistance : frustumDistance,
-  // frustumClosestPoint : frustumClosestPoint,
+  frustumClosestPoint : frustumClosestPoint,
+
 
 }
 

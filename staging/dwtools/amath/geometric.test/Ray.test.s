@@ -2812,7 +2812,7 @@ function boxDistance( test )
   test.case = 'point ray'; /* */
 
   var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var box = [ 1, 2, 4, 3, 4, 0 ];
+  var box = [ 1, 2, 4, 3, 4, 5 ];
   var expected = 1;
 
   var gotBool = _.ray.boxDistance( ray, box );
@@ -2875,8 +2875,8 @@ function boxDistance( test )
   test.case = 'Ray ( normalized to 1 ) doesn´t contain box'; /* */
 
   var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, - 0.303 ];
-  var expected = 0.050638706410019246;
+  var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, 0.303 ];
+  var expected = 0.04570949385069674;
 
   var gotBool = _.ray.boxDistance( ray, box );
   test.equivalent( gotBool,  expected );
