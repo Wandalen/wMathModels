@@ -381,7 +381,7 @@ function getFactor( srcRay, srcPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPoint.length );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
@@ -619,7 +619,7 @@ function rayIntersectionFactors( r1, r2 )
 
   let origin1 = _.ray.originGet( r1View );
   let origin2 = _.ray.originGet( r2View );
-  let dOrigin = _.vector.from( avector.subVectors( origin2.slice(), origin1.slice() ) );
+  let dOrigin = _.vector.from( avector.subVectors( origin2, origin1 ) );
 
   let direction1 = _.ray.directionGet( r1View );
   let direction2 = _.ray.directionGet( r2View );
@@ -978,7 +978,7 @@ function pointContains( srcRay, srcPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPoint.length );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
@@ -1070,7 +1070,7 @@ function pointDistance( srcRay, srcPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPoint.length );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
@@ -1144,7 +1144,7 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPoint.length );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
@@ -1225,7 +1225,7 @@ function boxIntersects( srcRay, srcBox )
   if( srcRay === null )
   srcRay = _.ray.make( srcBox.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1297,7 +1297,7 @@ function boxDistance( srcRay, srcBox )
   if( srcRay === null )
   srcRay = _.ray.make( srcBox.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1378,7 +1378,7 @@ function boxClosestPoint( srcRay, srcBox , dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcBox.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1407,7 +1407,7 @@ function boxClosestPoint( srcRay, srcBox , dstPoint )
 
   let distance = _.box.pointDistance( boxView, origin );
   let d = 0;
-  let pointView = _.vector.from( origin.slice() );
+  let pointView = _.vector.from( origin );
 
   for( let j = 0 ; j < 8 ; j++ )
   {
@@ -1463,7 +1463,7 @@ function sphereIntersects( srcRay, srcSphere )
   if( srcRay === null )
   srcRay = _.ray.make( srcSphere.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1520,7 +1520,7 @@ function sphereDistance( srcRay, srcSphere )
   if( srcRay === null )
   srcRay = _.ray.make( srcSphere.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1578,7 +1578,7 @@ function sphereClosestPoint( srcRay, srcSphere, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcSphere.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1637,7 +1637,7 @@ function planeIntersects( srcRay, srcPlane )
   if( srcRay === null )
   srcRay = _.ray.make( srcPlane.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1701,7 +1701,7 @@ function planeDistance( srcRay, srcPlane )
   if( srcRay === null )
   srcRay = _.ray.make( srcPlane.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1758,7 +1758,7 @@ function planeClosestPoint( srcRay, srcPlane, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPlane.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcRayView = _.ray._from( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1784,6 +1784,71 @@ function planeClosestPoint( srcRay, srcPlane, dstPoint )
 
   return dstPoint;
 }
+
+//
+
+/**
+  * Check if a ray and a frustum intersect. Returns true if they intersect and false if not.
+  * The frustum and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns true;
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.frustumIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the ray and the frustum intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function frustumIntersects( srcRay, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( srcRay === null )
+  srcRay = _.ray.make( rows - 1 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView );
+
+  _.assert( dimRay === rows - 1 );
+
+  if( _.frustum.pointContains( srcFrustum, origin ) )
+  return true;
+
+  /* frustum corners */
+  let corners = _.frustum.cornersGet( srcFrustum );
+  let cornersLength = _.Space.dimsOf( corners )[ 1 ];
+
+  for( let j = 0 ; j < cornersLength ; j++ )
+  {
+    let corner = corners.colVectorGet( j );
+    let projection = _.ray.pointClosestPoint( srcRayView, corner );
+
+    if( _.frustum.pointContains( srcFrustum, projection ) )
+    return true;
+  }
+
+  return false;
+
+}
+
 
 
 
@@ -1836,7 +1901,7 @@ let Proto =
   planeDistance : planeDistance,
   planeClosestPoint : planeClosestPoint,
 
-  // frustumIntersects : frustumIntersects,
+  frustumIntersects : frustumIntersects,
   // frustumDistance : frustumDistance,
   // frustumClosestPoint : frustumClosestPoint,
 

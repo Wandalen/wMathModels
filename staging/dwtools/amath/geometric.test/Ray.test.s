@@ -1238,7 +1238,7 @@ function rayIntersectionFactors( test )
   var expected = _.vector.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
-  test.identical( isIntersectionFactors, expected );
+  test.equivalent( isIntersectionFactors, expected );
 
   test.case = 'Rays intersect '; /* */
 
@@ -3527,6 +3527,221 @@ function planeClosestPoint( test )
 
 }
 
+//
+
+function frustumIntersects( test )
+{
+
+  test.description = 'Ray and frustum remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 3, 3, 3 ];
+  var expected = true;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  var oldRay = [ 1, 1, 1, 3, 3, 3 ];
+  test.identical( ray, oldRay );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+
+  test.description = 'Frustum and ray intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and ray intersect on frustum corner'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 2, 2, 0, - 1, -1, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum corner is ray origin'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 0, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and ray intersect on frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ -1, -1, 0, 0.5, 0.5, 0 ];
+  var expected = true;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and ray not intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 4, 4, 4, 5, 5, 5 ];
+  var expected = false;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and ray almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 1.1, 1.1, 1.1, 5, 5, 5 ];
+  var expected = false;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and ray just touching'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 5 , 5, 5 ];
+  var expected = true;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and ray just intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 0.9, 0.9, 0.9, 5, 5, 5 ];
+  var expected = true;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'ray is null - intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = null;
+  var expected = true;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'ray is null - no intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var ray = null;
+  var expected = false;
+
+  var gotBool = _.ray.frustumIntersects( ray, srcFrustum );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( ));
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( ray ));
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( ray, srcFrustum, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( ray, ray, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( null, ray ));
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( NaN, ray ));
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( srcFrustum, NaN));
+
+  ray = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( ray, srcFrustum ));
+  ray = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( ray, srcFrustum ));
+  ray = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.ray.frustumIntersects( ray, srcFrustum ));
+
+}
+
 
 // --
 // define class
@@ -3583,6 +3798,8 @@ var Self =
     planeIntersects : planeIntersects,
     planeDistance : planeDistance,
     planeClosestPoint : planeClosestPoint,
+
+    frustumIntersects : frustumIntersects,
 
   }
 
