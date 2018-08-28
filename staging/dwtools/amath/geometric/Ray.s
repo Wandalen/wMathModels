@@ -702,14 +702,14 @@ function rayIntersectionFactors( r1, r2 )
   *
   * @example
   * // returns   0
-  * _.rayIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  * _.rayIntersectionFactors2( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
   * // returns  _.vector.from( [ 2, 1 ] )
-  * _.rayIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
+  * _.rayIntersectionFactors2( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
   *
   * @returns { Array } Returns the factors for the two rays intersection.
-  * @function rayIntersectionFactors
+  * @function rayIntersectionFactors2
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Ray ) is not ray.
   * @throws { Error } An Error if ( src2Ray ) is not ray.
@@ -946,6 +946,136 @@ rayIntersectionPointAccurate.shaderChunk =
 
   }
 `
+//
+
+/**
+  * Get the distance between two rays. Returns the calculated distance.
+  * The rays remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } tstRay - Test ray.
+  *
+  * @example
+  * // returns 0;
+  * _.rayDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 12 );
+  * _.rayDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between two rays.
+  * @function rayDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( tstRay ) is not ray.
+  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the rays don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function rayDistance( srcRay, tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( tstRay.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let srcOrigin = _.ray.originGet( srcRayView );
+  let srcDirection = _.ray.directionGet( srcRayView );
+  let srcDim  = _.ray.dimGet( srcRayView )
+
+  let tstRayView = _.ray._from( tstRay );
+  let tstOrigin = _.ray.originGet( tstRayView );
+  let tstDirection = _.ray.directionGet( tstRayView );
+  let tstDim  = _.ray.dimGet( tstRayView )
+
+  _.assert( srcDim === tstDim );
+
+  // if( _.ray.rayIntersectionPoint( srcRayView, tstRayView ) !== 0 );
+  // return 0;
+
+  let srcPoint = _.ray.rayClosestPoint( srcRayView, tstRayView );
+  let tstPoint = _.ray.rayClosestPoint( tstRayView, srcRayView );
+  let distance = _.avector.distance( srcPoint, tstPoint );
+
+  return distance;
+}
+
+//
+
+/**
+  * Get the closest point in a ray to a ray. Returns the calculated point.
+  * The rays remain unchanged. Only for 3D
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } tstRay - Test ray.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, - 1, 0 ];
+  * _.rayClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Array } Returns the closest point in the srcRay to the tstRay.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( tstRay ) is not ray.
+  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the rays don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function rayClosestPoint( srcRay, tstRay, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( tstRay.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( tstRay.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let srcOrigin = _.ray.originGet( srcRayView );
+  let srcDir = _.ray.directionGet( srcRayView );
+  let srcDim  = _.ray.dimGet( srcRayView );
+
+  let tstRayView = _.ray._from( tstRay );
+  let tstOrigin = _.ray.originGet( tstRayView );
+  let tstDir = _.ray.directionGet( tstRayView );
+  let tstDim = _.ray.dimGet( tstRayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( srcDim === tstDim );
+
+  let srcMod = _.vector.dot( srcDir, srcDir );
+  let tstMod = _.vector.dot( tstDir, tstDir );
+  let mod = _.vector.dot( srcDir, tstDir );
+  let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+  let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+
+  let pointView;
+  if( factor < 0 )
+  {
+    pointView = srcOrigin;
+  }
+  else
+  {
+    pointView = _.ray.rayAt( srcRayView, factor );
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
 
 //
 
@@ -1796,11 +1926,18 @@ function planeClosestPoint( srcRay, srcPlane, dstPoint )
   *
   * @example
   * // returns true;
-  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
   *
   * @example
   * // returns false;
-  * _.frustumIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  * _.frustumIntersects( [ 0, -1, 0, 0, -2, 0 ] , srcFrustum );
   *
   * @returns { Boolean } Returns true if the ray and the frustum intersect.
   * @function frustumIntersects
@@ -1884,6 +2021,8 @@ let Proto =
   rayIntersectionPoints : rayIntersectionPoints,
   rayIntersectionPoint : rayIntersectionPoint,
   rayIntersectionPointAccurate : rayIntersectionPointAccurate,
+  rayDistance : rayDistance,
+  rayClosestPoint : rayClosestPoint,
 
   pointContains : pointContains,
   pointDistance : pointDistance,
