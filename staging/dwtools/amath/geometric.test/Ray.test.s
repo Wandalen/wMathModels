@@ -1895,6 +1895,159 @@ function rayIntersectionPointAccurate( test )
 
 //
 
+function rayDistance( test )
+{
+  test.case = 'Source rays remain unchanged'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  var oldSrc1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Ray, oldSrc1Ray );
+
+  var oldSrc2Ray = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Ray, oldSrc2Ray );
+
+  test.case = 'Rays are the same'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel ( different origin - same direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel ( different origin - different direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 0, 0.5 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 7 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel ( different origin - opposite direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = Math.sqrt( 50 );
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'src1Ray is a point'; /* */
+
+  var src1Ray = [ 3, 7, 1, 0, 0, 0 ];
+  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 4.320493798938574;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are the same'; /* */
+
+  var src1Ray = [ 0, 4, 2, 1, 1, 1 ];
+  var src2Ray = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var src2Ray = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays don´t intersect 2D'; /* */
+
+  var src1Ray = [ 0, 0, 2, 0 ];
+  var src2Ray = [ - 3, - 4, 0, 1 ];
+  var expected = 3;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are perpendicular and intersect'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are perpendicular and don´t intersect'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, -2, 1, 0, 0, 1 ];
+  var expected = 9;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel to x'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel but in a opposite direction'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcRay is null'; /* */
+
+  var src1Ray = null;
+  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = Math.sqrt( 53 );
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 0, 0, 0 ] ) );
+   test.shouldThrowErrorSync( () => _.ray.rayDistance( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 0, 0 ], 'factor') );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
 function pointContains( test )
 {
 
@@ -3782,6 +3935,7 @@ var Self =
     rayIntersectionPoints : rayIntersectionPoints,
     rayIntersectionPoint : rayIntersectionPoint,
     rayIntersectionPointAccurate : rayIntersectionPointAccurate,
+    rayDistance : rayDistance,
 
     pointContains : pointContains,
     pointDistance : pointDistance,

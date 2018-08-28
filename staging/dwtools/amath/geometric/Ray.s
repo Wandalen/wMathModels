@@ -990,12 +990,45 @@ function rayDistance( srcRay, tstRay )
 
   _.assert( srcDim === tstDim );
 
-  // if( _.ray.rayIntersectionPoint( srcRayView, tstRayView ) !== 0 );
-  // return 0;
-
-  let srcPoint = _.ray.rayClosestPoint( srcRayView, tstRayView );
-  let tstPoint = _.ray.rayClosestPoint( tstRayView, srcRayView );
-  let distance = _.avector.distance( srcPoint, tstPoint );
+  let distance;
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
+  {
+    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
+  }
+  if( identOrigin === srcOrigin.length )
+  distance = 0;
+  else
+  {
+    // Parallel rays
+    if( _.ray.rayParallel( srcRayView, tstRayView ) )
+    {
+      let d1 = _.ray.pointDistance( srcRayView, tstOrigin );
+      let d2 = _.ray.pointDistance( tstRayView, srcOrigin );
+      let d3 = _.avector.distance( srcOrigin, tstOrigin );
+      logger.log( d1, d2, d3 )
+      if( d1 <= d2 && d1 <= d3 )
+      {
+        distance = d1;
+      }
+      else if( d2 <= d3 )
+      {
+        distance = d2;
+      }
+      else
+      {
+        distance = d3;
+      }
+    }
+    else
+    {
+      let srcPoint = _.ray.rayClosestPoint( srcRayView, tstRayView );
+      let tstPoint = _.ray.rayClosestPoint( tstRayView, srcRayView );
+      distance = _.avector.distance( srcPoint, tstPoint );
+    }
+  }
 
   return distance;
 }
@@ -1051,20 +1084,41 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
   let dstPointView = _.vector.from( dstPoint );
   _.assert( srcDim === tstDim );
 
-  let srcMod = _.vector.dot( srcDir, srcDir );
-  let tstMod = _.vector.dot( tstDir, tstDir );
-  let mod = _.vector.dot( srcDir, tstDir );
-  let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
-  let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
-
   let pointView;
-  if( factor < 0 )
+
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
   {
-    pointView = srcOrigin;
+    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
   }
+  if( identOrigin === srcOrigin.length )
+  pointView = srcOrigin;
   else
   {
-    pointView = _.ray.rayAt( srcRayView, factor );
+    // Parallel rays
+    if( _.ray.rayParallel( srcRayView, tstRayView ) )
+    {
+      pointView = _.ray.pointClosestPoint( srcRayView, tstOrigin );
+    }
+    else
+    {
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+
+      if( factor >= 0 )
+      {
+        pointView = _.ray.rayAt( srcRayView, factor );
+      }
+      else
+      {
+        pointView = srcOrigin;
+      }
+    }
   }
 
   pointView = _.vector.from( pointView );
