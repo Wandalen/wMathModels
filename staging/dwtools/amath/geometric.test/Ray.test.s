@@ -4058,6 +4058,223 @@ function frustumIntersects( test )
 
 }
 
+//
+
+function frustumClosestPoint( test )
+{
+
+  test.description = 'Ray and frustum remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 3, 3, 3 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  var oldRay = [ 1, 1, 1, 3, 3, 3 ];
+  test.identical( ray, oldRay );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum and ray intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Frustum and ray intersect on frustum corner'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 2, 2, 0, - 1, -1, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Frustum and ray intersect on frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ -1, -1, 0, 0.5, 0.5, 0 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Frustum and ray not intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 4, 4, 4, 5, 5, 5 ];
+  var expected = [ 4, 4, 4 ];
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Frustum and ray almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 1.1, 1.1, 1.1, 5, 5, 5 ];
+  var expected = [ 1.1, 1.1, 1.1 ];
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'ray is null - intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = null;
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'ray is null - no intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var ray = null;
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'ray closest to box side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var ray = [ - 2, 0.3, 0, 1, 0, 0 ];
+  var expected = [ 0.5, 0.3, 0 ];
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Inclined ray closest to box side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var ray = [ -2, 0.3, 0, 1, 0, 0.1 ];
+  var expected = [ 1.0198019801980198, 0.3, 0.301980198019802 ];
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Destination point is vector'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var ray = [ 0, 2, 2, - 1, - 1, - 1 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ -0.5, 1.5, 1.5 ] );
+
+  var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum, dstPoint );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( ray ));
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( ray, srcFrustum, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( ray, ray, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( null, ray ));
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( NaN, ray ));
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( srcFrustum, NaN));
+
+  ray = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( ray, srcFrustum ));
+  ray = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( ray, srcFrustum ));
+  ray = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.ray.frustumClosestPoint( ray, srcFrustum ));
+
+}
+
+
+
 
 // --
 // define class
@@ -4118,6 +4335,8 @@ var Self =
     planeClosestPoint : planeClosestPoint,
 
     frustumIntersects : frustumIntersects,
+
+    frustumClosestPoint : frustumClosestPoint,
 
   }
 
