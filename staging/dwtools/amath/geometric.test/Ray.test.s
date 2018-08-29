@@ -4060,6 +4060,205 @@ function frustumIntersects( test )
 
 //
 
+function frustumDistance( test )
+{
+
+  test.description = 'Ray and frustum remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 3, 3, 3 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  var oldRay = [ 1, 1, 1, 3, 3, 3 ];
+  test.identical( ray, oldRay );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum and ray intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum and ray intersect on frustum corner'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 2, 2, 0, - 1, -1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum and ray intersect on frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ -1, -1, 0, 0.5, 0.5, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum and ray not intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 4, 4, 4, 5, 5, 5 ];
+  var expected = Math.sqrt( 27 );
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum and ray almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = [ 1.1, 1.1, 1.1, 5, 5, 5 ];
+  var expected = Math.sqrt( 0.03 );
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'ray is null - intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var ray = null;
+  var expected = 0;
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'ray is null - no intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var ray = null;
+  var expected = Math.sqrt( 0.75 );
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'ray closest to box side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var ray = [ - 2, 0.3, 0, 1, 0, 0 ];
+  var expected = Math.sqrt( 0.29 );
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Inclined ray closest to box side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var ray = [ -2, 0.3, 0, 1, 0, 0.1 ];
+  var expected = 0.2821417381318113;
+
+  var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( ));
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( ray ));
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( ray, srcFrustum, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( ray, ray, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( null, ray ));
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( NaN, ray ));
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( srcFrustum, NaN));
+
+  ray = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( ray, srcFrustum ));
+  ray = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( ray, srcFrustum ));
+  ray = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.ray.frustumDistance( ray, srcFrustum ));
+
+}
+
+//
+
 function frustumClosestPoint( test )
 {
 
@@ -4274,8 +4473,6 @@ function frustumClosestPoint( test )
 }
 
 
-
-
 // --
 // define class
 // --
@@ -4335,7 +4532,7 @@ var Self =
     planeClosestPoint : planeClosestPoint,
 
     frustumIntersects : frustumIntersects,
-
+    frustumDistance : frustumDistance,
     frustumClosestPoint : frustumClosestPoint,
 
   }

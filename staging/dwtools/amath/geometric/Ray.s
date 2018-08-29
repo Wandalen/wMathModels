@@ -2018,6 +2018,57 @@ function frustumIntersects( srcRay, srcFrustum )
 //
 
 /**
+  * Get the distance between a ray and a frustum. Returns the calculated distance.
+  * The frustum and the ray remain unchanged. Only for 3D
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns 0;
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 17 );
+  * _.frustumDistance( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the distance between a ray and a frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function frustumDistance( srcRay, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcFrustum.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView );
+
+  _.assert( dimRay === rows - 1 );
+
+  if( _.ray.frustumIntersects( srcRayView, srcFrustum ) )
+  return 0;
+
+  let closestPoint = _.ray.frustumClosestPoint( srcRayView, srcFrustum );
+  return _.frustum.pointDistance( srcFrustum, closestPoint );
+}
+
+//
+
+/**
   * Get the closest point in a ray to a frustum. Returns the calculated point.
   * The frustum and the ray remain unchanged. Only for 3D
   *
@@ -2152,7 +2203,7 @@ let Proto =
   planeClosestPoint : planeClosestPoint,
 
   frustumIntersects : frustumIntersects,
-  // frustumDistance : frustumDistance,
+  frustumDistance : frustumDistance,
   frustumClosestPoint : frustumClosestPoint,
 
 
