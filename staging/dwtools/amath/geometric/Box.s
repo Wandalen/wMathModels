@@ -846,6 +846,70 @@ function sizeGet( box , dst )
 //
 
 /**
+  * Returns the coordinates of the corners of a box. Returns an space object where each column is a point.
+  * Box stays untouched. Dimensions 0 - 3.
+  *
+  * @param { Array } box - The source box.
+  *
+  * @example
+  * // returns boxCorners =
+  * [ 0, 0, 0, 0, 1, 1, 1, 1,
+  *   1, 0, 1, 0, 1, 0, 1, 0,
+  *   1, 1, 0, 0, 1, 1, 0, 0,
+  * ];
+  * _.cornersGet( [ 0, 0, 0, 1, 1, 1 ] );
+  *
+  * @returns { Space } Returns the coordintes of the points in the box corners.
+  * @function cornersGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.box
+  */
+function cornersGet( box )
+{
+  _.assert( arguments.length === 1 );
+
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  let corners = _.Space.makeZero( [ dim, Math.pow( 2, dim ) ] );
+  let dims = _.Space.dimsOf( corners) ;
+  let rows = dims[ 0 ];
+  let cols = dims[ 1 ];
+
+  for( let i = 0 ; i < cols ; i++)
+  {
+    for( let j = 0 ; j < rows ; j++)
+    {
+      if( i < cols/2 )
+      {
+        corners.atomSet( [ j, i ], min.eGet( j ) );
+        if( 0 < i && i < cols/2 )
+        {
+          corners.atomSet( [ i - 1, i ], max.eGet( i - 1 ) );
+        }
+      }
+      else if( i >= cols/2 )
+      {
+        corners.atomSet( [ j, i ], max.eGet( j ) );
+        if( cols/2 <= i && i < cols - 1 )
+        {
+          corners.atomSet( [ i - ( cols/2 ), i ], min.eGet( i - ( cols/2 ) ) );
+        }
+      }
+
+    }
+  }
+
+
+  return corners;
+}
+
+//
+
+/**
   * Expand all sides of a box by the dimensions in the expansion array.
   * Returns the expanded box. Box are stored in Array data structure.
   * The expansion array stays untouched, the box changes.
@@ -2614,6 +2678,7 @@ let Proto =
   cornerRightGet : cornerRightGet,
   centerGet : centerGet,
   sizeGet : sizeGet,
+  cornersGet : cornersGet,
 
   expand : expand,
 

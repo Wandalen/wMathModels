@@ -2197,6 +2197,149 @@ function sizeGet( test )
 
 //
 
+function cornersGet( test )
+{
+
+  test.case = 'Source box remains unchanged'; /* */
+
+  var srcBox = [ 0, 0, 1, 1 ];
+  var expected =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0, 1, 0, 1,
+    0, 0, 1, 1
+  ]);
+
+  var gotCorners = _.box.cornersGet( srcBox );
+  test.equivalent( gotCorners, expected );
+
+  var oldSrcBox = srcBox.slice();
+  test.equivalent( srcBox, oldSrcBox );
+
+  test.case = 'One dimension box'; /* */
+
+  var box = [ 0, 0 ];
+  var expected =  _.Space.make( [ 1, 2 ] ).copy
+  ([
+    0, 0
+  ]);
+
+  var gotCorners = _.box.cornersGet( box );
+  test.identical( gotCorners, expected );
+
+  test.case = 'Two dimension box'; /* */
+
+  var box = [ 0, 1, 1, 2 ];
+  var expected = _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0, 1, 0, 1,
+    1, 1, 2, 2
+  ]);
+
+  var gotCorners = _.box.cornersGet( box );
+  test.identical( gotCorners, expected );
+
+  test.case = 'Three dimension box'; /* */
+
+  var box = [ 0, - 1, - 2, 1, 1, 2 ];
+  var expected = _.Space.make( [ 3, 8 ] ).copy
+  ([
+    0,   1,  0,  0, 0,  1,  1, 1,
+    -1, -1,  1, -1, 1, -1,  1, 1,
+    -2, -2, -2,  2, 2,  2, -2, 2,
+  ]);
+
+  var gotCorners = _.box.cornersGet( box );
+  test.identical( gotCorners, expected );
+
+  test.case = 'Unity box'; /* */
+
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = _.Space.make( [ 3, 8 ] ).copy
+  ([
+    0, 1, 0, 0, 0, 1, 1, 1,
+    0, 0, 1, 0, 1, 0, 1, 1,
+    0, 0, 0, 1, 1, 1, 0, 1,
+  ]);
+
+  var gotCorners = _.box.cornersGet( box );
+  test.identical( gotCorners, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet();
+  });
+
+  test.case = 'Too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( [ 0, 0, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] );
+  });
+
+  test.case = 'Wrong type of arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( null );
+  });
+
+  test.case = 'Wrong type of arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( 'string' );
+  });
+
+  test.case = 'Wrong type of arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( null, [ 0, 0 ] );
+  });
+
+  test.case = 'Wrong type of arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( 'string', [ 0, 0 ] );
+  });
+
+  test.case = 'Wrong type of arguments'; /* */
+
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( [ 0, 0, 1, 1 ], 'string' );
+  });
+
+  test.case = 'Wrong box dimension'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( [ 0 ] );
+  });
+
+  test.case = 'Wrong box dimension'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( [ 0, 0, 0 ] );
+  });
+
+  test.case = 'Wrong box dimension'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( [ 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'Different dimension between box and point'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.cornersGet( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0 ] );
+  });
+
+}
+
+//
+
 function expand( test )
 {
 
@@ -5778,6 +5921,7 @@ var Self =
     cornerRightGet : cornerRightGet,
     centerGet : centerGet,
     sizeGet : sizeGet,
+    cornersGet : cornersGet,
 
     expand : expand,
 
