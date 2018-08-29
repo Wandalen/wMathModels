@@ -1935,6 +1935,100 @@ function frustumExpand( dstSphere, srcFrustum )
 
 //
 
+function rayIntersects( srcSphere, tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let tstRayView = _.ray._from( tstRay );
+
+  let gotBool = _.ray.sphereIntersects( tstRayView, srcSphereView );
+
+  return gotBool;
+}
+
+//
+
+function rayDistance( srcSphere , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let tstRayView = _.ray._from( tstRay );
+
+  let gotDist = _.ray.sphereDistance( tstRayView, srcSphereView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a sphere to a ray. Returns the calculated point.
+  * Sphere and ray remain unchanged
+  *
+  * @param { Array } sphere - The source sphere.
+  * @param { Array } ray - The source ray.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let ray = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.rayClosestPoint( [ 0, 0, 0, 1 ], ray );
+  *
+  * @example
+  * // returns [ 1, 0, 0 ]
+  * _.rayClosestPoint [ 2, 0, 0, 1 ], ray );
+  *
+  * @returns { Array } Returns the closest point to the ray.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( sphere ) is not sphere
+  * @throws { Error } An Error if ( ray ) is not ray
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.sphere
+  */
+function rayClosestPoint( sphere, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let rayView = _.ray._from( ray );
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
+  let dimRay  = _.ray.dimGet( rayView );
+
+  let srcSphereView = _.sphere._from( sphere );
+  let dimSphere = _.sphere.dimGet( srcSphereView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimSphere );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+
+  let dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimSphere === dstPoint.length );
+  _.assert( dimSphere === dimRay );
+
+  if( _.ray.sphereIntersects( rayView, srcSphereView ) )
+  return 0
+  else
+  {
+    let rayPoint = _.ray.sphereClosestPoint( ray, srcSphereView );
+
+    let spherePoint = _.vector.from( _.sphere.pointClosestPoint( srcSphereView, rayPoint ) );
+
+    for( let i = 0; i < dimSphere; i++ )
+    {
+      dstPointVector.eSet( i, spherePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
 function matrixHomogenousApply( sphere,matrix )
 {
 
@@ -2036,6 +2130,10 @@ let Proto =
   frustumDistance : frustumDistance, /* qqq : implement me */
   frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
   frustumExpand : frustumExpand, /* qqq : implement me */
+
+  rayIntersects : rayIntersects, /* Same as _.ray.sphereIntersects */
+  rayDistance : rayDistance,  /* Same as _.frustum.sphereIntersects */
+  rayClosestPoint : rayClosestPoint,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

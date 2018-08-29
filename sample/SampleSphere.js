@@ -5,7 +5,7 @@ require( 'wmathconcepts' );
 var _ = wTools;
 
 var sphere = [ 0, 0, 0, 1 ];
-var box = [ -3,0,5,-1,1,9 ];
-var s2 = _.sphere.fromBox( sphere, box );
-console.log( s2 )
+var ray = [ -2, -2, 0, 1, 0, 0 ];
+var result = _.sphere.rayClosestPoint( sphere, ray );
+console.log( result )
 debugger;

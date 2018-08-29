@@ -2348,10 +2348,10 @@ function frustumExpand( dstBox, srcFrustum )
 function rayIntersects( srcBox , tstRay )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  let _tstRay = _.ray._from( tstRay );
+  let tstRayView = _.ray._from( tstRay );
   let boxView = _.box._from( srcBox );
 
-  let gotBool = _.ray.boxIntersects( _tstRay, boxView );
+  let gotBool = _.ray.boxIntersects( tstRayView, boxView );
 
   return gotBool;
 }
@@ -2361,10 +2361,10 @@ function rayIntersects( srcBox , tstRay )
 function rayDistance( srcBox , tstRay )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  let _tstRay = _.ray._from( tstRay );
+  let tstRayView = _.ray._from( tstRay );
   let boxView = _.box._from( srcBox );
 
-  let gotDist = _.ray.boxDistance( _tstRay, boxView );
+  let gotDist = _.ray.boxDistance( tstRayView, boxView );
 
   return gotDist;
 }
@@ -2386,9 +2386,9 @@ function rayDistance( srcBox , tstRay )
   *
   * @example
   * // returns [ 2, 2, 2 ]
-  * _.frustumClosestPoint [ 2, 2, 2, 3, 3, 3 ], ray );
+  * _.rayClosestPoint [ 2, 2, 2, 3, 3, 3 ], ray );
   *
-  * @returns { Array } Returns the closest point to the frustum.
+  * @returns { Array } Returns the closest point to the ray.
   * @function rayClosestPoint
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( box ) is not box

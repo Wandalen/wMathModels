@@ -4227,6 +4227,102 @@ function frustumExpand( test )
 
 }
 
+//
+
+function rayClosestPoint( test )
+{
+
+  test.case = 'Source sphere and ray remain unchanged'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  var oldSrcSphere = [ - 1, - 1, -1, 2 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstRay = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstRay, oldTstRay );
+
+  test.case = 'sphere and ray intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 3 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray origin touches sphere'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstRay = [ -1, -1, 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray and sphere don´t intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstRay = [ - 1, -1, 2, 0, 0, 1 ];
+  var expected = [ - 1, - 1, 0 ];
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Closest point in sphere side'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstRay = [ 5, 0, 0, 0, 1, 0 ];
+  var expected = [ 4, 0, 0 ];
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstRay = [ 5, 0, 0, 1, 0, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 0, 0 ];
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay, dstPoint );
+  test.identical( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstRay = [ 0, 0, 5, 1, 0, 0 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 0, 4 ] );
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay, dstPoint );
+  test.equivalent( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( 'sphere', 'ray' ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+
 
 // --
 // declare
@@ -4290,6 +4386,8 @@ var Self =
     frustumDistance : frustumDistance,
     frustumClosestPoint : frustumClosestPoint,
     frustumExpand : frustumExpand,
+
+    rayClosestPoint : rayClosestPoint,
   }
 
 }
