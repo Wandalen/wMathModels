@@ -1099,17 +1099,17 @@ function rayParallel3D( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0, 0 ] ) );
-   test.shouldThrowErrorSync( () => _.ray.rayParallel( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0 ], 'factor') );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( null, [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( [ 0, 0, 0 ] ) );
+   test.shouldThrowErrorSync( () => _.ray.rayParallel3D( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( [ 0, 0 ], 'factor') );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( null, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel3D( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
 
 }
 
