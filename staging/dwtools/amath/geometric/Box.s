@@ -1044,7 +1044,6 @@ function pointDistance( box , point )
   //  throw _.err( 'not tested' );
 
   let clamped = _.box.pointClosestPoint( box, point );
-  logger.log('clamped', clamped)
   return _.avector.distance( point, clamped );
 
   debugger;
@@ -2346,6 +2345,102 @@ function frustumExpand( dstBox, srcFrustum )
 
 //
 
+function rayIntersects( srcBox , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let _tstRay = _.ray._from( tstRay );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.ray.boxIntersects( _tstRay, boxView );
+
+  return gotBool;
+}
+
+//
+
+function rayDistance( srcBox , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let _tstRay = _.ray._from( tstRay );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.ray.boxDistance( _tstRay, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a ray. Returns the calculated point.
+  * Box and ray remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } ray - The source ray.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let ray = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ], ray );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.frustumClosestPoint [ 2, 2, 2, 3, 3, 3 ], ray );
+  *
+  * @returns { Array } Returns the closest point to the frustum.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( ray ) is not ray
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function rayClosestPoint( box, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let rayView = _.ray._from( ray );
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
+  let dimRay  = _.ray.dimGet( rayView );
+
+  let dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimB === dimRay );
+
+  if( _.ray.boxIntersects( rayView, boxView ) )
+  return 0
+  else
+  {
+    let rayPoint = _.ray.boxClosestPoint( ray, boxView );
+
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, rayPoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointVector.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Apply a space transformation to a box. Returns the transformed box.
   *
@@ -2638,6 +2733,10 @@ let Proto =
   frustumDistance : frustumDistance, /* qqq : implement me */
   frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
   frustumExpand : frustumExpand, /* qqq : implement me */
+
+  rayIntersects : rayIntersects, /* qqq : implement me - Same as _.ray.boxIntersects */
+  rayDistance : rayDistance, /* qqq : implement me - Same as _.ray.boxDistance */
+  rayClosestPoint : rayClosestPoint,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

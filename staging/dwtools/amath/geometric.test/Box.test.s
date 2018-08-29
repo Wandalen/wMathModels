@@ -5888,6 +5888,111 @@ function frustumExpand( test )
 
 }
 
+//
+
+function rayClosestPoint( test )
+{
+
+  test.case = 'Source box and ray remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.box.rayClosestPoint( srcBox, tstRay );
+  test.identical( expected, gotRay );
+
+  var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  test.identical( srcBox, oldSrcBox );
+
+  var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstRay, oldtstRay );
+
+  test.case = 'Box and ray intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.box.rayClosestPoint( srcBox, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray origin is box corner'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.box.rayClosestPoint( srcBox, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray is box side'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstRay = [ - 1, 0, 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotRay = _.box.rayClosestPoint( srcBox, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Box corner is the closest point'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstRay = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = [ -1, -1, -1 ];
+
+  var gotRay = _.box.rayClosestPoint( srcBox, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Closest point in box side'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstRay = [ 5, 5, 2, 0, 1, 0 ];
+  var expected = [ 4, 4, 2 ];
+
+  var gotRay = _.box.rayClosestPoint( srcBox, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstRay = [ 5, 5, 1, 1, 0, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 4, 1 ];
+
+  var gotRay = _.box.rayClosestPoint( srcBox, tstRay, dstPoint );
+  test.identical( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstRay = [ 5, 5, 1, 1, 0, 0 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 4, 4, 1 ] );
+
+  var gotRay = _.box.rayClosestPoint( srcBox, tstRay, dstPoint );
+  test.equivalent( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.rayClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.box.rayClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.box.rayClosestPoint( 'box', 'ray' ) );
+  test.shouldThrowErrorSync( () => _.box.rayClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.rayClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.rayClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.box.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+
 // --
 // declare
 // --
@@ -5958,6 +6063,8 @@ var Self =
     frustumDistance : frustumDistance,
     frustumClosestPoint : frustumClosestPoint,
     frustumExpand : frustumExpand,
+
+    rayClosestPoint : rayClosestPoint,
 
   }
 

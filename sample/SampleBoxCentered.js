@@ -4,8 +4,9 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let box = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-// var point = new Float32Array([ 454.8794860839844, 7893.02783203125, -7698.6318359375 ]);
-let corners = _.box.cornersGet( box );
-logger.log( corners )
+let srcBox = [ 0, 0, 0, 4, 4, 4 ];
+let tstRay = [ 5, 5, 2, 0, 1, 0 ];
+
+let gotRay = _.box.rayClosestPoint( srcBox, tstRay );
+logger.log( gotRay )
 debugger;

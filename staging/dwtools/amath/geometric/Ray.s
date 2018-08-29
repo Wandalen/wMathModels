@@ -1442,7 +1442,7 @@ function boxIntersects( srcRay, srcBox )
 
 /**
   * Get the distance between a ray and a box. Returns the calculated distance.
-  * The box and the ray remain unchanged. Only for 3D
+  * The box and the ray remain unchanged. Only for 1D to 3D
   *
   * @param { Array } srcRay - Source ray.
   * @param { Array } srcBox - Source box.
@@ -2000,7 +2000,7 @@ function frustumIntersects( srcRay, srcFrustum )
 
 /**
   * Get the distance between a ray and a frustum. Returns the calculated distance.
-  * The frustum and the ray remain unchanged. Only for 3D
+  * The frustum and the ray remain unchanged.
   *
   * @param { Array } srcRay - Source ray.
   * @param { Array } srcFrustum - Source frustum.
@@ -2051,7 +2051,7 @@ function frustumDistance( srcRay, srcFrustum )
 
 /**
   * Get the closest point in a ray to a frustum. Returns the calculated point.
-  * The frustum and the ray remain unchanged. Only for 3D
+  * The frustum and the ray remain unchanged.
   *
   * @param { Array } srcRay - Source ray.
   * @param { Array } srcFrustum - Source frustum.
@@ -2109,7 +2109,7 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
   let d = 0;
   let pointView = _.vector.from( origin );
 
-  for( let j = 0 ; j < 8 ; j++ )
+  for( let j = 0 ; j < _.Space.dimsOf( corners )[ 1 ] ; j++ )
   {
     let corner = corners.colVectorGet( j );
     d = Math.abs( _.ray.pointDistance( srcRayView, corner ) );
