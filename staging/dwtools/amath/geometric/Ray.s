@@ -664,26 +664,46 @@ function rayIntersectionFactors( r1, r2 )
 
     let x = _.Space.solveGeneral( o );
 
-    if( i > 0)
+    if( i === 0 )
+    {
+      result = _.vector.from( x.base )
+    }
+    else
     {
       let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
       let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
-      let diff1 = Math.abs( x1 - result.eGet( 0 ) );
-      let diff2 = Math.abs( x1 - result.eGet( 1 ) );
-      let diff3 = Math.abs( x2 - result.eGet( 0 ) );
-      let diff4 = Math.abs( x2 - result.eGet( 1 ) );
-      if( ( diff1 < 1E-6 || diff2 < 1E-6 ) && ( diff3 < 1E-6 || diff4 < 1E-6 ) )
+      let diff1 = 0; let diff2 = 0; let diff3 = 0; let diff4 = 0;
+
+      if( x1 !== 0 )
       {
+        let diff1 = Math.abs( x1 - result.eGet( 0 ) );
+        let diff2 = Math.abs( x1 - result.eGet( 1 ) );
+        if( diff1 < 1E-6 || diff2 < 1E-6 )
+        {
+          result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
+        }
+        else
+        {
+          return 0;
+        }
       }
-      else
+      if( x2 !== 0 )
       {
-        return 0;
+        let diff3 = Math.abs( x2 - result.eGet( 0 ) );
+        let diff4 = Math.abs( x2 - result.eGet( 1 ) );
+        if( ( diff1 < 1E-6 || diff2 < 1E-6 ) && ( diff3 < 1E-6 || diff4 < 1E-6 ) )
+        {
+          result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
+        }
+        else
+        {
+          return 0;
+        }
       }
+
     }
 
-    result = _.vector.from( x.base )
   }
-
   // Factors can not be negative
   if(  result.eGet( 0 ) <= 0 - _.accuracySqr || result.eGet( 1 ) <= 0 - _.accuracySqr )
   return 0;
@@ -692,29 +712,6 @@ function rayIntersectionFactors( r1, r2 )
 }
 
 //
-
-/**
-  * Returns the factors for the intersection of two rays. Returns an array with the intersection factors, 0 if there is no intersection.
-  * Rays stay untouched.
-  *
-  * @param { Vector } src1Ray - The first source ray.
-  * @param { Vector } src2Ray - The second source ray.
-  *
-  * @example
-  * // returns   0
-  * _.rayIntersectionFactors2( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
-  *
-  * @example
-  * // returns  _.vector.from( [ 2, 1 ] )
-  * _.rayIntersectionFactors2( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
-  *
-  * @returns { Array } Returns the factors for the two rays intersection.
-  * @function rayIntersectionFactors2
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( src1Ray ) is not ray.
-  * @throws { Error } An Error if ( src2Ray ) is not ray.
-  * @memberof wTools.ray
-  */
 
 function rayIntersectionFactors2( r1, r2 )
 {
@@ -748,7 +745,6 @@ function rayIntersectionFactors2( r1, r2 )
   let origin2x = origin2.eGet( 0 ); let origin2y = origin2.eGet( 1 );
   let dir2x = direction2.eGet( 0 ); let dir2y = direction2.eGet( 1 );
   x[ 1 ] = ( dir1x*( origin2y - origin1y ) + dir1y*( origin1x -origin2x ) ) / ( dir2x*dir1y - dir2y*dir1x );
-
   let w = 1;
   while( isNaN( x[ 1 ] ) && w < origin1.length - 1 )
   {
@@ -830,11 +826,12 @@ rayIntersectionFactors.shaderChunk =
   */
 function rayIntersectionPoints( r1,r2 )
 {
-  let factors = rayIntersectionFactors( r1,r2 );
+  let factors = rayIntersectionFactors2( r1,r2 );
   if( factors === 0 )
   return 0;
 
-  let result = [ Self.rayAt( r1,factors.eGet( 0 ) ),Self.rayAt( r2,factors.eGet( 1 ) ) ];
+  let factorsView = _.vector.from( factors );
+  let result = [ Self.rayAt( r1, factorsView.eGet( 0 ) ), Self.rayAt( r2, factorsView.eGet( 1 ) ) ];
   return result;
 }
 
@@ -1008,7 +1005,7 @@ function rayDistance( srcRay, tstRay )
       let d1 = _.ray.pointDistance( srcRayView, tstOrigin );
       let d2 = _.ray.pointDistance( tstRayView, srcOrigin );
       let d3 = _.avector.distance( srcOrigin, tstOrigin );
-      logger.log( d1, d2, d3 )
+
       if( d1 <= d2 && d1 <= d3 )
       {
         distance = d1;
@@ -1037,7 +1034,7 @@ function rayDistance( srcRay, tstRay )
 
 /**
   * Get the closest point in a ray to a ray. Returns the calculated point.
-  * The rays remain unchanged. Only for 3D
+  * The rays remain unchanged.
   *
   * @param { Array } srcRay - Source ray.
   * @param { Array } tstRay - Test ray.
@@ -1134,7 +1131,8 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
 //
 
 /**
-  * Check if a given point is contained inside a ray. Returs true if it is contained, false if not. Point and ray stay untouched.
+  * Check if a given point is contained inside a ray. Returs true if it is contained, false if not.
+  * Point and ray stay untouched.
   *
   * @param { Array } srcRay - The source ray.
   * @param { Array } srcPoint - The source point.
@@ -2177,6 +2175,7 @@ let Proto =
   rayAt : rayAt,
   getFactor : getFactor,
 
+  rayParallel3D : rayParallel3D,
   rayParallel : rayParallel,
   rayIntersectionFactors : rayIntersectionFactors,
   rayIntersectionFactors2 : rayIntersectionFactors2,

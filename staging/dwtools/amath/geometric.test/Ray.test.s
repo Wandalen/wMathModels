@@ -984,6 +984,138 @@ function getFactor( test )
 
 //
 
+function rayParallel3D( test )
+{
+  test.case = 'Source rays and accuracySqr remain unchanged'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 0, 0, 0, 2, 2, 2 ];
+  var accuracySqr = 1E-10;
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray, accuracySqr );
+  test.identical( isParallel, expected );
+
+  var oldSrc1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Ray, oldSrc1Ray );
+
+  var oldSrc2Ray = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Ray, oldSrc2Ray );
+
+  var oldAccuracySqr = 1E-10;
+  test.equivalent( accuracySqr, oldAccuracySqr );
+
+  test.case = 'Rays are the same'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel ( different origin - same direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 1, 1, 1 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel ( different origin - different direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 7, 7, 7 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel ( different origin - opposite direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, - 7, - 7, - 7 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel ( src1Ray is a point )'; /* */
+
+  var src1Ray = [ 3, 7, 1, 0, 0, 0 ];
+  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel ( src2Ray is a point )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are not parallel ( same origin - different direction )'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, - 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 7, 7, 7 ];
+  var expected = false;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are perpendicular'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = false;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel to x'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  test.case = 'Rays are parallel but in a opposite direction'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, - 1, 0, 0 ];
+  var expected = true;
+
+  var isParallel = _.ray.rayParallel3D( src1Ray, src2Ray );
+  test.identical( isParallel, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0, 0 ] ) );
+   test.shouldThrowErrorSync( () => _.ray.rayParallel( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 0, 0 ], 'factor') );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( null, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayParallel( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+
+//
+
 function rayParallel( test )
 {
   test.case = 'Source rays and accuracySqr remain unchanged'; /* */
@@ -1267,6 +1399,15 @@ function rayIntersectionFactors( test )
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
 
+  test.case = 'Rays 3D intersection 3rd coordinate 0'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 0 ];
+  var src2Ray = [ 3, 3, 0, 0, 1, 0 ];
+  var expected = _.vector.from( [ 3, 0 ] );
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
   test.case = 'Rays 3D no intersection'; /* */
 
   var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
@@ -1416,6 +1557,15 @@ function rayIntersectionFactors2( test )
 
   var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
   var src2Ray = [ 3, 3, 3, 0, 1, 4 ];
+  var expected = [ 3, 0 ];
+
+  var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
+  test.equivalent( isIntersectionFactors, expected );
+
+  test.case = 'Rays 3D intersection 3rd coordinate 0'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 0 ];
+  var src2Ray = [ 3, 3, 0, 0, 1, 0 ];
   var expected = [ 3, 0 ];
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors2( src1Ray, src2Ray );
@@ -1580,6 +1730,15 @@ function rayIntersectionPoints( test )
   var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
   var src2Ray = [ 3, 7, 1, 3, 1, 4 ];
   var expected = [ [ 9, 9, 9 ], [ 9, 9, 9 ] ];
+
+  var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Rays 3D intersection 3rd coordinate 0'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 0 ];
+  var src2Ray = [ 3, 3, 0, 0, 1, 0 ];
+  var expected = [ [ 3, 3, 0 ], [ 3, 3, 0 ] ];
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
@@ -4506,6 +4665,7 @@ var Self =
     rayAt : rayAt,
     getFactor : getFactor,
 
+    rayParallel3D : rayParallel3D,
     rayParallel : rayParallel,
     rayIntersectionFactors : rayIntersectionFactors,
     rayIntersectionFactors2 : rayIntersectionFactors2,
