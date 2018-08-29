@@ -435,16 +435,7 @@ function boxIntersects( plane , srcBox )
   _.assert( dimP === dimB );
 
   /* box corners */
-
-  let c = _.Space.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  let c =  _.box.cornersGet( boxView );
 
   min = _.vector.from( min );
   let distance = _.plane.pointDistance( plane, min );
@@ -455,7 +446,7 @@ function boxIntersects( plane , srcBox )
   else
   {
     let side = distance/ Math.abs( distance );
-    for( let j = 1 ; j < 8 ; j++ )
+    for( let j = 1 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       distance = _.plane.pointDistance( plane, corner );

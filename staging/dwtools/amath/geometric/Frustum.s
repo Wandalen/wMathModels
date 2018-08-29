@@ -783,18 +783,9 @@ function boxClosestPoint( frustum, box, dstPoint )
   }
 
   /* box corners */
+  let c = _.box.cornersGet( boxView );
 
-  let c = _.Space.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ min1.eGet( 0 ), min1.eGet( 1 ), min1.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ max1.eGet( 0 ), min1.eGet( 1 ), min1.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ min1.eGet( 0 ), max1.eGet( 1 ), min1.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ min1.eGet( 0 ), min1.eGet( 1 ), max1.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ max1.eGet( 0 ), max1.eGet( 1 ), max1.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ min1.eGet( 0 ), max1.eGet( 1 ), max1.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ max1.eGet( 0 ), min1.eGet( 1 ), max1.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ max1.eGet( 0 ), max1.eGet( 1 ), min1.eGet( 2 ) ] );
-
-  for( let j = 0 ; j < 8 ; j++ )
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let proj = _.frustum.pointClosestPoint( frustum, corner );

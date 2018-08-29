@@ -1379,7 +1379,7 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
 
 /**
   * Check if a ray and a box intersect. Returns true if they intersect and false if not.
-  * The box and the ray remain unchanged. Only for 3D
+  * The box and the ray remain unchanged. Only for 1D to 3D
   *
   * @param { Array } srcRay - Source ray.
   * @param { Array } srcBox - Source box.
@@ -1423,18 +1423,9 @@ function boxIntersects( srcRay, srcBox )
   return true;
 
   /* box corners */
+  let c = _.box.cornersGet( boxView );
 
-  let c = _.Space.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-
-  for( let j = 0 ; j < 8 ; j++ )
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let projection = _.ray.pointClosestPoint( srcRayView, corner );
@@ -1502,7 +1493,7 @@ function boxDistance( srcRay, srcBox )
 
 /**
   * Get the closest point in a ray to a box. Returns the calculated point.
-  * The box and the ray remain unchanged. Only for 3D
+  * The box and the ray remain unchanged. Only for 1D to 3D
   *
   * @param { Array } srcRay - Source ray.
   * @param { Array } srcBox - Source box.
@@ -1553,21 +1544,13 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
   return 0;
 
   /* box corners */
-  let c = _.Space.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  let c = _.box.cornersGet( boxView );
 
   let distance = _.box.pointDistance( boxView, origin );
   let d = 0;
   let pointView = _.vector.from( origin );
 
-  for( let j = 0 ; j < 8 ; j++ )
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     d = Math.abs( _.ray.pointDistance( srcRayView, corner ) );

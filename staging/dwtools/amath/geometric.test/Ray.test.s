@@ -2913,6 +2913,25 @@ function boxIntersects( test )
   var gotBool = _.ray.boxIntersects( ray, box );
   test.equivalent( gotBool,  expected );
 
+  test.case = '2D intersection'; /* */
+
+  var ray = [ 0, 0, 2, 2 ];
+  var box = [ 1, 2, 3, 4 ];
+  var expected = true;
+
+  var gotBool = _.ray.boxIntersects( ray, box );
+  test.identical( gotBool,  expected );
+
+  test.case = '2D no intersection'; /* */
+
+  var ray = [ 0, 0, 2, -2 ];
+  var box = [ 1, 2, 3, 4 ];
+  var expected = false;
+
+  var gotBool = _.ray.boxIntersects( ray, box );
+  test.identical( gotBool,  expected );
+
+
   /* */
 
   if( !Config.debug )
@@ -2927,7 +2946,6 @@ function boxIntersects( test )
   test.shouldThrowErrorSync( () => _.ray.boxIntersects( [ 1, 1, 2, 2 ], null ) );
   test.shouldThrowErrorSync( () => _.ray.boxIntersects( [ 1, 1, 2, 2 ], undefined ) );
   test.shouldThrowErrorSync( () => _.ray.boxIntersects( [ 1, 1, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.boxIntersects( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -3040,6 +3058,15 @@ function boxDistance( test )
   var gotBool = _.ray.boxDistance( ray, box );
   test.equivalent( gotBool,  expected );
 
+  test.case = '2D'; /* */
+
+  var ray = [ 2, 2, 2, 2 ];
+  var box = [ 0, 0, 1, 1 ];
+  var expected = Math.sqrt( 2 );
+
+  var gotBool = _.ray.boxDistance( ray, box );
+  test.identical( gotBool,  expected );
+
   /* */
 
   if( !Config.debug )
@@ -3054,7 +3081,6 @@ function boxDistance( test )
   test.shouldThrowErrorSync( () => _.ray.boxDistance( [ 1, 1, 2, 2 ], null ) );
   test.shouldThrowErrorSync( () => _.ray.boxDistance( [ 1, 1, 2, 2 ], undefined ) );
   test.shouldThrowErrorSync( () => _.ray.boxDistance( [ 1, 1, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.boxDistance( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -3176,6 +3202,15 @@ function boxClosestPoint( test )
   var gotPoint = _.ray.boxClosestPoint( ray, box );
   test.equivalent( gotPoint,  expected );
 
+  test.case = '2D'; /* */
+
+  var ray = [ 0, 0, 2, 1 ];
+  var box = [ 6, 7, 10, 8 ];
+  var expected = [ 10.8, 5.4 ];
+
+  var gotPoint = _.ray.boxClosestPoint( ray, box );
+  test.identical( gotPoint,  expected );
+
   /* */
 
   if( !Config.debug )
@@ -3190,7 +3225,6 @@ function boxClosestPoint( test )
   test.shouldThrowErrorSync( () => _.ray.boxClosestPoint( [ 1, 1, 2, 2 ], null ) );
   test.shouldThrowErrorSync( () => _.ray.boxClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
   test.shouldThrowErrorSync( () => _.ray.boxClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.boxClosestPoint( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 

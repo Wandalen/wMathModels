@@ -1368,31 +1368,13 @@ function boxDistance( srcBox , tstBox )
   // throw _.err( 'not tested' );
 
   /* src corners */
-
-  let c = _.Space.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  let c =  _.box.cornersGet( srcBoxView );
 
   /* tst box corners */
-
-  let c1 = _.Space.makeZero( [ 3, 8 ] );
-  c1.colVectorGet( 0 ).copy( [ tstMin.eGet( 0 ), tstMin.eGet( 1 ), tstMin.eGet( 2 ) ] );
-  c1.colVectorGet( 1 ).copy( [ tstMax.eGet( 0 ), tstMin.eGet( 1 ), tstMin.eGet( 2 ) ] );
-  c1.colVectorGet( 2 ).copy( [ tstMin.eGet( 0 ), tstMax.eGet( 1 ), tstMin.eGet( 2 ) ] );
-  c1.colVectorGet( 3 ).copy( [ tstMin.eGet( 0 ), tstMin.eGet( 1 ), tstMax.eGet( 2 ) ] );
-  c1.colVectorGet( 4 ).copy( [ tstMax.eGet( 0 ), tstMax.eGet( 1 ), tstMax.eGet( 2 ) ] );
-  c1.colVectorGet( 5 ).copy( [ tstMin.eGet( 0 ), tstMax.eGet( 1 ), tstMax.eGet( 2 ) ] );
-  c1.colVectorGet( 6 ).copy( [ tstMax.eGet( 0 ), tstMin.eGet( 1 ), tstMax.eGet( 2 ) ] );
-  c1.colVectorGet( 7 ).copy( [ tstMax.eGet( 0 ), tstMax.eGet( 1 ), tstMin.eGet( 2 ) ] );
+  let c1 =  _.box.cornersGet( tstBoxView );
 
   let distance = Infinity;
-  for( let j = 0 ; j < 8 ; j++ )
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
   {
     let srcCorner = c.colVectorGet( j );
     let tstCorner = c1.colVectorGet( j );
@@ -1474,29 +1456,12 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   if( boxIntersects( srcBox , tstBox ) === true )
     return 0;
   else{
-    /* src corners */
 
-    let c = _.Space.makeZero( [ 3, 8 ] );
-    c.colVectorGet( 0 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-    c.colVectorGet( 1 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-    c.colVectorGet( 2 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
-    c.colVectorGet( 3 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-    c.colVectorGet( 4 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-    c.colVectorGet( 5 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-    c.colVectorGet( 6 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-    c.colVectorGet( 7 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
+    /* src corners */
+    let c = _.box.cornersGet( srcBoxView );
 
     /* tst box corners */
-
-    let c1 = _.Space.makeZero( [ 3, 8 ] );
-    c1.colVectorGet( 0 ).copy( [ tstMin.eGet( 0 ), tstMin.eGet( 1 ), tstMin.eGet( 2 ) ] );
-    c1.colVectorGet( 1 ).copy( [ tstMax.eGet( 0 ), tstMin.eGet( 1 ), tstMin.eGet( 2 ) ] );
-    c1.colVectorGet( 2 ).copy( [ tstMin.eGet( 0 ), tstMax.eGet( 1 ), tstMin.eGet( 2 ) ] );
-    c1.colVectorGet( 3 ).copy( [ tstMin.eGet( 0 ), tstMin.eGet( 1 ), tstMax.eGet( 2 ) ] );
-    c1.colVectorGet( 4 ).copy( [ tstMax.eGet( 0 ), tstMax.eGet( 1 ), tstMax.eGet( 2 ) ] );
-    c1.colVectorGet( 5 ).copy( [ tstMin.eGet( 0 ), tstMax.eGet( 1 ), tstMax.eGet( 2 ) ] );
-    c1.colVectorGet( 6 ).copy( [ tstMax.eGet( 0 ), tstMin.eGet( 1 ), tstMax.eGet( 2 ) ] );
-    c1.colVectorGet( 7 ).copy( [ tstMax.eGet( 0 ), tstMax.eGet( 1 ), tstMin.eGet( 2 ) ] );
+    let c1 = _.box.cornersGet( tstBoxView );
 
     let distance = Infinity;
     let point = _.vector.from( dstPointVector.slice() );
@@ -1917,21 +1882,11 @@ function planeDistance( srcBox, plane )
   else
   {
     /* box corners */
-
-    let c = _.Space.makeZero( [ 3, 8 ] );
-    /* qqq : avoid toArray */
-    c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+    let c = _.box.cornersGet( boxView );
 
     let distance = Infinity;
     let d = 0;
-    for( let j = 0 ; j < 8 ; j++ )
+    for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ]  ; j++ )
     {
       let corner = c.colVectorGet( j );
       d = Math.abs( _.plane.pointDistance( plane, corner ) );
@@ -2000,21 +1955,12 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   else
   {
     /* box corners */
-
-    let c = _.Space.makeZero( [ 3, 8 ] );
-    c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+    let c = _.box.cornersGet( boxView );
 
     let distance = Infinity;
     let d = 0;
     let point = _.array.makeArrayOfLength( dimB );
-    for( let j = 0 ; j < 8 ; j++ )
+    for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       d = Math.abs( _.plane.pointDistance( plane, corner ) );
@@ -2237,19 +2183,10 @@ function frustumDistance( box, frustum )
   let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
 
   /* box corners */
-
-  let c = _.Space.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  let c = _.box.cornersGet( boxView );
 
   let distance = Infinity;
-  for( let j = 0 ; j < 8 ; j++ )
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let proj = _.frustum.pointClosestPoint( frustum, corner );
@@ -2325,20 +2262,11 @@ function frustumClosestPoint( box, frustum, dstPoint )
     let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
 
     /* box corners */
-
-    let c = _.Space.makeZero( [ 3, 8 ] );
-    c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+    let c = _.box.cornersGet( boxView );
 
     let distance = Infinity;
     let point = [ 0, 0, 0 ];
-    for( let j = 0 ; j < 8 ; j++ )
+    for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       let d = _.avector.distance( corner, frustumPoint ); /* qqq : why slice??? */

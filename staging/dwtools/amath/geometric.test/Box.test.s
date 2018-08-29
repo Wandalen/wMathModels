@@ -4950,6 +4950,15 @@ function planeDistance( test )
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
   test.equivalent( expected, gotDistance );
 
+  test.case = '2D'; /* */
+
+  var srcBox = [ 0, 0, 0, 0 ];
+  var srcPlane = [ 1, -1, 3 ];
+  var expected = Math.sqrt( 4.5 );
+
+  var gotDistance = _.box.planeDistance( srcBox, srcPlane );
+  test.equivalent( expected, gotDistance );
+
   /* */
 
   if( !Config.debug )
@@ -4967,7 +4976,6 @@ function planeDistance( test )
   test.shouldThrowErrorSync( () => _.box.planeDistance( [ 0, 1, 0, 1, 2, 1 ], null ) );
   test.shouldThrowErrorSync( () => _.box.planeDistance( NaN, [ 1, 0, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.box.planeDistance( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.box.planeDistance( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
 
 }
 
@@ -5056,7 +5064,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, 1, 0, - 7 ];
-  var expected = [ 3, 3, 3 ];
+  var expected = [ 3, 3, 0 ];
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
