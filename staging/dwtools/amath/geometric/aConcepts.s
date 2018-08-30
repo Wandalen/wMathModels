@@ -37,6 +37,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathSpace' );
 
   require( './Ray.s' );
+  require( './Line.s' );
   require( './Box.s' );
   require( './Sphere.s' );
   require( './Plane.s' );

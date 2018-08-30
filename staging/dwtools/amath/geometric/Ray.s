@@ -804,7 +804,7 @@ rayIntersectionFactors.shaderChunk =
 
 /**
   * Returns the points of the intersection of two rays. Returns an array with the intersection points, 0 if there is no intersection.
-  * Rays stay untouched. Only for 2D.
+  * Rays stay untouched.
   *
   * @param { Vector } src1Ray - The first source ray.
   * @param { Vector } src2Ray - The second source ray.
@@ -851,7 +851,7 @@ rayIntersectionPoints.shaderChunk =
 
 /**
   * Returns the point of the intersection of two rays. Returns an array with the intersection point, 0 if there is no intersection.
-  * Rays stay untouched. Only for 2D.
+  * Rays stay untouched.
   *
   * @param { Vector } src1Ray - The first source ray.
   * @param { Vector } src2Ray - The second source ray.
@@ -898,7 +898,7 @@ rayIntersectionPoint.shaderChunk =
 
 /**
   * Returns the point of the intersection of two rays. Returns an array with the intersection point, 0 if there is no intersection.
-  * Rays stay untouched. Only for 2D.
+  * Rays stay untouched.
   *
   * @param { Vector } src1Ray - The first source ray.
   * @param { Vector } src2Ray - The second source ray.
