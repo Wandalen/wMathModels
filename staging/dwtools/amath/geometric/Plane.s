@@ -1001,7 +1001,7 @@ function rayDistance( srcPlane , tstRay )
   *
   * @example
   * // returns 0
-  * _.rayClosestPoint [ 1, 0, 0, 2 ], ray );
+  * _.rayClosestPoint( [ 1, 0, 0, 2 ], ray );
   *
   * @returns { Array } Returns the closest point to the ray.
   * @function rayClosestPoint
@@ -1140,7 +1140,7 @@ function lineIntersects( plane, line )
   return true;
 
   let lineDir = _.vector.subVectors( point2.clone(), point1 );
-  
+
   let dot = _.vector.dot( normal, lineDir );
 
   debugger;

@@ -1449,6 +1449,104 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   return dstPoint;
 }
 
+//
+
+function rayIntersects( srcFrustum , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dims = _.Space.dimsOf( srcFrustum ) ;
+
+  let tstRayView = _.ray._from( tstRay );
+
+  let gotBool = _.ray.frustumIntersects( tstRayView, srcFrustum );
+
+  return gotBool;
+}
+
+//
+
+function rayDistance( srcFrustum , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstRayView = _.ray._from( tstRay );
+
+  let gotDist = _.ray.frustumDistance( tstRayView, srcFrustum );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a frustum to a ray. Returns the calculated point.
+  * Frustum and ray remain unchanged
+  *
+  * @param { Array } frustum - The source frustum.
+  * @param { Array } ray - The source ray.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 1, 0, 0 ]
+  * let ray = [ 2, 0, 0, 1, 0, 0 ]
+  * let srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * _.rayClosestPoint( frusrum, ray );
+  *
+  * @returns { Array } Returns the closest point to the ray.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @throws { Error } An Error if ( ray ) is not ray
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.frustum
+  */
+function rayClosestPoint( frustum, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  let dimF = _.Space.dimsOf( frustum ) ;
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimF[ 0 ] - 1);
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let rayView = _.ray._from( ray );
+  let dimRay  = _.ray.dimGet( rayView );
+
+  let dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimF[ 0 ] - 1 === dstPoint.length );
+  _.assert( dimF[ 0 ] - 1 === dimRay );
+
+  if( _.ray.frustumIntersects( rayView, frustum ) )
+  return 0
+  else
+  {
+    let rayPoint = _.ray.frustumClosestPoint( rayView, frustum );
+
+    let frustumPoint = _.vector.from( _.frustum.pointClosestPoint( frustum, rayPoint ) );
+
+    for( let i = 0; i < dimF[ 0 ] - 1 ; i++ )
+    {
+      dstPointVector.eSet( i, frustumPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+
 // --
 // declare
 // --
@@ -1486,6 +1584,10 @@ let Proto =
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance, /* qqq : implement me */
   frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
+
+  rayIntersects : rayIntersects,
+  rayDistance : rayDistance,
+  rayClosestPoint : rayClosestPoint,
 
 }
 

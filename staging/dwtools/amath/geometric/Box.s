@@ -2386,7 +2386,7 @@ function rayDistance( srcBox , tstRay )
   *
   * @example
   * // returns [ 2, 2, 2 ]
-  * _.rayClosestPoint [ 2, 2, 2, 3, 3, 3 ], ray );
+  * _.rayClosestPoint( [ 2, 2, 2, 3, 3, 3 ], ray );
   *
   * @returns { Array } Returns the closest point to the ray.
   * @function rayClosestPoint

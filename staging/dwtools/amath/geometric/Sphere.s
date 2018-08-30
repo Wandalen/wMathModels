@@ -1976,7 +1976,7 @@ function rayDistance( srcSphere , tstRay )
   *
   * @example
   * // returns [ 1, 0, 0 ]
-  * _.rayClosestPoint [ 2, 0, 0, 1 ], ray );
+  * _.rayClosestPoint( [ 2, 0, 0, 1 ], ray );
   *
   * @returns { Array } Returns the closest point to the ray.
   * @function rayClosestPoint
