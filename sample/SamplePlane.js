@@ -3,10 +3,10 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let plane1 = [ 1, 0, 0, -0.5 ];
+let plane1 = [ 1, 0, 0, 0 ];
 
-let ray = [ 2, 2, 2, 1, 1, 1 ];
-
-let j = _.plane.rayClosestPoint( plane1, ray )
+let line = [ [ 2, 2, 2 ], [ 3, 0, 2 ] ];
+debugger;
+let j = _.plane.lineIntersects( plane1, line )
 console.log( j );
 debugger;

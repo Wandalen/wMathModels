@@ -1055,6 +1055,51 @@ function rayClosestPoint( plane, ray, dstPoint )
 //
 
 /**
+  * Check if a plane and a segment intersect. Returns true if they intersect.
+  * The plane and segment remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } segment -  First and last points in segment.
+  *
+  * @example
+  * // returns true
+  * _.segmentIntersects( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
+  *
+  * @example
+  * // returns false
+  * _.segmentIntersects( [ 1, 0, 0, 1 ] , [ [  2, 2, 2 ], [ 3, 3, 3 ] ]);
+  *
+  * @returns { Boolean } Returns true if the segment and plane intersect, false if not.
+  * @function segmentIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @memberof wTools.plane
+  */
+function segmentIntersects( plane , segment )
+{
+
+  let planeView = _.plane._from( plane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  debugger;
+  //throw _.err( 'not tested' );
+
+  let point1 = _.vector.from( segment[0] );
+  let point2 = _.vector.from( segment[1] );
+
+  let b = _.plane.pointDistance( planeView, point1 );
+  let e = _.plane.pointDistance( planeView, point2 );
+
+  debugger;
+  return ( b <= 0 && e >= 0 ) || ( e <= 0 && b >= 0 );
+}
+
+//
+
+/**
   * Check if a plane and a line intersect. Returns true if they intersect.
   * The plane and line remain unchanged.
   *
@@ -1076,25 +1121,33 @@ function rayClosestPoint( plane, ray, dstPoint )
   * @throws { Error } An Error if ( line ) is not line.
   * @memberof wTools.plane
   */
-function lineIntersects( plane , line )
+function lineIntersects( plane, line )
 {
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   let planeView = _.plane._from( plane );
   let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
   debugger;
   //throw _.err( 'not tested' );
 
   let point1 = _.vector.from( line[0] );
   let point2 = _.vector.from( line[1] );
 
-  let b = _.plane.pointDistance( planeView, point1 );
-  let e = _.plane.pointDistance( planeView, point2 );
+  _.assert( point1.length === point2.length, 'Line points must have the same length' );
+
+  if( _.plane.pointContains( planeView, point1 ) || _.plane.pointContains( planeView, point2 ) )
+  return true;
+
+  let lineDir = _.vector.subVectors( point2.clone(), point1 );
+  
+  let dot = _.vector.dot( normal, lineDir );
 
   debugger;
-  return ( b <= 0 && e >= 0 ) || ( e <= 0 && b >= 0 );
+  if( Math.abs( dot ) === 0 )
+  return false
+
+  return true;
 }
 
 //
@@ -1425,6 +1478,7 @@ let Proto =
   rayDistance : rayDistance, /* Same as _.ray.planeDistance */
   rayClosestPoint : rayClosestPoint,
 
+  segmentIntersects : segmentIntersects,
   lineIntersects : lineIntersects,
   lineIntersection : lineIntersection,
 

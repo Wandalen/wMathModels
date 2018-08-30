@@ -1828,18 +1828,121 @@ function rayClosestPoint( test )
 
 //
 
+function segmentIntersects( test )
+{
+
+  test.case = 'Plane and segment remain unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var segment = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
+  var expected = false;
+
+  var interBool = _.plane.segmentIntersects( plane, segment );
+  test.identical( expected, interBool );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldSegment = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
+  test.identical( segment, oldSegment );
+
+  test.case = 'Segment and plane intersect'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var segment = [ [ - 2, - 2, - 2 ], [ 2, 2, 2 ] ];
+  var expected = true;
+
+  var interBool = _.plane.segmentIntersects( plane, segment );
+  test.identical( expected, interBool );
+
+  test.case = 'Segment and Plane intersect'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var segment = [ [ 2, 2, 2 ], [ 3, 3, 3 ] ];
+  var expected = true;
+
+  var interBool = _.plane.segmentIntersects( plane, segment );
+  test.identical( expected, interBool );
+
+  test.case = 'Segment and Plane don´t intersect'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var segment = [ [ 2, 2, 3 ], [ 3, 3, 4 ] ];
+  var expected = false;
+
+  var interBool = _.plane.segmentIntersects( plane, segment );
+  test.identical( expected, interBool );
+
+  test.case = 'Segment in Plane'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var segment = [ [ 0, 2, 3 ], [ 0, 5, 7 ] ];
+  var expected = true;
+
+  var interBool = _.plane.segmentIntersects( plane, segment );
+  test.equivalent( expected, interBool );
+
+  test.case = 'Perpendicular segment intersects'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var segment = [ [ - 2, 2, 2 ], [ 2, 2, 2 ] ];
+  var expected = true;
+
+  var interBool = _.plane.segmentIntersects( plane, segment );
+  test.identical( expected, interBool );
+
+  test.case = 'Perpendicular segment touches plane'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var segment = [ [ - 2, 2, 2 ], [ 0, 2, 2 ] ];
+  var expected = true;
+
+  var interBool = _.plane.segmentIntersects( plane, segment );
+  test.identical( expected, interBool );
+
+  test.case = 'Perpendicular doesn´t intersect'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var segment = [ [ - 2, 2, 2 ], [ - 1, 2, 2 ] ];
+  var expected = false;
+
+  var interBool = _.plane.segmentIntersects( plane, segment );
+  test.identical( expected, interBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ], [ [ 0, - 1, 0 ], [ 0, 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0, 2 ], [ [ 0, - 1, 0 ], [ 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ], [ [ 0, - 1, 0 ], [ 0, 3, 1 ] ], [ [ 0, - 1, 0 ], [ 0, 3, 1 ] ]  ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( null , [ [ 0, - 1, 0 ], [ 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( NaN, [ [ 0, - 1, 0 ], [ 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( 'plane', 'segment' ));
+}
+
+//
+
 function lineIntersects( test )
 {
 
   test.case = 'Plane and line remain unchanged'; /* */
 
-  var plane = [ 1, 0 , 0, 1 ];
-  var oldPlane = plane.slice();
+  var plane = [ 1, 0, 0, 1 ];
   var line = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
-  var expected = false;
+  var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
   test.identical( expected, interBool );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
   var oldLine = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
@@ -1847,7 +1950,7 @@ function lineIntersects( test )
 
   test.case = 'Line and plane intersect'; /* */
 
-  var plane = [ 1, 0 , 0, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
   var line = [ [ - 2, - 2, - 2 ], [ 2, 2, 2 ] ];
   var expected = true;
 
@@ -1856,17 +1959,26 @@ function lineIntersects( test )
 
   test.case = 'Line and Plane intersect'; /* */
 
-  var plane = [ 1, 0 , - 1, 0 ];
-  var line = [ [ 2, 2, 2 ], [ 3, 3, 3 ] ];
+  var plane = [ 1, 0, - 1, 0 ];
+  var line = [ [ 2, 2, 1 ], [ 3, 3, 4 ] ];
   var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
   test.identical( expected, interBool );
 
-  test.case = 'Line and Plane don´t intersect'; /* */
+  test.case = 'Line and Plane don´t intersect - parallel'; /* */
 
-  var plane = [ 1, 0 , - 1, 0 ];
-  var line = [ [ 2, 2, 3 ], [ 3, 3, 4 ] ];
+  var plane = [ 1, 0, - 1, 0 ];
+  var line = [ [ 2, 2, 3 ], [ 2, 3, 3 ] ];
+  var expected = false;
+
+  var interBool = _.plane.lineIntersects( plane, line );
+  test.identical( expected, interBool );
+
+  test.case = 'Line and Plane don´t intersect - parallel opposite'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var line = [ [ 2, 3, -3 ], [ 2, 2, -3 ] ];
   var expected = false;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -1874,7 +1986,7 @@ function lineIntersects( test )
 
   test.case = 'Line in Plane'; /* */
 
-  var plane = [ 1, 0 , 0, 0 ];
+  var plane = [ 1, 0, 0, 0 ];
   var line = [ [ 0, 2, 3 ], [ 0, 5, 7 ] ];
   var expected = true;
 
@@ -1883,27 +1995,9 @@ function lineIntersects( test )
 
   test.case = 'Perpendicular line intersects'; /* */
 
-  var plane = [ 1, 0 , 0, 0 ];
-  var line = [ [ - 2, 2, 2 ], [ 2, 2, 2 ] ];
-  var expected = true;
-
-  var interBool = _.plane.lineIntersects( plane, line );
-  test.identical( expected, interBool );
-
-  test.case = 'Perpendicular line touches plane'; /* */
-
-  var plane = [ 1, 0 , 0, 0 ];
-  var line = [ [ - 2, 2, 2 ], [ 0, 2, 2 ] ];
-  var expected = true;
-
-  var interBool = _.plane.lineIntersects( plane, line );
-  test.identical( expected, interBool );
-
-  test.case = 'Perpendicular doesn´t intersect'; /* */
-
   var plane = [ 1, 0, 0, 0 ];
-  var line = [ [ - 2, 2, 2 ], [ - 1, 2, 2 ] ];
-  var expected = false;
+  var line = [ [ 1, 2, 2 ], [ 2, 2, 2 ] ];
+  var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
   test.identical( expected, interBool );
@@ -2370,7 +2464,7 @@ var Self =
 {
 
   name : 'Tools/Math/Plane',
-  silencing : 1,
+  silencing : 0,
   enabled : 1,
   // verbosity : 7,
   // debug : 1,
@@ -2401,6 +2495,7 @@ var Self =
 
     rayClosestPoint : rayClosestPoint,
 
+    segmentIntersects : segmentIntersects,
     lineIntersects : lineIntersects,
 
     //matrixHomogenousApply : matrixHomogenousApply,
