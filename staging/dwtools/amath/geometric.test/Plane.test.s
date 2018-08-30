@@ -1724,6 +1724,110 @@ function frustumClosestPoint( test )
 
 //
 
+function rayClosestPoint( test )
+{
+
+  test.case = 'Source plane and ray remain unchanged'; /* */
+
+  var srcPlane = [ - 1, 0, 0, - 2 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ - 2, 0, 0 ];
+
+  var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  var oldSrcPlane = [ - 1, 0, 0, - 2 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstRay, oldtstRay );
+
+  test.case = 'Plane and ray intersect'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 2  ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray origin is in the plane'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray origin in plane pointing to the other side'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, -1, -1, -1 ];
+  var expected = 0;
+
+  var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray origin is the closest point'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = [ 0, -3, -3 ];
+
+  var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray and plane are parallel'; /* */
+
+  var srcPlane = [ 0, - 1, 0, 4 ];
+  var tstRay = [ 5, 5, 2, 1, 0, 1 ];
+  var expected = [ 5, 4, 2 ];
+
+  var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ 5, 5, 1, 1, 0, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 0, 5, 1 ];
+
+  var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay, dstPoint );
+  test.identical( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ 5, 5, 1, 1, 0, 0 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 5, 1 ] );
+
+  var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay, dstPoint );
+  test.equivalent( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( 'plane', 'ray' ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+//
+
 function lineIntersects( test )
 {
 
@@ -1797,7 +1901,7 @@ function lineIntersects( test )
 
   test.case = 'Perpendicular doesn´t intersect'; /* */
 
-  var plane = [ 1, 0 , 0, 0 ];
+  var plane = [ 1, 0, 0, 0 ];
   var line = [ [ - 2, 2, 2 ], [ - 1, 2, 2 ] ];
   var expected = false;
 
@@ -2294,6 +2398,8 @@ var Self =
     planeDistance, planeDistance,
 
     frustumClosestPoint : frustumClosestPoint,
+
+    rayClosestPoint : rayClosestPoint,
 
     lineIntersects : lineIntersects,
 

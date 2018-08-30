@@ -958,6 +958,102 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
 
 //
 
+function rayIntersects( srcPlane , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let planeView = _.plane._from( srcPlane );
+  let tstRayView = _.ray._from( tstRay );
+
+  let gotBool = _.ray.planeIntersects( tstRayView, planeView );
+
+  return gotBool;
+}
+
+//
+
+function rayDistance( srcPlane , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let planeView = _.plane._from( srcPlane );
+  let tstRayView = _.ray._from( tstRay );
+
+  let gotDist = _.ray.planeDistance( tstRayView, planeView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a plane to a ray. Returns the calculated point.
+  * Plane and ray remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Array } ray - The source ray.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0.5
+  * let ray = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.rayClosestPoint( [ 1, 0, 0, -0.5 ], ray );
+  *
+  * @example
+  * // returns 0
+  * _.rayClosestPoint [ 1, 0, 0, 2 ], ray );
+  *
+  * @returns { Array } Returns the closest point to the ray.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( ray ) is not ray
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.plane
+  */
+function rayClosestPoint( plane, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let rayView = _.ray._from( ray );
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
+  let dimRay  = _.ray.dimGet( rayView );
+
+  let dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimRay );
+
+  if( _.ray.planeIntersects( rayView, planeView ) )
+  return 0
+  else
+  {
+    let rayPoint = _.ray.planeClosestPoint( ray, planeView );
+
+    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, rayPoint ) );
+
+    for( let i = 0; i < dimP; i++ )
+    {
+      dstPointVector.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a plane and a line intersect. Returns true if they intersect.
   * The plane and line remain unchanged.
@@ -1324,6 +1420,10 @@ let Proto =
   frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
   frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
+
+  rayIntersects : rayIntersects, /* Same as _.ray.planeIntersects */
+  rayDistance : rayDistance, /* Same as _.ray.planeDistance */
+  rayClosestPoint : rayClosestPoint,
 
   lineIntersects : lineIntersects,
   lineIntersection : lineIntersection,
