@@ -2063,7 +2063,820 @@ function lineIntersects( test )
 
 }
 
+//
 
+function lineDistance( test )
+{
+  test.case = 'Source lines remain unchanged'; /* */
+
+  var src1Line = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Line = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  var oldSrc1Line = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Line, oldSrc1Line );
+
+  var oldSrc2Line = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Line, oldSrc2Line );
+
+  test.case = 'Lines are the same'; /* */
+
+  var src1Line = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Line = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+
+  var src1Line = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Line = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+
+  var src1Line = [ 0, 0, 0, 0, 0, 0.5 ];
+  var src2Line = [ 3, 7, 1, 0, 0, 7 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines are parallel ( different origin - opposite direction )'; /* */
+
+  var src1Line = [ 0, 0, 0, 1, 0, 0 ];
+  var src2Line = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = Math.sqrt( 50 );
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'src1Line is a point'; /* */
+
+  var src1Line = [ 3, 7, 1, 0, 0, 0 ];
+  var src2Line = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 4.320493798938574;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines are the same'; /* */
+
+  var src1Line = [ 0, 4, 2, 1, 1, 1 ];
+  var src2Line = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines intersect 4D'; /* */
+
+  var src1Line = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var src2Line = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines intersect with negative factor 3D'; /* */
+
+  var src1Line = [ 0, 0, 0, 3, 2, 1 ];
+  var src2Line = [ - 3, - 4, -4, 0, -1, -1.5 ];
+  var expected = 0;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines intersect with negative factor'; /* */
+
+  var src1Line = [ 0, 0, 2, 0 ];
+  var src2Line = [ - 3, - 4, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines don´t intersect 2D'; /* */
+
+  var src1Line = [ 0, 0, 2, 0 ];
+  var src2Line = [ - 3, - 4, 1, 0 ];
+  var expected = 4;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines are perpendicular and intersect'; /* */
+
+  var src1Line = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Line = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines are perpendicular and don´t intersect'; /* */
+
+  var src1Line = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Line = [ 3, -2, 1, 0, 0, 1 ];
+  var expected = 9;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines are parallel to x'; /* */
+
+  var src1Line = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Line = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Lines are parallel but in a opposite direction'; /* */
+
+  var src1Line = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcLine is null'; /* */
+
+  var src1Line = null;
+  var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = Math.sqrt( 53 );
+
+  var gotDistance = _.line.lineDistance( src1Line, src2Line );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.line.lineDistance( ) );
+  test.shouldThrowErrorSync( () => _.line.lineDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineDistance( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineDistance( [ 0, 0 ], 'line') );
+  test.shouldThrowErrorSync( () => _.line.lineDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.lineDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.lineDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.lineDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.lineDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function lineClosestPoint( test )
+{
+  test.case = 'Source lines remain unchanged'; /* */
+
+  var src1Line = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Line = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrc1Line = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Line, oldSrc1Line );
+
+  var oldSrc2Line = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Line, oldSrc2Line );
+
+  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+
+  var src1Line = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Line = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+
+  var src1Line = [ 3, 7, 1, 0, 0, 7 ];
+  var src2Line = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = [ 3, 7, 0 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Lines are parallel ( different origin - opposite direction )'; /* */
+
+  var src1Line = [ 0, 0, 0, 1, 0, 0 ];
+  var src2Line = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = [ 3, 0, 0 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'src1Line is a point - in srcLine1'; /* */
+
+  var src1Line = [ 3, 7, 1, 0, 0, 0 ];
+  var src2Line = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'src1Line is a point - in srcLine2'; /* */
+
+  var src1Line = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Line = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Lines are the same'; /* */
+
+  var src1Line = [ 0, 4, 2, 1, 1, 1 ];
+  var src2Line = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Lines intersect 4D'; /* */
+
+  var src1Line = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var src2Line = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Lines don´t intersect 2D - parallel'; /* */
+
+  var src1Line = [ 0, 0, 2, 0 ];
+  var src2Line = [ - 3, - 4, 1, 0 ];
+  var expected = [ -3, 0 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Lines intersect with negative factor 2D'; /* */
+
+  var src1Line = [ 0, 0, 2, 0 ];
+  var src2Line = [ - 3, - 4, 0, 1 ];
+  var expected = [ -3, 0 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Lines are perpendicular and intersect'; /* */
+
+  var src1Line = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Line = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Lines are perpendicular and don´t intersect'; /* */
+
+  var src1Line = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Line = [ 3, -2, 1, 0, 0, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Lines are parallel to x'; /* */
+
+  var src1Line = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Line = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Lines are parallel but in a opposite direction'; /* */
+
+  var src1Line = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcLine is null'; /* */
+
+  var src1Line = null;
+  var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( [ 0, 0 ], 'line') );
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function pointContains( test )
+{
+
+  test.case = 'Line and Point remain unchanged'; /* */
+
+  var line = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool, expected );
+
+  var oldLine = [  - 1,  - 1 , 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null line contains empty point'; /* */
+
+  var line = null;
+  var point = [ 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Point line contains Point'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line contains point'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line over point'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
+  var expected = false;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, -2 , 0 ];
+  var expected = false;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Point contained with negative factor'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 0, -2 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line ( normalized to 1 ) contains point'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain point'; /* */
+
+  var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = false;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line of four dimensions contains point'; /* */
+
+  var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 0 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line of four dimensions doesn´t contain point'; /* */
+
+  var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, - 2, 0 , 2 ];
+  var expected = false;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line of 7 dimensions contains point'; /* */
+
+  var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
+  var point = [ - 1, -1, -1, -1, -1, -1, -1 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line of 7 dimensions doesn´t contain point'; /* */
+
+  var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
+  var point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line of 1 dimension contains point'; /* */
+
+  var line = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line of 1 dimension contains point with negative factor'; /* */
+
+  var line = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Negative factor 2 dimensions'; /* */
+
+  var line = [ 0, 0, 1, 1 ];
+  var point = [ - 3, -3 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Negative factor 3 dimensions'; /* */
+
+  var line = [ 0, 0, 0, 1, 1, 2 ];
+  var point = [ - 3, -3, -6 ];
+  var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.pointContains( ) );
+  test.shouldThrowErrorSync( () => _.line.pointContains( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.pointContains( 'line', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.pointContains( [ 1, 1, 2, 2 ], 'line') );
+  test.shouldThrowErrorSync( () => _.line.pointContains( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.pointContains( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.pointContains( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.pointContains( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.pointContains( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.pointContains( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function pointDistance( test )
+{
+
+  test.case = 'Line and Point remain unchanged'; /* */
+
+  var line = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance, expected );
+
+  var oldLine = [  - 1,  - 1 , 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null line Distance empty point'; /* */
+
+  var line = null;
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point line Distance same Point'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point line Distance other Point'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 3, 4, 0 ];
+  var expected = 5;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line contains point'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line contains point with negative factor'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, - 2 ];
+  var point = [  - 1, - 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line over point'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
+  var expected = 1;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, -2, 0 ];
+  var expected = 2;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point with negative factor'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 0, -2 ];
+  var expected = 0;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line ( normalized to 1 ) Distance point'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = 0;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain point'; /* */
+
+  var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = 0.568342039793567;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.equivalent( gotDistance,  expected );
+
+  test.case = 'Line of four dimensions distance '; /* */
+
+  var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 4 ];
+  var expected = Math.sqrt( 12 );
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line of 7 dimensions distance'; /* */
+
+  var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
+  var point = [ 2, 2, 2, 2, 2, 2, 2 ];
+  var expected = Math.sqrt( 96 );
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line of 1 dimension contains point'; /* */
+
+  var line = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.pointDistance( line, point );
+  test.identical( gotDistance,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.pointDistance( ) );
+  test.shouldThrowErrorSync( () => _.line.pointDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.pointDistance( 'line', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.pointDistance( [ 1, 1, 2, 2 ], 'line') );
+  test.shouldThrowErrorSync( () => _.line.pointDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.pointDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.pointDistance( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.pointDistance( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.pointDistance( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.pointDistance( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function pointClosestPoint( test )
+{
+
+  test.case = 'Line and Point remain unchanged'; /* */
+
+  var line = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint, expected );
+
+  var oldLine = [  - 1,  - 1 , 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null line - empty point'; /* */
+
+  var line = null;
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point line - same Point'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point line - other Point'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var point = [ 3, 4, 0 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line contains point'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ 1, 1, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line over point'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
+  var expected = [ 0, 0, 4 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point with negative factor'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ - 2, - 2, - 2 ];
+  var expected = [ - 2, - 2, - 2 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) Distance point'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = [ 0.5, 0.5, 0 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain point'; /* */
+
+  var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = [ 0.02572500470627867, 0.10157398765468795, 0.10157398765468795 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.equivalent( gotClosestPoint,  expected );
+
+  test.case = 'Line of four dimensions distance '; /* */
+
+  var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 4 ];
+  var expected = [ 1, 1, 1, 1 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line of 7 dimensions distance'; /* */
+
+  var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
+  var point = [ 2, 2, 2, 2, 2, 2, 2 ];
+  var expected = [ - 2, - 2, - 2, - 2, - 2, - 2, 2 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line of 1 dimension contains point'; /* */
+
+  var line = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = [ 1 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line of 1 contains point with negative factor'; /* */
+
+  var line = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = [ - 3 ];
+
+  var gotClosestPoint = _.line.pointClosestPoint( line, point );
+  test.identical( gotClosestPoint,  expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( 'line', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( [ 1, 1, 2, 2 ], 'line') );
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.pointClosestPoint( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
 
 // --
 // define class
@@ -2099,6 +2912,7 @@ var Self =
     getFactor : getFactor,
 
     lineParallel3D : lineParallel3D,
+
     lineParallel : lineParallel,
     lineIntersectionFactors : lineIntersectionFactors,
     lineIntersectionPoints : lineIntersectionPoints,
@@ -2106,6 +2920,12 @@ var Self =
     lineIntersectionPointAccurate : lineIntersectionPointAccurate,
     lineIntersects : lineIntersects,
 
+    lineDistance : lineDistance,
+    lineClosestPoint : lineClosestPoint,
+
+    pointContains : pointContains,
+    pointDistance : pointDistance,
+    pointClosestPoint : pointClosestPoint,
   }
 
 }

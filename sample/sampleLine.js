@@ -4,7 +4,7 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var line =   [ -3, 0, 1, 0 ];
-var line2 =  [ 0, -2, 0, 1 ];
-result = _.line.lineIntersectionFactors( line, line2 );
+var line = [ 0, 0, 0, 0, 0, 2 ];
+var point = [ 0, 0, 1 ];
+result = _.line.pointContains( line, point );
 logger.log('Final result: ', result );

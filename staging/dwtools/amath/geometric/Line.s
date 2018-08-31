@@ -871,6 +871,413 @@ function lineIntersects( srcLine1, srcLine2 )
   return true;
 }
 
+//
+
+/**
+  * Get the distance between two lines. Returns the calculated distance.
+  * The lines remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } tstLine - Test line.
+  *
+  * @example
+  * // returns 0;
+  * _.lineDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 12 );
+  * _.lineDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between two lines.
+  * @function lineDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( tstLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function lineDistance( srcLine, tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( tstLine.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let srcOrigin = _.line.originGet( srcLineView );
+  let srcDirection = _.line.directionGet( srcLineView );
+  let srcDim  = _.line.dimGet( srcLineView )
+
+  let tstLineView = _.line._from( tstLine );
+  let tstOrigin = _.line.originGet( tstLineView );
+  let tstDirection = _.line.directionGet( tstLineView );
+  let tstDim  = _.line.dimGet( tstLineView );
+
+  _.assert( srcDim === tstDim );
+
+  let distance;
+
+  if( _.line.lineIntersects( srcLineView, tstLineView ) === true )
+  return 0;
+  // Parallel lines
+  if( _.line.lineParallel( srcLineView, tstLineView ) )
+  {
+    let d1 = _.line.pointDistance( srcLineView, tstOrigin );
+    let d2 = _.line.pointDistance( tstLineView, srcOrigin );
+    let d3 = _.avector.distance( srcOrigin, tstOrigin );
+
+    if( d1 <= d2 && d1 <= d3 )
+    {
+      distance = d1;
+    }
+    else if( d2 <= d3 )
+    {
+      distance = d2;
+    }
+    else
+    {
+      distance = d3;
+    }
+  }
+  else
+  {
+    let srcPoint = _.line.lineClosestPoint( srcLineView, tstLineView );
+    let tstPoint = _.line.lineClosestPoint( tstLineView, srcLineView );
+    distance = _.avector.distance( srcPoint, tstPoint );
+  }
+
+
+  return distance;
+}
+
+//
+
+/**
+  * Get the closest point in a line to a line. Returns the calculated point.
+  * The lines remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } tstLine - Test line.
+  *
+  * @example
+  * // returns 0;
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
+  *
+  * @returns { Array } Returns the closest point in the srcLine to the tstLine.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( tstLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function lineClosestPoint( srcLine, tstLine, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( tstLine.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( tstLine.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let srcOrigin = _.line.originGet( srcLineView );
+  let srcDir = _.line.directionGet( srcLineView );
+  let srcDim  = _.line.dimGet( srcLineView );
+
+  let tstLineView = _.line._from( tstLine );
+  let tstOrigin = _.line.originGet( tstLineView );
+  let tstDir = _.line.directionGet( tstLineView );
+  let tstDim = _.line.dimGet( tstLineView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( srcDim === tstDim );
+
+  let pointView;
+
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
+  {
+    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
+  }
+  if( identOrigin === srcOrigin.length )
+  pointView = srcOrigin;
+  else
+  {
+    // Parallel lines
+    if( _.line.lineParallel( srcLineView, tstLineView ) )
+    {
+      pointView = _.line.pointClosestPoint( srcLineView, tstOrigin );
+    }
+    else
+    {
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+
+      pointView = _.line.lineAt( srcLineView, factor );
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
+  * Check if a given point is contained inside a line. Returs true if it is contained, false if not.
+  * Point and line stay untouched.
+  *
+  * @param { Array } srcLine - The source line.
+  * @param { Array } srcPoint - The source point.
+  *
+  * @example
+  * // returns true
+  * _.pointContains( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
+  *
+  * @returns { Boolen } Returns true if the point is inside the line, and false if the point is outside it.
+  * @function pointContains
+  * @throws { Error } An Error if ( dim ) is different than point.length (line and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.line
+  */
+function pointContains( srcLine, srcPoint )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcPoint.length );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimension  = _.line.dimGet( srcLineView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+
+  _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
+  let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+
+  let factor;
+  if( direction.eGet( 0 ) === 0 )
+  {
+    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    {
+      return false;
+    }
+    else
+    {
+      factor = 0;
+    }
+  }
+  else
+  {
+    factor = dOrigin.eGet( 0 ) / direction.eGet( 0 );
+  }
+  for( var i = 1; i < dOrigin.length; i++ )
+  {
+    let newFactor;
+    if( direction.eGet( i ) === 0 )
+    {
+      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      {
+        return false;
+      }
+      else
+      {
+        newFactor = 0;
+      }
+    }
+    else
+    {
+      newFactor = dOrigin.eGet( i ) / direction.eGet( i );
+
+      if( Math.abs( newFactor - factor ) > _.accuracySqr && factor !== 0 )
+      {
+        return false;
+      }
+      factor = newFactor;
+    }
+  }
+
+  return true;
+}
+
+//
+
+/**
+  * Get the distance between a point and a line. Returs the calculated distance. Point and line stay untouched.
+  *
+  * @param { Array } srcLine - The source line.
+  * @param { Array } srcPoint - The source point.
+  *
+  * @example
+  * // returns 0
+  * _.pointDistance( [ 0, 0, 0, 2 ], [ 0, 1 ] );
+  *
+  * @example
+  * // returns 2
+  * _.pointDistance( [ 0, 0, 0, 2 ], [ 2, 2 ] );
+  *
+  * @returns { Boolen } Returns the distance between the point and the line.
+  * @function pointDistance
+  * @throws { Error } An Error if ( dim ) is different than point.length (line and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.line
+  */
+function pointDistance( srcLine, srcPoint )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcPoint.length );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimension  = _.line.dimGet( srcLineView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+
+  _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
+
+  if( _.line.pointContains( srcLineView, srcPointView ) )
+  {
+    return 0;
+  }
+  else
+  {
+    let projection = _.line.pointClosestPoint( srcLineView, srcPointView );
+    let factor = _.line.getFactor( srcLineView, projection );
+
+    if( factor === false )
+    {
+      let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+      return Math.norm( dOrigin );
+    }
+    else
+    {
+      let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
+      debugger;
+      let mod = _.vector.dot( dPoints, dPoints );
+      mod = Math.sqrt( mod );
+
+      return mod;
+    }
+
+  }
+
+  return true;
+}
+
+/**
+  * Get the closest point between a point and a line. Returs the calculated point. srcPoint and line stay untouched.
+  *
+  * @param { Array } srcLine - The source line.
+  * @param { Array } srcPoint - The source point.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * _.pointClosestPoint( [ 0, 0, 0, 2 ], [ 0, 1 ] );
+  *
+  * @example
+  * // returns [ 0, 2 ]
+  * _.pointClosestPoint( [ 0, 0, 0, 2 ], [ 2, 2 ] );
+  *
+  * @returns { Boolen } Returns the closest point in a line to a point.
+  * @function pointClosestPoint
+  * @throws { Error } An Error if ( dim ) is different than point.length (line and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.line
+  */
+function pointClosestPoint( srcLine, srcPoint, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcPoint.length );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcPoint.length );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimension  = _.line.dimGet( srcLineView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
+
+  let pointVector;
+
+  var dir = 0;
+  for( var i = 0; i < direction.length; i++ )
+  {
+    if( direction.eGet( i ) === 0 )
+    dir = dir + 1;
+  }
+
+  if( dir === direction.length )
+  {
+    pointVector = origin;
+  }
+  else if( _.line.pointContains( srcLineView, srcPointView ) )
+  {
+    pointVector = _.vector.from( srcPointView );
+  }
+  else
+  {
+    let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+    let dot = _.vector.dot( direction, direction );
+    let factor = _.vector.dot( direction , dOrigin ) / dot ;
+    if( dot === 0 )
+    {
+      pointVector = _.vector.from( origin );
+    }
+    else
+    {
+      pointVector = _.vector.from( _.line.lineAt( srcLineView, factor ) );
+    }
+  }
+
+  for( let i = 0; i < pointVector.length; i++ )
+  {
+    dstPointView.eSet( i, pointVector.eGet( i ) );
+  }
+
+  return dstPoint;
+}
 
 
 
@@ -909,6 +1316,12 @@ let Proto =
   lineIntersectionPointAccurate : lineIntersectionPointAccurate,
   lineIntersects : lineIntersects,
 
+  lineDistance : lineDistance,
+  lineClosestPoint : lineClosestPoint,
+
+  pointContains : pointContains,
+  pointDistance : pointDistance,
+  pointClosestPoint : pointClosestPoint,
 }
 
 _.mapSupplement( Self, Proto );
