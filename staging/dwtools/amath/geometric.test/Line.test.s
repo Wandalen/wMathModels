@@ -2878,6 +2878,431 @@ function pointClosestPoint( test )
 
 }
 
+//
+
+function boxIntersects( test )
+{
+
+  test.case = 'Line and box remain unchanged'; /* */
+
+  var line = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool, expected );
+
+  var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldBox = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( box, oldBox );
+
+  test.case = 'Null line - empty box'; /* */
+
+  var line = null;
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'box line - same box'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point line - no intersection'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var box = [ 1, 2, 4, 3, 4, 0 ];
+  var expected = false;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point line in box'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var box = [ 1, 2, 2, 3, 4, 4 ];
+  var expected = true;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line and box intersect'; /* */
+
+  var line = [ -2, -2, -2, 2, 2, 2 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line over box'; /* */
+
+  var line = [ 0, 0, 4, 0, 0, 2 ];
+  var box = [ 0, 1, 1, 3, 7, 3 ];
+  var expected = false;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'box closer to origin'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var box = [ - 2, - 2, - 3, -1, -1, - 2 ];
+  var expected = true;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'box with negative factor'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var box = [ - 2, - 2, - 2, -1, -1, -1 ];
+  var expected = true;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var box = [ 0.500, 0.123, 0, 0.734, 0.900, 0.837 ];
+  var expected = true;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain box'; /* */
+
+  var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, - 0.303 ];
+  var expected = false;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.equivalent( gotBool,  expected );
+
+  test.case = '2D intersection'; /* */
+
+  var line = [ 0, 0, 2, 2 ];
+  var box = [ 1, 2, 3, 4 ];
+  var expected = true;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = '2D no intersection'; /* */
+
+  var line = [ 0, 0, 2, -2 ];
+  var box = [ 1, 2, 3, 4 ];
+  var expected = false;
+
+  var gotBool = _.line.boxIntersects( line, box );
+  test.identical( gotBool,  expected );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.boxIntersects( ) );
+  test.shouldThrowErrorSync( () => _.line.boxIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boxIntersects( 'line', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boxIntersects( [ 1, 1, 2, 2 ], 'box') );
+  test.shouldThrowErrorSync( () => _.line.boxIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.boxIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boxIntersects( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.boxIntersects( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.boxIntersects( [ 1, 1, 2, 2 ], - 2 ) );
+
+}
+
+//
+
+function boxDistance( test )
+{
+  test.case = 'Line and box remain unchanged'; /* */
+
+  var line = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool, expected );
+
+  var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldBox = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( box, oldBox );
+
+  test.case = 'Null line - empty box'; /* */
+
+  var line = null;
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'box line - same box'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point line'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var box = [ 1, 2, 4, 3, 4, 5 ];
+  var expected = 1;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point line in box'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var box = [ 1, 2, 2, 3, 4, 4 ];
+  var expected = 0;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line and box intersect'; /* */
+
+  var line = [ -2, -2, -2, 2, 2, 2 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line over box'; /* */
+
+  var line = [ 0, 0, 4, 0, 0, 2 ];
+  var box = [ 0, 1, 1, 3, 7, 3 ];
+  var expected = 1;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'box corner is in line with negative factor'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var box = [ - 2, - 2, - 2, -1, -1, -1 ];
+  var expected = 0;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool,  expected );
+
+  test.case = 'box corner closer to origin'; /* */
+
+  var line = [ 2, 2, 2, - 2, 2, 2 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = Math.sqrt( 24/9 );
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.equivalent( gotBool,  expected );
+
+  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var box = [ 0.500, 0.123, 0, 0.734, 0.900, 0.837 ];
+  var expected = 0;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool, expected );
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain box'; /* */
+
+  var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, 0.303 ];
+  var expected = 0.04570949385069674;
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.equivalent( gotBool,  expected );
+
+  test.case = '2D'; /* */
+
+  var line = [ 2, 0, 2, 2 ];
+  var box = [ 0, 0, 1, 1 ];
+  var expected = Math.sqrt( 0.5 );
+
+  var gotBool = _.line.boxDistance( line, box );
+  test.identical( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.boxDistance( ) );
+  test.shouldThrowErrorSync( () => _.line.boxDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boxDistance( 'line', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boxDistance( [ 1, 1, 2, 2 ], 'box') );
+  test.shouldThrowErrorSync( () => _.line.boxDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.boxDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boxDistance( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.boxDistance( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.boxDistance( [ 1, 1, 2, 2 ], - 2 ) );
+
+}
+
+//
+
+function boxClosestPoint( test )
+{
+  test.case = 'Line and box remain unchanged'; /* */
+
+  var line = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint, expected );
+
+  var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldBox = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( box, oldBox );
+
+  test.case = 'Null line - empty box'; /* */
+
+  var line = null;
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'box line - same box'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var box = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point line'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var box = [ 1, 2, 4, 3, 4, 0 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point line in box'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var box = [ 1, 2, 2, 3, 4, 4 ];
+  var expected = 0;
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line and box intersect'; /* */
+
+  var line = [ -2, -2, -2, 2, 2, 2 ];
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line over box - negative factor'; /* */
+
+  var line = [ 0, 0, 4, 0, 0, 2 ];
+  var box = [ 0, 1, 1, 3, 7, 3 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'box corner - negative factor'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var box = [ - 2, - 2, - 2, -1, -1, -1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'box corner closer to origin'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var box = [ 0, - 2, 0, 1, -1, 1 ];
+  var expected = [ - 1/3, - 1/3, - 1/3 ];
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'box corner not close to origin'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var box = [ 6, 7, 8, 6, 9, 10 ];
+  var expected = [ 7, 7, 7 ];
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var box = [ 0.500, 0.123, 0, 0.734, 0.900, 0.837 ];
+  var expected = 0;
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain box'; /* */
+
+  var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, - 0.303 ];
+  var expected = [ 0.005519293548276563, 0.021792674525669315, 0.021792674525669315 ];
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = '2D'; /* */
+
+  var line = [ 0, 0, 2, 1 ];
+  var box = [ 6, 7, 10, 8 ];
+  var expected = [ 10.8, 5.4 ];
+
+  var gotPoint = _.line.boxClosestPoint( line, box );
+  test.identical( gotPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.boxClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.boxClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boxClosestPoint( 'line', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boxClosestPoint( [ 1, 1, 2, 2 ], 'box') );
+  test.shouldThrowErrorSync( () => _.line.boxClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.boxClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boxClosestPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.boxClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.boxClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+
+}
+
 // --
 // define class
 // --
@@ -2926,6 +3351,10 @@ var Self =
     pointContains : pointContains,
     pointDistance : pointDistance,
     pointClosestPoint : pointClosestPoint,
+
+    boxIntersects : boxIntersects,
+    boxDistance : boxDistance,
+    boxClosestPoint : boxClosestPoint,
   }
 
 }

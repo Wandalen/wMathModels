@@ -1279,6 +1279,201 @@ function pointClosestPoint( srcLine, srcPoint, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Check if a line and a box intersect. Returns true if they intersect and false if not.
+  * The box and the line remain unchanged. Only for 1D to 3D
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.boxIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.boxIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the line and the box intersect.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the line and box don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function boxIntersects( srcLine, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcBox.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let boxView = _.box._from( srcBox );
+  let dimBox = _.box.dimGet( boxView );
+  let min = _.vector.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vector.from( _.box.cornerRightGet( boxView ) );
+
+  _.assert( dimLine === dimBox );
+
+  if( _.box.pointContains( boxView, origin ) )
+  return true;
+
+  /* box corners */
+  let c = _.box.cornersGet( boxView );
+
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+  {
+    let corner = c.colVectorGet( j );
+    let projection = _.line.pointClosestPoint( srcLineView, corner );
+
+    if( _.box.pointContains( boxView, projection ) )
+    return true;
+  }
+
+  return false;
+
+}
+
+//
+
+/**
+  * Get the distance between a line and a box. Returns the calculated distance.
+  * The box and the line remain unchanged. Only for 1D to 3D
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns 0;
+  * _.boxDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 12 );
+  * _.boxDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the distance between the line and the box.
+  * @function boxDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the line and box don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function boxDistance( srcLine, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcBox.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let boxView = _.box._from( srcBox );
+  let dimBox = _.box.dimGet( boxView );
+  let min = _.vector.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vector.from( _.box.cornerRightGet( boxView ) );
+
+  _.assert( dimLine === dimBox );
+
+  if( _.line.boxIntersects( srcLineView, boxView ) )
+  return 0;
+
+  let closestPoint = _.line.boxClosestPoint( srcLineView, boxView );
+  return _.box.pointDistance( boxView, closestPoint );
+}
+
+//
+
+/**
+  * Get the closest point in a line to a box. Returns the calculated point.
+  * The box and the line remain unchanged. Only for 1D to 3D
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns 0;
+  * _.boxClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, - 1, 0 ];
+  * _.boxClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the closest point in the line to the box.
+  * @function boxClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the line and box don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function boxClosestPoint( srcLine, srcBox, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcBox.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcBox.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let boxView = _.box._from( srcBox );
+  let dimBox = _.box.dimGet( boxView );
+  let min = _.vector.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vector.from( _.box.cornerRightGet( boxView ) );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dimLine === dimBox );
+
+  if( _.line.boxIntersects( srcLineView, boxView ) )
+  return 0;
+
+  /* box corners */
+  let c = _.box.cornersGet( boxView );
+
+  let distance = _.box.pointDistance( boxView, origin );
+  let d = 0;
+  let pointView = _.vector.from( origin );
+
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+  {
+    let corner = c.colVectorGet( j );
+    d = Math.abs( _.line.pointDistance( srcLineView, corner ) );
+    if( d < distance )
+    {
+      distance = d;
+      pointView = _.line.pointClosestPoint( srcLineView, corner );
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
 
 
 
@@ -1322,6 +1517,10 @@ let Proto =
   pointContains : pointContains,
   pointDistance : pointDistance,
   pointClosestPoint : pointClosestPoint,
+
+  boxIntersects : boxIntersects,
+  boxDistance : boxDistance,
+  boxClosestPoint : boxClosestPoint,
 }
 
 _.mapSupplement( Self, Proto );

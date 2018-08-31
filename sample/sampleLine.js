@@ -4,7 +4,7 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var line = [ 0, 0, 0, 0, 0, 2 ];
-var point = [ 0, 0, 1 ];
-result = _.line.pointContains( line, point );
+var line = [ 2, 0, 2, 2 ];
+var box = [ 0, 0, 1, 1 ];
+result = _.line.boxClosestPoint( line, box );
 logger.log('Final result: ', result );
