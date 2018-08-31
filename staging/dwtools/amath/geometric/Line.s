@@ -566,23 +566,24 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @memberof wTools.line
   */
-function lineIntersectionFactors( r1, r2 )
+function lineIntersectionFactors( srcLine1, srcLine2 )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( r1.length === r2.length,'The two lines must have the same dimension' );
+  _.assert( srcLine1.length === srcLine2.length,'The two lines must have the same dimension' );
 
-  let r1View = _.line._from( r1.slice() );
-  let r2View = _.line._from( r2.slice() );
+  let srcLine1View = _.line._from( srcLine1.slice() );
+  let srcLine2View = _.line._from( srcLine2.slice() );
 
-  let origin1 = _.line.originGet( r1View );
-  let origin2 = _.line.originGet( r2View );
-  let dOrigin = _.vector.from( avector.subVectors( origin2, origin1 ) );
+  let origin1 = _.line.originGet( srcLine1View );
+  let origin2 = _.line.originGet( srcLine2View );
 
-  let direction1 = _.line.directionGet( r1View );
-  let direction2 = _.line.directionGet( r2View );
-  let directions = _.Space.make( [ r1.length / 2 , 2 ] );
+  let dOrigin = _.vector.from( avector.subVectors( origin2.clone(), origin1 ) );
+
+  let direction1 = _.line.directionGet( srcLine1View );
+  let direction2 = _.line.directionGet( srcLine2View );
+  let directions = _.Space.make( [ srcLine1.length / 2 , 2 ] );
   directions.colVectorGet( 0 ).copy( direction1 );
-  directions.colVectorGet( 1 ).copy( direction2.mulScalar( - 1 ) );
+  directions.colVectorGet( 1 ).copy( direction2.clone().mulScalar( - 1 ) );
 
   // Same origin
   let identOrigin = 0;
@@ -591,171 +592,108 @@ function lineIntersectionFactors( r1, r2 )
     if( origin1.eGet( i ) === origin2.eGet( i ) )
     identOrigin = identOrigin + 1;
   }
+
   if( identOrigin === origin1.length )
   return _.vector.from( [ 0, 0 ] );
 
   // Parallel lines
-  if( lineParallel( r1, r2 ) === true )
+  if( lineParallel( srcLine1, srcLine2 ) === true )
   return 0;
 
   let result = _.vector.from( [ 0, 0 ] );
 
   debugger;
 
+  let j = 0;
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
-    logger.log( i )
     let m = _.Space.make( [ 2, 2 ] );
     m.rowSet( 0, directions.rowVectorGet( i ) );
     m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
 
-    let or = _.Space.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
-
-    let o =
-    {
-      x : null,
-      m : m,
-      y : or,
-      kernel : null,
-      pivoting : 1,
-    }
-
-    let x = _.Space.solveGeneral( o );
-    if( i === 0 )
-    {
-      result = _.vector.from( x.base )
-      logger.log( 'result', result.slice())
-    }
+    if( m.determinant() === 0 )
+    {}
     else
     {
-      let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
-      let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
-      logger.log( 'result', result.slice())
-      logger.log( 'NEW result', x1, x2 )
-      let samex1 = Math.abs( x1 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x1 - result.eGet( 1 ) ) < 1E-6 ;
-      let samex2 = Math.abs( x2 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x2 - result.eGet( 1 ) ) < 1E-6 ;
-
-      if( x1 !== 0 )
+      let or = _.Space.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+      let o =
       {
-        if( samex1 )
-        {
-          result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
-        }
-        else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex2 )
-        {
-          result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
-        }
-        else
-        {
-          return 0;
-        }
-      }
-      if( x2 !== 0 )
-      {
-        if( samex2 )
-        {
-          result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
-        }
-        else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex1 )
-        {
-          result.eSet( 1, _.vector.from( x.base ).eGet( 1 ) );
-        }
-        else
-        {
-          return 0;
-        }
+        x : null,
+        m : m,
+        y : or,
+        kernel : null,
+        pivoting : 1,
       }
 
+      let x = _.Space.solveGeneral( o );
+      if( j === 0 )
+      {
+        result = _.vector.from( x.base )
+      }
+      else
+      {
+        let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
+        let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
+
+        let samex1 = Math.abs( x1 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x1 - result.eGet( 1 ) ) < 1E-6 ;
+        let samex2 = Math.abs( x2 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x2 - result.eGet( 1 ) ) < 1E-6 ;
+
+        if( x1 !== 0 )
+        {
+          if( samex1 )
+          {
+            result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
+          }
+          else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex2 )
+          {
+            result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
+          }
+          else
+          {
+            return 0;
+          }
+        }
+        if( x2 !== 0 )
+        {
+          if( samex2 )
+          {
+            result.eSet( 1, _.vector.from( x.base ).eGet( 1 ) );
+          }
+          else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex1 )
+          {
+            result.eSet( 1, _.vector.from( x.base ).eGet( 1 ) );
+          }
+          else
+          {
+            return 0;
+          }
+        }
+      }
+      j = j + 1;
     }
+    var oldDeterminant = m.determinant();
   }
 
-  return result;
-}
-
-//
-
-function lineIntersectionFactors2( r1, r2 )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( r1.length === r2.length,'The two lines must have the same dimension' );
-
-  let r1View = _.line._from( r1 );
-  let origin1 = _.line.originGet( r1View );
-  let direction1 = _.line.directionGet( r1View );
-  let r2View = _.line._from( r2 );
-  let origin2 = _.line.originGet( r2View );
-  let direction2 = _.line.directionGet( r2View );
-
-  // Same origin
-  let identOrigin = 0;
-  for( let i = 0; i < origin1.length; i++ )
+  if( result.eGet( 0 ) === 0 && result.eGet( 1 ) === 0 )
   {
-    if( origin1.eGet( i ) === origin2.eGet( i ) )
-    identOrigin = identOrigin + 1;
-  }
-  if( identOrigin === origin1.length )
-  return [ 0, 0 ];
-
-  // Parallel lines
-  if( lineParallel( r1, r2 ) === true )
-  return 0;
-
-  let x = [];
-  let origin1x = origin1.eGet( 0 ); let origin1y = origin1.eGet( 1 );
-  let dir1x = direction1.eGet( 0 ); let dir1y = direction1.eGet( 1 );
-  let origin2x = origin2.eGet( 0 ); let origin2y = origin2.eGet( 1 );
-  let dir2x = direction2.eGet( 0 ); let dir2y = direction2.eGet( 1 );
-  x[ 1 ] = ( dir1x*( origin2y - origin1y ) + dir1y*( origin1x -origin2x ) ) / ( dir2x*dir1y - dir2y*dir1x );
-  let w = 1;
-  while( isNaN( x[ 1 ] ) && w < origin1.length - 1 )
-  {
-    let origin1y = origin1.eGet( w + 1 ); let dir1y = direction1.eGet( w + 1 );
-    let origin2y = origin1.eGet( w + 1 ); let dir2y = direction1.eGet( w + 1 );
-    x[ 1 ] = ( dir1x*( origin2y - origin1y ) + dir1y*( origin1x -origin2x ) ) / ( dir2x*dir1y - dir2y*dir1x );
-    w = w + 1;
-  }
-
-  x[ 0 ] = ( origin2x + dir2x*x[ 1 ] - origin1x )/ dir1x;
-
-  if(  x[ 0 ] === Infinity || x[ 1 ] === Infinity )
-  return 0;
-  if(  !_.numberIs( x[ 0 ] ) || isNaN( x[ 0 ] ) || !_.numberIs( x[ 1 ] ) || isNaN( x[ 1 ] ) )
-  return 0;
-
-  // Check other dimensions in line coincide with the calculated factor
-  for( let i = 0; i < origin1.length; i++ )
-  {
-    let point1 = origin1.eGet( i ) + direction1.eGet( i )*x[ 0 ];
-    let point2 = origin2.eGet( i ) + direction2.eGet( i )*x[ 1 ];
-    if( Math.abs( point1 - point2 ) > 1E-7 )
     return 0;
   }
 
-  return x;
-}
-
-lineIntersectionFactors.shaderChunk =
-`
-  vec2 lineIntersectionFactors( vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  // Check result
+  let point1 = _.vector.from( _.array.makeArrayOfLength( origin1.length ) )
+  let point2 = _.vector.from( _.array.makeArrayOfLength( origin1.length ) )
+  for( let i = 0; i < origin1.length; i++ )
   {
+    point1.eSet( i, origin1.eGet( i ) + result.eGet( 0 )*direction1.eGet( i ) )
+    point2.eSet( i, origin2.eGet( i ) + result.eGet( 1 )*direction2.eGet( i ) )
 
-    vec2 dorigin = r2[ 0 ] - r1[ 0 ];
-
-    vec2 y;
-    y[ 0 ] = + dorigin[ 0 ];
-    y[ 1 ] = - dorigin[ 1 ];
-
-    mat2 m;
-    m[ 0 ][ 0 ] = + r1[ 1 ][ 0 ];
-    m[ 1 ][ 0 ] = - r1[ 1 ][ 1 ];
-    m[ 0 ][ 1 ] = - r2[ 1 ][ 0 ];
-    m[ 1 ][ 1 ] = + r2[ 1 ][ 1 ];
-
-    vec2 x = d2linearEquationSolve( m,y );
-    return x;
-
+    if( Math.abs( point1.eGet( i ) - point2.eGet( i ) ) > _.accuracy )
+    {
+      return 0
+    }
   }
-`
+  return result;
+}
 
 //
 
@@ -781,25 +719,25 @@ lineIntersectionFactors.shaderChunk =
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @memberof wTools.line
   */
-function lineIntersectionPoints( r1,r2 )
+function lineIntersectionPoints( srcLine1,srcLine2 )
 {
-  let factors = lineIntersectionFactors2( r1,r2 );
+  let factors = lineIntersectionFactors( srcLine1,srcLine2 );
   if( factors === 0 )
   return 0;
 
   let factorsView = _.vector.from( factors );
-  let result = [ Self.lineAt( r1, factorsView.eGet( 0 ) ), Self.lineAt( r2, factorsView.eGet( 1 ) ) ];
+  let result = [ Self.lineAt( srcLine1, factorsView.eGet( 0 ) ), Self.lineAt( srcLine2, factorsView.eGet( 1 ) ) ];
   return result;
 }
 
 lineIntersectionPoints.shaderChunk =
 `
-  void lineIntersectionPoints( out vec2 result[ 2 ], vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  void lineIntersectionPoints( out vec2 result[ 2 ], vec2 srcLine1[ 2 ], vec2 srcLine2[ 2 ] )
   {
 
-    vec2 factors = lineIntersectionFactors( r1,r2 );
-    result[ 0 ] = lineAt( r1,factors[ 0 ] );
-    result[ 1 ] = lineAt( r2,factors[ 1 ] );
+    vec2 factors = lineIntersectionFactors( srcLine1,srcLine2 );
+    result[ 0 ] = lineAt( srcLine1,factors[ 0 ] );
+    result[ 1 ] = lineAt( srcLine2,factors[ 1 ] );
 
   }
 `
@@ -828,25 +766,25 @@ lineIntersectionPoints.shaderChunk =
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @memberof wTools.line
   */
-function lineIntersectionPoint( r1,r2 )
+function lineIntersectionPoint( srcLine1,srcLine2 )
 {
 
-  let factors = Self.lineIntersectionFactors( r1,r2 );
+  let factors = Self.lineIntersectionFactors( srcLine1,srcLine2 );
 
   if( factors === 0 )
   return 0;
 
-  return Self.lineAt( r1,factors.eGet( 0 ) );
+  return Self.lineAt( srcLine1,factors.eGet( 0 ) );
 
 }
 
 lineIntersectionPoint.shaderChunk =
 `
-  vec2 lineIntersectionPoint( vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  vec2 lineIntersectionPoint( vec2 srcLine1[ 2 ], vec2 srcLine2[ 2 ] )
   {
 
-    vec2 factors = lineIntersectionFactors( r1,r2 );
-    return lineAt( r1,factors[ 0 ] );
+    vec2 factors = lineIntersectionFactors( srcLine1,srcLine2 );
+    return lineAt( srcLine1,factors[ 0 ] );
 
   }
 `
@@ -855,7 +793,7 @@ lineIntersectionPoint.shaderChunk =
 
 /**
   * Returns the point of the intersection of two lines. Returns an array with the intersection point, 0 if there is no intersection.
-  * Lines stay untouched. Only for 2D.
+  * Lines stay untouched.
   *
   * @param { Vector } src1Line - The first source line.
   * @param { Vector } src2Line - The second source line.
@@ -875,10 +813,10 @@ lineIntersectionPoint.shaderChunk =
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @memberof wTools.line
   */
-function lineIntersectionPointAccurate( r1,r2 )
+function lineIntersectionPointAccurate( srcLine1,srcLine2 )
 {
 
-  let closestPoints = Self.lineIntersectionPoints( r1,r2 );
+  let closestPoints = Self.lineIntersectionPoints( srcLine1,srcLine2 );
   debugger;
 
   if( closestPoints === 0)
@@ -890,15 +828,49 @@ function lineIntersectionPointAccurate( r1,r2 )
 
 lineIntersectionPointAccurate.shaderChunk =
 `
-  vec2 lineIntersectionPointAccurate( vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  vec2 lineIntersectionPointAccurate( vec2 srcLine1[ 2 ], vec2 srcLine2[ 2 ] )
   {
 
     vec2 closestPoints[ 2 ];
-    lineIntersectionPoints( closestPoints,r1,r2 );
+    lineIntersectionPoints( closestPoints,srcLine1,srcLine2 );
     return ( closestPoints[ 0 ] + closestPoints[ 1 ] ) * 0.5;
 
   }
 `
+
+//
+
+/**
+  * Check if two lines intersect. Returns true if they intersect, false if not.
+  * Lines stay untouched.
+  *
+  * @param { Vector } src1Line - The first source line.
+  * @param { Vector } src2Line - The second source line.
+  *
+  * @example
+  * // returns   true
+  * _.lineIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  false
+  * _.lineIntersects( [ -3, 0, 1, 0 ], [ 0, -2, 1, 0 ] );
+  *
+  * @returns { Boolean } Returns true if the two lines intersect.
+  * @function lineIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Line ) is not line.
+  * @throws { Error } An Error if ( src2Line ) is not line.
+  * @memberof wTools.line
+  */
+function lineIntersects( srcLine1, srcLine2 )
+{
+
+  if( _.line.lineIntersectionFactors( srcLine1, srcLine2 ) === 0 )
+  return false
+
+  return true;
+}
+
 
 
 
@@ -932,11 +904,10 @@ let Proto =
   lineParallel3D : lineParallel3D,
   lineParallel : lineParallel,
   lineIntersectionFactors : lineIntersectionFactors,
-  lineIntersectionFactors2 : lineIntersectionFactors2,
   lineIntersectionPoints : lineIntersectionPoints,
   lineIntersectionPoint : lineIntersectionPoint,
   lineIntersectionPointAccurate : lineIntersectionPointAccurate,
-
+  lineIntersects : lineIntersects,
 
 }
 

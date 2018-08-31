@@ -625,7 +625,7 @@ function rayIntersectionFactors( r1, r2 )
   let direction2 = _.ray.directionGet( r2View );
   let directions = _.Space.make( [ r1.length / 2 , 2 ] );
   directions.colVectorGet( 0 ).copy( direction1 );
-  directions.colVectorGet( 1 ).copy( direction2.mulScalar( - 1 ) );
+  directions.colVectorGet( 1 ).copy( direction2.clone().mulScalar( - 1 ) );
 
   // Same origin
   let identOrigin = 0;
@@ -672,13 +672,16 @@ function rayIntersectionFactors( r1, r2 )
     {
       let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
       let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
-      let diff1 = 0; let diff2 = 0; let diff3 = 0; let diff4 = 0;
+      let samex1 = Math.abs( x1 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x1 - result.eGet( 1 ) ) < 1E-6 ;
+      let samex2 = Math.abs( x2 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x2 - result.eGet( 1 ) ) < 1E-6 ;
 
       if( x1 !== 0 )
       {
-        let diff1 = Math.abs( x1 - result.eGet( 0 ) );
-        let diff2 = Math.abs( x1 - result.eGet( 1 ) );
-        if( diff1 < 1E-6 || diff2 < 1E-6 )
+        if( samex1 )
+        {
+          result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
+        }
+        else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex2 )
         {
           result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
         }
@@ -689,20 +692,20 @@ function rayIntersectionFactors( r1, r2 )
       }
       if( x2 !== 0 )
       {
-        let diff3 = Math.abs( x2 - result.eGet( 0 ) );
-        let diff4 = Math.abs( x2 - result.eGet( 1 ) );
-        if( ( diff1 < 1E-6 || diff2 < 1E-6 ) && ( diff3 < 1E-6 || diff4 < 1E-6 ) )
+        if( samex2 )
         {
           result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
+        }
+        else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex1 )
+        {
+          result.eSet( 1, _.vector.from( x.base ).eGet( 1 ) );
         }
         else
         {
           return 0;
         }
       }
-
     }
-
   }
   // Factors can not be negative
   if(  result.eGet( 0 ) <= 0 - _.accuracySqr || result.eGet( 1 ) <= 0 - _.accuracySqr )

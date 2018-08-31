@@ -1510,169 +1510,6 @@ function lineIntersectionFactors( test )
 
 //
 
-function lineIntersectionFactors2( test )
-{
-  test.case = 'Source lines remain unchanged'; /* */
-
-  var src1Line = [ 0, 0, 1, 1 ];
-  var src2Line = [ 0, 0, 2, 2 ];
-  var expected = [ 0, 0 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.identical( isIntersectionFactors, expected );
-
-  var oldSrc1Line = [ 0, 0, 1, 1 ];
-  test.equivalent( src1Line, oldSrc1Line );
-
-  var oldSrc2Line = [ 0, 0, 2, 2 ];
-  test.equivalent( src2Line, oldSrc2Line );
-
-  test.case = 'Lines are the same'; /* */
-
-  var src1Line = [ 0, 0, 1, 1 ];
-  var src2Line = [ 0, 0, 1, 1 ];
-  var expected = [ 0, 0 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.identical( isIntersectionFactors, expected );
-
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
-
-  var src1Line = [ 0, 0, 1, 1 ];
-  var src2Line = [ 3, 7, 1, 1 ];
-  var expected = 0;
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.identical( isIntersectionFactors, expected );
-
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
-
-  var src1Line = [ 0, 0, 1, 1 ];
-  var src2Line = [ 3, 7, 7, 7 ];
-  var expected = 0;
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.identical( isIntersectionFactors, expected );
-
-  test.case = 'Lines intersect with negative factor'; /* */
-
-  var src1Line = [ 0, 0, 1, 1 ];
-  var src2Line = [ 3, 0, 2, -1 ];
-  var expected = [ 1, -1 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.identical( isIntersectionFactors, expected );
-
-  test.case = 'Lines intersect in their origin'; /* */
-
-  var src1Line = [ 3, 7, 1, 0 ];
-  var src2Line = [ 3, 7, 0, 1 ];
-  var expected = [ 0, 0 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.identical( isIntersectionFactors, expected );
-
-  test.case = 'Lines intersect '; /* */
-
-  var src1Line = [ 0, 0, 1, 0 ];
-  var src2Line = [ -2, -6, 1, 2 ];
-  var expected = [ 1, 3 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.equivalent( isIntersectionFactors, expected );
-
-  test.case = 'Lines are perpendicular '; /* */
-
-  var src1Line = [ -3, 0, 1, 0 ];
-  var src2Line = [ 0, -2, 0, 1 ];
-  var expected = [ 3, 2 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.equivalent( isIntersectionFactors, expected );
-
-  test.case = 'Lines 3D intersection'; /* */
-
-  var src1Line = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Line = [ 3, 3, 3, 0, 1, 4 ];
-  var expected = [ 3, 0 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.equivalent( isIntersectionFactors, expected );
-
-  test.case = 'Lines 3D intersection 3rd coordinate 0'; /* */
-
-  var src1Line = [ 0, 0, 0, 1, 1, 0 ];
-  var src2Line = [ 3, 3, 0, 0, 1, 0 ];
-  var expected = [ 3, 0 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.equivalent( isIntersectionFactors, expected );
-
-  test.case = 'Lines 3D no intersection'; /* */
-
-  var src1Line = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Line = [ 3, 3, 5, 0, 1, 4 ];
-  var expected = 0;
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.identical( isIntersectionFactors, expected );
-
-  test.case = 'Lines 4D intersection'; /* */
-
-  var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-  var src2Line = [ 3, 3, 3, 3, 0, 2, 1, 4 ];
-  var expected = [ 3, 0 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.equivalent( isIntersectionFactors, expected );
-
-  test.case = 'Lines 4D no intersection'; /* */
-
-  var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-  var src2Line = [ 3, 3, 5, 3, 0, 0, 1, 4 ];
-  var expected = 0;
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.identical( isIntersectionFactors, expected );
-
-  test.case = 'Lines 4D no intersection out of 3D intersection'; /* */
-
-  var src1Line = [ 0, 0, 0, 1, 1, 1, 1, -1 ];
-  var src2Line = [ 3, 3, 3, 2, 0, 1, 4, 3 ];
-  var expected = 0;
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.identical( isIntersectionFactors, expected );
-
-  test.case = 'Lines 8D intersection'; /* */
-
-  var src1Line = [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1  ];
-  var src2Line = [ 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 1, 4, 0, 2, 1, 4 ];
-  var expected = [ 3, 0 ];
-
-  var isIntersectionFactors = _.line.lineIntersectionFactors2( src1Line, src2Line );
-  test.equivalent( isIntersectionFactors, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( ) );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( 'line', [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( [ 1, 1, 2, 2 ], 'line') );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( 0 ) );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( null, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( [ 1, 1, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( [ 1, 1, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( [ 1, 1, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.line.lineIntersectionFactors2( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
-
-}
-
-//
-
 function lineIntersectionPoints( test )
 {
   test.case = 'Source lines remain unchanged'; /* */
@@ -2089,6 +1926,144 @@ function lineIntersectionPointAccurate( test )
 
 }
 
+//
+
+function lineIntersects( test )
+{
+  test.case = 'Source lines remain unchanged'; /* */
+
+  var src1Line = [ 0, 0, 1, 1 ];
+  var src2Line = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  var oldSrc1Line = [ 0, 0, 1, 1 ];
+  test.equivalent( src1Line, oldSrc1Line );
+
+  var oldSrc2Line = [ 0, 0, 2, 2 ];
+  test.equivalent( src2Line, oldSrc2Line );
+
+  test.case = 'Lines are the same'; /* */
+
+  var src1Line = [ 0, 0, 1, 1 ];
+  var src2Line = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+
+  var src1Line = [ 0, 0, 1, 1 ];
+  var src2Line = [ 3, 7, 1, 1 ];
+  var expected = false;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+
+  var src1Line = [ 0, 0, 1, 1 ];
+  var src2Line = [ 3, 7, 7, 7 ];
+  var expected = false;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines intersect with negative factor'; /* */
+
+  var src1Line = [ 0, 0, 1, 1 ];
+  var src2Line = [ 3, 0, 2, -1 ];
+  var expected = true;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines intersect in their origin'; /* */
+
+  var src1Line = [ 3, 7, 1, 0 ];
+  var src2Line = [ 3, 7, 0, 1 ];
+  var expected = true;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines intersect '; /* */
+
+  var src1Line = [ 0, 0, 1, 0 ];
+  var src2Line = [ -2, -6, 1, 2 ];
+  var expected = true;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines are perpendicular '; /* */
+
+  var src1Line = [ -3, 0, 1, 0 ];
+  var src2Line = [ 0, -2, 0, 1 ];
+  var expected = true;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines don´t intersect 3D'; /* */
+
+  var src1Line = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Line = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines intersect 3D'; /* */
+
+  var src1Line = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Line = [ 3, 7, 1, 3, 1, 4 ];
+  var expected = true;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines don´t intersect 4D'; /* */
+
+  var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Line = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Lines intersect 4D'; /* */
+
+  var src1Line = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
+  var src2Line = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
+  var expected = true;
+
+  var isIntersectionPoint = _.line.lineIntersects( src1Line, src2Line );
+  test.identical( isIntersectionPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( ) );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( 'line', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( [ 1, 1, 2, 2 ], 'line') );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( null, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.lineIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+
 
 // --
 // define class
@@ -2126,11 +2101,10 @@ var Self =
     lineParallel3D : lineParallel3D,
     lineParallel : lineParallel,
     lineIntersectionFactors : lineIntersectionFactors,
-    lineIntersectionFactors2 : lineIntersectionFactors2,
     lineIntersectionPoints : lineIntersectionPoints,
     lineIntersectionPoint : lineIntersectionPoint,
     lineIntersectionPointAccurate : lineIntersectionPointAccurate,
-
+    lineIntersects : lineIntersects,
 
   }
 
