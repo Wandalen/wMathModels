@@ -2441,6 +2441,101 @@ function rayClosestPoint( box, ray, dstPoint )
 
 //
 
+function lineIntersects( srcBox , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.line.boxIntersects( tstLineView, boxView );
+  return gotBool;
+}
+
+//
+
+function lineDistance( srcBox , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.line.boxDistance( tstLineView, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a line. Returns the calculated point.
+  * Box and line remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } line - The source line.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let line = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ], line );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.lineClosestPoint( [ 2, 2, 2, 3, 3, 3 ], line );
+  *
+  * @returns { Array } Returns the closest point to the line.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( line ) is not line
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function lineClosestPoint( box, line, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let lineView = _.line._from( line );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
+  let dimLine  = _.line.dimGet( lineView );
+
+  let dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimB === dimLine );
+
+  if( _.line.boxIntersects( lineView, boxView ) )
+  return 0
+  else
+  {
+    let linePoint = _.line.boxClosestPoint( line, boxView );
+
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, linePoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointVector.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Apply a space transformation to a box. Returns the transformed box.
   *
@@ -2737,6 +2832,10 @@ let Proto =
   rayIntersects : rayIntersects, /* qqq : implement me - Same as _.ray.boxIntersects */
   rayDistance : rayDistance, /* qqq : implement me - Same as _.ray.boxDistance */
   rayClosestPoint : rayClosestPoint,
+
+  lineIntersects : lineIntersects, /* Same as _.line.boxIntersects */
+  lineDistance : lineDistance, /* Same as _.line.boxDistance */
+  lineClosestPoint : lineClosestPoint,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
