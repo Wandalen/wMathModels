@@ -2029,6 +2029,100 @@ function rayClosestPoint( sphere, ray, dstPoint )
 
 //
 
+function lineIntersects( srcSphere, tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let tstLineView = _.line._from( tstLine );
+
+  let gotBool = _.line.sphereIntersects( tstLineView, srcSphereView );
+
+  return gotBool;
+}
+
+//
+
+function lineDistance( srcSphere , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let tstLineView = _.line._from( tstLine );
+
+  let gotDist = _.line.sphereDistance( tstLineView, srcSphereView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a sphere to a line. Returns the calculated point.
+  * Sphere and line remain unchanged
+  *
+  * @param { Array } sphere - The source sphere.
+  * @param { Array } line - The source line.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let line = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.lineClosestPoint( [ 0, 0, 0, 1 ], line );
+  *
+  * @example
+  * // returns [ 1, 0, 0 ]
+  * _.lineClosestPoint( [ 2, 0, 0, 1 ], line );
+  *
+  * @returns { Array } Returns the closest point to the line.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( sphere ) is not sphere
+  * @throws { Error } An Error if ( line ) is not line
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.sphere
+  */
+function lineClosestPoint( sphere, line, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let lineView = _.line._from( line );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
+  let dimLine  = _.line.dimGet( lineView );
+
+  let srcSphereView = _.sphere._from( sphere );
+  let dimSphere = _.sphere.dimGet( srcSphereView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimSphere );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+
+  let dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimSphere === dstPoint.length );
+  _.assert( dimSphere === dimLine );
+
+  if( _.line.sphereIntersects( lineView, srcSphereView ) )
+  return 0
+  else
+  {
+    let linePoint = _.line.sphereClosestPoint( line, srcSphereView );
+
+    let spherePoint = _.vector.from( _.sphere.pointClosestPoint( srcSphereView, linePoint ) );
+
+    for( let i = 0; i < dimSphere; i++ )
+    {
+      dstPointVector.eSet( i, spherePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
 function matrixHomogenousApply( sphere,matrix )
 {
 
@@ -2132,8 +2226,12 @@ let Proto =
   frustumExpand : frustumExpand, /* qqq : implement me */
 
   rayIntersects : rayIntersects, /* Same as _.ray.sphereIntersects */
-  rayDistance : rayDistance,  /* Same as _.frustum.sphereIntersects */
+  rayDistance : rayDistance,  /* Same as _.ray.sphereDistance */
   rayClosestPoint : rayClosestPoint,
+
+  lineIntersects : lineIntersects, /* Same as _.line.sphereIntersects */
+  lineDistance : lineDistance,  /* Same as _.line.sphereDistance */
+  lineClosestPoint : lineClosestPoint,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

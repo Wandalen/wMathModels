@@ -4322,6 +4322,110 @@ function rayClosestPoint( test )
 
 }
 
+//
+
+function lineClosestPoint( test )
+{
+
+  test.case = 'Source sphere and line remain unchanged'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  var oldSrcSphere = [ - 1, - 1, -1, 2 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstLine, oldTstLine );
+
+  test.case = 'sphere and line intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 3 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Line origin touches sphere'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstLine = [ -1, -1, 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Negative factor'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstLine = [ - 1, -1, 2, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Line and sphere don´t intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstLine = [ - 1, -1, 2, 0, 1, 0 ];
+  var expected = [ - 1, - 1, 0 ];
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Closest point in sphere side'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstLine = [ 5, 0, 0, 0, 1, 0 ];
+  var expected = [ 4, 0, 0 ];
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstLine = [ 5, 0, 0, 0, 1, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 0, 0 ];
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine, dstPoint );
+  test.identical( expected, gotLine );
+  test.is( dstPoint === gotLine );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstLine = [ 0, 0, 5, 1, 0, 0 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 0, 4 ] );
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine, dstPoint );
+  test.equivalent( expected, gotLine );
+  test.is( dstPoint === gotLine );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( 'sphere', 'line' ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
 
 
 // --
@@ -4388,6 +4492,7 @@ var Self =
     frustumExpand : frustumExpand,
 
     rayClosestPoint : rayClosestPoint,
+    lineClosestPoint : lineClosestPoint,
   }
 
 }

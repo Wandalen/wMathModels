@@ -4,8 +4,8 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var sphere = [ 0, 0, 0, 1 ];
-var ray = [ -2, -2, 0, 1, 0, 0 ];
-var result = _.sphere.rayClosestPoint( sphere, ray );
+var sphere = [ 4, 4, 4, 1 ];
+var line = [ 0, 0, 0, 1, 1, 0 ];
+var result = _.sphere.lineDistance( sphere, line );
 console.log( result )
 debugger;
