@@ -1474,7 +1474,180 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
   return dstPoint;
 }
 
+//
 
+/**
+  * Check if a line and a sphere intersect. Returns true if they intersect and false if not.
+  * The sphere and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcSphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the line and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function sphereIntersects( srcLine, srcSphere )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcSphere.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  _.assert( dimLine === dimSphere );
+
+  if( _.sphere.pointContains( sphereView, origin ) )
+  return true;
+
+  let distance = _.line.pointDistance( srcLineView, center );
+
+  if( distance <= radius)
+  return true;
+
+  return false;
+
+}
+
+//
+
+/**
+  * Get the distance between a line and a sphere. Returns the calculated distance.
+  * The sphere and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcSphere - Source sphere.
+  *
+  * @example
+  * // returns 0;
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 27 ) -1;
+  * _.sphereDistance( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns the distance between the line and the sphere.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function sphereDistance( srcLine, srcSphere )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcSphere.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  _.assert( dimLine === dimSphere );
+
+  if( _.line.sphereIntersects( srcLineView, sphereView ) )
+  return 0;
+
+  return _.line.pointDistance( srcLineView, center ) - radius;
+}
+
+//
+
+/**
+  * Get the closest point in a line to a sphere. Returns the calculated point.
+  * The sphere and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcSphere - Source sphere.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.sphereClosestPoint( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns the closest point in a line to a sphere.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function sphereClosestPoint( srcLine, srcSphere, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcSphere.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcSphere.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimLine === dimSphere );
+
+  if( _.line.sphereIntersects( srcLineView, sphereView ) )
+  return 0;
+
+  let pointVector = _.vector.from( _.line.pointClosestPoint( srcLineView, center ) );
+
+  for( let i = 0; i < pointVector.length; i++ )
+  {
+    dstPointView.eSet( i, pointVector.eGet( i ) );
+  }
+
+  return dstPoint;
+}
 
 
 // --
@@ -1521,6 +1694,11 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+
+  sphereIntersects : sphereIntersects,
+  sphereDistance : sphereDistance,
+  sphereClosestPoint : sphereClosestPoint,
+  
 }
 
 _.mapSupplement( Self, Proto );

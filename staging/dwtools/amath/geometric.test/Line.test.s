@@ -3303,6 +3303,392 @@ function boxClosestPoint( test )
 
 }
 
+//
+
+function sphereIntersects( test )
+{
+
+  test.case = 'Line and sphere remain unchanged'; /* */
+
+  var line = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool, expected );
+
+  var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null line - empty sphere'; /* */
+
+  var line = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point line center of sphere'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point line - no intersection'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point line in sphere'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line and sphere intersect'; /* */
+
+  var line = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line over sphere'; /* */
+
+  var line = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Negative factor'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = true;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var line = [ 1, 1, 1, 2, 2, 2 ];
+  var sphere = [ 2, 1, 0, 0.1 ];
+  var expected = false;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+
+  var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var sphere = [ 3, 3, 3, 1 ];
+  var expected = false;
+
+  var gotBool = _.line.sphereIntersects( line, sphere );
+  test.equivalent( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( ) );
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function sphereDistance( test )
+{
+
+  test.case = 'Line and sphere remain unchanged'; /* */
+
+  var line = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.identical( gotDistance, expected );
+
+  var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null line - empty sphere'; /* */
+
+  var line = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point line center of sphere'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point line - no intersection'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = Math.sqrt( 11 ) - 1;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point line in sphere'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line and sphere intersect'; /* */
+
+  var line = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line over sphere'; /* */
+
+  var line = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = 1;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Negative factor'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = 0;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+
+  var line = [ 0, 0, 0, 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ) ];
+  var sphere = [ 3, 0, 0, 1 ];
+  var expected = Math.sqrt( 6 ) - 1;
+
+  var gotDistance = _.line.sphereDistance( line, sphere );
+  test.equivalent( gotDistance,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( ) );
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function sphereClosestPoint( test )
+{
+
+  test.case = 'Line and sphere remain unchanged'; /* */
+
+  var line = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.identical( gotClosestPoint, expected );
+
+  var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null line - empty sphere'; /* */
+
+  var line = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point line center of sphere'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point line - no intersection'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point line in sphere'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line and sphere intersect'; /* */
+
+  var line = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line over sphere'; /* */
+
+  var line = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = [ 0, 0, 4 ];
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Negative factor'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+
+  var line = [ 0, 0, 0, 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ) ];
+  var sphere = [ 3, 0, 0, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
+  test.equivalent( gotClosestPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var line = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 0, 5, 0, 3 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 5, 4 ] );
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere, dstPoint );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'dstPoint is array'; /* */
+
+  var line = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 1, 5, 0, 3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 0, 5, 4 ];
+
+  var gotClosestPoint = _.line.sphereClosestPoint( line, sphere, dstPoint );
+  test.identical( gotClosestPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
 // --
 // define class
 // --
@@ -3355,6 +3741,10 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+
+    sphereIntersects : sphereIntersects,
+    sphereDistance : sphereDistance,
+    sphereClosestPoint : sphereClosestPoint,
   }
 
 }
