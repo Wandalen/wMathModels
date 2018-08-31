@@ -1832,6 +1832,211 @@ function planeClosestPoint( srcLine, srcPlane, dstPoint )
   return dstPoint;
 }
 
+
+//
+
+/**
+  * Check if a line and a frustum intersect. Returns true if they intersect and false if not.
+  * The frustum and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns true;
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
+  *
+  * @example
+  * // returns false;
+  * _.frustumIntersects( [ 0, -1, 0, 0, -2, 0 ] , srcFrustum );
+  *
+  * @returns { Boolean } Returns true if the line and the frustum intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the line and frustum don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function frustumIntersects( srcLine, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( srcLine === null )
+  srcLine = _.line.make( rows - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView );
+
+  _.assert( dimLine === rows - 1 );
+
+  if( _.frustum.pointContains( srcFrustum, origin ) )
+  return true;
+
+  /* frustum corners */
+  let corners = _.frustum.cornersGet( srcFrustum );
+  let cornersLength = _.Space.dimsOf( corners )[ 1 ];
+
+  for( let j = 0 ; j < cornersLength ; j++ )
+  {
+    let corner = corners.colVectorGet( j );
+    let projection = _.line.pointClosestPoint( srcLineView, corner );
+
+    if( _.frustum.pointContains( srcFrustum, projection ) )
+    return true;
+  }
+
+  return false;
+
+}
+
+//
+
+/**
+  * Get the distance between a line and a frustum. Returns the calculated distance.
+  * The frustum and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns 0;
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 17 );
+  * _.frustumDistance( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the distance between a line and a frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the line and frustum don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function frustumDistance( srcLine, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcFrustum.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView );
+
+  _.assert( dimLine === rows - 1 );
+
+  if( _.line.frustumIntersects( srcLineView, srcFrustum ) )
+  return 0;
+
+  let closestPoint = _.line.frustumClosestPoint( srcLineView, srcFrustum );
+  return _.frustum.pointDistance( srcFrustum, closestPoint );
+}
+
+//
+
+/**
+  * Get the closest point in a line to a frustum. Returns the calculated point.
+  * The frustum and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns 0;
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, - 1, 0 ];
+  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the closest point in the line to the frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the line and frustum don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcFrustum.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcFrustum.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dimLine === rows - 1 );
+
+  if( _.line.frustumIntersects( srcLineView, srcFrustum ) )
+  return 0;
+
+  /* frustum corners */
+  let corners = _.frustum.cornersGet( srcFrustum );
+  let cornersLength = _.Space.dimsOf( corners )[ 1 ];
+
+  let distance = _.frustum.pointDistance( srcFrustum, origin );
+  let d = 0;
+  let pointView = _.vector.from( origin );
+
+  for( let j = 0 ; j < _.Space.dimsOf( corners )[ 1 ] ; j++ )
+  {
+    let corner = corners.colVectorGet( j );
+    d = Math.abs( _.line.pointDistance( srcLineView, corner ) );
+    if( d < distance )
+    {
+      distance = d;
+      pointView = _.line.pointClosestPoint( srcLineView, corner );
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
 // --
 // define class
 // --
@@ -1884,6 +2089,11 @@ let Proto =
   planeIntersects : planeIntersects,
   planeDistance : planeDistance,
   planeClosestPoint : planeClosestPoint,
+
+  frustumIntersects : frustumIntersects,
+  frustumDistance : frustumDistance,
+  frustumClosestPoint : frustumClosestPoint,
+
 }
 
 _.mapSupplement( Self, Proto );
