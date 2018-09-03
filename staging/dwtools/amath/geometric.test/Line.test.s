@@ -4978,12 +4978,182 @@ function rayIntersects( test )
   test.shouldThrowErrorSync( () => _.line.rayIntersects( 'line', [ 1, 1, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.line.rayIntersects( [ 1, 1, 2, 2 ], 'ray') );
   test.shouldThrowErrorSync( () => _.line.rayIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.line.rayIntersects( null, [ 1, 1, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.line.rayIntersects( undefined, [ 1, 1, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.line.rayIntersects( [ 1, 1, 2, 2 ], null ) );
   test.shouldThrowErrorSync( () => _.line.rayIntersects( [ 1, 1, 2, 2 ], undefined ) );
   test.shouldThrowErrorSync( () => _.line.rayIntersects( [ 1, 1, 2, 2 ], - 2 ) );
   test.shouldThrowErrorSync( () => _.line.rayIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function rayDistance( test )
+{
+  test.case = 'Source line and ray remain unchanged'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  var oldSrcLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstRay, oldTstRay );
+
+  test.case = 'Line and ray are parallel ( different origin - same direction )'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray are parallel ( different origin - different direction )'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray are parallel ( different origin - opposite direction )'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = Math.sqrt( 50 );
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcLine is a point'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected =  Math.sqrt( 168 / 9 );
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'tstRay is a point'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = Math.sqrt( 168 / 9 );
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray are the same'; /* */
+
+  var srcLine = [ 0, 4, 2, 1, 1, 1 ];
+  var tstRay = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray intersect 4D'; /* */
+
+  var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray don´t intersect 2D - parallel'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstRay = [ - 3, - 4, 1, 0 ];
+  var expected = 4;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D'; /* */
+
+  var srcLine = [ - 3, - 4, 0, 1 ];
+  var tstRay = [ 0, 0, 2, 0 ];
+  var expected = 3;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray are perpendicular and intersect'; /* */
+
+  var srcLine = [ 3, 7, 1, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray are perpendicular and don´t intersect'; /* */
+
+  var srcLine = [ 0, 0, -3, 0, 0, 1 ];
+  var tstRay = [ 3, 0, 0, 1, 1, 0 ];
+  var expected = 3;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray are parallel to x axis'; /* */
+
+  var srcLine = [ 3, 7, 1, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Line and ray are parallel but in a opposite direction'; /* */
+
+  var srcLine = [ 3, 7, 1, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcLine is null'; /* */
+
+  var srcLine = null;
+  var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = Math.sqrt( 53 );
+
+  var gotDistance = _.line.rayDistance( srcLine, tstRay );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.line.rayDistance( ) );
+  test.shouldThrowErrorSync( () => _.line.rayDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayDistance( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayDistance( [ 0, 0 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.line.rayDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.rayDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.rayDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.rayDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.rayDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
 
 }
 
@@ -5227,7 +5397,7 @@ var Self =
     frustumClosestPoint : frustumClosestPoint,
 
     rayIntersects : rayIntersects,
-
+    rayDistance : rayDistance,
     rayClosestPoint : rayClosestPoint,
 
   }

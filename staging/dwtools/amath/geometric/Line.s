@@ -2086,7 +2086,7 @@ function rayIntersects( srcLine, srcRay )
   let dimRay  = _.ray.dimGet( srcRayView );
 
   if( srcLine === null )
-  srcLine = _.line.make( rows - 1 );
+  srcLine = _.line.make( srcRay.length / 2 );
 
   let srcLineView = _.line._from( srcLine );
   let lineOrigin = _.line.originGet( srcLineView );
@@ -2110,7 +2110,7 @@ function rayIntersects( srcLine, srcRay )
   * The line and the ray remain unchanged.
   *
   * @param { Array } srcLine - Source line.
-  * @param { Array } tstRay - Test ray.
+  * @param { Array } srcRay - Test ray.
   *
   * @example
   * // returns 0;
@@ -2124,43 +2124,58 @@ function rayIntersects( srcLine, srcRay )
   * @function rayDistance
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( tstRay ) is not ray.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
   * @memberof wTools.line
   */
-function rayDistance( srcLine, tstRay )
+function rayDistance( srcLine, srcRay )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
   if( srcLine === null )
-  srcLine = _.line.make( tstRay.length / 2 );
+  srcLine = _.line.make( srcRay.length / 2 );
 
   let srcLineView = _.line._from( srcLine );
   let srcOrigin = _.line.originGet( srcLineView );
   let srcDirection = _.line.directionGet( srcLineView );
   let srcDim  = _.line.dimGet( srcLineView )
 
-  let tstRayView = _.ray._from( tstRay );
-  let tstOrigin = _.ray.originGet( tstRayView );
-  let tstDirection = _.ray.directionGet( tstRayView );
-  let tstDim  = _.ray.dimGet( tstRayView );
+  let srcRayView = _.ray._from( srcRay );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let rayDirection = _.ray.directionGet( srcRayView );
+  let rayDim  = _.ray.dimGet( srcRayView );
 
-  _.assert( srcDim === tstDim );
+  _.assert( srcDim === rayDim );
 
   let distance;
 
-  if( _.line.rayIntersects( srcLineView, tstRayView ) === true )
+  if( _.line.rayIntersects( srcLineView, srcRayView ) === true )
   return 0;
 
   // Parallel line/ray
-  if( _.line.lineParallel( srcLineView, tstRayView ) )
+  if( _.line.lineParallel( srcLineView, srcRayView ) )
   {
-    distance = _.line.pointDistance( srcLineView, tstOrigin );
+    // Line is point
+    let isPoint = 0;
+    for( let i = 0; i < rayDim; i++ )
+    {
+      if( srcDirection.eGet( i ) === 0 )
+      isPoint = isPoint + 1;
+    }
+    if( isPoint === rayDim )
+    {
+      distance = _.ray.pointDistance( srcRayView, srcOrigin );
+      logger.log(' bien ')
+    }
+    else
+    {
+      distance = _.line.pointDistance( srcLineView, rayOrigin );
+    }
   }
   else
   {
-    let srcPoint = _.line.rayClosestPoint( srcLineView, tstRayView );
-    let tstPoint = _.ray.lineClosestPoint( tstRayView, srcLineView );
+    let srcPoint = _.line.rayClosestPoint( srcLineView, srcRayView );
+    let tstPoint = _.ray.lineClosestPoint( srcRayView, srcLineView );
     distance = _.avector.distance( srcPoint, tstPoint );
   }
 
@@ -2174,7 +2189,7 @@ function rayDistance( srcLine, tstRay )
   * The line and ray remain unchanged.
   *
   * @param { Array } srcLine - Source line.
-  * @param { Array } tstRay - Test ray.
+  * @param { Array } srcRay - Test ray.
   *
   * @example
   * // returns 0;
@@ -2184,39 +2199,39 @@ function rayDistance( srcLine, tstRay )
   * // returns [ 0, 0, 0 ];
   * _.rayClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
   *
-  * @returns { Array } Returns the closest point in the srcLine to the tstRay.
+  * @returns { Array } Returns the closest point in the srcLine to the srcRay.
   * @function rayClosestPoint
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( tstRay ) is not ray.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
   * @memberof wTools.line
   */
-function rayClosestPoint( srcLine, tstRay, dstPoint )
+function rayClosestPoint( srcLine, srcRay, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( tstRay.length / 2 );
+  dstPoint = _.array.makeArrayOfLength( srcRay.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
   if( srcLine === null )
-  srcLine = _.line.make( tstRay.length / 2 );
+  srcLine = _.line.make( srcRay.length / 2 );
 
   let srcLineView = _.line._from( srcLine );
   let srcOrigin = _.line.originGet( srcLineView );
   let srcDir = _.line.directionGet( srcLineView );
   let srcDim  = _.line.dimGet( srcLineView );
 
-  let tstRayView = _.ray._from( tstRay );
-  let tstOrigin = _.ray.originGet( tstRayView );
-  let tstDir = _.ray.directionGet( tstRayView );
-  let tstDim = _.ray.dimGet( tstRayView );
+  let srcRayView = _.ray._from( srcRay );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let tstDir = _.ray.directionGet( srcRayView );
+  let rayDim = _.ray.dimGet( srcRayView );
 
   let dstPointView = _.vector.from( dstPoint );
-  _.assert( srcDim === tstDim );
+  _.assert( srcDim === rayDim );
 
   let pointView;
 
@@ -2224,7 +2239,7 @@ function rayClosestPoint( srcLine, tstRay, dstPoint )
   let identOrigin = 0;
   for( let i = 0; i < srcOrigin.length; i++ )
   {
-    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
+    if( srcOrigin.eGet( i ) === rayOrigin.eGet( i ) )
     identOrigin = identOrigin + 1;
   }
   if( identOrigin === srcOrigin.length )
@@ -2232,16 +2247,16 @@ function rayClosestPoint( srcLine, tstRay, dstPoint )
   else
   {
     // Parallel lines
-    if( _.line.lineParallel( srcLineView, tstRayView ) )
+    if( _.line.lineParallel( srcLineView, srcRayView ) )
     {
-      pointView = _.line.pointClosestPoint( srcLineView, tstOrigin );
+      pointView = _.line.pointClosestPoint( srcLineView, rayOrigin );
     }
     else
     {
       let srcMod = _.vector.dot( srcDir, srcDir );
       let tstMod = _.vector.dot( tstDir, tstDir );
       let mod = _.vector.dot( srcDir, tstDir );
-      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let dOrigin = _.vector.from( avector.subVectors( rayOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       pointView = _.line.lineAt( srcLineView, factor );
