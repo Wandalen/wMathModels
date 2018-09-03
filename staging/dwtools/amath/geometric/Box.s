@@ -28,6 +28,18 @@ qqq
 - CC break : identation
 */
 
+/*
+
+  A box is the space enclosed by orthogonal planes:
+
+  For the following functions, boxes must have the shape [ minX, minY, minZ, maxX, maxY, maxZ ],
+where the dimension equals the object´s length divided by two.
+
+  Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box,
+and maxX, maxY, maxZ thee coordinates of the front, top right corner.
+
+*/
+
 // --
 //
 // --

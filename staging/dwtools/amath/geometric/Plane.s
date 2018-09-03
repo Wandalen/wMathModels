@@ -13,7 +13,7 @@ let Self = _.plane = _.plane || Object.create( null );
     Ax + By + Cz = D ( for 3D, where x, y and z represent the 3 axes )
 
   For the following functions, planes must have the shape [ A, B,... , D ],
-  where the dimension equals the object´s length minus one
+  where the dimension equals the object´s length minus one.
 
 */
 // --

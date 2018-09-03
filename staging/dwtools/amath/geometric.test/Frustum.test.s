@@ -3220,6 +3220,194 @@ function rayClosestPoint( test )
 
 }
 
+//
+
+function lineClosestPoint( test )
+{
+
+  test.case = 'Source frustum and line remain unchanged'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
+  test.identical( expected, gotLine );
+
+  var oldSrcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldSrcFrustum );
+
+  var oldtstLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstLine, oldtstLine );
+
+  test.case = 'Frustum and line intersect'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ -1, -1, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Line origin is frustum corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ 1, 1, 1, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Line is frustum side'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ 1, 0, 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Negative factor on corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ -3, -3, -3, -1, -1, -1 ];
+  var expected = 0;
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Negative factor on side'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ 0.5, 0.5, 2, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Closest point is corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ 1, 1, 2, 0, 1, 0 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Closest point on side'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ 0.5, 0.5, 1, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ 5, 5, 1, 1, 0, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 0, 1, 1 ];
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine, dstPoint );
+  test.identical( expected, gotLine );
+  test.is( dstPoint === gotLine );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstLine = [ - 5, 5, 1, 1, 0, 0 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 1, 1 ] );
+
+  var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine, dstPoint );
+  test.equivalent( expected, gotLine );
+  test.is( dstPoint === gotLine );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.lineClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.frustum.lineClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.frustum.lineClosestPoint( 'frustum', 'line' ) );
+  test.shouldThrowErrorSync( () => _.frustum.lineClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.frustum.lineClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.lineClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.frustum.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
 
 // --
 // declare
@@ -3262,6 +3450,7 @@ var Self =
     frustumClosestPoint : frustumClosestPoint,
 
     rayClosestPoint : rayClosestPoint,
+    lineClosestPoint : lineClosestPoint,
   }
 
 }

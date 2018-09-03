@@ -8,8 +8,13 @@ let Self = _.frustum = _.frustum || Object.create( null );
 
 /*
 
-Frustum planes convention : right, left, bottom, top, far, near;
+  A frustum is the portion of a solid ( normally a pyramid )
+which lies between two parallel planes cutting the solid.
 
+  In the following methods, frustums will be defined by a space where each column
+represents one of the frustum planes.
+
+Frustum planes convention : right, left, bottom, top, far, near;
 Frustum planes must have director vectors pointing outside frustum;
 
 */
@@ -1546,6 +1551,103 @@ function rayClosestPoint( frustum, ray, dstPoint )
 
 }
 
+//
+
+function lineIntersects( srcFrustum , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dims = _.Space.dimsOf( srcFrustum ) ;
+
+  let tstLineView = _.line._from( tstLine );
+
+  let gotBool = _.line.frustumIntersects( tstLineView, srcFrustum );
+
+  return gotBool;
+}
+
+//
+
+function lineDistance( srcFrustum , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+
+  let gotDist = _.line.frustumDistance( tstLineView, srcFrustum );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a frustum to a line. Returns the calculated point.
+  * Frustum and line remain unchanged
+  *
+  * @param { Array } frustum - The source frustum.
+  * @param { Array } line - The source line.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 1, 0, 0 ]
+  * let line = [ 2, 0, 0, 1, 0, 0 ]
+  * let srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * _.lineClosestPoint( frusrum, line );
+  *
+  * @returns { Array } Returns the closest point to the line.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @throws { Error } An Error if ( line ) is not line
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.frustum
+  */
+function lineClosestPoint( frustum, line, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  let dimF = _.Space.dimsOf( frustum ) ;
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimF[ 0 ] - 1);
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let lineView = _.line._from( line );
+  let dimLine  = _.line.dimGet( lineView );
+
+  let dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimF[ 0 ] - 1 === dstPoint.length );
+  _.assert( dimF[ 0 ] - 1 === dimLine );
+
+  if( _.line.frustumIntersects( lineView, frustum ) )
+  return 0
+  else
+  {
+    let linePoint = _.line.frustumClosestPoint( lineView, frustum );
+
+    let frustumPoint = _.vector.from( _.frustum.pointClosestPoint( frustum, linePoint ) );
+
+    for( let i = 0; i < dimF[ 0 ] - 1 ; i++ )
+    {
+      dstPointVector.eSet( i, frustumPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
 
 // --
 // declare
@@ -1588,6 +1690,10 @@ let Proto =
   rayIntersects : rayIntersects,
   rayDistance : rayDistance,
   rayClosestPoint : rayClosestPoint,
+
+  lineIntersects : lineIntersects,
+  lineDistance : lineDistance,
+  lineClosestPoint : lineClosestPoint,
 
 }
 

@@ -10,11 +10,11 @@ var srcFrustum= _.Space.make( [ 4, 6 ] ).copy
   0,   0,   1, - 1,   0,   0,
   - 1,   0, - 1,   0,   0, - 1
 ]);
-var ray = [ 2, 2, 2, - 1, -1, 0 ];
+var line = [ 2, 2, 2, - 1, -1, -1 ];
 
-var result = _.frustum.rayIntersects( srcFrustum, ray )
+var result = _.frustum.lineIntersects( srcFrustum, line )
 console.log( 'Result: ', result );
-var result = _.frustum.rayDistance( srcFrustum, ray )
+var result = _.frustum.lineDistance( srcFrustum, line )
 console.log( 'Result: ', result );
-var result = _.frustum.rayClosestPoint( srcFrustum, ray )
+var result = _.frustum.lineClosestPoint( srcFrustum, line )
 console.log( 'Result: ', result );
