@@ -1936,7 +1936,7 @@ function lineIntersects( test )
   test.case = 'Plane and line remain unchanged'; /* */
 
   var plane = [ 1, 0, 0, 1 ];
-  var line = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
+  var line = [ 1, 0, 1, 1, 1, 1 ];
   var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -1945,13 +1945,13 @@ function lineIntersects( test )
   var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
-  var oldLine = [ [ 1, 0, 1 ], [ 2, 1, 2 ] ];
+  var oldLine = [ 1, 0, 1, 1, 1, 1 ];
   test.identical( line, oldLine );
 
   test.case = 'Line and plane intersect'; /* */
 
   var plane = [ 1, 0, 0, 1 ];
-  var line = [ [ - 2, - 2, - 2 ], [ 2, 2, 2 ] ];
+  var line = [ - 2, - 2, - 2 , 2, 2, 2 ];
   var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -1960,7 +1960,7 @@ function lineIntersects( test )
   test.case = 'Line and Plane intersect'; /* */
 
   var plane = [ 1, 0, - 1, 0 ];
-  var line = [ [ 2, 2, 1 ], [ 3, 3, 4 ] ];
+  var line = [ 2, 2, 1, 1, 1, 3 ];
   var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -1969,7 +1969,7 @@ function lineIntersects( test )
   test.case = 'Line and Plane don´t intersect - parallel'; /* */
 
   var plane = [ 1, 0, - 1, 0 ];
-  var line = [ [ 2, 2, 3 ], [ 2, 3, 3 ] ];
+  var line = [ 2, 2, 3, 0, 1, 0 ];
   var expected = false;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -1978,7 +1978,7 @@ function lineIntersects( test )
   test.case = 'Line and Plane don´t intersect - parallel opposite'; /* */
 
   var plane = [ 1, 0, - 1, 0 ];
-  var line = [ [ 2, 3, -3 ], [ 2, 2, -3 ] ];
+  var line = [ 2, 3, -3, 0, -1, 0 ];
   var expected = false;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -1987,7 +1987,7 @@ function lineIntersects( test )
   test.case = 'Line in Plane'; /* */
 
   var plane = [ 1, 0, 0, 0 ];
-  var line = [ [ 0, 2, 3 ], [ 0, 5, 7 ] ];
+  var line = [ 0, 2, 3, 0, 3, 4 ];
   var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -1996,7 +1996,7 @@ function lineIntersects( test )
   test.case = 'Perpendicular line intersects'; /* */
 
   var plane = [ 1, 0, 0, 0 ];
-  var line = [ [ 1, 2, 2 ], [ 2, 2, 2 ] ];
+  var line = [ 1, 2, 2, 1, 0, 0 ];
   var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -2019,6 +2019,110 @@ function lineIntersects( test )
   test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, - 1, 0, 2 ], NaN ));
   test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
   test.shouldThrowErrorSync( () => _.plane.lineIntersects( 'plane', 'line' ));
+}
+
+//
+
+function lineClosestPoint( test )
+{
+
+  test.case = 'Source plane and line remain unchanged'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 2 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.plane.lineClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  var oldSrcPlane = [ - 1, 0, 0, 2 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstRay, oldtstRay );
+
+  test.case = 'Plane and line intersect'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 1 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.plane.lineClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Line origin is in plane'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotRay = _.plane.lineClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Line is in plane '; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotRay = _.plane.lineClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Negative factor'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = 0;
+
+  var gotRay = _.plane.lineClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Closest point is origin'; /* */
+
+  var srcPlane = [ 0, 0, -1, 3 ];
+  var tstRay = [ 5, 5, 2, 0, 1, 0 ];
+  var expected = [ 5, 5, 3 ];
+
+  var gotRay = _.plane.lineClosestPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcPlane = [ 0, 0, 1, -1 ];
+  var tstRay = [ 4, 4, 3, 1, 0, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 4, 1 ];
+
+  var gotRay = _.plane.lineClosestPoint( srcPlane, tstRay, dstPoint );
+  test.identical( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcPlane = [ 0, 1, 0, -2 ];
+  var tstRay = [ 5, 5, 1, 1, 0, 0 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 5, 2, 1 ] );
+
+  var gotRay = _.plane.lineClosestPoint( srcPlane, tstRay, dstPoint );
+  test.equivalent( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( 'plane', 'line' ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
 }
 
 //
@@ -2497,6 +2601,7 @@ var Self =
 
     segmentIntersects : segmentIntersects,
     lineIntersects : lineIntersects,
+    lineClosestPoint : lineClosestPoint,
 
     //matrixHomogenousApply : matrixHomogenousApply,
     translate : translate,

@@ -7,6 +7,15 @@ let avector = _.avector;
 let vector = _.vector;
 let Self = _.plane = _.plane || Object.create( null );
 
+/*
+
+  A plane is a flat surface represented by an equation of the type:
+    Ax + By + Cz = D ( for 3D, where x, y and z represent the 3 axes )
+
+  For the following functions, planes must have the shape [ A, B,... , D ],
+  where the dimension equals the object´s length minus one
+
+*/
 // --
 //
 // --
@@ -1108,11 +1117,11 @@ function segmentIntersects( plane , segment )
   *
   * @example
   * // returns true
-  * _.lineIntersects( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
+  * _.lineIntersects( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
   *
   * @example
   * // returns false
-  * _.lineIntersects( [ 1, 0, 0, 1 ] , [ [  2, 2, 2 ], [ 3, 3, 3 ] ]);
+  * _.lineIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 3, 3, 3 ]);
   *
   * @returns { Boolean } Returns true if the line and plane intersect, false if not.
   * @function lineIntersects
@@ -1120,34 +1129,16 @@ function segmentIntersects( plane , segment )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
   * @memberof wTools.plane
-  */
-function lineIntersects( plane, line )
+*/
+function lineIntersects( srcPlane , tstLine )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let planeView = _.plane._from( srcPlane );
 
-  let planeView = _.plane._from( plane );
-  let normal = _.plane.normalGet( planeView );
+  let gotBool = _.line.planeIntersects( tstLineView, planeView );
 
-  debugger;
-  //throw _.err( 'not tested' );
-
-  let point1 = _.vector.from( line[0] );
-  let point2 = _.vector.from( line[1] );
-
-  _.assert( point1.length === point2.length, 'Line points must have the same length' );
-
-  if( _.plane.pointContains( planeView, point1 ) || _.plane.pointContains( planeView, point2 ) )
-  return true;
-
-  let lineDir = _.vector.subVectors( point2.clone(), point1 );
-
-  let dot = _.vector.dot( normal, lineDir );
-
-  debugger;
-  if( Math.abs( dot ) === 0 )
-  return false
-
-  return true;
+  return gotBool;
 }
 
 //
@@ -1216,6 +1207,90 @@ function lineIntersection( plane , line , point )
   return false;
 
   return _.line.at( [ lineView.eGet( 0 ),direction ] , t );
+}
+
+//
+
+function lineDistance( srcPlane , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotDist = _.line.planeDistance( tstLineView, planeView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a plane to a line. Returns the calculated point.
+  * Plane and line remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Array } line - The source line.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  *  plane = [ 0, 0, 1, 2 ];
+  *  line = [ 0, 0, 0, 0, 0, - 1 ];
+  * _.lineClosestPoint( plane, line );
+  *
+  * @example
+  * // returns [ 0, 0, - 2 ]
+  *  plane = [ 0, 0, 1, 2 ];
+  *  line = [ 0, 0, 0, 0, - 1, 0 ];
+  * _.lineClosestPoint( plane, line );
+  *
+  * @returns { Array } Returns the closest point to the line.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( line ) is not line
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.plane
+  */
+function lineClosestPoint( plane, line, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let lineView = _.line._from( line );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
+  let dimLine  = _.line.dimGet( lineView );
+
+  let dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimLine );
+
+  if( _.line.planeIntersects( lineView, planeView ) )
+  return 0
+  else
+  {
+    let linePoint = _.line.planeClosestPoint( line, planeView );
+
+    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, linePoint ) );
+
+    for( let i = 0; i < dimP; i++ )
+    {
+      dstPointVector.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
 }
 
 //
@@ -1481,6 +1556,8 @@ let Proto =
   segmentIntersects : segmentIntersects,
   lineIntersects : lineIntersects,
   lineIntersection : lineIntersection,
+  lineDistance : lineDistance,
+  lineClosestPoint : lineClosestPoint,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
