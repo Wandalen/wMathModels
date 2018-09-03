@@ -2096,20 +2096,12 @@ function rayIntersects( srcLine, srcRay )
 
   _.assert( dimLine === dimRay );
 
-  if( _.ray.pointContains( srcRay, lineOrigin ) )
-  return true;
-
-   logger.log(' not 1')
-  if( _.line.pointContains( srcLine, rayOrigin ) )
-  return true;
-
-     logger.log(' not 2')
-
   let factors = _.line.lineIntersectionFactors( srcLineView, srcRayView );
-  console.log( factors );
 
+  if( factors === 0 || factors.eGet( 1 ) < 0 )
   return false;
 
+  return true;
 }
 
 
