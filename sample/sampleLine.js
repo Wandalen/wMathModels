@@ -4,8 +4,11 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var line = [ 3, 0, 1, 2.5 ];
-var ray = [ 6, 6, 1, 1 ];
+var line = [ 0, 0, -3, 0, 0, 1 ];
+var ray = [ 3, 0, 0, - 1, - 1, 0 ];
 
 result = _.line.rayIntersects( line, ray );
+logger.log('Final result: ', result );
+
+result = _.line.rayClosestPoint( line, ray );
 logger.log('Final result: ', result );
