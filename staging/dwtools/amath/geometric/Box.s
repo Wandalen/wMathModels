@@ -36,7 +36,7 @@ qqq
 where the dimension equals the object´s length divided by two.
 
   Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box,
-and maxX, maxY, maxZ thee coordinates of the front, top right corner.
+and maxX, maxY, maxZ the coordinates of the front, top right corner.
 
 */
 

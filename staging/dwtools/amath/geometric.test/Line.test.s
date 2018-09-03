@@ -2464,8 +2464,17 @@ function pointContains( test )
   test.case = 'Point contained with negative factor'; /* */
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var point = [ 0, 0, -2 ];
+  var point = [ 0, 0, - 2 ];
   var expected = true;
+
+  var gotBool = _.line.pointContains( line, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Point not contained with negative factor'; /* */
+
+  var line = [ 0, 0, 0, 1, 1, 1 ];
+  var point = [ 0, 0, - 1 ];
+  var expected = false;
 
   var gotBool = _.line.pointContains( line, point );
   test.identical( gotBool,  expected );

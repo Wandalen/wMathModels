@@ -7,6 +7,17 @@ let avector = _.avector;
 let vector = _.vector;
 let Self = _.ray = _.ray || Object.create( null );
 
+/*
+
+  A ray is a semi-infinite line, starting at an origin and following a direction.
+
+  For the following functions, rays must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ],
+where the dimension equals the object´s length divided by two.
+
+  Moreover, orX, orY and orZ, are the coordinates of the origin of the ray,
+and dirX, dirY, dirZ the coordinates of the direction of the ray.
+
+*/
 // --
 //
 // --

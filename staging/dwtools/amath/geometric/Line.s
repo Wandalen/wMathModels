@@ -7,6 +7,17 @@ let avector = _.avector;
 let vector = _.vector;
 let Self = _.line = _.line || Object.create( null );
 
+/*
+
+For the following functions, ( infinite ) lines must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ],
+where the dimension equals the object´s length divided by two.
+
+Moreover, orX, orY and orZ, are the coordinates of the origin of the line,
+and dirX, dirY, dirZ the coordinates of the direction of the line.
+
+Finally lines extend also in the direction ( - dirX, - dirY, - dirZ ).
+
+*/
 // --
 //
 // --
@@ -1115,11 +1126,12 @@ function pointContains( srcLine, srcPoint )
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
 
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && factor !== 0 )
+      if( Math.abs( newFactor - factor ) > _.accuracySqr && direction.eGet( i - 1 ) !== 0 )
       {
         return false;
       }
       factor = newFactor;
+      logger.log('iiii',i, factor )
     }
   }
 
@@ -1832,7 +1844,6 @@ function planeClosestPoint( srcLine, srcPlane, dstPoint )
   return dstPoint;
 }
 
-
 //
 
 /**
@@ -2037,6 +2048,71 @@ function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Check if a line and a ray intersect. Returns true if they intersect and false if not.
+  * The ray and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcRay - Source ray.
+  *
+  * @example
+  * // returns true;
+  * var srcRay =  [ -1, -1, -1, 0, 0, 1 ]
+  * var srcLine = [ 0, 0, 0, 2, 2, 2 ]
+  * _.rayIntersects( srcLine, srcRay );
+  *
+  * @example
+  * // returns false;
+  * var srcRay =  [ -1, -1, -1, 0, 0, 1 ]
+  * var srcLine = [ 0, 1, 0, 2, 2, 2 ]
+  * _.rayIntersects( srcLine, srcRay );
+  *
+  * @returns { Boolean } Returns true if the line and the ray intersect.
+  * @function rayIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function rayIntersects( srcLine, srcRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcRayView = _.ray._from( srcRay );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let rayDirection = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView );
+
+  if( srcLine === null )
+  srcLine = _.line.make( rows - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let lineDirection = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView );
+
+  _.assert( dimLine === dimRay );
+
+  if( _.ray.pointContains( srcRay, lineOrigin ) )
+  return true;
+
+   logger.log(' not 1')
+  if( _.line.pointContains( srcLine, rayOrigin ) )
+  return true;
+
+     logger.log(' not 2')
+
+  let factors = _.line.lineIntersectionFactors( srcLineView, srcRayView );
+  console.log( factors );
+
+  return false;
+
+}
+
+
 // --
 // define class
 // --
@@ -2093,6 +2169,10 @@ let Proto =
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
   frustumClosestPoint : frustumClosestPoint,
+
+  rayIntersects : rayIntersects,
+  // rayDistance : rayDistance,
+  // rayClosestPoint : rayClosestPoint,
 
 }
 
