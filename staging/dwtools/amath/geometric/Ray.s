@@ -2143,6 +2143,31 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
 
 //
 
+function lineIntersects( srcRay , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let rayView = _.ray._from( srcRay );
+
+  let gotBool = _.line.rayIntersects( tstLineView, rayView );
+  return gotBool;
+}
+
+//
+
+function lineDistance( srcRay , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let rayView = _.ray._from( srcRay );
+
+  let gotDist = _.line.rayDistance( tstLineView, rayView );
+
+  return gotDist;
+}
+
+//
+
 /**
   * Get the closest point in a ray to a line. Returns the calculated point.
   * The ray and line remain unchanged.
@@ -2298,6 +2323,8 @@ let Proto =
   frustumDistance : frustumDistance,
   frustumClosestPoint : frustumClosestPoint,
 
+  lineIntersects : lineIntersects,
+  lineDistance : lineDistance,
   lineClosestPoint : lineClosestPoint,
 }
 
