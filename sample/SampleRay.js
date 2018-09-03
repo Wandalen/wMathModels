@@ -4,7 +4,7 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var ray =   [ 3, 7, 1, 1, 0, 0 ];
-var ray2 =  [ 3, -2, 1, 0, 0, 1 ];
-result = _.ray.rayIntersectionFactors( ray, ray2 );
+var ray =   [ 0, 0, 0, 1, 1, 1 ];
+var line =  [ 3, 7, 1, 0, 0, 0 ];
+result = _.ray.lineClosestPoint( ray, line );
 logger.log('Final result: ', result );

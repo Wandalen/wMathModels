@@ -1131,7 +1131,6 @@ function pointContains( srcLine, srcPoint )
         return false;
       }
       factor = newFactor;
-      logger.log('iiii',i, factor )
     }
   }
 
@@ -2245,7 +2244,6 @@ function rayClosestPoint( srcLine, tstRay, dstPoint )
       let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
-      logger.log( 'factor',factor )
       pointView = _.line.lineAt( srcLineView, factor );
     }
   }

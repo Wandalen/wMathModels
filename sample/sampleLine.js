@@ -12,3 +12,6 @@ logger.log('Final result: ', result );
 
 result = _.line.rayClosestPoint( line, ray );
 logger.log('Final result: ', result );
+
+result = _.line.rayDistance( line, ray );
+logger.log('Final result: ', result );
