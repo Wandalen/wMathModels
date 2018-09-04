@@ -878,7 +878,7 @@ rayIntersectionPoints.shaderChunk =
   * _.rayIntersectionPoint( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  [ [ 0, 0 ], [ 0, 0 ] ]
+  * // returns  [ [ 0, 0 ] ]
   * _.rayIntersectionPoint( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
   *
   * @returns { Array } Returns the point of intersection of the two rays.
@@ -925,7 +925,7 @@ rayIntersectionPoint.shaderChunk =
   * _.rayIntersectionPointAccurate( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  [ [ 0, 0 ], [ 0, 0 ] ]
+  * // returns  [ [ 0, 0 ] ]
   * _.rayIntersectionPointAccurate( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
   *
   * @returns { Array } Returns the point of intersection of the two rays.

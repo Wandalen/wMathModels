@@ -767,7 +767,7 @@ lineIntersectionPoints.shaderChunk =
   * _.lineIntersectionPoint( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  [ [ 0, 0 ], [ 0, 0 ] ]
+  * // returns  [ [ 0, 0 ] ]
   * _.lineIntersectionPoint( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
   *
   * @returns { Array } Returns the point of intersection of the two lines.
@@ -814,7 +814,7 @@ lineIntersectionPoint.shaderChunk =
   * _.lineIntersectionPointAccurate( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  [ [ 0, 0 ], [ 0, 0 ] ]
+  * // returns  [ [ 0, 0 ] ]
   * _.lineIntersectionPointAccurate( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
   *
   * @returns { Array } Returns the point of intersection of the two lines.

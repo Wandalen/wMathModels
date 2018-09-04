@@ -606,7 +606,18 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   // Parallel segments
   if( segmentParallel( srcSegment1, srcSegment2 ) === true )
   {
-    return 0;
+    if( _.segment.pointContains( srcSegment1, origin2 ) )
+    {
+      return _.vector.from( [ _.segment.getFactor( srcSegment1, origin2), 0 ] );
+    }
+    else if( _.segment.pointContains( srcSegment2, origin1 ) )
+    {
+      return _.vector.from( [  0, _.segment.getFactor( srcSegment2, origin1) ] );
+    }
+    else
+    {
+      return 0;
+    }
   }
 
   let result = _.vector.from( [ 0, 0 ] );
@@ -658,6 +669,279 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   return 0;
 }
 
+//
+
+/**
+  * Returns the points of the intersection of two segments. Returns an array with the intersection points, 0 if there is no intersection.
+  * Segments stay untouched.
+  *
+  * @param { Vector } src1Segment - The first source segment.
+  * @param { Vector } src2Segment - The second source segment.
+  *
+  * @example
+  * // returns   0
+  * _.segmentIntersectionPoints( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  [ [ 0, 0 ], [ 0, 0 ] ]
+  * _.segmentIntersectionPoints( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
+  *
+  * @returns { Array } Returns the points of intersection of the two segments.
+  * @function segmentIntersectionPoints
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Segment ) is not segment.
+  * @throws { Error } An Error if ( src2Segment ) is not segment.
+  * @memberof wTools.segment
+  */
+function segmentIntersectionPoints( srcSegment1, srcSegment2 )
+{
+  let factors = segmentIntersectionFactors( srcSegment1, srcSegment2 );
+  if( factors === 0 )
+  return 0;
+
+  let factorsView = _.vector.from( factors );
+  let result = [ Self.segmentAt( srcSegment1, factorsView.eGet( 0 ) ), Self.segmentAt( srcSegment2, factorsView.eGet( 1 ) ) ];
+  return result;
+}
+
+segmentIntersectionPoints.shaderChunk =
+`
+  void segmentIntersectionPoints( out vec2 result[ 2 ], vec2 srcSegment1[ 2 ], vec2 srcSegment2[ 2 ] )
+  {
+
+    vec2 factors = segmentIntersectionFactors( srcSegment1,srcSegment2 );
+    result[ 0 ] = segmentAt( srcSegment1,factors[ 0 ] );
+    result[ 1 ] = segmentAt( srcSegment2,factors[ 1 ] );
+
+  }
+`
+
+//
+
+/**
+  * Returns the point of the intersection of two segments. Returns an array with the intersection point, 0 if there is no intersection.
+  * Segments stay untouched.
+  *
+  * @param { Vector } src1Segment - The first source segment.
+  * @param { Vector } src2Segment - The second source segment.
+  *
+  * @example
+  * // returns   0
+  * _.segmentIntersectionPoint( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  [ [ 0, 0 ] ]
+  * _.segmentIntersectionPoint( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
+  *
+  * @returns { Array } Returns the point of intersection of the two segments.
+  * @function segmentIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Segment ) is not segment.
+  * @throws { Error } An Error if ( src2Segment ) is not segment.
+  * @memberof wTools.segment
+  */
+function segmentIntersectionPoint( srcSegment1,srcSegment2 )
+{
+
+  let factors = Self.segmentIntersectionFactors( srcSegment1,srcSegment2 );
+
+  if( factors === 0 )
+  return 0;
+
+  return Self.segmentAt( srcSegment1, factors.eGet( 0 ) );
+
+}
+
+segmentIntersectionPoint.shaderChunk =
+`
+  vec2 segmentIntersectionPoint( vec2 srcSegment1[ 2 ], vec2 srcSegment2[ 2 ] )
+  {
+
+    vec2 factors = segmentIntersectionFactors( srcSegment1,srcSegment2 );
+    return segmentAt( srcSegment1,factors[ 0 ] );
+
+  }
+`
+
+//
+
+/**
+  * Returns the point of the intersection of two segments. Returns an array with the intersection point, 0 if there is no intersection.
+  * Segments stay untouched.
+  *
+  * @param { Vector } src1Segment - The first source segment.
+  * @param { Vector } src2Segment - The second source segment.
+  *
+  * @example
+  * // returns   0
+  * _.segmentIntersectionPointAccurate( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  [ [ 0, 0 ] ]
+  * _.segmentIntersectionPointAccurate( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
+  *
+  * @returns { Array } Returns the point of intersection of the two segments.
+  * @function segmentIntersectionPointAccurate
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Segment ) is not segment.
+  * @throws { Error } An Error if ( src2Segment ) is not segment.
+  * @memberof wTools.segment
+  */
+function segmentIntersectionPointAccurate( srcSegment1, srcSegment2 )
+{
+
+  let closestPoints = Self.segmentIntersectionPoints( srcSegment1, srcSegment2 );
+  debugger;
+
+  if( closestPoints === 0 )
+  return 0;
+
+  return _.avector.mulScalar( _.avector.add( null, closestPoints[ 0 ], closestPoints[ 1 ] ), 0.5 );
+
+}
+
+segmentIntersectionPointAccurate.shaderChunk =
+`
+  vec2 segmentIntersectionPointAccurate( vec2 srcSegment1[ 2 ], vec2 srcSegment2[ 2 ] )
+  {
+
+    vec2 closestPoints[ 2 ];
+    segmentIntersectionPoints( closestPoints,srcSegment1,srcSegment2 );
+    return ( closestPoints[ 0 ] + closestPoints[ 1 ] ) * 0.5;
+
+  }
+`
+
+//
+
+/**
+  * Check if two segments intersect. Returns true if they intersect, false if not.
+  * Segments stay untouched.
+  *
+  * @param { Vector } src1Segment - The first source segment.
+  * @param { Vector } src2Segment - The second source segment.
+  *
+  * @example
+  * // returns   true
+  * _.segmentIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  false
+  * _.segmentIntersects( [ -3, 0, 1, 0 ], [ 0, -2, 1, 0 ] );
+  *
+  * @returns { Boolean } Returns true if the two segments intersect.
+  * @function segmentIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Segment ) is not segment.
+  * @throws { Error } An Error if ( src2Segment ) is not segment.
+  * @memberof wTools.segment
+  */
+function segmentIntersects( srcSegment1, srcSegment2 )
+{
+
+  if( _.segment.segmentIntersectionFactors( srcSegment1, srcSegment2 ) === 0 )
+  return false
+
+  return true;
+}
+
+//
+
+/**
+  * Check if a given point is contained inside a segment. Returs true if it is contained, false if not.
+  * Point and segment stay untouched.
+  *
+  * @param { Array } srcSegment - The source segment.
+  * @param { Array } srcPoint - The source point.
+  *
+  * @example
+  * // returns true
+  * _.pointContains( [ 0, 0, 2, 2 ], [ 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
+  *
+  * @returns { Boolen } Returns true if the point is inside the segment, and false if the point is outside it.
+  * @function pointContains
+  * @throws { Error } An Error if ( dim ) is different than point.length (segment and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.segment
+  */
+function pointContains( srcSegment, srcPoint )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcPoint.length );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimension  = _.segment.dimGet( srcSegmentView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+
+  _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
+
+  let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+  let factor;
+
+  if( direction.eGet( 0 ) === 0 )
+  {
+    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    {
+      return false;
+    }
+    else
+    {
+      factor = 0;
+    }
+  }
+  else
+  {
+    factor = dOrigin.eGet( 0 ) / direction.eGet( 0 );
+  }
+
+  // Factor can not be negative or superior to one
+  if(  factor <= 0 - _.accuracySqr && factor >= 1 + _.accuracySqr )
+  return false;
+
+  for( var i = 1; i < dOrigin.length; i++ )
+  {
+    let newFactor;
+    if( direction.eGet( i ) === 0 )
+    {
+      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      {
+        return false;
+      }
+      else
+      {
+        newFactor = 0;
+      }
+    }
+    else
+    {
+      newFactor = dOrigin.eGet( i ) / direction.eGet( i );
+
+      if( Math.abs( newFactor - factor ) > _.accuracySqr && direction.eGet( i - 1 ) !== 0 )
+      {
+        return false;
+      }
+      factor = newFactor;
+
+      // Factor can not be negative or superior to one
+      if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
+      return false;
+    }
+  }
+
+  return true;
+}
+
+
 
 
 // --
@@ -689,6 +973,13 @@ let Proto =
   segmentParallel : segmentParallel,
 
   segmentIntersectionFactors : segmentIntersectionFactors,
+  segmentIntersectionPoints : segmentIntersectionPoints,
+  segmentIntersectionPoint : segmentIntersectionPoint,
+  segmentIntersectionPointAccurate : segmentIntersectionPointAccurate,
+
+  segmentIntersects : segmentIntersects,
+
+  pointContains : pointContains,
 
 }
 

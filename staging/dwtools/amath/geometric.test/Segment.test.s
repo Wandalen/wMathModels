@@ -1342,6 +1342,535 @@ function segmentIntersectionFactors( test )
 
 }
 
+//
+
+function segmentIntersectionPoints( test )
+{
+  test.case = 'Source segments remain unchanged'; /* */
+
+  var src1Segment = [ -1, 0, 1, 0 ];
+  var src2Segment = [ 0, -1, 0, 2 ];
+  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoints, expected );
+
+  var oldSrc1Segment = [ -1, 0, 1, 0 ];
+  test.equivalent( src1Segment, oldSrc1Segment );
+
+  var oldSrc2Segment = [ 0, -1, 0, 2 ];
+  test.equivalent( src2Segment, oldSrc2Segment );
+
+  test.case = 'Segments are the same'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 0, 0, 1, 1 ];
+  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 4, 8 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 2, 6 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments intersect in their origin'; /* */
+
+  var src1Segment = [ 3, 7, 3, 8 ];
+  var src2Segment = [ 3, 7, 4, 7 ];
+  var expected = [ [ 3, 7 ], [ 3, 7 ] ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments intersect in their end '; /* */
+
+  var src1Segment = [ 0, 0, 1, 0 ];
+  var src2Segment = [ 3, -6, 1, 0 ];
+  var expected = [ [ 1, 0 ], [ 1, 0 ] ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments are perpendicular '; /* */
+
+  var src1Segment = [ -3, 0, 1, 0 ];
+  var src2Segment = [ 0, -2, 0, 1 ];
+  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoints, expected );
+
+  test.case = 'Segments don´t intersect 3D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 0, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments intersect 3D'; /* */
+
+  var src1Segment = [ -1, -1, -1, 2, 2, 5 ];
+  var src2Segment = [ 3, 3, 3, - 3, - 3, -1 ];
+  var expected = [ [ 0, 0, 1 ], [ 0, 0, 1 ] ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoints, expected );
+
+  test.case = 'Segments 3D intersection 3rd coordinate 0'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 0 ];
+  var src2Segment = [ 3, 3, 0, -1, -1, 0 ];
+  var expected = [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments don´t intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 4, 4, 4, 5 ];
+  var src2Segment = [ 3, 3, 3, 3, - 3, - 3, -3, -1 ];
+  var expected = [ [ 0, 0, 0, 1 ], [ 0, 0, 0, 1 ] ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( [ 1, 1, 2, 2 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( null, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoints( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function segmentIntersectionPoint( test )
+{
+  test.case = 'Source segments remain unchanged'; /* */
+
+  var src1Segment = [ -1, 0, 1, 0 ];
+  var src2Segment = [ 0, -1, 0, 2 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoints, expected );
+
+  var oldSrc1Segment = [ -1, 0, 1, 0 ];
+  test.equivalent( src1Segment, oldSrc1Segment );
+
+  var oldSrc2Segment = [ 0, -1, 0, 2 ];
+  test.equivalent( src2Segment, oldSrc2Segment );
+
+  test.case = 'Segments are the same'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 0, 0, 1, 1 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 4, 8 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 2, 6 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments intersect in their origin'; /* */
+
+  var src1Segment = [ 3, 7, 3, 8 ];
+  var src2Segment = [ 3, 7, 4, 7 ];
+  var expected = [ 3, 7 ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments intersect in their end '; /* */
+
+  var src1Segment = [ 0, 0, 1, 0 ];
+  var src2Segment = [ 3, -6, 1, 0 ];
+  var expected = [ 1, 0 ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments are perpendicular '; /* */
+
+  var src1Segment = [ -3, 0, 1, 0 ];
+  var src2Segment = [ 0, -2, 0, 1 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoints, expected );
+
+  test.case = 'Segments don´t intersect 3D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 0, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments intersect 3D'; /* */
+
+  var src1Segment = [ -1, -1, -1, 2, 2, 5 ];
+  var src2Segment = [ 3, 3, 3, - 3, - 3, -1 ];
+  var expected = [ 0, 0, 1 ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoints, expected );
+
+  test.case = 'Segments 3D intersection 3rd coordinate 0'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 0 ];
+  var src2Segment = [ 3, 3, 0, -1, -1, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments don´t intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  test.case = 'Segments intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 4, 4, 4, 5 ];
+  var src2Segment = [ 3, 3, 3, 3, - 3, - 3, -3, -1 ];
+  var expected = [ 0, 0, 0, 1 ];
+
+  var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
+  test.identical( isIntersectionPoints, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( [ 1, 1, 2, 2 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( null, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPoint( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function segmentIntersectionPointAccurate( test )
+{
+  test.case = 'Source segments remain unchanged'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 0, 0, 2, 2 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.identical( isIntersectionPoint, expected );
+
+  var oldSrc1Segment = [ 0, 0, 1, 1 ];
+  test.equivalent( src1Segment, oldSrc1Segment );
+
+  var oldSrc2Segment = [ 0, 0, 2, 2 ];
+  test.equivalent( src2Segment, oldSrc2Segment );
+
+  test.case = 'Segments are the same'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 0, 0, 1, 1 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 4, 8 ];
+  var expected = 0;
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 2, 6 ];
+  var expected = 0;
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Segments intersect in their origin'; /* */
+
+  var src1Segment = [ 3, 7, 1, 0 ];
+  var src2Segment = [ 3, 7, 0, 1 ];
+  var expected = [ 3, 7 ];
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Segments intersect '; /* */
+
+  var src1Segment = [ -5, 0, 5, 0 ];
+  var src2Segment = [ -2, -4, 1, 2 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoint, expected );
+
+  test.case = 'Segments are perpendicular '; /* */
+
+  var src1Segment = [ -3, 0, 1, 0 ];
+  var src2Segment = [ 0, -2, 0, 1 ];
+  var expected = [ 0, 0 ];
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoint, expected );
+
+  test.case = 'Segments don´t intersect 3D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Segments intersect 3D'; /* */
+
+  var src1Segment = [ 0, 0, 0, - 8, - 8, - 8 ];
+  var src2Segment = [ - 3, - 7, - 3, - 3, - 1, - 3 ];
+  var expected = [ - 3, - 3, - 3 ];
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoint, expected );
+
+  test.case = 'Segments don´t intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = 0;
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.identical( isIntersectionPoint, expected );
+
+  test.case = 'Segments intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 6, 6, 6, 7 ];
+  var src2Segment = [ 3, 3, 3, 2, 0, 0, 0, 2 ];
+  var expected = [ 1, 1, 1, 2 ];
+
+  var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
+  test.equivalent( isIntersectionPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( [ 1, 1, 2, 2 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( null, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersectionPointAccurate( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function segmentIntersects( test )
+{
+  test.case = 'Source segments remain unchanged'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  var oldSrc1Segment = [ 0, 0, 1, 1 ];
+  test.equivalent( src1Segment, oldSrc1Segment );
+
+  var oldSrc2Segment = [ 0, 0, 2, 2 ];
+  test.equivalent( src2Segment, oldSrc2Segment );
+
+  test.case = 'Segments are the same'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 4, 8 ];
+  var expected = false;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
+
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 2, 6 ];
+  var expected = false;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments intersect in their origin'; /* */
+
+  var src1Segment = [ 3, 7, 1, 0 ];
+  var src2Segment = [ 3, 7, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments intersect '; /* */
+
+  var src1Segment = [ 0, 0, 1, 0 ];
+  var src2Segment = [ -2, -6, 1, 2 ];
+  var expected = true;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments are perpendicular '; /* */
+
+  var src1Segment = [ -3, 0, 1, 0 ];
+  var src2Segment = [ 0, -2, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments don´t intersect 3D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments intersect 3D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 7, 7, 7 ];
+  var src2Segment = [ 3, 1, 3, 3, 6, 3 ];
+  var expected = true;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments don´t intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 8, 8, 8, 9 ];
+  var src2Segment = [ 3, 1, 3, 2, 3, 7, 3, 8 ];
+  var expected = true;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( null, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+
 
 
 // --
@@ -1354,6 +1883,7 @@ var Self =
   name : 'Tools/Math/Segment',
   silencing : 1,
   enabled : 1,
+  accuracy : 1E-6,
   // routine: 'is',
 
   tests :
@@ -1380,6 +1910,11 @@ var Self =
     segmentParallel : segmentParallel,
 
     segmentIntersectionFactors : segmentIntersectionFactors,
+    segmentIntersectionPoints : segmentIntersectionPoints,
+    segmentIntersectionPoint : segmentIntersectionPoint,
+    segmentIntersectionPointAccurate : segmentIntersectionPointAccurate,
+
+    segmentIntersects : segmentIntersects,
   }
 
 }
