@@ -436,7 +436,227 @@ function getFactor( srcSegment, srcPoint )
   return factor;
 }
 
+//
 
+/**
+  * Check if two segments are parallel. Returns true if they are parallel and false if not.
+  * Segments and accuracySqr stay untouched.
+  *
+  * @param { Vector } src1Segment - The first source segment.
+  * @param { Vector } src2Segment - The second source segment.
+  * @param { Vector } accuracySqr - The accuracy.
+  *
+  * @example
+  * // returns   true
+  * _.segmentParallel( [ 0, 0, 0, 2, 2, 2 ], [ 1, 2, 1, 3, 4, 3 ] );
+  *
+  * @example
+  * // returns  false
+  * _.segmentParallel( [ 1, 2, 1, 1, 1, 2 ], [ 1, 2, 1, 1, 3, 3 ] );
+  *
+  * @returns { Boolean } Returns true if the segments are parallel.
+  * @function segmentParallel
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( src1Segment ) is not segment.
+  * @throws { Error } An Error if ( src2Segment ) is not segment.
+  * @throws { Error } An Error if ( accuracySqr ) is not number.
+  * @memberof wTools.segment
+  */
+function segmentParallel( src1Segment, src2Segment, accuracySqr )
+{
+  _.assert( _.segment.is( src1Segment ) );
+  _.assert( _.segment.is( src2Segment ) );
+  _.assert( arguments.length === 2 || arguments.length === 3 );
+  _.assert( src1Segment.length === src2Segment.length );
+
+  if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
+  accuracySqr = _.accuracySqr;;
+
+  let direction1 = _.segment.directionGet( src1Segment );
+  let direction2 = _.segment.directionGet( src2Segment );
+  let proportion = undefined;
+
+  let zeros1 = 0;                               // Check if Segment1 is a point
+  for( let i = 0; i < direction1.length ; i++  )
+  {
+    if( direction1.eGet( i ) === 0 )
+    {
+      zeros1 = zeros1 + 1;
+    }
+    if( zeros1 === direction1.length )
+    return true;
+  }
+
+  let zeros2 = 0;                               // Check if Segment2 is a point
+  for( let i = 0; i < direction2.length ; i++  )
+  {
+    if( direction2.eGet( i ) === 0 )
+    {
+      zeros2 = zeros2 + 1;
+    }
+    if( zeros2 === direction2.length )
+    return true;
+  }
+
+  debugger;
+
+  for( let i = 0; i < direction1.length ; i++  )
+  {
+    if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
+    {
+      if( direction1.eGet( i ) !== direction2.eGet( i ) )
+      {
+        return false;
+      }
+    }
+    else
+    {
+      let newProportion = direction1.eGet( i ) / direction2.eGet( i );
+
+      if( proportion !== undefined )
+      {
+        if( Math.abs( proportion - newProportion ) > accuracySqr)
+        return false
+      }
+
+      proportion = newProportion;
+    }
+  }
+
+  return true;
+}
+
+//
+
+/**
+  * Returns the factors for the intersection of two segments. Returns a vector with the intersection factors, 0 if there is no intersection.
+  * Segments stay untouched.
+  *
+  * @param { Vector } src1Segment - The first source segment.
+  * @param { Vector } src2Segment - The second source segment.
+  *
+  * @example
+  * // returns   0
+  * _.segmentIntersectionFactors( [ 0, 0, 2, 2 ], [ 3, 3, 4, 4 ] );
+  *
+  * @example
+  * // returns  _.vector.from( [ 2/3, 0.5 ] )
+  * _.segmentIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
+  *
+  * @returns { Array } Returns the factors for the two segments intersection.
+  * @function segmentIntersectionFactors
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Segment ) is not segment.
+  * @throws { Error } An Error if ( src2Segment ) is not segment.
+  * @memberof wTools.segment
+  */
+function segmentIntersectionFactors( srcSegment1, srcSegment2 )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( srcSegment1.length === srcSegment2.length,'The two segments must have the same dimension' );
+
+  let srcSegment1View = _.segment._from( srcSegment1.slice() );
+  let srcSegment2View = _.segment._from( srcSegment2.slice() );
+  logger.log( 'Segments', srcSegment1View, srcSegment2View )
+  let origin1 = _.segment.originGet( srcSegment1View );
+  let origin2 = _.segment.originGet( srcSegment2View );
+  let end1 = _.segment.endPointGet( srcSegment1View );
+  let end2 = _.segment.endPointGet( srcSegment2View );
+  logger.log( 'Origins', origin1, origin2 )
+  let dOrigin = _.vector.from( avector.subVectors( origin2.clone(), origin1 ) );
+  let direction1 = _.segment.directionGet( srcSegment1View );
+  let direction2 = _.segment.directionGet( srcSegment2View );
+  logger.log( 'Directions', direction1, direction2 )
+  let directions = _.Space.make( [ srcSegment1.length / 2 , 2 ] );
+  directions.colVectorGet( 0 ).copy( direction1 );
+  directions.colVectorGet( 1 ).copy( direction2.clone().mulScalar( - 1 ) );
+
+  // Same origin
+  let identOrigin = 0;
+  let identEnd = 0;
+  let origin1End2 = 0;
+  let end1Origin2 = 0;
+  for( let i = 0; i < origin1.length; i++ )
+  {
+    if( origin1.eGet( i ) === origin2.eGet( i ) )
+    identOrigin = identOrigin + 1;
+
+    if( origin1.eGet( i ) === end2.eGet( i ) )
+    origin1End2 = origin1End2 + 1;
+
+    if( end1.eGet( i ) === origin2.eGet( i ) )
+    end1Origin2 = end1Origin2 + 1;
+
+    if( end1.eGet( i ) === end2.eGet( i ) )
+    identEnd = identEnd + 1;
+  }
+
+  if( identOrigin === origin1.length )
+  return _.vector.from( [ 0, 0 ] );
+
+  else if( origin1End2 === origin1.length )
+  return _.vector.from( [ 0, 1 ] );
+
+  else if( end1Origin2 === origin1.length )
+  return _.vector.from( [ 1, 0 ] );
+
+  else if( identEnd === origin1.length )
+  return _.vector.from( [ 1, 1 ] );
+
+  // Parallel segments
+  if( segmentParallel( srcSegment1, srcSegment2 ) === true )
+  {
+    return 0;
+  }
+
+  let result = _.vector.from( [ 0, 0 ] );
+  let oldResult = _.vector.from( [ 0, 0 ] );
+  debugger;
+
+  for( let i = 0; i < dOrigin.length - 1 ; i++ )
+  {
+    let m = _.Space.make( [ 2, 2 ] );
+    m.rowSet( 0, directions.rowVectorGet( i ) );
+    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+
+    let or = _.Space.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+
+    let o =
+    {
+      x : null,
+      m : m,
+      y : or,
+      kernel : null,
+      pivoting : 1,
+    }
+
+    let x = _.Space.solveGeneral( o );
+
+    result = _.vector.from( x.base );
+
+    let point1 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point2 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let equal = 0;
+    for( var j = 0; j < dOrigin.length; j++ )
+    {
+      point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) )
+      point2.eSet( j, origin2.eGet( j ) + direction2.eGet( j )*result.eGet( 1 ) )
+      logger.log( j, point1.eGet( j ), point2.eGet( j ) )
+      logger.log( _.accuracy )
+      if( point1.eGet( j ) + 1E-6 >= point2.eGet( j ) && point2.eGet( j ) >= point1.eGet( j ) - 1E-6 )
+      {
+        equal = equal + 1;
+      }
+    }
+
+    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
+    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
+    if( equal === dOrigin.length && result0 && result1 )
+    return result;
+  }
+
+  return 0;
+}
 
 
 
@@ -465,7 +685,11 @@ let Proto =
 
   segmentAt : segmentAt,
   getFactor : getFactor,
-  
+
+  segmentParallel : segmentParallel,
+
+  segmentIntersectionFactors : segmentIntersectionFactors,
+
 }
 
 _.mapSupplement( Self, Proto );

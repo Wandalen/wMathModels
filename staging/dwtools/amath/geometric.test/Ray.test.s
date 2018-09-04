@@ -1113,7 +1113,6 @@ function rayParallel3D( test )
 
 }
 
-
 //
 
 function rayParallel( test )
