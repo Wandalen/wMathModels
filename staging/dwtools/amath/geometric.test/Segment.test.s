@@ -671,6 +671,320 @@ function endPointGet( test )
 
 }
 
+//
+
+function directionGet( test )
+{
+  test.case = 'Source segment remains unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var expected = _.vector.from( [ 1, 1 ] );
+
+  var gotDirection = _.segment.directionGet( srcSegment );
+  test.identical( gotDirection, expected );
+
+  var oldSrcSegment = [ 0, 0, 1, 1 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  test.case = 'srcSegment 1D - array'; /* */
+
+  var srcSegment = [ 0, 1 ];
+  var gotDirection = _.segment.directionGet( srcSegment );
+  var expected = _.vector.from( [ 1 ] );
+  test.identical( gotDirection, expected );
+  test.is( gotDirection !== srcSegment );
+
+  test.case = 'srcSegment 1D - vector'; /* */
+
+  var srcSegment = _.vector.fromArray( [ 0, 1 ] );
+  var gotDirection = _.segment.directionGet( srcSegment );
+  var expected = _.vector.from( [ 1 ] );
+  test.identical( gotDirection, expected );
+  test.is( gotDirection !== srcSegment );
+
+  test.case = 'srcSegment 2D - array'; /* */
+
+  var srcSegment = [ 0, 1, 2, 3 ];
+  var gotDirection = _.segment.directionGet( srcSegment );
+  var expected = _.vector.from( [ 2, 2 ] );
+  test.identical( gotDirection, expected );
+  test.is( gotDirection !== srcSegment );
+
+  test.case = 'srcSegment 2D - vector'; /* */
+
+  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var gotDirection = _.segment.directionGet( srcSegment );
+  var expected = _.vector.from( [ 2, 2 ] );
+  test.identical( gotDirection, expected );
+  test.is( gotDirection !== srcSegment );
+
+  test.case = 'srcSegment 3D - array'; /* */
+
+  var srcSegment = [ 0, 1, 2, 3, 4, 5 ];
+  var gotDirection = _.segment.directionGet( srcSegment );
+  var expected = _.vector.from( [ 3, 3, 3 ] );
+  test.identical( gotDirection, expected );
+  test.is( gotDirection !== srcSegment );
+
+  test.case = 'srcSegment 3D - vector'; /* */
+
+  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3, 3, 3 ] );
+  var gotDirection = _.segment.directionGet( srcSegment );
+  var expected = _.vector.from( [ 3, 2, 1 ] );
+  test.identical( gotDirection, expected );
+  test.is( gotDirection !== srcSegment );
+
+  test.case = 'Negative direction'; /* */
+
+  var srcSegment = [ 5, 4, 3, 2, 1, 0 ];
+  var gotDirection = _.segment.directionGet( srcSegment );
+  var expected = _.vector.from( [ - 3, - 3, - 3 ] );
+  test.identical( gotDirection, expected );
+  test.is( gotDirection !== srcSegment );
+
+  test.case = 'Point'; /* */
+
+  var srcSegment = [ 0, 1, 2, 0, 1, 2 ];
+  var gotDirection = _.segment.directionGet( srcSegment );
+  var expected = _.vector.from( [ 0, 0, 0 ] );
+  test.identical( gotDirection, expected );
+  test.is( gotDirection !== srcSegment );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.directionGet( ) );
+  test.shouldThrowErrorSync( () => _.segment.directionGet( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.directionGet( [ 0, 0 ], [ 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.directionGet( 'segment' ) );
+  test.shouldThrowErrorSync( () => _.segment.directionGet( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.directionGet( null ) );
+  test.shouldThrowErrorSync( () => _.segment.directionGet( undefined ) );
+
+}
+
+//
+
+function segmentAt( test )
+{
+  test.case = 'Source segment and factor remain unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var factor = 1;
+  var expected = [ 1, 1 ];
+
+  var gotPoint = _.segment.segmentAt( srcSegment, factor );
+  test.identical( gotPoint, expected );
+
+  var oldSrcSegment = [ 0, 0, 1, 1 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  var oldFactor = 1;
+  test.equivalent( factor, oldFactor );
+
+  test.case = 'Factor = 0, return origin'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var factor = 0;
+  var expected = [ 0, 0 ];
+
+  var gotPoint = _.segment.segmentAt( srcSegment, factor );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Factor = 1, return endPoint'; /* */
+
+  var srcSegment = [ 0, 1, 1, 1 ];
+  var factor = 1;
+  var expected = [ 1, 1 ];
+
+  var gotPoint = _.segment.segmentAt( srcSegment, factor );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Middle of 3D segment'; /* */
+
+  var srcSegment = [ 0, 1, 2, 1, 1, 1 ];
+  var factor = 0.5;
+  var expected = [ 0.5, 1, 1.5 ];
+
+  var gotPoint = _.segment.segmentAt( srcSegment, factor );
+  test.identical( gotPoint, expected );
+
+  test.case = 'factor smaller than 0.5'; /* */
+
+  var srcSegment = [ 0, 1, 2, 2, 2, 2 ];
+  var factor = 0.25;
+  var expected = [ 0.5, 1.25, 2 ];
+
+  var gotPoint = _.segment.segmentAt( srcSegment, factor );
+  test.identical( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( [ 0, 0 ], [ 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( 'segment', 1 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( [ 0, 0 ], 'factor') );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( null, 1 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( [ 0, 0, 1, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( undefined, 1 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( [ 1, 1, 2, 2 ], 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentAt( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function getFactor( test )
+{
+
+  test.case = 'Segment and Point remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = 0.5;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor, expected );
+
+  var oldSegment = [  - 1,  - 1 , 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null segment contains empty point'; /* */
+
+  var segment = null;
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Point segment contains Point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Middle of the segment'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = 0.5;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected )
+
+  test.case = 'Direction with different values'; /* */
+
+  var segment = [ 0, 0, 0, 1, 2, 3 ];
+  var point = [  0.1, 0.2, 0.3 ];
+  var expected = 0.1;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.equivalent( gotFactor,  expected );
+
+  test.case = 'Direction with different values ( one of them 0 )'; /* */
+
+  var segment = [ 0, 0, 0, 1, 2, 0 ];
+  var point = [  0.2, 0.4, 0 ];
+  var expected = 0.2;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Segment under point'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ 1, 1, 3 ];
+  var expected = false;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Segment ( normalized to 1 )'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = 1/ Math.sqrt( 2 );
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.equivalent( gotFactor,  expected );
+
+  test.case = 'Segment of four dimensions'; /* */
+
+  var segment = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0, 0 ];
+  var expected = 0.5;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Segment of 7 dimensions'; /* */
+
+  var segment = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
+  var point = [ - 1, -1, -1, -1, -1, -1, -1 ];
+  var expected = 1/3;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Segment of 1 dimension contains point'; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = 0.5;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Segment of 1 dimension desn´t contain point '; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = false;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected );
+
+  test.case = 'Segment of 1 dimension desn´t contain point '; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ 5 ];
+  var expected = false;
+
+  var gotFactor = _.segment.getFactor( segment, point );
+  test.identical( gotFactor,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.getFactor( ) );
+  test.shouldThrowErrorSync( () => _.segment.getFactor( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.getFactor( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.getFactor( [ 1, 1, 2, 2 ], 'factor') );
+  test.shouldThrowErrorSync( () => _.segment.getFactor( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.getFactor( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.getFactor( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.getFactor( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.getFactor( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.getFactor( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
 
 // --
 // define class
@@ -700,7 +1014,10 @@ var Self =
     dimGet : dimGet,
     originGet : originGet,
     endPointGet : endPointGet,
+    directionGet : directionGet,
 
+    segmentAt : segmentAt,
+    getFactor : getFactor,
   }
 
 }

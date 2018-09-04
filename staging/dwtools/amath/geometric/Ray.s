@@ -418,7 +418,7 @@ function getFactor( srcRay, srcPoint )
     factor = dOrigin.eGet( 0 ) / direction.eGet( 0 );
   }
 
-  // Factor can not be negative
+  // Factor can not be negative nor bigger than one
   if(  factor <= 0 - _.accuracySqr )
   return false;
 
@@ -444,6 +444,9 @@ function getFactor( srcRay, srcPoint )
         return false;
       }
       factor = newFactor;
+      // Factor can not be negative
+      if(  factor <= 0 - _.accuracySqr )
+      return false;
     }
   }
 
