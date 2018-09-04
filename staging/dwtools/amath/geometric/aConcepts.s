@@ -36,12 +36,13 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathVector' );
   _.include( 'wMathSpace' );
 
-  require( './Ray.s' );
-  require( './Line.s' );
   require( './Box.s' );
-  require( './Sphere.s' );
-  require( './Plane.s' );
   require( './Frustum.s' );
+  require( './Line.s' );
+  require( './Plane.s' );
+  require( './Ray.s' );
+  require( './Segment.s' );
+  require( './Sphere.s' );
 
   require( './AxisAndAngle.s' );
   require( './Quat.s' );

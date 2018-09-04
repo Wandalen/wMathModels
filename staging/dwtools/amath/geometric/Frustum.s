@@ -1687,12 +1687,12 @@ let Proto =
   frustumDistance : frustumDistance, /* qqq : implement me */
   frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
 
-  rayIntersects : rayIntersects,
-  rayDistance : rayDistance,
+  rayIntersects : rayIntersects,  /* Same as _.ray.frustumIntersects */
+  rayDistance : rayDistance,  /* Same as _.ray.frustumDistance */
   rayClosestPoint : rayClosestPoint,
 
-  lineIntersects : lineIntersects,
-  lineDistance : lineDistance,
+  lineIntersects : lineIntersects,  /* Same as _.line.frustumIntersects */
+  lineDistance : lineDistance,  /* Same as _.line.frustumDistance */
   lineClosestPoint : lineClosestPoint,
 
 }

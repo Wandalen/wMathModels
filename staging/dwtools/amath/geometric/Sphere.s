@@ -7,6 +7,17 @@ let avector = _.avector;
 let vector = _.vector;
 let Self = _.sphere = _.sphere || Object.create( null );
 
+/*
+
+  A sphere is the space enclosed by all the points at a given distance to a center:
+
+  For the following functions, spheres must have the shape [ centerX, centerY, centerZ, radius ],
+where the dimension equals the object´s length minus one.
+
+  Moreover, centerX, centerY, centerZ are the coordinates of the center of the sphere,
+and radius is the radius pf the sphere.
+
+*/
 // --
 //
 // --

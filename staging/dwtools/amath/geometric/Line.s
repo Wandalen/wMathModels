@@ -2307,8 +2307,8 @@ let Proto =
   lineIntersectionPoints : lineIntersectionPoints,
   lineIntersectionPoint : lineIntersectionPoint,
   lineIntersectionPointAccurate : lineIntersectionPointAccurate,
-  lineIntersects : lineIntersects,
 
+  lineIntersects : lineIntersects,
   lineDistance : lineDistance,
   lineClosestPoint : lineClosestPoint,
 

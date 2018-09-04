@@ -957,6 +957,40 @@ rayIntersectionPointAccurate.shaderChunk =
 
   }
 `
+
+//
+
+/**
+  * Check if two rays intersect. Returns true if they intersect, false if not.
+  * Rays stay untouched.
+  *
+  * @param { Vector } src1Ray - The first source ray.
+  * @param { Vector } src2Ray - The second source ray.
+  *
+  * @example
+  * // returns   true
+  * _.rayIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  false
+  * _.rayIntersects( [ -3, 0, 1, 0 ], [ 0, -2, 1, 0 ] );
+  *
+  * @returns { Boolean } Returns true if the two rays intersect.
+  * @function rayIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Ray ) is not ray.
+  * @throws { Error } An Error if ( src2Ray ) is not ray.
+  * @memberof wTools.ray
+  */
+function rayIntersects( srcRay1, srcRay2 )
+{
+
+  if( _.ray.rayIntersectionFactors( srcRay1, srcRay2 ) === 0 )
+  return false
+
+  return true;
+}
+
 //
 
 /**
@@ -2300,6 +2334,8 @@ let Proto =
   rayIntersectionPoints : rayIntersectionPoints,
   rayIntersectionPoint : rayIntersectionPoint,
   rayIntersectionPointAccurate : rayIntersectionPointAccurate,
+
+  rayIntersects : rayIntersects,
   rayDistance : rayDistance,
   rayClosestPoint : rayClosestPoint,
 
@@ -2323,8 +2359,8 @@ let Proto =
   frustumDistance : frustumDistance,
   frustumClosestPoint : frustumClosestPoint,
 
-  lineIntersects : lineIntersects,
-  lineDistance : lineDistance,
+  lineIntersects : lineIntersects,  /* Same as _.line.rayIntersects */
+  lineDistance : lineDistance,  /* Same as _.line.rayDistance */
   lineClosestPoint : lineClosestPoint,
 }
 

@@ -17,6 +17,16 @@ let sqrt = _.sqrt;
 _.assert( !_.quat );
 let Self = _.quat = _.quat || Object.create( _.avector );
 
+/*
+
+A Quaternion is an object that reprrsents a rotation with a rotation vector and a scalar.
+
+For the following functions, quaternions must have the shape [ dir1, dir2, dir3, scalar ],
+where dir1, dir2 and dir3 are the coordinates of the rotation vector
+and scalar related with the rotation magnitude.
+
+*/
+
 // --
 //
 // --

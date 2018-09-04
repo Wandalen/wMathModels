@@ -2,9 +2,6 @@
 
 'use strict';
 
-/*
-*/
-
 let _ = _global_.wTools;
 let avector = _.avector;
 let vector = _.vector;
@@ -23,6 +20,16 @@ _.assert( _.routineIs( clamp ) )
 _.assert( !_.euler );
 
 let Self = _.euler = _.euler || Object.create( _.avector );
+
+/*
+
+An Euler Angle is a set of three consecutive rotations around the axes of coordinates.
+
+For the following functions, Euler Angles must have the shape [ angle1, angle2, angle3, axis1, axis2, axis3 ],
+where angle1, angle2 and angle3 are the value of the rotations ( in radians )
+and axis1, axis2, axis3 the corresponding axes of rotation.
+
+*/
 
 // --
 //
