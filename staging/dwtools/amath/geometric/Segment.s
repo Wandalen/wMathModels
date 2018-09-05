@@ -1673,8 +1673,387 @@ function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Check if a segment and a plane intersect. Returns true if they intersect and false if not.
+  * The plane and the segment remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcPlane - Source plane.
+  *
+  * @example
+  * // returns true;
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.planeIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Boolean } Returns true if the segment and the plane intersect.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the segment and plane don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function planeIntersects( srcSegment, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcPlane.length - 1 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  _.assert( dimSegment === dimPlane );
+
+  if( _.plane.pointContains( planeView, origin ) )
+  return true;
+
+  let dirDotNormal = _.vector.dot( direction, normal );
+
+  if( dirDotNormal !== 0 )
+  {
+    let originDotNormal = _.vector.dot( origin, normal );
+    let factor = - ( originDotNormal + bias ) / dirDotNormal;
+
+    if( factor >= 0 && factor <= 1 )
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+//
+
+/**
+  * Get the distance between a segment and a plane. Returns the calculated distance.
+  * The plane and the segment remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcPlane - Source plane.
+  *
+  * @example
+  * // returns 0;
+  * _.planeDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns 1;
+  * _.planeDistance( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Number } Returns the distance between the segment and the plane.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the segment and plane don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function planeDistance( srcSegment, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcPlane.length - 1 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  _.assert( dimSegment === dimPlane );
+
+  if( _.segment.planeIntersects( srcSegmentView, planeView ) )
+  return 0;
+
+  return Math.abs( _.plane.pointDistance( planeView, origin ) );
+}
+
+//
+
+/**
+  * Get the closest point between a segment and a plane. Returns the calculated point.
+  * The plane and the segment remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns [ 0, -1, 0 ];
+  * _.planeClosestPoint( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Array } Returns the closest point in the segment to the plane.
+  * @function planeClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the segment and plane don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function planeClosestPoint( srcSegment, srcPlane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcPlane.length - 1 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimSegment === dimPlane );
+
+  if( _.segment.planeIntersects( srcSegmentView, planeView ) )
+  return 0;
+
+  origin = _.vector.from( origin );
+  for( let i = 0; i < origin.length; i++ )
+  {
+    dstPointView.eSet( i, origin.eGet( i ) );
+  }
 
 
+  return dstPoint;
+}
+
+//
+
+/**
+  * Check if a ray and a frustum intersect. Returns true if they intersect and false if not.
+  * The frustum and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns true;
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
+  *
+  * @example
+  * // returns false;
+  * _.frustumIntersects( [ 0, -1, 0, 0, -2, 0 ] , srcFrustum );
+  *
+  * @returns { Boolean } Returns true if the ray and the frustum intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function frustumIntersects( srcRay, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( srcRay === null )
+  srcRay = _.ray.make( rows - 1 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView );
+
+  _.assert( dimRay === rows - 1 );
+
+  if( _.frustum.pointContains( srcFrustum, origin ) )
+  return true;
+
+  /* frustum corners */
+  let corners = _.frustum.cornersGet( srcFrustum );
+  let cornersLength = _.Space.dimsOf( corners )[ 1 ];
+
+  for( let j = 0 ; j < cornersLength ; j++ )
+  {
+    let corner = corners.colVectorGet( j );
+    let projection = _.ray.pointClosestPoint( srcRayView, corner );
+
+    if( _.frustum.pointContains( srcFrustum, projection ) )
+    return true;
+  }
+
+  return false;
+
+}
+
+//
+
+/**
+  * Get the distance between a ray and a frustum. Returns the calculated distance.
+  * The frustum and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns 0;
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 17 );
+  * _.frustumDistance( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the distance between a ray and a frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function frustumDistance( srcRay, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcFrustum.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView );
+
+  _.assert( dimRay === rows - 1 );
+
+  if( _.ray.frustumIntersects( srcRayView, srcFrustum ) )
+  return 0;
+
+  let closestPoint = _.ray.frustumClosestPoint( srcRayView, srcFrustum );
+  return _.frustum.pointDistance( srcFrustum, closestPoint );
+}
+
+//
+
+/**
+  * Get the closest point in a ray to a frustum. Returns the calculated point.
+  * The frustum and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns 0;
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, - 1, 0 ];
+  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the closest point in the ray to the frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcFrustum.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcFrustum.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dimRay === rows - 1 );
+
+  if( _.ray.frustumIntersects( srcRayView, srcFrustum ) )
+  return 0;
+
+  /* frustum corners */
+  let corners = _.frustum.cornersGet( srcFrustum );
+  let cornersLength = _.Space.dimsOf( corners )[ 1 ];
+
+  let distance = _.frustum.pointDistance( srcFrustum, origin );
+  let d = 0;
+  let pointView = _.vector.from( origin );
+
+  for( let j = 0 ; j < _.Space.dimsOf( corners )[ 1 ] ; j++ )
+  {
+    let corner = corners.colVectorGet( j );
+    d = Math.abs( _.ray.pointDistance( srcRayView, corner ) );
+    if( d < distance )
+    {
+      distance = d;
+      pointView = _.ray.pointClosestPoint( srcRayView, corner );
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
 
 
 
@@ -1727,6 +2106,14 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint,
+
+  planeIntersects : planeIntersects,
+  planeDistance : planeDistance,
+  planeClosestPoint : planeClosestPoint,
+
+  frustumIntersects : frustumIntersects,
+  frustumDistance : frustumDistance,
+  frustumClosestPoint : frustumClosestPoint,
 }
 
 _.mapSupplement( Self, Proto );

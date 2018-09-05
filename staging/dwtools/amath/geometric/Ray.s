@@ -1848,7 +1848,7 @@ function planeIntersects( srcRay, srcPlane )
     let originDotNormal = _.vector.dot( origin, normal );
     let factor = - ( originDotNormal + bias ) / dirDotNormal;
 
-    if( factor > 0 )
+    if( factor >= 0 )
     {
       return true;
     }
