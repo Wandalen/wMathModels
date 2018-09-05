@@ -686,6 +686,7 @@ function rayIntersectionFactors( r1, r2 )
     {
       let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
       let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
+
       let samex1 = Math.abs( x1 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x1 - result.eGet( 1 ) ) < 1E-6 ;
       let samex2 = Math.abs( x2 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x2 - result.eGet( 1 ) ) < 1E-6 ;
 
@@ -708,7 +709,7 @@ function rayIntersectionFactors( r1, r2 )
       {
         if( samex2 )
         {
-          result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
+          result.eSet( 1, _.vector.from( x.base ).eGet( 1 ) );
         }
         else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex1 )
         {
@@ -1134,15 +1135,10 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
 
   let pointView;
 
-  // Same origin
-  let identOrigin = 0;
-  for( let i = 0; i < srcOrigin.length; i++ )
+  if( _.ray.rayIntersects( srcRayView, tstRayView ) )
   {
-    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
-    identOrigin = identOrigin + 1;
+    pointView = _.ray.rayIntersectionPoint( srcRayView, tstRayView );
   }
-  if( identOrigin === srcOrigin.length )
-  pointView = srcOrigin;
   else
   {
     // Parallel rays
@@ -1152,18 +1148,34 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
     }
     else
     {
-      let srcMod = _.vector.dot( srcDir, srcDir );
-      let tstMod = _.vector.dot( tstDir, tstDir );
-      let mod = _.vector.dot( srcDir, tstDir );
-      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
-      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+      let factors = _.line.lineIntersectionFactors( srcRayView, tstRayView );
 
-      if( factor >= 0 )
+      if( factors === 0 )
       {
-        pointView = _.ray.rayAt( srcRayView, factor );
+        let srcMod = _.vector.dot( srcDir, srcDir );
+        let tstMod = _.vector.dot( tstDir, tstDir );
+        let mod = _.vector.dot( srcDir, tstDir );
+        let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+        let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+
+        if( factor >= 0 )
+        {
+          pointView = _.ray.rayAt( srcRayView, factor );
+        }
+        else
+        {
+          pointView = srcOrigin;
+        }
       }
-      else
+      else if( factors.eGet( 1 ) < 0 )
       {
+        // pointView = _.ray.rayAt( srcRayView, factor );
+
+        pointView = _.ray.pointClosestPoint( srcRayView, tstOrigin );
+      }
+      else if( factors.eGet( 0 ) < 0 )
+      {
+        //pointView = _.ray.pointClosestPoint( srcRayView, tstOrigin );
         pointView = srcOrigin;
       }
     }
@@ -1317,26 +1329,14 @@ function pointDistance( srcRay, srcPoint )
   else
   {
     let projection = _.ray.pointClosestPoint( srcRayView, srcPointView );
-    let factor = _.ray.getFactor( srcRayView, projection );
 
-    if( factor === false )
-    {
-      let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
-      return Math.norm( dOrigin );
-    }
-    else
-    {
-      let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
-      debugger;
-      let mod = _.vector.dot( dPoints, dPoints );
-      mod = Math.sqrt( mod );
+    let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
+    debugger;
+    let mod = _.vector.dot( dPoints, dPoints );
+    mod = Math.sqrt( mod );
 
-      return mod;
-    }
-
+    return mod;
   }
-
-  return true;
 }
 
 /**

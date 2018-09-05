@@ -1183,26 +1183,14 @@ function pointDistance( srcLine, srcPoint )
   else
   {
     let projection = _.line.pointClosestPoint( srcLineView, srcPointView );
-    let factor = _.line.getFactor( srcLineView, projection );
+    
+    let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
+    debugger;
+    let mod = _.vector.dot( dPoints, dPoints );
+    mod = Math.sqrt( mod );
 
-    if( factor === false )
-    {
-      let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
-      return Math.norm( dOrigin );
-    }
-    else
-    {
-      let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
-      debugger;
-      let mod = _.vector.dot( dPoints, dPoints );
-      mod = Math.sqrt( mod );
-
-      return mod;
-    }
-
+    return mod;
   }
-
-  return true;
 }
 
 /**

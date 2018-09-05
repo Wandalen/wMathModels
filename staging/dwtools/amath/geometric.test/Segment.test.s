@@ -1870,6 +1870,322 @@ function segmentIntersects( test )
 
 }
 
+//
+
+function segmentDistance( test )
+{
+  test.case = 'Source segments remain unchanged'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  var oldSrc1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Segment, oldSrc1Segment );
+
+  var oldSrc2Segment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Segment, oldSrc2Segment );
+
+  test.case = 'Segments are the same'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
+
+  var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Segment = [ 3, 7, 0, 3, 7, 1 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
+
+  var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Segment = [ 3, 7, 1, 3, 7, 3 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are parallel ( different origin - opposite direction )'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 0, 0 ];
+  var src2Segment = [ 3, 7, 1, - 4, 7, 1 ];
+  var expected = Math.sqrt( 50 );
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'src1Segment is a point'; /* */
+
+  var src1Segment = [ 3, 7, 1, 3, 7, 1 ];
+  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = Math.sqrt( 40 );
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'src1Segment end is src2Segment origin'; /* */
+
+  var src1Segment = [ 3, 7, 1, 0, 0, 0 ];
+  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are the same'; /* */
+
+  var src1Segment = [ 0, 4, 2, 1, 1, 1 ];
+  var src2Segment = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 2, 1, 0, 7, 2, 1 ];
+  var src2Segment = [ 3, 4, 2, 1, -1, 4, 2, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments don´t intersect 2D'; /* */
+
+  var src1Segment = [ 0, 0, 2, 1 ];
+  var src2Segment = [ - 3, - 4, 1, 0 ];
+  var expected = Math.sqrt( 2 );
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are perpendicular and intersect'; /* */
+
+  var src1Segment = [ 3, 7, -2, 3, 7, 4 ];
+  var src2Segment = [ 3, 5, 1, 3, 9, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are perpendicular and don´t intersect'; /* */
+
+  var src1Segment = [ 3, 7, 1, 9, 7, 1 ];
+  var src2Segment = [ 3, -2, 1, 3, 4, 1 ];
+  var expected = 3;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are parallel to x'; /* */
+
+  var src1Segment = [ 3, 7, 1, 6, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 6, 7, 2 ];
+  var expected = 1;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are parallel but in a opposite direction'; /* */
+
+  var src1Segment = [ 3, 7, 1, 1, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 5, 7, 2 ];
+  var expected = 1;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcSegment is null'; /* */
+
+  var src1Segment = null;
+  var src2Segment = [ 3, 7, 2, 4, 8, 3 ];
+  var expected = Math.sqrt( 62 );
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function segmentClosestPoint( test )
+{
+  test.case = 'Source segments remain unchanged'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrc1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Segment, oldSrc1Segment );
+
+  var oldSrc2Segment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Segment, oldSrc2Segment );
+
+  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
+
+  var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Segment = [ 3, 7, 1, 3, 7, 2 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
+
+  var src1Segment = [ 3, 7, 1, 3, 7, 8 ];
+  var src2Segment = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments are parallel ( different origin - opposite direction )'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 0, 0 ];
+  var src2Segment = [ 3, 7, 1, - 7, 7, 1 ];
+  var expected = [ 1, 0, 0 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'src1Segment is a point'; /* */
+
+  var src1Segment = [ 3, 7, 1, 3, 7, 1 ];
+  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'src2Segment is a point'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 3, 7, 1, 3, 7, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Segments are the same'; /* */
+
+  var src1Segment = [ 0, 4, 2, 1, 1, 1 ];
+  var src2Segment = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments intersect 4D'; /* */
+
+  var src1Segment = [ 0, 0, 2, 1, 0, 7, 2, 1 ];
+  var src2Segment = [ 3, 4, 2, 1, -1, 4, 2, 1 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments intersect 2D'; /* */
+
+  var src1Segment = [ 0, 0, 2, 0 ];
+  var src2Segment = [ - 3, - 4, 1, 0 ];
+  var expected = [ 1, 0 ]; //Should be 0.8, 0.4
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments are perpendicular and intersect'; /* */
+
+  var src1Segment = [ 3, 7, 1, 8, 7, 1 ];
+  var src2Segment = [ 3, 7, 1, 3, 7, 6 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments are perpendicular and don´t intersect'; /* */
+
+  var src1Segment = [ 0, 7, 1, 9, 7, 1 ];
+  var src2Segment = [ 3, -2, 2, 3, 11, 2 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments are parallel to x'; /* */
+
+  var src1Segment = [ 3, 7, 1, 6, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 6, 7, 2 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments are parallel but in a opposite direction'; /* */
+
+  var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 8, 7, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcSegment is null'; /* */
+
+  var src1Segment = null;
+  var src2Segment = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+
 
 
 
@@ -1915,6 +2231,8 @@ var Self =
     segmentIntersectionPointAccurate : segmentIntersectionPointAccurate,
 
     segmentIntersects : segmentIntersects,
+    segmentDistance : segmentDistance,
+    segmentClosestPoint : segmentClosestPoint,
   }
 
 }

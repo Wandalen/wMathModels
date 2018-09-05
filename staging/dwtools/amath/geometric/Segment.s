@@ -848,6 +848,188 @@ function segmentIntersects( srcSegment1, srcSegment2 )
 //
 
 /**
+  * Get the distance between two segments. Returns the calculated distance.
+  * The segments remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } tstSegment - Test segment.
+  *
+  * @example
+  * // returns 0;
+  * _.segmentDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 12 );
+  * _.segmentDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between two segments.
+  * @function segmentDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( tstSegment ) is not segment.
+  * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the segments don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function segmentDistance( srcSegment, tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( tstSegment.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let srcOrigin = _.segment.originGet( srcSegmentView );
+  let srcDirection = _.segment.directionGet( srcSegmentView );
+  let srcDim  = _.segment.dimGet( srcSegmentView )
+
+  let tstSegmentView = _.segment._from( tstSegment );
+  let tstOrigin = _.segment.originGet( tstSegmentView );
+  let tstDirection = _.segment.directionGet( tstSegmentView );
+  let tstDim  = _.segment.dimGet( tstSegmentView );
+
+  _.assert( srcDim === tstDim );
+
+  let distance;
+
+  if( _.segment.segmentIntersects( srcSegmentView, tstSegmentView ) === true )
+  return 0;
+  // Parallel segments
+  if( _.segment.segmentParallel( srcSegmentView, tstSegmentView ) )
+  {
+    let d1 = _.segment.pointDistance( srcSegmentView, tstOrigin );
+    let d2 = _.segment.pointDistance( tstSegmentView, srcOrigin );
+    let d3 = _.avector.distance( srcOrigin, tstOrigin );
+
+    if( d1 <= d2 && d1 <= d3 )
+    {
+      distance = d1;
+    }
+    else if( d2 <= d3 )
+    {
+      distance = d2;
+    }
+    else
+    {
+      distance = d3;
+    }
+  }
+  else
+  {
+    let srcPoint = _.segment.segmentClosestPoint( srcSegmentView, tstSegmentView );
+    let tstPoint = _.segment.segmentClosestPoint( tstSegmentView, srcSegmentView );
+    distance = _.avector.distance( srcPoint, tstPoint );
+  }
+
+
+  return distance;
+}
+
+//
+
+/**
+  * Get the closest point in a segment to a segment. Returns the calculated point.
+  * The segments remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } tstSegment - Test segment.
+  *
+  * @example
+  * // returns 0;
+  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.segmentClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
+  *
+  * @returns { Array } Returns the closest point in the srcSegment to the tstSegment.
+  * @function segmentClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( tstSegment ) is not segment.
+  * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the segments don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( tstSegment.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( tstSegment.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let srcOrigin = _.segment.originGet( srcSegmentView );
+  let srcEnd = _.segment.endPointGet( srcSegmentView );
+  let srcDir = _.segment.directionGet( srcSegmentView );
+  let srcDim  = _.segment.dimGet( srcSegmentView );
+
+  let tstSegmentView = _.segment._from( tstSegment );
+  let tstOrigin = _.segment.originGet( tstSegmentView );
+  let tstDir = _.segment.directionGet( tstSegmentView );
+  let tstDim = _.segment.dimGet( tstSegmentView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( srcDim === tstDim );
+
+  let pointView;
+
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
+  {
+    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
+  }
+  if( identOrigin === srcOrigin.length )
+  pointView = srcOrigin;
+  else
+  {
+    // Parallel segments
+    if( _.segment.segmentParallel( srcSegmentView, tstSegmentView ) )
+    {
+      pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+    }
+    else
+    {
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+      logger.log( dOrigin )
+      logger.log( factor )
+      if( factor >= 0 && factor <= 1 )
+      {
+        pointView = _.segment.segmentAt( srcSegmentView, factor );
+      }
+      else if( factor < 0)
+      {
+        pointView = srcOrigin;
+      }
+      else if( factor > 1 )
+      {
+        pointView = srcEnd;
+      }
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
   * Check if a given point is contained inside a segment. Returs true if it is contained, false if not.
   * Point and segment stay untouched.
   *
@@ -941,6 +1123,156 @@ function pointContains( srcSegment, srcPoint )
   return true;
 }
 
+//
+
+/**
+  * Get the distance between a point and a segment. Returs the calculated distance. Point and segment stay untouched.
+  *
+  * @param { Array } srcSegment - The source segment.
+  * @param { Array } srcPoint - The source point.
+  *
+  * @example
+  * // returns 0
+  * _.pointDistance( [ 0, 0, 0, 2 ], [ 0, 1 ] );
+  *
+  * @example
+  * // returns 2
+  * _.pointDistance( [ 0, 0, 0, 2 ], [ 2, 2 ] );
+  *
+  * @returns { Boolen } Returns the distance between the point and the segment.
+  * @function pointDistance
+  * @throws { Error } An Error if ( dim ) is different than point.length (segment and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.segment
+  */
+function pointDistance( srcSegment, srcPoint )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcPoint.length );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimension  = _.segment.dimGet( srcSegmentView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+
+  _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
+
+  if( _.segment.pointContains( srcSegmentView, srcPointView ) )
+  {
+    return 0;
+  }
+  else
+  {
+    let projection = _.segment.pointClosestPoint( srcSegmentView, srcPointView );
+    let factor = _.segment.getFactor( srcSegmentView, projection );
+
+    let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
+    debugger;
+    let mod = _.vector.dot( dPoints, dPoints );
+    mod = Math.sqrt( mod );
+
+    return mod;
+
+  }
+}
+
+/**
+  * Get the closest point between a point and a segment. Returs the calculated point. srcPoint and segment stay untouched.
+  *
+  * @param { Array } srcSegment - The source segment.
+  * @param { Array } srcPoint - The source point.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * _.pointClosestPoint( [ 0, 0, 0, 2 ], [ 0, 1 ] );
+  *
+  * @example
+  * // returns [ 0, 2 ]
+  * _.pointClosestPoint( [ 0, 0, 0, 2 ], [ 2, 2 ] );
+  *
+  * @returns { Boolen } Returns the closest point in a segment to a point.
+  * @function pointClosestPoint
+  * @throws { Error } An Error if ( dim ) is different than point.length (segment and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.segment
+  */
+function pointClosestPoint( srcSegment, srcPoint, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcPoint.length );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcPoint.length );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let end = _.segment.endPointGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimension  = _.segment.dimGet( srcSegmentView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
+
+  let pointVector;
+
+  var dir = 0;
+  for( var i = 0; i < direction.length; i++ )
+  {
+    if( direction.eGet( i ) === 0 )
+    dir = dir + 1;
+  }
+
+  if( dir === direction.length )
+  {
+    pointVector = origin;
+  }
+  else if( _.segment.pointContains( srcSegmentView, srcPointView ) )
+  {
+    pointVector = _.vector.from( srcPointView );
+  }
+  else
+  {
+    let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+    let dot = _.vector.dot( direction, direction );
+    let factor = _.vector.dot( direction , dOrigin ) / dot ;
+
+    if( factor < 0 || dot === 0 )
+    {
+      pointVector = _.vector.from( origin );
+    }
+    else if( factor > 1 )
+    {
+      pointVector = _.vector.from( end );
+    }
+    else
+    {
+      pointVector = _.vector.from( _.segment.segmentAt( srcSegmentView, factor ) );
+    }
+  }
+
+  for( let i = 0; i < pointVector.length; i++ )
+  {
+    dstPointView.eSet( i, pointVector.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+
 
 
 
@@ -978,8 +1310,12 @@ let Proto =
   segmentIntersectionPointAccurate : segmentIntersectionPointAccurate,
 
   segmentIntersects : segmentIntersects,
+  segmentDistance : segmentDistance,
+  segmentClosestPoint : segmentClosestPoint,
 
   pointContains : pointContains,
+  pointDistance : pointDistance,
+  pointClosestPoint : pointClosestPoint,
 
 }
 
