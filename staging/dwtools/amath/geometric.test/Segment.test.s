@@ -3063,6 +3063,384 @@ function boxClosestPoint( test )
 
 }
 
+//
+
+function sphereIntersects( test )
+{
+
+  test.case = 'Segment and sphere remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null segment - empty sphere'; /* */
+
+  var segment = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point segment center of sphere'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point segment - no intersection'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point segment in sphere'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment and sphere intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment over sphere'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
+
+  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var sphere = [ 3, 3, 3, 1 ];
+  var expected = false;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.equivalent( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function sphereDistance( test )
+{
+
+  test.case = 'Segment and sphere remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null segment - empty sphere'; /* */
+
+  var segment = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point segment center of sphere'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point segment - no intersection'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = Math.sqrt( 11 ) - 1;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point segment in sphere'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment and sphere intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment over sphere'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = 1;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = Math.sqrt( 12 ) - 0.5;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 1 ];
+  var sphere = [ 3, 0, 0, 1 ];
+  var expected = 2;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.equivalent( gotDistance,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function sphereClosestPoint( test )
+{
+
+  test.case = 'Segment and sphere remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null segment - empty sphere'; /* */
+
+  var segment = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point segment center of sphere'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point segment - no intersection'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point segment in sphere'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment and sphere intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment over sphere'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = [ 0, 0, 4 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 1 ];
+  var sphere = [ 3, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.equivalent( gotClosestPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 0, 5, 0, 3 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 1, 4 ] );
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'dstPoint is array'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 1, 5, 0, 3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 0, 1, 4 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
+  test.identical( gotClosestPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+
 
 
 // --
@@ -3117,6 +3495,10 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+
+    sphereIntersects : sphereIntersects,
+    sphereDistance : sphereDistance,
+    sphereClosestPoint : sphereClosestPoint,
   }
 
 }
