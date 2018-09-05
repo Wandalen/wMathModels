@@ -1965,7 +1965,7 @@ function segmentDistance( test )
 
   var src1Segment = [ 0, 0, 2, 1 ];
   var src2Segment = [ - 3, - 4, 1, 0 ];
-  var expected = Math.sqrt( 2 );
+  var expected = Math.sqrt( 0.2 );
 
   var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
@@ -2112,13 +2112,22 @@ function segmentClosestPoint( test )
   var expected = [ 0, 4, 2, 1 ];
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Segments intersect 2D'; /* */
 
   var src1Segment = [ 0, 0, 2, 0 ];
   var src2Segment = [ - 3, - 4, 1, 0 ];
-  var expected = [ 1, 0 ]; //Should be 0.8, 0.4
+  var expected = [ 1, 0 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments don´t intersect 2D'; /* */
+
+  var src1Segment = [ 0, 0, 2, 1 ];
+  var src2Segment = [ - 3, - 4, 1, 0 ];
+  var expected = [ 0.8, 0.4 ];
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -2185,8 +2194,458 @@ function segmentClosestPoint( test )
 
 }
 
+//
 
+function pointContains( test )
+{
 
+  test.case = 'Segment and Point remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool, expected );
+
+  var oldSegment = [  - 1,  - 1 , 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null segment contains empty point'; /* */
+
+  var segment = null;
+  var point = [ 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Point segment contains Point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment contains point'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment under point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
+  var expected = false;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 0, -2 ];
+  var expected = false;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) contains point'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = true;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) doesn´t contain point'; /* */
+
+  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = false;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment of four dimensions contains point'; /* */
+
+  var segment = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 0 ];
+  var expected = true;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment of four dimensions doesn´t contain point'; /* */
+
+  var segment = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, - 2, 0 , 2 ];
+  var expected = false;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment of 7 dimensions contains point'; /* */
+
+  var segment = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
+  var point = [ - 1, -1, -1, -1, -1, -1, -1 ];
+  var expected = true;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment of 7 dimensions doesn´t contain point'; /* */
+
+  var segment = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
+  var point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment of 1 dimension contains point'; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment of 1 dimension desn´t contain point '; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = false;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment of 1 dimension desn´t contain point '; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ 3 ];
+  var expected = false;
+
+  var gotBool = _.segment.pointContains( segment, point );
+  test.identical( gotBool,  expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.pointContains( ) );
+  test.shouldThrowErrorSync( () => _.segment.pointContains( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointContains( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointContains( [ 1, 1, 2, 2 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.pointContains( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.pointContains( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointContains( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.pointContains( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.pointContains( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.pointContains( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function pointDistance( test )
+{
+
+  test.case = 'Segment and Point remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance, expected );
+
+  var oldSegment = [  - 1,  - 1 , 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null segment Distance empty point'; /* */
+
+  var segment = null;
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point segment Distance same Point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point segment Distance other Point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 3, 4, 0 ];
+  var expected = 5;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment contains point'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment under point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
+  var expected = Math.sqrt( 5 );
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 0, -2 ];
+  var expected = 2;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) Distance point'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) doesn´t contain point'; /* */
+
+  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = 0.568342039793567;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.equivalent( gotDistance,  expected );
+
+  test.case = 'Segment of four dimensions distance '; /* */
+
+  var segment = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 4 ];
+  var expected = Math.sqrt( 12 );
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment of 7 dimensions distance'; /* */
+
+  var segment = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
+  var point = [ 2, 2, 2, 2, 2, 2, 2 ];
+  var expected = 5;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment of 1 dimension contains point'; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment of 1 dimension distance'; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = 3;
+
+  var gotDistance = _.segment.pointDistance( segment, point );
+  test.identical( gotDistance,  expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( [ 1, 1, 2, 2 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistance( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function pointClosestPoint( test )
+{
+
+  test.case = 'Segment and Point remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSegment = [  - 1,  - 1 , 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null segment - empty point'; /* */
+
+  var segment = null;
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point segment - same Point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point segment - other Point'; /* */
+
+  var segment = [ 1, 2, 3, 0, 0, 0 ];
+  var point = [ 3, 4, 5 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment contains point'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ 1, 1, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment under point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
+  var expected = [ 0, 0, 2 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [ - 2, - 2, - 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) Distance point'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = [ 0.5, 0.5, 0 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) doesn´t contain point'; /* */
+
+  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = [ 0.02572500470627867, 0.10157398765468795, 0.10157398765468795 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.equivalent( gotClosestPoint,  expected );
+
+  test.case = 'Segment of four dimensions distance '; /* */
+
+  var segment = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 4 ];
+  var expected = [ 1, 1, 1, 1 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment of 7 dimensions distance'; /* */
+
+  var segment = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
+  var point = [ 2, 2, 2, 2, 2, 2, 2 ];
+  var expected = [ 0, 0, 0, 0, 0, 0, 1 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment of 1 dimension contains point'; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = [ 1 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment of 1 dimension distance'; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = [ 0 ];
+
+  var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
+  test.identical( gotClosestPoint,  expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( [ 1, 1, 2, 2 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.pointClosestPoint( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
 
 
 // --
@@ -2233,6 +2692,10 @@ var Self =
     segmentIntersects : segmentIntersects,
     segmentDistance : segmentDistance,
     segmentClosestPoint : segmentClosestPoint,
+
+    pointContains : pointContains,
+    pointDistance : pointDistance,
+    pointClosestPoint : pointClosestPoint,
   }
 
 }

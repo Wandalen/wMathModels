@@ -2432,13 +2432,22 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Rays don´t intersect 2D'; /* */
+  test.case = 'Rays intersect 2D'; /* */
 
   var src1Ray = [ 0, 0, 2, 0 ];
   var src2Ray = [ - 3, - 4, 0, 1 ];
   var expected = [ 0, 0 ];
 
   var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays don´t intersect 2D'; /* */
+
+  var src1Segment = [ 0, 0, 2, 1 ];
+  var src2Segment = [ 1, 0, - 1, - 2 ];
+  var expected = [ 0.8, 0.4 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
   test.case = 'Rays are perpendicular and intersect'; /* */
@@ -2502,7 +2511,6 @@ function rayClosestPoint( test )
   test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
 
 }
-
 
 //
 
