@@ -1183,7 +1183,7 @@ function pointDistance( srcLine, srcPoint )
   else
   {
     let projection = _.line.pointClosestPoint( srcLineView, srcPointView );
-    
+
     let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
     debugger;
     let mod = _.vector.dot( dPoints, dPoints );
@@ -2153,7 +2153,6 @@ function rayDistance( srcLine, srcRay )
     if( isPoint === rayDim )
     {
       distance = _.ray.pointDistance( srcRayView, srcOrigin );
-      logger.log(' bien ')
     }
     else
     {

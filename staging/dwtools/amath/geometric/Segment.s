@@ -1280,7 +1280,6 @@ function pointClosestPoint( srcSegment, srcPoint, dstPoint )
     let dot = _.vector.dot( direction, direction );
     let factor = _.vector.dot( direction , dOrigin ) / dot ;
 
-    logger.log('factors:', factor)
     if( factor < 0 || dot === 0 )
     {
       pointVector = _.vector.from( origin );
@@ -1302,6 +1301,203 @@ function pointClosestPoint( srcSegment, srcPoint, dstPoint )
 
   return dstPoint;
 }
+
+//
+
+/**
+  * Check if a segment and a box intersect. Returns true if they intersect and false if not.
+  * The box and the segment remain unchanged. Only for 1D to 3D
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns true;
+  * _.boxIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.boxIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the segment and the box intersect.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the segment and box don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function boxIntersects( srcSegment, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcBox.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let end = _.segment.endPointGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  let boxView = _.box._from( srcBox );
+  let dimBox = _.box.dimGet( boxView );
+  let min = _.vector.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vector.from( _.box.cornerRightGet( boxView ) );
+
+  _.assert( dimSegment === dimBox );
+
+  if( _.box.pointContains( boxView, origin ) || _.box.pointContains( boxView, end ) )
+  return true;
+
+  /* box corners */
+  let c = _.box.cornersGet( boxView );
+
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+  {
+    let corner = c.colVectorGet( j );
+    let projection = _.segment.pointClosestPoint( srcSegmentView, corner );
+
+    if( _.box.pointContains( boxView, projection ) )
+    return true;
+  }
+
+  return false;
+
+}
+
+//
+
+/**
+  * Get the distance between a segment and a box. Returns the calculated distance.
+  * The box and the segment remain unchanged. Only for 1D to 3D
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns 0;
+  * _.boxDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 12 );
+  * _.boxDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the distance between the segment and the box.
+  * @function boxDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the segment and box don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function boxDistance( srcSegment, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcBox.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  let boxView = _.box._from( srcBox );
+  let dimBox = _.box.dimGet( boxView );
+  let min = _.vector.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vector.from( _.box.cornerRightGet( boxView ) );
+
+  _.assert( dimSegment === dimBox );
+
+  if( _.segment.boxIntersects( srcSegmentView, boxView ) )
+  return 0;
+
+  let closestPoint = _.segment.boxClosestPoint( srcSegmentView, boxView );
+  return _.box.pointDistance( boxView, closestPoint );
+}
+
+//
+
+/**
+  * Get the closest point in a segment to a box. Returns the calculated point.
+  * The box and the segment remain unchanged. Only for 1D to 3D
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcBox - Source box.
+  *
+  * @example
+  * // returns 0;
+  * _.boxClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, - 1, 0 ];
+  * _.boxClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the closest point in the segment to the box.
+  * @function boxClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the segment and box don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function boxClosestPoint( srcSegment, srcBox, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcBox.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcBox.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  let boxView = _.box._from( srcBox );
+  let dimBox = _.box.dimGet( boxView );
+  let min = _.vector.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vector.from( _.box.cornerRightGet( boxView ) );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dimSegment === dimBox );
+
+  if( _.segment.boxIntersects( srcSegmentView, boxView ) )
+  return 0;
+
+  /* box corners */
+  let c = _.box.cornersGet( boxView );
+
+  let distance = _.box.pointDistance( boxView, origin );
+  let d = 0;
+  let pointView = _.vector.from( origin );
+
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+  {
+    let corner = c.colVectorGet( j );
+    d = Math.abs( _.segment.pointDistance( srcSegmentView, corner ) );
+    if( d < distance )
+    {
+      distance = d;
+      pointView = _.segment.pointClosestPoint( srcSegmentView, corner );
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
 
 
 
@@ -1347,6 +1543,10 @@ let Proto =
   pointContains : pointContains,
   pointDistance : pointDistance,
   pointClosestPoint : pointClosestPoint,
+
+  boxIntersects : boxIntersects,
+  boxDistance : boxDistance,
+  boxClosestPoint : boxClosestPoint,
 
 }
 

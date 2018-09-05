@@ -1269,7 +1269,7 @@ function pointContains( srcRay, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > _.accuracySqr )
+      if( Math.abs( newFactor - factor ) > _.accuracySqr && factor !== 0 )
       {
         return false;
       }

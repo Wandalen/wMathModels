@@ -4,7 +4,11 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var segment = [ 1, 2, 3, 0, 0, 0 ];
-var s2 =  [ 3, 4, 5 ];
-result = _.segment.pointClosestPoint( segment, s2 );
+var segment = [ 0, 0, -2, 0, 0, 2 ];
+var s2 =  [ 0, 0, 2 ];
+result = _.segment.pointContains( segment, s2 );
+logger.log('Final result: ', result );
+result = _.ray.pointContains( segment, s2 );
+logger.log('Final result: ', result );
+result = _.line.pointContains( segment, s2 );
 logger.log('Final result: ', result );
