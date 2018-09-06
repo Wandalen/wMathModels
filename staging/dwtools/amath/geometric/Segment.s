@@ -2105,9 +2105,17 @@ function rayIntersects( srcSegment, srcRay )
   _.assert( dimSegment === dimRay );
 
   let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
-  let factors = _.ray.rayIntersectionFactors( lineSegment, srcRayView );
+  if( _.line.lineParallel( lineSegment, srcRayView ) )
+  {
+    if( _.ray.pointContains( srcRayView, segmentOrigin ) )
+    return true;
+    else
+    return false;
+  }
 
-  if( factors === 0 || factors.eGet( 1 ) < 0 || factors.eGet( 0 ) < 0 || factors.eGet( 0 ) > 1 )
+  let factors = _.ray.rayIntersectionFactors( lineSegment, srcRayView );
+  logger.log(factors)
+  if( factors === 0 || factors.eGet( 1 ) < 0 || factors.eGet( 0 ) < 0 || ( factors.eGet( 0 ) > 1 && factors.eGet( 1 ) > 1 ) )
   return false;
 
   return true;
@@ -2198,6 +2206,7 @@ function rayDistance( srcSegment, srcRay )
   {
     let srcPoint = _.segment.rayClosestPoint( srcSegmentView, srcRayView );
     let tstPoint = _.ray.segmentClosestPoint( srcRayView, srcSegmentView );
+    logger.log('YESA', srcPoint, tstPoint)
     distance = _.avector.distance( srcPoint, tstPoint );
   }
 
@@ -2377,9 +2386,11 @@ function lineIntersects( srcSegment, srcLine )
   {
     if( _.line.pointContains( srcLineView, segmentOrigin ) )
     return true;
+    else
+    return false;
   }
   let factors = _.line.lineIntersectionFactors( lineSegment, srcLineView );
-  logger.log( 'factors', factors )
+
   if( factors === 0 || factors.eGet( 0 ) < 0 || factors.eGet( 0 ) > 1 )
   return false;
 

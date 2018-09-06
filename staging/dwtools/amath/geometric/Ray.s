@@ -658,7 +658,7 @@ function rayIntersectionFactors( r1, r2 )
   {
     let factor1 = _.ray.getFactor( r1View, origin2 );
     let factor2 = _.ray.getFactor( r2View, origin1 );
-    logger.log( r1View, origin2 )
+
     if( factor1 )
     {
       return _.vector.from( [ factor1, 0 ] );

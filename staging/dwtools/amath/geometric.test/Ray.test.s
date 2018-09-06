@@ -4829,6 +4829,178 @@ function lineClosestPoint( test )
 
 }
 
+//
+
+function segmentClosestPoint( test )
+{
+  test.case = 'Source segment and ray remain unchanged'; /* */
+
+  var srcRay = [ 0, 0, 0, 2, 2, 2 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrcRay = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( srcRay, oldSrcRay );
+
+  var oldTstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( tstSegment, oldTstSegment );
+
+  test.case = 'Segment and ray are parallel ( different origin - same direction )'; /* */
+
+  var srcRay = [ 3, 7, 1, 0, 0, 1 ];
+  var tstSegment = [ 0, 0, 0, 0, 0, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray are parallel ( different origin - different direction )'; /* */
+
+  var srcRay = [ 0, 0, 0, 0, 0, 0.5 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 7 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray are parallel ( different origin - opposite direction )'; /* */
+
+  var srcRay = [ 3, 7, 1, 7, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, - 10, 0, 0 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'tstSegment is a point'; /* */
+
+  var srcRay = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'srcRay is a point'; /* */
+
+  var srcRay = [ 3, 7, 1, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray are the same'; /* */
+
+  var srcRay = [ 0, 4, 2, 1, 1, 1 ];
+  var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray intersect 4D'; /* */
+
+  var srcRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 2, 1, 0, 8, 2, 1 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray don´t intersect 2D - parallel'; /* */
+
+  var srcRay = [ - 3, - 4, 1, 0 ];
+  var tstSegment = [ 0, 0, 2, 0 ];
+  var expected = [ 0, -4 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray intersect with segment´s negative factor 2D'; /* */
+
+  var srcRay = [ - 3, - 4, 0, 1 ];
+  var tstSegment = [ 0, 0, 2, 0 ];
+  var expected = [ -3, 0 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray don´t intersect with ray´s negative factor 2D'; /* */
+
+  var srcRay = [ 0, 0, 2, 0 ];
+  var tstSegment = [ - 3, - 4, -3, 7 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray are perpendicular and intersect'; /* */
+
+  var srcRay = [ 3, 7, 1, 0, 0, 1 ];
+  var tstSegment = [ 3, 7, 1, 8, 7, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray are perpendicular and don´t intersect'; /* */
+
+  var srcRay = [ 3, 0, 0, 1, 1, 0 ];
+  var tstSegment = [ 0, 0, -3, 0, 0, 1 ];
+  var expected = [ 3, 0, 0 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray are parallel to x'; /* */
+
+  var srcRay = [ 3, 7, 2, 1, 0, 0 ];
+  var tstSegment = [ 3, 7, 1, 8, 7, 1 ];
+  var expected = [ 3, 7, 2 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and ray are parallel but in a opposite direction'; /* */
+
+  var srcRay = [ 3, 7, 2, - 1, 0, 0 ];
+  var tstSegment = [ 3, 7, 1, 8, 7, 1 ];
+  var expected = [ 3, 7, 2 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcRay is null'; /* */
+
+  var srcRay = null;
+  var tstSegment = [ 3, 7, 2, 2, 7, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.segmentClosestPoint( srcRay, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( [ 0, 0 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+
 
 
 // --
@@ -4896,6 +5068,8 @@ var Self =
     frustumClosestPoint : frustumClosestPoint,
 
     lineClosestPoint : lineClosestPoint,
+
+    segmentClosestPoint : segmentClosestPoint,
   }
 
 }
