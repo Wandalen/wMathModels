@@ -4,7 +4,9 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var segment = [ 0, 0, 2, 0 ];
-var ray = [  - 3, - 4, 1, 0 ];
-result = _.segment.rayDistance( segment, ray );
+var segment = [ 0, 0, 0, 1, 0, 0 ];
+var line = [ 2, 0, 0, 1, 0, 0 ];
+result = _.segment.lineIntersects( segment, line );
+logger.log('Final result: ', result );
+result = _.segment.rayIntersects( segment, line );
 logger.log('Final result: ', result );

@@ -630,7 +630,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
       return 0;
     }
   }
-  
+
   let result = _.vector.from( [ 0, 0 ] );
 
   debugger;
@@ -2279,6 +2279,124 @@ function rayClosestPoint( srcLine, srcRay, dstPoint )
   return dstPoint;
 }
 
+//
+
+function segmentIntersects( srcLine , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+  let lineView = _.line._from( srcLine );
+
+  let gotBool = _.segment.lineIntersects( tstSegmentView, lineView );
+  return gotBool;
+}
+
+//
+
+function segmentDistance( srcLine , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+  let lineView = _.line._from( srcLine );
+
+  let gotDist = _.segment.lineDistance( tstSegmentView, lineView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Get the closest point in a line to a segment. Returns the calculated point.
+  * The line and segment remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } tstSegment - Test segment.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, - 1, 0 ];
+  * _.segmentClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Array } Returns the closest point in the srcLine to the tstLine.
+  * @function segmentClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( tstSegment ) is not segment.
+  * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the line and segment don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function segmentClosestPoint( srcLine, tstSegment, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( tstSegment.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( tstSegment.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let srcOrigin = _.line.originGet( srcLineView );
+  let srcDir = _.line.directionGet( srcLineView );
+  let srcDim  = _.line.dimGet( srcLineView );
+
+  let tstSegmentView = _.segment._from( tstSegment );
+  let tstOrigin = _.segment.originGet( tstSegmentView );
+  let tstEnd = _.segment.endPointGet( tstSegmentView );
+  let tstDir = _.segment.directionGet( tstSegmentView );
+  let tstDim = _.segment.dimGet( tstSegmentView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( srcDim === tstDim );
+
+  let pointView;
+
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
+  {
+    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
+  }
+  if( identOrigin === srcOrigin.length )
+  pointView = srcOrigin;
+  else
+  {
+    // Parallel line and segment
+    let lineSegment = _.line.fromPair( [ tstOrigin, tstEnd ] );
+    if( _.line.lineParallel( srcLineView, lineSegment ) )
+    {
+      pointView = _.line.pointClosestPoint( srcLineView, tstOrigin );
+    }
+    else
+    {
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+
+      pointView = _.line.lineAt( srcLineView, factor );
+
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
 
 
 
@@ -2342,6 +2460,10 @@ let Proto =
   rayIntersects : rayIntersects,
   rayDistance : rayDistance,
   rayClosestPoint : rayClosestPoint,
+
+  segmentIntersects : segmentIntersects,  /* Same as _.segment.rayIntersects */
+  segmentDistance : segmentDistance,  /* Same as _.segment.rayDistance */
+  segmentClosestPoint : segmentClosestPoint,
 
 }
 

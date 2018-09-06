@@ -2281,7 +2281,7 @@ function rayClosestPoint( srcSegment, srcRay, dstPoint )
   {
     let lineSegment = _.line.fromPair( [ srcOrigin, srcEnd ] );
     // Parallel segments
-    if( _.line.lineParallel( srcSegmentView, srcRayView ) )
+    if( _.line.lineParallel( lineSegment, srcRayView ) )
     {
       pointView = _.segment.pointClosestPoint( srcSegmentView, rayOrigin );
     }
@@ -2291,6 +2291,269 @@ function rayClosestPoint( srcSegment, srcRay, dstPoint )
       let tstMod = _.vector.dot( tstDir, tstDir );
       let mod = _.vector.dot( srcDir, tstDir );
       let dOrigin = _.vector.from( avector.subVectors( rayOrigin.slice(), srcOrigin ) );
+
+      if( tstMod*srcMod - mod*mod === 0 )
+      {
+          pointView = srcOrigin;
+      }
+      else
+      {
+        let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+        if( factor < 0 )
+        {
+          pointView = srcOrigin;
+        }
+        else if( factor > 1 )
+        {
+          pointView = srcEnd;
+        }
+        else
+        {
+          pointView = _.segment.segmentAt( srcSegmentView, factor );
+        }
+      }
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
+  * Check if a segment and a line intersect. Returns true if they intersect and false if not.
+  * The line and the segment remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcLine - Source line.
+  *
+  * @example
+  * // returns true;
+  * var srcLine =  [ -1, -1, -1, 1, 1, 1 ]
+  * var srcSegment = [ 0, 0, 0, 2, 2, 2 ]
+  * _.lineIntersects( srcSegment, srcLine );
+  *
+  * @example
+  * // returns false;
+  * var srcLine =  [ -1, -1, -1, 0, 0, 1 ]
+  * var srcSegment = [ 0, 1, 0, 2, 2, 2 ]
+  * _.lineIntersects( srcSegment, srcLine );
+  *
+  * @returns { Boolean } Returns true if the segment and the line intersect.
+  * @function lineIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the segment and line don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function lineIntersects( srcSegment, srcLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcLineView = _.line._from( srcLine );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let lineDirection = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcLine.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let segmentOrigin = _.segment.originGet( srcSegmentView );
+  let segmentEnd = _.segment.endPointGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView );
+
+  _.assert( dimSegment === dimLine );
+
+  let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
+  if( _.line.lineParallel( lineSegment, srcLineView ) )
+  {
+    if( _.line.pointContains( srcLineView, segmentOrigin ) )
+    return true;
+  }
+  let factors = _.line.lineIntersectionFactors( lineSegment, srcLineView );
+  logger.log( 'factors', factors )
+  if( factors === 0 || factors.eGet( 0 ) < 0 || factors.eGet( 0 ) > 1 )
+  return false;
+
+  return true;
+}
+
+//
+
+/**
+  * Get the distance between a line and a segment. Returns the calculated distance.
+  * The segment and the line remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcLine - Test line.
+  *
+  * @example
+  * // returns 0;
+  * _.lineDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 8 );
+  * _.lineDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between a segment and a line.
+  * @function lineDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the segment and line don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function lineDistance( srcSegment, srcLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcLine.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let srcOrigin = _.segment.originGet( srcSegmentView );
+  let srcEnd = _.segment.endPointGet( srcSegmentView );
+  let srcDirection = _.segment.directionGet( srcSegmentView );
+  let srcDim  = _.segment.dimGet( srcSegmentView )
+
+  let srcLineView = _.line._from( srcLine );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let lineDirection = _.line.directionGet( srcLineView );
+  let lineDim  = _.line.dimGet( srcLineView );
+
+  _.assert( srcDim === lineDim );
+
+  let distance;
+
+  if( _.segment.lineIntersects( srcSegmentView, srcLineView ) === true )
+  return 0;
+
+  // Parallel segment/line
+  let lineSegment = _.line.fromPair( [ srcOrigin, srcEnd ] );
+  if( _.line.lineParallel( lineSegment, srcLineView ) )
+  {
+    // Line is point
+    let lineIsPoint = 0;
+    for( let i = 0; i < lineDim; i++ )
+    {
+      if( lineDirection.eGet( i ) === 0 )
+      lineIsPoint = lineIsPoint + 1;
+    }
+
+    if( lineIsPoint === lineDim )
+    {
+      distance = _.segment.pointDistance( srcSegmentView, lineOrigin );
+    }
+    else
+    {
+      distance = _.line.pointDistance( srcLineView, srcOrigin );
+    }
+  }
+  else
+  {
+    let srcPoint = _.segment.lineClosestPoint( srcSegmentView, srcLineView );
+    let tstPoint = _.line.segmentClosestPoint( srcLineView, srcSegmentView );
+    distance = _.avector.distance( srcPoint, tstPoint );
+  }
+
+  return distance;
+}
+
+//
+
+/**
+  * Get the closest point in a segment to a line. Returns the calculated point.
+  * The segment and line remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcLine - Test line.
+  *
+  * @example
+  * // returns 0;
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
+  *
+  * @returns { Array } Returns the closest point in the srcSegment to the srcLine.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the segment and line don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function lineClosestPoint( srcSegment, srcLine, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcLine.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcLine.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let srcOrigin = _.segment.originGet( srcSegmentView );
+  let srcEnd = _.segment.endPointGet( srcSegmentView );
+  let srcDir = _.segment.directionGet( srcSegmentView );
+  let srcDim  = _.segment.dimGet( srcSegmentView );
+
+  let srcLineView = _.line._from( srcLine );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let tstDir = _.line.directionGet( srcLineView );
+  let lineDim = _.line.dimGet( srcLineView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( srcDim === lineDim );
+
+  let pointView;
+
+  // Same origin - line is point
+  let identOrigin = 0;
+  let linePoint = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
+  {
+    if( srcOrigin.eGet( i ) === lineOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
+
+    if( tstDir.eGet( i ) === 0 )
+    linePoint = linePoint + 1;
+  }
+  if( identOrigin === srcOrigin.length )
+  {
+    pointView = srcOrigin;
+  }
+  else if( linePoint === srcOrigin.length )
+  {
+    pointView = _.segment.pointClosestPoint( srcSegmentView, lineOrigin );
+  }
+  else
+  {
+    let lineSegment = _.line.fromPair( [ srcOrigin, srcEnd ] );
+    // Parallel segments
+    if( _.line.lineParallel( lineSegment, srcLineView ) )
+    {
+      pointView = _.segment.pointClosestPoint( srcSegmentView, lineOrigin );
+    }
+    else
+    {
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( lineOrigin.slice(), srcOrigin ) );
 
       if( tstMod*srcMod - mod*mod === 0 )
       {
@@ -2388,6 +2651,10 @@ let Proto =
   rayIntersects : rayIntersects,
   rayDistance : rayDistance,
   rayClosestPoint : rayClosestPoint,
+
+  lineIntersects : lineIntersects,
+  lineDistance : lineDistance,
+  lineClosestPoint : lineClosestPoint,
 }
 
 _.mapSupplement( Self, Proto );

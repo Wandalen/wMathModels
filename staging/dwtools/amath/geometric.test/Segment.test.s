@@ -4986,6 +4986,493 @@ function rayClosestPoint( test )
 
 }
 
+//
+
+function lineIntersects( test )
+{
+  test.case = 'Source line and segment remain unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var srcLine = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  var oldSrcSegment = [ 0, 0, 1, 1 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  var oldSrcLine = [ 0, 0, 2, 2 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  test.case = 'Segment and line are the same'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var srcLine = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - same direction )'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var srcLine = [ 3, 7, 1, 1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - different direction )'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var srcLine = [ 3, 7, 7, 7 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect'; /* */
+
+  var srcSegment = [ 5, 5, 1, 1 ];
+  var srcLine = [ 4, 0, -1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line don´t intersect with segment´s negative factor'; /* */
+
+  var srcSegment = [ 7, 6, 8, 6 ];
+  var srcLine = [ 6, 6, 1, 1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect in their origin'; /* */
+
+  var srcSegment = [ 3, 7, 1, 0 ];
+  var srcLine = [ 3, 7, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect '; /* */
+
+  var srcSegment = [ 0, 0, 1, 0 ];
+  var srcLine = [ -2, -6, 1, 2 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line are perpendicular '; /* */
+
+  var srcSegment = [ -3, 0, 1, 0 ];
+  var srcLine = [ 0, -2, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line don´t intersect 3D'; /* */
+
+  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var srcLine = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect 3D'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 0, 3 ];
+  var srcLine = [ - 3, - 3, 2, 1, 1, 0 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line don´t intersect 4D'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var srcLine = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect 4D'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 4, 4, 4, 4 ];
+  var srcLine = [ 3, 2, 1, 0, 0, 1, 2, 3 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], 'line') );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function lineDistance( test )
+{
+  test.case = 'Source segment and line remain unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  var oldSrcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstLine, oldTstLine );
+
+  test.case = 'Segment and line are parallel ( different origin - same direction )'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 0, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - different direction )'; /* */
+
+  var srcSegment = [ 3, 7, 1, 3, 7, 7 ];
+  var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - opposite direction )'; /* */
+
+  var srcSegment = [ 0, 0, 0, 9, 0, 0 ];
+  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = Math.sqrt( 50 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcSegment is a point'; /* */
+
+  var srcSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected =  Math.sqrt( 168 / 9 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'tstLine is a point'; /* */
+
+  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = Math.sqrt( 40 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are the same'; /* */
+
+  var srcSegment = [ 0, 4, 2, 5, 9, 7 ];
+  var tstLine = [ 0, 4, 2, 5, 9, 7 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line intersect 4D'; /* */
+
+  var srcSegment = [ 0, 0, 2, 1, 0, 9, 2, 1 ];
+  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line don´t intersect 2D - parallel'; /* */
+
+  var srcSegment = [ 0, 0, 2, 0 ];
+  var tstLine = [ - 3, - 4, 1, 0 ];
+  var expected = 4;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line don´t intersect with segment´s negative factor 2D'; /* */
+
+  var srcSegment = [ 0, 0, 2, 0 ];
+  var tstLine = [ - 3, - 4, 0, 1 ];
+  var expected = 3;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line intersect with line´s negative factor 2D'; /* */
+
+  var srcSegment = [ - 3, - 4, -3, 3 ];
+  var tstLine = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are perpendicular and intersect'; /* */
+
+  var srcSegment = [ 3, 7, 1, 8, 7, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are perpendicular and don´t intersect'; /* */
+
+  var srcSegment = [ 0, 0, -3, 0, 0, 1 ];
+  var tstLine = [ 3, 0, 0, 0, 1, 0 ];
+  var expected = 3;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are parallel to x axis'; /* */
+
+  var srcSegment = [ 3, 7, 1, 7, 7, 1 ];
+  var tstLine = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are parallel but in a opposite direction'; /* */
+
+  var srcSegment = [ 3, 7, 1, 9, 7, 1 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcSegment is null'; /* */
+
+  var srcSegment = null;
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = Math.sqrt( 53 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 0, 0 ], 'line') );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function lineClosestPoint( test )
+{
+  test.case = 'Source segment and line remain unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstLine, oldTstLine );
+
+  test.case = 'Segment and line are parallel ( different origin - same direction )'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 0, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - different direction )'; /* */
+
+  var srcSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - opposite direction )'; /* */
+
+  var srcSegment = [ 0, 0, 0, 10, 0, 0 ];
+  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = [ 3, 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcSegment is a point'; /* */
+
+  var srcSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'tstLine is a point'; /* */
+
+  var srcSegment = [ 0, 0, 0, 9, 9, 9 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are the same'; /* */
+
+  var srcSegment = [ 0, 4, 2, 3, 7, 5 ];
+  var tstLine = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line intersect 4D'; /* */
+
+  var srcSegment = [ 0, 0, 2, 1, 0, 9, 2, 1 ];
+  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line don´t intersect 2D - parallel'; /* */
+
+  var srcSegment = [ 0, 0, 2, 0 ];
+  var tstLine = [ - 3, - 4, 1, 0 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line don´t intersect with segment´s negative factor 2D'; /* */
+
+  var srcSegment = [ 0, 0, 2, 0 ];
+  var tstLine = [ - 3, - 4, 0, 1 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line intersect with line´s negative factor 2D'; /* */
+
+  var srcSegment = [ - 3, - 4, -3, 4 ];
+  var tstLine = [ 0, 0, 2, 0 ];
+  var expected = [ -3, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are perpendicular and intersect ( same origin )'; /* */
+
+  var srcSegment = [ 3, 7, 1, 8, 7, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are perpendicular and don´t intersect'; /* */
+
+  var srcSegment = [ 0, 0, -3, 0, 0, 1 ];
+  var tstLine = [ 3, 0, 0, 1, 1, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are parallel to x'; /* */
+
+  var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
+  var tstLine = [ 3, 7, 2, 4, 7, 2 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are parallel but in a opposite direction'; /* */
+
+  var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcSegment is null'; /* */
+
+  var srcSegment = null;
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 0, 0 ], 'line') );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
 
 
 
@@ -5058,6 +5545,10 @@ var Self =
     rayIntersects : rayIntersects,
     rayDistance : rayDistance,
     rayClosestPoint : rayClosestPoint,
+
+    lineIntersects : lineIntersects,
+    lineDistance : lineDistance,
+    lineClosestPoint : lineClosestPoint,
   }
 
 }
