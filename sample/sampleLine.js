@@ -4,15 +4,9 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var line = null;
-var ray = [ 3, 7, 2, - 1, 0, 0 ];
-logger.log( 'line',_.line.make( ray.length / 2 ));
-
-result = _.line.rayIntersects( line, ray );
+var segment =  [ 0, 0, - 2, 0, 0, - 1 ];
+var line =  [ 0, 2, 0, 0, 0, 1 ];
+result = _.line.segmentIntersects( line, segment );
 logger.log('Final result: ', result );
-
-result = _.line.rayClosestPoint( line, ray );
-logger.log('Final result: ', result );
-
-result = _.line.rayDistance( line, ray );
+result = _.line.segmentDistance( line, segment );
 logger.log('Final result: ', result );
