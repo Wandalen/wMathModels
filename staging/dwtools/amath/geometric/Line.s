@@ -138,7 +138,7 @@ function _from( line )
   * @param { Array } pair - The source points.
   *
   * @example
-  * // returns  [ 1, 2, 1, 2 ]
+  * // returns   _.vector.from( [ 1, 2, 1, 2 ] )
   * _.fromPair( [ 1, 2 ], [ 3, 4 ] );
   *
   * @returns { Vector } Returns the line containing the two points.
@@ -153,12 +153,16 @@ function fromPair( pair )
   _.assert( pair.length === 2, 'expects two points' );
   _.assert( pair[ 0 ].length === pair[ 1 ].length, 'expects two points' );
 
-  let result = _.array.makeArrayOfLength( pair[ 0 ].length * 2 );
+  let result = _.vector.from( _.array.makeArrayOfLength( pair[ 0 ].length * 2 ) );
+  let pair0 = _.vector.from( pair[ 0 ] );
+  let pair1 = _.vector.from( pair[ 1 ] );
 
-  for( let i = 0; i < pair[ 0 ].length ; i++ )
+  for( let i = 0; i < pair0.length ; i++ )
   {
-    result[ i ] = pair[ 0 ][ i ];
-    result[ pair[ 0 ].length + i ] = avector.sub( null, pair[ 1 ], pair[ 0 ] )[ i ];
+    result.eSet( i, pair0.eGet( i ) );
+
+    result.eSet( pair0.length + i, avector.sub( null, pair1, pair0 )[ i ] );
+    //result.[ pair[ 0 ].length + i ] = avector.sub( null, pair[ 1 ], pair[ 0 ] )[ i ];
   }
 
   debugger;
@@ -609,8 +613,24 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
 
   // Parallel lines
   if( lineParallel( srcLine1, srcLine2 ) === true )
-  return 0;
+  {
+    let factor1 = _.line.getFactor( srcLine1View, origin2 );
+    let factor2 = _.line.getFactor( srcLine2View, origin1 );
 
+    if( factor1 )
+    {
+      return _.vector.from( [ factor1, 0 ] );
+    }
+    else if( factor2 )
+    {
+      return _.vector.from( [ 0, factor2 ] );
+    }
+    else
+    {
+      return 0;
+    }
+  }
+  
   let result = _.vector.from( [ 0, 0 ] );
 
   debugger;

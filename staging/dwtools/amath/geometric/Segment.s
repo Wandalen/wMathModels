@@ -319,6 +319,7 @@ function segmentAt( srcSegment, factor )
 
   _.assert( arguments.length === 2, 'expects single argument' );
   _.assert( _.segment.is( srcSegment ) );
+
   _.assert( factor >= 0, 'Factor can not be negative ( point must be in the segment )');
   _.assert( factor <= 1, 'Factor can not be bigger than one ( point must be in the segment )');
 
@@ -2055,6 +2056,275 @@ function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Check if a segment and a ray intersect. Returns true if they intersect and false if not.
+  * The ray and the segment remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcRay - Source ray.
+  *
+  * @example
+  * // returns true;
+  * var srcRay =  [ -1, -1, -1, 1, 1, 1 ]
+  * var srcSegment = [ 0, 0, 0, 2, 2, 2 ]
+  * _.rayIntersects( srcSegment, srcRay );
+  *
+  * @example
+  * // returns false;
+  * var srcRay =  [ -1, -1, -1, 0, 0, 1 ]
+  * var srcSegment = [ 0, 1, 0, 2, 2, 2 ]
+  * _.rayIntersects( srcSegment, srcRay );
+  *
+  * @returns { Boolean } Returns true if the segment and the ray intersect.
+  * @function rayIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the segment and ray don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function rayIntersects( srcSegment, srcRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcRayView = _.ray._from( srcRay );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let rayDirection = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcRay.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let segmentOrigin = _.segment.originGet( srcSegmentView );
+  let segmentEnd = _.segment.endPointGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView );
+
+  _.assert( dimSegment === dimRay );
+
+  let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
+  let factors = _.ray.rayIntersectionFactors( lineSegment, srcRayView );
+
+  if( factors === 0 || factors.eGet( 1 ) < 0 || factors.eGet( 0 ) < 0 || factors.eGet( 0 ) > 1 )
+  return false;
+
+  return true;
+}
+
+//
+
+/**
+  * Get the distance between a ray and a segment. Returns the calculated distance.
+  * The segment and the ray remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcRay - Test ray.
+  *
+  * @example
+  * // returns 0;
+  * _.rayDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 12 );
+  * _.rayDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between a segment and a ray.
+  * @function rayDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the segment and ray don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function rayDistance( srcSegment, srcRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcRay.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let srcOrigin = _.segment.originGet( srcSegmentView );
+  let srcEnd = _.segment.endPointGet( srcSegmentView );
+  let srcDirection = _.segment.directionGet( srcSegmentView );
+  let srcDim  = _.segment.dimGet( srcSegmentView )
+
+  let srcRayView = _.ray._from( srcRay );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let rayDirection = _.ray.directionGet( srcRayView );
+  let rayDim  = _.ray.dimGet( srcRayView );
+
+  _.assert( srcDim === rayDim );
+
+  let distance;
+
+  if( _.segment.rayIntersects( srcSegmentView, srcRayView ) === true )
+  return 0;
+
+  // Parallel segment/ray
+  let lineSegment = _.line.fromPair( [ srcOrigin, srcEnd ] );
+  if( _.line.lineParallel( lineSegment, srcRayView ) )
+  {
+    // Segment or ray is point
+    let segIsPoint = 0;
+    let rayIsPoint = 0;
+    for( let i = 0; i < rayDim; i++ )
+    {
+      if( srcDirection.eGet( i ) === 0 )
+      segIsPoint = segIsPoint + 1;
+
+      if( rayDirection.eGet( i ) === 0 )
+      rayIsPoint = rayIsPoint + 1;
+    }
+    if( segIsPoint === rayDim )
+    {
+      distance = _.ray.pointDistance( srcRayView, srcOrigin );
+    }
+    else if( rayIsPoint === rayDim )
+    {
+      distance = _.segment.pointDistance( srcSegmentView, rayOrigin );
+    }
+    else
+    {
+      //distance = _.segment.pointDistance( srcSegmentView, rayOrigin );
+      distance = _.ray.pointDistance( srcRayView, srcOrigin );
+      if(  _.ray.pointDistance( srcRayView, srcEnd ) < distance )
+      distance =  _.ray.pointDistance( srcRayView, srcEnd );
+    }
+  }
+  else
+  {
+    let srcPoint = _.segment.rayClosestPoint( srcSegmentView, srcRayView );
+    let tstPoint = _.ray.segmentClosestPoint( srcRayView, srcSegmentView );
+    distance = _.avector.distance( srcPoint, tstPoint );
+  }
+
+  return distance;
+}
+
+//
+
+/**
+  * Get the closest point in a segment to a ray. Returns the calculated point.
+  * The segment and ray remain unchanged.
+  *
+  * @param { Array } srcSegment - Source segment.
+  * @param { Array } srcRay - Test ray.
+  *
+  * @example
+  * // returns 0;
+  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.rayClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
+  *
+  * @returns { Array } Returns the closest point in the srcSegment to the srcRay.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the segment and ray don´t have the same dimension).
+  * @memberof wTools.segment
+  */
+function rayClosestPoint( srcSegment, srcRay, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcRay.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcRay.length / 2 );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let srcOrigin = _.segment.originGet( srcSegmentView );
+  let srcEnd = _.segment.endPointGet( srcSegmentView );
+  let srcDir = _.segment.directionGet( srcSegmentView );
+  let srcDim  = _.segment.dimGet( srcSegmentView );
+
+  let srcRayView = _.ray._from( srcRay );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let tstDir = _.ray.directionGet( srcRayView );
+  let rayDim = _.ray.dimGet( srcRayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( srcDim === rayDim );
+
+  let pointView;
+
+  // Same origin - ray is point
+  let identOrigin = 0;
+  let rayPoint = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
+  {
+    if( srcOrigin.eGet( i ) === rayOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
+
+    if( tstDir.eGet( i ) === 0 )
+    rayPoint = rayPoint + 1;
+  }
+  if( identOrigin === srcOrigin.length )
+  {
+    pointView = srcOrigin;
+  }
+  else if( rayPoint === srcOrigin.length )
+  {
+    pointView = _.segment.pointClosestPoint( srcSegmentView, rayOrigin );
+  }
+  else
+  {
+    let lineSegment = _.line.fromPair( [ srcOrigin, srcEnd ] );
+    // Parallel segments
+    if( _.line.lineParallel( srcSegmentView, srcRayView ) )
+    {
+      pointView = _.segment.pointClosestPoint( srcSegmentView, rayOrigin );
+    }
+    else
+    {
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( rayOrigin.slice(), srcOrigin ) );
+
+      if( tstMod*srcMod - mod*mod === 0 )
+      {
+          pointView = srcOrigin;
+      }
+      else
+      {
+        let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+        if( factor < 0 )
+        {
+          pointView = srcOrigin;
+        }
+        else if( factor > 1 )
+        {
+          pointView = srcEnd;
+        }
+        else
+        {
+          pointView = _.segment.segmentAt( srcSegmentView, factor );
+        }
+      }
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+
 
 
 
@@ -2114,6 +2384,10 @@ let Proto =
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
   frustumClosestPoint : frustumClosestPoint,
+
+  rayIntersects : rayIntersects,
+  rayDistance : rayDistance,
+  rayClosestPoint : rayClosestPoint,
 }
 
 _.mapSupplement( Self, Proto );

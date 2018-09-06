@@ -415,15 +415,18 @@ function fromPair( test )
   test.case = 'Pair stay unchanged'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
-  var expected = [ 0, 1, 2, 0, 1, 2 ];
+  var expected = _.vector.from( [ 0, 1, 2, 0, 1, 2 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
 
+  var oldPair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
+  test.identical( pair, oldPair );
+
   test.case = 'Line starts in origin'; /* */
 
   var pair = [ [ 0, 0, 0 ], [ 0, 1, 2 ] ];
-  var expected = [ 0, 0, 0, 0, 1, 2 ];
+  var expected = _.vector.from( [ 0, 0, 0, 0, 1, 2 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
@@ -431,7 +434,7 @@ function fromPair( test )
   test.case = 'Line is point'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 1, 2 ] ];
-  var expected = [ 0, 1, 2, 0, 0, 0 ];
+  var expected =  _.vector.from( [ 0, 1, 2, 0, 0, 0 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
@@ -439,7 +442,7 @@ function fromPair( test )
   test.case = 'Line of 1 dimension'; /* */
 
   var pair = [ [ 3 ], [ 4 ] ];
-  var expected = [ 3, 1 ];
+  var expected =  _.vector.from( [ 3, 1 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
@@ -447,7 +450,7 @@ function fromPair( test )
   test.case = 'Line goes up in y and down in z'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 3, 1 ] ];
-  var expected = [ 0, 1, 2, 0, 2, -1 ];
+  var expected =  _.vector.from( [ 0, 1, 2, 0, 2, -1 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
@@ -5327,8 +5330,6 @@ function rayClosestPoint( test )
   test.shouldThrowErrorSync( () => _.line.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
 
 }
-
-
 
 
 // --
