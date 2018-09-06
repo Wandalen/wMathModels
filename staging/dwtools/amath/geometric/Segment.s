@@ -1854,10 +1854,10 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
 //
 
 /**
-  * Check if a ray and a frustum intersect. Returns true if they intersect and false if not.
-  * The frustum and the ray remain unchanged.
+  * Check if a segment and a frustum intersect. Returns true if they intersect and false if not.
+  * The frustum and the segment remain unchanged.
   *
-  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcSegment - Source segment.
   * @param { Array } srcFrustum - Source frustum.
   *
   * @example
@@ -1875,15 +1875,15 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
   * // returns false;
   * _.frustumIntersects( [ 0, -1, 0, 0, -2, 0 ] , srcFrustum );
   *
-  * @returns { Boolean } Returns true if the ray and the frustum intersect.
+  * @returns { Boolean } Returns true if the segment and the frustum intersect.
   * @function frustumIntersects
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
-  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
-  * @memberof wTools.ray
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the segment and frustum don´t have the same dimension).
+  * @memberof wTools.segment
   */
-function frustumIntersects( srcRay, srcFrustum )
+function frustumIntersects( srcSegment, srcFrustum )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
@@ -1892,15 +1892,15 @@ function frustumIntersects( srcRay, srcFrustum )
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
-  if( srcRay === null )
-  srcRay = _.ray.make( rows - 1 );
+  if( srcSegment === null )
+  srcSegment = _.segment.make( rows - 1 );
 
-  let srcRayView = _.ray._from( srcRay );
-  let origin = _.ray.originGet( srcRayView );
-  let direction = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView );
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView );
 
-  _.assert( dimRay === rows - 1 );
+  _.assert( dimSegment === rows - 1 );
 
   if( _.frustum.pointContains( srcFrustum, origin ) )
   return true;
@@ -1912,7 +1912,7 @@ function frustumIntersects( srcRay, srcFrustum )
   for( let j = 0 ; j < cornersLength ; j++ )
   {
     let corner = corners.colVectorGet( j );
-    let projection = _.ray.pointClosestPoint( srcRayView, corner );
+    let projection = _.segment.pointClosestPoint( srcSegmentView, corner );
 
     if( _.frustum.pointContains( srcFrustum, projection ) )
     return true;
@@ -1925,10 +1925,10 @@ function frustumIntersects( srcRay, srcFrustum )
 //
 
 /**
-  * Get the distance between a ray and a frustum. Returns the calculated distance.
-  * The frustum and the ray remain unchanged.
+  * Get the distance between a segment and a frustum. Returns the calculated distance.
+  * The frustum and the segment remain unchanged.
   *
-  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcSegment - Source segment.
   * @param { Array } srcFrustum - Source frustum.
   *
   * @example
@@ -1939,15 +1939,15 @@ function frustumIntersects( srcRay, srcFrustum )
   * // returns Math.sqrt( 17 );
   * _.frustumDistance( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
-  * @returns { Number } Returns the distance between a ray and a frustum.
+  * @returns { Number } Returns the distance between a segment and a frustum.
   * @function frustumClosestPoint
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
-  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
-  * @memberof wTools.ray
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the segment and frustum don´t have the same dimension).
+  * @memberof wTools.segment
   */
-function frustumDistance( srcRay, srcFrustum )
+function frustumDistance( srcSegment, srcFrustum )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
@@ -1956,30 +1956,30 @@ function frustumDistance( srcRay, srcFrustum )
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
-  if( srcRay === null )
-  srcRay = _.ray.make( srcFrustum.length / 2 );
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcFrustum.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
-  let origin = _.ray.originGet( srcRayView );
-  let direction = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView );
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView );
 
-  _.assert( dimRay === rows - 1 );
+  _.assert( dimSegment === rows - 1 );
 
-  if( _.ray.frustumIntersects( srcRayView, srcFrustum ) )
+  if( _.segment.frustumIntersects( srcSegmentView, srcFrustum ) )
   return 0;
 
-  let closestPoint = _.ray.frustumClosestPoint( srcRayView, srcFrustum );
+  let closestPoint = _.segment.frustumClosestPoint( srcSegmentView, srcFrustum );
   return _.frustum.pointDistance( srcFrustum, closestPoint );
 }
 
 //
 
 /**
-  * Get the closest point in a ray to a frustum. Returns the calculated point.
-  * The frustum and the ray remain unchanged.
+  * Get the closest point in a segment to a frustum. Returns the calculated point.
+  * The frustum and the segment remain unchanged.
   *
-  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcSegment - Source segment.
   * @param { Array } srcFrustum - Source frustum.
   *
   * @example
@@ -1990,15 +1990,15 @@ function frustumDistance( srcRay, srcFrustum )
   * // returns [ 0, - 1, 0 ];
   * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
-  * @returns { Number } Returns the closest point in the ray to the frustum.
+  * @returns { Number } Returns the closest point in the segment to the frustum.
   * @function frustumClosestPoint
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
-  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
-  * @memberof wTools.ray
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the segment and frustum don´t have the same dimension).
+  * @memberof wTools.segment
   */
-function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
+function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
@@ -2013,18 +2013,18 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  if( srcRay === null )
-  srcRay = _.ray.make( srcFrustum.length / 2 );
+  if( srcSegment === null )
+  srcSegment = _.segment.make( srcFrustum.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
-  let origin = _.ray.originGet( srcRayView );
-  let direction = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView );
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let direction = _.segment.directionGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView );
 
   let dstPointView = _.vector.from( dstPoint );
-  _.assert( dimRay === rows - 1 );
+  _.assert( dimSegment === rows - 1 );
 
-  if( _.ray.frustumIntersects( srcRayView, srcFrustum ) )
+  if( _.segment.frustumIntersects( srcSegmentView, srcFrustum ) )
   return 0;
 
   /* frustum corners */
@@ -2038,11 +2038,11 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
   for( let j = 0 ; j < _.Space.dimsOf( corners )[ 1 ] ; j++ )
   {
     let corner = corners.colVectorGet( j );
-    d = Math.abs( _.ray.pointDistance( srcRayView, corner ) );
+    d = Math.abs( _.segment.pointDistance( srcSegmentView, corner ) );
     if( d < distance )
     {
       distance = d;
-      pointView = _.ray.pointClosestPoint( srcRayView, corner );
+      pointView = _.segment.pointClosestPoint( srcSegmentView, corner );
     }
   }
 

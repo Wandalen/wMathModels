@@ -4,11 +4,13 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var segment = [ 0, 0, -2, 0, 0, 2 ];
-var s2 =  [ 0, 0, 2 ];
-result = _.segment.pointContains( segment, s2 );
-logger.log('Final result: ', result );
-result = _.ray.pointContains( segment, s2 );
-logger.log('Final result: ', result );
-result = _.line.pointContains( segment, s2 );
+var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 3, 2, - 3,   2,   2, - 3
+]);
+var segment = [ -2, 0.3, 0, 1, 0, 0.1 ];
+result = _.segment.frustumClosestPoint( segment, srcFrustum );
 logger.log('Final result: ', result );
