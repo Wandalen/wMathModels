@@ -6000,84 +6000,84 @@ function lineClosestPoint( test )
   test.case = 'Source box and line remain unchanged'; /* */
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
-  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
-  var gotRay = _.box.lineClosestPoint( srcBox, tstRay );
-  test.identical( expected, gotRay );
+  var gotLine = _.box.lineClosestPoint( srcBox, tstLine );
+  test.identical( expected, gotLine );
 
   var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
   test.identical( srcBox, oldSrcBox );
 
-  var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
-  test.identical( tstRay, oldtstRay );
+  var oldtstLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstLine, oldtstLine );
 
   test.case = 'Box and line intersect'; /* */
 
   var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
-  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
-  var gotRay = _.box.lineClosestPoint( srcBox, tstRay );
-  test.identical( expected, gotRay );
+  var gotLine = _.box.lineClosestPoint( srcBox, tstLine );
+  test.identical( expected, gotLine );
 
-  test.case = 'Ray origin is box corner'; /* */
+  test.case = 'Line origin is box corner'; /* */
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
-  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
-  var gotRay = _.box.lineClosestPoint( srcBox, tstRay );
-  test.identical( expected, gotRay );
+  var gotLine = _.box.lineClosestPoint( srcBox, tstLine );
+  test.identical( expected, gotLine );
 
-  test.case = 'Ray is box side'; /* */
+  test.case = 'Line is box side'; /* */
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
-  var tstRay = [ - 1, 0, 0, 1, 0, 0 ];
+  var tstLine = [ - 1, 0, 0, 1, 0, 0 ];
   var expected = 0;
 
-  var gotRay = _.box.lineClosestPoint( srcBox, tstRay );
-  test.identical( expected, gotRay );
+  var gotLine = _.box.lineClosestPoint( srcBox, tstLine );
+  test.identical( expected, gotLine );
 
   test.case = 'Negative factor'; /* */
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
-  var tstRay = [ -3, -3, -3, -2, -2, -2 ];
+  var tstLine = [ -3, -3, -3, -2, -2, -2 ];
   var expected = 0;
 
-  var gotRay = _.box.lineClosestPoint( srcBox, tstRay );
-  test.identical( expected, gotRay );
+  var gotLine = _.box.lineClosestPoint( srcBox, tstLine );
+  test.identical( expected, gotLine );
 
   test.case = 'Closest point in box side'; /* */
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
-  var tstRay = [ 5, 5, 2, 0, 1, 0 ];
+  var tstLine = [ 5, 5, 2, 0, 1, 0 ];
   var expected = [ 4, 4, 2 ];
 
-  var gotRay = _.box.lineClosestPoint( srcBox, tstRay );
-  test.identical( expected, gotRay );
+  var gotLine = _.box.lineClosestPoint( srcBox, tstLine );
+  test.identical( expected, gotLine );
 
   test.case = 'dstPoint Array'; /* */
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
-  var tstRay = [ 5, 5, 1, 1, 0, 0 ];
+  var tstLine = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = [ 4, 4, 1 ];
 
-  var gotRay = _.box.lineClosestPoint( srcBox, tstRay, dstPoint );
-  test.identical( expected, gotRay );
-  test.is( dstPoint === gotRay );
+  var gotLine = _.box.lineClosestPoint( srcBox, tstLine, dstPoint );
+  test.identical( expected, gotLine );
+  test.is( dstPoint === gotLine );
 
   test.case = 'dstPoint Vector'; /* */
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
-  var tstRay = [ 5, 5, 1, 1, 0, 0 ];
+  var tstLine = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = _.vector.from( [ 0, 0, 0 ] );
   var expected = _.vector.from( [ 4, 4, 1 ] );
 
-  var gotRay = _.box.lineClosestPoint( srcBox, tstRay, dstPoint );
-  test.equivalent( expected, gotRay );
-  test.is( dstPoint === gotRay );
+  var gotLine = _.box.lineClosestPoint( srcBox, tstLine, dstPoint );
+  test.equivalent( expected, gotLine );
+  test.is( dstPoint === gotLine );
 
   /* */
 
@@ -6093,6 +6093,110 @@ function lineClosestPoint( test )
   test.shouldThrowErrorSync( () => _.box.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
   test.shouldThrowErrorSync( () => _.box.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
   test.shouldThrowErrorSync( () => _.box.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+//
+
+function segmentClosestPoint( test )
+{
+
+  test.case = 'Source box and segment remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
+  test.identical( expected, gotSegment );
+
+  var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  test.identical( srcBox, oldSrcBox );
+
+  var oldtstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstSegment, oldtstSegment );
+
+  test.case = 'Box and segment intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment origin is box corner'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment is box side'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstSegment = [ - 1, 0, 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Negative segment'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = [ -1, -1, -1 ];
+
+  var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Closest point in box side'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSegment = [ 5, 5, 2, 5, 11, 2 ];
+  var expected = [ 4, 4, 2 ];
+
+  var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSegment = [ 5, 5, 1, 11, 5, 1 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 4, 1 ];
+
+  var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment, dstPoint );
+  test.identical( expected, gotSegment );
+  test.is( dstPoint === gotSegment );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstSegment = [ 5, 5, 1, 10, 5, 1 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 4, 4, 1 ] );
+
+  var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment, dstPoint );
+  test.equivalent( expected, gotSegment );
+  test.is( dstPoint === gotSegment );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.segmentClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.box.segmentClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.box.segmentClosestPoint( 'box', 'segment' ) );
+  test.shouldThrowErrorSync( () => _.box.segmentClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.segmentClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.segmentClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.box.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
 
 }
 
@@ -6169,7 +6273,8 @@ var Self =
     frustumExpand : frustumExpand,
 
     rayClosestPoint : rayClosestPoint,
-    lineClosestPoint : lineClosestPoint,
+    segmentClosestPoint : segmentClosestPoint,
+    segmentClosestPoint : segmentClosestPoint,
 
   }
 

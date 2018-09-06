@@ -2548,6 +2548,101 @@ function lineClosestPoint( box, line, dstPoint )
 
 //
 
+function segmentIntersects( srcBox , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.segment.boxIntersects( tstSegmentView, boxView );
+  return gotBool;
+}
+
+//
+
+function segmentDistance( srcBox , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.segment.boxDistance( tstSegmentView, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a segment. Returns the calculated point.
+  * Box and segment remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } segment - The source segment.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let segment = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2 ], segment );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.segmentClosestPoint( [ 2, 2, 2, 3, 3, 3 ], segment );
+  *
+  * @returns { Array } Returns the closest point to the segment.
+  * @function segmentClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( segment ) is not segment
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function segmentClosestPoint( box, segment, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let segmentView = _.segment._from( segment );
+  let origin = _.segment.originGet( segmentView );
+  let direction = _.segment.directionGet( segmentView );
+  let dimSegment  = _.segment.dimGet( segmentView );
+
+  let dstPointVector = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimB === dimSegment );
+
+  if( _.segment.boxIntersects( segmentView, boxView ) )
+  return 0
+  else
+  {
+    let segmentPoint = _.segment.boxClosestPoint( segment, boxView );
+
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, segmentPoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointVector.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Apply a space transformation to a box. Returns the transformed box.
   *
@@ -2848,6 +2943,10 @@ let Proto =
   lineIntersects : lineIntersects, /* Same as _.line.boxIntersects */
   lineDistance : lineDistance, /* Same as _.line.boxDistance */
   lineClosestPoint : lineClosestPoint,
+
+  segmentIntersects : segmentIntersects, /* Same as _.segment.boxIntersects */
+  segmentDistance : segmentDistance, /* Same as _.segment.boxDistance */
+  segmentClosestPoint : segmentClosestPoint,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

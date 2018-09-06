@@ -4,11 +4,11 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let srcBox = [ 0, 0, 0, 4, 4, 4 ];
-let tstline = [ 5, 5, 5, 0, 0, 1 ];
+let srcBox = [ 1, 1, 1, 7, 7, 7 ];
+let tstSegment = [ 0, 0, 0, 5, 5, 5 ];
 
-let gotline = _.box.lineDistance( srcBox, tstline );
-logger.log( gotline )
-gotline = _.line.boxDistance( tstline, srcBox );
-logger.log( gotline )
+let gotsegment = _.box.segmentIntersects( srcBox, tstSegment );
+logger.log( gotsegment )
+gotsegment = _.segment.boxIntersects( tstSegment, srcBox );
+logger.log( gotsegment )
 debugger;
