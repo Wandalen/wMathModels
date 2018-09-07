@@ -1744,458 +1744,6 @@ function segmentIntersectionPointAccurate( test )
 
 //
 
-function segmentIntersects( test )
-{
-  test.case = 'Source segments remain unchanged'; /* */
-
-  var src1Segment = [ 0, 0, 1, 1 ];
-  var src2Segment = [ 0, 0, 2, 2 ];
-  var expected = true;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  var oldSrc1Segment = [ 0, 0, 1, 1 ];
-  test.equivalent( src1Segment, oldSrc1Segment );
-
-  var oldSrc2Segment = [ 0, 0, 2, 2 ];
-  test.equivalent( src2Segment, oldSrc2Segment );
-
-  test.case = 'Segments are the same'; /* */
-
-  var src1Segment = [ 0, 0, 1, 1 ];
-  var src2Segment = [ 0, 0, 1, 1 ];
-  var expected = true;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
-
-  var src1Segment = [ 0, 0, 1, 1 ];
-  var src2Segment = [ 3, 7, 4, 8 ];
-  var expected = false;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
-
-  var src1Segment = [ 0, 0, 1, 1 ];
-  var src2Segment = [ 3, 7, 2, 6 ];
-  var expected = false;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segments intersect in their origin'; /* */
-
-  var src1Segment = [ 3, 7, 1, 0 ];
-  var src2Segment = [ 3, 7, 0, 1 ];
-  var expected = true;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segments intersect '; /* */
-
-  var src1Segment = [ 0, 0, 1, 0 ];
-  var src2Segment = [ -2, -6, 1, 2 ];
-  var expected = true;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segments are perpendicular '; /* */
-
-  var src1Segment = [ -3, 0, 1, 0 ];
-  var src2Segment = [ 0, -2, 0, 1 ];
-  var expected = true;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segments don´t intersect 3D'; /* */
-
-  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Segment = [ 3, 0, 1, 2, 2, -1 ];
-  var expected = false;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segments intersect 3D'; /* */
-
-  var src1Segment = [ 0, 0, 0, 7, 7, 7 ];
-  var src2Segment = [ 3, 1, 3, 3, 6, 3 ];
-  var expected = true;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segments don´t intersect 4D'; /* */
-
-  var src1Segment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-  var src2Segment = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
-  var expected = false;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segments intersect 4D'; /* */
-
-  var src1Segment = [ 0, 0, 0, 1, 8, 8, 8, 9 ];
-  var src2Segment = [ 3, 1, 3, 2, 3, 7, 3, 8 ];
-  var expected = true;
-
-  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
-  test.identical( isIntersection, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( 'segment', [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], 'segment') );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( null, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
-
-}
-
-//
-
-function segmentDistance( test )
-{
-  test.case = 'Source segments remain unchanged'; /* */
-
-  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Segment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  var oldSrc1Segment = [ 0, 0, 0, 1, 1, 1 ];
-  test.equivalent( src1Segment, oldSrc1Segment );
-
-  var oldSrc2Segment = [ 0, 0, 0, 2, 2, 2 ];
-  test.equivalent( src2Segment, oldSrc2Segment );
-
-  test.case = 'Segments are the same'; /* */
-
-  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
-
-  var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
-  var src2Segment = [ 3, 7, 0, 3, 7, 1 ];
-  var expected = Math.sqrt( 58 );
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
-
-  var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
-  var src2Segment = [ 3, 7, 1, 3, 7, 3 ];
-  var expected = Math.sqrt( 58 );
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments are parallel ( different origin - opposite direction )'; /* */
-
-  var src1Segment = [ 0, 0, 0, 1, 0, 0 ];
-  var src2Segment = [ 3, 7, 1, - 4, 7, 1 ];
-  var expected = Math.sqrt( 50 );
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'src1Segment is a point'; /* */
-
-  var src1Segment = [ 3, 7, 1, 3, 7, 1 ];
-  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = Math.sqrt( 40 );
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'src1Segment end is src2Segment origin'; /* */
-
-  var src1Segment = [ 3, 7, 1, 0, 0, 0 ];
-  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments are the same'; /* */
-
-  var src1Segment = [ 0, 4, 2, 1, 1, 1 ];
-  var src2Segment = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments intersect 4D'; /* */
-
-  var src1Segment = [ 0, 0, 2, 1, 0, 7, 2, 1 ];
-  var src2Segment = [ 3, 4, 2, 1, -1, 4, 2, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments don´t intersect 2D'; /* */
-
-  var src1Segment = [ 0, 0, 2, 1 ];
-  var src2Segment = [ - 3, - 4, 1, 0 ];
-  var expected = Math.sqrt( 0.2 );
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments are perpendicular and intersect'; /* */
-
-  var src1Segment = [ 3, 7, -2, 3, 7, 4 ];
-  var src2Segment = [ 3, 5, 1, 3, 9, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments are perpendicular and don´t intersect'; /* */
-
-  var src1Segment = [ 3, 7, 1, 9, 7, 1 ];
-  var src2Segment = [ 3, -2, 1, 3, 4, 1 ];
-  var expected = 3;
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments are parallel to x'; /* */
-
-  var src1Segment = [ 3, 7, 1, 6, 7, 1 ];
-  var src2Segment = [ 3, 7, 2, 6, 7, 2 ];
-  var expected = 1;
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segments are parallel but in a opposite direction'; /* */
-
-  var src1Segment = [ 3, 7, 1, 1, 7, 1 ];
-  var src2Segment = [ 3, 7, 2, 5, 7, 2 ];
-  var expected = 1;
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  test.case = 'srcSegment is null'; /* */
-
-  var src1Segment = null;
-  var src2Segment = [ 3, 7, 2, 4, 8, 3 ];
-  var expected = Math.sqrt( 62 );
-
-  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
-  test.identical( gotDistance, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 0, 0 ], 'segment') );
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
-
-}
-
-//
-
-function segmentClosestPoint( test )
-{
-  test.case = 'Source segments remain unchanged'; /* */
-
-  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Segment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  var oldSrc1Segment = [ 0, 0, 0, 1, 1, 1 ];
-  test.equivalent( src1Segment, oldSrc1Segment );
-
-  var oldSrc2Segment = [ 0, 0, 0, 2, 2, 2 ];
-  test.equivalent( src2Segment, oldSrc2Segment );
-
-  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
-
-  var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
-  var src2Segment = [ 3, 7, 1, 3, 7, 2 ];
-  var expected = [ 0, 0, 1 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
-
-  var src1Segment = [ 3, 7, 1, 3, 7, 8 ];
-  var src2Segment = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segments are parallel ( different origin - opposite direction )'; /* */
-
-  var src1Segment = [ 0, 0, 0, 1, 0, 0 ];
-  var src2Segment = [ 3, 7, 1, - 7, 7, 1 ];
-  var expected = [ 1, 0, 0 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'src1Segment is a point'; /* */
-
-  var src1Segment = [ 3, 7, 1, 3, 7, 1 ];
-  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'src2Segment is a point'; /* */
-
-  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Segment = [ 3, 7, 1, 3, 7, 1 ];
-  var expected = [ 1, 1, 1 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.equivalent( gotClosestPoint, expected );
-
-  test.case = 'Segments are the same'; /* */
-
-  var src1Segment = [ 0, 4, 2, 1, 1, 1 ];
-  var src2Segment = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segments intersect 4D'; /* */
-
-  var src1Segment = [ 0, 0, 2, 1, 0, 7, 2, 1 ];
-  var src2Segment = [ 3, 4, 2, 1, -1, 4, 2, 1 ];
-  var expected = [ 0, 4, 2, 1 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.equivalent( gotClosestPoint, expected );
-
-  test.case = 'Segments intersect 2D'; /* */
-
-  var src1Segment = [ 0, 0, 2, 0 ];
-  var src2Segment = [ - 3, - 4, 1, 0 ];
-  var expected = [ 1, 0 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segments don´t intersect 2D'; /* */
-
-  var src1Segment = [ 0, 0, 2, 1 ];
-  var src2Segment = [ - 3, - 4, 1, 0 ];
-  var expected = [ 0.8, 0.4 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segments are perpendicular and intersect'; /* */
-
-  var src1Segment = [ 3, 7, 1, 8, 7, 1 ];
-  var src2Segment = [ 3, 7, 1, 3, 7, 6 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segments are perpendicular and don´t intersect'; /* */
-
-  var src1Segment = [ 0, 7, 1, 9, 7, 1 ];
-  var src2Segment = [ 3, -2, 2, 3, 11, 2 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segments are parallel to x'; /* */
-
-  var src1Segment = [ 3, 7, 1, 6, 7, 1 ];
-  var src2Segment = [ 3, 7, 2, 6, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segments are parallel but in a opposite direction'; /* */
-
-  var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
-  var src2Segment = [ 3, 7, 2, 8, 7, 1 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'srcSegment is null'; /* */
-
-  var src1Segment = null;
-  var src2Segment = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 0, 0 ], 'segment') );
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
-
-}
-
-//
-
 function pointContains( test )
 {
 
@@ -3065,814 +2613,6 @@ function boxClosestPoint( test )
 
 //
 
-function sphereIntersects( test )
-{
-
-  test.case = 'Segment and sphere remain unchanged'; /* */
-
-  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.identical( gotBool, expected );
-
-  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( segment, oldSegment );
-
-  var oldSphere = [ 0, 0, 0, 1 ];
-  test.identical( sphere, oldSphere );
-
-  test.case = 'Null segment - empty sphere'; /* */
-
-  var segment = null;
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point segment center of sphere'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 0 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point segment - no intersection'; /* */
-
-  var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var sphere = [ 4, 3, 4, 1 ];
-  var expected = false;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point segment in sphere'; /* */
-
-  var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var sphere = [ 2, 2, 2, 2 ];
-  var expected = true;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Segment and sphere intersect'; /* */
-
-  var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Segment over sphere'; /* */
-
-  var segment = [ 0, -6, 4, 0, 1, 4 ];
-  var sphere = [ 0, 0, 0, 3 ];
-  var expected = false;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'sphere closer to origin'; /* */
-
-  var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var sphere = [ - 2, - 2, - 2, 0.5 ];
-  var expected = false;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
-
-  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var sphere = [ 0, 2, 0, 2 ];
-  var expected = true;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
-
-  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var sphere = [ 3, 3, 3, 1 ];
-  var expected = false;
-
-  var gotBool = _.segment.sphereIntersects( segment, sphere );
-  test.equivalent( gotBool,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function sphereDistance( test )
-{
-
-  test.case = 'Segment and sphere remain unchanged'; /* */
-
-  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.identical( gotDistance, expected );
-
-  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( segment, oldSegment );
-
-  var oldSphere = [ 0, 0, 0, 1 ];
-  test.identical( sphere, oldSphere );
-
-  test.case = 'Null segment - empty sphere'; /* */
-
-  var segment = null;
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point segment center of sphere'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 0 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point segment - no intersection'; /* */
-
-  var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var sphere = [ 4, 3, 4, 1 ];
-  var expected = Math.sqrt( 11 ) - 1;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point segment in sphere'; /* */
-
-  var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var sphere = [ 2, 2, 2, 2 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Segment and sphere intersect'; /* */
-
-  var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Segment over sphere'; /* */
-
-  var segment = [ 0, -6, 4, 0, 1, 4 ];
-  var sphere = [ 0, 0, 0, 3 ];
-  var expected = 1;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'sphere closer to origin'; /* */
-
-  var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var sphere = [ - 2, - 2, - 2, 0.5 ];
-  var expected = Math.sqrt( 12 ) - 0.5;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
-
-  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var sphere = [ 0, 2, 0, 2 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 1 ];
-  var sphere = [ 3, 0, 0, 1 ];
-  var expected = 2;
-
-  var gotDistance = _.segment.sphereDistance( segment, sphere );
-  test.equivalent( gotDistance,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function sphereClosestPoint( test )
-{
-
-  test.case = 'Segment and sphere remain unchanged'; /* */
-
-  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint, expected );
-
-  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( segment, oldSegment );
-
-  var oldSphere = [ 0, 0, 0, 1 ];
-  test.identical( sphere, oldSphere );
-
-  test.case = 'Null segment - empty sphere'; /* */
-
-  var segment = null;
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'point segment center of sphere'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 0 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'point segment - no intersection'; /* */
-
-  var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var sphere = [ 4, 3, 4, 1 ];
-  var expected = [ 1, 2, 3 ];
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'point segment in sphere'; /* */
-
-  var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var sphere = [ 2, 2, 2, 2 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'Segment and sphere intersect'; /* */
-
-  var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'Segment over sphere'; /* */
-
-  var segment = [ 0, -6, 4, 0, 1, 4 ];
-  var sphere = [ 0, 0, 0, 3 ];
-  var expected = [ 0, 0, 4 ];
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'sphere closer to origin'; /* */
-
-  var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var sphere = [ - 2, - 2, - 2, 0.5 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
-
-  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var sphere = [ 0, 2, 0, 2 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 1 ];
-  var sphere = [ 3, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.equivalent( gotClosestPoint,  expected );
-
-  test.case = 'dstPoint is vector'; /* */
-
-  var segment = [ 0, -6, 4, 0, 1, 4 ];
-  var sphere = [ 0, 5, 0, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 1, 4 ] );
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'dstPoint is array'; /* */
-
-  var segment = [ 0, -6, 4, 0, 1, 4 ];
-  var sphere = [ 1, 5, 0, 3 ];
-  var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, 1, 4 ];
-
-  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
-  test.identical( gotClosestPoint,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function planeIntersects( test )
-{
-
-  test.case = 'Segment and plane remain unchanged'; /* */
-
-  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool, expected );
-
-  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( segment, oldSegment );
-
-  var oldPlane = [ 1, 0, 0, 1 ];
-  test.identical( plane, oldPlane );
-
-  test.case = 'Null segment - empty plane'; /* */
-
-  var segment = null;
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = false;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point segment - no intersection'; /* */
-
-  var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = false;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point segment in plane'; /* */
-
-  var segment = [ - 1, 2, 3, -1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Segment and plane intersect'; /* */
-
-  var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Segment over plane'; /* */
-
-  var segment = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
-  var expected = false;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'plane closer to origin'; /* */
-
-  var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
-  var expected = false;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
-
-  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 0.2 ];
-  var expected = true;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
-
-  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
-  var expected = false;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.equivalent( gotBool,  expected );
-
-  test.case = 'plane parallel to segment'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
-  var expected = false;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'plane parallel contains segment'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
-  var expected = true;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'plane perpendicular to segment'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
-  var expected = true;
-
-  var gotBool = _.segment.planeIntersects( segment, plane );
-  test.identical( gotBool,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( ) );
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function planeDistance( test )
-{
-
-  test.case = 'Segment and plane remain unchanged'; /* */
-
-  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance, expected );
-
-  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( segment, oldSegment );
-
-  var oldPlane = [ 1, 0, 0, 1 ];
-  test.identical( plane, oldPlane );
-
-  test.case = 'Null segment - empty plane'; /* */
-
-  var segment = null;
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 1;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point segment - no intersection'; /* */
-
-  var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 2;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point segment in plane'; /* */
-
-  var segment = [ - 1, 2, 3, -1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Segment and plane intersect'; /* */
-
-  var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Segment over plane'; /* */
-
-  var segment = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
-  var expected = 3;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'plane closer to origin'; /* */
-
-  var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
-  var expected = 0.5;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
-
-  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 0.2 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
-
-  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
-  var expected = 1/3;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.equivalent( gotDistance,  expected );
-
-  test.case = 'plane parallel to segment'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
-  var expected = 0.5;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'plane parallel contains segment'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'plane perpendicular to segment'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.planeDistance( segment, plane );
-  test.identical( gotDistance,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( ) );
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function planeClosestPoint( test )
-{
-
-  test.case = 'Segment and plane remain unchanged'; /* */
-
-  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint, expected );
-
-  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( segment, oldSegment );
-
-  var oldPlane = [ 1, 0, 0, 1 ];
-  test.identical( plane, oldPlane );
-
-  test.case = 'Null segment - empty plane'; /* */
-
-  var segment = null;
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'point segment - no intersection'; /* */
-
-  var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = [ 1, 2, 3 ];
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'point segment in plane'; /* */
-
-  var segment = [ - 1, 2, 3, - 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'Segment and plane intersect'; /* */
-
-  var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'Segment over plane'; /* */
-
-  var segment = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
-  var expected = [ 0, -6, 4 ];
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'plane closer to origin'; /* */
-
-  var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
-
-  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 0.2 ];
-  var expected = 0;
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
-
-  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.equivalent( gotPoint,  expected );
-
-  test.case = 'plane parallel to segment'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'plane parallel contains segment'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
-  var expected = 0;
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'plane perpendicular to segment'; /* */
-
-  var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
-  var expected = 0;
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'dstPoint is array'; /* */
-
-  var segment = [ 0, -6, 24, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
-  var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 1, 1, 1 ];
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane, dstPoint );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'dstPoint is vector'; /* */
-
-  var segment = [ 0, -6, 24, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 1, 1, 1 ] );
-
-  var gotPoint = _.segment.planeClosestPoint( segment, plane, dstPoint );
-  test.identical( gotPoint,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
 function frustumIntersects( test )
 {
 
@@ -4501,6 +3241,924 @@ function frustumClosestPoint( test )
 
 //
 
+function lineIntersects( test )
+{
+  test.case = 'Source line and segment remain unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var srcLine = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  var oldSrcSegment = [ 0, 0, 1, 1 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  var oldSrcLine = [ 0, 0, 2, 2 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  test.case = 'Segment and line are the same'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var srcLine = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - same direction )'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var srcLine = [ 3, 7, 1, 1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - different direction )'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var srcLine = [ 3, 7, 7, 7 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect'; /* */
+
+  var srcSegment = [ 5, 5, 1, 1 ];
+  var srcLine = [ 4, 0, -1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line don´t intersect with segment´s negative factor'; /* */
+
+  var srcSegment = [ 7, 6, 8, 6 ];
+  var srcLine = [ 6, 6, 1, 1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect in their origin'; /* */
+
+  var srcSegment = [ 3, 7, 1, 0 ];
+  var srcLine = [ 3, 7, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect '; /* */
+
+  var srcSegment = [ 0, 0, 1, 0 ];
+  var srcLine = [ -2, -6, 1, 2 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line are perpendicular '; /* */
+
+  var srcSegment = [ -3, 0, 1, 0 ];
+  var srcLine = [ 0, -2, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line don´t intersect 3D'; /* */
+
+  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var srcLine = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect 3D'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 0, 3 ];
+  var srcLine = [ - 3, - 3, 2, 1, 1, 0 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line don´t intersect 4D'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var srcLine = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segment and line intersect 4D'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 4, 4, 4, 4 ];
+  var srcLine = [ 3, 2, 1, 0, 0, 1, 2, 3 ];
+  var expected = true;
+
+  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  test.identical( isIntersection, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], 'line') );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function lineDistance( test )
+{
+  test.case = 'Source segment and line remain unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  var oldSrcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstLine, oldTstLine );
+
+  test.case = 'Segment and line are parallel ( different origin - same direction )'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 0, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - different direction )'; /* */
+
+  var srcSegment = [ 3, 7, 1, 3, 7, 7 ];
+  var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - opposite direction )'; /* */
+
+  var srcSegment = [ 0, 0, 0, 9, 0, 0 ];
+  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = Math.sqrt( 50 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcSegment is a point'; /* */
+
+  var srcSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected =  Math.sqrt( 168 / 9 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'tstLine is a point'; /* */
+
+  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = Math.sqrt( 40 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are the same'; /* */
+
+  var srcSegment = [ 0, 4, 2, 5, 9, 7 ];
+  var tstLine = [ 0, 4, 2, 5, 9, 7 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line intersect 4D'; /* */
+
+  var srcSegment = [ 0, 0, 2, 1, 0, 9, 2, 1 ];
+  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line don´t intersect 2D - parallel'; /* */
+
+  var srcSegment = [ 0, 0, 2, 0 ];
+  var tstLine = [ - 3, - 4, 1, 0 ];
+  var expected = 4;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line don´t intersect with segment´s negative factor 2D'; /* */
+
+  var srcSegment = [ 0, 0, 2, 0 ];
+  var tstLine = [ - 3, - 4, 0, 1 ];
+  var expected = 3;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line intersect with line´s negative factor 2D'; /* */
+
+  var srcSegment = [ - 3, - 4, -3, 3 ];
+  var tstLine = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are perpendicular and intersect'; /* */
+
+  var srcSegment = [ 3, 7, 1, 8, 7, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are perpendicular and don´t intersect'; /* */
+
+  var srcSegment = [ 0, 0, -3, 0, 0, 1 ];
+  var tstLine = [ 3, 0, 0, 0, 1, 0 ];
+  var expected = 3;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are parallel to x axis'; /* */
+
+  var srcSegment = [ 3, 7, 1, 7, 7, 1 ];
+  var tstLine = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment and line are parallel but in a opposite direction'; /* */
+
+  var srcSegment = [ 3, 7, 1, 9, 7, 1 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcSegment is null'; /* */
+
+  var srcSegment = null;
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = Math.sqrt( 53 );
+
+  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 0, 0 ], 'line') );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function lineClosestPoint( test )
+{
+  test.case = 'Source segment and line remain unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrcSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstLine, oldTstLine );
+
+  test.case = 'Segment and line are parallel ( different origin - same direction )'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 0, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - different direction )'; /* */
+
+  var srcSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are parallel ( different origin - opposite direction )'; /* */
+
+  var srcSegment = [ 0, 0, 0, 10, 0, 0 ];
+  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = [ 3, 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcSegment is a point'; /* */
+
+  var srcSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'tstLine is a point'; /* */
+
+  var srcSegment = [ 0, 0, 0, 9, 9, 9 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are the same'; /* */
+
+  var srcSegment = [ 0, 4, 2, 3, 7, 5 ];
+  var tstLine = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line intersect 4D'; /* */
+
+  var srcSegment = [ 0, 0, 2, 1, 0, 9, 2, 1 ];
+  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line don´t intersect 2D - parallel'; /* */
+
+  var srcSegment = [ 0, 0, 2, 0 ];
+  var tstLine = [ - 3, - 4, 1, 0 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line don´t intersect with segment´s negative factor 2D'; /* */
+
+  var srcSegment = [ 0, 0, 2, 0 ];
+  var tstLine = [ - 3, - 4, 0, 1 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line intersect with line´s negative factor 2D'; /* */
+
+  var srcSegment = [ - 3, - 4, -3, 4 ];
+  var tstLine = [ 0, 0, 2, 0 ];
+  var expected = [ -3, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are perpendicular and intersect ( same origin )'; /* */
+
+  var srcSegment = [ 3, 7, 1, 8, 7, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are perpendicular and don´t intersect'; /* */
+
+  var srcSegment = [ 0, 0, -3, 0, 0, 1 ];
+  var tstLine = [ 3, 0, 0, 1, 1, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are parallel to x'; /* */
+
+  var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
+  var tstLine = [ 3, 7, 2, 4, 7, 2 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segment and line are parallel but in a opposite direction'; /* */
+
+  var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcSegment is null'; /* */
+
+  var srcSegment = null;
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 0, 0 ], 'line') );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function planeIntersects( test )
+{
+
+  test.case = 'Segment and plane remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null segment - empty plane'; /* */
+
+  var segment = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point segment - no intersection'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point segment in plane'; /* */
+
+  var segment = [ - 1, 2, 3, -1, 2, 3 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment and plane intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment over plane'; /* */
+
+  var segment = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var plane = [ 0, 2, 0, - 0.2 ];
+  var expected = true;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
+
+  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var plane = [ 3, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.equivalent( gotBool,  expected );
+
+  test.case = 'plane parallel to segment'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane parallel contains segment'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane perpendicular to segment'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = true;
+
+  var gotBool = _.segment.planeIntersects( segment, plane );
+  test.identical( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( ) );
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function planeDistance( test )
+{
+
+  test.case = 'Segment and plane remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null segment - empty plane'; /* */
+
+  var segment = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 1;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point segment - no intersection'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 2;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point segment in plane'; /* */
+
+  var segment = [ - 1, 2, 3, -1, 2, 3 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment and plane intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment over plane'; /* */
+
+  var segment = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = 3;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = 0.5;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var plane = [ 0, 2, 0, - 0.2 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
+
+  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var plane = [ 3, 0, 0, 1 ];
+  var expected = 1/3;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.equivalent( gotDistance,  expected );
+
+  test.case = 'plane parallel to segment'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = 0.5;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane parallel contains segment'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane perpendicular to segment'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.planeDistance( segment, plane );
+  test.identical( gotDistance,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( ) );
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.planeDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function planeClosestPoint( test )
+{
+
+  test.case = 'Segment and plane remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null segment - empty plane'; /* */
+
+  var segment = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point segment - no intersection'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point segment in plane'; /* */
+
+  var segment = [ - 1, 2, 3, - 1, 2, 3 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Segment and plane intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Segment over plane'; /* */
+
+  var segment = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = [ 0, -6, 4 ];
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var plane = [ 0, 2, 0, - 0.2 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
+
+  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var plane = [ 3, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'plane parallel to segment'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane parallel contains segment'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane perpendicular to segment'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'dstPoint is array'; /* */
+
+  var segment = [ 0, -6, 24, 1, 1, 1 ];
+  var plane = [ 1, 0, 1, 3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane, dstPoint );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var segment = [ 0, -6, 24, 1, 1, 1 ];
+  var plane = [ 1, 0, 1, 3 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 1, 1, 1 ] );
+
+  var gotPoint = _.segment.planeClosestPoint( segment, plane, dstPoint );
+  test.identical( gotPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
 function rayIntersects( test )
 {
   test.case = 'Source ray and segment remain unchanged'; /* */
@@ -4988,129 +4646,111 @@ function rayClosestPoint( test )
 
 //
 
-function lineIntersects( test )
+function segmentIntersects( test )
 {
-  test.case = 'Source line and segment remain unchanged'; /* */
+  test.case = 'Source segments remain unchanged'; /* */
 
-  var srcSegment = [ 0, 0, 1, 1 ];
-  var srcLine = [ 0, 0, 2, 2 ];
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 0, 0, 2, 2 ];
   var expected = true;
 
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
   test.identical( isIntersection, expected );
 
-  var oldSrcSegment = [ 0, 0, 1, 1 ];
-  test.equivalent( srcSegment, oldSrcSegment );
+  var oldSrc1Segment = [ 0, 0, 1, 1 ];
+  test.equivalent( src1Segment, oldSrc1Segment );
 
-  var oldSrcLine = [ 0, 0, 2, 2 ];
-  test.equivalent( srcLine, oldSrcLine );
+  var oldSrc2Segment = [ 0, 0, 2, 2 ];
+  test.equivalent( src2Segment, oldSrc2Segment );
 
-  test.case = 'Segment and line are the same'; /* */
+  test.case = 'Segments are the same'; /* */
 
-  var srcSegment = [ 0, 0, 1, 1 ];
-  var srcLine = [ 0, 0, 1, 1 ];
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 0, 0, 1, 1 ];
   var expected = true;
 
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Segment and line are parallel ( different origin - same direction )'; /* */
+  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
 
-  var srcSegment = [ 0, 0, 1, 1 ];
-  var srcLine = [ 3, 7, 1, 1 ];
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 4, 8 ];
   var expected = false;
 
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Segment and line are parallel ( different origin - different direction )'; /* */
+  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
 
-  var srcSegment = [ 0, 0, 1, 1 ];
-  var srcLine = [ 3, 7, 7, 7 ];
+  var src1Segment = [ 0, 0, 1, 1 ];
+  var src2Segment = [ 3, 7, 2, 6 ];
   var expected = false;
 
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Segment and line intersect'; /* */
+  test.case = 'Segments intersect in their origin'; /* */
 
-  var srcSegment = [ 5, 5, 1, 1 ];
-  var srcLine = [ 4, 0, -1, 1 ];
+  var src1Segment = [ 3, 7, 1, 0 ];
+  var src2Segment = [ 3, 7, 0, 1 ];
   var expected = true;
 
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Segment and line don´t intersect with segment´s negative factor'; /* */
+  test.case = 'Segments intersect '; /* */
 
-  var srcSegment = [ 7, 6, 8, 6 ];
-  var srcLine = [ 6, 6, 1, 1 ];
+  var src1Segment = [ 0, 0, 1, 0 ];
+  var src2Segment = [ -2, -6, 1, 2 ];
+  var expected = true;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments are perpendicular '; /* */
+
+  var src1Segment = [ -3, 0, 1, 0 ];
+  var src2Segment = [ 0, -2, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Segments don´t intersect 3D'; /* */
+
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 1, 2, 2, -1 ];
   var expected = false;
 
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Segment and line intersect in their origin'; /* */
+  test.case = 'Segments intersect 3D'; /* */
 
-  var srcSegment = [ 3, 7, 1, 0 ];
-  var srcLine = [ 3, 7, 0, 1 ];
+  var src1Segment = [ 0, 0, 0, 7, 7, 7 ];
+  var src2Segment = [ 3, 1, 3, 3, 6, 3 ];
   var expected = true;
 
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Segment and line intersect '; /* */
+  test.case = 'Segments don´t intersect 4D'; /* */
 
-  var srcSegment = [ 0, 0, 1, 0 ];
-  var srcLine = [ -2, -6, 1, 2 ];
-  var expected = true;
-
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segment and line are perpendicular '; /* */
-
-  var srcSegment = [ -3, 0, 1, 0 ];
-  var srcLine = [ 0, -2, 0, 1 ];
-  var expected = true;
-
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segment and line don´t intersect 3D'; /* */
-
-  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
-  var srcLine = [ 3, 0, 1, 2, 2, -1 ];
+  var src1Segment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Segment = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
   var expected = false;
 
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Segment and line intersect 3D'; /* */
+  test.case = 'Segments intersect 4D'; /* */
 
-  var srcSegment = [ 0, 0, 0, 0, 0, 3 ];
-  var srcLine = [ - 3, - 3, 2, 1, 1, 0 ];
+  var src1Segment = [ 0, 0, 0, 1, 8, 8, 8, 9 ];
+  var src2Segment = [ 3, 1, 3, 2, 3, 7, 3, 8 ];
   var expected = true;
 
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segment and line don´t intersect 4D'; /* */
-
-  var srcSegment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-  var srcLine = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
-  var expected = false;
-
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Segment and line intersect 4D'; /* */
-
-  var srcSegment = [ 0, 0, 0, 0, 4, 4, 4, 4 ];
-  var srcLine = [ 3, 2, 1, 0, 0, 1, 2, 3 ];
-  var expected = true;
-
-  var isIntersection = _.segment.lineIntersects( srcSegment, srcLine );
+  var isIntersection = _.segment.segmentIntersects( src1Segment, src2Segment );
   test.identical( isIntersection, expected );
 
   /* */
@@ -5118,358 +4758,718 @@ function lineIntersects( test )
   if( !Config.debug )
   return;
 
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( ) );
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( 'segment', [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], 'line') );
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.lineIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( null, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
 
 }
 
 //
 
-function lineDistance( test )
+function segmentDistance( test )
 {
-  test.case = 'Source segment and line remain unchanged'; /* */
+  test.case = 'Source segments remain unchanged'; /* */
 
-  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
-  var tstLine = [ 0, 0, 0, 2, 2, 2 ];
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 0, 0, 0, 2, 2, 2 ];
   var expected = 0;
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  var oldSrcSegment = [ 0, 0, 0, 1, 1, 1 ];
-  test.equivalent( srcSegment, oldSrcSegment );
+  var oldSrc1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Segment, oldSrc1Segment );
 
-  var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
-  test.equivalent( tstLine, oldTstLine );
+  var oldSrc2Segment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Segment, oldSrc2Segment );
 
-  test.case = 'Segment and line are parallel ( different origin - same direction )'; /* */
+  test.case = 'Segments are the same'; /* */
 
-  var srcSegment = [ 0, 0, 0, 0, 0, 1 ];
-  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
+
+  var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Segment = [ 3, 7, 0, 3, 7, 1 ];
   var expected = Math.sqrt( 58 );
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Segment and line are parallel ( different origin - different direction )'; /* */
+  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
 
-  var srcSegment = [ 3, 7, 1, 3, 7, 7 ];
-  var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
+  var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Segment = [ 3, 7, 1, 3, 7, 3 ];
   var expected = Math.sqrt( 58 );
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Segment and line are parallel ( different origin - opposite direction )'; /* */
+  test.case = 'Segments are parallel ( different origin - opposite direction )'; /* */
 
-  var srcSegment = [ 0, 0, 0, 9, 0, 0 ];
-  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
+  var src1Segment = [ 0, 0, 0, 1, 0, 0 ];
+  var src2Segment = [ 3, 7, 1, - 4, 7, 1 ];
   var expected = Math.sqrt( 50 );
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcSegment is a point'; /* */
+  test.case = 'src1Segment is a point'; /* */
 
-  var srcSegment = [ 3, 7, 1, 3, 7, 1 ];
-  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
-  var expected =  Math.sqrt( 168 / 9 );
-
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
-  test.identical( gotDistance, expected );
-
-  test.case = 'tstLine is a point'; /* */
-
-  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
-  var tstLine = [ 3, 7, 1, 0, 0, 0 ];
+  var src1Segment = [ 3, 7, 1, 3, 7, 1 ];
+  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
   var expected = Math.sqrt( 40 );
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Segment and line are the same'; /* */
+  test.case = 'src1Segment end is src2Segment origin'; /* */
 
-  var srcSegment = [ 0, 4, 2, 5, 9, 7 ];
-  var tstLine = [ 0, 4, 2, 5, 9, 7 ];
+  var src1Segment = [ 3, 7, 1, 0, 0, 0 ];
+  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Segment and line intersect 4D'; /* */
+  test.case = 'Segments are the same'; /* */
 
-  var srcSegment = [ 0, 0, 2, 1, 0, 9, 2, 1 ];
-  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var src1Segment = [ 0, 4, 2, 1, 1, 1 ];
+  var src2Segment = [ 0, 4, 2, 1, 1, 1 ];
   var expected = 0;
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Segment and line don´t intersect 2D - parallel'; /* */
+  test.case = 'Segments intersect 4D'; /* */
 
-  var srcSegment = [ 0, 0, 2, 0 ];
-  var tstLine = [ - 3, - 4, 1, 0 ];
-  var expected = 4;
+  var src1Segment = [ 0, 0, 2, 1, 0, 7, 2, 1 ];
+  var src2Segment = [ 3, 4, 2, 1, -1, 4, 2, 1 ];
+  var expected = 0;
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Segment and line don´t intersect with segment´s negative factor 2D'; /* */
+  test.case = 'Segments don´t intersect 2D'; /* */
 
-  var srcSegment = [ 0, 0, 2, 0 ];
-  var tstLine = [ - 3, - 4, 0, 1 ];
+  var src1Segment = [ 0, 0, 2, 1 ];
+  var src2Segment = [ - 3, - 4, 1, 0 ];
+  var expected = Math.sqrt( 0.2 );
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are perpendicular and intersect'; /* */
+
+  var src1Segment = [ 3, 7, -2, 3, 7, 4 ];
+  var src2Segment = [ 3, 5, 1, 3, 9, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segments are perpendicular and don´t intersect'; /* */
+
+  var src1Segment = [ 3, 7, 1, 9, 7, 1 ];
+  var src2Segment = [ 3, -2, 1, 3, 4, 1 ];
   var expected = 3;
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Segment and line intersect with line´s negative factor 2D'; /* */
+  test.case = 'Segments are parallel to x'; /* */
 
-  var srcSegment = [ - 3, - 4, -3, 3 ];
-  var tstLine = [ 0, 0, 2, 0 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segment and line are perpendicular and intersect'; /* */
-
-  var srcSegment = [ 3, 7, 1, 8, 7, 1 ];
-  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segment and line are perpendicular and don´t intersect'; /* */
-
-  var srcSegment = [ 0, 0, -3, 0, 0, 1 ];
-  var tstLine = [ 3, 0, 0, 0, 1, 0 ];
-  var expected = 3;
-
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Segment and line are parallel to x axis'; /* */
-
-  var srcSegment = [ 3, 7, 1, 7, 7, 1 ];
-  var tstLine = [ 3, 7, 2, 1, 0, 0 ];
+  var src1Segment = [ 3, 7, 1, 6, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 6, 7, 2 ];
   var expected = 1;
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Segment and line are parallel but in a opposite direction'; /* */
+  test.case = 'Segments are parallel but in a opposite direction'; /* */
 
-  var srcSegment = [ 3, 7, 1, 9, 7, 1 ];
-  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var src1Segment = [ 3, 7, 1, 1, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 5, 7, 2 ];
   var expected = 1;
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
   test.case = 'srcSegment is null'; /* */
 
-  var srcSegment = null;
-  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = Math.sqrt( 53 );
+  var src1Segment = null;
+  var src2Segment = [ 3, 7, 2, 4, 8, 3 ];
+  var expected = Math.sqrt( 62 );
 
-  var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
+  var gotDistance = _.segment.segmentDistance( src1Segment, src2Segment );
   test.identical( gotDistance, expected );
 
   /* */
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( ) );
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 0, 0 ], 'line') );
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.lineDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
 
 }
 
 //
 
-function lineClosestPoint( test )
+function segmentClosestPoint( test )
 {
-  test.case = 'Source segment and line remain unchanged'; /* */
+  test.case = 'Source segments remain unchanged'; /* */
 
-  var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
-  var tstLine = [ 0, 0, 0, 2, 2, 2 ];
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 0, 0, 0, 2, 2, 2 ];
   var expected = [ 0, 0, 0 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  var oldSrcSegment = [ 0, 0, 0, 1, 1, 1 ];
-  test.equivalent( srcSegment, oldSrcSegment );
+  var oldSrc1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Segment, oldSrc1Segment );
 
-  var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
-  test.equivalent( tstLine, oldTstLine );
+  var oldSrc2Segment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Segment, oldSrc2Segment );
 
-  test.case = 'Segment and line are parallel ( different origin - same direction )'; /* */
+  test.case = 'Segments are parallel ( different origin - same direction )'; /* */
 
-  var srcSegment = [ 0, 0, 0, 0, 0, 1 ];
-  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Segment = [ 3, 7, 1, 3, 7, 2 ];
   var expected = [ 0, 0, 1 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Segment and line are parallel ( different origin - different direction )'; /* */
+  test.case = 'Segments are parallel ( different origin - different direction )'; /* */
 
-  var srcSegment = [ 3, 7, 1, 3, 7, 8 ];
-  var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
+  var src1Segment = [ 3, 7, 1, 3, 7, 8 ];
+  var src2Segment = [ 0, 0, 0, 0, 0, 0.5 ];
   var expected = [ 3, 7, 1 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Segment and line are parallel ( different origin - opposite direction )'; /* */
+  test.case = 'Segments are parallel ( different origin - opposite direction )'; /* */
 
-  var srcSegment = [ 0, 0, 0, 10, 0, 0 ];
-  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = [ 3, 0, 0 ];
+  var src1Segment = [ 0, 0, 0, 1, 0, 0 ];
+  var src2Segment = [ 3, 7, 1, - 7, 7, 1 ];
+  var expected = [ 1, 0, 0 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcSegment is a point'; /* */
+  test.case = 'src1Segment is a point'; /* */
 
-  var srcSegment = [ 3, 7, 1, 3, 7, 1 ];
-  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var src1Segment = [ 3, 7, 1, 3, 7, 1 ];
+  var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
   var expected = [ 3, 7, 1 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'tstLine is a point'; /* */
+  test.case = 'src2Segment is a point'; /* */
 
-  var srcSegment = [ 0, 0, 0, 9, 9, 9 ];
-  var tstLine = [ 3, 7, 1, 0, 0, 0 ];
-  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+  var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Segment = [ 3, 7, 1, 3, 7, 1 ];
+  var expected = [ 1, 1, 1 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Segment and line are the same'; /* */
+  test.case = 'Segments are the same'; /* */
 
-  var srcSegment = [ 0, 4, 2, 3, 7, 5 ];
-  var tstLine = [ 0, 4, 2, 1, 1, 1 ];
+  var src1Segment = [ 0, 4, 2, 1, 1, 1 ];
+  var src2Segment = [ 0, 4, 2, 1, 1, 1 ];
   var expected = [ 0, 4, 2 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Segment and line intersect 4D'; /* */
+  test.case = 'Segments intersect 4D'; /* */
 
-  var srcSegment = [ 0, 0, 2, 1, 0, 9, 2, 1 ];
-  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var src1Segment = [ 0, 0, 2, 1, 0, 7, 2, 1 ];
+  var src2Segment = [ 3, 4, 2, 1, -1, 4, 2, 1 ];
   var expected = [ 0, 4, 2, 1 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Segments intersect 2D'; /* */
+
+  var src1Segment = [ 0, 0, 2, 0 ];
+  var src2Segment = [ - 3, - 4, 1, 0 ];
+  var expected = [ 1, 0 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Segment and line don´t intersect 2D - parallel'; /* */
+  test.case = 'Segments don´t intersect 2D'; /* */
 
-  var srcSegment = [ 0, 0, 2, 0 ];
-  var tstLine = [ - 3, - 4, 1, 0 ];
-  var expected = [ 0, 0 ];
+  var src1Segment = [ 0, 0, 2, 1 ];
+  var src2Segment = [ - 3, - 4, 1, 0 ];
+  var expected = [ 0.8, 0.4 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Segment and line don´t intersect with segment´s negative factor 2D'; /* */
+  test.case = 'Segments are perpendicular and intersect'; /* */
 
-  var srcSegment = [ 0, 0, 2, 0 ];
-  var tstLine = [ - 3, - 4, 0, 1 ];
-  var expected = [ 0, 0 ];
-
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segment and line intersect with line´s negative factor 2D'; /* */
-
-  var srcSegment = [ - 3, - 4, -3, 4 ];
-  var tstLine = [ 0, 0, 2, 0 ];
-  var expected = [ -3, 0 ];
-
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segment and line are perpendicular and intersect ( same origin )'; /* */
-
-  var srcSegment = [ 3, 7, 1, 8, 7, 1 ];
-  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var src1Segment = [ 3, 7, 1, 8, 7, 1 ];
+  var src2Segment = [ 3, 7, 1, 3, 7, 6 ];
   var expected = [ 3, 7, 1 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Segment and line are perpendicular and don´t intersect'; /* */
+  test.case = 'Segments are perpendicular and don´t intersect'; /* */
 
-  var srcSegment = [ 0, 0, -3, 0, 0, 1 ];
-  var tstLine = [ 3, 0, 0, 1, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Segment and line are parallel to x'; /* */
-
-  var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
-  var tstLine = [ 3, 7, 2, 4, 7, 2 ];
+  var src1Segment = [ 0, 7, 1, 9, 7, 1 ];
+  var src2Segment = [ 3, -2, 2, 3, 11, 2 ];
   var expected = [ 3, 7, 1 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Segment and line are parallel but in a opposite direction'; /* */
+  test.case = 'Segments are parallel to x'; /* */
 
-  var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
-  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var src1Segment = [ 3, 7, 1, 6, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 6, 7, 2 ];
   var expected = [ 3, 7, 1 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments are parallel but in a opposite direction'; /* */
+
+  var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 8, 7, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
   test.case = 'srcSegment is null'; /* */
 
-  var srcSegment = null;
-  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var src1Segment = null;
+  var src2Segment = [ 3, 7, 2, - 1, 0, 0 ];
   var expected = [ 0, 0, 0 ];
 
-  var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
 
   /* */
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 0, 0 ], 'line') );
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.segment.lineClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function sphereIntersects( test )
+{
+
+  test.case = 'Segment and sphere remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null segment - empty sphere'; /* */
+
+  var segment = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point segment center of sphere'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point segment - no intersection'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point segment in sphere'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment and sphere intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment over sphere'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
+
+  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var sphere = [ 3, 3, 3, 1 ];
+  var expected = false;
+
+  var gotBool = _.segment.sphereIntersects( segment, sphere );
+  test.equivalent( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function sphereDistance( test )
+{
+
+  test.case = 'Segment and sphere remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null segment - empty sphere'; /* */
+
+  var segment = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point segment center of sphere'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point segment - no intersection'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = Math.sqrt( 11 ) - 1;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point segment in sphere'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment and sphere intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment over sphere'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = 1;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = Math.sqrt( 12 ) - 0.5;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 1 ];
+  var sphere = [ 3, 0, 0, 1 ];
+  var expected = 2;
+
+  var gotDistance = _.segment.sphereDistance( segment, sphere );
+  test.equivalent( gotDistance,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function sphereClosestPoint( test )
+{
+
+  test.case = 'Segment and sphere remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null segment - empty sphere'; /* */
+
+  var segment = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point segment center of sphere'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point segment - no intersection'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point segment in sphere'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment and sphere intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment over sphere'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = [ 0, 0, 4 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) intersection'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Segment ( normalized to 1 ) no intersection'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 1 ];
+  var sphere = [ 3, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
+  test.equivalent( gotClosestPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 0, 5, 0, 3 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 1, 4 ] );
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'dstPoint is array'; /* */
+
+  var segment = [ 0, -6, 4, 0, 1, 4 ];
+  var sphere = [ 1, 5, 0, 3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 0, 1, 4 ];
+
+  var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
+  test.identical( gotClosestPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( 'segment', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
 
 }
 
@@ -5518,10 +5518,6 @@ var Self =
     segmentIntersectionPoint : segmentIntersectionPoint,
     segmentIntersectionPointAccurate : segmentIntersectionPointAccurate,
 
-    segmentIntersects : segmentIntersects,
-    segmentDistance : segmentDistance,
-    segmentClosestPoint : segmentClosestPoint,
-
     pointContains : pointContains,
     pointDistance : pointDistance,
     pointClosestPoint : pointClosestPoint,
@@ -5530,25 +5526,29 @@ var Self =
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
 
-    sphereIntersects : sphereIntersects,
-    sphereDistance : sphereDistance,
-    sphereClosestPoint : sphereClosestPoint,
+    frustumIntersects : frustumIntersects,
+    frustumDistance : frustumDistance,
+    frustumClosestPoint : frustumClosestPoint,
+
+    lineIntersects : lineIntersects,
+    lineDistance : lineDistance,
+    lineClosestPoint : lineClosestPoint,
 
     planeIntersects : planeIntersects,
     planeDistance : planeDistance,
     planeClosestPoint : planeClosestPoint,
 
-    frustumIntersects : frustumIntersects,
-    frustumDistance : frustumDistance,
-    frustumClosestPoint : frustumClosestPoint,
-
     rayIntersects : rayIntersects,
     rayDistance : rayDistance,
     rayClosestPoint : rayClosestPoint,
 
-    lineIntersects : lineIntersects,
-    lineDistance : lineDistance,
-    lineClosestPoint : lineClosestPoint,
+    segmentIntersects : segmentIntersects,
+    segmentDistance : segmentDistance,
+    segmentClosestPoint : segmentClosestPoint,
+
+    sphereIntersects : sphereIntersects,
+    sphereDistance : sphereDistance,
+    sphereClosestPoint : sphereClosestPoint,
   }
 
 }

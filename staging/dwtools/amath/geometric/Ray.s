@@ -890,235 +890,6 @@ rayIntersectionPointAccurate.shaderChunk =
 
   }
 `
-
-//
-
-/**
-  * Check if two rays intersect. Returns true if they intersect, false if not.
-  * Rays stay untouched.
-  *
-  * @param { Vector } src1Ray - The first source ray.
-  * @param { Vector } src2Ray - The second source ray.
-  *
-  * @example
-  * // returns   true
-  * _.rayIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
-  *
-  * @example
-  * // returns  false
-  * _.rayIntersects( [ -3, 0, 1, 0 ], [ 0, -2, 1, 0 ] );
-  *
-  * @returns { Boolean } Returns true if the two rays intersect.
-  * @function rayIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( src1Ray ) is not ray.
-  * @throws { Error } An Error if ( src2Ray ) is not ray.
-  * @memberof wTools.ray
-  */
-function rayIntersects( srcRay1, srcRay2 )
-{
-
-  if( _.ray.rayIntersectionFactors( srcRay1, srcRay2 ) === 0 )
-  return false
-
-  return true;
-}
-
-//
-
-/**
-  * Get the distance between two rays. Returns the calculated distance.
-  * The rays remain unchanged.
-  *
-  * @param { Array } srcRay - Source ray.
-  * @param { Array } tstRay - Test ray.
-  *
-  * @example
-  * // returns 0;
-  * _.rayDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
-  *
-  * @example
-  * // returns Math.sqrt( 12 );
-  * _.rayDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
-  *
-  * @returns { Number } Returns the distance between two rays.
-  * @function rayDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @throws { Error } An Error if ( tstRay ) is not ray.
-  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the rays don´t have the same dimension).
-  * @memberof wTools.ray
-  */
-function rayDistance( srcRay, tstRay )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  if( srcRay === null )
-  srcRay = _.ray.make( tstRay.length / 2 );
-
-  let srcRayView = _.ray._from( srcRay );
-  let srcOrigin = _.ray.originGet( srcRayView );
-  let srcDirection = _.ray.directionGet( srcRayView );
-  let srcDim  = _.ray.dimGet( srcRayView )
-
-  let tstRayView = _.ray._from( tstRay );
-  let tstOrigin = _.ray.originGet( tstRayView );
-  let tstDirection = _.ray.directionGet( tstRayView );
-  let tstDim  = _.ray.dimGet( tstRayView )
-
-  _.assert( srcDim === tstDim );
-
-  let distance;
-  // Same origin
-  let identOrigin = 0;
-  for( let i = 0; i < srcOrigin.length; i++ )
-  {
-    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
-    identOrigin = identOrigin + 1;
-  }
-  if( identOrigin === srcOrigin.length )
-  distance = 0;
-  else
-  {
-    // Parallel rays
-    if( _.ray.rayParallel( srcRayView, tstRayView ) )
-    {
-      let d1 = _.ray.pointDistance( srcRayView, tstOrigin );
-      let d2 = _.ray.pointDistance( tstRayView, srcOrigin );
-      let d3 = _.avector.distance( srcOrigin, tstOrigin );
-
-      if( d1 <= d2 && d1 <= d3 )
-      {
-        distance = d1;
-      }
-      else if( d2 <= d3 )
-      {
-        distance = d2;
-      }
-      else
-      {
-        distance = d3;
-      }
-    }
-    else
-    {
-      let srcPoint = _.ray.rayClosestPoint( srcRayView, tstRayView );
-      let tstPoint = _.ray.rayClosestPoint( tstRayView, srcRayView );
-      distance = _.avector.distance( srcPoint, tstPoint );
-    }
-  }
-
-  return distance;
-}
-
-//
-
-/**
-  * Get the closest point in a ray to a ray. Returns the calculated point.
-  * The rays remain unchanged.
-  *
-  * @param { Array } srcRay - Source ray.
-  * @param { Array } tstRay - Test ray.
-  *
-  * @example
-  * // returns [ 0, 0, 0 ];
-  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
-  *
-  * @example
-  * // returns [ 0, - 1, 0 ];
-  * _.rayClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
-  *
-  * @returns { Array } Returns the closest point in the srcRay to the tstRay.
-  * @function rayClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @throws { Error } An Error if ( tstRay ) is not ray.
-  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the rays don´t have the same dimension).
-  * @memberof wTools.ray
-  */
-function rayClosestPoint( srcRay, tstRay, dstPoint )
-{
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
-
-  if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( tstRay.length / 2 );
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Not a valid destination point' );
-
-  if( srcRay === null )
-  srcRay = _.ray.make( tstRay.length / 2 );
-
-  let srcRayView = _.ray._from( srcRay );
-  let srcOrigin = _.ray.originGet( srcRayView );
-  let srcDir = _.ray.directionGet( srcRayView );
-  let srcDim  = _.ray.dimGet( srcRayView );
-
-  let tstRayView = _.ray._from( tstRay );
-  let tstOrigin = _.ray.originGet( tstRayView );
-  let tstDir = _.ray.directionGet( tstRayView );
-  let tstDim = _.ray.dimGet( tstRayView );
-
-  let dstPointView = _.vector.from( dstPoint );
-  _.assert( srcDim === tstDim );
-
-  let pointView;
-
-  if( _.ray.rayIntersects( srcRayView, tstRayView ) )
-  {
-    pointView = _.ray.rayIntersectionPoint( srcRayView, tstRayView );
-  }
-  else
-  {
-    // Parallel rays
-    if( _.ray.rayParallel( srcRayView, tstRayView ) )
-    {
-      pointView = _.ray.pointClosestPoint( srcRayView, tstOrigin );
-    }
-    else
-    {
-      let factors = _.line.lineIntersectionFactors( srcRayView, tstRayView );
-
-      if( factors === 0 )
-      {
-        let srcMod = _.vector.dot( srcDir, srcDir );
-        let tstMod = _.vector.dot( tstDir, tstDir );
-        let mod = _.vector.dot( srcDir, tstDir );
-        let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
-        let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
-
-        if( factor >= 0 )
-        {
-          pointView = _.ray.rayAt( srcRayView, factor );
-        }
-        else
-        {
-          pointView = srcOrigin;
-        }
-      }
-      else if( factors.eGet( 1 ) < 0 )
-      {
-        // pointView = _.ray.rayAt( srcRayView, factor );
-
-        pointView = _.ray.pointClosestPoint( srcRayView, tstOrigin );
-      }
-      else if( factors.eGet( 0 ) < 0 )
-      {
-        //pointView = _.ray.pointClosestPoint( srcRayView, tstOrigin );
-        pointView = srcOrigin;
-      }
-    }
-  }
-
-  pointView = _.vector.from( pointView );
-  for( let i = 0; i < pointView.length; i++ )
-  {
-    dstPointView.eSet( i, pointView.eGet( i ) );
-  }
-
-  return dstPoint;
-}
-
 //
 
 /**
@@ -1551,361 +1322,6 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
 //
 
 /**
-  * Check if a ray and a sphere intersect. Returns true if they intersect and false if not.
-  * The sphere and the ray remain unchanged.
-  *
-  * @param { Array } srcRay - Source ray.
-  * @param { Array } srcSphere - Source sphere.
-  *
-  * @example
-  * // returns true;
-  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
-  *
-  * @example
-  * // returns false;
-  * _.sphereIntersects( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
-  *
-  * @returns { Boolean } Returns true if the ray and the sphere intersect.
-  * @function sphereIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @throws { Error } An Error if ( srcSphere ) is not sphere.
-  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
-  * @memberof wTools.ray
-  */
-function sphereIntersects( srcRay, srcSphere )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.sphere.is( srcSphere ) );
-
-  if( srcRay === null )
-  srcRay = _.ray.make( srcSphere.length - 1 );
-
-  let srcRayView = _.ray._from( srcRay );
-  let origin = _.ray.originGet( srcRayView );
-  let direction = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView )
-
-  let sphereView = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dimSphere = _.sphere.dimGet( sphereView );
-
-  _.assert( dimRay === dimSphere );
-
-  if( _.sphere.pointContains( sphereView, origin ) )
-  return true;
-
-  let distance = _.ray.pointDistance( srcRayView, center );
-
-  if( distance <= radius)
-  return true;
-
-  return false;
-
-}
-
-//
-
-/**
-  * Get the distance between a ray and a sphere. Returns the calculated distance.
-  * The sphere and the ray remain unchanged.
-  *
-  * @param { Array } srcRay - Source ray.
-  * @param { Array } srcSphere - Source sphere.
-  *
-  * @example
-  * // returns 0;
-  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
-  *
-  * @example
-  * // returns Math.sqrt( 27 ) -1;
-  * _.sphereDistance( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
-  *
-  * @returns { Boolean } Returns the distance between the ray and the sphere.
-  * @function sphereDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @throws { Error } An Error if ( srcSphere ) is not sphere.
-  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
-  * @memberof wTools.ray
-  */
-function sphereDistance( srcRay, srcSphere )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.sphere.is( srcSphere ) );
-
-  if( srcRay === null )
-  srcRay = _.ray.make( srcSphere.length - 1 );
-
-  let srcRayView = _.ray._from( srcRay );
-  let origin = _.ray.originGet( srcRayView );
-  let direction = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView )
-
-  let sphereView = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dimSphere = _.sphere.dimGet( sphereView );
-
-  _.assert( dimRay === dimSphere );
-
-  if( _.ray.sphereIntersects( srcRayView, sphereView ) )
-  return 0;
-
-  return _.ray.pointDistance( srcRayView, center ) - radius;
-}
-
-//
-
-/**
-  * Get the closest point in a ray to a sphere. Returns the calculated point.
-  * The sphere and the ray remain unchanged.
-  *
-  * @param { Array } srcRay - Source ray.
-  * @param { Array } srcSphere - Source sphere.
-  * @param { Array } dstPoint - Destination point.
-  *
-  * @example
-  * // returns 0;
-  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
-  *
-  * @example
-  * // returns [ 0, 0, 0 ];
-  * _.sphereClosestPoint( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
-  *
-  * @returns { Boolean } Returns the closest point in a ray to a sphere.
-  * @function sphereClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @throws { Error } An Error if ( srcSphere ) is not sphere.
-  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
-  * @memberof wTools.ray
-  */
-function sphereClosestPoint( srcRay, srcSphere, dstPoint )
-{
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
-  _.assert( _.sphere.is( srcSphere ) );
-
-  if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( srcSphere.length - 1 );
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Not a valid destination point' );
-
-  if( srcRay === null )
-  srcRay = _.ray.make( srcSphere.length - 1 );
-
-  let srcRayView = _.ray._from( srcRay );
-  let origin = _.ray.originGet( srcRayView );
-  let direction = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView )
-
-  let sphereView = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dimSphere = _.sphere.dimGet( sphereView );
-
-  let dstPointView = _.vector.from( dstPoint );
-
-  _.assert( dimRay === dimSphere );
-
-  if( _.ray.sphereIntersects( srcRayView, sphereView ) )
-  return 0;
-
-  let pointVector = _.vector.from( _.ray.pointClosestPoint( srcRayView, center ) );
-
-  for( let i = 0; i < pointVector.length; i++ )
-  {
-    dstPointView.eSet( i, pointVector.eGet( i ) );
-  }
-
-  return dstPoint;
-}
-
-//
-
-/**
-  * Check if a ray and a plane intersect. Returns true if they intersect and false if not.
-  * The plane and the ray remain unchanged.
-  *
-  * @param { Array } srcRay - Source ray.
-  * @param { Array } srcPlane - Source plane.
-  *
-  * @example
-  * // returns true;
-  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @example
-  * // returns false;
-  * _.planeIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @returns { Boolean } Returns true if the ray and the plane intersect.
-  * @function planeIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
-  * @memberof wTools.ray
-  */
-function planeIntersects( srcRay, srcPlane )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  if( srcRay === null )
-  srcRay = _.ray.make( srcPlane.length - 1 );
-
-  let srcRayView = _.ray._from( srcRay );
-  let origin = _.ray.originGet( srcRayView );
-  let direction = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView )
-
-  let planeView = _.plane._from( srcPlane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let dimPlane = _.plane.dimGet( planeView );
-
-  _.assert( dimRay === dimPlane );
-
-  if( _.plane.pointContains( planeView, origin ) )
-  return true;
-
-  let dirDotNormal = _.vector.dot( direction, normal );
-
-  if( dirDotNormal !== 0 )
-  {
-    let originDotNormal = _.vector.dot( origin, normal );
-    let factor = - ( originDotNormal + bias ) / dirDotNormal;
-
-    if( factor >= 0 )
-    {
-      return true;
-    }
-
-  }
-
-  return false;
-}
-
-//
-
-/**
-  * Get the distance between a ray and a plane. Returns the calculated distance.
-  * The plane and the ray remain unchanged.
-  *
-  * @param { Array } srcRay - Source ray.
-  * @param { Array } srcPlane - Source plane.
-  *
-  * @example
-  * // returns 0;
-  * _.planeDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @example
-  * // returns 1;
-  * _.planeDistance( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @returns { Number } Returns the distance between the ray and the plane.
-  * @function planeDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
-  * @memberof wTools.ray
-  */
-function planeDistance( srcRay, srcPlane )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  if( srcRay === null )
-  srcRay = _.ray.make( srcPlane.length - 1 );
-
-  let srcRayView = _.ray._from( srcRay );
-  let origin = _.ray.originGet( srcRayView );
-  let direction = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView )
-
-  let planeView = _.plane._from( srcPlane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let dimPlane = _.plane.dimGet( planeView );
-
-  _.assert( dimRay === dimPlane );
-
-  if( _.ray.planeIntersects( srcRayView, planeView ) )
-  return 0;
-
-  return Math.abs( _.plane.pointDistance( planeView, origin ) );
-}
-
-//
-
-/**
-  * Get the closest point between a ray and a plane. Returns the calculated point.
-  * The plane and the ray remain unchanged.
-  *
-  * @param { Array } srcRay - Source ray.
-  * @param { Array } srcPlane - Source plane.
-  * @param { Array } dstPoint - Destination point.
-  *
-  * @example
-  * // returns 0;
-  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @example
-  * // returns [ 0, -1, 0 ];
-  * _.planeClosestPoint( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @returns { Array } Returns the closest point in the ray to the plane.
-  * @function planeClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
-  * @memberof wTools.ray
-  */
-function planeClosestPoint( srcRay, srcPlane, dstPoint )
-{
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
-
-  if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Not a valid destination point' );
-
-  if( srcRay === null )
-  srcRay = _.ray.make( srcPlane.length - 1 );
-
-  let srcRayView = _.ray._from( srcRay );
-  let origin = _.ray.originGet( srcRayView );
-  let direction = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView )
-
-  let planeView = _.plane._from( srcPlane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let dimPlane = _.plane.dimGet( planeView );
-
-  let dstPointView = _.vector.from( dstPoint );
-
-  _.assert( dimRay === dimPlane );
-
-  if( _.ray.planeIntersects( srcRayView, planeView ) )
-  return 0;
-
-  origin = _.vector.from( origin );
-  for( let i = 0; i < origin.length; i++ )
-  {
-    dstPointView.eSet( i, origin.eGet( i ) );
-  }
-
-
-  return dstPoint;
-}
-
-//
-
-/**
   * Check if a ray and a frustum intersect. Returns true if they intersect and false if not.
   * The frustum and the ray remain unchanged.
   *
@@ -2231,6 +1647,414 @@ function lineClosestPoint( srcRay, tstLine, dstPoint )
 
 //
 
+/**
+  * Check if a ray and a plane intersect. Returns true if they intersect and false if not.
+  * The plane and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcPlane - Source plane.
+  *
+  * @example
+  * // returns true;
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.planeIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Boolean } Returns true if the ray and the plane intersect.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function planeIntersects( srcRay, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcPlane.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  _.assert( dimRay === dimPlane );
+
+  if( _.plane.pointContains( planeView, origin ) )
+  return true;
+
+  let dirDotNormal = _.vector.dot( direction, normal );
+
+  if( dirDotNormal !== 0 )
+  {
+    let originDotNormal = _.vector.dot( origin, normal );
+    let factor = - ( originDotNormal + bias ) / dirDotNormal;
+
+    if( factor >= 0 )
+    {
+      return true;
+    }
+
+  }
+
+  return false;
+}
+
+//
+
+/**
+  * Get the distance between a ray and a plane. Returns the calculated distance.
+  * The plane and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcPlane - Source plane.
+  *
+  * @example
+  * // returns 0;
+  * _.planeDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns 1;
+  * _.planeDistance( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Number } Returns the distance between the ray and the plane.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function planeDistance( srcRay, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcPlane.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  _.assert( dimRay === dimPlane );
+
+  if( _.ray.planeIntersects( srcRayView, planeView ) )
+  return 0;
+
+  return Math.abs( _.plane.pointDistance( planeView, origin ) );
+}
+
+//
+
+/**
+  * Get the closest point between a ray and a plane. Returns the calculated point.
+  * The plane and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns [ 0, -1, 0 ];
+  * _.planeClosestPoint( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Array } Returns the closest point in the ray to the plane.
+  * @function planeClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function planeClosestPoint( srcRay, srcPlane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcPlane.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimRay === dimPlane );
+
+  if( _.ray.planeIntersects( srcRayView, planeView ) )
+  return 0;
+
+  origin = _.vector.from( origin );
+  for( let i = 0; i < origin.length; i++ )
+  {
+    dstPointView.eSet( i, origin.eGet( i ) );
+  }
+
+
+  return dstPoint;
+}
+
+//
+
+/**
+  * Check if two rays intersect. Returns true if they intersect, false if not.
+  * Rays stay untouched.
+  *
+  * @param { Vector } src1Ray - The first source ray.
+  * @param { Vector } src2Ray - The second source ray.
+  *
+  * @example
+  * // returns   true
+  * _.rayIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  false
+  * _.rayIntersects( [ -3, 0, 1, 0 ], [ 0, -2, 1, 0 ] );
+  *
+  * @returns { Boolean } Returns true if the two rays intersect.
+  * @function rayIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Ray ) is not ray.
+  * @throws { Error } An Error if ( src2Ray ) is not ray.
+  * @memberof wTools.ray
+  */
+function rayIntersects( srcRay1, srcRay2 )
+{
+
+  if( _.ray.rayIntersectionFactors( srcRay1, srcRay2 ) === 0 )
+  return false
+
+  return true;
+}
+
+//
+
+/**
+  * Get the distance between two rays. Returns the calculated distance.
+  * The rays remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } tstRay - Test ray.
+  *
+  * @example
+  * // returns 0;
+  * _.rayDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 12 );
+  * _.rayDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between two rays.
+  * @function rayDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( tstRay ) is not ray.
+  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the rays don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function rayDistance( srcRay, tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( tstRay.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let srcOrigin = _.ray.originGet( srcRayView );
+  let srcDirection = _.ray.directionGet( srcRayView );
+  let srcDim  = _.ray.dimGet( srcRayView )
+
+  let tstRayView = _.ray._from( tstRay );
+  let tstOrigin = _.ray.originGet( tstRayView );
+  let tstDirection = _.ray.directionGet( tstRayView );
+  let tstDim  = _.ray.dimGet( tstRayView )
+
+  _.assert( srcDim === tstDim );
+
+  let distance;
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
+  {
+    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
+  }
+  if( identOrigin === srcOrigin.length )
+  distance = 0;
+  else
+  {
+    // Parallel rays
+    if( _.ray.rayParallel( srcRayView, tstRayView ) )
+    {
+      let d1 = _.ray.pointDistance( srcRayView, tstOrigin );
+      let d2 = _.ray.pointDistance( tstRayView, srcOrigin );
+      let d3 = _.avector.distance( srcOrigin, tstOrigin );
+
+      if( d1 <= d2 && d1 <= d3 )
+      {
+        distance = d1;
+      }
+      else if( d2 <= d3 )
+      {
+        distance = d2;
+      }
+      else
+      {
+        distance = d3;
+      }
+    }
+    else
+    {
+      let srcPoint = _.ray.rayClosestPoint( srcRayView, tstRayView );
+      let tstPoint = _.ray.rayClosestPoint( tstRayView, srcRayView );
+      distance = _.avector.distance( srcPoint, tstPoint );
+    }
+  }
+
+  return distance;
+}
+
+//
+
+/**
+  * Get the closest point in a ray to a ray. Returns the calculated point.
+  * The rays remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } tstRay - Test ray.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, - 1, 0 ];
+  * _.rayClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Array } Returns the closest point in the srcRay to the tstRay.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( tstRay ) is not ray.
+  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the rays don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function rayClosestPoint( srcRay, tstRay, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( tstRay.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( tstRay.length / 2 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let srcOrigin = _.ray.originGet( srcRayView );
+  let srcDir = _.ray.directionGet( srcRayView );
+  let srcDim  = _.ray.dimGet( srcRayView );
+
+  let tstRayView = _.ray._from( tstRay );
+  let tstOrigin = _.ray.originGet( tstRayView );
+  let tstDir = _.ray.directionGet( tstRayView );
+  let tstDim = _.ray.dimGet( tstRayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( srcDim === tstDim );
+
+  let pointView;
+
+  if( _.ray.rayIntersects( srcRayView, tstRayView ) )
+  {
+    pointView = _.ray.rayIntersectionPoint( srcRayView, tstRayView );
+  }
+  else
+  {
+    // Parallel rays
+    if( _.ray.rayParallel( srcRayView, tstRayView ) )
+    {
+      pointView = _.ray.pointClosestPoint( srcRayView, tstOrigin );
+    }
+    else
+    {
+      let factors = _.line.lineIntersectionFactors( srcRayView, tstRayView );
+
+      if( factors === 0 )
+      {
+        let srcMod = _.vector.dot( srcDir, srcDir );
+        let tstMod = _.vector.dot( tstDir, tstDir );
+        let mod = _.vector.dot( srcDir, tstDir );
+        let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+        let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+
+        if( factor >= 0 )
+        {
+          pointView = _.ray.rayAt( srcRayView, factor );
+        }
+        else
+        {
+          pointView = srcOrigin;
+        }
+      }
+      else if( factors.eGet( 1 ) < 0 )
+      {
+        // pointView = _.ray.rayAt( srcRayView, factor );
+
+        pointView = _.ray.pointClosestPoint( srcRayView, tstOrigin );
+      }
+      else if( factors.eGet( 0 ) < 0 )
+      {
+        //pointView = _.ray.pointClosestPoint( srcRayView, tstOrigin );
+        pointView = srcOrigin;
+      }
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
 function segmentIntersects( srcRay , tstSegment )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -2353,9 +2177,180 @@ function segmentClosestPoint( srcRay, tstSegment, dstPoint )
   return dstPoint;
 }
 
+//
 
+/**
+  * Check if a ray and a sphere intersect. Returns true if they intersect and false if not.
+  * The sphere and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcSphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the ray and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function sphereIntersects( srcRay, srcSphere )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
 
+  if( srcRay === null )
+  srcRay = _.ray.make( srcSphere.length - 1 );
 
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  _.assert( dimRay === dimSphere );
+
+  if( _.sphere.pointContains( sphereView, origin ) )
+  return true;
+
+  let distance = _.ray.pointDistance( srcRayView, center );
+
+  if( distance <= radius)
+  return true;
+
+  return false;
+
+}
+
+//
+
+/**
+  * Get the distance between a ray and a sphere. Returns the calculated distance.
+  * The sphere and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcSphere - Source sphere.
+  *
+  * @example
+  * // returns 0;
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 27 ) -1;
+  * _.sphereDistance( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns the distance between the ray and the sphere.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function sphereDistance( srcRay, srcSphere )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcSphere.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  _.assert( dimRay === dimSphere );
+
+  if( _.ray.sphereIntersects( srcRayView, sphereView ) )
+  return 0;
+
+  return _.ray.pointDistance( srcRayView, center ) - radius;
+}
+
+//
+
+/**
+  * Get the closest point in a ray to a sphere. Returns the calculated point.
+  * The sphere and the ray remain unchanged.
+  *
+  * @param { Array } srcRay - Source ray.
+  * @param { Array } srcSphere - Source sphere.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.sphereClosestPoint( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns the closest point in a ray to a sphere.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
+  * @memberof wTools.ray
+  */
+function sphereClosestPoint( srcRay, srcSphere, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcSphere.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcRay === null )
+  srcRay = _.ray.make( srcSphere.length - 1 );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimRay === dimSphere );
+
+  if( _.ray.sphereIntersects( srcRayView, sphereView ) )
+  return 0;
+
+  let pointVector = _.vector.from( _.ray.pointClosestPoint( srcRayView, center ) );
+
+  for( let i = 0; i < pointVector.length; i++ )
+  {
+    dstPointView.eSet( i, pointVector.eGet( i ) );
+  }
+
+  return dstPoint;
+}
 
 
 // --
@@ -2391,9 +2386,6 @@ let Proto =
   rayIntersectionPoint : rayIntersectionPoint,
   rayIntersectionPointAccurate : rayIntersectionPointAccurate,
 
-  rayIntersects : rayIntersects,
-  rayDistance : rayDistance,
-  rayClosestPoint : rayClosestPoint,
 
   pointContains : pointContains,
   pointDistance : pointDistance,
@@ -2403,14 +2395,6 @@ let Proto =
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
 
-  sphereIntersects : sphereIntersects,
-  sphereDistance : sphereDistance,
-  sphereClosestPoint : sphereClosestPoint,
-
-  planeIntersects : planeIntersects,
-  planeDistance : planeDistance,
-  planeClosestPoint : planeClosestPoint,
-
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
   frustumClosestPoint : frustumClosestPoint,
@@ -2419,9 +2403,21 @@ let Proto =
   lineDistance : lineDistance,  /* Same as _.line.rayDistance */
   lineClosestPoint : lineClosestPoint,
 
+  planeIntersects : planeIntersects,
+  planeDistance : planeDistance,
+  planeClosestPoint : planeClosestPoint,
+
+  rayIntersects : rayIntersects,
+  rayDistance : rayDistance,
+  rayClosestPoint : rayClosestPoint,
+
   segmentIntersects : segmentIntersects,  /* Same as _.segment.rayIntersects */
   segmentDistance : segmentDistance,  /* Same as _.segment.rayDistance */
   segmentClosestPoint : segmentClosestPoint,
+
+  sphereIntersects : sphereIntersects,
+  sphereDistance : sphereDistance,
+  sphereClosestPoint : sphereClosestPoint,
 }
 
 _.mapSupplement( Self, Proto );

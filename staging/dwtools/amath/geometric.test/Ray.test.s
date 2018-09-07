@@ -1893,476 +1893,6 @@ function rayIntersectionPointAccurate( test )
 
 //
 
-function rayIntersects( test )
-{
-  test.case = 'Source rays remain unchanged'; /* */
-
-  var src1Ray = [ 0, 0, 1, 1 ];
-  var src2Ray = [ 0, 0, 2, 2 ];
-  var expected = true;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  var oldSrc1Ray = [ 0, 0, 1, 1 ];
-  test.equivalent( src1Ray, oldSrc1Ray );
-
-  var oldSrc2Ray = [ 0, 0, 2, 2 ];
-  test.equivalent( src2Ray, oldSrc2Ray );
-
-  test.case = 'Rays are the same'; /* */
-
-  var src1Ray = [ 0, 0, 1, 1 ];
-  var src2Ray = [ 0, 0, 1, 1 ];
-  var expected = true;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays are parallel ( different origin - same direction )'; /* */
-
-  var src1Ray = [ 0, 0, 1, 1 ];
-  var src2Ray = [ 3, 7, 1, 1 ];
-  var expected = false;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays are parallel ( different origin - different direction )'; /* */
-
-  var src1Ray = [ 0, 0, 1, 1 ];
-  var src2Ray = [ 3, 7, 7, 7 ];
-  var expected = false;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays are parallel and intersect'; /* */
-
-  var src1Ray = [ 0, 0, 1, 0 ];
-  var src2Ray = [ - 3, 0, 2, 0 ];
-  var expected = true;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays don´t intersect with negative factor'; /* */
-
-  var src1Ray = [ 0, 0, 1, 1 ];
-  var src2Ray = [ 3, 0, 2, -1 ];
-  var expected = false;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays intersect in their origin'; /* */
-
-  var src1Ray = [ 3, 7, 1, 0 ];
-  var src2Ray = [ 3, 7, 0, 1 ];
-  var expected = true;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays intersect '; /* */
-
-  var src1Ray = [ 0, 0, 1, 0 ];
-  var src2Ray = [ -2, -6, 1, 2 ];
-  var expected = true;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays are perpendicular '; /* */
-
-  var src1Ray = [ -3, 0, 1, 0 ];
-  var src2Ray = [ 0, -2, 0, 1 ];
-  var expected = true;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays don´t intersect 3D'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Ray = [ 3, 0, 1, 2, 2, -1 ];
-  var expected = false;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays intersect 3D'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Ray = [ 3, 7, 1, 3, 1, 4 ];
-  var expected = true;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays don´t intersect 4D'; /* */
-
-  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
-  var src2Ray = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
-  var expected = false;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  test.case = 'Rays intersect 4D'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
-  var src2Ray = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
-  var expected = true;
-
-  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
-  test.identical( isIntersection, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( 'ray', [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], 'ray') );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( null, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
-
-}
-
-//
-
-function rayDistance( test )
-{
-  test.case = 'Source rays remain unchanged'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Ray = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  var oldSrc1Ray = [ 0, 0, 0, 1, 1, 1 ];
-  test.equivalent( src1Ray, oldSrc1Ray );
-
-  var oldSrc2Ray = [ 0, 0, 0, 2, 2, 2 ];
-  test.equivalent( src2Ray, oldSrc2Ray );
-
-  test.case = 'Rays are the same'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays are parallel ( different origin - same direction )'; /* */
-
-  var src1Ray = [ 0, 0, 0, 0, 0, 1 ];
-  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = Math.sqrt( 58 );
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays are parallel ( different origin - different direction )'; /* */
-
-  var src1Ray = [ 0, 0, 0, 0, 0, 0.5 ];
-  var src2Ray = [ 3, 7, 1, 0, 0, 7 ];
-  var expected = Math.sqrt( 58 );
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays are parallel ( different origin - opposite direction )'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 0, 0 ];
-  var src2Ray = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = Math.sqrt( 50 );
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'src1Ray is a point'; /* */
-
-  var src1Ray = [ 3, 7, 1, 0, 0, 0 ];
-  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = 4.320493798938574;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays are the same'; /* */
-
-  var src1Ray = [ 0, 4, 2, 1, 1, 1 ];
-  var src2Ray = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays intersect 4D'; /* */
-
-  var src1Ray = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
-  var src2Ray = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays don´t intersect 2D'; /* */
-
-  var src1Ray = [ 0, 0, 2, 0 ];
-  var src2Ray = [ - 3, - 4, 0, 1 ];
-  var expected = 3;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays are perpendicular and intersect'; /* */
-
-  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
-  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays are perpendicular and don´t intersect'; /* */
-
-  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
-  var src2Ray = [ 3, -2, 1, 0, 0, 1 ];
-  var expected = 9;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays are parallel to x'; /* */
-
-  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
-  var src2Ray = [ 3, 7, 2, 1, 0, 0 ];
-  var expected = 1;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Rays are parallel but in a opposite direction'; /* */
-
-  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
-  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = 1;
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  test.case = 'srcRay is null'; /* */
-
-  var src1Ray = null;
-  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = Math.sqrt( 53 );
-
-  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
-  test.identical( gotDistance, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( ) );
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 0, 0 ], 'ray') );
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
-
-}
-
-//
-
-function rayClosestPoint( test )
-{
-  test.case = 'Source rays remain unchanged'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Ray = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  var oldSrc1Ray = [ 0, 0, 0, 1, 1, 1 ];
-  test.equivalent( src1Ray, oldSrc1Ray );
-
-  var oldSrc2Ray = [ 0, 0, 0, 2, 2, 2 ];
-  test.equivalent( src2Ray, oldSrc2Ray );
-
-  test.case = 'Rays are the same'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays are parallel ( different origin - same direction )'; /* */
-
-  var src1Ray = [ 0, 0, 0, 0, 0, 1 ];
-  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 1 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays are parallel ( different origin - different direction )'; /* */
-
-  var src1Ray = [ 3, 7, 1, 0, 0, 7 ];
-  var src2Ray = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays are parallel ( different origin - opposite direction )'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 0, 0 ];
-  var src2Ray = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = [ 3, 0, 0 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'src1Ray is a point - in srcRay1'; /* */
-
-  var src1Ray = [ 3, 7, 1, 0, 0, 0 ];
-  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'src1Ray is a point - in srcRay2'; /* */
-
-  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
-  var src2Ray = [ 3, 7, 1, 0, 0, 0 ];
-  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.equivalent( gotClosestPoint, expected );
-
-  test.case = 'Rays are the same'; /* */
-
-  var src1Ray = [ 0, 4, 2, 1, 1, 1 ];
-  var src2Ray = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays intersect 4D'; /* */
-
-  var src1Ray = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
-  var src2Ray = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays intersect 2D'; /* */
-
-  var src1Ray = [ 0, 0, 2, 0 ];
-  var src2Ray = [ - 3, - 4, 0, 1 ];
-  var expected = [ 0, 0 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays don´t intersect 2D'; /* */
-
-  var src1Segment = [ 0, 0, 2, 1 ];
-  var src2Segment = [ 1, 0, - 1, - 2 ];
-  var expected = [ 0.8, 0.4 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays are perpendicular and intersect'; /* */
-
-  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
-  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays are perpendicular and don´t intersect'; /* */
-
-  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
-  var src2Ray = [ 3, -2, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays are parallel to x'; /* */
-
-  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
-  var src2Ray = [ 3, 7, 2, 1, 0, 0 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Rays are parallel but in a opposite direction'; /* */
-
-  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
-  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 3, 7, 1 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'srcRay is null'; /* */
-
-  var src1Ray = null;
-  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
-  test.identical( gotClosestPoint, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 0, 0 ], 'ray') );
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
-
-}
-
-//
-
 function pointContains( test )
 {
 
@@ -3223,814 +2753,6 @@ function boxClosestPoint( test )
 
 //
 
-function sphereIntersects( test )
-{
-
-  test.case = 'Ray and sphere remain unchanged'; /* */
-
-  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.identical( gotBool, expected );
-
-  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( ray, oldRay );
-
-  var oldSphere = [ 0, 0, 0, 1 ];
-  test.identical( sphere, oldSphere );
-
-  test.case = 'Null ray - empty sphere'; /* */
-
-  var ray = null;
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point ray center of sphere'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 0 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point ray - no intersection'; /* */
-
-  var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var sphere = [ 4, 3, 4, 1 ];
-  var expected = false;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point ray in sphere'; /* */
-
-  var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var sphere = [ 2, 2, 2, 2 ];
-  var expected = true;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Ray and sphere intersect'; /* */
-
-  var ray = [ -2, -2, -2, 2, 2, 2 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Ray over sphere'; /* */
-
-  var ray = [ 0, -6, 4, 0, 1, 0 ];
-  var sphere = [ 0, 0, 0, 3 ];
-  var expected = false;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'sphere closer to origin'; /* */
-
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var sphere = [ - 2, - 2, - 2, 0.5 ];
-  var expected = false;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
-
-  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var sphere = [ 0, 2, 0, 2 ];
-  var expected = true;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
-
-  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var sphere = [ 3, 3, 3, 1 ];
-  var expected = false;
-
-  var gotBool = _.ray.sphereIntersects( ray, sphere );
-  test.equivalent( gotBool,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function sphereDistance( test )
-{
-
-  test.case = 'Ray and sphere remain unchanged'; /* */
-
-  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.identical( gotDistance, expected );
-
-  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( ray, oldRay );
-
-  var oldSphere = [ 0, 0, 0, 1 ];
-  test.identical( sphere, oldSphere );
-
-  test.case = 'Null ray - empty sphere'; /* */
-
-  var ray = null;
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point ray center of sphere'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 0 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point ray - no intersection'; /* */
-
-  var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var sphere = [ 4, 3, 4, 1 ];
-  var expected = Math.sqrt( 11 ) - 1;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point ray in sphere'; /* */
-
-  var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var sphere = [ 2, 2, 2, 2 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Ray and sphere intersect'; /* */
-
-  var ray = [ -2, -2, -2, 2, 2, 2 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Ray over sphere'; /* */
-
-  var ray = [ 0, -6, 4, 0, 1, 0 ];
-  var sphere = [ 0, 0, 0, 3 ];
-  var expected = 1;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'sphere closer to origin'; /* */
-
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var sphere = [ - 2, - 2, - 2, 0.5 ];
-  var expected = Math.sqrt( 12 ) - 0.5;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
-
-  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var sphere = [ 0, 2, 0, 2 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
-
-  var ray = [ 0, 0, 0, 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ) ];
-  var sphere = [ 3, 0, 0, 1 ];
-  var expected = Math.sqrt( 6 ) - 1;
-
-  var gotDistance = _.ray.sphereDistance( ray, sphere );
-  test.equivalent( gotDistance,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function sphereClosestPoint( test )
-{
-
-  test.case = 'Ray and sphere remain unchanged'; /* */
-
-  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.identical( gotClosestPoint, expected );
-
-  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( ray, oldRay );
-
-  var oldSphere = [ 0, 0, 0, 1 ];
-  test.identical( sphere, oldSphere );
-
-  test.case = 'Null ray - empty sphere'; /* */
-
-  var ray = null;
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'point ray center of sphere'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 0 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'point ray - no intersection'; /* */
-
-  var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var sphere = [ 4, 3, 4, 1 ];
-  var expected = [ 1, 2, 3 ];
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'point ray in sphere'; /* */
-
-  var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var sphere = [ 2, 2, 2, 2 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'Ray and sphere intersect'; /* */
-
-  var ray = [ -2, -2, -2, 2, 2, 2 ];
-  var sphere = [ 0, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'Ray over sphere'; /* */
-
-  var ray = [ 0, -6, 4, 0, 1, 0 ];
-  var sphere = [ 0, 0, 0, 3 ];
-  var expected = [ 0, 0, 4 ];
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'sphere closer to origin'; /* */
-
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var sphere = [ - 2, - 2, - 2, 0.5 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
-
-  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var sphere = [ 0, 2, 0, 2 ];
-  var expected = 0;
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
-
-  var ray = [ 0, 0, 0, 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ) ];
-  var sphere = [ 3, 0, 0, 1 ];
-  var expected = [ 1, 1, 1 ];
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
-  test.equivalent( gotClosestPoint,  expected );
-
-  test.case = 'dstPoint is vector'; /* */
-
-  var ray = [ 0, -6, 4, 0, 1, 0 ];
-  var sphere = [ 0, 5, 0, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 5, 4 ] );
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere, dstPoint );
-  test.identical( gotClosestPoint,  expected );
-
-  test.case = 'dstPoint is array'; /* */
-
-  var ray = [ 0, -6, 4, 0, 1, 0 ];
-  var sphere = [ 1, 5, 0, 3 ];
-  var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, 5, 4 ];
-
-  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere, dstPoint );
-  test.identical( gotClosestPoint,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function planeIntersects( test )
-{
-
-  test.case = 'Ray and plane remain unchanged'; /* */
-
-  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool, expected );
-
-  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( ray, oldRay );
-
-  var oldPlane = [ 1, 0, 0, 1 ];
-  test.identical( plane, oldPlane );
-
-  test.case = 'Null ray - empty plane'; /* */
-
-  var ray = null;
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = false;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point ray - no intersection'; /* */
-
-  var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = false;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'point ray in plane'; /* */
-
-  var ray = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Ray and plane intersect'; /* */
-
-  var ray = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = true;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Ray over plane'; /* */
-
-  var ray = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
-  var expected = false;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'plane closer to origin'; /* */
-
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
-  var expected = false;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
-
-  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
-  var expected = true;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
-
-  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
-  var expected = false;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.equivalent( gotBool,  expected );
-
-  test.case = 'plane parallel to ray'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
-  var expected = false;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'plane parallel contains ray'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
-  var expected = true;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  test.case = 'plane perpendicular to ray'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
-  var expected = true;
-
-  var gotBool = _.ray.planeIntersects( ray, plane );
-  test.identical( gotBool,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( ) );
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function planeDistance( test )
-{
-
-  test.case = 'Ray and plane remain unchanged'; /* */
-
-  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance, expected );
-
-  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( ray, oldRay );
-
-  var oldPlane = [ 1, 0, 0, 1 ];
-  test.identical( plane, oldPlane );
-
-  test.case = 'Null ray - empty plane'; /* */
-
-  var ray = null;
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 1;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point ray - no intersection'; /* */
-
-  var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 2;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'point ray in plane'; /* */
-
-  var ray = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Ray and plane intersect'; /* */
-
-  var ray = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Ray over plane'; /* */
-
-  var ray = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
-  var expected = 3;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'plane closer to origin'; /* */
-
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
-  var expected = 0.5;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
-
-  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
-
-  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
-  var expected = 1/3;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.equivalent( gotDistance,  expected );
-
-  test.case = 'plane parallel to ray'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
-  var expected = 0.5;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'plane parallel contains ray'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  test.case = 'plane perpendicular to ray'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
-  var expected = 0;
-
-  var gotDistance = _.ray.planeDistance( ray, plane );
-  test.identical( gotDistance,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( ) );
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
-function planeClosestPoint( test )
-{
-
-  test.case = 'Ray and plane remain unchanged'; /* */
-
-  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint, expected );
-
-  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
-  test.identical( ray, oldRay );
-
-  var oldPlane = [ 1, 0, 0, 1 ];
-  test.identical( plane, oldPlane );
-
-  test.case = 'Null ray - empty plane'; /* */
-
-  var ray = null;
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'point ray - no intersection'; /* */
-
-  var ray = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = [ 1, 2, 3 ];
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'point ray in plane'; /* */
-
-  var ray = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'Ray and plane intersect'; /* */
-
-  var ray = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'Ray over plane'; /* */
-
-  var ray = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
-  var expected = [ 0, -6, 4 ];
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'plane closer to origin'; /* */
-
-  var ray = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
-
-  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
-  var expected = 0;
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
-
-  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.equivalent( gotPoint,  expected );
-
-  test.case = 'plane parallel to ray'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
-  var expected = [ 0, 0, 0 ];
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'plane parallel contains ray'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
-  var expected = 0;
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'plane perpendicular to ray'; /* */
-
-  var ray = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
-  var expected = 0;
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'dstPoint is array'; /* */
-
-  var ray = [ 0, -6, 24, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
-  var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, -6, 24 ];
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane, dstPoint );
-  test.identical( gotPoint,  expected );
-
-  test.case = 'dstPoint is vector'; /* */
-
-  var ray = [ 0, -6, 24, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, -6, 24 ] );
-
-  var gotPoint = _.ray.planeClosestPoint( ray, plane, dstPoint );
-  test.identical( gotPoint,  expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
-  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
-
-}
-
-//
-
 function frustumIntersects( test )
 {
 
@@ -4831,6 +3553,907 @@ function lineClosestPoint( test )
 
 //
 
+function planeIntersects( test )
+{
+
+  test.case = 'Ray and plane remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool, expected );
+
+  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null ray - empty plane'; /* */
+
+  var ray = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point ray - no intersection'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point ray in plane'; /* */
+
+  var ray = [ - 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray and plane intersect'; /* */
+
+  var ray = [ -2, -2, -2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray over plane'; /* */
+
+  var ray = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var plane = [ 0, 2, 0, - 2 ];
+  var expected = true;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
+
+  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var plane = [ 3, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.equivalent( gotBool,  expected );
+
+  test.case = 'plane parallel to ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane parallel contains ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane perpendicular to ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = true;
+
+  var gotBool = _.ray.planeIntersects( ray, plane );
+  test.identical( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( ) );
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function planeDistance( test )
+{
+
+  test.case = 'Ray and plane remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance, expected );
+
+  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null ray - empty plane'; /* */
+
+  var ray = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 1;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point ray - no intersection'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 2;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point ray in plane'; /* */
+
+  var ray = [ - 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray and plane intersect'; /* */
+
+  var ray = [ -2, -2, -2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray over plane'; /* */
+
+  var ray = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = 3;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = 0.5;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var plane = [ 0, 2, 0, - 2 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
+
+  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var plane = [ 3, 0, 0, 1 ];
+  var expected = 1/3;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.equivalent( gotDistance,  expected );
+
+  test.case = 'plane parallel to ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = 0.5;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane parallel contains ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane perpendicular to ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.planeDistance( ray, plane );
+  test.identical( gotDistance,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( ) );
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.planeDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function planeClosestPoint( test )
+{
+
+  test.case = 'Ray and plane remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint, expected );
+
+  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null ray - empty plane'; /* */
+
+  var ray = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point ray - no intersection'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point ray in plane'; /* */
+
+  var ray = [ - 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Ray and plane intersect'; /* */
+
+  var ray = [ -2, -2, -2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Ray over plane'; /* */
+
+  var ray = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = [ 0, -6, 4 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var plane = [ 0, 2, 0, - 2 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
+
+  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var plane = [ 3, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'plane parallel to ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane parallel contains ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane perpendicular to ray'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'dstPoint is array'; /* */
+
+  var ray = [ 0, -6, 24, 1, 1, 1 ];
+  var plane = [ 1, 0, 1, 3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 0, -6, 24 ];
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane, dstPoint );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var ray = [ 0, -6, 24, 1, 1, 1 ];
+  var plane = [ 1, 0, 1, 3 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, -6, 24 ] );
+
+  var gotPoint = _.ray.planeClosestPoint( ray, plane, dstPoint );
+  test.identical( gotPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function rayIntersects( test )
+{
+  test.case = 'Source rays remain unchanged'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  var oldSrc1Ray = [ 0, 0, 1, 1 ];
+  test.equivalent( src1Ray, oldSrc1Ray );
+
+  var oldSrc2Ray = [ 0, 0, 2, 2 ];
+  test.equivalent( src2Ray, oldSrc2Ray );
+
+  test.case = 'Rays are the same'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays are parallel ( different origin - same direction )'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 1 ];
+  var expected = false;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays are parallel ( different origin - different direction )'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 3, 7, 7, 7 ];
+  var expected = false;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays are parallel and intersect'; /* */
+
+  var src1Ray = [ 0, 0, 1, 0 ];
+  var src2Ray = [ - 3, 0, 2, 0 ];
+  var expected = true;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays don´t intersect with negative factor'; /* */
+
+  var src1Ray = [ 0, 0, 1, 1 ];
+  var src2Ray = [ 3, 0, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays intersect in their origin'; /* */
+
+  var src1Ray = [ 3, 7, 1, 0 ];
+  var src2Ray = [ 3, 7, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays intersect '; /* */
+
+  var src1Ray = [ 0, 0, 1, 0 ];
+  var src2Ray = [ -2, -6, 1, 2 ];
+  var expected = true;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays are perpendicular '; /* */
+
+  var src1Ray = [ -3, 0, 1, 0 ];
+  var src2Ray = [ 0, -2, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays don´t intersect 3D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays intersect 3D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 3, 1, 4 ];
+  var expected = true;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays don´t intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Rays intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
+  var expected = true;
+
+  var isIntersection = _.ray.rayIntersects( src1Ray, src2Ray );
+  test.identical( isIntersection, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( 'ray', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( null, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayIntersects( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function rayDistance( test )
+{
+  test.case = 'Source rays remain unchanged'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  var oldSrc1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Ray, oldSrc1Ray );
+
+  var oldSrc2Ray = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Ray, oldSrc2Ray );
+
+  test.case = 'Rays are the same'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel ( different origin - same direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel ( different origin - different direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 0, 0.5 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 7 ];
+  var expected = Math.sqrt( 58 );
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel ( different origin - opposite direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = Math.sqrt( 50 );
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'src1Ray is a point'; /* */
+
+  var src1Ray = [ 3, 7, 1, 0, 0, 0 ];
+  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 4.320493798938574;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are the same'; /* */
+
+  var src1Ray = [ 0, 4, 2, 1, 1, 1 ];
+  var src2Ray = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var src2Ray = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays don´t intersect 2D'; /* */
+
+  var src1Ray = [ 0, 0, 2, 0 ];
+  var src2Ray = [ - 3, - 4, 0, 1 ];
+  var expected = 3;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are perpendicular and intersect'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are perpendicular and don´t intersect'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, -2, 1, 0, 0, 1 ];
+  var expected = 9;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel to x'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Rays are parallel but in a opposite direction'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcRay is null'; /* */
+
+  var src1Ray = null;
+  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = Math.sqrt( 53 );
+
+  var gotDistance = _.ray.rayDistance( src1Ray, src2Ray );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 0, 0 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function rayClosestPoint( test )
+{
+  test.case = 'Source rays remain unchanged'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrc1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( src1Ray, oldSrc1Ray );
+
+  var oldSrc2Ray = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( src2Ray, oldSrc2Ray );
+
+  test.case = 'Rays are the same'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays are parallel ( different origin - same direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 0, 0, 1 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays are parallel ( different origin - different direction )'; /* */
+
+  var src1Ray = [ 3, 7, 1, 0, 0, 7 ];
+  var src2Ray = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays are parallel ( different origin - opposite direction )'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = [ 3, 0, 0 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'src1Ray is a point - in srcRay1'; /* */
+
+  var src1Ray = [ 3, 7, 1, 0, 0, 0 ];
+  var src2Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'src1Ray is a point - in srcRay2'; /* */
+
+  var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Rays are the same'; /* */
+
+  var src1Ray = [ 0, 4, 2, 1, 1, 1 ];
+  var src2Ray = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays intersect 4D'; /* */
+
+  var src1Ray = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var src2Ray = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays intersect 2D'; /* */
+
+  var src1Ray = [ 0, 0, 2, 0 ];
+  var src2Ray = [ - 3, - 4, 0, 1 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays don´t intersect 2D'; /* */
+
+  var src1Segment = [ 0, 0, 2, 1 ];
+  var src2Segment = [ 1, 0, - 1, - 2 ];
+  var expected = [ 0.8, 0.4 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays are perpendicular and intersect'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays are perpendicular and don´t intersect'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, -2, 1, 0, 0, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays are parallel to x'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Rays are parallel but in a opposite direction'; /* */
+
+  var src1Ray = [ 3, 7, 1, 1, 0, 0 ];
+  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcRay is null'; /* */
+
+  var src1Ray = null;
+  var src2Ray = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.rayClosestPoint( src1Ray, src2Ray );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 0, 0 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
 function segmentClosestPoint( test )
 {
   test.case = 'Source segment and ray remain unchanged'; /* */
@@ -5000,6 +4623,384 @@ function segmentClosestPoint( test )
 
 }
 
+//
+
+function sphereIntersects( test )
+{
+
+  test.case = 'Ray and sphere remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool, expected );
+
+  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null ray - empty sphere'; /* */
+
+  var ray = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point ray center of sphere'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point ray - no intersection'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point ray in sphere'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray and sphere intersect'; /* */
+
+  var ray = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray over sphere'; /* */
+
+  var ray = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
+
+  var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var sphere = [ 3, 3, 3, 1 ];
+  var expected = false;
+
+  var gotBool = _.ray.sphereIntersects( ray, sphere );
+  test.equivalent( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function sphereDistance( test )
+{
+
+  test.case = 'Ray and sphere remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.identical( gotDistance, expected );
+
+  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null ray - empty sphere'; /* */
+
+  var ray = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point ray center of sphere'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point ray - no intersection'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = Math.sqrt( 11 ) - 1;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point ray in sphere'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray and sphere intersect'; /* */
+
+  var ray = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray over sphere'; /* */
+
+  var ray = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = 1;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = Math.sqrt( 12 ) - 0.5;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ) ];
+  var sphere = [ 3, 0, 0, 1 ];
+  var expected = Math.sqrt( 6 ) - 1;
+
+  var gotDistance = _.ray.sphereDistance( ray, sphere );
+  test.equivalent( gotDistance,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+//
+
+function sphereClosestPoint( test )
+{
+
+  test.case = 'Ray and sphere remain unchanged'; /* */
+
+  var ray = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.identical( gotClosestPoint, expected );
+
+  var oldRay = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Null ray - empty sphere'; /* */
+
+  var ray = null;
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point ray center of sphere'; /* */
+
+  var ray = [ 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point ray - no intersection'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'point ray in sphere'; /* */
+
+  var ray = [ 1, 2, 3, 0, 0, 0 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray and sphere intersect'; /* */
+
+  var ray = [ -2, -2, -2, 2, 2, 2 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray over sphere'; /* */
+
+  var ray = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 0, 0, 0, 3 ];
+  var expected = [ 0, 0, 4 ];
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'sphere closer to origin'; /* */
+
+  var ray = [ 0, 0, 0, 2, 2, 2 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var sphere = [ 0, 2, 0, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Ray ( normalized to 1 ) no intersection'; /* */
+
+  var ray = [ 0, 0, 0, 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ) ];
+  var sphere = [ 3, 0, 0, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere );
+  test.equivalent( gotClosestPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var ray = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 0, 5, 0, 3 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 5, 4 ] );
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere, dstPoint );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'dstPoint is array'; /* */
+
+  var ray = [ 0, -6, 4, 0, 1, 0 ];
+  var sphere = [ 1, 5, 0, 3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 0, 5, 4 ];
+
+  var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere, dstPoint );
+  test.identical( gotClosestPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+
 
 
 
@@ -5043,10 +5044,6 @@ var Self =
     rayIntersectionPoint : rayIntersectionPoint,
     rayIntersectionPointAccurate : rayIntersectionPointAccurate,
 
-    rayIntersects : rayIntersects,
-    rayDistance : rayDistance,
-    rayClosestPoint : rayClosestPoint,
-
     pointContains : pointContains,
     pointDistance : pointDistance,
     pointClosestPoint : pointClosestPoint,
@@ -5055,21 +5052,25 @@ var Self =
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
 
-    sphereIntersects : sphereIntersects,
-    sphereDistance : sphereDistance,
-    sphereClosestPoint : sphereClosestPoint,
-
-    planeIntersects : planeIntersects,
-    planeDistance : planeDistance,
-    planeClosestPoint : planeClosestPoint,
-
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,
     frustumClosestPoint : frustumClosestPoint,
 
     lineClosestPoint : lineClosestPoint,
 
+    planeIntersects : planeIntersects,
+    planeDistance : planeDistance,
+    planeClosestPoint : planeClosestPoint,
+
+    rayIntersects : rayIntersects,
+    rayDistance : rayDistance,
+    rayClosestPoint : rayClosestPoint,
+
     segmentClosestPoint : segmentClosestPoint,
+
+    sphereIntersects : sphereIntersects,
+    sphereDistance : sphereDistance,
+    sphereClosestPoint : sphereClosestPoint,
   }
 
 }
