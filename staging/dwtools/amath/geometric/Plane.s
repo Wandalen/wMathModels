@@ -1038,7 +1038,7 @@ function rayClosestPoint( plane, ray, dstPoint )
   let direction = _.ray.directionGet( rayView );
   let dimRay  = _.ray.dimGet( rayView );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimP === dstPoint.length );
   _.assert( dimP === dimRay );
@@ -1053,7 +1053,7 @@ function rayClosestPoint( plane, ray, dstPoint )
 
     for( let i = 0; i < dimP; i++ )
     {
-      dstPointVector.eSet( i, planePoint.eGet( i ) );
+      dstPointView.eSet( i, planePoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -1270,7 +1270,7 @@ function lineClosestPoint( plane, line, dstPoint )
   let direction = _.line.directionGet( lineView );
   let dimLine  = _.line.dimGet( lineView );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimP === dstPoint.length );
   _.assert( dimP === dimLine );
@@ -1285,7 +1285,7 @@ function lineClosestPoint( plane, line, dstPoint )
 
     for( let i = 0; i < dimP; i++ )
     {
-      dstPointVector.eSet( i, planePoint.eGet( i ) );
+      dstPointView.eSet( i, planePoint.eGet( i ) );
     }
 
     return dstPoint;

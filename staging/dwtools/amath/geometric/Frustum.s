@@ -400,7 +400,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   throw _.err( 'Not a valid destination point' );
 
   let srcPointVector = _.vector.from( srcPoint );  /* qqq : problem */
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
   let dims = _.Space.dimsOf( frustum ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
@@ -408,7 +408,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   _.assert( _.spaceIs( fpoints ) );
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
   _.assert( rows -1 === srcPointVector.length );
-  _.assert( dstPointVector.length === srcPointVector.length );
+  _.assert( dstPointView.length === srcPointVector.length );
 
   let max = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
   let min = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
@@ -447,19 +447,19 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   {
     if( srcPointVector.eGet( i ) >= max.eGet( i ) )
     {
-      dstPointVector.eSet( i, max.eGet( i ) );
+      dstPointView.eSet( i, max.eGet( i ) );
     }
     else if( srcPointVector.eGet( i ) <= min.eGet( i ) )
     {
-      dstPointVector.eSet( i, min.eGet( i ) );
+      dstPointView.eSet( i, min.eGet( i ) );
     }
     else
     {
-      dstPointVector.eSet( i, srcPointVector.eGet( i ) );
+      dstPointView.eSet( i, srcPointVector.eGet( i ) );
     }
   }
 
-  if( _.frustum.pointContains( frustum, dstPointVector ) === true )
+  if( _.frustum.pointContains( frustum, dstPointView ) === true )
   {
     return dstPoint;
   }
@@ -467,15 +467,15 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   else
   {
     let d0 = Infinity;
-    let finalPoint = _.vector.from( dstPointVector.slice() );
+    let finalPoint = _.vector.from( dstPointView.slice() );
 
     for( let i = 0 ; i < cols ; i++ )
     {
       let plane = _.vector.from( frustum.colVectorGet( i ) );
 
-      let p =  _.plane.pointCoplanarGet( plane, dstPointVector );
+      let p =  _.plane.pointCoplanarGet( plane, dstPointView );
 
-      let d = _.avector.distance( dstPointVector, p );
+      let d = _.avector.distance( dstPointView, p );
 
       let pVector = _.vector.from( p );
       if( d < d0  && _.frustum.pointContains( frustum, pVector ) )
@@ -491,10 +491,10 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 
     for( var i = 0; i < finalPoint.length ; i++ )
     {
-      dstPointVector.eSet( i, finalPoint.eGet( i ) );
+      dstPointView.eSet( i, finalPoint.eGet( i ) );
     }
 
-    _.assert( _.frustum.pointContains( frustum, dstPointVector ) === true );
+    _.assert( _.frustum.pointContains( frustum, dstPointView ) === true );
     return dstPoint;
   }
 }
@@ -764,7 +764,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   if( _.frustum.boxIntersects( frustum, boxView ) )
   return 0;
@@ -802,9 +802,9 @@ function boxClosestPoint( frustum, box, dstPoint )
     }
   }
 
-  for( var i = 0; i < dstPointVector.length; i++ )
+  for( var i = 0; i < dstPointView.length; i++ )
   {
-    dstPointVector.eSet( i, point.eGet( i ) );
+    dstPointView.eSet( i, point.eGet( i ) );
   }
 
   return dstPoint;
@@ -977,7 +977,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( _.frustum.is( frustum ) );
 
@@ -988,7 +988,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
 
   for( var i = 0; i < point.length; i++ )
   {
-    dstPointVector.eSet( i, point[ i ] );
+    dstPointView.eSet( i, point[ i ] );
   }
 
   return dstPoint;
@@ -1137,7 +1137,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   let planeView = _.plane._from( plane );
   if( _.frustum.planeIntersects( frustum, planeView ) )
@@ -1157,9 +1157,9 @@ function planeClosestPoint( frustum, plane, dstPoint )
     }
   }
 
-  for( var i = 0; i < dstPointVector.length; i++ )
+  for( var i = 0; i < dstPointView.length; i++ )
   {
-    dstPointVector.eSet( i, point.eGet( i ) );
+    dstPointView.eSet( i, point.eGet( i ) );
   }
 
   return dstPoint;
@@ -1412,7 +1412,7 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   debugger;
 
@@ -1448,7 +1448,7 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
 
   for( var i = 0; i < finalPoint.length; i++ )
   {
-    dstPointVector.eSet( i, finalPoint[ i ] );
+    dstPointView.eSet( i, finalPoint[ i ] );
   }
 
   return dstPoint;
@@ -1528,7 +1528,7 @@ function rayClosestPoint( frustum, ray, dstPoint )
   let rayView = _.ray._from( ray );
   let dimRay  = _.ray.dimGet( rayView );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimF[ 0 ] - 1 === dstPoint.length );
   _.assert( dimF[ 0 ] - 1 === dimRay );
@@ -1543,7 +1543,7 @@ function rayClosestPoint( frustum, ray, dstPoint )
 
     for( let i = 0; i < dimF[ 0 ] - 1 ; i++ )
     {
-      dstPointVector.eSet( i, frustumPoint.eGet( i ) );
+      dstPointView.eSet( i, frustumPoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -1625,7 +1625,7 @@ function lineClosestPoint( frustum, line, dstPoint )
   let lineView = _.line._from( line );
   let dimLine  = _.line.dimGet( lineView );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimF[ 0 ] - 1 === dstPoint.length );
   _.assert( dimF[ 0 ] - 1 === dimLine );
@@ -1640,7 +1640,7 @@ function lineClosestPoint( frustum, line, dstPoint )
 
     for( let i = 0; i < dimF[ 0 ] - 1 ; i++ )
     {
-      dstPointVector.eSet( i, frustumPoint.eGet( i ) );
+      dstPointView.eSet( i, frustumPoint.eGet( i ) );
     }
 
     return dstPoint;

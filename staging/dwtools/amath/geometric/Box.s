@@ -1106,7 +1106,7 @@ function pointClosestPoint( box , point, dstPoint )
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
   let pointVector = _.vector.from( point.slice() );
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dim === point.length );
 
@@ -1117,7 +1117,7 @@ function pointClosestPoint( box , point, dstPoint )
 
   for( let i = 0; i < pointVector.length; i++ )
   {
-    dstPointVector.eSet( i, v.eGet( i ) );
+    dstPointView.eSet( i, v.eGet( i ) );
     debugger;
   }
 
@@ -1214,7 +1214,7 @@ function pointRelative( box , point, dstPoint )
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
   let pointVector = _.vector.from( point );
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dim === point.length );
   _.assert( dim === dstPoint.length );
@@ -1222,7 +1222,7 @@ function pointRelative( box , point, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  _.vector.divAssigning( _.vector.subAssigning( dstPointVector , min ) , _.vector.subAssigning( max.clone() , min ) );
+  _.vector.divAssigning( _.vector.subAssigning( dstPointView , min ) , _.vector.subAssigning( max.clone() , min ) );
 
   return dstPoint;
 }
@@ -1459,7 +1459,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
 
   _.assert( tstDim === dstPoint.length );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   debugger;
   // throw _.err( 'not tested' );
@@ -1475,7 +1475,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
     let c1 = _.box.cornersGet( tstBoxView );
 
     let distance = Infinity;
-    let point = _.vector.from( dstPointVector.slice() );
+    let point = _.vector.from( dstPointView.slice() );
     for( let j = 0 ; j < 8 ; j++ )
     {
       let srcCorner = c.colVectorGet( j );
@@ -1497,7 +1497,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
 
     for( let i = 0; i < tstDim; i++ )
     {
-      dstPointVector.eSet( i, point.eGet( i ) );
+      dstPointView.eSet( i, point.eGet( i ) );
       debugger;
     }
 
@@ -1735,7 +1735,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
   _.assert( dimS === dimB );
@@ -1749,7 +1749,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 
     for( let i = 0; i < dimB; i++ )
     {
-      dstPointVector.eSet( i, p[ i ] );
+      dstPointView.eSet( i, p[ i ] );
     }
 
     return dstPoint;
@@ -1956,7 +1956,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimP === dimB );
   _.assert( dimP === dstPoint.length );
@@ -1985,7 +1985,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
 
     for( let i = 0; i < point.length; i++ )
     {
-      dstPointVector.eSet( i, point.eGet( i ) );
+      dstPointView.eSet( i, point.eGet( i ) );
     }
 
     return dstPoint;
@@ -2260,7 +2260,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
   _.assert( dimB === 3 );
@@ -2290,7 +2290,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
 
     for( let i = 0; i < dimB; i++ )
     {
-      dstPointVector.eSet( i, point.eGet( i ) );
+      dstPointView.eSet( i, point.eGet( i ) );
     }
 
     return dstPoint;
@@ -2428,7 +2428,7 @@ function rayClosestPoint( box, ray, dstPoint )
   let direction = _.ray.directionGet( rayView );
   let dimRay  = _.ray.dimGet( rayView );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimRay );
@@ -2443,7 +2443,7 @@ function rayClosestPoint( box, ray, dstPoint )
 
     for( let i = 0; i < dimB; i++ )
     {
-      dstPointVector.eSet( i, boxPoint.eGet( i ) );
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -2523,7 +2523,7 @@ function lineClosestPoint( box, line, dstPoint )
   let direction = _.line.directionGet( lineView );
   let dimLine  = _.line.dimGet( lineView );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimLine );
@@ -2538,7 +2538,7 @@ function lineClosestPoint( box, line, dstPoint )
 
     for( let i = 0; i < dimB; i++ )
     {
-      dstPointVector.eSet( i, boxPoint.eGet( i ) );
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -2618,7 +2618,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   let direction = _.segment.directionGet( segmentView );
   let dimSegment  = _.segment.dimGet( segmentView );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimSegment );
@@ -2633,7 +2633,7 @@ function segmentClosestPoint( box, segment, dstPoint )
 
     for( let i = 0; i < dimB; i++ )
     {
-      dstPointVector.eSet( i, boxPoint.eGet( i ) );
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
     }
 
     return dstPoint;

@@ -1157,7 +1157,7 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   _.assert( dimB === dstPoint.length );
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   if( _.sphere.boxIntersects( sphereView, boxView ) )
   return 0;
@@ -1167,7 +1167,7 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
 
   for( let i = 0; i < point.length; i++ )
   {
-    dstPointVector.eSet( i, point[ i ] );
+    dstPointView.eSet( i, point[ i ] );
   }
 
   return dstPoint;
@@ -1631,7 +1631,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
 
   _.assert( dim === dstPoint.length );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   if( _.plane.sphereIntersects( planeView, sphereView ) )
   return 0;
@@ -1644,7 +1644,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
 
   for ( let i = 0; i < spherePoint.length; i++ )
   {
-    dstPointVector.eSet( i, spherePoint[ i ] );
+    dstPointView.eSet( i, spherePoint[ i ] );
   }
 
   return dstPoint;
@@ -1868,7 +1868,7 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   let srcSphereView = _.sphere._from( srcSphere );
   let center = _.sphere.centerGet( srcSphereView );
@@ -1885,7 +1885,7 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
 
   for( let i = 0; i < sClosestPoint.length; i++ )
   {
-    dstPointVector.eSet( i, sClosestPoint[ i ] );
+    dstPointView.eSet( i, sClosestPoint[ i ] );
   }
 
   return dstPoint;
@@ -2016,7 +2016,7 @@ function rayClosestPoint( sphere, ray, dstPoint )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimRay );
@@ -2031,7 +2031,7 @@ function rayClosestPoint( sphere, ray, dstPoint )
 
     for( let i = 0; i < dimSphere; i++ )
     {
-      dstPointVector.eSet( i, spherePoint.eGet( i ) );
+      dstPointView.eSet( i, spherePoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -2110,7 +2110,7 @@ function lineClosestPoint( sphere, line, dstPoint )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimLine );
@@ -2125,7 +2125,101 @@ function lineClosestPoint( sphere, line, dstPoint )
 
     for( let i = 0; i < dimSphere; i++ )
     {
-      dstPointVector.eSet( i, spherePoint.eGet( i ) );
+      dstPointView.eSet( i, spherePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
+function segmentIntersects( srcSphere, tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let tstSegmentView = _.segment._from( tstSegment );
+
+  let gotBool = _.segment.sphereIntersects( tstSegmentView, srcSphereView );
+
+  return gotBool;
+}
+
+//
+
+function segmentDistance( srcSphere , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let tstSegmentView = _.segment._from( tstSegment );
+
+  let gotDist = _.segment.sphereDistance( tstSegmentView, srcSphereView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a sphere to a segment. Returns the calculated point.
+  * Sphere and segment remain unchanged
+  *
+  * @param { Array } sphere - The source sphere.
+  * @param { Array } segment - The source segment.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let segment = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.segmentClosestPoint( [ 0, 0, 0, 1 ], segment );
+  *
+  * @example
+  * // returns [ 1, 0, 0 ]
+  * _.segmentClosestPoint( [ 2, 0, 0, 1 ], segment );
+  *
+  * @returns { Array } Returns the closest point to the segment.
+  * @function segmentClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( sphere ) is not sphere
+  * @throws { Error } An Error if ( segment ) is not segment
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.sphere
+  */
+function segmentClosestPoint( sphere, segment, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let segmentView = _.segment._from( segment );
+  let origin = _.segment.originGet( segmentView );
+  let direction = _.segment.directionGet( segmentView );
+  let dimSegment  = _.segment.dimGet( segmentView );
+
+  let srcSphereView = _.sphere._from( sphere );
+  let dimSphere = _.sphere.dimGet( srcSphereView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimSphere );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimSphere === dstPoint.length );
+  _.assert( dimSphere === dimSegment );
+
+  if( _.segment.sphereIntersects( segmentView, srcSphereView ) )
+  return 0
+  else
+  {
+    let segmentPoint = _.segment.sphereClosestPoint( segment, srcSphereView );
+
+    let spherePoint = _.vector.from( _.sphere.pointClosestPoint( srcSphereView, segmentPoint ) );
+
+    for( let i = 0; i < dimSphere; i++ )
+    {
+      dstPointView.eSet( i, spherePoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -2243,6 +2337,10 @@ let Proto =
   lineIntersects : lineIntersects, /* Same as _.line.sphereIntersects */
   lineDistance : lineDistance,  /* Same as _.line.sphereDistance */
   lineClosestPoint : lineClosestPoint,
+
+  segmentIntersects : segmentIntersects, /* Same as _.segment.sphereIntersects */
+  segmentDistance : segmentDistance,  /* Same as _.segment.sphereDistance */
+  segmentClosestPoint : segmentClosestPoint,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
