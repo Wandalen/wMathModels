@@ -1858,7 +1858,7 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
   let d1 = Math.abs( _.plane.pointDistance( planeView, origin ) ) ;
   let d2 = Math.abs( _.plane.pointDistance( planeView, end ) );
 
-  if( d1 < d2 )
+  if( d1 <= d2 )
   {
     point = _.vector.from( origin );
   }

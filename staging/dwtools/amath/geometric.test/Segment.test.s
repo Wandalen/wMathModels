@@ -3838,7 +3838,7 @@ function planeClosestPoint( test )
   var segment = [ 0, -6, 24, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, -6, 24 ];
+  var expected = [ 1, 1, 1 ];
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane, dstPoint );
   test.identical( gotPoint,  expected );
@@ -3848,7 +3848,7 @@ function planeClosestPoint( test )
   var segment = [ 0, -6, 24, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
   var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, -6, 24 ] );
+  var expected = _.vector.from( [ 1, 1, 1 ] );
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane, dstPoint );
   test.identical( gotPoint,  expected );
