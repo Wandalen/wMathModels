@@ -1770,6 +1770,7 @@ function planeDistance( srcSegment, srcPlane )
 
   let srcSegmentView = _.segment._from( srcSegment );
   let origin = _.segment.originGet( srcSegmentView );
+  let end = _.segment.endPointGet( srcSegmentView );
   let direction = _.segment.directionGet( srcSegmentView );
   let dimSegment  = _.segment.dimGet( srcSegmentView )
 
@@ -1783,7 +1784,17 @@ function planeDistance( srcSegment, srcPlane )
   if( _.segment.planeIntersects( srcSegmentView, planeView ) )
   return 0;
 
-  return Math.abs( _.plane.pointDistance( planeView, origin ) );
+  let d1 = Math.abs( _.plane.pointDistance( planeView, origin ) );
+  let d2 = Math.abs( _.plane.pointDistance( planeView, end ) );
+
+  if( d1 < d2 )
+  {
+    return d1;
+  }
+  else
+  {
+    return d2;
+  }
 }
 
 //
@@ -1827,6 +1838,7 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
 
   let srcSegmentView = _.segment._from( srcSegment );
   let origin = _.segment.originGet( srcSegmentView );
+  let end = _.segment.endPointGet( srcSegmentView );
   let direction = _.segment.directionGet( srcSegmentView );
   let dimSegment  = _.segment.dimGet( srcSegmentView )
 
@@ -1842,10 +1854,21 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
   if( _.segment.planeIntersects( srcSegmentView, planeView ) )
   return 0;
 
-  origin = _.vector.from( origin );
-  for( let i = 0; i < origin.length; i++ )
+  let point;
+  let d1 = Math.abs( _.plane.pointDistance( planeView, origin ) ) ;
+  let d2 = Math.abs( _.plane.pointDistance( planeView, end ) );
+
+  if( d1 < d2 )
   {
-    dstPointView.eSet( i, origin.eGet( i ) );
+    point = _.vector.from( origin );
+  }
+  else
+  {
+    point = _.vector.from( end );
+  }
+  for( let i = 0; i < point.length; i++ )
+  {
+    dstPointView.eSet( i, point.eGet( i ) );
   }
 
 
@@ -2114,7 +2137,7 @@ function rayIntersects( srcSegment, srcRay )
   }
 
   let factors = _.ray.rayIntersectionFactors( lineSegment, srcRayView );
-  logger.log(factors)
+
   if( factors === 0 || factors.eGet( 1 ) < 0 || factors.eGet( 0 ) < 0 || ( factors.eGet( 0 ) > 1 && factors.eGet( 1 ) > 1 ) )
   return false;
 
@@ -2206,7 +2229,7 @@ function rayDistance( srcSegment, srcRay )
   {
     let srcPoint = _.segment.rayClosestPoint( srcSegmentView, srcRayView );
     let tstPoint = _.ray.segmentClosestPoint( srcRayView, srcSegmentView );
-    logger.log('YESA', srcPoint, tstPoint)
+
     distance = _.avector.distance( srcPoint, tstPoint );
   }
 

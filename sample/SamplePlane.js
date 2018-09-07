@@ -3,16 +3,11 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let plane1 = [ 0, 0, 1, 2 ];
+let plane1 = [ -1, 0, 0, 0 ];
 
-let line = [ 3, 3, 0, 0, -1, 0 ];
+let segment = [ 2, 2, 2, 3, 3, 3 ];
 debugger;
-let j = _.plane.lineIntersects2( plane1, line )
-console.log( j );
 
-j = _.plane.lineDistance( plane1, line )
-console.log( j );
-
-j = _.plane.lineClosestPoint( plane1, line )
+j = _.plane.segmentClosestPoint( plane1, segment )
 console.log( j );
 debugger;

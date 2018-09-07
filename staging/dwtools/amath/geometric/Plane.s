@@ -1058,52 +1058,6 @@ function rayClosestPoint( plane, ray, dstPoint )
 
     return dstPoint;
   }
-
-}
-
-//
-
-/**
-  * Check if a plane and a segment intersect. Returns true if they intersect.
-  * The plane and segment remain unchanged.
-  *
-  * @param { Array } plane - Source plane.
-  * @param { Array } segment -  First and last points in segment.
-  *
-  * @example
-  * // returns true
-  * _.segmentIntersects( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
-  *
-  * @example
-  * // returns false
-  * _.segmentIntersects( [ 1, 0, 0, 1 ] , [ [  2, 2, 2 ], [ 3, 3, 3 ] ]);
-  *
-  * @returns { Boolean } Returns true if the segment and plane intersect, false if not.
-  * @function segmentIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( plane ) is not plane.
-  * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof wTools.plane
-  */
-function segmentIntersects( plane , segment )
-{
-
-  let planeView = _.plane._from( plane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  debugger;
-  //throw _.err( 'not tested' );
-
-  let point1 = _.vector.from( segment[0] );
-  let point2 = _.vector.from( segment[1] );
-
-  let b = _.plane.pointDistance( planeView, point1 );
-  let e = _.plane.pointDistance( planeView, point2 );
-
-  debugger;
-  return ( b <= 0 && e >= 0 ) || ( e <= 0 && b >= 0 );
 }
 
 //
@@ -1291,6 +1245,134 @@ function lineClosestPoint( plane, line, dstPoint )
     return dstPoint;
   }
 
+}
+
+//
+
+/**
+* Check if a plane and a segment intersect. Returns true if they intersect.
+* The plane and segment remain unchanged.
+*
+* @param { Array } plane - Source plane.
+* @param { Array } segment -  First and last points in segment.
+*
+* @example
+* // returns true
+* _.segmentIntersects( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
+*
+* @example
+* // returns false
+* _.segmentIntersects( [ 1, 0, 0, 1 ] , [  2, 2, 2, 3, 3, 3 ]);
+*
+* @returns { Boolean } Returns true if the segment and plane intersect, false if not.
+* @function segmentIntersects
+* @throws { Error } An Error if ( arguments.length ) is different than two.
+* @throws { Error } An Error if ( plane ) is not plane.
+* @throws { Error } An Error if ( segment ) is not segment.
+* @memberof wTools.plane
+*/
+function segmentIntersects( plane , segment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let planeView = _.plane._from( plane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+
+  let segmentView = _.segment._from( segment );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+
+  debugger;
+  //throw _.err( 'not tested' );
+
+  let b = _.plane.pointDistance( planeView, origin );
+  let e = _.plane.pointDistance( planeView, end );
+
+  debugger;
+  return ( b <= 0 && e >= 0 ) || ( e <= 0 && b >= 0 );
+}
+
+//
+
+function segmentDistance( srcPlane , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotDist = _.segment.planeDistance( tstSegmentView, planeView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a plane to a segment. Returns the calculated point.
+  * Plane and segment remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Array } segment - The source segment.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  *  plane = [ 0, 0, 1, 2 ];
+  *  segment = [ 0, 0, 0, 0, 0, - 1 ];
+  * _.segmentClosestPoint( plane, segment );
+  *
+  * @example
+  * // returns [ 0, 0, - 2 ]
+  *  plane = [ 0, 0, 1, 2 ];
+  *  segment = [ 0, 0, 0, 0, - 1, 0 ];
+  * _.segmentClosestPoint( plane, segment );
+  *
+  * @returns { Array } Returns the closest point to the segment.
+  * @function segmentClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( segment ) is not segment
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.plane
+  */
+function segmentClosestPoint( plane, segment, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let segmentView = _.segment._from( segment );
+  let origin = _.segment.originGet( segmentView );
+  let direction = _.segment.directionGet( segmentView );
+  let dimSegment  = _.segment.dimGet( segmentView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimSegment );
+
+  if( _.segment.planeIntersects( segmentView, planeView ) )
+  return 0
+  else
+  {
+    let segmentPoint = _.segment.planeClosestPoint( segment, planeView );
+    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, segmentPoint ) );
+
+    for( let i = 0; i < dimP; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
 }
 
 //
@@ -1553,11 +1635,14 @@ let Proto =
   rayDistance : rayDistance, /* Same as _.ray.planeDistance */
   rayClosestPoint : rayClosestPoint,
 
-  segmentIntersects : segmentIntersects,
   lineIntersects : lineIntersects,
   lineIntersection : lineIntersection,
   lineDistance : lineDistance,
   lineClosestPoint : lineClosestPoint,
+
+  segmentIntersects : segmentIntersects,
+  segmentDistance : segmentDistance,
+  segmentClosestPoint : segmentClosestPoint,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
