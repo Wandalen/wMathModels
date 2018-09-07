@@ -578,252 +578,6 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
 //
 
 /**
-  * Check if a plane and a sphere intersect. Returns true if they intersect and false if not.
-  * The sphere and the plane remain unchanged.
-  *
-  * @param { Array } plane - Source plane.
-  * @param { Array } sphere - Source sphere.
-  *
-  * @example
-  * // returns true;
-  * _.sphereIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 8 ]);
-  *
-  * @example
-  * // returns false;
-  * _.sphereIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2 ]);
-  *
-  * @returns { Boolean } Returns true if the plane and the sphere intersect.
-  * @function sphereIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( plane ) is not plane.
-  * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.plane
-  */
-function sphereIntersects( plane , sphere )
-{
-  let bool = false;
-  let planeView = _.plane._from( plane );
-  _.assert( _.sphere.is( sphere ) );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  debugger;
-
-  let distance = _.plane.sphereDistance( plane, sphere );
-
-  if( distance <= 0 )
-  {
-    bool = true;
-  }
-
-  return bool;
-}
-
-//
-
-/**
-  * Get the distance between a plane and a sphere. Returns the distance value.
-  * The sphere an the plane remain unchanged.
-  * If sphere and plane intersect, it returns 0.
-  *
-  * @param { Array } plane - Source plane.
-  * @param { Array } sphere - Source sphere.
-  *
-  * @example
-  * // returns 1;
-  * _.sphereDistance( [ 0, 1, 0, 1 ] , [ 0, 0, 2, 1 ]);
-  *
-  * @returns { Number } Returns the distance from the sphere to the plane.
-  * @function sphereDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( plane ) is not plane.
-  * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.plane
-  */
-function sphereDistance( plane , sphere )
-{
-
-  let planeView = _.plane._from( plane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-
-  let center = _.sphere.centerGet( sphere );
-  center = _.vector.from( center );
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  debugger;
-  //throw _.err( 'not tested' );
-
-  let d = _.plane.pointDistance( plane , center );
-  d = Math.abs( d ) - _.sphere.radiusGet( sphere );
-
-  if( d < 0 )
-  return 0;
-  else
-  return d;
-
-}
-
-//
-
-/**
-  * Get the closest point in a plane to a sphere. Returns the calculated point.
-  * The sphere an the plane remain unchanged.
-  * If sphere and plane intersect, it returns 0.
-  *
-  * @param { Array } plane - Source plane.
-  * @param { Array } sphere - Source sphere.
-  * @param { Array } dstPoint - Destination point.
-  *
-  * @example
-  * // returns [ 0, 2, 0 ];
-  * _.sphereClosestPoint( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
-  *
-  * @returns { Array } Returns the distance from the sphere to the plane.
-  * @function sphereClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( plane ) is not plane.
-  * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @throws { Error } An Error if ( dstPoint ) is not point.
-  * @memberof wTools.plane
-  */
-function sphereClosestPoint( plane , sphere, dstPoint )
-{
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
-
-  if( arguments.length === 2 )
-  dstPoint = [ 0, 0, 0 ];
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Not a valid destination point' );
-
-  let dstPointView = _.vector.from( dstPoint );
-
-  let planeView = _.plane._from( plane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-
-  _.assert( planeView.length - 1 === dstPoint.length , 'Plane and point must have same dimension' );
-
-  let sphereView = _.sphere._from( sphere );
-  let center = _.sphere.centerGet( sphereView );
-
-  if( _.plane.sphereIntersects( planeView, sphereView ) === true )
-  return 0;
-
-  let point = _.plane.pointCoplanarGet( planeView, center );
-
-  for( let i = 0; i < point.length; i++ )
-  {
-    dstPointView.eSet( i, point[ i ] );
-  }
-
-  return dstPoint;
-}
-
-//
-
-/**
-  * Check if two planes intersect. Returns true if they intersect.
-  * The planes remain unchanged.
-  *
-  * @param { Array } srcPlane - Source plane.
-  * @param { Array } tstPlane - Test plane.
-  *
-  * @example
-  * // returns true;
-  * _.planeIntersects( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
-  *
-  * @returns { Boolean } Returns true if the planes intersect, false if not.
-  * @function planeIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @throws { Error } An Error if ( tstPlane ) is not plane.
-  * @memberof wTools.plane
-  */
-function planeIntersects( srcPlane, tstPlane )
-{
-  let srcPlaneView = _.plane._from( srcPlane.slice() );
-  let srcNormal = _.plane.normalGet( srcPlaneView );
-  let srcBias = _.plane.biasGet( srcPlaneView );
-
-  let dstPlaneView = _.plane._from( tstPlane.slice() );
-  let tstNormal = _.plane.normalGet( dstPlaneView );
-  let tstBias = _.plane.biasGet( dstPlaneView );
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  debugger;
-  //throw _.err( 'not tested' );
-
-  let factor = srcNormal.eGet( 0 ) / tstNormal.eGet( 0 );
-  srcNormal.normalize();
-  tstNormal.normalize();
-
-  for( let i = 0; i < srcNormal.length ; i++ )
-  {
-    if( Math.abs( tstNormal.eGet( i ) - srcNormal.eGet( i ) ) > 1E-7 )
-    return true;
-  }
-
-  if( Math.abs( tstBias*factor - srcBias ) < 1E-7 )
-  return true;
-
-  return false;
-}
-
-//
-
-/**
-  * Calculates the distance between two planes. Returns the calculated distance.
-  * The planes remain unchanged.
-  *
-  * @param { Array } srcPlane - Source plane.
-  * @param { Array } tstPlane - Test plane.
-  *
-  * @example
-  * // returns 0;
-  * _.planeDistance( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
-  *
-  * @returns { Number } Returns the distance between the two planes.
-  * @function planeDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @throws { Error } An Error if ( tstPlane ) is not plane.
-  * @memberof wTools.plane
-  */
-function planeDistance( srcPlane, tstPlane )
-{
-  let srcPlaneView = _.plane._from( srcPlane );
-  let srcNormal = _.plane.normalGet( srcPlaneView );
-  let srcBias = _.plane.biasGet( srcPlaneView );
-
-  let dstPlaneView = _.plane._from( tstPlane );
-  let tstNormal = _.plane.normalGet( dstPlaneView );
-  let tstBias = _.plane.biasGet( dstPlaneView );
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( srcPlaneView.length === dstPlaneView.length, 'Planes must have same dimension' );
-
-  debugger;
-  //throw _.err( 'not tested' );
-
-  if( _.plane.planeIntersects( srcPlaneView, dstPlaneView ) === true )
-  return 0;
-
-  let factor = srcNormal.eGet( 0 ) / tstNormal.eGet( 0 );
-  dstPlaneView.mulScalar( factor )
-
-  let a2 =  srcNormal.eGet( 0 ) * srcNormal.eGet( 0 );
-  let b2 =  srcNormal.eGet( 1 ) * srcNormal.eGet( 1 );
-  let c2 =  srcNormal.eGet( 2 ) * srcNormal.eGet( 2 );
-  let module = Math.sqrt( a2 + b2 + c2 );
-
-  let distance = Math.abs( tstBias*factor - srcBias ) / module;
-  return distance;
-}
-
-//
-
-/**
   * Check if a plane and a frustum intersect. Returns true if they intersect.
   * The plane and the frustum remain unchanged.
   *
@@ -963,101 +717,6 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
   }
 
   return dstPoint;
-}
-
-//
-
-function rayIntersects( srcPlane , tstRay )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  let planeView = _.plane._from( srcPlane );
-  let tstRayView = _.ray._from( tstRay );
-
-  let gotBool = _.ray.planeIntersects( tstRayView, planeView );
-
-  return gotBool;
-}
-
-//
-
-function rayDistance( srcPlane , tstRay )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  let planeView = _.plane._from( srcPlane );
-  let tstRayView = _.ray._from( tstRay );
-
-  let gotDist = _.ray.planeDistance( tstRayView, planeView );
-
-  return gotDist;
-}
-
-//
-
-/**
-  * Calculates the closest point in a plane to a ray. Returns the calculated point.
-  * Plane and ray remain unchanged
-  *
-  * @param { Array } plane - The source plane.
-  * @param { Array } ray - The source ray.
-  * @param { Array } dstPoint - The destination point.
-  *
-  * @example
-  * // returns 0.5
-  * let ray = [ 0, 0, 0, - 1, - 1, - 1 ]
-  * _.rayClosestPoint( [ 1, 0, 0, -0.5 ], ray );
-  *
-  * @example
-  * // returns 0
-  * _.rayClosestPoint( [ 1, 0, 0, 2 ], ray );
-  *
-  * @returns { Array } Returns the closest point to the ray.
-  * @function rayClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( plane ) is not plane
-  * @throws { Error } An Error if ( ray ) is not ray
-  * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.plane
-  */
-function rayClosestPoint( plane, ray, dstPoint )
-{
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
-
-  let planeView = _.plane._from( plane );
-  let dimP = _.plane.dimGet( planeView );
-
-  if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP );
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Null or undefined dstPoint is not allowed' );
-
-  let rayView = _.ray._from( ray );
-  let origin = _.ray.originGet( rayView );
-  let direction = _.ray.directionGet( rayView );
-  let dimRay  = _.ray.dimGet( rayView );
-
-  let dstPointView = _.vector.from( dstPoint );
-
-  _.assert( dimP === dstPoint.length );
-  _.assert( dimP === dimRay );
-
-  if( _.ray.planeIntersects( rayView, planeView ) )
-  return 0
-  else
-  {
-    let rayPoint = _.ray.planeClosestPoint( ray, planeView );
-
-    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, rayPoint ) );
-
-    for( let i = 0; i < dimP; i++ )
-    {
-      dstPointView.eSet( i, planePoint.eGet( i ) );
-    }
-
-    return dstPoint;
-  }
 }
 
 //
@@ -1250,6 +909,202 @@ function lineClosestPoint( plane, line, dstPoint )
 //
 
 /**
+  * Check if two planes intersect. Returns true if they intersect.
+  * The planes remain unchanged.
+  *
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } tstPlane - Test plane.
+  *
+  * @example
+  * // returns true;
+  * _.planeIntersects( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the planes intersect, false if not.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( tstPlane ) is not plane.
+  * @memberof wTools.plane
+  */
+function planeIntersects( srcPlane, tstPlane )
+{
+  let srcPlaneView = _.plane._from( srcPlane.slice() );
+  let srcNormal = _.plane.normalGet( srcPlaneView );
+  let srcBias = _.plane.biasGet( srcPlaneView );
+
+  let dstPlaneView = _.plane._from( tstPlane.slice() );
+  let tstNormal = _.plane.normalGet( dstPlaneView );
+  let tstBias = _.plane.biasGet( dstPlaneView );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  debugger;
+  //throw _.err( 'not tested' );
+
+  let factor = srcNormal.eGet( 0 ) / tstNormal.eGet( 0 );
+  srcNormal.normalize();
+  tstNormal.normalize();
+
+  for( let i = 0; i < srcNormal.length ; i++ )
+  {
+    if( Math.abs( tstNormal.eGet( i ) - srcNormal.eGet( i ) ) > 1E-7 )
+    return true;
+  }
+
+  if( Math.abs( tstBias*factor - srcBias ) < 1E-7 )
+  return true;
+
+  return false;
+}
+
+//
+
+/**
+  * Calculates the distance between two planes. Returns the calculated distance.
+  * The planes remain unchanged.
+  *
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } tstPlane - Test plane.
+  *
+  * @example
+  * // returns 0;
+  * _.planeDistance( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between the two planes.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( tstPlane ) is not plane.
+  * @memberof wTools.plane
+  */
+function planeDistance( srcPlane, tstPlane )
+{
+  let srcPlaneView = _.plane._from( srcPlane );
+  let srcNormal = _.plane.normalGet( srcPlaneView );
+  let srcBias = _.plane.biasGet( srcPlaneView );
+
+  let dstPlaneView = _.plane._from( tstPlane );
+  let tstNormal = _.plane.normalGet( dstPlaneView );
+  let tstBias = _.plane.biasGet( dstPlaneView );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( srcPlaneView.length === dstPlaneView.length, 'Planes must have same dimension' );
+
+  debugger;
+  //throw _.err( 'not tested' );
+
+  if( _.plane.planeIntersects( srcPlaneView, dstPlaneView ) === true )
+  return 0;
+
+  let factor = srcNormal.eGet( 0 ) / tstNormal.eGet( 0 );
+  dstPlaneView.mulScalar( factor )
+
+  let a2 =  srcNormal.eGet( 0 ) * srcNormal.eGet( 0 );
+  let b2 =  srcNormal.eGet( 1 ) * srcNormal.eGet( 1 );
+  let c2 =  srcNormal.eGet( 2 ) * srcNormal.eGet( 2 );
+  let module = Math.sqrt( a2 + b2 + c2 );
+
+  let distance = Math.abs( tstBias*factor - srcBias ) / module;
+  return distance;
+}
+
+//
+
+function rayIntersects( srcPlane , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let planeView = _.plane._from( srcPlane );
+  let tstRayView = _.ray._from( tstRay );
+
+  let gotBool = _.ray.planeIntersects( tstRayView, planeView );
+
+  return gotBool;
+}
+
+//
+
+function rayDistance( srcPlane , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let planeView = _.plane._from( srcPlane );
+  let tstRayView = _.ray._from( tstRay );
+
+  let gotDist = _.ray.planeDistance( tstRayView, planeView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a plane to a ray. Returns the calculated point.
+  * Plane and ray remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Array } ray - The source ray.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0.5
+  * let ray = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.rayClosestPoint( [ 1, 0, 0, -0.5 ], ray );
+  *
+  * @example
+  * // returns 0
+  * _.rayClosestPoint( [ 1, 0, 0, 2 ], ray );
+  *
+  * @returns { Array } Returns the closest point to the ray.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( ray ) is not ray
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.plane
+  */
+function rayClosestPoint( plane, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let rayView = _.ray._from( ray );
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
+  let dimRay  = _.ray.dimGet( rayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimRay );
+
+  if( _.ray.planeIntersects( rayView, planeView ) )
+  return 0
+  else
+  {
+    let rayPoint = _.ray.planeClosestPoint( ray, planeView );
+
+    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, rayPoint ) );
+
+    for( let i = 0; i < dimP; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
+/**
 * Check if a plane and a segment intersect. Returns true if they intersect.
 * The plane and segment remain unchanged.
 *
@@ -1373,6 +1228,151 @@ function segmentClosestPoint( plane, segment, dstPoint )
 
     return dstPoint;
   }
+}
+
+//
+
+/**
+  * Check if a plane and a sphere intersect. Returns true if they intersect and false if not.
+  * The sphere and the plane remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.sphereIntersects( [ 1, 0, 0, 1 ] , [ 2, 2, 2, 8 ]);
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the plane and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.plane
+  */
+function sphereIntersects( plane , sphere )
+{
+  let bool = false;
+  let planeView = _.plane._from( plane );
+  _.assert( _.sphere.is( sphere ) );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  debugger;
+
+  let distance = _.plane.sphereDistance( plane, sphere );
+
+  if( distance <= 0 )
+  {
+    bool = true;
+  }
+
+  return bool;
+}
+
+//
+
+/**
+  * Get the distance between a plane and a sphere. Returns the distance value.
+  * The sphere an the plane remain unchanged.
+  * If sphere and plane intersect, it returns 0.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns 1;
+  * _.sphereDistance( [ 0, 1, 0, 1 ] , [ 0, 0, 2, 1 ]);
+  *
+  * @returns { Number } Returns the distance from the sphere to the plane.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.plane
+  */
+function sphereDistance( plane , sphere )
+{
+
+  let planeView = _.plane._from( plane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+
+  let center = _.sphere.centerGet( sphere );
+  center = _.vector.from( center );
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  debugger;
+  //throw _.err( 'not tested' );
+
+  let d = _.plane.pointDistance( plane , center );
+  d = Math.abs( d ) - _.sphere.radiusGet( sphere );
+
+  if( d < 0 )
+  return 0;
+  else
+  return d;
+
+}
+
+//
+
+/**
+  * Get the closest point in a plane to a sphere. Returns the calculated point.
+  * The sphere an the plane remain unchanged.
+  * If sphere and plane intersect, it returns 0.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } sphere - Source sphere.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns [ 0, 2, 0 ];
+  * _.sphereClosestPoint( [ 1, 0, 0, 0 ] , [ 3, 2, 0, 1 ]);
+  *
+  * @returns { Array } Returns the distance from the sphere to the plane.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @memberof wTools.plane
+  */
+function sphereClosestPoint( plane , sphere, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = [ 0, 0, 0 ];
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  let planeView = _.plane._from( plane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+
+  _.assert( planeView.length - 1 === dstPoint.length , 'Plane and point must have same dimension' );
+
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+
+  if( _.plane.sphereIntersects( planeView, sphereView ) === true )
+  return 0;
+
+  let point = _.plane.pointCoplanarGet( planeView, center );
+
+  for( let i = 0; i < point.length; i++ )
+  {
+    dstPointView.eSet( i, point[ i ] );
+  }
+
+  return dstPoint;
 }
 
 //
@@ -1620,29 +1620,29 @@ let Proto =
   boxDistance : boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
   boxClosestPoint : boxClosestPoint, /* qqq: implement me */
 
-  sphereIntersects : sphereIntersects,
-  sphereDistance : sphereDistance,
-  sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
-
-  planeIntersects : planeIntersects, /* qqq: implement me */
-  planeDistance : planeDistance, /* qqq: implement me */
-
   frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
   frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
-
-  rayIntersects : rayIntersects, /* Same as _.ray.planeIntersects */
-  rayDistance : rayDistance, /* Same as _.ray.planeDistance */
-  rayClosestPoint : rayClosestPoint,
 
   lineIntersects : lineIntersects,
   lineIntersection : lineIntersection,
   lineDistance : lineDistance,
   lineClosestPoint : lineClosestPoint,
 
+  planeIntersects : planeIntersects, /* qqq: implement me */
+  planeDistance : planeDistance, /* qqq: implement me */
+
+  rayIntersects : rayIntersects, /* Same as _.ray.planeIntersects */
+  rayDistance : rayDistance, /* Same as _.ray.planeDistance */
+  rayClosestPoint : rayClosestPoint,
+
   segmentIntersects : segmentIntersects,
   segmentDistance : segmentDistance,
   segmentClosestPoint : segmentClosestPoint,
+
+  sphereIntersects : sphereIntersects,
+  sphereDistance : sphereDistance,
+  sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

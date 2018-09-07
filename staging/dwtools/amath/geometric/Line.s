@@ -872,208 +872,6 @@ lineIntersectionPointAccurate.shaderChunk =
 //
 
 /**
-  * Check if two lines intersect. Returns true if they intersect, false if not.
-  * Lines stay untouched.
-  *
-  * @param { Vector } src1Line - The first source line.
-  * @param { Vector } src2Line - The second source line.
-  *
-  * @example
-  * // returns   true
-  * _.lineIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
-  *
-  * @example
-  * // returns  false
-  * _.lineIntersects( [ -3, 0, 1, 0 ], [ 0, -2, 1, 0 ] );
-  *
-  * @returns { Boolean } Returns true if the two lines intersect.
-  * @function lineIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( src1Line ) is not line.
-  * @throws { Error } An Error if ( src2Line ) is not line.
-  * @memberof wTools.line
-  */
-function lineIntersects( srcLine1, srcLine2 )
-{
-
-  if( _.line.lineIntersectionFactors( srcLine1, srcLine2 ) === 0 )
-  return false
-
-  return true;
-}
-
-//
-
-/**
-  * Get the distance between two lines. Returns the calculated distance.
-  * The lines remain unchanged.
-  *
-  * @param { Array } srcLine - Source line.
-  * @param { Array } tstLine - Test line.
-  *
-  * @example
-  * // returns 0;
-  * _.lineDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
-  *
-  * @example
-  * // returns Math.sqrt( 12 );
-  * _.lineDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
-  *
-  * @returns { Number } Returns the distance between two lines.
-  * @function lineDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( tstLine ) is not line.
-  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
-  * @memberof wTools.line
-  */
-function lineDistance( srcLine, tstLine )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  if( srcLine === null )
-  srcLine = _.line.make( tstLine.length / 2 );
-
-  let srcLineView = _.line._from( srcLine );
-  let srcOrigin = _.line.originGet( srcLineView );
-  let srcDirection = _.line.directionGet( srcLineView );
-  let srcDim  = _.line.dimGet( srcLineView )
-
-  let tstLineView = _.line._from( tstLine );
-  let tstOrigin = _.line.originGet( tstLineView );
-  let tstDirection = _.line.directionGet( tstLineView );
-  let tstDim  = _.line.dimGet( tstLineView );
-
-  _.assert( srcDim === tstDim );
-
-  let distance;
-
-  if( _.line.lineIntersects( srcLineView, tstLineView ) === true )
-  return 0;
-  // Parallel lines
-  if( _.line.lineParallel( srcLineView, tstLineView ) )
-  {
-    let d1 = _.line.pointDistance( srcLineView, tstOrigin );
-    let d2 = _.line.pointDistance( tstLineView, srcOrigin );
-    let d3 = _.avector.distance( srcOrigin, tstOrigin );
-
-    if( d1 <= d2 && d1 <= d3 )
-    {
-      distance = d1;
-    }
-    else if( d2 <= d3 )
-    {
-      distance = d2;
-    }
-    else
-    {
-      distance = d3;
-    }
-  }
-  else
-  {
-    let srcPoint = _.line.lineClosestPoint( srcLineView, tstLineView );
-    let tstPoint = _.line.lineClosestPoint( tstLineView, srcLineView );
-    distance = _.avector.distance( srcPoint, tstPoint );
-  }
-
-
-  return distance;
-}
-
-//
-
-/**
-  * Get the closest point in a line to a line. Returns the calculated point.
-  * The lines remain unchanged.
-  *
-  * @param { Array } srcLine - Source line.
-  * @param { Array } tstLine - Test line.
-  *
-  * @example
-  * // returns 0;
-  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
-  *
-  * @example
-  * // returns [ 0, 0, 0 ];
-  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
-  *
-  * @returns { Array } Returns the closest point in the srcLine to the tstLine.
-  * @function lineClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( tstLine ) is not line.
-  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
-  * @memberof wTools.line
-  */
-function lineClosestPoint( srcLine, tstLine, dstPoint )
-{
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
-
-  if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( tstLine.length / 2 );
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Not a valid destination point' );
-
-  if( srcLine === null )
-  srcLine = _.line.make( tstLine.length / 2 );
-
-  let srcLineView = _.line._from( srcLine );
-  let srcOrigin = _.line.originGet( srcLineView );
-  let srcDir = _.line.directionGet( srcLineView );
-  let srcDim  = _.line.dimGet( srcLineView );
-
-  let tstLineView = _.line._from( tstLine );
-  let tstOrigin = _.line.originGet( tstLineView );
-  let tstDir = _.line.directionGet( tstLineView );
-  let tstDim = _.line.dimGet( tstLineView );
-
-  let dstPointView = _.vector.from( dstPoint );
-  _.assert( srcDim === tstDim );
-
-  let pointView;
-
-  // Same origin
-  let identOrigin = 0;
-  for( let i = 0; i < srcOrigin.length; i++ )
-  {
-    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
-    identOrigin = identOrigin + 1;
-  }
-  if( identOrigin === srcOrigin.length )
-  pointView = srcOrigin;
-  else
-  {
-    // Parallel lines
-    if( _.line.lineParallel( srcLineView, tstLineView ) )
-    {
-      pointView = _.line.pointClosestPoint( srcLineView, tstOrigin );
-    }
-    else
-    {
-      let srcMod = _.vector.dot( srcDir, srcDir );
-      let tstMod = _.vector.dot( tstDir, tstDir );
-      let mod = _.vector.dot( srcDir, tstDir );
-      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
-      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
-
-      pointView = _.line.lineAt( srcLineView, factor );
-    }
-  }
-
-  pointView = _.vector.from( pointView );
-  for( let i = 0; i < pointView.length; i++ )
-  {
-    dstPointView.eSet( i, pointView.eGet( i ) );
-  }
-
-  return dstPoint;
-}
-
-//
-
-/**
   * Check if a given point is contained inside a line. Returs true if it is contained, false if not.
   * Point and line stay untouched.
   *
@@ -1496,364 +1294,6 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
 //
 
 /**
-  * Check if a line and a sphere intersect. Returns true if they intersect and false if not.
-  * The sphere and the line remain unchanged.
-  *
-  * @param { Array } srcLine - Source line.
-  * @param { Array } srcSphere - Source sphere.
-  *
-  * @example
-  * // returns true;
-  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
-  *
-  * @example
-  * // returns false;
-  * _.sphereIntersects( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
-  *
-  * @returns { Boolean } Returns true if the line and the sphere intersect.
-  * @function sphereIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( srcSphere ) is not sphere.
-  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
-  * @memberof wTools.line
-  */
-function sphereIntersects( srcLine, srcSphere )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.sphere.is( srcSphere ) );
-
-  if( srcLine === null )
-  srcLine = _.line.make( srcSphere.length - 1 );
-
-  let srcLineView = _.line._from( srcLine );
-  let origin = _.line.originGet( srcLineView );
-  let direction = _.line.directionGet( srcLineView );
-  let dimLine  = _.line.dimGet( srcLineView )
-
-  let sphereView = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dimSphere = _.sphere.dimGet( sphereView );
-
-  _.assert( dimLine === dimSphere );
-
-  if( _.sphere.pointContains( sphereView, origin ) )
-  return true;
-
-  let distance = _.line.pointDistance( srcLineView, center );
-
-  if( distance <= radius)
-  return true;
-
-  return false;
-
-}
-
-//
-
-/**
-  * Get the distance between a line and a sphere. Returns the calculated distance.
-  * The sphere and the line remain unchanged.
-  *
-  * @param { Array } srcLine - Source line.
-  * @param { Array } srcSphere - Source sphere.
-  *
-  * @example
-  * // returns 0;
-  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
-  *
-  * @example
-  * // returns Math.sqrt( 27 ) -1;
-  * _.sphereDistance( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
-  *
-  * @returns { Boolean } Returns the distance between the line and the sphere.
-  * @function sphereDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( srcSphere ) is not sphere.
-  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
-  * @memberof wTools.line
-  */
-function sphereDistance( srcLine, srcSphere )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.sphere.is( srcSphere ) );
-
-  if( srcLine === null )
-  srcLine = _.line.make( srcSphere.length - 1 );
-
-  let srcLineView = _.line._from( srcLine );
-  let origin = _.line.originGet( srcLineView );
-  let direction = _.line.directionGet( srcLineView );
-  let dimLine  = _.line.dimGet( srcLineView )
-
-  let sphereView = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dimSphere = _.sphere.dimGet( sphereView );
-
-  _.assert( dimLine === dimSphere );
-
-  if( _.line.sphereIntersects( srcLineView, sphereView ) )
-  return 0;
-
-  return _.line.pointDistance( srcLineView, center ) - radius;
-}
-
-//
-
-/**
-  * Get the closest point in a line to a sphere. Returns the calculated point.
-  * The sphere and the line remain unchanged.
-  *
-  * @param { Array } srcLine - Source line.
-  * @param { Array } srcSphere - Source sphere.
-  * @param { Array } dstPoint - Destination point.
-  *
-  * @example
-  * // returns 0;
-  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
-  *
-  * @example
-  * // returns [ 0, 0, 0 ];
-  * _.sphereClosestPoint( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
-  *
-  * @returns { Boolean } Returns the closest point in a line to a sphere.
-  * @function sphereClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( srcSphere ) is not sphere.
-  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
-  * @memberof wTools.line
-  */
-function sphereClosestPoint( srcLine, srcSphere, dstPoint )
-{
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
-  _.assert( _.sphere.is( srcSphere ) );
-
-  if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( srcSphere.length - 1 );
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Not a valid destination point' );
-
-  if( srcLine === null )
-  srcLine = _.line.make( srcSphere.length - 1 );
-
-  let srcLineView = _.line._from( srcLine );
-  let origin = _.line.originGet( srcLineView );
-  let direction = _.line.directionGet( srcLineView );
-  let dimLine  = _.line.dimGet( srcLineView )
-
-  let sphereView = _.sphere._from( srcSphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dimSphere = _.sphere.dimGet( sphereView );
-
-  let dstPointView = _.vector.from( dstPoint );
-
-  _.assert( dimLine === dimSphere );
-
-  if( _.line.sphereIntersects( srcLineView, sphereView ) )
-  return 0;
-
-  let pointVector = _.vector.from( _.line.pointClosestPoint( srcLineView, center ) );
-
-  for( let i = 0; i < pointVector.length; i++ )
-  {
-    dstPointView.eSet( i, pointVector.eGet( i ) );
-  }
-
-  return dstPoint;
-}
-
-//
-
-/**
-  * Check if a line and a plane intersect. Returns true if they intersect and false if not.
-  * The plane and the line remain unchanged.
-  *
-  * @param { Array } srcLine - Source line.
-  * @param { Array } srcPlane - Source plane.
-  *
-  * @example
-  * // returns true;
-  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @example
-  * // returns false;
-  * _.planeIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @returns { Boolean } Returns true if the line and the plane intersect.
-  * @function planeIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
-  * @memberof wTools.line
-  */
-function planeIntersects( srcLine, srcPlane )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  if( srcLine === null )
-  srcLine = _.line.make( srcPlane.length - 1 );
-
-  let srcLineView = _.line._from( srcLine );
-  let origin = _.line.originGet( srcLineView );
-  let direction = _.line.directionGet( srcLineView );
-  let dimLine  = _.line.dimGet( srcLineView )
-
-  let planeView = _.plane._from( srcPlane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let dimPlane = _.plane.dimGet( planeView );
-
-  _.assert( dimLine === dimPlane );
-
-  if( _.plane.pointContains( planeView, origin ) )
-  return true;
-
-  let dirDotNormal = _.vector.dot( direction, normal );
-
-  if( dirDotNormal !== 0 )
-  {
-    return true;
-  /*
-  *  let originDotNormal = _.vector.dot( origin, normal );
-  *  let factor = - ( originDotNormal + bias ) / dirDotNormal;
-  *
-  *  if( factor > 0 )
-  *  {
-  *    return true;
-  *  }
-  */
-
-  }
-
-  return false;
-}
-
-//
-
-/**
-  * Get the distance between a line and a plane. Returns the calculated distance.
-  * The plane and the line remain unchanged.
-  *
-  * @param { Array } srcLine - Source line.
-  * @param { Array } srcPlane - Source plane.
-  *
-  * @example
-  * // returns 0;
-  * _.planeDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @example
-  * // returns 1;
-  * _.planeDistance( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @returns { Number } Returns the distance between the line and the plane.
-  * @function planeDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
-  * @memberof wTools.line
-  */
-function planeDistance( srcLine, srcPlane )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  if( srcLine === null )
-  srcLine = _.line.make( srcPlane.length - 1 );
-
-  let srcLineView = _.line._from( srcLine );
-  let origin = _.line.originGet( srcLineView );
-  let direction = _.line.directionGet( srcLineView );
-  let dimLine  = _.line.dimGet( srcLineView )
-
-  let planeView = _.plane._from( srcPlane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let dimPlane = _.plane.dimGet( planeView );
-
-  _.assert( dimLine === dimPlane );
-
-  if( _.line.planeIntersects( srcLineView, planeView ) )
-  return 0;
-
-  return Math.abs( _.plane.pointDistance( planeView, origin ) );
-}
-
-//
-
-/**
-  * Get the closest point between a line and a plane. Returns the calculated point.
-  * The plane and the line remain unchanged.
-  *
-  * @param { Array } srcLine - Source line.
-  * @param { Array } srcPlane - Source plane.
-  * @param { Array } dstPoint - Destination point.
-  *
-  * @example
-  * // returns 0;
-  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @example
-  * // returns [ 0, -1, 0 ];
-  * _.planeClosestPoint( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
-  *
-  * @returns { Array } Returns the closest point in the line to the plane.
-  * @function planeClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( srcLine ) is not line.
-  * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
-  * @memberof wTools.line
-  */
-function planeClosestPoint( srcLine, srcPlane, dstPoint )
-{
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
-
-  if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Not a valid destination point' );
-
-  if( srcLine === null )
-  srcLine = _.line.make( srcPlane.length - 1 );
-
-  let srcLineView = _.line._from( srcLine );
-  let origin = _.line.originGet( srcLineView );
-  let direction = _.line.directionGet( srcLineView );
-  let dimLine  = _.line.dimGet( srcLineView )
-
-  let planeView = _.plane._from( srcPlane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let dimPlane = _.plane.dimGet( planeView );
-
-  let dstPointView = _.vector.from( dstPoint );
-
-  _.assert( dimLine === dimPlane );
-
-  if( _.line.planeIntersects( srcLineView, planeView ) )
-  return 0;
-
-  origin = _.vector.from( origin );
-  for( let i = 0; i < origin.length; i++ )
-  {
-    dstPointView.eSet( i, origin.eGet( i ) );
-  }
-
-
-  return dstPoint;
-}
-
-//
-
-/**
   * Check if a line and a frustum intersect. Returns true if they intersect and false if not.
   * The frustum and the line remain unchanged.
   *
@@ -2051,6 +1491,391 @@ function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
   {
     dstPointView.eSet( i, pointView.eGet( i ) );
   }
+
+  return dstPoint;
+}
+
+//
+
+/**
+  * Check if two lines intersect. Returns true if they intersect, false if not.
+  * Lines stay untouched.
+  *
+  * @param { Vector } src1Line - The first source line.
+  * @param { Vector } src2Line - The second source line.
+  *
+  * @example
+  * // returns   true
+  * _.lineIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
+  *
+  * @example
+  * // returns  false
+  * _.lineIntersects( [ -3, 0, 1, 0 ], [ 0, -2, 1, 0 ] );
+  *
+  * @returns { Boolean } Returns true if the two lines intersect.
+  * @function lineIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( src1Line ) is not line.
+  * @throws { Error } An Error if ( src2Line ) is not line.
+  * @memberof wTools.line
+  */
+function lineIntersects( srcLine1, srcLine2 )
+{
+
+  if( _.line.lineIntersectionFactors( srcLine1, srcLine2 ) === 0 )
+  return false
+
+  return true;
+}
+
+//
+
+/**
+  * Get the distance between two lines. Returns the calculated distance.
+  * The lines remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } tstLine - Test line.
+  *
+  * @example
+  * // returns 0;
+  * _.lineDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 12 );
+  * _.lineDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between two lines.
+  * @function lineDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( tstLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function lineDistance( srcLine, tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( tstLine.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let srcOrigin = _.line.originGet( srcLineView );
+  let srcDirection = _.line.directionGet( srcLineView );
+  let srcDim  = _.line.dimGet( srcLineView )
+
+  let tstLineView = _.line._from( tstLine );
+  let tstOrigin = _.line.originGet( tstLineView );
+  let tstDirection = _.line.directionGet( tstLineView );
+  let tstDim  = _.line.dimGet( tstLineView );
+
+  _.assert( srcDim === tstDim );
+
+  let distance;
+
+  if( _.line.lineIntersects( srcLineView, tstLineView ) === true )
+  return 0;
+  // Parallel lines
+  if( _.line.lineParallel( srcLineView, tstLineView ) )
+  {
+    let d1 = _.line.pointDistance( srcLineView, tstOrigin );
+    let d2 = _.line.pointDistance( tstLineView, srcOrigin );
+    let d3 = _.avector.distance( srcOrigin, tstOrigin );
+
+    if( d1 <= d2 && d1 <= d3 )
+    {
+      distance = d1;
+    }
+    else if( d2 <= d3 )
+    {
+      distance = d2;
+    }
+    else
+    {
+      distance = d3;
+    }
+  }
+  else
+  {
+    let srcPoint = _.line.lineClosestPoint( srcLineView, tstLineView );
+    let tstPoint = _.line.lineClosestPoint( tstLineView, srcLineView );
+    distance = _.avector.distance( srcPoint, tstPoint );
+  }
+
+
+  return distance;
+}
+
+//
+
+/**
+  * Get the closest point in a line to a line. Returns the calculated point.
+  * The lines remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } tstLine - Test line.
+  *
+  * @example
+  * // returns 0;
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
+  *
+  * @returns { Array } Returns the closest point in the srcLine to the tstLine.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( tstLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function lineClosestPoint( srcLine, tstLine, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( tstLine.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( tstLine.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let srcOrigin = _.line.originGet( srcLineView );
+  let srcDir = _.line.directionGet( srcLineView );
+  let srcDim  = _.line.dimGet( srcLineView );
+
+  let tstLineView = _.line._from( tstLine );
+  let tstOrigin = _.line.originGet( tstLineView );
+  let tstDir = _.line.directionGet( tstLineView );
+  let tstDim = _.line.dimGet( tstLineView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( srcDim === tstDim );
+
+  let pointView;
+
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
+  {
+    if( srcOrigin.eGet( i ) === tstOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
+  }
+  if( identOrigin === srcOrigin.length )
+  pointView = srcOrigin;
+  else
+  {
+    // Parallel lines
+    if( _.line.lineParallel( srcLineView, tstLineView ) )
+    {
+      pointView = _.line.pointClosestPoint( srcLineView, tstOrigin );
+    }
+    else
+    {
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+
+      pointView = _.line.lineAt( srcLineView, factor );
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
+  * Check if a line and a plane intersect. Returns true if they intersect and false if not.
+  * The plane and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcPlane - Source plane.
+  *
+  * @example
+  * // returns true;
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.planeIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Boolean } Returns true if the line and the plane intersect.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function planeIntersects( srcLine, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcPlane.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  _.assert( dimLine === dimPlane );
+
+  if( _.plane.pointContains( planeView, origin ) )
+  return true;
+
+  let dirDotNormal = _.vector.dot( direction, normal );
+
+  if( dirDotNormal !== 0 )
+  {
+    return true;
+  /*
+  *  let originDotNormal = _.vector.dot( origin, normal );
+  *  let factor = - ( originDotNormal + bias ) / dirDotNormal;
+  *
+  *  if( factor > 0 )
+  *  {
+  *    return true;
+  *  }
+  */
+
+  }
+
+  return false;
+}
+
+//
+
+/**
+  * Get the distance between a line and a plane. Returns the calculated distance.
+  * The plane and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcPlane - Source plane.
+  *
+  * @example
+  * // returns 0;
+  * _.planeDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns 1;
+  * _.planeDistance( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Number } Returns the distance between the line and the plane.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function planeDistance( srcLine, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcPlane.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  _.assert( dimLine === dimPlane );
+
+  if( _.line.planeIntersects( srcLineView, planeView ) )
+  return 0;
+
+  return Math.abs( _.plane.pointDistance( planeView, origin ) );
+}
+
+//
+
+/**
+  * Get the closest point between a line and a plane. Returns the calculated point.
+  * The plane and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns [ 0, -1, 0 ];
+  * _.planeClosestPoint( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Array } Returns the closest point in the line to the plane.
+  * @function planeClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function planeClosestPoint( srcLine, srcPlane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcPlane.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimLine === dimPlane );
+
+  if( _.line.planeIntersects( srcLineView, planeView ) )
+  return 0;
+
+  origin = _.vector.from( origin );
+  for( let i = 0; i < origin.length; i++ )
+  {
+    dstPointView.eSet( i, origin.eGet( i ) );
+  }
+
 
   return dstPoint;
 }
@@ -2397,6 +2222,180 @@ function segmentClosestPoint( srcLine, tstSegment, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Check if a line and a sphere intersect. Returns true if they intersect and false if not.
+  * The sphere and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcSphere - Source sphere.
+  *
+  * @example
+  * // returns true;
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.sphereIntersects( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the line and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function sphereIntersects( srcLine, srcSphere )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcSphere.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  _.assert( dimLine === dimSphere );
+
+  if( _.sphere.pointContains( sphereView, origin ) )
+  return true;
+
+  let distance = _.line.pointDistance( srcLineView, center );
+
+  if( distance <= radius)
+  return true;
+
+  return false;
+
+}
+
+//
+
+/**
+  * Get the distance between a line and a sphere. Returns the calculated distance.
+  * The sphere and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcSphere - Source sphere.
+  *
+  * @example
+  * // returns 0;
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 27 ) -1;
+  * _.sphereDistance( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns the distance between the line and the sphere.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function sphereDistance( srcLine, srcSphere )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcSphere.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  _.assert( dimLine === dimSphere );
+
+  if( _.line.sphereIntersects( srcLineView, sphereView ) )
+  return 0;
+
+  return _.line.pointDistance( srcLineView, center ) - radius;
+}
+
+//
+
+/**
+  * Get the closest point in a line to a sphere. Returns the calculated point.
+  * The sphere and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcSphere - Source sphere.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.sphereClosestPoint( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
+  *
+  * @returns { Boolean } Returns the closest point in a line to a sphere.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function sphereClosestPoint( srcLine, srcSphere, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.sphere.is( srcSphere ) );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcSphere.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcSphere.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimLine === dimSphere );
+
+  if( _.line.sphereIntersects( srcLineView, sphereView ) )
+  return 0;
+
+  let pointVector = _.vector.from( _.line.pointClosestPoint( srcLineView, center ) );
+
+  for( let i = 0; i < pointVector.length; i++ )
+  {
+    dstPointView.eSet( i, pointVector.eGet( i ) );
+  }
+
+  return dstPoint;
+}
 
 
 
@@ -2433,10 +2432,6 @@ let Proto =
   lineIntersectionPoint : lineIntersectionPoint,
   lineIntersectionPointAccurate : lineIntersectionPointAccurate,
 
-  lineIntersects : lineIntersects,
-  lineDistance : lineDistance,
-  lineClosestPoint : lineClosestPoint,
-
   pointContains : pointContains,
   pointDistance : pointDistance,
   pointClosestPoint : pointClosestPoint,
@@ -2445,17 +2440,17 @@ let Proto =
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
 
-  sphereIntersects : sphereIntersects,
-  sphereDistance : sphereDistance,
-  sphereClosestPoint : sphereClosestPoint,
+  frustumIntersects : frustumIntersects,
+  frustumDistance : frustumDistance,
+  frustumClosestPoint : frustumClosestPoint,
+
+  lineIntersects : lineIntersects,
+  lineDistance : lineDistance,
+  lineClosestPoint : lineClosestPoint,
 
   planeIntersects : planeIntersects,
   planeDistance : planeDistance,
   planeClosestPoint : planeClosestPoint,
-
-  frustumIntersects : frustumIntersects,
-  frustumDistance : frustumDistance,
-  frustumClosestPoint : frustumClosestPoint,
 
   rayIntersects : rayIntersects,
   rayDistance : rayDistance,
@@ -2464,6 +2459,10 @@ let Proto =
   segmentIntersects : segmentIntersects,  /* Same as _.segment.rayIntersects */
   segmentDistance : segmentDistance,  /* Same as _.segment.rayDistance */
   segmentClosestPoint : segmentClosestPoint,
+
+  sphereIntersects : sphereIntersects,
+  sphereDistance : sphereDistance,
+  sphereClosestPoint : sphereClosestPoint,
 
 }
 
