@@ -3408,6 +3408,239 @@ function lineClosestPoint( test )
 
 }
 
+//
+
+function segmentClosestPoint( test )
+{
+
+  test.case = 'Source frustum and segment remain unchanged'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  var oldSrcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldSrcFrustum );
+
+  var oldtstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstSegment, oldtstSegment );
+
+  test.case = 'Frustum and segment intersect'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ -1, -1, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment origin is frustum corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment end is frustum corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ -1, -1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment is frustum side'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0, 0, 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Negative factor on corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Positive factor on corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ -3, -3, -3, -1, -1, -1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Negative factor on side'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0.5, 0.5, 2, 0.5, 0.5, 3 ];
+  var expected = [ 0.5, 0.5, 1 ];
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Positive factor on side'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0.5, 0.5, - 2, 0.5, 0.5, - 1 ];
+  var expected = [ 0.5, 0.5, 0 ];
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Closest point is corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0, 0, 2, 0, 0, 7 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Closest point on side'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0.2, 0.3, 1.1, 0.4, 0.5, 1.2 ];
+  var expected = [ 0.2, 0.3, 1 ];
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 5, 5, 1, 8, 5, 1 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment, dstPoint );
+  test.identical( expected, gotSegment );
+  test.is( dstPoint === gotSegment );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ - 5, 5, 1, -3, 5, 1 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 1, 1 ] );
+
+  var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment, dstPoint );
+  test.equivalent( expected, gotSegment );
+  test.is( dstPoint === gotSegment );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.segmentClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentClosestPoint( 'frustum', 'segment' ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
 
 // --
 // declare
@@ -3451,6 +3684,7 @@ var Self =
 
     rayClosestPoint : rayClosestPoint,
     lineClosestPoint : lineClosestPoint,
+    segmentClosestPoint : segmentClosestPoint,
   }
 
 }

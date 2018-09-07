@@ -1645,6 +1645,102 @@ function lineClosestPoint( frustum, line, dstPoint )
 
     return dstPoint;
   }
+}
+
+//
+
+function segmentIntersects( srcFrustum , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dims = _.Space.dimsOf( srcFrustum ) ;
+
+  let tstSegmentView = _.segment._from( tstSegment );
+
+  let gotBool = _.segment.frustumIntersects( tstSegmentView, srcFrustum );
+
+  return gotBool;
+}
+
+//
+
+function segmentDistance( srcFrustum , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+
+  let gotDist = _.segment.frustumDistance( tstSegmentView, srcFrustum );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a frustum to a segment. Returns the calculated point.
+  * Frustum and segment remain unchanged
+  *
+  * @param { Array } frustum - The source frustum.
+  * @param { Array } segment - The source segment.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 1, 0, 0 ]
+  * let segment = [ 2, 0, 0, 1, 0, 0 ]
+  * let srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * _.segmentClosestPoint( frusrum, segment );
+  *
+  * @returns { Array } Returns the closest point to the segment.
+  * @function segmentClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @throws { Error } An Error if ( segment ) is not segment
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.frustum
+  */
+function segmentClosestPoint( frustum, segment, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  let dimF = _.Space.dimsOf( frustum ) ;
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimF[ 0 ] - 1);
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let segmentView = _.segment._from( segment );
+  let dimSegment  = _.segment.dimGet( segmentView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimF[ 0 ] - 1 === dstPoint.length );
+  _.assert( dimF[ 0 ] - 1 === dimSegment );
+
+  if( _.segment.frustumIntersects( segmentView, frustum ) )
+  return 0
+  else
+  {
+    let segmentPoint = _.segment.frustumClosestPoint( segmentView, frustum );
+
+    let frustumPoint = _.vector.from( _.frustum.pointClosestPoint( frustum, segmentPoint ) );
+
+    for( let i = 0; i < dimF[ 0 ] - 1 ; i++ )
+    {
+      dstPointView.eSet( i, frustumPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
 
 }
 
@@ -1694,6 +1790,10 @@ let Proto =
   lineIntersects : lineIntersects,  /* Same as _.line.frustumIntersects */
   lineDistance : lineDistance,  /* Same as _.line.frustumDistance */
   lineClosestPoint : lineClosestPoint,
+
+  segmentIntersects : segmentIntersects,  /* Same as _.segment.frustumIntersects */
+  segmentDistance : segmentDistance,  /* Same as _.segment.frustumDistance */
+  segmentClosestPoint : segmentClosestPoint,
 
 }
 
