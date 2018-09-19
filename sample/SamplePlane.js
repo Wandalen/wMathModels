@@ -1,16 +1,13 @@
 if( typeof module !== 'undefined' )
 require( 'wmathconcepts' );
 
-var _ = wTools;
+let _ = wTools;
 
-var plane1 = [ 1, 0, 0, -0.5 ];
+let plane1 = [ -1, 0, 0, 0 ];
 
-
-var box = [ 0, 0, 0, 1, 1, 1 ];
-
-var j = _.plane.boxDistance( plane1, box )
-console.log( j );
+let segment = [ 2, 2, 2, 3, 3, 3 ];
 debugger;
-var j = _.box.planeDistance( box, plane1 )
+
+j = _.plane.segmentClosestPoint( plane1, segment )
 console.log( j );
 debugger;

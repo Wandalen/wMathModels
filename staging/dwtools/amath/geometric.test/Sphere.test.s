@@ -2748,6 +2748,1188 @@ function boxExpand( test )
 
 //
 
+function frustumContains( test )
+{
+  test.description = 'Frustum and sphere remain unchanged'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 3, 3, 3, 2 ];
+
+  var expected = false;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  var oldSrcSphere = srcSphere.slice();
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( tstFrustum, oldFrustum );
+
+  test.description = 'Sphere contains frustum'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = true;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere contains frustum - near corner'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
+
+  var expected = true;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere contains frustum - touching corner'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + test.accuracy ];
+
+  var expected = true;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere doesn´t contains frustum - just outside corner'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
+
+  var expected = false;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere doesn´t contain frustum'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 5, 5, 5, 1 ];
+
+  var expected = false;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Sphere doesn´t contain frustum - intersection'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 2, 2, 2, 2 ];
+
+  var expected = false;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero frustum'; //
+
+  var tstFrustum =  _.frustum.make();
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = true;
+  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( null, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( NaN, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3 ] , tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
+
+}
+
+//
+
+function frustumDistance( test )
+{
+  test.description = 'Frustum and sphere remain unchanged'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 3, 3, 3, 2 ];
+
+  var expected = 1.4641016151377544;
+  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
+  test.equivalent( gotDistance, expected );
+
+  var oldSrcSphere = srcSphere.slice();
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( tstFrustum, oldFrustum );
+
+  test.description = 'Sphere contains frustum'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = 0
+  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Sphere contains frustum - near corner'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
+
+  var expected = 0;
+  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Sphere doesn´t contain frustum - just outside corner'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
+
+  var expected = 0;
+  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Sphere doesn´t contain frustum'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 5, 5, 5, 1 ];
+
+  var expected = 5.928203230275509;
+  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Sphere doesn´t contain frustum - intersection'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 2, 2, 2, 2 ];
+
+  var expected = 0;
+  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Sphere close to frustum side'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 3, 0, 1 ];
+
+  var expected = 1;
+  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Zero frustum'; //
+
+  var tstFrustum =  _.frustum.make();
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = 0;
+  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ], 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( null, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( NaN, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3 ] , tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
+
+}
+
+//
+
+function frustumClosestPoint( test )
+{
+  test.description = 'Frustum and sphere remain unchanged'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 3, 0, 0, 1 ];
+
+  var expected = [ 2, 0, 0 ];
+  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
+  test.equivalent( gotDistance, expected );
+
+  var oldSrcSphere = srcSphere.slice();
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( tstFrustum, oldFrustum );
+
+  test.description = 'Sphere contains frustum'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = 0
+  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Intersection'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 2, 2, 2, 2 ];
+
+  var expected = 0;
+  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum contains sphere'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, 1 ];
+
+  var expected = 0;
+  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Closest point away in 1D'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 5, 1, 1 ];
+
+  var expected = [ 0, 4, 1 ];
+  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Closest point away in 2D'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 3, 3, 1 ];
+
+  var expected = [ 0, 2.2928932188134525, 2.2928932188134525 ];
+  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Closest point away in 3D'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 3, 3, 3, 1 ];
+
+  var expected = [ 2.4226497308103743, 2.4226497308103743, 2.4226497308103743 ];
+  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Zero frustum'; //
+
+  var tstFrustum =  _.frustum.make();
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = 0;
+  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ], 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( null, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( NaN, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3 ] , tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
+
+}
+
+//
+
+function frustumExpand( test )
+{
+  test.description = 'Frustum and sphere remain unchanged'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 3, 0, 0, 1 ];
+
+  var expected = [ 3, 0, 0, 3.3166247903554 ];
+  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
+  test.equivalent( gotDistance, expected );
+
+  var oldSrcSphere = srcSphere.slice();
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( tstFrustum, oldFrustum );
+
+  test.description = 'Sphere contains frustum'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = [ 0, 0, 0, 2 ];
+  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Intersection'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 2, 2, 2, 2 ];
+
+  var expected = [ 2, 2, 2, Math.sqrt( 12 ) ];
+  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum contains sphere'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 0, 0, 1 ];
+
+  var expected = [ 0, 0, 0, Math.sqrt( 3 ) ];
+  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustrum away in 1D'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 5, 1, 1 ];
+
+  var expected = [ 0, 5, 1, Math.sqrt( 27 ) ];
+  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum away in 2D'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 0, 3, 3, 1 ];
+
+  var expected = [ 0, 3, 3, Math.sqrt( 19 ) ];
+  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Closest point away in 3D'; //
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var srcSphere = [ 3, 3, 3, 1 ];
+
+  var expected = [ 3, 3, 3, Math.sqrt( 27 ) ];
+  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Zero frustum'; //
+
+  var tstFrustum =  _.frustum.make();
+  var srcSphere = [ 0, 0, 0, 2 ];
+
+  var expected = [ 0, 0, 0, 2 ];
+  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ], 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( null, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( NaN, tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3 ] , tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
+
+}
+
+//
+
+function lineClosestPoint( test )
+{
+
+  test.case = 'Source sphere and line remain unchanged'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  var oldSrcSphere = [ - 1, - 1, -1, 2 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstLine, oldTstLine );
+
+  test.case = 'sphere and line intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 3 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Line origin touches sphere'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstLine = [ -1, -1, 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Negative factor'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstLine = [ - 1, -1, 2, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Line and sphere don´t intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstLine = [ - 1, -1, 2, 0, 1, 0 ];
+  var expected = [ - 1, - 1, 0 ];
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Closest point in sphere side'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstLine = [ 5, 0, 0, 0, 1, 0 ];
+  var expected = [ 4, 0, 0 ];
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstLine = [ 5, 0, 0, 0, 1, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 0, 0 ];
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine, dstPoint );
+  test.identical( expected, gotLine );
+  test.is( dstPoint === gotLine );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstLine = [ 0, 0, 5, 1, 0, 0 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 0, 4 ] );
+
+  var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine, dstPoint );
+  test.equivalent( expected, gotLine );
+  test.is( dstPoint === gotLine );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( 'sphere', 'line' ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+//
+
+function planeClosestPoint( test )
+{
+  test.case = 'Source sphere and test plane remain unchanged'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrcSphere = [ 0, 0, 0, 0 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstPlane = [ 1, 0, 0, 0 ];
+  test.identical( tstPlane, oldTstPlane );
+
+  test.case = 'Empty sphere in plane'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Empty sphere not in plane'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Intersection'; /* */
+
+  var srcSphere = [ 0, 0, 0, 2 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Plane touches sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Plane separate from sphere - plane under sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, 3 ];
+  var expected = [ -1, 0, 0 ];
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Plane separate from sphere - plane over sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, - 3 ];
+  var expected = [ 1, 0, 0 ];
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'DstPoint is array'; /* */
+
+  var srcSphere = [ 2, 2, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 1.2928932188134525,  1.2928932188134525, 0 ];
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'DstPoint is vector'; /* */
+
+  var srcSphere = [ 2, 2, 2, 1 ];
+  var tstPlane = [ 1, 1, 1, 0 ];
+  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
+  var expected = _.vector.fromArray( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
+  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+
+}
+
+//
+
+function planeExpand( test )
+{
+  test.case = 'Source sphere and test plane remain unchanged'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+  test.identical( gotExpand, expected );
+
+  var oldSrcSphere = [ 0, 0, 0, 0 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstPlane = [ 1, 0, 0, 0 ];
+  test.identical( tstPlane, oldTstPlane );
+
+  test.case = 'Empty sphere in plane - no expansion'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.identical( gotExpand, expected );
+
+  test.case = 'Empty sphere not in plane - expansion'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 1 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.identical( gotExpand, expected );
+
+  test.case = 'Intersection'; /* */
+
+  var srcSphere = [ 0, 0, 0, 2 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 2 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.identical( gotExpand, expected );
+
+  test.case = 'Plane touches sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 1 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.identical( gotExpand, expected );
+
+  test.case = 'Plane separate from sphere - plane under sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, 3 ];
+  var expected = [ 0, 0, 0, 3 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.equivalent( gotExpand, expected );
+
+  test.case = 'Plane separate from sphere - plane over sphere'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstPlane = [ 1, 0, 0, - 3 ];
+  var expected = [ 0, 0, 0, 3 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.equivalent( gotExpand, expected );
+
+  test.case = 'Expansion 2D'; /* */
+
+  var srcSphere = [ 2, 2, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
+  var expected = [ 2, 2, 0, 2.8284271247461903 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.equivalent( gotExpand, expected );
+
+  test.case = 'Expansion 3D'; /* */
+
+  var srcSphere = [ 2, 2, 2, 1 ];
+  var tstPlane = [ 1, 1, 1, 0 ];
+  var expected = [ 2, 2, 2, 3.4641016151377544 ];
+  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
+
+  test.equivalent( gotExpand, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+
+}
+
+//
+
+function rayClosestPoint( test )
+{
+
+  test.case = 'Source sphere and ray remain unchanged'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  var oldSrcSphere = [ - 1, - 1, -1, 2 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstRay = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstRay, oldTstRay );
+
+  test.case = 'sphere and ray intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 3 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray origin touches sphere'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstRay = [ -1, -1, 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray and sphere don´t intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstRay = [ - 1, -1, 2, 0, 0, 1 ];
+  var expected = [ - 1, - 1, 0 ];
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Closest point in sphere side'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstRay = [ 5, 0, 0, 0, 1, 0 ];
+  var expected = [ 4, 0, 0 ];
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstRay = [ 5, 0, 0, 1, 0, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 0, 0 ];
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay, dstPoint );
+  test.identical( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstRay = [ 0, 0, 5, 1, 0, 0 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 0, 4 ] );
+
+  var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay, dstPoint );
+  test.equivalent( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( 'sphere', 'ray' ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+//
+
+function segmentClosestPoint( test )
+{
+
+  test.case = 'Source sphere and segment remain unchanged'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  var oldSrcSphere = [ - 1, - 1, -1, 2 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstSegment, oldTstSegment );
+
+  test.case = 'sphere and segment intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 3 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment origin touches sphere'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstSegment = [ -1, -1, 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment end touches sphere'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstSegment = [ -7, -1, -1, -1, -1, 0 ];
+  var expected = 0;
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+
+  test.case = 'Negative factor - no intersection'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstSegment = [ - 1, -1, 2, -1, -1, 5 ];
+  var expected = [ -1, -1, 0 ];
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+
+  test.case = 'Positive factor - no intersection'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstSegment = [ - 1, -1, -5, -1, -1, -3 ];
+  var expected = [ -1, -1, -2 ];
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment and sphere don´t intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var tstSegment = [ - 1, -1, 3, - 1, - 1, 2 ];
+  var expected = [ - 1, - 1, 1 ];
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Closest point to segment side'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstSegment = [ 5, 2, 0, -5, 2, 0 ];
+  var expected = [ 0, 1, 0 ];
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Closest point to sphere side'; /* */
+
+  var srcSphere = [ 0, 0, 0, 1 ];
+  var tstSegment = [ 3, 0, 0, 0, 3, 0 ];
+  var expected = [ 1/Math.sqrt( 2 ),  1/Math.sqrt( 2 ), 0 ];
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
+  test.equivalent( expected, gotSegment );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstSegment = [ 5, 0, 0, 6, 2, 0 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 0, 0 ];
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment, dstPoint );
+  test.identical( expected, gotSegment );
+  test.is( dstPoint === gotSegment );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcSphere = [ 0, 0, 0, 4 ];
+  var tstSegment = [ 0, 0, 5, 1, 0, 7 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0, 0, 4 ] );
+
+  var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment, dstPoint );
+  test.equivalent( expected, gotSegment );
+  test.is( dstPoint === gotSegment );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( 'sphere', 'segment' ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+//
+
 function sphereContains( test )
 {
   test.case = 'Source and test spheres remain unchanged'; /* */
@@ -3377,855 +4559,7 @@ function sphereExpand( test )
 
 }
 
-//
 
-function planeClosestPoint( test )
-{
-  test.case = 'Source sphere and test plane remain unchanged'; /* */
-
-  var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
-  var expected = 0;
-  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
-  test.identical( gotClosestPoint, expected );
-
-  var oldSrcSphere = [ 0, 0, 0, 0 ];
-  test.identical( srcSphere, oldSrcSphere );
-
-  var oldTstPlane = [ 1, 0, 0, 0 ];
-  test.identical( tstPlane, oldTstPlane );
-
-  test.case = 'Empty sphere in plane'; /* */
-
-  var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
-  var expected = 0;
-  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
-
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Empty sphere not in plane'; /* */
-
-  var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
-  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
-
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Intersection'; /* */
-
-  var srcSphere = [ 0, 0, 0, 2 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
-
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Plane touches sphere'; /* */
-
-  var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = 0;
-  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
-
-  test.identical( gotClosestPoint, expected );
-
-  test.case = 'Plane separate from sphere - plane under sphere'; /* */
-
-  var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 3 ];
-  var expected = [ -1, 0, 0 ];
-  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
-
-  test.equivalent( gotClosestPoint, expected );
-
-  test.case = 'Plane separate from sphere - plane over sphere'; /* */
-
-  var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, - 3 ];
-  var expected = [ 1, 0, 0 ];
-  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
-
-  test.equivalent( gotClosestPoint, expected );
-
-  test.case = 'DstPoint is array'; /* */
-
-  var srcSphere = [ 2, 2, 0, 1 ];
-  var tstPlane = [ 1, 1, 0, 0 ];
-  var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 1.2928932188134525,  1.2928932188134525, 0 ];
-  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
-
-  test.equivalent( gotClosestPoint, expected );
-
-  test.case = 'DstPoint is vector'; /* */
-
-  var srcSphere = [ 2, 2, 2, 1 ];
-  var tstPlane = [ 1, 1, 1, 0 ];
-  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
-  var expected = _.vector.fromArray( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
-  var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
-
-  test.equivalent( gotClosestPoint, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne', 'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], 'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne', [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], null ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( null, [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( NaN, [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
-
-}
-
-//
-
-function planeExpand( test )
-{
-  test.case = 'Source sphere and test plane remain unchanged'; /* */
-
-  var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
-  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
-  test.identical( gotExpand, expected );
-
-  var oldSrcSphere = [ 0, 0, 0, 0 ];
-  test.identical( srcSphere, oldSrcSphere );
-
-  var oldTstPlane = [ 1, 0, 0, 0 ];
-  test.identical( tstPlane, oldTstPlane );
-
-  test.case = 'Empty sphere in plane - no expansion'; /* */
-
-  var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
-  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
-
-  test.identical( gotExpand, expected );
-
-  test.case = 'Empty sphere not in plane - expansion'; /* */
-
-  var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
-  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
-
-  test.identical( gotExpand, expected );
-
-  test.case = 'Intersection'; /* */
-
-  var srcSphere = [ 0, 0, 0, 2 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 2 ];
-  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
-
-  test.identical( gotExpand, expected );
-
-  test.case = 'Plane touches sphere'; /* */
-
-  var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
-  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
-
-  test.identical( gotExpand, expected );
-
-  test.case = 'Plane separate from sphere - plane under sphere'; /* */
-
-  var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 3 ];
-  var expected = [ 0, 0, 0, 3 ];
-  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
-
-  test.equivalent( gotExpand, expected );
-
-  test.case = 'Plane separate from sphere - plane over sphere'; /* */
-
-  var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, - 3 ];
-  var expected = [ 0, 0, 0, 3 ];
-  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
-
-  test.equivalent( gotExpand, expected );
-
-  test.case = 'Expansion 2D'; /* */
-
-  var srcSphere = [ 2, 2, 0, 1 ];
-  var tstPlane = [ 1, 1, 0, 0 ];
-  var expected = [ 2, 2, 0, 2.8284271247461903 ];
-  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
-
-  test.equivalent( gotExpand, expected );
-
-  test.case = 'Expansion 3D'; /* */
-
-  var srcSphere = [ 2, 2, 2, 1 ];
-  var tstPlane = [ 1, 1, 1, 0 ];
-  var expected = [ 2, 2, 2, 3.4641016151377544 ];
-  var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
-
-  test.equivalent( gotExpand, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', 'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], 'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( null, [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], null ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( NaN, [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
-
-}
-
-//
-
-function frustumContains( test )
-{
-  test.description = 'Frustum and sphere remain unchanged'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 3, 3, 3, 2 ];
-
-  var expected = false;
-  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
-  test.identical( gotBool, expected );
-
-  var oldSrcSphere = srcSphere.slice();
-  test.identical( srcSphere, oldSrcSphere );
-
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  test.identical( tstFrustum, oldFrustum );
-
-  test.description = 'Sphere contains frustum'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, 2 ];
-
-  var expected = true;
-  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
-  test.identical( gotBool, expected );
-
-  test.description = 'Sphere contains frustum - near corner'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
-
-  var expected = true;
-  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
-  test.identical( gotBool, expected );
-
-  test.description = 'Sphere contains frustum - touching corner'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + test.accuracy ];
-
-  var expected = true;
-  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
-  test.identical( gotBool, expected );
-
-  test.description = 'Sphere doesn´t contains frustum - just outside corner'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
-
-  var expected = false;
-  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
-  test.identical( gotBool, expected );
-
-  test.description = 'Sphere doesn´t contain frustum'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 5, 5, 5, 1 ];
-
-  var expected = false;
-  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
-  test.identical( gotBool, expected );
-
-  test.description = 'Sphere doesn´t contain frustum - intersection'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 2, 2, 2, 2 ];
-
-  var expected = false;
-  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
-  test.identical( gotBool, expected );
-
-  test.description = 'Zero frustum'; //
-
-  var tstFrustum =  _.frustum.make();
-  var srcSphere = [ 0, 0, 0, 2 ];
-
-  var expected = true;
-  var gotBool = _.sphere.frustumContains( srcSphere, tstFrustum );
-  test.identical( gotBool, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', 'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], 'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], null ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( null, tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( NaN, tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3 ] , tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
-
-}
-
-//
-
-function frustumDistance( test )
-{
-  test.description = 'Frustum and sphere remain unchanged'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 3, 3, 3, 2 ];
-
-  var expected = 1.4641016151377544;
-  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
-  test.equivalent( gotDistance, expected );
-
-  var oldSrcSphere = srcSphere.slice();
-  test.identical( srcSphere, oldSrcSphere );
-
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  test.identical( tstFrustum, oldFrustum );
-
-  test.description = 'Sphere contains frustum'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, 2 ];
-
-  var expected = 0
-  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Sphere contains frustum - near corner'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
-
-  var expected = 0;
-  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Sphere doesn´t contain frustum - just outside corner'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
-
-  var expected = 0;
-  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Sphere doesn´t contain frustum'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 5, 5, 5, 1 ];
-
-  var expected = 5.928203230275509;
-  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Sphere doesn´t contain frustum - intersection'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 2, 2, 2, 2 ];
-
-  var expected = 0;
-  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Sphere close to frustum side'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 3, 0, 1 ];
-
-  var expected = 1;
-  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Zero frustum'; //
-
-  var tstFrustum =  _.frustum.make();
-  var srcSphere = [ 0, 0, 0, 2 ];
-
-  var expected = 0;
-  var gotDistance = _.sphere.frustumDistance( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( 'sphere', 'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ], 'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( 'sphere', [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ], null ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( null, tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( NaN, tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3 ] , tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
-
-}
-
-//
-
-function frustumClosestPoint( test )
-{
-  test.description = 'Frustum and sphere remain unchanged'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 3, 0, 0, 1 ];
-
-  var expected = [ 2, 0, 0 ];
-  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
-  test.equivalent( gotDistance, expected );
-
-  var oldSrcSphere = srcSphere.slice();
-  test.identical( srcSphere, oldSrcSphere );
-
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  test.identical( tstFrustum, oldFrustum );
-
-  test.description = 'Sphere contains frustum'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, 2 ];
-
-  var expected = 0
-  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Intersection'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-  0,   0,   0,   0, - 1,   1,
-  1, - 1,   0,   0,   0,   0,
-  0,   0,   1, - 1,   0,   0,
-  - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 2, 2, 2, 2 ];
-
-  var expected = 0;
-  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Frustum contains sphere'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, 1 ];
-
-  var expected = 0;
-  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Closest point away in 1D'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 5, 1, 1 ];
-
-  var expected = [ 0, 4, 1 ];
-  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Closest point away in 2D'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 3, 3, 1 ];
-
-  var expected = [ 0, 2.2928932188134525, 2.2928932188134525 ];
-  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
-  test.equivalent( gotDistance, expected );
-
-  test.description = 'Closest point away in 3D'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 3, 3, 3, 1 ];
-
-  var expected = [ 2.4226497308103743, 2.4226497308103743, 2.4226497308103743 ];
-  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
-  test.equivalent( gotDistance, expected );
-
-  test.description = 'Zero frustum'; //
-
-  var tstFrustum =  _.frustum.make();
-  var srcSphere = [ 0, 0, 0, 2 ];
-
-  var expected = 0;
-  var gotDistance = _.sphere.frustumClosestPoint( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere', 'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ], 'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere', [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ], null ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( null, tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( NaN, tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3 ] , tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
-
-}
-
-//
-
-function frustumExpand( test )
-{
-  test.description = 'Frustum and sphere remain unchanged'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 3, 0, 0, 1 ];
-
-  var expected = [ 3, 0, 0, 3.3166247903554 ];
-  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
-  test.equivalent( gotDistance, expected );
-
-  var oldSrcSphere = srcSphere.slice();
-  test.identical( srcSphere, oldSrcSphere );
-
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  test.identical( tstFrustum, oldFrustum );
-
-  test.description = 'Sphere contains frustum'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, 2 ];
-
-  var expected = [ 0, 0, 0, 2 ];
-  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Intersection'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-  0,   0,   0,   0, - 1,   1,
-  1, - 1,   0,   0,   0,   0,
-  0,   0,   1, - 1,   0,   0,
-  - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 2, 2, 2, 2 ];
-
-  var expected = [ 2, 2, 2, Math.sqrt( 12 ) ];
-  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Frustum contains sphere'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 0, 0, 1 ];
-
-  var expected = [ 0, 0, 0, Math.sqrt( 3 ) ];
-  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Frustrum away in 1D'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 5, 1, 1 ];
-
-  var expected = [ 0, 5, 1, Math.sqrt( 27 ) ];
-  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  test.description = 'Frustum away in 2D'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 0, 3, 3, 1 ];
-
-  var expected = [ 0, 3, 3, Math.sqrt( 19 ) ];
-  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
-  test.equivalent( gotDistance, expected );
-
-  test.description = 'Closest point away in 3D'; //
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-  var srcSphere = [ 3, 3, 3, 1 ];
-
-  var expected = [ 3, 3, 3, Math.sqrt( 27 ) ];
-  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
-  test.equivalent( gotDistance, expected );
-
-  test.description = 'Zero frustum'; //
-
-  var tstFrustum =  _.frustum.make();
-  var srcSphere = [ 0, 0, 0, 2 ];
-
-  var expected = [ 0, 0, 0, 2 ];
-  var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
-  test.identical( gotDistance, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
-  ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
-
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere', 'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ], 'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere', [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ], null ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( null, tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( NaN, tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3 ] , tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
-
-}
 
 
 // --
@@ -4277,19 +4611,25 @@ var Self =
     boxClosestPoint : boxClosestPoint,
     boxExpand : boxExpand,
 
+    frustumContains : frustumContains,
+    frustumDistance : frustumDistance,
+    frustumClosestPoint : frustumClosestPoint,
+    frustumExpand : frustumExpand,
+
+    lineClosestPoint : lineClosestPoint,
+
+    planeClosestPoint : planeClosestPoint,
+    planeExpand : planeExpand,
+
+    rayClosestPoint : rayClosestPoint,
+
+    segmentClosestPoint : segmentClosestPoint,
+
     sphereContains : sphereContains,
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
     sphereExpand : sphereExpand,
-
-    planeClosestPoint : planeClosestPoint,
-    planeExpand : planeExpand,
-
-    frustumContains : frustumContains,
-    frustumDistance : frustumDistance,
-    frustumClosestPoint : frustumClosestPoint,
-    frustumExpand : frustumExpand,
   }
 
 }

@@ -2,11 +2,13 @@
 if( typeof module !== 'undefined' )
 require( 'wmathconcepts' );
 
-var _ = wTools;
+let _ = wTools;
 
-var dst = [ Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity ];
-// var point = new Float32Array([ 454.8794860839844, 7893.02783203125, -7698.6318359375 ]);
-var point = _.vector.from( [ 454.8794860839844, 7893.02783203125, -7698.6318359375 ] );
-var box = _.box.pointExpand( dst, point );
-console.log( box )
+let srcBox = [ 1, 1, 1, 7, 7, 7 ];
+let tstSegment = [ 0, 0, 0, 5, 5, 5 ];
+
+let gotsegment = _.box.segmentIntersects( srcBox, tstSegment );
+logger.log( gotsegment )
+gotsegment = _.segment.boxIntersects( tstSegment, srcBox );
+logger.log( gotsegment )
 debugger;

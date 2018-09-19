@@ -28,6 +28,18 @@ qqq
 - CC break : identation
 */
 
+/*
+
+  A box is the space enclosed by orthogonal planes:
+
+  For the following functions, boxes must have the shape [ minX, minY, minZ, maxX, maxY, maxZ ],
+where the dimension equals the object´s length divided by two.
+
+  Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box,
+and maxX, maxY, maxZ the coordinates of the front, top right corner.
+
+*/
+
 // --
 //
 // --
@@ -846,6 +858,70 @@ function sizeGet( box , dst )
 //
 
 /**
+  * Returns the coordinates of the corners of a box. Returns an space object where each column is a point.
+  * Box stays untouched. Dimensions 0 - 3.
+  *
+  * @param { Array } box - The source box.
+  *
+  * @example
+  * // returns boxCorners =
+  * [ 0, 0, 0, 0, 1, 1, 1, 1,
+  *   1, 0, 1, 0, 1, 0, 1, 0,
+  *   1, 1, 0, 0, 1, 1, 0, 0,
+  * ];
+  * _.cornersGet( [ 0, 0, 0, 1, 1, 1 ] );
+  *
+  * @returns { Space } Returns the coordintes of the points in the box corners.
+  * @function cornersGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.box
+  */
+function cornersGet( box )
+{
+  _.assert( arguments.length === 1 );
+
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  let corners = _.Space.makeZero( [ dim, Math.pow( 2, dim ) ] );
+  let dims = _.Space.dimsOf( corners) ;
+  let rows = dims[ 0 ];
+  let cols = dims[ 1 ];
+
+  for( let i = 0 ; i < cols ; i++)
+  {
+    for( let j = 0 ; j < rows ; j++)
+    {
+      if( i < cols/2 )
+      {
+        corners.atomSet( [ j, i ], min.eGet( j ) );
+        if( 0 < i && i < cols/2 )
+        {
+          corners.atomSet( [ i - 1, i ], max.eGet( i - 1 ) );
+        }
+      }
+      else if( i >= cols/2 )
+      {
+        corners.atomSet( [ j, i ], max.eGet( j ) );
+        if( cols/2 <= i && i < cols - 1 )
+        {
+          corners.atomSet( [ i - ( cols/2 ), i ], min.eGet( i - ( cols/2 ) ) );
+        }
+      }
+
+    }
+  }
+
+
+  return corners;
+}
+
+//
+
+/**
   * Expand all sides of a box by the dimensions in the expansion array.
   * Returns the expanded box. Box are stored in Array data structure.
   * The expansion array stays untouched, the box changes.
@@ -980,7 +1056,6 @@ function pointDistance( box , point )
   //  throw _.err( 'not tested' );
 
   let clamped = _.box.pointClosestPoint( box, point );
-
   return _.avector.distance( point, clamped );
 
   debugger;
@@ -1031,7 +1106,7 @@ function pointClosestPoint( box , point, dstPoint )
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
   let pointVector = _.vector.from( point.slice() );
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dim === point.length );
 
@@ -1042,7 +1117,7 @@ function pointClosestPoint( box , point, dstPoint )
 
   for( let i = 0; i < pointVector.length; i++ )
   {
-    dstPointVector.eSet( i, v.eGet( i ) );
+    dstPointView.eSet( i, v.eGet( i ) );
     debugger;
   }
 
@@ -1139,7 +1214,7 @@ function pointRelative( box , point, dstPoint )
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
   let pointVector = _.vector.from( point );
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( dim === point.length );
   _.assert( dim === dstPoint.length );
@@ -1147,7 +1222,7 @@ function pointRelative( box , point, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  _.vector.divAssigning( _.vector.subAssigning( dstPointVector , min ) , _.vector.subAssigning( max.clone() , min ) );
+  _.vector.divAssigning( _.vector.subAssigning( dstPointView , min ) , _.vector.subAssigning( max.clone() , min ) );
 
   return dstPoint;
 }
@@ -1304,31 +1379,13 @@ function boxDistance( srcBox , tstBox )
   // throw _.err( 'not tested' );
 
   /* src corners */
-
-  let c = _.Space.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  let c =  _.box.cornersGet( srcBoxView );
 
   /* tst box corners */
-
-  let c1 = _.Space.makeZero( [ 3, 8 ] );
-  c1.colVectorGet( 0 ).copy( [ tstMin.eGet( 0 ), tstMin.eGet( 1 ), tstMin.eGet( 2 ) ] );
-  c1.colVectorGet( 1 ).copy( [ tstMax.eGet( 0 ), tstMin.eGet( 1 ), tstMin.eGet( 2 ) ] );
-  c1.colVectorGet( 2 ).copy( [ tstMin.eGet( 0 ), tstMax.eGet( 1 ), tstMin.eGet( 2 ) ] );
-  c1.colVectorGet( 3 ).copy( [ tstMin.eGet( 0 ), tstMin.eGet( 1 ), tstMax.eGet( 2 ) ] );
-  c1.colVectorGet( 4 ).copy( [ tstMax.eGet( 0 ), tstMax.eGet( 1 ), tstMax.eGet( 2 ) ] );
-  c1.colVectorGet( 5 ).copy( [ tstMin.eGet( 0 ), tstMax.eGet( 1 ), tstMax.eGet( 2 ) ] );
-  c1.colVectorGet( 6 ).copy( [ tstMax.eGet( 0 ), tstMin.eGet( 1 ), tstMax.eGet( 2 ) ] );
-  c1.colVectorGet( 7 ).copy( [ tstMax.eGet( 0 ), tstMax.eGet( 1 ), tstMin.eGet( 2 ) ] );
+  let c1 =  _.box.cornersGet( tstBoxView );
 
   let distance = Infinity;
-  for( let j = 0 ; j < 8 ; j++ )
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
   {
     let srcCorner = c.colVectorGet( j );
     let tstCorner = c1.colVectorGet( j );
@@ -1402,7 +1459,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
 
   _.assert( tstDim === dstPoint.length );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   debugger;
   // throw _.err( 'not tested' );
@@ -1410,32 +1467,15 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   if( boxIntersects( srcBox , tstBox ) === true )
     return 0;
   else{
-    /* src corners */
 
-    let c = _.Space.makeZero( [ 3, 8 ] );
-    c.colVectorGet( 0 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-    c.colVectorGet( 1 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-    c.colVectorGet( 2 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
-    c.colVectorGet( 3 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-    c.colVectorGet( 4 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-    c.colVectorGet( 5 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-    c.colVectorGet( 6 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-    c.colVectorGet( 7 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
+    /* src corners */
+    let c = _.box.cornersGet( srcBoxView );
 
     /* tst box corners */
-
-    let c1 = _.Space.makeZero( [ 3, 8 ] );
-    c1.colVectorGet( 0 ).copy( [ tstMin.eGet( 0 ), tstMin.eGet( 1 ), tstMin.eGet( 2 ) ] );
-    c1.colVectorGet( 1 ).copy( [ tstMax.eGet( 0 ), tstMin.eGet( 1 ), tstMin.eGet( 2 ) ] );
-    c1.colVectorGet( 2 ).copy( [ tstMin.eGet( 0 ), tstMax.eGet( 1 ), tstMin.eGet( 2 ) ] );
-    c1.colVectorGet( 3 ).copy( [ tstMin.eGet( 0 ), tstMin.eGet( 1 ), tstMax.eGet( 2 ) ] );
-    c1.colVectorGet( 4 ).copy( [ tstMax.eGet( 0 ), tstMax.eGet( 1 ), tstMax.eGet( 2 ) ] );
-    c1.colVectorGet( 5 ).copy( [ tstMin.eGet( 0 ), tstMax.eGet( 1 ), tstMax.eGet( 2 ) ] );
-    c1.colVectorGet( 6 ).copy( [ tstMax.eGet( 0 ), tstMin.eGet( 1 ), tstMax.eGet( 2 ) ] );
-    c1.colVectorGet( 7 ).copy( [ tstMax.eGet( 0 ), tstMax.eGet( 1 ), tstMin.eGet( 2 ) ] );
+    let c1 = _.box.cornersGet( tstBoxView );
 
     let distance = Infinity;
-    let point = _.vector.from( dstPointVector.slice() );
+    let point = _.vector.from( dstPointView.slice() );
     for( let j = 0 ; j < 8 ; j++ )
     {
       let srcCorner = c.colVectorGet( j );
@@ -1457,7 +1497,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
 
     for( let i = 0; i < tstDim; i++ )
     {
-      dstPointVector.eSet( i, point.eGet( i ) );
+      dstPointView.eSet( i, point.eGet( i ) );
       debugger;
     }
 
@@ -1512,6 +1552,833 @@ function boxExpand( dstBox , srcBox )
   return dstBox;
 }
 
+//
+
+/**
+  * Check if a box contains a frustum. Returns true if it is contained, false if not.
+  * Box and frustum remain unchanged
+  *
+  * @param { Array } box - The source box (container).
+  * @param { Space } frustum - The tested frustum (the frustum to check if it is contained in box).
+  *
+  * @example
+  * // returns true
+  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumContains( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns false
+  * _.frustumContains( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Boolean } Returns true if the frustum is contained and false if not.
+  * @function frustumContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @memberof wTools.box
+  */
+function frustumContains( box, frustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  let boxView = _.box._from( box );
+  let dim = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  let fpoints = _.frustum.cornersGet( frustum );
+  _.assert( _.spaceIs( fpoints ) );
+
+  for( let i = 0 ; i < 6 ; i += 1 )
+  {
+    let point = fpoints.colVectorGet( i );
+
+    if( _.box.pointContains( box, point ) !== true )
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+//
+
+/**
+  * Check if a box and a frustum intersect. Returns true if they intersect, false if not.
+  * Box and frustum remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Space } frustum - The tested frustum.
+  *
+  * @example
+  * // returns true
+  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns false
+  * _.frustumIntersects( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Boolean } Returns true if the frustum and the box intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @memberof wTools.box
+  */
+function frustumIntersects( box, frustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  let boxView = _.box._from( box );
+
+  let gotBool = _.frustum.boxIntersects( frustum, boxView );
+  return gotBool;
+}
+
+//
+
+/**
+  * Calculates the distance between a box and a frustum. Returns the calculated distance.
+  * Box and frustum remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Space } frustum - The source frustum.
+  *
+  * @example
+  * // returns 0
+  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns 1
+  * _.frustumDistance( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Number } Returns the distance between the box and the point.
+  * @function frustumDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @memberof wTools.box
+  */
+function frustumDistance( box, frustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+
+  let boxView = _.box._from( box );
+
+  let dim = _.box.dimGet( boxView );
+  _.assert( dim === 3 );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( _.frustum.boxIntersects( frustum, boxView ) )
+  return 0;
+
+  let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
+
+  /* box corners */
+  let c = _.box.cornersGet( boxView );
+
+  let distance = Infinity;
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+  {
+    let corner = c.colVectorGet( j );
+    let proj = _.frustum.pointClosestPoint( frustum, corner );
+    let d = _.avector.distance( corner, frustumPoint );
+    if( d < distance )
+    {
+      distance = d;
+    }
+  }
+
+  return distance;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a frustum. Returns the calculated point.
+  * Box and frustum remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Space } frustum - The source frustum.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.frustumClosestPoint [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Array } Returns the closest point to the frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function frustumClosestPoint( box, frustum, dstPoint )
+{
+  _.assert( _.frustum.is( frustum ) );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  _.assert( dimB === 3 );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( dimB === 3 );
+  _.assert( dimB === dstPoint.length );
+
+  if( _.frustum.boxIntersects( frustum, boxView ) )
+  return 0
+  else
+  {
+    let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
+
+    /* box corners */
+    let c = _.box.cornersGet( boxView );
+
+    let distance = Infinity;
+    let point = [ 0, 0, 0 ];
+    for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+    {
+      let corner = c.colVectorGet( j );
+      let d = _.avector.distance( corner, frustumPoint ); /* qqq : why slice??? */
+      if( d < distance )
+      {
+        distance = d;
+        point = corner; /* qqq : no clone principle */
+      }
+    }
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointView.eSet( i, point.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+/**
+  * Expand a box with a frustum. Returns the expanded box.
+  * Frustum remains unchanged
+  *
+  * @param { Array } dstBox - The destination box.
+  * @param { Space } srcFrustum - The source frustum.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 2, 2, 2 ]
+  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumExpand( [ 0, 0, 0, 2, 2, 2 ], frustum );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 3, 3, 3 ]
+  * _.frustumExpand( [ 2, 2, 2, 3, 3, 3 ], frustum );
+  *
+  * @returns { Array } Returns the expanded box.
+  * @function frustumExpand
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum
+  * @memberof wTools.box
+  */
+function frustumExpand( dstBox, srcFrustum )
+{
+
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let boxView = _.box._from( dstBox );
+
+  let dim = _.box.dimGet( boxView );
+  _.assert( dim === 3 );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  let fpoints = _.frustum.cornersGet( srcFrustum );
+  _.assert( _.spaceIs( fpoints ) );
+  _.assert( fpoints.hasShape([ 3, 8 ] ) );
+
+  for( let j = 0 ; j < 8 ; j++ )
+  {
+    let newp = fpoints.colVectorGet( j );
+    boxView = _.box.pointExpand( boxView, newp );
+  }
+
+  return dstBox;
+}
+
+//
+
+function lineIntersects( srcBox , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.line.boxIntersects( tstLineView, boxView );
+  return gotBool;
+}
+
+//
+
+function lineDistance( srcBox , tstLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.line.boxDistance( tstLineView, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a line. Returns the calculated point.
+  * Box and line remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } line - The source line.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let line = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ], line );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.lineClosestPoint( [ 2, 2, 2, 3, 3, 3 ], line );
+  *
+  * @returns { Array } Returns the closest point to the line.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( line ) is not line
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function lineClosestPoint( box, line, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let lineView = _.line._from( line );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
+  let dimLine  = _.line.dimGet( lineView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimB === dimLine );
+
+  if( _.line.boxIntersects( lineView, boxView ) )
+  return 0
+  else
+  {
+    let linePoint = _.line.boxClosestPoint( line, boxView );
+
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, linePoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+function rayIntersects( srcBox , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstRayView = _.ray._from( tstRay );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.ray.boxIntersects( tstRayView, boxView );
+
+  return gotBool;
+}
+
+//
+
+function rayDistance( srcBox , tstRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstRayView = _.ray._from( tstRay );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.ray.boxDistance( tstRayView, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a ray. Returns the calculated point.
+  * Box and ray remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } ray - The source ray.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let ray = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ], ray );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.rayClosestPoint( [ 2, 2, 2, 3, 3, 3 ], ray );
+  *
+  * @returns { Array } Returns the closest point to the ray.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( ray ) is not ray
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function rayClosestPoint( box, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let rayView = _.ray._from( ray );
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
+  let dimRay  = _.ray.dimGet( rayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimB === dimRay );
+
+  if( _.ray.boxIntersects( rayView, boxView ) )
+  return 0
+  else
+  {
+    let rayPoint = _.ray.boxClosestPoint( ray, boxView );
+
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, rayPoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+/**
+  *Check if the source box intersects with test plane. Returns true if it they intersect, false if not.
+  * Box and plane are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcBox - The source box.
+  * @param { Array } tstPlane - The tested plane.
+  *
+  * @example
+  * // returns true
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, -1 ] );
+  *
+  * @example
+  * // returns false
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the plane and the box intersect.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box
+  * @throws { Error } An Error if ( tstPlane ) is not plane
+  * @memberof wTools.box
+  */
+function planeIntersects( srcBox , tstPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let _tstPlane = _.plane._from( tstPlane );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.plane.boxIntersects( _tstPlane, boxView );
+
+  return gotBool;
+}
+
+//
+
+/**
+  * Calculates the distance between a plane and a box. Returns the distance between the two elements.
+  * The box and the plane remain unchanged.
+  *
+  * @param { Array } srcBox - Source box.
+  * @param { Array } plane - Source plane.
+  *
+  * @example
+  * // returns 0;
+  * _.planeDistance( [ 1, 0, 0, 1 ] , [ -1, 2, 2, -1, 2, 8 ]);
+  *
+  * @example
+  * // returns 3;
+  * _.planeDistance( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Number } Returns the distance between the plane and the box.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
+  * @memberof wTools.box
+  */
+function planeDistance( srcBox, plane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  _.assert( dimP === dimB );
+
+  if( _.plane.boxIntersects( planeView, boxView ) )
+    return 0;
+  else
+  {
+    /* box corners */
+    let c = _.box.cornersGet( boxView );
+
+    let distance = Infinity;
+    let d = 0;
+    for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ]  ; j++ )
+    {
+      let corner = c.colVectorGet( j );
+      d = Math.abs( _.plane.pointDistance( plane, corner ) );
+
+      if( d < distance )
+      {
+        distance = d;
+      }
+    }
+
+    return distance;
+  }
+}
+
+//
+
+/**
+  * Get the closest point in a box to a plane. Returns the closest point. Box and plane stay untouched.
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } plane - The source plane.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 2 ]
+  * _.planeClosestPoint( [ 0, 0, 2, 2 ], [ 0, 3 ] );
+  *
+  * @example
+  * // returns [ 0, 1 ]
+  * _.planeClosestPoint( [ 0, 0, 2, 2 ], [ 0, 1 ] );
+  *
+  * @returns { Array } Returns an array with the coordinates of the closest point.
+  * @function planeClosestPoint
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
+  * @memberof wTools.box
+  */
+function planeClosestPoint( srcBox, plane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimP === dimB );
+  _.assert( dimP === dstPoint.length );
+
+  if( _.plane.boxIntersects( planeView, boxView ) )
+    return 0;
+  else
+  {
+    /* box corners */
+    let c = _.box.cornersGet( boxView );
+
+    let distance = Infinity;
+    let d = 0;
+    let point = _.array.makeArrayOfLength( dimB );
+    for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+    {
+      let corner = c.colVectorGet( j );
+      d = Math.abs( _.plane.pointDistance( plane, corner ) );
+
+      if( d < distance )
+      {
+        distance = d;
+        point = corner;
+      }
+    }
+
+    for( let i = 0; i < point.length; i++ )
+    {
+      dstPointView.eSet( i, point.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
+/**
+  * Expand a box with a plane equation. Returns the expanded box.
+  * Plane stay untouched, box changes.
+  *
+  * @param { Array } dstBox - The destination box.
+  * @param { Array } srcPlane - The source plane.
+  *
+  * @example
+  * // returns [ -1, -1, -1, 2, 2, 2 ]
+  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 1 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 0, 2, 2, 2 ]
+  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 0 ] );
+  *
+  * @returns { Array } Returns an array with the coordinates of the expanded box.
+  * @function planeExpand
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the plane don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @memberof wTools.box
+  */
+function planeExpand( dstBox, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects two arguments' );
+
+  let boxView = _.box._from( dstBox );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  _.assert( _.plane.is( srcPlane ) );
+
+  let planeView = _.plane._from( srcPlane );
+  let dimP = _.plane.dimGet( planeView );
+
+  _.assert( dimP === dimB );
+
+  if( _.plane.boxIntersects( planeView, boxView ) )
+  return dstBox;
+  else
+  {
+    let boxPoint = _.box.planeClosestPoint( boxView, planeView );
+    let planePoint = _.plane.pointCoplanarGet( planeView, boxPoint );
+    let box = _.box.pointExpand( boxView, planePoint);
+    for( let i = 0; i < box.length; i++ )
+    {
+      boxView.eSet( i, box.eGet( i ) );
+    }
+    return dstBox;
+  }
+}
+
+//
+
+function segmentIntersects( srcBox , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.segment.boxIntersects( tstSegmentView, boxView );
+  return gotBool;
+}
+
+//
+
+function segmentDistance( srcBox , tstSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.segment.boxDistance( tstSegmentView, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a segment. Returns the calculated point.
+  * Box and segment remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } segment - The source segment.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let segment = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2 ], segment );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.segmentClosestPoint( [ 2, 2, 2, 3, 3, 3 ], segment );
+  *
+  * @returns { Array } Returns the closest point to the segment.
+  * @function segmentClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( segment ) is not segment
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function segmentClosestPoint( box, segment, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let segmentView = _.segment._from( segment );
+  let origin = _.segment.originGet( segmentView );
+  let direction = _.segment.directionGet( segmentView );
+  let dimSegment  = _.segment.dimGet( segmentView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimB === dimSegment );
+
+  if( _.segment.boxIntersects( segmentView, boxView ) )
+  return 0
+  else
+  {
+    let segmentPoint = _.segment.boxClosestPoint( segment, boxView );
+
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, segmentPoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
 //
 
 /**
@@ -1695,7 +2562,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dstPointVector = _.vector.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
   _.assert( dimS === dimB );
@@ -1709,7 +2576,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 
     for( let i = 0; i < dimB; i++ )
     {
-      dstPointVector.eSet( i, p[ i ] );
+      dstPointView.eSet( i, p[ i ] );
     }
 
     return dstPoint;
@@ -1768,585 +2635,6 @@ function sphereExpand( dstBox , srcSphere )
   {
     let srcCorner = c1.colVectorGet( j );
     _dstBox = _.box.pointExpand( _dstBox, srcCorner );
-  }
-
-  return dstBox;
-}
-
-//
-
-/**
-  *Check if the source box intersects with test plane. Returns true if it they intersect, false if not.
-  * Box and plane are stored in Array data structure and remain unchanged
-  *
-  * @param { Array } srcBox - The source box.
-  * @param { Array } tstPlane - The tested plane.
-  *
-  * @example
-  * // returns true
-  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, -1 ] );
-  *
-  * @example
-  * // returns false
-  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 1 ] );
-  *
-  * @returns { Boolean } Returns true if the plane and the box intersect.
-  * @function planeIntersects
-  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and plane don´t have the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcBox ) is not box
-  * @throws { Error } An Error if ( tstPlane ) is not plane
-  * @memberof wTools.box
-  */
-function planeIntersects( srcBox , tstPlane )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  let _tstPlane = _.plane._from( tstPlane );
-  let boxView = _.box._from( srcBox );
-
-  let gotBool = _.plane.boxIntersects( _tstPlane, boxView );
-
-  return gotBool;
-}
-
-//
-
-/**
-  * Calculates the distance between a plane and a box. Returns the distance between the two elements.
-  * The box and the plane remain unchanged.
-  *
-  * @param { Array } srcBox - Source box.
-  * @param { Array } plane - Source plane.
-  *
-  * @example
-  * // returns 0;
-  * _.planeDistance( [ 1, 0, 0, 1 ] , [ -1, 2, 2, -1, 2, 8 ]);
-  *
-  * @example
-  * // returns 3;
-  * _.planeDistance( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
-  *
-  * @returns { Number } Returns the distance between the plane and the box.
-  * @function planeDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srcBox ) is not box.
-  * @throws { Error } An Error if ( plane ) is not plane.
-  * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
-  * @memberof wTools.box
-  */
-function planeDistance( srcBox, plane )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-
-  let boxView = _.box._from( srcBox );
-  let dimB = _.box.dimGet( boxView );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
-
-  let planeView = _.plane._from( plane );
-  let dimP = _.plane.dimGet( planeView );
-
-  _.assert( dimP === dimB );
-
-  if( _.plane.boxIntersects( planeView, boxView ) )
-    return 0;
-  else
-  {
-    /* box corners */
-
-    let c = _.Space.makeZero( [ 3, 8 ] );
-    /* qqq : avoid toArray */
-    c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-
-    let distance = Infinity;
-    let d = 0;
-    for( let j = 0 ; j < 8 ; j++ )
-    {
-      let corner = c.colVectorGet( j );
-      d = Math.abs( _.plane.pointDistance( plane, corner ) );
-
-      if( d < distance )
-      {
-        distance = d;
-      }
-    }
-
-    return distance;
-  }
-}
-
-//
-
-/**
-  * Get the closest point in a box to a plane. Returns the closest point. Box and plane stay untouched.
-  *
-  * @param { Array } box - The source box.
-  * @param { Array } plane - The source plane.
-  * @param { Array } dstPoint - The destination point.
-  *
-  * @example
-  * // returns [ 0, 2 ]
-  * _.planeClosestPoint( [ 0, 0, 2, 2 ], [ 0, 3 ] );
-  *
-  * @example
-  * // returns [ 0, 1 ]
-  * _.planeClosestPoint( [ 0, 0, 2, 2 ], [ 0, 1 ] );
-  *
-  * @returns { Array } Returns an array with the coordinates of the closest point.
-  * @function planeClosestPoint
-  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the plane don´t have the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( box ) is not box.
-  * @throws { Error } An Error if ( plane ) is not plane.
-  * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
-  * @memberof wTools.box
-  */
-function planeClosestPoint( srcBox, plane, dstPoint )
-{
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
-
-  let boxView = _.box._from( srcBox );
-  let dimB = _.box.dimGet( boxView );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
-
-  let planeView = _.plane._from( plane );
-  let dimP = _.plane.dimGet( planeView );
-
-  if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Null or undefined dstPoint is not allowed' );
-
-  let dstPointVector = _.vector.from( dstPoint );
-
-  _.assert( dimP === dimB );
-  _.assert( dimP === dstPoint.length );
-
-  if( _.plane.boxIntersects( planeView, boxView ) )
-    return 0;
-  else
-  {
-    /* box corners */
-
-    let c = _.Space.makeZero( [ 3, 8 ] );
-    c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-
-    let distance = Infinity;
-    let d = 0;
-    let point = _.array.makeArrayOfLength( dimB );
-    for( let j = 0 ; j < 8 ; j++ )
-    {
-      let corner = c.colVectorGet( j );
-      d = Math.abs( _.plane.pointDistance( plane, corner ) );
-
-      if( d < distance )
-      {
-        distance = d;
-        point = corner;
-      }
-    }
-
-    for( let i = 0; i < point.length; i++ )
-    {
-      dstPointVector.eSet( i, point.eGet( i ) );
-    }
-
-    return dstPoint;
-  }
-}
-
-//
-
-/**
-  * Expand a box with a plane equation. Returns the expanded box.
-  * Plane stay untouched, box changes.
-  *
-  * @param { Array } dstBox - The destination box.
-  * @param { Array } srcPlane - The source plane.
-  *
-  * @example
-  * // returns [ -1, -1, -1, 2, 2, 2 ]
-  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 1 ] );
-  *
-  * @example
-  * // returns [ 0, 0, 0, 2, 2, 2 ]
-  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 0 ] );
-  *
-  * @returns { Array } Returns an array with the coordinates of the expanded box.
-  * @function planeExpand
-  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the plane don´t have the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( dstBox ) is not box.
-  * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @memberof wTools.box
-  */
-function planeExpand( dstBox, srcPlane )
-{
-  _.assert( arguments.length === 2, 'expects two arguments' );
-
-  let boxView = _.box._from( dstBox );
-  let dimB = _.box.dimGet( boxView );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
-
-  _.assert( _.plane.is( srcPlane ) );
-
-  let planeView = _.plane._from( srcPlane );
-  let dimP = _.plane.dimGet( planeView );
-
-  _.assert( dimP === dimB );
-
-  if( _.plane.boxIntersects( planeView, boxView ) )
-  return dstBox;
-  else
-  {
-    let boxPoint = _.box.planeClosestPoint( boxView, planeView );
-    let planePoint = _.plane.pointCoplanarGet( planeView, boxPoint );
-    let box = _.box.pointExpand( boxView, planePoint);
-    for( let i = 0; i < box.length; i++ )
-    {
-      boxView.eSet( i, box.eGet( i ) );
-    }
-    return dstBox;
-  }
-}
-
-//
-
-/**
-  * Check if a box contains a frustum. Returns true if it is contained, false if not.
-  * Box and frustum remain unchanged
-  *
-  * @param { Array } box - The source box (container).
-  * @param { Space } frustum - The tested frustum (the frustum to check if it is contained in box).
-  *
-  * @example
-  * // returns true
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
-  * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  * );
-  * _.frustumContains( [ 0, 0, 0, 2, 2, 2 ], frustum );
-  *
-  * @example
-  * // returns false
-  * _.frustumContains( [ 2, 2, 2, 3, 3, 3 ], frustum );
-  *
-  * @returns { Boolean } Returns true if the frustum is contained and false if not.
-  * @function frustumContains
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( box ) is not box
-  * @throws { Error } An Error if ( frustum ) is not frustum
-  * @memberof wTools.box
-  */
-function frustumContains( box, frustum )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( frustum ) );
-  let boxView = _.box._from( box );
-  let dim = _.box.dimGet( boxView );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
-
-  let fpoints = _.frustum.cornersGet( frustum );
-  _.assert( _.spaceIs( fpoints ) );
-
-  for( let i = 0 ; i < 6 ; i += 1 )
-  {
-    let point = fpoints.colVectorGet( i );
-
-    if( _.box.pointContains( box, point ) !== true )
-    {
-      return false;
-    }
-  }
-  return true;
-}
-
-//
-
-/**
-  * Check if a box and a frustum intersect. Returns true if they intersect, false if not.
-  * Box and frustum remain unchanged
-  *
-  * @param { Array } box - The source box.
-  * @param { Space } frustum - The tested frustum.
-  *
-  * @example
-  * // returns true
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
-  * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  * );
-  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ], frustum );
-  *
-  * @example
-  * // returns false
-  * _.frustumIntersects( [ 2, 2, 2, 3, 3, 3 ], frustum );
-  *
-  * @returns { Boolean } Returns true if the frustum and the box intersect.
-  * @function frustumIntersects
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( box ) is not box
-  * @throws { Error } An Error if ( frustum ) is not frustum
-  * @memberof wTools.box
-  */
-function frustumIntersects( box, frustum )
-{
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( frustum ) );
-  let boxView = _.box._from( box );
-
-  let gotBool = _.frustum.boxIntersects( frustum, boxView );
-  return gotBool;
-}
-
-//
-
-/**
-  * Calculates the distance between a box and a frustum. Returns the calculated distance.
-  * Box and frustum remain unchanged
-  *
-  * @param { Array } box - The source box.
-  * @param { Space } frustum - The source frustum.
-  *
-  * @example
-  * // returns 0
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
-  * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  * );
-  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ], frustum );
-  *
-  * @example
-  * // returns 1
-  * _.frustumDistance( [ 2, 2, 2, 3, 3, 3 ], frustum );
-  *
-  * @returns { Number } Returns the distance between the box and the point.
-  * @function frustumDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( box ) is not box
-  * @throws { Error } An Error if ( frustum ) is not frustum
-  * @memberof wTools.box
-  */
-function frustumDistance( box, frustum )
-{
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( frustum ) );
-
-  let boxView = _.box._from( box );
-
-  let dim = _.box.dimGet( boxView );
-  _.assert( dim === 3 );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
-
-  if( _.frustum.boxIntersects( frustum, boxView ) )
-  return 0;
-
-  let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
-
-  /* box corners */
-
-  let c = _.Space.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-
-  let distance = Infinity;
-  for( let j = 0 ; j < 8 ; j++ )
-  {
-    let corner = c.colVectorGet( j );
-    let proj = _.frustum.pointClosestPoint( frustum, corner );
-    let d = _.avector.distance( corner, frustumPoint );
-    if( d < distance )
-    {
-      distance = d;
-    }
-  }
-
-  return distance;
-}
-
-//
-
-/**
-  * Calculates the closest point in a box to a frustum. Returns the calculated point.
-  * Box and frustum remain unchanged
-  *
-  * @param { Array } box - The source box.
-  * @param { Space } frustum - The source frustum.
-  * @param { Array } dstPoint - The destination point.
-  *
-  * @example
-  * // returns 0
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
-  * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  * );
-  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ], frustum );
-  *
-  * @example
-  * // returns [ 2, 2, 2 ]
-  * _.frustumClosestPoint [ 2, 2, 2, 3, 3, 3 ], frustum );
-  *
-  * @returns { Array } Returns the closest point to the frustum.
-  * @function frustumClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( box ) is not box
-  * @throws { Error } An Error if ( frustum ) is not frustum
-  * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.box
-  */
-function frustumClosestPoint( box, frustum, dstPoint )
-{
-  _.assert( _.frustum.is( frustum ) );
-
-  let boxView = _.box._from( box );
-  let dimB = _.box.dimGet( boxView );
-  _.assert( dimB === 3 );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
-
-  if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
-
-  if( dstPoint === null || dstPoint === undefined )
-  throw _.err( 'Null or undefined dstPoint is not allowed' );
-
-  let dstPointVector = _.vector.from( dstPoint );
-
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
-  _.assert( dimB === 3 );
-  _.assert( dimB === dstPoint.length );
-
-  if( _.frustum.boxIntersects( frustum, boxView ) )
-  return 0
-  else
-  {
-    let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
-
-    /* box corners */
-
-    let c = _.Space.makeZero( [ 3, 8 ] );
-    c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-    c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-    c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-
-    let distance = Infinity;
-    let point = [ 0, 0, 0 ];
-    for( let j = 0 ; j < 8 ; j++ )
-    {
-      let corner = c.colVectorGet( j );
-      let d = _.avector.distance( corner, frustumPoint ); /* qqq : why slice??? */
-      if( d < distance )
-      {
-        distance = d;
-        point = corner; /* qqq : no clone principle */
-      }
-    }
-
-    for( let i = 0; i < dimB; i++ )
-    {
-      dstPointVector.eSet( i, point.eGet( i ) );
-    }
-
-    return dstPoint;
-  }
-
-}
-
-//
-
-/**
-  * Expand a box with a frustum. Returns the expanded box.
-  * Frustum remains unchanged
-  *
-  * @param { Array } dstBox - The destination box.
-  * @param { Space } srcFrustum - The source frustum.
-  *
-  * @example
-  * // returns [ 0, 0, 0, 2, 2, 2 ]
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
-  * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  * );
-  * _.frustumExpand( [ 0, 0, 0, 2, 2, 2 ], frustum );
-  *
-  * @example
-  * // returns [ 0, 0, 0, 3, 3, 3 ]
-  * _.frustumExpand( [ 2, 2, 2, 3, 3, 3 ], frustum );
-  *
-  * @returns { Array } Returns the expanded box.
-  * @function frustumExpand
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( dstBox ) is not box
-  * @throws { Error } An Error if ( srcFrustum ) is not frustum
-  * @memberof wTools.box
-  */
-function frustumExpand( dstBox, srcFrustum )
-{
-
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
-  _.assert( _.frustum.is( srcFrustum ) );
-
-  let boxView = _.box._from( dstBox );
-
-  let dim = _.box.dimGet( boxView );
-  _.assert( dim === 3 );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
-
-  let fpoints = _.frustum.cornersGet( srcFrustum );
-  _.assert( _.spaceIs( fpoints ) );
-  _.assert( fpoints.hasShape([ 3, 8 ] ) );
-
-  for( let j = 0 ; j < 8 ; j++ )
-  {
-    let newp = fpoints.colVectorGet( j );
-    boxView = _.box.pointExpand( boxView, newp );
   }
 
   return dstBox;
@@ -2614,6 +2902,7 @@ let Proto =
   cornerRightGet : cornerRightGet,
   centerGet : centerGet,
   sizeGet : sizeGet,
+  cornersGet : cornersGet,
 
   expand : expand,
 
@@ -2629,22 +2918,34 @@ let Proto =
   boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 
-  sphereContains : sphereContains, /* qqq : implement me */
-  sphereIntersects : sphereIntersects, /* qqq : implement me - Same as _.sphere.boxIntersects */
-  sphereDistance : sphereDistance, /* qqq : implement me */
-  sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
-  sphereExpand : sphereExpand, /* qqq : implement me */
+  frustumContains : frustumContains, /* qqq : implement me */
+  frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
+  frustumDistance : frustumDistance, /* qqq : implement me */
+  frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
+  frustumExpand : frustumExpand, /* qqq : implement me */
+
+  lineIntersects : lineIntersects, /* Same as _.line.boxIntersects */
+  lineDistance : lineDistance, /* Same as _.line.boxDistance */
+  lineClosestPoint : lineClosestPoint,
 
   planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.boxIntersects */
   planeDistance : planeDistance, /* qqq : implement me */
   planeClosestPoint : planeClosestPoint, /* qqq : implement me */
   planeExpand : planeExpand, /* qqq : implement me */
 
-  frustumContains : frustumContains, /* qqq : implement me */
-  frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
-  frustumDistance : frustumDistance, /* qqq : implement me */
-  frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
-  frustumExpand : frustumExpand, /* qqq : implement me */
+  rayIntersects : rayIntersects, /* qqq : implement me - Same as _.ray.boxIntersects */
+  rayDistance : rayDistance, /* qqq : implement me - Same as _.ray.boxDistance */
+  rayClosestPoint : rayClosestPoint,
+
+  segmentIntersects : segmentIntersects, /* Same as _.segment.boxIntersects */
+  segmentDistance : segmentDistance, /* Same as _.segment.boxDistance */
+  segmentClosestPoint : segmentClosestPoint,
+
+  sphereContains : sphereContains, /* qqq : implement me */
+  sphereIntersects : sphereIntersects, /* qqq : implement me - Same as _.sphere.boxIntersects */
+  sphereDistance : sphereDistance, /* qqq : implement me */
+  sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
+  sphereExpand : sphereExpand, /* qqq : implement me */
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
