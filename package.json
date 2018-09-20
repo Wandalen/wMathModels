@@ -34,8 +34,8 @@
   "dependencies": {
     "wTools": "",
     "wmathscalar": "",
-    "wmathvector": "",
-    "wmathspace": ""
+    "wmathspace": "",
+    "wmathvector": ""
   },
   "devDependencies": {
     "wTesting": "",

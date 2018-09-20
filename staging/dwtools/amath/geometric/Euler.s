@@ -2479,7 +2479,7 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
   *
   * @example
   * // returns [ 1, 1, 0, PI ]
-  * _.fromaxisAndAngle2( [ PI, PI/2, 0, 2, 1, 0 ], [ 0, 0, 0, 0 ] );
+  * _.toAxisAndAngle2( [ PI, PI/2, 0, 2, 1, 0 ], [ 0, 0, 0, 0 ] );
   *
   * @returns { Array } Returns the corresponding axis and angle.
   * @function toAxisAndAngle2
