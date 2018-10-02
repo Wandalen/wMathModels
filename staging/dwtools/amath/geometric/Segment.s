@@ -2694,7 +2694,7 @@ _.mapSupplement( Self, Proto );
 if( typeof module !== 'undefined' )
 {
 
-  require( './Sphere.s' );
+  // require( './Sphere.s' );
 
 }
 

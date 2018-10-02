@@ -2353,7 +2353,7 @@ _.mapSupplement( Self,Proto );
 
 if( typeof module !== 'undefined' )
 {
-  require( './Box.s' );
+  // require( './Box.s' );
 }
 
 })();
