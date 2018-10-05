@@ -15,3 +15,4 @@ console.log( result )
 var result = _.sphere.segmentDistance( sphere, segment );
 console.log( result )
 debugger;
+console.log(_.sphere.makeNil( 3 ))
