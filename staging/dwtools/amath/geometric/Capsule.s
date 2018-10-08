@@ -399,7 +399,7 @@ function pointDistance( srcCapsule, srcPoint )
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
-  let dimension  = _.capsule.dimGet( srcCapsuleView )
+  let dimension  = _.capsule.dimGet( srcCapsuleView );
   let srcPointView = _.vector.from( srcPoint.slice() );
 
   _.assert( dimension === srcPoint.length, 'The capsule and the point must have the same dimension' );
@@ -459,7 +459,7 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
-  let dimension  = _.capsule.dimGet( srcCapsuleView )
+  let dimension  = _.capsule.dimGet( srcCapsuleView );
   let srcPointView = _.vector.from( srcPoint.slice() );
   let dstPointView = _.vector.from( dstPoint );
 
@@ -527,7 +527,7 @@ function boxContains( srcCapsule, srcBox )
   let srcCapsuleView = _.capsule._from( srcCapsule );
   let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
-  let dimCapsule  = _.capsule.dimGet( srcCapsuleView )
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
 
   let boxView = _.box._from( srcBox );
   let dimBox = _.box.dimGet( boxView );
@@ -586,7 +586,7 @@ function boxIntersects( srcCapsule, srcBox )
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
-  let dimCapsule  = _.capsule.dimGet( srcCapsuleView )
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
 
   let boxView = _.box._from( srcBox );
   let dimBox = _.box.dimGet( boxView );
@@ -641,7 +641,7 @@ function boxDistance( srcCapsule, srcBox )
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
-  let dimCapsule  = _.capsule.dimGet( srcCapsuleView )
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
 
   let boxView = _.box._from( srcBox );
   let dimBox = _.box.dimGet( boxView );
@@ -666,6 +666,7 @@ function boxDistance( srcCapsule, srcBox )
   *
   * @param { Array } srcCapsule - Source capsule.
   * @param { Array } srcBox - Source box.
+  * @param { Array } dstPoint - Destination Point (optional).
   *
   * @example
   * // returns 0;
@@ -730,6 +731,205 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Check if two capsules intersect. Returns true if they intersect and false if not.
+  * The capsules remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } tstCapsule - Test capsule.
+  *
+  * @example
+  * // returns true;
+  * _.capsuleIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1, 0 ]);
+  *
+  * @example
+  * // returns false;
+  * _.capsuleIntersects( [ 0, -1, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the capsules intersect.
+  * @function capsuleIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( tstCapsule ) is not capsule.
+  * @throws { Error } An Error if ( dim ) is different than capsule.dimGet (the capsules don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function capsuleIntersects( srcCapsule, tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( _.capsule.dimGet( tstCapsule ) );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let srcDim  = _.capsule.dimGet( srcCapsuleView );
+
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let tstOrigin = _.capsule.originGet( tstCapsuleView );
+  let tstEnd = _.capsule.endPointGet( tstCapsuleView );
+  let tstRadius = _.capsule.radiusGet( tstCapsuleView );
+  _.assert( tstRadius >= 0 );
+  let tstDim  = _.capsule.dimGet( tstCapsuleView );
+
+  _.assert( srcDim === tstDim );
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let tstSegment = _.segment.fromPair( [ tstOrigin, tstEnd ] );
+
+  let distance = _.segment.segmentDistance( srcSegment, tstSegment );
+
+  if( distance <= radius + tstRadius )
+  { return true; }
+
+  return false;
+
+}
+
+//
+
+/**
+  * Get the distance between twp capsules. Returns the calculated distance.
+  * The capsules remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } tstCapsule - Test capsule.
+  *
+  * @example
+  * // returns 0;
+  * _.capsuleDistance( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1, 0 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 12 ) - 1;
+  * _.capsuleDistance( [ 0, 0, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2, 0 ]);
+  *
+  * @returns { Number } Returns the distance between two capsules.
+  * @function capsuleDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( tstCapsule ) is not capsule.
+  * @throws { Error } An Error if ( dim ) is different than capsule.dimGet (the capsules don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function capsuleDistance( srcCapsule, tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( _.capsule.dimGet( tstCapsule ) );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let srcDim  = _.capsule.dimGet( srcCapsuleView );
+
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let tstOrigin = _.capsule.originGet( tstCapsuleView );
+  let tstEnd = _.capsule.endPointGet( tstCapsuleView );
+  let tstRadius = _.capsule.radiusGet( tstCapsuleView );
+  _.assert( tstRadius >= 0 );
+  let tstDim  = _.capsule.dimGet( tstCapsuleView );
+
+  _.assert( srcDim === tstDim );
+
+  if( _.capsule.capsuleIntersects( srcCapsuleView, tstCapsuleView ) )
+  return 0;
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let tstSegment = _.segment.fromPair( [ tstOrigin, tstEnd ] );
+
+  let distance = _.segment.segmentDistance( srcSegment, tstSegment );
+
+  return distance - ( radius + tstRadius );
+}
+
+//
+
+/**
+  * Get the closest point in a capsule to a capsule. Returns the calculated point.
+  * The capsules remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } tstCapsule - Test capsule.
+  * @param { Array } dstPoint - Destination Point (optional).
+  *
+  * @example
+  * // returns 0;
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1, 0 ]);
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.capsuleClosestPoint( [ 0, - 1, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2, 0 ]);
+  *
+  * @returns { Number } Returns the closest point in the capsule to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( tstCapsule ) is not capsule.
+  * @throws { Error } An Error if ( dim ) is different than capsule.dimGet (the capsules don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( _.capsule.dimGet( tstCapsule ) );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let srcDim  = _.capsule.dimGet( srcCapsuleView );
+
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let tstOrigin = _.capsule.originGet( tstCapsuleView );
+  let tstEnd = _.capsule.endPointGet( tstCapsuleView );
+  let tstRadius = _.capsule.radiusGet( tstCapsuleView );
+  _.assert( tstRadius >= 0 );
+  let tstDim  = _.capsule.dimGet( tstCapsuleView );
+
+  _.assert( srcDim === tstDim );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcDim );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( tstDim === srcDim );
+
+  if( _.capsule.capsuleIntersects( srcCapsuleView, tstCapsuleView ) )
+  return 0;
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let tstSegment = _.segment.fromPair( [ tstOrigin, tstEnd ] );
+
+  let center = _.segment.segmentClosestPoint( srcSegment, tstSegment );
+  let sphere = _.sphere.make( srcDim );
+  _.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =_.sphere.segmentClosestPoint( sphere, tstSegment );
+  logger.log('Sphere', sphere, 'segment', tstSegment, 'point', point)
+  let pointView = _.vector.from( point );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+
 
 
 
@@ -766,6 +966,10 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
 }
 
