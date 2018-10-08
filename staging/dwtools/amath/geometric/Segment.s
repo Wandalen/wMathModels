@@ -842,7 +842,7 @@ function fromPair( pair )
     for( let i = 0; i < pair0.length ; i++ )
     {
       result.eSet( i, pair0.eGet( i ) );
-      result.eSet( pair0.length + i, avector.sub( null, pair1, pair0 )[ i ] );
+      result.eSet( pair0.length + i, pair1.eGet( i ) );
     }
 
     debugger;
