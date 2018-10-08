@@ -4,6 +4,7 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var dim = 3;
-result = _.capsule.make( dim );
+var point = [  1, 1, 1 ];
+var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
+var result = _.capsule.pointClosestPoint( capsule, point );
 logger.log('Final result: ', result );

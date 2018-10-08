@@ -269,6 +269,231 @@ function radiusGet( capsule )
   return capsuleView.eGet( capsule.length - 1 );
 }
 
+//
+
+
+/**
+  * Set the radius of a capsule. Returns a vector with the capsule including the new radius.
+  * Radius stays untouched.
+  *
+  * @param { Array } capsule - The source and destination capsule.
+  * @param { Number } radius - The source radius to set.
+  *
+  * @example
+  * // returns [ 0, 0, 2, 2, 4 ]
+  * _.radiusSet( [ 0, 0, 2, 2, 0 ], 4 );
+  *
+  * @example
+  * // returns  [ 0, 1, - 2 ]
+  * _.radiusSet( [ 0, 1, 1 ], -2 );
+  *
+  * @returns { Array } Returns the capsule with the modified radius.
+  * @function radiusSet
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @throws { Error } An Error if ( radius ) is not number.
+  * @memberof wTools.capsule
+  */
+
+function radiusSet( capsule, radius )
+{
+  _.assert( _.capsule.is( capsule ) );
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.numberIs( radius ) );
+
+  let capsuleView = _.capsule._from( capsule );
+
+  capsuleView.eSet( capsule.length-1, radius );
+  return capsuleView;
+
+  debugger;
+}
+//
+
+/**
+  * Check if a given point is contained inside a capsule. Returs true if it is contained, false if not.
+  * Point and capsule stay untouched.
+  *
+  * @param { Array } srcCapsule - The source capsule.
+  * @param { Array } srcPoint - The source point.
+  *
+  * @example
+  * // returns true
+  * _.pointContains( [ 0, 0, 2, 2, 1 ], [ 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.pointContains( [ 0, 0, 2, 2, 1 ], [ - 1, 3 ] );
+  *
+  * @returns { Boolen } Returns true if the point is inside the capsule, and false if the point is outside it.
+  * @function pointContains
+  * @throws { Error } An Error if ( dim ) is different than point.length (capsule and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.capsule
+  */
+function pointContains( srcCapsule, srcPoint )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.longIs( srcPoint ) || _.vectorIs( srcPoint ) );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( srcPoint.length );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  let dimension  = _.capsule.dimGet( srcCapsuleView );
+  let srcPointView = _.vector.from( srcPoint.slice() );
+
+  _.assert( dimension === srcPoint.length, 'The capsule and the point must have the same dimension' );
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let distance = _.segment.pointDistance( srcSegment, srcPointView );
+  logger.log('distance', distance, 'raduus', radius)
+  if( distance <= radius )
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+//
+
+/**
+  * Get the distance between a point and a capsule. Returs the calculated distance. Point and capsule stay untouched.
+  *
+  * @param { Array } srcCapsule - The source capsule.
+  * @param { Array } srcPoint - The source point.
+  *
+  * @example
+  * // returns 0
+  * _.pointDistance( [ 0, 0, 0, 2, 1 ], [ 0, 1 ] );
+  *
+  * @example
+  * // returns 1
+  * _.pointDistance( [ 0, 0, 0, 2, 1 ], [ 2, 2 ] );
+  *
+  * @returns { Boolen } Returns the distance between the point and the capsule.
+  * @function pointDistance
+  * @throws { Error } An Error if ( dim ) is different than point.length (capsule and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.capsule
+  */
+function pointDistance( srcCapsule, srcPoint )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( srcPoint.length );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimension  = _.capsule.dimGet( srcCapsuleView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+
+  _.assert( dimension === srcPoint.length, 'The capsule and the point must have the same dimension' );
+
+  if( _.capsule.pointContains( srcCapsuleView, srcPointView ) )
+  {
+    return 0;
+  }
+  else
+  {
+    let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+    let distance = _.segment.pointDistance( srcSegment, srcPointView );
+
+    return distance - radius;
+  }
+}
+
+/**
+  * Get the closest point between a point and a capsule. Returs the calculated point. srcPoint and capsule stay untouched.
+  *
+  * @param { Array } srcCapsule - The source capsule.
+  * @param { Array } srcPoint - The source point.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * _.pointClosestPoint( [ 0, 0, 0, 2, 1 ], [ 0, 1 ] );
+  *
+  * @example
+  * // returns [ 1, 2 ]
+  * _.pointClosestPoint( [ 0, 0, 0, 2, 1 ], [ 2, 2 ] );
+  *
+  * @returns { Boolen } Returns the closest point in a capsule to a point.
+  * @function pointClosestPoint
+  * @throws { Error } An Error if ( dim ) is different than point.length (capsule and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @memberof wTools.capsule
+  */
+function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcPoint.length );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( srcPoint.length );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimension  = _.capsule.dimGet( srcCapsuleView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimension === srcPoint.length, 'The capsule and the point must have the same dimension' );
+
+  if( _.capsule.pointContains( srcCapsuleView, srcPointView ) )
+  {
+    for( let i = 0; i < srcPointView.length; i++ )
+    {
+      dstPointView.eSet( i, srcPointView.eGet( i ) );
+    }
+  }
+  else
+  {
+    let pointVector = _.vector.from( _.array.makeArrayOfLengthZeroed( dimension ));
+
+    let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+    let center = _.segment.pointClosestPoint( srcSegment, srcPointView );
+    let sphere = _.sphere.make( dimension );
+    _.sphere.fromCenterAndRadius( sphere, center, radius );
+    pointVector = _.vector.from( _.sphere.pointClosestPoint( sphere, srcPointView ) );
+
+    for( let i = 0; i < pointVector.length; i++ )
+    {
+      dstPointView.eSet( i, pointVector.eGet( i ) );
+    }
+  }
+
+  return dstPoint;
+}
+
+
 
 
 // --
@@ -293,6 +518,11 @@ let Proto =
   originGet : originGet,
   endPointGet : endPointGet,
   radiusGet : radiusGet,
+  radiusSet : radiusSet,
+
+  pointContains : pointContains,
+  pointDistance : pointDistance,
+  pointClosestPoint : pointClosestPoint,
 
 }
 
@@ -303,7 +533,7 @@ _.mapSupplement( Self, Proto );
 if( typeof module !== 'undefined' )
 {
 
-  require( './Sphere.s' );
+  // require( './Sphere.s' );
 
 }
 

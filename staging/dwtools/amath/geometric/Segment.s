@@ -814,6 +814,44 @@ segmentIntersectionPointAccurate.shaderChunk =
 //
 
 /**
+  * Make a segment out of two points. Returns the created segment.
+  * Points stay untouched.
+  *
+  * @param { Array } pair - The source points.
+  *
+  * @example
+  * // returns [ 0, 0, 1, 1 ]
+  * _.fromPair( [ [ 0, 0 ], [ 1, 1 ] ] );
+  *
+  * @returns { Segment } Returns the segment defined by the source points.
+  * @function fromPair
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( pair ) is not array of points.
+  * @memberof wTools.segment
+  */
+function fromPair( pair )
+{
+    _.assert( arguments.length === 1, 'expects single argument' );
+    _.assert( pair.length === 2, 'expects two points' );
+    _.assert( pair[ 0 ].length === pair[ 1 ].length, 'expects two points' );
+
+    let result = _.vector.from( _.array.makeArrayOfLength( pair[ 0 ].length * 2 ) );
+    let pair0 = _.vector.from( pair[ 0 ] );
+    let pair1 = _.vector.from( pair[ 1 ] );
+
+    for( let i = 0; i < pair0.length ; i++ )
+    {
+      result.eSet( i, pair0.eGet( i ) );
+      result.eSet( pair0.length + i, avector.sub( null, pair1, pair0 )[ i ] );
+    }
+
+    debugger;
+    return result;
+}
+
+//
+
+/**
   * Check if a given point is contained inside a segment. Returs true if it is contained, false if not.
   * Point and segment stay untouched.
   *
@@ -2654,6 +2692,7 @@ let Proto =
   segmentIntersectionPoint : segmentIntersectionPoint,
   segmentIntersectionPointAccurate : segmentIntersectionPointAccurate,
 
+  fromPair : fromPair,
   pointContains : pointContains,
   pointDistance : pointDistance,
   pointClosestPoint : pointClosestPoint,

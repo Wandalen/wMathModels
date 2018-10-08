@@ -2032,7 +2032,7 @@ function pointClosestPoint( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var point = [ 1, 0, 0 ];
-  var expected = 0;
+  var expected = _.vector.from( [ 1, 0, 0 ] );
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
 
@@ -2042,7 +2042,7 @@ function pointClosestPoint( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var point = [ 0, 0, 0.5 ];
-  var expected = 0;
+  var expected = _.vector.from( [ 0, 0, 0.5 ] );
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
 
@@ -2052,7 +2052,7 @@ function pointClosestPoint( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var point = [ 0, 0, 0 ];
-  var expected = 0;
+  var expected = _.vector.from( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
 
@@ -2062,7 +2062,7 @@ function pointClosestPoint( test )
 
   var sphere = [ 1, 1, 2, 1 ];
   var point = [ 1, 1, 1.5 ];
-  var expected = 0;
+  var expected = _.vector.from( [ 1, 1, 1.5 ] );
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
 

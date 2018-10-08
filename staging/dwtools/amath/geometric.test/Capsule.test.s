@@ -760,6 +760,39 @@ function radiusGet( test )
   var gotRadius = _.capsule.radiusGet( capsule );
   test.identical( gotRadius, expected );
 
+
+  test.case = 'radiusGet+Set two dimensions'; /* */
+
+  var capsule = [ 0, 1, 2, 2, 1 ];
+  var radiusOld = 1;
+  var radiusSph = _.capsule.radiusGet( capsule );
+  test.equivalent( radiusSph, radiusOld );
+
+  var radius = 2;
+  var expected = [ 0, 1, 2, 2, 2 ];
+  expected = _.vector.from(expected);
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  var radiusSph = _.capsule.radiusGet( capsule );
+  test.equivalent( radius, radiusSph );
+
+  test.case = 'radiusGet+Set three dimensions'; /* */
+
+  var capsule = [ 0, 0, 1, 1, 1, 2, 1 ];
+  var radiusOld = 1;
+  var radiusSph = _.capsule.radiusGet( capsule );
+  test.equivalent( radiusOld, radiusSph );
+
+  var radius = 2;
+  var expected = [ 0, 0, 1, 1, 1, 2, 2 ];
+  expected = _.vector.from(expected);
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.equivalent( gotCapsule, expected );
+
+  var radiusSph = _.capsule.radiusGet( gotCapsule );
+  test.equivalent( radius, radiusSph );
+
   /* */
 
   if( !Config.debug )
@@ -776,6 +809,548 @@ function radiusGet( test )
 
 }
 
+//
+
+function radiusSet( test )
+{
+
+  test.case = 'Source radius remains unchanged'; /* */
+
+  var capsule = [ 0, 0, 1, 1, 0 ];
+  var srcRadius = 2;
+  var expected =  [ 0, 0, 1, 1, 2 ] ;
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, srcRadius );
+  test.identical( gotCapsule, expected );
+
+  var oldSrcRadius = 2;
+  test.equivalent( srcRadius, oldSrcRadius );
+
+  test.case = 'One dimension capsule'; /* */
+
+  var capsule = [ 0, 1, 0 ];
+  var radius = 2;
+  var expected = [ 0, 1, 2 ] ;
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Two dimension capsule'; /* */
+
+  var capsule = [ 0, 0, 1, 1, 2 ];
+  var radius = 3;
+  var expected = [ 0, 0, 1, 1, 3 ];
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Three dimension capsule'; /* */
+
+  var capsule = [ 0, - 1, - 2, 1, 1, 1, 2 ];
+  var radius = 4;
+  var expected = [ 0, - 1, - 2, 1, 1, 1, 4 ];
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Four dimension capsule'; /* */
+
+  var capsule = [ 0, - 1, - 2, 2, 2, 2, 2, 2, 0 ];
+  var radius = 5;
+  var expected =  [ 0, - 1, - 2, 2, 2, 2, 2, 2, 5 ];
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'negative radius'; /* */
+
+  var capsule = [ 1, 2, - 3 ];
+  var radius = - 2;
+  var expected = [ 1, 2, - 2 ];
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'NaN radius'; /* */
+
+  var capsule = [ 1, 2, 3 ];
+  var radius = NaN;
+  var expected = [ 1, 2, NaN ];
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'NaN capsule'; /* */
+
+  var capsule = [ NaN, NaN, NaN ];
+  var radius = 2;
+  var expected = [ NaN, NaN, 2 ];
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'radiusSet+Get one dimensions'; /* */
+
+  var capsule = [ 0, 2, 3 ];
+  var radiusOld = 3;
+  var radiusSph = _.capsule.radiusGet( capsule );
+  test.equivalent( radiusOld, radiusSph );
+
+  var radius = 2;
+  var expected = [ 0, 2, 2 ];
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  var radiusSph = _.capsule.radiusGet( capsule );
+  test.equivalent( radius, radiusSph );
+
+  test.case = 'radiusSet+Get two dimensions'; /* */
+
+  var capsule = [ 0, 0, 1, 1, 3 ];
+  var radiusOld = 3;
+  var radiusSph = _.capsule.radiusGet( capsule );
+  test.equivalent( radiusOld, radiusSph );
+
+  var radius = 2;
+  var expected = [ 0, 0, 1, 1, 2 ];
+  expected = _.vector.from(expected);
+
+  var gotCapsule = _.capsule.radiusSet( capsule, radius );
+  test.identical( gotCapsule, expected );
+
+  var radiusSph = _.capsule.radiusGet( capsule );
+  test.equivalent( radius, radiusSph );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( 0, 1 ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( [ ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( [ 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( [ 0, 0, 1 ], [ 1, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( 'radius' ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( null ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( NaN ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( undefined ) );
+
+}
+
+//
+
+function pointContains( test )
+{
+
+  test.case = 'Capsule and Point remain unchanged'; /* */
+
+  var capsule = [  - 1,  - 1 , 1, 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool, expected );
+
+  var oldCapsule = [  - 1,  - 1 , 1, 1, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null capsule contains point'; /* */
+
+  var capsule = null;
+  var point = [ 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Point capsule contains Point'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment capsule contains point'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
+  var point = [  1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Segment capsule doesn´t contain point'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
+  var point = [  1, 1, 1.1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Sphere capsule contains point'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 1 ];
+  var point = [  1, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Sphere capsule doesn´t contain point'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 1 ];
+  var point = [  1, 1, 0 ];
+  var expected = false;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+
+  test.case = 'Capsule under point'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var point = [ 0, 1, 4 ];
+  var expected = false;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var point = [ 0, 0, -2 ];
+  var expected = false;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule of four dimensions contains point'; /* */
+
+  var capsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule of four dimensions doesn´t contain point'; /* */
+
+  var capsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 2 ];
+  var expected = false;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule of 1 dimension contains point'; /* */
+
+  var capsule = [ 0, 2, 1 ];
+  var point = [ 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule of 1 dimension desn´t contain point '; /* */
+
+  var capsule = [ 0, 2, 1 ];
+  var point = [ - 3 ];
+  var expected = false;
+
+  var gotBool = _.capsule.pointContains( capsule, point );
+  test.identical( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2, 1 ], 'capsule') );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function pointDistance( test )
+{
+
+  test.case = 'Capsule and Point remain unchanged'; /* */
+
+  var capsule = [  - 1,  - 1 , 1, 1, 0 ];
+  var point = [ 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance, expected );
+
+  var oldCapsule = [  - 1,  - 1 , 1, 1, 0 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null capsule Distance empty point'; /* */
+
+  var capsule = null;
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point capsule Distance same Point'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point capsule Distance other Point'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var point = [ 3, 4, 0 ];
+  var expected = 5;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Capsule contains point in the middle'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var point = [  1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Capsule contains point'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var point = [  1, 1, 1.5 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Capsule under point'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var point = [ 0, 1, 4 ];
+  var expected = Math.sqrt( 5 ) - 1;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var point = [ 0, 0, - 2 ];
+  var expected = 1;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Capsule of four dimensions distance '; /* */
+
+  var capsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 2 ];
+  var point = [ 0, 0, 0 , 4 ];
+  var expected = Math.sqrt( 12 ) - 2;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Capsule of 1 dimension contains point'; /* */
+
+  var capsule = [ 0, 2, 1 ];
+  var point = [ 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Capsule of 1 dimension distance'; /* */
+
+  var capsule = [ 0, 2, 2 ];
+  var point = [ - 3 ];
+  var expected = 1;
+
+  var gotDistance = _.capsule.pointDistance( capsule, point );
+  test.identical( gotDistance,  expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], 'point') );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function pointClosestPoint( test )
+{
+
+  test.case = 'Capsule and Point remain unchanged'; /* */
+
+  var capsule = [  - 1,  - 1 , 1, 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = [ 0, 0 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint, expected );
+
+  var oldCapsule = [  - 1,  - 1 , 1, 1, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null capsule - empty point'; /* */
+
+  var capsule = null;
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point capsule - same Point'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point capsule - other Point'; /* */
+
+  var capsule = [ 1, 2, 3, 0, 0, 0, 0 ];
+  var point = [ 3, 4, 5 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Capsule contains point in the middle'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var point = [ 1, 1, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Capsule contains point'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var point = [ 1.2, 0.9, 1.3 ];
+  var expected = [ 1.2, 0.9, 1.3 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Capsule under point'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var point = [ 0, 0, 4 ];
+  var expected = [ 0, 0, 3 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var point = [ - 2, - 2, - 2 ];
+  var expected = [ - 1 /Math.sqrt( 3 ), - 1 /Math.sqrt( 3 ), - 1 /Math.sqrt( 3 ) ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Capsule of four dimensions distance '; /* */
+
+  var capsule = [ - 1, - 1, - 1, - 1, 3, 3, 3, 3, 1 ];
+  var point = [ 0, 0, 0, 2 ];
+  var expected = [ 0.21132486540518708, 0.21132486540518708, 0.21132486540518708, 1.3660254037844388 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Capsule of 1 dimension contains point'; /* */
+
+  var capsule = [ 0, 2, 1 ];
+  var point = [ 1 ];
+  var expected = [ 1 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+
+  test.case = 'Capsule of 1 dimension distance'; /* */
+
+  var capsule = [ 0, 2, 1 ];
+  var point = [ - 3 ];
+  var expected = [ - 1 ];
+
+  var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
+  test.identical( gotClosestPoint,  expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], 'point') );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
+
+}
 
 
 
@@ -809,6 +1384,11 @@ var Self =
     originGet : originGet,
     endPointGet : endPointGet,
     radiusGet : radiusGet,
+    radiusSet : radiusSet,
+
+    pointContains : pointContains,
+    pointDistance : pointDistance,
+    pointClosestPoint : pointClosestPoint,
 
 
   }

@@ -877,7 +877,7 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
   let dstPointv = _.vector.from( dstPoint );
 
   if( _.sphere.pointContains( sphereView, srcPointv ) )
-  return 0;
+  return srcPointv;
 
   debugger;
   // throw _.err( 'not tested' );
