@@ -3865,6 +3865,500 @@ function planeClosestPoint( test )
 
 }
 
+//
+
+function rayIntersects( test )
+{
+  test.case = 'Source ray and capsule remain unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 1 ];
+  var srcRay = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  var oldSrcCapsule = [ 0, 0, 1, 1, 1 ];
+  test.equivalent( srcCapsule, oldSrcCapsule );
+
+  var oldSrcRay = [ 0, 0, 2, 2 ];
+  test.equivalent( srcRay, oldSrcRay );
+
+  test.case = 'Capsule and ray are the same'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 0 ];
+  var srcRay = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray are parallel ( different origin - same direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 1 ];
+  var srcRay = [ 3, 7, 1, 1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray are parallel ( different origin - different direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 1 ];
+  var srcRay = [ 3, 7, 7, 7 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray intersect'; /* */
+
+  var srcCapsule = [ 5, 5, 1, 1, 1 ];
+  var srcRay = [ 4, 0, -1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray don´t intersect'; /* */
+
+  var srcCapsule = [ 7, 6, 8, 6, 0.5 ];
+  var srcRay = [ 6, 6, 1, 1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray intersect in their origin'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 0, 1 ];
+  var srcRay = [ 3, 7, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray intersect '; /* */
+
+  var srcCapsule = [ 0, 0, 1, 0.5, 1 ];
+  var srcRay = [ -2, -6, 1, 2 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray are perpendicular '; /* */
+
+  var srcCapsule = [ -3, 0.1, 1, 0.1, 0.2 ];
+  var srcRay = [ 0, -2, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray don´t intersect 3D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
+  var srcRay = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray intersect 3D'; /* */
+
+  var srcCapsule = [ 1, 0, 0, 1, 0, 3, 1 ];
+  var srcRay = [ - 3, - 3, 2, 1, 1, 0 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray don´t intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 1, 1, 1, 1, 1 ];
+  var srcRay = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and ray intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 4, 4, 4, 4, 2 ];
+  var srcRay = [ 3, 2, 1, 0, 0, 1, 2, 3 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
+  test.identical( isIntersection, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, - 1 ], [ 1, 2, 3, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2 ], [ 1, 2, 1, 0 ] ) );
+
+}
+
+//
+
+function rayDistance( test )
+{
+  test.case = 'Source capsule and ray remain unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var tstRay = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  var oldSrcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.equivalent( srcCapsule, oldSrcCapsule );
+
+  var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstRay, oldTstRay );
+
+  test.case = 'Capsule and ray are parallel ( different origin - same direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = Math.sqrt( 58 ) - 1;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray are parallel ( different origin - different direction )'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 7, 2 ];
+  var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = Math.sqrt( 58 ) - 2;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray are parallel ( different origin - opposite direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 9, 0, 0, 3 ];
+  var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = Math.sqrt( 50 ) - 3;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcCapsule is a point'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected =  Math.sqrt( 168 / 9 );
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'tstRay is a point'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = Math.sqrt( 40 ) - 1;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcCapsule is a sphere'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 2 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected =  Math.sqrt( 168 / 9 ) - 2;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray are the same'; /* */
+
+  var srcCapsule = [ 0, 4, 2, 5, 4, 2, 0 ];
+  var tstRay = [ 0, 4, 2, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 1 ];
+  var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray don´t intersect 2D - parallel'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 2 ];
+  var tstRay = [ - 3, - 4, 1, 0 ];
+  var expected = 2;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = 2.5;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray don´t intersect with ray´s negative factor 2D'; /* */
+
+  var srcCapsule = [ - 3, - 4, -3, 3, 1 ];
+  var tstRay = [ 0, 0, 2, 0 ];
+  var expected = 2;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray are perpendicular and intersect'; /* */
+
+  var srcCapsule = [ 3, 8, 1, 8, 8, 1, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray are perpendicular and don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 2 ];
+  var tstRay = [ 3, 0, 0, 1, 1, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and ray are parallel to x axis'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 7, 7, 1, 0.5 ];
+  var tstRay = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 0.5;
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcCapsule is null'; /* */
+
+  var srcCapsule = null;
+  var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = Math.sqrt( 53 );
+
+  var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 0, 0, 0 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+
+}
+
+//
+
+function rayClosestPoint( test )
+{
+  test.case = 'Source capsule and ray remain unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var tstRay = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.equivalent( srcCapsule, oldSrcCapsule );
+
+  var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstRay, oldTstRay );
+
+  test.case = 'Capsule and ray are parallel ( different origin - same direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
+  var tstRay = [ 3, 0, 1, 0, 0, 1 ];
+  var expected = [ 1, 0, 1 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray are parallel ( different origin - different direction )'; /* */
+
+  var srcCapsule = [ 0, 7, 1, 0, 7, 8, 1 ];
+  var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = [ 0, 6, 1 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray are parallel ( different origin - opposite direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 10, 0, 0, 2 ];
+  var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = [ 3, 1.9798989873223332, 0.282842712474619 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcCapsule is a point'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcCapsule is a sphere'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
+  var tstRay = [ 0, 0, 0, -1, 0, 0 ];
+  var expected = [ 2.609433267057528, 6.088677623134233, 0.8698110890191761 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'tstRay is a point'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 9, 9, 9, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = [ 3.5123633167045747, 4.438183416477126, 3.0494532668182988 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray are the same'; /* */
+
+  var srcCapsule = [ 0, 4, 2, 3, 7, 5, 1 ];
+  var tstRay = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 2 ];
+  var tstRay = [ 3, 5, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray don´t intersect 2D - parallel'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 1 ];
+  var tstRay = [ - 3, - 4, 1, 0 ];
+  var expected = [ 0, - 1 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray don´t intersect 2D'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 1 ];
+  var tstRay = [ - 3, - 4, 0.5, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray don´t intersect with ray´s negative factor 2D'; /* */
+
+  var srcCapsule = [ - 3, - 4, -3, 4, 1 ];
+  var tstRay = [ 0, 0, 2, 1 ];
+  var expected = [ -2.1055728090000843, -1.0527864045000421 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray are perpendicular and intersect ( same origin )'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 8, 7, 1, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray are perpendicular and don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
+  var tstRay = [ 3, 0, 0, 1, 1, 0 ];
+  var expected = [ 0.5, 0, 0 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and ray are parallel to x'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 4, 7, 1, 1 ];
+  var tstRay = [ 3, 7, 3, 1, 0, 0 ];
+  var expected = [ 3, 7, 2 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcCapsule is null'; /* */
+
+  var srcCapsule = null;
+  var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 0, 0, 0 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+
+}
+
+
 
 
 
@@ -3924,6 +4418,10 @@ var Self =
     planeIntersects : planeIntersects,
     planeDistance : planeDistance,
     planeClosestPoint : planeClosestPoint,
+
+    rayIntersects : rayIntersects,
+    rayDistance : rayDistance,
+    rayClosestPoint : rayClosestPoint,
 
   }
 
