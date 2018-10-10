@@ -1374,14 +1374,21 @@ function frustumIntersects( srcSegment, srcFrustum )
   *
   * @example
   * // returns 0;
-  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
   *
   * @example
-  * // returns Math.sqrt( 17 );
-  * _.frustumDistance( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  * // returns 1;
+  * _.frustumDistance( [ 0, - 1, 0, 0, -2, 0 ] , srcFrustum );
   *
   * @returns { Number } Returns the distance between a segment and a frustum.
-  * @function frustumClosestPoint
+  * @function frustumDistance
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
@@ -1411,6 +1418,7 @@ function frustumDistance( srcSegment, srcFrustum )
   return 0;
 
   let closestPoint = _.segment.frustumClosestPoint( srcSegmentView, srcFrustum );
+  
   return _.frustum.pointDistance( srcFrustum, closestPoint );
 }
 
@@ -1425,13 +1433,20 @@ function frustumDistance( srcSegment, srcFrustum )
   *
   * @example
   * // returns 0;
-  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
   *
   * @example
   * // returns [ 0, - 1, 0 ];
-  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , srcFrustum );
   *
-  * @returns { Number } Returns the closest point in the segment to the frustum.
+  * @returns { Array } Returns the closest point in the segment to the frustum.
   * @function frustumClosestPoint
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcSegment ) is not segment.

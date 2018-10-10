@@ -4,11 +4,17 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var capsule = [ 1, 2, 4, 3, 4, 0, 0.5 ];
-var tstCapsule = [ 1, 2, 3, 1, 2, 3, 0 ];
-var result = _.capsule.capsuleIntersects( capsule, tstCapsule );
+var capsule = [ -1, -1, -1, -2, -2, -2, 1 ];
+var frustum= _.Space.make( [ 4, 6 ] ).copy
+([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 1,   0, - 1,   0,   0, - 1
+]);
+var result = _.capsule.frustumIntersects( capsule, frustum );
 logger.log('Final result: ', result );
-var result = _.capsule.capsuleDistance( capsule, tstCapsule );
+var result = _.capsule.frustumDistance( capsule, frustum );
 logger.log('Final result: ', result );
-var result = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
+var result = _.capsule.frustumClosestPoint( capsule, frustum );
 logger.log('Final result: ', result );

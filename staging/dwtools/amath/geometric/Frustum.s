@@ -345,13 +345,11 @@ function pointDistance( frustum, point )
   for( let i = 0 ; i < 8 ; i++ )
   {
     let corner = corners.colVectorGet( i );
-
     let newDistCorner = _.avector.distance( point, corner );
     if( newDistCorner < distanceCorner )
     distanceCorner = newDistCorner;
 
   }
-
   let distance = distanceCorner;
 
   if( distancePlane < distance )

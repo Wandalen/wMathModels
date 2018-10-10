@@ -919,7 +919,7 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   let sphere = _.sphere.make( srcDim );
   _.sphere.fromCenterAndRadius( sphere, center, radius );
   let point =_.sphere.segmentClosestPoint( sphere, tstSegment );
-  logger.log('Sphere', sphere, 'segment', tstSegment, 'point', point)
+
   let pointView = _.vector.from( point );
   for( let i = 0; i < pointView.length; i++ )
   {
@@ -928,6 +928,212 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
 
   return dstPoint;
 }
+
+//
+
+/**
+  * Check if a capsule and a frustum intersect. Returns true if they intersect and false if not.
+  * The frustum and the capsule remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns true;
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] , srcFrustum );
+  *
+  * @example
+  * // returns false;
+  * _.frustumIntersects( [ 0, -2, 0, 0, -3, 1, 0.5 ] , srcFrustum );
+  *
+  * @returns { Boolean } Returns true if the capsule and the frustum intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the capsule and frustum don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function frustumIntersects( srcCapsule, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( rows - 1 );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  _.assert( dimCapsule === rows - 1 );
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let distance = _.segment.frustumDistance( srcSegment, srcFrustum )
+
+  if( distance <= radius )
+  return true;
+
+  return false;
+}
+
+//
+
+/**
+  * Get the distance between a capsule and a frustum. Returns the calculated distance.
+  * The frustum and the capsule remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns 0;
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2, 1 ], srcFrustum );
+  *
+  * @example
+  * // 1;
+  * _.frustumDistance( [ 0, - 2, 0, 0, -3, 0, 1 ], srcFrustum );
+  *
+  * @returns { Number } Returns the distance between a capsule and a frustum.
+  * @function frustumDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the capsule and frustum don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function frustumDistance( srcCapsule, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( rows - 1 );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  _.assert( dimCapsule === rows - 1 );
+
+  if( _.capsule.frustumIntersects( srcCapsuleView, srcFrustum ) )
+  return 0;
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let distance = _.segment.frustumDistance( srcSegment, srcFrustum )
+
+  return distance - radius;
+}
+
+//
+
+/**
+  * Get the closest point in a capsule to a frustum. Returns the calculated point.
+  * The frustum and the capsule remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } srcFrustum - Source frustum.
+  *
+  * @example
+  * // returns 0;
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , srcFrustum );
+  *
+  * @example
+  * // returns [ 0, - 0.5, 0 ];
+  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0, 0.5 ] , srcFrustum );
+  *
+  * @returns { Array } Returns the closest point in the capsule to the frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the capsule and frustum don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dimFrustum[ 0 ];
+  let cols = dimFrustum[ 1 ];
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( rows - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( rows - 1 );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dimCapsule === rows - 1 );
+
+  if( _.capsule.frustumIntersects( srcCapsuleView, srcFrustum ) )
+  return 0;
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let center = _.segment.frustumClosestPoint( srcSegment, srcFrustum );
+  let sphere = _.sphere.make( dimCapsule );
+  _.sphere.fromCenterAndRadius( sphere, center, radius );
+  let pointView =_.sphere.frustumClosestPoint( sphere, srcFrustum );
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
 
 
 
@@ -970,6 +1176,10 @@ let Proto =
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
+
+  frustumIntersects : frustumIntersects,
+  frustumDistance : frustumDistance,
+  frustumClosestPoint : frustumClosestPoint,
 
 }
 

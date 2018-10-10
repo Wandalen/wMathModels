@@ -2273,6 +2273,641 @@ function capsuleClosestPoint( test )
 
 }
 
+//
+
+function frustumIntersects( test )
+{
+
+  test.description = 'Capsule and frustum remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+
+  test.description = 'Frustum and capsule intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule intersect on frustum corner'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 2, 2, 1, 4, 4, 2, Math.sqrt( 2 ) ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum corner is capsule origin'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 1, 1, 1, 0, 0, 4, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule intersect on frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ -1, -1, 0, 0.5, 0.5, 0, 0.1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule not intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 4, 4, 4, 5, 5, 5, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 1.2, 1.2, 1.2, 5, 5, 5, 0.1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule just touching'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 1.1, 1.1, 1.1, 5, 5, 5, Math.sqrt( 0.03 ) + test.accuracy ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule just intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 1, 1, 1, 5, 5, 5, 0.1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'capsule is null - intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = null;
+  var expected = true;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'capsule is null - no intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var capsule = null;
+  var expected = false;
+
+  var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0, 0, 0, 1, 1, 1, 1]
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule, srcFrustum, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule, capsule, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( null, capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( NaN, capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( srcFrustum, NaN));
+
+  capsule = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule, srcFrustum ));
+  capsule = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule, srcFrustum ));
+  capsule = [ 0, 0, 1, 1, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule, srcFrustum ));
+  capsule = [ 0, 0, 1, 1, 2, 2, -1 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule, srcFrustum ));
+
+}
+
+//
+
+function frustumDistance( test )
+{
+
+  test.description = 'Capsule and frustum remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum and capsule intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0, 0, 0, 1, 1, 1, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum and capsule intersect on frustum corner'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 2, 2, 1, 4, 4, 4, Math.sqrt( 2 ) ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum and capsule intersect on frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ -1, -1, 0, 0.5, 0.5, 0, 0.01 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'Frustum and capsule not intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 4, 4, 4, 5, 5, 5, Math.sqrt( 3 ) ];
+  var expected = Math.sqrt( 12 );
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Frustum and capsule almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 1.1, 1.1, 1.1, 5, 5, 5, 0 ];
+  var expected = Math.sqrt( 0.03 );
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'capsule is null - intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = null;
+  var expected = 0;
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'capsule is null - no intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var capsule = null;
+  var expected = Math.sqrt( 0.75 );
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  test.description = 'capsule closest to box side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3, 2, - 3,   2,   2, - 3
+  ]);
+  var capsule = [ - 2, 0.3, 0, 1, 0, 0, 1 ];
+  var expected = 2;
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.equivalent( gotDistance, expected );
+
+  test.description = 'Inclined capsule closest to box side'; //
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3, 2, - 3,   2,   2, - 3
+  ]);
+  var capsule = [ -2, 0.3, 0, 1, 0, 0.1, 2 ];
+  var expected = Math.sqrt( 8.61 ) - 2;
+
+  var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule, srcFrustum, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule, capsule, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( null, capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( NaN, capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( srcFrustum, NaN));
+
+  capsule = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule, srcFrustum ));
+  capsule = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule, srcFrustum ));
+  capsule = [ 0, 0, 1, 1, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule, srcFrustum ));
+  capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule, srcFrustum ));
+
+}
+
+//
+
+function frustumClosestPoint( test )
+{
+
+  test.description = 'Capsule and frustum remain unchanged'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum and capsule intersect'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0, 0, 0, 1, 1, 1, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Frustum and capsule intersect on frustum corner'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 2, 2, 0, - 1, -1, 1, 0.5 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Frustum and capsule intersect on frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ -1, -1, 0, 0.5, 0.5, 0, 0.1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Frustum and capsule not intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 4, 4, 4, 5, 5, 5, Math.sqrt( 3 ) ];
+  var expected = [ 3, 3, 3 ];
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.description = 'Frustum and capsule almost intersecting'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 1.2, 1.2, 1.2, 5, 5, 5, Math.sqrt( 0.03 ) ];
+  var expected = [ 1.1, 1.1, 1.1 ];
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.description = 'capsule is null - intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = null;
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'capsule is null - no intersection'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var capsule = null;
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'capsule closest to frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var capsule = [ - 2, 0.3, 0, -1, 0.3, 0, 0 ];
+  var expected = [ -1, 0.3, 0 ];
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Inclined capsule closest to frustum side'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3, 2, - 3,   2,   2, - 3
+  ]);
+  var capsule = [ -2, 0.3, 0, 1, 0, 0.1, 0.1 ];
+  var expected = [ 1.0340799088295498, 0.06815981765909972, 0.16475182677614472 ];
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
+  test.identical( gotClosestPoint, expected );
+
+  test.description = 'Destination point is vector'; //
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
+  ]);
+  var capsule = [ 0, 2, 2, 0, 1, 2, 0.5 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0.22360679774997896, 1, 1.5527864045000421 ] );
+
+  var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum, dstPoint );
+  test.equivalent( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, capsule, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( null, capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( NaN, capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( srcFrustum, NaN));
+
+  capsule = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum ));
+  capsule = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum ));
+  capsule = [ 0, 0, 1, 1, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum ));
+  capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum ));
+
+}
+
+
 
 
 
@@ -2320,6 +2955,9 @@ var Self =
     capsuleDistance : capsuleDistance,
     capsuleClosestPoint : capsuleClosestPoint,
 
+    frustumIntersects : frustumIntersects,
+    frustumDistance : frustumDistance,
+    frustumClosestPoint : frustumClosestPoint,
 
   }
 
