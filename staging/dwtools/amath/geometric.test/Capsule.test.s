@@ -4358,6 +4358,535 @@ function rayClosestPoint( test )
 
 }
 
+//
+
+function segmentIntersects( test )
+{
+  test.case = 'Source segment and capsule remain unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 1 ];
+  var srcSegment = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  var oldSrcCapsule = [ 0, 0, 1, 1, 1 ];
+  test.equivalent( srcCapsule, oldSrcCapsule );
+
+  var oldSrcSegment = [ 0, 0, 2, 2 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  test.case = 'Capsule and segment are the same'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 0 ];
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment are parallel ( different origin - same direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 1 ];
+  var srcSegment = [ 3, 7, 4, 8 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment are parallel ( different origin - different direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 1 ];
+  var srcSegment = [ 3, 7, 2, 6 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment intersect'; /* */
+
+  var srcCapsule = [ 5, 5, 1, 1, 1 ];
+  var srcSegment = [ 4, 0, 1, 2 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment intersect '; /* */
+
+  var srcCapsule = [ 0, 0, 1, 0.5, 1 ];
+  var srcSegment = [ -2, -6, 2, 2 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment don´t intersect'; /* */
+
+  var srcCapsule = [ 7, 6, 8, 6, 0.5 ];
+  var srcSegment = [ 6, 6, 8, 8 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment don´t intersect - segment negative factor'; /* */
+
+  var srcCapsule = [ 1, 0, 2, 0, 0.5 ];
+  var srcSegment = [ 3, 0, 4, 0 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment don´t intersect - segment factor > 1'; /* */
+
+  var srcCapsule = [ 1, 0, 2, 0, 0.5 ];
+  var srcSegment = [ - 1, 0, 0, 0 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment intersect in their origin'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 0, 1 ];
+  var srcSegment = [ 3, 7, 5, 5 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment are perpendicular and intersect'; /* */
+
+  var srcCapsule = [ -3, 0.1, 1, 0.1, 0.2 ];
+  var srcSegment = [ 0, -2, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment don´t intersect 3D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
+  var srcSegment = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment intersect 3D'; /* */
+
+  var srcCapsule = [ 1, 0, 0, 1, 0, 3, 1 ];
+  var srcSegment = [ - 3, - 3, 2, 1, 1, 2 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment don´t intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 1, 1, 1, 1, 1 ];
+  var srcSegment = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and segment intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 4, 4, 4, 4, 2 ];
+  var srcSegment = [ 3, 2, 1, 0, 3, 5, 7, 9 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
+  test.identical( isIntersection, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, - 1 ], [ 1, 2, 3, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2 ], [ 1, 2, 1, 0 ] ) );
+
+}
+
+//
+
+function segmentDistance( test )
+{
+  test.case = 'Source capsule and segment remain unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  var oldSrcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.equivalent( srcCapsule, oldSrcCapsule );
+
+  var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstSegment, oldTstSegment );
+
+  test.case = 'Capsule and segment are parallel ( different origin - same direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var expected = Math.sqrt( 58 ) - 1;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment are parallel ( different origin - different direction )'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 7, 2 ];
+  var tstSegment = [ 0, 0, 0, 0, 0, 9 ];
+  var expected = Math.sqrt( 58 ) - 2;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment are parallel ( different origin - opposite direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 9, 0, 0, 3 ];
+  var tstSegment = [ 3, 7, 1, - 7, 7, 1 ];
+  var expected = Math.sqrt( 50 ) - 3;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcCapsule is a point'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
+  var tstSegment = [ 0, 0, 0, 6, 6, 6 ];
+  var expected =  Math.sqrt( 168 / 9 );
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'tstSegment is a point'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var expected = Math.sqrt( 40 ) - 1;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcCapsule is a sphere'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 2 ];
+  var tstSegment = [ 0, 0, 0, 7, 7, 7 ];
+  var expected =  Math.sqrt( 168 / 9 ) - 2;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Capsule and segment are the same'; /* */
+
+  var srcCapsule = [ 0, 4, 2, 5, 4, 2, 0 ];
+  var tstSegment = [ 0, 4, 2, 5, 4, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 1 ];
+  var tstSegment = [ 3, 4, 2, 1, - 7, 4, 2, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment don´t intersect 2D - parallel'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 2 ];
+  var tstSegment = [ - 3, - 4, 5, - 4 ];
+  var expected = 2;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
+  var tstSegment = [ - 3, - 4, - 3, 4 ];
+  var expected = 2.5;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment don´t intersect with segment´s negative factor'; /* */
+
+  var srcCapsule = [ 1, 1, 2, 2, 1 ];
+  var tstSegment = [ 3, 3, 5, 5 ];
+  var expected = Math.sqrt( 2 ) - 1;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment don´t intersect with segment´s factor > 1'; /* */
+
+  var srcCapsule = [ 1, 1, 1, 2, 0.5 ];
+  var tstSegment = [ 1, - 1, 1, 0 ];
+  var expected = 0.5;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment are perpendicular and intersect'; /* */
+
+  var srcCapsule = [ 3, 8, 1, 8, 8, 1, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment are perpendicular and don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 2 ];
+  var tstSegment = [ 3, 0, 0, 8, 5, 0 ];
+  var expected = 1;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and segment are parallel to x axis'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 7, 7, 1, 0.5 ];
+  var tstSegment = [ 3, 7, 2, 8, 7, 2 ];
+  var expected = 0.5;
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcCapsule is null'; /* */
+
+  var srcCapsule = null;
+  var tstSegment = [ 3, 7, 2, - 1, 7, 2 ];
+  var expected = Math.sqrt( 53 );
+
+  var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 0, 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+
+}
+
+//
+
+function segmentClosestPoint( test )
+{
+  test.case = 'Source capsule and segment remain unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.equivalent( srcCapsule, oldSrcCapsule );
+
+  var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstSegment, oldTstSegment );
+
+  test.case = 'Capsule and segment are parallel ( different origin - same direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
+  var tstSegment = [ 3, 0, 1, 3, 0, 9 ];
+  var expected = [ 1, 0, 1 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment are parallel ( different origin - different direction )'; /* */
+
+  var srcCapsule = [ 0, 7, 1, 0, 7, 8, 1 ];
+  var tstSegment = [ 0, 0, 0, 0, 0, 6 ];
+  var expected = [ 0, 6, 1 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment are parallel ( different origin - opposite direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 10, 0, 0, 2 ];
+  var tstSegment = [ 3, 7, 1, - 7, 7, 1 ];
+  var expected = [ 3, 1.9798989873223332, 0.282842712474619 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcCapsule is a point'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
+  var tstSegment = [ 0, 0, 0, 8, 8, 8 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcCapsule is a sphere'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, -1, 0, 0 ];
+  var expected = [ 2.609433267057528, 6.088677623134233, 0.8698110890191761 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'tstSegment is a point'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 9, 9, 9, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var expected = [ 3.5123633167045747, 4.438183416477126, 3.0494532668182988 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment are the same'; /* */
+
+  var srcCapsule = [ 0, 4, 2, 3, 7, 5, 1 ];
+  var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 2 ];
+  var tstSegment = [ 3, 5, 2, 1, -3, 5, 2, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment don´t intersect 2D - parallel'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 1 ];
+  var tstSegment = [ - 3, - 4, 1, - 4 ];
+  var expected = [ 0, - 1 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment don´t intersect 2D'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 1 ];
+  var tstSegment = [ - 3, - 4, 1, 4 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment don´t intersect with segment´s negative factor'; /* */
+
+  var srcCapsule = [ - 3, - 4, -3, 4, 1 ];
+  var tstSegment = [ 0, 0, 10, 5 ];
+  var expected = [ -2.1055728090000843, -1.0527864045000421 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment don´t intersect with segment´s factor > 1'; /* */
+
+  var srcCapsule = [ - 3, 1, 4, 1, 1 ];
+  var tstSegment = [ - 8, 1, - 5, 1 ];
+  var expected = [ - 4, 1 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment are perpendicular and intersect ( same origin )'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 8, 7, 1, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment are perpendicular and don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
+  var tstSegment = [ 3, 0, 0, 5, 2, 0 ];
+  var expected = [ 0.5, 0, 0 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and segment are parallel to x'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 4, 7, 1, 1 ];
+  var tstSegment = [ 3, 7, 3, 8, 7, 3 ];
+  var expected = [ 3, 7, 2 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcCapsule is null'; /* */
+
+  var srcCapsule = null;
+  var tstSegment = [ 3, 7, 2, - 3, 7, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 0, 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+
+}
+
 
 
 
@@ -4422,6 +4951,10 @@ var Self =
     rayIntersects : rayIntersects,
     rayDistance : rayDistance,
     rayClosestPoint : rayClosestPoint,
+
+    segmentIntersects : segmentIntersects,
+    segmentDistance : segmentDistance,
+    segmentClosestPoint : segmentClosestPoint,
 
   }
 
