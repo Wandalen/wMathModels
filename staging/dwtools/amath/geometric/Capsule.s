@@ -1134,9 +1134,194 @@ function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
   return dstPoint;
 }
 
+//
 
+/**
+  * Check if a capsule and a line intersect. Returns true if they intersect and false if not.
+  * The line and the capsule remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } srcLine - Source line.
+  *
+  * @example
+  * // returns true;
+  * var srcLine =  [ -1, -1, -1, 1, 1, 1 ]
+  * var srcCapsule = [ 0, 0, 0, 2, 2, 2, 1 ]
+  * _.lineIntersects( srcCapsule, srcLine );
+  *
+  * @example
+  * // returns false;
+  * var srcLine =  [ -1, -1, -1, 0, 0, 1 ]
+  * var srcCapsule = [ 0, 1, 0, 2, 2, 2, 0.5 ]
+  * _.lineIntersects( srcCapsule, srcLine );
+  *
+  * @returns { Boolean } Returns true if the capsule and the line intersect.
+  * @function lineIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the capsule and line don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function lineIntersects( srcCapsule, srcLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
+  let srcLineView = _.line._from( srcLine );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let lineDirection = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView );
 
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( dimLine );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  _.assert( dimCapsule === dimLine );
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let distance = _.segment.lineDistance( srcSegment, srcLineView );
+
+  if( distance <= radius )
+  { return true; }
+
+  return false;
+
+}
+
+//
+
+/**
+  * Get the distance between a line and a capsule. Returns the calculated distance.
+  * The capsule and the line remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } srcLine - Test line.
+  *
+  * @example
+  * // returns 0;
+  * _.lineDistance( [ 0, 0, 0, 2, 2, 2, 1 ], [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns Math.sqrt( 8 ) - 1;
+  * _.lineDistance( [ 0, 0, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 0, 0, 1 ]);
+  *
+  * @returns { Number } Returns the distance between a capsule and a line.
+  * @function lineDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the capsule and line don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function lineDistance( srcCapsule, srcLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( srcLine.length / 2 );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  let srcLineView = _.line._from( srcLine );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let lineDirection = _.line.directionGet( srcLineView );
+  let lineDim  = _.line.dimGet( srcLineView );
+
+  _.assert( dimCapsule === lineDim );
+
+  if( _.capsule.lineIntersects( srcCapsuleView, srcLineView ) === true )
+  return 0;
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let distance = _.segment.lineDistance( srcSegment, srcLineView );
+
+  return distance - radius;
+}
+
+//
+
+/**
+  * Get the closest point in a capsule to a line. Returns the calculated point.
+  * The capsule and line remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } srcLine - Test line.
+  *
+  * @example
+  * // returns 0;
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns [ 0.5, 0, 0 ];
+  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0, 0.5 ] , [ 1, 0, 0, 1, 0, 0 ]);
+  *
+  * @returns { Array } Returns the closest point in the srcCapsule to the srcLine.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( dim ) is different than line.dimGet (the capsule and line don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function lineClosestPoint( srcCapsule, srcLine, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcLine.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( srcLine.length / 2 );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  let srcLineView = _.line._from( srcLine );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let tstDir = _.line.directionGet( srcLineView );
+  let lineDim = _.line.dimGet( srcLineView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dimCapsule === lineDim );
+
+  if( _.capsule.lineIntersects( srcCapsuleView, srcLineView ) )
+  return 0;
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let center = _.segment.lineClosestPoint( srcSegment, srcLineView );
+  let sphere = _.sphere.make( lineDim );
+  _.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =_.sphere.lineClosestPoint( sphere, srcLineView );
+
+  let pointView = _.vector.from( point );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
 
 
 
@@ -1180,6 +1365,11 @@ let Proto =
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
   frustumClosestPoint : frustumClosestPoint,
+
+  lineIntersects : lineIntersects,
+  lineDistance : lineDistance,
+  lineClosestPoint : lineClosestPoint,
+
 
 }
 

@@ -2868,7 +2868,7 @@ function frustumClosestPoint( test )
   ]);
   var capsule = [ 0, 2, 2, 0, 1, 2, 0.5 ];
   var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0.22360679774997896, 1, 1.5527864045000421 ] );
+  var expected = _.vector.from( [ 0.22360679774997896, 1, 1.55278640 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum, dstPoint );
   test.equivalent( gotClosestPoint, expected );
@@ -2904,6 +2904,518 @@ function frustumClosestPoint( test )
   test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum ));
   capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum ));
+
+}
+
+//
+
+function lineIntersects( test )
+{
+  test.case = 'Source line and capsule remain unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 1 ];
+  var srcLine = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  var oldSrcCapsule = [ 0, 0, 1, 1, 1 ];
+  test.equivalent( srcCapsule, oldSrcCapsule );
+
+  var oldSrcLine = [ 0, 0, 2, 2 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  test.case = 'Capsule and line are the same'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 0 ];
+  var srcLine = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line are parallel ( different origin - same direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 2 ];
+  var srcLine = [ 3, 7, 1, 1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line are parallel ( different origin - different direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 1, 1, 1 ];
+  var srcLine = [ 3, 7, 7, 7 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line intersect'; /* */
+
+  var srcCapsule = [ 5, 5, 1, 1, 0.2 ];
+  var srcLine = [ 4, 0, -1, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line don´t intersect'; /* */
+
+  var srcCapsule = [ 7, 6, 8, 6, 0.5 ];
+  var srcLine = [ 6, 6, 1, 1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line intersect in their origin'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 0, 0.2 ];
+  var srcLine = [ 3, 7, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line intersect '; /* */
+
+  var srcCapsule = [ 0, 0, 1, 0, 1 ];
+  var srcLine = [ -2, -6, 1, 2 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line are perpendicular '; /* */
+
+  var srcCapsule = [ -3, 0, 1, 0, 0.2 ];
+  var srcLine = [ 0, -2, 0, 1 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line don´t intersect 3D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var srcLine = [ 3, 0, 1, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line intersect 3D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 0, 3, 1 ];
+  var srcLine = [ - 3, - 3, 2, 1, 1, 0 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line don´t intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 1, 1, 1, 1, 0.7 ];
+  var srcLine = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
+  var expected = false;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  test.case = 'Capsule and line intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 4, 4, 4, 4, 0.3 ];
+  var srcLine = [ 3, 2, 1, 0, 0, 1, 2, 3 ];
+  var expected = true;
+
+  var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
+  test.identical( isIntersection, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], 'line') );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, -1 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function lineDistance( test )
+{
+  test.case = 'Source capsule and line remain unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  var oldSrcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.equivalent( srcCapsule, oldSrcCapsule );
+
+  var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstLine, oldTstLine );
+
+  test.case = 'Capsule and line are parallel ( different origin - same direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 0, 1, 2 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = Math.sqrt( 58 ) - 2;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line are parallel ( different origin - different direction )'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 7, 1 ];
+  var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = Math.sqrt( 58 ) - 1;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line are parallel ( different origin - opposite direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 9, 0, 0, 0.4 ];
+  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = Math.sqrt( 50 ) - 0.4;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcCapsule is a point'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected =  Math.sqrt( 168 / 9 );
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'srcCapsule is a sphere'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected =  Math.sqrt( 168 / 9 ) - 1;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'tstLine is a point'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = Math.sqrt( 40 ) - 1;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line are the same'; /* */
+
+  var srcCapsule = [ 0, 4, 2, 5, 9, 7, 0 ];
+  var tstLine = [ 0, 4, 2, 5, 9, 7 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 0.2 ];
+  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line don´t intersect 2D - parallel'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 2 ];
+  var tstLine = [ - 3, - 4, 1, 0 ];
+  var expected = 2;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 1 ];
+  var tstLine = [ - 3, - 4, 0, 1 ];
+  var expected = 2;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line intersect with line´s negative factor 2D'; /* */
+
+  var srcCapsule = [ - 3, - 4, -3, 3, 1 ];
+  var tstLine = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line are perpendicular and intersect'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 8, 7, 1, 0.2 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line are perpendicular and don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
+  var tstLine = [ 3, 0, 0, 0, 1, 0 ];
+  var expected = 2.5;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line are parallel to x axis'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 7, 7, 1, 0.25 ];
+  var tstLine = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 0.75;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line are parallel but in a opposite direction'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 9, 7, 1, 0.2 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 0.8;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Capsule and line are parallel and intersect'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 9, 7, 1, 1.2 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+
+  test.case = 'srcCapsule is null'; /* */
+
+  var srcCapsule = null;
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = Math.sqrt( 53 );
+
+  var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
+  test.identical( gotDistance, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 0, 0, 1 ], 'line') );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function lineClosestPoint( test )
+{
+  test.case = 'Source capsule and line remain unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var tstLine = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  var oldSrcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.equivalent( srcCapsule, oldSrcCapsule );
+
+  var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstLine, oldTstLine );
+
+  test.case = 'Capsule and line are parallel ( different origin - same direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 0.39391929857916763, 0.9191450300180578, 1 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line are parallel ( different origin - different direction )'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 8, Math.sqrt( 2 ) ];
+  var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = [ 2.442913985468844, 5.700132632760637, 1 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line are parallel ( different origin - opposite direction )'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 10, 0, 0, 3 ];
+  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
+  var expected = [ 3, 2.9698484809835, 0.4242640687119285 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcCapsule is a point'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'tstLine is a point'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 9, 9, 9, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = [ 3.5123633167045747, 4.438183416477126, 3.0494532668182988 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line are the same'; /* */
+
+  var srcCapsule = [ 0, 4, 2, 3, 7, 5, 0 ];
+  var tstLine = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line intersect 4D'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 1 ];
+  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line don´t intersect 2D - parallel'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
+  var tstLine = [ - 3, - 4, 1, 0 ];
+  var expected = [ 0, - 0.5 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
+  var tstLine = [ - 3, - 4, 0, 1 ];
+  var expected = [ -0.5, 0 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line intersect with line´s negative factor 2D'; /* */
+
+  var srcCapsule = [ - 3, - 4, -3, 4, 0.2 ];
+  var tstLine = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line are perpendicular and intersect ( same origin )'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 8, 7, 1, 1 ];
+  var tstLine = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line are perpendicular and don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 2 ];
+  var tstLine = [ 3, 0, 0, 1, 1, 0 ];
+  var expected = [ 1.4142135623730951, - 1.4142135623730951, 0 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line are parallel to x'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 4, 7, 1, 0.5 ];
+  var tstLine = [ 3, 7, 2, 4, 7, 2 ];
+  var expected = [ 2.940271890656845, 6.895475808649478, 1.4852908884131368 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and line are parallel but in a opposite direction'; /* */
+
+  var srcCapsule = [ 3, 7, 1, 4, 7, 1, 0.1 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 3, 7, 1.1 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'srcCapsule is null'; /* */
+
+  var srcCapsule = null;
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
+  test.identical( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 0, 0, 0 ], 'line') );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -2958,6 +3470,10 @@ var Self =
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,
     frustumClosestPoint : frustumClosestPoint,
+
+    lineIntersects : lineIntersects,
+    lineDistance : lineDistance,
+    lineClosestPoint : lineClosestPoint,
 
   }
 
