@@ -3419,6 +3419,452 @@ function lineClosestPoint( test )
 
 }
 
+//
+
+function planeIntersects( test )
+{
+
+  test.case = 'Capsule and plane remain unchanged'; /* */
+
+  var capsule = [  - 1,  - 1, -1, 1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool, expected );
+
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null capsule - no intersection'; /* */
+
+  var capsule = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Null capsule - Intersection'; /* */
+
+  var capsule = null;
+  var plane = [ 1, 0, -1, 0 ];
+  var expected = true;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point capsule - no intersection'; /* */
+
+  var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point capsule in plane'; /* */
+
+  var capsule = [ - 1, 2, 3, -1, 2, 3, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'sphere capsule - no intersection'; /* */
+
+  var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point capsule intersection'; /* */
+
+  var capsule = [ - 1.1, 2, 3, -1.1, 2, 3, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule and plane intersect'; /* */
+
+  var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule over plane'; /* */
+
+  var capsule = [ 0, -6, 4, 1, 1, 0, 0.5 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0.4 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane parallel to capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 0.4 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane parallel contains capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  test.case = 'plane perpendicular to capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = true;
+
+  var gotBool = _.capsule.planeIntersects( capsule, plane );
+  test.identical( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function planeDistance( test )
+{
+
+  test.case = 'Capsule and plane remain unchanged'; /* */
+
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance, expected );
+
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null capsule - empty plane'; /* */
+
+  var capsule = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 1;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point capsule - no intersection'; /* */
+
+  var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 2;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'point capsule in plane'; /* */
+
+  var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'sphere capsule - no intersection'; /* */
+
+  var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 1;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'sphere capsule intersection'; /* */
+
+  var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Capsule and plane intersect'; /* */
+
+  var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'Capsule over plane'; /* */
+
+  var capsule = [ 0, -6, 4, 1, 1, 0, 1 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = 2;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0.1 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = 0.4;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane parallel to capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 0.2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = 0.3;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane parallel contains capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 0.1 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  test.case = 'plane perpendicular to capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 0.1 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.capsule.planeDistance( capsule, plane );
+  test.identical( gotDistance,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+//
+
+function planeClosestPoint( test )
+{
+
+  test.case = 'Capsule and plane remain unchanged'; /* */
+
+  var capsule = [  - 1,  - 1, -1, 1, 1, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint, expected );
+
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null capsule - empty plane'; /* */
+
+  var capsule = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point capsule - no intersection'; /* */
+
+  var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point capsule in plane'; /* */
+
+  var capsule = [ - 1, 2, 3, - 1, 2, 3, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'sphere capsule - no intersection'; /* */
+
+  var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 2, 3 ];
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'sphere capsule intersection'; /* */
+
+  var capsule = [ - 1, 2, 3, - 1, 2, 3, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Capsule and plane intersect'; /* */
+
+  var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Capsule over plane'; /* */
+
+  var capsule = [ 0, -6, 4, 1, 1, 0, 2 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = [ -2, -6, 4 ];
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane closer to origin'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0.4 ];
+  var plane = [ 1, 0, 0, 0.5 ];
+  var expected = [ - 0.4, 0, 0 ];
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane parallel to capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var plane = [ 0, 1, 0, 1.5 ];
+  var expected = [ 0, -1, 0 ];
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane parallel contains capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane perpendicular to capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'dstPoint is array'; /* */
+
+  var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
+  var plane = [ 1, 0, 1, 3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 0.29289321881345254, 1, 0.29289321881345254 ];
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane, dstPoint );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
+  var plane = [ 1, 0, 1, 3 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
+
+  var gotPoint = _.capsule.planeClosestPoint( capsule, plane, dstPoint );
+  test.identical( gotPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
 
 
 
@@ -3474,6 +3920,10 @@ var Self =
     lineIntersects : lineIntersects,
     lineDistance : lineDistance,
     lineClosestPoint : lineClosestPoint,
+
+    planeIntersects : planeIntersects,
+    planeDistance : planeDistance,
+    planeClosestPoint : planeClosestPoint,
 
   }
 

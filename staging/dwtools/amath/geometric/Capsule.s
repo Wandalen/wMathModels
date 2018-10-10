@@ -1323,6 +1323,196 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Check if a capsule and a plane intersect. Returns true if they intersect and false if not.
+  * The plane and the capsule remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } srcPlane - Source plane.
+  *
+  * @example
+  * // returns true;
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.planeIntersects( [ 0, -1, 0, 0, -2, 0, 0.5 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Boolean } Returns true if the capsule and the plane intersect.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the capsule and plane don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function planeIntersects( srcCapsule, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( srcPlane.length - 1 );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  _.assert( dimCapsule === dimPlane );
+
+  if( _.plane.pointContains( planeView, origin ) )
+  return true;
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let distance = _.segment.planeDistance( srcSegment, planeView );
+
+  if( distance <= radius )
+  { return true; }
+
+  return false;
+}
+
+//
+
+/**
+  * Get the distance between a capsule and a plane. Returns the calculated distance.
+  * The plane and the capsule remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } srcPlane - Source plane.
+  *
+  * @example
+  * // returns 0;
+  * _.planeDistance( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns 0.5;
+  * _.planeDistance( [ 0, -1, 0, 0, -2, 0, 0.5 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Number } Returns the distance between the capsule and the plane.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the capsule and plane don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function planeDistance( srcCapsule, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( srcPlane.length - 1 );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  _.assert( dimCapsule === dimPlane );
+
+  if( _.capsule.planeIntersects( srcCapsuleView, planeView ) )
+  return 0;
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let distance = _.segment.planeDistance( srcSegment, planeView );
+
+  return distance - radius;
+}
+
+//
+
+/**
+  * Get the closest point between a capsule and a plane. Returns the calculated point.
+  * The plane and the capsule remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule.
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns 0;
+  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns [ 0, -0.5, 0 ];
+  * _.planeClosestPoint( [ 0, -1, 0, 0, -2, 0, 0.5 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Array } Returns the closest point in the capsule to the plane.
+  * @function planeClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the capsule and plane don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcCapsule === null )
+  srcCapsule = _.capsule.make( srcPlane.length - 1 );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimCapsule === dimPlane );
+  if( _.capsule.planeIntersects( srcCapsuleView, planeView ) )
+  return 0;
+
+  let srcSegment = _.segment.fromPair( [ origin, end ] );
+
+  let center = _.segment.planeClosestPoint( srcSegment, planeView );
+  let sphere = _.sphere.make( dimPlane );
+  _.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =_.sphere.planeClosestPoint( sphere, planeView );
+
+  let pointView = _.vector.from( point );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+
+}
+
+
 
 
 // --
@@ -1369,6 +1559,10 @@ let Proto =
   lineIntersects : lineIntersects,
   lineDistance : lineDistance,
   lineClosestPoint : lineClosestPoint,
+
+  planeIntersects : planeIntersects,
+  planeDistance : planeDistance,
+  planeClosestPoint : planeClosestPoint,
 
 
 }
