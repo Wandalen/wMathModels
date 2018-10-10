@@ -4,11 +4,13 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let srcBox = [ 1, 1, 1, 7, 7, 7 ];
-let tstSegment = [ 0, 0, 0, 5, 5, 5 ];
+let srcBox = [ 0, 0, 1, 1 ];
+let tstCapsule = [ 0, 3, -1, 3, 1 ];
 
-let gotsegment = _.box.segmentIntersects( srcBox, tstSegment );
-logger.log( gotsegment )
-gotsegment = _.segment.boxIntersects( tstSegment, srcBox );
-logger.log( gotsegment )
+result = _.box.capsuleIntersects( srcBox, tstCapsule );
+logger.log( result );
+result = _.box.capsuleDistance( srcBox, tstCapsule );
+logger.log( result );
+result = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+logger.log( result );
 debugger;

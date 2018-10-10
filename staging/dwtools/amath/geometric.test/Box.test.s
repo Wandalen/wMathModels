@@ -4383,6 +4383,115 @@ function boxExpand( test )
 
 //
 
+function capsuleClosestPoint( test )
+{
+
+  test.case = 'Source box and capsule remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  test.identical( srcBox, oldSrcBox );
+
+  var oldtstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.identical( tstCapsule, oldtstCapsule );
+
+  test.case = 'Box and capsule intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Capsule origin is box corner'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
+  var expected = 0;
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Capsule is box side'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstCapsule = [ - 1, 0, 0, 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Negative capsule'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstCapsule = [ -3, -3, -3, -2, -2, -2, 1 ];
+  var expected = [ -1, -1, -1 ];
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Closest point in box side'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstCapsule = [ 5, 5, 2, 5, 11, 2, 0.5 ];
+  var expected = [ 4, 4, 2 ];
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstCapsule = [ 5, 5, 1, 11, 5, 1, 0.3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 4, 1 ];
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
+  test.identical( expected, gotCapsule );
+  test.is( dstPoint === gotCapsule );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstCapsule = [ 5, 5, 1, 10, 5, 1, 0.2 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 4, 4, 1 ] );
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
+  test.equivalent( expected, gotCapsule );
+  test.is( dstPoint === gotCapsule );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( 'box', [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 0, 0, 1, 1, 1 ], 'capsule' ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint(  null, [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint(  [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint(  NaN, [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint(  [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1, 1 ], [ 1, 0, 1, 2, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, -1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+//
+
 function frustumContains( test )
 {
   test.description = 'Frustum and box remain unchanged'; //
@@ -6258,6 +6367,8 @@ var Self =
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
     boxExpand : boxExpand,
+
+    capsuleClosestPoint : capsuleClosestPoint,
 
     frustumContains : frustumContains,
     frustumDistance : frustumDistance,

@@ -1554,6 +1554,99 @@ function boxExpand( dstBox , srcBox )
 
 //
 
+function capsuleIntersects( srcBox , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.capsule.boxIntersects( tstCapsuleView, boxView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcBox , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.capsule.boxDistance( tstCapsuleView, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a capsule. Returns the calculated point.
+  * Box and capsule remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ], capsule );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function capsuleClosestPoint( box, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimB === dimCapsule );
+
+  if( _.capsule.boxIntersects( capsuleView, boxView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.boxClosestPoint( capsule, boxView );
+
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, capsulePoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a box contains a frustum. Returns true if it is contained, false if not.
   * Box and frustum remain unchanged
@@ -2379,6 +2472,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   }
 
 }
+
 //
 
 /**
@@ -2917,6 +3011,10 @@ let Proto =
   boxDistance : boxDistance, /* qqq : implement me */
   boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
