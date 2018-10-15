@@ -1099,9 +1099,9 @@ function capsuleClosestPoint( test )
 
   test.case = 'Trivial'; /* */
 
-  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
   var plane = [ 1, 0, 0, - 3 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = [ 3, 2, 2 ];
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
@@ -1110,7 +1110,7 @@ function capsuleClosestPoint( test )
 
   var plane = [ - 1, 1, 0, - 2 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
-  var expected = [ -0.5, 1.5, 0 ];
+  var expected = [ -1, 1, 0 ];
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
