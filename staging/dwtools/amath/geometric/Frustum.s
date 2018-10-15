@@ -753,7 +753,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   let cols = dims[ 1 ];
 
   _.assert( _.frustum.is( frustum ) );
-  _.assert( dim1 === 3 );
+  _.assert( dim1 === rows - 1 );
   _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
 
   if( arguments.length === 2 )
@@ -807,6 +807,108 @@ function boxClosestPoint( frustum, box, dstPoint )
 
   return dstPoint;
 }
+
+//
+
+function capsuleIntersects( srcFrustum , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+
+  let gotBool = _.capsule.frustumIntersects( tstCapsuleView, srcFrustum );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcFrustum , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+
+  let gotDist = _.capsule.frustumDistance( tstCapsuleView, srcFrustum );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a frustum to a capsule. Returns the calculated point.
+  * Frustum and capsule remain unchanged
+  *
+  * @param { Array } frustum - The source frustum.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( srcFrustum, capsule );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.capsuleClosestPoint( srcFrustum, capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.frustum
+  */
+function capsuleClosestPoint( frustum, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  let dims = _.Space.dimsOf( frustum ) ;
+  let rows = dims[ 0 ];
+  let cols = dims[ 1 ];
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( rows - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimCapsule === dstPoint.length );
+  _.assert( dimCapsule === rows - 1 );
+
+  if( _.capsule.frustumIntersects( capsuleView, frustum ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.frustumClosestPoint( capsule, frustum );
+
+    let frustumPoint = _.vector.from( _.frustum.pointClosestPoint( frustum, capsulePoint ) );
+
+    for( let i = 0; i < dimCapsule; i++ )
+    {
+      dstPointView.eSet( i, frustumPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
 
 //
 
@@ -1767,6 +1869,10 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
   boxClosestPoint : boxClosestPoint,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects,
