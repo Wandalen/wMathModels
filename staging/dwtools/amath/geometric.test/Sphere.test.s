@@ -2748,6 +2748,143 @@ function boxExpand( test )
 
 //
 
+function capsuleClosestPoint( test )
+{
+  test.case = 'Sphere and point remain unchanged';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 0, 0, 2, 1, 1, 3, 0.5 ];
+  var expected = [ 0, 0, 1 ];
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule );
+
+  test.identical( gotClosestPoint, expected );
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+  var oldCapsule = [ 0, 0, 2, 1, 1, 3, 0.5 ];
+  test.identical( capsule, oldCapsule );
+
+  test.case = 'ClosestPoint in 1D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 3, 0, 0, 5, 2, 2, 1 ];
+  var expected = [ 1, 0, 0 ];
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'ClosestPoint in 2D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 3, 4, 0, 7, 8, 9, 0.1 ];
+  var expected = [ 0.6, 0.8, 0 ];
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'ClosestPoint in 3D';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 2, 4, 6, 3, 7, 7, 0.2 ];
+  var expected = [ 0.2672612419124244, 0.5345224838248488, 0.8017837257372732 ];
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Capsule below the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ -5, -6, -4, - 3, - 3, - 3, 1 ];
+  var expected = [ -0.5773502691896257, -0.5773502691896257, -0.5773502691896257 ];
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'Capsule corner touching the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 2, 0, 0, 5, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule and sphere intersect';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 0, 0, 0.5, 1, 1, 1, 0.1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Capsule inside the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 0, 0, 0, 0.5, 0.5, 0.5, 0.2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Sphere inside capsule';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ -1, -1, -1, 1, 1, 1, 2 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule );
+
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'dstPoint is array';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var capsule = [ 1, 1, 4.3, 2, 2, 5, 0.3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 1, 1, 3 ];
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule, dstPoint );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  test.case = 'dstPoint is vector';
+
+  var sphere = [ 1, 1, 2, 1 ];
+  var capsule = [ 1, 1, 4.3, 2, 2, 5, 0.3 ];
+  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
+  var expected = _.vector.fromArray( [ 1, 1, 3 ] );
+
+  var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule, dstPoint );
+
+  test.equivalent( gotClosestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 0, 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1, 2, 3, 4 ], [ 1, 2, 3, 4, 5 ], [ 1, 2, 3, 4, 5 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1, 2, 3, 4 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1, 2, 3, 4, 5 ], [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1, 2, 3, 4, 5 ], [ 1, 2, 3, 4, - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( null, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 0, 0, 0, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( NaN, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 0, 0, 0, 1 ], NaN ) );
+}
+
+//
+
 function frustumContains( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
@@ -4549,9 +4686,9 @@ function sphereExpand( test )
   return;
 
   test.shouldThrowErrorSync( () => _.sphere.sphereExpand( ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'boxOne', 'boxTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ], 'boxTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'boxOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'sphereOne', [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] ) );
@@ -4610,6 +4747,8 @@ var Self =
     boxIntersects : boxIntersects,
     boxClosestPoint : boxClosestPoint,
     boxExpand : boxExpand,
+
+    capsuleClosestPoint : capsuleClosestPoint,
 
     frustumContains : frustumContains,
     frustumDistance : frustumDistance,

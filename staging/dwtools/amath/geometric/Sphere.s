@@ -1230,6 +1230,97 @@ function boxExpand( dstSphere, srcBox )
 
 //
 
+function capsuleIntersects( srcSphere , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let sphereView = _.sphere._from( srcSphere );
+
+  let gotBool = _.capsule.sphereIntersects( tstCapsuleView, sphereView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcSphere , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let sphereView = _.sphere._from( srcSphere );
+
+  let gotDist = _.capsule.sphereDistance( tstCapsuleView, sphereView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a sphere to a capsule. Returns the calculated point.
+  * Sphere and capsule remain unchanged
+  *
+  * @param { Array } sphere - The source sphere.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2 ], capsule );
+  *
+  * @example
+  * // returns [ 1, 0, 0 ]
+  * _.capsuleClosestPoint( [ 2, 0, 0, 1 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( sphere ) is not sphere
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.sphere
+  */
+function capsuleClosestPoint( sphere, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let sphereView = _.sphere._from( sphere );
+  let dimSphere = _.sphere.dimGet( sphereView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimSphere );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimSphere === dstPoint.length );
+  _.assert( dimSphere === dimCapsule );
+
+  if( _.capsule.sphereIntersects( capsuleView, sphereView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.sphereClosestPoint( capsule, sphereView );
+
+    let spherePoint = _.vector.from( _.sphere.pointClosestPoint( sphereView, capsulePoint ) );
+
+    for( let i = 0; i < dimSphere; i++ )
+    {
+      dstPointView.eSet( i, spherePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a sphere contains a frustum. Returns true if frustum is contained.
   * Frustum and sphere remain unchanged.
@@ -2312,6 +2403,10 @@ let Proto =
   boxDistance : boxDistance, /* qqq : implement me - Same as _.box.sphereDistance */
   boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
