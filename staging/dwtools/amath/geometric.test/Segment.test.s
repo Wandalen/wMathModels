@@ -2613,6 +2613,145 @@ function boxClosestPoint( test )
 
 //
 
+function capsuleClosestPoint( test )
+{
+  test.case = 'Segment and capsule remain unchanged'; /* */
+
+  var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint, expected );
+
+  var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  test.case = 'zero segment - same capsule'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point segment'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var capsule = [ 1, 2, 4, 3, 4, 0, 0.2 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point capsule'; /* */
+
+  var segment = [ 1, 2, 3, 1, 0, 0 ];
+  var capsule = [ 1, 2, 4, 1, 2, 4, 0 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'sphere capsule'; /* */
+
+  var segment = [ 1, 2, 3, 1, 0, 0 ];
+  var capsule = [ 1, 2, 4, 1, 2, 4, 0.5 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point segment in capsule'; /* */
+
+  var segment = [ 1, 2, 3, 1, 2, 3 ];
+  var capsule = [ 1, 2, 2, 3, 4, 4, 1.5 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Segment and capsule intersect'; /* */
+
+  var segment = [ -2, -2, -2, 2, 2, 2 ];
+  var capsule = [ 0, 0, 0, 1, 1, 1, 0.3 ];
+  var expected = 0;
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Segment over capsule'; /* */
+
+  var segment = [ 0, 0, 4, 0, 0, 6 ];
+  var capsule = [ 0, 1, 1, 3, 7, 3, 0.2 ];
+  var expected = [ 0, 0, 4 ];
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'capsule corner closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var capsule = [ - 2, - 2, - 2, -1, -1, -1, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'capsule side closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var capsule = [ -1, -1, -1, 0.5, 0.5, - 0.2 , 0.1];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'capsule corner closer to end'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var capsule = [ 6, 7, 8, 6, 9, 10, 2 ];
+  var expected = [ 2, 2, 2 ];
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = '2D'; /* */
+
+  var segment = [ 0, 0, 2, 10 ];
+  var capsule = [ 6, 7, 10, 8, 1 ];
+  var expected = [ 1.5769230769230769, 7.884615384615384 ];
+
+  var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
+  test.identical( gotPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( 'segment', [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( [ 1, 1, 2, 2 ], 'capsule') );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( undefined, [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( null, [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2, - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.capsuleClosestPoint( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2, 3, 3, 4 ] ) );
+
+}
+
+//
+
 function frustumIntersects( test )
 {
 
@@ -5525,6 +5664,8 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+
+    capsuleClosestPoint : capsuleClosestPoint,
 
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,

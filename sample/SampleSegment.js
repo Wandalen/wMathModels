@@ -5,9 +5,12 @@ require( 'wmathconcepts' );
 let _ = wTools;
 
 
-var ray = [ - 3, - 3, 2, 1, 1, 0 ];
-var segment = [ 0, 0, 0, 0, 0, 3 ];
-var expected = 3;
+var capsule = [ -3, 0, 0, -1, 0, 0, 1 ];
+var segment = [ 1, 0, 0, 3, 0, 0 ];
 
-var result = _.segment.rayIntersects( segment, ray );
-logger.log('Final result: ', result );
+var intersection = _.segment.capsuleIntersects( segment, capsule );
+var distance = _.segment.capsuleDistance( segment, capsule );
+var closestPoint = _.segment.capsuleClosestPoint( segment, capsule );
+logger.log('Final result: ', intersection );
+logger.log('Final result: ', distance );
+logger.log('Final result: ', closestPoint );

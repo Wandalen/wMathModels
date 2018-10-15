@@ -1294,6 +1294,97 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
 
 //
 
+function capsuleIntersects( srcSegment , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let segmentView = _.segment._from( srcSegment );
+
+  let gotBool = _.capsule.segmentIntersects( tstCapsuleView, segmentView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcSegment , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let segmentView = _.segment._from( srcSegment );
+
+  let gotDist = _.capsule.segmentDistance( tstCapsuleView, segmentView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a segment to a capsule. Returns the calculated point.
+  * Segment and capsule remain unchanged
+  *
+  * @param { Array } segment - The source segment.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ], capsule );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.segment
+  */
+function capsuleClosestPoint( segment, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let segmentView = _.segment._from( segment );
+  let dimS = _.segment.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimS === dimCapsule );
+
+  if( _.capsule.segmentIntersects( capsuleView, segmentView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.segmentClosestPoint( capsule, segmentView );
+
+    let segmentPoint = _.vector.from( _.segment.pointClosestPoint( segmentView, capsulePoint ) );
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, segmentPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a segment and a frustum intersect. Returns true if they intersect and false if not.
   * The frustum and the segment remain unchanged.
@@ -2735,6 +2826,10 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
