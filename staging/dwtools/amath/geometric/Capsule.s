@@ -1560,9 +1560,8 @@ function rayIntersects( srcCapsule, srcRay )
   _.assert( dimCapsule === dimRay );
 
   let srcSegment = _.segment.fromPair( [ origin, end ] );
-
   let distance = _.segment.rayDistance( srcSegment, srcRayView );
-
+  
   if( distance <= radius )
   { return true; }
 

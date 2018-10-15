@@ -930,11 +930,11 @@ function pointContains( srcRay, srcPoint )
 
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
   let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
-
+  
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracy )
     {
       return false;
     }
@@ -949,7 +949,7 @@ function pointContains( srcRay, srcPoint )
   }
 
   // Factor can not be negative
-  if(  factor <= 0 - _.accuracySqr )
+  if(  factor <= 0 - _.accuracy )
   return false;
 
   for( var i = 1; i < dOrigin.length; i++ )
@@ -957,7 +957,7 @@ function pointContains( srcRay, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracy )
       {
         return false;
       }
@@ -969,13 +969,13 @@ function pointContains( srcRay, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && factor !== 0 )
+      if( Math.abs( newFactor - factor ) > _.accuracy && factor !== 0 )
       {
         return false;
       }
       factor = newFactor;
 
-      if(  factor <= 0 - _.accuracySqr )
+      if(  factor <= 0 - _.accuracy )
       return false;
     }
   }
@@ -1317,6 +1317,97 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
   }
 
   return dstPoint;
+}
+
+//
+
+function capsuleIntersects( srcRay , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let rayView = _.ray._from( srcRay );
+
+  let gotBool = _.capsule.rayIntersects( tstCapsuleView, rayView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcRay , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let rayView = _.ray._from( srcRay );
+
+  let gotDist = _.capsule.rayDistance( tstCapsuleView, rayView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a ray to a capsule. Returns the calculated point.
+  * Ray and capsule remain unchanged
+  *
+  * @param { Array } ray - The source ray.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ], capsule );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( ray ) is not ray
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.ray
+  */
+function capsuleClosestPoint( ray, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let rayView = _.ray._from( ray );
+  let dimRay = _.ray.dimGet( rayView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimRay );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimRay === dstPoint.length );
+  _.assert( dimRay === dimCapsule );
+
+  if( _.capsule.rayIntersects( capsuleView, rayView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.rayClosestPoint( capsule, rayView );
+
+    let rayPoint = _.vector.from( _.ray.pointClosestPoint( rayView, capsulePoint ) );
+
+    for( let i = 0; i < dimRay; i++ )
+    {
+      dstPointView.eSet( i, rayPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
 }
 
 //
@@ -2394,6 +2485,10 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,

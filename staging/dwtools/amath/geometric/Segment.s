@@ -1418,7 +1418,7 @@ function frustumDistance( srcSegment, srcFrustum )
   return 0;
 
   let closestPoint = _.segment.frustumClosestPoint( srcSegmentView, srcFrustum );
-  
+
   return _.frustum.pointDistance( srcFrustum, closestPoint );
 }
 
@@ -2026,6 +2026,7 @@ function rayIntersects( srcSegment, srcRay )
   _.assert( dimSegment === dimRay );
 
   let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
+
   if( _.line.lineParallel( lineSegment, srcRayView ) )
   {
     if( _.ray.pointContains( srcRayView, segmentOrigin ) )
@@ -2035,9 +2036,26 @@ function rayIntersects( srcSegment, srcRay )
   }
 
   let factors = _.ray.rayIntersectionFactors( lineSegment, srcRayView );
-
-  if( factors === 0 || factors.eGet( 1 ) < 0 || factors.eGet( 0 ) < 0 || ( factors.eGet( 0 ) > 1 && factors.eGet( 1 ) > 1 ) )
+  logger.log( 'FACTORS', factors)
+  if( factors === 0 || factors.eGet( 0 ) < 0 || factors.eGet( 1 ) < 0 || ( factors.eGet( 0 ) > 1 && factors.eGet( 1 ) > 1 ) )
   return false;
+
+  if( factors.eGet( 0 ) > 1 )
+  {
+    let point = _.segment.segmentAt( srcSegmentView, factors.eGet( 1 ) );
+    let contained = _.ray.pointContains( srcRayView, point );
+
+    if( contained === false )
+    return false;
+  }
+  else if( factors.eGet( 1 ) > 1 )
+  {
+    let point = _.segment.segmentAt( srcSegmentView, factors.eGet( 0 ) );
+    let contained = _.ray.pointContains( srcRayView, point );
+
+    if( contained === false )
+    return false;
+  }
 
   return true;
 }
@@ -2090,7 +2108,9 @@ function rayDistance( srcSegment, srcRay )
   let distance;
 
   if( _.segment.rayIntersects( srcSegmentView, srcRayView ) === true )
-  return 0;
+  {
+    return 0;
+  }
 
   // Parallel segment/ray
   let lineSegment = _.line.fromPair( [ srcOrigin, srcEnd ] );
