@@ -3,11 +3,11 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let plane1 = [ -1, 0, 0, 0 ];
-
-let segment = [ 2, 2, 2, 3, 3, 3 ];
-debugger;
-
-j = _.plane.segmentClosestPoint( plane1, segment )
-console.log( j );
-debugger;
+var capsule =  [ 0, 1, - 2, 0, 1, - 1, 0.5 ];
+var plane =  [ 1, 0, 0, 0.4 ];
+result = _.plane.capsuleIntersects( plane, capsule );
+logger.log('Final result: ', result );
+result = _.plane.capsuleDistance( plane, capsule );
+logger.log('Final result: ', result );
+result = _.plane.capsuleClosestPoint( plane, capsule );
+logger.log('Final result: ', result );

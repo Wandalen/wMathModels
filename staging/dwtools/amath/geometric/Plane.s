@@ -577,6 +577,97 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
 
 //
 
+function capsuleIntersects( srcPlane , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotBool = _.capsule.planeIntersects( tstCapsuleView, planeView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcPlane , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotDist = _.capsule.planeDistance( tstCapsuleView, planeView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a plane to a capsule. Returns the calculated point.
+  * Plane and capsule remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 1, 0, 0, 0 ], capsule );
+  *
+  * @example
+  * // returns [ 3, 0, 0 ]
+  * _.capsuleClosestPoint( [ 1, 0, 0, - 3 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.plane
+  */
+function capsuleClosestPoint( plane, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimPlane );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimPlane === dstPoint.length );
+  _.assert( dimPlane === dimCapsule );
+
+  if( _.capsule.planeIntersects( capsuleView, planeView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.planeClosestPoint( capsule, planeView );
+
+    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, capsulePoint ) );
+
+    for( let i = 0; i < dimPlane; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a plane and a frustum intersect. Returns true if they intersect.
   * The plane and the frustum remain unchanged.
@@ -1619,6 +1710,10 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
   boxClosestPoint : boxClosestPoint, /* qqq: implement me */
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
