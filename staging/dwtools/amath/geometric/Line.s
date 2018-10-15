@@ -1293,6 +1293,97 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
 
 //
 
+function capsuleIntersects( srcLine, tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let lineView = _.line._from( srcLine );
+
+  let gotBool = _.capsule.lineIntersects( tstCapsuleView, lineView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcLine, tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let lineView = _.line._from( srcLine );
+
+  let gotDist = _.capsule.lineDistance( tstCapsuleView, lineView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a line to a capsule. Returns the calculated point.
+  * Line and capsule remain unchanged
+  *
+  * @param { Array } line - The source line.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ], capsule );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( line ) is not line
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.line
+  */
+function capsuleClosestPoint( line, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let lineView = _.line._from( line );
+  let dimLine = _.line.dimGet( lineView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimLine );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimLine === dstPoint.length );
+  _.assert( dimLine === dimCapsule );
+
+  if( _.capsule.lineIntersects( capsuleView, lineView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.lineClosestPoint( capsuleView, lineView );
+
+    let linePoint = _.vector.from( _.line.pointClosestPoint( lineView, capsulePoint ) );
+
+    for( let i = 0; i < dimLine; i++ )
+    {
+      dstPointView.eSet( i, linePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a line and a frustum intersect. Returns true if they intersect and false if not.
   * The frustum and the line remain unchanged.
@@ -2439,6 +2530,10 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,

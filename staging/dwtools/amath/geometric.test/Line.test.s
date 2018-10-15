@@ -2846,6 +2846,126 @@ function boxClosestPoint( test )
 
 //
 
+function capsuleClosestPoint( test )
+{
+  test.case = 'Line and capsule remain unchanged'; /* */
+
+  var line = [  - 1,  - 1, -1, 1, 1, 1 ];
+  var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.identical( gotPoint, expected );
+
+  var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
+  test.identical( line, oldLine );
+
+  var oldCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  test.case = 'capsule line - same capsule'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 0 ];
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point line'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var capsule = [ 1, 2, 4, 3, 4, 0, 0.5 ];
+  var expected = [ 1, 2, 3 ];
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point line in capsule'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var capsule = [ 1, 2, 2, 3, 4, 4, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line and capsule intersect'; /* */
+
+  var line = [ -2, -2, -2, 2, 2, 2 ];
+  var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
+  var expected = 0;
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line over capsule - negative factor'; /* */
+
+  var line = [ 0, 0, 4, 0, 0, 2 ];
+  var capsule = [ 0, 1, 1, 3, 7, 3, 0.2 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'capsule corner - negative factor'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var capsule = [ - 2, - 2, - 2, -1, -1, -1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'capsule corner closer to origin'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var capsule = [ 0, - 2, 0, 1, -1, 1, 0.2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'capsule corner not close to origin'; /* */
+
+  var line = [ 0, 0, 0, 2, 2, 2 ];
+  var capsule = [ 6, 7, 8, 6, 9, 10, 1 ];
+  var expected = [ 7, 7, 7 ];
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.identical( gotPoint,  expected );
+
+  test.case = '2D'; /* */
+
+  var line = [ 0, 0, 2, 1 ];
+  var capsule = [ 6, 7, 10, 8, 0.1 ];
+  var expected = [ 11.2, 5.6 ];
+
+  var gotPoint = _.line.capsuleClosestPoint( line, capsule );
+  test.identical( gotPoint,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( 'line', [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( [ 1, 1, 2, 2 ], 'capsule') );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( undefined, [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( null, [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.capsuleClosestPoint( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2, - 1 ] ) );
+
+}
+
+//
+
 function frustumIntersects( test )
 {
 
@@ -5551,6 +5671,8 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+
+    capsuleClosestPoint : capsuleClosestPoint,
 
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,
