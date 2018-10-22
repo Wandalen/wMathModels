@@ -2068,7 +2068,7 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
 
 /**
   * Get the bounding sphere of a capsule. Returns destination sphere.
-  * Box and sphere are stored in Array data structure. Source capsule stays untouched.
+  * Capsule and sphere are stored in Array data structure. Source capsule stays untouched.
   *
   * @param { Array } dstSphere - destination sphere.
   * @param { Array } srcCapsule - source capsule for the bounding sphere.
@@ -2113,10 +2113,7 @@ function boundingSphereGet( dstSphere, srcCapsule )
     center.eSet( c, ( end.eGet( c ) + origin.eGet( c ) ) / 2 );
   }
 
-  logger.log('Center', center )
-  logger.log('dstSphere', dstSphereView )
   // Radius of the sphere
-
   _.sphere.radiusSet( dstSphereView, vector.distance( center, end )  + radiusCapsule );
 
   return dstSphere;

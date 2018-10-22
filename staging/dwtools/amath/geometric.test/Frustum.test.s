@@ -3825,6 +3825,196 @@ function sphereClosestPoint( test )
 
 }
 
+//
+
+function boundingSphereGet( test )
+{
+
+  test.case = 'Source frustum remains unchanged'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var dstSphere = [ 1, 1, 2, 1 ];
+  var expected = [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ];
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( expected, gotSphere );
+  test.is( dstSphere === gotSphere );
+
+  var oldSrcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldSrcFrustum );
+
+  test.case = 'Zero frustum to zero sphere'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0,   0,   0
+  ]);
+  var dstSphere = [ 0, 0, 0, 1 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere inside frustum - same center'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 4,   0, - 4,   0,   0, - 4
+  ]);
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var expected = [ 2, 2, 2, Math.sqrt( 12 ) ];
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Point frustum and point Sphere'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1, 1, - 1,   1,   1, - 1
+  ]);
+  var dstSphere = [ 3, 3, 3, 0 ];
+  var expected = [ 1, 1, 1, 0 ];
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Frustum inside Sphere'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var dstSphere = [ 0, 0, 0, 3 ];
+  var expected = [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ];
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere outside frustum'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   0, - 2,   0,   0, - 2
+  ]);
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 1, 1, 1, Math.sqrt( 3 ) ];
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere vector'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    1,   3,   1,   1,   3,   1
+  ]);
+  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
+  var expected = _.vector.from( [ 1, 1, 0, 3 ] );
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere null'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 5, 7,   1,   1,   3,   1
+  ]);
+  var dstSphere = null;
+  var expected = [ 1, 6, 0, Math.sqrt( 6 ) ];
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere undefined'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    3,   0,   0,   5,   1,   1
+  ]);
+  var dstSphere = undefined;
+  var expected = [ 0, - 1.5, 2.5, Math.sqrt( 9.5 ) ];
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( gotSphere, expected );
+
+  test.case = 'srcFrustum inversed'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   4, - 2,  4,  4, - 2
+  ]);
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 3, 3, 3, Math.sqrt( 3 ) ];
+
+  var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    1,   3, - 5,   7,   1,   1
+  ]);
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( [] ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( srcFrustum ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], srcFrustum ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], srcFrustum ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+
+}
+
 
 
 // --
@@ -3874,6 +4064,7 @@ var Self =
     sphereContains : sphereContains,
     sphereIntersects : sphereIntersects,
     sphereClosestPoint : sphereClosestPoint,
+    boundingSphereGet : boundingSphereGet,
 
   }
 

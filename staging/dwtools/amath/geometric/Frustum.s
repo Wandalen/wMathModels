@@ -405,7 +405,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   let fpoints = _.frustum.cornersGet( frustum );
   _.assert( _.spaceIs( fpoints ) );
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
-  _.assert( rows -1 === srcPointVector.length );
+  _.assert( rows - 1 === srcPointVector.length );
   _.assert( dstPointView.length === srcPointVector.length );
 
   let max = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
@@ -1844,6 +1844,101 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
 
 }
 
+//
+
+/**
+  * Get the bounding sphere of a frustum0. Returns destination sphere.
+  * Frustum and sphere are stored in Array data structure. Source frustum stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcFrustum - source frustum for the bounding sphere.
+  *
+  * @example
+  * // returns [ 0.5, 0.5, 0.5,  Math.sqrt( 0.75 ) ]
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.boundingSphereGet( null, frustum );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet( frustum ) (the frustum and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum
+  * @memberof wTools.capsule
+  */
+function boundingSphereGet( dstSphere, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  _.assert( _.frustum.is( srcFrustum ) );
+  let dims = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dims[ 0 ];
+  let cols = dims[ 1 ];
+  let fpoints = _.frustum.cornersGet( srcFrustum );
+  _.assert( _.spaceIs( fpoints ) );
+  _.assert( fpoints.hasShape( [ 3, 8 ] ) );
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( rows - 1 );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radiusSphere = _.sphere.radiusGet( dstSphereView );
+  let dimSphere = _.sphere.dimGet( dstSphereView );
+
+  _.assert( rows - 1 === dimSphere );
+
+  // Frustum limits
+  let max = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
+  let min = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
+
+  for( let j = 1 ; j < _.Space.dimsOf( fpoints )[ 1 ] ; j++ )
+  {
+    let newp = fpoints.colVectorGet( j );
+
+    if( newp.eGet( 0 ) < min.eGet( 0 ) )
+    {
+      min.eSet( 0, newp.eGet( 0 ) );
+    }
+    if( newp.eGet( 1 ) < min.eGet( 1 ) )
+    {
+      min.eSet( 1, newp.eGet( 1 ) );
+    }
+    if( newp.eGet( 2 ) < min.eGet( 2 ) )
+    {
+      min.eSet( 2, newp.eGet( 2 ) );
+    }
+    if( newp.eGet( 0 ) > max.eGet( 0 ) )
+    {
+      max.eSet( 0, newp.eGet( 0 ) );
+    }
+    if( newp.eGet( 1 ) > max.eGet( 1 ) )
+    {
+      max.eSet( 1, newp.eGet( 1 ) );
+    }
+    if( newp.eGet( 2 ) > max.eGet( 2 ) )
+    {
+      max.eSet( 2, newp.eGet( 2 ) );
+    }
+  }
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
+  }
+  logger.log(center, max )
+  // Radius of the sphere
+  _.sphere.radiusSet( dstSphereView, _.vector.distance( center, max ) );
+
+  return dstSphere;
+}
+
 
 
 // --
@@ -1899,6 +1994,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
   sphereClosestPoint : sphereClosestPoint,
+  boundingSphereGet : boundingSphereGet,
 
 }
 

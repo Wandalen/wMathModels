@@ -3,20 +3,13 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var srcFrustum= _.Space.make( [ 4, 6 ] ).copy
+var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
 ([
-  0,   0,   0,   0,   1, - 1,
+  0,   0,   0,   0, - 1,   1,
   1, - 1,   0,   0,   0,   0,
   0,   0,   1, - 1,   0,   0,
-  - 1, 0, - 1,   0, - 1,   0,
+  1,   3,   1,   3,   3,   1
 ]);
 
-logger.log(  srcFrustum )
-var capsule = [ - 2, - 2, - 2, - 3, - 3, - 3, 1 ];
-
-var result = _.frustum.capsuleIntersects( srcFrustum, capsule )
-console.log( 'Result: ', result );
-var result = _.frustum.capsuleDistance( srcFrustum, capsule )
-console.log( 'Result: ', result );
-var result = _.frustum.capsuleClosestPoint( srcFrustum, capsule )
+var result = _.frustum.boundingSphereGet( null, srcFrustum )
 console.log( 'Result: ', result );
