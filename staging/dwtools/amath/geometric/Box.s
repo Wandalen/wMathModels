@@ -2740,8 +2740,8 @@ function sphereExpand( dstBox , srcSphere )
   * Get the bounding sphere of a box. Returns destination sphere.
   * Box and sphere are stored in Array data structure. Source box stays untouched.
   *
-  * @param { Array } dstSphere - source sphere with expansion dimensions.
-  * @param { Array } srcBox - box to be expanded.
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcBox - source box for the bounding sphere.
   *
   * @example
   * // returns [ 1, 1, 1, Math.sqrt( 3 ) ]
@@ -2781,12 +2781,9 @@ function boundingSphereGet( dstSphere, srcBox )
     center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
   }
 
-  logger.log('Center', center )
-  logger.log('dstSphere', dstSphereView )
   // Radius of the sphere
-
   _.sphere.radiusSet( dstSphereView, vector.distance( center, max ) );
-
+  
   return dstSphere;
 }
 

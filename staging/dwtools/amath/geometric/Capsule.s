@@ -1561,7 +1561,7 @@ function rayIntersects( srcCapsule, srcRay )
 
   let srcSegment = _.segment.fromPair( [ origin, end ] );
   let distance = _.segment.rayDistance( srcSegment, srcRayView );
-  
+
   if( distance <= radius )
   { return true; }
 
@@ -2064,8 +2064,63 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
   return dstPoint;
 }
 
+//
 
+/**
+  * Get the bounding sphere of a capsule. Returns destination sphere.
+  * Box and sphere are stored in Array data structure. Source capsule stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcCapsule - source capsule for the bounding sphere.
+  *
+  * @example
+  * // returns [ 1, 1, 1, Math.sqrt( 3 ) + 1 ]
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2, 1 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(capsule) (the capsule and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule
+  * @memberof wTools.capsule
+  */
+function boundingSphereGet( dstSphere, srcCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
 
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radiusCapsule = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radiusCapsule >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimCapsule );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radiusSphere = _.sphere.radiusGet( dstSphereView );
+  let dimSphere = _.sphere.dimGet( dstSphereView );
+
+  _.assert( dimCapsule === dimSphere );
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, ( end.eGet( c ) + origin.eGet( c ) ) / 2 );
+  }
+
+  logger.log('Center', center )
+  logger.log('dstSphere', dstSphereView )
+  // Radius of the sphere
+
+  _.sphere.radiusSet( dstSphereView, vector.distance( center, end )  + radiusCapsule );
+
+  return dstSphere;
+}
 
 
 
@@ -2130,6 +2185,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint,
+  boundingSphereGet : boundingSphereGet,
 
 
 }
