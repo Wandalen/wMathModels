@@ -2737,6 +2737,62 @@ function sphereExpand( dstBox , srcSphere )
 //
 
 /**
+  * Get the bounding sphere of a box. Returns destination sphere.
+  * Box and sphere are stored in Array data structure. Source box stays untouched.
+  *
+  * @param { Array } dstSphere - source sphere with expansion dimensions.
+  * @param { Array } srcBox - box to be expanded.
+  *
+  * @example
+  * // returns [ 1, 1, 1, Math.sqrt( 3 ) ]
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcBox ) is not box
+  * @memberof wTools.box
+  */
+function boundingSphereGet( dstSphere, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcBoxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( srcBoxView );
+  let min = _.box.cornerLeftGet( srcBoxView );
+  let max = _.box.cornerRightGet( srcBoxView );
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimB );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radius = _.sphere.radiusGet( dstSphereView );
+  let dimS = _.sphere.dimGet( dstSphereView );
+
+  _.assert( dimB === dimS );
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
+  }
+
+  logger.log('Center', center )
+  logger.log('dstSphere', dstSphereView )
+  // Radius of the sphere
+
+  _.sphere.radiusSet( dstSphereView, vector.distance( center, max ) );
+
+  return dstSphere;
+}
+
+//
+
+/**
   * Apply a space transformation to a box. Returns the transformed box.
   *
   * @param { Array } box - The destination box.
@@ -3044,6 +3100,7 @@ let Proto =
   sphereDistance : sphereDistance, /* qqq : implement me */
   sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   sphereExpand : sphereExpand, /* qqq : implement me */
+  boundingSphereGet : boundingSphereGet,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,
