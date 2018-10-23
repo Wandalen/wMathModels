@@ -1321,6 +1321,75 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
 
 //
 
+/**
+  * Get the bounding box of a ray. Returns destination box.
+  * Ray and box are stored in Array data structure. Source ray stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcRay - source ray for the bounding box.
+  *
+  * @example
+  * // returns [ -Infinity, 0, 0, 0, 0, Infinity ]
+  * _.boundingBoxGet( null, [ 0, 0, 0, - 2, 0, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(ray) (the ray and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcRay ) is not ray
+  * @memberof wTools.ray
+  */
+function boundingBoxGet( dstBox, srcRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( dimRay );
+
+  _.assert( _.box.is( dstBox ) );
+  let boxView = _.box._from( dstBox );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+  let dimB = _.box.dimGet( boxView );
+
+  _.assert( dimRay === dimB );
+
+  let endPoint = _.array.makeArrayOfLength( dimB );
+
+  for( let i = 0; i < dimB; i++ )
+  {
+    if( direction.eGet( i ) > 0 )
+    {
+      endPoint[ i ] = Infinity;
+    }
+    else if( direction.eGet( i ) < 0 )
+    {
+      endPoint[ i ] = - Infinity;
+    }
+    else
+    {
+      endPoint[ i ] = origin.eGet( i );
+    }
+  }
+
+  let box = _.box._from( _.box.fromPoints( null, [ origin, endPoint ] ) );
+
+  for( let b = 0; b < boxView.length; b++ )
+  {
+    boxView.eSet( b, box.eGet( b ) );
+  }
+
+  return dstBox;
+}
+
+//
+
 function capsuleIntersects( srcRay , tstCapsule )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -2548,6 +2617,7 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+  boundingBoxGet : boundingBoxGet,
 
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,

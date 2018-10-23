@@ -2753,6 +2753,141 @@ function boxClosestPoint( test )
 
 //
 
+function boundingBoxGet( test )
+{
+
+  test.case = 'Source ray remains unchanged'; /* */
+
+  var srcRay = [ 0, 0, 0, 3, 3, 3 ];
+  var dstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ 0, 0, 0, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( expected, gotBox );
+  test.is( dstBox === gotBox );
+
+  var oldSrcRay = [ 0, 0, 0, 3, 3, 3 ];
+  test.identical( srcRay, oldSrcRay );
+
+  test.case = 'Empty'; /* */
+
+  var srcRay = [ ];
+  var dstBox = [ ];
+  var expected = [ ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  test.case = 'Zero ray to zero box'; /* */
+
+  var srcRay = [ 0, 0, 0, 0, 0, 0 ];
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  test.case = 'Ray inside box'; /* */
+
+  var srcRay = [ 1, 1, 1, 4, 4, 4 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ 1, 1, 1, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  test.case = 'Ray outside Box'; /* */
+
+  var srcRay = [ - 1, - 1, - 1, 1, 2, 3 ];
+  var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
+  var expected = [ - 1, - 1, - 1, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  test.case = 'Point ray and point Box'; /* */
+
+  var srcRay = [ 1, 2, 3, 0, 0, 0 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ 1, 2, 3, 1, 2, 3 ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  test.case = 'Negative ray direction'; /* */
+
+  var srcRay = [ 1, 2, 3, - 3, - 2, - 1 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [  - Infinity, - Infinity, - Infinity, 1, 2, 3 ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  test.case = 'Mixed directions'; /* */
+
+  var srcRay = [ 1, 2, 3, - 1, 0, 1 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ - Infinity, 2, 3, 1, 2, Infinity ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  test.case = 'srcRay vector'; /* */
+
+  var srcRay = _.vector.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
+  var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
+  var expected = [ - 8, - 5, 4.5, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox vector - 2D'; /* */
+
+  var srcRay = [ - 1, 0, - 2, 3 ];
+  var dstBox = _.vector.from( [ 1, 2, 3, 9 ] );
+  var expected = _.vector.from( [ - Infinity, 0, - 1, Infinity ] );
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox null'; /* */
+
+  var srcRay = [ 2.2, 3.3, - 4.4, 0 ];
+  var dstBox = null;
+  var expected = [ - Infinity, 3.3, 2.2, 3.3 ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.equivalent( gotBox, expected );
+
+  test.case = 'dstBox undefined'; /* */
+
+  var srcRay = [ - 1, - 3, - 5, 1 ];
+  var dstBox = undefined;
+  var expected = [  - Infinity, - 3, - 1, Infinity ];
+
+  var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( [] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( 'box', 'ray' ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4, 5 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingBoxGet( [ 0, 1, 0, 1, 2 ], [ 0, 0, 1 ] ) );
+
+}
+
+//
+
 function capsuleClosestPoint( test )
 {
   test.case = 'Ray and capsule remain unchanged'; /* */
@@ -5297,6 +5432,7 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+    boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
 
