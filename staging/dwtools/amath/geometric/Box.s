@@ -489,21 +489,22 @@ function fromSphere( box, sphere )
   let radius = _.sphere.radiusGet( sphereView );
 
   if( box === null )
-  box = _.box.make( dim );
+  box = _.box.makeNil( dim1 );
 
   let boxView = _.box._from( box );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
   let dim2 = _.box.dimGet( boxView );
 
   _.assert( dim1 === dim2 );
 
   debugger;
   //throw _.err( 'not tested' );
-
+  logger.log('Start', boxView )
   _.box.fromPoints( boxView, [ center ] );
+
+  logger.log('fromcenter', boxView )
   _.box.expand( boxView, radius );
 
+  logger.log('radius', boxView )
   return box;
 }
 

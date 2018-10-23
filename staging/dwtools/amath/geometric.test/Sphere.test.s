@@ -2748,6 +2748,124 @@ function boxExpand( test )
 
 //
 
+function boundingBoxGet( test )
+{
+
+  test.case = 'Source sphere remains unchanged'; /* */
+
+  var srcSphere = [ 0, 0, 0, 3 ];
+  var dstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ - 3, - 3, - 3, 3, 3, 3 ];
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.identical( expected, gotBox );
+  test.is( dstBox === gotBox );
+
+  var oldSrcSphere = [ 0, 0, 0, 3 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  test.case = 'Zero sphere to zero box'; /* */
+
+  var srcSphere = [ 0, 0, 0, 0 ];
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box inside sphere - same center'; /* */
+
+  var srcSphere = [ 1, 1, 1, 4 ];
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ - 3, - 3, - 3, 5, 5, 5 ];
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Point sphere and point Box'; /* */
+
+  var srcSphere = [ 1, 2, 3, 0 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ 1, 2, 3, 1, 2, 3 ];
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Sphere inside Box'; /* */
+
+  var srcSphere = [ - 1, - 1, - 1, 1 ];
+  var dstBox = [ - 3, - 4, - 5, 5, 4, 3 ];
+  var expected = [ - 2, - 2, - 2, 0, 0, 0 ];
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box outside sphere'; /* */
+
+  var srcSphere = [ 1, 2, 3, 2 ];
+  var dstBox = [ 5, 5, 5, 6, 6, 6 ];
+  var expected = [ - 1, 0, 1, 3, 4, 5 ];
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'srcSphere vector'; /* */
+
+  var srcSphere = _.vector.from( [ - 2,  1, 10.5, 6 ] );
+  var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
+  var expected = [ - 8, - 5, 4.5, 4, 7, 16.5 ];
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox vector'; /* */
+
+  var srcSphere = [ - 1, 0, - 2, 3 ];
+  var dstBox = _.vector.from( [ 1, 2, 3, 9, 8, 7 ] );
+  var expected = _.vector.from( [ - 4, - 3, - 5, 2, 3, 1  ] );
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox null'; /* */
+
+  var srcSphere = [ 2.2, 3.3, - 4.4, 1 ];
+  var dstBox = null;
+  var expected = [ 1.2, 2.3, -5.4, 3.2, 4.3, -3.4 ];
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.equivalent( gotBox, expected );
+
+  test.case = 'dstBox undefined'; /* */
+
+  var srcSphere = [ - 1, - 3, - 5, 0 ];
+  var dstBox = undefined;
+  var expected = [  - 1, - 3, - 5, - 1, - 3, - 5 ];
+
+  var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( 'box', 'sphere' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0, 1, 0, 1, 2 ], [ 0, 0, 1 ] ) );
+
+}
+
+//
+
 function capsuleClosestPoint( test )
 {
   test.case = 'Sphere and point remain unchanged';
@@ -4747,6 +4865,7 @@ var Self =
     boxIntersects : boxIntersects,
     boxClosestPoint : boxClosestPoint,
     boxExpand : boxExpand,
+    boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
 

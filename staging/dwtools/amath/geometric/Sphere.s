@@ -1230,6 +1230,55 @@ function boxExpand( dstSphere, srcBox )
 
 //
 
+/**
+  * Get the bounding box of a sphere. Returns destination box.
+  * Sphere and box are stored in Array data structure. Source sphere stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcSphere - source sphere for the bounding box.
+  *
+  * @example
+  * // returns [ - 2, - 2, - 2, 2, 2, 2 ]
+  * _.boundingBoxGet( null, [ 0, 0, 0, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(sphere) (the sphere and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcSphere ) is not sphere
+  * @memberof wTools.sphere
+  */
+function boundingBoxGet( dstBox, srcSphere )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let sphereView = _.sphere._from( srcSphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimS = _.sphere.dimGet( sphereView );
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( dimS );
+
+  _.assert( _.box.is( dstBox ) );
+  let dimB = _.box.dimGet( dstBox );
+
+  _.assert( dimS === dimB );
+
+  let boxView = _.box._from( dstBox );
+  let box = _.box._from( _.box.fromSphere( null, sphereView ) );
+
+  for( let b = 0; b < boxView.length; b++ )
+  {
+    boxView.eSet( b, box.eGet( b ) );
+  }
+
+  return dstBox;
+}
+
+//
+
 function capsuleIntersects( srcSphere , tstCapsule )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -2403,6 +2452,7 @@ let Proto =
   boxDistance : boxDistance, /* qqq : implement me - Same as _.box.sphereDistance */
   boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
+  boundingBoxGet : boundingBoxGet,
 
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,

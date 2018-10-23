@@ -1021,6 +1021,15 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
+  test.case = 'Null box'; /* */
+
+  var box = null;
+  var sphere = [ 1, 1 ];
+  var expected = [ 0, 2 ];
+
+  var gotBox = _.box.fromSphere( box, sphere );
+  test.identical( gotBox, expected );
+
   test.case = 'NaN box'; /* */
 
   var box = [ NaN, NaN ];
@@ -1054,12 +1063,6 @@ function fromSphere( test )
   test.shouldThrowError( function()
   {
     _.box.fromSphere( 'box', 'sphere' );
-  });
-
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.fromSphere( null, [ 0, 1 ] );
   });
 
   test.case = 'Wrong type of argument'; /* */
