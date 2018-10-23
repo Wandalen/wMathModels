@@ -2750,7 +2750,7 @@ function sphereExpand( dstBox , srcSphere )
   * @returns { Array } Returns the array of the bounding sphere.
   * @function boundingSphereGet
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the sphere don´t have the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcBox ) is not box
   * @memberof wTools.box
@@ -2783,7 +2783,7 @@ function boundingSphereGet( dstSphere, srcBox )
 
   // Radius of the sphere
   _.sphere.radiusSet( dstSphereView, vector.distance( center, max ) );
-  
+
   return dstSphere;
 }
 

@@ -1468,6 +1468,74 @@ function sphereClosestPoint( plane , sphere, dstPoint )
 
 //
 
+/**
+  * Get the bounding sphere of a plane. Returns the destination sphere.
+  * Plane and sphere are stored in Array data structure. Source plane stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcPlane - source plane for the bounding sphere.
+  *
+  * @example
+  * // returns [ 0, 2, 0, Infinity ]
+  * _.boundingSphereGet( null, [ 0, 1, 0, - 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(plane) (the plane and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcPlane ) is not plane
+  * @memberof wTools.plane
+  */
+function boundingSphereGet( dstSphere, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView )
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimPlane );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radiusSphere = _.sphere.radiusGet( dstSphereView );
+  let dimSphere = _.sphere.dimGet( dstSphereView );
+  logger.log( dimPlane, dimSphere )
+  _.assert( dimPlane === dimSphere );
+
+  let distOrigin = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimPlane ) ), normal );
+
+  // Center of the sphere
+  if( distOrigin < _.accuracy  )
+  {
+    for( let c = 0; c < center.length; c++ )
+    {
+      center.eSet( c, 0 );
+    }
+  }
+  else
+  {
+    let pointInPlane = _.vector.from( _.plane.pointCoplanarGet( planeView, _.array.makeArrayOfLengthZeroed( dimPlane ) ) );
+    logger.log( pointInPlane )
+
+    for( let c = 0; c < center.length; c++ )
+    {
+      center.eSet( c, pointInPlane.eGet( c ) );
+    }
+  }
+
+  // Radius of the sphere
+  _.sphere.radiusSet( dstSphereView, Infinity );
+
+  return dstSphere;
+}
+
+//
+
 function matrixHomogenousApply( plane , matrix )
 {
 
@@ -1738,6 +1806,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
+  boundingSphereGet : boundingSphereGet,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

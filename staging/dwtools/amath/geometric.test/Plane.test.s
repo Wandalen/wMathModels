@@ -2352,6 +2352,132 @@ function sphereClosestPoint( test )
 
 //
 
+function boundingSphereGet( test )
+{
+
+  test.case = 'Source plane remains unchanged'; /* */
+
+  var srcPlane = [ 0, 0, 3, 3 ];
+  var dstSphere = [ 1, 1, 2, 1 ];
+  var expected = [ 0, 0, - 1, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( expected, gotSphere );
+  test.is( dstSphere === gotSphere );
+
+  var oldSrcPlane = [ 0, 0, 3, 3 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  test.case = 'Zero plane to zero sphere'; /* */
+
+  var srcPlane = [ 0, 0, 0, 0 ];
+  var dstSphere = [ 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Zero plane and point Sphere'; /* */
+
+  var srcPlane = [ 0, 0, 0, 4 ];
+  var dstSphere = [ 3, 3, 3, 0 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and plane intersect'; /* */
+
+  var srcPlane = [ 0, 0, 1, - 2 ];
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var expected = [ 0, 0, 2, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and plane don´t intersect'; /* */
+
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ - 1, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'srcPlane vector'; /* */
+
+  var srcPlane = _.vector.from( [- 1, - 1, - 1, 1 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 1 / 3, 1 / 3, 1 / 3, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere vector'; /* */
+
+  var srcPlane = [- 1, - 1, - 1, 3 ];
+  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
+  var expected = _.vector.from( [ 1, 1, 1, Infinity ] );
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere null'; /* */
+
+  var srcPlane = [- 1, 5, - 1, 0 ];
+  var dstSphere = null;
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere undefined'; /* */
+
+  var srcPlane = [ - 1, - 3, - 5, 0 ];
+  var dstSphere = undefined;
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Normal module smaller than _.accuracy'; /* */
+
+  var srcPlane = _.vector.from( [ 1E-12, 1E-12, 1E-12, 4 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Dimension = 5'; /* */
+
+  var srcPlane = [ 1, 0, 1, 2, 3, 4 ];
+  var dstSphere = [ 0, 1, 0, 1, 2, 1 ];
+  var expected = [ -0.26666666666666666, 0, -0.26666666666666666, -0.53333333333333333, -0.8, Infinity  ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( 'sphere', 'plane' ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1 ], [ 0, 0, 1, 2, 2, 3, 1 ] ) );
+
+}
+
+//
+
 function translate( test )
 {
 
@@ -2831,6 +2957,7 @@ var Self =
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
+    boundingSphereGet : boundingSphereGet,
 
     //matrixHomogenousApply : matrixHomogenousApply,
     translate : translate,

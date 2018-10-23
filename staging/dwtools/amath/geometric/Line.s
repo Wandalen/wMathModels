@@ -2504,7 +2504,7 @@ function sphereClosestPoint( srcLine, srcSphere, dstPoint )
   * @returns { Array } Returns the array of the bounding sphere.
   * @function boundingSphereGet
   * @throws { Error } An Error if ( dim ) is different than dimGet(line) (the line and the sphere don´t have the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcLine ) is not line
   * @memberof wTools.line
@@ -2537,7 +2537,7 @@ function boundingSphereGet( dstSphere, srcLine )
 
   // Radius of the sphere
   let distOrigin = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimLine ) ), direction );
-  
+
   if( distOrigin < _.accuracy  )
   {
   _.sphere.radiusSet( dstSphereView, 0 );

@@ -1865,7 +1865,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   * @returns { Array } Returns the array of the bounding sphere.
   * @function boundingSphereGet
   * @throws { Error } An Error if ( dim ) is different than dimGet( frustum ) (the frustum and the sphere don´t have the same dimension).
-  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
   * @memberof wTools.capsule
