@@ -2613,6 +2613,123 @@ function boxClosestPoint( test )
 
 //
 
+function boundingBoxGet( test )
+{
+
+  test.case = 'Source segment remains unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 0, 3, 3, 3 ];
+  var dstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ 0, 0, 0, 3, 3, 3 ];
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.identical( expected, gotBox );
+  test.is( dstBox === gotBox );
+
+  var oldSrcSegment = [ 0, 0, 0, 3, 3, 3 ];
+  test.identical( srcSegment, oldSrcSegment );
+
+  test.case = 'Empty'; /* */
+
+  var srcSegment = [ ];
+  var dstBox = [ ];
+  var expected = [ ];
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.identical( gotBox, expected );
+
+  test.case = 'Zero segment to zero box'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 0, 0 ];
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.identical( gotBox, expected );
+
+  test.case = 'Segment inside box'; /* */
+
+  var srcSegment = [ 1, 1, 1, 4, 4, 4 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ 1, 1, 1, 4, 4, 4 ];
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.identical( gotBox, expected );
+
+  test.case = 'Segment outside Box'; /* */
+
+  var srcSegment = [ - 1, - 1, - 1, 1, 1, 1 ];
+  var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
+  var expected = [ - 1, - 1, - 1, 1, 1, 1 ];
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.identical( gotBox, expected );
+
+  test.case = 'Point segment and point Box'; /* */
+
+  var srcSegment = [ 1, 2, 3, 1, 2, 3 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ 1, 2, 3, 1, 2, 3 ];
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.identical( gotBox, expected );
+
+  test.case = 'srcSegment vector'; /* */
+
+  var srcSegment = _.vector.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
+  var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
+  var expected = [ - 8, - 5, 4.5, 4, 7, 16.5 ];
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox vector - 2D'; /* */
+
+  var srcSegment = [ - 1, 0, - 2, 3 ];
+  var dstBox = _.vector.from( [ 1, 2, 3, 9 ] );
+  var expected = _.vector.from( [ - 2, 0, - 1, 3 ] );
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox null'; /* */
+
+  var srcSegment = [ 2.2, 3.3, - 4.4, 1 ];
+  var dstBox = null;
+  var expected = [ - 4.4, 1, 2.2, 3.3 ];
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.equivalent( gotBox, expected );
+
+  test.case = 'dstBox undefined'; /* */
+
+  var srcSegment = [ - 1, - 3, - 5, 0 ];
+  var dstBox = undefined;
+  var expected = [  - 5, - 3, - 1, 0 ];
+
+  var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( [] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( 'box', 'segment' ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4, 5 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingBoxGet( [ 0, 1, 0, 1, 2 ], [ 0, 0, 1 ] ) );
+
+}
+
+//
+
 function capsuleClosestPoint( test )
 {
   test.case = 'Segment and capsule remain unchanged'; /* */
@@ -5792,6 +5909,7 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+    boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
 

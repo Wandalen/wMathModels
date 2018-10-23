@@ -1294,6 +1294,55 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
 
 //
 
+/**
+  * Get the bounding box of a segment. Returns destination box.
+  * Segment and box are stored in Array data structure. Source segment stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcSegment - source segment for the bounding box.
+  *
+  * @example
+  * // returns [ - 2, - 2, - 2, 2, 2, 2 ]
+  * _.boundingBoxGet( null, [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(segment) (the segment and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcSegment ) is not segment
+  * @memberof wTools.segment
+  */
+function boundingBoxGet( dstBox, srcSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let endPoint = _.segment.endPointGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( dimSegment );
+
+  _.assert( _.box.is( dstBox ) );
+  let dimB = _.box.dimGet( dstBox );
+
+  _.assert( dimSegment === dimB );
+
+  let boxView = _.box._from( dstBox );
+  let box = _.box._from( _.box.fromPoints( null, [ origin, endPoint ] ) );
+
+  for( let b = 0; b < boxView.length; b++ )
+  {
+    boxView.eSet( b, box.eGet( b ) );
+  }
+
+  return dstBox;
+}
+
+//
+
 function capsuleIntersects( srcSegment , tstCapsule )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -2879,6 +2928,7 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+  boundingBoxGet : boundingBoxGet,
 
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
