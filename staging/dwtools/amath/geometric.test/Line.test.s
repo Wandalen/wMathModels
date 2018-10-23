@@ -5620,6 +5620,133 @@ function sphereClosestPoint( test )
 
 }
 
+//
+
+function boundingSphereGet( test )
+{
+
+  test.case = 'Source line remains unchanged'; /* */
+
+  var srcLine = [ 0, 0, 0, 3, 3, 3 ];
+  var dstSphere = [ 1, 1, 2, 1 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( expected, gotSphere );
+  test.is( dstSphere === gotSphere );
+
+  var oldSrcLine = [ 0, 0, 0, 3, 3, 3 ];
+  test.identical( srcLine, oldSrcLine );
+
+  test.case = 'Zero line to zero sphere'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 0 ];
+  var dstSphere = [ 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Point line and point Sphere'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 0 ];
+  var dstSphere = [ 3, 3, 3, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and line intersect'; /* */
+
+  var srcLine = [ 0, 0, 0, 4, 4, 4 ];
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and line intersect - negative dir'; /* */
+
+  var srcLine = [ 0, 0, 0, - 1, - 1, - 1 ];
+  var dstSphere = [ 0, 0, 0, 3 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and line don´t intersect'; /* */
+
+  var srcLine = [ 1, 2, 3, 5, 8, 9 ];
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 1, 2, 3, Infinity ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  test.case = 'srcLine vector'; /* */
+
+  var srcLine = _.vector.from( [- 1, - 1, - 1, 1, 1, 1 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ - 1, - 1, - 1, Infinity ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere vector'; /* */
+
+  var srcLine = [- 1, - 1, - 1, 3, 3, 1 ];
+  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
+  var expected = _.vector.from( [ - 1, - 1, - 1, Infinity ] );
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere null'; /* */
+
+  var srcLine = [- 1, 5, - 1, 0, 0, 0 ];
+  var dstSphere = null;
+  var expected = [ - 1, 5, - 1, 0 ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere undefined'; /* */
+
+  var srcLine = [ - 1, - 3, - 5, 1, 0, 0 ];
+  var dstSphere = undefined;
+  var expected = [ - 1, - 3, - 5, Infinity ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Direccion module smaller than _.accuracy'; /* */
+
+  var srcLine = _.vector.from( [ 4, 4, 4, 1E-12, 1E-12, 1E-12 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 4, 4, 4, 0 ];
+
+  var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( [] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( 'sphere', 'line' ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.line.boundingSphereGet( [ 0, 1, 0, 1 ], [ 0, 0, 1, 2, 2, 3, 1 ] ) );
+
+}
+
 
 
 
@@ -5695,6 +5822,7 @@ var Self =
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
+    boundingSphereGet : boundingSphereGet,
 
   }
 

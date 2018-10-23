@@ -2488,6 +2488,68 @@ function sphereClosestPoint( srcLine, srcSphere, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Get the bounding sphere of a line. Returns destination sphere.
+  * Line and sphere are stored in Array data structure. Source line stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcLine - source line for the bounding sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, Infinity ]
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(line) (the line and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcLine ) is not line
+  * @memberof wTools.line
+  */
+function boundingSphereGet( dstSphere, srcLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimLine );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radiusSphere = _.sphere.radiusGet( dstSphereView );
+  let dimSphere = _.sphere.dimGet( dstSphereView );
+
+  _.assert( dimLine === dimSphere );
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, origin.eGet( c ) );
+  }
+
+  // Radius of the sphere
+  let distOrigin = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimLine ) ), direction );
+  
+  if( distOrigin < _.accuracy  )
+  {
+  _.sphere.radiusSet( dstSphereView, 0 );
+  }
+  else
+  {
+    _.sphere.radiusSet( dstSphereView, Infinity );
+  }
+
+  return dstSphere;
+}
+
 
 
 // --
@@ -2558,6 +2620,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint,
+  boundingSphereGet : boundingSphereGet,
 
 }
 
