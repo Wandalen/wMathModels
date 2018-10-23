@@ -15,9 +15,7 @@ result = _.ray.capsuleClosestPoint( ray, capsule );
 logger.log('Final result: ', result );
 */
 
-var ray = [ - 3, - 3, 2, 1, 1, 0 ];
-var segment = [ 0, 0, 0, 0, 0, 3 ];
-var expected = 3;
+var ray = [ - 3, - 3, 2, 0, 0, 1E-12 ];
 
-var result = _.ray.rayIntersectionFactors( segment, ray );
+var result = _.ray.boundingSphereGet( null, ray );
 logger.log('Final result: ', result );

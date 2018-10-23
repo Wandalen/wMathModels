@@ -2440,14 +2440,14 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
 
-  test.case = 'Normal module smaller than _.accuracy'; /* */
+  test.case = 'Very small normal'; /* */
 
-  var srcPlane = _.vector.from( [ 1E-12, 1E-12, 1E-12, 4 ] );
+  var srcPlane = _.vector.from( [ 1E-12, 1E-12, 1E-12, 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = [ - 1 / 3, - 1 / 3, - 1 / 3, Infinity ];
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
-  test.identical( gotSphere, expected );
+  test.equivalent( gotSphere, expected );
 
   test.case = 'Dimension = 5'; /* */
 

@@ -1510,7 +1510,7 @@ function boundingSphereGet( dstSphere, srcPlane )
   let distOrigin = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimPlane ) ), normal );
 
   // Center of the sphere
-  if( distOrigin < _.accuracy  )
+  if( distOrigin === 0 )
   {
     for( let c = 0; c < center.length; c++ )
     {

@@ -930,7 +930,7 @@ function pointContains( srcRay, srcPoint )
 
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
   let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
-  
+
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
@@ -2443,6 +2443,69 @@ function sphereClosestPoint( srcRay, srcSphere, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Get the bounding sphere of a ray. Returns destination sphere.
+  * Ray and sphere are stored in Array data structure. Source ray stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcRay - source ray for the bounding sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, Infinity ]
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(ray) (the ray and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcRay ) is not ray
+  * @memberof wTools.ray
+  */
+function boundingSphereGet( dstSphere, srcRay )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcRayView = _.ray._from( srcRay );
+  let origin = _.ray.originGet( srcRayView );
+  let direction = _.ray.directionGet( srcRayView );
+  let dimRay  = _.ray.dimGet( srcRayView )
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimRay );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radiusSphere = _.sphere.radiusGet( dstSphereView );
+  let dimSphere = _.sphere.dimGet( dstSphereView );
+
+  _.assert( dimRay === dimSphere );
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, origin.eGet( c ) );
+  }
+
+  // Radius of the sphere
+  let difDirection = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimRay ) ), direction );
+
+  if( difDirection === 0  )
+  {
+  _.sphere.radiusSet( dstSphereView, 0 );
+  }
+  else
+  {
+    _.sphere.radiusSet( dstSphereView, Infinity );
+  }
+
+  return dstSphere;
+}
+
+
 
 // --
 // define class
@@ -2513,6 +2576,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint,
+  boundingSphereGet : boundingSphereGet,
 }
 
 _.mapSupplement( Self, Proto );

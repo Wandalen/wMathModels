@@ -2538,7 +2538,7 @@ function boundingSphereGet( dstSphere, srcLine )
   // Radius of the sphere
   let distOrigin = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimLine ) ), direction );
 
-  if( distOrigin < _.accuracy  )
+  if( distOrigin === 0  )
   {
   _.sphere.radiusSet( dstSphereView, 0 );
   }

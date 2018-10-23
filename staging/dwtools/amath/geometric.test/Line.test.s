@@ -5719,11 +5719,11 @@ function boundingSphereGet( test )
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'Direccion module smaller than _.accuracy'; /* */
+  test.case = 'Very small direction'; /* */
 
   var srcLine = _.vector.from( [ 4, 4, 4, 1E-12, 1E-12, 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 4, 4, 4, 0 ];
+  var expected = [ 4, 4, 4, Infinity ];
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );

@@ -5121,7 +5121,132 @@ function sphereClosestPoint( test )
 
 }
 
+//
 
+function boundingSphereGet( test )
+{
+
+  test.case = 'Source ray remains unchanged'; /* */
+
+  var srcRay = [ 0, 0, 0, 3, 3, 3 ];
+  var dstSphere = [ 1, 1, 2, 1 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( expected, gotSphere );
+  test.is( dstSphere === gotSphere );
+
+  var oldSrcRay = [ 0, 0, 0, 3, 3, 3 ];
+  test.identical( srcRay, oldSrcRay );
+
+  test.case = 'Zero ray to zero sphere'; /* */
+
+  var srcRay = [ 0, 0, 0, 0, 0, 0 ];
+  var dstSphere = [ 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Point ray and point Sphere'; /* */
+
+  var srcRay = [ 1, 2, 3, 0, 0, 0 ];
+  var dstSphere = [ 3, 3, 3, 0 ];
+  var expected = [ 1, 2, 3, 0 ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and ray intersect'; /* */
+
+  var srcRay = [ 0, 0, 0, 4, 4, 4 ];
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and ray intersect - negative dir'; /* */
+
+  var srcRay = [ 0, 0, 0, - 1, - 1, - 1 ];
+  var dstSphere = [ 0, 0, 0, 3 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and ray don´t intersect'; /* */
+
+  var srcRay = [ - 1, 2, - 2, 5, 8, 9 ];
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ - 1, 2, - 2, Infinity ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  test.case = 'srcRay vector'; /* */
+
+  var srcRay = _.vector.from( [- 1, - 1, - 1, 1, 1, 1 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ - 1, - 1, - 1, Infinity ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere vector'; /* */
+
+  var srcRay = [- 1, - 1, - 1, 3, 3, 1 ];
+  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
+  var expected = _.vector.from( [ - 1, - 1, - 1, Infinity ] );
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere null'; /* */
+
+  var srcRay = [- 1, 5, - 1, 0, 0, 0 ];
+  var dstSphere = null;
+  var expected = [ - 1, 5, - 1, 0 ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere undefined'; /* */
+
+  var srcRay = [ - 1, - 3, - 5, 1, 0, 0 ];
+  var dstSphere = undefined;
+  var expected = [ - 1, - 3, - 5, Infinity ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Direccion module very small'; /* */
+
+  var srcRay = _.vector.from( [ 4, 4, 4, 0, 1E-12, - 1E-12 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 4, 4, 4, Infinity ];
+
+  var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( [] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( 'sphere', 'ray' ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.ray.boundingSphereGet( [ 0, 1, 0, 1 ], [ 0, 0, 1, 2, 2, 3, 1 ] ) );
+
+}
 
 
 
@@ -5194,6 +5319,7 @@ var Self =
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
+    boundingSphereGet : boundingSphereGet,
   }
 
 }
