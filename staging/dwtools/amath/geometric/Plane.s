@@ -577,6 +577,84 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
 
 //
 
+/**
+  * Get the bounding box of a plane. Returns destination box.
+  * Plane and box are stored in Array data structure. Source plane stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcPlane - source plane for the bounding box.
+  *
+  * @example
+  * // returns [ 0, -Infinity, - Infinity, 0, Infinity, Infinity ]
+  * _.boundingBoxGet( null, [ 1, 0, 0, 0 ] );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(plane) (the plane and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcPlane ) is not plane
+  * @memberof wTools.plane
+  */
+function boundingBoxGet( dstBox, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcPlaneView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( srcPlaneView );
+  let bias = _.plane.biasGet( srcPlaneView );
+  let dimPlane  = _.plane.dimGet( srcPlaneView )
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( dimPlane );
+
+  _.assert( _.box.is( dstBox ) );
+  let boxView = _.box._from( dstBox );
+  let dimB = _.box.dimGet( boxView );
+
+  _.assert( dimPlane === dimB );
+
+  let zeros = 0;
+  for( let i = 0; i < dimB; i++ )
+  {
+    if( normal.eGet( i ) === 0 )
+    {
+      zeros = zeros + 1;
+    }
+  }
+  logger.log( zeros )
+
+  if( zeros === dimB - 1 )
+  {
+    for( let i = 0; i < dimB; i++ )
+    {
+      if(  normal.eGet( i ) !== 0  )
+      {
+        boxView.eSet( i, - bias / normal.eGet( i ) );
+        boxView.eSet( i + dimB, - bias / normal.eGet( i ) );
+      }
+      else
+      {
+        boxView.eSet( i, - Infinity );
+        boxView.eSet( i + dimB, Infinity );
+      }
+    }
+
+  }
+  else
+  {
+    for( let i = 0; i < dimB; i++ )
+    {
+      boxView.eSet( i, - Infinity );
+      boxView.eSet( i + dimB, Infinity );
+    }
+  }
+
+  return dstBox;
+}
+
+//
+
 function capsuleIntersects( srcPlane , tstCapsule )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -1778,6 +1856,7 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
   boxClosestPoint : boxClosestPoint, /* qqq: implement me */
+  boundingBoxGet : boundingBoxGet,
 
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
