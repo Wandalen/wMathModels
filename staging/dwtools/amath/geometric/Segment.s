@@ -2784,6 +2784,59 @@ function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Get the bounding sphere of a segment. Returns destination sphere.
+  * Segment and sphere are stored in Array data structure. Source segment stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcSegment - source segment for the bounding sphere.
+  *
+  * @example
+  * // returns [ 1, 1, 1, Math.sqrt( 3 ) ]
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(segment) (the segment and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcSegment ) is not segment
+  * @memberof wTools.segment
+  */
+function boundingSphereGet( dstSphere, srcSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let endPoint = _.segment.endPointGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimSegment );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radius = _.sphere.radiusGet( dstSphereView );
+  let dimS = _.sphere.dimGet( dstSphereView );
+
+  _.assert( dimSegment === dimS );
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, ( endPoint.eGet( c ) + origin.eGet( c ) ) / 2 );
+  }
+
+  // Radius of the sphere
+  _.sphere.radiusSet( dstSphereView, vector.distance( center, endPoint ) );
+
+  return dstSphere;
+}
+
 
 // --
 // define class
@@ -2854,6 +2907,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint,
+  boundingSphereGet : boundingSphereGet,
 }
 
 _.mapSupplement( Self, Proto );

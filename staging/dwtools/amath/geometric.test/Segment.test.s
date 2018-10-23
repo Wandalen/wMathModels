@@ -5612,6 +5612,134 @@ function sphereClosestPoint( test )
 
 }
 
+//
+
+function boundingSphereGet( test )
+{
+
+  test.case = 'Source segment remains unchanged'; /* */
+
+  var srcSegment = [ 0, 0, 0, 3, 3, 3 ];
+  var dstSphere = [ 1, 1, 2, 1 ];
+  var expected = [ 1.5, 1.5, 1.5, Math.sqrt( 6.75 ) ];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( expected, gotSphere );
+  test.is( dstSphere === gotSphere );
+
+  var oldSrcSegment = [ 0, 0, 0, 3, 3, 3 ];
+  test.identical( srcSegment, oldSrcSegment );
+
+  test.case = 'Zero segment to zero sphere'; /* */
+
+  var srcSegment = [ 0, 0, 0, 0, 0, 0 ];
+  var dstSphere = [ 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere inside segment - same center'; /* */
+
+  var srcSegment = [ 0, 0, 0, 4, 2, 4 ];
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var expected = [ 2, 1, 2, 3 ];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Point segment and point Sphere'; /* */
+
+  var srcSegment = [ 1, 2, 3, 1, 2, 3 ];
+  var dstSphere = [ 3, 3, 3, 0 ];
+  var expected = [ 1, 2, 3, 0 ];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Segment inside Sphere'; /* */
+
+  var srcSegment = [ - 1, - 1, - 1, 0, 0, 1 ];
+  var dstSphere = [ 0, 0, 0, 3 ];
+  var expected = [ - 0.5, - 0.5, 0, Math.sqrt( 1.5 ) ];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere outside segment'; /* */
+
+  var srcSegment = [ 1, 2, 3, 5, 8, 9 ];
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 3, 5, 6, Math.sqrt( 22 ) ];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  test.case = 'srcSegment vector'; /* */
+
+  var srcSegment = _.vector.from( [ - 2,  1, 10.5, 6, 1, 8.5 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 2, 1, 9.5, Math.sqrt( 17 )];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere vector'; /* */
+
+  var srcSegment = [- 1, - 1, - 1, 3, 3, 1 ];
+  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
+  var expected = _.vector.from( [ 1, 1, 0, 3 ] );
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere null'; /* */
+
+  var srcSegment = [- 1, 5, - 1, 3, 7, 1 ];
+  var dstSphere = null;
+  var expected = [ 1, 6, 0, Math.sqrt( 6 ) ];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere undefined'; /* */
+
+  var srcSegment = [- 1, - 3, - 5, 1, 0, 0 ];
+  var dstSphere = undefined;
+  var expected = [ 0, - 1.5, - 2.5, Math.sqrt( 9.5 ) ];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  test.case = 'srcSegment inversed'; /* */
+
+  var srcSegment = _.vector.from( [ 4, 4, 4, 2, 2, 2 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 3, 3, 3, Math.sqrt( 3 )];
+
+  var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( [] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( 'segment', 'sphere' ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.segment.boundingSphereGet( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
+
+}
+
+
 
 
 
@@ -5690,6 +5818,7 @@ var Self =
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
+    boundingSphereGet : boundingSphereGet,
   }
 
 }

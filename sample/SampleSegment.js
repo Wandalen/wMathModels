@@ -17,7 +17,7 @@ logger.log('Final result: ', closestPoint );
 */
 
 
-var segment = [ 1, 0, 0, 3, 0, 0 ];
+var segment = [ 1, 0, 0, 0, 0, 0 ];
 
 let result = _.segment.boundingSphereGet( null, segment )
 logger.log( 'Result :', result );
