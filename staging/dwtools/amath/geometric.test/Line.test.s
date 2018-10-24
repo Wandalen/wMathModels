@@ -2047,7 +2047,7 @@ function pointContains( test )
   var gotBool = _.line.pointContains( line, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Line of 7 dimensions contains point'; /* */
+  test.case = 'Line of 7Linemensions contains point'; /* */
 
   var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
   var point = [ - 1, -1, -1, -1, -1, -1, -1 ];
@@ -2841,6 +2841,141 @@ function boxClosestPoint( test )
   test.shouldThrowErrorSync( () => _.line.boxClosestPoint( [ 1, 1, 2, 2 ], null ) );
   test.shouldThrowErrorSync( () => _.line.boxClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
   test.shouldThrowErrorSync( () => _.line.boxClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+
+}
+
+//
+
+function boundingBoxGet( test )
+{
+
+  test.case = 'Source line remains unchanged'; /* */
+
+  var srcLine = [ 0, 0, 0, 3, 3, 3 ];
+  var dstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( expected, gotBox );
+  test.is( dstBox === gotBox );
+
+  var oldSrcLine = [ 0, 0, 0, 3, 3, 3 ];
+  test.identical( srcLine, oldSrcLine );
+
+  test.case = 'Empty'; /* */
+
+  var srcLine = [ ];
+  var dstBox = [ ];
+  var expected = [ ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  test.case = 'Zero line to zero box'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 0 ];
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  test.case = 'Line inside box'; /* */
+
+  var srcLine = [ 1, 1, 1, 4, 4, 4 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  test.case = 'Line outside Box'; /* */
+
+  var srcLine = [ - 1, - 1, - 1, 1, 2, 3 ];
+  var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
+  var expected = [  - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  test.case = 'Point line and point Box'; /* */
+
+  var srcLine = [ 1, 2, 3, 0, 0, 0 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ 1, 2, 3, 1, 2, 3 ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  test.case = 'Negative line direction'; /* */
+
+  var srcLine = [ 1, 2, 3, - 3, - 2, - 1 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  test.case = 'Mixed directions'; /* */
+
+  var srcLine = [ 1, 2, 3, - 1, 0, 1 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ - Infinity, 2, - Infinity, Infinity, 2, Infinity ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  test.case = 'srcLine vector'; /* */
+
+  var srcLine = _.vector.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
+  var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
+  var expected = [  - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox vector - 2D'; /* */
+
+  var srcLine = [ - 1, 0, - 2, 3 ];
+  var dstBox = _.vector.from( [ 1, 2, 3, 9 ] );
+  var expected = _.vector.from( [ - Infinity, - Infinity, Infinity, Infinity ] );
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox null'; /* */
+
+  var srcLine = [ 2.2, 3.3, - 4.4, 0 ];
+  var dstBox = null;
+  var expected = [ - Infinity, 3.3, Infinity, 3.3 ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.equivalent( gotBox, expected );
+
+  test.case = 'dstBox undefined'; /* */
+
+  var srcLine = [ - 1, - 3, 0, 1 ];
+  var dstBox = undefined;
+  var expected = [  -1, - Infinity, - 1, Infinity ];
+
+  var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( ) );
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( [] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( 'box', 'line' ) );
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4, 5 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.line.boundingBoxGet( [ 0, 1, 0, 1, 2 ], [ 0, 0, 1 ] ) );
 
 }
 
@@ -5798,6 +5933,7 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+    boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
 

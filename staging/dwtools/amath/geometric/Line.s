@@ -1293,6 +1293,66 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
 
 //
 
+/**
+  * Get the bounding box of a line. Returns destination box.
+  * Line and box are stored in Array data structure. Source line stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcLine - source line for the bounding box.
+  *
+  * @example
+  * // returns [ - Infinity, 0, - Infinity, Infinity, 0, Infinity ]
+  * _.boundingBoxGet( null, [ 0, 0, 0, - 2, 0, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(line) (the line and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcLine ) is not line
+  * @memberof wTools.line
+  */
+function boundingBoxGet( dstBox, srcLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( dimLine );
+
+  _.assert( _.box.is( dstBox ) );
+  let boxView = _.box._from( dstBox );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+  let dimB = _.box.dimGet( boxView );
+
+  _.assert( dimLine === dimB );
+
+  let endPoint = _.array.makeArrayOfLength( dimB );
+
+  for( let i = 0; i < dimB; i++ )
+  {
+    if( direction.eGet( i ) !== 0 )
+    {
+      min.eSet( i, - Infinity );
+      max.eSet( i, Infinity );
+    }
+    else if( direction.eGet( i ) === 0 )
+    {
+      min.eSet( i, origin.eGet( i ) );
+      max.eSet( i, origin.eGet( i ) );
+    }
+  }
+
+  return dstBox;
+}
+
+//
+
 function capsuleIntersects( srcLine, tstCapsule )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -2592,6 +2652,7 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+  boundingBoxGet : boundingBoxGet,
 
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
