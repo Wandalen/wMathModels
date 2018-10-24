@@ -734,6 +734,65 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
 //
 
 /**
+  * Get the bounding box of a capsule. Returns destination box.
+  * Capsule and box are stored in Array data structure. Source capsule stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcCapsule - source capsule for the bounding box.
+  *
+  * @example
+  * // returns [ - 1, - 1, - 1, 3, 3, 3 ]
+  * _.boundingBoxGet( null, [ 0, 0, 0, 2, 2, 2, 1 ] );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(capsule) (the capsule and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule
+  * @memberof wTools.capsule
+  */
+function boundingBoxGet( dstBox, srcCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let origin = _.capsule.originGet( srcCapsuleView );
+  let end = _.capsule.endPointGet( srcCapsuleView );
+  let radius = _.capsule.radiusGet( srcCapsuleView );
+  _.assert( radius >= 0 );
+  let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( dimCapsule );
+
+  _.assert( _.box.is( dstBox ) );
+  let dimB = _.box.dimGet( dstBox );
+
+  _.assert( dimCapsule === dimB );
+
+  let center = origin.clone();
+  _.vector.addVectors( center, end );
+  _.vector.mulScalar( center, 0.5 );
+
+  let size = end.clone();
+  _.vector.abs( size, _.vector.addVectors( size, _.vector.mulScalar( origin.clone(), - 1 ) ) ); // Get size
+  _.vector.addScalar( size, 2*radius )  // Add radius
+
+  let boxView = _.box._from( dstBox );
+  let box = _.box._from( _.box.fromCenterAndSize( null, center, size ) );
+
+  for( let b = 0; b < boxView.length; b++ )
+  {
+    boxView.eSet( b, box.eGet( b ) );
+  }
+
+  return dstBox;
+}
+
+//
+
+/**
   * Check if two capsules intersect. Returns true if they intersect and false if not.
   * The capsules remain unchanged.
   *
@@ -2154,6 +2213,7 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+  boundingBoxGet : boundingBoxGet,
 
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,

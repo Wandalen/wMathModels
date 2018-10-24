@@ -1869,6 +1869,125 @@ function boxClosestPoint( test )
 
 //
 
+function boundingBoxGet( test )
+{
+
+  test.case = 'Source capsule remains unchanged'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 3, 3, 3, 1 ];
+  var dstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ - 1, - 1, - 1, 4, 4, 4  ];
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.identical( expected, gotBox );
+  test.is( dstBox === gotBox );
+
+  var oldSrcCapsule = [ 0, 0, 0, 3, 3, 3, 1 ];
+  test.identical( srcCapsule, oldSrcCapsule );
+
+  test.case = 'Zero capsule to zero box'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.identical( gotBox, expected );
+
+  test.case = 'Capsule inside box'; /* */
+
+  var srcCapsule = [ 1, 1, 1, 4, 4, 4, 0.1 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ 0.9, 0.9, 0.9, 4.1, 4.1, 4.1 ];
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.equivalent( gotBox, expected );
+
+  test.case = 'Capsule outside Box'; /* */
+
+  var srcCapsule = [ - 1, - 1, - 1, 1, 1, 1, 0.5 ];
+  var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
+  var expected = [ - 1.5, - 1.5, - 1.5, 1.5, 1.5, 1.5 ];
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.identical( gotBox, expected );
+
+  test.case = 'Point capsule and point Box'; /* */
+
+  var srcCapsule = [ 1, 2, 3, 1, 2, 3, 0 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ 1, 2, 3, 1, 2, 3 ];
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.identical( gotBox, expected );
+
+  test.case = 'Sphere capsule'; /* */
+
+  var srcCapsule = [ 1, 2, 3, 1, 2, 3, 1 ];
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ 0, 1, 2, 2, 3, 4 ];
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.identical( gotBox, expected );
+
+  test.case = 'srcCapsule vector'; /* */
+
+  var srcCapsule = _.vector.from( [ - 8, - 5, 4.5, 4, 7, 16.5, 2 ] );
+  var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
+  var expected = [ - 10, - 7, 2.5, 6, 9, 18.5 ];
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox vector - 2D'; /* */
+
+  var srcCapsule = [ - 1, 0, - 2, 3, 1 ];
+  var dstBox = _.vector.from( [ 1, 2, 3, 9 ] );
+  var expected = _.vector.from( [ - 3, - 1, 0, 4 ] );
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox null'; /* */
+
+  var srcCapsule = [ 2.2, 3.3, - 4.4, 1, 0 ];
+  var dstBox = null;
+  var expected = [ - 4.4, 1, 2.2, 3.3 ];
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.equivalent( gotBox, expected );
+
+  test.case = 'dstBox undefined'; /* */
+
+  var srcCapsule = [ - 1, - 3, - 5, 0, 0.5 ];
+  var dstBox = undefined;
+  var expected = [  - 5.5, - 3.5, - 0.5, 0.5 ];
+
+  var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( 'box', 'capsule' ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4, - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2 ], [ 0, 0, 1 ] ) );
+
+}
+
+//
+
 function capsuleIntersects( test )
 {
 
@@ -5467,6 +5586,7 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+    boundingBoxGet : boundingBoxGet,
 
     capsuleIntersects : capsuleIntersects,
     capsuleDistance : capsuleDistance,
