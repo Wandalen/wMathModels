@@ -13,3 +13,6 @@ var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
 
 var result = _.frustum.boundingSphereGet( null, srcFrustum )
 console.log( 'Result: ', result );
+
+var result = _.frustum.boundingBoxGet( null, srcFrustum )
+console.log( 'Result: ', result );

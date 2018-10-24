@@ -810,6 +810,99 @@ function boxClosestPoint( frustum, box, dstPoint )
 
 //
 
+/**
+  * Get the bounding box of a frustum. Returns destination box.
+  * Frustum and box are stored in Array data structure. Source frustum stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcFrustum - source frustum for the bounding box.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 1, 1, 1 ]
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.boundingBoxGet( null, frustum );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(frustum) (the frustum and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum
+  * @memberof wTools.frustum
+  */
+function boundingBoxGet( dstBox, srcFrustum )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  _.assert( _.frustum.is( srcFrustum ) );
+  let dims = _.Space.dimsOf( srcFrustum ) ;
+  let rows = dims[ 0 ];
+  let cols = dims[ 1 ];
+  let fpoints = _.frustum.cornersGet( srcFrustum );
+  _.assert( _.spaceIs( fpoints ) );
+  _.assert( fpoints.hasShape( [ 3, 8 ] ) );
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( rows - 1 );
+
+  _.assert( _.box.is( dstBox ) );
+  let boxView = _.box._from( dstBox );
+  let minB = _.box.cornerLeftGet( boxView );
+  let maxB = _.box.cornerRightGet( boxView );
+  let dimB = _.box.dimGet( boxView );
+
+  _.assert( rows - 1 === dimB );
+
+  // Frustum limits
+  let maxF = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
+  let minF = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
+
+  for( let j = 1 ; j < _.Space.dimsOf( fpoints )[ 1 ] ; j++ )
+  {
+    let newp = fpoints.colVectorGet( j );
+
+    if( newp.eGet( 0 ) < minF.eGet( 0 ) )
+    {
+      minF.eSet( 0, newp.eGet( 0 ) );
+    }
+    if( newp.eGet( 1 ) < minF.eGet( 1 ) )
+    {
+      minF.eSet( 1, newp.eGet( 1 ) );
+    }
+    if( newp.eGet( 2 ) < minF.eGet( 2 ) )
+    {
+      minF.eSet( 2, newp.eGet( 2 ) );
+    }
+    if( newp.eGet( 0 ) > maxF.eGet( 0 ) )
+    {
+      maxF.eSet( 0, newp.eGet( 0 ) );
+    }
+    if( newp.eGet( 1 ) > maxF.eGet( 1 ) )
+    {
+      maxF.eSet( 1, newp.eGet( 1 ) );
+    }
+    if( newp.eGet( 2 ) > maxF.eGet( 2 ) )
+    {
+      maxF.eSet( 2, newp.eGet( 2 ) );
+    }
+  }
+
+
+  for( let b = 0; b < dimB; b++ )
+  {
+    minB.eSet( b, minF.eGet( b ) );
+    maxB.eSet( b, maxF.eGet( b ) );
+  }
+
+  return dstBox;
+}
+
+//
+
 function capsuleIntersects( srcFrustum , tstCapsule )
 {
   _.assert( arguments.length === 2, 'expects exactly two arguments' );
@@ -1932,7 +2025,7 @@ function boundingSphereGet( dstSphere, srcFrustum )
   {
     center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
   }
-  logger.log(center, max )
+  
   // Radius of the sphere
   _.sphere.radiusSet( dstSphereView, _.vector.distance( center, max ) );
 
@@ -1964,6 +2057,7 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
   boxClosestPoint : boxClosestPoint,
+  boundingBoxGet : boundingBoxGet,
 
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,

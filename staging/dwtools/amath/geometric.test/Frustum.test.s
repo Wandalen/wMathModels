@@ -1222,6 +1222,196 @@ function boxClosestPoint( test )
 
 //
 
+function boundingBoxGet( test )
+{
+
+  test.case = 'Source frustum remains unchanged'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      - 1,   0, - 1,   0,   0, - 1
+    ]);
+  var dstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ 0, 0, 0, 1, 1, 1 ];
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.identical( expected, gotBox );
+  test.is( dstBox === gotBox );
+
+  var oldSrcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      - 1,   0, - 1,   0,   0, - 1
+    ]);
+  test.identical( srcFrustum, oldSrcFrustum );
+
+  test.case = 'Zero frustum to zero box'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      0,   0,   0,   0,   0,   0
+    ]);
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.identical( gotBox, expected );
+
+  test.case = 'Frustum inside box'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      - 2,   1, - 1,   0,   2, - 3
+    ]);
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ 2, 1, 0, 3, 2, 1 ];
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.identical( gotBox, expected );
+
+  test.case = 'Frustum outside Box'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      - 3,   1, - 3,   1,   1, - 3
+    ]);
+  var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
+  var expected = [ 1, 1, 1, 3, 3, 3 ];
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.identical( gotBox, expected );
+
+  test.case = 'Point frustum and point Box'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      - 1,   1, - 1,   1,   1, - 1
+    ]);
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ 1, 1, 1, 1, 1, 1 ];
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.identical( gotBox, expected );
+
+  test.case = 'Negative frustum values'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0, - 1,   1,
+      1, - 1,   0,   0,   0,   0,
+      0,   0,   1, - 1,   0,   0,
+      1, - 2,   1, - 3, - 2,   1
+    ]);
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ - 2, - 2, - 3, - 1, - 1, - 1 ];
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.identical( gotBox, expected );
+
+  test.case = 'Diagonal frustum plane'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
+    - 3,   0, - 1,   0,   0, - 1
+  ]);
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ 0, 0, 0, 1, 3, 1 ];
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox vector'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
+    - 3,   0, - 2,   0,   1, - 1
+  ]);
+  var dstBox = _.vector.from( [ 1, 2, 3, 9, 10, - 1 ] );
+  var expected = _.vector.from( [ 1, 0, 0, 1, 4, 2 ] );
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox null'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3,   0, - 1,   0,   3, - 1
+  ]);
+  var dstBox = null;
+  var expected = [ 1, 0, 0, 3, 3, 1 ];
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.equivalent( gotBox, expected );
+
+  test.case = 'dstBox undefined'; /* */
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3,   1, - 1,   0,   0, - 1
+  ]);
+  var dstBox = undefined;
+  var expected = [ 0, 1, 0, 1, 3, 1 ];
+
+  var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3,   1, - 1,   0,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( [] ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( 'box', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1 ], srcFrustum ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( [ 0, 1, 0, 1, 2 ], srcFrustum ) );
+
+}
+
+//
+
 function capsuleClosestPoint( test )
 {
 
@@ -4043,6 +4233,7 @@ var Self =
     boxContains : boxContains,
     boxIntersects : boxIntersects,
     boxClosestPoint : boxClosestPoint,
+    boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
 
