@@ -1021,6 +1021,15 @@ function fromSphere( test )
   var gotBox = _.box.fromSphere( box, sphere );
   test.identical( gotBox, expected );
 
+  test.case = 'Null box'; /* */
+
+  var box = null;
+  var sphere = [ 1, 1 ];
+  var expected = [ 0, 2 ];
+
+  var gotBox = _.box.fromSphere( box, sphere );
+  test.identical( gotBox, expected );
+
   test.case = 'NaN box'; /* */
 
   var box = [ NaN, NaN ];
@@ -1054,12 +1063,6 @@ function fromSphere( test )
   test.shouldThrowError( function()
   {
     _.box.fromSphere( 'box', 'sphere' );
-  });
-
-  test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
-  {
-    _.box.fromSphere( null, [ 0, 1 ] );
   });
 
   test.case = 'Wrong type of argument'; /* */
@@ -4383,6 +4386,115 @@ function boxExpand( test )
 
 //
 
+function capsuleClosestPoint( test )
+{
+
+  test.case = 'Source box and capsule remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  test.identical( srcBox, oldSrcBox );
+
+  var oldtstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.identical( tstCapsule, oldtstCapsule );
+
+  test.case = 'Box and capsule intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Capsule origin is box corner'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
+  var expected = 0;
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Capsule is box side'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstCapsule = [ - 1, 0, 0, 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Negative capsule'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstCapsule = [ -3, -3, -3, -2, -2, -2, 1 ];
+  var expected = [ -1, -1, -1 ];
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Closest point in box side'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstCapsule = [ 5, 5, 2, 5, 11, 2, 0.5 ];
+  var expected = [ 4, 4, 2 ];
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstCapsule = [ 5, 5, 1, 11, 5, 1, 0.3 ];
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 4, 4, 1 ];
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
+  test.identical( expected, gotCapsule );
+  test.is( dstPoint === gotCapsule );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var tstCapsule = [ 5, 5, 1, 10, 5, 1, 0.2 ];
+  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vector.from( [ 4, 4, 1 ] );
+
+  var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
+  test.equivalent( expected, gotCapsule );
+  test.is( dstPoint === gotCapsule );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( 'box', [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 0, 0, 1, 1, 1 ], 'capsule' ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint(  null, [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint(  [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint(  NaN, [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint(  [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1, 1 ], [ 1, 0, 1, 2, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, -1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+//
+
 function frustumContains( test )
 {
   test.description = 'Frustum and box remain unchanged'; //
@@ -6200,6 +6312,132 @@ function sphereExpand( test )
 
 }
 
+//
+
+function boundingSphereGet( test )
+{
+
+  test.case = 'Source box remains unchanged'; /* */
+
+  var srcBox = [ 0, 0, 0, 3, 3, 3 ];
+  var dstSphere = [ 1, 1, 2, 1 ];
+  var expected = [ 1.5, 1.5, 1.5, Math.sqrt( 6.75 ) ];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( expected, gotSphere );
+  test.is( dstSphere === gotSphere );
+
+  var oldSrcBox = [ 0, 0, 0, 3, 3, 3 ];
+  test.identical( srcBox, oldSrcBox );
+
+  test.case = 'Zero box to zero sphere'; /* */
+
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var dstSphere = [ 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere inside box - same center'; /* */
+
+  var srcBox = [ 0, 0, 0, 4, 4, 4 ];
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var expected = [ 2, 2, 2, Math.sqrt( 12 ) ];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Point box and point Sphere'; /* */
+
+  var srcBox = [ 0, 0, 0, 0, 0, 0 ];
+  var dstSphere = [ 3, 3, 3, 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Box inside Sphere'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var dstSphere = [ 0, 0, 0, 3 ];
+  var expected = [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere outside box not squared'; /* */
+
+  var srcBox = [ 1, 2, 3, 5, 8, 9 ];
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 3, 5, 6, Math.sqrt( 22 ) ];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  test.case = 'srcBox vector'; /* */
+
+  var srcBox = _.vector.from( [- 1, - 1, - 1, 1, 1, 1 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 0, 0, 0, Math.sqrt( 3 )];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere vector'; /* */
+
+  var srcBox = [- 1, - 1, - 1, 3, 3, 1 ];
+  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
+  var expected = _.vector.from( [ 1, 1, 0, 3 ] );
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere null'; /* */
+
+  var srcBox = [- 1, 5, - 1, 3, 7, 1 ];
+  var dstSphere = null;
+  var expected = [ 1, 6, 0, Math.sqrt( 6 ) ];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere undefined'; /* */
+
+  var srcBox = [- 1, - 3, - 5, 1, 0, 0 ];
+  var dstSphere = undefined;
+  var expected = [ 0, - 1.5, - 2.5, Math.sqrt( 9.5 ) ];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  test.case = 'srcBox inversed'; /* */
+
+  var srcBox = _.vector.from( [ 4, 4, 4, 2, 2, 2 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 3, 3, 3, Math.sqrt( 3 )];
+
+  var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( [] ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( 'box', 'sphere' ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.boundingSphereGet( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
+
+}
 
 
 // --
@@ -6259,6 +6497,8 @@ var Self =
     boxClosestPoint : boxClosestPoint,
     boxExpand : boxExpand,
 
+    capsuleClosestPoint : capsuleClosestPoint,
+
     frustumContains : frustumContains,
     frustumDistance : frustumDistance,
     frustumClosestPoint : frustumClosestPoint,
@@ -6278,6 +6518,7 @@ var Self =
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
     sphereExpand : sphereExpand,
+    boundingSphereGet : boundingSphereGet,
 
   }
 

@@ -4,8 +4,8 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var line =  [ 0, 3, 3, 1, 0, - 1 ];
-result = _.line.boundingSphereGet( null, line );
+var capsule = [ 0, 0, 0, 2, 0, 0, 1 ];
+var result = _.capsule.boundingSphereGet( null, capsule );
 logger.log('Final result: ', result );
-result = _.line.boundingBoxGet( null, line );
+var result = _.capsule.boundingBoxGet( null, capsule );
 logger.log('Final result: ', result );

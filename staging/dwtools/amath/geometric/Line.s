@@ -1294,6 +1294,157 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
 //
 
 /**
+  * Get the bounding box of a line. Returns destination box.
+  * Line and box are stored in Array data structure. Source line stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcLine - source line for the bounding box.
+  *
+  * @example
+  * // returns [ - Infinity, 0, - Infinity, Infinity, 0, Infinity ]
+  * _.boundingBoxGet( null, [ 0, 0, 0, - 2, 0, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(line) (the line and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcLine ) is not line
+  * @memberof wTools.line
+  */
+function boundingBoxGet( dstBox, srcLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( dimLine );
+
+  _.assert( _.box.is( dstBox ) );
+  let boxView = _.box._from( dstBox );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+  let dimB = _.box.dimGet( boxView );
+
+  _.assert( dimLine === dimB );
+
+  let endPoint = _.array.makeArrayOfLength( dimB );
+
+  for( let i = 0; i < dimB; i++ )
+  {
+    if( direction.eGet( i ) !== 0 )
+    {
+      min.eSet( i, - Infinity );
+      max.eSet( i, Infinity );
+    }
+    else if( direction.eGet( i ) === 0 )
+    {
+      min.eSet( i, origin.eGet( i ) );
+      max.eSet( i, origin.eGet( i ) );
+    }
+  }
+
+  return dstBox;
+}
+
+//
+
+function capsuleIntersects( srcLine, tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let lineView = _.line._from( srcLine );
+
+  let gotBool = _.capsule.lineIntersects( tstCapsuleView, lineView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcLine, tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let lineView = _.line._from( srcLine );
+
+  let gotDist = _.capsule.lineDistance( tstCapsuleView, lineView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a line to a capsule. Returns the calculated point.
+  * Line and capsule remain unchanged
+  *
+  * @param { Array } line - The source line.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ], capsule );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( line ) is not line
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.line
+  */
+function capsuleClosestPoint( line, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let lineView = _.line._from( line );
+  let dimLine = _.line.dimGet( lineView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimLine );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimLine === dstPoint.length );
+  _.assert( dimLine === dimCapsule );
+
+  if( _.capsule.lineIntersects( capsuleView, lineView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.lineClosestPoint( capsuleView, lineView );
+
+    let linePoint = _.vector.from( _.line.pointClosestPoint( lineView, capsulePoint ) );
+
+    for( let i = 0; i < dimLine; i++ )
+    {
+      dstPointView.eSet( i, linePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+/**
   * Check if a line and a frustum intersect. Returns true if they intersect and false if not.
   * The frustum and the line remain unchanged.
   *
@@ -2397,6 +2548,68 @@ function sphereClosestPoint( srcLine, srcSphere, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Get the bounding sphere of a line. Returns destination sphere.
+  * Line and sphere are stored in Array data structure. Source line stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcLine - source line for the bounding sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, Infinity ]
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(line) (the line and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcLine ) is not line
+  * @memberof wTools.line
+  */
+function boundingSphereGet( dstSphere, srcLine )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimLine );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radiusSphere = _.sphere.radiusGet( dstSphereView );
+  let dimSphere = _.sphere.dimGet( dstSphereView );
+
+  _.assert( dimLine === dimSphere );
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, origin.eGet( c ) );
+  }
+
+  // Radius of the sphere
+  let distOrigin = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimLine ) ), direction );
+
+  if( distOrigin === 0  )
+  {
+  _.sphere.radiusSet( dstSphereView, 0 );
+  }
+  else
+  {
+    _.sphere.radiusSet( dstSphereView, Infinity );
+  }
+
+  return dstSphere;
+}
+
 
 
 // --
@@ -2439,6 +2652,11 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+  boundingBoxGet : boundingBoxGet,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
@@ -2463,6 +2681,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint,
+  boundingSphereGet : boundingSphereGet,
 
 }
 

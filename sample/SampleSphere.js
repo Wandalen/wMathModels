@@ -4,14 +4,18 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-var sphere = [ 4, 4, 4, 1 ];
-var segment = [ 4, 0, 4, 4, 10, 4 ];
-var result = _.sphere.lineIntersects( sphere, segment );
+/*
+var sphere = [ 5, 0, 0, 1 ];
+var capsule = [ 1, 0, 0, 3, 0, 0, 0.9 ];
+var result = _.sphere.capsuleIntersects( sphere, capsule );
 console.log( result )
-var result = _.sphere.lineDistance( sphere, segment );
+var result = _.sphere.capsuleDistance( sphere, capsule );
 console.log( result )
-var result = _.sphere.segmentIntersects( sphere, segment );
+var result = _.sphere.capsuleClosestPoint( sphere, capsule );
 console.log( result )
-var result = _.sphere.segmentDistance( sphere, segment );
+*/
+
+var sphere = [ 3, 3, 3, 0 ];
+var result = _.sphere.boundingBoxGet( null, sphere );
+
 console.log( result )
-debugger;

@@ -1079,6 +1079,236 @@ function boxClosestPoint( test )
 
 //
 
+function boundingBoxGet( test )
+{
+
+  test.case = 'Source plane remains unchanged'; /* */
+
+  var srcPlane = [ 1, 2, 3, 4 ];
+  var dstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( expected, gotBox );
+  test.is( dstBox === gotBox );
+
+  var oldSrcPlane = [ 1, 2, 3, 4 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  test.case = 'Zero plane'; /* */
+
+  var srcPlane = [ 0, 0, 0, 0 ];
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  test.case = 'Plane perpendicular to x axis'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ 0, - Infinity, - Infinity, 0, Infinity, Infinity ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  test.case = 'Plane perpendicular to x axis with bias'; /* */
+
+  var srcPlane = [ 3, 0, 0, - 6 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ 2, - Infinity, - Infinity, 2, Infinity, Infinity ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  test.case = 'Plane perpendicular to y axis'; /* */
+
+  var srcPlane = [ 0, - 3, 0, 0 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [  - Infinity, 0, - Infinity, Infinity, 0, Infinity ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  test.case = 'Plane perpendicular to y axis with bias'; /* */
+
+  var srcPlane = [ 0, 3, 0, 12 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [  - Infinity, - 4, - Infinity, Infinity, - 4, Infinity ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  test.case = 'Plane perpendicular to z axis'; /* */
+
+  var srcPlane = [ 0, 0, - 1, 0 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ - Infinity, - Infinity, 0, Infinity, Infinity, 0 ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  test.case = 'Plane perpendicular to z axis with bias'; /* */
+
+  var srcPlane = [ 0, 0, 12, - 6 ];
+  var dstBox = [ 0, 0, 0, 5, 5, 5 ];
+  var expected = [ - Infinity, - Infinity, 0.5, Infinity, Infinity, 0.5 ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  test.case = 'srcPlane vector'; /* */
+
+  var srcPlane = _.vector.from( [ - 8, - 5, 4.5, 4 ] );
+  var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox vector - 2D'; /* */
+
+  var srcPlane = [ - 4, 0, 1 ];
+  var dstBox = _.vector.from( [ 1, 2, 3, 9 ] );
+  var expected = _.vector.from( [ 0.25, - Infinity, 0.25, Infinity ] );
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox null'; /* */
+
+  var srcPlane = [ 2.2, 3.3, - 4.4 ];
+  var dstBox = null;
+  var expected = [ - Infinity, - Infinity, Infinity, Infinity ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.equivalent( gotBox, expected );
+
+  test.case = 'dstBox undefined'; /* */
+
+  var srcPlane = [ 0, - 5, - 3 ];
+  var dstBox = undefined;
+  var expected = [  - Infinity, - 3 / 5, Infinity, - 3 / 5 ];
+
+  var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( 'box', 'plane' ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4, 5 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2 ], [ 0, 0, 1 ] ) );
+
+}
+
+//
+
+function capsuleClosestPoint( test )
+{
+
+  test.case = 'capsule and plane stay unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
+  var expected = [ - 1, 0, 0 ];
+
+  var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
+  test.identical( expected, gotPoint );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldCapsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
+  test.identical( capsule, oldCapsule );
+
+  test.case = 'Trivial'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
+  var plane = [ 1, 0, 0, - 3 ];
+  var expected = [ 3, 2, 2 ];
+
+  var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Diagonal plane'; /* */
+
+  var plane = [ - 1, 1, 0, - 2 ];
+  var capsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
+  var expected = [ -1, 1, 0 ];
+
+  var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Intersection z'; /* */
+
+  var plane = [ 0, 0, 1, - 2 ];
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Intersection diagonal plane'; /* */
+
+  var plane = [ 1, - 1, 0, 0 ];
+  var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Intersection one side of capsule in plane'; /* */
+
+  var plane = [ 0, 2, 0, 0 ];
+  var capsule = [ 0, - 2, 1, 0, - 2, 2, 2 ];
+  var expected = 0;
+
+  var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
+  test.identical( gotPoint, expected );
+
+  test.case = 'Zero capsule'; /* */
+
+  var plane = [ 0, - 2, 0, 2 ];
+  var capsule = _.capsule.makeZero( 3 );
+  var expected = [ 0, 1, 0 ];
+
+  var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
+  test.identical( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0, 1 ], [ 0, 0, 1, 0, 2, 2, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1 ], [ 0, 0, 1, 0, 2, 2, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( null, [ 0, 1, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( NaN, [ 0, 1, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], 'capsule' ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( 'plane', [ 0, 1, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0, - 1 ] ));
+
+}
+
+//
+
 function frustumClosestPoint( test )
 {
   test.case = 'Plane and frustum remain unchanged'; /* */
@@ -2258,6 +2488,132 @@ function sphereClosestPoint( test )
 
 //
 
+function boundingSphereGet( test )
+{
+
+  test.case = 'Source plane remains unchanged'; /* */
+
+  var srcPlane = [ 0, 0, 3, 3 ];
+  var dstSphere = [ 1, 1, 2, 1 ];
+  var expected = [ 0, 0, - 1, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( expected, gotSphere );
+  test.is( dstSphere === gotSphere );
+
+  var oldSrcPlane = [ 0, 0, 3, 3 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  test.case = 'Zero plane to zero sphere'; /* */
+
+  var srcPlane = [ 0, 0, 0, 0 ];
+  var dstSphere = [ 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Zero plane and point Sphere'; /* */
+
+  var srcPlane = [ 0, 0, 0, 4 ];
+  var dstSphere = [ 3, 3, 3, 0 ];
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and plane intersect'; /* */
+
+  var srcPlane = [ 0, 0, 1, - 2 ];
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var expected = [ 0, 0, 2, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere and plane don´t intersect'; /* */
+
+  var srcPlane = [ 1, 0, 0, 1 ];
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ - 1, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'srcPlane vector'; /* */
+
+  var srcPlane = _.vector.from( [- 1, - 1, - 1, 1 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ 1 / 3, 1 / 3, 1 / 3, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere vector'; /* */
+
+  var srcPlane = [- 1, - 1, - 1, 3 ];
+  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
+  var expected = _.vector.from( [ 1, 1, 1, Infinity ] );
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere null'; /* */
+
+  var srcPlane = [- 1, 5, - 1, 0 ];
+  var dstSphere = null;
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere undefined'; /* */
+
+  var srcPlane = [ - 1, - 3, - 5, 0 ];
+  var dstSphere = undefined;
+  var expected = [ 0, 0, 0, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Very small normal'; /* */
+
+  var srcPlane = _.vector.from( [ 1E-12, 1E-12, 1E-12, 1E-12 ] );
+  var dstSphere = [ 5, 5, 5, 3 ];
+  var expected = [ - 1 / 3, - 1 / 3, - 1 / 3, Infinity ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'Dimension = 5'; /* */
+
+  var srcPlane = [ 1, 0, 1, 2, 3, 4 ];
+  var dstSphere = [ 0, 1, 0, 1, 2, 1 ];
+  var expected = [ -0.26666666666666666, 0, -0.26666666666666666, -0.53333333333333333, -0.8, Infinity  ];
+
+  var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( 'sphere', 'plane' ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1 ], [ 0, 0, 1, 2, 2, 3, 1 ] ) );
+
+}
+
+//
+
 function translate( test )
 {
 
@@ -2718,6 +3074,9 @@ var Self =
 
     boxIntersects : boxIntersects,
     boxClosestPoint : boxClosestPoint,
+    boundingBoxGet : boundingBoxGet,
+
+    capsuleClosestPoint : capsuleClosestPoint,
 
     frustumClosestPoint : frustumClosestPoint,
 
@@ -2735,6 +3094,7 @@ var Self =
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
+    boundingSphereGet : boundingSphereGet,
 
     //matrixHomogenousApply : matrixHomogenousApply,
     translate : translate,

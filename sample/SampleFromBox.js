@@ -5,8 +5,9 @@ require( 'wmathconcepts' );
 var _ = wTools;
 
  var box = _.vector.fromArray( [ 0, 0, 2, 2 ] );
-  debugger;
- var box = _.box.from( box );
+ var box = _.box.boundingSphereGet( null, box );
 
  console.log( box );
+
+
 debugger;

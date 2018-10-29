@@ -578,6 +578,175 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
 //
 
 /**
+  * Get the bounding box of a plane. Returns destination box.
+  * Plane and box are stored in Array data structure. Source plane stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcPlane - source plane for the bounding box.
+  *
+  * @example
+  * // returns [ 0, -Infinity, - Infinity, 0, Infinity, Infinity ]
+  * _.boundingBoxGet( null, [ 1, 0, 0, 0 ] );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(plane) (the plane and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcPlane ) is not plane
+  * @memberof wTools.plane
+  */
+function boundingBoxGet( dstBox, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcPlaneView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( srcPlaneView );
+  let bias = _.plane.biasGet( srcPlaneView );
+  let dimPlane  = _.plane.dimGet( srcPlaneView )
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( dimPlane );
+
+  _.assert( _.box.is( dstBox ) );
+  let boxView = _.box._from( dstBox );
+  let dimB = _.box.dimGet( boxView );
+
+  _.assert( dimPlane === dimB );
+
+  let zeros = 0;
+  for( let i = 0; i < dimB; i++ )
+  {
+    if( normal.eGet( i ) === 0 )
+    {
+      zeros = zeros + 1;
+    }
+  }
+  logger.log( zeros )
+
+  if( zeros === dimB - 1 )
+  {
+    for( let i = 0; i < dimB; i++ )
+    {
+      if(  normal.eGet( i ) !== 0  )
+      {
+        boxView.eSet( i, - bias / normal.eGet( i ) );
+        boxView.eSet( i + dimB, - bias / normal.eGet( i ) );
+      }
+      else
+      {
+        boxView.eSet( i, - Infinity );
+        boxView.eSet( i + dimB, Infinity );
+      }
+    }
+
+  }
+  else
+  {
+    for( let i = 0; i < dimB; i++ )
+    {
+      boxView.eSet( i, - Infinity );
+      boxView.eSet( i + dimB, Infinity );
+    }
+  }
+
+  return dstBox;
+}
+
+//
+
+function capsuleIntersects( srcPlane , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotBool = _.capsule.planeIntersects( tstCapsuleView, planeView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcPlane , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotDist = _.capsule.planeDistance( tstCapsuleView, planeView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a plane to a capsule. Returns the calculated point.
+  * Plane and capsule remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 1, 0, 0, 0 ], capsule );
+  *
+  * @example
+  * // returns [ 3, 0, 0 ]
+  * _.capsuleClosestPoint( [ 1, 0, 0, - 3 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.plane
+  */
+function capsuleClosestPoint( plane, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimPlane );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimPlane === dstPoint.length );
+  _.assert( dimPlane === dimCapsule );
+
+  if( _.capsule.planeIntersects( capsuleView, planeView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.planeClosestPoint( capsule, planeView );
+
+    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, capsulePoint ) );
+
+    for( let i = 0; i < dimPlane; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+/**
   * Check if a plane and a frustum intersect. Returns true if they intersect.
   * The plane and the frustum remain unchanged.
   *
@@ -1377,6 +1546,74 @@ function sphereClosestPoint( plane , sphere, dstPoint )
 
 //
 
+/**
+  * Get the bounding sphere of a plane. Returns the destination sphere.
+  * Plane and sphere are stored in Array data structure. Source plane stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcPlane - source plane for the bounding sphere.
+  *
+  * @example
+  * // returns [ 0, 2, 0, Infinity ]
+  * _.boundingSphereGet( null, [ 0, 1, 0, - 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(plane) (the plane and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcPlane ) is not plane
+  * @memberof wTools.plane
+  */
+function boundingSphereGet( dstSphere, srcPlane )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView )
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimPlane );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radiusSphere = _.sphere.radiusGet( dstSphereView );
+  let dimSphere = _.sphere.dimGet( dstSphereView );
+  logger.log( dimPlane, dimSphere )
+  _.assert( dimPlane === dimSphere );
+
+  let distOrigin = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimPlane ) ), normal );
+
+  // Center of the sphere
+  if( distOrigin === 0 )
+  {
+    for( let c = 0; c < center.length; c++ )
+    {
+      center.eSet( c, 0 );
+    }
+  }
+  else
+  {
+    let pointInPlane = _.vector.from( _.plane.pointCoplanarGet( planeView, _.array.makeArrayOfLengthZeroed( dimPlane ) ) );
+    logger.log( pointInPlane )
+
+    for( let c = 0; c < center.length; c++ )
+    {
+      center.eSet( c, pointInPlane.eGet( c ) );
+    }
+  }
+
+  // Radius of the sphere
+  _.sphere.radiusSet( dstSphereView, Infinity );
+
+  return dstSphere;
+}
+
+//
+
 function matrixHomogenousApply( plane , matrix )
 {
 
@@ -1619,6 +1856,11 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
   boxClosestPoint : boxClosestPoint, /* qqq: implement me */
+  boundingBoxGet : boundingBoxGet,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
@@ -1643,6 +1885,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
+  boundingSphereGet : boundingSphereGet,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

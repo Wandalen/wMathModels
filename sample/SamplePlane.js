@@ -3,11 +3,11 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let plane1 = [ -1, 0, 0, 0 ];
+var plane = [ 1, 0, 0, - 1 ];
+var sphere = [ 0, 1, 0, 1 ];
 
-let segment = [ 2, 2, 2, 3, 3, 3 ];
-debugger;
+result = _.plane.boundingSphereGet( sphere, plane );
+logger.log('Final result: ', result );
 
-j = _.plane.segmentClosestPoint( plane1, segment )
-console.log( j );
-debugger;
+result = _.plane.boundingBoxGet( null, plane );
+logger.log('Final result: ', result );

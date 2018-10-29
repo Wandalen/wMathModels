@@ -814,6 +814,44 @@ segmentIntersectionPointAccurate.shaderChunk =
 //
 
 /**
+  * Make a segment out of two points. Returns the created segment.
+  * Points stay untouched.
+  *
+  * @param { Array } pair - The source points.
+  *
+  * @example
+  * // returns [ 0, 0, 1, 1 ]
+  * _.fromPair( [ [ 0, 0 ], [ 1, 1 ] ] );
+  *
+  * @returns { Segment } Returns the segment defined by the source points.
+  * @function fromPair
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( pair ) is not array of points.
+  * @memberof wTools.segment
+  */
+function fromPair( pair )
+{
+    _.assert( arguments.length === 1, 'expects single argument' );
+    _.assert( pair.length === 2, 'expects two points' );
+    _.assert( pair[ 0 ].length === pair[ 1 ].length, 'expects two points' );
+
+    let result = _.vector.from( _.array.makeArrayOfLength( pair[ 0 ].length * 2 ) );
+    let pair0 = _.vector.from( pair[ 0 ] );
+    let pair1 = _.vector.from( pair[ 1 ] );
+
+    for( let i = 0; i < pair0.length ; i++ )
+    {
+      result.eSet( i, pair0.eGet( i ) );
+      result.eSet( pair0.length + i, pair1.eGet( i ) );
+    }
+
+    debugger;
+    return result;
+}
+
+//
+
+/**
   * Check if a given point is contained inside a segment. Returs true if it is contained, false if not.
   * Point and segment stay untouched.
   *
@@ -1257,6 +1295,146 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
 //
 
 /**
+  * Get the bounding box of a segment. Returns destination box.
+  * Segment and box are stored in Array data structure. Source segment stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Array } srcSegment - source segment for the bounding box.
+  *
+  * @example
+  * // returns [ - 2, - 2, - 2, 2, 2, 2 ]
+  * _.boundingBoxGet( null, [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(segment) (the segment and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( srcSegment ) is not segment
+  * @memberof wTools.segment
+  */
+function boundingBoxGet( dstBox, srcSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let endPoint = _.segment.endPointGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( dimSegment );
+
+  _.assert( _.box.is( dstBox ) );
+  let dimB = _.box.dimGet( dstBox );
+
+  _.assert( dimSegment === dimB );
+
+  let boxView = _.box._from( dstBox );
+  let box = _.box._from( _.box.fromPoints( null, [ origin, endPoint ] ) );
+
+  for( let b = 0; b < boxView.length; b++ )
+  {
+    boxView.eSet( b, box.eGet( b ) );
+  }
+
+  return dstBox;
+}
+
+//
+
+function capsuleIntersects( srcSegment , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let segmentView = _.segment._from( srcSegment );
+
+  let gotBool = _.capsule.segmentIntersects( tstCapsuleView, segmentView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcSegment , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let segmentView = _.segment._from( srcSegment );
+
+  let gotDist = _.capsule.segmentDistance( tstCapsuleView, segmentView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a segment to a capsule. Returns the calculated point.
+  * Segment and capsule remain unchanged
+  *
+  * @param { Array } segment - The source segment.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ], capsule );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.segment
+  */
+function capsuleClosestPoint( segment, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let segmentView = _.segment._from( segment );
+  let dimS = _.segment.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimS === dimCapsule );
+
+  if( _.capsule.segmentIntersects( capsuleView, segmentView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.segmentClosestPoint( capsule, segmentView );
+
+    let segmentPoint = _.vector.from( _.segment.pointClosestPoint( segmentView, capsulePoint ) );
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, segmentPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+/**
   * Check if a segment and a frustum intersect. Returns true if they intersect and false if not.
   * The frustum and the segment remain unchanged.
   *
@@ -1336,14 +1514,21 @@ function frustumIntersects( srcSegment, srcFrustum )
   *
   * @example
   * // returns 0;
-  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
   *
   * @example
-  * // returns Math.sqrt( 17 );
-  * _.frustumDistance( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  * // returns 1;
+  * _.frustumDistance( [ 0, - 1, 0, 0, -2, 0 ] , srcFrustum );
   *
   * @returns { Number } Returns the distance between a segment and a frustum.
-  * @function frustumClosestPoint
+  * @function frustumDistance
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
@@ -1373,6 +1558,7 @@ function frustumDistance( srcSegment, srcFrustum )
   return 0;
 
   let closestPoint = _.segment.frustumClosestPoint( srcSegmentView, srcFrustum );
+
   return _.frustum.pointDistance( srcFrustum, closestPoint );
 }
 
@@ -1387,13 +1573,20 @@ function frustumDistance( srcSegment, srcFrustum )
   *
   * @example
   * // returns 0;
-  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  * var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
   *
   * @example
   * // returns [ 0, - 1, 0 ];
-  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
+  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , srcFrustum );
   *
-  * @returns { Number } Returns the closest point in the segment to the frustum.
+  * @returns { Array } Returns the closest point in the segment to the frustum.
   * @function frustumClosestPoint
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
@@ -1973,6 +2166,7 @@ function rayIntersects( srcSegment, srcRay )
   _.assert( dimSegment === dimRay );
 
   let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
+
   if( _.line.lineParallel( lineSegment, srcRayView ) )
   {
     if( _.ray.pointContains( srcRayView, segmentOrigin ) )
@@ -1982,9 +2176,26 @@ function rayIntersects( srcSegment, srcRay )
   }
 
   let factors = _.ray.rayIntersectionFactors( lineSegment, srcRayView );
-
-  if( factors === 0 || factors.eGet( 1 ) < 0 || factors.eGet( 0 ) < 0 || ( factors.eGet( 0 ) > 1 && factors.eGet( 1 ) > 1 ) )
+  logger.log( 'FACTORS', factors)
+  if( factors === 0 || factors.eGet( 0 ) < 0 || factors.eGet( 1 ) < 0 || ( factors.eGet( 0 ) > 1 && factors.eGet( 1 ) > 1 ) )
   return false;
+
+  if( factors.eGet( 0 ) > 1 )
+  {
+    let point = _.segment.segmentAt( srcSegmentView, factors.eGet( 1 ) );
+    let contained = _.ray.pointContains( srcRayView, point );
+
+    if( contained === false )
+    return false;
+  }
+  else if( factors.eGet( 1 ) > 1 )
+  {
+    let point = _.segment.segmentAt( srcSegmentView, factors.eGet( 0 ) );
+    let contained = _.ray.pointContains( srcRayView, point );
+
+    if( contained === false )
+    return false;
+  }
 
   return true;
 }
@@ -2037,7 +2248,9 @@ function rayDistance( srcSegment, srcRay )
   let distance;
 
   if( _.segment.rayIntersects( srcSegmentView, srcRayView ) === true )
-  return 0;
+  {
+    return 0;
+  }
 
   // Parallel segment/ray
   let lineSegment = _.line.fromPair( [ srcOrigin, srcEnd ] );
@@ -2620,6 +2833,59 @@ function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Get the bounding sphere of a segment. Returns destination sphere.
+  * Segment and sphere are stored in Array data structure. Source segment stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcSegment - source segment for the bounding sphere.
+  *
+  * @example
+  * // returns [ 1, 1, 1, Math.sqrt( 3 ) ]
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(segment) (the segment and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcSegment ) is not segment
+  * @memberof wTools.segment
+  */
+function boundingSphereGet( dstSphere, srcSegment )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let origin = _.segment.originGet( srcSegmentView );
+  let endPoint = _.segment.endPointGet( srcSegmentView );
+  let dimSegment  = _.segment.dimGet( srcSegmentView )
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimSegment );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radius = _.sphere.radiusGet( dstSphereView );
+  let dimS = _.sphere.dimGet( dstSphereView );
+
+  _.assert( dimSegment === dimS );
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, ( endPoint.eGet( c ) + origin.eGet( c ) ) / 2 );
+  }
+
+  // Radius of the sphere
+  _.sphere.radiusSet( dstSphereView, vector.distance( center, endPoint ) );
+
+  return dstSphere;
+}
+
 
 // --
 // define class
@@ -2654,6 +2920,7 @@ let Proto =
   segmentIntersectionPoint : segmentIntersectionPoint,
   segmentIntersectionPointAccurate : segmentIntersectionPointAccurate,
 
+  fromPair : fromPair,
   pointContains : pointContains,
   pointDistance : pointDistance,
   pointClosestPoint : pointClosestPoint,
@@ -2661,6 +2928,11 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+  boundingBoxGet : boundingBoxGet,
+
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
 
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
@@ -2685,6 +2957,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint,
+  boundingSphereGet : boundingSphereGet,
 }
 
 _.mapSupplement( Self, Proto );

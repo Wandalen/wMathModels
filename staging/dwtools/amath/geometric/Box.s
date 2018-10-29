@@ -489,21 +489,22 @@ function fromSphere( box, sphere )
   let radius = _.sphere.radiusGet( sphereView );
 
   if( box === null )
-  box = _.box.make( dim );
+  box = _.box.makeNil( dim1 );
 
   let boxView = _.box._from( box );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
   let dim2 = _.box.dimGet( boxView );
 
   _.assert( dim1 === dim2 );
 
   debugger;
   //throw _.err( 'not tested' );
-
+  logger.log('Start', boxView )
   _.box.fromPoints( boxView, [ center ] );
+
+  logger.log('fromcenter', boxView )
   _.box.expand( boxView, radius );
 
+  logger.log('radius', boxView )
   return box;
 }
 
@@ -1554,6 +1555,99 @@ function boxExpand( dstBox , srcBox )
 
 //
 
+function capsuleIntersects( srcBox , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.capsule.boxIntersects( tstCapsuleView, boxView );
+  return gotBool;
+}
+
+//
+
+function capsuleDistance( srcBox , tstCapsule )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.capsule.boxDistance( tstCapsuleView, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a capsule. Returns the calculated point.
+  * Box and capsule remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Array } capsule - The source capsule.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns 0
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ], capsule );
+  *
+  * @example
+  * // returns [ 2, 2, 2 ]
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ], capsule );
+  *
+  * @returns { Array } Returns the closest point to the capsule.
+  * @function capsuleClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function capsuleClosestPoint( box, capsule, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimCapsule  = _.capsule.dimGet( capsuleView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimB === dimCapsule );
+
+  if( _.capsule.boxIntersects( capsuleView, boxView ) )
+  return 0
+  else
+  {
+    let capsulePoint = _.capsule.boxClosestPoint( capsule, boxView );
+
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, capsulePoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a box contains a frustum. Returns true if it is contained, false if not.
   * Box and frustum remain unchanged
@@ -2379,6 +2473,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   }
 
 }
+
 //
 
 /**
@@ -2638,6 +2733,59 @@ function sphereExpand( dstBox , srcSphere )
   }
 
   return dstBox;
+}
+
+//
+
+/**
+  * Get the bounding sphere of a box. Returns destination sphere.
+  * Box and sphere are stored in Array data structure. Source box stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } srcBox - source box for the bounding sphere.
+  *
+  * @example
+  * // returns [ 1, 1, 1, Math.sqrt( 3 ) ]
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2 ] );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( srcBox ) is not box
+  * @memberof wTools.box
+  */
+function boundingSphereGet( dstSphere, srcBox )
+{
+  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+
+  let srcBoxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( srcBoxView );
+  let min = _.box.cornerLeftGet( srcBoxView );
+  let max = _.box.cornerRightGet( srcBoxView );
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( dimB );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radius = _.sphere.radiusGet( dstSphereView );
+  let dimS = _.sphere.dimGet( dstSphereView );
+
+  _.assert( dimB === dimS );
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
+  }
+
+  // Radius of the sphere
+  _.sphere.radiusSet( dstSphereView, vector.distance( center, max ) );
+
+  return dstSphere;
 }
 
 //
@@ -2918,6 +3066,10 @@ let Proto =
   boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 
+  capsuleIntersects : capsuleIntersects,
+  capsuleDistance : capsuleDistance,
+  capsuleClosestPoint : capsuleClosestPoint,
+
   frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
   frustumDistance : frustumDistance, /* qqq : implement me */
@@ -2946,6 +3098,7 @@ let Proto =
   sphereDistance : sphereDistance, /* qqq : implement me */
   sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
   sphereExpand : sphereExpand, /* qqq : implement me */
+  boundingSphereGet : boundingSphereGet,
 
   matrixHomogenousApply : matrixHomogenousApply,
   translate : translate,

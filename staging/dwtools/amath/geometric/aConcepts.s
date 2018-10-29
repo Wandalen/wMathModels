@@ -37,6 +37,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathSpace' );
 
   require( './Box.s' );
+  require( './Capsule.s' );
   require( './Frustum.s' );
   require( './Line.s' );
   require( './Plane.s' );
