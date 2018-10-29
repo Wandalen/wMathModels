@@ -37,7 +37,7 @@ and axis1, axis2, axis3 the corresponding axes of rotation.
 
 function is( euler )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( euler ) || _.vectorIs( euler ) ) && ( euler.length === 6 );
 }
 
@@ -46,7 +46,7 @@ function is( euler )
 function isZero( euler )
 {
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let eulerView = _.euler._from( euler );
 
@@ -119,7 +119,7 @@ function from( euler )
 {
 
   _.assert( euler === null || _.euler.is( euler ) );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   if( euler === null )
   return _.euler.make();
@@ -141,7 +141,7 @@ function from( euler )
 function _from( euler )
 {
   _.assert( _.euler.is( euler ) );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   return _.vector.from( euler );
 }
@@ -295,7 +295,7 @@ function fromAxisAndAngle( dst, axis, angle )
   if( angle === undefined )
   angle = axis[ 3 ];
 
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
   _.assert( _.numberIs( angle ) );
   _.assert( this.accuracy > 0 );
@@ -2451,7 +2451,7 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
   let dstEulerView = _.vector.from( dstEuler );
   let srcAxisVector = _.vector.from( axis );
 
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
 
   let quat;
@@ -2494,7 +2494,7 @@ function toAxisAndAngle2( euler, axisAndAngle )
 
   let srcEuler = _.euler.from( euler );
 
-  _.assert( arguments.length === 2, 'expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
 
   let quat = _.euler.toQuat2( srcEuler, [ 0, 0, 0, 0 ] );
@@ -2533,7 +2533,7 @@ function represent( dstEuler, representation )
 {
   _.assert( dstEuler === null || dstEuler === undefined || _.euler.is( dstEuler ) );
   _.assert( _.longIs( representation ) || _.arrayIs( representation ) || _.strIs( representation ) );
-  _.assert( arguments.length === 2, 'expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
 
   if( dstEuler === null || dstEuler === undefined )
   dstEuler = [ 0, 0, 0, 0, 1, 2 ];

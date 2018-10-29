@@ -36,7 +36,7 @@ function _from( plane )
 {
   _.assert( _.plane.is( plane ) );
   _.assert( _.vectorIs( plane ) || _.longIs( plane ) );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return _.vector.from( plane );
 }
 
@@ -44,7 +44,7 @@ function _from( plane )
 
 function is( plane )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( plane ) || _.vectorIs( plane ) ) && plane.length >= 1;
 }
 
@@ -83,7 +83,7 @@ function from( plane )
   if( plane === null )
   plane = _.plane.make();
 
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   debugger;
   // throw _.err( 'not tested' );
 
@@ -213,7 +213,7 @@ function dimGet( plane )
   let dim = plane.length - 1;
 
   _.assert( _.plane.is( plane ) );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   debugger;
 
@@ -225,7 +225,7 @@ function dimGet( plane )
 function normalGet( plane )
 {
   let planeView = _.plane._from( plane );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return planeView.subarray( 0,planeView.length-1 );
 }
 
@@ -234,7 +234,7 @@ function normalGet( plane )
 function biasGet( plane )
 {
   let planeView = _.plane._from( plane );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return planeView.eGet( planeView.length-1 );
 }
 
@@ -350,7 +350,7 @@ function pointDistance( plane , point )
   */
 function pointCoplanarGet( plane , point, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( point.length );
@@ -539,7 +539,7 @@ function boxDistance( plane , srcBox )
   */
 function boxClosestPoint( srcPlane , srcBox, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = [ 0, 0, 0 ];
@@ -598,7 +598,7 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
   */
 function boundingBoxGet( dstBox, srcPlane )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcPlaneView = _.plane._from( srcPlane );
   let normal = _.plane.normalGet( srcPlaneView );
@@ -657,7 +657,7 @@ function boundingBoxGet( dstBox, srcPlane )
 
 function capsuleIntersects( srcPlane , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule._from( tstCapsule );
   let planeView = _.plane._from( srcPlane );
 
@@ -669,7 +669,7 @@ function capsuleIntersects( srcPlane , tstCapsule )
 
 function capsuleDistance( srcPlane , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule._from( tstCapsule );
   let planeView = _.plane._from( srcPlane );
 
@@ -707,7 +707,7 @@ function capsuleDistance( srcPlane , tstCapsule )
   */
 function capsuleClosestPoint( plane, capsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let planeView = _.plane._from( plane );
   let dimPlane = _.plane.dimGet( planeView );
@@ -853,7 +853,7 @@ function frustumDistance( srcPlane , srcFrustum )
   */
 function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   if( arguments.length === 2 )
@@ -947,7 +947,7 @@ function lineIntersects( srcPlane , tstLine )
   */
 function lineIntersection( plane , line , point )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three argument' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three argument' );
 
 
   if( arguments.length === 2 )
@@ -1036,7 +1036,7 @@ function lineDistance( srcPlane , tstLine )
   */
 function lineClosestPoint( plane, line, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let planeView = _.plane._from( plane );
   let dimP = _.plane.dimGet( planeView );
@@ -1233,7 +1233,7 @@ function rayDistance( srcPlane , tstRay )
   */
 function rayClosestPoint( plane, ray, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let planeView = _.plane._from( plane );
   let dimP = _.plane.dimGet( planeView );
@@ -1362,7 +1362,7 @@ function segmentDistance( srcPlane , tstSegment )
   */
 function segmentClosestPoint( plane, segment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let planeView = _.plane._from( plane );
   let dimP = _.plane.dimGet( planeView );
@@ -1512,7 +1512,7 @@ function sphereDistance( plane , sphere )
   */
 function sphereClosestPoint( plane , sphere, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = [ 0, 0, 0 ];
@@ -1567,7 +1567,7 @@ function sphereClosestPoint( plane , sphere, dstPoint )
   */
 function boundingSphereGet( dstSphere, srcPlane )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let planeView = _.plane._from( srcPlane );
   let normal = _.plane.normalGet( planeView );
@@ -1712,7 +1712,7 @@ function normalize( plane )
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -1753,7 +1753,7 @@ function negate( plane )
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   debugger;
   // throw _.err( 'not tested' );
 

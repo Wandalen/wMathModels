@@ -290,13 +290,13 @@ function from( sphere )
 
   if( _.objectIs( sphere ) )
   {
-    _.assert( arguments.length === 1, 'expects single argument' );
+    _.assert( arguments.length === 1, 'Expects single argument' );
     _.assertMapHasOnly( sphere,{ center : 'center' , radius : 'radius' } );
     sphere = [ sphere.center[ 0 ] , sphere.center[ 1 ] , sphere.center[ 2 ] , sphere.radius ]
   }
   else
   {
-    _.assert( arguments.length === 1, 'expects single argument' );
+    _.assert( arguments.length === 1, 'Expects single argument' );
   }
 
   _.assert( _.vectorIs( sphere ) || _.longIs( sphere ) );
@@ -331,7 +331,7 @@ function from( sphere )
 function _from( sphere )
 {
   _.assert( _.sphere.is( sphere ) )
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return _.vector.from( sphere );
 }
 
@@ -515,7 +515,7 @@ function fromCenterAndRadius( sphere, center, radius )
 
 function is( sphere )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( sphere ) || _.vectorIs( sphere ) ) && sphere.length > 0;
 }
 
@@ -539,7 +539,7 @@ function is( sphere )
 function isEmpty( sphere )
 {
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.sphere.is( sphere ) );
 
   let sphereView = _.sphere._from( sphere );
@@ -568,7 +568,7 @@ function isEmpty( sphere )
 function isZero( sphere )
 {
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.sphere.is( sphere ) );
 
   let sphereView = _.sphere._from( sphere );
@@ -597,7 +597,7 @@ function isZero( sphere )
 function isNil( sphere )
 {
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   // debugger;
   // throw _.err( 'not tested' );
@@ -641,7 +641,7 @@ function isNil( sphere )
 
 function dimGet( sphere )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.sphere.is( sphere ) );
   return sphere.length - 1;
 }
@@ -671,7 +671,7 @@ function dimGet( sphere )
 
 function centerGet( sphere )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let sphereView = _.sphere._from( sphere );
   return sphereView.subarray( 0,sphere.length-1 );
 }
@@ -701,7 +701,7 @@ function centerGet( sphere )
 
 function radiusGet( sphere )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let sphereView = _.sphere._from( sphere );
   return sphereView.eGet( sphere.length-1 );
 }
@@ -858,7 +858,7 @@ function pointDistance( sphere, point )
 function pointClosestPoint( sphere, srcPoint, dstPoint )
 {
 
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let sphereView = _.sphere._from( sphere );
   let center = _.sphere.centerGet( sphereView );
@@ -1136,7 +1136,7 @@ function boxDistance( sphere, box )
   */
 function boxClosestPoint( srcSphere, srcBox, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let sphereView = _.sphere._from( srcSphere );
   let center = _.sphere.centerGet( sphereView );
@@ -1251,7 +1251,7 @@ function boxExpand( dstSphere, srcBox )
   */
 function boundingBoxGet( dstBox, srcSphere )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let sphereView = _.sphere._from( srcSphere );
   let center = _.sphere.centerGet( sphereView );
@@ -1281,7 +1281,7 @@ function boundingBoxGet( dstBox, srcSphere )
 
 function capsuleIntersects( srcSphere , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule._from( tstCapsule );
   let sphereView = _.sphere._from( srcSphere );
 
@@ -1293,7 +1293,7 @@ function capsuleIntersects( srcSphere , tstCapsule )
 
 function capsuleDistance( srcSphere , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule._from( tstCapsule );
   let sphereView = _.sphere._from( srcSphere );
 
@@ -1331,7 +1331,7 @@ function capsuleDistance( srcSphere , tstCapsule )
   */
 function capsuleClosestPoint( sphere, capsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let sphereView = _.sphere._from( sphere );
   let dimSphere = _.sphere.dimGet( sphereView );
@@ -1523,7 +1523,7 @@ function frustumDistance( srcSphere, tstFrustum )
 function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
 {
 
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( tstFrustum ) );
 
   if( arguments.length === 2 )
@@ -1663,7 +1663,7 @@ function lineDistance( srcSphere , tstLine )
   */
 function lineClosestPoint( sphere, line, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let lineView = _.line._from( line );
   let origin = _.line.originGet( lineView );
@@ -1801,7 +1801,7 @@ function planeDistance( sphere, plane )
 
 function planeClosestPoint( sphere, plane, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   let sphereView = _.sphere._from( sphere );
   let center = _.sphere.centerGet( sphereView );
@@ -1868,7 +1868,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
 
 function planeExpand( dstSphere, srcPlane )
 {
-  _.assert( arguments.length === 2 , 'expects two arguments' );
+  _.assert( arguments.length === 2 , 'Expects two arguments' );
 
   let sphereView = _.sphere._from( dstSphere );
   let center = _.sphere.centerGet( sphereView );
@@ -1951,7 +1951,7 @@ function rayDistance( srcSphere , tstRay )
   */
 function rayClosestPoint( sphere, ray, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let rayView = _.ray._from( ray );
   let origin = _.ray.originGet( rayView );
@@ -2045,7 +2045,7 @@ function segmentDistance( srcSphere , tstSegment )
   */
 function segmentClosestPoint( sphere, segment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let segmentView = _.segment._from( segment );
   let origin = _.segment.originGet( segmentView );
@@ -2262,7 +2262,7 @@ function sphereDistance( srcSphere, tstSphere )
 
 function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let _srcSphere = _.sphere._from( srcSphere );
   let srcCenter = _.sphere.centerGet( _srcSphere );

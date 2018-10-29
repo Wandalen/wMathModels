@@ -102,8 +102,8 @@ function unit( quat )
 function from( quat )
 {
 
-  _.assert( quat === null || _.quat.is( quat ),'expects quaternion' );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( quat === null || _.quat.is( quat ),'Expects quaternion' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   if( quat === null )
   return _.quat.make();
@@ -124,8 +124,8 @@ function from( quat )
 
 function _from( quat )
 {
-  _.assert( /*quat === null ||*/ _.quat.is( quat ),'expects quaternion' );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( /*quat === null ||*/ _.quat.is( quat ),'Expects quaternion' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   // if( quat === null )
   // quat = _.quat.make();
@@ -427,7 +427,7 @@ function fromEuler( dst, euler, v )
 function fromAxisAndAngle( dst, axisAndAngle, angle )
 {
 
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   dst = _.quat.from( dst );
   let dstv = _.vector.from( dst );
@@ -804,7 +804,7 @@ function toMatrix( quat, mat )
 
 function is( quat )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( quat ) || _.vectorIs( quat ) ) && ( quat.length === 4 );
 }
 
@@ -813,7 +813,7 @@ function is( quat )
 function isUnit( quat )
 {
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let quatView = _.quat._from( quat );
 
@@ -832,7 +832,7 @@ function isUnit( quat )
 function isZero( quat )
 {
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let quatView = _.quat._from( quat );
 
@@ -850,7 +850,7 @@ function isZero( quat )
 
 function dimGet( quat )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.quat.is( quat ) );
   return quat.length;
 }
@@ -861,7 +861,7 @@ function conjugate( dst )
 {
   let dstv = _.quat._from( dst );
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   dstv.eSet( 0,-dstv.eGet( 0 ) );
   dstv.eSet( 1,-dstv.eGet( 1 ) );
@@ -876,7 +876,7 @@ function inv( dst )
 {
   let dstv = _.quat._from( dst );
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   this.normalize( this.conjugate( dst ) );
 
@@ -905,13 +905,13 @@ function mul( dst )
 {
   let first = 1;
 
-  _.assert( arguments.length >= 2, 'expects at least two arguments' );
+  _.assert( arguments.length >= 2, 'Expects at least two arguments' );
 
   if( dst === null )
   {
     dst = this.make( arguments[ 1 ] );
     first = 2;
-    _.assert( arguments.length >= 3, 'expects at least three arguments' );
+    _.assert( arguments.length >= 3, 'Expects at least three arguments' );
   }
 
   let dstv = _.quat._from( dst );

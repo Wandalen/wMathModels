@@ -271,7 +271,7 @@ function zero( axisAndAngle,angle )
 function fromMatrixRotation( axisAndAngle, srcMatrix )
 {
 
-  _.assert( arguments.length === 2, 'expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
   _.assert( _.Space.is( srcMatrix ) );
   _.assert( srcMatrix.hasShape([ 3, 3 ]) );
@@ -313,7 +313,7 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
 function toMatrixRotation( axisAndAngle, dstMatrix )
 {
 
-  _.assert( arguments.length === 2, 'expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
   _.assert( _.Space.is( dstMatrix ) );
   _.assert( dstMatrix.hasShape([ 3, 3 ]) );

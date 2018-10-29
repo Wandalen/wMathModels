@@ -117,7 +117,7 @@ function from( segment )
 //  }
 
   _.assert( _.segment.is( segment ) || segment === null );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
 //  if( _.vectorIs( segment ) )
 //  {
@@ -137,7 +137,7 @@ function from( segment )
 function _from( segment )
 {
   _.assert( _.segment.is( segment ) );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return _.vector.from( segment );
 }
 
@@ -159,7 +159,7 @@ function _from( segment )
   */
 function is( segment )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( segment ) || _.vectorIs( segment ) ) && ( segment.length >= 0 ) && ( segment.length % 2 === 0 );
 }
 
@@ -186,7 +186,7 @@ function is( segment )
   */
 function dimGet( segment )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.segment.is( segment ) );
   return segment.length / 2;
 }
@@ -215,7 +215,7 @@ function dimGet( segment )
   */
 function originGet( segment )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let segmentView = _.segment._from( segment );
   return segmentView.subarray( 0, segment.length/ 2 );
 }
@@ -244,7 +244,7 @@ function originGet( segment )
   */
 function endPointGet( segment )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let segmentView = _.segment._from( segment );
   return segmentView.subarray( segment.length/ 2, segment.length );
 }
@@ -273,7 +273,7 @@ function endPointGet( segment )
   */
 function directionGet( segment )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let segmentView = _.segment._from( segment );
   let origin = _.segment.originGet( segment );
   let endPoint = _.segment.endPointGet( segment );
@@ -317,7 +317,7 @@ function segmentAt( srcSegment, factor )
   // let result = avector.mul( null, srcSegment[ 1 ], factor );
   // avector.add( result, srcSegment[ 0 ] );
 
-  _.assert( arguments.length === 2, 'expects single argument' );
+  _.assert( arguments.length === 2, 'Expects single argument' );
   _.assert( _.segment.is( srcSegment ) );
 
   _.assert( factor >= 0, 'Factor can not be negative ( point must be in the segment )');
@@ -831,9 +831,9 @@ segmentIntersectionPointAccurate.shaderChunk =
   */
 function fromPair( pair )
 {
-    _.assert( arguments.length === 1, 'expects single argument' );
-    _.assert( pair.length === 2, 'expects two points' );
-    _.assert( pair[ 0 ].length === pair[ 1 ].length, 'expects two points' );
+    _.assert( arguments.length === 1, 'Expects single argument' );
+    _.assert( pair.length === 2, 'Expects two points' );
+    _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
 
     let result = _.vector.from( _.array.makeArrayOfLength( pair[ 0 ].length * 2 ) );
     let pair0 = _.vector.from( pair[ 0 ] );
@@ -1030,7 +1030,7 @@ function pointDistance( srcSegment, srcPoint )
   */
 function pointClosestPoint( srcSegment, srcPoint, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( srcPoint.length );
@@ -1238,7 +1238,7 @@ function boxDistance( srcSegment, srcBox )
   */
 function boxClosestPoint( srcSegment, srcBox, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( srcBox.length / 2 );
@@ -1315,7 +1315,7 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
   */
 function boundingBoxGet( dstBox, srcSegment )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcSegmentView = _.segment._from( srcSegment );
   let origin = _.segment.originGet( srcSegmentView );
@@ -1345,7 +1345,7 @@ function boundingBoxGet( dstBox, srcSegment )
 
 function capsuleIntersects( srcSegment , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule._from( tstCapsule );
   let segmentView = _.segment._from( srcSegment );
 
@@ -1357,7 +1357,7 @@ function capsuleIntersects( srcSegment , tstCapsule )
 
 function capsuleDistance( srcSegment , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule._from( tstCapsule );
   let segmentView = _.segment._from( srcSegment );
 
@@ -1395,7 +1395,7 @@ function capsuleDistance( srcSegment , tstCapsule )
   */
 function capsuleClosestPoint( segment, capsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let segmentView = _.segment._from( segment );
   let dimS = _.segment.dimGet( segmentView );
@@ -1596,7 +1596,7 @@ function frustumDistance( srcSegment, srcFrustum )
   */
 function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
@@ -1823,7 +1823,7 @@ function lineDistance( srcSegment, srcLine )
   */
 function lineClosestPoint( srcSegment, srcLine, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( srcLine.length / 2 );
@@ -2067,7 +2067,7 @@ function planeDistance( srcSegment, srcPlane )
   */
 function planeClosestPoint( srcSegment, srcPlane, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
@@ -2321,7 +2321,7 @@ function rayDistance( srcSegment, srcRay )
   */
 function rayClosestPoint( srcSegment, srcRay, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( srcRay.length / 2 );
@@ -2553,7 +2553,7 @@ function segmentDistance( srcSegment, tstSegment )
   */
 function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( tstSegment.length / 2 );
@@ -2794,7 +2794,7 @@ function sphereDistance( srcSegment, srcSphere )
   */
 function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( arguments.length === 2 )
@@ -2856,7 +2856,7 @@ function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
   */
 function boundingSphereGet( dstSphere, srcSegment )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcSegmentView = _.segment._from( srcSegment );
   let origin = _.segment.originGet( srcSegmentView );

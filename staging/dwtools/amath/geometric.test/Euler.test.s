@@ -3667,7 +3667,7 @@ function isGimbalLock( test )
 function eachAngle( o )
 {
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.routineOptions( eachAngle, o );
 
   /**/

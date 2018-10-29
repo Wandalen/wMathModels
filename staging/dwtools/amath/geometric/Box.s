@@ -306,7 +306,7 @@ function from( box )
   // box = this.make();
 
   _.assert( _.box.is( box ) || box === null );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   if( box === null )
   return _.box.make();
@@ -340,7 +340,7 @@ function from( box )
 function _from( box )
 {
   _.assert( _.box.is( box ) );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return _.vector.from( box );
 }
 
@@ -572,7 +572,7 @@ function fromCube( box, size )
   */
 function is( box )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   // _.assert( !box.some( isNaN ) );
   return ( _.longIs( box ) || _.vectorIs( box ) ) && ( box.length >= 0 ) && ( box.length % 2 === 0 );
 }
@@ -595,7 +595,7 @@ function is( box )
   */
 function isEmpty( box )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let boxView = _.box._from( box );
   let dim = _.box.dimGet( boxView );
@@ -631,7 +631,7 @@ function isEmpty( box )
 function isZero( box )
 {
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let boxView = _.box._from( box );
   let dim = _.box.dimGet( boxView );
@@ -663,7 +663,7 @@ function isZero( box )
   */
 function isNil( box )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let boxView = _.box._from( box );
   let dim = _.box.dimGet( boxView );
@@ -701,7 +701,7 @@ function isNil( box )
   */
 function dimGet( box )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.box.is( box ) );
   return box.length / 2;
 }
@@ -731,7 +731,7 @@ function dimGet( box )
 function cornerLeftGet( box )
 {
   let boxView = _.box._from( box );
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return boxView.subarray( 0 , box.length / 2 );
 }
 
@@ -759,7 +759,7 @@ function cornerLeftGet( box )
   */
 function cornerRightGet( box )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let boxView = _.box._from( box );
   return boxView.subarray( box.length / 2 , box.length );
 }
@@ -1094,7 +1094,7 @@ function pointClosestPoint( box , point, dstPoint )
   if( box === null )
   box = _.box.make();
 
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = point.slice();
@@ -1199,7 +1199,7 @@ function pointExpand( dstBox , point )
   */
 function pointRelative( box , point, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   if( box === null )
   box = _.box.make();
@@ -1449,7 +1449,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   let tstMin = _.box.cornerLeftGet( tstBoxView );
   let tstMax = _.box.cornerRightGet( tstBoxView );
 
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( tstDim === srcDim );
 
   if( arguments.length === 2 )
@@ -1557,7 +1557,7 @@ function boxExpand( dstBox , srcBox )
 
 function capsuleIntersects( srcBox , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule._from( tstCapsule );
   let boxView = _.box._from( srcBox );
 
@@ -1569,7 +1569,7 @@ function capsuleIntersects( srcBox , tstCapsule )
 
 function capsuleDistance( srcBox , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule._from( tstCapsule );
   let boxView = _.box._from( srcBox );
 
@@ -1607,7 +1607,7 @@ function capsuleDistance( srcBox , tstCapsule )
   */
 function capsuleClosestPoint( box, capsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box._from( box );
   let dimB = _.box.dimGet( boxView );
@@ -1860,7 +1860,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
 
   let dstPointView = _.vector.from( dstPoint );
 
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( dimB === 3 );
   _.assert( dimB === dstPoint.length );
 
@@ -2007,7 +2007,7 @@ function lineDistance( srcBox , tstLine )
   */
 function lineClosestPoint( box, line, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box._from( box );
   let dimB = _.box.dimGet( boxView );
@@ -2103,7 +2103,7 @@ function rayDistance( srcBox , tstRay )
   */
 function rayClosestPoint( box, ray, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box._from( box );
   let dimB = _.box.dimGet( boxView );
@@ -2271,7 +2271,7 @@ function planeDistance( srcBox, plane )
   */
 function planeClosestPoint( srcBox, plane, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box._from( srcBox );
   let dimB = _.box.dimGet( boxView );
@@ -2350,7 +2350,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   */
 function planeExpand( dstBox, srcPlane )
 {
-  _.assert( arguments.length === 2, 'expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
 
   let boxView = _.box._from( dstBox );
   let dimB = _.box.dimGet( boxView );
@@ -2433,7 +2433,7 @@ function segmentDistance( srcBox , tstSegment )
   */
 function segmentClosestPoint( box, segment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box._from( box );
   let dimB = _.box.dimGet( boxView );
@@ -2659,7 +2659,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 
   let dstPointView = _.vector.from( dstPoint );
 
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( dimS === dimB );
   _.assert( dimS === dstPoint.length );
 
@@ -2758,7 +2758,7 @@ function sphereExpand( dstBox , srcSphere )
   */
 function boundingSphereGet( dstSphere, srcBox )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcBoxView = _.box._from( srcBox );
   let dimB = _.box.dimGet( srcBoxView );

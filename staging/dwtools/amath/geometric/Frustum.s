@@ -101,7 +101,7 @@ function fromMatrixHomogenous( frustum , m )
 
 function is( frustum )
 {
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return _.spaceIs( frustum ) && frustum.hasShape([ 4,6 ])
 }
 
@@ -138,7 +138,7 @@ function is( frustum )
 function cornersGet( srcfrustum )
 {
 
-  _.assert( arguments.length === 1, 'expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.frustum.is( srcfrustum ) );
   debugger;
 
@@ -388,7 +388,7 @@ function pointDistance( frustum, point )
 
 function pointClosestPoint( frustum , srcPoint, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   if( arguments.length === 2 )
@@ -754,7 +754,7 @@ function boxClosestPoint( frustum, box, dstPoint )
 
   _.assert( _.frustum.is( frustum ) );
   _.assert( dim1 === rows - 1 );
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( rows - 1 );
@@ -836,7 +836,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   */
 function boundingBoxGet( dstBox, srcFrustum )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   _.assert( _.frustum.is( srcFrustum ) );
   let dims = _.Space.dimsOf( srcFrustum ) ;
@@ -905,7 +905,7 @@ function boundingBoxGet( dstBox, srcFrustum )
 
 function capsuleIntersects( srcFrustum , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let tstCapsuleView = _.capsule._from( tstCapsule );
@@ -918,7 +918,7 @@ function capsuleIntersects( srcFrustum , tstCapsule )
 
 function capsuleDistance( srcFrustum , tstCapsule )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let tstCapsuleView = _.capsule._from( tstCapsule );
@@ -964,7 +964,7 @@ function capsuleDistance( srcFrustum , tstCapsule )
   */
 function capsuleClosestPoint( frustum, capsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
   let dims = _.Space.dimsOf( frustum ) ;
   let rows = dims[ 0 ];
@@ -1236,7 +1236,7 @@ function frustumDistance( srcFrustum , tstFrustum )
 
 function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
   _.assert( _.frustum.is( tstFrustum ) );
 
@@ -1352,7 +1352,7 @@ function lineDistance( srcFrustum , tstLine )
   */
 function lineClosestPoint( frustum, line, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let dimF = _.Space.dimsOf( frustum ) ;
@@ -1521,7 +1521,7 @@ function planeDistance( frustum, plane )
 
 function planeClosestPoint( frustum, plane, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   if( arguments.length === 2 )
@@ -1618,7 +1618,7 @@ function rayDistance( srcFrustum , tstRay )
   */
 function rayClosestPoint( frustum, ray, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let dimF = _.Space.dimsOf( frustum ) ;
@@ -1715,7 +1715,7 @@ function segmentDistance( srcFrustum , tstSegment )
   */
 function segmentClosestPoint( frustum, segment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let dimF = _.Space.dimsOf( frustum ) ;
@@ -1905,7 +1905,7 @@ function sphereDistance( frustum, sphere )
 
 function sphereClosestPoint( frustum , sphere, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   let sphereView = _.sphere._from( sphere );
   let center = _.sphere.centerGet( sphereView );
@@ -1965,7 +1965,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   */
 function boundingSphereGet( dstSphere, srcFrustum )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   _.assert( _.frustum.is( srcFrustum ) );
   let dims = _.Space.dimsOf( srcFrustum ) ;
