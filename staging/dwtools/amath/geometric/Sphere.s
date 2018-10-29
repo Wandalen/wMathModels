@@ -363,7 +363,7 @@ function _from( sphere )
 function fromPoints( sphere, points )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.arrayIs( points )  || _.longIs( points ) );
 
   debugger;
@@ -413,7 +413,7 @@ function fromPoints( sphere, points )
 
 function fromBox( sphere, box )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   _.assert( _.box.is( box ) );
 
@@ -477,7 +477,7 @@ function fromBox( sphere, box )
 
 function fromCenterAndRadius( sphere, center, radius )
 {
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three argument' );
   _.assert( _.longIs( center ) );
   _.assert( _.numberIs( radius ) );
 
@@ -735,7 +735,7 @@ function radiusGet( sphere )
 function radiusSet( sphere, radius )
 {
   _.assert( _.sphere.is( sphere ) );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.numberIs( radius ) );
 
   //if( _.vectorIs( sphere ) )
@@ -782,7 +782,7 @@ function pointContains( sphere, point )
   let radius = _.sphere.radiusGet( sphereView );
   let dim = _.sphere.dimGet( sphereView );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dim === point.length );
 
   debugger;
@@ -817,7 +817,7 @@ function pointDistance( sphere, point )
   let radius = _.sphere.radiusGet( sphereView );
   let dim = _.sphere.dimGet( sphereView );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dim === point.length );
 
   debugger;
@@ -924,7 +924,7 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
 
 function pointExpand( sphere , point )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.longIs( point ) || _.vectorIs( point ) );
   let sphereView = _.sphere._from( sphere );
   let center = _.sphere.centerGet( sphereView );
@@ -987,7 +987,7 @@ function pointExpand( sphere , point )
 function boxContains( sphere, box )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let sphereView = _.sphere._from( sphere );
   let center = _.sphere.centerGet( sphereView );
   let radius = _.sphere.radiusGet( sphereView );
@@ -1052,7 +1052,7 @@ function boxContains( sphere, box )
 function boxIntersects( sphere, box )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let sphereView = _.sphere._from( sphere );
   let center = _.sphere.centerGet( sphereView );
   let radius = _.sphere.radiusGet( sphereView );
@@ -1105,7 +1105,7 @@ function boxIntersects( sphere, box )
 function boxDistance( sphere, box )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let sphereView = _.sphere._from( sphere );
   let boxView = _.box._from( box );
 
@@ -1194,7 +1194,7 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   */
 function boxExpand( dstSphere, srcBox )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let sphereView = _.sphere._from( dstSphere );
   let center = _.sphere.centerGet( sphereView );
@@ -1252,7 +1252,7 @@ function boxExpand( dstSphere, srcBox )
 function frustumContains( srcSphere, tstFrustum )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( tstFrustum ) );
 
   let srcSphereView = _.sphere._from( srcSphere );
@@ -1297,7 +1297,7 @@ function frustumContains( srcSphere, tstFrustum )
 function frustumIntersects( srcSphere, tstFrustum )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( tstFrustum ) );
   let srcSphereView = _.sphere._from( srcSphere );
 
@@ -1335,7 +1335,7 @@ function frustumIntersects( srcSphere, tstFrustum )
 function frustumDistance( srcSphere, tstFrustum )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( tstFrustum ) );
 
   let srcSphereView = _.sphere._from( srcSphere );
@@ -1444,7 +1444,7 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
 function frustumExpand( dstSphere, srcFrustum )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dstSphereView = _.sphere._from( dstSphere );
@@ -1472,7 +1472,7 @@ function frustumExpand( dstSphere, srcFrustum )
 
 function lineIntersects( srcSphere, tstLine )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = _.sphere._from( srcSphere );
   let tstLineView = _.line._from( tstLine );
 
@@ -1485,7 +1485,7 @@ function lineIntersects( srcSphere, tstLine )
 
 function lineDistance( srcSphere , tstLine )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = _.sphere._from( srcSphere );
   let tstLineView = _.line._from( tstLine );
 
@@ -1588,7 +1588,7 @@ function lineClosestPoint( sphere, line, dstPoint )
 
 function planeIntersects( sphere, plane )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let sphereView = _.sphere._from( sphere );
   let planeView = _.plane._from( plane );
@@ -1624,7 +1624,7 @@ function planeIntersects( sphere, plane )
 
 function planeDistance( sphere, plane )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let sphereView = _.sphere._from( sphere );
   let planeView = _.plane._from( plane );
@@ -1760,7 +1760,7 @@ function planeExpand( dstSphere, srcPlane )
 
 function rayIntersects( srcSphere, tstRay )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = _.sphere._from( srcSphere );
   let tstRayView = _.ray._from( tstRay );
 
@@ -1773,7 +1773,7 @@ function rayIntersects( srcSphere, tstRay )
 
 function rayDistance( srcSphere , tstRay )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = _.sphere._from( srcSphere );
   let tstRayView = _.ray._from( tstRay );
 
@@ -1854,7 +1854,7 @@ function rayClosestPoint( sphere, ray, dstPoint )
 
 function segmentIntersects( srcSphere, tstSegment )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = _.sphere._from( srcSphere );
   let tstSegmentView = _.segment._from( tstSegment );
 
@@ -1867,7 +1867,7 @@ function segmentIntersects( srcSphere, tstSegment )
 
 function segmentDistance( srcSphere , tstSegment )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = _.sphere._from( srcSphere );
   let tstSegmentView = _.segment._from( tstSegment );
 
@@ -1983,7 +1983,7 @@ function sphereContains( srcSphere, tstSphere )
   let tstRadius = _.sphere.radiusGet( _tstSphere );
   let tstDim = _.sphere.dimGet( _tstSphere );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( srcDim === tstDim );
   debugger;
   // throw _.err( 'not tested' );
@@ -2031,7 +2031,7 @@ function sphereIntersects( sphere1, sphere2 )
   let radius2 = _.sphere.radiusGet( sphereView2 );
   let dim2 = _.sphere.dimGet( sphereView2 );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dim1 === dim2 );
   debugger;
   // throw _.err( 'not tested' );
@@ -2079,7 +2079,7 @@ function sphereDistance( srcSphere, tstSphere )
   let tstRadius = _.sphere.radiusGet( _tstSphere );
   let tstDim = _.sphere.dimGet( _tstSphere );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( srcDim === tstDim );
   debugger;
   // throw _.err( 'not tested' );
@@ -2195,7 +2195,7 @@ function sphereExpand( sphereDst, sphereSrc )
   let radiusSrc = _.sphere.radiusGet( sphereViewSrc );
   let dimSrc = _.sphere.dimGet( sphereViewSrc );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dimDst === dimSrc );
 
   if( radiusSrc === -Infinity )
@@ -2236,7 +2236,7 @@ function matrixHomogenousApply( sphere,matrix )
   let radius = _.sphere.radiusGet( sphereView );
   let dim = _.sphere.dimGet( sphereView );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.spaceIs( matrix ) );
   _.assert( dim+1 === matrix.ncol );
 
@@ -2251,7 +2251,7 @@ function matrixHomogenousApply( sphere,matrix )
 function translate( sphere,offset )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.spaceIs( matrix ) );
   debugger;
   throw _.err( 'not tested' );

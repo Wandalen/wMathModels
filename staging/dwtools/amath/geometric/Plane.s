@@ -141,7 +141,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
 
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three argument' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -245,7 +245,7 @@ function biasSet( plane,bias )
   let planeView = _.plane._from( plane );
 
   _.assert( _.numberIs( bias ) );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -275,7 +275,7 @@ function biasSet( plane,bias )
 
 function pointContains( plane , point )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let planeView = _.plane._from( plane );
   let pointVector = _.vector.from( point );
@@ -314,7 +314,7 @@ function pointDistance( plane , point )
   let bias = _.plane.biasGet( planeView );
   let pointVector = _.vector.from( point );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let mod = _.vector.dot( normal, normal );
   mod = Math.sqrt( mod );
@@ -431,7 +431,7 @@ function pointCoplanarGet( plane , point, dstPoint )
   */
 function boxIntersects( plane , srcBox )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let bool = false;
   let planeView = _.plane._from( plane );
@@ -504,7 +504,7 @@ function boxIntersects( plane , srcBox )
   */
 function boxDistance( plane , srcBox )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let planeView = _.plane._from( plane );
   let boxView = _.box._from( srcBox );
@@ -605,7 +605,7 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
   */
 function frustumIntersects( srcPlane, srcFrustum )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
   let srcPlaneView = _.plane._from( srcPlane );
 
@@ -644,7 +644,7 @@ function frustumIntersects( srcPlane, srcFrustum )
   */
 function frustumDistance( srcPlane , srcFrustum )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
   let srcPlaneView = _.plane._from( srcPlane );
 
@@ -745,7 +745,7 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
 */
 function lineIntersects( srcPlane , tstLine )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstLineView = _.line._from( tstLine );
   let planeView = _.plane._from( srcPlane );
 
@@ -826,7 +826,7 @@ function lineIntersection( plane , line , point )
 
 function lineDistance( srcPlane , tstLine )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstLineView = _.line._from( tstLine );
   let planeView = _.plane._from( srcPlane );
 
@@ -936,7 +936,7 @@ function planeIntersects( srcPlane, tstPlane )
   let tstNormal = _.plane.normalGet( dstPlaneView );
   let tstBias = _.plane.biasGet( dstPlaneView );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -986,7 +986,7 @@ function planeDistance( srcPlane, tstPlane )
   let tstNormal = _.plane.normalGet( dstPlaneView );
   let tstBias = _.plane.biasGet( dstPlaneView );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( srcPlaneView.length === dstPlaneView.length, 'Planes must have same dimension' );
 
   debugger;
@@ -1011,7 +1011,7 @@ function planeDistance( srcPlane, tstPlane )
 
 function rayIntersects( srcPlane , tstRay )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let planeView = _.plane._from( srcPlane );
   let tstRayView = _.ray._from( tstRay );
@@ -1025,7 +1025,7 @@ function rayIntersects( srcPlane , tstRay )
 
 function rayDistance( srcPlane , tstRay )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let planeView = _.plane._from( srcPlane );
   let tstRayView = _.ray._from( tstRay );
@@ -1128,7 +1128,7 @@ function rayClosestPoint( plane, ray, dstPoint )
 */
 function segmentIntersects( plane , segment )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let planeView = _.plane._from( plane );
   let normal = _.plane.normalGet( planeView );
@@ -1152,7 +1152,7 @@ function segmentIntersects( plane , segment )
 
 function segmentDistance( srcPlane , tstSegment )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstSegmentView = _.segment._from( tstSegment );
   let planeView = _.plane._from( srcPlane );
 
@@ -1259,7 +1259,7 @@ function sphereIntersects( plane , sphere )
   let bool = false;
   let planeView = _.plane._from( plane );
   _.assert( _.sphere.is( sphere ) );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   debugger;
 
@@ -1304,7 +1304,7 @@ function sphereDistance( plane , sphere )
   let center = _.sphere.centerGet( sphere );
   center = _.vector.from( center );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -1384,7 +1384,7 @@ function matrixHomogenousApply( plane , matrix )
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   debugger;
   throw _.err( 'not tested' );
 
@@ -1436,7 +1436,7 @@ function translate( plane , offset )
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   debugger;
   //  throw _.err( 'not tested' );
 
@@ -1561,7 +1561,7 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
   let normalThree = _.plane.normalGet( planeViewThree );
   let biasThree = _.plane.biasGet( planeViewThree );
 
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three argument' );
   _.assert( normalOne.length === normalTwo.length && normalTwo.length == normalThree.length );
 
   let Ispoint = _.vector.dot( normalOne, _.vector.cross( normalTwo.clone(), normalThree ) );

@@ -371,7 +371,7 @@ segmentAt.shaderChunk =
 */
 function getFactor( srcSegment, srcPoint )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPoint.length );
@@ -553,7 +553,7 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
   */
 function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( srcSegment1.length === srcSegment2.length,'The two segments must have the same dimension' );
 
   let srcSegment1View = _.segment._from( srcSegment1.slice() );
@@ -838,7 +838,7 @@ segmentIntersectionPointAccurate.shaderChunk =
   */
 function pointContains( srcSegment, srcPoint )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPoint.length );
@@ -935,7 +935,7 @@ function pointContains( srcSegment, srcPoint )
   */
 function pointDistance( srcSegment, srcPoint )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPoint.length );
@@ -1085,7 +1085,7 @@ function pointClosestPoint( srcSegment, srcPoint, dstPoint )
   */
 function boxIntersects( srcSegment, srcBox )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcBox.length / 2 );
@@ -1149,7 +1149,7 @@ function boxIntersects( srcSegment, srcBox )
   */
 function boxDistance( srcSegment, srcBox )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcBox.length / 2 );
@@ -1288,7 +1288,7 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
   */
 function frustumIntersects( srcSegment, srcFrustum )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
@@ -1352,7 +1352,7 @@ function frustumIntersects( srcSegment, srcFrustum )
   */
 function frustumDistance( srcSegment, srcFrustum )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
@@ -1489,7 +1489,7 @@ function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
   */
 function lineIntersects( srcSegment, srcLine )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcLineView = _.line._from( srcLine );
   let lineOrigin = _.line.originGet( srcLineView );
@@ -1549,7 +1549,7 @@ function lineIntersects( srcSegment, srcLine )
   */
 function lineDistance( srcSegment, srcLine )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcLine.length / 2 );
@@ -1750,7 +1750,7 @@ function lineClosestPoint( srcSegment, srcLine, dstPoint )
   */
 function planeIntersects( srcSegment, srcPlane )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPlane.length - 1 );
@@ -1812,7 +1812,7 @@ function planeIntersects( srcSegment, srcPlane )
   */
 function planeDistance( srcSegment, srcPlane )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPlane.length - 1 );
@@ -1955,7 +1955,7 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
   */
 function rayIntersects( srcSegment, srcRay )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcRayView = _.ray._from( srcRay );
   let rayOrigin = _.ray.originGet( srcRayView );
@@ -2016,7 +2016,7 @@ function rayIntersects( srcSegment, srcRay )
   */
 function rayDistance( srcSegment, srcRay )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcRay.length / 2 );
@@ -2261,7 +2261,7 @@ function segmentIntersects( srcSegment1, srcSegment2 )
   */
 function segmentDistance( srcSegment, tstSegment )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( tstSegment.length / 2 );
@@ -2472,7 +2472,7 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
   */
 function sphereIntersects( srcSegment, srcSphere )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcSegment === null )
@@ -2529,7 +2529,7 @@ function sphereIntersects( srcSegment, srcSphere )
   */
 function sphereDistance( srcSegment, srcSphere )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcSegment === null )

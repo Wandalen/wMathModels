@@ -371,7 +371,7 @@ lineAt.shaderChunk =
 */
 function getFactor( srcLine, srcPoint )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = _.line.make( srcPoint.length );
@@ -583,7 +583,7 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   */
 function lineIntersectionFactors( srcLine1, srcLine2 )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( srcLine1.length === srcLine2.length,'The two lines must have the same dimension' );
 
   let srcLine1View = _.line._from( srcLine1.slice() );
@@ -896,7 +896,7 @@ lineIntersectionPointAccurate.shaderChunk =
   */
 function pointContains( srcLine, srcPoint )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = _.line.make( srcPoint.length );
@@ -981,7 +981,7 @@ function pointContains( srcLine, srcPoint )
   */
 function pointDistance( srcLine, srcPoint )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = _.line.make( srcPoint.length );
@@ -1123,7 +1123,7 @@ function pointClosestPoint( srcLine, srcPoint, dstPoint )
   */
 function boxIntersects( srcLine, srcBox )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = _.line.make( srcBox.length / 2 );
@@ -1186,7 +1186,7 @@ function boxIntersects( srcLine, srcBox )
   */
 function boxDistance( srcLine, srcBox )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = _.line.make( srcBox.length / 2 );
@@ -1325,7 +1325,7 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
   */
 function frustumIntersects( srcLine, srcFrustum )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
@@ -1389,7 +1389,7 @@ function frustumIntersects( srcLine, srcFrustum )
   */
 function frustumDistance( srcLine, srcFrustum )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Space.dimsOf( srcFrustum ) ;
@@ -1555,7 +1555,7 @@ function lineIntersects( srcLine1, srcLine2 )
   */
 function lineDistance( srcLine, tstLine )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = _.line.make( tstLine.length / 2 );
@@ -1724,7 +1724,7 @@ function lineClosestPoint( srcLine, tstLine, dstPoint )
   */
 function planeIntersects( srcLine, srcPlane )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = _.line.make( srcPlane.length - 1 );
@@ -1791,7 +1791,7 @@ function planeIntersects( srcLine, srcPlane )
   */
 function planeDistance( srcLine, srcPlane )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = _.line.make( srcPlane.length - 1 );
@@ -1911,7 +1911,7 @@ function planeClosestPoint( srcLine, srcPlane, dstPoint )
   */
 function rayIntersects( srcLine, srcRay )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcRayView = _.ray._from( srcRay );
   let rayOrigin = _.ray.originGet( srcRayView );
@@ -1963,7 +1963,7 @@ function rayIntersects( srcLine, srcRay )
   */
 function rayDistance( srcLine, srcRay )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = _.line.make( srcRay.length / 2 );
@@ -2108,7 +2108,7 @@ function rayClosestPoint( srcLine, srcRay, dstPoint )
 
 function segmentIntersects( srcLine , tstSegment )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstSegmentView = _.segment._from( tstSegment );
   let lineView = _.line._from( srcLine );
 
@@ -2120,7 +2120,7 @@ function segmentIntersects( srcLine , tstSegment )
 
 function segmentDistance( srcLine , tstSegment )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstSegmentView = _.segment._from( tstSegment );
   let lineView = _.line._from( srcLine );
 
@@ -2249,7 +2249,7 @@ function segmentClosestPoint( srcLine, tstSegment, dstPoint )
   */
 function sphereIntersects( srcLine, srcSphere )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcLine === null )
@@ -2306,7 +2306,7 @@ function sphereIntersects( srcLine, srcSphere )
   */
 function sphereDistance( srcLine, srcSphere )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcLine === null )

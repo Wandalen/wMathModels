@@ -152,7 +152,7 @@ function representationSet( dstEuler, representation )
 {
   let dstEulerView = _.euler._from( dstEuler );
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( _.arrayIs( representation ) || _.longIs( representation ) )
   {
@@ -355,7 +355,7 @@ function fromQuat( dst, quat, v )
   let dstv = _.vector.from( dst );
   let quatv = _.quat._from( quat );
 
-  // _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  // _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let ox = dstv.eGet( 3 );
   let oy = dstv.eGet( 4 );
@@ -904,7 +904,7 @@ function fromMatrix( euler,mat )
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
 // m1
 // -0.875, 0.250, 0.415,
@@ -1265,7 +1265,7 @@ let Order =
 function fromQuat2( dstEuler, srcQuat )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
   if( dstEuler === undefined || dstEuler === null )
@@ -1622,7 +1622,7 @@ function fromQuat2( dstEuler, srcQuat )
 function toQuat2( srcEuler, dstQuat )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.euler.is( srcEuler ) );
   _.assert( dstQuat === undefined || dstQuat === null || _.quat.is( dstQuat ) );
 
@@ -1792,7 +1792,7 @@ function toQuat2( srcEuler, dstQuat )
 
 function fromMatrix2( dstEuler, srcMatrix )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
   if( dstEuler === undefined || dstEuler === null )
@@ -2186,7 +2186,7 @@ function fromMatrix2( dstEuler, srcMatrix )
 
 function fromMatrix3( dstEuler, srcMatrix )
 {
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.euler.is( dstEuler ) );
 
   _.assert( _.Space.is( srcMatrix ) );
@@ -2243,7 +2243,7 @@ function toMatrix2( srcEuler, dstMatrix )
 
   _.assert( dstMatrix.dims[ 0 ] === 3 );
   _.assert( dstMatrix.dims[ 1 ] === 3 );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let e1 = srcEulerView.eGet( 0 );
   let e2 = srcEulerView.eGet( 1 );

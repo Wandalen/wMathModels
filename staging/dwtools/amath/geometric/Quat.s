@@ -138,7 +138,7 @@ function _from( quat )
 function fromEuler( dst, euler, v )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   dst = _.quat.from( dst );
   let dstv = _.vector.from( dst );
@@ -450,7 +450,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 {
 
   _.assert( _.accuracySqr > 0 );
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   quat = _.quat.from( quat );
   let quatView = _.vector.from( quat );
@@ -482,7 +482,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 function fromVectors( dst, src1, src2 )
 {
 
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three argument' );
 
   dst = _.quat.from( dst );
   let dstv = _.vector.from( dst );
@@ -555,7 +555,7 @@ function fromVectors2( src1,src2,axis )
 function fromNormalizedVectors( dst, src1, src2 )
 {
 
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three argument' );
 
   dst = _.quat.from( dst );
   let dstv = _.vector.from( dst );
@@ -588,7 +588,7 @@ function fromNormalizedVectors( dst, src1, src2 )
 function fromMatrixRotation( dst, mat )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -653,7 +653,7 @@ function fromMatrixRotation( dst, mat )
 function fromMatrixRotation2( dst, mat )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -692,7 +692,7 @@ function fromMatrixRotation2( dst, mat )
 function fromMatrixWithScale( dst, mat )
 {
 
-  _.assert( arguments.length === 2, 'expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.Space.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -933,7 +933,7 @@ function mix( dst, src, val )
   let dstv = _.quat._from( dst );
   let srcv = _.quat._from( src );
 
-  _.assert( arguments.length === 3, 'expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three argument' );
 
   if( val === 0 )
   return dst;
