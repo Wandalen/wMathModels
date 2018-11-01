@@ -1,0 +1,52 @@
+
+about :
+
+  name : wMathConcepts
+  description : Collection of functions to operate such geometrical concepts as Sphere, Box, Plane, Frustum, Ray, Axis and Angle, Euler's Angles, Quaternion and other. Why MathConcepts? Three reasons. All functions of the module are purely functional. MathConcepts heavily relies on another great concept MathVector what makes the module less sensible to data formats of operational objects. The module provides functions for conversions from one to another conceptual form, for example from Quaternion to Euler's Angles or from Euler's Angles to Quaternion or between different representations of Euler's Angles. Unlike MatchConcepts many alternatives do conversions inconsistently or inaccurately. MatchConcepts is densely covered by tests and optimized for accuracy. Use MatchConcepts to have uniform experience solving geometrical problems and to get a more flexible program.
+  version : 0.3.110
+  enabled : 1
+  interpreters :
+  - nodejs >= 6.0.0
+  - chrome >= 60.0.0
+  - firefox >= 60.0.0
+  keywords :
+  - wTools
+
+execution :
+
+  scripts :
+    test : wtest staging
+    docgen : wdocgen staging
+
+path :
+
+  repository : git+https://github.com/Wandalen/wMathConcepts.git
+  bugs : https://github.com/Wandalen/wMathConcepts/issues
+  entry.debug : {path::out.debug}/dwtools/abase/____
+  entry.release : {path::out.release}/dwtools/abase/____
+
+build :
+
+  .debug.raw.export :
+    default : 1
+    setting :
+      debug : 1
+      raw : 1
+      export : 1
+      filesPath : path::out.debug
+      entryPath : path::entry.debug
+    steps :
+      - build::.debug
+      - step::export
+
+  .release.compiled.export :
+    setting :
+      debug : 0
+      raw : 0
+      export : 1
+      filesPath : path::out.release
+      entryPath : path::entry.release
+    steps :
+      - build::.release.compiled
+      - step::export
+
