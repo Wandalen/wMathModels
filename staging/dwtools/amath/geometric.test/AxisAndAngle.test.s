@@ -40,7 +40,7 @@ if( typeof module !== 'undefined' )
 
 var _ = _global_.wTools.withArray.Float32;
 var Space = _.Space;
-var Parent = _.Tester;
+var Parent = /*_.*/wTester;
 
 var avector = _.avector;
 var vector = _.vector;
@@ -757,6 +757,6 @@ var Self =
 
 Self = wTestSuite( Self );
 if( typeof module !== 'undefined' && !module.parent )
-_.Tester.test( Self.name );
+/*_.*/wTester.test( Self.name );
 
 } )( );
