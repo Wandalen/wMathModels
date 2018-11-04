@@ -1,6 +1,6 @@
 ( function _AxisAndAngle_test_s_( ) {
 
-'use strict';
+'use strict'; aaa
 
 if( typeof module !== 'undefined' )
 {
@@ -29,10 +29,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathVector' );
   _.include( 'wMathSpace' );
 
-  require( '../geometric/AxisAndAngle.s' );
-  require( '../geometric/Quat.s' );
-  require( '../geometric.test/Quat.test.s' );
-  require( '../geometric/aConcepts.s' );
+  require( '../l8/Concepts.s' );
 
 }
 

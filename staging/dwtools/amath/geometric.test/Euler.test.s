@@ -1,6 +1,6 @@
 ( function _Euler_test_s_( ) {
 
-'use strict';
+'use strict'; aaa
 
 
 /*
@@ -62,7 +62,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathSpace' );
   _.include( 'wLogger' );
 
-  require( '../geometric/aConcepts.s' );
+  require( '../l8/Concepts.s' );
 
 }
 

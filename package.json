@@ -15,9 +15,9 @@
     }
   ],
   "license": "MIT",
-  "main": "staging/dwtools/amath/geometric/aConcepts.s",
+  "main": "proto/dwtools/amath/geometric/aConcepts.s",
   "files": [
-    "staging/dwtools/amath/geometric",
+    "proto/dwtools/amath/geometric",
     "production"
   ],
   "scripts": {

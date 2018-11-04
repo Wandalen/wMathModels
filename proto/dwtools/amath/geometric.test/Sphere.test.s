@@ -1,6 +1,6 @@
 ( function _Sphere_test_s_( ) {
 
-'use strict';
+'use strict'; aaa
 
 if( typeof module !== 'undefined' )
 {
@@ -30,7 +30,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
 
-  require( '../geometric/aConcepts.s' );
+  require( '../l8/Concepts.s' );
 
 }
 

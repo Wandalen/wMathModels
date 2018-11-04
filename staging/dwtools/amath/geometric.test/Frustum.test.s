@@ -1,6 +1,6 @@
 ( function _Frustum_test_s_( ) {
 
-'use strict';
+'use strict'; aaa
 
 if( typeof module !== 'undefined' )
 {
@@ -29,7 +29,7 @@ if( typeof module !== 'undefined' )
  _.include( 'wMathVector' );
  _.include( 'wMathSpace' );
 
- require( '../geometric/aConcepts.s' );
+ require( '../l8/Concepts.s' );
 
 }
 

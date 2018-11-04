@@ -1,6 +1,6 @@
 ( function _Geometric_test_s_() {
 
-'use strict';
+'use strict'; aaa
 
 if( typeof module !== 'undefined' )
 {
@@ -28,7 +28,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
 
-  require( '../geometric/Geometric.s' );
+  require( '../l5/Geometric.s' );
 
 }
 

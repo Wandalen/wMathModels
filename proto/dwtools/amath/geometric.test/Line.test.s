@@ -1,6 +1,6 @@
 ( function _Line_test_s_( ) {
 
-'use strict';
+'use strict'; aaa
 
 // return;
 
@@ -30,7 +30,7 @@ if( typeof module !== 'undefined' )
   _.include( 'wMathVector' );
   _.include( 'wMathSpace' );
 
-  require( '../geometric/aConcepts.s' );
+  require( '../l8/Concepts.s' );
 
 }
 

@@ -1,6 +1,6 @@
 ( function _Box_test_s_( ) {
 
-'use strict';
+'use strict'; aaa
 
 /*
 
@@ -38,9 +38,9 @@ if( typeof module !== 'undefined' )
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
 
-//  require( '../geometric/Box.s' );
-//  require( '../geometric/Sphere.s' );
-  require( '../geometric/aConcepts.s' );
+//  require( '../l7/Box.s' );
+//  require( '../l7/Sphere.s' );
+  require( '../l8/Concepts.s' );
 
 
 }
