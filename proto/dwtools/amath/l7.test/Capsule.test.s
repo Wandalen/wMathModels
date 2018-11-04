@@ -1,6 +1,6 @@
 ( function _Capsule_test_s_( ) {
 
-'use strict'; aaa
+'use strict';
 
 // return;
 

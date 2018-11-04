@@ -1,6 +1,6 @@
 (function _Segment_s_(){
 
-'use strict'; aaa
+'use strict';
 
 let _ = _global_.wTools;
 let avector = _.avector;
