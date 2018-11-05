@@ -19,7 +19,7 @@
   "files": [
     "proto/dwtools/amath/l7",
     "proto/dwtools/amath/l8",
-    "production"
+    "proto/dwtools/Tools.s", "production"
   ],
   "scripts": {
     "test": "wtest staging",
