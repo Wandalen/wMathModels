@@ -2025,7 +2025,7 @@ function boundingSphereGet( dstSphere, srcFrustum )
   {
     center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
   }
-  
+
   // Radius of the sphere
   _.sphere.radiusSet( dstSphereView, _.vector.distance( center, max ) );
 

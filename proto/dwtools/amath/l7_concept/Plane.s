@@ -165,7 +165,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
   *
   * @example
   * // returns [ 0, 1, 0, 0 ];
-  * _.fromPoints( [ 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
+  * _.fromPoints( null, [ 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
   *
   * @returns { Array } Returns the array of the new plane.
   * @function fromPoints
@@ -197,7 +197,7 @@ function fromPoints( plane,a,b,c )
 
   let n1 = vector.subVectors( a.clone() , b );
   let n2 = vector.subVectors( c.clone() , b );
-  normal = vector.cross( n1,n2 );
+  normal = vector.cross( n1, n2 );
   debugger;
   normal.normalize();
 
