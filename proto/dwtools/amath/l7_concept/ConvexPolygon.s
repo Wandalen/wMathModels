@@ -74,7 +74,7 @@ function make( dim, vertices )
   *   0, 0, 1, 2, 2,
   *   0, 0, 0, 0, 0
   * ]);
-  * _.is( polygon );
+  * _.isPolygon( polygon );
   *
   * @example
   * // returns false;
@@ -84,10 +84,10 @@ function make( dim, vertices )
   *   0, 0, 1, 2, 2,
   *   0, 0, 0, 2, 0
   * ]);
-  * _.is( polygon );
+  * _.isPolygon( polygon );
   *
   * @returns { Boolean } Returns true if polygon is a polygon and false if not.
-  * @function is
+  * @function isPolygon
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @memberof wTools.convexPolygon
   */
@@ -100,14 +100,23 @@ function isPolygon( polygon )
 
   if(  dims[ 0 ] < 2 || dims[ 0 ] > 3 || dims[ 1 ] < 3 )
   return false;
-  else if( dims[ 0 ] > 2 && dims[ 0 ] < 4 && dims[ 1 ] > 3 )
+  else if( dims[ 0 ] === 3 && dims[ 1 ] > 3 )
   {
-    let vertexOne = polygon.colVectorGet( 0 );
-    let vertexTwo = polygon.colVectorGet( 1 );
-    let vertexThree = polygon.colVectorGet( 2 );
-    let plane = _.plane.fromPoints( null, vertexOne, vertexTwo, vertexThree );
+    let normal = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+    let plane = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let i = 0;
 
-    for( let i = 3 ; i < dims[ 1 ]; i += 1 )
+    while( _.vector.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    {
+      let pointOne = polygon.colVectorGet( i );
+      let pointTwo = polygon.colVectorGet( i + 1 );
+      let pointThree = polygon.colVectorGet( i + 2 );
+      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = _.plane.normalGet( plane );
+      i = i + 1;
+    }
+
+    for( let i = 0 ; i < dims[ 1 ]; i += 1 )
     {
       let vertex = polygon.colVectorGet( i );
       if( !_.plane.pointContains( plane, vertex ) )
@@ -121,10 +130,109 @@ function isPolygon( polygon )
 //
 
 /**
+  * Check if the source polygon is a convex polygon. Returns true if it is a convex polygon.
+  * Source polygon stays unchanged.
+  *
+  * @param { Space } polygon - The source polygon.
+  *
+  * @example
+  * // returns true;
+  * var polygon = _.Space.make([ 3, 5 ]).copy
+  * ([
+  *   1, 0, -1, 0, 2,
+  *   0, 0, 1, 2, 2,
+  *   0, 0, 0, 0, 0
+  * ]);
+  * _.is( polygon );
+  *
+  * @example
+  * // returns false;
+  * var polygon = _.Space.make([ 3, 5 ]).copy
+  * ([
+  *   1, 0, 1, 0, 2,
+  *   0, 0, 1, 2, 2,
+  *   0, 0, 0, 0, 0
+  * ]);
+  * _.is( polygon );
+  *
+  * @returns { Boolean } Returns true if polygon is a convex polygon and false if not.
+  * @function is
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof wTools.convexPolygon
+  */
+function is( polygon )
+{
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( _.spaceIs( polygon ) );
+
+
+  if( !_.convexPolygon.isPolygon( polygon ) )
+  return false;
+
+  let dims = _.Space.dimsOf( polygon );
+
+  let normal = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+  if( dims[ 0 ] === 3 )
+  {
+    let i = 0;
+    while( _.vector.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    {
+      let pointOne = polygon.colVectorGet( i );
+      let pointTwo = polygon.colVectorGet( i + 1 );
+      let pointThree = polygon.colVectorGet( i + 2 );
+      let plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = _.plane.normalGet( plane );
+      i = i + 1;
+    }
+  }
+
+  let angles = _.array.makeArrayOfLengthZeroed( dims[ 1 ] );
+
+  for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
+  {
+    let h =  ( i - 1 >= 0 ) ? i - 1 : dims[ 1 ] - 1;
+    let j =  ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
+
+    let pointOne = polygon.colVectorGet( h );
+    let pointTwo = polygon.colVectorGet( i );
+    let pointThree = polygon.colVectorGet( j );
+
+    if( dims[ 0 ] === 2 )
+    {
+      angles[ i ] = _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree );
+    }
+    else if( dims[ 0 ] === 3 )
+    {
+      angles[ i ] = _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree, normal );
+    }
+
+  }
+
+  function isBelowThreshold( currentValue )
+  {
+    return currentValue <= Math.PI;
+  }
+
+  function isAboveThreshold( currentValue )
+  {
+    return currentValue >= Math.PI;
+  }
+  debugger;
+
+  if( angles.every( isBelowThreshold ) || angles.every( isAboveThreshold ) )
+  return true;
+
+  return false;
+}
+
+//
+
+/**
   * Get an angle out of three points. Returns angle in radians.
   * Source points and normal stay unchanged.
-  * Angle is calculated counter clockwise, according to the plane of the src normal.
+  * Angle is calculated counter clockwise, according to the src normal direction.
   * If normal is not provided, it returns the small angle.
+  * For 2D, normal is not used ( always counter clockwise )
   *
   * @param { Array } pointOne - The first source point.
   * @param { Array } pointTwo - The second source point ( the middle point ).
@@ -209,7 +317,7 @@ let Proto =
 
   make : make,
   isPolygon : isPolygon,
-
+  is : is,
   angleThreePoints : angleThreePoints,
 
 }
