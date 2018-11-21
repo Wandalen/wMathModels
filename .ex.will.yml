@@ -1,10 +1,9 @@
 
-
 about :
 
   name : wMathConcepts
   description : Collection of functions to operate such geometrical concepts as Sphere, Box, Plane, Frustum, Ray, Axis and Angle, Euler's Angles, Quaternion and other. Why MathConcepts? Three reasons. All functions of the module are purely functional. MathConcepts heavily relies on another great concept MathVector what makes the module less sensible to data formats of operational objects. The module provides functions for conversions from one to another conceptual form, for example from Quaternion to Euler's Angles or from Euler's Angles to Quaternion or between different representations of Euler's Angles. Unlike MatchConcepts many alternatives do conversions inconsistently or inaccurately. MatchConcepts is densely covered by tests and optimized for accuracy. Use MatchConcepts to have uniform experience solving geometrical problems and to get a more flexible program.
-  version : 0.4.6
+  version : 0.4.7
   enabled : 1
   interpreters :
   - nodejs >= 6.0.0
@@ -24,33 +23,27 @@ path :
   repository : git+https://github.com/Wandalen/wMathConcepts.git
   bugs : https://github.com/Wandalen/wMathConcepts/issues
 
+step :
+
+  export.proto :
+    inherit : export
+    export : path::proto
+    tar : 0
+    criterion :
+      debug : 1
+      proto : 1
+
 build :
 
-  debug.raw.export :
-    exportDirPath : path::out.debug
+  proto.export :
     criterion :
       default : 1
       debug : 1
       raw : 1
+      proto : 1
       export : 1
-      tar : 0
+      tar : 1
     steps :
-      # - build::.debug.raw
-      - step::export
-
-  release.compiled.export :
-    exportDirPath : path::out.release
-    criterion :
-      debug : 0
-      raw : 0
-      export : 1
-      tar : 0
-    steps :
-      - build::release.compiled
-      - step::export
-
-  export.all :
-    steps :
-      - build::debug.raw.export
-      - build::release.compiled.export
+      - build::debug.raw
+      - step::export.proto
 
