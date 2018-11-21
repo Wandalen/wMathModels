@@ -140,11 +140,12 @@ function isPolygon( polygon )
   * @throws { Error } An Error if ( arguments.length ) is different than four.
   * @memberof wTools.convexPolygon
   */
-function angleThreePoints( pointOne, pointTwo, pointThree, normal  )
+function angleThreePoints( pointOne, pointTwo, pointThree, normal )
 {
   _.assert( arguments.length === 3 || arguments.length === 4, 'Expects three or four arguments' );
   _.assert( pointOne.length === pointTwo.length, 'Points must have same length' );
   _.assert( pointOne.length === pointThree.length, 'Points must have same length' );
+  _.assert( pointOne.length === 2 || pointOne.length === 3 , 'Implemented for 2D and 3D' );
 
   let angle;
   let pointOneView = _.vector.from( pointOne );
@@ -153,28 +154,45 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal  )
   let vectorOne = _.vector.subVectors( pointOneView.clone(), pointTwoView );
   let vectorTwo = _.vector.subVectors( pointThreeView.clone(), pointTwoView );
 
-  if( arguments.length === 3 )
+  if( pointOne.length === 3 )
   {
-    let plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-    var normal = _.plane.normalGet( plane );
+    if( arguments.length === 3 )
+    {
+      let plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      var normal = _.plane.normalGet( plane );
+    }
+
+    let normalView = _.vector.from( normal );
+    normalView.normalize();
+    _.assert( pointOne.length === normal.length, 'Normal and points must have same length' );
+
+    if( _.vector.mag( normalView ) === 0 )
+    {
+      debugger;
+      logger.log( 'Vectors',vectorOne.normalize(), vectorTwo.normalize() )
+      if( _.vector.allEquivalent( vectorOne.normalize(), vectorTwo.normalize() ) )
+      return 0;
+
+      return Math.PI;
+    }
+
+    _.assert( _.vector.mag( normalView ) === 1 );
+
+    let dot = _.vector.dot( vectorOne, vectorTwo );
+    let cross = _.vector.cross( vectorOne.clone(), vectorTwo );
+
+    let det = _.vector.dot( normalView, cross );
+
+    angle = Math.atan2( det, dot );
   }
-
-  let normalView = _.vector.from( normal );
-  normalView.normalize();
-  _.assert( pointOne.length === normal.length, 'Normal and points must have same length' );
-  _.assert( _.vector.mag( normalView ) === 1 );
-
-  let dot = _.vector.dot( vectorOne, vectorTwo );
-  let cross = _.vector.cross( vectorOne.clone(), vectorTwo );
-
-  let det = _.vector.dot( normalView, cross );
-
-  angle = Math.atan2( det, dot );
+  else
+  {
+    angle = Math.atan2( vectorTwo.eGet( 1 ), vectorTwo.eGet( 0 ) ) - Math.atan2( vectorOne.eGet( 1 ), vectorOne.eGet( 0 ) );
+  }
 
   if( angle < 0 )
-  {
-    angle = 2 * Math.PI + angle;
-  }
+  angle = 2 * Math.PI + angle;
+
   return angle;
 }
 

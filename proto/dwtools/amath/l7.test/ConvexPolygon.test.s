@@ -53,7 +53,7 @@ _.assert( _.routineIs( sqrt ) );
 function make( test )
 {
 
-  test.description = 'Dim and vertices remain unchanged'; //
+  test.case = 'Dim and vertices remain unchanged'; //
 
   var dim = 3;
   var vertices = 8;
@@ -74,7 +74,7 @@ function make( test )
   var oldVertices = 8;
   test.identical( vertices, oldVertices );
 
-  test.description = 'Triangle 2D'; //
+  test.case = 'Triangle 2D'; //
 
   var dim = 2;
   var vertices = 3;
@@ -88,7 +88,7 @@ function make( test )
   ]);
   test.equivalent( gotPolygon, expected );
 
-  test.description = 'Square 3D'; //
+  test.case = 'Square 3D'; //
 
   var dim = 3;
   var vertices = 4;
@@ -103,7 +103,7 @@ function make( test )
   ]);
   test.equivalent( gotPolygon, expected );
 
-  test.description = 'Pentagone 2D'; //
+  test.case = 'Pentagone 2D'; //
 
   var dim = 2;
   var vertices = 5;
@@ -147,7 +147,7 @@ function make( test )
 function isPolygon( test )
 {
 
-  test.description = 'Source polygon remains unchanged'; //
+  test.case = 'Source polygon remains unchanged'; //
 
   var polygon = _.convexPolygon.make( 3, 3 );
 
@@ -159,7 +159,7 @@ function isPolygon( test )
   var oldPolygon = _.convexPolygon.make( 3, 3 );
   test.equivalent( oldPolygon, polygon );
 
-  test.description = 'Triangle 2D'; //
+  test.case = 'Triangle 2D'; //
 
   var polygon = _.convexPolygon.make( 2, 3 ).copy
   ([
@@ -172,7 +172,7 @@ function isPolygon( test )
   var expected = true;
   test.equivalent( gotBool, expected );
 
-  test.description = 'Square 3D'; //
+  test.case = 'Square 3D'; //
 
   var polygon = _.convexPolygon.make( 3, 4 ).copy
   ([
@@ -186,7 +186,7 @@ function isPolygon( test )
   var expected = true;
   test.equivalent( gotBool, expected );
 
-  test.description = '4 points in 3D not coplanar'; //
+  test.case = '4 points in 3D not coplanar'; //
 
   var polygon = _.convexPolygon.make( 3, 4 ).copy
   ([
@@ -200,7 +200,7 @@ function isPolygon( test )
   var expected = false;
   test.equivalent( gotBool, expected );
 
-  test.description = 'Pentagone 2D'; //
+  test.case = 'Pentagone 2D'; //
 
   var polygon = _.convexPolygon.make( 2, 5 ).copy
   ([
@@ -213,7 +213,7 @@ function isPolygon( test )
   var expected = true;
   test.equivalent( gotBool, expected );
 
-  test.description = 'Dim < 2'; //
+  test.case = 'Dim < 2'; //
 
   var polygon = _.Space.make( [ 1, 5 ] ).copy
   ([
@@ -225,7 +225,7 @@ function isPolygon( test )
   var expected = false;
   test.equivalent( gotBool, expected );
 
-  test.description = 'Dim > 3'; //
+  test.case = 'Dim > 3'; //
 
   var polygon = _.Space.make( [ 4, 5 ] ).copy
   ([
@@ -240,7 +240,7 @@ function isPolygon( test )
   var expected = false;
   test.equivalent( gotBool, expected );
 
-  test.description = 'Vertices < 3'; //
+  test.case = 'Vertices < 3'; //
 
   var polygon = _.Space.make( [ 2, 2 ] ).copy
   ([
@@ -253,7 +253,7 @@ function isPolygon( test )
   var expected = false;
   test.equivalent( gotBool, expected );
 
-  test.description = 'Three points are always coplanar'; //
+  test.case = 'Three points are always coplanar'; //
 
   var polygon = _.convexPolygon.make( 3, 3 ).copy
   ([
@@ -284,6 +284,262 @@ function isPolygon( test )
 
 }
 
+//
+
+function angleThreePoints( test )
+{
+
+  test.case = 'Source points and normal remain unchanged'; //
+
+  var pointOne = [ 1, 0, 0 ];
+  var pointTwo = [ 0, 0, 0 ];
+  var pointThree = [ 0, 1, 0 ];
+  var normal = [ 0, 0, 1 ];
+
+  var gotAngle = _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree, normal );
+
+  var expected = Math.PI / 2;
+  test.identical( gotAngle, expected );
+
+  var oldPointOne = [ 1, 0, 0 ];
+  test.equivalent( oldPointOne, pointOne );
+
+  var oldPointTwo = [ 0, 0, 0 ];
+  test.equivalent( oldPointTwo, pointTwo );
+
+  var oldPointThree = [ 0, 1, 0 ];
+  test.equivalent( oldPointThree, pointThree );
+
+  var oldNormal = [ 0, 0, 1 ];
+  test.equivalent( oldNormal, normal );
+
+  test.case = 'Zero angle'; //
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1 ], [ 2, 2 ], [ 1, 1 ] );
+  var expected = 0;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1, 1 ], [ 2, 2, 2 ], [ 1, 1, 1 ], [ 1, 0, 0 ] );
+  var expected = 0;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1, 1 ], [ 2, 2, 2 ], [ 1, 1, 1 ], [ - 1, 0, 0 ] );
+  var expected = 0;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1, 1 ], [ 2, 2, 2 ], [ 1, 1, 1 ] );
+  var expected = 0;
+  test.identical( gotAngle, expected );
+
+  test.case = '3D small angle ( no normal to set angle direction )'; //
+
+  test.description = 'Angle = PI - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1, 1 ], [ 2, 2, 2 ], [ 3, 3, 3 ] );
+  var expected = Math.PI;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 3, 3, 3 ], [ 2, 2, 2 ], [ -1, -1, -1 ] );
+  var expected = Math.PI;
+  test.identical( gotAngle, expected );
+
+
+  test.description = 'Angle = 3* PI / 4 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 2, 0 ], [ 0, 2, 0 ], [ -1, 2, 1 ] );
+  var expected = 3 * Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ -1, 2, 1 ], [ 0, 2, 0 ], [ 1, 2, 0 ] );
+  var expected = 3 * Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 2 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0, 2 ], [ 0, 0, 2 ], [ 0, 1, 2 ] );
+  var expected = Math.PI / 2;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 0, 1, 2 ], [ 0, 0, 2 ], [ 1, 0, 2 ] );
+  var expected = Math.PI / 2;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 3 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0, 2 ], [ 0, 0, 2 ], [ Math.cos( Math.PI / 3 ), Math.sin( Math.PI / 3 ), 2 ] );
+  var expected = Math.PI / 3;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ Math.cos( Math.PI / 3 ), Math.sin( Math.PI / 3 ), 2 ], [ 0, 0, 2 ], [ 1, 0, 2 ] );
+  var expected = Math.PI / 3;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 4 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0, 2 ], [ 0, 0, 2 ], [ 4, 4, 2 ] );
+  var expected = Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1, 2 ], [ 0, 0, 2 ], [ 1, 0, 2 ] );
+  var expected = Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 6 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0, 2 ], [ 0, 0, 2 ], [ Math.cos( Math.PI / 6 ), Math.sin( Math.PI / 6 ), 2 ] );
+  var expected = Math.PI / 6;
+  test.equivalent( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 3* Math.cos( Math.PI / 6 ), 3* Math.sin( Math.PI / 6 ), 2 ], [ 0, 0, 2 ], [ 1, 0, 2 ] );
+  var expected = Math.PI / 6;
+  test.equivalent( gotAngle, expected );
+
+  test.case = '3D small angle with direction'; //
+
+  test.description = 'Angle = PI - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1, 1 ], [ 2, 2, 2 ], [ 3, 3, 3 ], [ 0, 0, 1 ] );
+  var expected = Math.PI;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 3, 3, 3 ], [ 2, 2, 2 ], [ 1, 1, 1 ], [ 0, 0, 1 ] );
+  var expected = 2 * Math.PI - Math.PI;
+  test.identical( gotAngle, expected );
+
+
+  test.description = 'Angle = 3* PI / 4 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 2, 0 ], [ 0, 2, 0 ], [ -1, 2, 1 ], [ 0, - 1, 0 ] );
+  var expected = 3 * Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ -1, 2, 1 ], [ 0, 2, 0 ], [ 1, 2, 0 ], [ 0, - 1, 0 ] );
+  var expected = 2 * Math.PI - 3 * Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 2 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0, 2 ], [ 0, 0, 2 ], [ 0, 1, 2 ], [ 0, 0, - 1 ] );
+  var expected = 2 * Math.PI - Math.PI / 2;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 0, 1, 2 ], [ 0, 0, 2 ], [ 1, 0, 2 ], [ 0, 0, - 1 ] );
+  var expected = Math.PI / 2;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 3 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0, 2 ], [ 0, 0, 2 ], [ Math.cos( Math.PI / 3 ), Math.sin( Math.PI / 3 ), 2 ], [ 0, 0, 1 ] );
+  var expected = Math.PI / 3;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ Math.cos( Math.PI / 3 ), Math.sin( Math.PI / 3 ), 2 ], [ 0, 0, 2 ], [ 1, 0, 2 ], [ 0, 0, 1 ] );
+  var expected = 2 * Math.PI - Math.PI / 3;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 4 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0, 2 ], [ 0, 0, 2 ], [ 4, 4, 2 ], [ 0, 0, 4 ] );
+  var expected = Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1, 2 ], [ 0, 0, 2 ], [ 1, 0, 2 ], [ 0, 0, 4 ] );
+  var expected = 2 * Math.PI - Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 6 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0, 2 ], [ 0, 0, 2 ], [ Math.cos( Math.PI / 6 ), Math.sin( Math.PI / 6 ), 2 ], [ 0, 0, 1 ] );
+  var expected = Math.PI / 6;
+  test.equivalent( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ Math.cos( Math.PI / 6 ), Math.sin( Math.PI / 6 ), 2 ], [ 0, 0, 2 ], [ 1, 0, 2 ], [ 0, 0, 1 ] );
+  var expected = 2 * Math.PI - Math.PI / 6;
+  test.equivalent( gotAngle, expected );
+
+  test.case = '2D angle'; //
+
+  test.description = 'Angle = PI '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1 ], [ 2, 2 ], [ 3, 3 ] );
+  var expected = Math.PI;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 3, 3 ], [ 2, 2 ], [ 1, 1 ] );
+  var expected = 2 * Math.PI - Math.PI;
+  test.identical( gotAngle, expected );
+
+
+  test.description = 'Angle = 3* PI / 4 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0 ], [ 0, 0 ], [ -1, 1 ] );
+  var expected = 3 * Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ -1, 1 ], [ 0, 0 ], [ 1, 0 ] );
+  var expected = 2 * Math.PI - 3 * Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 2 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0 ], [ 0, 0 ], [ 0, 1 ] );
+  var expected = Math.PI / 2;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 0, 1 ], [ 0, 0 ], [ 1, 0 ] );
+  var expected = 2 * Math.PI - Math.PI / 2;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 3 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0 ], [ 0, 0 ], [ Math.cos( Math.PI / 3 ), Math.sin( Math.PI / 3 ) ] );
+  var expected = Math.PI / 3;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ Math.cos( Math.PI / 3 ), Math.sin( Math.PI / 3 ) ], [ 0, 0 ], [ 1, 0 ] );
+  var expected = 2 * Math.PI - Math.PI / 3;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 4 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0 ], [ 0, 0 ], [ 4, 4 ] );
+  var expected = Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 1 ], [ 0, 0 ], [ 1, 0 ] );
+  var expected = 2 * Math.PI - Math.PI / 4;
+  test.identical( gotAngle, expected );
+
+  test.description = 'Angle = PI / 6 - both directions '
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ 1, 0 ], [ 0, 0 ], [ Math.cos( Math.PI / 6 ), Math.sin( Math.PI / 6 ) ] );
+  var expected = Math.PI / 6;
+  test.equivalent( gotAngle, expected );
+
+  var gotAngle = _.convexPolygon.angleThreePoints( [ Math.cos( Math.PI / 6 ), Math.sin( Math.PI / 6 ) ], [ 0, 0 ], [ 1, 0 ] );
+  var expected = 2 * Math.PI - Math.PI / 6;
+  test.equivalent( gotAngle, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon = _.Space.make( [ 3, 3 ] );
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( [ 1, 0, 0 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( [ 1, 0, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ], ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( [ 1, 0, 0 ], [ 1, 0 ], [ 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( [ 1, 0, 0, 0 ], [ 1, 0, 1, 0 ], [ 1, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( null, [ 1, 0, 0 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( NaN, [ 1, 0, 0 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( undefined, [ 1, 0, 0 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( 'polygon', [ 1, 0, 0 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( 3, [ 1, 0, 0 ], [ 1, 0, 0 ] ));
+
+}
+
 
 // --
 // declare
@@ -303,8 +559,8 @@ var Self =
 
     make : make,
     isPolygon : isPolygon,
+    angleThreePoints : angleThreePoints,
 
-    //angleThreePoints : angleThreePoints,
 
   }
 
