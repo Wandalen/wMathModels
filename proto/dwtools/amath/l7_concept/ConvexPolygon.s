@@ -23,7 +23,7 @@ represents one of the plygon´s vertices.
 // --
 
 /**
-  * Create a convex polygon of 'vertices' number of vertices and dimension dim, full of zeros.
+  * Create a convex polygon of 'vertices' number of vertices and dimension dim ( 2 or 3 ), full of zeros.
   * Returns the created polygon. Vertices and dim remain unchanged.
   *
   * @param { Number } vertices - Number of vertices of the polygon.
@@ -50,8 +50,8 @@ represents one of the plygon´s vertices.
 function make( dim, vertices )
 {
   _.assert( arguments.length === 2, 'convexPolygon.make expects exactly 2 arguments' );
-  _.assert( _.numberIs( dim ), 'dim must be a number' );
-  _.assert( _.numberIs( vertices ), 'vertices must be a number' );
+  _.assert( _.numberIs( dim ) && dim > 1 && dim < 4, 'dim must be a number ( 2 or 3 )' );
+  _.assert( _.numberIs( vertices ) && vertices > 2, 'vertices must be a number superior to two' );
 
   let dst = _.Space.makeZero([ dim, vertices ]);
 
@@ -61,7 +61,7 @@ function make( dim, vertices )
 //
 
 /**
-  * Check if the source polygon is a convex polygon. Returns true if it is a convex polygon.
+  * Check if the source polygon is a polygon. Returns true if it is a polygon.
   * Source polygon stays unchanged.
   *
   * @param { Space } polygon - The source polygon.
@@ -86,18 +86,21 @@ function make( dim, vertices )
   * ]);
   * _.is( polygon );
   *
-  * @returns { Boolean } Returns true of polygon is a convex polygon and false if not.
+  * @returns { Boolean } Returns true if polygon is a polygon and false if not.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @memberof wTools.convexPolygon
   */
-function is( polygon )
+function isPolygon( polygon )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( _.spaceIs( polygon ) );
 
   let dims = _.Space.dimsOf( polygon );
 
-  if( dims[ 1 ] > 3 )
+  if(  dims[ 0 ] < 2 || dims[ 0 ] > 3 || dims[ 1 ] < 3 )
+  return false;
+  else if( dims[ 0 ] > 2 && dims[ 0 ] < 4 && dims[ 1 ] > 3 )
   {
     let vertexOne = polygon.colVectorGet( 0 );
     let vertexTwo = polygon.colVectorGet( 1 );
@@ -112,7 +115,7 @@ function is( polygon )
     }
   }
 
-  return _.spaceIs( polygon );
+  return true;
 }
 
 //
@@ -187,7 +190,7 @@ let Proto =
 {
 
   make : make,
-  is : is,
+  isPolygon : isPolygon,
 
   angleThreePoints : angleThreePoints,
 
