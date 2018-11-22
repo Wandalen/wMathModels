@@ -106,7 +106,7 @@ function isPolygon( polygon )
     let plane = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( _.vector.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( _.vector.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -175,7 +175,7 @@ function is( polygon )
   if( dims[ 0 ] === 3 )
   {
     let i = 0;
-    while( _.vector.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( _.vector.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -304,6 +304,115 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   return angle;
 }
 
+//
+
+/**
+  * Check if the source polygon contains the source point. Returns true if it contains it.
+  * Source polygon and point stay unchanged.
+  *
+  * @param { Space } polygon - The source polygon.
+  * @param { Array } point - The source point.
+  *
+  * @example
+  * // returns true;
+  * var polygon = _.Space.make([ 3, 5 ]).copy
+  * ([
+  *   1, 0, -1, 0, 2,
+  *   0, 0, 1, 2, 2,
+  *   0, 0, 0, 0, 0
+  * ]);
+  * _.pointContains( polygon, [ 1, 1, 0 ] );
+  *
+  * @example
+  * // returns false;
+  * var polygon = _.Space.make([ 3, 5 ]).copy
+  * ([
+  *   1, 0, -1, 0, 2,
+  *   0, 0, 1, 2, 2,
+  *   0, 0, 0, 0, 0
+  * ]);
+  * _.pointContains( polygon, [ 3, 3, 3 ] );
+  *
+  * @returns { Boolean } Returns true if the src polygon contains the src point, and false if not.
+  * @function pointContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( point ) is not a point.
+  * @memberof wTools.convexPolygon
+  */
+
+function pointContains( polygon, point )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let pointView = _.vector.from( point );
+  let dims = _.Space.dimsOf( polygon );
+
+  _.assert( dims[ 0 ] === point.length, 'Polygon and point must have same dimension' )
+  debugger;
+
+  let normal = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+  if( dims[ 0 ] === 3 )
+  {
+    let plane = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let i = 0;
+    while( _.vector.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    {
+      let pointOne = polygon.colVectorGet( i );
+      let pointTwo = polygon.colVectorGet( i + 1 );
+      let pointThree = polygon.colVectorGet( i + 2 );
+      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = _.plane.normalGet( plane );
+      i = i + 1;
+    }
+
+    if( !_.plane.pointContains( plane, pointView ) )
+    return false;
+  }
+
+  let angles = _.array.makeArrayOfLengthZeroed( dims[ 1 ] );
+
+  for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
+  {
+    let j =  ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
+
+    let vertex = polygon.colVectorGet( i );
+    let nextVertex = polygon.colVectorGet( j );
+
+    if( _.vector.allEquivalent( pointView, vertex ) )
+    return true;
+
+    if( dims[ 0 ] === 2 )
+    {
+      angles[ i ] = _.convexPolygon.angleThreePoints( vertex, pointView, nextVertex );
+    }
+    else if( dims[ 0 ] === 3 )
+    {
+      angles[ i ] = _.convexPolygon.angleThreePoints(  vertex, pointView, nextVertex, normal );
+    }
+  }
+
+  if(  _.avector.allEquivalent( angles, _.array.makeArrayOfLengthZeroed( dims[ 1 ] ) ) )
+  return false;
+
+  function isBelowThreshold( currentValue )
+  {
+    return currentValue <= Math.PI;
+  }
+
+  function isAboveThreshold( currentValue )
+  {
+    return currentValue >= Math.PI;
+  }
+  debugger;
+
+  if( angles.every( isBelowThreshold ) || angles.every( isAboveThreshold ) )
+  return true;
+
+  return false;
+}
+
 
 
 
@@ -319,6 +428,8 @@ let Proto =
   isPolygon : isPolygon,
   is : is,
   angleThreePoints : angleThreePoints,
+
+  pointContains : pointContains,
 
 }
 

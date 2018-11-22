@@ -299,7 +299,6 @@ function isPolygon( test )
 
 //
 
-
 function is( test )
 {
 
@@ -709,6 +708,304 @@ function angleThreePoints( test )
 
 }
 
+//
+
+function pointContains( test )
+{
+
+  test.case = 'Source polygon and point remain unchanged'; //
+
+  var polygon = _.convexPolygon.make( 3, 3 );
+  var point = [ 1, 2, 3 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+
+  var expected = false;
+  test.identical( gotBool, expected );
+
+  var oldPolygon = _.convexPolygon.make( 3, 3 );
+  test.equivalent( oldPolygon, polygon );
+
+  var oldPoint = [ 1, 2, 3 ];
+  test.equivalent( oldPoint, point );
+
+  test.case = 'Triangle'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 3 ).copy
+  ([
+    1, 0, 0,
+    0, 0, 1
+  ]);
+  var point = [ 0.5, 0.5 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  var polygon = _.convexPolygon.make( 2, 3 ).copy
+  ([
+    1, 0, 0,
+    0, 0, 1
+  ]);
+  var point = [ 0.5, 2.5 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  test.description = '3D';
+  var polygon = _.convexPolygon.make( 3, 3 ).copy
+  ([
+    1, 4, 2,
+    3, 4, 1,
+    2, 2, 2
+  ]);
+  var point = [ 1.5, 3, 2 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  var polygon = _.convexPolygon.make( 3, 3 ).copy
+  ([
+    -1, 0, 0,
+    0, 0, -1,
+    0, 0, 0
+  ]);
+  var point = [ -0.5, -0.5, 2 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Square'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    3, 3, 4, 4,
+    3, 4, 4, 3
+  ]);
+  var point = [ 3.1, 3.9 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    3, 3, 4, 4,
+    3, 4, 4, 3
+  ]);
+  var point = [ 3.1, 4.1 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  test.description = '3D';
+  var polygon = _.convexPolygon.make( 3, 4 ).copy
+  ([
+    1, 0, 0, 1,
+    0, 0, 1, 1,
+    2, 2, 2, 2
+  ]);
+  var point = [ 0, 0.5, 2 ]
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  var polygon = _.convexPolygon.make( 3, 4 ).copy
+  ([
+    1, 0, 0, 1,
+    0, 0, 1, 1,
+    0, 0, 0, 0
+  ]);
+  var point = [ 0.5, 0.5, 2 ]
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Pentagone 2D'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 5 ).copy
+  ([
+    1, 0, 0, 1, 2,
+    0, 0, 1, 1, 1
+  ]);
+  var point = [ 0, 0 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  var polygon = _.convexPolygon.make( 2, 5 ).copy
+  ([
+    1, 0, 0, 1, 2,
+    0, 0, 1, 1, 1
+  ]);
+  var point = [ - 0.1, 0.1 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  test.description = '3D';
+  var polygon = _.convexPolygon.make( 3, 5 ).copy
+  ([
+    1, 0, 0, 1, 2,
+    0, 0, 1, 1, 1,
+    2, 2, 2, 2, 2
+  ]);
+  var point = [ 0, 0.5, 2 ]
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  var polygon = _.convexPolygon.make( 3, 5 ).copy
+  ([
+    1, 0, 0, 1, 2,
+    0, 0, 1, 1, 1,
+    0, 0, 0, 0, 0
+  ]);
+  var point = [ 0.5, 0.5, 2 ]
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Many vertices'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 10 ).copy
+  ([
+    1,   0,  -1, -2, -2.1, -2,  -1,   0,   1, 2,
+    0.1, 0, 0.1,  1,  1.5,  2, 2.5, 2.6, 2.5, 1
+  ]);
+  var pointT = [ 0, 0.1 ];
+  var pointF = [ 0, - 0.1 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, pointT );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  var gotBool = _.convexPolygon.pointContains( polygon, pointF );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  test.description = '3D';
+  var polygon = _.convexPolygon.make( 3, 10 ).copy
+  ([
+    1,   0,  -1, -2, -2.1, -2,  -1,   0,   1, 2,
+    0.1, 0, 0.1,  1,  1.5,  2, 2.5, 2.6, 2.5, 1,
+    4,   4,   4,  4,    4,  4,   4,   4,   4, 4
+  ]);
+  var pointT = [ 0, 0.1, 4 ];
+  var pointF = [ 0, 0.1, 2 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, pointT );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  var gotBool = _.convexPolygon.pointContains( polygon, pointF );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Point in vertex'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, -2,
+    0.1, 0, 0.1,  1
+  ]);
+  var point = [ -1, 0.1 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Point close to vertex'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, -2,
+    0.1, 0, 0.1,  1
+  ]);
+  var point = [ -1, 0 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Point in edge'; //
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, 0,
+    0, 0,  1,  2
+  ]);
+  var point = [ 0.5, 0 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, point );
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Point in edge line but outside polygon'; //
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, -2,
+    0.1, 0, 0.1,  1
+  ]);
+  var pointOne = [ -2, 0 ];
+  var pointTwo = [  2, 0 ];
+
+  var gotBool = _.convexPolygon.pointContains( polygon, pointOne );
+  var expected = false;
+  test.equivalent( gotBool, expected );
+
+  var gotBool = _.convexPolygon.pointContains( polygon, pointTwo );
+  test.equivalent( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, -2,
+    0.1, 0, 0.1,  1
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1, 0 ], [ 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( null, [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( NaN, [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( undefined, [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( 'polygon', [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( [ 3 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( 3, [ 1, 0, 0 ] ));
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1, 0, 0, 0.1,
+    0, 0, 1, 0.1
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1, 0 ] ));
+
+  var polygon = _.Space.make( [ 1, 2 ] )
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1 ] ));
+}
+
 
 // --
 // declare
@@ -730,6 +1027,8 @@ var Self =
     isPolygon : isPolygon,
     is : is,
     angleThreePoints : angleThreePoints,
+
+    pointContains : pointContains,
 
 
   }
