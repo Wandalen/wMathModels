@@ -310,7 +310,7 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   * Check if the source polygon contains the source point. Returns true if it contains it.
   * Source polygon and point stay unchanged.
   *
-  * @param { Space } polygon - The source polygon.
+  * @param { ConvexPolygon } polygon - The source polygon.
   * @param { Array } point - The source point.
   *
   * @example
@@ -340,7 +340,6 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   * @throws { Error } An Error if ( point ) is not a point.
   * @memberof wTools.convexPolygon
   */
-
 function pointContains( polygon, point )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -413,6 +412,87 @@ function pointContains( polygon, point )
   return false;
 }
 
+//
+
+/**
+  * Calculates the distance between a convex polygon and a point. Returns the calculated distance.
+  * Polygon and point remain unchanged.
+  *
+  * @param { ConvexPolygon } polygon - Source polygon.
+  * @param { Array } point - Source point.
+  *
+  * @example
+  * // returns 1;
+  * let polygon = _.Space.make( [ 2, 3 ] ).copy
+  * ([
+  *     0, 1, 0,
+  *     1, 0, 0
+  * ]);
+  * _.pointDistance( polygon, [ 2, 0 ] );
+  **
+  * @returns { Distance } Returns the distance between the polygon and the point.
+  * @function pointDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not convex polygon.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.convexPolygon
+  */
+function pointDistance( polygon, point )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let pointView = _.vector.from( point );
+  let dims = _.Space.dimsOf( polygon );
+
+  _.assert( dims[ 0 ] === pointView.length, 'Polygon and point must have same dimension' )
+  debugger;
+
+  if( _.convexPolygon.pointContains( polygon, pointView ) )
+  return 0;
+
+
+  let plane = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+  if( dims[ 0 ] === 3 )
+  {
+    let normal = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+    let i = 0;
+    while( _.vector.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    {
+      let pointOne = polygon.colVectorGet( i );
+      let pointTwo = polygon.colVectorGet( i + 1 );
+      let pointThree = polygon.colVectorGet( i + 2 );
+      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = _.plane.normalGet( plane );
+      i = i + 1;
+    }
+
+    let proy = _.vector.from( _.plane.pointCoplanarGet( plane, pointView ) );
+    logger.log('Proyection', proy )
+    if( _.convexPolygon.pointContains( polygon, proy ) )
+    return _.vector.distance( pointView, proy );
+  }
+
+
+  let distance = Infinity;
+  for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
+  {
+    let j =  ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
+
+    let vertex = polygon.colVectorGet( i );
+    let nextVertex = polygon.colVectorGet( j );
+
+    let segment = _.segment.fromPair( [ vertex, nextVertex ] );
+    let d = _.segment.pointDistance( segment, pointView );
+    _.assert( d > 0 );
+    if( d < distance )
+    distance = d;
+  }
+
+  return distance;
+}
+
+
 
 
 
@@ -430,6 +510,7 @@ let Proto =
   angleThreePoints : angleThreePoints,
 
   pointContains : pointContains,
+  pointDistance : pointDistance,
 
 }
 

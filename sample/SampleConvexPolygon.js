@@ -23,5 +23,5 @@ var polygon = _.convexPolygon.make( 3, 4 ).copy
   0, 0, 0, 0
 ]);
 var point = [ 0.5, 0.5, 2 ]
-var result = _.convexPolygon.pointContains( polygon, point );
+var result = _.convexPolygon.pointDistance( polygon, point );
 logger.log( 'Result', result )
