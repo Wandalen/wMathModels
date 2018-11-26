@@ -241,7 +241,7 @@ reflector:
       ./dwtools/amath/l8/Concepts.s: true
     srcFilter:
       basePath: ./proto
-      prefixPath: proto
+      prefixPath: .
     dstFilter:
       basePath: .
       prefixPath: .
