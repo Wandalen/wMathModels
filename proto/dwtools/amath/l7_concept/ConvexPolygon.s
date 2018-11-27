@@ -186,7 +186,7 @@ function is( polygon )
     }
   }
 
-  let angles = _.array.makeArrayOfLengthZeroed( dims[ 1 ] );
+  let angles = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 1 ] ) );
 
   for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
   {
@@ -199,27 +199,17 @@ function is( polygon )
 
     if( dims[ 0 ] === 2 )
     {
-      angles[ i ] = _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree );
+      angles.eSet( i, _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree ) );
     }
     else if( dims[ 0 ] === 3 )
     {
-      angles[ i ] = _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree, normal );
+      angles.eSet( i, _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree, normal ) );
     }
 
   }
-
-  function isBelowThreshold( currentValue )
-  {
-    return currentValue <= Math.PI;
-  }
-
-  function isAboveThreshold( currentValue )
-  {
-    return currentValue >= Math.PI;
-  }
   debugger;
 
-  if( angles.every( isBelowThreshold ) || angles.every( isAboveThreshold ) )
+  if( _.vector.allLessEqual( angles, Math.PI ) || _.vector.allGreaterEqual( angles, Math.PI ) )
   return true;
 
   return false;
@@ -395,6 +385,13 @@ function pointContains( polygon, point )
   if(  _.avector.allEquivalent( angles, _.array.makeArrayOfLengthZeroed( dims[ 1 ] ) ) )
   return false;
 
+  debugger;
+
+  if( angles.every( isBelowThreshold ) || angles.every( isAboveThreshold ) )
+  return true;
+
+  return false;
+
   function isBelowThreshold( currentValue )
   {
     return currentValue <= Math.PI;
@@ -404,12 +401,6 @@ function pointContains( polygon, point )
   {
     return currentValue >= Math.PI;
   }
-  debugger;
-
-  if( angles.every( isBelowThreshold ) || angles.every( isAboveThreshold ) )
-  return true;
-
-  return false;
 }
 
 //
@@ -492,6 +483,111 @@ function pointDistance( polygon, point )
   return distance;
 }
 
+//
+
+/**
+  * Returns the closest point in a polygon to a point. Returns the coordinates of the closest point.
+  * Polygon and point remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } srcPoint - Source point.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.pointClosestPoint( polygon, [ - 1, - 1, - 1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the polygon.
+  * @function pointClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.frustum
+  */
+
+  function pointClosestPoint( polygon , srcPoint, dstPoint )
+  {
+    logger.log('P', polygon)
+    _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+    _.assert( _.convexPolygon.is( polygon ) );
+
+    let pointView = _.vector.from( srcPoint );
+    let dims = _.Space.dimsOf( polygon );
+
+    _.assert( dims[ 0 ] === pointView.length, 'Polygon and point must have same dimension' )
+    debugger;
+
+    if( arguments.length === 2 )
+    dstPoint = _.array.makeArrayOfLengthZeroed( dims[ 0 ] );
+
+    if( dstPoint === null || dstPoint === undefined )
+    throw _.err( 'Not a valid destination point' );
+
+    let dstPointView = _.vector.from( dstPoint );
+
+    if( _.convexPolygon.pointContains( polygon, pointView ) )
+    {
+      dstPointView.copy( pointView );
+      return dstPoint;
+    }
+
+    let plane = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    if( dims[ 0 ] === 3 )
+    {
+      let normal = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+      let i = 0;
+      while( _.vector.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+      {
+        let pointOne = polygon.colVectorGet( i );
+        let pointTwo = polygon.colVectorGet( i + 1 );
+        let pointThree = polygon.colVectorGet( i + 2 );
+        plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+        normal = _.plane.normalGet( plane );
+        i = i + 1;
+      }
+      logger.log('F', pointView, dims[ 0 ] )
+      var proy = _.vector.from( _.plane.pointCoplanarGet( plane, pointView ) );
+
+      if( _.convexPolygon.pointContains( polygon, proy ) )
+      {
+        dstPointView.copy( proy );
+        return dstPoint;
+      }
+    }
+
+
+    let distance = Infinity;
+    let point;
+    for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
+    {
+      let j =  ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
+
+      let vertex = polygon.colVectorGet( i );
+      let nextVertex = polygon.colVectorGet( j );
+
+      let segment = _.segment.fromPair( [ vertex, nextVertex ] );
+      let d = _.segment.pointDistance( segment, pointView );
+      _.assert( d > 0 );
+      if( d < distance )
+      {
+        distance = d;
+        point = _.segment.pointClosestPoint( segment, pointView );
+        logger.log('S', segment, point )
+      }
+    }
+
+    dstPointView.copy( point );
+
+    logger.log( dstPointView )
+    _.assert( _.convexPolygon.pointContains( polygon, dstPointView ) === true );
+    return dstPoint;
+
+  }
+
 
 
 
@@ -511,6 +607,7 @@ let Proto =
 
   pointContains : pointContains,
   pointDistance : pointDistance,
+  pointClosestPoint : pointClosestPoint,
 
 }
 

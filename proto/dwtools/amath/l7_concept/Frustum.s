@@ -366,6 +366,7 @@ function pointDistance( frustum, point )
   *
   * @param { Frustum } frustum - Source frustum.
   * @param { Array } srcpoint - Source point.
+  * @param { Array } dstPoint - Source point.
   *
   * @example
   * // returns [ 0, 0, 0 ];
@@ -374,13 +375,14 @@ function pointDistance( frustum, point )
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ] );
-  * _.pointClosestPoint( frustum , [ - 1, - 1, - 1 ] );
+  * _.pointClosestPoint( frustum , [ - 1, - 1, - 1 ], [ 2, 3, 4 ] );
   *
   * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
   * @function pointClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( frustum ) is not frustum.
-  * @throws { Error } An Error if ( point ) is not point.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
   * @memberof wTools.frustum
   */
 
