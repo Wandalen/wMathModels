@@ -495,9 +495,9 @@ function pointDistance( polygon, point )
   * @returns { Array } Returns the array of coordinates of the closest point in the polygon.
   * @function pointClosestPoint
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.frustum
+  * @memberof wTools.convexPolygon
   */
 
 function pointClosestPoint( polygon , srcPoint, dstPoint )
@@ -578,6 +578,187 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
 
 //
 
+/**
+  * Check if a convex polygon and a box intersect. Returns true if they intersect.
+  * Convex polygon and box remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns false;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.boxIntersects( polygon , [ 4, 4, 4, 5, 5, 5 ] );
+  **
+  * @returns { Boolean } Returns true if the polygon and the box intersect.
+  * @function boxIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.convexPolygon
+  */
+
+function boxIntersects( polygon, box )
+{
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let minB = _.box.cornerLeftGet( boxView );
+  let maxB = _.box.cornerRightGet( boxView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+
+  let boxCorners = _.box.cornersGet( boxView );
+  let dimCorners = _.Space.dimsOf( boxCorners );
+
+  for( let b = 0; b < dimCorners[ 1 ]; b++ )
+  {
+    let corner = boxCorners.colVectorGet( b );
+    if( _.convexPolygon.pointContains( polygon, corner ) === true )
+    {
+      return true;
+    }
+  }
+
+
+  for( let i = 0 ; i < dims[ 1 ] ; i ++ )
+  {
+    let point = polygon.colVectorGet( i );
+
+    if( _.box.pointContains( box, point ) === true )
+    {
+      return true;
+    }
+  }
+
+  for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
+  {
+    let j = ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
+
+    let vertex = polygon.colVectorGet( i );
+    let nextVertex = polygon.colVectorGet( j );
+
+    let segment = _.segment.fromPair( [ vertex, nextVertex ] );
+
+    if( _.segment.boxIntersects( segment, boxView ) )
+    {
+      return true;
+    }
+  }
+
+  //3D case include segment - polygon intersection
+  if( dims[ 0 ] > 2 )
+  {
+    let corner0 = boxCorners.colVectorGet( 0 );
+    for( let b = 1; b < dimCorners[ 1 ]; b++ )
+    {
+      let corner = boxCorners.colVectorGet( b );
+      let segment = _.segment.fromPair( [ corner0, corner ] );
+      if( _.convexPolygon.segmentIntersects( polygon, segment ) === true )
+      return true;
+    }
+  }
+  return false;
+}
+
+//
+
+/**
+  * Check if a convex polygon and a segment intersect. Returns true if they intersect.
+  * Convex polygon and segment remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } segment - Source segment.
+  *
+  * @example
+  * // returns false;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.segmentIntersects( polygon , [ 4, 4, 4, 5, 5, 5 ] );
+  **
+  * @returns { Boolean } Returns true if the polygon and the segment intersect.
+  * @function segmentIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @memberof wTools.convexPolygon
+  */
+
+function segmentIntersects( polygon, segment )
+{
+
+  let segmentView = _.vector.from( segment );
+  let sOrigin = _.segment.originGet( segmentView );
+  let sEnd = _.segment.endPointGet( segmentView );
+  let sDim  = _.segment.dimGet( segmentView )
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+
+  let containOrigin = _.convexPolygon.pointContains( polygon, sOrigin );
+  let containEnd = _.convexPolygon.pointContains( polygon, sEnd );
+  if( containOrigin === true || containEnd === true )
+  {
+    return true;
+  }
+
+  for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
+  {
+    let j = ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
+
+    let vertex = polygon.colVectorGet( i );
+    let nextVertex = polygon.colVectorGet( j );
+
+    let segmentP = _.segment.fromPair( [ vertex, nextVertex ] );
+
+    if( _.segment.segmentIntersects( segmentP, segmentView ) )
+    {
+      return true;
+    }
+  }
+
+  if( dims[ 0 ] > 2 )
+  {
+    let normal = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+    let plane = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let i = 0;
+
+    while( _.vector.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    {
+      let pointOne = polygon.colVectorGet( i );
+      let pointTwo = polygon.colVectorGet( i + 1 );
+      let pointThree = polygon.colVectorGet( i + 2 );
+      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = _.plane.normalGet( plane );
+      i = i + 1;
+    }
+
+    if( _.segment.planeIntersects( segmentView, plane ) )
+    {
+      let copOrigin = _.plane.pointCoplanarGet( plane, sOrigin );
+      let copEnd = _.plane.pointCoplanarGet( plane, sEnd );
+      let copSegment = _.segment.fromPair( [ copOrigin, copEnd ] );
+
+      let intPoint = _.segment.segmentIntersectionPoint( segmentView, copSegment );
+
+      if( _.convexPolygon.pointContains( polygon, intPoint ) )
+      return true;
+    }
+  }
+
+  return false;
+}
+
 
 
 
@@ -597,6 +778,10 @@ let Proto =
   pointContains : pointContains,
   pointDistance : pointDistance,
   pointClosestPoint : pointClosestPoint,
+
+  boxIntersects : boxIntersects,
+
+  segmentIntersects : segmentIntersects, // create test routine
 
 }
 
