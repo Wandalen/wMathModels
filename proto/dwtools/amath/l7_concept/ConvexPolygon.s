@@ -10,8 +10,8 @@ let Self = _.convexPolygon = _.convexPolygon || Object.create( null );
 /*
 
   A convex polygon is a simple polygon where all interior angles are less than or equal
-  to 180 degrees. Therefore, it is a plane figure ( 2D ), closed and defined by a set of
   edges ( segments ) and vertices ( corners ).
+  to 180 degrees. Therefore, it is a plane figure ( 2D ), closed and defined by a set of
 
   In the following methods, convex polygons will be defined by a space where each column
 represents one of the plygon´s vertices.
@@ -754,6 +754,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   throw _.err( 'Not a valid destination point' );
 
   let dstPointView = _.vector.from( dstPoint );
+  _.assert( dstPointView.length === rows );
 
   if( _.convexPolygon.boxIntersects( polygon, boxView ) )
   return 0;
@@ -801,6 +802,47 @@ function boxClosestPoint( polygon, box, dstPoint )
 //
 
 /**
+  * Check if a convex polygon and a capsule intersect. Returns true if they intersect.
+  * Convex polygon and capsule remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } capsule - Source capsule.
+  *
+  * @example
+  * // returns false;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.capsuleIntersects( polygon , [ 4, 4, 4, 5, 5, 5, 0.2 ] );
+  **
+  * @returns { Boolean } Returns true if the polygon and the capsule intersect.
+  * @function capsuleIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @memberof wTools.convexPolygon
+  */
+
+function capsuleIntersects( polygon, capsule )
+{
+
+  let capsuleView = _.vector.from( capsule );
+  let dimC = _.capsule.dimGet( capsuleView );
+  let originC = _.capsule.originGet( capsuleView );
+  let endC = _.capsule.endPointGet( capsuleView );
+  let radiusC = _.capsule.radiusGet( capsuleView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+
+}
+
+//
+
+/**
   * Check if a convex polygon and a segment intersect. Returns true if they intersect.
   * Convex polygon and segment remain unchanged.
   *
@@ -835,6 +877,7 @@ function segmentIntersects( polygon, segment )
   debugger;
 
   let dims = _.Space.dimsOf( polygon );
+  _.assert( sDim === dims[ 0 ] );
 
   let containOrigin = _.convexPolygon.pointContains( polygon, sOrigin );
   let containEnd = _.convexPolygon.pointContains( polygon, sEnd );
@@ -892,7 +935,145 @@ function segmentIntersects( polygon, segment )
   return false;
 }
 
+//
 
+/**
+  * Get the distance between a convex polygon and a segment. Returns the calculated distance.
+  * Convex polygon and segment remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } segment - Source segment.
+  *
+  * @example
+  * // returns false;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.segmentIntersects( polygon , [ 4, 4, 4, 5, 5, 5 ] );
+  **
+  * @returns { Number } Returns the distance between the polygon and the capsule, 0 if they intersect.
+  * @function segmentDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @memberof wTools.convexPolygon
+  */
+
+function segmentDistance( polygon, segment )
+{
+
+  let segmentView = _.vector.from( segment );
+  let sOrigin = _.segment.originGet( segmentView );
+  let sEnd = _.segment.endPointGet( segmentView );
+  let sDim  = _.segment.dimGet( segmentView )
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( sDim === dims[ 0 ] );
+
+  if( _.convexPolygon.segmentIntersects( polygon, segmentView ) )
+  return 0;
+
+  let closestPoint = _.convexPolygon.segmentClosestPoint( polygon, segmentView );
+  logger.log( closestPoint)
+  let distance = _.segment.pointDistance( segmentView, closestPoint );
+
+  return distance;
+}
+
+//
+
+/**
+  * Returns the closest point in a convex polygon to a segment. Returns the coordinates of the closest point.
+  * The polygon and segment remain unchanged.
+  *
+  * @param { Polygon } polygon - Source convex polygon.
+  * @param { Array } segment - Source segment.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.segmentClosestPoint( polygon , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the convex polygon.
+  * @function segmentClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @memberof wTools.convexPolygon
+  */
+
+function segmentClosestPoint( polygon, segment, dstPoint )
+{
+  let segmentView = _.vector.from( segment );
+  let sOrigin = _.segment.originGet( segmentView );
+  let sEnd = _.segment.endPointGet( segmentView );
+  let sDim  = _.segment.dimGet( segmentView )
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( sDim === dims[ 0 ] );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( sDim );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dstPointView.length === dims[ 0 ] );
+
+  if( _.convexPolygon.segmentIntersects( polygon, segmentView ) )
+  return 0;
+
+  let point = _.vector.from( _.array.makeArrayOfLength( sDim ) );
+
+  let dist = Infinity;
+
+  /* segment corners */
+  let dOrigin = _.convexPolygon.pointDistance( polygon, sOrigin );
+  let dEnd = _.convexPolygon.pointDistance( polygon, sEnd );
+
+  if( dOrigin < dist )
+  {
+    dist = dOrigin;
+    point = _.vector.from( _.convexPolygon.pointClosestPoint( polygon, sOrigin ) );
+  }
+
+  if( dEnd < dist )
+  {
+    dist = dEnd;
+    point = _.vector.from( _.convexPolygon.pointClosestPoint( polygon, sEnd ) );
+  }
+
+  /* polygon vertices */
+  for ( let j = 0 ; j < dims[ 1 ] ; j++ )
+  {
+    let newVertex = polygon.colVectorGet( j );
+    let d = _.segment.pointDistance( segmentView, newVertex );
+
+    if( d < dist )
+    {
+      point = _.vector.from( newVertex.slice() );
+      dist = d;
+    }
+  }
+
+  for( var i = 0; i < dstPointView.length; i++ )
+  {
+    dstPointView.eSet( i, point.eGet( i ) );
+  }
+
+  return dstPoint;
+}
 
 
 // --
@@ -916,7 +1097,13 @@ let Proto =
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
 
+  capsuleIntersects : capsuleIntersects,
+  //capsuleDistance : capsuleDistance,
+  //capsuleClosestPoint : capsuleClosestPoint,
+
   segmentIntersects : segmentIntersects,
+  segmentDistance : segmentDistance,
+  segmentClosestPoint : segmentClosestPoint,
 
 }
 
