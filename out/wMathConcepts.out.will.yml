@@ -240,8 +240,8 @@ reflector:
       ./dwtools/amath/l7_concept/Sphere.s: true
       ./dwtools/amath/l8/Concepts.s: true
     srcFilter:
-      basePath: ./proto
-      prefixPath: .
+      basePath: .
+      prefixPath: proto
     dstFilter:
       basePath: .
       prefixPath: .
