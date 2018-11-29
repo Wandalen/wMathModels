@@ -251,6 +251,7 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   let pointThreeView = _.vector.from( pointThree );
   let vectorOne = _.vector.subVectors( pointOneView.clone(), pointTwoView );
   let vectorTwo = _.vector.subVectors( pointThreeView.clone(), pointTwoView );
+  let accuracy = 1e-7; /*eps*/
 
   if( pointOne.length === 3 )
   {
@@ -266,15 +267,13 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
 
     if( _.vector.mag( normalView ) === 0 )
     {
-      debugger;
-      logger.log( 'Vectors',vectorOne.normalize(), vectorTwo.normalize() )
       if( _.vector.allEquivalent( vectorOne.normalize(), vectorTwo.normalize() ) )
       return 0;
 
       return Math.PI;
     }
 
-    _.assert( _.vector.mag( normalView ) === 1 );
+    _.assert( 1 - accuracy < _.vector.mag( normalView ) && _.vector.mag( normalView ) < 1 + accuracy );
 
     let dot = _.vector.dot( vectorOne, vectorTwo );
     let cross = _.vector.cross( vectorOne.clone(), vectorTwo );
@@ -450,7 +449,7 @@ function pointDistance( polygon, point )
     }
 
     let proy = _.vector.from( _.plane.pointCoplanarGet( plane, pointView ) );
-    logger.log('Proyection', proy )
+
     if( _.convexPolygon.pointContains( polygon, proy ) )
     return _.vector.distance( pointView, proy );
   }
@@ -704,7 +703,6 @@ function boxDistance( polygon, box )
 
   let closestPoint = _.convexPolygon.boxClosestPoint( polygon, boxView );
 
-  logger.log('P', closestPoint )
   let distance = _.box.pointDistance( boxView, closestPoint );
 
   return distance;
@@ -884,9 +882,7 @@ function segmentIntersects( polygon, segment )
       if( _.segment.segmentIntersects( segmentView, copSegment ) )
       {
         let intPoint = _.segment.segmentIntersectionPoint( segmentView, copSegment );
-        logger.log( 'S', segmentView )
-        logger.log( 'Sc', copSegment )
-        logger.log( 'P', intPoint )
+
         if( _.convexPolygon.pointContains( polygon, intPoint ) )
         return true;
       }

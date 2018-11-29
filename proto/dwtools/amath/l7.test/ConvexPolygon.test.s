@@ -2102,14 +2102,14 @@ function boxDistance( test )
 
   var gotDist = _.convexPolygon.boxDistance( polygon, box );
   test.equivalent( gotDist, expected );
-  /*
+
   test.description = 'polygon edge next to box side'; //
 
   var polygon =  _.Space.make( [ 3, 3 ] ).copy
   ([
-    0,   0,   0,
     1,   1,   0,
-   -1,   1,   0
+   -1,   1,   0,
+    0,   0,   0
   ]);
   var box = [ 2, -2, -2, 4, 2, 2 ];
   var expected = 1;
@@ -2126,35 +2126,49 @@ function boxDistance( test )
     2,   3,   3,   2
   ]);
   var box = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = Math.sqrt( 2 );
+  var expected = Math.sqrt( 3 );
 
   var gotDist = _.convexPolygon.boxDistance( polygon, box );
   test.equivalent( gotDist, expected );
 
   test.description = 'polygon edge next to box edge'; //
 
-  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
   ([
-    0,   1,   2,   2,
-    0,   1,   2,   2,
-   -2,   1,   1,   0
+    0,   1,   1,
+    0,   0,   1,
+    2,   2,   4
   ]);
   var box = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = true;
+  var expected = 1;
 
   var gotDist = _.convexPolygon.boxDistance( polygon, box );
   test.equivalent( gotDist, expected );
 
-  test.description = 'polygon in box vertex'; //
+  test.description = 'polygon vertex next to box vertex'; //
 
-  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  var polygon =  _.Space.make( [ 3, 5 ] ).copy
   ([
-    1,   1,   2,   2,
-    1,   1,   2,   2,
-    0,   1,   1,   0
+    2,   3,   4,   3,   2,
+    2,   3,   4,   4,   3,
+    2,   3,   4,   5,   4
   ]);
-  var box = [ 2, 2, 1, 3, 3, 2 ];
-  var expected = true;
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = Math.sqrt( 3 );
+
+  var gotDist = _.convexPolygon.boxDistance( polygon, box );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon vertex next to box vertex'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = Math.sqrt( 2 ) / 2;
 
   var gotDist = _.convexPolygon.boxDistance( polygon, box );
   test.equivalent( gotDist, expected );
@@ -2188,6 +2202,290 @@ function boxDistance( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.boxDistance( srcFrustum, box ));
   box = [ 0, 0, 1, 1, 2, 2, 2 ];
   test.shouldThrowErrorSync( () => _.convexPolygon.boxDistance( srcFrustum, box ));
+
+}
+boxDistance.timeOut = 7000;
+
+//
+
+function boxClosestPoint( test )
+{
+
+  test.description = 'Polygon and box remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var box = [ 1, 1, 1, 3, 3, 3 ];
+  var expected = [ 0, 0.5, 0.5 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  var oldBox = [ 1, 1, 1, 3, 3, 3 ];
+  test.identical( box, oldBox );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and box intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var box = [ 0, 0, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and box not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var box = [ 1, 1, 5, 5 ];
+  var expected = [ 0.5, 0.5 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and box almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var box = [ 1.1, 0, 2, 2 ];
+  var expected = [ 1, 0 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to box edge'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var box = [ 3, -3, 4, 4 ];
+  var expected = [ 2, 1 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon edge next to box edge'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   0,   1,   1,
+    0,   1,   1,   0
+  ]);
+  var box = [ 2, -2, 4, 2 ];
+  var expected = [ 1, 1 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to box vertex'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var box = [ 2, 3, 3, 4 ];
+  var expected = [ 2, 1 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon edge next to box vertex'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var box = [ 1, 1, 2, 2 ];
+  var expected = [ 0.5, 0.5 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and box intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and box not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var box = [ 1, 1, 1, 5, 5, 5 ];
+  var expected = [ 0, 0.5, 0.5 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and box almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var box = [ 0.1, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 1, 0 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to box side'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var box = [ 2, -2, -2, 4, 2, 2 ];
+  var expected = [ 1, 0, 0 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon edge next to box side'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    1,   1,   0,
+   -1,   1,   0,
+    0,   0,   0
+  ]);
+  var box = [ 2, -2, -2, 4, 2, 2 ];
+  var expected = [ 1, -1, 0 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to box edge'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    2,   3,   3,   2,
+    2,   3,   4,   3,
+    2,   3,   3,   2
+  ]);
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 2, 2, 2 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon edge next to box edge'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   1,   1,
+    0,   0,   1,
+    2,   2,   4
+  ]);
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 0, 2 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to box vertex'; //
+
+  var polygon =  _.Space.make( [ 3, 5 ] ).copy
+  ([
+    2,   3,   4,   3,   2,
+    2,   3,   4,   4,   3,
+    2,   3,   4,   5,   4
+  ]);
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 2, 2, 2 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to box vertex'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+  var box = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0, 1.5, 1.5 ];
+
+  var gotPoint = _.convexPolygon.boxClosestPoint( polygon, box );
+  test.equivalent( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( box ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( srcFrustum, srcFrustum, box ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( srcFrustum, box, box ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( null, box ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( NaN, box ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( srcFrustum, NaN));
+
+  box = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( srcFrustum, box ));
+  box = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( srcFrustum, box ));
+  box = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.boxClosestPoint( srcFrustum, box ));
 
 }
 
@@ -2487,7 +2785,7 @@ var Self =
 
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
-    //boxClosestPoint : boxClosestPoint,
+    boxClosestPoint : boxClosestPoint,
 
     segmentIntersects : segmentIntersects,
 
