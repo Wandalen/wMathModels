@@ -653,7 +653,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
     {
       point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) )
       point2.eSet( j, origin2.eGet( j ) + direction2.eGet( j )*result.eGet( 1 ) )
-
+      logger.log('Points', point1.slice(), point2.slice() )
       if( point1.eGet( j ) + 1E-6 >= point2.eGet( j ) && point2.eGet( j ) >= point1.eGet( j ) - 1E-6 )
       {
         equal = equal + 1;
@@ -662,6 +662,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 
     let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
     let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
+    logger.log( 'RES', equal,  dOrigin.length,result0, result1 )
     if( equal === dOrigin.length && result0 && result1 )
     return result;
   }

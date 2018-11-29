@@ -670,6 +670,139 @@ function boxIntersects( polygon, box )
 //
 
 /**
+  * Get the distance between a convex polygon and a box. Returns the calculated distance.
+  * The polygon and box remain unchanged.
+  *
+  * @param { Polygon } polygon - Source convex polygon.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns 1;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.boxDistance( polygon , [ 0, 0, 4, 5, 5, 5 ] );
+  *
+  * @returns { Number } Returns the distance between the polygon and the box.
+  * @function boxDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not polygon.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.convexPolygon
+  */
+
+function boxDistance( polygon, box )
+{
+  let boxView = _.box._from( box );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  debugger;
+
+  if( _.convexPolygon.boxIntersects( polygon, boxView ) )
+  return 0;
+
+  let closestPoint = _.convexPolygon.boxClosestPoint( polygon, boxView );
+
+  logger.log('P', closestPoint )
+  let distance = _.box.pointDistance( boxView, closestPoint );
+
+  return distance;
+}
+
+//
+
+/**
+  * Returns the closest point in a convex polygon to a box. Returns the coordinates of the closest point.
+  * The polygon and box remain unchanged.
+  *
+  * @param { Polygon } polygon - Source convex polygon.
+  * @param { Array } box - Source box.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.boxClosestPoint( polygon , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the convex polygon.
+  * @function boxClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @memberof wTools.convexPolygon
+  */
+
+function boxClosestPoint( polygon, box, dstPoint )
+{
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let minB = _.box.cornerLeftGet( boxView );
+  let maxB = _.box.cornerRightGet( boxView );
+  let dims = _.Space.dimsOf( polygon );
+  let rows = dims[ 0 ];
+  let cols = dims[ 1 ];
+
+  _.assert( _.convexPolygon.is( polygon ) );
+  _.assert( dimB === rows );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( rows );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  if( _.convexPolygon.boxIntersects( polygon, boxView ) )
+  return 0;
+
+  let point = _.vector.from( _.array.makeArrayOfLength( rows ) );
+
+  /* polygon vertices */
+
+  let dist = Infinity;
+  for ( let j = 0 ; j < cols ; j++ )
+  {
+    let newVertex = polygon.colVectorGet( j );
+    let d = _.box.pointDistance( boxView, newVertex );
+
+    if( d < dist )
+    {
+      point = _.vector.from( newVertex.slice() );
+      dist = d;
+    }
+  }
+
+  /* box corners */
+  let c = _.box.cornersGet( boxView );
+
+  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+  {
+    let corner = c.colVectorGet( j );
+    let proj = _.convexPolygon.pointClosestPoint( polygon, corner );
+    let d = _.avector.distance( corner, proj );
+    if( d < dist )
+    {
+      point = _.vector.from( proj.slice() );
+      dist = d;
+    }
+  }
+
+  for( var i = 0; i < dstPointView.length; i++ )
+  {
+    dstPointView.eSet( i, point.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
   * Check if a convex polygon and a segment intersect. Returns true if they intersect.
   * Convex polygon and segment remain unchanged.
   *
@@ -718,7 +851,6 @@ function segmentIntersects( polygon, segment )
 
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
-
     let segmentP = _.segment.fromPair( [ vertex, nextVertex ] );
 
     if( _.segment.segmentIntersects( segmentP, segmentView ) )
@@ -748,11 +880,16 @@ function segmentIntersects( polygon, segment )
       let copOrigin = _.plane.pointCoplanarGet( plane, sOrigin );
       let copEnd = _.plane.pointCoplanarGet( plane, sEnd );
       let copSegment = _.segment.fromPair( [ copOrigin, copEnd ] );
-
-      let intPoint = _.segment.segmentIntersectionPoint( segmentView, copSegment );
-
-      if( _.convexPolygon.pointContains( polygon, intPoint ) )
-      return true;
+      debugger;
+      if( _.segment.segmentIntersects( segmentView, copSegment ) )
+      {
+        let intPoint = _.segment.segmentIntersectionPoint( segmentView, copSegment );
+        logger.log( 'S', segmentView )
+        logger.log( 'Sc', copSegment )
+        logger.log( 'P', intPoint )
+        if( _.convexPolygon.pointContains( polygon, intPoint ) )
+        return true;
+      }
     }
   }
 
@@ -780,8 +917,10 @@ let Proto =
   pointClosestPoint : pointClosestPoint,
 
   boxIntersects : boxIntersects,
+  boxDistance : boxDistance,
+  boxClosestPoint : boxClosestPoint,
 
-  segmentIntersects : segmentIntersects, // create test routine
+  segmentIntersects : segmentIntersects,
 
 }
 
