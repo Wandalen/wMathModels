@@ -5,31 +5,13 @@
 if( typeof module !== 'undefined' )
 {
 
- if( typeof _global_ === 'undefined' || !_global_.wBase )
- {
-   let toolsPath = '../../../dwtools/Base.s';
-   let toolsExternal = 0;
-   try
-   {
-     toolsPath = require.resolve( toolsPath );
-   }
-   catch( err )
-   {
-     toolsExternal = 1;
-     require( 'wTools' );
-   }
-   if( !toolsExternal )
-   require( toolsPath );
- }
+  let _ = require( '../../Tools.s' );
 
+  _.include( 'wTesting' );
+  _.include( 'wMathVector' );
+  _.include( 'wMathSpace' );
 
- var _ = _global_.wTools;
-
- _.include( 'wTesting' );
- _.include( 'wMathVector' );
- _.include( 'wMathSpace' );
-
- require( '../l8/Concepts.s' );
+  require( '../l8/Concepts.s' );
 
 }
 
