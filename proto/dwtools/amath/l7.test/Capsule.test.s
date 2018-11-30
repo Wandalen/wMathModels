@@ -420,27 +420,25 @@ function is( test )
 
   test.case = 'not capsule'; /* */
 
+  test.is( !_.capsule.is( [] ) );
   test.is( !_.capsule.is([ 0, 0 ]) );
   test.is( !_.capsule.is([ 0, 0, 0, 0 ]) );
 
+  test.is( !_.capsule.is( _.vector.fromArray([]) ) );
   test.is( !_.capsule.is( _.vector.fromArray([ 0, 0 ]) ) );
   test.is( !_.capsule.is( _.vector.fromArray([ 0, 0, 0, 0 ]) ) );
-
-  test.is( !_.capsule.is( 'abc' ) );
-  test.is( !_.capsule.is( { start : [ 0, 0, 0 ], end : [ 1, 1, 1 ], radius : 1 } ) );
-  test.is( !_.capsule.is( function( a, b, c ){} ) );
-
-  test.is( !_.capsule.is( [] ) );
-  test.is( !_.capsule.is( _.vector.fromArray([]) ) );
-  test.is( !_.capsule.is( null ) );
-  test.is( !_.capsule.is( NaN ) );
-  test.is( !_.capsule.is( undefined ) );
 
   /* */
 
   if( !Config.debug )
   return;
   test.shouldThrowErrorSync( () => _.capsule.is( ));
+  test.shouldThrowErrorSync( () => _.capsule.is( 'abc' ));
+  test.shouldThrowErrorSync( () => _.capsule.is( null ));
+  test.shouldThrowErrorSync( () => _.capsule.is( NaN ));
+  test.shouldThrowErrorSync( () => _.capsule.is( undefined ));
+  test.shouldThrowErrorSync( () => _.capsule.is( { start : [ 0, 0, 0 ], end : [ 1, 1, 1 ], radius : 1 } ));
+  test.shouldThrowErrorSync( () => _.capsule.is( function( a, b, c ){} ));
   test.shouldThrowErrorSync( () => _.capsule.is( [ 0, 0, 0 ], [ 0, 2, 1 ] ));
 
 }
@@ -717,27 +715,10 @@ function radiusGet( test )
   var gotRadius = _.capsule.radiusGet( capsule );
   test.identical( gotRadius, expected );
 
-  test.case = 'negative radius'; /* */
-
-  var capsule = [ 1, 2, 3, 4, - 3 ];
-  var expected = - 3;
-
-  var gotRadius = _.capsule.radiusGet( capsule );
-  test.identical( gotRadius, expected );
-
-
-  test.case = 'NaN radius'; /* */
-
-  var capsule = [ 1, 2, 3, 4, NaN ];
-  var expected = NaN;
-
-  var gotRadius = _.capsule.radiusGet( capsule );
-  test.identical( gotRadius, expected );
-
   test.case = 'NaN capsule'; /* */
 
-  var capsule = [ NaN, NaN, NaN ];
-  var expected = NaN;
+  var capsule = [ NaN, NaN, 1 ];
+  var expected = 1;
 
   var gotRadius = _.capsule.radiusGet( capsule );
   test.identical( gotRadius, expected );
@@ -849,29 +830,9 @@ function radiusSet( test )
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
 
-  test.case = 'negative radius'; /* */
-
-  var capsule = [ 1, 2, - 3 ];
-  var radius = - 2;
-  var expected = [ 1, 2, - 2 ];
-  expected = _.vector.from(expected);
-
-  var gotCapsule = _.capsule.radiusSet( capsule, radius );
-  test.identical( gotCapsule, expected );
-
-  test.case = 'NaN radius'; /* */
-
-  var capsule = [ 1, 2, 3 ];
-  var radius = NaN;
-  var expected = [ 1, 2, NaN ];
-  expected = _.vector.from(expected);
-
-  var gotCapsule = _.capsule.radiusSet( capsule, radius );
-  test.identical( gotCapsule, expected );
-
   test.case = 'NaN capsule'; /* */
 
-  var capsule = [ NaN, NaN, NaN ];
+  var capsule = [ NaN, NaN, 0 ];
   var radius = 2;
   var expected = [ NaN, NaN, 2 ];
   expected = _.vector.from(expected);

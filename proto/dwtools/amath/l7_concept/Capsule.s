@@ -29,7 +29,7 @@ function make( dim )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 );
   let result = _.capsule.makeZero( dim );
-  if( _.capsule.is( dim ) )
+  if( _.longIs( dim ) || _.vectorIs( dim ) )
   _.avector.assign( result,dim );
   return result;
 }
@@ -38,7 +38,7 @@ function make( dim )
 
 function makeZero( dim )
 {
-  if( _.capsule.is( dim ) )
+  if( _.longIs( dim ) || _.vectorIs( dim ) )
   dim = _.capsule.dimGet( dim );
   if( dim === undefined || dim === null )
   dim = 3;
@@ -52,7 +52,7 @@ function makeZero( dim )
 
 function makeNil( dim )
 {
-  if( _.capsule.is( dim ) )
+  if( _.longIs( dim ) || _.vectorIs( dim ) )
   dim = _.capsule.dimGet( dim );
   if( dim === undefined || dim === null )
   dim = 3;
@@ -75,7 +75,7 @@ function zero( capsule )
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
 
-  if( _.capsule.is( capsule ) )
+  if( _.longIs( capsule ) || _.vectorIs( capsule ) )
   {
     let capsuleView = _.capsule._from( capsule );
     capsuleView.assign( 0 );
@@ -92,7 +92,7 @@ function nil( capsule )
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
 
-  if( _.capsule.is( capsule ) )
+  if( _.longIs( capsule ) || _.vectorIs( capsule ) )
   {
     let capsuleView = _.capsule._from( capsule );
     let min = _.capsule.originGet( capsuleView );
@@ -150,7 +150,11 @@ function _from( capsule )
 function is( capsule )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return ( _.longIs( capsule ) || _.vectorIs( capsule ) ) && ( capsule.length >= 0 ) && ( ( capsule.length - 1 ) % 2 === 0 );
+
+  let capsuleView = _.vector.from( capsule );
+  let radius = capsuleView.eGet( capsule.length - 1 );
+  let isRadius = radius >= 0;
+  return ( _.longIs( capsule ) || _.vectorIs( capsule ) ) && ( capsule.length >= 0 ) && ( ( capsule.length - 1 ) % 2 === 0 ) && isRadius;
 }
 
 //
@@ -300,6 +304,7 @@ function radiusSet( capsule, radius )
   _.assert( _.capsule.is( capsule ) );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.numberIs( radius ) );
+  _.assert( radius >= 0 );
 
   let capsuleView = _.capsule._from( capsule );
 
@@ -398,7 +403,6 @@ function pointDistance( srcCapsule, srcPoint )
   let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
-  _.assert( radius >= 0 );
   let dimension  = _.capsule.dimGet( srcCapsuleView );
   let srcPointView = _.vector.from( srcPoint.slice() );
 

@@ -9,12 +9,14 @@ var polygon =  _.Space.make( [ 2, 4 ] ).copy
   1,   1,   2,   2,
   0,   1,   1,   0
 ]);
-var segment = [ 0, 0.5, 1, -0.5 ];
+var capsule = [ 0, 0.5, 1, -0.5, 0.05 ];
 
-var gotDist = _.convexPolygon.segmentDistance( polygon, segment );
+var gotInt = _.convexPolygon.capsuleIntersects( polygon, capsule );
 
-var gotCP = _.convexPolygon.segmentClosestPoint( polygon, segment );
-var gotCPS = _.segment.pointClosestPoint( segment, gotCP );
+var gotDist = _.convexPolygon.capsuleDistance( polygon, capsule );
+
+var gotCP = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
+
+logger.log('Intersection', gotInt)
 logger.log('Distance', gotDist)
-logger.log('Distance', gotCP)
-logger.log('Distance', gotCPS)
+logger.log('ClosestPoint', gotCP)
