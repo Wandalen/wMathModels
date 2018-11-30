@@ -1252,15 +1252,6 @@ function segmentIntersectionFactors( test )
   var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
 
-  test.case = 'Segments 3D intersection'; /* */
-
-  var src1Segment = [ 2, -2, -2, 4, 2, 2 ];
-  var src2Segment = [ 2, -2,  0, 4, 2, 0 ];
-  var expected = _.vector.from( [ 0.5, 0.5 ] );
-
-  var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
-  test.equivalent( isIntersectionFactors, expected );
-
   test.case = 'Segments 3D intersection 3rd coordinate 0'; /* */
 
   var src1Segment = [ 0, 0, 0, 2, 2, 0 ];
@@ -1424,15 +1415,6 @@ function segmentIntersectionPoints( test )
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoints, expected );
 
-  test.case = 'Segments 3D intersection'; /* */
-
-  var src1Segment = [ 2, -2, -2, 4, 2, 2 ];
-  var src2Segment = [ 2, -2,  0, 4, 2, 0 ];
-  var expected = [ [ 3, 0, 0 ], [ 3, 0, 0 ] ];
-
-  var isIntersectionFactors = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
-  test.equivalent( isIntersectionFactors, expected );
-
   test.case = 'Segments 3D intersection 3rd coordinate 0'; /* */
 
   var src1Segment = [ 0, 0, 0, 1, 1, 0 ];
@@ -1569,15 +1551,6 @@ function segmentIntersectionPoint( test )
   var isIntersectionPoints = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoints, expected );
 
-  test.case = 'Segments 3D intersection'; /* */
-
-  var src1Segment = [ 2, -2, -2, 4, 2, 2 ];
-  var src2Segment = [ 2, -2,  0, 4, 2, 0 ];
-  var expected = [ 3, 0, 0 ];
-
-  var isIntersectionFactors = _.segment.segmentIntersectionPoint( src1Segment, src2Segment );
-  test.equivalent( isIntersectionFactors, expected );
-
   test.case = 'Segments 3D intersection 3rd coordinate 0'; /* */
 
   var src1Segment = [ 0, 0, 0, 1, 1, 0 ];
@@ -1713,15 +1686,6 @@ function segmentIntersectionPointAccurate( test )
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoint, expected );
-
-  test.case = 'Segments 3D intersection'; /* */
-
-  var src1Segment = [ 2, -2, -2, 4, 2, 2 ];
-  var src2Segment = [ 2, -2,  0, 4, 2, 0 ];
-  var expected = [ 3, 0, 0 ];
-
-  var isIntersectionFactors = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
-  test.equivalent( isIntersectionFactors, expected );
 
   test.case = 'Segments don´t intersect 4D'; /* */
 
