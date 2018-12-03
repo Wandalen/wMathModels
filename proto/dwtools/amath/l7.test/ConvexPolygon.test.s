@@ -3905,6 +3905,731 @@ function frustumClosestPoint( test )
 
 //
 
+function lineIntersects( test )
+{
+
+  test.description = 'Polygon and line remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1, 1, 1, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  var oldSegment = [ 1, 1, 1, 1, 1, 1 ];
+  test.identical( line, oldSegment );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and line intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and line intersect, positive factor'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ - 2, - 2, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and line intersect, negative factor'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 2, 2, -1, -1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and line not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 5, 5, 1, 0 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and line almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1.1, 0, 0, 2 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'line is polygon´s edge'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var line = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'polygon in line vertex'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var line = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and line intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and line intersect, positive factor'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ - 2, - 2, - 2, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and line intersect, negative factor'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 2, 2, 2, -1, -1, -1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and line not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 2, 2, 2, 1, 0, 0 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and line almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0.1, 0, 0, 0, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'line in polygon edge'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0, 1, 0, 0, -1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  test.description = 'line in polygon vertex'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var line = [ 0, 0, 0, 3, 3, 3 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.lineIntersects( polygon, line );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( polygon, polygon, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( polygon, line, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( null, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( NaN, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( polygon, NaN));
+
+  line = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( polygon, line ));
+  line = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( polygon, line ));
+  line = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineIntersects( polygon, line ));
+
+}
+
+//
+
+function lineDistance( test )
+{
+
+  test.description = 'Polygon and line remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1, 1, 1, 0, 1, 0 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  var oldSegment = [ 1, 1, 1, 0, 1, 0 ];
+  test.identical( line, oldSegment );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and line intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0, 0, 1, 1 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon and line not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1, 1, 1, -1 ];
+  var expected = Math.sqrt( 0.5 );
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon and line almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1.1, 0, 0, 2 ];
+  var expected = 0.1;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon vertex next to line origin'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var line = [ 0, 0, 0, -1 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon vertex next to line'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var line = [ 0, 0, 1, -1 ];
+  var expected = Math.sqrt( 0.5 );
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon edge next to line'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 3, 0, -1, 1 ];
+  var expected = Math.sqrt( 2 );
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and line intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon and line not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1, 1, 1, 0, 5, 5 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon and line almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0.1, 0, 0, 0, 1, 1 ];
+  var expected = 0.1;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon vertex next to line origin'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    2,   3,   3,   2,
+    2,   3,   4,   3,
+    2,   3,   3,   2
+  ]);
+  var line = [ 3, 3, 4, 1, 0, 0 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon edge next to line origin'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   1,   1,
+    0,   0,   1,
+    2,   2,   4
+  ]);
+  var line = [ 0.5, 0, 0, 0, 1, 0 ];
+  var expected = 2;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon edge next to line'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+  var line = [ 1, 2, 2, 0, 1, -1 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon vertex next to line'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+  var line = [ 0, 0, -1, 0, 3, 0 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.lineDistance( polygon, line );
+  test.equivalent( gotDist, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( polygon, polygon, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( polygon, line, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( null, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( NaN, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( polygon, NaN));
+
+  line = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( polygon, line ));
+  line = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( polygon, line ));
+  line = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineDistance( polygon, line ));
+
+}
+
+//
+
+function lineClosestPoint( test )
+{
+
+  test.description = 'Polygon and line remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1, 1, 1, 0, 1, 0 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  var oldSegment = [ 1, 1, 1, 0, 1, 0 ];
+  test.identical( line, oldSegment );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and line intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0, 0, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and line not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1, 1, 1, -1 ];
+  var expected = [ 0.5, 0.5 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and line almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1.1, 0, 0, 2 ];
+  var expected = [ 1, 0 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to line origin'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var line = [ 0, 0, 0, -1 ];
+  var expected = [ 1, 0 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to line'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   0,   1,   1,
+    0,   1,   1,   0
+  ]);
+  var line = [ 0, - 3, 3, 0 ];
+  var expected = [ 0, 0 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon edge next to line'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 3, - 1, -1, 1 ];
+  var expected = [ 1, 0 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and line intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and line not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 1, 1, 1, 0, 5, 5 ];
+  var expected = [ 0, 0.5, 0.5 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and line almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var line = [ 0.1, 0, 0, 0, 1, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to line origin'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var line = [ 1, 0, 2, 0, 1, 0 ];
+  var expected = [ 1, 0, 0 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to line'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    2,   3,   3,   2,
+    2,   3,   4,   3,
+    2,   3,   3,   2
+  ]);
+  var line = [ 0, 0, 0, 0, 1, 0 ];
+  var expected = [ 2, 2, 2 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon edge next to line'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   1,   1,
+    0,   0,   1,
+    2,   2,   4
+  ]);
+  var line = [ -2, 0, 0, 2, 0, 0 ];
+  var expected = [ 0, 0, 2 ];
+
+  var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
+  test.equivalent( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon, polygon, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon, line, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( null, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( NaN, line ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon, NaN));
+
+  line = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon, line ));
+  line = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon, line ));
+  line = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon, line ));
+
+}
+
+//
+
 function segmentIntersects( test )
 {
 
@@ -4732,6 +5457,10 @@ var Self =
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,
     frustumClosestPoint : frustumClosestPoint,
+
+    lineIntersects : lineIntersects,
+    lineDistance : lineDistance,
+    lineClosestPoint : lineClosestPoint,
 
     segmentIntersects : segmentIntersects,
     segmentDistance : segmentDistance,

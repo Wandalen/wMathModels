@@ -115,11 +115,11 @@ function isPolygon( polygon )
       normal = _.plane.normalGet( plane );
       i = i + 1;
     }
-    logger.log('Plane', plane)
+
     for( let i = 0 ; i < dims[ 1 ]; i += 1 )
     {
       let vertex = polygon.colVectorGet( i );
-      logger.log(vertex.slice())
+
       if( !_.plane.pointContains( plane, vertex ) )
       return false;
     }
@@ -212,7 +212,7 @@ function is( polygon )
       zeros= zeros + 1;
     }
   }
-  logger.log('Angles', angles)
+
   if(  _.avector.allEquivalent( angles, _.array.makeArrayOfLengthZeroed( dims[ 1 ] - zeros ) ) || angles.length === 0 )
   return true;
 
@@ -582,7 +582,7 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
   }
 
   dstPointView.copy( point );
-  logger.log( 'POINT',srcPoint.slice(),  dstPointView)
+
   _.assert( _.convexPolygon.pointContains( polygon, dstPointView ) === true );
 
   return dstPoint;
@@ -856,7 +856,7 @@ function capsuleIntersects( polygon, capsule )
   let segment = _.segment.fromPair( [ originC, endC ] );
 
   let distance = _.convexPolygon.segmentDistance( polygon, segment );
-  logger.log( 'Dist', distance, 'Radius', radiusC );
+
   if( distance > radiusC )
   return false;
 
@@ -1172,7 +1172,7 @@ function frustumDistance( polygon, frustum )
 
 function frustumClosestPoint( polygon, frustum, dstPoint )
 {
-logger.log('FRUSTUM', frustum)
+
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.convexPolygon.is( polygon ), 'Polygon must be a convex polygon' );
   _.assert( _.frustum.is( frustum ), 'frustumDistance expects frustum' );
@@ -1205,12 +1205,9 @@ logger.log('FRUSTUM', frustum)
   for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
   {
     let pointF = fPoints.colVectorGet( i );
-    logger.log('POINT', pointF.slice())
     let proj = _.convexPolygon.pointClosestPoint( polygon, pointF );
-    logger.log('PROJECTION', proj)
     let d = _.avector.distance( pointF, proj );
 
-    logger.log('DISTANCE', d )
     if( d < distance )
     {
       finalPoint = _.vector.from( proj );
@@ -1233,6 +1230,232 @@ logger.log('FRUSTUM', frustum)
   for( var i = 0; i < finalPoint.length; i++ )
   {
     dstPointView.eSet( i, finalPoint.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
+  * Check if a convex polygon and a line intersect. Returns true if they intersect.
+  * Convex polygon and line remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } line - Source line.
+  *
+  * @example
+  * // returns true;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.lineIntersects( polygon , [ 4, 4, 4, 5, 5, 5 ] );
+  **
+  * @returns { Boolean } Returns true if the polygon and the line intersect.
+  * @function lineIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @memberof wTools.convexPolygon
+  */
+
+function lineIntersects( polygon, line )
+{
+
+  let lineView = _.vector.from( line );
+  let lOrigin = _.line.originGet( lineView );
+  let lDir = _.line.directionGet( lineView );
+  let lDim  = _.line.dimGet( lineView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
+
+  let containOrigin = _.convexPolygon.pointContains( polygon, lOrigin );
+  if( containOrigin === true )
+  {
+    return true;
+  }
+
+  for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
+  {
+    let j = ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
+
+    let vertex = polygon.colVectorGet( i );
+    let nextVertex = polygon.colVectorGet( j );
+    let segmentP = _.segment.fromPair( [ vertex, nextVertex ] );
+
+    if( _.segment.lineIntersects( segmentP, lineView ) )
+    {
+      return true;
+    }
+  }
+
+  if( dims[ 0 ] > 2 )
+  {
+    let normal = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+    let plane = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let i = 0;
+
+    while( _.vector.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    {
+      let pointOne = polygon.colVectorGet( i );
+      let pointTwo = polygon.colVectorGet( i + 1 );
+      let pointThree = polygon.colVectorGet( i + 2 );
+      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = _.plane.normalGet( plane );
+      i = i + 1;
+    }
+
+    if( _.line.planeIntersects( lineView, plane ) )
+    {
+      let copOrigin = _.plane.pointCoplanarGet( plane, lOrigin );
+      let copEnd = _.plane.pointCoplanarGet( plane, _.line.lineAt( lineView, 1 ) );
+      let copLine = _.line.fromPair( [ copOrigin, copEnd ] );
+      debugger;
+      if( _.line.lineIntersects( lineView, copLine ) )
+      {
+        let intPoint = _.line.lineIntersectionPoint( lineView, copLine );
+
+        if( _.convexPolygon.pointContains( polygon, intPoint ) )
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+//
+
+/**
+  * Get the distance between a convex polygon and a line. Returns the calculated distance.
+  * Convex polygon and line remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } line - Source line.
+  *
+  * @example
+  * // returns 0;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.lineDistance( polygon , [ 4, 4, 4, 5, 5, 5 ] );
+  **
+  * @returns { Number } Returns the distance between the polygon and the line, 0 if they intersect.
+  * @function lineDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @memberof wTools.convexPolygon
+  */
+
+function lineDistance( polygon, line )
+{
+
+  let lineView = _.vector.from( line );
+  let lOrigin = _.line.originGet( lineView );
+  let lDir = _.line.directionGet( lineView );
+  let lDim  = _.line.dimGet( lineView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
+
+  if( _.convexPolygon.lineIntersects( polygon, lineView ) )
+  return 0;
+
+  let closestPoint = _.convexPolygon.lineClosestPoint( polygon, lineView );
+
+  let distance = _.line.pointDistance( lineView, closestPoint );
+
+  return distance;
+}
+
+//
+
+/**
+  * Returns the closest point in a convex polygon to a line. Returns the coordinates of the closest point.
+  * The polygon and line remain unchanged.
+  *
+  * @param { Polygon } polygon - Source convex polygon.
+  * @param { Array } line - Source line.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.lineClosestPoint( polygon , [ - 1, - 1, - 1, 2, 0, 0 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the convex polygon.
+  * @function lineClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @memberof wTools.convexPolygon
+  */
+
+function lineClosestPoint( polygon, line, dstPoint )
+{
+  let lineView = _.vector.from( line );
+  let lOrigin = _.line.originGet( lineView );
+  let lEnd = _.line.directionGet( lineView );
+  let lDim  = _.line.dimGet( lineView );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'Polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( lDim );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dstPointView.length === dims[ 0 ], 'Polygon and dstPoint must have the same dimension' );
+
+  if( _.convexPolygon.lineIntersects( polygon, lineView ) )
+  return 0;
+
+  let point = _.vector.from( _.array.makeArrayOfLength( lDim ) );
+
+  let dist = Infinity;
+
+  /* line corners */
+  let dOrigin = _.convexPolygon.pointDistance( polygon, lOrigin );
+
+  if( dOrigin < dist )
+  {
+    dist = dOrigin;
+    point = _.vector.from( _.convexPolygon.pointClosestPoint( polygon, lOrigin ) );
+  }
+  /* polygon vertices */
+  for ( let j = 0 ; j < dims[ 1 ] ; j++ )
+  {
+    let newVertex = polygon.colVectorGet( j );
+    let d = _.line.pointDistance( lineView, newVertex );
+
+    if( d < dist )
+    {
+      point = _.vector.from( newVertex );
+      dist = d;
+    }
+  }
+
+  for( var i = 0; i < dstPointView.length; i++ )
+  {
+    dstPointView.eSet( i, point.eGet( i ) );
   }
 
   return dstPoint;
@@ -1350,7 +1573,7 @@ function segmentIntersects( polygon, segment )
   *     0,   1,   3,   3 ] );
   * _.segmentDistance( polygon , [ 4, 4, 4, 5, 5, 5 ] );
   **
-  * @returns { Number } Returns the distance between the polygon and the capsule, 0 if they intersect.
+  * @returns { Number } Returns the distance between the polygon and the segment, 0 if they intersect.
   * @function segmentDistance
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
@@ -1376,7 +1599,7 @@ function segmentDistance( polygon, segment )
   return 0;
 
   let closestPoint = _.convexPolygon.segmentClosestPoint( polygon, segmentView );
-  logger.log( closestPoint)
+
   let distance = _.segment.pointDistance( segmentView, closestPoint );
 
   return distance;
@@ -1502,6 +1725,10 @@ let Proto =
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
   frustumClosestPoint : frustumClosestPoint,
+
+  lineIntersects : lineIntersects,
+  lineDistance : lineDistance,
+  lineClosestPoint : lineClosestPoint,
 
   segmentIntersects : segmentIntersects,
   segmentDistance : segmentDistance,
