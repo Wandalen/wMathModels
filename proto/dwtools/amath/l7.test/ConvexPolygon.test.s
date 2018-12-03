@@ -3011,7 +3011,6 @@ function capsuleDistance( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleDistance( polygon, capsule ));
 
 }
-capsuleDistance.timeOut = 9000;
 
 //
 
@@ -3922,8 +3921,8 @@ function lineIntersects( test )
   var gotBool = _.convexPolygon.lineIntersects( polygon, line );
   test.identical( gotBool, expected );
 
-  var oldSegment = [ 1, 1, 1, 1, 1, 1 ];
-  test.identical( line, oldSegment );
+  var oldLine = [ 1, 1, 1, 1, 1, 1 ];
+  test.identical( line, oldLine );
 
   var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
   ([
@@ -4176,8 +4175,8 @@ function lineDistance( test )
   var gotDist = _.convexPolygon.lineDistance( polygon, line );
   test.equivalent( gotDist, expected );
 
-  var oldSegment = [ 1, 1, 1, 0, 1, 0 ];
-  test.identical( line, oldSegment );
+  var oldLine = [ 1, 1, 1, 0, 1, 0 ];
+  test.identical( line, oldLine );
 
   var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
   ([
@@ -4420,8 +4419,8 @@ function lineClosestPoint( test )
   var gotPoint = _.convexPolygon.lineClosestPoint( polygon, line );
   test.equivalent( gotPoint, expected );
 
-  var oldSegment = [ 1, 1, 1, 0, 1, 0 ];
-  test.identical( line, oldSegment );
+  var oldLine = [ 1, 1, 1, 0, 1, 0 ];
+  test.identical( line, oldLine );
 
   var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
   ([
@@ -4625,6 +4624,533 @@ function lineClosestPoint( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon, line ));
   line = [ 0, 0, 1, 1, 2, 2, 2 ];
   test.shouldThrowErrorSync( () => _.convexPolygon.lineClosestPoint( polygon, line ));
+
+}
+
+//
+
+function planeIntersects( test )
+{
+
+  test.description = 'Polygon and plane remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
+  test.identical( gotBool, expected );
+
+  var oldPlane = [ 1, 0, 0, 3 ];
+  test.identical( plane, oldPlane );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.description = 'Polygon and plane intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, -1, 2, 0 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon in plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and plane don´t intersect, parallel'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and plane don´t intersect, perpendicular'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 1, 0, -2 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and plane almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 0.1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon vertex in plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 0, 1, -1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon edge in plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 1, 1, -1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( polygon, polygon, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( polygon, plane, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( null, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( NaN, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( polygon, NaN));
+
+  plane = [ 0, 0, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( polygon, plane ));
+  plane = [ 0, 0, 1, 1, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeIntersects( polygon, plane ));
+
+}
+
+//
+
+function planeDistance( test )
+{
+
+  test.description = 'Polygon and plane remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = 3;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.identical( gotDist, expected );
+
+  var oldPlane = [ 1, 0, 0, 3 ];
+  test.identical( plane, oldPlane );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.description = 'Polygon and plane intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, -1, 2, 0 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon in plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and plane don´t intersect, parallel'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and plane don´t intersect, perpendicular'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 1, 0, -2 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and plane almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 0.1 ];
+  var expected = 0.1;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon vertex in plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 0, 1, -1 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon vertex next to the plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 0, 1, -1.2 ];
+  var expected = 0.2;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon edge in plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 1, 1, -1 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon edge next to the plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 1, 1, -1.1 ];
+  var expected = 0.1 * Math.sqrt( 2 ) / 2;
+
+  var gotDist = _.convexPolygon.planeDistance( polygon, plane );
+  test.equivalent( gotDist, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( polygon, polygon, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( polygon, plane, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( null, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( NaN, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( polygon, NaN));
+
+  plane = [ 0, 0, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( polygon, plane ));
+  plane = [ 0, 0, 1, 1, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeDistance( polygon, plane ));
+
+}
+
+//
+
+function planeClosestPoint( test )
+{
+
+  test.description = 'Polygon and plane remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = [ 0, 1, 0 ];
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  var oldPlane = [ 1, 0, 0, 3 ];
+  test.identical( plane, oldPlane );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.description = 'Polygon and plane intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, -1, 2, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon in plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and plane don´t intersect, parallel'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ 0, 1, 0 ];
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and plane don´t intersect, perpendicular'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 1, 0, 2 ];
+  var expected = [ 0, -1, 0 ];
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and plane almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 1, 0, 0, 0.1 ];
+  var expected = [ 0, 1, 0 ];
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon vertex in plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 0, 1, -1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon vertex next to the plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 0, 1, -1.2 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon edge in plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 1, 1, -1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon edge next to the plane'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var plane = [ 0, 1, 1, -1.1 ];
+  var expected = [ 0, 1, 0];
+
+  var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
+  test.identical( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( polygon, polygon, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( polygon, plane, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( null, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( NaN, plane ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( polygon, NaN));
+
+  plane = [ 0, 0, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( polygon, plane ));
+  plane = [ 0, 0, 1, 1, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.planeClosestPoint( polygon, plane ));
 
 }
 
@@ -5163,7 +5689,6 @@ function segmentDistance( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.segmentDistance( polygon, segment ));
 
 }
-segmentDistance.timeOut = 9000;
 
 //
 
@@ -5461,6 +5986,10 @@ var Self =
     lineIntersects : lineIntersects,
     lineDistance : lineDistance,
     lineClosestPoint : lineClosestPoint,
+
+    planeIntersects : planeIntersects,
+    planeDistance : planeDistance,
+    planeClosestPoint : planeClosestPoint,
 
     segmentIntersects : segmentIntersects,
     segmentDistance : segmentDistance,

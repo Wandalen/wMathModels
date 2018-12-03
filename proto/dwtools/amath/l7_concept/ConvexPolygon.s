@@ -1464,6 +1464,196 @@ function lineClosestPoint( polygon, line, dstPoint )
 //
 
 /**
+  * Check if a convex polygon and a plane intersect. Returns true if they intersect.
+  * Convex polygon and plane remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } plane - Source plane.
+  *
+  * @example
+  * // returns true;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.planeIntersects( polygon , [ 1, 0, 0, -1 ] );
+  **
+  * @returns { Boolean } Returns true if the polygon and the plane intersect.
+  * @function planeIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @memberof wTools.convexPolygon
+  */
+
+function planeIntersects( polygon, plane )
+{
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
+
+  let bool = false;
+
+  let distance = _.plane.pointDistance( plane, polygon.colVectorGet( 0 ) );
+  if( distance === 0 )
+  {
+    bool = true;
+  }
+  else
+  {
+    let side = distance/ Math.abs( distance );
+    for( let j = 1 ; j < dims[ 1 ]; j++ )
+    {
+      let vertex = polygon.colVectorGet( j );
+      distance = _.plane.pointDistance( plane, vertex );
+      if( distance === 0 )
+      {
+        bool = true;
+      }
+      else
+      {
+        let newSide = distance/ Math.abs( distance );
+        if( side === - newSide )
+        {
+          bool = true;
+        }
+        side = newSide;
+      }
+    }
+  }
+  return bool;
+}
+
+//
+
+/**
+  * Get the distance between a convex polygon and a plane. Returns the calculated distance.
+  * Convex polygon and plane remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } plane - Source plane.
+  *
+  * @example
+  * // returns 0;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.planeDistance( polygon , [ 0, 1, 0, -1 ] );
+  **
+  * @returns { Number } Returns the distance between the polygon and the plane, 0 if they intersect.
+  * @function planeDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @memberof wTools.convexPolygon
+  */
+
+function planeDistance( polygon, plane )
+{
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
+
+  if( _.convexPolygon.planeIntersects( polygon, planeView ) )
+  return 0;
+
+  let closestPoint = _.convexPolygon.planeClosestPoint( polygon, planeView );
+
+  let distance = Math.abs( _.plane.pointDistance( planeView, closestPoint ) );
+
+  return distance;
+}
+
+//
+
+/**
+  * Returns the closest point in a convex polygon to a plane. Returns the coordinates of the closest point.
+  * The polygon and plane remain unchanged.
+  *
+  * @param { Polygon } polygon - Source convex polygon.
+  * @param { Array } plane - Source plane.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.planeClosestPoint( polygon , [ 1, 0, 0, 1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the convex polygon.
+  * @function planeClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @memberof wTools.convexPolygon
+  */
+
+function planeClosestPoint( polygon, plane, dstPoint )
+{
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'Polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dstPointView.length === dims[ 0 ], 'Polygon and dstPoint must have the same dimension' );
+
+  if( _.convexPolygon.planeIntersects( polygon, planeView ) )
+  return 0;
+
+  let point = _.vector.from( _.array.makeArrayOfLength( dimP ) );
+
+  let dist = Infinity;
+
+  /* polygon vertices */
+  for ( let j = 0 ; j < dims[ 1 ] ; j++ )
+  {
+    let newVertex = polygon.colVectorGet( j );
+    let d = Math.abs( _.plane.pointDistance( planeView, newVertex ) );
+
+    if( d < dist )
+    {
+      point = _.vector.from( newVertex );
+      dist = d;
+    }
+  }
+
+  for( var i = 0; i < dstPointView.length; i++ )
+  {
+    dstPointView.eSet( i, point.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
   * Check if a convex polygon and a segment intersect. Returns true if they intersect.
   * Convex polygon and segment remain unchanged.
   *
@@ -1729,6 +1919,10 @@ let Proto =
   lineIntersects : lineIntersects,
   lineDistance : lineDistance,
   lineClosestPoint : lineClosestPoint,
+
+  planeIntersects : planeIntersects,
+  planeDistance : planeDistance,
+  planeClosestPoint : planeClosestPoint,
 
   segmentIntersects : segmentIntersects,
   segmentDistance : segmentDistance,
