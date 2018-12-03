@@ -141,7 +141,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
 
-  _.assert( arguments.length === 3, 'Expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
   debugger;
   //throw _.err( 'not tested' );
 
@@ -947,7 +947,7 @@ function lineIntersects( srcPlane , tstLine )
   */
 function lineIntersection( plane , line , point )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three argument' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
 
   if( arguments.length === 2 )
@@ -1798,7 +1798,7 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
   let normalThree = _.plane.normalGet( planeViewThree );
   let biasThree = _.plane.biasGet( planeViewThree );
 
-  _.assert( arguments.length === 3, 'Expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
   _.assert( normalOne.length === normalTwo.length && normalTwo.length == normalThree.length );
 
   let Ispoint = _.vector.dot( normalOne, _.vector.cross( normalTwo.clone(), normalThree ) );

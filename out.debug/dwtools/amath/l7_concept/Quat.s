@@ -482,7 +482,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 function fromVectors( dst, src1, src2 )
 {
 
-  _.assert( arguments.length === 3, 'Expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   dst = _.quat.from( dst );
   let dstv = _.vector.from( dst );
@@ -555,7 +555,7 @@ function fromVectors2( src1,src2,axis )
 function fromNormalizedVectors( dst, src1, src2 )
 {
 
-  _.assert( arguments.length === 3, 'Expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   dst = _.quat.from( dst );
   let dstv = _.vector.from( dst );
@@ -933,7 +933,7 @@ function mix( dst, src, val )
   let dstv = _.quat._from( dst );
   let srcv = _.quat._from( src );
 
-  _.assert( arguments.length === 3, 'Expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   if( val === 0 )
   return dst;

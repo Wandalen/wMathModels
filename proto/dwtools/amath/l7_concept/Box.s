@@ -424,7 +424,7 @@ function fromPoints( box, points )
   */
 function fromCenterAndSize( box, center, size )
 {
-  _.assert( arguments.length === 3, 'Expects exactly three argument' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   if( box === null )
   box = _.box.make( center.length );
