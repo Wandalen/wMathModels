@@ -115,10 +115,11 @@ function isPolygon( polygon )
       normal = _.plane.normalGet( plane );
       i = i + 1;
     }
-
+    logger.log('Plane', plane)
     for( let i = 0 ; i < dims[ 1 ]; i += 1 )
     {
       let vertex = polygon.colVectorGet( i );
+      logger.log(vertex.slice())
       if( !_.plane.pointContains( plane, vertex ) )
       return false;
     }
@@ -165,7 +166,6 @@ function is( polygon )
   _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.spaceIs( polygon ) );
 
-
   if( !_.convexPolygon.isPolygon( polygon ) )
   return false;
 
@@ -187,7 +187,7 @@ function is( polygon )
   }
 
   let angles = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 1 ] ) );
-
+  let zeros = 0;
   for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
   {
     let h =  ( i - 1 >= 0 ) ? i - 1 : dims[ 1 ] - 1;
@@ -199,14 +199,23 @@ function is( polygon )
 
     if( dims[ 0 ] === 2 )
     {
-      angles.eSet( i, _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree ) );
+      angles.eSet( i - zeros, _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree ) );
     }
     else if( dims[ 0 ] === 3 )
     {
-      angles.eSet( i, _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree, normal ) );
+      angles.eSet( i - zeros, _.convexPolygon.angleThreePoints( pointOne, pointTwo, pointThree, normal ) );
     }
 
+    if( angles.eGet( i - zeros ) === 0 || angles.eGet( i - zeros ) === 2*Math.PI )
+    {
+      angles._vectorBuffer.splice( i - zeros, 1 );
+      zeros= zeros + 1;
+    }
   }
+  logger.log('Angles', angles)
+  if(  _.avector.allEquivalent( angles, _.array.makeArrayOfLengthZeroed( dims[ 1 ] - zeros ) ) || angles.length === 0 )
+  return true;
+
   debugger;
 
   if( _.vector.allLessEqual( angles, Math.PI ) || _.vector.allGreaterEqual( angles, Math.PI ) )
@@ -358,7 +367,7 @@ function pointContains( polygon, point )
   }
 
   let angles = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 1 ] ) );
-
+  let zeros = 0;
   for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
   {
     let j =  ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
@@ -371,15 +380,21 @@ function pointContains( polygon, point )
 
     if( dims[ 0 ] === 2 )
     {
-      angles.eSet( i, _.convexPolygon.angleThreePoints( vertex, pointView, nextVertex ) );
+      angles.eSet( i - zeros, _.convexPolygon.angleThreePoints( vertex, pointView, nextVertex ) );
     }
     else if( dims[ 0 ] === 3 )
     {
-      angles.eSet( i, _.convexPolygon.angleThreePoints(  vertex, pointView, nextVertex, normal ) );
+      angles.eSet( i - zeros, _.convexPolygon.angleThreePoints(  vertex, pointView, nextVertex, normal ) );
+    }
+
+    if( angles.eGet( i - zeros ) === 0 || angles.eGet( i - zeros ) === 2*Math.PI )
+    {
+      angles._vectorBuffer.splice( i - zeros, 1 );
+      zeros= zeros + 1;
     }
   }
 
-  if(  _.avector.allEquivalent( angles, _.array.makeArrayOfLengthZeroed( dims[ 1 ] ) ) )
+  if(  _.avector.allEquivalent( angles, _.array.makeArrayOfLengthZeroed( dims[ 1 ] - zeros ) ) || angles.length === 0 )
   return false;
 
   debugger;
@@ -567,7 +582,7 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
   }
 
   dstPointView.copy( point );
-
+  logger.log( 'POINT',srcPoint.slice(),  dstPointView)
   _.assert( _.convexPolygon.pointContains( polygon, dstPointView ) === true );
 
   return dstPoint;
@@ -769,7 +784,7 @@ function boxClosestPoint( polygon, box, dstPoint )
 
     if( d < dist )
     {
-      point = _.vector.from( newVertex.slice() );
+      point = _.vector.from( newVertex );
       dist = d;
     }
   }
@@ -784,7 +799,7 @@ function boxClosestPoint( polygon, box, dstPoint )
     let d = _.avector.distance( corner, proj );
     if( d < dist )
     {
-      point = _.vector.from( proj.slice() );
+      point = _.vector.from( proj );
       dist = d;
     }
   }
@@ -963,6 +978,261 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   for( var i = 0; i < dstPointView.length; i++ )
   {
     dstPointView.eSet( i, point.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
+  * Check if a convex polygon and a frustum intersect. Returns true if they intersect.
+  * The polygon and the frustum remain unchanged.
+  *
+  * @param { ConvexPolygon } polygon - Source convex polygon.
+  * @param { Frustum } frustum - Frustum to test if it intersects.
+  *
+  * @example
+  * // returns true;
+  * let polygon = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     1,   0,   0,
+  *     0,   0,   0,
+  *     0,   0,   1
+  *   ]);
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy
+  *   ([
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5
+  *   ]);
+  * _.frustumIntersects( polygon, frustum );
+  *
+  * @returns { Boolean } Returns true if the convex polygon and the frustum intersect.
+  * @function frustumIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not convex polygon.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @memberof wTools.convexPolygon
+  */
+
+function frustumIntersects( polygon, frustum )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'Polygon must be a convex polygon' );
+  _.assert( _.frustum.is( frustum ), 'frustumIntersects expects frustum' );
+  debugger;
+
+  let dimsP = _.Space.dimsOf( polygon );
+  let dimsF = _.Space.dimsOf( frustum );
+  _.assert( dimsP[ 0 ] === dimsF[ 0 ] - 1, 'Polygon and frustum must have the same dimension' );
+
+  // Frustum corners
+  let points = _.frustum.cornersGet( frustum );
+  let dimsFP = _.Space.dimsOf( points );
+  for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
+  {
+    let point = points.colVectorGet( i );
+    let c = _.convexPolygon.pointContains( polygon, point );
+
+    if( c === true )
+    return true;
+  }
+
+  // Polygon vertices
+  for( let i = 0 ; i < dimsP[ 1 ].length ; i += 1 )
+  {
+    let point = polygon.colVectorGet( i );
+    let c = _.frustum.pointContains( frustum, point );
+    if( c === true )
+    return true;
+  }
+
+  // Polygon edges
+  for( let i = 0 ; i < dimsP[ 1 ] ; i = i + 1 )
+  {
+    let j = ( i + 1 <= dimsP[ 1 ] - 1 ) ? i + 1 : 0;
+
+    let vertex = polygon.colVectorGet( i );
+    let nextVertex = polygon.colVectorGet( j );
+
+    let segment = _.segment.fromPair( [ vertex, nextVertex ] );
+
+    if( _.segment.frustumIntersects( segment, frustum ) )
+    {
+      return true;
+    }
+  }
+
+  //3D case include segment - polygon intersection
+  if( dimsP[ 0 ] > 2 )
+  {
+    let corner0 = points.colVectorGet( 0 );
+    for( let b = 1; b < dimsFP[ 1 ]; b++ )
+    {
+      let corner = points.colVectorGet( b );
+      let segment = _.segment.fromPair( [ corner0, corner ] );
+      if( _.convexPolygon.segmentIntersects( polygon, segment ) === true )
+      return true;
+    }
+  }
+
+  return false;
+}
+
+//
+
+/**
+  * Calculates the distance between a polygon and a frustum. Returns the calculated distance.
+  * The polygon and the frustum remain unchanged.
+  *
+  * @param { ConvexPolygon } polygon - Source convex polygon.
+  * @param { Frustum } tstFrustum - Frustum to calculate the distance.
+  *
+  * @example
+  * // returns 0;
+  * let polygon = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     1,   0,   0,
+  *     0,   0,   0,
+  *     0,   0,   1
+  *   ]);
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy
+  *   ([
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
+  *   );
+  * _.frustumDistance( polygon , frustum );
+  *
+  * @returns { Number } Returns the distance between the convex polygon and the frustum.
+  * @function frustumDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @memberof wTools.convexPolygon
+  */
+
+function frustumDistance( polygon, frustum )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'Polygon must be a convex polygon' );
+  _.assert( _.frustum.is( frustum ), 'frustumDistance expects frustum' );
+  debugger;
+
+  if( _.convexPolygon.frustumIntersects( polygon, frustum ) )
+  return 0;
+
+  let closestPoint = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+
+  let distance = _.frustum.pointDistance( frustum, closestPoint );
+
+  return distance;
+}
+
+//
+
+/**
+  * Calculates the closest point in a convex polygon to a frustum. Returns the calculated point.
+  * The polygon and the frustum remain unchanged.
+  *
+  * @param { ConvexPolygon } polygon - Source convex polygon.
+  * @param { Frustum } frustum - Test frustum.
+  * @param { Point } dstPoint - Destination point.
+  *
+  * @example
+  * // returns [ 1, 1, 1 ];
+  * let polygon = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     2,   0,   0,
+  *     0,   2,   0,
+  *     0,   0,   2
+  *   ]);
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy
+  *   ([
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
+  *   );
+  * _.frustumClosestPoint( polygon , frustum );
+  *
+  * @returns { Array } Returns the closest point in a convex polygon to a frustum.
+  * @function frustumClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
+  * @memberof wTools.convexPolygon
+  */
+
+function frustumClosestPoint( polygon, frustum, dstPoint )
+{
+logger.log('FRUSTUM', frustum)
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'Polygon must be a convex polygon' );
+  _.assert( _.frustum.is( frustum ), 'frustumDistance expects frustum' );
+
+  let dimsP = _.Space.dimsOf( polygon ) ;
+  let dimsF = _.Space.dimsOf( frustum ) ;
+  _.assert( dimsP[ 0 ] === dimsF[ 0 ] - 1, 'Polygon and frustum must have the same dimension' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimsP[ 0 ] );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dstPointView.length === dimsP[ 0 ], 'Polygon and dstPoint must have the same dimension' );
+
+  debugger;
+
+  if( _.convexPolygon.frustumIntersects( polygon, frustum ) )
+  return 0;
+
+  let distance = Infinity;
+  let finalPoint = _.array.makeArrayOfLength( dimsP[ 0 ] );
+
+  //Frustum corners
+  let fPoints = _.frustum.cornersGet( frustum );
+  let dimsFP = _.Space.dimsOf( fPoints );
+
+  for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
+  {
+    let pointF = fPoints.colVectorGet( i );
+    logger.log('POINT', pointF.slice())
+    let proj = _.convexPolygon.pointClosestPoint( polygon, pointF );
+    logger.log('PROJECTION', proj)
+    let d = _.avector.distance( pointF, proj );
+
+    logger.log('DISTANCE', d )
+    if( d < distance )
+    {
+      finalPoint = _.vector.from( proj );
+      distance = d;
+    }
+  }
+
+  //Polygon vertices
+  for( let i = 0 ; i < dimsP[ 1 ] ; i += 1 )
+  {
+    let point = polygon.colVectorGet( i );
+    let d = _.frustum.pointDistance( frustum, point );
+    if( d < distance )
+    {
+      let finalPoint = _.vector.from( point );
+      distance = d;
+    }
+  }
+
+  for( var i = 0; i < finalPoint.length; i++ )
+  {
+    dstPointView.eSet( i, finalPoint.eGet( i ) );
   }
 
   return dstPoint;
@@ -1190,7 +1460,7 @@ function segmentClosestPoint( polygon, segment, dstPoint )
 
     if( d < dist )
     {
-      point = _.vector.from( newVertex.slice() );
+      point = _.vector.from( newVertex );
       dist = d;
     }
   }
@@ -1228,6 +1498,10 @@ let Proto =
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
+
+  frustumIntersects : frustumIntersects,
+  frustumDistance : frustumDistance,
+  frustumClosestPoint : frustumClosestPoint,
 
   segmentIntersects : segmentIntersects,
   segmentDistance : segmentDistance,

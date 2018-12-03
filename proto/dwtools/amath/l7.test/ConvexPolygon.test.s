@@ -3271,6 +3271,640 @@ function capsuleClosestPoint( test )
 
 //
 
+function frustumIntersects( test )
+{
+
+  test.description = 'Polygon and frustum remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0,  -1,   0,
+    0,   1,   0, - 1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.convexPolygon.frustumIntersects( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0,  -1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( frustum, oldFrustum );
+
+  test.description = 'Polygon and frustum intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    0,   1,   2,   0,
+    0,   1,   3,   2
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.convexPolygon.frustumIntersects( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum don´t intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    0,   1,   2,   0,
+    0,   1,   3,   2
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3,   4, - 3,   4,   4, - 3
+  ]);
+  var expected = false;
+
+  var gotBool = _.convexPolygon.frustumIntersects( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   1.1, - 2,   1.1,   1.1, - 2
+  ]);
+  var expected = false;
+
+  var gotBool = _.convexPolygon.frustumIntersects( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum just touching'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   1, - 2,   1,   1, - 2
+  ]);
+  var expected = true;
+
+  var gotBool = _.convexPolygon.frustumIntersects( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum just intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 0.9, - 2, 0.9, 0.9, -2
+  ]);
+  var expected = true;
+
+  var gotBool = _.convexPolygon.frustumIntersects( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 0.9, - 2, 0.9, 0.9, -2
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon, polygon, frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( null, frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( NaN, frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon, NaN));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( [], frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon, [] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon, _.frustum.make() ));
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon, frustum ));
+
+}
+
+//
+
+function frustumDistance( test )
+{
+
+  test.description = 'Polygon and frustum remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0,  -1,   0,
+    0,   1,   0, - 1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0,  -1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( frustum, oldFrustum );
+
+  test.description = 'Polygon and frustum intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    0,   1,   2,   0,
+    0,   1,   3,   2
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum don´t intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    0,   1,   2,   0,
+    0,   1,   3,   2
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3,   4, - 3,   4,   4, - 3
+  ]);
+  var expected = Math.sqrt( 10 );
+
+  var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   1.1, - 2,   1.1,   1.1, - 2
+  ]);
+  var expected = Math.sqrt( 0.03 );
+
+  var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
+  test.equivalent( gotBool, expected );
+
+  test.description = 'Polygon and frustum just touching'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   1, - 2,   1,   1, - 2
+  ]);
+  var expected = 0;
+
+  var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum just intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 0.9, - 2, 0.9, 0.9, -2
+  ]);
+  var expected = 0;
+
+  var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon vertex next to frustum'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -0.9,   0,   0.9,   0,
+    -0.8,   0,   0.8,   0,
+    0.7,   1,   0.7,   0
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 1, - 2,   1,   1,  -2
+  ]);
+  var expected = Math.sqrt( 0.14 );
+
+  var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
+  test.equivalent( gotBool, expected );
+
+  test.description = 'Polygon side next to frustum'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,    -2,  -1,
+    0,   0,    -2,  -1,
+    0,   3,     2,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 1, - 2,   1,   1,  -2
+  ]);
+  var expected = Math.sqrt( 2 );
+
+  var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 0.9, - 2, 0.9, 0.9, -2
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon, polygon, frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( null, frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( NaN, frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon, NaN));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( [], frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon, [] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon, _.frustum.make() ));
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon, frustum ));
+
+}
+
+//
+
+function frustumClosestPoint( test )
+{
+
+  test.description = 'Polygon and frustum remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0,  -1,   0,
+    0,   1,   0, - 1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0,  -1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( frustum, oldFrustum );
+
+  test.description = 'Polygon and frustum intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    0,   1,   2,   0,
+    0,   1,   3,   2
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum don´t intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    0,   1,   2,   0,
+    0,   1,   3,   2
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 3,   4, - 3,   4,   4, - 3
+  ]);
+  var expected = [ 0, 2, 3 ];
+
+  var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   1.1, - 2,   1.1,   1.1, - 2
+  ]);
+  var expected = [ 1, 1, 1 ];
+
+  var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum just touching'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2,   1, - 2,   1,   1, - 2
+  ]);
+  var expected = 0;
+
+  var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and frustum just intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 0.9, - 2, 0.9, 0.9, -2
+  ]);
+  var expected = 0;
+
+  var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon vertex next to frustum'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -0.9,   0,   0.9,   0,
+    -0.8,   0,   0.8,   0,
+    0.7,   1,   0.7,   0
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 1, - 2,   1,   1,  -2
+  ]);
+  var expected = [ 0.9, 0.8, 0.7 ];
+
+  var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+  test.equivalent( gotBool, expected );
+
+  test.description = 'Polygon side next to frustum'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,    -2,  -1,
+    0,   0,    -2,  -1,
+    0,   3,     2,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 1, - 2,   1,   1,  -2
+  ]);
+  var expected = [ 0, 0, 2 ];
+
+  var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'dstPoint is vector'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   1,     1,   0,
+    0,   0,     2,   4,
+    4,   3,     4,   6
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 1, - 2,   1,   1,  -2
+  ]);
+  var expected = _.vector.from( [ 1, 0.4, 3.2 ] );
+
+  var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum, _.vector.from( [ 0, 0, 0 ] ) );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+    0,   1,   1,   1
+  ]);
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 2, 0.9, - 2, 0.9, 0.9, -2
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon, polygon, frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( null, frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( NaN, frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon, NaN));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( [], frustum ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon, [] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon, _.frustum.make() ));
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   2,   1,   0,
+    0,   0,   1,   2,
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon, frustum ));
+
+}
+
+//
+
 function segmentIntersects( test )
 {
 
@@ -4094,6 +4728,10 @@ var Self =
     capsuleIntersects : capsuleIntersects,
     capsuleDistance : capsuleDistance,
     capsuleClosestPoint : capsuleClosestPoint,
+
+    frustumIntersects : frustumIntersects,
+    frustumDistance : frustumDistance,
+    frustumClosestPoint : frustumClosestPoint,
 
     segmentIntersects : segmentIntersects,
     segmentDistance : segmentDistance,

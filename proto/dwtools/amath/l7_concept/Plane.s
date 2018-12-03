@@ -280,7 +280,7 @@ function pointContains( plane , point )
   let planeView = _.plane._from( plane );
   let pointVector = _.vector.from( point );
 
-  if( Math.abs( _.plane.pointDistance( plane, pointVector ) ) < 1E-12 )
+  if( Math.abs( _.plane.pointDistance( plane, pointVector ) ) < 1E-7 )
   return true;
   else
   return false;

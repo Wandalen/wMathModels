@@ -3,20 +3,31 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
-
-var polygon =  _.Space.make( [ 2, 4 ] ).copy
+/*
+var polygon =  _.Space.make( [ 3, 4 ] ).copy
 ([
-  1,   1,   2,   2,
-  0,   1,   1,   0
+  0,   2,   1,   0,
+  0,   0,   1,   2,
+  0,   1,   1,   1
 ]);
-var capsule = [ 0, 0.5, 1, -0.5, 0.05 ];
+var frustum = _.Space.make( [ 4, 6 ] ).copy
+([
+  0,   0,   0,   0, - 1,   1,
+  1, - 1,   0,   0,   0,   0,
+  0,   0,   1, - 1,   0,   0,
+  - 2, 1.1, - 2, 1.1, 1.1, - 2
+]);
 
-var gotInt = _.convexPolygon.capsuleIntersects( polygon, capsule );
-
-var gotDist = _.convexPolygon.capsuleDistance( polygon, capsule );
-
-var gotCP = _.convexPolygon.capsuleClosestPoint( polygon, capsule );
+var gotInt = _.convexPolygon.frustumClosestPoint( polygon, frustum );
 
 logger.log('Intersection', gotInt)
-logger.log('Distance', gotDist)
-logger.log('ClosestPoint', gotCP)
+*/
+
+var polygon =  _.Space.make( [ 3, 4 ] ).copy
+([
+  -1,   0,   1,   0,
+  -0.6,   0,   0.6,   0,
+  0.7,   1,   0.7,   0
+]);
+
+logger.log('Is convex', _.convexPolygon.isPolygon( polygon ))
