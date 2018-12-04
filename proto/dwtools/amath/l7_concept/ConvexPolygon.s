@@ -815,6 +815,82 @@ function boxClosestPoint( polygon, box, dstPoint )
 //
 
 /**
+  * Get the bounding box of a convex polygon. Returns destination box.
+  * Polygon and box are stored in Array data structure. Source polygon stays untouched.
+  *
+  * @param { Array } dstBox - destination box.
+  * @param { Polygon } polygon - source polygon for the bounding box.
+  *
+  * @example
+  * // returns [ 0, -1, -1, 0, 1, 1 ]
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  * ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.boundingBoxGet( null, polygon );
+  *
+  * @returns { Array } Returns the array of the bounding box.
+  * @function boundingBoxGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet(polygon) (the polygon and the box don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstBox ) is not box
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon
+  * @memberof wTools.convexPolygon
+  */
+function boundingBoxGet( polygon, dstBox  )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  _.assert( _.convexPolygon.is( polygon ) );
+  let dims = _.Space.dimsOf( polygon ) ;
+  let rows = dims[ 0 ];
+  let cols = dims[ 1 ];
+
+  if( dstBox === null || dstBox === undefined )
+  dstBox = _.box.makeNil( rows );
+
+  _.assert( _.box.is( dstBox ) );
+  let boxView = _.box._from( dstBox );
+  let minB = _.box.cornerLeftGet( boxView );
+  let maxB = _.box.cornerRightGet( boxView );
+  let dimB = _.box.dimGet( boxView );
+
+  _.assert( rows === dimB );
+
+  // Polygon limits
+  let maxP = polygon.colVectorGet( 0 ).clone();
+  let minP = polygon.colVectorGet( 0 ).clone();
+
+  for( let j = 1 ; j < cols ; j++ )
+  {
+    let newp = polygon.colVectorGet( j );
+    for( let i = 0; i < rows; i ++ )
+    {
+      if( newp.eGet( i ) < minP.eGet( i ) )
+      {
+        minP.eSet( i, newp.eGet( i ) );
+      }
+      if( newp.eGet( i ) > maxP.eGet( i ) )
+      {
+        maxP.eSet( i, newp.eGet( i ) );
+      }
+    }
+  }
+
+  for( let b = 0; b < dimB; b++ )
+  {
+    minB.eSet( b, minP.eGet( b ) );
+    maxB.eSet( b, maxP.eGet( b ) );
+  }
+
+  return dstBox;
+}
+
+//
+
+/**
   * Check if a convex polygon and a capsule intersect. Returns true if they intersect.
   * Convex polygon and capsule remain unchanged.
   *
@@ -2285,6 +2361,7 @@ let Proto =
   boxIntersects : boxIntersects,
   boxDistance : boxDistance,
   boxClosestPoint : boxClosestPoint,
+  boundingBoxGet : boundingBoxGet,
 
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,

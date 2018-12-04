@@ -860,8 +860,8 @@ function boundingBoxGet( dstBox, srcFrustum )
   _.assert( rows - 1 === dimB );
 
   // Frustum limits
-  let maxF = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
-  let minF = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
+  let maxF = fpoints.colVectorGet( 0 ).clone();
+  let minF = fpoints.colVectorGet( 0 ).clone();
 
   for( let j = 1 ; j < _.Space.dimsOf( fpoints )[ 1 ] ; j++ )
   {

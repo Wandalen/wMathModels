@@ -2488,6 +2488,155 @@ function boxClosestPoint( test )
 
 //
 
+function boundingBoxGet( test )
+{
+
+  test.case = 'Source polygon remains unchanged'; /* */
+
+  var srcPolygon = _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,   1,   1,
+      0,   0,   1,   1,
+      0,   1,   1,   0
+    ]);
+  var dstBox = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = [ 0, 0, 0, 1, 1, 1 ];
+
+  var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
+  test.identical( expected, gotBox );
+  test.is( dstBox === gotBox );
+
+  var oldSrcPolygon = _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,   1,   1,
+      0,   0,   1,   1,
+      0,   1,   1,   0
+    ]);
+  test.identical( srcPolygon, oldSrcPolygon );
+
+  test.case = 'Polygon inside box'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,   3,   3,
+      0,   0,   2,   2,
+      0,   1,   1,   0
+    ]);
+  var dstBox = [ -1, -1, -1, 5, 5, 5 ];
+  var expected = [ 0, 0, 0, 3, 2, 1 ];
+
+  var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
+  test.identical( gotBox, expected );
+
+  test.case = 'Polygon outside Box'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      3,   3,   3,   3,
+      5,   3,   3,   5,
+      3,   4,   2,   2
+    ]);
+  var dstBox = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 3, 2, 3, 5, 4 ];
+
+  var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
+  test.identical( gotBox, expected );
+
+  test.case = 'Negative polygon values'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0, - 1, - 1,
+      0,   0, - 1, - 1,
+      0, - 1, - 1,   0
+    ]);
+  var dstBox = [ 3, 3, 3, 4, 4, 4 ];
+  var expected = [ - 1, - 1, - 1, 0, 0, 0 ];
+
+  var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
+  test.identical( gotBox, expected );
+
+  test.case = '2D'; //
+
+  var srcPolygon = _.Space.make( [ 2, 4 ] ).copy
+    ([
+      3,   6,   -1,   1,
+      -2,   0,   7,   1
+    ]);
+  var dstBox = [ 3, 3, 4, 4 ];
+  var expected = [ -1, -2, 6, 7 ];
+
+  var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox vector'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,   2,   2,
+      0,   2,   2,   0,
+      0,   2,   2,   0
+    ]);
+  var dstBox = _.vector.from( [ 1, 2, 3, 9, 10, - 1 ] );
+  var expected = _.vector.from( [ 0, 0, 0, 2, 2, 2  ] );
+
+  var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
+  test.identical( gotBox, expected );
+
+  test.case = 'dstBox null'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,  -2,  -2,
+      0,   0,  -2,  -2,
+      0,  -1,  -2,   0
+    ]);
+  var dstBox = null;
+  var expected = [ -2, -2, -2, 0, 0, 0 ];
+
+  var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
+  test.equivalent( gotBox, expected );
+
+  test.case = 'dstBox undefined'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 3 ] ).copy
+    ([
+      0,   0,   1,
+      1,   1,   3,
+      0,   1,   1
+    ]);
+  var dstBox = undefined;
+  var expected = [ 0, 1, 0, 1, 3, 1 ];
+
+  var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcPolygon = _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0,  -1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( [] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( 'polygon', 'box' ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( srcPolygon, [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( null, [ 0, 1, 0, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( srcPolygon, NaN ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingBoxGet( srcPolygon, [ 0, 1, 0, 1, 2 ]  ) );
+
+}
+
+//
+
 function capsuleIntersects( test )
 {
 
@@ -7461,6 +7610,7 @@ var Self =
     boxIntersects : boxIntersects,
     boxDistance : boxDistance,
     boxClosestPoint : boxClosestPoint,
+    boundingBoxGet : boundingBoxGet,
 
     capsuleIntersects : capsuleIntersects,
     capsuleDistance : capsuleDistance,
