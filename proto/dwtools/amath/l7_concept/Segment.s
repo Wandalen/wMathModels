@@ -634,7 +634,6 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
     }
 
     let result = _.vector.from( [ 0, 0 ] );
-    let oldResult = _.vector.from( [ 0, 0 ] );
     debugger;
 
     for( let i = 0; i < dOrigin.length - 1 ; i++ )
@@ -2313,8 +2312,8 @@ function rayIntersects( srcSegment, srcRay )
 
   _.assert( dimSegment === dimRay );
 
-  let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
 
+  let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
   if( _.line.lineParallel( lineSegment, srcRayView ) )
   {
     if( _.ray.pointContains( srcRayView, segmentOrigin ) )
@@ -2322,9 +2321,8 @@ function rayIntersects( srcSegment, srcRay )
     else
     return false;
   }
+  let factors = _.ray.rayIntersectionFactors( srcRayView, lineSegment );
 
-  let factors = _.ray.rayIntersectionFactors( lineSegment, srcRayView );
-  logger.log( 'FACTORS', factors)
   if( factors === 0 || factors.eGet( 0 ) < 0 || factors.eGet( 1 ) < 0 || ( factors.eGet( 0 ) > 1 && factors.eGet( 1 ) > 1 ) )
   return false;
 

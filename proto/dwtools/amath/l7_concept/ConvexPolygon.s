@@ -1654,6 +1654,227 @@ function planeClosestPoint( polygon, plane, dstPoint )
 //
 
 /**
+  * Check if a convex polygon and a ray intersect. Returns true if they intersect.
+  * Convex polygon and ray remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } ray - Source ray.
+  *
+  * @example
+  * // returns false;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.rayIntersects( polygon , [ 4, 4, 4, 5, 5, 5 ] );
+  **
+  * @returns { Boolean } Returns true if the polygon and the ray intersect.
+  * @function rayIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @memberof wTools.convexPolygon
+  */
+
+function rayIntersects( polygon, ray )
+{
+
+  let rayView = _.vector.from( ray );
+  let sOrigin = _.ray.originGet( rayView );
+  let sDim  = _.ray.dimGet( rayView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
+
+  let containOrigin = _.convexPolygon.pointContains( polygon, sOrigin );
+  if( containOrigin === true )
+  return true;
+
+  for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
+  {
+    let j = ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
+
+    let vertex = polygon.colVectorGet( i );
+    let nextVertex = polygon.colVectorGet( j );
+    let segmentP = _.segment.fromPair( [ vertex, nextVertex ] );
+
+    if( _.segment.rayIntersects( segmentP, rayView ) )
+    {
+      return true;
+    }
+  }
+  if( dims[ 0 ] > 2 )
+  {
+    let normal = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+    let plane = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let i = 0;
+
+    while( _.vector.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    {
+      let pointOne = polygon.colVectorGet( i );
+      let pointTwo = polygon.colVectorGet( i + 1 );
+      let pointThree = polygon.colVectorGet( i + 2 );
+      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = _.plane.normalGet( plane );
+      i = i + 1;
+    }
+
+    if( _.ray.planeIntersects( rayView, plane ) )
+    {
+      let copOrigin = _.plane.pointCoplanarGet( plane, sOrigin );
+      let copEnd = _.plane.pointCoplanarGet( plane, _.ray.rayAt( rayView, 1 ) );
+      let copLine = _.line.fromPair( [ copOrigin, copEnd ] );
+      debugger;
+      if( _.ray.lineIntersects( rayView, copLine ) )
+      {
+        let intPoint = _.line.lineIntersectionPoint( rayView, copLine );
+
+        if( _.convexPolygon.pointContains( polygon, intPoint ) )
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+//
+
+/**
+  * Get the distance between a convex polygon and a ray. Returns the calculated distance.
+  * Convex polygon and ray remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } ray - Source ray.
+  *
+  * @example
+  * // returns Math.sqrt( 19 );
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.rayDistance( polygon , [ 4, 4, 4, 5, 5, 5 ] );
+  **
+  * @returns { Number } Returns the distance between the polygon and the ray, 0 if they intersect.
+  * @function rayDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @memberof wTools.convexPolygon
+  */
+
+function rayDistance( polygon, ray )
+{
+
+  let rayView = _.vector.from( ray );
+  let sOrigin = _.ray.originGet( rayView );
+  let sDim  = _.ray.dimGet( rayView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
+
+  if( _.convexPolygon.rayIntersects( polygon, rayView ) )
+  return 0;
+
+  let closestPoint = _.convexPolygon.rayClosestPoint( polygon, rayView );
+
+  let distance = _.ray.pointDistance( rayView, closestPoint );
+
+  return distance;
+}
+
+//
+
+/**
+  * Returns the closest point in a convex polygon to a ray. Returns the coordinates of the closest point.
+  * The polygon and ray remain unchanged.
+  *
+  * @param { Polygon } polygon - Source convex polygon.
+  * @param { Array } ray - Source ray.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.rayClosestPoint( polygon , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the convex polygon.
+  * @function rayClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @memberof wTools.convexPolygon
+  */
+
+function rayClosestPoint( polygon, ray, dstPoint )
+{
+  let rayView = _.vector.from( ray );
+  let sOrigin = _.ray.originGet( rayView );
+  let sDim  = _.ray.dimGet( rayView );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'Polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( sDim );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dstPointView.length === dims[ 0 ], 'Polygon and dstPoint must have the same dimension' );
+
+  if( _.convexPolygon.rayIntersects( polygon, rayView ) )
+  return 0;
+
+  let point = _.vector.from( _.array.makeArrayOfLength( sDim ) );
+
+  let dist = Infinity;
+
+  /* ray origin */
+  let dOrigin = _.convexPolygon.pointDistance( polygon, sOrigin );
+
+  if( dOrigin < dist )
+  {
+    dist = dOrigin;
+    point = _.vector.from( _.convexPolygon.pointClosestPoint( polygon, sOrigin ) );
+  }
+
+  /* polygon vertices */
+  for ( let j = 0 ; j < dims[ 1 ] ; j++ )
+  {
+    let newVertex = polygon.colVectorGet( j );
+    let d = _.ray.pointDistance( rayView, newVertex );
+
+    if( d < dist )
+    {
+      point = _.vector.from( newVertex );
+      dist = d;
+    }
+  }
+
+  for( var i = 0; i < dstPointView.length; i++ )
+  {
+    dstPointView.eSet( i, point.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
   * Check if a convex polygon and a segment intersect. Returns true if they intersect.
   * Convex polygon and segment remain unchanged.
   *
@@ -1923,6 +2144,10 @@ let Proto =
   planeIntersects : planeIntersects,
   planeDistance : planeDistance,
   planeClosestPoint : planeClosestPoint,
+
+  rayIntersects : rayIntersects,
+  rayDistance : rayDistance,
+  rayClosestPoint : rayClosestPoint,
 
   segmentIntersects : segmentIntersects,
   segmentDistance : segmentDistance,

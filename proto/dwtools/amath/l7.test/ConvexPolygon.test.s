@@ -5156,6 +5156,731 @@ function planeClosestPoint( test )
 
 //
 
+function rayIntersects( test )
+{
+
+  test.description = 'Polygon and ray remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  var oldRay = [ 1, 1, 1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and ray intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and ray intersect, positive factor'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ - 2, - 2, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and ray don´t intersect, negative factor'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ -2, -2, -1, -1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and ray not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 5, 5, 1, 0 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and ray almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1.1, 0, 0, 2 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'ray is polygon´s edge'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var ray = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'polygon in ray vertex'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var ray = [ 0, 0, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and ray intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and ray intersect, positive factor'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ - 2, - 2, - 2, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and ray don´t intersect, negative factor'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 2, 2, 2, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and ray not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 2, 2, 2, 1, 0, 0 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and ray almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0.1, 0, 0, 0, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'ray in polygon edge'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0, 1, 0, 0, -1, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  test.description = 'ray in polygon vertex'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var ray = [ 0, 0, 0, 3, 3, 3 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.rayIntersects( polygon, ray );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( polygon, polygon, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( polygon, ray, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( null, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( NaN, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( polygon, NaN));
+
+  ray = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( polygon, ray ));
+  ray = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( polygon, ray ));
+  ray = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayIntersects( polygon, ray ));
+
+}
+
+//
+
+function rayDistance( test )
+{
+
+  test.description = 'Polygon and ray remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 0, 1, 0 ];
+  var expected = Math.sqrt( 1.5 );
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  var oldRay = [ 1, 1, 1, 0, 1, 0 ];
+  test.identical( ray, oldRay );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and ray intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0, 0, 1, 1 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon and ray not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, -1 ];
+  var expected = Math.sqrt( 0.5 );
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon and ray almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1.1, 0, 0, 2 ];
+  var expected = 0.1;
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon vertex next to ray origin'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var ray = [ 0, 0, 0, -1 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon vertex next to ray'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var ray = [ 0, 0, 1, -1 ];
+  var expected = Math.sqrt( 0.5 );
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon edge next to ray'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 3, 0, -1, 1 ];
+  var expected = Math.sqrt( 2 );
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and ray intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon and ray not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 0, 5, 5 ];
+  var expected = Math.sqrt( 1.5 );
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon and ray almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0.1, 0, 0, 0, 1, 1 ];
+  var expected = 0.1;
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon vertex next to ray origin'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    2,   3,   3,   2,
+    2,   3,   4,   3,
+    2,   3,   3,   2
+  ]);
+  var ray = [ 3, 3, 4, 0, 0, 1 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon edge next to ray origin'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   1,   1,
+    0,   0,   1,
+    2,   2,   4
+  ]);
+  var ray = [ 0.5, 0, 0, 0, 1, 0 ];
+  var expected = 2;
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon edge next to ray'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+  var ray = [ 1, 2, 2, 0, 1, -1 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'polygon vertex next to ray'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+  var ray = [ 0, 0, -1, 0, 3, 0 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.rayDistance( polygon, ray );
+  test.equivalent( gotDist, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( polygon, polygon, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( polygon, ray, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( null, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( NaN, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( polygon, NaN));
+
+  ray = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( polygon, ray ));
+  ray = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( polygon, ray ));
+  ray = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayDistance( polygon, ray ));
+
+}
+
+//
+
+function rayClosestPoint( test )
+{
+
+  test.description = 'Polygon and ray remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 0, 1, 0 ];
+  var expected = [ 0, 0.5, 0.5 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  var oldRay = [ 1, 1, 1, 0, 1, 0 ];
+  test.identical( ray, oldRay );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and ray intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0, 0, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and ray not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, -1 ];
+  var expected = [ 0.5, 0.5 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and ray almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1.1, 0, 0, 2 ];
+  var expected = [ 1, 0 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to ray origin'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var ray = [ 0, 0, 0, -1 ];
+  var expected = [ 1, 0 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to ray'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   0,   1,   1,
+    0,   1,   1,   0
+  ]);
+  var ray = [ 0, - 3, 3, 0 ];
+  var expected = [ 0, 0 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon edge next to ray'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 3, - 1, -1, 1 ];
+  var expected = [ 1, 0 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and ray intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and ray not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 1, 1, 1, 0, 5, 5 ];
+  var expected = [ 0, 0.5, 0.5 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'Polygon and ray almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var ray = [ 0.1, 0, 0, 0, 1, 1 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to ray origin'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var ray = [ 1, 0, 2, 0, 0, 1 ];
+  var expected = [ 1, 0, 0 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon vertex next to ray'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    2,   3,   3,   2,
+    2,   3,   4,   3,
+    2,   3,   3,   2
+  ]);
+  var ray = [ 0, 0, 0, 0, 1, 0 ];
+  var expected = [ 2, 2, 2 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  test.description = 'polygon edge next to ray'; //
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   1,   1,
+    0,   0,   1,
+    2,   2,   4
+  ]);
+  var ray = [ -2, 0, 0, 2, 0, 0 ];
+  var expected = [ 0, 0, 2 ];
+
+  var gotPoint = _.convexPolygon.rayClosestPoint( polygon, ray );
+  test.equivalent( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    0,   3,   4,
+    3,   0,   4
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( polygon, polygon, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( polygon, ray, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( null, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( NaN, ray ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( polygon, NaN));
+
+  ray = [ 0, 0, 1, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( polygon, ray ));
+  ray = [ 0, 0, 1, 1, 2];
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( polygon, ray ));
+  ray = [ 0, 0, 1, 1, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.rayClosestPoint( polygon, ray ));
+
+}
+
+//
+
 function segmentIntersects( test )
 {
 
@@ -5990,6 +6715,10 @@ var Self =
     planeIntersects : planeIntersects,
     planeDistance : planeDistance,
     planeClosestPoint : planeClosestPoint,
+
+    rayIntersects : rayIntersects,
+    rayDistance : rayDistance,
+    rayClosestPoint : rayClosestPoint,
 
     segmentIntersects : segmentIntersects,
     segmentDistance : segmentDistance,

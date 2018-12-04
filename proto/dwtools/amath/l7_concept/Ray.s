@@ -339,7 +339,7 @@ function rayAt( srcRay, factor )
 
   _.assert( arguments.length === 2, 'Expects single argument' );
   _.assert( _.ray.is( srcRay ) );
-  _.assert( factor >= 0, 'Factor can not be negative ( point must be in the ray )');
+  _.assert( factor >= 0 - _.accuracy, 'Factor can not be negative ( point must be in the ray )');
 
   let rayView = _.ray._from( srcRay )
   let origin = _.ray.originGet( rayView );
@@ -398,10 +398,10 @@ function getFactor( srcRay, srcPoint )
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
-  let srcPointView = _.vector.from( srcPoint.slice() );
+  let srcPointView = _.vector.from( srcPoint );
 
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
-  let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+  let dOrigin = _.vector.from( avector.subVectors( srcPointView.clone(), origin ) );
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -441,13 +441,14 @@ function getFactor( srcRay, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && newFactor !== 0 && factor !== 0 )
+
+      if( Math.abs( newFactor - factor ) > _.accuracy && newFactor !== 0 && factor !== 0 )
       {
         return false;
       }
       factor = newFactor;
       // Factor can not be negative
-      if(  factor <= 0 - _.accuracySqr )
+      if(  factor <= 0 - _.accuracy )
       return false;
     }
   }
@@ -630,8 +631,8 @@ function rayIntersectionFactors( r1, r2 )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
 
-  let r1View = _.ray._from( r1.slice() );
-  let r2View = _.ray._from( r2.slice() );
+  let r1View = _.ray._from( r1 );
+  let r2View = _.ray._from( r2 );
 
   let origin1 = _.ray.originGet( r1View );
   let origin2 = _.ray.originGet( r2View );
@@ -696,6 +697,40 @@ function rayIntersectionFactors( r1, r2 )
 
     let x = _.Space.solveGeneral( o );
 
+    result = _.vector.from( x.base );
+
+    let point1 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point2 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+
+    for( var j = 0; j < dOrigin.length; j++ )
+    {
+      point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) );
+      point2.eSet( j, origin2.eGet( j ) + direction2.eGet( j )*result.eGet( 1 ) );
+    }
+
+    let contained = 0;
+    if( _.ray.pointContains( r1View, point2 ) )
+    {
+      result.eSet( 0, _.ray.getFactor( r1View, point2 ) );
+      contained = 1;
+    }
+    else if( _.ray.pointContains( r2View, point1 ) )
+    {
+      result.eSet( 1, _.ray.getFactor( r2View, point1 ) );
+      contained = 1;
+    }
+
+    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr;
+    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr;
+
+    if( result0 && result1 && contained === 1 )
+    return result;
+  }
+
+  return 0;
+}
+
+    /*
     if( i === 0 )
     {
       result = _.vector.from( x.base )
@@ -746,7 +781,7 @@ function rayIntersectionFactors( r1, r2 )
 
   return result;
 }
-
+*/
 //
 
 /**
@@ -926,10 +961,10 @@ function pointContains( srcRay, srcPoint )
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
-  let srcPointView = _.vector.from( srcPoint.slice() );
+  let srcPointView = _.vector.from( srcPoint );
 
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
-  let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+  let dOrigin = _.vector.from( avector.subVectors( srcPointView.clone(), origin ) );
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -952,6 +987,11 @@ function pointContains( srcRay, srcPoint )
   if(  factor <= 0 - _.accuracy )
   return false;
 
+  let newPoint = _.ray.rayAt( srcRayView, factor );
+
+  if( _.avector.allEquivalent( newPoint, srcPoint ) )
+  return true;
+
   for( var i = 1; i < dOrigin.length; i++ )
   {
     let newFactor;
@@ -969,7 +1009,7 @@ function pointContains( srcRay, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > _.accuracy && factor !== 0 )
+      if( Math.abs( newFactor - factor ) > _.accuracy && factor !== 0 && direction.eGet( i - 1 ) !== 0  )
       {
         return false;
       }
@@ -978,9 +1018,13 @@ function pointContains( srcRay, srcPoint )
       if(  factor <= 0 - _.accuracy )
       return false;
     }
+
+    newPoint = _.ray.rayAt( srcRayView, factor );
+    if( _.avector.allEquivalent( newPoint, srcPoint ) )
+    return true;
   }
 
-  return true;
+  return false;
 }
 
 //
@@ -1018,7 +1062,7 @@ function pointDistance( srcRay, srcPoint )
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
-  let srcPointView = _.vector.from( srcPoint.slice() );
+  let srcPointView = _.vector.from( srcPoint );
 
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
 
@@ -1030,7 +1074,7 @@ function pointDistance( srcRay, srcPoint )
   {
     let projection = _.ray.pointClosestPoint( srcRayView, srcPointView );
 
-    let dPoints = _.vector.from( avector.subVectors( srcPointView, projection ) );
+    let dPoints = _.vector.from( avector.subVectors( srcPointView.clone(), projection ) );
     debugger;
     let mod = _.vector.dot( dPoints, dPoints );
     mod = Math.sqrt( mod );
@@ -1079,10 +1123,10 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
-  let srcPointView = _.vector.from( srcPoint.slice() );
+  let srcPointView = _.vector.from( srcPoint );
   let dstPointView = _.vector.from( dstPoint );
 
-  _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
+  _.assert( dimension === srcPointView.length, 'The ray and the point must have the same dimension' );
 
   let pointVector;
 
@@ -1103,7 +1147,7 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
   }
   else
   {
-    let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
+    let dOrigin = _.vector.from( avector.subVectors( srcPointView.clone(), origin ) );
     let dot = _.vector.dot( direction, direction );
     let factor = _.vector.dot( direction , dOrigin ) / dot ;
     if( factor < 0 || dot === 0 )
