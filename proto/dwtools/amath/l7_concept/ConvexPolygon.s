@@ -2107,6 +2107,163 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Check if a convex polygon and a sphere intersect. Returns true if they intersect.
+  * Convex polygon and sphere remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns false;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.sphereIntersects( polygon , [ 4, 4, 4, 1 ] );
+  **
+  * @returns { Boolean } Returns true if the polygon and the sphere intersect.
+  * @function sphereIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.convexPolygon
+  */
+
+function sphereIntersects( polygon, sphere )
+{
+
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimS = _.sphere.dimGet( sphereView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
+
+  let distance = _.convexPolygon.pointDistance( polygon, center );
+
+  if( distance <= radius )
+  return true;
+
+  return false;
+}
+
+//
+
+/**
+  * Get the distance between a convex polygon and a sphere. Returns the calculated distance.
+  * Convex polygon and sphere remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns Math.sqrt( 18 );
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.sphereDistance( polygon , [ 4, 4, 4, 1 ] );
+  **
+  * @returns { Number } Returns the distance between the polygon and the sphere, 0 if they intersect.
+  * @function sphereDistance
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.convexPolygon
+  */
+
+function sphereDistance( polygon, sphere )
+{
+
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimS = _.sphere.dimGet( sphereView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
+
+  if( _.convexPolygon.sphereIntersects( polygon, sphereView ) )
+  return 0;
+
+  let distance = _.convexPolygon.pointDistance( polygon, center ) - radius;
+
+  _.assert( distance > 0 );
+  return distance;
+}
+
+//
+
+/**
+  * Returns the closest point in a convex polygon to a sphere. Returns the coordinates of the closest point.
+  * The polygon and sphere remain unchanged.
+  *
+  * @param { Polygon } polygon - Source convex polygon.
+  * @param { Array } sphere - Source sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.sphereClosestPoint( polygon , [ - 1, - 1, - 1, 0.1 ] );
+  *
+  * @returns { Array } Returns the array of coordinates of the closest point in the convex polygon.
+  * @function sphereClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @memberof wTools.convexPolygon
+  */
+
+function sphereClosestPoint( polygon, sphere, dstPoint )
+{
+
+  let sphereView = _.sphere._from( sphere );
+  let center = _.sphere.centerGet( sphereView );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dimS = _.sphere.dimGet( sphereView );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'Polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( dstPointView.length === dims[ 0 ], 'Polygon and dstPoint must have the same dimension' );
+
+  if( _.convexPolygon.sphereIntersects( polygon, sphereView ) )
+  return 0;
+
+  let point = _.convexPolygon.pointClosestPoint( polygon, center, _.vector.from( _.array.makeArrayOfLength( dimS ) ) );
+
+
+  for( var i = 0; i < dstPointView.length; i++ )
+  {
+    dstPointView.eSet( i, point.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
 
 // --
 // declare
@@ -2152,6 +2309,10 @@ let Proto =
   segmentIntersects : segmentIntersects,
   segmentDistance : segmentDistance,
   segmentClosestPoint : segmentClosestPoint,
+
+  sphereIntersects : sphereIntersects,
+  sphereDistance : sphereDistance,
+  sphereClosestPoint : sphereClosestPoint,
 
 }
 

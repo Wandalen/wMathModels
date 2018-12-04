@@ -4,18 +4,19 @@ require( 'wmathconcepts' );
 var _ = wTools;
 
 
-var polygon =  _.Space.make( [ 3, 3 ] ).copy
+var polygon =  _.Space.make( [ 3, 4 ] ).copy
 ([
-  0,   0,   0,
-  0,   3,   4,
-  3,   0,   4
+  0,   0,   0,   0,
+  1,   0, - 1,   0,
+  0,   1,   0, - 1
 ]);
-var ray = [ 0, 0, -1, 0, 3, 0 ];
+var sphere = [ 1, 1, 5, 1 ];
 
-var gotInt = _.convexPolygon.rayIntersects( polygon, ray );
-var gotDist = _.convexPolygon.rayDistance( polygon, ray );
-var gotCP = _.convexPolygon.rayClosestPoint( polygon, ray );
+var gotInt = _.convexPolygon.sphereIntersects( polygon, sphere );
+var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+var gotCP = _.convexPolygon.sphereClosestPoint( polygon, sphere );
 
 logger.log('Intersection', gotInt)
 logger.log('Dist', gotDist)
 logger.log('CP', gotCP)
+logger.log('CP', _.sphere.pointClosestPoint( sphere, gotCP ) )

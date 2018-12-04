@@ -6669,6 +6669,768 @@ function segmentClosestPoint( test )
 
 }
 
+//
+
+function sphereIntersects( test )
+{
+
+  test.description = 'Polygon and sphere remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 1, 1, 3 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  var oldSphere = [ 1, 1, 1, 3 ];
+  test.identical( sphere, oldSphere );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and sphere intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0.2 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and sphere not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 5, 1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and sphere almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 2, 0, 0.9 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'sphere in polygon´s edge'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, 0.5, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'sphere in polygon vertex'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, -1, Math.sqrt( 2 )];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and sphere intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0, 2 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0, 0.2 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and sphere not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 1, 5, 1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and sphere almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 0, 0, 0.9 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'sphere in polygon edge'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, 0, 0.5, Math.sqrt( 2 ) ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  test.description = 'sphere in polygon vertex'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, 0, -1, Math.sqrt( 3 ) ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.sphereIntersects( polygon, sphere );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( polygon, polygon, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( polygon, sphere, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( null, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( NaN, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( polygon, NaN));
+
+  sphere = [ 0, 0, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( polygon, sphere ));
+  sphere = [ 0, 0, 1, 1, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( polygon, sphere ));
+  sphere = [ 0, 0, 1, 1, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereIntersects( polygon, sphere ));
+
+}
+
+//
+
+function sphereDistance( test )
+{
+
+  test.description = 'Polygon and sphere remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 1, 1, 3 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.identical( gotDist, expected );
+
+  var oldSphere = [ 1, 1, 1, 3 ];
+  test.identical( sphere, oldSphere );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and sphere intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 2 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0.2 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and sphere not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 5, 1 ];
+  var expected = 3;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and sphere almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 2, 0, 0.9 ];
+  var expected = 0.1;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'sphere next to polygon´s edge'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, 0.5, 0.9 ];
+  var expected = 0.1;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'sphere next to polygon vertex'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, -1, Math.sqrt( 2 ) - 0.2];
+  var expected = 0.2;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.equivalent( gotDist, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and sphere intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0, 2 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0, 0.2 ];
+  var expected = 0;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.identical( gotDist, expected );
+
+  test.description = 'Polygon and sphere not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 1, 5, 1 ];
+  var expected = 3.2426406871192848;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'Polygon and sphere almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 0, 0, 0.9 ];
+  var expected = 0.1;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'sphere next to polygon edge'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, 0, 0.5, Math.sqrt( 2 ) - 0.1 ];
+  var expected = 0.1;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.equivalent( gotDist, expected );
+
+  test.description = 'sphere next to polygon vertex'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, 0, -1, Math.sqrt( 3 ) - 1 ];
+  var expected = 1;
+
+  var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
+  test.identical( gotDist, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( polygon, polygon, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( polygon, sphere, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( null, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( NaN, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( polygon, NaN));
+
+  sphere = [ 0, 0, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( polygon, sphere ));
+  sphere = [ 0, 0, 1, 1, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( polygon, sphere ));
+  sphere = [ 0, 0, 1, 1, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereDistance( polygon, sphere ));
+
+}
+
+//
+
+function sphereClosestPoint( test )
+{
+
+  test.description = 'Polygon and sphere remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 1, 1, 3 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  var oldSphere = [ 1, 1, 1, 3 ];
+  test.identical( sphere, oldSphere );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon and sphere intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 2 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0.2 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and sphere not intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 5, 1 ];
+  var expected = [ 0, 1 ];
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and sphere almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 2, 0, 0.9 ];
+  var expected = [ 1, 0 ];
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'sphere next to polygon´s edge'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, 0.5, 0.9 ];
+  var expected = [ 1, 0.5 ];
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'sphere next to polygon vertex'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, -1, Math.sqrt( 2 ) - 0.2];
+  var expected = [ 1, 0 ];
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and sphere intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0, 2 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 0, 0, 0, 0.2 ];
+  var expected = 0;
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and sphere not intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 1, 5, 1 ];
+  var expected = [ 0, 0, 1 ];
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'Polygon and sphere almost intersecting'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var sphere = [ 1, 0, 0, 0.9 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'sphere next to polygon edge'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, 0, 0.5, Math.sqrt( 2 ) - 0.1 ];
+  var expected = [ 1, 1, 0.5 ];
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  test.description = 'sphere next to polygon vertex'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+  var sphere = [ 0, 0, -1, Math.sqrt( 3 ) - 1 ];
+  var expected = [ 1, 1, 0 ];
+
+  var gotPoint = _.convexPolygon.sphereClosestPoint( polygon, sphere );
+  test.identical( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( polygon, polygon, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( polygon, sphere, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( null, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( NaN, sphere ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( polygon, NaN));
+
+  sphere = [ 0, 0, 1];
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( polygon, sphere ));
+  sphere = [ 0, 0, 1, 1, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( polygon, sphere ));
+  sphere = [ 0, 0, 1, 1, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.sphereClosestPoint( polygon, sphere ));
+
+}
+
 
 
 // --
@@ -6723,6 +7485,10 @@ var Self =
     segmentIntersects : segmentIntersects,
     segmentDistance : segmentDistance,
     segmentClosestPoint : segmentClosestPoint,
+
+    sphereIntersects : sphereIntersects,
+    sphereDistance : sphereDistance,
+    sphereClosestPoint : sphereClosestPoint,
 
   }
 
