@@ -829,7 +829,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   *    1,   0, - 1,   0,
   *    0,   1,   0, - 1
   *  ]);
-  * _.boundingBoxGet( null, polygon );
+  * _.boundingBoxGet( polygon, null );
   *
   * @returns { Array } Returns the array of the bounding box.
   * @function boundingBoxGet
@@ -2340,6 +2340,86 @@ function sphereClosestPoint( polygon, sphere, dstPoint )
   return dstPoint;
 }
 
+//
+
+/**
+  * Get the bounding sphere of a convex polygon. Returns destination sphere.
+  * Polygon and sphere are stored in Array data structure. Source polygon stays untouched.
+  *
+  * @param { Array } dstSphere - destination sphere.
+  * @param { Array } polygon - source polygon for the bounding sphere.
+  *
+  * @example
+  * // returns [ 0, 0, 0, 1 ]
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.boundingSphereGet( polygon, null );
+  *
+  * @returns { Array } Returns the array of the bounding sphere.
+  * @function boundingSphereGet
+  * @throws { Error } An Error if ( dim ) is different than dimGet( polygon ) (the polygon and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( dstSphere ) is not sphere
+  * @throws { Error } An Error if ( polygon ) is not convex polygon
+  * @memberof wTools.convexPolygon
+  */
+function boundingSphereGet( polygon, dstSphere )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  _.assert( _.convexPolygon.is( polygon ) );
+  let dims = _.Space.dimsOf( polygon ) ;
+  let rows = dims[ 0 ];
+  let cols = dims[ 1 ];
+
+  if( dstSphere === null || dstSphere === undefined )
+  dstSphere = _.sphere.makeZero( rows );
+
+  _.assert( _.sphere.is( dstSphere ) );
+  let dstSphereView = _.sphere._from( dstSphere );
+  let center = _.sphere.centerGet( dstSphereView );
+  let radiusSphere = _.sphere.radiusGet( dstSphereView );
+  let dimSphere = _.sphere.dimGet( dstSphereView );
+
+  _.assert( rows === dimSphere );
+
+  // Polygon limits
+  let max = polygon.colVectorGet( 0 ).clone();
+  let min = polygon.colVectorGet( 0 ).clone();
+
+  for( let j = 1 ; j < cols ; j++ )
+  {
+    let newp = polygon.colVectorGet( j );
+    for( let i = 0; i < rows; i++ )
+    {
+      if( newp.eGet( i ) < min.eGet( i ) )
+      {
+        min.eSet( i, newp.eGet( i ) );
+      }
+
+      if( newp.eGet( i ) > max.eGet( i ) )
+      {
+        max.eSet( i, newp.eGet( i ) );
+      }
+    }
+  }
+
+  // Center of the sphere
+  for( let c = 0; c < center.length; c++ )
+  {
+    center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
+  }
+
+  // Radius of the sphere
+  _.sphere.radiusSet( dstSphereView, _.vector.distance( center, max ) );
+
+  return dstSphere;
+}
+
 
 // --
 // declare
@@ -2390,6 +2470,7 @@ let Proto =
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint,
+  boundingSphereGet : boundingSphereGet,
 
 }
 

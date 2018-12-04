@@ -1963,7 +1963,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
-  * @memberof wTools.capsule
+  * @memberof wTools.Frustum
   */
 function boundingSphereGet( dstSphere, srcFrustum )
 {
@@ -1989,8 +1989,8 @@ function boundingSphereGet( dstSphere, srcFrustum )
   _.assert( rows - 1 === dimSphere );
 
   // Frustum limits
-  let max = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
-  let min = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
+  let max = fpoints.colVectorGet( 0 ).clone();
+  let min = fpoints.colVectorGet( 0 ).clone();
 
   for( let j = 1 ; j < _.Space.dimsOf( fpoints )[ 1 ] ; j++ )
   {

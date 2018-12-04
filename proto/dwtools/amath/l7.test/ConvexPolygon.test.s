@@ -7580,6 +7580,156 @@ function sphereClosestPoint( test )
 
 }
 
+//
+
+function boundingSphereGet( test )
+{
+
+  test.case = 'Source polygon remains unchanged'; /* */
+
+  var srcPolygon = _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,   1,   1,
+      0,   0,   1,   1,
+      0,   1,   1,   0
+    ]);
+  var dstSphere = [ 1, 1, 1, 2 ];
+  var expected = [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ];
+
+  var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
+  test.identical( expected, gotSphere );
+  test.is( dstSphere === gotSphere );
+
+  var oldSrcPolygon = _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,   1,   1,
+      0,   0,   1,   1,
+      0,   1,   1,   0
+    ]);
+  test.identical( srcPolygon, oldSrcPolygon );
+
+  test.case = 'Polygon inside sphere'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,   3,   3,
+      0,   0,   2,   2,
+      0,   1,   1,   0
+    ]);
+  var dstSphere = [ 1, 1, 1, 10 ];
+  var expected = [ 1.5, 1, 0.5, Math.sqrt( 3.5 ) ];
+
+  var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Polygon outside Sphere'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      3,   3,   3,   3,
+      5,   3,   3,   5,
+      3,   4,   2,   2
+    ]);
+  var dstSphere = [ 0, 0, 0, 1 ];
+  var expected = [ 3, 4, 3, Math.sqrt( 2 ) ];
+
+  var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Negative polygon values'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0, - 1, - 1,
+      0,   0, - 1, - 1,
+      0, - 1, - 1,   0
+    ]);
+  var dstSphere = [ 3, 3, 3, 4 ];
+  var expected = [ - 0.5, - 0.5, - 0.5, Math.sqrt( 0.75 ) ];
+
+  var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
+  test.identical( gotSphere, expected );
+
+  test.case = '2D'; //
+
+  var srcPolygon = _.Space.make( [ 2, 4 ] ).copy
+    ([
+      3,   6,   -1,   1,
+      -2,   0,   7,   1
+    ]);
+  var dstSphere = [ 3, 3, 4 ];
+  var expected = [ 2.5, 2.5, Math.sqrt( 32.5 ) ];
+
+  var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere vector'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,   2,   2,
+      0,   2,   2,   0,
+      0,   2,   2,   0
+    ]);
+  var dstSphere = _.vector.from( [ 1, 2, 3, 9 ] );
+  var expected = _.vector.from( [ 1, 1, 1, Math.sqrt( 3 )  ] );
+
+  var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
+  test.identical( gotSphere, expected );
+
+  test.case = 'dstSphere null'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 4 ] ).copy
+    ([
+      0,   0,  -2,  -2,
+      0,   0,  -2,  -2,
+      0,  -1,  -2,   0
+    ]);
+  var dstSphere = null;
+  var expected = [ -1, -1, -1, Math.sqrt( 3 ) ];
+
+  var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
+  test.equivalent( gotSphere, expected );
+
+  test.case = 'dstSphere undefined'; /* */
+
+  var srcPolygon =  _.Space.make( [ 3, 3 ] ).copy
+    ([
+      0,   0,   1,
+      1,   1,   3,
+      0,   1,   1
+    ]);
+  var dstSphere = undefined;
+  var expected = [ 0.5, 2, 0.5, Math.sqrt( 1.5 ) ];
+
+  var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcPolygon = _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0,  -1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( [] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( 'polygon', 'sphere' ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( srcPolygon, [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( null, [ 0, 1, 0, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( srcPolygon, NaN ) );
+  test.shouldThrowErrorSync( () => _.convexPolygon.boundingSphereGet( srcPolygon, [ 0, 1, 0, 1, 2 ]  ) );
+
+}
+
+
 
 
 // --
@@ -7639,6 +7789,7 @@ var Self =
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,
+    boundingSphereGet : boundingSphereGet,
 
   }
 
