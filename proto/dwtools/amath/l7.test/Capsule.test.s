@@ -2337,6 +2337,234 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonClosestPoint( test )
+{
+
+  test.case = 'Source capsule and polygon remain unchanged'; /* */
+
+  var srcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
+  test.identical( srcCapsule, oldSrcCapsule );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Capsule and polygon intersect'; /* */
+
+  var srcCapsule = [ - 1, - 1, -1, 1, 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon vertex in capsule corner'; /* */
+
+  var srcCapsule = [ -1, 1, 0, -1, 2, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon next to capsule corner'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -1, 0, 0 ];
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon in capsule corner'; /* */
+
+  var srcCapsule = [ 1, 0, 0, 2, 0, 0, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon next to capsule side'; /* */
+
+  var srcCapsule = [ 2, -1, -1, 2, 2, 2, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ 1, -0.5, -0.5 ];
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon vertex next to capsule corner'; /* */
+
+  var srcCapsule = [ - 2, 2, 0, - 2, 3, 0, 0.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -2, 1.5, 0 ];
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon edge next to capsule corner'; /* */
+
+  var srcCapsule = [ 1, 1, 0, 2, 2, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 1, 1, 0 ];
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon vertex next to capsule side'; /* */
+
+  var srcCapsule = [ - 1, 2, 0, 1, 2, 0, 0.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ 0, 1.5, 0 ];
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon edge next to capsule side'; /* */
+
+  var srcCapsule = [ -1, 3, 0, 2, 3, 0, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 1, 2, 0 ];
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D'; /* */
+
+  var srcCapsule = [ 0, 2, 3, 3, 0.5 ];
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = [ 0, 1.5 ];
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcCapsule = [ 3, 3, 3, 4, 4, 4, Math.sqrt( 3 ) ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   1,   1,
+    0,   0,   1,   1,
+    0,   1,   1,   0
+  ]);
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 2, 2, 2 ];
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon, dstPoint );
+  test.identical( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcCapsule = [ -1, 3, 0, 2, 3, 0, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = _.vector.from( [ 0, 2, 1 ] );
+  var expected = _.vector.from( [ 0, 2, 0 ] );
+
+  var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( 'capsule', polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 0, 1, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint(  [ 0, 1, 2, 1, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint(  [ 0, 1, 2, 1, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 0, 0, 1, 1 ], [ 1, 0, 1, 2, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 1, 0, 1, 2 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 1, 0 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 1, 0, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
+
+}
+
+//
+
 function frustumIntersects( test )
 {
 
@@ -5534,6 +5762,8 @@ var Self =
     capsuleIntersects : capsuleIntersects,
     capsuleDistance : capsuleDistance,
     capsuleClosestPoint : capsuleClosestPoint,
+
+    convexPolygonClosestPoint : convexPolygonClosestPoint,
 
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,

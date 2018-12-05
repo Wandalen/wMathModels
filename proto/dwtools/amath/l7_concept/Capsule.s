@@ -994,6 +994,99 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
 
 //
 
+function convexPolygonIntersects( srcCapsule , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let capsuleView = _.capsule._from( srcCapsule );
+
+  let gotBool = _.convexPolygon.capsuleIntersects( polygon, capsuleView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcCapsule , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let capsuleView = _.capsule._from( srcCapsule );
+
+  let gotDist = _.convexPolygon.capsuleDistance( polygon, capsuleView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a capsule to a convex polygon. Returns the calculated point.
+  * Capsule and polygon remain unchanged
+  *
+  * @param { Array } capsule - The source capsule.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 1.5, 1.5, 1.5 ]
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ 1.5, 1.5, 1.5, 2, 2, 2 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.capsule
+  */
+function convexPolygonClosestPoint( capsule, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimB = _.capsule.dimGet( capsuleView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dimP  = _.Space.dimsOf( polygon );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimB );
+
+  if( _.convexPolygon.capsuleIntersects( polygon, capsuleView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsuleView );
+
+    let capsulePoint = _.vector.from( _.capsule.pointClosestPoint( capsuleView, polygonPoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointView.eSet( i, capsulePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a capsule and a frustum intersect. Returns true if they intersect and false if not.
   * The frustum and the capsule remain unchanged.
@@ -2222,6 +2315,10 @@ let Proto =
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
+
+  convexPolygonIntersects : convexPolygonIntersects,
+  convexPolygonDistance : convexPolygonDistance,
+  convexPolygonClosestPoint : convexPolygonClosestPoint,
 
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
