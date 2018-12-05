@@ -746,6 +746,99 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
 
 //
 
+function convexPolygonIntersects( srcPlane , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotBool = _.convexPolygon.planeIntersects( polygon, planeView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcPlane , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotDist = _.convexPolygon.planeDistance( polygon, planeView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a plane to a convex polygon. Returns the calculated point.
+  * Plane and polygon remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 2 ]
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ 0, 0, 1, -2 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.plane
+  */
+function convexPolygonClosestPoint( plane, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let planeView = _.plane._from( plane );
+  let dimPl = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimPl );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dimP  = _.Space.dimsOf( polygon );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimPl === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimPl );
+
+  if( _.convexPolygon.planeIntersects( polygon, planeView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.planeClosestPoint( polygon, planeView );
+
+    let planePoint = _.plane.pointCoplanarGet( planeView, polygonPoint, _.vector.from( _.array.makeArrayOfLength( dimPl ) ) ) ;
+
+    for( let i = 0; i < dimPl; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a plane and a frustum intersect. Returns true if they intersect.
   * The plane and the frustum remain unchanged.
@@ -1861,6 +1954,10 @@ let Proto =
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
+
+  convexPolygonIntersects : convexPolygonIntersects,
+  convexPolygonDistance : convexPolygonDistance,
+  convexPolygonClosestPoint : convexPolygonClosestPoint,
 
   frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
