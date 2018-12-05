@@ -4,8 +4,18 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-var line =  [ 0, 3, 3, 1, 0, - 1 ];
-result = _.line.boundingSphereGet( null, line );
-logger.log('Final result: ', result );
-result = _.line.boundingBoxGet( null, line );
-logger.log('Final result: ', result );
+let srcLine = [ -5, 2, -5, 1, 0, 1 ]
+var polygon =  _.Space.make( [ 3, 4 ] ).copy
+([
+  0,   0,   0,   0,
+  1,   0, - 1,   0,
+  0,   1,   0, - 1
+]);
+
+result = _.line.convexPolygonIntersects( srcLine, polygon );
+logger.log( result );
+result = _.line.convexPolygonDistance( srcLine, polygon );
+logger.log( result );
+result = _.line.convexPolygonClosestPoint( srcLine, polygon );
+logger.log( result );
+debugger;

@@ -3084,6 +3084,206 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonClosestPoint( test )
+{
+
+  test.case = 'Source line and polygon remain unchanged'; /* */
+
+  var srcLine = [ - 1, - 1, -1, 1, 0, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcLine = [ - 1, - 1, -1, 1, 0, 1 ];
+  test.identical( srcLine, oldSrcLine );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Line and polygon intersect'; /* */
+
+  var srcLine = [ - 1, - 1, -1, 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line cuts polygon vertex'; /* */
+
+  var srcLine = [ 0, 1, 0, 1, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line next to polygon vertex'; /* */
+
+  var srcLine = [ 0, 2, 0, 1, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -2, 2, 0 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line cuts polygon edge'; /* */
+
+  var srcLine = [ -1, 0, 0, 1, 0.5, 0.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line next to polygon edge'; /* */
+
+  var srcLine = [ -1, 0, 0, 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ - 1/3, 2/3, 2/3 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.equivalent( expected, gotPoint );
+
+  test.case = 'Line cuts polygon'; /* */
+
+  var srcLine = [ - 3, 2, 0, - 1, 1.5, 0.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line next to polygon'; /* */
+
+  var srcLine = [ 3, 4, - 1, 1, 1, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 0, 1, -1 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D'; /* */
+
+  var srcLine = [ 0, 3, 3, 3 ];
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = [ -1, 2 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcLine = [ 3, 3, 3, 1, 1, 2 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 2/3, 2/3, -5/3 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcLine = [ -1, 2, -4, 0, 0, -1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = _.vector.from( [ 0, 2, 1 ] );
+  var expected = _.vector.from( [ -1, 2, 0 ] );
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( 'line', polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 0, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 1, 0, 1, 2, 1 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 1, 0 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
+
+}
+
+//
+
 function frustumIntersects( test )
 {
 
@@ -5919,6 +6119,8 @@ var Self =
     boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
+
+    convexPolygonClosestPoint : convexPolygonClosestPoint,
 
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,

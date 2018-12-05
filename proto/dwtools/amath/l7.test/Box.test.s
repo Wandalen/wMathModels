@@ -4702,7 +4702,7 @@ function convexPolygonClosestPoint( test )
   test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
 
 }
-convexPolygonClosestPoint.timeOut = 7000;
+convexPolygonClosestPoint.timeOut = 9000;
 
 //
 

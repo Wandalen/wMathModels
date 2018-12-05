@@ -1707,8 +1707,6 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
 
   let boxView = _.box._from( box );
   let dimB = _.box.dimGet( boxView );
-  let min = _.box.cornerLeftGet( boxView );
-  let max = _.box.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( dimB );
@@ -1729,7 +1727,7 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
   {
     let polygonPoint = _.convexPolygon.boxClosestPoint( polygon, boxView );
 
-    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, polygonPoint ) );
+    let boxPoint = _.box.pointClosestPoint( boxView, polygonPoint, _.vector.from( _.array.makeArrayOfLength( dimB ) ) ) ;
 
     for( let i = 0; i < dimB; i++ )
     {
