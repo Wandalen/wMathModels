@@ -1648,6 +1648,101 @@ function capsuleClosestPoint( box, capsule, dstPoint )
 
 //
 
+function convexPolygonIntersects( srcBox , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.convexPolygon.boxIntersects( polygon, boxView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcBox , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.convexPolygon.boxDistance( polygon, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a convex polygon. Returns the calculated point.
+  * Box and polygon remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 1.5, 1.5, 1.5 ]
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ 1.5, 1.5, 1.5, 2, 2, 2 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function convexPolygonClosestPoint( box, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let min = _.box.cornerLeftGet( boxView );
+  let max = _.box.cornerRightGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dimP  = _.Space.dimsOf( polygon );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimB );
+
+  if( _.convexPolygon.boxIntersects( polygon, boxView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.boxClosestPoint( polygon, boxView );
+
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, polygonPoint ) );
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a box contains a frustum. Returns true if it is contained, false if not.
   * Box and frustum remain unchanged
@@ -3069,6 +3164,10 @@ let Proto =
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
+
+  convexPolygonIntersects : convexPolygonIntersects,
+  convexPolygonDistance : convexPolygonDistance,
+  convexPolygonClosestPoint : convexPolygonClosestPoint,
 
   frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */

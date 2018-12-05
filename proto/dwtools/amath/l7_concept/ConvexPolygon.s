@@ -2385,7 +2385,7 @@ function boundingSphereGet( polygon, dstSphere )
   let radiusSphere = _.sphere.radiusGet( dstSphereView );
   let dimSphere = _.sphere.dimGet( dstSphereView );
 
-  _.assert( rows === dimSphere );
+  _.assert( rows === dimSphere, 'Polygon and sphere must have the same dimension' );
 
   // Polygon limits
   let max = polygon.colVectorGet( 0 ).clone();

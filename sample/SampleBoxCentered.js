@@ -4,13 +4,18 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let srcBox = [ 0, 0, 1, 1 ];
-let tstCapsule = [ 0, 3, -1, 3, 1 ];
+let srcBox = [ -1, 3, 2, 3, 3, 4 ];
+var polygon =  _.Space.make( [ 3, 4 ] ).copy
+([
+  0,   0,   0,   0,
+  1,   0, - 1,   0,
+  0,   1,   0, - 1
+]);
 
-result = _.box.capsuleIntersects( srcBox, tstCapsule );
+result = _.box.convexPolygonIntersects( srcBox, polygon );
 logger.log( result );
-result = _.box.capsuleDistance( srcBox, tstCapsule );
+result = _.box.convexPolygonDistance( srcBox, polygon );
 logger.log( result );
-result = _.box.capsuleClosestPoint( srcBox, tstCapsule );
+result = _.box.convexPolygonClosestPoint( srcBox, polygon );
 logger.log( result );
 debugger;
