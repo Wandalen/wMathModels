@@ -1140,9 +1140,9 @@ function frustumIntersects( srcCapsule, srcFrustum )
 
   let srcSegment = _.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.frustumDistance( srcSegment, srcFrustum )
+  let distance = _.segment.frustumDistance( srcSegment, srcFrustum );
 
-  if( distance <= radius )
+  if( distance <= radius + _.accuracy )
   return true;
 
   return false;

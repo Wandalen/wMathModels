@@ -603,7 +603,7 @@ function pointClosestPoint( test )
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var srcPoint = [ 0.5, 0.6, 0.2 ];
-  var expected = [ 0.5, 0.6, 0.2 ];
+  var expected = 0;
 
   var closestPoint = _.frustum.pointClosestPoint( srcFrustum, srcPoint );
   test.identical( closestPoint, expected );
@@ -1550,11 +1550,11 @@ function capsuleClosestPoint( test )
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+    0,   0,   -1,  1,   0,   0,
+    - 1,   0,  0,  -1,   0, - 1
   ]);
   var capsule = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5, 0.1 ];
-  var expected = [ 1, 0.5, 0.5 ];
+  var expected = 0;
 
   var closestPoint = _.frustum.capsuleClosestPoint( srcFrustum, capsule );
   test.equivalent( closestPoint, expected );
@@ -1578,6 +1578,189 @@ function capsuleClosestPoint( test )
   test.shouldThrowErrorSync( () => _.frustum.capsuleClosestPoint( srcFrustum, srcFrustum, [ 0, 0, 0, 0, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.frustum.capsuleClosestPoint( srcFrustum, [ 0, 0, 0, 0, 0, 0, - 1 ] ));
   test.shouldThrowErrorSync( () => _.frustum.capsuleClosestPoint( srcFrustum, [ 0, 0, 0, 0, 0, 0 ] ));
+}
+
+//
+
+function convexPolygonClosestPoint( test )
+{
+
+  test.description = 'Frustum and convexPolygon remain unchanged'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
+  test.equivalent( closestPoint, expected );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Polygon and frustum intersect'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0,   -1,  1,
+    1,  -1,   0,   0,   0,   0,
+    0,   0,  -1,   1,   0,   0,
+    -3, 0.5, 0.5,  -3, 0.5,  -3
+  ]);
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   1,   1,
+    0,   0,   1,   1,
+    0,   1,   1,   0
+  ]);
+  var expected = 0;
+
+  var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
+  test.identical( closestPoint, expected );
+
+  test.description = 'Polygon inside frustum'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0,   -1,  1,
+    1,  -1,   0,   0,   0,   0,
+    0,   0,  -1,   1,   0,   0,
+    -3,  0,   0,  -3,   0,  -3
+  ]);
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    1,   2,   2,   1
+  ]);
+  var expected = 0;
+
+  var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
+  test.identical( closestPoint, expected );
+
+  test.description = 'Polygon next to frustum vertex'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0,   -1,  1,
+    1,  -1,   0,   0,   0,   0,
+    0,   0,  -1,   1,   0,   0,
+    -3,  1,   1,  -3,   1,  -3
+  ]);
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0, 0.5, 0.5,
+    0,   0, 0.5, 0.5,
+    0, 0.5, 0.5,   0
+  ]);
+  var expected = [ 1, 1, 1 ];
+
+  var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
+  test.equivalent( closestPoint, expected );
+
+  test.description = 'Polygon next to frustum edge'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0,   -1,  1,
+    1,  -1,   0,   0,   0,   0,
+    0,   0,  -1,   1,   0,   0,
+    -3,  1,   1,  -3,   1,  -3
+  ]);
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0, 0.5, 0.5,
+    0,   0, 0.5, 0.5,
+    0, 0.5, 0.5,   0
+  ]);
+  var expected = [ 1, 1, 1 ];
+
+  var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
+  test.equivalent( closestPoint, expected );
+
+  test.description = 'Polygon next to frustum side'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0,   -1,  1,
+    1,  -1,   0,   0,   0,   0,
+    0,   0,  -1,   1,   0,   0,
+    -3,  0,   0,  -3,   0,  -3
+  ]);
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    2,   1, 0.5,   1,
+    1,   2,   1, 0.5,
+    4,   4,   4,   4
+  ]);
+  var expected = [ 0.75, 0.75, 3 ];
+
+  var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
+  test.equivalent( closestPoint, expected );
+
+  test.description = 'Diagonal frustum plane'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
+    - 3,   0, - 1,   0,   1, - 2
+  ]);
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ 1, 0, 0 ];
+
+  var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
+  test.equivalent( closestPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( srcFrustum, srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( null ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( srcFrustum, [ 0, 0, 2, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( [ ] ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( null, [ 0, 0, 0, 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( NaN , [ 0, 0, 0, 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( srcFrustum, null ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( srcFrustum, NaN ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( srcFrustum, srcFrustum, [ 0, 0, 0, 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( srcFrustum, [ 0, 0, 0, 0, 0, 0, - 1 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonClosestPoint( srcFrustum, [ 0, 0, 0, 0, 0, 0 ] ));
 }
 
 //
@@ -4218,6 +4401,8 @@ var Self =
     boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
+
+    convexPolygonClosestPoint : convexPolygonClosestPoint,
 
     frustumContains : frustumContains,
     frustumIntersects : frustumIntersects,

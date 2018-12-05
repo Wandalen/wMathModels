@@ -14,8 +14,25 @@ which lies between two parallel planes cutting the solid.
   In the following methods, frustums will be defined by a space where each column
 represents one of the frustum planes.
 
-Frustum planes convention : right, left, bottom, top, far, near;
-Frustum planes must have director vectors pointing outside frustum;
+IMPORTANT:
+Frustums are defined in a very special way, and therefore planes must be included following
+an order:
+Frustum planes convention : [ right, left, bottom, top, far, near ];
+Frustum planes must have director vectors pointing outside frustum!!!;
+
+If this convention is not followed when creating a frustum, routines may return
+wrong results.
+
+@Example: The frustum representation of the box [ 0, 0, 0, 1, 1, 1 ] would be:
+var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+([
+  0,   0,   0,   0,  -1,   1,
+  1,  -1,   0,   0,   0,   0,
+  0,   0,  -1,   1,   0,   0,
+  -1,  0,   0,  -1,   0,  -1
+]);
+
+Where all director vectors point outwards the frustum.
 
 */
 
@@ -271,6 +288,7 @@ function pointContains( frustum , point )
   {
 
     let plane = frustum.colVectorGet( i );
+
     if( _.plane.pointDistance( plane, point ) > 1E-12 )
     return false;
 
@@ -399,7 +417,10 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let srcPointVector = _.vector.from( srcPoint );  /* qqq : problem */
+  if( _.frustum.pointContains( frustum, srcPoint ) )
+  return 0;
+
+  let srcPointView = _.vector.from( srcPoint );  /* qqq : problem */
   let dstPointView = _.vector.from( dstPoint );
   let dims = _.Space.dimsOf( frustum ) ;
   let rows = dims[ 0 ];
@@ -407,8 +428,8 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   let fpoints = _.frustum.cornersGet( frustum );
   _.assert( _.spaceIs( fpoints ) );
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
-  _.assert( rows - 1 === srcPointVector.length );
-  _.assert( dstPointView.length === srcPointVector.length );
+  _.assert( rows - 1 === srcPointView.length );
+  _.assert( dstPointView.length === srcPointView.length );
 
   let max = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
   let min = _.vector.from( fpoints.colVectorGet( 0 ).slice() );
@@ -445,20 +466,20 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 
   for( let i = 0 ; i < 3 ; i++ )
   {
-    if( srcPointVector.eGet( i ) >= max.eGet( i ) )
+    if( srcPointView.eGet( i ) >= max.eGet( i ) )
     {
       dstPointView.eSet( i, max.eGet( i ) );
     }
-    else if( srcPointVector.eGet( i ) <= min.eGet( i ) )
+    else if( srcPointView.eGet( i ) <= min.eGet( i ) )
     {
       dstPointView.eSet( i, min.eGet( i ) );
     }
     else
     {
-      dstPointView.eSet( i, srcPointVector.eGet( i ) );
+      dstPointView.eSet( i, srcPointView.eGet( i ) );
     }
   }
-
+  
   if( _.frustum.pointContains( frustum, dstPointView ) === true )
   {
     return dstPoint;
@@ -493,7 +514,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
     {
       dstPointView.eSet( i, finalPoint.eGet( i ) );
     }
-
+    logger.log( dstPointView )
     _.assert( _.frustum.pointContains( frustum, dstPointView ) === true );
     return dstPoint;
   }
@@ -1004,6 +1025,104 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
 
 }
 
+//
+
+function convexPolygonIntersects( srcFrustum , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let gotBool = _.convexPolygon.frustumIntersects( polygon, srcFrustum );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcFrustum , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let gotDist = _.convexPolygon.frustumDistance( polygon, srcFrustum );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a frustum to a convex polygon. Returns the calculated point.
+  * Frustum and polygon remain unchanged
+  *
+  * @param { Space } frustum - The source frustum.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ]
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([
+  *    -1,  -1, -1,  -1,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * let srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * _.convexPolygonClosestPoint( srcFrustum, polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.frustum
+  */
+function convexPolygonClosestPoint( frustum, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  _.assert( _.frustum.is( frustum ) );
+
+  let dimP  = _.Space.dimsOf( polygon );
+  let dimF  = _.Space.dimsOf( frustum );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP[ 0 ] );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimP[ 0 ] === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimF[ 0 ] - 1 );
+
+  if( _.convexPolygon.frustumIntersects( polygon, frustum ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+    let frustumPoint = _.vector.from( _.frustum.pointClosestPoint( frustum, polygonPoint ) );
+
+    for( let i = 0; i < dimP[ 0 ]; i++ )
+    {
+      dstPointView.eSet( i, frustumPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
 
 //
 
@@ -2064,6 +2183,10 @@ let Proto =
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
+
+  convexPolygonIntersects : convexPolygonIntersects,
+  convexPolygonDistance : convexPolygonDistance,
+  convexPolygonClosestPoint : convexPolygonClosestPoint,
 
   frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects,
