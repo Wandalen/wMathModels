@@ -1525,6 +1525,99 @@ function capsuleClosestPoint( ray, capsule, dstPoint )
 
 //
 
+function convexPolygonIntersects( srcRay , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let rayView = _.ray._from( srcRay );
+
+  let gotBool = _.convexPolygon.rayIntersects( polygon, rayView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcRay , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let rayView = _.ray._from( srcRay );
+
+  let gotDist = _.convexPolygon.rayDistance( polygon, rayView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a ray to a convex polygon. Returns the calculated point.
+  * Ray and polygon remain unchanged
+  *
+  * @param { Array } ray - The source ray.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 2, 0 ]
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ -5, 2, -5, 1, 0, 1 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( ray ) is not ray
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.ray
+  */
+function convexPolygonClosestPoint( ray, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let rayView = _.ray._from( ray );
+  let dimR = _.ray.dimGet( rayView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimR );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dimP  = _.Space.dimsOf( polygon );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimR === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimR );
+
+  if( _.convexPolygon.rayIntersects( polygon, rayView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.rayClosestPoint( polygon, rayView );
+
+    let rayPoint = _.ray.pointClosestPoint( rayView, polygonPoint, _.vector.from( _.array.makeArrayOfLength( dimR ) ) ) ;
+
+    for( let i = 0; i < dimR; i++ )
+    {
+      dstPointView.eSet( i, rayPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a ray and a frustum intersect. Returns true if they intersect and false if not.
   * The frustum and the ray remain unchanged.
@@ -2666,6 +2759,10 @@ let Proto =
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
+
+  convexPolygonIntersects : convexPolygonIntersects,
+  convexPolygonDistance : convexPolygonDistance,
+  convexPolygonClosestPoint : convexPolygonClosestPoint,
 
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,

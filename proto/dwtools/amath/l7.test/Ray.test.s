@@ -2991,6 +2991,220 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonClosestPoint( test )
+{
+
+  test.case = 'Source ray and polygon remain unchanged'; /* */
+
+  var srcRay = [ - 1, - 1, -1, 1, 0, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcRay = [ - 1, - 1, -1, 1, 0, 1 ];
+  test.identical( srcRay, oldSrcRay );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Ray and polygon intersect'; /* */
+
+  var srcRay = [ - 1, - 1, -1, 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Ray cuts polygon vertex'; /* */
+
+  var srcRay = [ 0, 1, 0, -1, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Ray next to polygon vertex'; /* */
+
+  var srcRay = [ 0, 2, 0, -1, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -2, 2, 0 ];
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Ray cuts polygon edge'; /* */
+
+  var srcRay = [ -1, 0, 0, 1, 0.5, 0.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Ray next to polygon edge'; /* */
+
+  var srcRay = [ -1, 0, 0, 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ - 1/3, 2/3, 2/3 ];
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.equivalent( expected, gotPoint );
+
+  test.case = 'Ray cuts polygon'; /* */
+
+  var srcRay = [ - 3, -2, 0, 1, 1.5, 0.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Ray next to polygon'; /* */
+
+  var srcRay = [ 3, 4, - 1, -1, -1, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 0, 1, -1 ];
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Ray doesn´t cut polygon with negative factor'; /* */
+
+  var srcRay = [ 2, 0, 0, 1, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 2, 0, 0 ];
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D'; /* */
+
+  var srcRay = [ 0, -3, 3, 3 ];
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = [ 2, -1 ];
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcRay = [ 3, 3, 3, -1, -1, -2 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 2/3, 2/3, -5/3 ];
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcRay = [ -1, 2, -4, 0, 0, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = _.vector.from( [ 0, 2, 1 ] );
+  var expected = _.vector.from( [ -1, 2, 0 ] );
+
+  var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( 'ray', polygon ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( [ 0, 0, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( [ 0, 1, 0, 1, 2, 1 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( [ 0, 1, 0 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.ray.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
+
+}
+
+//
+
 function frustumIntersects( test )
 {
 
@@ -5417,6 +5631,8 @@ var Self =
     boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
+
+    convexPolygonClosestPoint : convexPolygonClosestPoint,
 
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,
