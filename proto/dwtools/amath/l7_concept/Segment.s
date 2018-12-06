@@ -1581,6 +1581,99 @@ function capsuleClosestPoint( segment, capsule, dstPoint )
 
 //
 
+function convexPolygonIntersects( srcSegment , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let segmentView = _.segment._from( srcSegment );
+
+  let gotBool = _.convexPolygon.segmentIntersects( polygon, segmentView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcSegment , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let segmentView = _.segment._from( srcSegment );
+
+  let gotDist = _.convexPolygon.segmentDistance( polygon, segmentView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a segment to a convex polygon. Returns the calculated point.
+  * Segment and polygon remain unchanged
+  *
+  * @param { Array } segment - The source segment.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 2, 0 ]
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ -5, 2, -5, 1, 2, 1 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.segment
+  */
+function convexPolygonClosestPoint( segment, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let segmentView = _.segment._from( segment );
+  let dimS = _.segment.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dimP  = _.Space.dimsOf( polygon );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimS );
+
+  if( _.convexPolygon.segmentIntersects( polygon, segmentView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.segmentClosestPoint( polygon, segmentView );
+
+    let segmentPoint = _.segment.pointClosestPoint( segmentView, polygonPoint, _.vector.from( _.array.makeArrayOfLength( dimS ) ) ) ;
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, segmentPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a segment and a frustum intersect. Returns true if they intersect and false if not.
   * The frustum and the segment remain unchanged.
@@ -3079,6 +3172,10 @@ let Proto =
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
+
+  convexPolygonIntersects : convexPolygonIntersects,
+  convexPolygonDistance : convexPolygonDistance,
+  convexPolygonClosestPoint : convexPolygonClosestPoint,
 
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,

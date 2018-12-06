@@ -2887,6 +2887,234 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonClosestPoint( test )
+{
+
+  test.case = 'Source segment and polygon remain unchanged'; /* */
+
+  var srcSegment = [ - 1, - 1, -1, 1, 0, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcSegment = [ - 1, - 1, -1, 1, 0, 1 ];
+  test.identical( srcSegment, oldSrcSegment );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Segment and polygon intersect'; /* */
+
+  var srcSegment = [ - 1, - 1, -1, 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Segment cuts polygon vertex'; /* */
+
+  var srcSegment = [ 0, 1, 0, -4, 1, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Segment next to polygon vertex'; /* */
+
+  var srcSegment = [ 0, 2, 0, -4, 2, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -2, 2, 0 ];
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Segment cuts polygon edge'; /* */
+
+  var srcSegment = [ -1, 0, 0, 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Segment next to polygon edge'; /* */
+
+  var srcSegment = [ -1, 0, 0, 1, 2, 2 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ - 1/3, 2/3, 2/3 ];
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.equivalent( expected, gotPoint );
+
+  test.case = 'Segment cuts polygon'; /* */
+
+  var srcSegment = [ - 3, -2, 0, - 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Segment next to polygon'; /* */
+
+  var srcSegment = [ 3, 4, - 1, -3, -2, -1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 0, 1, -1 ];
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Segment doesn´t cut polygon with negative factor'; /* */
+
+  var srcSegment = [ 2, 0, 0, 5, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 2, 0, 0 ];
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Segment doesn´t cut polygon with positive factor'; /* */
+
+  var srcSegment = [ 5, 0, 0, 2, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 2, 0, 0 ];
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D'; /* */
+
+  var srcSegment = [ 0, -3, 6, 3 ];
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = [ 2, -1 ];
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'dstPoint Arsegment'; /* */
+
+  var srcSegment = [ 3, 3, 3, -1, -1, -5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 2/3, 2/3, -5/3 ];
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcSegment = [ -1, 2, -4, -1, 2, 4 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = _.vector.from( [ 0, 2, 1 ] );
+  var expected = _.vector.from( [ -1, 2, 0 ] );
+
+  var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( 'segment', polygon ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( [ 0, 0, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( [ 0, 1, 0, 1, 2, 1 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( [ 0, 1, 0 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.segment.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
+
+}
+
+//
+
 function frustumIntersects( test )
 {
 
@@ -5930,6 +6158,8 @@ var Self =
     boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
+
+    convexPolygonClosestPoint : convexPolygonClosestPoint,
 
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,
