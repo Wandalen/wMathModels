@@ -1,21 +1,20 @@
-
 if( typeof module !== 'undefined' )
 require( 'wmathconcepts' );
 
-var _ = wTools;
+let _ = wTools;
 
-/*
-var sphere = [ 5, 0, 0, 1 ];
-var capsule = [ 1, 0, 0, 3, 0, 0, 0.9 ];
-var result = _.sphere.capsuleIntersects( sphere, capsule );
-console.log( result )
-var result = _.sphere.capsuleDistance( sphere, capsule );
-console.log( result )
-var result = _.sphere.capsuleClosestPoint( sphere, capsule );
-console.log( result )
-*/
+var srcSphere = [ 0, 1, 0, 2 ];
+var polygon =  _.Space.make( [ 3, 4 ] ).copy
+([
+  -2,  -2,  -2,  -2,
+  1,   0, - 1,   0,
+  0,   1,   0, - 1
+]);
 
-var sphere = [ 3, 3, 3, 0 ];
-var result = _.sphere.boundingBoxGet( null, sphere );
-
-console.log( result )
+result = _.sphere.convexPolygonIntersects( srcSphere, polygon );
+logger.log( result );
+result = _.sphere.convexPolygonDistance( srcSphere, polygon );
+logger.log( result );
+result = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+logger.log( result );
+debugger;

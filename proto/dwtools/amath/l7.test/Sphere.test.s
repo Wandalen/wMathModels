@@ -2985,6 +2985,205 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonClosestPoint( test )
+{
+
+  test.case = 'Source sphere and polygon remain unchanged'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 3, ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcSphere = [ - 1, - 1, -1, 3 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Sphere and polygon intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere cuts polygon vertex'; /* */
+
+  var srcSphere = [ 0, 1, 0, 2 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere next to polygon vertex'; /* */
+
+  var srcSphere = [ 0, 1, 0, 1.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -1.5, 1, 0 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere cuts polygon edge'; /* */
+
+  var srcSphere = [ 0, 1, 1, Math.sqrt( 2 )/2 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere next to polygon edge'; /* */
+
+  var srcSphere = [ 0, 2, 2, Math.sqrt( 2 ) ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ 0, 1, 1 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.equivalent( expected, gotPoint );
+
+  test.case = 'Sphere cuts polygon'; /* */
+
+  var srcSphere = [ - 3, 0, 0, 1.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere next to polygon'; /* */
+
+  var srcSphere = [ 0, 0, - 1, 0.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 0, 0, -0.5 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D'; /* */
+
+  var srcSphere = [ 4, 4, Math.sqrt( 2 )/2 ];
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = [ 3.5, 3.5 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcSphere = [ 3, 4, 4, Math.sqrt( 3 ) ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 2.1022415975031303, 2.9526151970869856, 2.9526151970869856 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcSphere = [ -1, -2, -4, 2 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = _.vector.from( [ 0, 2, 1 ] );
+  var expected = _.vector.from( [ -0.4654775161751512, -0.9309550323503024, -2.3964325485254534 ] );
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( 'sphere', polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 0, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint(  [ 0, 1, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint(  [ 0, 1, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 0, 1 ], [ 0, 1, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 1, 0 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 1, 0, 2 ], polygon ) );
+
+}
+
+//
+
 function frustumContains( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
@@ -4850,6 +5049,8 @@ var Self =
     boundingBoxGet : boundingBoxGet,
 
     capsuleClosestPoint : capsuleClosestPoint,
+
+    convexPolygonClosestPoint : convexPolygonClosestPoint,
 
     frustumContains : frustumContains,
     frustumDistance : frustumDistance,

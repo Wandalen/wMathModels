@@ -1370,6 +1370,99 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
 
 //
 
+function convexPolygonIntersects( srcSphere , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let sphereView = _.sphere._from( srcSphere );
+
+  let gotBool = _.convexPolygon.sphereIntersects( polygon, sphereView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcSphere , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let sphereView = _.sphere._from( srcSphere );
+
+  let gotDist = _.convexPolygon.sphereDistance( polygon, sphereView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a sphere to a convex polygon. Returns the calculated point.
+  * Sphere and polygon remain unchanged
+  *
+  * @param { Array } sphere - The source sphere.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 3 ]
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ 0, 0, 4, 1 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( sphere ) is not sphere
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.sphere
+  */
+function convexPolygonClosestPoint( sphere, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let sphereView = _.sphere._from( sphere );
+  let dimS = _.sphere.dimGet( sphereView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dimP  = _.Space.dimsOf( polygon );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimS );
+
+  if( _.convexPolygon.sphereIntersects( polygon, sphereView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.sphereClosestPoint( polygon, sphereView );
+
+    let spherePoint = _.sphere.pointClosestPoint( sphereView, polygonPoint, _.vector.from( _.array.makeArrayOfLength( dimS ) ) ) ;
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, spherePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
 /**
   * Check if a sphere contains a frustum. Returns true if frustum is contained.
   * Frustum and sphere remain unchanged.
@@ -2457,6 +2550,10 @@ let Proto =
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
+
+  convexPolygonIntersects : convexPolygonIntersects,
+  convexPolygonDistance : convexPolygonDistance,
+  convexPolygonClosestPoint : convexPolygonClosestPoint,
 
   frustumContains : frustumContains, /* qqq : implement me */
   frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
