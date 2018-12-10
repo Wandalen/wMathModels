@@ -1951,6 +1951,55 @@ function rayClosestPoint( polygon, ray, dstPoint )
 //
 
 /**
+  * Check if a convex polygon contains a segment. Returns true if it is contained, false if not.
+  * Convex polygon and segment remain unchanged.
+  *
+  * @param { Polygon } polygon - Source polygon.
+  * @param { Array } segment - Source segment.
+  *
+  * @example
+  * // returns false;
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy([
+  *   0,   1,   1,   0,
+  *   0,   1,   1,   0,
+  *   0,   1,   3,   3
+  * ]);
+  * _.segmentContains( polygon , [ 0, 0, 1, 5, 5, 5 ] );
+  *
+  * @returns { Boolean } Returns true if the polygon contains the segment.
+  * @function segmentIntersects
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( polygon ) is not a convex polygon.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @memberof wTools.convexPolygon
+  */
+
+function segmentContains( polygon, segment )
+{
+
+  let segmentView = _.vector.from( segment );
+  let sOrigin = _.segment.originGet( segmentView );
+  let sEnd = _.segment.endPointGet( segmentView );
+  let sDim  = _.segment.dimGet( segmentView );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ), 'polygon must be a convex polygon' );
+  debugger;
+
+  let dims = _.Space.dimsOf( polygon );
+  _.assert( sDim === dims[ 0 ], 'Polygon and segment must have the same dimension' );
+
+  if( !_.convexPolygon.pointContains( polygon, sOrigin ) )
+  return false;
+
+  if( !_.convexPolygon.pointContains( polygon, sEnd ) )
+  return false;
+
+  return true;
+}
+
+//
+
+/**
   * Check if a convex polygon and a segment intersect. Returns true if they intersect.
   * Convex polygon and segment remain unchanged.
   *
@@ -2463,6 +2512,7 @@ let Proto =
   rayDistance : rayDistance,
   rayClosestPoint : rayClosestPoint,
 
+  segmentContains : segmentContains,
   segmentIntersects : segmentIntersects,
   segmentDistance : segmentDistance,
   segmentClosestPoint : segmentClosestPoint,

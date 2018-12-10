@@ -6030,6 +6030,177 @@ function rayClosestPoint( test )
 
 //
 
+function segmentContains( test )
+{
+
+  test.description = 'Polygon and segment remain unchanged'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var segment = [ 1, 1, 1, 3, 3, 3 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.segmentContains( polygon, segment );
+  test.identical( gotBool, expected );
+
+  var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
+  test.identical( segment, oldSegment );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = '2D';//
+
+  test.description = 'Polygon away from segment'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var segment = [ 3, 3, 5, 6 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.segmentContains( polygon, segment );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon and segment intersect'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var segment = [ 0, 0, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.segmentContains( polygon, segment );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon contains segment'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var segment = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.segmentContains( polygon, segment );
+  test.identical( gotBool, expected );
+
+  test.description = 'Segment in polygon side'; //
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var segment = [ 1, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.segmentContains( polygon, segment );
+  test.identical( gotBool, expected );
+
+  test.case = '3D';//
+
+  test.description = 'Polygon and segment intersect'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var segment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.segmentContains( polygon, segment );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon away from segment'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var segment = [ - 2, - 2, -3, 4 ];
+  var expected = false;
+
+  var gotBool = _.convexPolygon.segmentContains( polygon, segment );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon contains segment'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var segment = [ 0, - 0.2, - 0.2, 0, 0.2, 0.2 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.segmentContains( polygon, segment );
+  test.identical( gotBool, expected );
+
+  test.description = 'Segment is polygon side'; //
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var segment = [ 0, 1, 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.convexPolygon.segmentContains( polygon, segment );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    1,   1,   2,   2,
+    1,   1,   2,   2,
+    0,   1,   1,   0
+  ]);
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( segment ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( polygon, polygon, segment ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( polygon, segment, segment ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( null, segment ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( polygon, null));
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( NaN, segment ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( polygon, NaN));
+
+  segment = [ 0, 0, 1 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( polygon, segment ));
+  segment = [ 0, 0, 1, 1, 2 ];
+  test.shouldThrowErrorSync( () => _.convexPolygon.segmentContains( polygon, segment ));
+
+}
+
+//
+
 function segmentIntersects( test )
 {
 
