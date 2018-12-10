@@ -1555,6 +1555,74 @@ function boxExpand( dstBox , srcBox )
 
 //
 
+/**
+  * Check if a given capsule is contained inside a box. Returs true if it is contained, false if not. Capsule and box stay untouched.
+  *
+  * @param { Array } box - The box to check if the capsule is inside.
+  * @param { Array } capsule - The capsule to check.
+  *
+  * @example
+  * // returns true
+  * _.capsuleContains( [ 0, 0, 2, 2 ], [ 1, 1, 1.5, 1.5, 0.1 ] );
+  *
+  * @example
+  * // returns false
+  * _.capsuleContains( [ 0, 0, 2, 2 ], [ - 1, 3, 3, 3, 1 ] );
+  *
+  * @returns { Boolen } Returns true if the capsule is inside the box, and false if the capsule is outside it.
+  * @function capsuleContains
+  * @throws { Error } An Error if ( dim ) is different than capsule.length (Box and capsule have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @memberof wTools.box
+  */
+
+
+function capsuleContains( box, capsule )
+{
+
+  if( box === null )
+  box = _.box.make();
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let capsuleView = _.capsule._from( capsule );
+  let dimC = _.capsule.dimGet( capsuleView );
+  let origin = _.vector.from( _.capsule.originGet( capsuleView ) );
+  let end = _.vector.from( _.capsule.endPointGet( capsuleView ) );
+  let radius = _.capsule.radiusGet( capsuleView );
+
+  _.assert( dimB === dimC );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let originView = origin.clone();
+  let endView = end.clone();
+
+  for( let i = 0; i < dimC; i++ )
+  {
+    originView.eSet( i, originView.eGet( i ) + radius );
+    if( !_.box.pointContains( boxView, originView ) )
+    return false;
+
+    originView.eSet( i, originView.eGet( i ) - 2 * radius );
+    if( !_.box.pointContains( boxView, originView ) )
+    return false;
+
+    endView.eSet( i, endView.eGet( i ) + radius );
+    if( !_.box.pointContains( boxView, endView ) )
+    return false;
+
+    endView.eSet( i, endView.eGet( i ) - 2 * radius );
+    if( !_.box.pointContains( boxView, endView ) )
+    return false;
+  }
+
+  return true;
+}
+
+//
+
 function capsuleIntersects( srcBox , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1648,6 +1716,55 @@ function capsuleClosestPoint( box, capsule, dstPoint )
 
 //
 
+/**
+  * Check if a given convex polygon is contained inside a box. Returs true if it is contained, false if not. Polygon and box stay untouched.
+  *
+  * @param { Array } box - The box to check if the convex polygon is inside.
+  * @param { Polygon } convex polygon - The convex polygon to check.
+  *
+  * @example
+  * // returns true
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.convexPolygonContains( [ 0, 0, 0, 3, 3, 3 ], polygon );
+  *
+  * @returns { Boolen } Returns true if the convexPolygon is inside the box, and false if not.
+  * @function convexPolygonContains
+  * @throws { Error } An Error if ( dim ) is different than convexPolygon.length (Box and polygon don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( convexPolygon ) is not convexPolygon.
+  * @memberof wTools.box
+  */
+
+
+function convexPolygonContains( box, polygon )
+{
+
+  if( box === null )
+  box = _.box.make();
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let dimP =  _.Space.dimsOf( polygon );
+
+  _.assert( dimB === dimP[ 0 ] );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  for( let i = 0; i < dimP[ 1 ]; i++ )
+  {
+    let vertex = polygon.colVectorGet( i );
+    if( !_.box.pointContains( boxView, vertex ) )
+    return false;
+  }
+
+  return true;
+}
+
+//
+
 function convexPolygonIntersects( srcBox , polygon )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1727,7 +1844,7 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
   {
     let polygonPoint = _.convexPolygon.boxClosestPoint( polygon, boxView );
 
-    let boxPoint = _.box.pointClosestPoint( boxView, polygonPoint, _.vector.from( _.array.makeArrayOfLength( dimB ) ) ) ;
+    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, polygonPoint ) ) ;
 
     for( let i = 0; i < dimB; i++ )
     {
@@ -2474,6 +2591,55 @@ function planeExpand( dstBox, srcPlane )
 
 //
 
+/**
+  *Check if the source box contains the test segment. Returns true if it is contained, false if not.
+  * Box and segment are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcBox - The source box (container).
+  * @param { Array } tstSegment - The tested segment (the segment to check if it is contained in srcBox).
+  *
+  * @example
+  * // returns true
+  * _.segmentContains( [ 0, 0, 0, 2, 2, 2 ], [ 1, 1, 1, 2, 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.segmentContains( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 1, 1, 1, 2.5 ] );
+  *
+  * @returns { Boolean } Returns true if the segment is contained and false if not.
+  * @function segmentContains
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and segment don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box
+  * @throws { Error } An Error if ( tstSegment ) is not segment
+  * @memberof wTools.box
+  */
+
+function segmentContains( srcBox , tstSegment )
+{
+
+  let segmentView = _.segment._from( tstSegment );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+  let dimS = _.segment.dimGet( segmentView );
+
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( dimS === dimB );
+
+  if( !_.box.pointContains( boxView, origin ) )
+  return false;
+
+  if( !_.box.pointContains( boxView, end ) )
+  return false;
+
+  return true;
+}
+
+//
+
 function segmentIntersects( srcBox , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -2618,6 +2784,9 @@ function sphereContains( srcBox , tstSphere )
 
     if( !_.box.pointContains( boxView, pointn ) )
     return false;
+
+    pointp.eSet( i, pointp.eGet( i ) - radius );
+    pointn.eSet( i, pointn.eGet( i ) + radius );
   }
 
   return true;
@@ -3159,10 +3328,12 @@ let Proto =
   boxClosestPoint : boxClosestPoint, /* qqq : implement me */
   boxExpand : boxExpand,
 
+  capsuleContains : capsuleContains,
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
 
+  convexPolygonContains : convexPolygonContains,
   convexPolygonIntersects : convexPolygonIntersects,
   convexPolygonDistance : convexPolygonDistance,
   convexPolygonClosestPoint : convexPolygonClosestPoint,
@@ -3186,6 +3357,7 @@ let Proto =
   rayDistance : rayDistance, /* qqq : implement me - Same as _.ray.boxDistance */
   rayClosestPoint : rayClosestPoint,
 
+  segmentContains : segmentContains,
   segmentIntersects : segmentIntersects, /* Same as _.segment.boxIntersects */
   segmentDistance : segmentDistance, /* Same as _.segment.boxDistance */
   segmentClosestPoint : segmentClosestPoint,
