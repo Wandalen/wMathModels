@@ -797,6 +797,57 @@ function boundingBoxGet( dstBox, srcCapsule )
 //
 
 /**
+  * Check if a capsule contains a capsule. Returns true if it contains the capsule and false if not.
+  * The capsules remain unchanged.
+  *
+  * @param { Array } srcCapsule - Source capsule ( container ).
+  * @param { Array } tstCapsule - Source capsule ( content ).
+  *
+  * @example
+  * // returns true;
+  * _.capsuleContains( [ 0, 0, 0, 2, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns false;
+  * _.capsuleContains( [ 0, -1, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2, 2 ]);
+  *
+  * @returns { Boolean } Returns true if the capsule is contained, and false if not.
+  * @function capsuleContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( tstCapsule ) is not capsule.
+  * @throws { Error } An Error if ( dim ) is different than capsule.dimGet (the capsules don´t have the same dimension).
+  * @memberof wTools.capsule
+  */
+function capsuleContains( srcCapsule, tstCapsule )
+{
+
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let dimSrc = _.capsule.dimGet( srcCapsuleView );
+  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let dimTst = _.capsule.dimGet( tstCapsuleView );
+  let origin = _.vector.from( _.capsule.originGet( tstCapsuleView ) );
+  let end = _.vector.from( _.capsule.endPointGet( tstCapsuleView ) );
+  let radius = _.capsule.radiusGet( tstCapsuleView );
+
+  _.assert( dimSrc === dimTst );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let bottomSphere = _.sphere.fromCenterAndRadius( null, origin, radius );
+  let topSphere = _.sphere.fromCenterAndRadius( null, end, radius );
+
+  if( !_.capsule.sphereContains( srcCapsuleView, bottomSphere ) )
+  return false;
+
+  if( !_.capsule.sphereContains( srcCapsuleView, topSphere ) )
+  return false;
+
+  return true;
+}
+
+//
+
+/**
   * Check if two capsules intersect. Returns true if they intersect and false if not.
   * The capsules remain unchanged.
   *
@@ -994,6 +1045,52 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
 
 //
 
+/**
+  * Check if a given convex polygon is contained inside a capsule. Returs true if it is contained, false if not. Polygon and capsule stay untouched.
+  *
+  * @param { Array } capsule - The capsule to check if the convex polygon is inside.
+  * @param { Polygon } convex polygon - The convex polygon to check.
+  *
+  * @example
+  * // returns true
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.convexPolygonContains( [ 0, 0, 0, 3, 3, 3, 1 ], polygon );
+  *
+  * @returns { Boolen } Returns true if the convexPolygon is inside the capsule, and false if not.
+  * @function convexPolygonContains
+  * @throws { Error } An Error if ( dim ) is different than convexPolygon.length (Box and polygon don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @throws { Error } An Error if ( convexPolygon ) is not convexPolygon.
+  * @memberof wTools.capsule
+  */
+
+
+function convexPolygonContains( capsule, polygon )
+{
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimC = _.capsule.dimGet( capsuleView );
+  let dimP =  _.Space.dimsOf( polygon );
+
+  _.assert( dimC === dimP[ 0 ] );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  for( let i = 0; i < dimP[ 1 ]; i++ )
+  {
+    let vertex = polygon.colVectorGet( i );
+    if( !_.capsule.pointContains( capsuleView, vertex ) )
+    return false;
+  }
+
+  return true;
+}
+
+//
+
 function convexPolygonIntersects( srcCapsule , polygon )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1083,6 +1180,62 @@ function convexPolygonClosestPoint( capsule, polygon, dstPoint )
     return dstPoint;
   }
 
+}
+
+//
+
+/**
+  * Check if a capsule contains a frustum. Returns true if it is contained, false if not.
+  * Capsule and frustum remain unchanged
+  *
+  * @param { Array } capsule - The source capsule (container).
+  * @param { Space } frustum - The tested frustum (the frustum to check if it is contained in capsule).
+  *
+  * @example
+  * // returns true
+  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  * );
+  * _.frustumContains( [ 0, 0, 0, 2, 2, 2, 1 ], frustum );
+  *
+  * @example
+  * // returns false
+  * _.frustumContains( [ 2, 2, 2, 3, 3, 3, 1 ], frustum );
+  *
+  * @returns { Boolean } Returns true if the frustum is contained and false if not.
+  * @function frustumContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( capsule ) is not capsule
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @memberof wTools.capsule
+  */
+function frustumContains( capsule, frustum )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  let capsuleView = _.capsule._from( capsule );
+  let dim = _.capsule.dimGet( capsuleView );
+  let dims = _.Space.dimsOf( frustum );
+  _.assert( dim = dims[ 0 ], 'Frustum and capsule must have same dim');
+
+  let fpoints = _.frustum.cornersGet( frustum );
+  let dimPoints = _.Space.dimsOf( fpoints );
+  _.assert( _.spaceIs( fpoints ) );
+
+  for( let i = 0 ; i < dimPoints[ 1 ] ; i += 1 )
+  {
+    let point = fpoints.colVectorGet( i );
+
+    if( _.capsule.pointContains( capsule, point ) !== true )
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 //
@@ -1856,6 +2009,55 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
 //
 
 /**
+  *Check if the source capsule contains the test segment. Returns true if it is contained, false if not.
+  * Capsule and segment are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcCapsule - The source capsule (container).
+  * @param { Array } tstSegment - The tested segment (the segment to check if it is contained in srcCapsule).
+  *
+  * @example
+  * // returns true
+  * _.segmentContains( [ 0, 0, 0, 2, 2, 2, 1 ], [ 1, 1, 1, 2, 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.segmentContains( [ 0, 0, 0, 2, 2, 2, 0.1 ], [ 0, 0, 1, 1, 1, 2.5 ] );
+  *
+  * @returns { Boolean } Returns true if the segment is contained and false if not.
+  * @function segmentContains
+  * @throws { Error } An Error if ( dim ) is different than dimGet(capsule) (the capsule and segment don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule
+  * @throws { Error } An Error if ( tstSegment ) is not segment
+  * @memberof wTools.capsule
+  */
+
+function segmentContains( srcCapsule , tstSegment )
+{
+
+  let segmentView = _.segment._from( tstSegment );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+  let dimS = _.segment.dimGet( segmentView );
+
+  let capsuleView = _.capsule._from( srcCapsule );
+  let dimC = _.capsule.dimGet( capsuleView );
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( dimS === dimC );
+
+  if( !_.capsule.pointContains( capsuleView, origin ) )
+  return false;
+
+  if( !_.capsule.pointContains( capsuleView, end ) )
+  return false;
+
+  return true;
+}
+
+//
+
+/**
   * Check if a capsule and a segment intersect. Returns true if they intersect and false if not.
   * The segment and the capsule remain unchanged.
   *
@@ -2034,6 +2236,65 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
   }
 
   return dstPoint;
+}
+
+//
+
+/**
+  *Check if the source capsule contains test sphere. Returns true if it is contained, false if not.
+  * Capsule and sphere are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcCapsule - The source capsule (container).
+  * @param { Array } tstSphere - The tested sphere (the sphere to check if it is contained in srcCapsule).
+  *
+  * @example
+  * // returns true
+  * _.sphereContains( [ 0, 0, 0, 2, 2, 2 ], [ 1, 1, 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.sphereContains( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 1, 2.5 ] );
+  *
+  * @returns { Boolean } Returns true if the sphere is contained and false if not.
+  * @function sphereContains
+  * @throws { Error } An Error if ( dim ) is different than dimGet(capsule) (the capsule and sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule
+  * @throws { Error } An Error if ( tstSphere ) is not sphere
+  * @memberof wTools.capsule
+  */
+
+function sphereContains( srcCapsule , tstSphere )
+{
+  let tstSphereView = _.sphere._from( tstSphere );
+  let center = _.sphere.centerGet( tstSphereView );
+  let radius = _.sphere.radiusGet( tstSphereView );
+  let dimS = _.sphere.dimGet( tstSphereView );
+
+  let capsuleView = _.capsule._from( srcCapsule );
+  let dimC = _.capsule.dimGet( capsuleView );
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( dimS === dimC );
+
+  let pointp = _.vector.from( center.slice() );
+  let pointn = _.vector.from( center.slice() );
+  for( let i = 0; i < dimS; i++ )
+  {
+    pointp.eSet( i, pointp.eGet( i ) + radius );
+    pointn.eSet( i, pointn.eGet( i ) - radius );
+
+    if( !_.capsule.pointContains( capsuleView, pointp ) )
+    return false;
+
+    if( !_.capsule.pointContains( capsuleView, pointn ) )
+    return false;
+
+    pointp.eSet( i, pointp.eGet( i ) - radius );
+    pointn.eSet( i, pointn.eGet( i ) + radius );
+  }
+
+  return true;
 }
 
 //
@@ -2312,14 +2573,17 @@ let Proto =
   boxClosestPoint : boxClosestPoint,
   boundingBoxGet : boundingBoxGet,
 
+  capsuleContains : capsuleContains,
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
 
+  convexPolygonContains : convexPolygonContains,
   convexPolygonIntersects : convexPolygonIntersects,
   convexPolygonDistance : convexPolygonDistance,
   convexPolygonClosestPoint : convexPolygonClosestPoint,
 
+  frustumContains : frustumContains,
   frustumIntersects : frustumIntersects,
   frustumDistance : frustumDistance,
   frustumClosestPoint : frustumClosestPoint,
@@ -2336,10 +2600,12 @@ let Proto =
   rayDistance : rayDistance,
   rayClosestPoint : rayClosestPoint,
 
+  segmentContains : segmentContains,
   segmentIntersects : segmentIntersects,
   segmentDistance : segmentDistance,
   segmentClosestPoint : segmentClosestPoint,
 
+  sphereContains : sphereContains,
   sphereIntersects : sphereIntersects,
   sphereDistance : sphereDistance,
   sphereClosestPoint : sphereClosestPoint,

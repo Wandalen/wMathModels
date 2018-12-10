@@ -478,7 +478,8 @@ function fromBox( sphere, box )
 function fromCenterAndRadius( sphere, center, radius )
 {
   _.assert( arguments.length === 3, 'Expects exactly three arguments' );
-  _.assert( _.longIs( center ) );
+  logger.log( center )
+  _.assert( _.longIs( center ) || _.vectorIs( center ) );
   _.assert( _.numberIs( radius ) );
 
   if( sphere === null )

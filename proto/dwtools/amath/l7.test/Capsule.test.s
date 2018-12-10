@@ -1931,6 +1931,138 @@ function boundingBoxGet( test )
 
 //
 
+function capsuleContains( test )
+{
+
+  test.case = 'Capsules remain unchanged'; /* */
+
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool, expected );
+
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldTstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.identical( tstCapsule, oldTstCapsule );
+
+  test.case = 'point capsule - same capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var tstCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point capsule - no intersection'; /* */
+
+  var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
+  var tstCapsule = [ 1, 2, 4, 3, 4, 0, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+  test.case = 'sphere capsule in capsule'; /* */
+
+  var capsule = [ 1, 2, 1, 1, 2, 3, 3 ];
+  var tstCapsule = [ 1, 2, 2, 1, 2, 2, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule contains capsule'; /* */
+
+  var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsules intersect'; /* */
+
+  var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
+  var tstCapsule = [ 0, 0, 0, 0, 4, 0, 0.2 ];
+  var expected = false;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule over capsule'; /* */
+
+  var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
+  var tstCapsule = [ 0, 1, 1, 3, 7, 3, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+  test.case = 'capsule closer to origin'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
+  var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+  test.case = '2D contained'; /* */
+
+  var capsule = [ 0, 0, 4, 4, 3 ];
+  var tstCapsule = [ 1, 2, 3, 4, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+  test.case = '2D intersection'; /* */
+
+  var capsule = [ 0, 0, 2, 2, 0.2 ];
+  var tstCapsule = [ 1, 2, 3, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+  test.case = '2D no intersection'; /* */
+
+  var capsule = [ 0, 0, 2, -2, 0.3 ];
+  var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
+  var expected = false;
+
+  var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
+  test.identical( gotBool,  expected );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], 'capsule') );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, -1 ], [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2, - 1 ] ) );
+
+}
+
+//
+
 function capsuleIntersects( test )
 {
 
@@ -2337,6 +2469,145 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonContains( test )
+{
+
+  test.case = 'Source capsule and polygon remain unchanged'; /* */
+
+  var srcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
+  test.identical( srcCapsule, oldSrcCapsule );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Capsule and polygon intersect'; /* */
+
+  var srcCapsule = [ -1, - 1, -1, 1, 1, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    4,   0, - 4,   0,
+    0,   4,   0, - 4
+  ]);
+  var expected = false;
+
+  var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Capsule and polygon don´t intersect'; /* */
+
+  var srcCapsule = [ 0, 1, 0, 1, 2, 1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Capsule contains polygon'; /* */
+
+  var srcCapsule = [ 0, 0, 0, 1, 1, 1, 4 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Capsule contains polygon touching sides'; /* */
+
+  var srcCapsule = [ -1, 0, 0, 1, 0, 0, Math.sqrt( 2 ) ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D contained'; /* */
+
+  var srcCapsule = [ 0, -2, 3, 3, 2 ];
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = true;
+
+  var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D not contained'; /* */
+
+  var srcCapsule = [ 1, 2, 3, 3, 0.5 ];
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = false;
+
+  var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
+  test.identical( expected, gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( [] ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( 'capsule', polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( [ 0, 0, 1, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains(  [ 0, 1, 2, 1, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains(  [ 0, 1, 2, 1, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( [ 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( [ 0, 0, 0, 1, 1 ], [ 1, 0, 1, 2, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( [ 0, 1, 0, 1, 2 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( [ 0, 1, 0 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( [ 0, 1, 0, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.capsule.convexPolygonContains( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
+
+}
+
+//
+
 function convexPolygonClosestPoint( test )
 {
 
@@ -2560,6 +2831,159 @@ function convexPolygonClosestPoint( test )
   test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 1, 0 ], polygon ) );
   test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 1, 0, 2 ], polygon ) );
   test.shouldThrowErrorSync( () => _.capsule.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
+
+}
+
+//
+
+function frustumContains( test )
+{
+  test.description = 'Frustum and capsule remain unchanged'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
+  var oldCapsule = capsule.slice();
+  var expected = false;
+
+  var gotBool = _.capsule.frustumContains( capsule, frustum );
+  test.identical( gotBool, expected );
+  test.identical( capsule, oldCapsule );
+
+  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  test.identical( frustum, oldFrustum );
+
+  test.description = 'Capsule contains frustum'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var capsule = [ -1, -1, -1, 3, 3, 3, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumContains( capsule, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Capsule contains Zero frustum'; //
+
+  var frustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0,   0,   0 ]
+  );
+
+  var capsule = [ -1, -1, -1, 3, 3, 3, 0.5 ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumContains( capsule, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Capsule contains frustum, touching sides'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var capsule = [ 0, 0, 0, 1, 1, 1, Math.sqrt( 3/4 ) ];
+  var expected = true;
+
+  var gotBool = _.capsule.frustumContains( capsule, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum contains capsule'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var capsule = [ 0.1, 0.1, 0.1, 0.5, 0.5, 0.5, 0.1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.frustumContains( capsule, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule intersect'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var capsule = [ 0.1, 0.1, 0.1, 2, 2, 2, 0.1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.frustumContains( capsule, frustum );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule in different places'; //
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+  var capsule = [ 3, 3, 3, 4, 4, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.frustumContains( capsule, frustum );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var frustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1 ]
+  );
+
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( capsule ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( frustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( capsule, frustum, frustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( capsule, capsule, frustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( capsule, null ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( null, frustum ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( capsule, NaN ));
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( NaN, frustum ));
+
+  capsule = [ 0, 0, 1, 1, 1 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( capsule, frustum ));
+  capsule = [ 0, 0, 1, 1, 2, 1];
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( capsule, frustum ));
+  capsule = [ 0, 0, 1, 1, 2, 2, 2, 2 ];
+  test.shouldThrowErrorSync( () => _.capsule.frustumContains( capsule, frustum ));
 
 }
 
@@ -4650,6 +5074,97 @@ function rayClosestPoint( test )
 
 //
 
+function segmentContains( test )
+{
+
+  test.case = 'Source capsule and segment remain unchanged'; /* */
+
+  var srcCapsule = [ - 1, - 1, -1, 0, 0, 2, 1 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
+  test.identical( expected, gotBool );
+
+  var oldSrcCapsule = [ - 1, - 1, -1, 0, 0, 2, 1 ];
+  test.identical( srcCapsule, oldSrcCapsule );
+
+  var oldtstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstSegment, oldtstSegment );
+
+  test.case = 'Capsule and segment intersect'; /* */
+
+  var srcCapsule = [ - 1, - 1, -1, 1, 1, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Capsule contains segment'; /* */
+
+  var srcCapsule = [ - 1, - 1, -1, 2, 2, 2, 1 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment in capsule edge'; /* */
+
+  var srcCapsule = [ -1, -1, -1, 2, 2, 2, 1 ];
+  var tstSegment = [ -1, 0, -1, 2, 3, 2 ];
+  var expected = true;
+
+  var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment is in capsule edge'; /* */
+
+  var srcCapsule = [ -1, -1, -1, 0, 0, 0, 0.1 ];
+  var tstSegment = [ -1, 0, 0, 0, 0, 0 ];
+  var expected = false;
+
+  var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = '2D - not contained'; /* */
+
+  var srcCapsule = [ - 1, - 1, 0, 0, 1 ];
+  var tstSegment = [ -3, -3, -2, -2 ];
+  var expected = false;
+
+  var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = '2D - contained'; /* */
+
+  var srcCapsule = [ - 1, - 1, 3, 3, 1 ];
+  var tstSegment = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.segmentContains( ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentContains( [] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentContains( 'capsule', 'segment' ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentContains(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentContains( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentContains( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentContains( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentContains( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentContains( [ 0, 1, 0, 1, 2, 1 ], undefined ) );
+
+}
+
+//
+
 function segmentIntersects( test )
 {
   test.case = 'Source segment and capsule remain unchanged'; /* */
@@ -5174,6 +5689,109 @@ function segmentClosestPoint( test )
   test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 1, 1, 2, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+
+}
+
+//
+
+function sphereContains( test )
+{
+
+  test.case = 'Capsule and sphere remain unchanged'; /* */
+
+  var capsule = [  - 1,  - 1, -1, 1, 1, 1, 1 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = true;
+
+  var gotBool = _.capsule.sphereContains( capsule, sphere );
+  test.identical( gotBool, expected );
+
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+
+  test.case = 'Sphere contains point capsule'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var sphere = [ 0, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.sphereContains( capsule, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point capsule - not contained'; /* */
+
+  var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.sphereContains( capsule, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'point sphere in capsule'; /* */
+
+  var capsule = [ 1, 2, 1, 1, 2, 4, 2 ];
+  var sphere = [ 2, 2, 2, 0 ];
+  var expected = true;
+
+  var gotBool = _.capsule.sphereContains( capsule, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'sphere capsule - no intersection'; /* */
+
+  var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
+  var sphere = [ 4, 3, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.sphereContains( capsule, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule in sphere'; /* */
+
+  var capsule = [ 1, 2, 3, 2, 2, 3, 0.1 ];
+  var sphere = [ 2, 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.capsule.sphereContains( capsule, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Sphere in capsule'; /* */
+
+  var capsule = [ 1, 2, 3, 2, 2, 3, 2 ];
+  var sphere = [ 2, 2, 2, 0.2 ];
+  var expected = true;
+
+  var gotBool = _.capsule.sphereContains( capsule, sphere );
+  test.identical( gotBool,  expected );
+
+  test.case = 'Capsule and sphere intersect'; /* */
+
+  var capsule = [ -2, -2, -2, 3, 3, 3, 1 ];
+  var sphere = [ 4, 4, 4, 1 ];
+  var expected = false;
+
+  var gotBool = _.capsule.sphereContains( capsule, sphere );
+  test.identical( gotBool,  expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( 'capsule', [ 1, 1, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( [ 1, 1, 1, 2, 2, 2, 1 ], 'sphere') );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereContains( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -5759,12 +6377,15 @@ var Self =
     boxClosestPoint : boxClosestPoint,
     boundingBoxGet : boundingBoxGet,
 
+    capsuleContains : capsuleContains,
     capsuleIntersects : capsuleIntersects,
     capsuleDistance : capsuleDistance,
     capsuleClosestPoint : capsuleClosestPoint,
 
+    convexPolygonContains : convexPolygonContains,
     convexPolygonClosestPoint : convexPolygonClosestPoint,
 
+    frustumContains : frustumContains,
     frustumIntersects : frustumIntersects,
     frustumDistance : frustumDistance,
     frustumClosestPoint : frustumClosestPoint,
@@ -5781,10 +6402,12 @@ var Self =
     rayDistance : rayDistance,
     rayClosestPoint : rayClosestPoint,
 
+    segmentContains : segmentContains,
     segmentIntersects : segmentIntersects,
     segmentDistance : segmentDistance,
     segmentClosestPoint : segmentClosestPoint,
 
+    sphereContains : sphereContains,
     sphereIntersects : sphereIntersects,
     sphereDistance : sphereDistance,
     sphereClosestPoint : sphereClosestPoint,

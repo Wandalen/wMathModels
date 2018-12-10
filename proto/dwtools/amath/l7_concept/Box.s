@@ -1596,27 +1596,14 @@ function capsuleContains( box, capsule )
   _.assert( dimB === dimC );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let originView = origin.clone();
-  let endView = end.clone();
+  let bottomSphere = _.sphere.fromCenterAndRadius( null, origin, radius );
+  let topSphere = _.sphere.fromCenterAndRadius( null, end, radius );
 
-  for( let i = 0; i < dimC; i++ )
-  {
-    originView.eSet( i, originView.eGet( i ) + radius );
-    if( !_.box.pointContains( boxView, originView ) )
-    return false;
+  if( !_.box.sphereContains( boxView, bottomSphere ) )
+  return false;
 
-    originView.eSet( i, originView.eGet( i ) - 2 * radius );
-    if( !_.box.pointContains( boxView, originView ) )
-    return false;
-
-    endView.eSet( i, endView.eGet( i ) + radius );
-    if( !_.box.pointContains( boxView, endView ) )
-    return false;
-
-    endView.eSet( i, endView.eGet( i ) - 2 * radius );
-    if( !_.box.pointContains( boxView, endView ) )
-    return false;
-  }
+  if( !_.box.sphereContains( boxView, topSphere ) )
+  return false;
 
   return true;
 }
@@ -1895,11 +1882,14 @@ function frustumContains( box, frustum )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
+  let dims = _.Space.dimsOf( frustum );
+  _.assert( dim = dims[ 0 ], 'Frustum and box must have same dim');
 
   let fpoints = _.frustum.cornersGet( frustum );
+  let dimsPoints = _.Space.dimsOf( fpoints );
   _.assert( _.spaceIs( fpoints ) );
 
-  for( let i = 0 ; i < 6 ; i += 1 )
+  for( let i = 0 ; i < dimsPoints[ 1 ] ; i += 1 )
   {
     let point = fpoints.colVectorGet( i );
 
