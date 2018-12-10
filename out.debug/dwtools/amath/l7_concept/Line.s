@@ -1235,6 +1235,7 @@ function boxDistance( srcLine, srcBox )
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the line and box don´t have the same dimension).
   * @memberof wTools.line
   */
+
 function boxClosestPoint( srcLine, srcBox, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
@@ -1474,6 +1475,7 @@ function capsuleClosestPoint( line, capsule, dstPoint )
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the line and frustum don´t have the same dimension).
   * @memberof wTools.line
   */
+
 function frustumIntersects( srcLine, srcFrustum )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
