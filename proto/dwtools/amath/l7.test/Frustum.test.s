@@ -1394,6 +1394,172 @@ function boundingBoxGet( test )
 
 //
 
+function capsuleContains( test )
+{
+
+  test.description = 'Frustum and capsule remain unchanged'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 2, 2, 2, 3, 3, 3, 1 ];
+  var expected = false;
+
+  var gotBool = _.frustum.capsuleContains( srcFrustum, capsule );
+  test.identical( gotBool, expected );
+
+  var oldCapsule = [ 2, 2, 2, 3, 3, 3, 1 ];
+  test.identical( capsule, oldCapsule );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum contains capsule'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0.2, 0.2, 0.2, 0.5, 0.5, 0.5, 0.1 ];
+  var expected = true;
+
+  var gotBool = _.frustum.capsuleContains( srcFrustum, capsule );
+  test.identical( gotBool, expected );
+
+  test.description = 'Capsule bigger than frustum'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0, 0, 0, 1, 1, 1, 2 ];
+  var expected = false;
+
+  var gotBool = _.frustum.capsuleContains( srcFrustum, capsule );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule don´t intersect'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 3, 3, 3, 5, 5, 5, 2 ];
+  var expected = false;
+
+  var gotBool = _.frustum.capsuleContains( srcFrustum, capsule );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and capsule intersect'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0, 1, 1, 1, 1, 1, 0.5 ];
+  var expected = false;
+
+  var gotBool = _.frustum.capsuleContains( srcFrustum, capsule );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum contains capsule touching the sides'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = [ 0.1, 0.1, 0.1, 0.9, 0.9, 0.9, 0.1 ];
+  var expected = true;
+
+  var gotBool = _.frustum.capsuleContains( srcFrustum, capsule );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero capsule contained'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var capsule = _.capsule.makeZero();
+  var expected = true;
+
+  var gotBool = _.frustum.capsuleContains( srcFrustum, capsule );
+  test.identical( gotBool, expected );
+
+  test.description = 'Zero capsule not contained'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,    0,   0,   0,  -1,   1,
+    1,   -1,   0,   0,   0,   0,
+    0,    0,   1,  -1,   0,   0,
+    -1, 0.5,  -1, 0.5, 0.5,  -1
+  ]);
+  var capsule = _.capsule.makeZero();
+  var expected = false;
+
+  var gotBool = _.frustum.capsuleContains( srcFrustum, capsule );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( ));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( capsule ));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( srcFrustum, srcFrustum, capsule ));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( srcFrustum, capsule, capsule ));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( null, capsule ));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( NaN, capsule ));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( srcFrustum, NaN));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( srcFrustum, [ 0, 0, 2, 2, 1] ));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( srcFrustum, [ 0, 0, 0, 2, 2, 2 ] ));
+  test.shouldThrowErrorSync( () => _.frustum.capsuleContains( srcFrustum, [ 0, 0, 0, 0, 2, 2, 2, 2, 1 ] ));
+
+}
+
+//
+
 function capsuleClosestPoint( test )
 {
 
@@ -1578,6 +1744,234 @@ function capsuleClosestPoint( test )
   test.shouldThrowErrorSync( () => _.frustum.capsuleClosestPoint( srcFrustum, srcFrustum, [ 0, 0, 0, 0, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.frustum.capsuleClosestPoint( srcFrustum, [ 0, 0, 0, 0, 0, 0, - 1 ] ));
   test.shouldThrowErrorSync( () => _.frustum.capsuleClosestPoint( srcFrustum, [ 0, 0, 0, 0, 0, 0 ] ));
+}
+
+//
+
+function convexPolygonContains( test )
+{
+
+  test.description = 'Frustum and polygon remain unchanged'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var polygon = _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    1, - 1,   0,
+    - 1, 0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.frustum.convexPolygonContains( srcFrustum, polygon );
+  test.identical( gotBool, expected );
+
+  var oldPolygon = _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    1, - 1,   0,
+    - 1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  var oldFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldFrustum );
+
+  test.description = 'Frustum contains polygon'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var polygon = _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0.5,   0,   0,
+    0,   0.5,   0,
+    0,     0, 0.5
+  ]);
+  var expected = true;
+
+  var gotBool = _.frustum.convexPolygonContains( srcFrustum, polygon );
+  test.identical( gotBool, expected );
+
+  test.description = 'Polygon bigger than frustum'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var polygon = _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,  0,  0,  0,
+    0,  2,  2,  0,
+    0,  0,  2,  2
+  ]);
+  var expected = false;
+
+  var gotBool = _.frustum.convexPolygonContains( srcFrustum, polygon );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and convexPolygon don´t intersect'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var polygon = _.Space.make( [ 3, 3 ] ).copy
+  ([
+    4,   4,   3,
+    3,   4,   3,
+    3,   3,   4
+  ]);
+  var expected = false;
+
+  var gotBool = _.frustum.convexPolygonContains( srcFrustum, polygon );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum and convexPolygon intersect'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var polygon = _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0.5,   2,   2, 0.5,
+    0.5, 0.5,   2,   2,
+    0.5, 0.5, 0.5, 0.5
+  ]);
+  var expected = false;
+
+  var gotBool = _.frustum.convexPolygonContains( srcFrustum, polygon );
+  test.identical( gotBool, expected );
+
+  test.description = 'Frustum contains convexPolygon touching the sides'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var polygon = _.Space.make( [ 3, 3 ] ).copy
+  ([
+    1,   0,   0,
+    0,   1,   0,
+    0,   0,   1
+  ]);
+  var expected = true;
+
+  var gotBool = _.frustum.convexPolygonContains( srcFrustum, polygon );
+  test.identical( gotBool, expected );
+
+  test.description = '5 vertices polygon contained'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var polygon = _.Space.make( [ 3, 5 ] ).copy
+  ([
+    0,   0, 0.25, 0.5, 0.5,
+    0, 0.5, 0.75, 0.5,   0,
+    1,   1,    1,   1,   1
+  ]);
+  var expected = true;
+
+  var gotBool = _.frustum.convexPolygonContains( srcFrustum, polygon );
+  test.identical( gotBool, expected );
+
+  test.description = '5 vertices polygon not contained'; //
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,    0,   0,   0,  -1,   1,
+    1,   -1,   0,   0,   0,   0,
+    0,    0,   1,  -1,   0,   0,
+    -1, 0.5,  -1, 0.5, 0.5,  -1
+  ]);
+  var polygon = _.Space.make( [ 3, 5 ] ).copy
+  ([
+    0,   0, 0.25, 0.5, 0.5,
+    0, 0.5, 0.75, 0.5,   0,
+    1,   1,    1,   1,   1
+  ]);
+  var expected = false;
+
+  var gotBool = _.frustum.convexPolygonContains( srcFrustum, polygon );
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum = _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var polygon = _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   0,   0,
+    1, - 1,   0,
+    - 1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( polygon ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( srcFrustum ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( srcFrustum, srcFrustum, polygon ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( srcFrustum, polygon, polygon ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( null, polygon ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( srcFrustum, null));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( NaN, polygon ));
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( srcFrustum, NaN));
+
+  var polygon = _.Space.make( [ 2, 3 ] ).copy
+  ([
+    0,   0,   0,
+    - 1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( srcFrustum, polygon ));
+
+  var polygon = _.Space.make( [ 4, 3 ] ).copy
+  ([
+    0,     0,   0,
+    - 1,   0, - 1,
+    - 1,   0,   1,
+    - 1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.frustum.convexPolygonContains( srcFrustum, polygon ));
+
 }
 
 //
@@ -4400,8 +4794,10 @@ var Self =
     boxClosestPoint : boxClosestPoint,
     boundingBoxGet : boundingBoxGet,
 
+    capsuleContains : capsuleContains,
     capsuleClosestPoint : capsuleClosestPoint,
 
+    convexPolygonContains : convexPolygonContains,
     convexPolygonClosestPoint : convexPolygonClosestPoint,
 
     frustumContains : frustumContains,

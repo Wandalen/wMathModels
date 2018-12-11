@@ -479,7 +479,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
       dstPointView.eSet( i, srcPointView.eGet( i ) );
     }
   }
-  
+
   if( _.frustum.pointContains( frustum, dstPointView ) === true )
   {
     return dstPoint;
@@ -926,6 +926,59 @@ function boundingBoxGet( dstBox, srcFrustum )
 
 //
 
+/**
+  * Check if a frustum contains a capsule. Returns true it contains the capsule.
+  * Frustum and capsule remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Sphere } capsule - Source capsule.
+  *
+  * @example
+  * // returns false;
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.capsuleContains( frustum , [ 0, 0, 0, 2, 2, 2, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the frustum contains the capsule.
+  * @function capsuleContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @memberof wTools.frustum
+  */
+
+function capsuleContains( frustum , capsule )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  let dims = _.Space.dimsOf( frustum );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimC = _.capsule.dimGet( capsuleView );
+  let origin = _.vector.from( _.capsule.originGet( capsuleView ) );
+  let end = _.vector.from( _.capsule.endPointGet( capsuleView ) );
+  let radius = _.capsule.radiusGet( capsuleView );
+
+  _.assert( dims[ 0 ] - 1 === dimC, 'Capsule and frustum must have same length' );
+
+  let bottomSphere = _.sphere.fromCenterAndRadius( null, origin, radius );
+  let topSphere = _.sphere.fromCenterAndRadius( null, end, radius );
+
+  if( !_.frustum.sphereContains( frustum, bottomSphere ) )
+  return false;
+
+  if( !_.frustum.sphereContains( frustum, topSphere ) )
+  return false;
+
+  return true;
+}
+
+//
+
 function capsuleIntersects( srcFrustum , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1023,6 +1076,61 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
     return dstPoint;
   }
 
+}
+
+//
+
+/**
+  * Check if a frustum contains a convex polygon. Returns true it contains the polygon.
+  * Frustum and polygon remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { ConvexPolygon } polygon - Source convex polygon.
+  *
+  * @example
+  * // returns false;
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *    - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * let polygon = _.Space.make( [ 3, 3 ] ).copy
+  * ([
+  *    0,   0, -1,
+  *    0,  -1,  0,
+  *    -1,  0,  0
+  * ]);
+  * _.convexPolygonContains( frustum, polygon );
+  *
+  * @returns { Boolean } Returns true if the frustum contains the convex polygon.
+  * @function convexPolygonContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( polygon ) is not convex polygon.
+  * @memberof wTools.frustum
+  */
+
+function convexPolygonContains( frustum , polygon )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let dimsF = _.Space.dimsOf( frustum );
+  let dimsP = _.Space.dimsOf( polygon );
+  _.assert( dimsF[ 0 ] - 1 === dimsP[ 0 ], 'Polygon and frustum must have same length' );
+
+  for( let i = 0; i < dimsP[ 1 ]; i++ )
+  {
+    let vertex = polygon.colVectorGet( i );
+    if( !_.frustum.pointContains( frustum, vertex ) )
+    return false;
+  }
+
+  return true;
 }
 
 //
@@ -2180,10 +2288,12 @@ let Proto =
   boxClosestPoint : boxClosestPoint,
   boundingBoxGet : boundingBoxGet,
 
+  capsuleContains : capsuleContains,
   capsuleIntersects : capsuleIntersects,
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
 
+  convexPolygonContains : convexPolygonContains,
   convexPolygonIntersects : convexPolygonIntersects,
   convexPolygonDistance : convexPolygonDistance,
   convexPolygonClosestPoint : convexPolygonClosestPoint,
