@@ -1289,6 +1289,147 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonContains( test )
+{
+
+  test.case = 'Source plane and polygon remain unchanged'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  var oldSrcPlane = [ - 1, 0, 0, 0 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldPolygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Plane and polygon intersect'; /* */
+
+  var srcPlane = [ 0, 1, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Polygon in plane'; /* */
+
+  var srcPlane = [ 1, 0, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Polygon in plane'; /* */
+
+  var srcPlane = [ 1, -2, 0, 0 ];
+  var polygon =  _.Space.make( [ 3, 3 ] ).copy
+  ([
+    0,   2,   4,
+    0,   1,   2,
+    1,   1,   3
+  ]);
+  var expected = true;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Plane cuts polygon vertex'; /* */
+
+  var srcPlane = [ 0, 0, -1, 1 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Plane and polygon don´t intersect'; /* */
+
+  var srcPlane = [ 0, 0, -1, 2 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Plane cuts polygon'; /* */
+
+  var srcPlane = [ 1, -2, 1, 0 ];
+  var polygon =  _.Space.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Space.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( 'plane', polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 0, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains(  [ 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains(  [ 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 1, 0, 1 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 1, 0, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 1, 0, 2, 2 ], polygon ) );
+
+}
+
+//
+
 function convexPolygonClosestPoint( test )
 {
 
@@ -3259,6 +3400,7 @@ var Self =
 
     capsuleClosestPoint : capsuleClosestPoint,
 
+    convexPolygonContains : convexPolygonContains,
     convexPolygonClosestPoint : convexPolygonClosestPoint,
 
     frustumClosestPoint : frustumClosestPoint,

@@ -746,6 +746,55 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
 
 //
 
+/**
+  * Check if a plane contains a convex polygon. Returns true if it is contained and false if not.
+  * Plane and polygon remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Polygon } polygon - The source polygon.
+  *
+  * @example
+  * // returns false
+  * let polygon = _.Space.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonContains( [ 0, 0, 1, -2 ], polygon );
+  *
+  * @returns { Array } Returns true if the plane contains the polygon.
+  * @function convexPolygonContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @memberof wTools.plane
+  */
+function convexPolygonContains( plane, polygon )
+{
+  _.assert( arguments.length === 2 , 'Expects two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let planeView = _.plane._from( plane );
+  let dimPl = _.plane.dimGet( planeView );
+  let dimP  = _.Space.dimsOf( polygon );
+
+  _.assert( dimP[ 0 ] === dimPl, 'Plane and polygon must have the same dimensions' );
+
+  for( let i = 0; i < dimP[ 1 ]; i++ )
+  {
+    let vertex = polygon.colVectorGet( i );
+
+    if( !_.plane.pointContains( planeView, vertex ) )
+    return false;
+  }
+
+  return true;
+
+}
+
+//
+
 function convexPolygonIntersects( srcPlane , polygon )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1955,6 +2004,7 @@ let Proto =
   capsuleDistance : capsuleDistance,
   capsuleClosestPoint : capsuleClosestPoint,
 
+  convexPolygonContains : convexPolygonContains,
   convexPolygonIntersects : convexPolygonIntersects,
   convexPolygonDistance : convexPolygonDistance,
   convexPolygonClosestPoint : convexPolygonClosestPoint,
