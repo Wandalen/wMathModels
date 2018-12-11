@@ -1033,11 +1033,58 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
 //
 
 /**
+  * Check if a plane contains a line. Returns true it contains the line, false if not.
+  * The plane and line remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } line -  Source line.
+  *
+  * @example
+  * // returns false
+  * _.lineContains( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
+  *
+  * @example
+  * // returns true
+  * _.lineContains( [ 1, 0, 0, 1 ] , [ -1, 2, 2, 0, 1, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the plane contains the line, false if not.
+  * @function lineContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @memberof wTools.plane
+*/
+function lineContains( srcPlane, tstLine )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let planeView = _.plane._from( srcPlane );
+
+  let dimL = _.line.dimGet( tstLineView );
+  let dimP = _.plane.dimGet( planeView );
+  _.assert( dimL === dimP, 'Plane and line must have the same dimension' );
+
+  let origin = _.line.originGet( tstLineView );
+
+  if( !_.plane.pointContains( planeView, origin ) )
+  return false;
+
+  let secondPoint = _.line.lineAt( tstLineView, 1 );
+
+  if( !_.plane.pointContains( planeView, secondPoint ) )
+  return false;
+
+  return true;
+}
+
+//
+
+/**
   * Check if a plane and a line intersect. Returns true if they intersect.
   * The plane and line remain unchanged.
   *
   * @param { Array } plane - Source plane.
-  * @param { Array } line -  First and last points in line.
+  * @param { Array } line -  Source line.
   *
   * @example
   * // returns true
@@ -1072,7 +1119,7 @@ function lineIntersects( srcPlane , tstLine )
   * The plane and line remain unchanged.
   *
   * @param { Array } plane - Source plane.
-  * @param { Array } line -  First and last points in line.
+  * @param { Array } line -  Source line.
   *
   * @example
   * // returns [ 0, 0, 0 ];
@@ -1320,6 +1367,53 @@ function planeDistance( srcPlane, tstPlane )
 
 //
 
+/**
+  * Check if a plane contains a ray. Returns true it contains the ray, false if not.
+  * The plane and ray remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } ray -  Source ray.
+  *
+  * @example
+  * // returns false
+  * _.rayContains( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
+  *
+  * @example
+  * // returns true
+  * _.rayContains( [ 1, 0, 0, 1 ] , [ -1, 2, 2, 0, 1, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the plane contains the ray, false if not.
+  * @function rayContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @memberof wTools.plane
+*/
+function rayContains( srcPlane, tstRay )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  let tstRayView = _.ray._from( tstRay );
+  let planeView = _.plane._from( srcPlane );
+
+  let dimR = _.ray.dimGet( tstRayView );
+  let dimP = _.plane.dimGet( planeView );
+  _.assert( dimR === dimP, 'Plane and ray must have the same dimension' );
+
+  let origin = _.ray.originGet( tstRayView );
+
+  if( !_.plane.pointContains( planeView, origin ) )
+  return false;
+
+  let secondPoint = _.ray.rayAt( tstRayView, 1 );
+
+  if( !_.plane.pointContains( planeView, secondPoint ) )
+  return false;
+
+  return true;
+}
+
+//
+
 function rayIntersects( srcPlane , tstRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1411,6 +1505,53 @@ function rayClosestPoint( plane, ray, dstPoint )
 
     return dstPoint;
   }
+}
+
+//
+
+/**
+  * Check if a plane contains a segment. Returns true it contains the segment, false if not.
+  * The plane and segment remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } segment -  Source segment.
+  *
+  * @example
+  * // returns false
+  * _.segmentContains( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
+  *
+  * @example
+  * // returns true
+  * _.segmentContains( [ 1, 0, 0, 1 ] , [ -1, 2, 2, -1, 1, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the plane contains the segment, false if not.
+  * @function segmentContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @memberof wTools.plane
+*/
+function segmentContains( srcPlane, tstSegment )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+  let planeView = _.plane._from( srcPlane );
+
+  let dimS = _.segment.dimGet( tstSegmentView );
+  let dimP = _.plane.dimGet( planeView );
+  _.assert( dimS === dimP, 'Plane and segment must have the same dimension' );
+
+  let origin = _.segment.originGet( tstSegmentView );
+
+  if( !_.plane.pointContains( planeView, origin ) )
+  return false;
+
+  let end = _.segment.endPointGet( tstSegmentView );
+
+  if( !_.plane.pointContains( planeView, end ) )
+  return false;
+
+  return true;
 }
 
 //
@@ -2013,6 +2154,7 @@ let Proto =
   frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
   frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
 
+  lineContains : lineContains,
   lineIntersects : lineIntersects,
   lineIntersection : lineIntersection,
   lineDistance : lineDistance,
@@ -2021,10 +2163,12 @@ let Proto =
   planeIntersects : planeIntersects, /* qqq: implement me */
   planeDistance : planeDistance, /* qqq: implement me */
 
+  rayContains : rayContains,
   rayIntersects : rayIntersects, /* Same as _.ray.planeIntersects */
   rayDistance : rayDistance, /* Same as _.ray.planeDistance */
   rayClosestPoint : rayClosestPoint,
 
+  segmentContains : segmentContains,
   segmentIntersects : segmentIntersects,
   segmentDistance : segmentDistance,
   segmentClosestPoint : segmentClosestPoint,

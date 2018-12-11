@@ -1770,6 +1770,99 @@ function frustumClosestPoint( test )
 
 //
 
+function lineContains( test )
+{
+
+  test.case = 'Plane and line remain unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var line = [ 1, 0, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldLine = [ 1, 0, 1, 1, 1, 1 ];
+  test.identical( line, oldLine );
+
+  test.case = 'Line and plane intersect'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var line = [ - 2, - 2, - 2 , 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  test.case = 'Line and Plane intersect'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var line = [ 2, 2, 1, 1, 1, 3 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  test.case = 'Line and Plane don´t intersect - parallel'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var line = [ 2, 2, 3, 0, 1, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  test.case = 'Line in Plane'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var line = [ 0, 2, 3, 0, 3, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Line in Plane'; /* */
+
+  var plane = [ 1, -2, 0, 0 ];
+  var line = [ 2, 1, 3, 4, 2, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Perpendicular line intersects'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var line = [ 1, 2, 2, 1, 0, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.lineContains( ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1 ], [ 0, - 1, 0, 0, 3, 1 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( null , [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( NaN, [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( 'plane', 'line' ));
+}
+
+//
+
 function lineIntersects( test )
 {
 
@@ -2157,6 +2250,99 @@ function planeDistance( test )
 
 //
 
+function rayContains( test )
+{
+
+  test.case = 'Plane and ray remain unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var ray = [ 1, 0, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldRay = [ 1, 0, 1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  test.case = 'Ray and plane intersect'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var ray = [ - 2, - 2, - 2 , 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  test.case = 'Ray and Plane intersect'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var ray = [ 2, 2, 1, 1, 1, 3 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  test.case = 'Ray and Plane don´t intersect - parallel'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var ray = [ 2, 2, 3, 0, 1, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  test.case = 'Ray in Plane'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var ray = [ 0, 2, 3, 0, 3, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Ray in Plane'; /* */
+
+  var plane = [ 1, -2, 0, 0 ];
+  var ray = [ 2, 1, 3, 4, 2, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Perpendicular ray intersects'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var ray = [ 1, 2, 2, 1, 0, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.rayContains( ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1 ], [ 0, - 1, 0, 0, 3, 1 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( null , [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( NaN, [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( 'plane', 'ray' ));
+}
+
+//
+
 function rayClosestPoint( test )
 {
 
@@ -2257,6 +2443,99 @@ function rayClosestPoint( test )
   test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
   test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
 
+}
+
+//
+
+function segmentContains( test )
+{
+
+  test.case = 'Plane and segment remain unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var segment = [ 1, 0, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldSegment = [ 1, 0, 1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  test.case = 'Segment and plane intersect'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var segment = [ - 2, - 2, - 2 , 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment and Plane intersect'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var segment = [ 2, 2, 1, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment and Plane don´t intersect - parallel'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var segment = [ 2, 2, 3, 4, 4, 5 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment in Plane'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var segment = [ 0, 2, 3, 0, 3, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Segment in Plane'; /* */
+
+  var plane = [ 1, -2, 0, 0 ];
+  var segment = [ 2, 1, 3, 4, 2, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Perpendicular segment intersects'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var segment = [ 1, 2, 2, 1, 0, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1 ], [ 0, - 1, 0, 0, 3, 1 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( null , [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( NaN, [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( 'plane', 'segment' ));
 }
 
 //
@@ -3405,14 +3684,17 @@ var Self =
 
     frustumClosestPoint : frustumClosestPoint,
 
+    lineContains : lineContains,
     lineIntersects : lineIntersects,
     lineClosestPoint : lineClosestPoint,
 
     planeIntersects : planeIntersects,
     planeDistance: planeDistance,
 
+    rayContains : rayContains,
     rayClosestPoint : rayClosestPoint,
 
+    segmentContains : segmentContains,
     segmentIntersects : segmentIntersects,
     segmentClosestPoint : segmentClosestPoint,
 
