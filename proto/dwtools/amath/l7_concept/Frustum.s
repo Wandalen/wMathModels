@@ -388,11 +388,13 @@ function pointDistance( frustum, point )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let frustum = _.Space.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
   * _.pointClosestPoint( frustum , [ - 1, - 1, - 1 ], [ 2, 3, 4 ] );
   *
   * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
@@ -1886,6 +1888,58 @@ function rayClosestPoint( frustum, ray, dstPoint )
 
 //
 
+/**
+  * Check if a frustum contains a segment. Returns true it contains the segment.
+  * Frustum and segment remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Segment } segment - Source segment.
+  *
+  * @example
+  * // returns false;
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.segmentContains( frustum , [ 1, 1, 1, 2, 2, 2 ] );
+  *
+  * @returns { Boolean } Returns true if the frustum contains the segment.
+  * @function segmentContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @memberof wTools.frustum
+  */
+
+function segmentContains( frustum, segment )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  let dims = _.Space.dimsOf( frustum );
+
+  let segmentView = _.segment._from( segment );
+  let dimS = _.segment.dimGet( segmentView );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+
+  _.assert( dimS = dims[ 0 ] - 1, 'Frustum and segment must have the same dimension')
+
+  if( !_.frustum.pointContains( frustum, origin ) )
+  return false;
+
+  if( !_.frustum.pointContains( frustum, end ) )
+  return false;
+
+  return true;
+  
+}
+
+//
+
 function segmentIntersects( srcFrustum , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1992,7 +2046,14 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   *
   * @example
   * // returns false;
-  * _.sphereContains( _.frustum.make() , [ 2, 2, 2, 1 ] );
+  * let frustum = _.Space.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.sphereContains( frustum , [ 2, 2, 2, 1 ] );
   *
   * @returns { Boolean } Returns true if the frustum contains the sphere.
   * @function sphereContains
@@ -2315,6 +2376,7 @@ let Proto =
   rayDistance : rayDistance,  /* Same as _.ray.frustumDistance */
   rayClosestPoint : rayClosestPoint,
 
+  segmentContains : segmentContains,
   segmentIntersects : segmentIntersects,  /* Same as _.segment.frustumIntersects */
   segmentDistance : segmentDistance,  /* Same as _.segment.frustumDistance */
   segmentClosestPoint : segmentClosestPoint,

@@ -3838,6 +3838,172 @@ function rayClosestPoint( test )
 
 //
 
+function segmentContains( test )
+{
+
+  test.case = 'Source frustum and segment remain unchanged'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
+  test.identical( expected, gotBool );
+
+  var oldSrcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.identical( srcFrustum, oldSrcFrustum );
+
+  var oldtstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  test.identical( tstSegment, oldtstSegment );
+
+  test.case = 'Frustum and segment don´t intersect'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ -1, -1, 0, -7, 5, -1 ];
+  var expected = false;
+
+  var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Frustum and segment intersect'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ -1, -1, 0, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment origin is frustum corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 1, 1, 1, 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Frustum contains segment'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,    0,   0,   0,   1, - 1,
+    -1,   1,   0,   0,   0,   0,
+    0,    0, - 1,   1,   0,   0,
+    - 1,  0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ -0.2, -0.9, -0.5, -0.2, -0.1, -0.2 ];
+  var expected = true;
+
+  var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment is in frustum edge'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0, 0, 0, 1, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment is in frustum side'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0, 0, 0, 1, 1, 0 ];
+  var expected = true;
+
+  var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment from frustum corner to frustum corner'; /* */
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  ([
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
+    - 1,   0, - 1,   0,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( [] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( 'frustum', 'segment' ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( srcFrustum ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( srcFrustum, srcFrustum ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( srcFrustum, [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( srcFrustum, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( srcFrustum, [ 1, 0, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( srcFrustum, [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( null, [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( srcFrustum, null ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( undefined, [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.frustum.segmentContains( srcFrustum, undefined ) );
+
+}
+
+//
+
 function segmentClosestPoint( test )
 {
 
@@ -4813,6 +4979,7 @@ var Self =
 
     rayClosestPoint : rayClosestPoint,
 
+    segmentContains: segmentContains,
     segmentClosestPoint : segmentClosestPoint,
 
     sphereContains : sphereContains,
