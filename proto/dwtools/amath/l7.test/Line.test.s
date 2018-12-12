@@ -5225,6 +5225,186 @@ function rayIntersects( test )
 
 //
 
+function rayIntersectionPoint( test )
+{
+  test.case = 'Source line and ray remain unchanged'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  var oldSrcLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstRay, oldTstRay );
+
+  test.case = 'Line and ray are parallel ( different origin - same direction )'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are parallel ( different origin - different direction )'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is a point not in ray'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is a point in ray'; /* */
+
+  var srcLine = [ 3, 3, 3, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 3, 3 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'tstRay is a point not in line'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'tstRay is a point in line'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ -4, -4, -4, 0, 0, 0 ];
+  var expected = [ -4, -4, -4 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are the same'; /* */
+
+  var srcLine = [ 0, 4, 2, 1, 1, 1 ];
+  var tstRay = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray intersect 4D'; /* */
+
+  var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray don´t intersect 2D - parallel'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstRay = [ - 3, - 4, 1, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray intersect with line´s positive factor 2D'; /* */
+
+  var srcLine = [ 0, 0, -2, 0 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = [ -3, 0 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = [ -3, 0 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D'; /* */
+
+  var srcLine = [ - 3, - 4, 0, 1 ];
+  var tstRay = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are perpendicular and intersect'; /* */
+
+  var srcLine = [ 5, 7, 1, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are perpendicular and don´t intersect'; /* */
+
+  var srcLine = [ 0, 0, -3, 0, 0, 1 ];
+  var tstRay = [ 3, 0, 0, 1, 1, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are parallel to x'; /* */
+
+  var srcLine = [ 3, 7, 1, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is null'; /* */
+
+  var srcLine = null;
+  var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 0, 0 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
 function rayDistance( test )
 {
   test.case = 'Source line and ray remain unchanged'; /* */
@@ -5402,7 +5582,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5462,7 +5642,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5471,7 +5651,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5485,11 +5665,20 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
+  test.case = 'Line and ray intersect with line´s positive factor 2D'; /* */
+
+  var srcLine = [ 0, 0, -2, 0 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
+  test.identical( gotClosestPoint, expected );
+
   test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
-  var expected = [ -3, 0 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5507,7 +5696,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6320,6 +6509,7 @@ var Self =
     planeClosestPoint : planeClosestPoint,
 
     rayIntersects : rayIntersects,
+    rayIntersectionPoint : rayIntersectionPoint,
     rayDistance : rayDistance,
     rayClosestPoint : rayClosestPoint,
 

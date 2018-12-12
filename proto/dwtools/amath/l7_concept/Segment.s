@@ -562,132 +562,132 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
   * @throws { Error } An Error if ( src2Segment ) is not segment.
   * @memberof wTools.segment
   */
-  function segmentIntersectionFactors( srcSegment1, srcSegment2 )
+function segmentIntersectionFactors( srcSegment1, srcSegment2 )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcSegment1.length === srcSegment2.length,'The two segments must have the same dimension' );
+
+  let srcSegment1View = _.segment._from( srcSegment1 );
+  let srcSegment2View = _.segment._from( srcSegment2 );
+
+  let origin1 = _.segment.originGet( srcSegment1View );
+  let origin2 = _.segment.originGet( srcSegment2View );
+  let dOrigin = _.vector.from( avector.subVectors( origin2.clone(), origin1 ) );
+
+  let end1 = _.segment.endPointGet( srcSegment1View );
+  let end2 = _.segment.endPointGet( srcSegment2View );
+
+  let direction1 = _.segment.directionGet( srcSegment1View );
+  let direction2 = _.segment.directionGet( srcSegment2View );
+
+  let directions = _.Space.make( [ srcSegment1.length / 2 , 2 ] );
+  directions.colVectorGet( 0 ).copy( direction1 );
+  directions.colVectorGet( 1 ).copy( direction2.clone().mulScalar( - 1 ) );
+
+  // Same origin
+  let identOrigin = 0;
+  let identEnd = 0;
+  let origin1End2 = 0;
+  let end1Origin2 = 0;
+  for( let i = 0; i < origin1.length; i++ )
   {
-    _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-    _.assert( srcSegment1.length === srcSegment2.length,'The two segments must have the same dimension' );
+    if( origin1.eGet( i ) === origin2.eGet( i ) )
+    identOrigin = identOrigin + 1;
 
-    let srcSegment1View = _.segment._from( srcSegment1 );
-    let srcSegment2View = _.segment._from( srcSegment2 );
+    if( origin1.eGet( i ) === end2.eGet( i ) )
+    origin1End2 = origin1End2 + 1;
 
-    let origin1 = _.segment.originGet( srcSegment1View );
-    let origin2 = _.segment.originGet( srcSegment2View );
-    let dOrigin = _.vector.from( avector.subVectors( origin2.clone(), origin1 ) );
+    if( end1.eGet( i ) === origin2.eGet( i ) )
+    end1Origin2 = end1Origin2 + 1;
 
-    let end1 = _.segment.endPointGet( srcSegment1View );
-    let end2 = _.segment.endPointGet( srcSegment2View );
-
-    let direction1 = _.segment.directionGet( srcSegment1View );
-    let direction2 = _.segment.directionGet( srcSegment2View );
-
-    let directions = _.Space.make( [ srcSegment1.length / 2 , 2 ] );
-    directions.colVectorGet( 0 ).copy( direction1 );
-    directions.colVectorGet( 1 ).copy( direction2.clone().mulScalar( - 1 ) );
-
-    // Same origin
-    let identOrigin = 0;
-    let identEnd = 0;
-    let origin1End2 = 0;
-    let end1Origin2 = 0;
-    for( let i = 0; i < origin1.length; i++ )
-    {
-      if( origin1.eGet( i ) === origin2.eGet( i ) )
-      identOrigin = identOrigin + 1;
-
-      if( origin1.eGet( i ) === end2.eGet( i ) )
-      origin1End2 = origin1End2 + 1;
-
-      if( end1.eGet( i ) === origin2.eGet( i ) )
-      end1Origin2 = end1Origin2 + 1;
-
-      if( end1.eGet( i ) === end2.eGet( i ) )
-      identEnd = identEnd + 1;
-    }
-
-    if( identOrigin === origin1.length )
-    return _.vector.from( [ 0, 0 ] );
-
-    else if( origin1End2 === origin1.length )
-    return _.vector.from( [ 0, 1 ] );
-
-    else if( end1Origin2 === origin1.length )
-    return _.vector.from( [ 1, 0 ] );
-
-    else if( identEnd === origin1.length )
-    return _.vector.from( [ 1, 1 ] );
-
-    // Parallel segments
-    if( segmentParallel( srcSegment1, srcSegment2 ) === true )
-    {
-      if( _.segment.pointContains( srcSegment1, origin2 ) )
-      {
-        return _.vector.from( [ _.segment.getFactor( srcSegment1, origin2), 0 ] );
-      }
-      else if( _.segment.pointContains( srcSegment2, origin1 ) )
-      {
-        return _.vector.from( [  0, _.segment.getFactor( srcSegment2, origin1) ] );
-      }
-      else
-      {
-        return 0;
-      }
-    }
-
-    let result = _.vector.from( [ 0, 0 ] );
-    debugger;
-
-    for( let i = 0; i < dOrigin.length - 1 ; i++ )
-    {
-      let m = _.Space.make( [ 2, 2 ] );
-      m.rowSet( 0, directions.rowVectorGet( i ) );
-      m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
-      let or = _.Space.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
-
-      let o =
-      {
-        x : null,
-        m : m,
-        y : or,
-        kernel : null,
-        pivoting : 1,
-      }
-
-      let x = _.Space.solveGeneral( o );
-
-      result = _.vector.from( x.base );
-
-      let point1 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
-      let point2 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
-
-      for( var j = 0; j < dOrigin.length; j++ )
-      {
-        point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) );
-        point2.eSet( j, origin2.eGet( j ) + direction2.eGet( j )*result.eGet( 1 ) );
-      }
-
-      let contained = 0;
-      if( _.segment.pointContains( srcSegment1View, point2 ) )
-      {
-        result.eSet( 0, _.segment.getFactor( srcSegment1View, point2 ) );
-        contained = 1;
-      }
-      else if( _.segment.pointContains( srcSegment2View, point1 ) )
-      {
-        result.eSet( 1, _.segment.getFactor( srcSegment2View, point1 ) );
-        contained = 1;
-      }
-
-
-
-      let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
-      let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
-
-      if( result0 && result1 && contained === 1 )
-      return result;
-    }
-
-    return 0;
+    if( end1.eGet( i ) === end2.eGet( i ) )
+    identEnd = identEnd + 1;
   }
+
+  if( identOrigin === origin1.length )
+  return _.vector.from( [ 0, 0 ] );
+
+  else if( origin1End2 === origin1.length )
+  return _.vector.from( [ 0, 1 ] );
+
+  else if( end1Origin2 === origin1.length )
+  return _.vector.from( [ 1, 0 ] );
+
+  else if( identEnd === origin1.length )
+  return _.vector.from( [ 1, 1 ] );
+
+  // Parallel segments
+  if( segmentParallel( srcSegment1, srcSegment2 ) === true )
+  {
+    if( _.segment.pointContains( srcSegment1, origin2 ) )
+    {
+      return _.vector.from( [ _.segment.getFactor( srcSegment1, origin2), 0 ] );
+    }
+    else if( _.segment.pointContains( srcSegment2, origin1 ) )
+    {
+      return _.vector.from( [  0, _.segment.getFactor( srcSegment2, origin1) ] );
+    }
+    else
+    {
+      return 0;
+    }
+  }
+
+  let result = _.vector.from( [ 0, 0 ] );
+  debugger;
+
+  for( let i = 0; i < dOrigin.length - 1 ; i++ )
+  {
+    let m = _.Space.make( [ 2, 2 ] );
+    m.rowSet( 0, directions.rowVectorGet( i ) );
+    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+    let or = _.Space.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+
+    let o =
+    {
+      x : null,
+      m : m,
+      y : or,
+      kernel : null,
+      pivoting : 1,
+    }
+
+    let x = _.Space.solveGeneral( o );
+
+    result = _.vector.from( x.base );
+
+    let point1 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point2 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+
+    for( var j = 0; j < dOrigin.length; j++ )
+    {
+      point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) );
+      point2.eSet( j, origin2.eGet( j ) + direction2.eGet( j )*result.eGet( 1 ) );
+    }
+
+    let contained = 0;
+    if( _.segment.pointContains( srcSegment1View, point2 ) )
+    {
+      result.eSet( 0, _.segment.getFactor( srcSegment1View, point2 ) );
+      contained = 1;
+    }
+    else if( _.segment.pointContains( srcSegment2View, point1 ) )
+    {
+      result.eSet( 1, _.segment.getFactor( srcSegment2View, point1 ) );
+      contained = 1;
+    }
+
+
+
+    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
+    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
+
+    if( result0 && result1 && contained === 1 )
+    return result;
+  }
+
+  return 0;
+}
 /*
 function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 {
@@ -1939,6 +1939,9 @@ function lineIntersects( srcSegment, srcLine )
 
   _.assert( dimSegment === dimLine );
 
+  if( _.line.pointContains( srcLineView, segmentOrigin ) || _.line.pointContains( srcLineView, segmentEnd ) )
+  return true;
+  
   let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
   if( _.line.lineParallel( lineSegment, srcLineView ) )
   {
@@ -1947,9 +1950,10 @@ function lineIntersects( srcSegment, srcLine )
     else
     return false;
   }
-  let factors = _.line.lineIntersectionFactors( lineSegment, srcLineView );
 
-  if( factors === 0 || factors.eGet( 0 ) < 0 || factors.eGet( 0 ) > 1 )
+  let factors = _.line.lineIntersectionFactors( lineSegment, srcLineView );
+  logger.log( factors )
+  if( factors === 0 || factors.eGet( 0 ) < 0 - _.accuracy || factors.eGet( 0 ) > 1 - _.accuracy )
   return false;
 
   return true;
@@ -2822,69 +2826,65 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
 
 
   if( _.segment.segmentIntersects( srcSegmentView, tstSegmentView ) )
+  return 0;
+
+  // Parallel segments
+  if( _.segment.segmentParallel( srcSegmentView, tstSegmentView ) )
   {
-    pointView = _.segment.segmentIntersectionPoint( srcSegmentView, tstSegmentView );
+    pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
   }
   else
   {
-    // Parallel segments
-    if( _.segment.segmentParallel( srcSegmentView, tstSegmentView ) )
+    let srcLine = _.vector.from( _.array.makeArrayOfLength( srcDim*2 ) );
+    let tstLine = _.vector.from( _.array.makeArrayOfLength( srcDim*2 ) );
+
+    for( var i = 0 ; i < srcDim ; i++ )
     {
-      pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+      srcLine.eSet( i, srcOrigin.eGet( i ) );
+      srcLine.eSet( srcDim + i, srcDir.eGet( i ) );
+      tstLine.eSet( i, tstOrigin.eGet( i ) );
+      tstLine.eSet( srcDim + i, tstDir.eGet( i ) );
     }
-    else
+
+    let factors = _.line.lineIntersectionFactors( srcLine, tstLine );
+
+    if( factors === 0 )
     {
-      let srcLine = _.vector.from( _.array.makeArrayOfLength( srcDim*2 ) );
-      let tstLine = _.vector.from( _.array.makeArrayOfLength( srcDim*2 ) );
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
-      for( var i = 0 ; i < srcDim ; i++ )
+      if( factor >= 0 && factor <= 1 )
       {
-        srcLine.eSet( i, srcOrigin.eGet( i ) );
-        srcLine.eSet( srcDim + i, srcDir.eGet( i ) );
-        tstLine.eSet( i, tstOrigin.eGet( i ) );
-        tstLine.eSet( srcDim + i, tstDir.eGet( i ) );
+        pointView = _.segment.segmentAt( srcSegmentView, factor );
       }
-
-      let factors = _.line.lineIntersectionFactors( srcLine, tstLine );
-
-      if( factors === 0 )
-      {
-        let srcMod = _.vector.dot( srcDir, srcDir );
-        let tstMod = _.vector.dot( tstDir, tstDir );
-        let mod = _.vector.dot( srcDir, tstDir );
-        let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
-        let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
-
-        if( factor >= 0 && factor <= 1 )
-        {
-          pointView = _.segment.segmentAt( srcSegmentView, factor );
-        }
-        else if( factor > 1 )
-        {
-          pointView = srcEnd;
-        }
-        else if ( factor < 0 )
-        {
-          pointView = srcOrigin;
-        }
-      }
-      else if( factors.eGet( 1 ) < 0 )
-      {
-        pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
-      }
-      else if( factors.eGet( 1 ) > 1 )
-      {
-        pointView = _.segment.pointClosestPoint( srcSegmentView, tstEnd );
-      }
-      else if( factors.eGet( 0 ) < 0 )
-      {
-        //pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
-        pointView = srcOrigin;
-      }
-      else if( factors.eGet( 0 ) > 1 )
+      else if( factor > 1 )
       {
         pointView = srcEnd;
       }
+      else if ( factor < 0 )
+      {
+        pointView = srcOrigin;
+      }
+    }
+    else if( factors.eGet( 1 ) < 0 )
+    {
+      pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+    }
+    else if( factors.eGet( 1 ) > 1 )
+    {
+      pointView = _.segment.pointClosestPoint( srcSegmentView, tstEnd );
+    }
+    else if( factors.eGet( 0 ) < 0 )
+    {
+      //pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+      pointView = srcOrigin;
+    }
+    else if( factors.eGet( 0 ) > 1 )
+    {
+      pointView = srcEnd;
     }
   }
 

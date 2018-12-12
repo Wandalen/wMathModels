@@ -5444,7 +5444,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
   var src2Segment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = 0;
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -5504,7 +5504,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 4, 2, 1, 1, 1 ];
   var src2Segment = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = 0;
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -5513,7 +5513,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 2, 1, 0, 7, 2, 1 ];
   var src2Segment = [ 3, 4, 2, 1, -1, 4, 2, 1 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.equivalent( gotClosestPoint, expected );
@@ -5522,7 +5522,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 2, 0 ];
   var src2Segment = [ - 3, - 4, 1, 0 ];
-  var expected = [ 1, 0 ];
+  var expected = 0;
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -5540,7 +5540,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, 8, 7, 1 ];
   var src2Segment = [ 3, 7, 1, 3, 7, 6 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -5564,6 +5564,24 @@ function segmentClosestPoint( test )
   test.identical( gotClosestPoint, expected );
 
   test.case = 'Segments are parallel but in a opposite direction'; /* */
+
+  var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 8, 7, 2 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments are parallel but in a opposite direction'; /* */
+
+  var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
+  var src2Segment = [ 3, 7, 2, 8, 7, 2 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
+  test.identical( gotClosestPoint, expected );
+
+  test.case = 'Segments don´t intersect'; /* */
 
   var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
   var src2Segment = [ 3, 7, 2, 8, 7, 1 ];

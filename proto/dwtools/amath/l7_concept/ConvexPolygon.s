@@ -1363,7 +1363,7 @@ function lineIntersects( polygon, line )
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
     let segmentP = _.segment.fromPair( [ vertex, nextVertex ] );
-
+    
     if( _.segment.lineIntersects( segmentP, lineView ) )
     {
       return true;

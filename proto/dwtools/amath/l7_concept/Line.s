@@ -583,6 +583,7 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   */
 function lineIntersectionFactors( srcLine1, srcLine2 )
 {
+
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( srcLine1.length === srcLine2.length,'The two lines must have the same dimension' );
 
@@ -637,70 +638,69 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   let j = 0;
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
+
     let m = _.Space.make( [ 2, 2 ] );
+
     m.rowSet( 0, directions.rowVectorGet( i ) );
     m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
 
-    if( m.determinant() === 0 )
-    {}
+    let or = _.Space.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+    let o =
+    {
+      x : null,
+      m : m,
+      y : or,
+      kernel : null,
+      pivoting : 1,
+    }
+
+    let x = _.Space.solveGeneral( o );
+    
+    if( j === 0 )
+    {
+      result = _.vector.from( x.base )
+    }
     else
     {
-      let or = _.Space.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
-      let o =
-      {
-        x : null,
-        m : m,
-        y : or,
-        kernel : null,
-        pivoting : 1,
-      }
+      let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
+      let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
 
-      let x = _.Space.solveGeneral( o );
-      if( j === 0 )
-      {
-        result = _.vector.from( x.base )
-      }
-      else
-      {
-        let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
-        let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
+      let samex1 = Math.abs( x1 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x1 - result.eGet( 1 ) ) < 1E-6 ;
+      let samex2 = Math.abs( x2 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x2 - result.eGet( 1 ) ) < 1E-6 ;
 
-        let samex1 = Math.abs( x1 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x1 - result.eGet( 1 ) ) < 1E-6 ;
-        let samex2 = Math.abs( x2 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x2 - result.eGet( 1 ) ) < 1E-6 ;
-
-        if( x1 !== 0 )
+      if( x1 !== 0 )
+      {
+        if( samex1 )
         {
-          if( samex1 )
-          {
-            result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
-          }
-          else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex2 )
-          {
-            result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
-          }
-          else
-          {
-            return 0;
-          }
+          result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
         }
-        if( x2 !== 0 )
+        else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex2 )
         {
-          if( samex2 )
-          {
-            result.eSet( 1, _.vector.from( x.base ).eGet( 1 ) );
-          }
-          else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex1 )
-          {
-            result.eSet( 1, _.vector.from( x.base ).eGet( 1 ) );
-          }
-          else
-          {
-            return 0;
-          }
+          result.eSet( 0, _.vector.from( x.base ).eGet( 0 ) );
+        }
+        else
+        {
+          return 0;
         }
       }
-      j = j + 1;
+      if( x2 !== 0 )
+      {
+        if( samex2 )
+        {
+          result.eSet( 1, _.vector.from( x.base ).eGet( 1 ) );
+        }
+        else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex1 )
+        {
+          result.eSet( 1, _.vector.from( x.base ).eGet( 1 ) );
+        }
+        else
+        {
+          return 0;
+        }
+      }
     }
+    j = j + 1;
+
     var oldDeterminant = m.determinant();
   }
 
@@ -708,7 +708,6 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   {
     return 0;
   }
-
   // Check result
   let point1 = _.vector.from( _.array.makeArrayOfLength( origin1.length ) )
   let point2 = _.vector.from( _.array.makeArrayOfLength( origin1.length ) )
@@ -723,6 +722,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
     }
   }
   return result;
+
 }
 
 //
@@ -2080,7 +2080,7 @@ function planeIntersectionPoint( srcLine, srcPlane, dstPoint )
   let secondPoint = _.line.lineAt( srcLineView, 1 );
   let secondCopPoint = _.plane.pointCoplanarGet( planeView, secondPoint );
   let copLine = _.line.fromPair( [ copOrigin, secondCopPoint ] );
-  
+
   let point = _.vector.from( _.line.lineIntersectionPoint( srcLineView, copLine ) );
 
   for( let i = 0; i < origin.length; i++ )
@@ -2266,6 +2266,99 @@ function rayIntersects( srcLine, srcRay )
 //
 
 /**
+  * Get the intersection point in a line to a ray. Returns the calculated point.
+  * The line and ray remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcRay - Test ray.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.rayIntersectionPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
+  *
+  * @example
+  * // returns 0;
+  * _.rayIntersectionPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
+  *
+  * @returns { Array } Returns the intersection point between the srcLine and the srcRay.
+  * @function rayIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function rayIntersectionPoint( srcLine, srcRay, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcRay.length / 2 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcRay.length / 2 );
+
+  let srcLineView = _.line._from( srcLine );
+  let srcOrigin = _.line.originGet( srcLineView );
+  let srcDir = _.line.directionGet( srcLineView );
+  let srcDim  = _.line.dimGet( srcLineView );
+
+  let srcRayView = _.ray._from( srcRay );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let tstDir = _.ray.directionGet( srcRayView );
+  let rayDim = _.ray.dimGet( srcRayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+  _.assert( srcDim === rayDim );
+
+  let pointView;
+
+  if( !_.line.rayIntersects( srcLineView, srcRayView ) )
+  return 0;
+
+  // Same origin
+  let identOrigin = 0;
+  for( let i = 0; i < srcOrigin.length; i++ )
+  {
+    if( srcOrigin.eGet( i ) === rayOrigin.eGet( i ) )
+    identOrigin = identOrigin + 1;
+  }
+  if( identOrigin === srcOrigin.length )
+  pointView = srcOrigin;
+  else
+  {
+    // Parallel lines
+    if( _.line.lineParallel( srcLineView, srcRayView ) )
+    {
+      pointView = _.line.pointClosestPoint( srcLineView, rayOrigin );
+    }
+    else
+    {
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( rayOrigin.slice(), srcOrigin ) );
+      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+
+      pointView = _.line.lineAt( srcLineView, factor );
+    }
+  }
+
+  pointView = _.vector.from( pointView );
+  for( let i = 0; i < pointView.length; i++ )
+  {
+    dstPointView.eSet( i, pointView.eGet( i ) );
+  }
+
+  return dstPoint;
+}
+
+//
+
+/**
   * Get the distance between a ray and a line. Returns the calculated distance.
   * The line and the ray remain unchanged.
   *
@@ -2392,35 +2485,27 @@ function rayClosestPoint( srcLine, srcRay, dstPoint )
   let dstPointView = _.vector.from( dstPoint );
   _.assert( srcDim === rayDim );
 
+  if( _.line.rayIntersects( srcLineView, srcRayView ) )
+  return 0;
+
   let pointView;
 
-  // Same origin
-  let identOrigin = 0;
-  for( let i = 0; i < srcOrigin.length; i++ )
+  // Parallel lines
+  if( _.line.lineParallel( srcLineView, srcRayView ) )
   {
-    if( srcOrigin.eGet( i ) === rayOrigin.eGet( i ) )
-    identOrigin = identOrigin + 1;
+    pointView = _.line.pointClosestPoint( srcLineView, rayOrigin );
   }
-  if( identOrigin === srcOrigin.length )
-  pointView = srcOrigin;
   else
   {
-    // Parallel lines
-    if( _.line.lineParallel( srcLineView, srcRayView ) )
-    {
-      pointView = _.line.pointClosestPoint( srcLineView, rayOrigin );
-    }
-    else
-    {
-      let srcMod = _.vector.dot( srcDir, srcDir );
-      let tstMod = _.vector.dot( tstDir, tstDir );
-      let mod = _.vector.dot( srcDir, tstDir );
-      let dOrigin = _.vector.from( avector.subVectors( rayOrigin.slice(), srcOrigin ) );
-      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+    let srcMod = _.vector.dot( srcDir, srcDir );
+    let tstMod = _.vector.dot( tstDir, tstDir );
+    let mod = _.vector.dot( srcDir, tstDir );
+    let dOrigin = _.vector.from( avector.subVectors( rayOrigin.slice(), srcOrigin ) );
+    let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
-      pointView = _.line.lineAt( srcLineView, factor );
-    }
+    pointView = _.line.lineAt( srcLineView, factor );
   }
+
 
   pointView = _.vector.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
@@ -2852,6 +2937,7 @@ let Proto =
   planeClosestPoint : planeClosestPoint,
 
   rayIntersects : rayIntersects,
+  rayIntersectionPoint : rayIntersectionPoint,
   rayDistance : rayDistance,
   rayClosestPoint : rayClosestPoint,
 
