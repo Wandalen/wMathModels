@@ -5756,13 +5756,184 @@ function rayClosestPoint( test )
 
 //
 
-function segmentClosestPoint( test )
+function segmentIntersectionPoint( test )
 {
   test.case = 'Source line and segment remain unchanged'; /* */
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var expected = [ 0, 0, 0 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  var oldSrcLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstSegment, oldTstSegment );
+
+  test.case = 'Line and segment are parallel ( different origin - same direction )'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 7 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are parallel ( different origin - different direction )'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstSegment = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is a point - not contained'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is a point - contained'; /* */
+
+  var srcLine = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0.5, 0.5, 0.5 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'tstSegment is a point - not contained'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'tstSegment is a point - contained'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
+  var expected = [ 7, 7, 7 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are the same'; /* */
+
+  var srcLine = [ 0, 4, 2, 1, 1, 1 ];
+  var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment intersect 4D'; /* */
+
+  var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment don´t intersect 2D - parallel'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstSegment = [ - 3, - 4, 3, -4 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment intersect with line´s negative factor 2D'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstSegment = [ - 3, - 4, -3, 1 ];
+  var expected = [ -3, 0 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment don´t intersect with segment´s negative factor 2D'; /* */
+
+  var srcLine = [ - 3, - 4, 0, 1 ];
+  var tstSegment = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are perpendicular and intersect'; /* */
+
+  var srcLine = [ 5, 7, 1, 1, 0, 0 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are perpendicular and don´t intersect'; /* */
+
+  var srcLine = [ 0, 0, -3, 0, 0, 1 ];
+  var tstSegment = [ 3, 2, 0, -3, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are parallel to x'; /* */
+
+  var srcLine = [ 3, 7, 1, 1, 0, 0 ];
+  var tstSegment = [ 3, 7, 2, 9, 7, 2 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is null'; /* */
+
+  var srcLine = null;
+  var tstSegment = [ 3, 7, 2, -3, 7, 2 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function segmentClosestPoint( test )
+{
+  test.case = 'Source line and segment remain unchanged'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -5822,7 +5993,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -5831,7 +6002,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -5849,7 +6020,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, -3, 1 ];
-  var expected = [ -3, 0 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -5867,7 +6038,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6513,6 +6684,7 @@ var Self =
     rayDistance : rayDistance,
     rayClosestPoint : rayClosestPoint,
 
+    segmentIntersectionPoint : segmentIntersectionPoint,
     segmentClosestPoint : segmentClosestPoint,
 
     sphereIntersects : sphereIntersects,

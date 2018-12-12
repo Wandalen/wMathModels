@@ -1941,7 +1941,10 @@ function lineIntersects( srcSegment, srcLine )
 
   if( _.line.pointContains( srcLineView, segmentOrigin ) || _.line.pointContains( srcLineView, segmentEnd ) )
   return true;
-  
+
+  if( _.segment.pointContains( srcSegmentView, lineOrigin ) )
+  return true;
+
   let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
   if( _.line.lineParallel( lineSegment, srcLineView ) )
   {
