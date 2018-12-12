@@ -4581,6 +4581,190 @@ function planeIntersects( test )
 
 //
 
+function planeIntersectionPoint( test )
+{
+
+  test.case = 'Line and plane remain unchanged'; /* */
+
+  var line = [  - 1,  - 1, -1, 1, 0, 0 ];
+  var plane = [ 1, 0, 0, - 1 ];
+  var expected = [ 1, -1, -1 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint, expected );
+
+  var oldLine = [  - 1, - 1, -1, 1, 0, 0 ];
+  test.identical( line, oldLine );
+
+  var oldPlane = [ 1, 0, 0, -1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null line'; /* */
+
+  var line = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point line - no intersection'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point line in plane'; /* */
+
+  var line = [ - 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ -1, 2, 3 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line and plane intersect'; /* */
+
+  var line = [ -2, -2, -2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ -1, -1, -1 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Negative factor'; /* */
+
+  var line = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = [ - 3, -9, 4 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Positive factor'; /* */
+
+  var line = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, - 3 ];
+  var expected = [ 3, -3, 4 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var plane = [ 0, 2, 0, - 2 ];
+  var expected = [ 1, 1, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+
+  var line = [ 0, 0, 0, 0, 0.194, 0 ];
+  var plane = [ 3, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'plane parallel to line'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane parallel contains line'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane contains line origin'; /* */
+
+  var line = [ 0, 0, 0, 0, 3, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane perpendicular to line'; /* */
+
+  var line = [ 3, 4, 4, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = [ 3, 4, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane parallel to line 4D'; /* */
+
+  var line = [ 0, 2, 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane perpendicular to line 4D'; /* */
+
+  var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
+  var plane = [ 0, 0, 0, 3, 0 ];
+  var expected = [ 0, 1, 2, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane and line intersect 4D'; /* */
+
+  var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 2, 3, 0 ];
+  var expected = [ 0, 1, 2, - ( 1 + 2/3 ) ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var line = [ 3, 4, 4, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = _.vector.from( [ 3, 4, 0 ] );
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane, _.vector.from( [ 0, 0, 0 ] ) );
+  test.identical( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+planeIntersectionPoint.accuracy = 1e-6;
+
+//
+
 function planeDistance( test )
 {
 
@@ -6131,6 +6315,7 @@ var Self =
     lineClosestPoint : lineClosestPoint,
 
     planeIntersects : planeIntersects,
+    planeIntersectionPoint : planeIntersectionPoint,
     planeDistance : planeDistance,
     planeClosestPoint : planeClosestPoint,
 

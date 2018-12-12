@@ -630,7 +630,6 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
       return 0;
     }
   }
-
   let result = _.vector.from( [ 0, 0 ] );
 
   debugger;
@@ -718,7 +717,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
     point1.eSet( i, origin1.eGet( i ) + result.eGet( 0 )*direction1.eGet( i ) )
     point2.eSet( i, origin2.eGet( i ) + result.eGet( 1 )*direction2.eGet( i ) )
 
-    if( Math.abs( point1.eGet( i ) - point2.eGet( i ) ) > _.accuracy )
+    if( Math.abs( point1.eGet( i ) - point2.eGet( i ) ) > _.accuracy * 10 )
     {
       return 0
     }
@@ -2013,6 +2012,88 @@ function planeIntersects( srcLine, srcPlane )
 //
 
 /**
+  * Get the intersection point between a line and a plane. Returns the calculated point.
+  * The plane and the line remain unchanged.
+  *
+  * @param { Array } srcLine - Source line.
+  * @param { Array } srcPlane - Source plane.
+  * @param { Array } dstPoint - Destination point.
+  *
+  * @example
+  * // returns [ 1, 1, 1 ];
+  * _.planeIntersectionPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @example
+  * // returns 0;
+  * _.planeIntersectionPoint( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
+  *
+  * @returns { Array } Returns the intersection point between the line and the plane, 0 if there is no intersection.
+  * @function planeIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcPlane ) is not plane.
+  * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
+  * @memberof wTools.line
+  */
+function planeIntersectionPoint( srcLine, srcPlane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Not a valid destination point' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcPlane.length - 1 );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimLine  = _.line.dimGet( srcLineView )
+
+  let planeView = _.plane._from( srcPlane );
+  let normal = _.plane.normalGet( planeView );
+  let bias = _.plane.biasGet( planeView );
+  let dimPlane = _.plane.dimGet( planeView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimLine === dimPlane );
+
+  if( !_.line.planeIntersects( srcLineView, planeView ) )
+  return 0;
+
+  if( _.plane.pointContains( planeView, origin ) )
+  {
+    origin = _.vector.from( origin );
+    for( let i = 0; i < origin.length; i++ )
+    {
+      dstPointView.eSet( i, origin.eGet( i ) );
+    }
+    return dstPoint;
+  }
+
+  let copOrigin = _.plane.pointCoplanarGet( planeView, origin );
+
+  let secondPoint = _.line.lineAt( srcLineView, 1 );
+  let secondCopPoint = _.plane.pointCoplanarGet( planeView, secondPoint );
+  let copLine = _.line.fromPair( [ copOrigin, secondCopPoint ] );
+  
+  let point = _.vector.from( _.line.lineIntersectionPoint( srcLineView, copLine ) );
+
+  for( let i = 0; i < origin.length; i++ )
+  {
+    dstPointView.eSet( i, point.eGet( i ) );
+  }
+  return dstPoint;
+
+}
+
+//
+
+/**
   * Get the distance between a line and a plane. Returns the calculated distance.
   * The plane and the line remain unchanged.
   *
@@ -2766,6 +2847,7 @@ let Proto =
   lineClosestPoint : lineClosestPoint,
 
   planeIntersects : planeIntersects,
+  planeIntersectionPoint : planeIntersectionPoint,
   planeDistance : planeDistance,
   planeClosestPoint : planeClosestPoint,
 

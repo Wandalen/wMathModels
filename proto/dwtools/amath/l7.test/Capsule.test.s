@@ -5623,7 +5623,7 @@ function segmentClosestPoint( test )
 
   var srcCapsule = [ - 3, - 4, -3, 4, 1 ];
   var tstSegment = [ 0, 0, 10, 5 ];
-  var expected = [ -2.1055728090000843, -1.0527864045000421 ];
+  var expected = [ -2, 0 ];
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );

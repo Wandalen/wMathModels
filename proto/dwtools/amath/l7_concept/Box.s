@@ -498,13 +498,10 @@ function fromSphere( box, sphere )
 
   debugger;
   //throw _.err( 'not tested' );
-  logger.log('Start', boxView )
   _.box.fromPoints( boxView, [ center ] );
 
-  logger.log('fromcenter', boxView )
   _.box.expand( boxView, radius );
 
-  logger.log('radius', boxView )
   return box;
 }
 

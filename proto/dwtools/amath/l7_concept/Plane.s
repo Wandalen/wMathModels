@@ -372,9 +372,9 @@ function pointCoplanarGet( plane , point, dstPoint )
   debugger;
   //throw _.err( 'not tested' );
 
-  let movement = _.vector.mulScalar( normal, lambda );
+  let mouvement = _.vector.mulScalar( normal, lambda );
 
-  pointVector = _.vector.add( pointVector ,  movement  );
+  pointVector = _.vector.add( pointVector ,  mouvement  );
 
   for( let i = 0; i < pointVector.length; i++ )
   {
@@ -622,7 +622,6 @@ function boundingBoxGet( dstBox, srcPlane )
       zeros = zeros + 1;
     }
   }
-  logger.log( zeros )
 
   if( zeros === dimB - 1 )
   {
@@ -1865,7 +1864,7 @@ function boundingSphereGet( dstSphere, srcPlane )
   let center = _.sphere.centerGet( dstSphereView );
   let radiusSphere = _.sphere.radiusGet( dstSphereView );
   let dimSphere = _.sphere.dimGet( dstSphereView );
-  logger.log( dimPlane, dimSphere )
+
   _.assert( dimPlane === dimSphere );
 
   let distOrigin = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimPlane ) ), normal );
@@ -1881,7 +1880,6 @@ function boundingSphereGet( dstSphere, srcPlane )
   else
   {
     let pointInPlane = _.vector.from( _.plane.pointCoplanarGet( planeView, _.array.makeArrayOfLengthZeroed( dimPlane ) ) );
-    logger.log( pointInPlane )
 
     for( let c = 0; c < center.length; c++ )
     {
