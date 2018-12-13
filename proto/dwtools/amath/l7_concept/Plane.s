@@ -1119,10 +1119,11 @@ function lineIntersects( srcPlane , tstLine )
   *
   * @param { Array } plane - Source plane.
   * @param { Array } line -  Source line.
+  * @param { Array } dstPoint -  Destination point.
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.lineIntersection( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
+  * _.lineIntersection( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
   *
   *
   * @returns { Point } Returns the point of intersection between a plane and a line.
@@ -1133,50 +1134,45 @@ function lineIntersects( srcPlane , tstLine )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof wTools.plane
   */
-function lineIntersection( plane , line , point )
+
+function lineIntersectionPoint( plane, line, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = _.array.makeArrayOfLength( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let planeView = _.plane._from( plane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let lineView = _.vector.from( line );
+  let lineView = _.line._from( line );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
+  let dimLine  = _.line.dimGet( lineView );
 
-  debugger;
-  throw _.err( 'not tested' );
+  let dstPointView = _.vector.from( dstPoint );
 
-  if( point === null )
-  point = [ 0,0,0 ];
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimLine );
 
-  let direction = _.line.pointDirection( point );
-
-  let dot = _.vector.dot( normal , direction );
-
-  if( Math.abs( dot ) < _.accuracySqr )
+  if( !_.line.planeIntersects( lineView, planeView ) )
+  return 0
+  else
   {
+    let linePoint = _.line.planeIntersectionPoint( lineView, planeView );
 
-    if( _.plane.pointDistance( plane, lineView.eGet( 0 ) ) < _.accuracySqr )
+    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, linePoint ) );
+
+    for( let i = 0; i < dimP; i++ )
     {
-      _.avector.assign( point, lineView.eGet( 0 ) );
-      return point
+      dstPointView.eSet( i, planePoint.eGet( i ) );
     }
 
-    return false;
+    return dstPoint;
   }
-
-  let t = - ( _.vector.dot( lineView.eGet( 0 ) , this.normal ) + bias ) / dot;
-
-  if( t < 0 || t > 1 )
-  return false;
-
-  return _.line.at( [ lineView.eGet( 0 ),direction ] , t );
 }
 
 //
@@ -1427,6 +1423,70 @@ function rayIntersects( srcPlane , tstRay )
 
 //
 
+/**
+  * Returns the intersection point between a plane and a ray. Returns the intersection point coordinates.
+  * The plane and ray remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } ray -  Source ray.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.rayIntersection( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a plane and a ray.
+  * @function rayIntersection
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.plane
+  */
+
+function rayIntersectionPoint( plane, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let rayView = _.ray._from( ray );
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
+  let dimRay  = _.ray.dimGet( rayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimRay );
+
+  if( !_.ray.planeIntersects( rayView, planeView ) )
+  return 0
+  else
+  {
+    let rayPoint = _.line.planeIntersectionPoint( rayView, planeView );
+
+    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, rayPoint ) );
+
+    for( let i = 0; i < dimP; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
 function rayDistance( srcPlane , tstRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1597,6 +1657,71 @@ function segmentIntersects( plane , segment )
 
   debugger;
   return ( b <= 0 && e >= 0 ) || ( e <= 0 && b >= 0 );
+}
+
+//
+
+/**
+  * Returns the intersection point between a plane and a segment. Returns the intersection point coordinates.
+  * The plane and segment remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } segment -  Source segment.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.segmentIntersection( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a plane and a segment.
+  * @function segmentIntersection
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.plane
+  */
+
+function segmentIntersectionPoint( plane, segment, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let segmentView = _.segment._from( segment );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+  let dimSegment  = _.segment.dimGet( segmentView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimSegment );
+
+  if( !_.segment.planeIntersects( segmentView, planeView ) )
+  return 0
+  else
+  {
+    let lineSegment = _.line.fromPair( [ origin, end ] );
+    let segmentPoint = _.line.planeIntersectionPoint( lineSegment, planeView );
+
+    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, segmentPoint ) );
+
+    for( let i = 0; i < dimP; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
 }
 
 //
@@ -2154,7 +2279,7 @@ let Proto =
 
   lineContains : lineContains,
   lineIntersects : lineIntersects,
-  lineIntersection : lineIntersection,
+  lineIntersectionPoint : lineIntersectionPoint,
   lineDistance : lineDistance,
   lineClosestPoint : lineClosestPoint,
 
@@ -2163,11 +2288,13 @@ let Proto =
 
   rayContains : rayContains,
   rayIntersects : rayIntersects, /* Same as _.ray.planeIntersects */
+  rayIntersectionPoint : rayIntersectionPoint,
   rayDistance : rayDistance, /* Same as _.ray.planeDistance */
   rayClosestPoint : rayClosestPoint,
 
   segmentContains : segmentContains,
   segmentIntersects : segmentIntersects,
+  segmentIntersectionPoint : segmentIntersectionPoint,
   segmentDistance : segmentDistance,
   segmentClosestPoint : segmentClosestPoint,
 

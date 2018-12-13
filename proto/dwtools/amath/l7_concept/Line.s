@@ -2271,6 +2271,7 @@ function rayIntersects( srcLine, srcRay )
   *
   * @param { Array } srcLine - Source line.
   * @param { Array } srcRay - Test ray.
+  * @param { Array } dstPoint -  Destination point.
   *
   * @example
   * // returns [ 0, 0, 0 ];
@@ -2536,6 +2537,7 @@ function segmentIntersects( srcLine , tstSegment )
   *
   * @param { Array } srcLine - Source line.
   * @param { Array } tstSegment - Test segment.
+  * @param { Array } dstPoint -  Destination point.
   *
   * @example
   * // returns [ 0, 0, 0 ];
