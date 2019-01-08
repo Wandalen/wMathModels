@@ -4,7 +4,7 @@ require( 'wmathconcepts' );
 
 let _ = wTools;
 
-let srcLine = [ -5, 2, -5, 1, 0, 1 ]
+var srcLine = [ -5, 2, -5, 1, 0, 1 ];
 var polygon =  _.Space.make( [ 3, 4 ] ).copy
 ([
   0,   0,   0,   0,
@@ -18,4 +18,3 @@ result = _.line.convexPolygonDistance( srcLine, polygon );
 logger.log( result );
 result = _.line.convexPolygonClosestPoint( srcLine, polygon );
 logger.log( result );
-debugger;

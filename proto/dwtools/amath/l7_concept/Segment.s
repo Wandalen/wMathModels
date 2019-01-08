@@ -1944,7 +1944,6 @@ function lineIntersects( srcSegment, srcLine )
 
   if( _.segment.pointContains( srcSegmentView, lineOrigin ) )
   return true;
-
   let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
   if( _.line.lineParallel( lineSegment, srcLineView ) )
   {
@@ -1953,9 +1952,9 @@ function lineIntersects( srcSegment, srcLine )
     else
     return false;
   }
-
+  
   let factors = _.line.lineIntersectionFactors( lineSegment, srcLineView );
-  logger.log( factors )
+
   if( factors === 0 || factors.eGet( 0 ) < 0 - _.accuracy || factors.eGet( 0 ) > 1 - _.accuracy )
   return false;
 

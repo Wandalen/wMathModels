@@ -381,14 +381,14 @@ function getFactor( srcLine, srcPoint )
   let direction = _.line.directionGet( srcLineView );
   let dimension  = _.line.dimGet( srcLineView )
   let srcPointView = _.vector.from( srcPoint.slice() );
-
+  let accuracy = _.accuracy*10;
   _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
   let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    if( Math.abs( dOrigin.eGet( 0 ) ) > accuracy )
     {
       return false;
     }
@@ -407,7 +407,7 @@ function getFactor( srcLine, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      if( Math.abs( dOrigin.eGet( i ) ) > accuracy )
       {
         return false;
       }
@@ -419,7 +419,7 @@ function getFactor( srcLine, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && newFactor !== 0 && factor !== 0 )
+      if( Math.abs( newFactor - factor ) > accuracy && newFactor !== 0 && factor !== 0 )
       {
         return false;
       }
@@ -476,7 +476,6 @@ function lineParallel3D( src1Line, src2Line, accuracySqr )
 
   let direction1 = _.line.directionGet( src1Line );
   let direction2 = _.line.directionGet( src2Line );
-
   debugger;
   return avector.magSqr( avector.cross( null, direction1, direction2 )) <= accuracySqr;
 
@@ -501,10 +500,10 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   _.assert( src1Line.length === src2Line.length );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;;
+  accuracySqr = _.accuracySqr;
 
-  let direction1 = _.line.directionGet( src1Line );
-  let direction2 = _.line.directionGet( src2Line );
+  let direction1 = _.line.directionGet( src1Line ).clone().normalize();
+  let direction2 = _.line.directionGet( src2Line ).clone().normalize();
   let proportion = undefined;
 
   let zeros1 = 0;                               // Check if Line1 is a point
@@ -535,7 +534,7 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   {
     if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
     {
-      if( direction1.eGet( i ) !== direction2.eGet( i ) )
+      if( Math.abs( direction1.eGet( i ) - direction2.eGet( i ) ) > accuracySqr )
       {
         return false;
       }
@@ -546,7 +545,7 @@ function lineParallel( src1Line, src2Line, accuracySqr )
 
       if( proportion !== undefined )
       {
-        if( Math.abs( proportion - newProportion ) > accuracySqr)
+        if( Math.abs( proportion - newProportion ) > accuracySqr )
         return false
       }
 
@@ -631,6 +630,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
       return 0;
     }
   }
+
+  /*
   let result = _.vector.from( [ 0, 0 ] );
 
   debugger;
@@ -655,7 +656,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
     }
 
     let x = _.Space.solveGeneral( o );
-
+    logger.log(' x: ', x.base)
     if( j === 0 )
     {
       result = _.vector.from( x.base )
@@ -708,6 +709,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   {
     return 0;
   }
+
+  logger.log('result', result)
   // Check result
   let point1 = _.vector.from( _.array.makeArrayOfLength( origin1.length ) )
   let point2 = _.vector.from( _.array.makeArrayOfLength( origin1.length ) )
@@ -722,7 +725,60 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
     }
   }
   return result;
+  */
 
+
+  let result = _.vector.from( [ 0, 0 ] );
+
+  debugger;
+
+  for( let i = 0; i < dOrigin.length - 1 ; i++ )
+  {
+    let m = _.Space.make( [ 2, 2 ] );
+    m.rowSet( 0, directions.rowVectorGet( i ) );
+    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+
+    let or = _.Space.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+
+    let o =
+    {
+      x : null,
+      m : m,
+      y : or,
+      kernel : null,
+      pivoting : 1,
+    }
+
+    let x = _.Space.solveGeneral( o );
+
+    result = _.vector.from( x.base );
+
+    let point1 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point2 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    for( var j = 0; j < dOrigin.length; j++ )
+    {
+      point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) );
+      point2.eSet( j, origin2.eGet( j ) + direction2.eGet( j )*result.eGet( 1 ) );
+    }
+
+    let contained = 0;
+
+    if( _.line.pointContains( srcLine1View, point2 ) )
+    {
+      result.eSet( 0, _.line.getFactor( srcLine1View, point2 ) );
+      contained = 1;
+    }
+    else if( _.line.pointContains( srcLine2View, point1 ) )
+    {
+      result.eSet( 1, _.line.getFactor( srcLine2View, point1 ) );
+      contained = 1;
+    }
+
+    if( contained === 1 )
+    return result;
+  }
+
+  return 0;
 }
 
 //
@@ -895,6 +951,7 @@ lineIntersectionPointAccurate.shaderChunk =
   */
 function pointContains( srcLine, srcPoint )
 {
+  /*
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcLine === null )
@@ -908,7 +965,7 @@ function pointContains( srcLine, srcPoint )
 
   _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
   let dOrigin = _.vector.from( avector.subVectors( srcPointView, origin ) );
-
+  logger.log( direction )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
@@ -925,11 +982,14 @@ function pointContains( srcLine, srcPoint )
   {
     factor = dOrigin.eGet( 0 ) / direction.eGet( 0 );
   }
+
+  logger.log( 'fac', factor)
   for( var i = 1; i < dOrigin.length; i++ )
   {
+    logger.log( i, 'Dir', direction.eGet( i ) )
     let newFactor;
     if( direction.eGet( i ) === 0 )
-    {
+    { logger.log(i,'is zero')
       if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
       {
         return false;
@@ -942,8 +1002,8 @@ function pointContains( srcLine, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && direction.eGet( i - 1 ) !== 0 )
+      logger.log(i,'newF', newFactor, direction.eGet( i - 1 ))
+      if( Math.abs( newFactor - factor ) > _.accuracySqr && direction.eGet( i ) !== 0 )
       {
         return false;
       }
@@ -952,6 +1012,62 @@ function pointContains( srcLine, srcPoint )
   }
 
   return true;
+  */
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  if( srcLine === null )
+  srcLine = _.line.make( srcPoint.length );
+
+  let srcLineView = _.line._from( srcLine );
+  let origin = _.line.originGet( srcLineView );
+  let direction = _.line.directionGet( srcLineView );
+  let dimension  = _.line.dimGet( srcLineView )
+  let srcPointView = _.vector.from( srcPoint.slice() );
+
+  _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
+
+  // Line is point
+  let isPoint = 0;
+  for( let i = 0; i < dimension; i++ )
+  {
+    if( direction.eGet( i ) === 0 )
+    {
+      isPoint = isPoint + 1;
+    }
+  }
+
+  if( isPoint === dimension )
+  {
+    let isEqual = 0;
+    for( let i = 0; i < dimension; i++ )
+    {
+      if( origin.eGet( i ) === srcPointView.eGet( i )  )
+      {
+        isEqual = isEqual + 1;
+      }
+    }
+
+    if( isEqual === dimension )
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  let lineTwo = _.line.fromPair( [ origin, srcPointView ]  );
+
+  if( _.line.lineParallel( srcLineView, lineTwo, 1e-7 ) === false )
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+
 }
 
 //
@@ -2038,7 +2154,6 @@ function planeIntersects( srcLine, srcPlane )
 function planeIntersectionPoint( srcLine, srcPlane, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
-
   if( arguments.length === 2 )
   dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
 

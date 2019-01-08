@@ -1123,12 +1123,12 @@ function lineIntersects( srcPlane , tstLine )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.lineIntersection( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
+  * _.lineIntersectionPoint( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
   *
   *
   * @returns { Point } Returns the point of intersection between a plane and a line.
-  * @function lineIntersection
-  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @function lineIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
   * @throws { Error } An Error if ( point ) is not point.
@@ -1162,13 +1162,11 @@ function lineIntersectionPoint( plane, line, dstPoint )
   return 0
   else
   {
-    let linePoint = _.line.planeIntersectionPoint( lineView, planeView );
-
-    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, linePoint ) );
+    let linePoint =  _.vector.from( _.line.planeIntersectionPoint( lineView, planeView ) );
 
     for( let i = 0; i < dimP; i++ )
     {
-      dstPointView.eSet( i, planePoint.eGet( i ) );
+      dstPointView.eSet( i, linePoint.eGet( i ) );
     }
 
     return dstPoint;

@@ -1363,13 +1363,14 @@ function lineIntersects( polygon, line )
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
     let segmentP = _.segment.fromPair( [ vertex, nextVertex ] );
-    
+
     if( _.segment.lineIntersects( segmentP, lineView ) )
     {
+      logger.log( segmentP )
       return true;
     }
   }
-
+  
   if( dims[ 0 ] > 2 )
   {
     let normal = _.vector.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );

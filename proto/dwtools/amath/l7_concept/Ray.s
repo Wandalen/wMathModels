@@ -1834,6 +1834,68 @@ function lineIntersects( srcRay , tstLine )
 
 //
 
+/**
+  * Returns the intersection point between a ray and a line. Returns the intersection point coordinates.
+  * The ray and line remain unchanged.
+  *
+  * @param { Array } ray - Source ray.
+  * @param { Array } line -  Source line.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.lineIntersectionPoint( [ 1, 2, 3, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a ray and a line.
+  * @function lineIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.ray
+  */
+
+function lineIntersectionPoint( ray, line, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let rayView = _.ray._from( ray );
+  let dimR = _.ray.dimGet( rayView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimR );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let lineView = _.line._from( line );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
+  let dimLine  = _.line.dimGet( lineView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimR === dstPoint.length );
+  _.assert( dimR === dimLine );
+
+  if( !_.line.rayIntersects( lineView, rayView ) )
+  return 0
+  else
+  {
+    let linePoint =  _.vector.from( _.line.rayIntersectionPoint( lineView, rayView ) );
+
+    for( let i = 0; i < dimR; i++ )
+    {
+      dstPointView.eSet( i, linePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
 function lineDistance( srcRay , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -2004,6 +2066,66 @@ function planeIntersects( srcRay, srcPlane )
   }
 
   return false;
+}
+
+//
+
+/**
+  * Returns the intersection point between a ray and a plane. Returns the intersection point coordinates.
+  * The ray and plane remain unchanged.
+  *
+  * @param { Array } ray - Source ray.
+  * @param { Array } plane -  Source plane.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.planeIntersectionPoint( [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 0, 0, 0 ] , [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a ray and a plane.
+  * @function planeIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.ray
+  */
+
+function planeIntersectionPoint( ray, plane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let rayView = _.ray._from( ray );
+  let dimR = _.ray.dimGet( rayView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimR );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let planeView = _.plane._from( plane );
+  let dimP  = _.plane.dimGet( planeView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimR === dstPoint.length );
+  _.assert( dimR === dimP );
+
+  if( !_.plane.rayIntersects( planeView, rayView ) )
+  return 0
+  else
+  {
+    let planePoint =  _.vector.from( _.plane.rayIntersectionPoint( planeView, rayView ) );
+
+    for( let i = 0; i < dimR; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
 }
 
 //
@@ -2769,10 +2891,12 @@ let Proto =
   frustumClosestPoint : frustumClosestPoint,
 
   lineIntersects : lineIntersects,  /* Same as _.line.rayIntersects */
+  lineIntersectionPoint : lineIntersectionPoint,
   lineDistance : lineDistance,  /* Same as _.line.rayDistance */
   lineClosestPoint : lineClosestPoint,
 
   planeIntersects : planeIntersects,
+  planeIntersectionPoint : planeIntersectionPoint,
   planeDistance : planeDistance,
   planeClosestPoint : planeClosestPoint,
 
