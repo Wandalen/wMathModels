@@ -1845,7 +1845,7 @@ function lineIntersects( srcRay , tstLine )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.lineIntersectionPoint( [ 1, 2, 3, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
+  * _.lineIntersectionPoint( [ 1, 2, 3, -1, -2, -3 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
   *
   *
   * @returns { Point } Returns the point of intersection between a ray and a line.

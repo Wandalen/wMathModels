@@ -1964,6 +1964,68 @@ function lineIntersects( srcSegment, srcLine )
 //
 
 /**
+  * Returns the intersection point between a segment and a line. Returns the intersection point coordinates.
+  * The segment and line remain unchanged.
+  *
+  * @param { Array } segment - Source segment.
+  * @param { Array } line -  Source line.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.lineIntersectionPoint( [ 1, 2, 3, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a segment and a line.
+  * @function lineIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.segment
+  */
+
+function lineIntersectionPoint( segment, line, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let segmentView = _.ray._from( segment );
+  let dimS = _.ray.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let lineView = _.line._from( line );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
+  let dimLine  = _.line.dimGet( lineView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimS === dimLine );
+
+  if( !_.line.segmentIntersects( lineView, segmentView ) )
+  return 0
+  else
+  {
+    let linePoint =  _.vector.from( _.line.segmentIntersectionPoint( lineView, segmentView ) );
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, linePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
+/**
   * Get the distance between a line and a segment. Returns the calculated distance.
   * The segment and the line remain unchanged.
   *
@@ -2227,6 +2289,66 @@ function planeIntersects( srcSegment, srcPlane )
 //
 
 /**
+  * Returns the intersection point between a segment and a plane. Returns the intersection point coordinates.
+  * The segment and plane remain unchanged.
+  *
+  * @param { Array } segment - Source segment.
+  * @param { Array } plane -  Source plane.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.planeIntersectionPoint( [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 0, 0, 0 ] , [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a segment and a plane.
+  * @function planeIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.segment
+  */
+
+function planeIntersectionPoint( segment, plane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let segmentView = _.segment._from( segment );
+  let dimS = _.segment.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let planeView = _.plane._from( plane );
+  let dimP  = _.plane.dimGet( planeView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimS === dimP );
+
+  if( !_.plane.segmentIntersects( planeView, segmentView ) )
+  return 0
+  else
+  {
+    let planePoint =  _.vector.from( _.plane.segmentIntersectionPoint( planeView, segmentView ) );
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
+/**
   * Get the distance between a segment and a plane. Returns the calculated distance.
   * The plane and the segment remain unchanged.
   *
@@ -2444,6 +2566,66 @@ function rayIntersects( srcSegment, srcRay )
   }
 
   return true;
+}
+
+//
+
+/**
+  * Returns the intersection point between a segment and a ray. Returns the intersection point coordinates.
+  * The segment and ray remain unchanged.
+  *
+  * @param { Array } segment - Source segment.
+  * @param { Array } ray -  Source ray.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.rayIntersectionPoint( [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 0, 0, -1, 0, 0 ] , [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a segment and a ray.
+  * @function rayIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.segment
+  */
+
+function rayIntersectionPoint( segment, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let segmentView = _.segment._from( segment );
+  let dimS = _.segment.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let rayView = _.ray._from( ray );
+  let dimR  = _.ray.dimGet( rayView );
+
+  let dstPointView = _.vector.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimS === dimR );
+
+  if( !_.ray.segmentIntersects( rayView, segmentView ) )
+  return 0
+  else
+  {
+    let rayPoint =  _.vector.from( _.ray.segmentIntersectionPoint( rayView, segmentView ) );
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, rayPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
 }
 
 //
@@ -3185,14 +3367,17 @@ let Proto =
   frustumClosestPoint : frustumClosestPoint,
 
   lineIntersects : lineIntersects,
+  lineIntersectionPoint : lineIntersectionPoint,
   lineDistance : lineDistance,
   lineClosestPoint : lineClosestPoint,
 
   planeIntersects : planeIntersects,
+  planeIntersectionPoint : planeIntersectionPoint,
   planeDistance : planeDistance,
   planeClosestPoint : planeClosestPoint,
 
   rayIntersects : rayIntersects,
+  rayIntersectionPoint : rayIntersectionPoint,
   rayDistance : rayDistance,
   rayClosestPoint : rayClosestPoint,
 
