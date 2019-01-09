@@ -570,7 +570,7 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   * _.lineIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  _.vector.from( [ 2, 1 ] )
+  * // returns  _.vector.from( [ 0, 0 ] )
   * _.lineIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
   *
   * @returns { Array } Returns the factors for the two lines intersection.
@@ -2475,6 +2475,47 @@ function rayIntersectionPoint( srcLine, srcRay, dstPoint )
 //
 
 /**
+  * Returns the factors for the intersection between a line and a ray. Returns a vector with the intersection factors, 0 if there is no intersection.
+  * Line and ray stay untouched.
+  *
+  * @param { Vector } srcLine - The source line.
+  * @param { Vector } srcRay - The second source line.
+  *
+  * @example
+  * // returns   0
+  * _.rayIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 0, 1, 0 ] );
+  *
+  * @example
+  * // returns  _.vector.from( [ 0, 0 ] )
+  * _.rayIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
+  *
+  * @returns { Array } Returns the factors of the intersection between a line and a ray.
+  * @function rayIntersectionFactors
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @memberof wTools.line
+  */
+function rayIntersectionFactors( srcLine, srcRay )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcLine.length === srcRay.length,'The two lines must have the same dimension' );
+
+  let srcLineView = _.line._from( srcLine.slice() );
+  let srcRayView = _.line._from( srcRay.slice() );
+
+  let intersection = _.line.rayIntersects( srcLineView, srcRayView );
+
+  if( !intersection )
+  return 0;
+
+  return _.line.lineIntersectionFactors( srcLineView, srcRayView );
+}
+
+//
+
+/**
   * Get the distance between a ray and a line. Returns the calculated distance.
   * The line and the ray remain unchanged.
   *
@@ -3142,6 +3183,7 @@ let Proto =
 
   rayIntersects : rayIntersects,
   rayIntersectionPoint : rayIntersectionPoint,
+  rayIntersectionFactors : rayIntersectionFactors,
   rayDistance : rayDistance,
   rayClosestPoint : rayClosestPoint,
 
