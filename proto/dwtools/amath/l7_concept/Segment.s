@@ -1952,7 +1952,7 @@ function lineIntersects( srcSegment, srcLine )
     else
     return false;
   }
-  
+
   let factors = _.line.lineIntersectionFactors( lineSegment, srcLineView );
 
   if( factors === 0 || factors.eGet( 0 ) < 0 - _.accuracy || factors.eGet( 0 ) > 1 - _.accuracy )
@@ -2411,11 +2411,12 @@ function rayIntersects( srcSegment, srcRay )
 
   _.assert( dimSegment === dimRay );
 
-
   let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
   if( _.line.lineParallel( lineSegment, srcRayView ) )
   {
-    if( _.ray.pointContains( srcRayView, segmentOrigin ) )
+    let rayContainsSegment = _.ray.pointContains( srcRayView, segmentOrigin ) || _.ray.pointContains( srcRayView, segmentEnd );
+    let segmentContainsRay = _.segment.pointContains( srcSegmentView, rayOrigin );
+    if(  rayContainsSegment || segmentContainsRay )
     return true;
     else
     return false;

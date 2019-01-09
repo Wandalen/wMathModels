@@ -5260,6 +5260,15 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
+  test.case = 'Line and ray are parallel and intersect'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstRay = [ 3, 7, 7, 0, 0, 0.5 ];
+  var expected = [ 3, 7, 7 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
   test.case = 'srcLine is a point not in ray'; /* */
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];

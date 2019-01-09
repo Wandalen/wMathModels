@@ -18,5 +18,3 @@ logger.log( result );
 result = _.ray.convexPolygonClosestPoint( srcRay, polygon );
 logger.log( result );
 debugger;
-
-

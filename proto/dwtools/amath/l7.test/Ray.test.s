@@ -5227,6 +5227,195 @@ function rayClosestPoint( test )
 
 //
 
+function segmentIntersectionPoint( test )
+{
+  test.case = 'Source ray and segment remain unchanged'; /* */
+
+  var srcRay = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  var oldSrcRay = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcRay, oldSrcRay );
+
+  var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstSegment, oldTstSegment );
+
+  test.case = 'Ray and segment are parallel ( different origin - same direction )'; /* */
+
+  var srcRay = [ 0, 0, 0, 0, 0, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 7 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment are parallel ( different origin - different direction )'; /* */
+
+  var srcRay = [ 3, 7, 1, 0, 0, 7 ];
+  var tstSegment = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment are parallel and intersect'; /* */
+
+  var srcRay = [ 3, 7, 1, 0, 0, 7 ];
+  var tstSegment = [ 3, 7, 3, 3, 7, 0.5 ];
+  var expected = [ 3, 7, 3 ];
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcRay is a point - not contained'; /* */
+
+  var srcRay = [ 3, 7, 1, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcRay is a point - contained'; /* */
+
+  var srcRay = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0.5, 0.5, 0.5 ];
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'tstSegment is a point - not contained'; /* */
+
+  var srcRay = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'tstSegment is a point - contained'; /* */
+
+  var srcRay = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
+  var expected = [ 7, 7, 7 ];
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'tstSegment is a point - not contained - ray negative factor'; /* */
+
+  var srcRay = [ 8, 8, 8, 1, 1, 1 ];
+  var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment are the same'; /* */
+
+  var srcRay = [ 0, 4, 2, 1, 1, 1 ];
+  var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment intersect 4D'; /* */
+
+  var srcRay = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment don´t intersect 2D - parallel'; /* */
+
+  var srcRay = [ 0, 0, 2, 0 ];
+  var tstSegment = [ - 3, - 4, 3, -4 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment don´t intersect with ray´s negative factor 2D'; /* */
+
+  var srcRay = [ 0, 0, 2, 0 ];
+  var tstSegment = [ - 3, - 4, -3, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment don´t intersect with segment´s negative factor 2D'; /* */
+
+  var srcRay = [ - 3, - 4, 0, 1 ];
+  var tstSegment = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment are perpendicular and intersect'; /* */
+
+  var srcRay = [ 5, 7, 1, -1, 0, 0 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment are perpendicular and don´t intersect'; /* */
+
+  var srcRay = [ 0, 0, -3, 0, 0, 1 ];
+  var tstSegment = [ 3, 2, 0, -3, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Ray and segment are parallel to x'; /* */
+
+  var srcRay = [ 3, 7, 1, 1, 0, 0 ];
+  var tstSegment = [ 3, 7, 2, 9, 7, 2 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcRay is null'; /* */
+
+  var srcRay = null;
+  var tstSegment = [ 3, 7, 2, -3, 7, 2 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( 'ray', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( [ 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.ray.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
 function segmentClosestPoint( test )
 {
   test.case = 'Source segment and ray remain unchanged'; /* */
@@ -5971,6 +6160,7 @@ var Self =
     rayDistance : rayDistance,
     rayClosestPoint : rayClosestPoint,
 
+    segmentIntersectionPoint : segmentIntersectionPoint,
     segmentClosestPoint : segmentClosestPoint,
 
     sphereIntersects : sphereIntersects,
