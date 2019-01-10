@@ -1897,6 +1897,47 @@ function lineIntersectionPoint( ray, line, dstPoint )
 
 //
 
+/**
+  * Returns the factors for the intersection between a line and a ray. Returns a vector with the intersection factors, 0 if there is no intersection.
+  * Line and ray stay untouched.
+  *
+  * @param { Vector } srcRay - The source ray.
+  * @param { Vector } srcLine - The source line.
+  *
+  * @example
+  * // returns   0
+  * _.lineIntersectionFactors( [ 1, 0, 1, 0 ], [ 0, 0, 2, 2 ] );
+  *
+  * @example
+  * // returns  _.vector.from( [ 0, 0 ] )
+  * _.lineIntersectionFactors( [ 0, - 2, 0, 2 ], [ - 2, 0, 1, 0 ] );
+  *
+  * @returns { Array } Returns the factors of the intersection between a line and a ray.
+  * @function lineIntersectionFactors
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @memberof wTools.ray
+  */
+function lineIntersectionFactors( srcRay, srcLine )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcLine.length === srcRay.length,'The line and the ray must have the same dimension' );
+
+  let srcLineView = _.line._from( srcLine.slice() );
+  let srcRayView = _.line._from( srcRay.slice() );
+
+  let intersection = _.line.rayIntersects( srcLineView, srcRayView );
+
+  if( !intersection )
+  return 0;
+
+  return _.line.lineIntersectionFactors( srcRayView, srcLineView );
+}
+
+//
+
 function lineDistance( srcRay , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -2582,6 +2623,50 @@ function segmentIntersectionPoint( srcRay, srcSegment, dstPoint )
 
 //
 
+/**
+  * Returns the factors for the intersection between a ray and a segment. Returns a vector with the intersection factors, 0 if there is no intersection.
+  * Ray and segment stay untouched.
+  *
+  * @param { Vector } srcRay - The source ray.
+  * @param { Vector } srcSegment - The source segment.
+  *
+  * @example
+  * // returns   0
+  * _.segmentIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 0, 2, 0 ] );
+  *
+  * @example
+  * // returns  _.vector.from( [ 0, 0 ] )
+  * _.segmentIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
+  *
+  * @returns { Array } Returns the factors of the intersection between a ray and a segment.
+  * @function segmentIntersectionFactors
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @memberof wTools.ray
+  */
+function segmentIntersectionFactors( srcRay, srcSegment )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcRay.length === srcSegment.length,'The ray and the segment must have the same dimension' );
+
+  let srcRayView = _.ray._from( srcRay.slice() );
+  let srcSegmentView = _.ray._from( srcSegment.slice() );
+  let segmentOrigin = _.segment.originGet( srcSegmentView );
+  let segmentEnd = _.segment.endPointGet( srcSegmentView );
+
+  let intersection = _.ray.segmentIntersects( srcRayView, srcSegmentView );
+  if( !intersection )
+  return 0;
+
+  let segmentRay = _.ray.fromPair( [ segmentOrigin, segmentEnd ] );
+
+  return _.ray.rayIntersectionFactors( srcRayView, segmentRay );
+}
+
+//
+
 function segmentDistance( srcRay , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -2988,6 +3073,7 @@ let Proto =
 
   lineIntersects : lineIntersects,  /* Same as _.line.rayIntersects */
   lineIntersectionPoint : lineIntersectionPoint,
+  lineIntersectionFactors : lineIntersectionFactors,
   lineDistance : lineDistance,  /* Same as _.line.rayDistance */
   lineClosestPoint : lineClosestPoint,
 
@@ -3002,6 +3088,7 @@ let Proto =
 
   segmentIntersects : segmentIntersects,  /* Same as _.segment.rayIntersects */
   segmentIntersectionPoint : segmentIntersectionPoint,
+  segmentIntersectionFactors : segmentIntersectionFactors,
   segmentDistance : segmentDistance,  /* Same as _.segment.rayDistance */
   segmentClosestPoint : segmentClosestPoint,
 
