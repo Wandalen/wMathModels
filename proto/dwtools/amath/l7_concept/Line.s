@@ -2479,7 +2479,7 @@ function rayIntersectionPoint( srcLine, srcRay, dstPoint )
   * Line and ray stay untouched.
   *
   * @param { Vector } srcLine - The source line.
-  * @param { Vector } srcRay - The second source line.
+  * @param { Vector } srcRay - The source ray.
   *
   * @example
   * // returns   0
@@ -2500,7 +2500,7 @@ function rayIntersectionFactors( srcLine, srcRay )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcLine.length === srcRay.length,'The two lines must have the same dimension' );
+  _.assert( srcLine.length === srcRay.length,'The line and the ray must have the same dimension' );
 
   let srcLineView = _.line._from( srcLine.slice() );
   let srcRayView = _.line._from( srcRay.slice() );
@@ -2780,6 +2780,50 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
   }
 
   return dstPoint;
+}
+
+//
+
+/**
+  * Returns the factors for the intersection between a line and a segment. Returns a vector with the intersection factors, 0 if there is no intersection.
+  * Line and segment stay untouched.
+  *
+  * @param { Vector } srcLine - The source line.
+  * @param { Vector } srcSegment - The source segment.
+  *
+  * @example
+  * // returns   0
+  * _.segmentIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 0, 2, 0 ] );
+  *
+  * @example
+  * // returns  _.vector.from( [ 0, 0 ] )
+  * _.segmentIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
+  *
+  * @returns { Array } Returns the factors of the intersection between a line and a segment.
+  * @function segmentIntersectionFactors
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @memberof wTools.line
+  */
+function segmentIntersectionFactors( srcLine, srcSegment )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcLine.length === srcSegment.length,'The line and the segment must have the same dimension' );
+
+  let srcLineView = _.line._from( srcLine.slice() );
+  let srcSegmentView = _.line._from( srcSegment.slice() );
+  let segmentOrigin = _.segment.originGet( srcSegmentView );
+  let segmentEnd = _.segment.endPointGet( srcSegmentView );
+
+  let intersection = _.line.segmentIntersects( srcLineView, srcSegmentView );
+  if( !intersection )
+  return 0;
+
+  let segmentLine = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
+  
+  return _.line.lineIntersectionFactors( srcLineView, segmentLine );
 }
 
 //
@@ -3189,6 +3233,7 @@ let Proto =
 
   segmentIntersects : segmentIntersects,  /* Same as _.segment.rayIntersects */
   segmentIntersectionPoint : segmentIntersectionPoint,
+  segmentIntersectionFactors : segmentIntersectionFactors,
   segmentDistance : segmentDistance,  /* Same as _.segment.rayDistance */
   segmentClosestPoint : segmentClosestPoint,
 
