@@ -748,6 +748,119 @@ function directionGet( test )
 
 //
 
+function centerGet( test )
+{
+  test.case = 'Source segment remains unchanged, dst point changes'; /* */
+
+  var srcSegment = [ 0, 0, 1, 1 ];
+  var dstPoint = [ 3, 4 ];
+  var expected = [ 0.5, 0.5 ];
+
+  var gotCenter = _.segment.centerGet( srcSegment, dstPoint );
+  test.identical( gotCenter, expected );
+
+  var oldSrcSegment = [ 0, 0, 1, 1 ];
+  test.equivalent( srcSegment, oldSrcSegment );
+
+  var oldDstPoint = [ 3, 4 ];
+  test.equivalent( gotCenter, dstPoint );
+  test.is( dstPoint !== oldDstPoint)
+
+  test.case = 'srcSegment 1D - array'; /* */
+
+  var srcSegment = [ 0, 1 ];
+  var gotCenter = _.segment.centerGet( srcSegment );
+  var expected = [ 0.5 ];
+  test.identical( gotCenter, expected );
+  test.is( gotCenter !== srcSegment );
+
+  test.case = 'srcSegment 1D - vector'; /* */
+
+  var srcSegment = [ -1, 1 ];
+  var dstPoint = _.vector.from( [ 1000 ] );
+  var gotCenter = _.segment.centerGet( srcSegment, dstPoint );
+  var expected = _.vector.from( [ 0 ] );
+  test.identical( gotCenter, expected );
+
+  test.case = 'srcSegment 2D - array'; /* */
+
+  var srcSegment = [ 0, 1, 2, 3 ];
+  var gotCenter = _.segment.centerGet( srcSegment );
+  var expected = [ 1, 2 ];
+  test.identical( gotCenter, expected );
+
+  test.case = 'srcSegment 2D - vector'; /* */
+
+  var srcSegment = [ 0, 1, 2, 3 ];
+  var gotCenter = _.segment.centerGet( srcSegment, _.vector.from( [ 10, 20 ] ) );
+  var expected = _.vector.from( [ 1, 2 ] );
+  test.identical( gotCenter, expected );
+
+  test.case = 'srcSegment 3D - array'; /* */
+
+  var srcSegment = [ 0, 1, 2, 3, 4, 5 ];
+  var gotCenter = _.segment.centerGet( srcSegment );
+  var expected = [ 1.5, 2.5, 3.5 ];
+  test.identical( gotCenter, expected );
+
+  test.case = 'srcSegment 3D - vector'; /* */
+
+  var srcSegment = [ 0, 1, 2, 3, 3, 3 ];
+  var gotCenter = _.segment.centerGet( srcSegment, _.vector.from( [ 0, 0, 0 ] ) );
+  var expected = _.vector.from( [ 1.5, 2, 2.5 ] );
+  test.identical( gotCenter, expected );
+
+  test.case = 'srcSegment is vector - array'; /* */
+
+  var srcSegment = _.vector.from( [ 0, 1, 2, 3, 4, 5 ] );
+  var gotCenter = _.segment.centerGet( srcSegment );
+  var expected = [ 1.5, 2.5, 3.5 ];
+  test.identical( gotCenter, expected );
+
+  test.case = 'srcSegment is vector - vector'; /* */
+
+  var srcSegment = _.vector.from( [ 0, 1, 2, 3, 3, 3 ] );
+  var gotCenter = _.segment.centerGet( srcSegment, _.vector.from( [ 0, 0, 0 ] ) );
+  var expected = _.vector.from( [ 1.5, 2, 2.5 ] );
+  test.identical( gotCenter, expected );
+
+  test.case = 'Negative direction'; /* */
+
+  var srcSegment = [ 5, 4, 3, 2, 1, 0 ];
+  var gotCenter = _.segment.centerGet( srcSegment );
+  var expected = [ 3.5, 2.5, 1.5 ];
+  test.identical( gotCenter, expected );
+
+  test.case = 'Negative center coordinates'; /* */
+
+  var srcSegment = [ -5, -4, -3, -2, -1, 0 ];
+  var gotCenter = _.segment.centerGet( srcSegment );
+  var expected = [ -3.5, -2.5, -1.5 ];
+  test.identical( gotCenter, expected );
+
+  test.case = 'Point'; /* */
+
+  var srcSegment = [ 0, 1, 2, 0, 1, 2 ];
+  var gotCenter = _.segment.centerGet( srcSegment );
+  var expected = [ 0, 1, 2 ];
+  test.identical( gotCenter, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.segment.centerGet( ) );
+  test.shouldThrowErrorSync( () => _.segment.centerGet( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.centerGet( [ 0, 0 ], [ 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.centerGet( 'segment' ) );
+  test.shouldThrowErrorSync( () => _.segment.centerGet( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.centerGet( null ) );
+  test.shouldThrowErrorSync( () => _.segment.centerGet( undefined ) );
+
+}
+
+//
+
 function segmentAt( test )
 {
   test.case = 'Source segment and factor remain unchanged'; /* */
@@ -7028,6 +7141,7 @@ var Self =
     originGet : originGet,
     endPointGet : endPointGet,
     directionGet : directionGet,
+    centerGet : centerGet,
 
     segmentAt : segmentAt,
     getFactor : getFactor,

@@ -770,7 +770,7 @@ function cornerRightGet( box )
   * @param { Array } dst - The destination array (optional - sets the type of the returned object).
   *
   * @example
-  * // returns [ 0, 1 ]
+  * // returns [ 1, 1 ]
   * _.centerGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
   *
   * @example

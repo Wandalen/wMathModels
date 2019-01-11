@@ -1787,6 +1787,19 @@ function centerGet( test )
 
   test.case = 'Two dimension box'; /* */
 
+  var box = [ 0, 0, 2, 2 ];
+  var point = [ 5, 0 ];
+  var expected = [ 1, 1 ];
+
+  var gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
+
+  var box = [ 0, 0, 2, 2 ];
+  var gotCenter = _.box.centerGet( box, point );
+  test.equivalent( gotCenter,expected );
+
+  test.case = 'Two dimension box'; /* */
+
   var box = [ 0, 0, 1, 2 ];
   var point = [ 1, 1 ];
   var expected = [ 0.5, 1 ];

@@ -258,11 +258,11 @@ function endPointGet( segment )
   * @param { Vector } segment - The source segment.
   *
   * @example
-  * // returns   2, 2
+  * // returns  [ 2, 2 ]
   * _.directionGet( [ 0, 0, 2, 2 ] );
   *
   * @example
-  * // returns  2
+  * // returns  [ 2 ]
   * _.directionGet( [ 1, 2 ] );
   *
   * @returns { Vector } Returns the direction of the segment.
@@ -286,6 +286,50 @@ function directionGet( segment )
   }
 
   return direction;
+}
+
+//
+
+/**
+  * Get the center of a segment. Returns the center of the segment. Segment stays untouched.
+  *
+  * @param { Array } segment - The source segment.
+  * @param { Array } dst - The destination array (optional - sets the type of the returned object).
+  *
+  * @example
+  * // returns [ 0.5, 1 ]
+  * _.centerGet( [ 0, 0, 1, 2 ], [ 5, 0 ]);
+  *
+  * @example
+  * // returns [ 0.5 ]
+  * _.centerGet( [ 0, 1 ] );
+  *
+  * @returns { Array } Returns the coordinates of the center of the segment.
+  * @function centerGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( dst ) is not point.
+  * @memberof wTools.segment
+  */
+function centerGet( segment, dst )
+{
+  _.assert( arguments.length === 1 || arguments.length === 2 );
+
+  let segmentView = _.segment._from( segment );
+  let dim = _.segment.dimGet( segmentView );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+
+  if( !dst )
+  dst = _.dup( 0, dim ) ;
+
+  let dstv = _.vector.from( dst );
+
+  _.assert( dim === dst.length );
+
+  _.vector.addAssigning( dstv.copy( origin ), end ).mulScalar( 0.5 );
+
+  return dst;
 }
 
 //
@@ -3424,6 +3468,7 @@ let Proto =
   originGet : originGet,
   endPointGet : endPointGet,
   directionGet : directionGet,
+  centerGet : centerGet,
 
   segmentAt : segmentAt,
   getFactor : getFactor,
