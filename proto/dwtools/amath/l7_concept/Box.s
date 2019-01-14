@@ -1037,8 +1037,8 @@ function project( box, project )
   * Get the projection factors of two boxes: the projection vector ( projVector ) translates the center of the box, and the projection scaling factors ( ax, ay, ..., an )
   * scale the sides of the box. The projection parameters should have the shape:
   * project = [ projVector, ax, ay, .., an ];
-  * Returns the projection parameters. Boxes are stored in Array data structure.
-  * The boxes stay untouched.
+  * Returns the projection parameters, 0 when not possible ( i.e: srcBox is a point and projBox is a box - no scaling factors ). 
+  * Boxes are stored in Array data structure. The boxes stay untouched.
   *
   * @param { Array } srcBox - Original box.
   * @param { Array } projBox - Projected box.

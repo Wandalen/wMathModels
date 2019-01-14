@@ -2814,6 +2814,127 @@ function getProjectionFactors( test )
   var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
   test.identical( gotFactors, expected );
 
+  test.case = 'Point to box'; /* */
+
+  var dstBox = [ 3, 4, 3, 4 ];
+  var projBox = [ 5, 5, 7, 8 ];
+  var expected = 0;
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  // Test cases including _.box.project()
+
+  test.case = 'Two equal boxes'; /* */
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var projBox = [ 0, 0, 1, 1 ];
+  var expected = [ [ 0, 0 ], 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Two equal point boxes'; /* */
+
+  var dstBox = [ 3, 4, 3, 4 ];
+  var projBox = [ 3, 4, 3, 4 ];
+  var expected = [ [ 0, 0 ], 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Point to point'; /* */
+
+  var dstBox = [ 3, 4, 3, 4 ];
+  var projBox = [ 5, 5, 5, 5 ];
+  var expected = [ [ 2, 1 ], 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box to point'; /* */
+
+  var dstBox = [ 3, 4, 6, 7 ];
+  var projBox = [ 5, 5, 5, 5 ];
+  var expected = [ [ 0.5, -0.5 ], 0, 0 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box translated'; /* */
+
+  var dstBox = [ 3, 4, 6, 7 ];
+  var projBox = [ -1, 8, 2, 11 ];
+  var expected = [ [ -4, 4 ], 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box contracted'; /* */
+
+  var dstBox = [ 0, 0, 4, 4 ];
+  var projBox = [ 1, 1, 3, 3 ];
+  var expected = [ [ 0, 0 ], 0.5, 0.5 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box expanded'; /* */
+
+  var dstBox = [ 0, 0, 4, 4 ];
+  var projBox = [ -1, -1, 5, 5 ];
+  var expected = [ [ 0, 0 ], 3/2, 3/2 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box expanded on a side and contracted on the other side'; /* */
+
+  var dstBox = [ 0, 0, 4, 4 ];
+  var projBox = [ -1, 1, 5, 3 ];
+  var expected = [ [ 0, 0 ], 3/2, 0.5 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box projected'; /* */
+
+  var dstBox = [ 0, 0, 4, 4 ];
+  var projBox = [ 3, -2, 6, 6 ];
+  var expected = [ [ 2.5, 0 ], 3/4, 2 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+
+
   /* */
 
   if( !Config.debug )
