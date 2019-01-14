@@ -1026,9 +1026,85 @@ function project( box, project )
   {
     newSizes.eSet( i, sizes.eGet( i ) * projectView.eGet( i + 1 ) );
   }
-  
+
   boxView = _.box.fromCenterAndSize( boxView, newCenter, newSizes );
   return box;
+}
+
+//
+
+/**
+  * Get the projection factors of two boxes: the projection vector ( projVector ) translates the center of the box, and the projection scaling factors ( ax, ay, ..., an )
+  * scale the sides of the box. The projection parameters should have the shape:
+  * project = [ projVector, ax, ay, .., an ];
+  * Returns the projection parameters. Boxes are stored in Array data structure.
+  * The boxes stay untouched.
+  *
+  * @param { Array } srcBox - Original box.
+  * @param { Array } projBox - Projected box.
+  *
+  * @example
+  * // returns [ [ 0.5, 0.5 ], 2, 2 ];
+  * _.getProjectionFactors( [ 0, 0, 1, 1 ], [ 0.5, 0.5, 2, 2 ] );
+  *
+  *
+  * @returns { Array } Returns the array with the projection factors between the two boxes.
+  * @function getProjectionFactors
+  * @throws { Error } An Error if ( dim ) is different than ( dim2 ) (the boxes don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( projBox ) is not box.
+  * @memberof wTools.box
+  */
+function getProjectionFactors( srcBox, projBox )
+{
+
+  _.assert( _.box.is( srcBox ), 'Expects box' );
+  _.assert( _.box.is( projBox ), 'Expects box' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let srcBoxView = _.box._from( srcBox );
+  let srcCenter = _.vector.from( _.box.centerGet( srcBoxView ) );
+  let srcSizes = _.vector.from( _.box.sizeGet( srcBoxView ) );
+  let srcDim = _.box.dimGet( srcBoxView );
+
+  let projBoxView = _.box._from( projBox );
+  let projCenter = _.vector.from( _.box.centerGet( projBoxView ) );
+  let projSizes = _.vector.from( _.box.sizeGet( projBoxView ) );
+  let projDim = _.box.dimGet( projBoxView );
+
+  _.assert( srcDim === projDim );
+
+  let project = _.array.makeArrayOfLength( srcDim + 1 );
+  let projectView = _.vector.from( project );
+
+  let translation = _.vector.subVectors( projCenter, srcCenter );
+  logger.log( 'Trans', translation )
+  projectView.eSet( 0, translation.toArray() );
+  logger.log( 'Proj', project.slice())
+  debugger;
+  for( let i = 0; i < srcDim; i++ )
+  {
+    if( srcSizes.eGet( i ) === 0 )
+    {
+      if( projSizes.eGet( i ) === 0 )
+      {
+        projectView.eSet( i + 1, 1 );
+      }
+      else
+      {
+        return 0;
+      }
+    }
+    else
+    {
+      var scalingFactor = projSizes.eGet( i ) / srcSizes.eGet( i );
+      logger.log( 'YES', projSizes.eGet( i ), srcSizes.eGet( i ), scalingFactor)
+      projectView.eSet( i + 1, scalingFactor );
+    }
+  }
+
+  return project;
 }
 
 //
@@ -3366,6 +3442,7 @@ let Proto =
   expand : expand,
 
   project : project,
+  getProjectionFactors : getProjectionFactors,
 
   pointContains : pointContains,
   pointDistance : pointDistance,

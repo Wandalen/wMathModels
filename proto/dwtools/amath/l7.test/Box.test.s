@@ -2711,6 +2711,179 @@ function project( test )
     _.box.project( null, [ [ 0, 1 ], 1, 1 ] );
   });
 
+}
+
+//
+
+function getProjectionFactors( test )
+{
+
+  test.case = 'Boxes remain unchanged'; /* */
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var projBox = [ 1, 0.5, 2, 2.5 ];
+  var expected = [ [ 1, 1 ], 1, 2 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var oldBox = [ 0, 0, 1, 1 ];
+  test.identical( oldBox, dstBox );
+
+  var oldProjBox = [ 1, 0.5, 2, 2.5 ];
+  test.identical( oldProjBox, projBox );
+
+  test.case = 'One side box projected'; /* */
+
+  var dstBox = [ 0, 0, 0, 1, 0, 0 ];
+  var projBox = [ -0.5, 1, 0, 1.5, 1, 0 ];
+  var expected = [ [ 0, 1, 0 ], 2, 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box expanded'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 0, -2, 0, 2, 4, 2 ];
+  var expected = [ [ 0, 0, 0 ], 1, 3, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box contracted'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var expected = [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box translated'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 1, 2, 3, 3, 4, 5 ];
+  var expected = [ [ 1, 2, 3 ], 1, 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box reduced to point'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 2, 3, 4, 2, 3, 4 ];
+  var expected = [ [ 1, 2, 3 ], 0, 0, 0 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box NOT projected ( empty project array )'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ [ 0, 0, 0 ], 1, 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Null box of four dimensions projected'; /* */
+
+  var dstBox = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
+  var projBox = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ];
+  var expected = [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box of 1 dimension projected'; /* */
+
+  var dstBox = [ 0, 0 ];
+  var projBox = [ 1, 1 ];
+  var expected = [ [ 1 ], 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box of 0 dimension projected'; /* */
+
+  var dstBox = [ ];
+  var projBox = [ ];
+  var expected = [ [], ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors();
+  });
+
+  test.case = 'Wrong type of argument - string'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( 'box', 'projBox' );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( null, [ 0, 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 1, 2, 3 ], null );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( undefined, [ 0, 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 1, 2, 3 ], undefined );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0 ], [ 1, 0 ], [ 0, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 3D vs box 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1, 1, 0, 1, 0, 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 3D vs box 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 2D vs box 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0, 0, 0 ], [ 0, 2 ] );
+  });
 
 }
 
@@ -7276,6 +7449,7 @@ var Self =
     expand : expand,
 
     project : project,
+    getProjectionFactors : getProjectionFactors,
 
     pointContains : pointContains,
     pointDistance : pointDistance,
