@@ -893,6 +893,214 @@ function radiusSet( test )
 
 //
 
+function expand( test )
+{
+
+  test.case = 'Expansion array remains unchanged and Destination capsule changes'; /* */
+
+  var dstCapsule = [ 0, 0, 1, 1, 2 ];
+  var expand = [ 0, 2, 1 ];
+  var expected = [ 0, - 2, 1, 3, 3 ];
+
+  var gotCapsule = _.capsule.expand( dstCapsule, expand );
+  test.identical( gotCapsule, expected );
+  test.identical( dstCapsule, expected );
+
+  var oldexpand = [ 0, 2, 1 ];
+  test.identical( expand, oldexpand );
+
+  var oldCapsule = [ 0, 0, 1, 1, 2 ];
+  test.is( oldCapsule !== gotCapsule );
+
+  test.case = 'Null capsule expanded'; /* */
+
+  var capsule = null;
+  var expand = [ 1, 2, 3, 1 ];
+  var expected = [ - 1, - 2, - 3, 1, 2, 3, 1 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Null capsule NOT expanded'; /* */
+
+  var capsule = null;
+  var expand = [ 0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0, 0 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'One side capsule expanded'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 1 ];
+  var expand = [ 0, 0, 3, 0 ];
+  var expected = [ 0,  0, - 3, 0, 0, 3, 1 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule expanded'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var expand = [ 1, 3, 1, 1 ];
+  var expected = [ - 1, - 3, - 1, 3, 5, 3, 2 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule expanded by value'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
+  var expand = 1;
+  var expected = [ - 1, - 1, - 1, 3, 3, 3, 1 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Same using array'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
+  var expand = [ 1, 1, 1, 1 ];
+  var expected = [ - 1, - 1, - 1, 3, 3, 3, 1 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule NOT expanded ( empty expand array )'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var expand = [  0, 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 2, 2, 2, 1 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule contracted by value'; /* */
+
+  var capsule = [ 0, 0, 0, 3, 3, 3, 4 ];
+  var expand = - 1;
+  var expected = [ 1, 1, 1, 2, 2, 2, 3 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule contracted by array'; /* */
+
+  var capsule = [ 0, 0, 0, 3, 3, 3, 4 ];
+  var expand = [ - 1, - 1, - 1, - 1 ];
+  var expected = [ 1, 1, 1, 2, 2, 2, 3 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule with decimal numbers expanded'; /* */
+
+  var capsule = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766, 0.5 ];
+  var expand = [ -0.100, 0, 0.100, 0.2 ];
+  var expected = [  0.050,  0.002, -0.338, 0.094, 0.766, 0.866, 0.7 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.equivalent( gotCapsule, expected );
+
+  test.case = 'Null capsule of four dimensions expanded'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+  var expand = [ 1, 2, 3, 4, 5 ];
+  var expected = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4, 5 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Null capsule of 7 dimensions expanded'; /* */
+
+  var capsule = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ];
+  var expand = [ 1, 2, 3 , 4, 5, 6, 7, 1 ];
+  var expected = [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7, 2 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule of 1 dimension expanded'; /* */
+
+  var capsule = [ 0, 0, 0 ];
+  var expand = 1;
+  var expected = [ - 1, 1, 1 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Null capsule expanded by value'; /* */
+
+  var capsule = null;
+  var expand =  4 ;
+  var expected = [ - 4, -4, -4, 4, 4, 4, 4 ];
+
+  var gotCapsule = _.capsule.expand( capsule, expand );
+  test.identical( gotCapsule, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.expand();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.expand( 'capsule', 'expand' );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 1 ] );
+  });
+
+  test.case = 'empty arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.expand( [ ], [ ] );
+  });
+
+  test.case = 'Wrong expand array dimension (capsule 3D vs array 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 0, 2, 1 ] );
+  });
+
+  test.case = 'Wrong expand array dimension (capsule 3D vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 1 ] );
+  });
+
+  test.case = 'Wrong expand array dimension (capsule 2D vs array 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.expand( [ 0, 0, 0, 0, 1 ], [ 0, 1 ] );
+  });
+
+  test.case = 'Wrong expand array dimension (null capsule vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.expand( null, [ 0, 1, 1 ] );
+  });
+
+}
+
+//
+
 function pointContains( test )
 {
 
@@ -6366,6 +6574,8 @@ var Self =
     endPointGet : endPointGet,
     radiusGet : radiusGet,
     radiusSet : radiusSet,
+
+    expand : expand,
 
     pointContains : pointContains,
     pointDistance : pointDistance,

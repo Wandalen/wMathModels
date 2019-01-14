@@ -12,6 +12,3 @@ var project = [ [ 0.5, 0.5 ], 2, 2 ];
 var projBox =  _.box.project( srcBox, project )
 logger.log( 'Projected to', projBox );
 logger.log( 'Projected to', _.box.getProjectionFactors( oldSrcBox, projBox ) );
-
-logger.log( _.vector.from( [ [ 1, 2 ], 1, 2 ] ) )
-logger.log( _.vector.from( [ _.vector.from( [ 1, 2 ] ), 1, 2 ] ) )

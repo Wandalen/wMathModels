@@ -313,6 +313,72 @@ function radiusSet( capsule, radius )
 
   debugger;
 }
+
+//
+
+/**
+  * Expand the length and radius of a capsule by the dimensions in the expansion array ( expansion values are added ).
+  * Returns the expanded capsule. Capsule is stored in Array data structure.
+  * The expansion array stays untouched, the capsule changes.
+  *
+  * @param { Array } capsule - capsule to be expanded.
+  * @param { Array } expand - Array of reference with expansion dimensions.
+  *
+  * @example
+  * // returns [ -1, -2, 3, 4, 4 ];
+  * _.expand( [ 0, 0, 2, 2, 1 ], [ 1, 2, 3 ] );
+  *
+  *
+  * @returns { Array } Returns the array of the capsule expanded.
+  * @function expand
+  * @throws { Error } An Error if ( dim ) is different than expand.length - 1 (the capsule and the expansion array don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @throws { Error } An Error if ( expand ) is not an array.
+  * @memberof wTools.capsule
+  */
+function expand( capsule, expand )
+{
+
+  if( capsule === null )
+  capsule = _.capsule.make();
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.numberIs( expand ) || _.longIs( expand ) || _.vectorIs( expand ) );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dim = _.capsule.dimGet( capsuleView );
+  let min = _.capsule.originGet( capsuleView );
+  let max = _.capsule.endPointGet( capsuleView );
+  let radius = _.capsule.radiusGet( capsuleView );
+
+  let expandSegment;
+  let expandRadius;
+
+  if( _.numberIs( expand ) )
+  {
+    expandRadius = expand;
+    expandSegment = Array( dim ).fill( expand );
+  }
+  else
+  {
+    _.assert( dim === expand.length - 1 );
+
+    //expandSegment = expand.splice( 0, expand.length - 1 );
+    expandSegment = expand.slice( 0, expand.length - 1 );
+    expandRadius = expand[ expand.length - 1 ];
+  }
+
+  debugger;
+
+  _.vector.subAssigning( min, expandSegment );
+  _.vector.addAssigning( max, expandSegment );
+
+  _.capsule.radiusSet( capsuleView, radius + expandRadius );
+
+  return capsule;
+}
+
 //
 
 /**
@@ -2562,6 +2628,8 @@ let Proto =
   endPointGet : endPointGet,
   radiusGet : radiusGet,
   radiusSet : radiusSet,
+
+  expand : expand,
 
   pointContains : pointContains,
   pointDistance : pointDistance,

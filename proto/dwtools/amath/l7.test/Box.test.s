@@ -2933,8 +2933,6 @@ function getProjectionFactors( test )
   var gotBox = _.box.project( dstBox, gotFactors );
   test.identical( gotBox, projBox );
 
-
-
   /* */
 
   if( !Config.debug )

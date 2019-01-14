@@ -920,7 +920,7 @@ function cornersGet( box )
 //
 
 /**
-  * Expand all sides of a box by the dimensions in the expansion array.
+  * Expand all sides of a box by the dimensions in the expansion array ( exoansion values are added twice to each side ).
   * Returns the expanded box. Box are stored in Array data structure.
   * The expansion array stays untouched, the box changes.
   *
@@ -955,7 +955,9 @@ function expand( box , expand )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
+  logger.log('Ex', expand, dim )
   expand = _.vector.fromMaybeNumber( expand,dim );
+  logger.log('Ex', expand, dim )
 
   _.assert( dim === expand.length );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1037,7 +1039,7 @@ function project( box, project )
   * Get the projection factors of two boxes: the projection vector ( projVector ) translates the center of the box, and the projection scaling factors ( ax, ay, ..., an )
   * scale the sides of the box. The projection parameters should have the shape:
   * project = [ projVector, ax, ay, .., an ];
-  * Returns the projection parameters, 0 when not possible ( i.e: srcBox is a point and projBox is a box - no scaling factors ). 
+  * Returns the projection parameters, 0 when not possible ( i.e: srcBox is a point and projBox is a box - no scaling factors ).
   * Boxes are stored in Array data structure. The boxes stay untouched.
   *
   * @param { Array } srcBox - Original box.
