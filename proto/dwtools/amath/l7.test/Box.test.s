@@ -2354,6 +2354,9 @@ function expand( test )
   var oldexpand = [ 0, 2 ];
   test.identical( expand, oldexpand );
 
+  var oldBox = [ 0, 0, 1, 1 ];
+  test.is( oldBox !== gotBox );
+
   test.case = 'Null box expanded'; /* */
 
   var box = null;
@@ -2523,6 +2526,191 @@ function expand( test )
   {
     _.box.expand( null, [ 0, 1 ] );
   });
+
+}
+
+//
+
+function project( test )
+{
+
+  test.case = 'Projection array remains unchanged and Destination box changes'; /* */
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var project = [ [ 1, 1 ], 1, 2 ];
+  var expected = [ 1, 0.5, 2, 2.5 ];
+
+  var gotBox = _.box.project( dstBox, project );
+  test.identical( gotBox, expected );
+  test.identical( dstBox, expected );
+
+  var oldProject = [ [ 1, 1 ], 1, 2 ];
+  test.identical( project, oldProject );
+
+  var oldBox = [ 0, 0, 1, 1 ];
+  test.is( oldBox !== gotBox );
+
+  test.case = 'Null box projected'; /* */
+
+  var box = null;
+  var project = [ [ 0, 0, 0 ], 1, 2, 3 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Null box NOT projected'; /* */
+
+  var box = null;
+  var project = [ [ 0, 0, 0 ], 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'One side box projected'; /* */
+
+  var box = [ 0, 0, 0, 1, 0, 0 ];
+  var project = [ [ 0, 1, 0 ], 2, 0, 3 ];
+  var expected = [ -0.5, 1, 0, 1.5, 1, 0 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box expanded'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 0, 0, 0 ], 1, 3, 1 ];
+  var expected = [ 0, -2, 0, 2, 4, 2 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box contracted'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ];
+  var expected = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box translated'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 1, 1, 1 ];
+  var expected = [ 1, 2, 3, 3, 4, 5 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box reduced to point'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 0, 0, 0 ];
+  var expected = [ 2, 3, 4, 2, 3, 4 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box NOT projected ( empty project array )'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 0, 0, 0 ], 1, 1, 1 ];
+  var expected = [ 0, 0, 0, 2, 2, 2 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Null box of four dimensions projected'; /* */
+
+  var box = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
+  var project = [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ];
+  var expected = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box of 1 dimension projected'; /* */
+
+  var box = [ 0, 0 ];
+  var project = [ [ 1 ], 2 ];
+  var expected = [ 1, 1 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box of 0 dimension projected'; /* */
+
+  var box = [ ];
+  var project = [ [], ];
+  var expected = [ ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Null box projected by value'; /* */
+
+  var box = null;
+  var project = [ [ 0, 0, 0 ], 8, 8, 8 ] ;
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( 'box', 'project' );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0 ], [ [ 0 ], 1, 0 ], [ [ 1 ], 0, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 3D vs array 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0, 1, 0, 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 3D vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 2D vs array 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0, 0, 0 ], [ [ 0, 1 ], 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (null box vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( null, [ [ 0, 1 ], 1, 1 ] );
+  });
+
 
 }
 
@@ -7086,6 +7274,8 @@ var Self =
     cornersGet : cornersGet,
 
     expand : expand,
+
+    project : project,
 
     pointContains : pointContains,
     pointDistance : pointDistance,

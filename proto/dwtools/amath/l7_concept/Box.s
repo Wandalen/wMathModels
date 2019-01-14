@@ -972,6 +972,68 @@ function expand( box , expand )
 //
 
 /**
+  * Project a box: the projection vector ( projVector ) translates the center of the box, and the projection scaling factors ( ax, ay, ..., an )
+  * scale the sides of the box. The projection parameters should have the shape:
+  * project = [ projVector, ax, ay, .., an ];
+  * Returns the projected box. Box is stored in Array data structure.
+  * The projection array stays untouched, the box changes.
+  *
+  * @param { Array } box - box to be expanded.
+  * @param { Array } project - Array of reference with projection parameters.
+  *
+  * @example
+  * // returns [ 1, 2, 3, 6 ];
+  * _.project( [ 0, 0, 2, 2 ], [ [ 1, 3 ], 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 2, 2 ];
+  * _.expand( [ 0, 0, 2, 2 ], [ [ 0, 0 ], 1, 1 ] );
+  *
+  * @returns { Array } Returns the array of the projected box.
+  * @function project
+  * @throws { Error } An Error if ( dim ) is different than project.length / 2 (the box and the projection array don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( project ) is not an array.
+  * @memberof wTools.box
+  */
+function project( box, project )
+{
+
+  if( box === null )
+  box = _.box.make();
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.longIs( project ) || _.vectorIs( project ) );
+
+  let boxView = _.box._from( box );
+  let center = _.vector.from( _.box.centerGet( boxView ) );
+  let sizes = _.vector.from( _.box.sizeGet( boxView ) );
+  let dim = _.box.dimGet( boxView );
+  let projectView = _.vector.from( project );
+
+  _.assert( dim === projectView.length - 1 );
+  let projVector = _.vector.from( projectView.eGet( 0 ) );
+
+  _.assert( dim === projVector.length );
+
+  debugger;
+  let newCenter = _.vector.addVectors( center, projVector );
+
+  debugger;
+  let newSizes = _.vector.from( _.array.makeArrayOfLength( dim ) );
+  for( let i = 0; i < dim; i++ )
+  {
+    newSizes.eSet( i, sizes.eGet( i ) * projectView.eGet( i + 1 ) );
+  }
+  
+  boxView = _.box.fromCenterAndSize( boxView, newCenter, newSizes );
+  return box;
+}
+
+//
+
+/**
   * Check if a given point is contained inside a box. Returs true if it is contained, false if not. Point and box stay untouched.
   *
   * @param { Array } box - The box to check if the point is inside.
@@ -3302,6 +3364,8 @@ let Proto =
   cornersGet : cornersGet,
 
   expand : expand,
+
+  project : project,
 
   pointContains : pointContains,
   pointDistance : pointDistance,

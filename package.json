@@ -40,7 +40,8 @@
     "wmathvector": ""
   },
   "devDependencies": {
-    "wTesting": ""
+    "wTesting": "",
+    "wmathconcepts": "."
   },
   "keywords": [
     "wTools",
