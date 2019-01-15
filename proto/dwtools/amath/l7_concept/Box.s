@@ -955,9 +955,8 @@ function expand( box , expand )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
-  logger.log('Ex', expand, dim )
+
   expand = _.vector.fromMaybeNumber( expand,dim );
-  logger.log('Ex', expand, dim )
 
   _.assert( dim === expand.length );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1081,9 +1080,9 @@ function getProjectionFactors( srcBox, projBox )
   let projectView = _.vector.from( project );
 
   let translation = _.vector.subVectors( projCenter, srcCenter );
-  logger.log( 'Trans', translation )
+
   projectView.eSet( 0, translation.toArray() );
-  logger.log( 'Proj', project.slice())
+
   debugger;
   for( let i = 0; i < srcDim; i++ )
   {
@@ -1101,7 +1100,7 @@ function getProjectionFactors( srcBox, projBox )
     else
     {
       var scalingFactor = projSizes.eGet( i ) / srcSizes.eGet( i );
-      logger.log( 'YES', projSizes.eGet( i ), srcSizes.eGet( i ), scalingFactor)
+
       projectView.eSet( i + 1, scalingFactor );
     }
   }

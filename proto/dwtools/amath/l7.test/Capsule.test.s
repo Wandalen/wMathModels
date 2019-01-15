@@ -1101,6 +1101,199 @@ function expand( test )
 
 //
 
+function project( test )
+{
+
+  test.case = 'Projection array remains unchanged and Destination capsule changes'; /* */
+
+  var dstCapsule = [ 0, 0, 1, 1, 1 ];
+  var project = [ [ 1, 1 ], 2, 2 ];
+  var expected = [ 0.5, 0.5, 2.5, 2.5, 2 ];
+
+  var gotCapsule = _.capsule.project( dstCapsule, project );
+  test.identical( gotCapsule, expected );
+  test.identical( dstCapsule, expected );
+
+  var oldProject = [ [ 1, 1 ], 2, 2 ];
+  test.identical( project, oldProject );
+
+  var oldCapsule = [ 0, 0, 1, 1, 1 ];
+  test.is( oldCapsule !== gotCapsule );
+
+  test.case = 'Null capsule projected'; /* */
+
+  var capsule = null;
+  var project = [ [ 1, 0, 0 ], 1, 2 ];
+  var expected = [ 1, 0, 0, 1, 0, 0, 0 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Null capsule NOT projected'; /* */
+
+  var capsule = null;
+  var project = [ [ 0, 0, 0 ], 0, 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0, 0 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule projected'; /* */
+
+  var capsule = [ 0, 0, 0, 1, 0, 0, 2 ];
+  var project = [ [ 0, 1, 0 ], 2, 3 ];
+  var expected = [ -0.5, 1, 0, 1.5, 1, 0, 6 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule expanded'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var project = [ [ 0, 0, 0 ], 2, 2 ];
+  var expected = [ -1, -1, -1, 3, 3, 3, 2 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule contracted'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var project = [ [ 0, 0, 0 ], 0.5, 0.5 ];
+  var expected = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule translated'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var project = [ [ 1, 2, 3 ], 1, 1 ];
+  var expected = [ 1, 2, 3, 3, 4, 5, 1 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule reduced to a point'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 0, 0 ];
+  var expected = [ 2, 3, 4, 2, 3, 4, 0 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule reduced to a sphere'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 0, 1 ];
+  var expected = [ 2, 3, 4, 2, 3, 4, 2 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule NOT projected ( empty project array )'; /* */
+
+  var capsule = [ 0, 0, 0, 2, 2, 2, 3 ];
+  var project = [ [ 0, 0, 0 ], 1, 1 ];
+  var expected = [ 0, 0, 0, 2, 2, 2, 3 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule of four dimensions projected'; /* */
+
+  var capsule = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 1 ];
+  var project = [ [ 0, 0, 0, 0 ], 2, 4 ];
+  var expected = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 4 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  test.case = 'Capsule of 1 dimension projected'; /* */
+
+  var capsule = [ 0, 1, 1 ];
+  var project = [ [ 1 ], 2, 1 ];
+  var expected = [ 0.5, 2.5, 1 ];
+
+  var gotCapsule = _.capsule.project( capsule, project );
+  test.identical( gotCapsule, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( 'capsule', 'project' );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( [ 0, 0, 0 ], [ [ 0 ], 1, 0 ], [ [ 1 ], 0, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (capsule 3D vs array 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (capsule 3D vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1, 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (capsule 2D vs array 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( [ 0, 0, 0, 0, 0 ], [ [ 0 ], 2, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (null capsule vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( null, [ [ 0, 1 ], 1, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (project has less than 3 entries)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (project has more than 3 entries)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2, 3 ] );
+  });
+
+  test.case = 'Empty arrays'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.project( [ ], [ [  ],  ] );
+  });
+
+}
+
+//
+
 function pointContains( test )
 {
 
@@ -6576,6 +6769,8 @@ var Self =
     radiusSet : radiusSet,
 
     expand : expand,
+
+    project : project,
 
     pointContains : pointContains,
     pointDistance : pointDistance,

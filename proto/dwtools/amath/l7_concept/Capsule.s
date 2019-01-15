@@ -382,6 +382,152 @@ function expand( capsule, expand )
 //
 
 /**
+  * Project a capsule: the projection vector ( projVector ) translates the center of the capsule, and the projection scaling factors ( l, r )
+  * scale the segment length ( l ) and the radius ( r ) of the capsule. The projection parameters should have the shape:
+  * project = [ projVector, l, r ];
+  * Returns the projected capsule. Capsule is stored in Array data structure.
+  * The projection array stays untouched, the capsule changes.
+  *
+  * @param { Array } capsule - capsule to be expanded.
+  * @param { Array } project - Array of reference with projection parameters.
+  *
+  * @example
+  * // returns [ 1, 1, 3, 3, 2 ];
+  * _.project( [ 0, 0, 2, 2, 1 ], [ [ 1, 1 ], 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 2, 2 ];
+  * _.expand( [ 0, 0, 2, 2 ], [ [ 0, 0 ], 1, 1 ] );
+  *
+  * @returns { Array } Returns the array of the projected capsule.
+  * @function project
+  * @throws { Error } An Error if ( dim ) is different than project.length / 2 (the capsule and the projection array don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @throws { Error } An Error if ( project ) is not an array.
+  * @memberof wTools.capsule
+  */
+function project( capsule, project )
+{
+
+  if( capsule === null )
+  capsule = _.capsule.make();
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.longIs( project ) || _.vectorIs( project ) );
+  _.assert( project.length === 3, 'Project array expects exactly three entries')
+
+  let capsuleView = _.capsule._from( capsule );
+  let origin = _.vector.from( _.capsule.originGet( capsuleView ) );
+  let end = _.vector.from( _.capsule.endPointGet( capsuleView ) );
+  let radius = _.capsule.radiusGet( capsuleView );
+  let dim = _.capsule.dimGet( capsuleView );
+  let projectView = _.vector.from( project );
+
+  let projVector = _.vector.from( projectView.eGet( 0 ) );
+  _.assert( dim === projVector.length );
+  let scalLength = projectView.eGet( 1 );
+  let scalRadius = projectView.eGet( 2 );
+
+  let capsuleSegment = _.segment.fromPair( [ origin, end ] );
+  let center = _.vector.from( _.segment.centerGet( capsuleSegment ) );
+
+  let segTop = _.vector.mulScalar( _.vector.subVectors( end.clone(), center ), scalLength );
+  let segSub = _.vector.mulScalar( _.vector.subVectors( origin.clone(), center ), scalLength );
+
+  let newCenter = _.vector.addVectors( center.clone(), projVector );
+  let newOrigin = _.vector.addVectors( newCenter.clone(), segSub );
+  let newEnd = _.vector.addVectors( newCenter.clone(), segTop );
+  let newRadius = scalRadius * radius;
+
+  debugger;
+
+  for( let i = 0; i < dim; i ++ )
+  {
+    capsuleView.eSet( i, newOrigin.eGet( i ) );
+    capsuleView.eSet( i + dim, newEnd.eGet( i ) );
+  }
+
+  capsuleView.eSet( capsuleView.length - 1, newRadius );
+  return capsule;
+}
+
+//
+
+/**
+  * Get the projection factors of two capsulees: the projection vector ( projVector ) translates the center of the capsule, and the projection scaling factors ( ax, ay, ..., an )
+  * scale the sides of the capsule. The projection parameters should have the shape:
+  * project = [ projVector, ax, ay, .., an ];
+  * Returns the projection parameters, 0 when not possible ( i.e: srccapsule is a point and projcapsule is a capsule - no scaling factors ).
+  * capsules are stored in Array data structure. The capsulees stay untouched.
+  *
+  * @param { Array } srccapsule - Original capsule.
+  * @param { Array } projcapsule - Projected capsule.
+  *
+  * @example
+  * // returns [ [ 0.5, 0.5 ], 2, 2 ];
+  * _.getProjectionFactors( [ 0, 0, 1, 1 ], [ 0.5, 0.5, 2, 2 ] );
+  *
+  *
+  * @returns { Array } Returns the array with the projection factors between the two capsulees.
+  * @function getProjectionFactors
+  * @throws { Error } An Error if ( dim ) is different than ( dim2 ) (the capsulees don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srccapsule ) is not capsule.
+  * @throws { Error } An Error if ( projcapsule ) is not capsule.
+  * @memberof wTools.capsule
+  */
+function getProjectionFactors( srccapsule, projcapsule )
+{
+
+  _.assert( _.capsule.is( srccapsule ), 'Expects capsule' );
+  _.assert( _.capsule.is( projcapsule ), 'Expects capsule' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let srccapsuleView = _.capsule._from( srccapsule );
+  let srcCenter = _.vector.from( _.capsule.centerGet( srccapsuleView ) );
+  let srcSizes = _.vector.from( _.capsule.sizeGet( srccapsuleView ) );
+  let srcDim = _.capsule.dimGet( srccapsuleView );
+
+  let projcapsuleView = _.capsule._from( projcapsule );
+  let projCenter = _.vector.from( _.capsule.centerGet( projcapsuleView ) );
+  let projSizes = _.vector.from( _.capsule.sizeGet( projcapsuleView ) );
+  let projDim = _.capsule.dimGet( projCapsuleView );
+
+  _.assert( srcDim === projDim );
+
+  let project = _.array.makeArrayOfLength( srcDim + 1 );
+  let projectView = _.vector.from( project );
+
+  let translation = _.vector.subVectors( projCenter, srcCenter );
+  projectView.eSet( 0, translation.toArray() );
+  debugger;
+  for( let i = 0; i < srcDim; i++ )
+  {
+    if( srcSizes.eGet( i ) === 0 )
+    {
+      if( projSizes.eGet( i ) === 0 )
+      {
+        projectView.eSet( i + 1, 1 );
+      }
+      else
+      {
+        return 0;
+      }
+    }
+    else
+    {
+      var scalingFactor = projSizes.eGet( i ) / srcSizes.eGet( i );
+      projectView.eSet( i + 1, scalingFactor );
+    }
+  }
+
+  return project;
+}
+
+//
+
+/**
   * Check if a given point is contained inside a capsule. Returs true if it is contained, false if not.
   * Point and capsule stay untouched.
   *
@@ -2630,6 +2776,7 @@ let Proto =
   radiusSet : radiusSet,
 
   expand : expand,
+  project : project,
 
   pointContains : pointContains,
   pointDistance : pointDistance,

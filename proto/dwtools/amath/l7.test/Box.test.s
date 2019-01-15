@@ -2553,8 +2553,8 @@ function project( test )
   test.case = 'Null box projected'; /* */
 
   var box = null;
-  var project = [ [ 0, 0, 0 ], 1, 2, 3 ];
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var project = [ [ 1, 0, 0 ], 1, 2, 3 ];
+  var expected = [ 1, 0, 0, 1, 0, 0 ];
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -2622,7 +2622,7 @@ function project( test )
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
-  test.case = 'Null box of four dimensions projected'; /* */
+  test.case = 'Box of four dimensions projected'; /* */
 
   var box = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
   var project = [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ];
