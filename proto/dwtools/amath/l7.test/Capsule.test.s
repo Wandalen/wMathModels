@@ -1294,6 +1294,332 @@ function project( test )
 
 //
 
+function getProjectionFactors( test )
+{
+
+  test.case = 'Capsules remain unchanged'; /* */
+
+  var dstCapsule = [ 0, 0, 1, 1, 1 ];
+  var projCapsule = [ 0.5, 0.5, 2.5, 2.5, 2 ];
+  var expected = [ [ 1, 1 ], 2, 2 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  var oldCapsule = [ 0, 0, 1, 1, 1 ];
+  test.identical( oldCapsule, dstCapsule );
+
+  var oldProjCapsule = [ 0.5, 0.5, 2.5, 2.5, 2 ];
+  test.identical( oldProjCapsule, projCapsule );
+
+  test.case = 'Capsule projected'; /* */
+
+  var dstCapsule = [ 0, 0, 0, 1, 0, 0, 2 ];
+  var projCapsule = [ -0.5, 1, 0, 1.5, 1, 0, 6 ];
+  var expected = [ [ 0, 1, 0 ], 2, 3 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Capsule expanded'; /* */
+
+  var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var projCapsule = [ -1, -1, -1, 3, 3, 3, 2 ];
+  var expected = [ [ 0, 0, 0 ], 2, 2 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Capsule contracted'; /* */
+
+  var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var projCapsule = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ];
+  var expected = [ [ 0, 0, 0 ], 0.5, 0.5 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Capsule translated'; /* */
+
+  var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var projCapsule = [ 1, 2, 3, 3, 4, 5, 1 ];
+  var expected = [ [ 1, 2, 3 ], 1, 1 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Capsule reduced to point'; /* */
+
+  var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var projCapsule = [ 2, 3, 4, 2, 3, 4, 0 ];
+  var expected = [ [ 1, 2, 3 ], 0, 0 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Capsule reduced to a sphere'; /* */
+
+  var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var projCapsule = [ 2, 3, 4, 2, 3, 4, 1 ];
+  var expected = [ [ 1, 2, 3 ], 0, 1 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Capsule NOT projected ( empty project array )'; /* */
+
+  var dstCapsule = [ 0, 0, 0, 2, 2, 2, 3 ];
+  var projCapsule = [ 0, 0, 0, 2, 2, 2, 3 ];
+  var expected = [ [ 0, 0, 0 ], 1, 1 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Null capsule of four dimensions projected'; /* */
+
+  var dstCapsule = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 1 ];
+  var projCapsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 4 ];
+  var expected = [ [ 0, 0, 0, 0 ], 2, 4 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Capsule of 1 dimension projected'; /* */
+
+  var dstCapsule = [ 0, 1, 1 ];
+  var projCapsule = [ 0.5, 2.5, 1 ];
+  var expected = [ [ 1 ], 2, 1 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Point to capsule'; /* */
+
+  var dstCapsule = [ 3, 4, 3, 4, 0 ];
+  var projCapsule = [ 5, 5, 7, 8, 0 ];
+  var expected = 0;
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere to capsule'; /* */
+
+  var dstCapsule = [ 3, 4, 3, 4, 1 ];
+  var projCapsule = [ 5, 5, 7, 8, 1 ];
+  var expected = 0;
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment to capsule'; /* */
+
+  var dstCapsule = [ 3, 4, 3, 5, 0 ];
+  var projCapsule = [ 5, 5, 7, 8, 1 ];
+  var expected = 0;
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Capsules not parallel'; /* */
+
+  var dstCapsule = [ 3, 4, 3, 5, 1 ];
+  var projCapsule = [ 5, 5, 7, 5, 1 ];
+  var expected = 0;
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  // Test cases including _.capsule.project()
+
+  test.case = 'Two equal capsules'; /* */
+
+  var dstCapsule = [ 0, 0, 1, 1, 1 ];
+  var projCapsule = [ 0, 0, 1, 1, 1 ];
+  var expected = [ [ 0, 0 ], 1, 1 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
+  test.identical( gotCapsule, projCapsule );
+
+  test.case = 'Two equal point capsules'; /* */
+
+  var dstCapsule = [ 3, 4, 3, 4, 0 ];
+  var projCapsule = [ 3, 4, 3, 4, 0 ];
+  var expected = [ [ 0, 0 ], 1, 1 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
+  test.identical( gotCapsule, projCapsule );
+
+  test.case = 'Point to point'; /* */
+
+  var dstCapsule = [ 3, 4, 3, 4, 0 ];
+  var projCapsule = [ 5, 5, 5, 5, 0 ];
+  var expected = [ [ 2, 1 ], 1, 1 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
+  test.identical( gotCapsule, projCapsule );
+
+  test.case = 'Capsule to point'; /* */
+
+  var dstCapsule = [ 3, 4, 6, 7, 1 ];
+  var projCapsule = [ 5, 5, 5, 5, 0 ];
+  var expected = [ [ 0.5, -0.5 ], 0, 0 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
+  test.identical( gotCapsule, projCapsule );
+
+  test.case = 'Capsule translated'; /* */
+
+  var dstCapsule = [ 3, 4, 6, 7, 2 ];
+  var projCapsule = [ -1, 8, 2, 11, 2 ];
+  var expected = [ [ -4, 4 ], 1, 1 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
+  test.identical( gotCapsule, projCapsule );
+
+  test.case = 'Capsule contracted'; /* */
+
+  var dstCapsule = [ 0, 0, 4, 4, 2 ];
+  var projCapsule = [ 1, 1, 3, 3, 1 ];
+  var expected = [ [ 0, 0 ], 0.5, 0.5 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
+  test.identical( gotCapsule, projCapsule );
+
+  test.case = 'Capsule expanded'; /* */
+
+  var dstCapsule = [ 0, 0, 4, 4, 1 ];
+  var projCapsule = [ -1, -1, 5, 5, 3/2 ];
+  var expected = [ [ 0, 0 ], 3/2, 3/2 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.equivalent( gotFactors, expected );
+
+  var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
+  test.equivalent( gotCapsule, projCapsule );
+
+  test.case = 'Capsule expanded on length and contracted on radius'; /* */
+
+  var dstCapsule = [ 0, 0, 4, 4, 4 ];
+  var projCapsule = [ -1, -1, 5, 5, 1 ];
+  var expected = [ [ 0, 0 ], 3/2, 0.25 ];
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.equivalent( gotFactors, expected );
+
+  var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
+  test.equivalent( gotCapsule, projCapsule );
+
+  test.case = 'Capsule projected'; /* */
+
+  var dstCapsule = [ 0, 0, 4, 4, 2 ];
+  var projCapsule = [ -7, -3, 9, 13, 4 ];
+  var expected = [ [ -1, 3 ], 4, 2 ];;
+
+  var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
+  test.identical( gotFactors, expected );
+
+  var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
+  test.identical( gotCapsule, projCapsule );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors();
+  });
+
+  test.case = 'Wrong type of argument - string'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( 'capsule', 'projCapsule' );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( null, [ 0, 1, 2, 3, 1 ] );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( [ 0, 1, 2, 3, 1 ], null );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( undefined, [ 0, 1, 2, 3, 1 ] );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( [ 0, 1, 2, 3, 1 ], undefined );
+  });
+
+  test.case = 'Empty arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( [], [] );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (capsule 3D vs capsule 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 1 ], [ 1, 1, 1, 1, 0, 1, 0, 2, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (capsule 3D vs capsule 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 2, 3, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (capsule 2D vs capsule 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 1 ], [ 0, 2, 1 ] );
+  });
+
+}
+
+//
+
 function pointContains( test )
 {
 
@@ -6771,6 +7097,7 @@ var Self =
     expand : expand,
 
     project : project,
+    getProjectionFactors : getProjectionFactors,
 
     pointContains : pointContains,
     pointDistance : pointDistance,

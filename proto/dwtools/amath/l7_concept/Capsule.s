@@ -455,72 +455,103 @@ function project( capsule, project )
 //
 
 /**
-  * Get the projection factors of two capsulees: the projection vector ( projVector ) translates the center of the capsule, and the projection scaling factors ( ax, ay, ..., an )
-  * scale the sides of the capsule. The projection parameters should have the shape:
-  * project = [ projVector, ax, ay, .., an ];
-  * Returns the projection parameters, 0 when not possible ( i.e: srccapsule is a point and projcapsule is a capsule - no scaling factors ).
-  * capsules are stored in Array data structure. The capsulees stay untouched.
+  * Get the projection factors of two capsules: the projection vector ( projVector ) translates the center of the capsule, and the projection scaling factors( l, r )
+  * scale the segment length ( l ) and the radius ( r ) of the capsule. The projection parameters should have the shape:
+  * project = [ projVector, l, r ];
+  * Returns the projection parameters, 0 when not possible ( i.e: srcCapsule is a point and projCapsule is a capsule - no scaling factors ).
+  * Capsules are stored in Array data structure. The capsules stay untouched.
   *
-  * @param { Array } srccapsule - Original capsule.
-  * @param { Array } projcapsule - Projected capsule.
+  * @param { Array } srcCapsule - Original capsule.
+  * @param { Array } projCapsule - Projected capsule.
   *
   * @example
   * // returns [ [ 0.5, 0.5 ], 2, 2 ];
-  * _.getProjectionFactors( [ 0, 0, 1, 1 ], [ 0.5, 0.5, 2, 2 ] );
+  * _.getProjectionFactors( [ 0, 0, 1, 1, 1 ], [ -0.5, -0.5, 2.5, 2.5, 2 ] );
   *
   *
   * @returns { Array } Returns the array with the projection factors between the two capsulees.
   * @function getProjectionFactors
-  * @throws { Error } An Error if ( dim ) is different than ( dim2 ) (the capsulees don´t have the same dimension).
+  * @throws { Error } An Error if ( dim ) is different than ( dim2 ) (the capsules don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( srccapsule ) is not capsule.
-  * @throws { Error } An Error if ( projcapsule ) is not capsule.
+  * @throws { Error } An Error if ( srcCapsule ) is not capsule.
+  * @throws { Error } An Error if ( projCapsule ) is not capsule.
   * @memberof wTools.capsule
   */
-function getProjectionFactors( srccapsule, projcapsule )
+function getProjectionFactors( srcCapsule, projCapsule )
 {
 
-  _.assert( _.capsule.is( srccapsule ), 'Expects capsule' );
-  _.assert( _.capsule.is( projcapsule ), 'Expects capsule' );
+  _.assert( _.capsule.is( srcCapsule ), 'Expects capsule' );
+  _.assert( _.capsule.is( projCapsule ), 'Expects capsule' );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let srccapsuleView = _.capsule._from( srccapsule );
-  let srcCenter = _.vector.from( _.capsule.centerGet( srccapsuleView ) );
-  let srcSizes = _.vector.from( _.capsule.sizeGet( srccapsuleView ) );
-  let srcDim = _.capsule.dimGet( srccapsuleView );
+  let srcCapsuleView = _.capsule._from( srcCapsule );
+  let srcOrigin = _.vector.from( _.capsule.originGet( srcCapsuleView ) );
+  let srcEnd = _.vector.from( _.capsule.endPointGet( srcCapsuleView ) );
+  let srcRadius = _.capsule.radiusGet( srcCapsuleView );
+  let srcDim = _.capsule.dimGet( srcCapsuleView );
 
-  let projcapsuleView = _.capsule._from( projcapsule );
-  let projCenter = _.vector.from( _.capsule.centerGet( projcapsuleView ) );
-  let projSizes = _.vector.from( _.capsule.sizeGet( projcapsuleView ) );
+  let projCapsuleView = _.capsule._from( projCapsule );
+  let projOrigin = _.vector.from( _.capsule.originGet( projCapsuleView ) );
+  let projEnd = _.vector.from( _.capsule.endPointGet( projCapsuleView ) );
+  let projRadius = _.capsule.radiusGet( projCapsuleView );
   let projDim = _.capsule.dimGet( projCapsuleView );
 
   _.assert( srcDim === projDim );
 
-  let project = _.array.makeArrayOfLength( srcDim + 1 );
+  let project = _.array.makeArrayOfLength( 3 );
   let projectView = _.vector.from( project );
 
-  let translation = _.vector.subVectors( projCenter, srcCenter );
-  projectView.eSet( 0, translation.toArray() );
+  let srcCapsuleSegment = _.segment.fromPair( [ srcOrigin, srcEnd ] );
+  let srcCenter = _.vector.from( _.segment.centerGet( srcCapsuleSegment ) );
+  let srcDir = _.vector.subVectors( srcEnd.clone(), srcOrigin );
+
+  let projCapsuleSegment = _.segment.fromPair( [ projOrigin, projEnd ] );
+  let projCenter = _.vector.from( _.segment.centerGet( projCapsuleSegment ) );
+  let projDir = _.vector.subVectors( projEnd.clone(), projOrigin );
+
   debugger;
-  for( let i = 0; i < srcDim; i++ )
+  if( !_.vector.areParallel( srcDir, projDir, 1e-7 ) &&  !_.vector.equalAre( projDir, _.vector.from( _.array.makeArrayOfLengthZeroed( projDim ) ) ) )
+  return 0;
+
+  let translation = _.vector.subVectors( projCenter.clone(), srcCenter );
+  projectView.eSet( 0, translation.toArray() );
+
+  let srcTop = _.vector.subVectors( srcEnd.clone(), srcCenter );
+  let projTop = _.vector.subVectors( projEnd.clone(), projCenter );
+  debugger;
+
+  let srcTopMag = _.vector.mag( srcTop);
+  let projTopMag = _.vector.mag( projTop);
+
+  let scalLength;
+  if( srcTopMag === 0 )
   {
-    if( srcSizes.eGet( i ) === 0 )
+    if( projTopMag === 0 )
     {
-      if( projSizes.eGet( i ) === 0 )
-      {
-        projectView.eSet( i + 1, 1 );
-      }
-      else
-      {
-        return 0;
-      }
+      scalLength = 1;
     }
-    else
-    {
-      var scalingFactor = projSizes.eGet( i ) / srcSizes.eGet( i );
-      projectView.eSet( i + 1, scalingFactor );
-    }
+    else return 0;
   }
+  else
+  {
+    scalLength = projTopMag / srcTopMag;
+  }
+  projectView.eSet( 1, scalLength );
+
+  let scalRadius;
+  if( srcRadius === 0 )
+  {
+    if( projRadius === 0 )
+    {
+      scalRadius = 1;
+    }
+    else return 0;
+  }
+  else
+  {
+    scalRadius = projRadius / srcRadius;
+  }
+  projectView.eSet( 2, scalRadius );
 
   return project;
 }
@@ -2777,6 +2808,7 @@ let Proto =
 
   expand : expand,
   project : project,
+  getProjectionFactors : getProjectionFactors,
 
   pointContains : pointContains,
   pointDistance : pointDistance,
