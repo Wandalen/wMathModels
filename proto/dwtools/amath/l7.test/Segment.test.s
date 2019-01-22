@@ -1276,6 +1276,190 @@ function segmentParallel( test )
 
 //
 
+function project( test )
+{
+
+  test.case = 'Projection array remains unchanged and Destination segment changes'; /* */
+
+  var dstSegment = [ 0, 0, 1, 1 ];
+  var project = [ [ 1, 1 ], 2 ];
+  var expected = [ 0.5, 0.5, 2.5, 2.5 ];
+
+  var gotSegment = _.segment.project( dstSegment, project );
+  test.identical( gotSegment, expected );
+  test.identical( dstSegment, expected );
+
+  var oldProject = [ [ 1, 1 ], 2 ];
+  test.identical( project, oldProject );
+
+  var oldSegment = [ 0, 0, 1, 1 ];
+  test.is( oldSegment !== gotSegment );
+
+  test.case = 'Null segment projected'; /* */
+
+  var segment = null;
+  var project = [ [ 1, 0, 0 ], 1 ];
+  var expected = [ 1, 0, 0, 1, 0, 0 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  test.case = 'Null segment NOT projected'; /* */
+
+  var segment = null;
+  var project = [ [ 0, 0, 0 ], 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  test.case = 'Segment projected'; /* */
+
+  var segment = [ 0, 0, 0, 1, 0, 0 ];
+  var project = [ [ 0, 1, 0 ], 2 ];
+  var expected = [ -0.5, 1, 0, 1.5, 1, 0 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  test.case = 'Segment expanded'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 0, 0, 0 ], 2 ];
+  var expected = [ -1, -1, -1, 3, 3, 3 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  test.case = 'Segment contracted'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 0, 0, 0 ], 0.5 ];
+  var expected = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  test.case = 'Segment translated'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 1 ];
+  var expected = [ 1, 2, 3, 3, 4, 5 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  test.case = 'Segment reduced to a point'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 0 ];
+  var expected = [ 2, 3, 4, 2, 3, 4 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  test.case = 'Segment NOT projected ( empty project array )'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 0, 0, 0 ], 1 ];
+  var expected = [ 0, 0, 0, 2, 2, 2 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  test.case = 'Segment of four dimensions projected'; /* */
+
+  var segment = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
+  var project = [ [ 0, 0, 0, 0 ], 2 ];
+  var expected = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  test.case = 'Segment of 1 dimension projected'; /* */
+
+  var segment = [ 0, 1 ];
+  var project = [ [ 1 ], 2 ];
+  var expected = [ 0.5, 2.5 ];
+
+  var gotSegment = _.segment.project( segment, project );
+  test.identical( gotSegment, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( 'segment', 'project' );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( [ 0, 0 ], [ [ 0 ], 1 ], [ [ 1 ], 0 ] );
+  });
+
+  test.case = 'Wrong project array dimension (segment 3D vs array 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0 ] );
+  });
+
+  test.case = 'Wrong project array dimension (segment 3D vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (segment 2D vs array 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( [ 0, 0, 0, 0 ], [ [ 0 ], 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (null segment vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( null, [ [ 0, 1 ], 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (project has less than 3 entries)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ] ] );
+  });
+
+  test.case = 'Wrong project array dimension (project has more than 2 entries)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2 ] );
+  });
+
+  test.case = 'Empty arrays'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.project( [ ], [ [  ],  ] );
+  });
+
+}
+
+//
+
 function segmentIntersectionFactors( test )
 {
   test.case = 'Source segments remain unchanged'; /* */
@@ -7147,6 +7331,8 @@ var Self =
     getFactor : getFactor,
 
     segmentParallel : segmentParallel,
+
+    project : project,
 
     segmentIntersectionFactors : segmentIntersectionFactors,
     segmentIntersectionPoints : segmentIntersectionPoints,

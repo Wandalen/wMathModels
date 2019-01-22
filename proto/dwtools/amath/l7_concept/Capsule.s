@@ -388,16 +388,13 @@ function expand( capsule, expand )
   * Returns the projected capsule. Capsule is stored in Array data structure.
   * The projection array stays untouched, the capsule changes.
   *
-  * @param { Array } capsule - capsule to be expanded.
+  * @param { Array } capsule - capsule to be projected.
   * @param { Array } project - Array of reference with projection parameters.
   *
   * @example
   * // returns [ 1, 1, 3, 3, 2 ];
   * _.project( [ 0, 0, 2, 2, 1 ], [ [ 1, 1 ], 1, 2 ] );
   *
-  * @example
-  * // returns [ 0, 0, 2, 2 ];
-  * _.expand( [ 0, 0, 2, 2 ], [ [ 0, 0 ], 1, 1 ] );
   *
   * @returns { Array } Returns the array of the projected capsule.
   * @function project
