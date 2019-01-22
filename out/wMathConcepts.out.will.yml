@@ -62,7 +62,6 @@ path:
       - .
       - ./dwtools
       - ./dwtools/Tools.s
-      - ./dwtools/abase
       - ./dwtools/amath
       - ./dwtools/amath/l7.test
       - ./dwtools/amath/l7.test/AxisAndAngle.test.s
@@ -91,8 +90,6 @@ path:
       - ./dwtools/amath/l7_concept/Sphere.s
       - ./dwtools/amath/l8
       - ./dwtools/amath/l8/Concepts.s
-      - ./dwtools/amid
-      - ./dwtools/atop
     criterion:
       default: 1
       debug: 1
@@ -142,6 +139,8 @@ reflector:
     filePath:
       ./proto: ./out.release
     srcFilter:
+      filePath:
+        ./proto: ./out.release
       maskAll:
         excludeAny:
           - !<tag:yaml.org,2002:js/regexp> /(\W|^)node_modules(\W|$)/
@@ -165,6 +164,8 @@ reflector:
     filePath:
       ./proto: ./out.debug
     srcFilter:
+      filePath:
+        ./proto: ./out.debug
       maskAll:
         excludeAny:
           - !<tag:yaml.org,2002:js/regexp> /(\W|^)node_modules(\W|$)/
@@ -204,6 +205,7 @@ reflector:
   exported.0:
     filePath: ./proto
     srcFilter:
+      filePath: ./proto
       prefixPath: .
     dstFilter:
       prefixPath: .
@@ -236,6 +238,32 @@ reflector:
       ./dwtools/amath/l7_concept/Sphere.s: true
       ./dwtools/amath/l8/Concepts.s: true
     srcFilter:
+      filePath:
+        ./dwtools/Tools.s: true
+        ./dwtools/amath/l7.test/AxisAndAngle.test.s: true
+        ./dwtools/amath/l7.test/Box.test.s: true
+        ./dwtools/amath/l7.test/Capsule.test.s: true
+        ./dwtools/amath/l7.test/Euler.test.s: true
+        ./dwtools/amath/l7.test/Experiment.experiment.s: true
+        ./dwtools/amath/l7.test/Frustum.test.s: true
+        ./dwtools/amath/l7.test/Line.test.s: true
+        ./dwtools/amath/l7.test/Plane.test.s: true
+        ./dwtools/amath/l7.test/Quat.test.s: true
+        ./dwtools/amath/l7.test/Ray.test.s: true
+        ./dwtools/amath/l7.test/Segment.test.s: true
+        ./dwtools/amath/l7.test/Sphere.test.s: true
+        ./dwtools/amath/l7_concept/AxisAndAngle.s: true
+        ./dwtools/amath/l7_concept/Box.s: true
+        ./dwtools/amath/l7_concept/Capsule.s: true
+        ./dwtools/amath/l7_concept/Euler.s: true
+        ./dwtools/amath/l7_concept/Frustum.s: true
+        ./dwtools/amath/l7_concept/Line.s: true
+        ./dwtools/amath/l7_concept/Plane.s: true
+        ./dwtools/amath/l7_concept/Quat.s: true
+        ./dwtools/amath/l7_concept/Ray.s: true
+        ./dwtools/amath/l7_concept/Segment.s: true
+        ./dwtools/amath/l7_concept/Sphere.s: true
+        ./dwtools/amath/l8/Concepts.s: true
       basePath: .
       prefixPath: proto
     dstFilter:
