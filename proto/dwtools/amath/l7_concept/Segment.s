@@ -653,6 +653,87 @@ function project( segment, project )
 //
 
 /**
+  * Get the projection factors of two segments: the projection vector ( projVector ) translates the center of the segment, and the projection scaling factor ( l )
+  * scale the segment length. The projection parameters should have the shape:
+  * project = [ projVector, l ];
+  * Returns the projection parameters, 0 when not possible ( i.e: Segments are not parallel ).
+  * Segments are stored in Array data structure. The segments stay untouched.
+  *
+  * @param { Array } srcSegment - Original segment.
+  * @param { Array } projSegment - Projected segment.
+  *
+  * @example
+  * // returns [ [ 0.5, 0.5 ], 2 ];
+  * _.getProjectionFactors( [ 0, 0, 1, 1 ], [ -0.5, -0.5, 2.5, 2.5 ] );
+  *
+  *
+  * @returns { Array } Returns the array with the projection factors between the two segmentes.
+  * @function getProjectionFactors
+  * @throws { Error } An Error if ( dim ) is different than ( dim2 ) (the segments don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( projSegment ) is not segment.
+  * @memberof wTools.segment
+  */
+function getProjectionFactors( srcSegment, projSegment )
+{
+
+  _.assert( _.segment.is( srcSegment ), 'Expects segment' );
+  _.assert( _.segment.is( projSegment ), 'Expects segment' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let srcOrigin = _.vector.from( _.segment.originGet( srcSegmentView ) );
+  let srcEnd = _.vector.from( _.segment.endPointGet( srcSegmentView ) );
+  let srcCenter = _.vector.from( _.segment.centerGet( srcSegmentView ) );
+  let srcDim = _.segment.dimGet( srcSegmentView );
+
+  let projSegmentView = _.segment._from( projSegment );
+  let projOrigin = _.vector.from( _.segment.originGet( projSegmentView ) );
+  let projEnd = _.vector.from( _.segment.endPointGet( projSegmentView ) );
+  let projCenter = _.vector.from( _.segment.centerGet( projSegmentView ) );
+  let projDim = _.segment.dimGet( projSegmentView );
+
+  _.assert( srcDim === projDim );
+
+  let project = _.array.makeArrayOfLength( 2 );
+  let projectView = _.vector.from( project );
+
+  debugger;
+  if( !_.segment.segmentParallel( srcSegmentView, projSegmentView, 1e-7 ) )
+  return 0;
+
+  let translation = _.vector.subVectors( projCenter.clone(), srcCenter );
+  projectView.eSet( 0, translation.toArray() );
+
+  let srcTop = _.vector.subVectors( srcEnd.clone(), srcCenter );
+  let projTop = _.vector.subVectors( projEnd.clone(), projCenter );
+  debugger;
+
+  let srcTopMag = _.vector.mag( srcTop);
+  let projTopMag = _.vector.mag( projTop);
+
+  let scalLength;
+  if( srcTopMag === 0 )
+  {
+    if( projTopMag === 0 )
+    {
+      scalLength = 1;
+    }
+    else return 0;
+  }
+  else
+  {
+    scalLength = projTopMag / srcTopMag;
+  }
+  projectView.eSet( 1, scalLength );
+
+  return project;
+}
+
+//
+
+/**
   * Returns the factors for the intersection of two segments. Returns a vector with the intersection factors, 0 if there is no intersection.
   * Segments stay untouched.
   *
@@ -3544,6 +3625,7 @@ let Proto =
   segmentParallel : segmentParallel,
 
   project : project,
+  getProjectionFactors : getProjectionFactors,
 
   segmentIntersectionFactors : segmentIntersectionFactors,
   segmentIntersectionPoints : segmentIntersectionPoints,

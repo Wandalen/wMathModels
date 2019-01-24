@@ -1460,6 +1460,304 @@ function project( test )
 
 //
 
+function getProjectionFactors( test )
+{
+
+  test.case = 'Segments remain unchanged'; /* */
+
+  var dstSegment = [ 0, 0, 1, 1 ];
+  var projSegment = [ 0.5, 0.5, 2.5, 2.5 ];
+  var expected = [ [ 1, 1 ], 2 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  var oldSegment = [ 0, 0, 1, 1 ];
+  test.identical( oldSegment, dstSegment );
+
+  var oldProjSegment = [ 0.5, 0.5, 2.5, 2.5 ];
+  test.identical( oldProjSegment, projSegment );
+
+  test.case = 'Empty segments'; /* */
+
+  var dstSegment = [];
+  var projSegment = [];
+  var expected = [ [ ], 1 ];
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment projected'; /* */
+
+  var dstSegment = [ 0, 0, 0, 1, 0, 0 ];
+  var projSegment = [ -0.5, 1, 0, 1.5, 1, 0 ];
+  var expected = [ [ 0, 1, 0 ], 2 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment expanded'; /* */
+
+  var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var projSegment = [ -1, -1, -1, 3, 3, 3 ];
+  var expected = [ [ 0, 0, 0 ], 2 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment contracted'; /* */
+
+  var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var projSegment = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var expected = [ [ 0, 0, 0 ], 0.5 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment translated'; /* */
+
+  var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var projSegment = [ 1, 2, 3, 3, 4, 5 ];
+  var expected = [ [ 1, 2, 3 ], 1 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment reduced to point'; /* */
+
+  var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var projSegment = [ 2, 3, 4, 2, 3, 4 ];
+  var expected = [ [ 1, 2, 3 ], 0 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment NOT projected ( empty project array )'; /* */
+
+  var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var projSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ [ 0, 0, 0 ], 1 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment of four dimensions projected'; /* */
+
+  var dstSegment = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
+  var projSegment = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var expected = [ [ 0, 0, 0, 0 ], 2 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment of 1 dimension projected'; /* */
+
+  var dstSegment = [ 0, 1 ];
+  var projSegment = [ 0.5, 2.5 ];
+  var expected = [ [ 1 ], 2 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Point to segment'; /* */
+
+  var dstSegment = [ 3, 4, 3, 4 ];
+  var projSegment = [ 5, 5, 7, 8 ];
+  var expected = 0;
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segment to segment not parallel'; /* */
+
+  var dstSegment = [ 3, 4, 3, 5 ];
+  var projSegment = [ 5, 5, 7, 8 ];
+  var expected = 0;
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Segments not parallel'; /* */
+
+  var dstSegment = [ 3, 4, 3, 5 ];
+  var projSegment = [ 5, 5, 7, 5 ];
+  var expected = 0;
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  // Test cases including _.segment.project()
+
+  test.case = 'Two equal segments'; /* */
+
+  var dstSegment = [ 0, 0, 1, 1 ];
+  var projSegment = [ 0, 0, 1, 1 ];
+  var expected = [ [ 0, 0 ], 1 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  var gotSegment = _.segment.project( dstSegment, gotFactors );
+  test.identical( gotSegment, projSegment );
+
+  test.case = 'Two equal point segments'; /* */
+
+  var dstSegment = [ 3, 4, 3, 4 ];
+  var projSegment = [ 3, 4, 3, 4 ];
+  var expected = [ [ 0, 0 ], 1 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  var gotSegment = _.segment.project( dstSegment, gotFactors );
+  test.identical( gotSegment, projSegment );
+
+  test.case = 'Point to point'; /* */
+
+  var dstSegment = [ 3, 4, 3, 4 ];
+  var projSegment = [ 5, 5, 5, 5 ];
+  var expected = [ [ 2, 1 ], 1 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  var gotSegment = _.segment.project( dstSegment, gotFactors );
+  test.identical( gotSegment, projSegment );
+
+  test.case = 'Segment to point'; /* */
+
+  var dstSegment = [ 3, 4, 6, 7 ];
+  var projSegment = [ 5, 5, 5, 5 ];
+  var expected = [ [ 0.5, -0.5 ], 0 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  var gotSegment = _.segment.project( dstSegment, gotFactors );
+  test.identical( gotSegment, projSegment );
+
+  test.case = 'Segment translated'; /* */
+
+  var dstSegment = [ 3, 4, 6, 7 ];
+  var projSegment = [ -1, 8, 2, 11 ];
+  var expected = [ [ -4, 4 ], 1 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  var gotSegment = _.segment.project( dstSegment, gotFactors );
+  test.identical( gotSegment, projSegment );
+
+  test.case = 'Segment contracted'; /* */
+
+  var dstSegment = [ 0, 0, 4, 4 ];
+  var projSegment = [ 1, 1, 3, 3 ];
+  var expected = [ [ 0, 0 ], 0.5 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  var gotSegment = _.segment.project( dstSegment, gotFactors );
+  test.identical( gotSegment, projSegment );
+
+  test.case = 'Segment expanded'; /* */
+
+  var dstSegment = [ 0, 0, 4, 4 ];
+  var projSegment = [ -1, -1, 5, 5 ];
+  var expected = [ [ 0, 0 ], 3/2 ];
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.equivalent( gotFactors, expected );
+
+  var gotSegment = _.segment.project( dstSegment, gotFactors );
+  test.equivalent( gotSegment, projSegment );
+
+  test.case = 'Segment projected'; /* */
+
+  var dstSegment = [ 0, 0, 4, 4 ];
+  var projSegment = [ -7, -3, 9, 13 ];
+  var expected = [ [ -1, 3 ], 4 ];;
+
+  var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
+  test.identical( gotFactors, expected );
+
+  var gotSegment = _.segment.project( dstSegment, gotFactors );
+  test.identical( gotSegment, projSegment );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors();
+  });
+
+  test.case = 'Wrong type of argument - string'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( 'segment', 'projSegment' );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( null, [ 0, 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( [ 0, 1, 2, 3 ], null );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( undefined, [ 0, 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( [ 0, 1, 2, 3 ], undefined );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( [ 0, 0 ], [ 1, 0 ], [ 0, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (segment 3D vs segment 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( [ 0, 0, 0, 0, 0, 1 ], [ 1, 1, 1, 0, 1, 0, 2, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (segment 3D vs segment 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( [ 0, 0, 0, 0, 0, 1 ], [ 0, 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong project array dimension (segment 2D vs segment 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.segment.getProjectionFactors( [ 0, 0, 0, 1 ], [ 2, 1 ] );
+  });
+
+}
+
+//
+
 function segmentIntersectionFactors( test )
 {
   test.case = 'Source segments remain unchanged'; /* */
@@ -7333,6 +7631,7 @@ var Self =
     segmentParallel : segmentParallel,
 
     project : project,
+    getProjectionFactors : getProjectionFactors,
 
     segmentIntersectionFactors : segmentIntersectionFactors,
     segmentIntersectionPoints : segmentIntersectionPoints,

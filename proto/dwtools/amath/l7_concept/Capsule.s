@@ -507,7 +507,7 @@ function getProjectionFactors( srcCapsule, projCapsule )
   let projDir = _.vector.subVectors( projEnd.clone(), projOrigin );
 
   debugger;
-  if( !_.vector.areParallel( srcDir, projDir, 1e-7 ) &&  !_.vector.equalAre( projDir, _.vector.from( _.array.makeArrayOfLengthZeroed( projDim ) ) ) )
+  if( !_.segment.segmentParallel( srcCapsuleSegment, projCapsuleSegment, 1e-7 )  )
   return 0;
 
   let translation = _.vector.subVectors( projCenter.clone(), srcCenter );
