@@ -1703,6 +1703,190 @@ function radiusSet( test )
 
 //
 
+function project( test )
+{
+
+  test.case = 'Projection array remains unchanged and Destination sphere changes'; /* */
+
+  var dstSphere = [ 0.5, 0.5, 1 ];
+  var project = [ [ 1, 1 ], 2 ];
+  var expected = [ 1.5, 1.5, 2 ];
+
+  var gotSphere = _.sphere.project( dstSphere, project );
+  test.identical( gotSphere, expected );
+  test.identical( dstSphere, expected );
+
+  var oldProject = [ [ 1, 1 ], 2 ];
+  test.identical( project, oldProject );
+
+  var oldSphere = [ 0.5, 0.5, 1 ];
+  test.is( oldSphere !== gotSphere );
+
+  test.case = 'Null sphere projected'; /* */
+
+  var sphere = null;
+  var project = [ [ 1, 0, 0 ], 2 ];
+  var expected = [ 1, 0, 0, 0 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Null sphere NOT projected'; /* */
+
+  var sphere = null;
+  var project = [ [ 0, 0, 0 ], 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere projected'; /* */
+
+  var sphere = [ 0.5, 0, 0, 2 ];
+  var project = [ [ 0, 1, 0 ], 3 ];
+  var expected = [ 0.5, 1, 0, 6 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere expanded'; /* */
+
+  var sphere = [ 0, 2, 2, 1 ];
+  var project = [ [ 0, 0, 0 ], 2 ];
+  var expected = [ 0, 2, 2, 2 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere contracted'; /* */
+
+  var sphere = [ 0, 2, 2, 1 ];
+  var project = [ [ 0, 0, 0 ], 0.5 ];
+  var expected = [ 0, 2, 2, 0.5 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere translated'; /* */
+
+  var sphere = [ 0, 2, 2, 1 ];
+  var project = [ [ 1, 2, 3 ], 1 ];
+  var expected = [ 1, 4, 5, 1 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere reduced to a point'; /* */
+
+  var sphere = [ 0, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 0 ];
+  var expected = [ 1, 4, 5, 0 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere NOT projected ( empty project array )'; /* */
+
+  var sphere = [ 0, 2, 2, 3 ];
+  var project = [ [ 0, 0, 0 ], 1 ];
+  var expected = [ 0, 2, 2, 3 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere of four dimensions projected'; /* */
+
+  var sphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
+  var project = [ [ 0, 0, 0, 0 ], 4 ];
+  var expected = [ -0.5, -0.5, 0.5, 0.5, 4 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere of 1 dimension projected'; /* */
+
+  var sphere = [ 0, 1 ];
+  var project = [ [ 1 ], 2 ];
+  var expected = [ 1, 2 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( 'sphere', 'project' );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0 ], [ [ 0, 0 ], 1 ], [ [ 1, 1 ], 0 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 3D vs array 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 3D vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1 ], 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 2D vs array 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0 ], [ [ 0 ], 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (null sphere vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( null, [ [ 0, 1 ], 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (project has less than 2 entries)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ] ] );
+  });
+
+  test.case = 'Wrong project array dimension (project has more than 2 entries)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2 ] );
+  });
+
+  test.case = 'Empty arrays'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ ], [ [  ],  ] );
+  });
+
+}
+
+//
+
 function pointContains( test )
 {
   test.case = 'Sphere and point remain unchanged';
@@ -5418,6 +5602,8 @@ var Self =
     centerGet : centerGet,
     radiusGet : radiusGet,
     radiusSet : radiusSet,
+
+    project : project,
 
     pointContains : pointContains,
     pointDistance : pointDistance,

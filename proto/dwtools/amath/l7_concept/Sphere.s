@@ -759,6 +759,65 @@ function radiusSet( sphere, radius )
 //
 
 /**
+  * Project a sphere: the projection vector ( projVector ) translates the center of the sphere, and the projection scaling factor ( r )
+  * scale the radius of the sphere. The projection parameters should have the shape:
+  * project = [ projVector, r ];
+  * Returns the projected sphere. Sphere is stored in Array data structure.
+  * The projection array stays untouched, the sphere changes.
+  *
+  * @param { Array } sphere - sphere to be projected.
+  * @param { Array } project - Array of reference with projection parameters.
+  *
+  * @example
+  * // returns [ 1, 1, 3, 3, 2 ];
+  * _.project( [ 0, 0, 2, 2, 1 ], [ [ 1, 1, 1, 1 ], 2 ] );
+  *
+  *
+  * @returns { Array } Returns the array of the projected sphere.
+  * @function project
+  * @throws { Error } An Error if ( dim ) is different than projVector.length (the sphere and the projection vector don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @throws { Error } An Error if ( project ) is not an array.
+  * @memberof wTools.sphere
+  */
+function project( sphere, project )
+{
+
+  if( sphere === null )
+  sphere = _.sphere.make();
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.longIs( project ) || _.vectorIs( project ) );
+  _.assert( project.length === 2, 'Project array expects exactly two entries')
+
+  let sphereView = _.sphere._from( sphere );
+  let center = _.vector.from( _.sphere.centerGet( sphereView ) );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
+  let projectView = _.vector.from( project );
+
+  let projVector = _.vector.from( projectView.eGet( 0 ) );
+  _.assert( dim === projVector.length );
+  let scalRadius = projectView.eGet( 1 );
+
+  let newCenter = _.vector.addVectors( center.clone(), projVector );
+  let newRadius = scalRadius * radius;
+
+  debugger;
+
+  for( let i = 0; i < dim; i ++ )
+  {
+    sphereView.eSet( i, newCenter.eGet( i ) );
+  }
+
+  sphereView.eSet( sphereView.length - 1, newRadius );
+  return sphere;
+}
+
+//
+
+/**
   * Check if a sphere contains a point. Returns true if it is contained and false if not.
   *
   * @param { Array } sphere - Source sphere.
@@ -2689,6 +2748,8 @@ let Proto =
   centerGet : centerGet,
   radiusGet : radiusGet,
   radiusSet : radiusSet,
+
+  project : project,
 
   pointContains : pointContains,
   pointDistance : pointDistance,
