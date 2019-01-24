@@ -1887,6 +1887,311 @@ function project( test )
 
 //
 
+function getProjectionFactors( test )
+{
+
+  test.case = 'Spheres remain unchanged'; /* */
+
+  var dstSphere = [ 0, 0, 1, 1 ];
+  var projSphere = [ 0.5, 0.5, 1.5, 2 ];
+  var expected = [ [ 0.5, 0.5, 0.5 ], 2 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var oldSphere = [ 0, 0, 1, 1 ];
+  test.identical( oldSphere, dstSphere );
+
+  var oldProjSphere = [ 0.5, 0.5, 1.5, 2 ];
+  test.identical( oldProjSphere, projSphere );
+
+  test.case = 'Sphere projected'; /* */
+
+  var dstSphere = [ 1, 0, 0, 2 ];
+  var projSphere = [ -0.5, 1, 0, 6 ];
+  var expected = [ [ -1.5, 1, 0 ], 3 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere expanded'; /* */
+
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var projSphere = [ 2, 2, 2, 2 ];
+  var expected = [ [ 0, 0, 0 ], 2 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere contracted'; /* */
+
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var projSphere = [ 2, 2, 2, 0.5 ];
+  var expected = [ [ 0, 0, 0 ], 0.5 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere translated'; /* */
+
+  var dstSphere = [ 0, 2, 2, 1 ];
+  var projSphere = [ 1, 4, 5, 1 ];
+  var expected = [ [ 1, 2, 3 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere reduced to point'; /* */
+
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var projSphere = [ 3, 4, 5, 0 ];
+  var expected = [ [ 1, 2, 3 ], 0 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere reduced'; /* */
+
+  var dstSphere = [ 0, 0, 0, 4 ];
+  var projSphere = [ 2, 3, 4, 1 ];
+  var expected = [ [ 2, 3, 4 ], 0.25 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere NOT projected ( empty project array )'; /* */
+
+  var dstSphere = [ 2, 2, 2, 3 ];
+  var projSphere = [ 2, 2, 2, 3 ];
+  var expected = [ [ 0, 0, 0 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere of four dimensions projected'; /* */
+
+  var dstSphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
+  var projSphere = [ - 1, - 1, 1, 1, 4 ];
+  var expected = [ [ -0.5, -0.5, 0.5, 0.5 ], 4 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere of 1 dimension projected'; /* */
+
+  var dstSphere = [ 0, 1 ];
+  var projSphere = [ 1, 1 ];
+  var expected = [ [ 1 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Point to point'; /* */
+
+  var dstSphere = [ 3, 4, 0 ];
+  var projSphere = [ 5, 5, 0 ];
+  var expected = [ [ 2, 1 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Point to sphere'; /* */
+
+  var dstSphere = [ 3, 4, 0 ];
+  var projSphere = [ 5, 5, 7 ];
+  var expected = 0;
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere to sphere'; /* */
+
+  var dstSphere = [ 3, 4, 3, 1 ];
+  var projSphere = [ 5, 5, 7, 2 ];
+  var expected = [ [ 2, 1, 4 ], 2 ];;
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  // Test cases including _.sphere.project()
+
+  test.case = 'Two equal spheres'; /* */
+
+  var dstSphere = [ 0, 0, 1, 1, 1 ];
+  var projSphere = [ 0, 0, 1, 1, 1 ];
+  var expected = [ [ 0, 0, 0, 0 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Two equal point spheres'; /* */
+
+  var dstSphere = [ 3, 4, 0 ];
+  var projSphere = [ 3, 4, 0 ];
+  var expected = [ [ 0, 0 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Point to point'; /* */
+
+  var dstSphere = [ 3, 4, 0 ];
+  var projSphere = [ 5, 5, 0 ];
+  var expected = [ [ 2, 1 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Sphere to point'; /* */
+
+  var dstSphere = [ 3, 4, 6, 1 ];
+  var projSphere = [ 5, 5, 5, 0 ];
+  var expected = [ [ 2, 1, -1 ], 0 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Sphere translated'; /* */
+
+  var dstSphere = [ 3, 4, 6, 2 ];
+  var projSphere = [ -1, 8, 2, 2 ];
+  var expected = [ [ -4, 4, -4 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Sphere contracted'; /* */
+
+  var dstSphere = [ 0, 0, 4, 2 ];
+  var projSphere = [ 0, 0, 4, 1 ];
+  var expected = [ [ 0, 0, 0 ], 0.5 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Sphere expanded'; /* */
+
+  var dstSphere = [ 0, 0, 4, 1 ];
+  var projSphere = [ 0, 0, 4, 3/2 ];
+  var expected = [ [ 0, 0, 0 ], 3/2 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.equivalent( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.equivalent( gotSphere, projSphere );
+
+  test.case = 'Sphere projected'; /* */
+
+  var dstSphere = [ 0, 0, 4, 2 ];
+  var projSphere = [ -7, -3, 9, 4 ];
+  var expected = [ [ -7, -3, 5 ], 2 ];;
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors();
+  });
+
+  test.case = 'Wrong type of argument - string'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( 'sphere', 'projSphere' );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( null, [ 0, 1, 2, 3, 1 ] );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], null );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( undefined, [ 0, 1, 2, 3, 1 ] );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], undefined );
+  });
+
+  test.case = 'Empty arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [], [] );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 3D vs sphere 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 1, 1, 1, 1, 0 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 3D vs sphere 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 0, 1, 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 2D vs sphere 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 0 ], [ 0, 2 ] );
+  });
+
+}
+
+//
+
 function pointContains( test )
 {
   test.case = 'Sphere and point remain unchanged';
@@ -5604,6 +5909,7 @@ var Self =
     radiusSet : radiusSet,
 
     project : project,
+    getProjectionFactors : getProjectionFactors,
 
     pointContains : pointContains,
     pointDistance : pointDistance,
