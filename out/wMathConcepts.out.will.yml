@@ -14,7 +14,7 @@ about:
     inaccurately. MatchConcepts is densely covered by tests and optimized for
     accuracy. Use MatchConcepts to have uniform experience solving geometrical
     problems and to get a more flexible program.
-  version: 0.4.12
+  version: 0.4.20
   enabled: 1
   interpreters:
     - nodejs >= 6.0.0
@@ -332,7 +332,7 @@ step:
       export: 'path::proto'
       tar: 0
     inherit:
-      - export
+      - predefined.export
 build:
   debug.raw:
     criterion:
@@ -381,7 +381,7 @@ build:
       - 'step::export.proto'
 exported:
   proto.export:
-    version: 0.4.12
+    version: 0.4.20
     criterion:
       default: 1
       debug: 1
