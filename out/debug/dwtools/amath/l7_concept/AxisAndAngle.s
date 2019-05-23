@@ -18,6 +18,11 @@ let sqrt = _.sqrt;
 _.assert( !_.axisAndAngle );
 _.assert( _.objectIs( _.avector ) );
 
+/**
+ * @namespace "wTools.axisAndAngle"
+ * @memberof module:Tools/math/Concepts
+ */
+
 let Self = _.axisAndAngle = _.axisAndAngle || Object.create( _.avector );
 
 /*
@@ -34,6 +39,14 @@ and angle corresponds to the rotation magnitude.
 //
 // --
 
+/**
+ * @descriptionNeeded
+ * @param {Array} axisAndAngle 
+ * @param {Array} angle 
+ * @function is
+ * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
+ */
+
 function is( axisAndAngle,angle )
 {
   _.assert( arguments.length === 1 || arguments.length === 2 );
@@ -45,6 +58,14 @@ function is( axisAndAngle,angle )
 }
 
 //
+
+/**
+ * @descriptionNeeded
+ * @param {Array} axisAndAngle 
+ * @param {Array} angle 
+ * @function like
+ * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
+ */
 
 function like( axisAndAngle,angle )
 {
@@ -63,6 +84,14 @@ function like( axisAndAngle,angle )
 }
 
 //
+
+/**
+ * @descriptionNeeded
+ * @param {Array} axisAndAngle 
+ * @param {Array} angle 
+ * @function isZero
+ * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
+ */
 
 function isZero( axisAndAngle,angle )
 {
@@ -83,6 +112,14 @@ function isZero( axisAndAngle,angle )
 }
 
 //
+
+/**
+ * @descriptionNeeded
+ * @param {Array} axisAndAngle 
+ * @param {Array} angle 
+ * @function make
+ * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
+ */
 
 function make( axisAndAngle,angle )
 {
@@ -113,6 +150,12 @@ function make( axisAndAngle,angle )
 
 //
 
+/**
+ * @descriptionNeeded
+ * @function makeZero
+ * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
+ */
+
 function makeZero()
 {
   _.assert( arguments.length === 0 );
@@ -121,6 +164,14 @@ function makeZero()
 }
 
 //
+
+/**
+ * @descriptionNeeded
+ * @param {Array} axisAndAngle 
+ * @param {Array} angle 
+ * @function from
+ * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
+ */
 
 function from( axisAndAngle,angle )
 {
@@ -225,6 +276,14 @@ function _from( axisAndAngle,angle )
 
 //
 
+/**
+ * @descriptionNeeded
+ * @param {Array} axisAndAngle 
+ * @param {Array} angle 
+ * @function zero
+ * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
+ */
+
 function zero( axisAndAngle,angle )
 {
 
@@ -265,7 +324,7 @@ function zero( axisAndAngle,angle )
   * @throws { Error } An Error if( arguments.length ) is different than two.
   * @throws { Error } An Error if( srcMatrix ) is not a rotation matrix.
   * @throws { Error } An Error if( axisAndAngle ) is not axis and angle.
-  * @memberof wTools.axisAndAngle
+  * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
   */
 
 function fromMatrixRotation( axisAndAngle, srcMatrix )
@@ -307,7 +366,7 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
   * @throws { Error } An Error if( arguments.length ) is different than two.
   * @throws { Error } An Error if( dstMatrix ) is not matrix.
   * @throws { Error } An Error if( axisAndAngle ) is not axis and angle.
-  * @memberof wTools.axisAndAngle
+  * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
   */
 
 function toMatrixRotation( axisAndAngle, dstMatrix )

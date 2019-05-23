@@ -7,6 +7,19 @@ let avector = _.avector;
 let vector = _.vector;
 let Self = _.sphere = _.sphere || Object.create( null );
 
+/**
+ * @description
+ * A sphere is the space enclosed by all the points at a given distance to a center:
+ *
+ * For the following functions, spheres must have the shape [ centerX, centerY, centerZ, radius ],
+ * where the dimension equals the object´s length minus one.
+ *
+ * Moreover, centerX, centerY, centerZ are the coordinates of the center of the sphere,
+ * and radius is the radius pf the sphere.
+ * @namespace "wTools.sphere"
+ * @memberof module:Tools/math/Concepts 
+ */
+
 /*
 
   A sphere is the space enclosed by all the points at a given distance to a center:
@@ -39,7 +52,7 @@ and radius is the radius pf the sphere.
   * @returns { Array } Returns the array of the created sphere.
   * @function make
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function make( dim )
@@ -70,7 +83,7 @@ function make( dim )
   * @returns { Array } Returns the array of the created sphere.
   * @function makeZero
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function makeZero( dim )
@@ -108,7 +121,7 @@ function makeZero( dim )
   * @returns { Array } Returns the array of the created sphere.
   * @function makeNil
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function makeNil( dim )
@@ -137,7 +150,7 @@ function makeNil( dim )
   * @returns { Array } Returns the array of the transformed sphere.
   * @function zero
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function zero( sphere )
@@ -173,7 +186,7 @@ function zero( sphere )
   * @returns { Array } Returns the array of the transformed sphere.
   * @function nil
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function nil( sphere )
@@ -216,7 +229,7 @@ function nil( sphere )
   * @returns { Array } Returns the created sphere.
   * @function centeredOfRadius
   * @throws { Error } An Error if ( arguments.length ) is different than one or two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function centeredOfRadius( sphere, radius )
@@ -248,7 +261,7 @@ function centeredOfRadius( sphere, radius )
   * @returns { String } Returns an string with the box information.
   * @function toStr
   * @throws { Error } An Error if ( arguments.length ) is different than one or two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function toStr( sphere,options )
@@ -282,7 +295,7 @@ function toStr( sphere,options )
   *
   * @function from
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function from( sphere )
@@ -325,7 +338,7 @@ function from( sphere )
   * @returns { Vector } Returns the vector of the sphere.
   * @function _from
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function _from( sphere )
@@ -357,7 +370,7 @@ function _from( sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( point ) is not array.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function fromPoints( sphere, points )
@@ -408,7 +421,7 @@ function fromPoints( sphere, points )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( point ) is not array.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function fromBox( sphere, box )
@@ -472,7 +485,7 @@ function fromBox( sphere, box )
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( center ) is not point.
   * @throws { Error } An Error if ( radius ) is not number.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function fromCenterAndRadius( sphere, center, radius )
@@ -510,7 +523,7 @@ function fromCenterAndRadius( sphere, center, radius )
   * @returns { Boolean } Returns true if the input is sphere
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function is( sphere )
@@ -533,7 +546,7 @@ function is( sphere )
   * @returns { Boolean } Returns true if the input is an empty sphere
   * @function isEmpty
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function isEmpty( sphere )
@@ -562,7 +575,7 @@ function isEmpty( sphere )
   * @returns { Boolean } Returns true if the input is a zero sphere
   * @function isZero
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function isZero( sphere )
@@ -591,7 +604,7 @@ function isZero( sphere )
   * @returns { Boolean } Returns true if the input is a nil sphere
   * @function isNil
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function isNil( sphere )
@@ -636,7 +649,7 @@ function isNil( sphere )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function dimGet( sphere )
@@ -666,7 +679,7 @@ function dimGet( sphere )
   * @function centerGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function centerGet( sphere )
@@ -696,7 +709,7 @@ function centerGet( sphere )
   * @function radiusGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function radiusGet( sphere )
@@ -729,7 +742,7 @@ function radiusGet( sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( radius ) is not number.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function radiusSet( sphere, radius )
@@ -771,7 +784,7 @@ function radiusSet( sphere, radius )
   * @returns { Boolean } Returns true if the sphere contains the point
   * @function pointContains
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function pointContains( sphere, point )
@@ -806,7 +819,7 @@ function pointContains( sphere, point )
   * @returns { Number } Returns the distance between the sphere and the point
   * @function pointDistance
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function pointDistance( sphere, point )
@@ -852,7 +865,7 @@ function pointDistance( sphere, point )
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( point ) is not point.
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function pointClosestPoint( sphere, srcPoint, dstPoint )
@@ -919,7 +932,7 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
   * @function pointExpand
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( sphere ) is not a sphere.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function pointExpand( sphere , point )
@@ -981,7 +994,7 @@ function pointExpand( sphere , point )
   * @function boxContains
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function boxContains( sphere, box )
@@ -1046,7 +1059,7 @@ function boxContains( sphere, box )
   * @function boxIntersects
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function boxIntersects( sphere, box )
@@ -1099,7 +1112,7 @@ function boxIntersects( sphere, box )
   * @function boxDistance
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function boxDistance( sphere, box )
@@ -1132,7 +1145,7 @@ function boxDistance( sphere, box )
   * @function boxClosestPoint
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function boxClosestPoint( srcSphere, srcBox, dstPoint )
 {
@@ -1190,7 +1203,7 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   * @function boxExpand
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function boxExpand( dstSphere, srcBox )
 {
@@ -1247,7 +1260,7 @@ function boxExpand( dstSphere, srcBox )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcSphere ) is not sphere
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function boundingBoxGet( dstBox, srcSphere )
 {
@@ -1327,7 +1340,7 @@ function capsuleDistance( srcSphere , tstCapsule )
   * @throws { Error } An Error if ( sphere ) is not sphere
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function capsuleClosestPoint( sphere, capsule, dstPoint )
 {
@@ -1386,7 +1399,7 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( tstFrustum ) is not frustum.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function frustumContains( srcSphere, tstFrustum )
@@ -1431,7 +1444,7 @@ function frustumContains( srcSphere, tstFrustum )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( tstFrustum ) is not frustum.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function frustumIntersects( srcSphere, tstFrustum )
@@ -1469,7 +1482,7 @@ function frustumIntersects( srcSphere, tstFrustum )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( tstFrustum ) is not frustum.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function frustumDistance( srcSphere, tstFrustum )
@@ -1517,7 +1530,7 @@ function frustumDistance( srcSphere, tstFrustum )
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( tstFrustum ) is not frustum.
   * @throws { Error } An Error if ( dstPoint ) is not point.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
@@ -1578,7 +1591,7 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( tstFrustum ) is not frustum.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function frustumExpand( dstSphere, srcFrustum )
@@ -1659,7 +1672,7 @@ function lineDistance( srcSphere , tstLine )
   * @throws { Error } An Error if ( sphere ) is not sphere
   * @throws { Error } An Error if ( line ) is not line
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function lineClosestPoint( sphere, line, dstPoint )
 {
@@ -1723,7 +1736,7 @@ function lineClosestPoint( sphere, line, dstPoint )
   * @function planeIntersects
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function planeIntersects( sphere, plane )
@@ -1759,7 +1772,7 @@ function planeIntersects( sphere, plane )
   * @function planeDistance
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function planeDistance( sphere, plane )
@@ -1796,7 +1809,7 @@ function planeDistance( sphere, plane )
   * @function planeClosestPoint
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function planeClosestPoint( sphere, plane, dstPoint )
@@ -1863,7 +1876,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
   * @function planeExpand
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function planeExpand( dstSphere, srcPlane )
@@ -1947,7 +1960,7 @@ function rayDistance( srcSphere , tstRay )
   * @throws { Error } An Error if ( sphere ) is not sphere
   * @throws { Error } An Error if ( ray ) is not ray
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function rayClosestPoint( sphere, ray, dstPoint )
 {
@@ -2041,7 +2054,7 @@ function segmentDistance( srcSphere , tstSegment )
   * @throws { Error } An Error if ( sphere ) is not sphere
   * @throws { Error } An Error if ( segment ) is not segment
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function segmentClosestPoint( sphere, segment, dstPoint )
 {
@@ -2107,7 +2120,7 @@ function segmentClosestPoint( sphere, segment, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSphere ) is not sphere
   * @throws { Error } An Error if ( tstSphere ) is not sphere
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function sphereContains( srcSphere, tstSphere )
@@ -2155,7 +2168,7 @@ function sphereContains( srcSphere, tstSphere )
   * @function sphereIntersects
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function sphereIntersects( sphere1, sphere2 )
@@ -2203,7 +2216,7 @@ function sphereIntersects( sphere1, sphere2 )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSphere ) is not sphere
   * @throws { Error } An Error if ( tstSphere ) is not sphere
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function sphereDistance( srcSphere, tstSphere )
@@ -2257,7 +2270,7 @@ function sphereDistance( srcSphere, tstSphere )
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( tstSphere ) is not sphere.
   * @throws { Error } An Error if ( dstPoint ) is not point.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
@@ -2317,7 +2330,7 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
   * @function sphereExpand
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the two spheres have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function sphereExpand( sphereDst, sphereSrc )

@@ -6,16 +6,23 @@ let _ = _global_.wTools;
 let avector = _.avector;
 let Self = _.frustum = _.frustum || Object.create( null );
 
+/**
+ * @description
+ * A frustum is the portion of a solid ( normally a pyramid )
+ * which lies between two parallel planes cutting the solid.
+ *
+ * In the following methods, frustums will be defined by a space where each column
+ * represents one of the frustum planes.
+ *
+ * Frustum planes convention : right, left, bottom, top, far, near;
+ * Frustum planes must have director vectors pointing outside frustum;
+ * @namespace "wTools.frustum"
+ * @memberof module:Tools/math/Concepts 
+ */
+
 /*
 
-  A frustum is the portion of a solid ( normally a pyramid )
-which lies between two parallel planes cutting the solid.
-
-  In the following methods, frustums will be defined by a space where each column
-represents one of the frustum planes.
-
-Frustum planes convention : right, left, bottom, top, far, near;
-Frustum planes must have director vectors pointing outside frustum;
+  
 
 */
 
@@ -132,7 +139,7 @@ function is( frustum )
   * @function cornersGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( frustum ) is not frustum.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function cornersGet( srcfrustum )
@@ -256,7 +263,7 @@ function cornersGet( srcfrustum )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function pointContains( frustum , point )
@@ -304,7 +311,7 @@ function pointContains( frustum , point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function pointDistance( frustum, point )
@@ -381,7 +388,7 @@ function pointDistance( frustum, point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 /* qqq : dstPoint is destination */
@@ -515,7 +522,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function boxContains( frustum, box )
@@ -578,7 +585,7 @@ function boxContains( frustum, box )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function boxIntersects( frustum , box )
@@ -701,7 +708,7 @@ function boxIntersects( frustum , box )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function boxDistance( frustum, box )
@@ -739,7 +746,7 @@ function boxDistance( frustum, box )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function boxClosestPoint( frustum, box, dstPoint )
@@ -832,7 +839,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 function boundingBoxGet( dstBox, srcFrustum )
 {
@@ -960,7 +967,7 @@ function capsuleDistance( srcFrustum , tstCapsule )
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 function capsuleClosestPoint( frustum, capsule, dstPoint )
 {
@@ -1035,7 +1042,7 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
 * @throws { Error } An Error if ( arguments.length ) is different than two.
 * @throws { Error } An Error if ( srcFrustum ) is not frustum.
 * @throws { Error } An Error if ( tstFrustum ) is not frustum.
-* @memberof wTools.frustum
+* @memberof module:Tools/math/Concepts.wTools.frustum
 */
 
 function frustumContains( srcFrustum , tstFrustum )
@@ -1092,7 +1099,7 @@ return true;
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( tstFrustum ) is not frustum.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function frustumIntersects( srcFrustum , tstFrustum )
@@ -1160,7 +1167,7 @@ function frustumIntersects( srcFrustum , tstFrustum )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( tstFrustum ) is not frustum.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function frustumDistance( srcFrustum , tstFrustum )
@@ -1231,7 +1238,7 @@ function frustumDistance( srcFrustum , tstFrustum )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( tstFrustum ) is not frustum.
   * @throws { Error } An Error if ( dstPoint ) is not point.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
@@ -1348,7 +1355,7 @@ function lineDistance( srcFrustum , tstLine )
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @throws { Error } An Error if ( line ) is not line
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 function lineClosestPoint( frustum, line, dstPoint )
 {
@@ -1406,7 +1413,7 @@ function lineClosestPoint( frustum, line, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( sphere ) is not plane.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function planeIntersects( frustum, plane )
@@ -1464,7 +1471,7 @@ function planeIntersects( frustum, plane )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( sphere ) is not plane.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function planeDistance( frustum, plane )
@@ -1516,7 +1523,7 @@ function planeDistance( frustum, plane )
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( sphere ) is not plane.
   * @throws { Error } An Error if ( dstPoint ) is not point.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function planeClosestPoint( frustum, plane, dstPoint )
@@ -1614,7 +1621,7 @@ function rayDistance( srcFrustum , tstRay )
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @throws { Error } An Error if ( ray ) is not ray
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 function rayClosestPoint( frustum, ray, dstPoint )
 {
@@ -1711,7 +1718,7 @@ function segmentDistance( srcFrustum , tstSegment )
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @throws { Error } An Error if ( segment ) is not segment
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 function segmentClosestPoint( frustum, segment, dstPoint )
 {
@@ -1770,7 +1777,7 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function sphereContains( frustum , sphere )
@@ -1810,7 +1817,7 @@ function sphereContains( frustum , sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function sphereIntersects( frustum , sphere )
@@ -1861,7 +1868,7 @@ function sphereIntersects( frustum , sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function sphereDistance( frustum, sphere )
@@ -1900,7 +1907,7 @@ function sphereDistance( frustum, sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function sphereClosestPoint( frustum , sphere, dstPoint )
