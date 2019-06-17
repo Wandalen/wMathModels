@@ -37,6 +37,10 @@ path:
     path: out
     criterion:
       predefined: 1
+  module.common:
+    path: out/wMathConcepts.out
+    criterion:
+      predefined: 1
   local:
     criterion:
       predefined: 1
