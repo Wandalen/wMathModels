@@ -200,7 +200,7 @@ function from( axisAndAngle,angle )
   {
     if( axisAndAngle.length === 3 )
     {
-      axisAndAngle = _.arrayResize( axisAndAngle,0,4 );
+      axisAndAngle = _.longResize( axisAndAngle,0,4 );
       axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }
@@ -238,7 +238,7 @@ function _from( axisAndAngle,angle )
   {
     if( axisAndAngle.length === 3 )
     {
-      axisAndAngle = _.arrayResize( axisAndAngle,0,4 );
+      axisAndAngle = _.longResize( axisAndAngle,0,4 );
       axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }
@@ -266,7 +266,7 @@ function _from( axisAndAngle,angle )
 //   {
 //     if( axisAndAngle.length === 3 )
 //     {
-//       axisAndAngle = _.arrayResize( axisAndAngle,0,4 );
+//       axisAndAngle = _.longResize( axisAndAngle,0,4 );
 //       axisAndAngle[ 3 ] = angle;
 //     }
 //   }
