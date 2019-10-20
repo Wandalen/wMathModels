@@ -5875,7 +5875,7 @@ function boundingSphereGet( test )
 var Self =
 {
 
-  name : 'Tools/Math/Line',
+  name : 'Tools.Math.Line',
   silencing : 1,
   enabled : 1,
   // routine: 'is',

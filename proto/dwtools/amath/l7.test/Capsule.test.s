@@ -5536,7 +5536,7 @@ function boundingSphereGet( test )
 var Self =
 {
 
-  name : 'Tools/Math/Capsule',
+  name : 'Tools.Math.Capsule',
   silencing : 1,
   enabled : 1,
   // routine: 'is',

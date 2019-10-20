@@ -698,7 +698,7 @@ eachAngle.defaults =
 var Self =
 {
 
-  name : 'Tools/Math/AxisAndAngle',
+  name : 'Tools.Math.AxisAndAngle',
   silencing : 1,
   enabled : 1,
   // routine : 'eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow',

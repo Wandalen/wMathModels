@@ -691,55 +691,55 @@ function fromPoints( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromPoints();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromPoints( 'box', 'points' );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromPoints( null, 4 );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'Too few arguments - one point'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ]);
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ], [ 1, 0, 1 ] );
   });
 
   test.case = 'Wrong points dimension (box 3D vs points 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0, 2 ], [ 0, 1, - 3, 4 ] ] );
   });
 
   test.case = 'Wrong points dimension (box 3D vs points 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ] );
   });
 
   test.case = 'Wrong points dimension (box 2D vs points 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromPoints( [ 0, 0, 0, 0 ], [ [ 1 ], [ 0 ] ] );
   });
@@ -841,55 +841,55 @@ function fromCenterAndSize( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCenterAndSize();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCenterAndSize( 'box', 'center', 'size' );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCenterAndSize( null, 4, 5 );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ]);
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] );
   });
 
   test.case = 'Wrong points dimension (box 3D vs points 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ], [ 0, 1, - 3, 4 ] );
   });
 
   test.case = 'Wrong points dimension (box 3D vs points 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ], [ 2, 1 ] );
   });
 
   test.case = 'Wrong points dimension (box 2D vs points 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCenterAndSize( [ 0, 0, 0, 0 ],  [ 1 ], [ 0 ]  );
   });
@@ -1036,55 +1036,55 @@ function fromSphere( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromSphere();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromSphere( 'box', 'sphere' );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromSphere( [ 0, 1 ], null );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ]);
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1, 1], [ 1, 1, 0, 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromSphere( [ 0 ], [ 0 ] );
   });
 
   test.case = 'Wrong dimension (box 3D vs sphere 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2, 1 ] );
   });
 
   test.case = 'Wrong dimension (box 3D vs sphere 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0, 0, 0 ], [ 0, 2, 1 ] );
   });
 
   test.case = 'Wrong dimension (box 2D vs sphere 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromSphere( [ 0, 0, 0, 0 ],  [ 0, 1 ]  );
   });
@@ -1178,60 +1178,60 @@ function fromCube( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCube();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCube( 'box', 'cube' );
   });
 
   test.case = 'Cube not number'; /* */
 
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCube( [ 0, 0, 1, 1 ], [ 1, 2 ] );
   });
 
   test.case = 'Null box from null cube'; /* */
 
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCube( null, null );
   });
 
   test.case = 'Cube not number'; /* */
 
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCube( [ 0, 0 ], [ 1 ] );
   });
 
   test.case = 'Empty cube and box'; /* */
 
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCube( [ ], [ ] );
   });
 
   test.case = 'Wrong type of argument'; /* */
 
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCube( 'box', 3 );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCube( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.fromCube( [ 0, 0, 0, 0, 0, 0 ], 2, 3 );
   });
@@ -1452,25 +1452,25 @@ function dimGet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.dimGet();
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.dimGet( [ 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.dimGet( [ 0, 0, 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.dimGet( [ 0, 0, 0, 0, 0 ] );
   });
@@ -1561,49 +1561,49 @@ function cornerLeftGet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerLeftGet();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerLeftGet( null );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerLeftGet( NaN );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerLeftGet( 'Hello' );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerLeftGet( [ 'Hello', world ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerLeftGet( [ 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerLeftGet( [ 0, 0, 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerLeftGet( [ 0, 0, 0, 0, 0 ] );
   });
@@ -1694,49 +1694,49 @@ function cornerRightGet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerRightGet();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerRightGet( null );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerRightGet( NaN );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerRightGet( 'Hello' );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerRightGet( [ 'Hello', world ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerRightGet( [ 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerRightGet( [ 0, 0, 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornerRightGet( [ 0, 0, 0, 0, 0 ] );
   });
@@ -1886,68 +1886,68 @@ function centerGet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet();
   });
 
   test.case = 'Too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( [ 0, 0, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( null );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( 'string' );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( null, [ 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( 'string', [ 0, 0 ] );
   });
 
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( [ 0, 0, 1, 1 ], 'string' );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( [ 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( [ 0, 0, 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( [ 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'Different dimension between box and point'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.centerGet( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0 ] );
   });
@@ -2112,68 +2112,68 @@ function sizeGet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet();
   });
 
   test.case = 'Too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( [ 0, 0, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( null );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( 'string' );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( null, [ 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( 'string', [ 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
 
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( [ 0, 0, 1, 1 ], 'string' );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( [ 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( [ 0, 0, 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( [ 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'Different dimension between box and point'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.sizeGet( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0 ] );
   });
@@ -2255,68 +2255,68 @@ function cornersGet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet();
   });
 
   test.case = 'Too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( [ 0, 0, 1, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( null );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( 'string' );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( null, [ 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( 'string', [ 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
 
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( [ 0, 0, 1, 1 ], 'string' );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( [ 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( [ 0, 0, 0 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( [ 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'Different dimension between box and point'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.cornersGet( [ 0, 0, 0, 0, 0, 0 ], [ 0, 0 ] );
   });
@@ -2464,49 +2464,49 @@ function expand( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.expand();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.expand( 'box', 'expand' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.expand( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.expand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
   test.case = 'Wrong expand array dimension (box 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.expand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong expand array dimension (box 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.expand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong expand array dimension (box 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.expand( [ 0, 0, 0, 0 ], [ 0 ] );
   });
 
   test.case = 'Wrong expand array dimension (null box vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.expand( null, [ 0, 1 ] );
   });
@@ -2674,50 +2674,50 @@ function pointContains( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointContains();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointContains( 'box', 'point' );
   });
 
   test.case = 'Point Null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointContains( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointContains( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointContains( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointContains( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointContains( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointContains( [ 0, 0, 0, 0 ], [ 0 ] );
   });
@@ -2901,49 +2901,49 @@ function pointDistance( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointDistance();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointDistance( 'box', 'point' );
   });
 
   test.case = 'Point Null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointDistance( [ 0, 0, 0, 0 ], [ 0 ] );
   });
@@ -3122,62 +3122,62 @@ function pointClosestPoint( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint( 'box', 'point' );
   });
 
   test.case = 'Point Null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ], [ 1, 0, 0 ] );
   });
 
   test.case = 'dstPoint is null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], null );
   });
 
 
   test.case = 'dstPoint is undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], undefined );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointClosestPoint( [ 0, 0, 0, 0 ], [ 0 ] );
   });
@@ -3309,49 +3309,49 @@ function pointExpand( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointExpand();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointExpand( 'box', 'points' );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointExpand( null, 4 );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointExpand( [ 0, 0, 0, 0 ], [ 0 ] );
   });
@@ -3510,50 +3510,50 @@ function pointRelative( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointRelative();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointRelative( 'box', 'point' );
   });
 
   test.case = 'Point Null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 1, 1, 1 ], null );
   });
 
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0 ], [ 1, 0, 1 ], [ 1, 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong point dimension (box 3D vs point 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 2, 2, 2 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong point dimension (box 2D vs point 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.pointRelative( [ 0, 0, 0, 0 ], [ 0 ] );
   });
@@ -3729,50 +3729,50 @@ function boxContains( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxContains();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxContains( 'box', 'box2' );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxContains( null, [] );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxContains( [], null );
   });
 
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxContains( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxContains( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
   });
 
   test.case = 'Different box dimensions (box 3D vs box 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxContains( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxContains( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
   });
@@ -4317,49 +4317,49 @@ function boxExpand( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxExpand();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxExpand( 'box', 'box2' );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxExpand( null, [] );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxExpand( [], null );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxExpand( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxExpand( [ 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 0 ] );
   });
 
   test.case = 'Different box dimensions (box 3D vs box 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxExpand( [ 0, 0, 0, 3, 3, 3 ], [ 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong box dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.boxExpand( [ 0, 0, 0, 2, 2, 2, 2 ], [ 0, 0, 0, 2, 2, 2, 3 ], );
   });
@@ -6429,7 +6429,7 @@ function boundingSphereGet( test )
 var Self =
 {
 
-  name : 'Tools/Math/Box',
+  name : 'Tools.Math.Box',
   silencing : 1,
   enabled : 1,
   // verbosity : 7,

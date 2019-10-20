@@ -1359,7 +1359,7 @@ eachAngle.defaults =
 var Self =
 {
 
-  name : 'Tools/Math/Quaternion',
+  name : 'Tools.Math.Quaternion',
   silencing : 1,
   enabled : 1,
   // routine: 'eulerToQuatToMatrixToQuatFast',

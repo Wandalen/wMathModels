@@ -5374,7 +5374,7 @@ function boundingSphereGet( test )
 var Self =
 {
 
-  name : 'Tools/Math/Ray',
+  name : 'Tools.Math.Ray',
   silencing : 1,
   enabled : 1,
   // routine: 'is',

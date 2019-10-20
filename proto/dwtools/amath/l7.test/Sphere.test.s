@@ -504,68 +504,68 @@ function fromPoints( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints();
   });
 
 
   test.case = 'Wrong type of argument - none'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ ] , [ [ ], [ ] ] );
   });
 
   test.case = 'Wrong type of argument - string'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( 'sphere', 'points' );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( null, null );
   });
 
   test.case = 'Wrong type of argument - number'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( null, 4 );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ] );
   });
 
   test.case = 'Too few arguments - one point'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ], [ 1, 1, 1 ]);
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ], [ 1, 0 ] );
   });
 
   test.case = 'Wrong points dimension (sphere 3D vs points 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0, 0 ], [ [ 0, 1, 0, 2 ], [ 0, 1, - 3, 4 ] ] );
   });
 
   test.case = 'Wrong points dimension (sphere 3D vs points 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ] );
   });
 
   test.case = 'Wrong points dimension (sphere 2D vs points 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ], [ [ 1 ], [ 0 ] ] );
   });
@@ -631,7 +631,7 @@ function fromBox( test )
   if( !Config.debug )
   return;
 
-  function shouldThrowError( rname )
+  function shouldThrowErrorOfAnyKind( rname )
   {
 
     test.shouldThrowErrorSync( () => _.avector[ rname ]() );
@@ -656,7 +656,7 @@ function fromBox( test )
 
   }
 
-  shouldThrowError( 'sphereFromBox' );
+  shouldThrowErrorOfAnyKind( 'sphereFromBox' );
 
   debugger;
 }
@@ -808,73 +808,73 @@ function fromCenterAndRadius( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius();
   });
 
   test.case = 'Wrong type of argument - none'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ ] , [ ], [ ]  );
   });
 
   test.case = 'Wrong type of argument - string'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( 'sphere', 'center', 'radius' );
   });
 
   test.case = 'Wrong type of argument - number'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( 1, 2, 4 );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ] );
   });
 
   test.case = 'Too few arguments - no radius'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1, 1, 1 ] );
   });
 
   test.case = 'Too few arguments - no center'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], 1 );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 0, 1 ], [ 2, 1 ], 3 );
   });
 
   test.case = 'Wrong center dimension ( sphere 3D vs center 4D )'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0, 0 ], [ 0, 1, 0, 2 ], 3 );
   });
 
   test.case = 'Wrong center dimension ( sphere 3D vs center 2D )'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0, 0 ], [ 2, 1 ], 2 );
   });
 
   test.case = 'Wrong center dimension ( sphere 2D vs center 1D )'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1 ], 1 );
   });
 
   test.case = 'Wrong radius dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1, 1 ], [1,0] );
   });
@@ -1131,37 +1131,37 @@ function dimGet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet();
   });
 
   test.case = 'Wrong Sphere dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( [] );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( 'Hi' );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( null );
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( 3 );
   });
 
   test.case = 'To many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( [ 0, 1 ], [ 0, 1 ] );
   });
@@ -1282,37 +1282,37 @@ function centerGet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet();
   });
 
   test.case = 'Too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( [ 0, 0, 1, 1 ], [ 0, 0, 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( null );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( 'string' );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( 4 );
   });
 
   test.case = 'Wrong sphere dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( [ ] );
   });
@@ -1463,37 +1463,37 @@ function radiusGet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet();
   });
 
   test.case = 'Too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( [ 0, 0, 1, 1 ], [ 0, 0, 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( null );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( 'string' );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( 4 );
   });
 
   test.case = 'Wrong sphere dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( [ ] );
   });
@@ -1658,43 +1658,43 @@ function radiusSet( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet();
   });
 
   test.case = 'Too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( [ 0, 0, 1, 1 ], 2, 3 );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( [ 0, 0, 1, 1 ], [ 0, 0, 0, 0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( null, null );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( 'string', 'Hi' );
   });
 
   test.case = 'Wrong type of arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( 4, 3 );
   });
 
   test.case = 'Wrong sphere dimension'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( [ ], 2 );
   });
@@ -4806,7 +4806,7 @@ function sphereExpand( test )
 var Self =
 {
 
-  name : 'Tools/Math/Sphere',
+  name : 'Tools.Math.Sphere',
   silencing : 1,
   enabled : 1,
   // verbosity : 7,

@@ -5850,7 +5850,7 @@ function boundingSphereGet( test )
 var Self =
 {
 
-  name : 'Tools/Math/Segment',
+  name : 'Tools.Math.Segment',
   silencing : 1,
   enabled : 1,
   accuracy : 1E-6,

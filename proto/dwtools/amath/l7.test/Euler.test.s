@@ -3740,7 +3740,7 @@ eachAngle.defaults =
 var Self =
 {
 
-  name : 'Tools/Math/Euler',
+  name : 'Tools.Math.Euler',
   silencing : 1,
   enabled : 1,
   // routine : 'eulerToQuatToMatrixToEulerSlow',
