@@ -24,11 +24,11 @@
   }, 
   "dependencies" : 
   {
-    "wTools" : "", 
-    "wmathscalar" : "", 
-    "wmathspace" : "", 
-    "wmathvector" : ""
+    "wTools" : "beta", 
+    "wmathscalar" : "beta", 
+    "wmathspace" : "beta", 
+    "wmathvector" : "beta"
   }, 
-  "devDependencies" : { "wTesting" : "" }, 
+  "devDependencies" : { "wTesting" : "beta" }, 
   "keywords" : [ "wTools", "math", "vector", "dot product", "convolution" ]
 }
