@@ -342,7 +342,7 @@ function fromQuat( test )
     // function variateRoutine( v )
     // {
     //
-    //   if( !_.arrayHasAll( [ v.ox0, v.oy0, v.oz0, v.ow0, v.ox1, v.oy1, v.oz1, v.ow1 ], [ 0,1,2,3, 4,5,6,7 ] ) )
+    //   if( !_.longHasAll( [ v.ox0, v.oy0, v.oz0, v.ow0, v.ox1, v.oy1, v.oz1, v.ow1 ], [ 0,1,2,3, 4,5,6,7 ] ) )
     //   return;
     //
     //   var q = _.quat.fromEuler( null, euler1.slice(), v );
