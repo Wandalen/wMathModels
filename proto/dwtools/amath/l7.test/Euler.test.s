@@ -3730,7 +3730,7 @@ eachAngle.defaults =
 // function experiment( test )
 // {
 //   debugger;
-//   return _.timeOut( 10000 );
+//   return _.time.out( 10000 );
 // }
 
 // --
