@@ -29,6 +29,6 @@
     "wmathspace" : "alpha", 
     "wmathvector" : "alpha"
   }, 
-  "devDependencies" : { "wTesting" : "alpha" }, 
+  "devDependencies" : { "wTesting" : "alpha", "wmathconcepts" : "file:." }, 
   "keywords" : [ "wTools", "math", "vector", "dot product", "convolution" ]
 }
