@@ -1,7 +1,6 @@
 
-
 if( typeof module !== 'undefined' )
-require( 'wmathconcepts' );
+require( '../' );
 var _ = wTools;
 
 var bbox = _.box.make();
