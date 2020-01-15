@@ -1,6 +1,6 @@
 
 if( typeof module !== 'undefined' )
-require( '../' );
+require( 'wmathconcepts' );
 
 var _ = wTools;
 
