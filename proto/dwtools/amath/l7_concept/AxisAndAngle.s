@@ -158,7 +158,7 @@ function make( axisAndAngle,angle )
 
 function makeZero()
 {
-  _.assert( arguments.length === 0 );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
   let result = _.dup( 0,4 );
   return result;
 }

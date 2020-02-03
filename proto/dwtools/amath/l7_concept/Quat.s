@@ -56,7 +56,7 @@ function make( src )
 
 function makeZero()
 {
-  _.assert( arguments.length === 0 );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
   let result = _.dup( 0,4 );
   return result;
 }
@@ -65,7 +65,7 @@ function makeZero()
 
 function makeUnit()
 {
-  _.assert( arguments.length === 0 );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
   let result = _.dup( 0,4 );
   result[ 3 ] = 1;
   return result;

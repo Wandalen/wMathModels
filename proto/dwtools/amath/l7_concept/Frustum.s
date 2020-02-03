@@ -32,7 +32,7 @@ let Self = _.frustum = _.frustum || Object.create( null );
 
 function make()
 {
-  _.assert( arguments.length === 0 );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
 
   let dst = _.Space.make([ 4,6 ]);
 
