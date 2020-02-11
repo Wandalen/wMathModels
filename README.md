@@ -6,7 +6,7 @@ Collection of functions to operate such geometrical concepts as Sphere, Box, Pla
 ### Try out
 ```
 npm install
-node sample/Sample.s
+node sample/Sample.js
 ```
 
 
