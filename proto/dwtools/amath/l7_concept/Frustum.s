@@ -2050,52 +2050,52 @@ function boundingSphereGet( dstSphere, srcFrustum )
 let Proto =
 {
 
-  make : make,
-  fromMatrixHomogenous : fromMatrixHomogenous,
-  is : is,
+  make,
+  fromMatrixHomogenous,
+  is,
 
-  cornersGet : cornersGet,
+  cornersGet,
 
-  pointContains : pointContains,
-  pointDistance : pointDistance, /* qqq : implement me */
-  pointClosestPoint : pointClosestPoint, /* qqq : review please */
+  pointContains,
+  pointDistance, /* qqq : implement me */
+  pointClosestPoint, /* qqq : review please */
 
-  boxContains : boxContains, /* qqq : implement me */
-  boxIntersects : boxIntersects,
-  boxDistance : boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
-  boxClosestPoint : boxClosestPoint,
-  boundingBoxGet : boundingBoxGet,
+  boxContains, /* qqq : implement me */
+  boxIntersects,
+  boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
+  boxClosestPoint,
+  boundingBoxGet,
 
-  capsuleIntersects : capsuleIntersects,
-  capsuleDistance : capsuleDistance,
-  capsuleClosestPoint : capsuleClosestPoint,
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
-  frustumContains : frustumContains, /* qqq : implement me */
-  frustumIntersects : frustumIntersects,
-  frustumDistance : frustumDistance, /* qqq : implement me */
-  frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
+  frustumContains, /* qqq : implement me */
+  frustumIntersects,
+  frustumDistance, /* qqq : implement me */
+  frustumClosestPoint, /* qqq : implement me */
 
-  lineIntersects : lineIntersects,  /* Same as _.line.frustumIntersects */
-  lineDistance : lineDistance,  /* Same as _.line.frustumDistance */
-  lineClosestPoint : lineClosestPoint,
+  lineIntersects,  /* Same as _.line.frustumIntersects */
+  lineDistance,  /* Same as _.line.frustumDistance */
+  lineClosestPoint,
 
-  planeIntersects : planeIntersects, /* qqq : implement me */
-  planeDistance : planeDistance, /* qqq : implement me */
-  planeClosestPoint : planeClosestPoint, /* qqq : implement me */
+  planeIntersects, /* qqq : implement me */
+  planeDistance, /* qqq : implement me */
+  planeClosestPoint, /* qqq : implement me */
 
-  rayIntersects : rayIntersects,  /* Same as _.ray.frustumIntersects */
-  rayDistance : rayDistance,  /* Same as _.ray.frustumDistance */
-  rayClosestPoint : rayClosestPoint,
+  rayIntersects,  /* Same as _.ray.frustumIntersects */
+  rayDistance,  /* Same as _.ray.frustumDistance */
+  rayClosestPoint,
 
-  segmentIntersects : segmentIntersects,  /* Same as _.segment.frustumIntersects */
-  segmentDistance : segmentDistance,  /* Same as _.segment.frustumDistance */
-  segmentClosestPoint : segmentClosestPoint,
+  segmentIntersects,  /* Same as _.segment.frustumIntersects */
+  segmentDistance,  /* Same as _.segment.frustumDistance */
+  segmentClosestPoint,
 
-  sphereContains : sphereContains, /* qqq : implement me */
-  sphereIntersects : sphereIntersects,
-  sphereDistance : sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
-  sphereClosestPoint : sphereClosestPoint,
-  boundingSphereGet : boundingSphereGet,
+  sphereContains, /* qqq : implement me */
+  sphereIntersects,
+  sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
+  sphereClosestPoint,
+  boundingSphereGet,
 
 }
 

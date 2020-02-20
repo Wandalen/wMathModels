@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withArray.Float32;
+var _ = _global_.wTools.withDefaultLong.Fx;
 var Space = _.Space;
 var vector = _.vector;
 var vec = _.vector.fromArray;
@@ -4206,38 +4206,38 @@ var Self =
   tests :
   {
 
-    cornersGet : cornersGet,
+    cornersGet,
 
-    pointContains : pointContains,
-    pointDistance : pointDistance,
-    pointClosestPoint : pointClosestPoint,
+    pointContains,
+    pointDistance,
+    pointClosestPoint,
 
-    boxContains : boxContains,
-    boxIntersects : boxIntersects,
-    boxClosestPoint : boxClosestPoint,
-    boundingBoxGet : boundingBoxGet,
+    boxContains,
+    boxIntersects,
+    boxClosestPoint,
+    boundingBoxGet,
 
-    capsuleClosestPoint : capsuleClosestPoint,
+    capsuleClosestPoint,
 
-    frustumContains : frustumContains,
-    frustumIntersects : frustumIntersects,
-    frustumDistance : frustumDistance,
-    frustumClosestPoint : frustumClosestPoint,
+    frustumContains,
+    frustumIntersects,
+    frustumDistance,
+    frustumClosestPoint,
 
-    lineClosestPoint : lineClosestPoint,
+    lineClosestPoint,
 
-    planeIntersects : planeIntersects,
-    planeDistance : planeDistance,
-    planeClosestPoint : planeClosestPoint,
+    planeIntersects,
+    planeDistance,
+    planeClosestPoint,
 
-    rayClosestPoint : rayClosestPoint,
+    rayClosestPoint,
 
-    segmentClosestPoint : segmentClosestPoint,
+    segmentClosestPoint,
 
-    sphereContains : sphereContains,
-    sphereIntersects : sphereIntersects,
-    sphereClosestPoint : sphereClosestPoint,
-    boundingSphereGet : boundingSphereGet,
+    sphereContains,
+    sphereIntersects,
+    sphereClosestPoint,
+    boundingSphereGet,
 
   }
 

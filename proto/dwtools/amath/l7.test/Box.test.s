@@ -6,7 +6,7 @@
 
 qqq : lack of tests for box
 
-  from : from,
+  from,
 
 qqq : sort routines implementations
 
@@ -29,7 +29,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withArray.Float32;
+var _ = _global_.wTools.withDefaultLong.Fx;
 var Space = _.Space;
 var vector = _.vector;
 var vec = _.vector.fromArray;
@@ -6439,68 +6439,68 @@ var Self =
   tests :
   {
 
-    make : make,
-    makeZero : makeZero,
-    makeNil : makeNil,
+    make,
+    makeZero,
+    makeNil,
 
-    zero : zero,
-    nil : nil,
-    centeredOfSize : centeredOfSize,
+    zero,
+    nil,
+    centeredOfSize,
 
-    from : from,
-    fromPoints : fromPoints,
-    fromCenterAndSize : fromCenterAndSize,
-    fromSphere : fromSphere,
-    fromCube : fromCube,
+    from,
+    fromPoints,
+    fromCenterAndSize,
+    fromSphere,
+    fromCube,
 
-    is : is,
-    isEmpty : isEmpty,
-    isZero : isZero,
-    isNil : isNil,
+    is,
+    isEmpty,
+    isZero,
+    isNil,
 
-    dimGet : dimGet,
-    cornerLeftGet : cornerLeftGet,
-    cornerRightGet : cornerRightGet,
-    centerGet : centerGet,
-    sizeGet : sizeGet,
-    cornersGet : cornersGet,
+    dimGet,
+    cornerLeftGet,
+    cornerRightGet,
+    centerGet,
+    sizeGet,
+    cornersGet,
 
-    expand : expand,
+    expand,
 
-    pointContains : pointContains,
-    pointDistance : pointDistance,
-    pointClosestPoint : pointClosestPoint,
-    pointExpand : pointExpand,
-    pointRelative : pointRelative,
+    pointContains,
+    pointDistance,
+    pointClosestPoint,
+    pointExpand,
+    pointRelative,
 
-    boxContains : boxContains,
-    boxIntersects : boxIntersects,
-    boxDistance : boxDistance,
-    boxClosestPoint : boxClosestPoint,
-    boxExpand : boxExpand,
+    boxContains,
+    boxIntersects,
+    boxDistance,
+    boxClosestPoint,
+    boxExpand,
 
-    capsuleClosestPoint : capsuleClosestPoint,
+    capsuleClosestPoint,
 
-    frustumContains : frustumContains,
-    frustumDistance : frustumDistance,
-    frustumClosestPoint : frustumClosestPoint,
-    frustumExpand : frustumExpand,
+    frustumContains,
+    frustumDistance,
+    frustumClosestPoint,
+    frustumExpand,
 
-    lineClosestPoint : lineClosestPoint,
+    lineClosestPoint,
 
-    planeDistance : planeDistance,
-    planeClosestPoint : planeClosestPoint,
-    planeExpand : planeExpand,
+    planeDistance,
+    planeClosestPoint,
+    planeExpand,
 
-    rayClosestPoint : rayClosestPoint,
+    rayClosestPoint,
 
-    segmentClosestPoint : segmentClosestPoint,
+    segmentClosestPoint,
 
-    sphereContains : sphereContains,
-    sphereDistance : sphereDistance,
-    sphereClosestPoint : sphereClosestPoint,
-    sphereExpand : sphereExpand,
-    boundingSphereGet : boundingSphereGet,
+    sphereContains,
+    sphereDistance,
+    sphereClosestPoint,
+    sphereExpand,
+    boundingSphereGet,
 
   }
 

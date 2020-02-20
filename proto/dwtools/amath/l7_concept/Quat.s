@@ -1060,47 +1060,47 @@ function applyTo( quat,vector )
 let Proto =
 {
 
-  make : make,
-  makeZero : makeZero,
-  makeUnit : makeUnit,
+  make,
+  makeZero,
+  makeUnit,
 
-  zero : zero,
-  unit : unit,
+  zero,
+  unit,
 
-  from : from,
-  _from : _from,
+  from,
+  _from,
 
-  fromEuler : fromEuler,
+  fromEuler,
 
-  fromAxisAndAngle : fromAxisAndAngle,
-  toAxisAndAngle : toAxisAndAngle,
+  fromAxisAndAngle,
+  toAxisAndAngle,
 
-  fromVectors : fromVectors,
-  fromVectors2 : fromVectors2,
-  fromNormalizedVectors : fromNormalizedVectors,
+  fromVectors,
+  fromVectors2,
+  fromNormalizedVectors,
 
-  fromMatrixRotation : fromMatrixRotation,
-  fromMatrixRotation2 : fromMatrixRotation2,
-  fromMatrixWithScale : fromMatrixWithScale,
+  fromMatrixRotation,
+  fromMatrixRotation2,
+  fromMatrixWithScale,
 
-  fromPlane : fromPlane,
+  fromPlane,
 
-  toMatrix : toMatrix,
+  toMatrix,
 
-  is : is,
-  isUnit : isUnit,
-  isZero : isZero,
+  is,
+  isUnit,
+  isZero,
 
-  dimGet : dimGet,
+  dimGet,
 
-  conjugate : conjugate,
-  inv : inv,
+  conjugate,
+  inv,
 
-  _mul3 : _mul3,
-  mul : mul,
-  mix : mix,
+  _mul3,
+  mul,
+  mix,
 
-  applyTo : applyTo,
+  applyTo,
 
 }
 

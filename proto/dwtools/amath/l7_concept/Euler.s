@@ -2832,35 +2832,35 @@ function isGimbalLock( srcEuler )
 let Proto =
 {
 
-  is : is,
-  isZero : isZero,
+  is,
+  isZero,
 
-  make : make,
-  makeZero : makeZero,
+  make,
+  makeZero,
 
-  zero : zero,
+  zero,
 
-  from : from,
-  _from : _from,
-  representationSet : representationSet,
+  from,
+  _from,
+  representationSet,
 
-  fromAxisAndAngle : fromAxisAndAngle,
-  fromQuat : fromQuat,
-  fromMatrix : fromMatrix,
-  toMatrix : toMatrix,
+  fromAxisAndAngle,
+  fromQuat,
+  fromMatrix,
+  toMatrix,
 
-  fromQuat2 : fromQuat2,
-  toQuat2 : toQuat2,
-  fromMatrix2 : fromMatrix2,
-  fromMatrix3 : fromMatrix3,
-  toMatrix2 : toMatrix2,
-  fromAxisAndAngle2 : fromAxisAndAngle2,
-  toAxisAndAngle2 : toAxisAndAngle2,
+  fromQuat2,
+  toQuat2,
+  fromMatrix2,
+  fromMatrix3,
+  toMatrix2,
+  fromAxisAndAngle2,
+  toAxisAndAngle2,
 
-  represent : represent,
-  isGimbalLock : isGimbalLock,
+  represent,
+  isGimbalLock,
 
-  // Order : Order,
+  // Order,
 
 }
 

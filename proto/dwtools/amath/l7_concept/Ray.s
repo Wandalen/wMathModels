@@ -701,7 +701,7 @@ function rayIntersectionFactors( r1, r2 )
     let o =
     {
       x : null,
-      m : m,
+      m,
       y : or,
       kernel : null,
       pivoting : 1,
@@ -2596,70 +2596,70 @@ function boundingSphereGet( dstSphere, srcRay )
 let Proto =
 {
 
-  make : make,
-  makeZero : makeZero,
-  makeNil : makeNil,
+  make,
+  makeZero,
+  makeNil,
 
-  zero : zero,
-  nil : nil,
+  zero,
+  nil,
 
-  from : from,
-  _from : _from,
-  fromPair : fromPair, // fromPoints : fromPoints,
+  from,
+  _from,
+  fromPair, // fromPoints,
 
-  is : is,
-  dimGet : dimGet,
-  originGet : originGet,
-  directionGet : directionGet,
+  is,
+  dimGet,
+  originGet,
+  directionGet,
 
-  rayAt : rayAt,
-  getFactor : getFactor,
+  rayAt,
+  getFactor,
 
-  rayParallel3D : rayParallel3D,
-  rayParallel : rayParallel,
-  rayIntersectionFactors : rayIntersectionFactors,
-  rayIntersectionPoints : rayIntersectionPoints,
-  rayIntersectionPoint : rayIntersectionPoint,
-  rayIntersectionPointAccurate : rayIntersectionPointAccurate,
+  rayParallel3D,
+  rayParallel,
+  rayIntersectionFactors,
+  rayIntersectionPoints,
+  rayIntersectionPoint,
+  rayIntersectionPointAccurate,
 
 
-  pointContains : pointContains,
-  pointDistance : pointDistance,
-  pointClosestPoint : pointClosestPoint,
+  pointContains,
+  pointDistance,
+  pointClosestPoint,
 
-  boxIntersects : boxIntersects,
-  boxDistance : boxDistance,
-  boxClosestPoint : boxClosestPoint,
-  boundingBoxGet : boundingBoxGet,
+  boxIntersects,
+  boxDistance,
+  boxClosestPoint,
+  boundingBoxGet,
 
-  capsuleIntersects : capsuleIntersects,
-  capsuleDistance : capsuleDistance,
-  capsuleClosestPoint : capsuleClosestPoint,
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
-  frustumIntersects : frustumIntersects,
-  frustumDistance : frustumDistance,
-  frustumClosestPoint : frustumClosestPoint,
+  frustumIntersects,
+  frustumDistance,
+  frustumClosestPoint,
 
-  lineIntersects : lineIntersects,  /* Same as _.line.rayIntersects */
-  lineDistance : lineDistance,  /* Same as _.line.rayDistance */
-  lineClosestPoint : lineClosestPoint,
+  lineIntersects,  /* Same as _.line.rayIntersects */
+  lineDistance,  /* Same as _.line.rayDistance */
+  lineClosestPoint,
 
-  planeIntersects : planeIntersects,
-  planeDistance : planeDistance,
-  planeClosestPoint : planeClosestPoint,
+  planeIntersects,
+  planeDistance,
+  planeClosestPoint,
 
-  rayIntersects : rayIntersects,
-  rayDistance : rayDistance,
-  rayClosestPoint : rayClosestPoint,
+  rayIntersects,
+  rayDistance,
+  rayClosestPoint,
 
-  segmentIntersects : segmentIntersects,  /* Same as _.segment.rayIntersects */
-  segmentDistance : segmentDistance,  /* Same as _.segment.rayDistance */
-  segmentClosestPoint : segmentClosestPoint,
+  segmentIntersects,  /* Same as _.segment.rayIntersects */
+  segmentDistance,  /* Same as _.segment.rayDistance */
+  segmentClosestPoint,
 
-  sphereIntersects : sphereIntersects,
-  sphereDistance : sphereDistance,
-  sphereClosestPoint : sphereClosestPoint,
-  boundingSphereGet : boundingSphereGet,
+  sphereIntersects,
+  sphereDistance,
+  sphereClosestPoint,
+  boundingSphereGet,
 }
 
 _.mapSupplement( Self, Proto );

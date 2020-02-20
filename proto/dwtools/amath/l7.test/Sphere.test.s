@@ -18,7 +18,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withArray.Float32;
+var _ = _global_.wTools.withDefaultLong.Fx;
 var Space = _.Space;
 var vector = _.vector;
 var vec = _.vector.fromArray;
@@ -4816,60 +4816,60 @@ var Self =
   tests :
   {
 
-    make : make,
-    makeZero : makeZero,
-    makeNil : makeNil,
+    make,
+    makeZero,
+    makeNil,
 
-    zero : zero,
-    nil : nil,
-    centeredOfRadius : centeredOfRadius,
+    zero,
+    nil,
+    centeredOfRadius,
 
-    fromPoints : fromPoints,
-    fromBox : fromBox,
-    fromCenterAndRadius : fromCenterAndRadius,
+    fromPoints,
+    fromBox,
+    fromCenterAndRadius,
 
-    is : is,
-    isEmpty : isEmpty,
-    isZero : isZero,
-    isNil : isNil,
+    is,
+    isEmpty,
+    isZero,
+    isNil,
 
-    dimGet : dimGet,
-    centerGet : centerGet,
-    radiusGet : radiusGet,
-    radiusSet : radiusSet,
+    dimGet,
+    centerGet,
+    radiusGet,
+    radiusSet,
 
-    pointContains : pointContains,
-    pointDistance : pointDistance,
-    pointClosestPoint : pointClosestPoint,
-    pointExpand : pointExpand,
+    pointContains,
+    pointDistance,
+    pointClosestPoint,
+    pointExpand,
 
-    boxContains : boxContains,
-    boxIntersects : boxIntersects,
-    boxClosestPoint : boxClosestPoint,
-    boxExpand : boxExpand,
-    boundingBoxGet : boundingBoxGet,
+    boxContains,
+    boxIntersects,
+    boxClosestPoint,
+    boxExpand,
+    boundingBoxGet,
 
-    capsuleClosestPoint : capsuleClosestPoint,
+    capsuleClosestPoint,
 
-    frustumContains : frustumContains,
-    frustumDistance : frustumDistance,
-    frustumClosestPoint : frustumClosestPoint,
-    frustumExpand : frustumExpand,
+    frustumContains,
+    frustumDistance,
+    frustumClosestPoint,
+    frustumExpand,
 
-    lineClosestPoint : lineClosestPoint,
+    lineClosestPoint,
 
-    planeClosestPoint : planeClosestPoint,
-    planeExpand : planeExpand,
+    planeClosestPoint,
+    planeExpand,
 
-    rayClosestPoint : rayClosestPoint,
+    rayClosestPoint,
 
-    segmentClosestPoint : segmentClosestPoint,
+    segmentClosestPoint,
 
-    sphereContains : sphereContains,
-    sphereIntersects : sphereIntersects,
-    sphereDistance : sphereDistance,
-    sphereClosestPoint : sphereClosestPoint,
-    sphereExpand : sphereExpand,
+    sphereContains,
+    sphereIntersects,
+    sphereDistance,
+    sphereClosestPoint,
+    sphereExpand,
   }
 
 }

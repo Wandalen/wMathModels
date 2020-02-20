@@ -391,20 +391,20 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
 let Proto =
 {
 
-  is : is,
-  like : like,
-  isZero : isZero,
+  is,
+  like,
+  isZero,
 
-  make : make,
-  makeZero : makeZero,
+  make,
+  makeZero,
 
-  from : from,
-  _from : _from,
+  from,
+  _from,
 
-  zero : zero,
+  zero,
 
-  fromMatrixRotation : fromMatrixRotation,
-  toMatrixRotation : toMatrixRotation,
+  fromMatrixRotation,
+  toMatrixRotation,
 
 }
 

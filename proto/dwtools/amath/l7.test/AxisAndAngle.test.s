@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withArray.Float32;
+var _ = _global_.wTools.withDefaultLong.Fx;
 var Space = _.Space;
 var Parent = wTester;
 
@@ -538,10 +538,10 @@ function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast( test )
 
   var o =
   {
-    deltas : deltas,
-    angles : angles,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    deltas,
+    angles,
+    anglesLocked,
+    onEach,
     dst : euler,
   }
 
@@ -597,10 +597,10 @@ function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow( test )
 
   var o =
   {
-    deltas : deltas,
-    angles : angles,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    deltas,
+    angles,
+    anglesLocked,
+    onEach,
     dst : euler,
   }
 
@@ -705,28 +705,28 @@ var Self =
 
   context :
   {
-    eachAngle : eachAngle,
+    eachAngle,
   },
 
   tests :
   {
 
-    is : is,
-    like : like,
-    isZero : isZero,
+    is,
+    like,
+    isZero,
 
-    make : make,
-    makeZero : makeZero,
+    make,
+    makeZero,
 
-    from : from,
-    _from : _from,
+    from,
+    _from,
 
-    zero : zero,
+    zero,
 
     /* takes 6 seconds */
-    eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast : eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast,
+    eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast,
     /* takes  seconds */
-    eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow : eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow,
+    eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow,
 
   },
 

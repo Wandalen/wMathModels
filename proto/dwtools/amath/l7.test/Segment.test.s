@@ -19,7 +19,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withArray.Float32;
+var _ = _global_.wTools.withDefaultLong.Fx;
 var Space = _.Space;
 var vector = _.vector;
 var vec = _.vector.fromArray;
@@ -5858,67 +5858,67 @@ var Self =
 
   tests :
   {
-    make : make,
-    makeZero : makeZero,
-    makeNil : makeNil,
+    make,
+    makeZero,
+    makeNil,
 
-    zero : zero,
-    nil : nil,
+    zero,
+    nil,
 
-    from: from,
-    _from : _from,
+    from,
+    _from,
 
-    is : is,
-    dimGet : dimGet,
-    originGet : originGet,
-    endPointGet : endPointGet,
-    directionGet : directionGet,
+    is,
+    dimGet,
+    originGet,
+    endPointGet,
+    directionGet,
 
-    segmentAt : segmentAt,
-    getFactor : getFactor,
+    segmentAt,
+    getFactor,
 
-    segmentParallel : segmentParallel,
+    segmentParallel,
 
-    segmentIntersectionFactors : segmentIntersectionFactors,
-    segmentIntersectionPoints : segmentIntersectionPoints,
-    segmentIntersectionPoint : segmentIntersectionPoint,
-    segmentIntersectionPointAccurate : segmentIntersectionPointAccurate,
+    segmentIntersectionFactors,
+    segmentIntersectionPoints,
+    segmentIntersectionPoint,
+    segmentIntersectionPointAccurate,
 
-    pointContains : pointContains,
-    pointDistance : pointDistance,
-    pointClosestPoint : pointClosestPoint,
+    pointContains,
+    pointDistance,
+    pointClosestPoint,
 
-    boxIntersects : boxIntersects,
-    boxDistance : boxDistance,
-    boxClosestPoint : boxClosestPoint,
-    boundingBoxGet : boundingBoxGet,
+    boxIntersects,
+    boxDistance,
+    boxClosestPoint,
+    boundingBoxGet,
 
-    capsuleClosestPoint : capsuleClosestPoint,
+    capsuleClosestPoint,
 
-    frustumIntersects : frustumIntersects,
-    frustumDistance : frustumDistance,
-    frustumClosestPoint : frustumClosestPoint,
+    frustumIntersects,
+    frustumDistance,
+    frustumClosestPoint,
 
-    lineIntersects : lineIntersects,
-    lineDistance : lineDistance,
-    lineClosestPoint : lineClosestPoint,
+    lineIntersects,
+    lineDistance,
+    lineClosestPoint,
 
-    planeIntersects : planeIntersects,
-    planeDistance : planeDistance,
-    planeClosestPoint : planeClosestPoint,
+    planeIntersects,
+    planeDistance,
+    planeClosestPoint,
 
-    rayIntersects : rayIntersects,
-    rayDistance : rayDistance,
-    rayClosestPoint : rayClosestPoint,
+    rayIntersects,
+    rayDistance,
+    rayClosestPoint,
 
-    segmentIntersects : segmentIntersects,
-    segmentDistance : segmentDistance,
-    segmentClosestPoint : segmentClosestPoint,
+    segmentIntersects,
+    segmentDistance,
+    segmentClosestPoint,
 
-    sphereIntersects : sphereIntersects,
-    sphereDistance : sphereDistance,
-    sphereClosestPoint : sphereClosestPoint,
-    boundingSphereGet : boundingSphereGet,
+    sphereIntersects,
+    sphereDistance,
+    sphereClosestPoint,
+    boundingSphereGet,
   }
 
 }

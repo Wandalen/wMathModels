@@ -50,7 +50,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withArray.Float32;
+var _ = _global_.wTools.withDefaultLong.Fx;
 var Space = _.Space;
 var Parent = wTester;
 
@@ -2503,10 +2503,10 @@ function eulerToQuatToEulerToQuatFast( test )
 
   var o =
   {
-    deltas : deltas,
-    angles : angles,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    deltas,
+    angles,
+    anglesLocked,
+    onEach,
     dst : euler1,
   }
 
@@ -2560,10 +2560,10 @@ function eulerToQuatToEulerToQuatSlow( test )
 
   var o =
   {
-    deltas : deltas,
-    angles : angles,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    deltas,
+    angles,
+    anglesLocked,
+    onEach,
     dst : euler1,
   }
 
@@ -2616,13 +2616,13 @@ function eulerToQuatToMatrixToQuatSlow( test )
 
   var o =
   {
-    //representations : representations,
-    //angles : angles,
-    //quadrants : quadrants,
-    // quadrantsLocked : quadrantsLocked,
-    deltas : deltas,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    //representations,
+    //angles,
+    //quadrants,
+    // quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
     dst : euler1,
   }
 
@@ -2682,13 +2682,13 @@ function eulerToQuatToMatrixToEulerSlow( test )
 
   var o =
   {
-    // representations : representations,
-    angles : angles,
-    // quadrants : quadrants,
-    // quadrantsLocked : quadrantsLocked,
-    deltas : deltas,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    // representations,
+    angles,
+    // quadrants,
+    // quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
     dst : euler1,
   }
 
@@ -2759,13 +2759,13 @@ function eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast( test )
 
   var o =
   {
-    //representations : representations,
-    angles : angles,
-    // quadrants : quadrants,
-    // quadrantsLocked : quadrantsLocked,
-    deltas : deltas,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    //representations,
+    angles,
+    // quadrants,
+    // quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
     dst : euler1,
   }
 
@@ -2826,13 +2826,13 @@ function eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow( test )
 
   var o =
   {
-    representations : representations,
-    // angles : angles,
-    // quadrants : quadrants,
-    // quadrantsLocked : quadrantsLocked,
-    deltas : deltas,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    representations,
+    // angles,
+    // quadrants,
+    // quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
     dst : euler1,
   }
 
@@ -3245,13 +3245,13 @@ function representFullCoverageFast( test )
 
   var o =
   {
-    // representations : representations,
-    angles : angles,
-    // quadrants : quadrants,
-    quadrantsLocked : quadrantsLocked,
-    deltas : deltas,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    // representations,
+    angles,
+    // quadrants,
+    quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
     dst : euler1,
   }
 
@@ -3319,13 +3319,13 @@ function representFullCoverageSlow( test )
 
   var o =
   {
-    // representations : representations,
-    angles : angles,
-    // quadrants : quadrants,
-    quadrantsLocked : quadrantsLocked,
-    deltas : deltas,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    // representations,
+    angles,
+    // quadrants,
+    quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
     dst : euler1,
   }
 
@@ -3747,58 +3747,58 @@ var Self =
 
   context :
   {
-    eachAngle : eachAngle,
+    eachAngle,
   },
 
   tests :
   {
 
-    is : is,
-    isZero : isZero,
+    is,
+    isZero,
 
-    make : make,
-    makeZero : makeZero,
+    make,
+    makeZero,
 
-    zero : zero,
+    zero,
 
-    //fromAxisAndAngle : fromAxisAndAngle,
-    fromQuat : fromQuat,
-    fromMatrix : fromMatrix,
-    toMatrix : toMatrix,
+    //fromAxisAndAngle,
+    fromQuat,
+    fromMatrix,
+    toMatrix,
 
-    fromQuat2 : fromQuat2,
-    toQuat2 : toQuat2,
-    eulerToQuatToEulerGimbalLock : eulerToQuatToEulerGimbalLock,
+    fromQuat2,
+    toQuat2,
+    eulerToQuatToEulerGimbalLock,
 
-    fromMatrix2 : fromMatrix2,
-    toMatrix2 : toMatrix2,
-    eulerToRotationMatrixToEulerGimbalLock : eulerToRotationMatrixToEulerGimbalLock,
+    fromMatrix2,
+    toMatrix2,
+    eulerToRotationMatrixToEulerGimbalLock,
 
     /* takes 6 seconds */
-    eulerToQuatToEulerToQuatFast : eulerToQuatToEulerToQuatFast,
+    eulerToQuatToEulerToQuatFast,
     /* takes 88 seconds - accuracy [ 1e-10, 1e-1 ] */
-    eulerToQuatToEulerToQuatSlow : eulerToQuatToEulerToQuatSlow,
+    eulerToQuatToEulerToQuatSlow,
 
     /* takes 140 seconds */
-    eulerToQuatToMatrixToQuatSlow : eulerToQuatToMatrixToQuatSlow,
+    eulerToQuatToMatrixToQuatSlow,
 
     /* takes 50 seconds - accuracy is 1E-5 */
-    eulerToQuatToMatrixToEulerSlow : eulerToQuatToMatrixToEulerSlow,
+    eulerToQuatToMatrixToEulerSlow,
 
     /* takes 8 seconds */
-    eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast : eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast,
+    eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast,
     /* takes 94.4 seconds */
-    eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow : eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow,
+    eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow,
 
-    represent : represent,
+    represent,
 
     /* takes 16 seconds */
-    representFullCoverageFast : representFullCoverageFast,
+    representFullCoverageFast,
 
     /* takes 117 seconds */
-    representFullCoverageSlow : representFullCoverageSlow,
+    representFullCoverageSlow,
 
-    isGimbalLock : isGimbalLock,
+    isGimbalLock,
   },
 
 }

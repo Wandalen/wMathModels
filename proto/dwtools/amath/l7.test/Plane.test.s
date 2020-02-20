@@ -16,7 +16,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withArray.Float32;
+var _ = _global_.wTools.withDefaultLong.Fx;
 var Space = _.Space;
 var vector = _.vector;
 var vec = _.vector.fromArray;
@@ -3044,45 +3044,45 @@ var Self =
   tests :
   {
 
-    from : from,
-    fromNormalAndPoint : fromNormalAndPoint,
-    fromPoints : fromPoints,
+    from,
+    fromNormalAndPoint,
+    fromPoints,
 
-    pointContains : pointContains,
-    pointDistance : pointDistance,
-    pointCoplanarGet : pointCoplanarGet,
+    pointContains,
+    pointDistance,
+    pointCoplanarGet,
 
-    boxIntersects : boxIntersects,
-    boxClosestPoint : boxClosestPoint,
-    boundingBoxGet : boundingBoxGet,
+    boxIntersects,
+    boxClosestPoint,
+    boundingBoxGet,
 
-    capsuleClosestPoint : capsuleClosestPoint,
+    capsuleClosestPoint,
 
-    frustumClosestPoint : frustumClosestPoint,
+    frustumClosestPoint,
 
-    lineIntersects : lineIntersects,
-    lineClosestPoint : lineClosestPoint,
+    lineIntersects,
+    lineClosestPoint,
 
-    planeIntersects : planeIntersects,
+    planeIntersects,
     planeDistance, planeDistance,
 
-    rayClosestPoint : rayClosestPoint,
+    rayClosestPoint,
 
-    segmentIntersects : segmentIntersects,
-    segmentClosestPoint : segmentClosestPoint,
+    segmentIntersects,
+    segmentClosestPoint,
 
-    sphereIntersects : sphereIntersects,
-    sphereDistance : sphereDistance,
-    sphereClosestPoint : sphereClosestPoint,
-    boundingSphereGet : boundingSphereGet,
+    sphereIntersects,
+    sphereDistance,
+    sphereClosestPoint,
+    boundingSphereGet,
 
-    //matrixHomogenousApply : matrixHomogenousApply,
-    translate : translate,
+    //matrixHomogenousApply,
+    translate,
 
-    normalize : normalize,
-    negate : negate,
+    normalize,
+    negate,
 
-    threeIntersectionPoint : threeIntersectionPoint,
+    threeIntersectionPoint,
 
   }
 

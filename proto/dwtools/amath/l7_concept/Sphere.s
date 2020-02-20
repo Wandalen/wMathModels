@@ -2428,80 +2428,80 @@ function translate( sphere,offset )
 let Proto =
 {
 
-  make : make,
-  makeZero : makeZero,
-  makeNil : makeNil,
+  make,
+  makeZero,
+  makeNil,
 
-  zero : zero,
-  nil : nil,
-  centeredOfRadius : centeredOfRadius,
+  zero,
+  nil,
+  centeredOfRadius,
 
-  toStr : toStr,
+  toStr,
 
-  from : from,
-  _from : _from,
-  fromPoints : fromPoints,
-  fromBox : fromBox,
-  fromCenterAndRadius : fromCenterAndRadius,
+  from,
+  _from,
+  fromPoints,
+  fromBox,
+  fromCenterAndRadius,
 
-  is : is,
-  isEmpty : isEmpty,
-  isZero : isZero,
-  isNil : isNil,
+  is,
+  isEmpty,
+  isZero,
+  isNil,
 
-  dimGet : dimGet,
-  centerGet : centerGet,
-  radiusGet : radiusGet,
-  radiusSet : radiusSet,
+  dimGet,
+  centerGet,
+  radiusGet,
+  radiusSet,
 
-  pointContains : pointContains,
-  pointDistance : pointDistance,
-  pointClosestPoint : pointClosestPoint,
-  // pointClosestPoint : pointClosestPoint, /* qqq : implement me - Already implemented - to test */
-  pointExpand : pointExpand,
+  pointContains,
+  pointDistance,
+  pointClosestPoint,
+  // pointClosestPoint, /* qqq : implement me - Already implemented - to test */
+  pointExpand,
 
-  boxContains : boxContains, /* qqq : implement me */
-  boxIntersects : boxIntersects,
-  boxDistance : boxDistance, /* qqq : implement me - Same as _.box.sphereDistance */
-  boxClosestPoint : boxClosestPoint, /* qqq : implement me */
-  boxExpand : boxExpand,
-  boundingBoxGet : boundingBoxGet,
+  boxContains, /* qqq : implement me */
+  boxIntersects,
+  boxDistance, /* qqq : implement me - Same as _.box.sphereDistance */
+  boxClosestPoint, /* qqq : implement me */
+  boxExpand,
+  boundingBoxGet,
 
-  capsuleIntersects : capsuleIntersects,
-  capsuleDistance : capsuleDistance,
-  capsuleClosestPoint : capsuleClosestPoint,
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
-  frustumContains : frustumContains, /* qqq : implement me */
-  frustumIntersects : frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
-  frustumDistance : frustumDistance, /* qqq : implement me */
-  frustumClosestPoint : frustumClosestPoint, /* qqq : implement me */
-  frustumExpand : frustumExpand, /* qqq : implement me */
+  frustumContains, /* qqq : implement me */
+  frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
+  frustumDistance, /* qqq : implement me */
+  frustumClosestPoint, /* qqq : implement me */
+  frustumExpand, /* qqq : implement me */
 
-  lineIntersects : lineIntersects, /* Same as _.line.sphereIntersects */
-  lineDistance : lineDistance,  /* Same as _.line.sphereDistance */
-  lineClosestPoint : lineClosestPoint,
+  lineIntersects, /* Same as _.line.sphereIntersects */
+  lineDistance,  /* Same as _.line.sphereDistance */
+  lineClosestPoint,
 
-  planeIntersects : planeIntersects, /* qqq : implement me - Same as _.plane.sphereIntersects */
-  planeDistance : planeDistance, /* qqq : implement me - Same as _.plane.sphereDistance */
-  planeClosestPoint : planeClosestPoint, /* qqq : implement me */
-  planeExpand : planeExpand, /* qqq : implement me */
+  planeIntersects, /* qqq : implement me - Same as _.plane.sphereIntersects */
+  planeDistance, /* qqq : implement me - Same as _.plane.sphereDistance */
+  planeClosestPoint, /* qqq : implement me */
+  planeExpand, /* qqq : implement me */
 
-  rayIntersects : rayIntersects, /* Same as _.ray.sphereIntersects */
-  rayDistance : rayDistance,  /* Same as _.ray.sphereDistance */
-  rayClosestPoint : rayClosestPoint,
+  rayIntersects, /* Same as _.ray.sphereIntersects */
+  rayDistance,  /* Same as _.ray.sphereDistance */
+  rayClosestPoint,
 
-  segmentIntersects : segmentIntersects, /* Same as _.segment.sphereIntersects */
-  segmentDistance : segmentDistance,  /* Same as _.segment.sphereDistance */
-  segmentClosestPoint : segmentClosestPoint,
+  segmentIntersects, /* Same as _.segment.sphereIntersects */
+  segmentDistance,  /* Same as _.segment.sphereDistance */
+  segmentClosestPoint,
 
-  sphereContains : sphereContains, /* qqq : implement me */
-  sphereIntersects : sphereIntersects,
-  sphereDistance : sphereDistance, /* qqq : implement me */
-  sphereClosestPoint : sphereClosestPoint, /* qqq : implement me */
-  sphereExpand : sphereExpand,
+  sphereContains, /* qqq : implement me */
+  sphereIntersects,
+  sphereDistance, /* qqq : implement me */
+  sphereClosestPoint, /* qqq : implement me */
+  sphereExpand,
 
-  matrixHomogenousApply : matrixHomogenousApply,
-  translate : translate,
+  matrixHomogenousApply,
+  translate,
 
 }
 

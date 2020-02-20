@@ -1846,65 +1846,65 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
 let Proto =
 {
 
-  make : make,
-  _from : _from,
-  is : is,
+  make,
+  _from,
+  is,
 
-  from : from,
-  fromNormalAndPoint : fromNormalAndPoint,
-  fromPoints : fromPoints,
+  from,
+  fromNormalAndPoint,
+  fromPoints,
 
-  dimGet : dimGet,
-  normalGet : normalGet,
-  biasGet : biasGet,
-  biasSet : biasSet,
+  dimGet,
+  normalGet,
+  biasGet,
+  biasSet,
 
-  pointContains : pointContains, /* qqq : implement me */
-  pointDistance : pointDistance,
-  pointCoplanarGet : pointCoplanarGet,
-  // pointClosestPoint : pointClosestPoint, /* qqq : implement me - done in pointCoplanarGet */
+  pointContains, /* qqq : implement me */
+  pointDistance,
+  pointCoplanarGet,
+  // pointClosestPoint, /* qqq : implement me - done in pointCoplanarGet */
 
-  boxIntersects : boxIntersects,
-  boxDistance : boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
-  boxClosestPoint : boxClosestPoint, /* qqq: implement me */
-  boundingBoxGet : boundingBoxGet,
+  boxIntersects,
+  boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
+  boxClosestPoint, /* qqq: implement me */
+  boundingBoxGet,
 
-  capsuleIntersects : capsuleIntersects,
-  capsuleDistance : capsuleDistance,
-  capsuleClosestPoint : capsuleClosestPoint,
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
-  frustumIntersects : frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
-  frustumDistance : frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
-  frustumClosestPoint : frustumClosestPoint, /* qqq: implement me */
+  frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
+  frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
+  frustumClosestPoint, /* qqq: implement me */
 
-  lineIntersects : lineIntersects,
-  lineIntersection : lineIntersection,
-  lineDistance : lineDistance,
-  lineClosestPoint : lineClosestPoint,
+  lineIntersects,
+  lineIntersection,
+  lineDistance,
+  lineClosestPoint,
 
-  planeIntersects : planeIntersects, /* qqq: implement me */
-  planeDistance : planeDistance, /* qqq: implement me */
+  planeIntersects, /* qqq: implement me */
+  planeDistance, /* qqq: implement me */
 
-  rayIntersects : rayIntersects, /* Same as _.ray.planeIntersects */
-  rayDistance : rayDistance, /* Same as _.ray.planeDistance */
-  rayClosestPoint : rayClosestPoint,
+  rayIntersects, /* Same as _.ray.planeIntersects */
+  rayDistance, /* Same as _.ray.planeDistance */
+  rayClosestPoint,
 
-  segmentIntersects : segmentIntersects,
-  segmentDistance : segmentDistance,
-  segmentClosestPoint : segmentClosestPoint,
+  segmentIntersects,
+  segmentDistance,
+  segmentClosestPoint,
 
-  sphereIntersects : sphereIntersects,
-  sphereDistance : sphereDistance,
-  sphereClosestPoint : sphereClosestPoint, /* qqq: implement me */
-  boundingSphereGet : boundingSphereGet,
+  sphereIntersects,
+  sphereDistance,
+  sphereClosestPoint, /* qqq: implement me */
+  boundingSphereGet,
 
-  matrixHomogenousApply : matrixHomogenousApply,
-  translate : translate,
+  matrixHomogenousApply,
+  translate,
 
-  normalize : normalize,
-  negate : negate,
+  normalize,
+  negate,
 
-  threeIntersectionPoint : threeIntersectionPoint,
+  threeIntersectionPoint,
 
 }
 

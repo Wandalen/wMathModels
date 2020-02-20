@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withArray.Float32;
+var _ = _global_.wTools.withDefaultLong.Fx;
 var Space = _.Space;
 var Parent = wTester;
 
@@ -589,10 +589,10 @@ function eulerToQuatToAxisAndAngleToQuatSlow( test )
 
   var o =
   {
-    deltas : deltas,
-    angles : angles,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    deltas,
+    angles,
+    anglesLocked,
+    onEach,
     dst : euler,
   }
 
@@ -1090,10 +1090,10 @@ function eulerToQuatToMatrixToQuatFast( test )
 
   var o =
   {
-    deltas : deltas,
-    angles : angles,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    deltas,
+    angles,
+    anglesLocked,
+    onEach,
     dst : euler,
   }
 
@@ -1145,10 +1145,10 @@ function eulerToQuatToMatrixToQuatSlow( test )
 
   var o =
   {
-    deltas : deltas,
-    angles : angles,
-    anglesLocked : anglesLocked,
-    onEach : onEach,
+    deltas,
+    angles,
+    anglesLocked,
+    onEach,
     dst : euler,
   }
 
@@ -1367,44 +1367,44 @@ var Self =
 
   context :
   {
-    _fromVectors : _fromVectors,
-    _fromMatrixRotation : _fromMatrixRotation,
-    eachAngle : eachAngle,
+    _fromVectors,
+    _fromMatrixRotation,
+    eachAngle,
   },
 
   tests :
   {
 
-    make : make,
-    makeZero : makeZero,
-    makeUnit : makeUnit,
+    make,
+    makeZero,
+    makeUnit,
 
-    zero : zero,
-    unit : unit,
+    zero,
+    unit,
 
-    fromEuler : fromEuler,
+    fromEuler,
 
-    fromAxisAndAngle : fromAxisAndAngle,
+    fromAxisAndAngle,
 
     /* takes 79 seconds */
-    eulerToQuatToAxisAndAngleToQuatSlow : eulerToQuatToAxisAndAngleToQuatSlow,
+    eulerToQuatToAxisAndAngleToQuatSlow,
 
-    fromVectors : fromVectors,
-    fromNormalizedVectors : fromNormalizedVectors,
+    fromVectors,
+    fromNormalizedVectors,
 
-    // fromMatrixRotation : fromMatrixRotation,
-    // fromMatrixRotation2 : fromMatrixRotation2,
+    // fromMatrixRotation,
+    // fromMatrixRotation2,
 
-    toMatrix : toMatrix,
+    toMatrix,
 
     /* takes 6 seconds */
-    eulerToQuatToMatrixToQuatFast: eulerToQuatToMatrixToQuatFast,
+    eulerToQuatToMatrixToQuatFast,
     /* takes 88 seconds */
-    eulerToQuatToMatrixToQuatSlow: eulerToQuatToMatrixToQuatSlow,
+    eulerToQuatToMatrixToQuatSlow,
 
-    is : is,
-    isZero : isZero,
-    isUnit : isUnit,
+    is,
+    isZero,
+    isUnit,
 
   },
 
