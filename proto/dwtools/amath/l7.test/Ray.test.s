@@ -20,9 +20,9 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Space;
-var vector = _.vector;
-var vec = _.vector.fromArray;
+var Space = _.Matrix;
+var vector = _.vectorAdapter;
+var vec = _.vectorAdapter.FromLong;
 var avector = _.avector;
 var sqrt = _.sqrt;
 var Parent = wTester;
@@ -69,7 +69,7 @@ function make( test )
 
   test.case = 'srcDim vector'; /* */
 
-  var srcDim = _.vector.fromArray([ 0, 1, 2, 3 ]);
+  var srcDim = _.vectorAdapter.FromLong([ 0, 1, 2, 3 ]);
   var gotRay = _.ray.make( srcDim );
   var expected = [ 0,1,2,3 ];
   test.identical( gotRay, expected );
@@ -121,7 +121,7 @@ function makeZero( test )
 
   test.case = 'srcDim vector'; /* */
 
-  var srcDim = _.vector.fromArray([ 0, 1, 2, 3 ]);
+  var srcDim = _.vectorAdapter.FromLong([ 0, 1, 2, 3 ]);
   var gotRay = _.ray.makeZero( srcDim );
   var expected = [ 0, 0, 0, 0 ];
   test.identical( gotRay, expected );
@@ -174,7 +174,7 @@ function makeNil( test )
 
   test.case = 'srcDim vector'; /* */
 
-  var srcDim = _.vector.fromArray([ 0, 1, 2, 3 ]);
+  var srcDim = _.vectorAdapter.FromLong([ 0, 1, 2, 3 ]);
   var gotRay = _.ray.makeNil( srcDim );
   var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
   test.identical( gotRay, expected );
@@ -226,9 +226,9 @@ function zero( test )
 
   test.case = 'srcRay vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotRay = _.ray.zero( srcRay );
-  var expected =  _.vector.fromArray( [ 0, 0, 0, 0 ] );
+  var expected =  _.vectorAdapter.FromLong( [ 0, 0, 0, 0 ] );
   test.identical( gotRay, expected );
   test.is( gotRay === srcRay );
 
@@ -279,9 +279,9 @@ function nil( test )
 
   test.case = 'srcRay vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotRay = _.ray.nil( srcRay );
-  var expected = _.vector.fromArray( [ Infinity, Infinity, - Infinity, - Infinity ] );
+  var expected = _.vectorAdapter.FromLong( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
   test.is( gotRay === srcRay );
 
@@ -308,8 +308,8 @@ function from( test )
 
   test.case = 'Different instance returned - vector -> array'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 0, 2, 2 ] );
-  var expected = _.vector.fromArray( [ 0, 0, 2, 2 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 0, 2, 2 ] );
+  var expected = _.vectorAdapter.FromLong( [ 0, 0, 2, 2 ] );
 
   var gotRay = _.ray.from( srcRay );
   test.identical( gotRay, expected );
@@ -352,7 +352,7 @@ function _from( test )
   test.case = 'Same instance returned - vector'; /* */
 
   var srcRay = [ 0, 0, 2, 2 ];
-  var expected = _.vector.from( [ 0, 0, 2, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 2, 2 ] );
 
   var gotRay = _.ray._from( srcRay );
   test.identical( gotRay, expected );
@@ -360,8 +360,8 @@ function _from( test )
 
   test.case = 'Different instance returned - vector -> vector'; /* */
 
-  var srcRay = _.vector.from( [ 0, 0, 2, 2 ] );
-  var expected = _.vector.from( [ 0, 0, 2, 2 ] );
+  var srcRay = _.vectorAdapter.From( [ 0, 0, 2, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 2, 2 ] );
 
   var gotRay = _.ray._from( srcRay );
   test.identical( gotRay, expected );
@@ -370,7 +370,7 @@ function _from( test )
   test.case = 'Same instance returned - empty vector'; /* */
 
   var srcRay = [];
-  var expected =  _.vector.from( [] );
+  var expected =  _.vectorAdapter.From( [] );
 
   var gotRay = _.ray._from( srcRay );
   test.identical( gotRay, expected );
@@ -397,7 +397,7 @@ function fromPair( test )
   test.case = 'Pair stay unchanged'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
-  var expected = _.vector.from( [ 0, 1, 2, 0, 1, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1, 2, 0, 1, 2 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -408,7 +408,7 @@ function fromPair( test )
   test.case = 'Ray starts in origin'; /* */
 
   var pair = [ [ 0, 0, 0 ], [ 0, 1, 2 ] ];
-  var expected = _.vector.from( [ 0, 0, 0, 0, 1, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 0, 0, 1, 2 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -416,7 +416,7 @@ function fromPair( test )
   test.case = 'Ray is point'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 1, 2 ] ];
-  var expected =  _.vector.from( [ 0, 1, 2, 0, 0, 0 ] );
+  var expected =  _.vectorAdapter.From( [ 0, 1, 2, 0, 0, 0 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -424,7 +424,7 @@ function fromPair( test )
   test.case = 'Ray of 1 dimension'; /* */
 
   var pair = [ [ 3 ], [ 4 ] ];
-  var expected =  _.vector.from( [ 3, 1 ] );
+  var expected =  _.vectorAdapter.From( [ 3, 1 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -432,7 +432,7 @@ function fromPair( test )
   test.case = 'Ray goes up in y and down in z'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 3, 1 ] ];
-  var expected =  _.vector.from( [ 0, 1, 2, 0, 2, -1 ] );
+  var expected =  _.vectorAdapter.From( [ 0, 1, 2, 0, 2, -1 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -464,18 +464,18 @@ function is( test )
 
   test.case = 'vector'; /* */
 
-  test.is( _.ray.is( _.vector.fromArray([]) ) );
-  test.is( _.ray.is( _.vector.fromArray([ 0, 0 ]) ) );
-  test.is( _.ray.is( _.vector.fromArray([ 1, 2, 3, 4 ]) ) );
-  test.is( _.ray.is( _.vector.fromArray([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( _.ray.is( _.vectorAdapter.FromLong([]) ) );
+  test.is( _.ray.is( _.vectorAdapter.FromLong([ 0, 0 ]) ) );
+  test.is( _.ray.is( _.vectorAdapter.FromLong([ 1, 2, 3, 4 ]) ) );
+  test.is( _.ray.is( _.vectorAdapter.FromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not ray'; /* */
 
   test.is( !_.ray.is([ 0 ]) );
   test.is( !_.ray.is([ 0, 0, 0 ]) );
 
-  test.is( !_.ray.is( _.vector.fromArray([ 0 ]) ) );
-  test.is( !_.ray.is( _.vector.fromArray([ 0, 0, 0 ]) ) );
+  test.is( !_.ray.is( _.vectorAdapter.FromLong([ 0 ]) ) );
+  test.is( !_.ray.is( _.vectorAdapter.FromLong([ 0, 0, 0 ]) ) );
 
   test.is( !_.ray.is( 'abc' ) );
   test.is( !_.ray.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
@@ -507,7 +507,7 @@ function dimGet( test )
 
   test.case = 'srcRay 1D - vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1 ] );
   var gotDim = _.ray.dimGet( srcRay );
   var expected = 1;
   test.identical( gotDim, expected );
@@ -523,7 +523,7 @@ function dimGet( test )
 
   test.case = 'srcRay 2D - vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotDim = _.ray.dimGet( srcRay );
   var expected = 2;
   test.identical( gotDim, expected );
@@ -539,7 +539,7 @@ function dimGet( test )
 
   test.case = 'srcRay 3D - vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3, 4, 5 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotDim = _.ray.dimGet( srcRay );
   var expected = 3;
   test.identical( gotDim, expected );
@@ -566,7 +566,7 @@ function originGet( test )
   test.case = 'Source ray remains unchanged'; /* */
 
   var srcRay = [ 0, 0, 1, 1 ];
-  var expected = _.vector.from( [ 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0 ] );
 
   var gotOrigin = _.ray.originGet( srcRay );
   test.identical( gotOrigin, expected );
@@ -578,15 +578,15 @@ function originGet( test )
 
   var srcRay = [ 0, 1 ];
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vector.from( [ 0 ] );
+  var expected = _.vectorAdapter.From( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
   test.case = 'srcRay 1D - vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1 ] );
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vector.from( [ 0 ] );
+  var expected = _.vectorAdapter.From( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
@@ -594,15 +594,15 @@ function originGet( test )
 
   var srcRay = [ 0, 1, 2, 3 ];
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vector.from( [ 0, 1 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
   test.case = 'srcRay 2D - vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vector.from( [ 0, 1 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
@@ -610,15 +610,15 @@ function originGet( test )
 
   var srcRay = [ 0, 1, 2, 3, 4, 5 ];
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vector.from( [ 0, 1, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
   test.case = 'srcRay 3D - vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3, 4, 5 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vector.from( [ 0, 1, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
@@ -643,7 +643,7 @@ function directionGet( test )
   test.case = 'Source ray remains unchanged'; /* */
 
   var srcRay = [ 0, 0, 1, 1 ];
-  var expected = _.vector.from( [ 1, 1 ] );
+  var expected = _.vectorAdapter.From( [ 1, 1 ] );
 
   var gotDirection = _.ray.directionGet( srcRay );
   test.identical( gotDirection, expected );
@@ -655,15 +655,15 @@ function directionGet( test )
 
   var srcRay = [ 0, 1 ];
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vector.from( [ 1 ] );
+  var expected = _.vectorAdapter.From( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
   test.case = 'srcRay 1D - vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1 ] );
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vector.from( [ 1 ] );
+  var expected = _.vectorAdapter.From( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
@@ -671,15 +671,15 @@ function directionGet( test )
 
   var srcRay = [ 0, 1, 2, 3 ];
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vector.from( [ 2, 3 ] );
+  var expected = _.vectorAdapter.From( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
   test.case = 'srcRay 2D - vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vector.from( [ 2, 3 ] );
+  var expected = _.vectorAdapter.From( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
@@ -687,15 +687,15 @@ function directionGet( test )
 
   var srcRay = [ 0, 1, 2, 3, 4, 5 ];
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vector.from( [ 3, 4, 5 ] );
+  var expected = _.vectorAdapter.From( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
   test.case = 'srcRay 3D - vector'; /* */
 
-  var srcRay = _.vector.fromArray( [ 0, 1, 2, 3, 4, 5 ] );
+  var srcRay = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vector.from( [ 3, 4, 5 ] );
+  var expected = _.vectorAdapter.From( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
@@ -1300,7 +1300,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 1, 1 ];
   var src2Ray = [ 0, 0, 2, 2 ];
-  var expected = _.vector.from( [ 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.identical( isIntersectionFactors, expected );
@@ -1315,7 +1315,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 1, 1 ];
   var src2Ray = [ 0, 0, 1, 1 ];
-  var expected = _.vector.from( [ 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.identical( isIntersectionFactors, expected );
@@ -1351,7 +1351,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 3, 7, 1, 0 ];
   var src2Ray = [ 3, 7, 0, 1 ];
-  var expected = _.vector.from( [ 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1360,7 +1360,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 1, 0 ];
   var src2Ray = [ -2, -6, 1, 2 ];
-  var expected = _.vector.from( [ 1, 3 ] );
+  var expected = _.vectorAdapter.From( [ 1, 3 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1369,7 +1369,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ -3, 0, 1, 0 ];
   var src2Ray = [ 0, -2, 0, 1 ];
-  var expected = _.vector.from( [ 3, 2 ] );
+  var expected = _.vectorAdapter.From( [ 3, 2 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1378,7 +1378,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
   var src2Ray = [ 3, 3, 3, 0, 1, 4 ];
-  var expected = _.vector.from( [ 3, 0 ] );
+  var expected = _.vectorAdapter.From( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1387,7 +1387,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 1, 1, 0 ];
   var src2Ray = [ 3, 3, 0, 0, 1, 0 ];
-  var expected = _.vector.from( [ 3, 0 ] );
+  var expected = _.vectorAdapter.From( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1405,7 +1405,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Ray = [ 3, 3, 3, 3, 0, 2, 1, 4 ];
-  var expected = _.vector.from( [ 3, 0 ] );
+  var expected = _.vectorAdapter.From( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1432,7 +1432,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1  ];
   var src2Ray = [ 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 1, 4, 0, 2, 1, 4 ];
-  var expected = _.vector.from( [ 3, 0 ] );
+  var expected = _.vectorAdapter.From( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -2816,7 +2816,7 @@ function boundingBoxGet( test )
 
   test.case = 'srcRay vector'; /* */
 
-  var srcRay = _.vector.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
+  var srcRay = _.vectorAdapter.From( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
   var expected = [ - 8, - 5, 4.5, Infinity, Infinity, Infinity ];
 
@@ -2826,8 +2826,8 @@ function boundingBoxGet( test )
   test.case = 'dstBox vector - 2D'; /* */
 
   var srcRay = [ - 1, 0, - 2, 3 ];
-  var dstBox = _.vector.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vector.from( [ - Infinity, 0, - 1, Infinity ] );
+  var dstBox = _.vectorAdapter.From( [ 1, 2, 3, 9 ] );
+  var expected = _.vectorAdapter.From( [ - Infinity, 0, - 1, Infinity ] );
 
   var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
   test.identical( gotBox, expected );
@@ -2996,7 +2996,7 @@ function frustumIntersects( test )
 
   test.description = 'Ray and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3012,7 +3012,7 @@ function frustumIntersects( test )
   var oldRay = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( ray, oldRay );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3024,7 +3024,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and ray intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3039,7 +3039,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and ray intersect on frustum corner'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3054,7 +3054,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum corner is ray origin'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3069,7 +3069,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and ray intersect on frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3084,7 +3084,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and ray not intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3099,7 +3099,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and ray almost intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3114,7 +3114,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and ray just touching'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3129,7 +3129,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and ray just intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3144,7 +3144,7 @@ function frustumIntersects( test )
 
   test.description = 'ray is null - intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3159,7 +3159,7 @@ function frustumIntersects( test )
 
   test.description = 'ray is null - no intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3177,7 +3177,7 @@ function frustumIntersects( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3211,7 +3211,7 @@ function frustumDistance( test )
 
   test.description = 'Ray and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3227,7 +3227,7 @@ function frustumDistance( test )
   var oldRay = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( ray, oldRay );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3238,7 +3238,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and ray intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3253,7 +3253,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and ray intersect on frustum corner'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3268,7 +3268,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and ray intersect on frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3283,7 +3283,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and ray not intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3298,7 +3298,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and ray almost intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3313,7 +3313,7 @@ function frustumDistance( test )
 
   test.description = 'ray is null - intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3328,7 +3328,7 @@ function frustumDistance( test )
 
   test.description = 'ray is null - no intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3343,7 +3343,7 @@ function frustumDistance( test )
 
   test.description = 'ray closest to box side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3358,7 +3358,7 @@ function frustumDistance( test )
 
   test.description = 'Inclined ray closest to box side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3376,7 +3376,7 @@ function frustumDistance( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3410,7 +3410,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Ray and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3426,7 +3426,7 @@ function frustumClosestPoint( test )
   var oldRay = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( ray, oldRay );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3437,7 +3437,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and ray intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3452,7 +3452,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and ray intersect on frustum corner'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3467,7 +3467,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and ray intersect on frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3482,7 +3482,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and ray not intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3497,7 +3497,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and ray almost intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3512,7 +3512,7 @@ function frustumClosestPoint( test )
 
   test.description = 'ray is null - intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3527,7 +3527,7 @@ function frustumClosestPoint( test )
 
   test.description = 'ray is null - no intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3542,7 +3542,7 @@ function frustumClosestPoint( test )
 
   test.description = 'ray closest to box side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3557,7 +3557,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Inclined ray closest to box side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3572,7 +3572,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Destination point is vector'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3580,8 +3580,8 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var ray = [ 0, 2, 2, - 1, - 1, - 1 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ -0.5, 1.5, 1.5 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ -0.5, 1.5, 1.5 ] );
 
   var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -3591,7 +3591,7 @@ function frustumClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4196,8 +4196,8 @@ function planeClosestPoint( test )
 
   var ray = [ 0, -6, 24, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, -6, 24 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, -6, 24 ] );
 
   var gotPoint = _.ray.planeClosestPoint( ray, plane, dstPoint );
   test.identical( gotPoint,  expected );
@@ -5204,8 +5204,8 @@ function sphereClosestPoint( test )
 
   var ray = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 0, 5, 0, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 5, 4 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 5, 4 ] );
 
   var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere, dstPoint );
   test.identical( gotClosestPoint,  expected );
@@ -5303,7 +5303,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcRay vector'; /* */
 
-  var srcRay = _.vector.from( [- 1, - 1, - 1, 1, 1, 1 ] );
+  var srcRay = _.vectorAdapter.From( [- 1, - 1, - 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ - 1, - 1, - 1, Infinity ];
 
@@ -5313,8 +5313,8 @@ function boundingSphereGet( test )
   test.case = 'dstSphere vector'; /* */
 
   var srcRay = [- 1, - 1, - 1, 3, 3, 1 ];
-  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vector.from( [ - 1, - 1, - 1, Infinity ] );
+  var dstSphere = _.vectorAdapter.From( [ 5, 5, 5, 3 ] );
+  var expected = _.vectorAdapter.From( [ - 1, - 1, - 1, Infinity ] );
 
   var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
   test.identical( gotSphere, expected );
@@ -5339,7 +5339,7 @@ function boundingSphereGet( test )
 
   test.case = 'Direccion module very small'; /* */
 
-  var srcRay = _.vector.from( [ 4, 4, 4, 0, 1E-12, - 1E-12 ] );
+  var srcRay = _.vectorAdapter.From( [ 4, 4, 4, 0, 1E-12, - 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 4, 4, 4, Infinity ];
 

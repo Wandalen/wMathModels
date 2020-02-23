@@ -17,9 +17,9 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Space;
-var vector = _.vector;
-var vec = _.vector.fromArray;
+var Space = _.Matrix;
+var vector = _.vectorAdapter;
+var vec = _.vectorAdapter.FromLong;
 var avector = _.avector;
 var sqrt = _.sqrt;
 var Parent = wTester;
@@ -493,7 +493,7 @@ function pointContains( test )
 
   var plane = [ 2, 1, 0, 0 ];
   var point = [ 6, 3, -4 ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = false;
 
   var distance = _.plane.pointContains( plane, point );
@@ -503,7 +503,7 @@ function pointContains( test )
 
   var plane = [ NaN, NaN, NaN, NaN ];
   var point = [ 2, 1, 0 ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = false;
 
   var distance = _.plane.pointContains( plane, point );
@@ -513,7 +513,7 @@ function pointContains( test )
 
   var plane = [ 0, 0, 0, 0 ];
   var point = [ NaN, NaN, NaN ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = false;
 
   var distance = _.plane.pointContains( plane, point );
@@ -523,7 +523,7 @@ function pointContains( test )
 
   var plane = [ 0, 0, 1, 1 ];
   var point = [ 0, 0, - 2 ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = false;
 
   var distance = _.plane.pointContains( plane, point );
@@ -603,8 +603,8 @@ function pointDistance( test )
   var oldPlane = plane.slice();
   var point = [ 0, 1, 0 ];
   var oldPoint = point.slice();
-  oldPoint = _.vector.from( point );
-  point = _.vector.from( point );
+  oldPoint = _.vectorAdapter.From( point );
+  point = _.vectorAdapter.From( point );
   var expected = 2;
 
   var distance = _.plane.pointDistance( plane, point );
@@ -616,7 +616,7 @@ function pointDistance( test )
 
   var plane = [ NaN, NaN, NaN, NaN ];
   var point = [ 2, 1, 0 ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = NaN;
 
   var distance = _.plane.pointDistance( plane, point );
@@ -626,7 +626,7 @@ function pointDistance( test )
 
   var plane = [ 0, 0, 0, 0 ];
   var point = [ NaN, NaN, NaN ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = NaN;
 
   var distance = _.plane.pointDistance( plane, point );
@@ -636,7 +636,7 @@ function pointDistance( test )
 
   var plane = [ 0, 1, 0, 2 ];
   var point = [ 1, 1, 1 ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = 3;
 
   var distance = _.plane.pointDistance( plane, point );
@@ -646,7 +646,7 @@ function pointDistance( test )
 
   var plane = [ 0, 0, 1, 1 ];
   var point = [ 0, 0, - 2 ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = - 1;
 
   var distance = _.plane.pointDistance( plane, point );
@@ -656,7 +656,7 @@ function pointDistance( test )
 
   var plane = [ 0, 0, 1, 1 ];
   var point = [ 0, 0, 2 ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = 3;
 
   var distance = _.plane.pointDistance( plane, point );
@@ -666,7 +666,7 @@ function pointDistance( test )
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.2, 0.6 ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = 0;
 
   var distance = _.plane.pointDistance( plane, point );
@@ -676,7 +676,7 @@ function pointDistance( test )
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.1, 0.6 ];
-  point = _.vector.from( point );
+  point = _.vectorAdapter.From( point );
   var expected = - 0.08017837257372731;
 
   var distance = _.plane.pointDistance( plane, point );
@@ -693,9 +693,9 @@ function pointDistance( test )
   var plane = _.plane.fromPoints( plane, a, b, c );
   test.equivalent( plane, expected );
 
-  a = _.vector.from( a );
-  b = _.vector.from( b );
-  c = _.vector.from( c );
+  a = _.vectorAdapter.From( a );
+  b = _.vectorAdapter.From( b );
+  c = _.vectorAdapter.From( c );
   expected = 0;
 
   var dist = _.plane.pointDistance( plane, a );
@@ -790,8 +790,8 @@ function pointCoplanarGet( test )
 
   var plane = [ 1, 0 , 0, 1 ];
   var point = [ - 1, 2, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ - 1, 2, 3 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ - 1, 2, 3 ] );
 
   gotPoint = _.plane.pointCoplanarGet( plane, point, dstPoint );
   test.identical( expected, gotPoint );
@@ -1140,7 +1140,7 @@ function boundingBoxGet( test )
 
   test.case = 'srcPlane vector'; /* */
 
-  var srcPlane = _.vector.from( [ - 8, - 5, 4.5, 4 ] );
+  var srcPlane = _.vectorAdapter.From( [ - 8, - 5, 4.5, 4 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
   var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
 
@@ -1150,8 +1150,8 @@ function boundingBoxGet( test )
   test.case = 'dstBox vector - 2D'; /* */
 
   var srcPlane = [ - 4, 0, 1 ];
-  var dstBox = _.vector.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vector.from( [ 0.25, - Infinity, 0.25, Infinity ] );
+  var dstBox = _.vectorAdapter.From( [ 1, 2, 3, 9 ] );
+  var expected = _.vectorAdapter.From( [ 0.25, - Infinity, 0.25, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1294,7 +1294,7 @@ function frustumClosestPoint( test )
   test.case = 'Plane and frustum remain unchanged'; /* */
 
   var srcPlane = [ 1, 0, 0, 1 ];
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -1309,7 +1309,7 @@ function frustumClosestPoint( test )
   var oldSrcPlane = [ 1, 0, 0, 1 ];
   test.identical( srcPlane, oldSrcPlane );
 
-  var oldSrcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldSrcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -1321,7 +1321,7 @@ function frustumClosestPoint( test )
   test.case = 'srcFrustum and plane don´t intersect'; /* */
 
   var srcPlane = [ 1, 0, 0, 1 ];
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -1336,7 +1336,7 @@ function frustumClosestPoint( test )
   test.case = 'srcFrustum and Plane intersect'; /* */
 
   var srcPlane = [ 2, 4, - 4, - 6 ];
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -1351,7 +1351,7 @@ function frustumClosestPoint( test )
   test.case = 'Plane is frustum side'; /* */
 
   var srcPlane = [ 1, 0 , 0, -1 ];
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -1366,7 +1366,7 @@ function frustumClosestPoint( test )
   test.case = 'srcFrustum corner opposite to plane'; /* */
 
   var srcPlane = [ 1, 1, 1, 3 ];
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -1381,7 +1381,7 @@ function frustumClosestPoint( test )
   test.case = 'srcFrustum and srcPlane are parallel'; /* */
 
   var srcPlane = [ 1, 0, 0, 4 ];
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -1396,15 +1396,15 @@ function frustumClosestPoint( test )
   test.case = 'dstPoint is vector'; /* */
 
   var srcPlane = [ 1, 0, 0, 4 ];
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] )
-  var expected = _.vector.from( [ - 4, 1, 1 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] )
+  var expected = _.vectorAdapter.From( [ - 4, 1, 1 ] );
 
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -1599,8 +1599,8 @@ function lineClosestPoint( test )
 
   var srcPlane = [ 0, 1, 0, -2 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 5, 2, 1 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 5, 2, 1 ] );
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
@@ -1893,8 +1893,8 @@ function rayClosestPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 5, 1 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 5, 1 ] );
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
@@ -2126,8 +2126,8 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ 0, 1, 0, -2 ];
   var tstSegment = [ 1, 0, 0, 5, - 5, 1 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 1, 2, 0 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 1, 2, 0 ] );
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
@@ -2522,7 +2522,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcPlane vector'; /* */
 
-  var srcPlane = _.vector.from( [- 1, - 1, - 1, 1 ] );
+  var srcPlane = _.vectorAdapter.From( [- 1, - 1, - 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 1 / 3, 1 / 3, 1 / 3, Infinity ];
 
@@ -2532,8 +2532,8 @@ function boundingSphereGet( test )
   test.case = 'dstSphere vector'; /* */
 
   var srcPlane = [- 1, - 1, - 1, 3 ];
-  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vector.from( [ 1, 1, 1, Infinity ] );
+  var dstSphere = _.vectorAdapter.From( [ 5, 5, 5, 3 ] );
+  var expected = _.vectorAdapter.From( [ 1, 1, 1, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -2558,7 +2558,7 @@ function boundingSphereGet( test )
 
   test.case = 'Very small normal'; /* */
 
-  var srcPlane = _.vector.from( [ 1E-12, 1E-12, 1E-12, 1E-12 ] );
+  var srcPlane = _.vectorAdapter.From( [ 1E-12, 1E-12, 1E-12, 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ - 1 / 3, - 1 / 3, - 1 / 3, Infinity ];
 
@@ -2937,7 +2937,7 @@ function threeIntersectionPoint( test )
   var plane3 = [ 1, 0 , 1, 1 ];
   var oldPlane3 = plane3.slice();
   var expected = [ - 1, 0, 0 ];
-  expected = _.vector.from( expected );
+  expected = _.vectorAdapter.From( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, interPoint );
@@ -2971,7 +2971,7 @@ function threeIntersectionPoint( test )
   var plane2 = [ 0, 1 , 0, 0 ];
   var plane3 = [ 0, 0 , 1, 0 ];
   var expected = [ 0, 0, 0 ];
-  expected = _.vector.from( expected );
+  expected = _.vectorAdapter.From( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.equivalent( expected, interPoint );
@@ -2982,7 +2982,7 @@ function threeIntersectionPoint( test )
   var plane2 = [ 0, 1 , 0, 0 ];
   var plane3 = [ 0, - 1, 6, 0 ];
   var expected = [ 0, 0, 0 ];
-  expected = _.vector.from( expected );
+  expected = _.vectorAdapter.From( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.equivalent( expected, interPoint );
@@ -2993,7 +2993,7 @@ function threeIntersectionPoint( test )
   var plane2 = [ 0, - 4 , 0, 4 ];
   var plane3 = [ 0, 0 , 5, 5 ];
   var expected = [ - 1, 1, - 1 ];
-  expected = _.vector.from( expected );
+  expected = _.vectorAdapter.From( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, interPoint );
@@ -3004,7 +3004,7 @@ function threeIntersectionPoint( test )
   var plane2 = [ 1, 1 , 0, - 5 ];
   var plane3 = [ 1, - 1 , 6, 0 ];
   var expected = [ - 32, 37, 11.5 ];
-  expected = _.vector.from( expected );
+  expected = _.vectorAdapter.From( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, interPoint );

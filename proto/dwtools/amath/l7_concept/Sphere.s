@@ -4,7 +4,7 @@
 
 let _ = _global_.wTools;
 let avector = _.avector;
-let vector = _.vector;
+let vector = _.vectorAdapter;
 let Self = _.sphere = _.sphere || Object.create( null );
 
 /**
@@ -290,8 +290,8 @@ function toStr( sphere,options )
   * _.from( [ 1, 1, 2, 2 ] );
   *
   * @example
-  * // returns _.vector.from( [ 1, 1, 2, 2 ] );
-  * _.from( _.vector.from( [ 1, 1, 2, 2 ] ) );
+  * // returns _.vectorAdapter.From( [ 1, 1, 2, 2 ] );
+  * _.from( _.vectorAdapter.From( [ 1, 1, 2, 2 ] ) );
   *
   * @function from
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
@@ -332,7 +332,7 @@ function from( sphere )
   * @param { Array } sphere - Destination sphere.
   *
   * @example
-  * // returns _.vector.from( [ 1, 1, 2, 2 ] );
+  * // returns _.vectorAdapter.From( [ 1, 1, 2, 2 ] );
   * _._from( [ 1, 1, 2, 2 ] );
   *
   * @returns { Vector } Returns the vector of the sphere.
@@ -345,7 +345,7 @@ function _from( sphere )
 {
   _.assert( _.sphere.is( sphere ) )
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return _.vector.from( sphere );
+  return _.vectorAdapter.From( sphere );
 }
 
 //
@@ -394,7 +394,7 @@ function fromPoints( sphere, points )
 
   for ( let i = 0 ; i < points.length ; i += 1 )
   {
-    maxr = Math.max( maxr, _.vector.distanceSqr( center , _.vector.from( points[ i ] ) ) );
+    maxr = Math.max( maxr, _.vectorAdapter.distanceSqr( center , _.vectorAdapter.From( points[ i ] ) ) );
   }
 
   debugger;
@@ -624,7 +624,7 @@ function isNil( sphere )
   if( radius !== -Infinity )
   return false;
 
-  if( !_.vector.allZero( center ) )
+  if( !_.vectorAdapter.allZero( center ) )
   return false;
 
   return true;
@@ -801,7 +801,7 @@ function pointContains( sphere, point )
   debugger;
   //throw _.err( 'not tested' );
 
-  return ( vector.distanceSqr( vector.from( point ) , center ) <= ( radius * radius ) );
+  return ( vector.distanceSqr( vector.From( point ) , center ) <= ( radius * radius ) );
 }
 
 //
@@ -836,7 +836,7 @@ function pointDistance( sphere, point )
   debugger;
   //throw _.err( 'not tested' );
 
-  let distance = vector.distance( vector.from( point ) , center ) - radius;
+  let distance = vector.distance( vector.From( point ) , center ) - radius;
 
   if( distance < 0 )
   return 0;
@@ -885,9 +885,9 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   _.assert( dim === srcPoint.length );
-  let srcPointv = vector.from( srcPoint );
+  let srcPointv = vector.From( srcPoint );
   _.assert( dim === dstPoint.length );
-  let dstPointv = _.vector.from( dstPoint );
+  let dstPointv = _.vectorAdapter.From( dstPoint );
 
   if( _.sphere.pointContains( sphereView, srcPointv ) )
   return srcPointv;
@@ -903,10 +903,10 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
   let distanseSqr = vector.distanceSqr( srcPointv , center );
   if( distanseSqr > radius * radius )
   {
-    _.vector.subVectors( dstPointv,center );
-    _.vector.normalize( dstPointv );
-    _.vector.mulScalar( dstPointv,radius );
-    _.vector.addVectors( dstPointv,center );
+    _.vectorAdapter.subVectors( dstPointv,center );
+    _.vectorAdapter.normalize( dstPointv );
+    _.vectorAdapter.mulScalar( dstPointv,radius );
+    _.vectorAdapter.addVectors( dstPointv,center );
   }
 
   return dstPoint;
@@ -945,7 +945,7 @@ function pointExpand( sphere , point )
   let dim = _.sphere.dimGet( sphereView );
 
 
-  let pointView = vector.from( point );
+  let pointView = vector.From( point );
 
   _.assert( dim === point.length );
 
@@ -958,13 +958,13 @@ function pointExpand( sphere , point )
     return sphere;
   }
 
-  let distance = _.vector.distance( center , pointView );
+  let distance = _.vectorAdapter.distance( center , pointView );
   if( radius < distance )
   {
 
     _.assert( distance > 0 );
 
-    // _.vector.mix( center, point, 0.5 + ( -radius ) / ( distance*2 ) );
+    // _.vectorAdapter.mix( center, point, 0.5 + ( -radius ) / ( distance*2 ) );
     // _.sphere.radiusSet( sphereView,( distance+radius ) / 2 );
     _.sphere.radiusSet( sphereView, distance );
 
@@ -1015,7 +1015,7 @@ function boxContains( sphere, box )
 
   /* src corners */
 
-  let c = _.Space.makeZero( [ 3, 8 ] );
+  let c = _.Matrix.makeZero( [ 3, 8 ] );
   c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
   c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
   c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
@@ -1164,13 +1164,13 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   _.assert( dimS === dimB );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLengthZeroed( dimB );
+  dstPoint = _.long.longMakeZeroed( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   _.assert( dimB === dstPoint.length );
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   if( _.sphere.boxIntersects( sphereView, boxView ) )
   return 0;
@@ -1226,7 +1226,7 @@ function boxExpand( dstSphere, srcBox )
   let c = _.box.cornersGet( boxView );
 
   let distance = radius;
-  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let d = _.avector.distance( corner, center );
@@ -1350,7 +1350,7 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   let dimSphere = _.sphere.dimGet( sphereView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimSphere );
+  dstPoint = _.long.longMake( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1358,7 +1358,7 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   let capsuleView = _.capsule._from( capsule );
   let dimCapsule  = _.capsule.dimGet( capsuleView );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimCapsule );
@@ -1369,7 +1369,7 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   {
     let capsulePoint = _.capsule.sphereClosestPoint( capsule, sphereView );
 
-    let spherePoint = _.vector.from( _.sphere.pointClosestPoint( sphereView, capsulePoint ) );
+    let spherePoint = _.vectorAdapter.From( _.sphere.pointClosestPoint( sphereView, capsulePoint ) );
 
     for( let i = 0; i < dimSphere; i++ )
     {
@@ -1470,7 +1470,7 @@ function frustumIntersects( srcSphere, tstFrustum )
   *
   * @example
   * // returns 1;
-  * let frustum = _.Space.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -1517,7 +1517,7 @@ function frustumDistance( srcSphere, tstFrustum )
   *
   * @example
   * // returns [ 2, 0, 0 ];
-  * let frustum = _.Space.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -1545,7 +1545,7 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   let srcSphereView = _.sphere._from( srcSphere );
   let center = _.sphere.centerGet( srcSphereView );
@@ -1579,7 +1579,7 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
   *
   * @example
   * // returns [ 3, 0, 0, 3.3166247903554 ];
-  * let frustum = _.Space.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -1687,13 +1687,13 @@ function lineClosestPoint( sphere, line, dstPoint )
   let dimSphere = _.sphere.dimGet( srcSphereView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimSphere );
+  dstPoint = _.long.longMake( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimLine );
@@ -1704,7 +1704,7 @@ function lineClosestPoint( sphere, line, dstPoint )
   {
     let linePoint = _.line.sphereClosestPoint( line, srcSphereView );
 
-    let spherePoint = _.vector.from( _.sphere.pointClosestPoint( srcSphereView, linePoint ) );
+    let spherePoint = _.vectorAdapter.From( _.sphere.pointClosestPoint( srcSphereView, linePoint ) );
 
     for( let i = 0; i < dimSphere; i++ )
     {
@@ -1829,14 +1829,14 @@ function planeClosestPoint( sphere, plane, dstPoint )
   _.assert( dim === dimP );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dim );
+  dstPoint = _.long.longMake( dim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   _.assert( dim === dstPoint.length );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   if( _.plane.sphereIntersects( planeView, sphereView ) )
   return 0;
@@ -1975,13 +1975,13 @@ function rayClosestPoint( sphere, ray, dstPoint )
   let dimSphere = _.sphere.dimGet( srcSphereView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimSphere );
+  dstPoint = _.long.longMake( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimRay );
@@ -1992,7 +1992,7 @@ function rayClosestPoint( sphere, ray, dstPoint )
   {
     let rayPoint = _.ray.sphereClosestPoint( ray, srcSphereView );
 
-    let spherePoint = _.vector.from( _.sphere.pointClosestPoint( srcSphereView, rayPoint ) );
+    let spherePoint = _.vectorAdapter.From( _.sphere.pointClosestPoint( srcSphereView, rayPoint ) );
 
     for( let i = 0; i < dimSphere; i++ )
     {
@@ -2069,13 +2069,13 @@ function segmentClosestPoint( sphere, segment, dstPoint )
   let dimSphere = _.sphere.dimGet( srcSphereView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimSphere );
+  dstPoint = _.long.longMake( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimSegment );
@@ -2086,7 +2086,7 @@ function segmentClosestPoint( sphere, segment, dstPoint )
   {
     let segmentPoint = _.segment.sphereClosestPoint( segment, srcSphereView );
 
-    let spherePoint = _.vector.from( _.sphere.pointClosestPoint( srcSphereView, segmentPoint ) );
+    let spherePoint = _.vectorAdapter.From( _.sphere.pointClosestPoint( srcSphereView, segmentPoint ) );
 
     for( let i = 0; i < dimSphere; i++ )
     {
@@ -2190,7 +2190,7 @@ function sphereIntersects( sphere1, sphere2 )
   // throw _.err( 'not tested' );
 
   let r = radius1 + radius2;
-  return _.vector.distanceSqr( center1,center2 ) <= r*r;
+  return _.vectorAdapter.distanceSqr( center1,center2 ) <= r*r;
 }
 
 //
@@ -2240,7 +2240,7 @@ function sphereDistance( srcSphere, tstSphere )
   if( _.sphere.sphereIntersects( srcSphere, tstSphere ) )
   return 0;
 
-  let distance = _.vector.distance( srcCenter, tstCenter ) - tstRadius - srcRadius;
+  let distance = _.vectorAdapter.distance( srcCenter, tstCenter ) - tstRadius - srcRadius;
 
   return distance;
 }
@@ -2293,13 +2293,13 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
   // throw _.err( 'not tested' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( srcDim );
+  dstPoint = _.long.longMake( srcDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   _.assert( srcDim === dstPoint.length );
-  let dstPointv = _.vector.from( dstPoint );
+  let dstPointv = _.vectorAdapter.From( dstPoint );
 
   if( _.sphere.sphereIntersects( srcSphere, tstSphere ) )
   return 0;
@@ -2362,11 +2362,11 @@ function sphereExpand( sphereDst, sphereSrc )
     return sphereDst;
   }
 
-  let distance = _.vector.distance( centerDst,centerSrc );
+  let distance = _.vectorAdapter.distance( centerDst,centerSrc );
   if( radiusDst < distance+radiusSrc )
   {
     //if( distance > 0 )
-    //_.vector.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
+    //_.vectorAdapter.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
 
     //if( distance > 0 )
     //_.sphere.radiusSet( sphereViewDst,( distance+radiusSrc+radiusDst ) / 2 );

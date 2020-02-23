@@ -20,9 +20,9 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Space;
-var vector = _.vector;
-var vec = _.vector.fromArray;
+var Space = _.Matrix;
+var vector = _.vectorAdapter;
+var vec = _.vectorAdapter.FromLong;
 var avector = _.avector;
 var sqrt = _.sqrt;
 var Parent = wTester;
@@ -69,7 +69,7 @@ function make( test )
 
   test.case = 'srcDim vector'; /* */
 
-  var srcDim = _.vector.fromArray([ 0, 1, 2, 3 ]);
+  var srcDim = _.vectorAdapter.FromLong([ 0, 1, 2, 3 ]);
   var gotSegment = _.segment.make( srcDim );
   var expected = [ 0,1,2,3 ];
   test.identical( gotSegment, expected );
@@ -121,7 +121,7 @@ function makeZero( test )
 
   test.case = 'srcDim vector'; /* */
 
-  var srcDim = _.vector.fromArray([ 0, 1, 2, 3 ]);
+  var srcDim = _.vectorAdapter.FromLong([ 0, 1, 2, 3 ]);
   var gotSegment = _.segment.makeZero( srcDim );
   var expected = [ 0, 0, 0, 0 ];
   test.identical( gotSegment, expected );
@@ -174,7 +174,7 @@ function makeNil( test )
 
   test.case = 'srcDim vector'; /* */
 
-  var srcDim = _.vector.fromArray([ 0, 1, 2, 3 ]);
+  var srcDim = _.vectorAdapter.FromLong([ 0, 1, 2, 3 ]);
   var gotSegment = _.segment.makeNil( srcDim );
   var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
   test.identical( gotSegment, expected );
@@ -226,9 +226,9 @@ function zero( test )
 
   test.case = 'srcSegment vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotSegment = _.segment.zero( srcSegment );
-  var expected =  _.vector.fromArray( [ 0, 0, 0, 0 ] );
+  var expected =  _.vectorAdapter.FromLong( [ 0, 0, 0, 0 ] );
   test.identical( gotSegment, expected );
   test.is( gotSegment === srcSegment );
 
@@ -279,9 +279,9 @@ function nil( test )
 
   test.case = 'srcSegment vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotSegment = _.segment.nil( srcSegment );
-  var expected = _.vector.fromArray( [ Infinity, Infinity, - Infinity, - Infinity ] );
+  var expected = _.vectorAdapter.FromLong( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
   test.is( gotSegment === srcSegment );
 
@@ -308,8 +308,8 @@ function from( test )
 
   test.case = 'Different instance returned - vector -> array'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 0, 2, 2 ] );
-  var expected = _.vector.fromArray( [ 0, 0, 2, 2 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 0, 2, 2 ] );
+  var expected = _.vectorAdapter.FromLong( [ 0, 0, 2, 2 ] );
 
   var gotSegment = _.segment.from( srcSegment );
   test.identical( gotSegment, expected );
@@ -352,7 +352,7 @@ function _from( test )
   test.case = 'Same instance returned - vector'; /* */
 
   var srcSegment = [ 0, 0, 2, 2 ];
-  var expected = _.vector.from( [ 0, 0, 2, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 2, 2 ] );
 
   var gotSegment = _.segment._from( srcSegment );
   test.identical( gotSegment, expected );
@@ -360,8 +360,8 @@ function _from( test )
 
   test.case = 'Different instance returned - vector -> vector'; /* */
 
-  var srcSegment = _.vector.from( [ 0, 0, 2, 2 ] );
-  var expected = _.vector.from( [ 0, 0, 2, 2 ] );
+  var srcSegment = _.vectorAdapter.From( [ 0, 0, 2, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 2, 2 ] );
 
   var gotSegment = _.segment._from( srcSegment );
   test.identical( gotSegment, expected );
@@ -370,7 +370,7 @@ function _from( test )
   test.case = 'Same instance returned - empty vector'; /* */
 
   var srcSegment = [];
-  var expected =  _.vector.from( [] );
+  var expected =  _.vectorAdapter.From( [] );
 
   var gotSegment = _.segment._from( srcSegment );
   test.identical( gotSegment, expected );
@@ -404,18 +404,18 @@ function is( test )
 
   test.case = 'vector'; /* */
 
-  test.is( _.segment.is( _.vector.fromArray([]) ) );
-  test.is( _.segment.is( _.vector.fromArray([ 0, 0 ]) ) );
-  test.is( _.segment.is( _.vector.fromArray([ 1, 2, 3, 4 ]) ) );
-  test.is( _.segment.is( _.vector.fromArray([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( _.segment.is( _.vectorAdapter.FromLong([]) ) );
+  test.is( _.segment.is( _.vectorAdapter.FromLong([ 0, 0 ]) ) );
+  test.is( _.segment.is( _.vectorAdapter.FromLong([ 1, 2, 3, 4 ]) ) );
+  test.is( _.segment.is( _.vectorAdapter.FromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not segment'; /* */
 
   test.is( !_.segment.is([ 0 ]) );
   test.is( !_.segment.is([ 0, 0, 0 ]) );
 
-  test.is( !_.segment.is( _.vector.fromArray([ 0 ]) ) );
-  test.is( !_.segment.is( _.vector.fromArray([ 0, 0, 0 ]) ) );
+  test.is( !_.segment.is( _.vectorAdapter.FromLong([ 0 ]) ) );
+  test.is( !_.segment.is( _.vectorAdapter.FromLong([ 0, 0, 0 ]) ) );
 
   test.is( !_.segment.is( 'abc' ) );
   test.is( !_.segment.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
@@ -447,7 +447,7 @@ function dimGet( test )
 
   test.case = 'srcSegment 1D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1 ] );
   var gotDim = _.segment.dimGet( srcSegment );
   var expected = 1;
   test.identical( gotDim, expected );
@@ -463,7 +463,7 @@ function dimGet( test )
 
   test.case = 'srcSegment 2D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotDim = _.segment.dimGet( srcSegment );
   var expected = 2;
   test.identical( gotDim, expected );
@@ -479,7 +479,7 @@ function dimGet( test )
 
   test.case = 'srcSegment 3D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3, 4, 5 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotDim = _.segment.dimGet( srcSegment );
   var expected = 3;
   test.identical( gotDim, expected );
@@ -506,7 +506,7 @@ function originGet( test )
   test.case = 'Source segment remains unchanged'; /* */
 
   var srcSegment = [ 0, 0, 1, 1 ];
-  var expected = _.vector.from( [ 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0 ] );
 
   var gotOrigin = _.segment.originGet( srcSegment );
   test.identical( gotOrigin, expected );
@@ -518,15 +518,15 @@ function originGet( test )
 
   var srcSegment = [ 0, 1 ];
   var gotOrigin = _.segment.originGet( srcSegment );
-  var expected = _.vector.from( [ 0 ] );
+  var expected = _.vectorAdapter.From( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcSegment );
 
   test.case = 'srcSegment 1D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1 ] );
   var gotOrigin = _.segment.originGet( srcSegment );
-  var expected = _.vector.from( [ 0 ] );
+  var expected = _.vectorAdapter.From( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcSegment );
 
@@ -534,15 +534,15 @@ function originGet( test )
 
   var srcSegment = [ 0, 1, 2, 3 ];
   var gotOrigin = _.segment.originGet( srcSegment );
-  var expected = _.vector.from( [ 0, 1 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcSegment );
 
   test.case = 'srcSegment 2D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotOrigin = _.segment.originGet( srcSegment );
-  var expected = _.vector.from( [ 0, 1 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcSegment );
 
@@ -550,15 +550,15 @@ function originGet( test )
 
   var srcSegment = [ 0, 1, 2, 3, 4, 5 ];
   var gotOrigin = _.segment.originGet( srcSegment );
-  var expected = _.vector.from( [ 0, 1, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcSegment );
 
   test.case = 'srcSegment 3D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3, 4, 5 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotOrigin = _.segment.originGet( srcSegment );
-  var expected = _.vector.from( [ 0, 1, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcSegment );
 
@@ -583,7 +583,7 @@ function endPointGet( test )
   test.case = 'Source segment remains unchanged'; /* */
 
   var srcSegment = [ 0, 0, 1, 1 ];
-  var expected = _.vector.from( [ 1, 1 ] );
+  var expected = _.vectorAdapter.From( [ 1, 1 ] );
 
   var gotDirection = _.segment.endPointGet( srcSegment );
   test.identical( gotDirection, expected );
@@ -595,15 +595,15 @@ function endPointGet( test )
 
   var srcSegment = [ 0, 1 ];
   var gotDirection = _.segment.endPointGet( srcSegment );
-  var expected = _.vector.from( [ 1 ] );
+  var expected = _.vectorAdapter.From( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
   test.case = 'srcSegment 1D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1 ] );
   var gotDirection = _.segment.endPointGet( srcSegment );
-  var expected = _.vector.from( [ 1 ] );
+  var expected = _.vectorAdapter.From( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
@@ -611,15 +611,15 @@ function endPointGet( test )
 
   var srcSegment = [ 0, 1, 2, 3 ];
   var gotDirection = _.segment.endPointGet( srcSegment );
-  var expected = _.vector.from( [ 2, 3 ] );
+  var expected = _.vectorAdapter.From( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
   test.case = 'srcSegment 2D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotDirection = _.segment.endPointGet( srcSegment );
-  var expected = _.vector.from( [ 2, 3 ] );
+  var expected = _.vectorAdapter.From( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
@@ -627,15 +627,15 @@ function endPointGet( test )
 
   var srcSegment = [ 0, 1, 2, 3, 4, 5 ];
   var gotDirection = _.segment.endPointGet( srcSegment );
-  var expected = _.vector.from( [ 3, 4, 5 ] );
+  var expected = _.vectorAdapter.From( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
   test.case = 'srcSegment 3D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3, 4, 5 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotDirection = _.segment.endPointGet( srcSegment );
-  var expected = _.vector.from( [ 3, 4, 5 ] );
+  var expected = _.vectorAdapter.From( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
@@ -660,7 +660,7 @@ function directionGet( test )
   test.case = 'Source segment remains unchanged'; /* */
 
   var srcSegment = [ 0, 0, 1, 1 ];
-  var expected = _.vector.from( [ 1, 1 ] );
+  var expected = _.vectorAdapter.From( [ 1, 1 ] );
 
   var gotDirection = _.segment.directionGet( srcSegment );
   test.identical( gotDirection, expected );
@@ -672,15 +672,15 @@ function directionGet( test )
 
   var srcSegment = [ 0, 1 ];
   var gotDirection = _.segment.directionGet( srcSegment );
-  var expected = _.vector.from( [ 1 ] );
+  var expected = _.vectorAdapter.From( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
   test.case = 'srcSegment 1D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1 ] );
   var gotDirection = _.segment.directionGet( srcSegment );
-  var expected = _.vector.from( [ 1 ] );
+  var expected = _.vectorAdapter.From( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
@@ -688,15 +688,15 @@ function directionGet( test )
 
   var srcSegment = [ 0, 1, 2, 3 ];
   var gotDirection = _.segment.directionGet( srcSegment );
-  var expected = _.vector.from( [ 2, 2 ] );
+  var expected = _.vectorAdapter.From( [ 2, 2 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
   test.case = 'srcSegment 2D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3 ] );
   var gotDirection = _.segment.directionGet( srcSegment );
-  var expected = _.vector.from( [ 2, 2 ] );
+  var expected = _.vectorAdapter.From( [ 2, 2 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
@@ -704,15 +704,15 @@ function directionGet( test )
 
   var srcSegment = [ 0, 1, 2, 3, 4, 5 ];
   var gotDirection = _.segment.directionGet( srcSegment );
-  var expected = _.vector.from( [ 3, 3, 3 ] );
+  var expected = _.vectorAdapter.From( [ 3, 3, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
   test.case = 'srcSegment 3D - vector'; /* */
 
-  var srcSegment = _.vector.fromArray( [ 0, 1, 2, 3, 3, 3 ] );
+  var srcSegment = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 3, 3 ] );
   var gotDirection = _.segment.directionGet( srcSegment );
-  var expected = _.vector.from( [ 3, 2, 1 ] );
+  var expected = _.vectorAdapter.From( [ 3, 2, 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
@@ -720,7 +720,7 @@ function directionGet( test )
 
   var srcSegment = [ 5, 4, 3, 2, 1, 0 ];
   var gotDirection = _.segment.directionGet( srcSegment );
-  var expected = _.vector.from( [ - 3, - 3, - 3 ] );
+  var expected = _.vectorAdapter.From( [ - 3, - 3, - 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
@@ -728,7 +728,7 @@ function directionGet( test )
 
   var srcSegment = [ 0, 1, 2, 0, 1, 2 ];
   var gotDirection = _.segment.directionGet( srcSegment );
-  var expected = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 0 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcSegment );
 
@@ -1169,7 +1169,7 @@ function segmentIntersectionFactors( test )
 
   var src1Segment = [ 0, 0, 1, 1 ];
   var src2Segment = [ 0, 0, 2, 2 ];
-  var expected = _.vector.from( [ 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
   test.identical( isIntersectionFactors, expected );
@@ -1184,7 +1184,7 @@ function segmentIntersectionFactors( test )
 
   var src1Segment = [ 0, 0, 1, 1 ];
   var src2Segment = [ 0, 0, 1, 1 ];
-  var expected = _.vector.from( [ 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
   test.identical( isIntersectionFactors, expected );
@@ -1220,7 +1220,7 @@ function segmentIntersectionFactors( test )
 
   var src1Segment = [ 3, 7, 4, 7 ];
   var src2Segment = [ 3, 7, 3, 8 ];
-  var expected = _.vector.from( [ 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -1229,7 +1229,7 @@ function segmentIntersectionFactors( test )
 
   var src1Segment = [ -4, 0, 4, 0 ];
   var src2Segment = [ 0, -6, 0, 6 ];
-  var expected = _.vector.from( [ 0.5, 0.5 ] );
+  var expected = _.vectorAdapter.From( [ 0.5, 0.5 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -1238,7 +1238,7 @@ function segmentIntersectionFactors( test )
 
   var src1Segment = [ -3, 0, 2, 0 ];
   var src2Segment = [ 0, -2, 0, 1 ];
-  var expected = _.vector.from( [ 3/5, 2/3 ] );
+  var expected = _.vectorAdapter.From( [ 3/5, 2/3 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -1247,7 +1247,7 @@ function segmentIntersectionFactors( test )
 
   var src1Segment = [ -1, -1, -1, 1, 1, 1 ];
   var src2Segment = [ -1, -1, 0, 4, 4, 0 ];
-  var expected = _.vector.from( [ 0.5, 0.2 ] );
+  var expected = _.vectorAdapter.From( [ 0.5, 0.2 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -1256,7 +1256,7 @@ function segmentIntersectionFactors( test )
 
   var src1Segment = [ 0, 0, 0, 2, 2, 0 ];
   var src2Segment = [ 1, 3, 0, 1, 0, 0 ];
-  var expected = _.vector.from( [ 0.5, 2/3 ] );
+  var expected = _.vectorAdapter.From( [ 0.5, 2/3 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -1283,7 +1283,7 @@ function segmentIntersectionFactors( test )
 
   var src1Segment = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Segment = [ 3, 3, 3, 3, 0, 0, 0, 0 ];
-  var expected = _.vector.from( [ 0, 1 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionFactors( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -2658,7 +2658,7 @@ function boundingBoxGet( test )
 
   test.case = 'srcSegment vector'; /* */
 
-  var srcSegment = _.vector.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
+  var srcSegment = _.vectorAdapter.From( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
   var expected = [ - 8, - 5, 4.5, 4, 7, 16.5 ];
 
@@ -2668,8 +2668,8 @@ function boundingBoxGet( test )
   test.case = 'dstBox vector - 2D'; /* */
 
   var srcSegment = [ - 1, 0, - 2, 3 ];
-  var dstBox = _.vector.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vector.from( [ - 2, 0, - 1, 3 ] );
+  var dstBox = _.vectorAdapter.From( [ 1, 2, 3, 9 ] );
+  var expected = _.vectorAdapter.From( [ - 2, 0, - 1, 3 ] );
 
   var gotBox = _.segment.boundingBoxGet( dstBox, srcSegment );
   test.identical( gotBox, expected );
@@ -2856,7 +2856,7 @@ function frustumIntersects( test )
 
   test.description = 'Segment and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2872,7 +2872,7 @@ function frustumIntersects( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2884,7 +2884,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2899,7 +2899,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment intersect on frustum corner'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2914,7 +2914,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum corner is segment origin'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2929,7 +2929,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment intersect on frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2944,7 +2944,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment not intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2959,7 +2959,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment almost intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2974,7 +2974,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment just touching'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2989,7 +2989,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment just intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3004,7 +3004,7 @@ function frustumIntersects( test )
 
   test.description = 'segment is null - intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3019,7 +3019,7 @@ function frustumIntersects( test )
 
   test.description = 'segment is null - no intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3037,7 +3037,7 @@ function frustumIntersects( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3071,7 +3071,7 @@ function frustumDistance( test )
 
   test.description = 'Segment and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3087,7 +3087,7 @@ function frustumDistance( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3098,7 +3098,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3113,7 +3113,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment intersect on frustum corner'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3128,7 +3128,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment intersect on frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3143,7 +3143,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment not intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3158,7 +3158,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment almost intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3173,7 +3173,7 @@ function frustumDistance( test )
 
   test.description = 'segment is null - intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3188,7 +3188,7 @@ function frustumDistance( test )
 
   test.description = 'segment is null - no intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3203,7 +3203,7 @@ function frustumDistance( test )
 
   test.description = 'segment closest to box side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3217,7 +3217,7 @@ function frustumDistance( test )
   test.equivalent( gotDistance, expected );
 
   test.description = 'Inclined segment closest to box side'; //
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3235,7 +3235,7 @@ function frustumDistance( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3269,7 +3269,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Segment and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3285,7 +3285,7 @@ function frustumClosestPoint( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3296,7 +3296,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3311,7 +3311,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment intersect on frustum corner'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3326,7 +3326,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment intersect on frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3341,7 +3341,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment not intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3356,7 +3356,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment almost intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3371,7 +3371,7 @@ function frustumClosestPoint( test )
 
   test.description = 'segment is null - intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3386,7 +3386,7 @@ function frustumClosestPoint( test )
 
   test.description = 'segment is null - no intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3401,7 +3401,7 @@ function frustumClosestPoint( test )
 
   test.description = 'segment closest to frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3416,7 +3416,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Inclined segment closest to frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3431,7 +3431,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Destination point is vector'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3439,8 +3439,8 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var segment = [ 0, 2, 2, 0, 1, 2 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 1, 2 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1, 2 ] );
 
   var gotClosestPoint = _.segment.frustumClosestPoint( segment, srcFrustum, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -3450,7 +3450,7 @@ function frustumClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4371,8 +4371,8 @@ function planeClosestPoint( test )
 
   var segment = [ 0, -6, 24, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 1, 1, 1 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 1, 1, 1 ] );
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane, dstPoint );
   test.identical( gotPoint,  expected );
@@ -5677,8 +5677,8 @@ function sphereClosestPoint( test )
 
   var segment = [ 0, -6, 4, 0, 1, 4 ];
   var sphere = [ 0, 5, 0, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 1, 4 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1, 4 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
   test.identical( gotClosestPoint,  expected );
@@ -5776,7 +5776,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcSegment vector'; /* */
 
-  var srcSegment = _.vector.from( [ - 2,  1, 10.5, 6, 1, 8.5 ] );
+  var srcSegment = _.vectorAdapter.From( [ - 2,  1, 10.5, 6, 1, 8.5 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 2, 1, 9.5, Math.sqrt( 17 )];
 
@@ -5786,8 +5786,8 @@ function boundingSphereGet( test )
   test.case = 'dstSphere vector'; /* */
 
   var srcSegment = [- 1, - 1, - 1, 3, 3, 1 ];
-  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vector.from( [ 1, 1, 0, 3 ] );
+  var dstSphere = _.vectorAdapter.From( [ 5, 5, 5, 3 ] );
+  var expected = _.vectorAdapter.From( [ 1, 1, 0, 3 ] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
@@ -5812,7 +5812,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcSegment inversed'; /* */
 
-  var srcSegment = _.vector.from( [ 4, 4, 4, 2, 2, 2 ] );
+  var srcSegment = _.vectorAdapter.From( [ 4, 4, 4, 2, 2, 2 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 3, 3, 3, Math.sqrt( 3 )];
 

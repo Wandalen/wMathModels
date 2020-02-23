@@ -20,9 +20,9 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Space;
-var vector = _.vector;
-var vec = _.vector.fromArray;
+var Space = _.Matrix;
+var vector = _.vectorAdapter;
+var vec = _.vectorAdapter.FromLong;
 var avector = _.avector;
 var sqrt = _.sqrt;
 var Parent = wTester;
@@ -75,7 +75,7 @@ function make( test )
 
   test.case = 'srcDim vector'; /* */
 
-  var srcDim = _.vector.fromArray( [ 0, 1, 2, 3, 4 ] );
+  var srcDim = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.make( srcDim );
   var expected = [ 0, 1, 2, 3, 4 ];
   test.identical( gotCapsule, expected );
@@ -134,7 +134,7 @@ function makeZero( test )
 
   test.case = 'srcDim vector'; /* */
 
-  var srcDim = _.vector.fromArray( [ 0, 1, 2, 3, 4 ] );
+  var srcDim = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.makeZero( srcDim );
   var expected = [ 0, 0, 0, 0, 0 ];
   test.identical( gotCapsule, expected );
@@ -194,7 +194,7 @@ function makeNil( test )
 
   test.case = 'srcDim vector'; /* */
 
-  var srcDim = _.vector.fromArray( [ 0, 1, 2, 3, 4 ] );
+  var srcDim = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.makeNil( srcDim );
   var expected = [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
@@ -253,9 +253,9 @@ function zero( test )
 
   test.case = 'srcCapsule vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 2, 3, 4 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.zero( srcCapsule );
-  var expected =  _.vector.fromArray( [ 0, 0, 0, 0, 0 ] );
+  var expected =  _.vectorAdapter.FromLong( [ 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
   test.is( gotCapsule === srcCapsule );
 
@@ -313,9 +313,9 @@ function nil( test )
 
   test.case = 'srcCapsule vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 2, 3, 4 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.nil( srcCapsule );
-  var expected = _.vector.fromArray( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
+  var expected = _.vectorAdapter.FromLong( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
   test.is( gotCapsule === srcCapsule );
 
@@ -343,8 +343,8 @@ function from( test )
 
   test.case = 'Different instance returned - vector -> array'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 0, 2, 2, 1 ] );
-  var expected = _.vector.fromArray( [ 0, 0, 2, 2, 1 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 0, 2, 2, 1 ] );
+  var expected = _.vectorAdapter.FromLong( [ 0, 0, 2, 2, 1 ] );
 
   var gotCapsule = _.capsule.from( srcCapsule );
   test.identical( gotCapsule, expected );
@@ -371,7 +371,7 @@ function _from( test )
   test.case = 'Same instance returned - vector'; /* */
 
   var srcCapsule = [ 0, 0, 2, 2, 1 ];
-  var expected = _.vector.from( [ 0, 0, 2, 2, 1 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 2, 2, 1 ] );
 
   var gotCapsule = _.capsule._from( srcCapsule );
   test.identical( gotCapsule, expected );
@@ -379,8 +379,8 @@ function _from( test )
 
   test.case = 'Different instance returned - vector -> vector'; /* */
 
-  var srcCapsule = _.vector.from( [ 0, 0, 2, 2, 1 ] );
-  var expected = _.vector.from( [ 0, 0, 2, 2, 1 ] );
+  var srcCapsule = _.vectorAdapter.From( [ 0, 0, 2, 2, 1 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 2, 2, 1 ] );
 
   var gotCapsule = _.capsule._from( srcCapsule );
   test.identical( gotCapsule, expected );
@@ -414,24 +414,24 @@ function is( test )
 
   test.case = 'vector'; /* */
 
-  test.is( _.capsule.is( _.vector.fromArray([ 0, 0, 0 ]) ) );
-  test.is( _.capsule.is( _.vector.fromArray([ 0, 1, 2, 3, 4 ]) ) );
-  test.is( _.capsule.is( _.vector.fromArray([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( _.capsule.is( _.vectorAdapter.FromLong([ 0, 0, 0 ]) ) );
+  test.is( _.capsule.is( _.vectorAdapter.FromLong([ 0, 1, 2, 3, 4 ]) ) );
+  test.is( _.capsule.is( _.vectorAdapter.FromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not capsule'; /* */
 
   test.is( !_.capsule.is([ 0, 0 ]) );
   test.is( !_.capsule.is([ 0, 0, 0, 0 ]) );
 
-  test.is( !_.capsule.is( _.vector.fromArray([ 0, 0 ]) ) );
-  test.is( !_.capsule.is( _.vector.fromArray([ 0, 0, 0, 0 ]) ) );
+  test.is( !_.capsule.is( _.vectorAdapter.FromLong([ 0, 0 ]) ) );
+  test.is( !_.capsule.is( _.vectorAdapter.FromLong([ 0, 0, 0, 0 ]) ) );
 
   test.is( !_.capsule.is( 'abc' ) );
   test.is( !_.capsule.is( { start : [ 0, 0, 0 ], end : [ 1, 1, 1 ], radius : 1 } ) );
   test.is( !_.capsule.is( function( a, b, c ){} ) );
 
   test.is( !_.capsule.is( [] ) );
-  test.is( !_.capsule.is( _.vector.fromArray([]) ) );
+  test.is( !_.capsule.is( _.vectorAdapter.FromLong([]) ) );
   test.is( !_.capsule.is( null ) );
   test.is( !_.capsule.is( NaN ) );
   test.is( !_.capsule.is( undefined ) );
@@ -459,7 +459,7 @@ function dimGet( test )
 
   test.case = 'srcCapsule 1D - vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 1 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 1 ] );
   var gotDim = _.capsule.dimGet( srcCapsule );
   var expected = 1;
   test.identical( gotDim, expected );
@@ -475,7 +475,7 @@ function dimGet( test )
 
   test.case = 'srcCapsule 2D - vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 2, 3, 4 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4 ] );
   var gotDim = _.capsule.dimGet( srcCapsule );
   var expected = 2;
   test.identical( gotDim, expected );
@@ -491,7 +491,7 @@ function dimGet( test )
 
   test.case = 'srcCapsule 3D - vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 2, 3, 4, 5, 6 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4, 5, 6 ] );
   var gotDim = _.capsule.dimGet( srcCapsule );
   var expected = 3;
   test.identical( gotDim, expected );
@@ -520,7 +520,7 @@ function originGet( test )
   test.case = 'Source capsule remains unchanged'; /* */
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
-  var expected = _.vector.from( [ 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0 ] );
 
   var gotOrigin = _.capsule.originGet( srcCapsule );
   test.identical( gotOrigin, expected );
@@ -532,15 +532,15 @@ function originGet( test )
 
   var srcCapsule = [ 0, 1, 2 ];
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vector.from( [ 0 ] );
+  var expected = _.vectorAdapter.From( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
   test.case = 'srcCapsule 1D - vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 1 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 1 ] );
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vector.from( [ 0 ] );
+  var expected = _.vectorAdapter.From( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
@@ -548,15 +548,15 @@ function originGet( test )
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vector.from( [ 0, 1 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
   test.case = 'srcCapsule 2D - vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 2, 3, 4 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4 ] );
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vector.from( [ 0, 1 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
@@ -564,15 +564,15 @@ function originGet( test )
 
   var srcCapsule = [ 0, 1, 2, 3, 4, 5, 6 ];
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vector.from( [ 0, 1, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
   test.case = 'srcCapsule 3D - vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 2, 3, 4, 5, 6 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4, 5, 6 ] );
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vector.from( [ 0, 1, 2 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
@@ -598,7 +598,7 @@ function endPointGet( test )
   test.case = 'Source capsule remains unchanged'; /* */
 
   var srcCapsule = [ 0, 0, 1, 1, 2 ];
-  var expected = _.vector.from( [ 1, 1 ] );
+  var expected = _.vectorAdapter.From( [ 1, 1 ] );
 
   var gotDirection = _.capsule.endPointGet( srcCapsule );
   test.identical( gotDirection, expected );
@@ -610,15 +610,15 @@ function endPointGet( test )
 
   var srcCapsule = [ 0, 1, 2 ];
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vector.from( [ 1 ] );
+  var expected = _.vectorAdapter.From( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
   test.case = 'srcCapsule 1D - vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 2 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 2 ] );
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vector.from( [ 1 ] );
+  var expected = _.vectorAdapter.From( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
@@ -626,15 +626,15 @@ function endPointGet( test )
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vector.from( [ 2, 3 ] );
+  var expected = _.vectorAdapter.From( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
   test.case = 'srcCapsule 2D - vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 2, 3, 4 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4 ] );
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vector.from( [ 2, 3 ] );
+  var expected = _.vectorAdapter.From( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
@@ -642,15 +642,15 @@ function endPointGet( test )
 
   var srcCapsule = [ 0, 1, 2, 3, 4, 5, 6 ];
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vector.from( [ 3, 4, 5 ] );
+  var expected = _.vectorAdapter.From( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
   test.case = 'srcCapsule 3D - vector'; /* */
 
-  var srcCapsule = _.vector.fromArray( [ 0, 1, 2, 3, 4, 5, 6 ] );
+  var srcCapsule = _.vectorAdapter.FromLong( [ 0, 1, 2, 3, 4, 5, 6 ] );
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vector.from( [ 3, 4, 5 ] );
+  var expected = _.vectorAdapter.From( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
@@ -752,7 +752,7 @@ function radiusGet( test )
 
   var radius = 2;
   var expected = [ 0, 1, 2, 2, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
 
@@ -768,7 +768,7 @@ function radiusGet( test )
 
   var radius = 2;
   var expected = [ 0, 0, 1, 1, 1, 2, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.equivalent( gotCapsule, expected );
 
@@ -801,7 +801,7 @@ function radiusSet( test )
   var capsule = [ 0, 0, 1, 1, 0 ];
   var srcRadius = 2;
   var expected =  [ 0, 0, 1, 1, 2 ] ;
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, srcRadius );
   test.identical( gotCapsule, expected );
@@ -814,7 +814,7 @@ function radiusSet( test )
   var capsule = [ 0, 1, 0 ];
   var radius = 2;
   var expected = [ 0, 1, 2 ] ;
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -824,7 +824,7 @@ function radiusSet( test )
   var capsule = [ 0, 0, 1, 1, 2 ];
   var radius = 3;
   var expected = [ 0, 0, 1, 1, 3 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -834,7 +834,7 @@ function radiusSet( test )
   var capsule = [ 0, - 1, - 2, 1, 1, 1, 2 ];
   var radius = 4;
   var expected = [ 0, - 1, - 2, 1, 1, 1, 4 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -844,7 +844,7 @@ function radiusSet( test )
   var capsule = [ 0, - 1, - 2, 2, 2, 2, 2, 2, 0 ];
   var radius = 5;
   var expected =  [ 0, - 1, - 2, 2, 2, 2, 2, 2, 5 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -854,7 +854,7 @@ function radiusSet( test )
   var capsule = [ 1, 2, - 3 ];
   var radius = - 2;
   var expected = [ 1, 2, - 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -864,7 +864,7 @@ function radiusSet( test )
   var capsule = [ 1, 2, 3 ];
   var radius = NaN;
   var expected = [ 1, 2, NaN ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -874,7 +874,7 @@ function radiusSet( test )
   var capsule = [ NaN, NaN, NaN ];
   var radius = 2;
   var expected = [ NaN, NaN, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -888,7 +888,7 @@ function radiusSet( test )
 
   var radius = 2;
   var expected = [ 0, 2, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -905,7 +905,7 @@ function radiusSet( test )
 
   var radius = 2;
   var expected = [ 0, 0, 1, 1, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -1914,7 +1914,7 @@ function boundingBoxGet( test )
 
   test.case = 'srcCapsule vector'; /* */
 
-  var srcCapsule = _.vector.from( [ - 8, - 5, 4.5, 4, 7, 16.5, 2 ] );
+  var srcCapsule = _.vectorAdapter.From( [ - 8, - 5, 4.5, 4, 7, 16.5, 2 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
   var expected = [ - 10, - 7, 2.5, 6, 9, 18.5 ];
 
@@ -1924,8 +1924,8 @@ function boundingBoxGet( test )
   test.case = 'dstBox vector - 2D'; /* */
 
   var srcCapsule = [ - 1, 0, - 2, 3, 1 ];
-  var dstBox = _.vector.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vector.from( [ - 3, - 1, 0, 4 ] );
+  var dstBox = _.vectorAdapter.From( [ 1, 2, 3, 9 ] );
+  var expected = _.vectorAdapter.From( [ - 3, - 1, 0, 4 ] );
 
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
@@ -2346,8 +2346,8 @@ function capsuleClosestPoint( test )
 
   var capsule = [ 0, 0, 1, 0, 1 ];
   var tstCapsule = [ 0, 2, 1, 2, 0.5 ];
-  var dstPoint = _.vector.from( [ 0, 0 ]);
-  var expected =  _.vector.from( [ 0, 1 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0 ]);
+  var expected =  _.vectorAdapter.From( [ 0, 1 ] );
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule, dstPoint );
   test.identical( gotBool,  expected );
@@ -2381,7 +2381,7 @@ function frustumIntersects( test )
 
   test.description = 'Capsule and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2397,7 +2397,7 @@ function frustumIntersects( test )
   var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2409,7 +2409,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2424,7 +2424,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule intersect on frustum corner'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2439,7 +2439,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum corner is capsule origin'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2454,7 +2454,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule intersect on frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2469,7 +2469,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule not intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2484,7 +2484,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule almost intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2499,7 +2499,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule just touching'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2514,7 +2514,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule just intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2529,7 +2529,7 @@ function frustumIntersects( test )
 
   test.description = 'capsule is null - intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2544,7 +2544,7 @@ function frustumIntersects( test )
 
   test.description = 'capsule is null - no intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2562,7 +2562,7 @@ function frustumIntersects( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2598,7 +2598,7 @@ function frustumDistance( test )
 
   test.description = 'Capsule and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2614,7 +2614,7 @@ function frustumDistance( test )
   var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2625,7 +2625,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2640,7 +2640,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule intersect on frustum corner'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2655,7 +2655,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule intersect on frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2670,7 +2670,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule not intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2685,7 +2685,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule almost intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2700,7 +2700,7 @@ function frustumDistance( test )
 
   test.description = 'capsule is null - intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2715,7 +2715,7 @@ function frustumDistance( test )
 
   test.description = 'capsule is null - no intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2730,7 +2730,7 @@ function frustumDistance( test )
 
   test.description = 'capsule closest to box side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2744,7 +2744,7 @@ function frustumDistance( test )
   test.equivalent( gotDistance, expected );
 
   test.description = 'Inclined capsule closest to box side'; //
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2762,7 +2762,7 @@ function frustumDistance( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2798,7 +2798,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Capsule and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2814,7 +2814,7 @@ function frustumClosestPoint( test )
   var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2825,7 +2825,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule intersect'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2840,7 +2840,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule intersect on frustum corner'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2855,7 +2855,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule intersect on frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2870,7 +2870,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule not intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2885,7 +2885,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule almost intersecting'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2900,7 +2900,7 @@ function frustumClosestPoint( test )
 
   test.description = 'capsule is null - intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2915,7 +2915,7 @@ function frustumClosestPoint( test )
 
   test.description = 'capsule is null - no intersection'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2930,7 +2930,7 @@ function frustumClosestPoint( test )
 
   test.description = 'capsule closest to frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2945,7 +2945,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Inclined capsule closest to frustum side'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2960,7 +2960,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Destination point is vector'; //
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -2968,8 +2968,8 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = [ 0, 2, 2, 0, 1, 2, 0.5 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0.22360679774997896, 1, 1.55278640 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0.22360679774997896, 1, 1.55278640 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum, dstPoint );
   test.equivalent( gotClosestPoint, expected );
@@ -2979,7 +2979,7 @@ function frustumClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3940,8 +3940,8 @@ function planeClosestPoint( test )
 
   var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane, dstPoint );
   test.identical( gotPoint,  expected );
@@ -5362,8 +5362,8 @@ function sphereClosestPoint( test )
 
   var capsule = [ 0, -6, 4, 0, 1, 4, 1 ];
   var sphere = [ 0, 5, 0, 3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 1 + Math.sqrt( 2 ) / 2, 3.2928932188134525 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 1 + Math.sqrt( 2 ) / 2, 3.2928932188134525 ] );
 
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere, dstPoint );
   test.identical( gotClosestPoint,  expected );
@@ -5463,7 +5463,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcCapsule vector'; /* */
 
-  var srcCapsule = _.vector.from( [- 1, - 1, - 1, 1, 1, 1, 1 ] );
+  var srcCapsule = _.vectorAdapter.From( [- 1, - 1, - 1, 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 0, 0, 0, Math.sqrt( 3 ) + 1 ];
 
@@ -5473,8 +5473,8 @@ function boundingSphereGet( test )
   test.case = 'dstSphere vector'; /* */
 
   var srcCapsule = [- 1, - 1, - 1, 3, 3, 1, 0.5 ];
-  var dstSphere = _.vector.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vector.from( [ 1, 1, 0, 3.5 ] );
+  var dstSphere = _.vectorAdapter.From( [ 5, 5, 5, 3 ] );
+  var expected = _.vectorAdapter.From( [ 1, 1, 0, 3.5 ] );
 
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
@@ -5499,7 +5499,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcCapsule inversed'; /* */
 
-  var srcCapsule = _.vector.from( [ 4, 4, 4, 2, 2, 2, 0.2 ] );
+  var srcCapsule = _.vectorAdapter.From( [ 4, 4, 4, 2, 2, 2, 0.2 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 3, 3, 3, Math.sqrt( 3 ) + 0.2 ];
 

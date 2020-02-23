@@ -18,10 +18,10 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Space;
+var Space = _.Matrix;
 var Parent = wTester;
 
-var vector = _.vector;
+var vector = _.vectorAdapter;
 var avector = _.avector;
 var sqrt = _.sqrt;
 var abs = Math.abs;
@@ -116,7 +116,7 @@ function make( test )
 
   test.case = 'src vector'; /* */
 
-  var src = _.vector.fromArray([ 0,1,2,3 ]);
+  var src = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.quat.make( src );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
@@ -212,9 +212,9 @@ function zero( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vector.fromArray([ 0,1,2,3 ]);
+  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.quat.zero( dst );
-  var expected = _.vector.fromArray([ 0,0,0,0 ]);
+  var expected = _.vectorAdapter.FromLong([ 0,0,0,0 ]);
   test.identical( got,expected );
   test.is( got === dst );
 
@@ -258,9 +258,9 @@ function unit( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vector.fromArray([ 0,1,2,3 ]);
+  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.quat.unit( dst );
-  var expected = _.vector.fromArray([ 0,0,0,1 ]);
+  var expected = _.vectorAdapter.FromLong([ 0,0,0,1 ]);
   test.identical( got,expected );
   test.is( got === dst );
 
@@ -440,7 +440,7 @@ function fromAxisAndAngle( test )
     test.equivalent( quat, expected );
 
     axis[ 3 ] = angle;
-    var quat = _.quat.fromAxisAndAngle( null,_.vector.from( axis ) );
+    var quat = _.quat.fromAxisAndAngle( null,_.vectorAdapter.From( axis ) );
     test.equivalent( quat, expected );
 
     axis[ 3 ] = angle;
@@ -818,9 +818,9 @@ function _fromMatrixRotation( test,precise,r )
   {
 
     var q1 = _.quat.fromAxisAndAngle( null,axis,angle );
-    var m1 = _.Space.make([ 3,3 ]).fromAxisAndAngle( axis,angle );
+    var m1 = _.Matrix.make([ 3,3 ]).fromAxisAndAngle( axis,angle );
     var q2 = _.quat[ r ]( null,m1 );
-    var m2 = _.Space.make([ 3,3 ]).fromQuat( q1 );
+    var m2 = _.Matrix.make([ 3,3 ]).fromQuat( q1 );
     var q3 = _.quat[ r ]( null,m2 );
 
     // logger.log( 'q1',q1 );
@@ -987,7 +987,7 @@ function toMatrix( test )
   {
 
     var q1 = _.quat.fromAxisAndAngle( null,axis,angle );
-    var m1 = _.Space.make([ 3,3 ]).fromAxisAndAngle( axis,angle );
+    var m1 = _.Matrix.make([ 3,3 ]).fromAxisAndAngle( axis,angle );
     var m2 = _.quat.toMatrix( q1,null );
 
     // logger.log( 'm1',m1 );
@@ -1075,7 +1075,7 @@ function eulerToQuatToMatrixToQuatFast( test )
   var accuracySqrt = Math.sqrt( test.accuracy );
   var euler = _.euler.make();
   var quat1 = _.quat.make();
-  var matrix = _.Space.makeZero( [ 3, 3 ] );
+  var matrix = _.Matrix.makeZero( [ 3, 3 ] );
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
 
@@ -1132,7 +1132,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
   var accuracySqrt = Math.sqrt( test.accuracy );
   var euler = _.euler.make();
   var quat1 = _.quat.make();
-  var matrix = _.Space.makeZero( [ 3, 3 ] );
+  var matrix = _.Matrix.makeZero( [ 3, 3 ] );
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
 
@@ -1191,16 +1191,16 @@ function is( test )
 
   test.case = 'vector'; /* */
 
-  test.is( !_.quat.is( _.vector.fromArray([ 0 ]) ) );
-  test.is( !_.quat.is( _.vector.fromArray([ 0,0 ]) ) );
-  test.is( !_.quat.is( _.vector.fromArray([ 0,0,0 ]) ) );
-  test.is( _.quat.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
-  test.is( !_.quat.is( _.vector.fromArray([ 0,0,0,0,0 ]) ) );
+  test.is( !_.quat.is( _.vectorAdapter.FromLong([ 0 ]) ) );
+  test.is( !_.quat.is( _.vectorAdapter.FromLong([ 0,0 ]) ) );
+  test.is( !_.quat.is( _.vectorAdapter.FromLong([ 0,0,0 ]) ) );
+  test.is( _.quat.is( _.vectorAdapter.FromLong([ 0,0,0,0 ]) ) );
+  test.is( !_.quat.is( _.vectorAdapter.FromLong([ 0,0,0,0,0 ]) ) );
 
   test.case = 'not quat'; /* */
 
   test.is( !_.quat.is( [] ) );
-  test.is( !_.quat.is( _.vector.fromArray([]) ) );
+  test.is( !_.quat.is( _.vectorAdapter.FromLong([]) ) );
   test.is( !_.quat.is( 'abc' ) );
   test.is( !_.quat.is( { center : [ 0,0,0 ], radius : 1 } ) );
   test.is( !_.quat.is( function( a,b,c ){} ) );

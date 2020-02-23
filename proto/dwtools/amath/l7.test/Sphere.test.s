@@ -19,9 +19,9 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Space;
-var vector = _.vector;
-var vec = _.vector.fromArray;
+var Space = _.Matrix;
+var vector = _.vectorAdapter;
+var vec = _.vectorAdapter.FromLong;
 var avector = _.avector;
 var sqrt = _.sqrt;
 var Parent = wTester;
@@ -70,7 +70,7 @@ function make( test )
 
   test.case = 'src vector'; /* */
 
-  var src = _.vector.fromArray([ 0,1,2,3 ]);
+  var src = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.sphere.make( src );
   var expected = [ 0,1,2,3 ];
   test.identical( got,expected );
@@ -117,7 +117,7 @@ function makeZero( test )
 
   test.case = 'src vector'; /* */
 
-  var src = _.vector.fromArray([ 0,1,2,3 ]);
+  var src = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.sphere.makeZero( src );
   var expected = [ 0,0,0,0 ];
   test.identical( got,expected );
@@ -164,7 +164,7 @@ function makeNil( test )
 
   test.case = 'src vector'; /* */
 
-  var src = _.vector.fromArray([ 0,1,2,3 ]);
+  var src = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.sphere.makeNil( src );
   var expected = [ 0,0,0,-Infinity ];
   test.identical( got,expected );
@@ -211,9 +211,9 @@ function zero( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vector.fromArray([ 0,1,2,3 ]);
+  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.sphere.zero( dst );
-  var expected = _.vector.fromArray([ 0,0,0,0 ]);
+  var expected = _.vectorAdapter.FromLong([ 0,0,0,0 ]);
   test.identical( got,expected );
   test.is( got === dst );
 
@@ -266,9 +266,9 @@ function nil( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vector.fromArray([ 0,1,2,3 ]);
+  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.sphere.nil( dst );
-  var expected = _.vector.fromArray([ 0,0,0,-Infinity ]);
+  var expected = _.vectorAdapter.FromLong([ 0,0,0,-Infinity ]);
   test.identical( got,expected );
   test.is( got === dst );
 
@@ -304,9 +304,9 @@ function centeredOfRadius( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vector.fromArray([ 0,1,2,3 ]);
+  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.sphere.centeredOfRadius( dst, 0.5 );
-  var expected = _.vector.fromArray([ 0,0,0,0.5 ]);
+  var expected = _.vectorAdapter.FromLong([ 0,0,0,0.5 ]);
   test.identical( got,expected );
   test.is( got === dst );
 
@@ -354,9 +354,9 @@ function centeredOfRadius( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vector.fromArray([ 0,1,2,3 ]);
+  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
   var got = _.sphere.centeredOfRadius( dst,2 );
-  var expected = _.vector.fromArray([ 0,0,0,2 ]);
+  var expected = _.vectorAdapter.FromLong([ 0,0,0,2 ]);
   test.identical( got,expected );
   test.is( got === dst );
 
@@ -644,15 +644,15 @@ function fromBox( test )
     test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3,4 ],[ 1,2,3,4,5 ] ) );
     test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3 ],[ 1,2,3,4,5,6 ] ) );
 
-    test.shouldThrowErrorSync( () => _.vector[ rname ]() );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),vec([ 5 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),1 ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),undefined ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),'1' ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2,3,4 ]),vec([ 1,2,3,4,5 ]) ) );
-    test.shouldThrowErrorSync( () => _.vector[ rname ]( vec([ 1,2,3 ]),vec([ 1,2,3,4,5,6 ]) ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]() );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]) ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3 ]) ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),vec([ 5 ]) ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),1 ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),undefined ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),'1' ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2,3,4 ]),vec([ 1,2,3,4,5 ]) ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2,3 ]),vec([ 1,2,3,4,5,6 ]) ) );
 
   }
 
@@ -905,15 +905,15 @@ function is( test )
 
   test.case = 'vector'; /* */
 
-  test.is( _.sphere.is( _.vector.fromArray([ 0 ]) ) );
-  test.is( _.sphere.is( _.vector.fromArray([ 0,0 ]) ) );
-  test.is( _.sphere.is( _.vector.fromArray([ 0,0,0 ]) ) );
-  test.is( _.sphere.is( _.vector.fromArray([ 0,0,0,0 ]) ) );
+  test.is( _.sphere.is( _.vectorAdapter.FromLong([ 0 ]) ) );
+  test.is( _.sphere.is( _.vectorAdapter.FromLong([ 0,0 ]) ) );
+  test.is( _.sphere.is( _.vectorAdapter.FromLong([ 0,0,0 ]) ) );
+  test.is( _.sphere.is( _.vectorAdapter.FromLong([ 0,0,0,0 ]) ) );
 
   test.case = 'not sphere'; /* */
 
   test.is( !_.sphere.is( [] ) );
-  test.is( !_.sphere.is( _.vector.fromArray([]) ) );
+  test.is( !_.sphere.is( _.vectorAdapter.FromLong([]) ) );
   test.is( !_.sphere.is( 'abc' ) );
   test.is( !_.sphere.is( { center : [ 0,0,0 ], radius : 1 } ) );
   test.is( !_.sphere.is( function( a,b,c ){} ) );
@@ -1178,7 +1178,7 @@ function centerGet( test )
   var srcSphere = [ 0, 0, 1, 1 ];
   var oldSrcSphere = srcSphere.slice();
   var expected = [ 0, 0, 1 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( srcSphere );
 
@@ -1189,7 +1189,7 @@ function centerGet( test )
 
   var sphere = [ 0 ];
   var expected = [ ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1198,7 +1198,7 @@ function centerGet( test )
 
   var sphere = [ 0, 0 ];
   var expected = [ 0 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1207,7 +1207,7 @@ function centerGet( test )
 
   var sphere = [ 0, 0, 2 ];
   var expected = [ 0, 0 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1216,7 +1216,7 @@ function centerGet( test )
 
   var sphere = [ 0, - 1, - 2, 2 ];
   var expected = [ 0, - 1, - 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1225,7 +1225,7 @@ function centerGet( test )
 
   var sphere = [ 0, - 1, - 2, 2, 0 ];
   var expected = [ 0, - 1, - 2, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1234,7 +1234,7 @@ function centerGet( test )
 
   var sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, - 1 ];
   var expected = [ 0, - 1, -2, 2, 0, 1, 2, 6 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1243,7 +1243,7 @@ function centerGet( test )
 
   var sphere = [ 0.624, 0.376, 0.52 ];
   var expected = [ 0.624, 0.376 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1252,7 +1252,7 @@ function centerGet( test )
 
   var sphere = [ 1, 2, - 3 ];
   var expected = [ 1, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1262,7 +1262,7 @@ function centerGet( test )
 
   var sphere = [ 1, 2, NaN ];
   var expected = [ 1, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1271,7 +1271,7 @@ function centerGet( test )
 
   var sphere = [ NaN, NaN, NaN ];
   var expected = [ NaN, NaN ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
@@ -1329,7 +1329,7 @@ function radiusGet( test )
   var srcSphere = [ 0, 0, 1, 1 ];
   var oldSrcSphere = srcSphere.slice();
   var expected =  1 ;
-  // expected = _.vector.from(expected);
+  // expected = _.vectorAdapter.From(expected);
 
   var gotRadius = _.sphere.radiusGet( srcSphere );
 
@@ -1426,7 +1426,7 @@ function radiusGet( test )
 
   var radius = 2;
   var expected = [ 0, 1, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
@@ -1442,7 +1442,7 @@ function radiusGet( test )
 
   var radius = 2;
   var expected = [ 0, 0, 1, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.equivalent( gotSphere, expected );
 
@@ -1510,7 +1510,7 @@ function radiusSet( test )
   var sphere = [ 0, 0, 1, 1 ];
   var srcRadius = 2;
   var expected =  [ 0, 0, 1, 2 ] ;
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, srcRadius );
   test.identical( gotSphere, expected );
@@ -1523,7 +1523,7 @@ function radiusSet( test )
   var sphere = [ 0 ];
   var radius = 1;
   var expected = [ 1 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1533,7 +1533,7 @@ function radiusSet( test )
   var sphere = [ 0, 0 ];
   var radius = 2;
   var expected = [ 0, 2 ] ;
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1543,7 +1543,7 @@ function radiusSet( test )
   var sphere = [ 0, 0, 2 ];
   var radius = 3;
   var expected = [ 0, 0, 3 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1553,7 +1553,7 @@ function radiusSet( test )
   var sphere = [ 0, - 1, - 2, 2 ];
   var radius = 4;
   var expected = [ 0, - 1, - 2, 4 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1563,7 +1563,7 @@ function radiusSet( test )
   var sphere = [ 0, - 1, - 2, 2, 0 ];
   var radius = 5;
   var expected =  [ 0, - 1, - 2, 2, 5 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1573,7 +1573,7 @@ function radiusSet( test )
   var sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, 1 ];
   var radius = 2;
   var expected = [  0, - 1, - 2, 2, 0, 1, 2, 6, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1583,7 +1583,7 @@ function radiusSet( test )
   var sphere = [ 0.624, 0.376, 0.52 ];
   var radius = 0.777;
   var expected = [ 0.624, 0.376, 0.777 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1593,7 +1593,7 @@ function radiusSet( test )
   var sphere = [ 1, 2, - 3 ];
   var radius = - 2;
   var expected = [ 1, 2, - 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1603,7 +1603,7 @@ function radiusSet( test )
   var sphere = [ 1, 2, 3 ];
   var radius = NaN;
   var expected = [ 1, 2, NaN ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1613,7 +1613,7 @@ function radiusSet( test )
   var sphere = [ NaN, NaN, NaN ];
   var radius = 2;
   var expected = [ NaN, NaN, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1627,7 +1627,7 @@ function radiusSet( test )
 
   var radius = 2;
   var expected = [ 0, 2, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -1644,7 +1644,7 @@ function radiusSet( test )
 
   var radius = 2;
   var expected = [ 0, 1, 1, 2 ];
-  expected = _.vector.from(expected);
+  expected = _.vectorAdapter.From(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
@@ -2014,7 +2014,7 @@ function pointClosestPoint( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var point = [ 1, 0, 0 ];
-  var expected = _.vector.from( [ 1, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 1, 0, 0 ] );
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
 
@@ -2024,7 +2024,7 @@ function pointClosestPoint( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var point = [ 0, 0, 0.5 ];
-  var expected = _.vector.from( [ 0, 0, 0.5 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 0.5 ] );
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
 
@@ -2034,7 +2034,7 @@ function pointClosestPoint( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var point = [ 0, 0, 0 ];
-  var expected = _.vector.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
 
@@ -2044,7 +2044,7 @@ function pointClosestPoint( test )
 
   var sphere = [ 1, 1, 2, 1 ];
   var point = [ 1, 1, 1.5 ];
-  var expected = _.vector.from( [ 1, 1, 1.5 ] );
+  var expected = _.vectorAdapter.From( [ 1, 1, 1.5 ] );
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point );
 
@@ -2075,8 +2075,8 @@ function pointClosestPoint( test )
 
   var sphere = [ 1, 1, 2, 1 ];
   var point = [ 1, 1, 4.3 ];
-  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
-  var expected = _.vector.fromArray( [ 1, 1, 3 ] );
+  var dstPoint = _.vectorAdapter.FromLong( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.FromLong( [ 1, 1, 3 ] );
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere, point, dstPoint );
 
@@ -2559,8 +2559,8 @@ function boxClosestPoint( test )
 
   var sphere = [ 1, 1, 2, 1 ];
   var box = [ 1, 1, 4.3, 2, 2, 5 ];
-  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
-  var expected = _.vector.fromArray( [ 1, 1, 3 ] );
+  var dstPoint = _.vectorAdapter.FromLong( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.FromLong( [ 1, 1, 3 ] );
 
   var gotClosestPoint = _.sphere.boxClosestPoint( sphere, box, dstPoint );
 
@@ -2793,7 +2793,7 @@ function boundingBoxGet( test )
 
   test.case = 'srcSphere vector'; /* */
 
-  var srcSphere = _.vector.from( [ - 2,  1, 10.5, 6 ] );
+  var srcSphere = _.vectorAdapter.From( [ - 2,  1, 10.5, 6 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
   var expected = [ - 8, - 5, 4.5, 4, 7, 16.5 ];
 
@@ -2803,8 +2803,8 @@ function boundingBoxGet( test )
   test.case = 'dstBox vector'; /* */
 
   var srcSphere = [ - 1, 0, - 2, 3 ];
-  var dstBox = _.vector.from( [ 1, 2, 3, 9, 8, 7 ] );
-  var expected = _.vector.from( [ - 4, - 3, - 5, 2, 3, 1  ] );
+  var dstBox = _.vectorAdapter.From( [ 1, 2, 3, 9, 8, 7 ] );
+  var expected = _.vectorAdapter.From( [ - 4, - 3, - 5, 2, 3, 1  ] );
 
   var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -2958,8 +2958,8 @@ function capsuleClosestPoint( test )
 
   var sphere = [ 1, 1, 2, 1 ];
   var capsule = [ 1, 1, 4.3, 2, 2, 5, 0.3 ];
-  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
-  var expected = _.vector.fromArray( [ 1, 1, 3 ] );
+  var dstPoint = _.vectorAdapter.FromLong( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.FromLong( [ 1, 1, 3 ] );
 
   var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere, capsule, dstPoint );
 
@@ -2989,7 +2989,7 @@ function frustumContains( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3005,7 +3005,7 @@ function frustumContains( test )
   var oldSrcSphere = srcSphere.slice();
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3016,7 +3016,7 @@ function frustumContains( test )
 
   test.description = 'Sphere contains frustum'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3031,7 +3031,7 @@ function frustumContains( test )
 
   test.description = 'Sphere contains frustum - near corner'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3046,7 +3046,7 @@ function frustumContains( test )
 
   test.description = 'Sphere contains frustum - touching corner'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3061,7 +3061,7 @@ function frustumContains( test )
 
   test.description = 'Sphere doesn´t contains frustum - just outside corner'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3076,7 +3076,7 @@ function frustumContains( test )
 
   test.description = 'Sphere doesn´t contain frustum'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3091,7 +3091,7 @@ function frustumContains( test )
 
   test.description = 'Sphere doesn´t contain frustum - intersection'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3118,7 +3118,7 @@ function frustumContains( test )
   if( !Config.debug )
   return;
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3146,7 +3146,7 @@ function frustumDistance( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3162,7 +3162,7 @@ function frustumDistance( test )
   var oldSrcSphere = srcSphere.slice();
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3173,7 +3173,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere contains frustum'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3188,7 +3188,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere contains frustum - near corner'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3203,7 +3203,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere doesn´t contain frustum - just outside corner'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3218,7 +3218,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere doesn´t contain frustum'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3233,7 +3233,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere doesn´t contain frustum - intersection'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3248,7 +3248,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere close to frustum side'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3275,7 +3275,7 @@ function frustumDistance( test )
   if( !Config.debug )
   return;
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3303,7 +3303,7 @@ function frustumClosestPoint( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3319,7 +3319,7 @@ function frustumClosestPoint( test )
   var oldSrcSphere = srcSphere.slice();
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3330,7 +3330,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Sphere contains frustum'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3345,7 +3345,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Intersection'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
   0,   0,   0,   0, - 1,   1,
   1, - 1,   0,   0,   0,   0,
@@ -3360,7 +3360,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum contains sphere'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3375,7 +3375,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Closest point away in 1D'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3390,7 +3390,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Closest point away in 2D'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3405,7 +3405,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Closest point away in 3D'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3432,7 +3432,7 @@ function frustumClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3460,7 +3460,7 @@ function frustumExpand( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3476,7 +3476,7 @@ function frustumExpand( test )
   var oldSrcSphere = srcSphere.slice();
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3487,7 +3487,7 @@ function frustumExpand( test )
 
   test.description = 'Sphere contains frustum'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3502,7 +3502,7 @@ function frustumExpand( test )
 
   test.description = 'Intersection'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
   0,   0,   0,   0, - 1,   1,
   1, - 1,   0,   0,   0,   0,
@@ -3517,7 +3517,7 @@ function frustumExpand( test )
 
   test.description = 'Frustum contains sphere'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3532,7 +3532,7 @@ function frustumExpand( test )
 
   test.description = 'Frustrum away in 1D'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3547,7 +3547,7 @@ function frustumExpand( test )
 
   test.description = 'Frustum away in 2D'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3562,7 +3562,7 @@ function frustumExpand( test )
 
   test.description = 'Closest point away in 3D'; //
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3589,7 +3589,7 @@ function frustumExpand( test )
   if( !Config.debug )
   return;
 
-  var tstFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3691,8 +3691,8 @@ function lineClosestPoint( test )
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstLine = [ 0, 0, 5, 1, 0, 0 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 0, 4 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 4 ] );
 
   var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
@@ -3801,8 +3801,8 @@ function planeClosestPoint( test )
 
   var srcSphere = [ 2, 2, 2, 1 ];
   var tstPlane = [ 1, 1, 1, 0 ];
-  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
-  var expected = _.vector.fromArray( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
+  var dstPoint = _.vectorAdapter.FromLong( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.FromLong( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
 
   test.equivalent( gotClosestPoint, expected );
@@ -4008,8 +4008,8 @@ function rayClosestPoint( test )
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstRay = [ 0, 0, 5, 1, 0, 0 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 0, 4 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 4 ] );
 
   var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
@@ -4141,8 +4141,8 @@ function segmentClosestPoint( test )
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstSegment = [ 0, 0, 5, 1, 0, 7 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 0, 0, 4 ] );
+  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.From( [ 0, 0, 4 ] );
 
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
@@ -4600,8 +4600,8 @@ function sphereClosestPoint( test )
 
   var srcSphere = [ 2, 2, 2, 1 ];
   var tstSphere = [ -2, -2, -2, 1 ];
-  var dstPoint = _.vector.fromArray( [ 0, 0, 0 ] );
-  var expected = _.vector.fromArray( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
+  var dstPoint = _.vectorAdapter.FromLong( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.FromLong( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
   var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere, tstSphere, dstPoint );
 
   test.equivalent( gotClosestPoint, expected );

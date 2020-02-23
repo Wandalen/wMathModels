@@ -4,7 +4,7 @@
 
 let _ = _global_.wTools;
 let avector = _.avector;
-let vector = _.vector;
+let vector = _.vectorAdapter;
 let Self = _.plane = _.plane || Object.create( null );
 
 /**
@@ -48,7 +48,7 @@ function _from( plane )
   _.assert( _.plane.is( plane ) );
   _.assert( _.vectorAdapterIs( plane ) || _.longIs( plane ) );
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return _.vector.from( plane );
+  return _.vectorAdapter.From( plane );
 }
 
 //
@@ -112,7 +112,7 @@ function from( plane )
   {
     debugger;
   //  throw _.err( 'not tested' );
-    _.avector.assign( normal,vector.from( arguments[ 1 ] ) );
+    _.avector.assign( normal,vector.From( arguments[ 1 ] ) );
     _.plane.biasSet( planeView,arguments[ 2 ] );
   }
   else _.assert( 0,'unexpected arguments' );
@@ -158,7 +158,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
 
   debugger;
   normal.copy( anormal );
-  _.plane.biasSet( plane , - _.vector.dot( _.vector.from( apoint ) , normal ) );
+  _.plane.biasSet( plane , - _.vectorAdapter.dot( _.vectorAdapter.From( apoint ) , normal ) );
 
   return plane;
 }
@@ -202,9 +202,9 @@ function fromPoints( plane,a,b,c )
   debugger;
   //throw _.err( 'not tested' );
 
-  a = _.vector.from( a );
-  b = _.vector.from( b );
-  c = _.vector.from( c );
+  a = _.vectorAdapter.From( a );
+  b = _.vectorAdapter.From( b );
+  c = _.vectorAdapter.From( c );
 
   let n1 = vector.subVectors( a.clone() , b );
   let n2 = vector.subVectors( c.clone() , b );
@@ -274,7 +274,7 @@ function biasSet( plane,bias )
   *
   * @example
   * // returns false;
-  * _.pointsDistance( [ 0, 1, 0, 1 ] , _.vector.from( [ 0, 0, 1 ] ) );
+  * _.pointsDistance( [ 0, 1, 0, 1 ] , _.vectorAdapter.From( [ 0, 0, 1 ] ) );
   *
   * @returns { Boolean } Returns true if the plane contains the point and false if not.
   * @function pointContains
@@ -289,7 +289,7 @@ function pointContains( plane , point )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let planeView = _.plane._from( plane );
-  let pointVector = _.vector.from( point );
+  let pointVector = _.vectorAdapter.From( point );
 
   if( Math.abs( _.plane.pointDistance( plane, pointVector ) ) < 1E-12 )
   return true;
@@ -308,7 +308,7 @@ function pointContains( plane , point )
   *
   * @example
   * // returns 1;
-  * _.pointsDistance( [ 0, 1, 0, 1 ] , _.vector.from( [ 0, 0, 1 ] ) );
+  * _.pointsDistance( [ 0, 1, 0, 1 ] , _.vectorAdapter.From( [ 0, 0, 1 ] ) );
   *
   * @returns { Number } Returns the distance from the point to the plane.
   * @function pointDistance
@@ -323,14 +323,14 @@ function pointDistance( plane , point )
   let planeView = _.plane._from( plane );
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
-  let pointVector = _.vector.from( point );
+  let pointVector = _.vectorAdapter.From( point );
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let mod = _.vector.dot( normal, normal );
+  let mod = _.vectorAdapter.dot( normal, normal );
   mod = Math.sqrt( mod );
 
-  let distance = ( _.vector.dot( normal , pointVector ) + bias ) / mod ;
+  let distance = ( _.vectorAdapter.dot( normal , pointVector ) + bias ) / mod ;
 
   // distance = Math.abs( distance );
 
@@ -364,13 +364,13 @@ function pointCoplanarGet( plane , point, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( point.length );
+  dstPoint = _.long.longMake( point.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointView = _.vector.from( dstPoint );
-  let pointVector = _.vector.from( point.slice() );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let pointVector = _.vectorAdapter.From( point.slice() );
   let planeView = _.plane._from( plane.slice() );
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
@@ -378,14 +378,14 @@ function pointCoplanarGet( plane , point, dstPoint )
   _.assert( plane.length - 1 === point.length , 'Plane and point have different dimensions' );
   _.assert( dstPoint.length === point.length , 'Source and test points have different dimensions' );
 
-  let lambda = - (( _.vector.dot( normal , pointVector ) + bias ) / _.vector.dot( normal, normal ) ) ;
+  let lambda = - (( _.vectorAdapter.dot( normal , pointVector ) + bias ) / _.vectorAdapter.dot( normal, normal ) ) ;
 
   debugger;
   //throw _.err( 'not tested' );
 
-  let movement = _.vector.mulScalar( normal, lambda );
+  let movement = _.vectorAdapter.mulScalar( normal, lambda );
 
-  pointVector = _.vector.add( pointVector ,  movement  );
+  pointVector = _.vectorAdapter.add( pointVector ,  movement  );
 
   for( let i = 0; i < pointVector.length; i++ )
   {
@@ -400,7 +400,7 @@ function pointCoplanarGet( plane , point, dstPoint )
 //  if( !point )
 //  point = [ 0,0,0 ];
 
-//  let pointVector = _.vector.from( point );
+//  let pointVector = _.vectorAdapter.From( point );
 //  let planeView = _.plane._from( plane );
 //  let normal = _.plane.normalGet( planeView );
 //  let bias = _.plane.biasGet( planeView );
@@ -457,7 +457,7 @@ function boxIntersects( plane , srcBox )
   /* box corners */
   let c =  _.box.cornersGet( boxView );
 
-  min = _.vector.from( min );
+  min = _.vectorAdapter.From( min );
   let distance = _.plane.pointDistance( plane, min );
   if( distance === 0 )
   {
@@ -466,7 +466,7 @@ function boxIntersects( plane , srcBox )
   else
   {
     let side = distance/ Math.abs( distance );
-    for( let j = 1 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+    for( let j = 1 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       distance = _.plane.pointDistance( plane, corner );
@@ -558,7 +558,7 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   let planeView = _.plane._from( srcPlane );
   let dimP = _.plane.dimGet( planeView );
@@ -724,7 +724,7 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
   let dimPlane = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimPlane );
+  dstPoint = _.long.longMake( dimPlane );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -732,7 +732,7 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
   let capsuleView = _.capsule._from( capsule );
   let dimCapsule  = _.capsule.dimGet( capsuleView );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimPlane === dstPoint.length );
   _.assert( dimPlane === dimCapsule );
@@ -743,7 +743,7 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
   {
     let capsulePoint = _.capsule.planeClosestPoint( capsule, planeView );
 
-    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, capsulePoint ) );
+    let planePoint = _.vectorAdapter.From( _.plane.pointCoplanarGet( planeView, capsulePoint ) );
 
     for( let i = 0; i < dimPlane; i++ )
     {
@@ -766,7 +766,7 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
   *
   * @example
   * // returns false;
-  * let srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * let srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -805,7 +805,7 @@ function frustumIntersects( srcPlane, srcFrustum )
   *
   * @example
   * // returns 1;
-  * let srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * let srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -844,7 +844,7 @@ function frustumDistance( srcPlane , srcFrustum )
   *
   * @example
   * // returns [ 0, 1, 1 ];
-  * let srcFrustum =  _.Space.make( [ 4, 6 ] ).copy
+  * let srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -873,13 +873,13 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   let planeView = _.plane._from( srcPlane );
   let dimP = _.plane.dimGet( planeView );
   _.assert( dimP === dstPointView.length );
 
-  let dimF = _.Space.dimsOf( srcFrustum ) ;
+  let dimF = _.Matrix.dimsOf( srcFrustum ) ;
   let rows = dimF[ 0 ];
   let cols = dimF[ 1 ];
   _.assert( dimP === rows - 1 );
@@ -962,7 +962,7 @@ function lineIntersection( plane , line , point )
 
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = _.long.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -970,7 +970,7 @@ function lineIntersection( plane , line , point )
   let planeView = _.plane._from( plane );
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
-  let lineView = _.vector.from( line );
+  let lineView = _.vectorAdapter.From( line );
 
   debugger;
   throw _.err( 'not tested' );
@@ -980,7 +980,7 @@ function lineIntersection( plane , line , point )
 
   let direction = _.line.pointDirection( point );
 
-  let dot = _.vector.dot( normal , direction );
+  let dot = _.vectorAdapter.dot( normal , direction );
 
   if( Math.abs( dot ) < _.accuracySqr )
   {
@@ -994,7 +994,7 @@ function lineIntersection( plane , line , point )
     return false;
   }
 
-  let t = - ( _.vector.dot( lineView.eGet( 0 ) , this.normal ) + bias ) / dot;
+  let t = - ( _.vectorAdapter.dot( lineView.eGet( 0 ) , this.normal ) + bias ) / dot;
 
   if( t < 0 || t > 1 )
   return false;
@@ -1053,7 +1053,7 @@ function lineClosestPoint( plane, line, dstPoint )
   let dimP = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP );
+  dstPoint = _.long.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1063,7 +1063,7 @@ function lineClosestPoint( plane, line, dstPoint )
   let direction = _.line.directionGet( lineView );
   let dimLine  = _.line.dimGet( lineView );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimP === dstPoint.length );
   _.assert( dimP === dimLine );
@@ -1074,7 +1074,7 @@ function lineClosestPoint( plane, line, dstPoint )
   {
     let linePoint = _.line.planeClosestPoint( line, planeView );
 
-    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, linePoint ) );
+    let planePoint = _.vectorAdapter.From( _.plane.pointCoplanarGet( planeView, linePoint ) );
 
     for( let i = 0; i < dimP; i++ )
     {
@@ -1250,7 +1250,7 @@ function rayClosestPoint( plane, ray, dstPoint )
   let dimP = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP );
+  dstPoint = _.long.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1260,7 +1260,7 @@ function rayClosestPoint( plane, ray, dstPoint )
   let direction = _.ray.directionGet( rayView );
   let dimRay  = _.ray.dimGet( rayView );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimP === dstPoint.length );
   _.assert( dimP === dimRay );
@@ -1271,7 +1271,7 @@ function rayClosestPoint( plane, ray, dstPoint )
   {
     let rayPoint = _.ray.planeClosestPoint( ray, planeView );
 
-    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, rayPoint ) );
+    let planePoint = _.vectorAdapter.From( _.plane.pointCoplanarGet( planeView, rayPoint ) );
 
     for( let i = 0; i < dimP; i++ )
     {
@@ -1379,7 +1379,7 @@ function segmentClosestPoint( plane, segment, dstPoint )
   let dimP = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP );
+  dstPoint = _.long.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1389,7 +1389,7 @@ function segmentClosestPoint( plane, segment, dstPoint )
   let direction = _.segment.directionGet( segmentView );
   let dimSegment  = _.segment.dimGet( segmentView );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimP === dstPoint.length );
   _.assert( dimP === dimSegment );
@@ -1399,7 +1399,7 @@ function segmentClosestPoint( plane, segment, dstPoint )
   else
   {
     let segmentPoint = _.segment.planeClosestPoint( segment, planeView );
-    let planePoint = _.vector.from( _.plane.pointCoplanarGet( planeView, segmentPoint ) );
+    let planePoint = _.vectorAdapter.From( _.plane.pointCoplanarGet( planeView, segmentPoint ) );
 
     for( let i = 0; i < dimP; i++ )
     {
@@ -1482,7 +1482,7 @@ function sphereDistance( plane , sphere )
   let bias = _.plane.biasGet( planeView );
 
   let center = _.sphere.centerGet( sphere );
-  center = _.vector.from( center );
+  center = _.vectorAdapter.From( center );
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   debugger;
@@ -1531,7 +1531,7 @@ function sphereClosestPoint( plane , sphere, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   let planeView = _.plane._from( plane );
   let normal = _.plane.normalGet( planeView );
@@ -1596,7 +1596,7 @@ function boundingSphereGet( dstSphere, srcPlane )
   logger.log( dimPlane, dimSphere )
   _.assert( dimPlane === dimSphere );
 
-  let distOrigin = _.vector.distance( _.vector.from( _.array.makeArrayOfLengthZeroed( dimPlane ) ), normal );
+  let distOrigin = _.vectorAdapter.distance( _.vectorAdapter.From( _.long.longMakeZeroed( dimPlane ) ), normal );
 
   // Center of the sphere
   if( distOrigin === 0 )
@@ -1608,7 +1608,7 @@ function boundingSphereGet( dstSphere, srcPlane )
   }
   else
   {
-    let pointInPlane = _.vector.from( _.plane.pointCoplanarGet( planeView, _.array.makeArrayOfLengthZeroed( dimPlane ) ) );
+    let pointInPlane = _.vectorAdapter.From( _.plane.pointCoplanarGet( planeView, _.long.longMakeZeroed( dimPlane ) ) );
     logger.log( pointInPlane )
 
     for( let c = 0; c < center.length; c++ )
@@ -1679,7 +1679,7 @@ function matrixHomogenousApply( plane , matrix )
 function translate( plane , offset )
 {
 
-  let _offset = _.vector.from( offset );
+  let _offset = _.vectorAdapter.From( offset );
   let planeView = _.plane._from( plane );
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
@@ -1688,7 +1688,7 @@ function translate( plane , offset )
   debugger;
   //  throw _.err( 'not tested' );
 
-  _.plane.biasSet( plane, bias - _.vector.dot( normal,_offset ) )
+  _.plane.biasSet( plane, bias - _.vectorAdapter.dot( normal,_offset ) )
 
   return plane;
 }
@@ -1768,7 +1768,7 @@ function negate( plane )
   debugger;
   // throw _.err( 'not tested' );
 
-  _.vector.mulScalar( normal,-1 );
+  _.vectorAdapter.mulScalar( normal,-1 );
   _.plane.biasSet( planeView,-bias );
 
   return plane;
@@ -1812,20 +1812,20 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
   _.assert( arguments.length === 3, 'Expects exactly three arguments' );
   _.assert( normalOne.length === normalTwo.length && normalTwo.length == normalThree.length );
 
-  let Ispoint = _.vector.dot( normalOne, _.vector.cross( normalTwo.clone(), normalThree ) );
+  let Ispoint = _.vectorAdapter.dot( normalOne, _.vectorAdapter.cross( normalTwo.clone(), normalThree ) );
 
   let point;
   if( Ispoint != 0)
   {
-    let cross23 = _.vector.cross( normalTwo.clone(), normalThree );
-    let cross31 = _.vector.cross( normalThree.clone(), normalOne );
-    let cross12 = _.vector.cross( normalOne.clone(), normalTwo );
+    let cross23 = _.vectorAdapter.cross( normalTwo.clone(), normalThree );
+    let cross31 = _.vectorAdapter.cross( normalThree.clone(), normalOne );
+    let cross12 = _.vectorAdapter.cross( normalOne.clone(), normalTwo );
 
-    let Mcross23 = _.vector.mulScalar( cross23, - 1.0*biasOne );
-    let Mcross31 = _.vector.mulScalar( cross31, - 1.0*biasTwo );
-    let Mcross12 = _.vector.mulScalar( cross12, - 1.0*biasThree );
+    let Mcross23 = _.vectorAdapter.mulScalar( cross23, - 1.0*biasOne );
+    let Mcross31 = _.vectorAdapter.mulScalar( cross31, - 1.0*biasTwo );
+    let Mcross12 = _.vectorAdapter.mulScalar( cross12, - 1.0*biasThree );
 
-    point = _.vector.mulScalar( _.vector.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
+    point = _.vectorAdapter.mulScalar( _.vectorAdapter.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
 
     return point;
   }

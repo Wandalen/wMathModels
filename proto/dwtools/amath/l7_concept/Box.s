@@ -4,7 +4,7 @@
 
 let _ = _global_.wTools;
 let avector = _.avector;
-let vector = _.vector;
+let vector = _.vectorAdapter;
 let Self = _.box = _.box || Object.create( null );
 
 /**
@@ -226,8 +226,8 @@ function nil( box )
     let min = _.box.cornerLeftGet( boxView );
     let max = _.box.cornerRightGet( boxView );
 
-    _.vector.assign( min, +Infinity );
-    _.vector.assign( max, -Infinity );
+    _.vectorAdapter.assign( min, +Infinity );
+    _.vectorAdapter.assign( max, -Infinity );
 
     return box;
   }
@@ -278,9 +278,9 @@ function centeredOfSize( box, size )
 
   size = _.numbersSlice( size );
   size = _.avector.mulScalar( size, 0.5 );
-  _.vector.assign( max, size );
+  _.vectorAdapter.assign( max, size );
   size = _.avector.mulScalar( size, -1 );
-  _.vector.assign( min, size );
+  _.vectorAdapter.assign( min, size );
 
   return box;
 }
@@ -297,8 +297,8 @@ function centeredOfSize( box, size )
   * _.from( [ 1, 1, 2, 2 ] );
   *
   * @example
-  * // returns _.vector.from( [ 1, 1, 2, 2 ] );
-  * _.from( _.vector.from( [ 1, 1, 2, 2 ] ) );
+  * // returns _.vectorAdapter.From( [ 1, 1, 2, 2 ] );
+  * _.from( _.vectorAdapter.From( [ 1, 1, 2, 2 ] ) );
   *
   * @function from
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
@@ -341,7 +341,7 @@ function from( box )
   * @param { Array } box - Destination box.
   *
   * @example
-  * // returns _.vector.from( [ 1, 1, 2, 2 ] );
+  * // returns _.vectorAdapter.From( [ 1, 1, 2, 2 ] );
   * _._from( [ 1, 1, 2, 2 ] );
   *
   * @returns { Vector } Returns the vector of the box.
@@ -353,7 +353,7 @@ function _from( box )
 {
   _.assert( _.box.is( box ) );
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return _.vector.from( box );
+  return _.vectorAdapter.From( box );
 }
 
 //
@@ -448,8 +448,8 @@ function fromCenterAndSize( box, center, size )
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
   let dim = _.box.dimGet( boxView );
-  let center_ = _.vector.from( center );
-  let size_ = _.vector.from( size );
+  let center_ = _.vectorAdapter.From( center );
+  let size_ = _.vectorAdapter.From( size );
 
   _.assert( dim === center_.length );
   _.assert( dim === size_.length );
@@ -457,9 +457,9 @@ function fromCenterAndSize( box, center, size )
   debugger;
   //throw _.err( 'not tested' );
 
-  size_ = _.vector.mulScalar( size_.clone() , 0.5 );
-  _.vector.subAssigning( min.copy( center_ ) , size_ );
-  _.vector.addAssigning( max.copy( center_ ) , size_ );
+  size_ = _.vectorAdapter.mulScalar( size_.clone() , 0.5 );
+  _.vectorAdapter.subAssigning( min.copy( center_ ) , size_ );
+  _.vectorAdapter.addAssigning( max.copy( center_ ) , size_ );
 
   return box;
 }
@@ -560,8 +560,8 @@ function fromCube( box, size )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.numberIs( size ) );
 
-  _.vector.assignScalar( min,-size/2 );
-  _.vector.assignScalar( max,+size/2 );
+  _.vectorAdapter.assignScalar( min,-size/2 );
+  _.vectorAdapter.assignScalar( max,+size/2 );
 
   return box;
 }
@@ -810,7 +810,7 @@ function centerGet( box , dst )
   if( !dst )
   dst = _.dup( 0,dim ) ;
 
-  let dstv = _.vector.from( dst );
+  let dstv = _.vectorAdapter.From( dst );
 
   _.assert( dim === dst.length );
   _.assert( arguments.length === 1 || arguments.length === 2 );
@@ -818,7 +818,7 @@ function centerGet( box , dst )
   // debugger;
   // throw _.err( 'not tested' );
 
-  _.vector.addAssigning( dstv.copy( min ), max ).mulScalar( 0.5 );
+  _.vectorAdapter.addAssigning( dstv.copy( min ), max ).mulScalar( 0.5 );
 
   // debugger;
   return dst;
@@ -859,11 +859,11 @@ function sizeGet( box , dst )
 
   if( !dst )
   dst = _.dup( 0,dim );
-  let dstv = _.vector.from( dst );
+  let dstv = _.vectorAdapter.From( dst );
 
   _.assert( dim === dst.length );
 
-  _.vector.subVectors( dstv.copy( max ), min );
+  _.vectorAdapter.subVectors( dstv.copy( max ), min );
 
   return dst;
 }
@@ -899,8 +899,8 @@ function cornersGet( box )
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
 
-  let corners = _.Space.makeZero( [ dim, Math.pow( 2, dim ) ] );
-  let dims = _.Space.dimsOf( corners) ;
+  let corners = _.Matrix.makeZero( [ dim, Math.pow( 2, dim ) ] );
+  let dims = _.Matrix.dimsOf( corners) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
 
@@ -970,7 +970,7 @@ function expand( box , expand )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
-  expand = _.vector.fromMaybeNumber( expand,dim );
+  expand = _.vectorAdapter.FromMaybeNumber( expand,dim );
 
   _.assert( dim === expand.length );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -978,8 +978,8 @@ function expand( box , expand )
   debugger;
   //throw _.err( 'not tested' );
 
-  _.vector.subAssigning( min , expand );
-  _.vector.addAssigning( max , expand );
+  _.vectorAdapter.subAssigning( min , expand );
+  _.vectorAdapter.addAssigning( max , expand );
 
   return box;
 }
@@ -1018,15 +1018,15 @@ function pointContains( box , point )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
-  let pointView = _.vector.from( point );
+  let pointView = _.vectorAdapter.From( point );
 
   _.assert( dim === pointView.length );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  if( _.vector.anyLess( pointView , min ) )
+  if( _.vectorAdapter.anyLess( pointView , min ) )
   return false;
 
-  if( _.vector.anyGreater( pointView , max ) )
+  if( _.vectorAdapter.anyGreater( pointView , max ) )
   return false;
 
   return true;
@@ -1118,15 +1118,15 @@ function pointClosestPoint( box , point, dstPoint )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
-  let pointVector = _.vector.from( point.slice() );
-  let dstPointView = _.vector.from( dstPoint );
+  let pointVector = _.vectorAdapter.From( point.slice() );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dim === point.length );
 
 
   debugger;
   //  throw _.err( 'not tested' );
-  let v = _.vector.clamp( pointVector, min, max );
+  let v = _.vectorAdapter.clamp( pointVector, min, max );
 
   for( let i = 0; i < pointVector.length; i++ )
   {
@@ -1173,13 +1173,13 @@ function pointExpand( dstBox , point )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
-  let pointView = _.vector.from( point );
+  let pointView = _.vectorAdapter.From( point );
 
   _.assert( dim === pointView.length );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  _.vector.minVectors( min , pointView );
-  _.vector.maxVectors( max , pointView );
+  _.vectorAdapter.minVectors( min , pointView );
+  _.vectorAdapter.maxVectors( max , pointView );
 
   return dstBox;
 }
@@ -1226,8 +1226,8 @@ function pointRelative( box , point, dstPoint )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
-  let pointVector = _.vector.from( point );
-  let dstPointView = _.vector.from( dstPoint );
+  let pointVector = _.vectorAdapter.From( point );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dim === point.length );
   _.assert( dim === dstPoint.length );
@@ -1235,7 +1235,7 @@ function pointRelative( box , point, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  _.vector.divAssigning( _.vector.subAssigning( dstPointView , min ) , _.vector.subAssigning( max.clone() , min ) );
+  _.vectorAdapter.divAssigning( _.vectorAdapter.subAssigning( dstPointView , min ) , _.vectorAdapter.subAssigning( max.clone() , min ) );
 
   return dstPoint;
 }
@@ -1398,7 +1398,7 @@ function boxDistance( srcBox , tstBox )
   let c1 =  _.box.cornersGet( tstBoxView );
 
   let distance = Infinity;
-  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
   {
     let srcCorner = c.colVectorGet( j );
     let tstCorner = c1.colVectorGet( j );
@@ -1465,14 +1465,14 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   _.assert( tstDim === srcDim );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( tstDim );
+  dstPoint = _.long.longMake( tstDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   _.assert( tstDim === dstPoint.length );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   debugger;
   // throw _.err( 'not tested' );
@@ -1488,7 +1488,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
     let c1 = _.box.cornersGet( tstBoxView );
 
     let distance = Infinity;
-    let point = _.vector.from( dstPointView.slice() );
+    let point = _.vectorAdapter.From( dstPointView.slice() );
     for( let j = 0 ; j < 8 ; j++ )
     {
       let srcCorner = c.colVectorGet( j );
@@ -1559,8 +1559,8 @@ function boxExpand( dstBox , srcBox )
 
   _.assert( dim1 === dim2 );
 
-  _.vector.minVectors( min1 , min2 );
-  _.vector.maxVectors( max1 , max2 );
+  _.vectorAdapter.minVectors( min1 , min2 );
+  _.vectorAdapter.maxVectors( max1 , max2 );
 
   return dstBox;
 }
@@ -1627,7 +1627,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   let max = _.box.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = _.long.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1635,7 +1635,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   let capsuleView = _.capsule._from( capsule );
   let dimCapsule  = _.capsule.dimGet( capsuleView );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimCapsule );
@@ -1646,7 +1646,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   {
     let capsulePoint = _.capsule.boxClosestPoint( capsule, boxView );
 
-    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, capsulePoint ) );
+    let boxPoint = _.vectorAdapter.From( _.box.pointClosestPoint( boxView, capsulePoint ) );
 
     for( let i = 0; i < dimB; i++ )
     {
@@ -1669,7 +1669,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   *
   * @example
   * // returns true
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -1724,7 +1724,7 @@ function frustumContains( box, frustum )
   *
   * @example
   * // returns true
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -1765,7 +1765,7 @@ function frustumIntersects( box, frustum )
   *
   * @example
   * // returns 0
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -1807,7 +1807,7 @@ function frustumDistance( box, frustum )
   let c = _.box.cornersGet( boxView );
 
   let distance = Infinity;
-  for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let proj = _.frustum.pointClosestPoint( frustum, corner );
@@ -1833,7 +1833,7 @@ function frustumDistance( box, frustum )
   *
   * @example
   * // returns 0
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -1865,12 +1865,12 @@ function frustumClosestPoint( box, frustum, dstPoint )
   let max = _.box.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = _.long.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( dimB === 3 );
@@ -1887,7 +1887,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
 
     let distance = Infinity;
     let point = [ 0, 0, 0 ];
-    for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+    for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       let d = _.avector.distance( corner, frustumPoint ); /* qqq : why slice??? */
@@ -1919,7 +1919,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   *
   * @example
   * // returns [ 0, 0, 0, 2, 2, 2 ]
-  * let frustum =  _.Space.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -2027,7 +2027,7 @@ function lineClosestPoint( box, line, dstPoint )
   let max = _.box.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = _.long.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2037,7 +2037,7 @@ function lineClosestPoint( box, line, dstPoint )
   let direction = _.line.directionGet( lineView );
   let dimLine  = _.line.dimGet( lineView );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimLine );
@@ -2048,7 +2048,7 @@ function lineClosestPoint( box, line, dstPoint )
   {
     let linePoint = _.line.boxClosestPoint( line, boxView );
 
-    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, linePoint ) );
+    let boxPoint = _.vectorAdapter.From( _.box.pointClosestPoint( boxView, linePoint ) );
 
     for( let i = 0; i < dimB; i++ )
     {
@@ -2123,7 +2123,7 @@ function rayClosestPoint( box, ray, dstPoint )
   let max = _.box.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = _.long.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2133,7 +2133,7 @@ function rayClosestPoint( box, ray, dstPoint )
   let direction = _.ray.directionGet( rayView );
   let dimRay  = _.ray.dimGet( rayView );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimRay );
@@ -2144,7 +2144,7 @@ function rayClosestPoint( box, ray, dstPoint )
   {
     let rayPoint = _.ray.boxClosestPoint( ray, boxView );
 
-    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, rayPoint ) );
+    let boxPoint = _.vectorAdapter.From( _.box.pointClosestPoint( boxView, rayPoint ) );
 
     for( let i = 0; i < dimB; i++ )
     {
@@ -2240,7 +2240,7 @@ function planeDistance( srcBox, plane )
 
     let distance = Infinity;
     let d = 0;
-    for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ]  ; j++ )
+    for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ]  ; j++ )
     {
       let corner = c.colVectorGet( j );
       d = Math.abs( _.plane.pointDistance( plane, corner ) );
@@ -2294,12 +2294,12 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   let dimP = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = _.long.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimP === dimB );
   _.assert( dimP === dstPoint.length );
@@ -2313,8 +2313,8 @@ function planeClosestPoint( srcBox, plane, dstPoint )
 
     let distance = Infinity;
     let d = 0;
-    let point = _.array.makeArrayOfLength( dimB );
-    for( let j = 0 ; j < _.Space.dimsOf( c )[ 1 ] ; j++ )
+    let point = _.long.longMake( dimB );
+    for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       d = Math.abs( _.plane.pointDistance( plane, corner ) );
@@ -2453,7 +2453,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   let max = _.box.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = _.long.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2463,7 +2463,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   let direction = _.segment.directionGet( segmentView );
   let dimSegment  = _.segment.dimGet( segmentView );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimSegment );
@@ -2474,7 +2474,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   {
     let segmentPoint = _.segment.boxClosestPoint( segment, boxView );
 
-    let boxPoint = _.vector.from( _.box.pointClosestPoint( boxView, segmentPoint ) );
+    let boxPoint = _.vectorAdapter.From( _.box.pointClosestPoint( boxView, segmentPoint ) );
 
     for( let i = 0; i < dimB; i++ )
     {
@@ -2525,8 +2525,8 @@ function sphereContains( srcBox , tstSphere )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dimS === dimB );
 
-  let pointp = _.vector.from( center.slice() );
-  let pointn = _.vector.from( center.slice() );
+  let pointp = _.vectorAdapter.From( center.slice() );
+  let pointn = _.vectorAdapter.From( center.slice() );
   for( let i = 0; i < dimS; i++ )
   {
     pointp.eSet( i, pointp.eGet( i ) + radius );
@@ -2664,12 +2664,12 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   let dimB = _.box.dimGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = _.long.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dstPointView = _.vector.from( dstPoint );
+  let dstPointView = _.vectorAdapter.From( dstPoint );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( dimS === dimB );
@@ -2730,7 +2730,7 @@ function sphereExpand( dstBox , srcSphere )
 
   /* Sphere limits */
 
-  let c1 = _.Space.makeZero( [ 3, 6 ] );
+  let c1 = _.Matrix.makeZero( [ 3, 6 ] );
   c1.colVectorGet( 0 ).copy( [ center.eGet( 0 ) + radius, center.eGet( 1 ), center.eGet( 2 ) ] );
   c1.colVectorGet( 1 ).copy( [ center.eGet( 0 ) - radius, center.eGet( 1 ), center.eGet( 2 ) ] );
   c1.colVectorGet( 2 ).copy( [ center.eGet( 0 ), center.eGet( 1 ) + radius, center.eGet( 2 ) ] );
@@ -2810,7 +2810,7 @@ function boundingSphereGet( dstSphere, srcBox )
   *
   * @example
   * // returns [ 0, 0, 0, 1, 1, 1 ]
-  * let matrix = _.Space.make( [ 4, 4 ] ).copy
+  * let matrix = _.Matrix.make( [ 4, 4 ] ).copy
   *  ([
   *    0.5, 0, 0, 0,
   *    0, 0.5, 0, 0,
@@ -2916,7 +2916,7 @@ function translate( box, offset )
 //   let center = _.box.centerGet( boxView );
 //   let radius = _.box.radiusGet( boxView );
 //
-//   return( vector.distanceSqr( vector.from( point ) , center ) <= ( radius * radius ) );
+//   return( vector.distanceSqr( vector.From( point ) , center ) <= ( radius * radius ) );
 // }
 //
 // //
@@ -2933,7 +2933,7 @@ function translate( box, offset )
 //   let center = _.box.centerGet( boxView );
 //   let radius = _.box.radiusGet( boxView );
 //
-//   return( vector.distance( vector.from( point ) , center ) - radius );
+//   return( vector.distance( vector.From( point ) , center ) - radius );
 // }
 //
 // //
@@ -2946,7 +2946,7 @@ function translate( box, offset )
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
-//   let pointVector = vector.from( point );
+//   let pointVector = vector.From( point );
 //   let boxView = _.box._from( box );
 //   let center = _.box.centerGet( boxView );
 //   let radius = _.box.radiusGet( boxView );
@@ -2956,10 +2956,10 @@ function translate( box, offset )
 //   if( distanseSqr > radius * radius )
 //   {
 //
-//     _.vector.subVectors( pointVector,center );
-//     _.vector.normalize( pointVector );
-//     _.vector.mulScalar( pointVector,radius );
-//     _.vector.addVectors( pointVector,center );
+//     _.vectorAdapter.subVectors( pointVector,center );
+//     _.vectorAdapter.normalize( pointVector );
+//     _.vectorAdapter.mulScalar( pointVector,radius );
+//     _.vectorAdapter.addVectors( pointVector,center );
 //
 //   }
 //
@@ -2986,7 +2986,7 @@ function translate( box, offset )
 //   let radius2 = _.box.radiusGet( boxView2 );
 //
 //   let r = radius1 + radius2;
-//   return _.vector.distanceSqr( center1,center2 ) <= r*r;
+//   return _.vectorAdapter.distanceSqr( center1,center2 ) <= r*r;
 // }
 //
 // //

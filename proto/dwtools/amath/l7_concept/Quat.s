@@ -4,7 +4,7 @@
 
 let _ = _global_.wTools;
 let avector = _.avector;
-let vector = _.vector;
+let vector = _.vectorAdapter;
 let pi = Math.PI;
 let sin = Math.sin;
 let cos = Math.cos;
@@ -141,7 +141,7 @@ function _from( quat )
   // if( quat === null )
   // quat = _.quat.make();
 
-  return _.vector.from( quat );
+  return _.vectorAdapter.From( quat );
 }
 
 //
@@ -152,7 +152,7 @@ function fromEuler( dst, euler, v )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   dst = _.quat.from( dst );
-  let dstv = _.vector.from( dst );
+  let dstv = _.vectorAdapter.From( dst );
   let eulerView = _.euler._from( euler );
 
   let ox = eulerView.eGet( 3 );
@@ -441,7 +441,7 @@ function fromAxisAndAngle( dst, axisAndAngle, angle )
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   dst = _.quat.from( dst );
-  let dstv = _.vector.from( dst );
+  let dstv = _.vectorAdapter.From( dst );
   let axisAndAnglev = _.axisAndAngle._from( axisAndAngle, angle );
 
   let halfAngle = axisAndAnglev.eGet( 3 ) / 2;
@@ -464,9 +464,9 @@ function toAxisAndAngle( quat, axisAndAngle )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   quat = _.quat.from( quat );
-  let quatView = _.vector.from( quat );
+  let quatView = _.vectorAdapter.From( quat );
   axisAndAngle = _.axisAndAngle.from( axisAndAngle );
-  let axisAndAnglev = _.vector.from( axisAndAngle );
+  let axisAndAnglev = _.vectorAdapter.From( axisAndAngle );
 
   let w = quatView.eGet( 3 );
 
@@ -496,7 +496,7 @@ function fromVectors( dst, src1, src2 )
   _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   dst = _.quat.from( dst );
-  let dstv = _.vector.from( dst );
+  let dstv = _.vectorAdapter.From( dst );
   let dst3 = dstv.subarray( 0,3 );
   let dot = _.avector.dot( src1, src2 );
 
@@ -529,8 +529,8 @@ function fromVectors2( src1,src2,axis )
 {
   throw _.err( 'not tested' );
 
-  src1 = _.vector.slice( src1 );
-  src2 = _.vector.slice( src2 );
+  src1 = _.vectorAdapter.slice( src1 );
+  src2 = _.vectorAdapter.slice( src2 );
 
   let accuracy = 0.01;
   let v1 = src1.slice().normalize();
@@ -569,7 +569,7 @@ function fromNormalizedVectors( dst, src1, src2 )
   _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   dst = _.quat.from( dst );
-  let dstv = _.vector.from( dst );
+  let dstv = _.vectorAdapter.From( dst );
   let dst3 = dstv.subarray( 0,3 );
   let dot = _.avector.dot( src1, src2 ) + 1;
 
@@ -600,12 +600,12 @@ function fromMatrixRotation( dst, mat )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( _.Space.is( mat ) );
+  _.assert( _.Matrix.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
 
   dst = _.quat.from( dst );
-  let dstv = _.vector.from( dst );
+  let dstv = _.vectorAdapter.From( dst );
   let m00 = mat.atomGet([ 0,0 ]), m01 = mat.atomGet([ 0,1 ]), m02 = mat.atomGet([ 0,2 ]);
   let m10 = mat.atomGet([ 1,0 ]), m11 = mat.atomGet([ 1,1 ]), m12 = mat.atomGet([ 1,2 ]);
   let m20 = mat.atomGet([ 2,0 ]), m21 = mat.atomGet([ 2,1 ]), m22 = mat.atomGet([ 2,2 ]);
@@ -665,12 +665,12 @@ function fromMatrixRotation2( dst, mat )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( _.Space.is( mat ) );
+  _.assert( _.Matrix.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
 
   dst = _.quat.from( dst );
-  let dstv = _.vector.from( dst );
+  let dstv = _.vectorAdapter.From( dst );
 
   let m00 = mat.atomGet([ 0,0 ]), m01 = mat.atomGet([ 0,1 ]), m02 = mat.atomGet([ 0,2 ]);
   let m10 = mat.atomGet([ 1,0 ]), m11 = mat.atomGet([ 1,1 ]), m12 = mat.atomGet([ 1,2 ]);
@@ -704,12 +704,12 @@ function fromMatrixWithScale( dst, mat )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( _.Space.is( mat ) );
+  _.assert( _.Matrix.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
 
   dst = _.quat.from( dst );
-  let dstv = _.vector.from( dst );
+  let dstv = _.vectorAdapter.From( dst );
   let m = mat.scaleGet().clone().abs().reduceToMean();
   let m00 = mat.atomGet([ 0,0 ]) / m, m01 = mat.atomGet([ 0,1 ]) / m, m02 = mat.atomGet([ 0,2 ]) / m;
   let m10 = mat.atomGet([ 1,0 ]) / m, m11 = mat.atomGet([ 1,1 ]) / m, m12 = mat.atomGet([ 1,2 ]) / m;
@@ -798,11 +798,11 @@ function toMatrix( quat, mat )
 {
 
   if( mat === null || mat === undefined )
-  mat = _.Space.make([ 3,3 ]);
+  mat = _.Matrix.make([ 3,3 ]);
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
   _.assert( _.quat.is( quat ) );
-  _.assert( _.Space.is( mat ) );
+  _.assert( _.Matrix.is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
 
@@ -1030,7 +1030,7 @@ function applyTo( quat,vector )
 {
 
   let quatView = _.quat._from( quat );
-  let vectorv = _.vector.from( vector );
+  let vectorv = _.vectorAdapter.From( vector );
 
   let x = vectorv.eGet( 0 );
   let y = vectorv.eGet( 1 );

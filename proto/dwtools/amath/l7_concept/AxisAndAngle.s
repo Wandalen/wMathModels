@@ -4,7 +4,7 @@
 
 let _ = _global_.wTools;
 let avector = _.avector;
-let vector = _.vector;
+let vector = _.vectorAdapter;
 let pi = Math.PI;
 let sin = Math.sin;
 let cos = Math.cos;
@@ -127,11 +127,11 @@ function make( axisAndAngle,angle )
   _.assert( axisAndAngle === undefined || axisAndAngle === null || _.axisAndAngle.is( axisAndAngle,angle ) );
 
   let result = _.axisAndAngle.makeZero();
-  let resultv = _.vector.from( result );
+  let resultv = _.vectorAdapter.From( result );
 
   let axisAndAnglev;
   if( axisAndAngle )
-  axisAndAnglev = _.vector.from( axisAndAngle );
+  axisAndAnglev = _.vectorAdapter.From( axisAndAngle );
 
   if( axisAndAnglev )
   {
@@ -243,7 +243,7 @@ function _from( axisAndAngle,angle )
     }
   }
 
-  return _.vector.fromArray( axisAndAngle );
+  return _.vectorAdapter.FromLong( axisAndAngle );
 }
 
 // {
@@ -271,7 +271,7 @@ function _from( axisAndAngle,angle )
 //     }
 //   }
 //
-//   return _.vector.from( axisAndAngle );
+//   return _.vectorAdapter.From( axisAndAngle );
 // }
 
 //
@@ -293,7 +293,7 @@ function zero( axisAndAngle,angle )
   if( axisAndAngle === undefined || axisAndAngle === null )
   return _.axisAndAngle.makeZero();
 
-  let axisAndAnglev = _.vector.from( axisAndAngle );
+  let axisAndAnglev = _.vectorAdapter.From( axisAndAngle );
 
   axisAndAnglev.eSet( 3,0 );
 
@@ -311,7 +311,7 @@ function zero( axisAndAngle,angle )
   *
   * @example
   * // returns [ 0.6520678, 0.38680106, 0.6520678, 0.92713394 ]
-  * let srcMatrix = _.Space.make([ 3, 3 ]).copy
+  * let srcMatrix = _.Matrix.make([ 3, 3 ]).copy
   * ([
   *   0.7701511383, -0.4207354784, 0.479425549507,
   *   0.6224468350, 0.65995573997, - 0.420735478401,
@@ -332,7 +332,7 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
 
   _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
-  _.assert( _.Space.is( srcMatrix ) );
+  _.assert( _.Matrix.is( srcMatrix ) );
   _.assert( srcMatrix.hasShape([ 3, 3 ]) );
 
 
@@ -374,7 +374,7 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
 
   _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
-  _.assert( _.Space.is( dstMatrix ) );
+  _.assert( _.Matrix.is( dstMatrix ) );
   _.assert( dstMatrix.hasShape([ 3, 3 ]) );
 
   let quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axisAndAngle );
