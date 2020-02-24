@@ -2390,7 +2390,7 @@ function matrixHomogenousApply( sphere,matrix )
   let dim = _.sphere.dimGet( sphereView );
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( _.spaceIs( matrix ) );
+  _.assert( _.matrixIs( matrix ) );
   _.assert( dim+1 === matrix.ncol );
 
   matrix.matrixHomogenousApply( center );
@@ -2405,7 +2405,7 @@ function translate( sphere,offset )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( _.spaceIs( matrix ) );
+  _.assert( _.matrixIs( matrix ) );
   debugger;
   throw _.err( 'not tested' );
 

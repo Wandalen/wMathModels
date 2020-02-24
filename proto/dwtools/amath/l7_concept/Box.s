@@ -1699,7 +1699,7 @@ function frustumContains( box, frustum )
   let max = _.box.cornerRightGet( boxView );
 
   let fpoints = _.frustum.cornersGet( frustum );
-  _.assert( _.spaceIs( fpoints ) );
+  _.assert( _.matrixIs( fpoints ) );
 
   for( let i = 0 ; i < 6 ; i += 1 )
   {
@@ -1953,7 +1953,7 @@ function frustumExpand( dstBox, srcFrustum )
   let max = _.box.cornerRightGet( boxView );
 
   let fpoints = _.frustum.cornersGet( srcFrustum );
-  _.assert( _.spaceIs( fpoints ) );
+  _.assert( _.matrixIs( fpoints ) );
   _.assert( fpoints.hasShape([ 3, 8 ] ) );
 
   for( let j = 0 ; j < 8 ; j++ )
@@ -2835,7 +2835,7 @@ function matrixHomogenousApply( box , matrix )
   let max = _.box.cornerRightGet( boxView );
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( _.spaceIs( matrix ) );
+  _.assert( _.matrixIs( matrix ) );
   _.assert( matrix.hasShape([ dim+1,dim+1 ]) );
 
   let box2 = _.box.nil( dim );
@@ -2996,7 +2996,7 @@ function translate( box, offset )
 //
 //   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
-//   _.assert( _.spaceIs( matrix ) );
+//   _.assert( _.matrixIs( matrix ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
 //
@@ -3017,7 +3017,7 @@ function translate( box, offset )
 //
 //   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
-//   _.assert( _.spaceIs( matrix ) );
+//   _.assert( _.matrixIs( matrix ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
 //

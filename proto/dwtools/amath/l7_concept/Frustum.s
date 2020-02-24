@@ -50,7 +50,7 @@ function fromMatrixHomogenous( frustum , m )
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
-  _.assert( _.spaceIs( m ) );
+  _.assert( _.matrixIs( m ) );
   _.assert( m.hasShape([ 4,4 ]) );
 
   frustum.colVectorGet( 0 ).copy
@@ -109,7 +109,7 @@ function fromMatrixHomogenous( frustum , m )
 function is( frustum )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return _.spaceIs( frustum ) && frustum.hasShape([ 4,6 ])
+  return _.matrixIs( frustum ) && frustum.hasShape([ 4,6 ])
 }
 
 //
@@ -410,7 +410,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
   let fpoints = _.frustum.cornersGet( frustum );
-  _.assert( _.spaceIs( fpoints ) );
+  _.assert( _.matrixIs( fpoints ) );
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
   _.assert( rows - 1 === srcPointVector.length );
   _.assert( dstPointView.length === srcPointVector.length );
@@ -643,7 +643,7 @@ function boxIntersects( frustum , box )
   }
 
   let fpoints = _.frustum.cornersGet( frustum );
-  _.assert( _.spaceIs( fpoints ) );
+  _.assert( _.matrixIs( fpoints ) );
 
   for( let i = 0 ; i < 6 ; i ++ )
   {
@@ -850,7 +850,7 @@ function boundingBoxGet( dstBox, srcFrustum )
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
   let fpoints = _.frustum.cornersGet( srcFrustum );
-  _.assert( _.spaceIs( fpoints ) );
+  _.assert( _.matrixIs( fpoints ) );
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
 
   if( dstBox === null || dstBox === undefined )
@@ -1979,7 +1979,7 @@ function boundingSphereGet( dstSphere, srcFrustum )
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
   let fpoints = _.frustum.cornersGet( srcFrustum );
-  _.assert( _.spaceIs( fpoints ) );
+  _.assert( _.matrixIs( fpoints ) );
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
 
   if( dstSphere === null || dstSphere === undefined )
