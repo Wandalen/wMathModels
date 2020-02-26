@@ -11,10 +11,10 @@ let Self = _.ray = _.ray || Object.create( null );
  * @description
  * A ray is a semi-infinite line, starting at an origin and following a direction.
  *
- * For the following functions, rays must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ],
+ * For the following functions, rays must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ], 
  * where the dimension equals the object´s length divided by two.
  *
- * Moreover, orX, orY and orZ, are the coordinates of the origin of the ray,
+ * Moreover, orX, orY and orZ, are the coordinates of the origin of the ray, 
  * and dirX, dirY, dirZ the coordinates of the direction of the ray.
  * @namespace "wTools.ray"
  * @memberof module:Tools/math/Concepts 
@@ -24,10 +24,10 @@ let Self = _.ray = _.ray || Object.create( null );
 
   A ray is a semi-infinite line, starting at an origin and following a direction.
 
-  For the following functions, rays must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ],
+  For the following functions, rays must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ], 
 where the dimension equals the object´s length divided by two.
 
-  Moreover, orX, orY and orZ, are the coordinates of the origin of the ray,
+  Moreover, orX, orY and orZ, are the coordinates of the origin of the ray, 
 and dirX, dirY, dirZ the coordinates of the direction of the ray.
 
 */
@@ -42,7 +42,7 @@ function make( dim )
   _.assert( arguments.length === 0 || arguments.length === 1 );
   let result = _.ray.makeZero( dim );
   if( _.ray.is( dim ) )
-  _.avector.assign( result,dim );
+  _.avector.assign( result, dim );
   return result;
 }
 
@@ -56,7 +56,7 @@ function makeZero( dim )
   dim = 3;
   _.assert( dim >= 0 );
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  let result = _.dup( 0,dim*2 );
+  let result = _.dup( 0, dim*2 );
   return result;
 }
 
@@ -89,7 +89,7 @@ function zero( ray )
 
   if( _.ray.is( ray ) )
   {
-    let rayView = _.ray._from( ray );
+    let rayView = _.ray.toAdapter( ray );
     rayView.assign( 0 );
     return ray;
   }
@@ -106,7 +106,7 @@ function nil( ray )
 
   if( _.ray.is( ray ) )
   {
-    let rayView = _.ray._from( ray );
+    let rayView = _.ray.toAdapter( ray );
     // let min = _.ray.cornerLeftGet( rayView );
     // let max = _.ray.cornerRightGet( rayView );
     let min = _.ray.originGet( rayView );
@@ -127,8 +127,8 @@ function from( ray )
 {
 //  if( _.objectIs( ray ) )
 //  {
-//    _.assertMapHasFields( ray,{ min : 'min' , max : 'max' } );
-//    ray = _.arrayAppendArrays( [],[ ray.min,ray.max ] );
+//    _.assertMapHasFields( ray, { min : 'min' , max : 'max' } );
+//    ray = _.arrayAppendArrays( [], [ ray.min, ray.max ] );
 //  }
 
   _.assert( _.ray.is( ray ) || ray === null );
@@ -149,11 +149,11 @@ function from( ray )
 
 //
 
-function _from( ray )
+function toAdapter( ray )
 {
   _.assert( _.ray.is( ray ) );
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return _.vectorAdapter.From( ray );
+  return _.vectorAdapter.from( ray );
 }
 
 //
@@ -165,7 +165,7 @@ function _from( ray )
   * @param { Array } pair - The source points.
   *
   * @example
-  * // returns   _.vectorAdapter.From( [ 1, 2, 1, 2 ] )
+  * // returns   _.vectorAdapter.from( [ 1, 2, 1, 2 ] )
   * _.fromPair( [ 1, 2 ], [ 3, 4 ] );
   *
   * @returns { Vector } Returns the ray containing the two points.
@@ -184,9 +184,9 @@ function fromPair( pair )
   _.assert( pair.length === 2, 'Expects two points' );
   _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
 
-  let result = _.vectorAdapter.From( _.long.longMake( pair[ 0 ].length * 2 ) );
-  let pair0 = _.vectorAdapter.From( pair[ 0 ] );
-  let pair1 = _.vectorAdapter.From( pair[ 1 ] );
+  let result = _.vectorAdapter.from( _.long.longMake( pair[ 0 ].length * 2 ) );
+  let pair0 = _.vectorAdapter.from( pair[ 0 ] );
+  let pair1 = _.vectorAdapter.from( pair[ 1 ] );
 
   for( let i = 0; i < pair0.length ; i++ )
   {
@@ -288,7 +288,7 @@ function dimGet( ray )
 function originGet( ray )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  let rayView = _.ray._from( ray );
+  let rayView = _.ray.toAdapter( ray );
   return rayView.subarray( 0, ray.length/ 2 );
 }
 
@@ -317,7 +317,7 @@ function originGet( ray )
 function directionGet( ray )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  let rayView = _.ray._from( ray );
+  let rayView = _.ray.toAdapter( ray );
   return rayView.subarray( ray.length/ 2, ray.length );
 }
 
@@ -354,7 +354,7 @@ function rayAt( srcRay, factor )
   _.assert( _.ray.is( srcRay ) );
   _.assert( factor >= 0, 'Factor can not be negative ( point must be in the ray )');
 
-  let rayView = _.ray._from( srcRay )
+  let rayView = _.ray.toAdapter( srcRay )
   let origin = _.ray.originGet( rayView );
   let direction = _.ray.directionGet( rayView );
 
@@ -407,14 +407,14 @@ function getFactor( srcRay, srcPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPoint.length );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
-  let srcPointView = _.vectorAdapter.From( srcPoint.slice() );
+  let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
-  let dOrigin = _.vectorAdapter.From( avector.subVectors( srcPointView, origin ) );
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -609,7 +609,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   * _.rayIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  _.vectorAdapter.From( [ 2, 1 ] )
+  * // returns  _.vectorAdapter.from( [ 2, 1 ] )
   * _.rayIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
   *
   * @returns { Array } Returns the factors for the two rays intersection.
@@ -621,8 +621,8 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   */
 function rayIntersectionFactors( r1, r2 )
 {
-  //_.assert( r1[ 0 ].length === 2,'implemented only for d2' );
-  //_.assert( r2[ 0 ].length === 2,'implemented only for d2' );
+  //_.assert( r1[ 0 ].length === 2, 'implemented only for d2' );
+  //_.assert( r2[ 0 ].length === 2, 'implemented only for d2' );
 
   // let dorigin = avector.subVectors( r2[ 0 ].slice() , r1[ 0 ] );
 
@@ -636,19 +636,19 @@ function rayIntersectionFactors( r1, r2 )
   // m[ 2 ] = - r2[ 1 ][ 0 ];
   // m[ 3 ] = + r2[ 1 ][ 1 ];
 
-  // let x = d2linearEquationSolve( m,y );
+  // let x = d2linearEquationSolve( m, y );
   // debbuger;
   // return x;
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( r1.length === r2.length,'The two rays must have the same dimension' );
+  _.assert( r1.length === r2.length, 'The two rays must have the same dimension' );
 
-  let r1View = _.ray._from( r1.slice() );
-  let r2View = _.ray._from( r2.slice() );
+  let r1View = _.ray.toAdapter( r1.slice() );
+  let r2View = _.ray.toAdapter( r2.slice() );
 
   let origin1 = _.ray.originGet( r1View );
   let origin2 = _.ray.originGet( r2View );
-  let dOrigin = _.vectorAdapter.From( avector.subVectors( origin2.clone(), origin1 ) );
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( origin2.clone(), origin1 ) );
 
   let direction1 = _.ray.directionGet( r1View );
   let direction2 = _.ray.directionGet( r2View );
@@ -664,7 +664,7 @@ function rayIntersectionFactors( r1, r2 )
     identOrigin = identOrigin + 1;
   }
   if( identOrigin === origin1.length )
-  return _.vectorAdapter.From( [ 0, 0 ] );
+  return _.vectorAdapter.from( [ 0, 0 ] );
 
   // Parallel rays
   if( rayParallel( r1View, r2View ) === true )
@@ -674,11 +674,11 @@ function rayIntersectionFactors( r1, r2 )
 
     if( factor1 )
     {
-      return _.vectorAdapter.From( [ factor1, 0 ] );
+      return _.vectorAdapter.from( [ factor1, 0 ] );
     }
     else if( factor2 )
     {
-      return _.vectorAdapter.From( [ 0, factor2 ] );
+      return _.vectorAdapter.from( [ 0, factor2 ] );
     }
     else
     {
@@ -686,7 +686,7 @@ function rayIntersectionFactors( r1, r2 )
     }
   }
 
-  let result = _.vectorAdapter.From( [ 0, 0 ] );
+  let result = _.vectorAdapter.from( [ 0, 0 ] );
 
   debugger;
 
@@ -700,18 +700,18 @@ function rayIntersectionFactors( r1, r2 )
 
     let o =
     {
-      x : null,
-      m,
-      y : or,
-      kernel : null,
-      pivoting : 1,
+      x : null, 
+      m, 
+      y : or, 
+      kernel : null, 
+      pivoting : 1, 
     }
 
     let x = _.Matrix.solveGeneral( o );
 
     if( i === 0 )
     {
-      result = _.vectorAdapter.From( x.base )
+      result = _.vectorAdapter.from( x.base )
     }
     else
     {
@@ -725,11 +725,11 @@ function rayIntersectionFactors( r1, r2 )
       {
         if( samex1 )
         {
-          result.eSet( 0, _.vectorAdapter.From( x.base ).eGet( 0 ) );
+          result.eSet( 0, _.vectorAdapter.from( x.base ).eGet( 0 ) );
         }
         else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex2 )
         {
-          result.eSet( 0, _.vectorAdapter.From( x.base ).eGet( 0 ) );
+          result.eSet( 0, _.vectorAdapter.from( x.base ).eGet( 0 ) );
         }
         else
         {
@@ -740,11 +740,11 @@ function rayIntersectionFactors( r1, r2 )
       {
         if( samex2 )
         {
-          result.eSet( 1, _.vectorAdapter.From( x.base ).eGet( 1 ) );
+          result.eSet( 1, _.vectorAdapter.from( x.base ).eGet( 1 ) );
         }
         else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex1 )
         {
-          result.eSet( 1, _.vectorAdapter.From( x.base ).eGet( 1 ) );
+          result.eSet( 1, _.vectorAdapter.from( x.base ).eGet( 1 ) );
         }
         else
         {
@@ -784,13 +784,13 @@ function rayIntersectionFactors( r1, r2 )
   * @throws { Error } An Error if ( src2Ray ) is not ray.
   * @memberof module:Tools/math/Concepts.wTools.ray
   */
-function rayIntersectionPoints( r1,r2 )
+function rayIntersectionPoints( r1, r2 )
 {
-  let factors = rayIntersectionFactors( r1,r2 );
+  let factors = rayIntersectionFactors( r1, r2 );
   if( factors === 0 )
   return 0;
 
-  let factorsView = _.vectorAdapter.From( factors );
+  let factorsView = _.vectorAdapter.from( factors );
   let result = [ Self.rayAt( r1, factorsView.eGet( 0 ) ), Self.rayAt( r2, factorsView.eGet( 1 ) ) ];
   return result;
 }
@@ -800,9 +800,9 @@ rayIntersectionPoints.shaderChunk =
   void rayIntersectionPoints( out vec2 result[ 2 ], vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
-    vec2 factors = rayIntersectionFactors( r1,r2 );
-    result[ 0 ] = rayAt( r1,factors[ 0 ] );
-    result[ 1 ] = rayAt( r2,factors[ 1 ] );
+    vec2 factors = rayIntersectionFactors( r1, r2 );
+    result[ 0 ] = rayAt( r1, factors[ 0 ] );
+    result[ 1 ] = rayAt( r2, factors[ 1 ] );
 
   }
 `
@@ -831,15 +831,15 @@ rayIntersectionPoints.shaderChunk =
   * @throws { Error } An Error if ( src2Ray ) is not ray.
   * @memberof module:Tools/math/Concepts.wTools.ray
   */
-function rayIntersectionPoint( r1,r2 )
+function rayIntersectionPoint( r1, r2 )
 {
 
-  let factors = Self.rayIntersectionFactors( r1,r2 );
+  let factors = Self.rayIntersectionFactors( r1, r2 );
 
   if( factors === 0 )
   return 0;
 
-  return Self.rayAt( r1,factors.eGet( 0 ) );
+  return Self.rayAt( r1, factors.eGet( 0 ) );
 
 }
 
@@ -848,8 +848,8 @@ rayIntersectionPoint.shaderChunk =
   vec2 rayIntersectionPoint( vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
-    vec2 factors = rayIntersectionFactors( r1,r2 );
-    return rayAt( r1,factors[ 0 ] );
+    vec2 factors = rayIntersectionFactors( r1, r2 );
+    return rayAt( r1, factors[ 0 ] );
 
   }
 `
@@ -878,10 +878,10 @@ rayIntersectionPoint.shaderChunk =
   * @throws { Error } An Error if ( src2Ray ) is not ray.
   * @memberof module:Tools/math/Concepts.wTools.ray
   */
-function rayIntersectionPointAccurate( r1,r2 )
+function rayIntersectionPointAccurate( r1, r2 )
 {
 
-  let closestPoints = Self.rayIntersectionPoints( r1,r2 );
+  let closestPoints = Self.rayIntersectionPoints( r1, r2 );
   // return closestPoints[ 0 ].add( closestPoints[ 1 ] ).mul( 0.5 );
   debugger;
 
@@ -898,7 +898,7 @@ rayIntersectionPointAccurate.shaderChunk =
   {
 
     vec2 closestPoints[ 2 ];
-    rayIntersectionPoints( closestPoints,r1,r2 );
+    rayIntersectionPoints( closestPoints, r1, r2 );
     return ( closestPoints[ 0 ] + closestPoints[ 1 ] ) * 0.5;
 
   }
@@ -935,14 +935,14 @@ function pointContains( srcRay, srcPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPoint.length );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
-  let srcPointView = _.vectorAdapter.From( srcPoint.slice() );
+  let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
-  let dOrigin = _.vectorAdapter.From( avector.subVectors( srcPointView, origin ) );
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -1027,11 +1027,11 @@ function pointDistance( srcRay, srcPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPoint.length );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
-  let srcPointView = _.vectorAdapter.From( srcPoint.slice() );
+  let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
 
@@ -1043,7 +1043,7 @@ function pointDistance( srcRay, srcPoint )
   {
     let projection = _.ray.pointClosestPoint( srcRayView, srcPointView );
 
-    let dPoints = _.vectorAdapter.From( avector.subVectors( srcPointView, projection ) );
+    let dPoints = _.vectorAdapter.from( avector.subVectors( srcPointView, projection ) );
     debugger;
     let mod = _.vectorAdapter.dot( dPoints, dPoints );
     mod = Math.sqrt( mod );
@@ -1088,12 +1088,12 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPoint.length );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimension  = _.ray.dimGet( srcRayView )
-  let srcPointView = _.vectorAdapter.From( srcPoint.slice() );
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
 
@@ -1112,20 +1112,20 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
   }
   else if( _.ray.pointContains( srcRayView, srcPointView ) )
   {
-    pointVector = _.vectorAdapter.From( srcPointView );
+    pointVector = _.vectorAdapter.from( srcPointView );
   }
   else
   {
-    let dOrigin = _.vectorAdapter.From( avector.subVectors( srcPointView, origin ) );
+    let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
     let dot = _.vectorAdapter.dot( direction, direction );
     let factor = _.vectorAdapter.dot( direction , dOrigin ) / dot ;
     if( factor < 0 || dot === 0 )
     {
-      pointVector = _.vectorAdapter.From( origin );
+      pointVector = _.vectorAdapter.from( origin );
     }
     else
     {
-      pointVector = _.vectorAdapter.From( _.ray.rayAt( srcRayView, factor ) );
+      pointVector = _.vectorAdapter.from( _.ray.rayAt( srcRayView, factor ) );
     }
   }
 
@@ -1169,15 +1169,15 @@ function boxIntersects( srcRay, srcBox )
   if( srcRay === null )
   srcRay = _.ray.make( srcBox.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
 
-  let boxView = _.box._from( srcBox );
+  let boxView = _.box.toAdapter( srcBox );
   let dimBox = _.box.dimGet( boxView );
-  let min = _.vectorAdapter.From( _.box.cornerLeftGet( boxView ) );
-  let max = _.vectorAdapter.From( _.box.cornerRightGet( boxView ) );
+  let min = _.vectorAdapter.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vectorAdapter.from( _.box.cornerRightGet( boxView ) );
 
   _.assert( dimRay === dimBox );
 
@@ -1232,15 +1232,15 @@ function boxDistance( srcRay, srcBox )
   if( srcRay === null )
   srcRay = _.ray.make( srcBox.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
 
-  let boxView = _.box._from( srcBox );
+  let boxView = _.box.toAdapter( srcBox );
   let dimBox = _.box.dimGet( boxView );
-  let min = _.vectorAdapter.From( _.box.cornerLeftGet( boxView ) );
-  let max = _.vectorAdapter.From( _.box.cornerRightGet( boxView ) );
+  let min = _.vectorAdapter.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vectorAdapter.from( _.box.cornerRightGet( boxView ) );
 
   _.assert( dimRay === dimBox );
 
@@ -1289,17 +1289,17 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcBox.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
 
-  let boxView = _.box._from( srcBox );
+  let boxView = _.box.toAdapter( srcBox );
   let dimBox = _.box.dimGet( boxView );
-  let min = _.vectorAdapter.From( _.box.cornerLeftGet( boxView ) );
-  let max = _.vectorAdapter.From( _.box.cornerRightGet( boxView ) );
+  let min = _.vectorAdapter.from( _.box.cornerLeftGet( boxView ) );
+  let max = _.vectorAdapter.from( _.box.cornerRightGet( boxView ) );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
   _.assert( dimRay === dimBox );
 
   if( _.ray.boxIntersects( srcRayView, boxView ) )
@@ -1310,7 +1310,7 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
 
   let distance = _.box.pointDistance( boxView, origin );
   let d = 0;
-  let pointView = _.vectorAdapter.From( origin );
+  let pointView = _.vectorAdapter.from( origin );
 
   for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
   {
@@ -1323,7 +1323,7 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
     }
   }
 
-  pointView = _.vectorAdapter.From( pointView );
+  pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
     dstPointView.eSet( i, pointView.eGet( i ) );
@@ -1357,7 +1357,7 @@ function boundingBoxGet( dstBox, srcRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -1366,7 +1366,7 @@ function boundingBoxGet( dstBox, srcRay )
   dstBox = _.box.makeNil( dimRay );
 
   _.assert( _.box.is( dstBox ) );
-  let boxView = _.box._from( dstBox );
+  let boxView = _.box.toAdapter( dstBox );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
   let dimB = _.box.dimGet( boxView );
@@ -1391,7 +1391,7 @@ function boundingBoxGet( dstBox, srcRay )
     }
   }
 
-  let box = _.box._from( _.box.fromPoints( null, [ origin, endPoint ] ) );
+  let box = _.box.toAdapter( _.box.fromPoints( null, [ origin, endPoint ] ) );
 
   for( let b = 0; b < boxView.length; b++ )
   {
@@ -1406,8 +1406,8 @@ function boundingBoxGet( dstBox, srcRay )
 function capsuleIntersects( srcRay , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstCapsuleView = _.capsule._from( tstCapsule );
-  let rayView = _.ray._from( srcRay );
+  let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
+  let rayView = _.ray.toAdapter( srcRay );
 
   let gotBool = _.capsule.rayIntersects( tstCapsuleView, rayView );
   return gotBool;
@@ -1418,8 +1418,8 @@ function capsuleIntersects( srcRay , tstCapsule )
 function capsuleDistance( srcRay , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstCapsuleView = _.capsule._from( tstCapsule );
-  let rayView = _.ray._from( srcRay );
+  let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
+  let rayView = _.ray.toAdapter( srcRay );
 
   let gotDist = _.capsule.rayDistance( tstCapsuleView, rayView );
 
@@ -1457,7 +1457,7 @@ function capsuleClosestPoint( ray, capsule, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
-  let rayView = _.ray._from( ray );
+  let rayView = _.ray.toAdapter( ray );
   let dimRay = _.ray.dimGet( rayView );
 
   if( arguments.length === 2 )
@@ -1466,10 +1466,10 @@ function capsuleClosestPoint( ray, capsule, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let capsuleView = _.capsule._from( capsule );
+  let capsuleView = _.capsule.toAdapter( capsule );
   let dimCapsule  = _.capsule.dimGet( capsuleView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   _.assert( dimRay === dstPoint.length );
   _.assert( dimRay === dimCapsule );
@@ -1480,7 +1480,7 @@ function capsuleClosestPoint( ray, capsule, dstPoint )
   {
     let capsulePoint = _.capsule.rayClosestPoint( capsule, rayView );
 
-    let rayPoint = _.vectorAdapter.From( _.ray.pointClosestPoint( rayView, capsulePoint ) );
+    let rayPoint = _.vectorAdapter.from( _.ray.pointClosestPoint( rayView, capsulePoint ) );
 
     for( let i = 0; i < dimRay; i++ )
     {
@@ -1505,9 +1505,9 @@ function capsuleClosestPoint( ray, capsule, dstPoint )
   * // returns true;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
+  *   0,   0,   0,   0, - 1,   1, 
+  *   1, - 1,   0,   0,   0,   0, 
+  *   0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
@@ -1536,7 +1536,7 @@ function frustumIntersects( srcRay, srcFrustum )
   if( srcRay === null )
   srcRay = _.ray.make( rows - 1 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView );
@@ -1600,7 +1600,7 @@ function frustumDistance( srcRay, srcFrustum )
   if( srcRay === null )
   srcRay = _.ray.make( srcFrustum.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView );
@@ -1657,12 +1657,12 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcFrustum.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
   _.assert( dimRay === rows - 1 );
 
   if( _.ray.frustumIntersects( srcRayView, srcFrustum ) )
@@ -1674,7 +1674,7 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
 
   let distance = _.frustum.pointDistance( srcFrustum, origin );
   let d = 0;
-  let pointView = _.vectorAdapter.From( origin );
+  let pointView = _.vectorAdapter.from( origin );
 
   for( let j = 0 ; j < _.Matrix.dimsOf( corners )[ 1 ] ; j++ )
   {
@@ -1687,7 +1687,7 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
     }
   }
 
-  pointView = _.vectorAdapter.From( pointView );
+  pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
     dstPointView.eSet( i, pointView.eGet( i ) );
@@ -1701,8 +1701,8 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
 function lineIntersects( srcRay , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = _.line._from( tstLine );
-  let rayView = _.ray._from( srcRay );
+  let tstLineView = _.line.toAdapter( tstLine );
+  let rayView = _.ray.toAdapter( srcRay );
 
   let gotBool = _.line.rayIntersects( tstLineView, rayView );
   return gotBool;
@@ -1713,8 +1713,8 @@ function lineIntersects( srcRay , tstLine )
 function lineDistance( srcRay , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = _.line._from( tstLine );
-  let rayView = _.ray._from( srcRay );
+  let tstLineView = _.line.toAdapter( tstLine );
+  let rayView = _.ray.toAdapter( srcRay );
 
   let gotDist = _.line.rayDistance( tstLineView, rayView );
 
@@ -1759,17 +1759,17 @@ function lineClosestPoint( srcRay, tstLine, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( tstLine.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let srcOrigin = _.ray.originGet( srcRayView );
   let srcDir = _.ray.directionGet( srcRayView );
   let srcDim  = _.ray.dimGet( srcRayView );
 
-  let tstLineView = _.line._from( tstLine );
+  let tstLineView = _.line.toAdapter( tstLine );
   let tstOrigin = _.line.originGet( tstLineView );
   let tstDir = _.line.directionGet( tstLineView );
   let tstDim = _.line.dimGet( tstLineView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
   _.assert( srcDim === tstDim );
 
   let pointView;
@@ -1795,7 +1795,7 @@ function lineClosestPoint( srcRay, tstLine, dstPoint )
       let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
       let mod = _.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = _.vectorAdapter.From( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*_.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       if( factor < 0 )
@@ -1809,7 +1809,7 @@ function lineClosestPoint( srcRay, tstLine, dstPoint )
     }
   }
 
-  pointView = _.vectorAdapter.From( pointView );
+  pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
     dstPointView.eSet( i, pointView.eGet( i ) );
@@ -1850,12 +1850,12 @@ function planeIntersects( srcRay, srcPlane )
   if( srcRay === null )
   srcRay = _.ray.make( srcPlane.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
 
-  let planeView = _.plane._from( srcPlane );
+  let planeView = _.plane.toAdapter( srcPlane );
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
   let dimPlane = _.plane.dimGet( planeView );
@@ -1914,12 +1914,12 @@ function planeDistance( srcRay, srcPlane )
   if( srcRay === null )
   srcRay = _.ray.make( srcPlane.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
 
-  let planeView = _.plane._from( srcPlane );
+  let planeView = _.plane.toAdapter( srcPlane );
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
   let dimPlane = _.plane.dimGet( planeView );
@@ -1971,24 +1971,24 @@ function planeClosestPoint( srcRay, srcPlane, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcPlane.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
 
-  let planeView = _.plane._from( srcPlane );
+  let planeView = _.plane.toAdapter( srcPlane );
   let normal = _.plane.normalGet( planeView );
   let bias = _.plane.biasGet( planeView );
   let dimPlane = _.plane.dimGet( planeView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   _.assert( dimRay === dimPlane );
 
   if( _.ray.planeIntersects( srcRayView, planeView ) )
   return 0;
 
-  origin = _.vectorAdapter.From( origin );
+  origin = _.vectorAdapter.from( origin );
   for( let i = 0; i < origin.length; i++ )
   {
     dstPointView.eSet( i, origin.eGet( i ) );
@@ -2063,12 +2063,12 @@ function rayDistance( srcRay, tstRay )
   if( srcRay === null )
   srcRay = _.ray.make( tstRay.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let srcOrigin = _.ray.originGet( srcRayView );
   let srcDirection = _.ray.directionGet( srcRayView );
   let srcDim  = _.ray.dimGet( srcRayView )
 
-  let tstRayView = _.ray._from( tstRay );
+  let tstRayView = _.ray.toAdapter( tstRay );
   let tstOrigin = _.ray.originGet( tstRayView );
   let tstDirection = _.ray.directionGet( tstRayView );
   let tstDim  = _.ray.dimGet( tstRayView )
@@ -2156,17 +2156,17 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( tstRay.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let srcOrigin = _.ray.originGet( srcRayView );
   let srcDir = _.ray.directionGet( srcRayView );
   let srcDim  = _.ray.dimGet( srcRayView );
 
-  let tstRayView = _.ray._from( tstRay );
+  let tstRayView = _.ray.toAdapter( tstRay );
   let tstOrigin = _.ray.originGet( tstRayView );
   let tstDir = _.ray.directionGet( tstRayView );
   let tstDim = _.ray.dimGet( tstRayView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
   _.assert( srcDim === tstDim );
 
   let pointView;
@@ -2191,7 +2191,7 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
         let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
         let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
         let mod = _.vectorAdapter.dot( srcDir, tstDir );
-        let dOrigin = _.vectorAdapter.From( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+        let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
         let factor = ( - mod*_.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
         if( factor >= 0 )
@@ -2217,7 +2217,7 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
     }
   }
 
-  pointView = _.vectorAdapter.From( pointView );
+  pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
     dstPointView.eSet( i, pointView.eGet( i ) );
@@ -2231,8 +2231,8 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
 function segmentIntersects( srcRay , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstSegmentView = _.segment._from( tstSegment );
-  let rayView = _.ray._from( srcRay );
+  let tstSegmentView = _.segment.toAdapter( tstSegment );
+  let rayView = _.ray.toAdapter( srcRay );
 
   let gotBool = _.segment.rayIntersects( tstSegmentView, rayView );
   return gotBool;
@@ -2243,8 +2243,8 @@ function segmentIntersects( srcRay , tstSegment )
 function segmentDistance( srcRay , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstSegmentView = _.segment._from( tstSegment );
-  let rayView = _.ray._from( srcRay );
+  let tstSegmentView = _.segment.toAdapter( tstSegment );
+  let rayView = _.ray.toAdapter( srcRay );
 
   let gotDist = _.segment.rayDistance( tstSegmentView, rayView );
 
@@ -2289,18 +2289,18 @@ function segmentClosestPoint( srcRay, tstSegment, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( tstSegment.length / 2 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let srcOrigin = _.ray.originGet( srcRayView );
   let srcDir = _.ray.directionGet( srcRayView );
   let srcDim  = _.ray.dimGet( srcRayView );
 
-  let tstSegmentView = _.segment._from( tstSegment );
+  let tstSegmentView = _.segment.toAdapter( tstSegment );
   let tstOrigin = _.segment.originGet( tstSegmentView );
   let tstEnd = _.segment.endPointGet( tstSegmentView );
   let tstDir = _.segment.directionGet( tstSegmentView );
   let tstDim = _.segment.dimGet( tstSegmentView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
   _.assert( srcDim === tstDim );
 
   let pointView;
@@ -2327,7 +2327,7 @@ function segmentClosestPoint( srcRay, tstSegment, dstPoint )
       let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
       let mod = _.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = _.vectorAdapter.From( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*_.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       if( factor < 0 )
@@ -2341,7 +2341,7 @@ function segmentClosestPoint( srcRay, tstSegment, dstPoint )
     }
   }
 
-  pointView = _.vectorAdapter.From( pointView );
+  pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
     dstPointView.eSet( i, pointView.eGet( i ) );
@@ -2383,12 +2383,12 @@ function sphereIntersects( srcRay, srcSphere )
   if( srcRay === null )
   srcRay = _.ray.make( srcSphere.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
 
-  let sphereView = _.sphere._from( srcSphere );
+  let sphereView = _.sphere.toAdapter( srcSphere );
   let center = _.sphere.centerGet( sphereView );
   let radius = _.sphere.radiusGet( sphereView );
   let dimSphere = _.sphere.dimGet( sphereView );
@@ -2440,12 +2440,12 @@ function sphereDistance( srcRay, srcSphere )
   if( srcRay === null )
   srcRay = _.ray.make( srcSphere.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
 
-  let sphereView = _.sphere._from( srcSphere );
+  let sphereView = _.sphere.toAdapter( srcSphere );
   let center = _.sphere.centerGet( sphereView );
   let radius = _.sphere.radiusGet( sphereView );
   let dimSphere = _.sphere.dimGet( sphereView );
@@ -2498,24 +2498,24 @@ function sphereClosestPoint( srcRay, srcSphere, dstPoint )
   if( srcRay === null )
   srcRay = _.ray.make( srcSphere.length - 1 );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
 
-  let sphereView = _.sphere._from( srcSphere );
+  let sphereView = _.sphere.toAdapter( srcSphere );
   let center = _.sphere.centerGet( sphereView );
   let radius = _.sphere.radiusGet( sphereView );
   let dimSphere = _.sphere.dimGet( sphereView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   _.assert( dimRay === dimSphere );
 
   if( _.ray.sphereIntersects( srcRayView, sphereView ) )
   return 0;
 
-  let pointVector = _.vectorAdapter.From( _.ray.pointClosestPoint( srcRayView, center ) );
+  let pointVector = _.vectorAdapter.from( _.ray.pointClosestPoint( srcRayView, center ) );
 
   for( let i = 0; i < pointVector.length; i++ )
   {
@@ -2550,7 +2550,7 @@ function boundingSphereGet( dstSphere, srcRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let srcRayView = _.ray._from( srcRay );
+  let srcRayView = _.ray.toAdapter( srcRay );
   let origin = _.ray.originGet( srcRayView );
   let direction = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView )
@@ -2559,7 +2559,7 @@ function boundingSphereGet( dstSphere, srcRay )
   dstSphere = _.sphere.makeZero( dimRay );
 
   _.assert( _.sphere.is( dstSphere ) );
-  let dstSphereView = _.sphere._from( dstSphere );
+  let dstSphereView = _.sphere.toAdapter( dstSphere );
   let center = _.sphere.centerGet( dstSphereView );
   let radiusSphere = _.sphere.radiusGet( dstSphereView );
   let dimSphere = _.sphere.dimGet( dstSphereView );
@@ -2573,7 +2573,7 @@ function boundingSphereGet( dstSphere, srcRay )
   }
 
   // Radius of the sphere
-  let difDirection = _.vectorAdapter.distance( _.vectorAdapter.From( _.long.longMakeZeroed( dimRay ) ), direction );
+  let difDirection = _.vectorAdapter.distance( _.vectorAdapter.from( _.long.longMakeZeroed( dimRay ) ), direction );
 
   if( difDirection === 0  )
   {
@@ -2596,70 +2596,70 @@ function boundingSphereGet( dstSphere, srcRay )
 let Proto =
 {
 
-  make,
-  makeZero,
-  makeNil,
+  make, 
+  makeZero, 
+  makeNil, 
 
-  zero,
-  nil,
+  zero, 
+  nil, 
 
-  from,
-  _from,
-  fromPair, // fromPoints,
+  from, 
+  toAdapter, 
+  fromPair, // fromPoints, 
 
-  is,
-  dimGet,
-  originGet,
-  directionGet,
+  is, 
+  dimGet, 
+  originGet, 
+  directionGet, 
 
-  rayAt,
-  getFactor,
+  rayAt, 
+  getFactor, 
 
-  rayParallel3D,
-  rayParallel,
-  rayIntersectionFactors,
-  rayIntersectionPoints,
-  rayIntersectionPoint,
-  rayIntersectionPointAccurate,
+  rayParallel3D, 
+  rayParallel, 
+  rayIntersectionFactors, 
+  rayIntersectionPoints, 
+  rayIntersectionPoint, 
+  rayIntersectionPointAccurate, 
 
 
-  pointContains,
-  pointDistance,
-  pointClosestPoint,
+  pointContains, 
+  pointDistance, 
+  pointClosestPoint, 
 
-  boxIntersects,
-  boxDistance,
-  boxClosestPoint,
-  boundingBoxGet,
+  boxIntersects, 
+  boxDistance, 
+  boxClosestPoint, 
+  boundingBoxGet, 
 
-  capsuleIntersects,
-  capsuleDistance,
-  capsuleClosestPoint,
+  capsuleIntersects, 
+  capsuleDistance, 
+  capsuleClosestPoint, 
 
-  frustumIntersects,
-  frustumDistance,
-  frustumClosestPoint,
+  frustumIntersects, 
+  frustumDistance, 
+  frustumClosestPoint, 
 
   lineIntersects,  /* Same as _.line.rayIntersects */
   lineDistance,  /* Same as _.line.rayDistance */
-  lineClosestPoint,
+  lineClosestPoint, 
 
-  planeIntersects,
-  planeDistance,
-  planeClosestPoint,
+  planeIntersects, 
+  planeDistance, 
+  planeClosestPoint, 
 
-  rayIntersects,
-  rayDistance,
-  rayClosestPoint,
+  rayIntersects, 
+  rayDistance, 
+  rayClosestPoint, 
 
   segmentIntersects,  /* Same as _.segment.rayIntersects */
   segmentDistance,  /* Same as _.segment.rayDistance */
-  segmentClosestPoint,
+  segmentClosestPoint, 
 
-  sphereIntersects,
-  sphereDistance,
-  sphereClosestPoint,
-  boundingSphereGet,
+  sphereIntersects, 
+  sphereDistance, 
+  sphereClosestPoint, 
+  boundingSphereGet, 
 }
 
 _.mapSupplement( Self, Proto );

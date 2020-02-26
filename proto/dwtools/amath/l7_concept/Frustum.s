@@ -34,7 +34,7 @@ function make()
 {
   _.assert( arguments.length === 0, 'Expects no arguments' );
 
-  let dst = _.Matrix.make([ 4,6 ]);
+  let dst = _.Matrix.make([ 4, 6 ]);
 
   return dst;
 }
@@ -51,54 +51,54 @@ function fromMatrixHomogenous( frustum , m )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   _.assert( _.matrixIs( m ) );
-  _.assert( m.hasShape([ 4,4 ]) );
+  _.assert( m.hasShape([ 4, 4 ]) );
 
   frustum.colVectorGet( 0 ).copy
   ([
-    m.atomGet([ 3,0 ]) - m.atomGet([ 0,0 ]),
-    m.atomGet([ 3,1 ]) - m.atomGet([ 0,1 ]),
-    m.atomGet([ 3,2 ]) - m.atomGet([ 0,2 ]),
-    m.atomGet([ 3,3 ]) - m.atomGet([ 0,3 ]),
+    m.atomGet([ 3, 0 ]) - m.atomGet([ 0, 0 ]), 
+    m.atomGet([ 3, 1 ]) - m.atomGet([ 0, 1 ]), 
+    m.atomGet([ 3, 2 ]) - m.atomGet([ 0, 2 ]), 
+    m.atomGet([ 3, 3 ]) - m.atomGet([ 0, 3 ]), 
   ]);
 
   frustum.colVectorGet( 1 ).copy
   ([
-    m.atomGet([ 3,0 ]) + m.atomGet([ 0,0 ]),
-    m.atomGet([ 3,1 ]) + m.atomGet([ 0,1 ]),
-    m.atomGet([ 3,2 ]) + m.atomGet([ 0,2 ]),
-    m.atomGet([ 3,3 ]) + m.atomGet([ 0,3 ]),
+    m.atomGet([ 3, 0 ]) + m.atomGet([ 0, 0 ]), 
+    m.atomGet([ 3, 1 ]) + m.atomGet([ 0, 1 ]), 
+    m.atomGet([ 3, 2 ]) + m.atomGet([ 0, 2 ]), 
+    m.atomGet([ 3, 3 ]) + m.atomGet([ 0, 3 ]), 
   ]);
 
   frustum.colVectorGet( 2 ).copy
   ([
-    m.atomGet([ 3,0 ]) + m.atomGet([ 1,0 ]),
-    m.atomGet([ 3,1 ]) + m.atomGet([ 1,1 ]),
-    m.atomGet([ 3,2 ]) + m.atomGet([ 1,2 ]),
-    m.atomGet([ 3,3 ]) + m.atomGet([ 1,3 ]),
+    m.atomGet([ 3, 0 ]) + m.atomGet([ 1, 0 ]), 
+    m.atomGet([ 3, 1 ]) + m.atomGet([ 1, 1 ]), 
+    m.atomGet([ 3, 2 ]) + m.atomGet([ 1, 2 ]), 
+    m.atomGet([ 3, 3 ]) + m.atomGet([ 1, 3 ]), 
   ]);
 
   frustum.colVectorGet( 3 ).copy
   ([
-    m.atomGet([ 3,0 ]) - m.atomGet([ 1,0 ]),
-    m.atomGet([ 3,1 ]) - m.atomGet([ 1,1 ]),
-    m.atomGet([ 3,2 ]) - m.atomGet([ 1,2 ]),
-    m.atomGet([ 3,3 ]) - m.atomGet([ 1,3 ]),
+    m.atomGet([ 3, 0 ]) - m.atomGet([ 1, 0 ]), 
+    m.atomGet([ 3, 1 ]) - m.atomGet([ 1, 1 ]), 
+    m.atomGet([ 3, 2 ]) - m.atomGet([ 1, 2 ]), 
+    m.atomGet([ 3, 3 ]) - m.atomGet([ 1, 3 ]), 
   ]);
 
   frustum.colVectorGet( 4 ).copy
   ([
-    m.atomGet([ 3,0 ]) - m.atomGet([ 2,0 ]),
-    m.atomGet([ 3,1 ]) - m.atomGet([ 2,1 ]),
-    m.atomGet([ 3,2 ]) - m.atomGet([ 2,2 ]),
-    m.atomGet([ 3,3 ]) - m.atomGet([ 2,3 ]),
+    m.atomGet([ 3, 0 ]) - m.atomGet([ 2, 0 ]), 
+    m.atomGet([ 3, 1 ]) - m.atomGet([ 2, 1 ]), 
+    m.atomGet([ 3, 2 ]) - m.atomGet([ 2, 2 ]), 
+    m.atomGet([ 3, 3 ]) - m.atomGet([ 2, 3 ]), 
   ]);
 
   frustum.colVectorGet( 5 ).copy
   ([
-    m.atomGet([ 3,0 ]) + m.atomGet([ 2,0 ]),
-    m.atomGet([ 3,1 ]) + m.atomGet([ 2,1 ]),
-    m.atomGet([ 3,2 ]) + m.atomGet([ 2,2 ]),
-    m.atomGet([ 3,3 ]) + m.atomGet([ 2,3 ]),
+    m.atomGet([ 3, 0 ]) + m.atomGet([ 2, 0 ]), 
+    m.atomGet([ 3, 1 ]) + m.atomGet([ 2, 1 ]), 
+    m.atomGet([ 3, 2 ]) + m.atomGet([ 2, 2 ]), 
+    m.atomGet([ 3, 3 ]) + m.atomGet([ 2, 3 ]), 
   ]);
 
   return frustum;
@@ -109,7 +109,7 @@ function fromMatrixHomogenous( frustum , m )
 function is( frustum )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return _.matrixIs( frustum ) && frustum.hasShape([ 4,6 ])
+  return _.matrixIs( frustum ) && frustum.hasShape([ 4, 6 ])
 }
 
 //
@@ -122,14 +122,14 @@ function is( frustum )
   *
   * @example
   * // returns furstumCorners =
-  * [ 0, 0, 0, 0, 1, 1, 1, 1,
-  *   1, 0, 1, 0, 1, 0, 1, 0,
-  *   1, 1, 0, 0, 1, 1, 0, 0,
+  * [ 0, 0, 0, 0, 1, 1, 1, 1, 
+  *   1, 0, 1, 0, 1, 0, 1, 0, 
+  *   1, 1, 0, 0, 1, 1, 0, 0, 
   * ];
   * let srcfrustum = _.Matrix.make( [ 4, 6 ] ).copy
-  * ([ 0, 0, 0, 0, - 1, 1,
-  *   1, - 1, 0, 0, 0, 0,
-  *   0, 0, 1, - 1, 0, 0,
+  * ([ 0, 0, 0, 0, - 1, 1, 
+  *   1, - 1, 0, 0, 0, 0, 
+  *   0, 0, 1, - 1, 0, 0, 
   *   - 1, 0, - 1, 0, 0, - 1
   * ]);
   *
@@ -154,7 +154,7 @@ function cornersGet( srcfrustum )
   let cols = dims[ 1 ];
   let pointsFru = _.Matrix.makeZero( [ rows - 1, cols + 2 ] );
 
-  let right = _.vectorAdapter.From(srcfrustum.colVectorGet( 0 ));
+  let right = _.vectorAdapter.from(srcfrustum.colVectorGet( 0 ));
   let left = srcfrustum.colVectorGet( 1 );
   let top = srcfrustum.colVectorGet( 2 );
   let bottom = srcfrustum.colVectorGet( 3 );
@@ -299,9 +299,9 @@ function pointContains( frustum , point )
   * // returns 1;
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *     0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
   * _.pointDistance( frustum, [ 1, 1, 2 ] );
@@ -377,9 +377,9 @@ function pointDistance( frustum, point )
   * @example
   * // returns [ 0, 0, 0 ];
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *   [ 0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.pointClosestPoint( frustum , [ - 1, - 1, - 1 ] );
   *
@@ -404,8 +404,8 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let srcPointVector = _.vectorAdapter.From( srcPoint );  /* qqq : problem */
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let srcPointVector = _.vectorAdapter.from( srcPoint );  /* qqq : problem */
+  let dstPointView = _.vectorAdapter.from( dstPoint );
   let dims = _.Matrix.dimsOf( frustum ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
@@ -415,8 +415,8 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   _.assert( rows - 1 === srcPointVector.length );
   _.assert( dstPointView.length === srcPointVector.length );
 
-  let max = _.vectorAdapter.From( fpoints.colVectorGet( 0 ).slice() );
-  let min = _.vectorAdapter.From( fpoints.colVectorGet( 0 ).slice() );
+  let max = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
+  let min = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
 
   for( let j = 1 ; j < _.Matrix.dimsOf( fpoints )[ 1 ] ; j++ )
   {
@@ -472,17 +472,17 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   else
   {
     let d0 = Infinity;
-    let finalPoint = _.vectorAdapter.From( dstPointView.slice() );
+    let finalPoint = _.vectorAdapter.from( dstPointView.slice() );
 
     for( let i = 0 ; i < cols ; i++ )
     {
-      let plane = _.vectorAdapter.From( frustum.colVectorGet( i ) );
+      let plane = _.vectorAdapter.from( frustum.colVectorGet( i ) );
 
       let p =  _.plane.pointCoplanarGet( plane, dstPointView );
 
       let d = _.avector.distance( dstPointView, p );
 
-      let pVector = _.vectorAdapter.From( p );
+      let pVector = _.vectorAdapter.from( p );
       if( d < d0  && _.frustum.pointContains( frustum, pVector ) )
       {
         for( var j = 0; j < finalPoint.length; j++ )
@@ -528,7 +528,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 function boxContains( frustum, box )
 {
 
-  let boxView = _.box._from( box );
+  let boxView = _.box.toAdapter( box );
   let dim1 = _.box.dimGet( boxView );
   let srcMin = _.box.cornerLeftGet( boxView );
   let srcMax = _.box.cornerRightGet( boxView );
@@ -591,7 +591,7 @@ function boxContains( frustum, box )
 function boxIntersects( frustum , box )
 {
 
-  let boxView = _.box._from( box );
+  let boxView = _.box.toAdapter( box );
   let dim1 = _.box.dimGet( boxView );
   let min1 = _.box.cornerLeftGet( boxView );
   let max1 = _.box.cornerRightGet( boxView );
@@ -599,15 +599,15 @@ function boxIntersects( frustum , box )
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
-  let c0 = _.vectorAdapter.From( min1.slice() );
-  let c4 = _.vectorAdapter.From( max1.slice() );
+  let c0 = _.vectorAdapter.from( min1.slice() );
+  let c4 = _.vectorAdapter.from( max1.slice() );
 
-  let c1 = _.vectorAdapter.From( c0.slice() ); c1.eSet( 0, c4.eGet( 0 ) );
-  let c2 = _.vectorAdapter.From( c0.slice() ); c2.eSet( 1, c4.eGet( 1 ) );
-  let c3 = _.vectorAdapter.From( c0.slice() ); c3.eSet( 2, c4.eGet( 2 ) );
-  let c5 = _.vectorAdapter.From( c4.slice() ); c5.eSet( 0, c0.eGet( 0 ) );
-  let c6 = _.vectorAdapter.From( c4.slice() ); c6.eSet( 1, c0.eGet( 1 ) );
-  let c7 = _.vectorAdapter.From( c4.slice() ); c7.eSet( 2, c0.eGet( 2 ) );
+  let c1 = _.vectorAdapter.from( c0.slice() ); c1.eSet( 0, c4.eGet( 0 ) );
+  let c2 = _.vectorAdapter.from( c0.slice() ); c2.eSet( 1, c4.eGet( 1 ) );
+  let c3 = _.vectorAdapter.from( c0.slice() ); c3.eSet( 2, c4.eGet( 2 ) );
+  let c5 = _.vectorAdapter.from( c4.slice() ); c5.eSet( 0, c0.eGet( 0 ) );
+  let c6 = _.vectorAdapter.from( c4.slice() ); c6.eSet( 1, c0.eGet( 1 ) );
+  let c7 = _.vectorAdapter.from( c4.slice() ); c7.eSet( 2, c0.eGet( 2 ) );
 
   if( _.frustum.pointContains( frustum, c0 ) === true )
   {
@@ -674,8 +674,8 @@ function boxIntersects( frustum , box )
 //    p1 = _.box.cornerLeftGet( box );
 //    p2 = _.box.cornerRightGet( box );
 //
-//    let d1 = _.plane.pointDistance( plane,p1 );
-//    let d2 = _.plane.pointDistance( plane,p2 );
+//    let d1 = _.plane.pointDistance( plane, p1 );
+//    let d2 = _.plane.pointDistance( plane, p2 );
 //
 //    if( d1 < 0 && d2 < 0 )
 //    return false;
@@ -697,9 +697,9 @@ function boxIntersects( frustum , box )
   * @example
   * // returns 1;
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *   [ 0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.boxDistance( frustum , [ 0, 0, 2, 3, 3, 3 ] );
   *
@@ -713,7 +713,7 @@ function boxIntersects( frustum , box )
 
 function boxDistance( frustum, box )
 {
-  let boxView = _.box._from( box );
+  let boxView = _.box.toAdapter( box );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   debugger;
@@ -735,9 +735,9 @@ function boxDistance( frustum, box )
   * @example
   * // returns [ 0, 0, 0 ];
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *   [ 0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.boxClosestPoint( frustum , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
   *
@@ -751,7 +751,7 @@ function boxDistance( frustum, box )
 
 function boxClosestPoint( frustum, box, dstPoint )
 {
-  let boxView = _.box._from( box );
+  let boxView = _.box.toAdapter( box );
   let dim1 = _.box.dimGet( boxView );
   let min1 = _.box.cornerLeftGet( boxView );
   let max1 = _.box.cornerRightGet( boxView );
@@ -769,12 +769,12 @@ function boxClosestPoint( frustum, box, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   if( _.frustum.boxIntersects( frustum, boxView ) )
   return 0;
 
-  let point = _.vectorAdapter.From( _.long.longMake( rows - 1 ) );
+  let point = _.vectorAdapter.from( _.long.longMake( rows - 1 ) );
 
   /* frustum corners */
 
@@ -787,7 +787,7 @@ function boxClosestPoint( frustum, box, dstPoint )
 
     if( d < dist )
     {
-      point = _.vectorAdapter.From( newp.slice() );
+      point = _.vectorAdapter.from( newp.slice() );
       dist = d;
     }
   }
@@ -802,7 +802,7 @@ function boxClosestPoint( frustum, box, dstPoint )
     let d = _.avector.distance( corner, proj );
     if( d < dist )
     {
-      point = _.vectorAdapter.From( proj.slice() );
+      point = _.vectorAdapter.from( proj.slice() );
       dist = d;
     }
   }
@@ -827,9 +827,9 @@ function boxClosestPoint( frustum, box, dstPoint )
   * @example
   * // returns [ 0, 0, 0, 1, 1, 1 ]
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *   [ 0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.boundingBoxGet( null, frustum );
   *
@@ -857,7 +857,7 @@ function boundingBoxGet( dstBox, srcFrustum )
   dstBox = _.box.makeNil( rows - 1 );
 
   _.assert( _.box.is( dstBox ) );
-  let boxView = _.box._from( dstBox );
+  let boxView = _.box.toAdapter( dstBox );
   let minB = _.box.cornerLeftGet( boxView );
   let maxB = _.box.cornerRightGet( boxView );
   let dimB = _.box.dimGet( boxView );
@@ -865,8 +865,8 @@ function boundingBoxGet( dstBox, srcFrustum )
   _.assert( rows - 1 === dimB );
 
   // Frustum limits
-  let maxF = _.vectorAdapter.From( fpoints.colVectorGet( 0 ).slice() );
-  let minF = _.vectorAdapter.From( fpoints.colVectorGet( 0 ).slice() );
+  let maxF = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
+  let minF = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
 
   for( let j = 1 ; j < _.Matrix.dimsOf( fpoints )[ 1 ] ; j++ )
   {
@@ -915,7 +915,7 @@ function capsuleIntersects( srcFrustum , tstCapsule )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
 
   let gotBool = _.capsule.frustumIntersects( tstCapsuleView, srcFrustum );
   return gotBool;
@@ -928,7 +928,7 @@ function capsuleDistance( srcFrustum , tstCapsule )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let tstCapsuleView = _.capsule._from( tstCapsule );
+  let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
 
   let gotDist = _.capsule.frustumDistance( tstCapsuleView, srcFrustum );
 
@@ -949,9 +949,9 @@ function capsuleDistance( srcFrustum , tstCapsule )
   * // returns 0
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *     0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
@@ -983,10 +983,10 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let capsuleView = _.capsule._from( capsule );
+  let capsuleView = _.capsule.toAdapter( capsule );
   let dimCapsule  = _.capsule.dimGet( capsuleView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   _.assert( dimCapsule === dstPoint.length );
   _.assert( dimCapsule === rows - 1 );
@@ -997,7 +997,7 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
   {
     let capsulePoint = _.capsule.frustumClosestPoint( capsule, frustum );
 
-    let frustumPoint = _.vectorAdapter.From( _.frustum.pointClosestPoint( frustum, capsulePoint ) );
+    let frustumPoint = _.vectorAdapter.from( _.frustum.pointClosestPoint( frustum, capsulePoint ) );
 
     for( let i = 0; i < dimCapsule; i++ )
     {
@@ -1023,16 +1023,16 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
 * // returns true;
 * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
 *  ([
-*     0,   0,   0,   0, - 1,   1,
-*     1, - 1,   0,   0,   0,   0,
-*     0,   0,   1, - 1,   0,   0,
+*     0,   0,   0,   0, - 1,   1, 
+*     1, - 1,   0,   0,   0,   0, 
+*     0,   0,   1, - 1,   0,   0, 
 *   - 1,   0, - 1,   0,   0, - 1 ]
 *   );
 * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
 *   ([
-*    0,   0,   0,   0, - 1,   1,
-*    1, - 1,   0,   0,   0,   0,
-*    0,   0,   1, - 1,   0,   0,
+*    0,   0,   0,   0, - 1,   1, 
+*    1, - 1,   0,   0,   0,   0, 
+*    0,   0,   1, - 1,   0,   0, 
 *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
 *   );
 * _.frustumContains( srcFrustum , tstFrustum );
@@ -1080,16 +1080,16 @@ return true;
   * // returns true;
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *     0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *   ([
-  *    0,   0,   0,   0, - 1,   1,
-  *    1, - 1,   0,   0,   0,   0,
-  *    0,   0,   1, - 1,   0,   0,
+  *    0,   0,   0,   0, - 1,   1, 
+  *    1, - 1,   0,   0,   0,   0, 
+  *    0,   0,   1, - 1,   0,   0, 
   *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
   *   );
   * _.frustumIntersects( srcFrustum , tstFrustum );
@@ -1148,16 +1148,16 @@ function frustumIntersects( srcFrustum , tstFrustum )
   * // returns 0;
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *     0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *   ([
-  *    0,   0,   0,   0, - 1,   1,
-  *    1, - 1,   0,   0,   0,   0,
-  *    0,   0,   1, - 1,   0,   0,
+  *    0,   0,   0,   0, - 1,   1, 
+  *    1, - 1,   0,   0,   0,   0, 
+  *    0,   0,   1, - 1,   0,   0, 
   *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
   *   );
   * _.frustumDistance( srcFrustum , tstFrustum );
@@ -1218,16 +1218,16 @@ function frustumDistance( srcFrustum , tstFrustum )
   * // returns 0;
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *     0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *   ([
-  *    0,   0,   0,   0, - 1,   1,
-  *    1, - 1,   0,   0,   0,   0,
-  *    0,   0,   1, - 1,   0,   0,
+  *    0,   0,   0,   0, - 1,   1, 
+  *    1, - 1,   0,   0,   0,   0, 
+  *    0,   0,   1, - 1,   0,   0, 
   *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
   *   );
   * _.frustumClosestPoint( srcFrustum , testFrustum );
@@ -1257,7 +1257,7 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   debugger;
 
@@ -1308,7 +1308,7 @@ function lineIntersects( srcFrustum , tstLine )
 
   let dims = _.Matrix.dimsOf( srcFrustum ) ;
 
-  let tstLineView = _.line._from( tstLine );
+  let tstLineView = _.line.toAdapter( tstLine );
 
   let gotBool = _.line.frustumIntersects( tstLineView, srcFrustum );
 
@@ -1320,7 +1320,7 @@ function lineIntersects( srcFrustum , tstLine )
 function lineDistance( srcFrustum , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = _.line._from( tstLine );
+  let tstLineView = _.line.toAdapter( tstLine );
 
   let gotDist = _.line.frustumDistance( tstLineView, srcFrustum );
 
@@ -1342,9 +1342,9 @@ function lineDistance( srcFrustum , tstLine )
   * let line = [ 2, 0, 0, 1, 0, 0 ]
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *     0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * _.lineClosestPoint( frusrum, line );
@@ -1370,10 +1370,10 @@ function lineClosestPoint( frustum, line, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let lineView = _.line._from( line );
+  let lineView = _.line.toAdapter( line );
   let dimLine  = _.line.dimGet( lineView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   _.assert( dimF[ 0 ] - 1 === dstPoint.length );
   _.assert( dimF[ 0 ] - 1 === dimLine );
@@ -1384,7 +1384,7 @@ function lineClosestPoint( frustum, line, dstPoint )
   {
     let linePoint = _.line.frustumClosestPoint( lineView, frustum );
 
-    let frustumPoint = _.vectorAdapter.From( _.frustum.pointClosestPoint( frustum, linePoint ) );
+    let frustumPoint = _.vectorAdapter.from( _.frustum.pointClosestPoint( frustum, linePoint ) );
 
     for( let i = 0; i < dimF[ 0 ] - 1 ; i++ )
     {
@@ -1421,7 +1421,7 @@ function planeIntersects( frustum, plane )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
-  let planeView = _.plane._from( plane );
+  let planeView = _.plane.toAdapter( plane );
   let corners = _.frustum.cornersGet( frustum );
   let side;
   for( let j = 0 ; j < 8 ; j = j + 1 )
@@ -1459,9 +1459,9 @@ function planeIntersects( frustum, plane )
   * // returns 2;
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
+  *   0,   0,   0,   0, - 1,   1, 
+  *   1, - 1,   0,   0,   0,   0, 
+  *   0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
   * _.planeDistance( frustum , [ 1, 0, 0, 2 ] );
@@ -1479,7 +1479,7 @@ function planeDistance( frustum, plane )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
-  let planeView = _.plane._from( plane );
+  let planeView = _.plane.toAdapter( plane );
   if( _.frustum.planeIntersects( frustum, planeView ) )
   return 0;
 
@@ -1510,9 +1510,9 @@ function planeDistance( frustum, plane )
   * // returns [ 1, 1, 1 ];
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
+  *   0,   0,   0,   0, - 1,   1, 
+  *   1, - 1,   0,   0,   0,   0, 
+  *   0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
   * _.planeClosestPoint( frustum , [ 1, 1, 1, 6 ] );
@@ -1537,9 +1537,9 @@ function planeClosestPoint( frustum, plane, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
-  let planeView = _.plane._from( plane );
+  let planeView = _.plane.toAdapter( plane );
   if( _.frustum.planeIntersects( frustum, planeView ) )
   return 0;
 
@@ -1553,7 +1553,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
     if( dist < distance )
     {
       distance = dist;
-      point = _.vectorAdapter.From( corner.slice() );
+      point = _.vectorAdapter.from( corner.slice() );
     }
   }
 
@@ -1574,7 +1574,7 @@ function rayIntersects( srcFrustum , tstRay )
 
   let dims = _.Matrix.dimsOf( srcFrustum ) ;
 
-  let tstRayView = _.ray._from( tstRay );
+  let tstRayView = _.ray.toAdapter( tstRay );
 
   let gotBool = _.ray.frustumIntersects( tstRayView, srcFrustum );
 
@@ -1586,7 +1586,7 @@ function rayIntersects( srcFrustum , tstRay )
 function rayDistance( srcFrustum , tstRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstRayView = _.ray._from( tstRay );
+  let tstRayView = _.ray.toAdapter( tstRay );
 
   let gotDist = _.ray.frustumDistance( tstRayView, srcFrustum );
 
@@ -1608,9 +1608,9 @@ function rayDistance( srcFrustum , tstRay )
   * let ray = [ 2, 0, 0, 1, 0, 0 ]
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *     0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * _.rayClosestPoint( frusrum, ray );
@@ -1636,10 +1636,10 @@ function rayClosestPoint( frustum, ray, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let rayView = _.ray._from( ray );
+  let rayView = _.ray.toAdapter( ray );
   let dimRay  = _.ray.dimGet( rayView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   _.assert( dimF[ 0 ] - 1 === dstPoint.length );
   _.assert( dimF[ 0 ] - 1 === dimRay );
@@ -1650,7 +1650,7 @@ function rayClosestPoint( frustum, ray, dstPoint )
   {
     let rayPoint = _.ray.frustumClosestPoint( rayView, frustum );
 
-    let frustumPoint = _.vectorAdapter.From( _.frustum.pointClosestPoint( frustum, rayPoint ) );
+    let frustumPoint = _.vectorAdapter.from( _.frustum.pointClosestPoint( frustum, rayPoint ) );
 
     for( let i = 0; i < dimF[ 0 ] - 1 ; i++ )
     {
@@ -1671,7 +1671,7 @@ function segmentIntersects( srcFrustum , tstSegment )
 
   let dims = _.Matrix.dimsOf( srcFrustum ) ;
 
-  let tstSegmentView = _.segment._from( tstSegment );
+  let tstSegmentView = _.segment.toAdapter( tstSegment );
 
   let gotBool = _.segment.frustumIntersects( tstSegmentView, srcFrustum );
 
@@ -1683,7 +1683,7 @@ function segmentIntersects( srcFrustum , tstSegment )
 function segmentDistance( srcFrustum , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstSegmentView = _.segment._from( tstSegment );
+  let tstSegmentView = _.segment.toAdapter( tstSegment );
 
   let gotDist = _.segment.frustumDistance( tstSegmentView, srcFrustum );
 
@@ -1705,9 +1705,9 @@ function segmentDistance( srcFrustum , tstSegment )
   * let segment = [ 2, 0, 0, 1, 0, 0 ]
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *     0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * _.segmentClosestPoint( frusrum, segment );
@@ -1733,10 +1733,10 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let segmentView = _.segment._from( segment );
+  let segmentView = _.segment.toAdapter( segment );
   let dimSegment  = _.segment.dimGet( segmentView );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   _.assert( dimF[ 0 ] - 1 === dstPoint.length );
   _.assert( dimF[ 0 ] - 1 === dimSegment );
@@ -1747,7 +1747,7 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   {
     let segmentPoint = _.segment.frustumClosestPoint( segmentView, frustum );
 
-    let frustumPoint = _.vectorAdapter.From( _.frustum.pointClosestPoint( frustum, segmentPoint ) );
+    let frustumPoint = _.vectorAdapter.from( _.frustum.pointClosestPoint( frustum, segmentPoint ) );
 
     for( let i = 0; i < dimF[ 0 ] - 1 ; i++ )
     {
@@ -1829,7 +1829,7 @@ function sphereIntersects( frustum , sphere )
   let center = _.sphere.centerGet( sphere );
   let radius = _.sphere.radiusGet( sphere );
 
-  if( _.frustum.pointContains( frustum, _.vectorAdapter.From( center )) === true )
+  if( _.frustum.pointContains( frustum, _.vectorAdapter.from( center )) === true )
   {
     return true;
   }
@@ -1857,9 +1857,9 @@ function sphereIntersects( frustum , sphere )
   * @example
   * // returns 1;
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *   [ 0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.sphereDistance( frustum , [ 0, 0, 3, 1 ] );
   *
@@ -1877,7 +1877,7 @@ function sphereDistance( frustum, sphere )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
-  let sphereView = _.sphere._from( sphere );
+  let sphereView = _.sphere.toAdapter( sphere );
 
   let distance = _.sphere.frustumDistance( sphereView, frustum );
 
@@ -1896,9 +1896,9 @@ function sphereDistance( frustum, sphere )
   * @example
   * // returns [ 0, 0, 0 ];
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *   [ 0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.sphereClosestPoint( frustum , [ - 1, - 1, - 1, 0.1 ] );
   *
@@ -1914,7 +1914,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
-  let sphereView = _.sphere._from( sphere );
+  let sphereView = _.sphere.toAdapter( sphere );
   let center = _.sphere.centerGet( sphereView );
   let radius = _.sphere.radiusGet( sphereView );
   let dim = _.sphere.dimGet( sphereView );
@@ -1926,7 +1926,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let dstPointView = _.vectorAdapter.From( dstPoint );
+  let dstPointView = _.vectorAdapter.from( dstPoint );
 
   _.assert( _.frustum.is( frustum ) );
 
@@ -1956,9 +1956,9 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   * @example
   * // returns [ 0.5, 0.5, 0.5,  Math.sqrt( 0.75 ) ]
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
+  *   [ 0,   0,   0,   0, - 1,   1, 
+  *     1, - 1,   0,   0,   0,   0, 
+  *     0,   0,   1, - 1,   0,   0, 
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.boundingSphereGet( null, frustum );
   *
@@ -1986,7 +1986,7 @@ function boundingSphereGet( dstSphere, srcFrustum )
   dstSphere = _.sphere.makeZero( rows - 1 );
 
   _.assert( _.sphere.is( dstSphere ) );
-  let dstSphereView = _.sphere._from( dstSphere );
+  let dstSphereView = _.sphere.toAdapter( dstSphere );
   let center = _.sphere.centerGet( dstSphereView );
   let radiusSphere = _.sphere.radiusGet( dstSphereView );
   let dimSphere = _.sphere.dimGet( dstSphereView );
@@ -1994,8 +1994,8 @@ function boundingSphereGet( dstSphere, srcFrustum )
   _.assert( rows - 1 === dimSphere );
 
   // Frustum limits
-  let max = _.vectorAdapter.From( fpoints.colVectorGet( 0 ).slice() );
-  let min = _.vectorAdapter.From( fpoints.colVectorGet( 0 ).slice() );
+  let max = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
+  let min = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
 
   for( let j = 1 ; j < _.Matrix.dimsOf( fpoints )[ 1 ] ; j++ )
   {
@@ -2050,34 +2050,34 @@ function boundingSphereGet( dstSphere, srcFrustum )
 let Proto =
 {
 
-  make,
-  fromMatrixHomogenous,
-  is,
+  make, 
+  fromMatrixHomogenous, 
+  is, 
 
-  cornersGet,
+  cornersGet, 
 
-  pointContains,
+  pointContains, 
   pointDistance, /* qqq : implement me */
   pointClosestPoint, /* qqq : review please */
 
   boxContains, /* qqq : implement me */
-  boxIntersects,
+  boxIntersects, 
   boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
-  boxClosestPoint,
-  boundingBoxGet,
+  boxClosestPoint, 
+  boundingBoxGet, 
 
-  capsuleIntersects,
-  capsuleDistance,
-  capsuleClosestPoint,
+  capsuleIntersects, 
+  capsuleDistance, 
+  capsuleClosestPoint, 
 
   frustumContains, /* qqq : implement me */
-  frustumIntersects,
+  frustumIntersects, 
   frustumDistance, /* qqq : implement me */
   frustumClosestPoint, /* qqq : implement me */
 
   lineIntersects,  /* Same as _.line.frustumIntersects */
   lineDistance,  /* Same as _.line.frustumDistance */
-  lineClosestPoint,
+  lineClosestPoint, 
 
   planeIntersects, /* qqq : implement me */
   planeDistance, /* qqq : implement me */
@@ -2085,20 +2085,20 @@ let Proto =
 
   rayIntersects,  /* Same as _.ray.frustumIntersects */
   rayDistance,  /* Same as _.ray.frustumDistance */
-  rayClosestPoint,
+  rayClosestPoint, 
 
   segmentIntersects,  /* Same as _.segment.frustumIntersects */
   segmentDistance,  /* Same as _.segment.frustumDistance */
-  segmentClosestPoint,
+  segmentClosestPoint, 
 
   sphereContains, /* qqq : implement me */
-  sphereIntersects,
+  sphereIntersects, 
   sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
-  sphereClosestPoint,
-  boundingSphereGet,
+  sphereClosestPoint, 
+  boundingSphereGet, 
 
 }
 
-_.mapSupplement( Self,Proto );
+_.mapSupplement( Self, Proto );
 
 })();

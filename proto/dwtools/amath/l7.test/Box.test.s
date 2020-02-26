@@ -6,7 +6,7 @@
 
 qqq : lack of tests for box
 
-  from,
+  from, 
 
 qqq : sort routines implementations
 
@@ -32,9 +32,9 @@ if( typeof module !== 'undefined' )
 var _ = _global_.wTools.withDefaultLong.Fx;
 var Space = _.Matrix;
 var vector = _.vectorAdapter;
-var vec = _.vectorAdapter.FromLong;
+var vec = _.vectorAdapter.fromLong;
 var avector = _.avector;
-var sqrt = _.sqrt;
+var sqrt = _.math.sqrt;
 var Parent = wTester;
 
 _.assert( _.routineIs( sqrt ) );
@@ -50,40 +50,40 @@ function make( test )
 
   var src = undefined;
   var got = _.box.make( src );
-  var expected = [ 0,0,0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.make( src );
-  var expected = [ 0,0,0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.make( src );
-  var expected = [ 0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src array'; /* */
 
-  var src = [ 0,1,2,3 ];
+  var src = [ 0, 1, 2, 3 ];
   var got = _.box.make( src );
-  var expected = [ 0,1,2,3 ];
-  test.identical( got,expected );
+  var expected = [ 0, 1, 2, 3 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
+  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.make( src );
-  var expected = [ 0,1,2,3 ];
-  test.identical( got,expected );
+  var expected = [ 0, 1, 2, 3 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
 }
@@ -97,40 +97,40 @@ function makeZero( test )
 
   var src = undefined;
   var got = _.box.makeZero( src );
-  var expected = [ 0,0,0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.makeZero( src );
-  var expected = [ 0,0,0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.makeZero( src );
-  var expected = [ 0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src array'; /* */
 
-  var src = [ 0,1,2,3 ];
+  var src = [ 0, 1, 2, 3 ];
   var got = _.box.makeZero( src );
-  var expected = [ 0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
+  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.makeZero( src );
-  var expected = [ 0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
 }
@@ -144,40 +144,40 @@ function makeNil( test )
 
   var src = undefined;
   var got = _.box.makeNil( src );
-  var expected = [ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.makeNil( src );
-  var expected = [ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.makeNil( src );
-  var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, +Infinity, -Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src array'; /* */
 
-  var src = [ 0,1,2,3 ];
+  var src = [ 0, 1, 2, 3 ];
   var got = _.box.makeNil( src );
-  var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, +Infinity, -Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
+  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.makeNil( src );
-  var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, +Infinity, -Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got !== src );
 
 }
@@ -191,48 +191,48 @@ function zero( test )
 
   var src = undefined;
   var got = _.box.zero( src );
-  var expected = [ 0,0,0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.zero( src );
-  var expected = [ 0,0,0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.zero( src );
-  var expected = [ 0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'dst array'; /* */
 
-  var dst = [ 0,1,2,3 ];
+  var dst = [ 0, 1, 2, 3 ];
   var got = _.box.zero( dst );
-  var expected = [ 0,0,0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0, 0, 0 ];
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
+  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.zero( dst );
-  var expected = _.vectorAdapter.FromLong([ 0,0,0,0 ]);
-  test.identical( got,expected );
+  var expected = _.vectorAdapter.fromLong([ 0, 0, 0, 0 ]);
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst array 1d'; /* */
 
-  var dst = [ 0,1 ];
+  var dst = [ 0, 1 ];
   var got = _.box.zero( dst );
-  var expected = [ 0,0 ];
-  test.identical( got,expected );
+  var expected = [ 0, 0 ];
+  test.identical( got, expected );
   test.is( got === dst );
 
 }
@@ -246,48 +246,48 @@ function nil( test )
 
   var src = undefined;
   var got = _.box.nil( src );
-  var expected = [ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src null'; /* */
 
   var src = null;
   var got = _.box.nil( src );
-  var expected = [ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.nil( src );
-  var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, +Infinity, -Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'dst array'; /* */
 
-  var dst = [ 0,1,2,3 ];
+  var dst = [ 0, 1, 2, 3 ];
   var got = _.box.nil( dst );
-  var expected = [ +Infinity,+Infinity,-Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, +Infinity, -Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
+  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.nil( dst );
-  var expected = _.vectorAdapter.FromLong([ +Infinity,+Infinity,-Infinity,-Infinity ]);
-  test.identical( got,expected );
+  var expected = _.vectorAdapter.fromLong([ +Infinity, +Infinity, -Infinity, -Infinity ]);
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst array 2d'; /* */
 
-  var dst = [ 1,3 ];
+  var dst = [ 1, 3 ];
   var got = _.box.nil( dst );
-  var expected = [ +Infinity,-Infinity ];
-  test.identical( got,expected );
+  var expected = [ +Infinity, -Infinity ];
+  test.identical( got, expected );
   test.is( got === dst );
 
 }
@@ -300,49 +300,49 @@ function centeredOfSize( test )
   test.case = 'src undefined'; /* */
 
   var src = undefined;
-  var got = _.box.centeredOfSize( src,2 );
-  var expected = [ -1,-1,-1,+1,+1,+1 ];
-  test.identical( got,expected );
+  var got = _.box.centeredOfSize( src, 2 );
+  var expected = [ -1, -1, -1, +1, +1, +1 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src null'; /* */
 
   var src = null;
-  var got = _.box.centeredOfSize( src,2 );
-  var expected = [ -1,-1,-1,+1,+1,+1 ];
-  test.identical( got,expected );
+  var got = _.box.centeredOfSize( src, 2 );
+  var expected = [ -1, -1, -1, +1, +1, +1 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src 2'; /* */
 
   var src = 2;
-  var got = _.box.centeredOfSize( src,2 );
-  var expected = [ -1,-1,+1,+1 ];
-  test.identical( got,expected );
+  var got = _.box.centeredOfSize( src, 2 );
+  var expected = [ -1, -1, +1, +1 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'dst array'; /* */
 
-  var dst = [ 0,1,2,3 ];
-  var got = _.box.centeredOfSize( dst,2 );
-  var expected = [ -1,-1,+1,+1 ];
-  test.identical( got,expected );
+  var dst = [ 0, 1, 2, 3 ];
+  var got = _.box.centeredOfSize( dst, 2 );
+  var expected = [ -1, -1, +1, +1 ];
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
-  var got = _.box.centeredOfSize( dst,2 );
-  var expected = _.vectorAdapter.FromLong([ -1,-1,+1,+1 ]);
-  test.identical( got,expected );
+  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var got = _.box.centeredOfSize( dst, 2 );
+  var expected = _.vectorAdapter.fromLong([ -1, -1, +1, +1 ]);
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst array 2d'; /* */
 
-  var dst = [ 1,3 ];
-  var got = _.box.centeredOfSize( dst,2 );
-  var expected = [ -1,+1 ];
-  test.identical( got,expected );
+  var dst = [ 1, 3 ];
+  var got = _.box.centeredOfSize( dst, 2 );
+  var expected = [ -1, +1 ];
+  test.identical( got, expected );
   test.is( got === dst );
 
   /* */
@@ -351,40 +351,40 @@ function centeredOfSize( test )
 
   var src = null;
   var got = _.box.centeredOfSize( null, 1 );
-  var expected = [ -0.5,-0.5,-0.5,+0.5,+0.5,+0.5 ];
-  test.identical( got,expected );
+  var expected = [ -0.5, -0.5, -0.5, +0.5, +0.5, +0.5 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src 2'; /* */
 
   var src = 2;
   var got = _.box.centeredOfSize( src, 1 );
-  var expected = [ -0.5,-0.5,+0.5,+0.5 ];
-  test.identical( got,expected );
+  var expected = [ -0.5, -0.5, +0.5, +0.5 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'dst array'; /* */
 
-  var dst = [ 0,1,2,3 ];
+  var dst = [ 0, 1, 2, 3 ];
   var got = _.box.centeredOfSize( dst, 1 );
-  var expected = [ -0.5,-0.5,+0.5,+0.5 ];
-  test.identical( got,expected );
+  var expected = [ -0.5, -0.5, +0.5, +0.5 ];
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ] );
+  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ] );
   var got = _.box.centeredOfSize( dst, 1 );
-  var expected = _.vectorAdapter.FromLong([ -0.5,-0.5,+0.5,+0.5 ]);
-  test.identical( got,expected );
+  var expected = _.vectorAdapter.fromLong([ -0.5, -0.5, +0.5, +0.5 ]);
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst array 2d'; /* */
 
-  var dst = [ 1,3 ];
+  var dst = [ 1, 3 ];
   var got = _.box.centeredOfSize( dst, 1 );
-  var expected = [ -0.5,+0.5 ];
-  test.identical( got,expected );
+  var expected = [ -0.5, +0.5 ];
+  test.identical( got, expected );
   test.is( got === dst );
 
   /* */
@@ -392,49 +392,49 @@ function centeredOfSize( test )
   test.case = 'src undefined with sizes in array'; /* */
 
   var src = undefined;
-  var got = _.box.centeredOfSize( src,[ 1,2,4 ] );
-  var expected = [ -0.5,-1,-2,+0.5,+1,+2 ];
-  test.identical( got,expected );
+  var got = _.box.centeredOfSize( src, [ 1, 2, 4 ] );
+  var expected = [ -0.5, -1, -2, +0.5, +1, +2 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src null with sizes in array'; /* */
 
   var src = null;
-  var got = _.box.centeredOfSize( src,[ 1,2,4 ] );
-  var expected = [ -0.5,-1,-2,+0.5,+1,+2 ];
-  test.identical( got,expected );
+  var got = _.box.centeredOfSize( src, [ 1, 2, 4 ] );
+  var expected = [ -0.5, -1, -2, +0.5, +1, +2 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src 2 with sizes in array'; /* */
 
   var src = 2;
-  var got = _.box.centeredOfSize( src,[ 2,4 ] );
-  var expected = [ -1,-2,+1,+2 ];
-  test.identical( got,expected );
+  var got = _.box.centeredOfSize( src, [ 2, 4 ] );
+  var expected = [ -1, -2, +1, +2 ];
+  test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'dst array with sizes in array'; /* */
 
-  var dst = [ 0,1,2,3 ];
-  var got = _.box.centeredOfSize( dst,[ 2,4 ] );
-  var expected = [ -1,-2,+1,+2 ];
-  test.identical( got,expected );
+  var dst = [ 0, 1, 2, 3 ];
+  var got = _.box.centeredOfSize( dst, [ 2, 4 ] );
+  var expected = [ -1, -2, +1, +2 ];
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst vector with sizes in array'; /* */
 
-  var dst = _.vectorAdapter.FromLong([ 0,1,2,3 ]);
-  var got = _.box.centeredOfSize( dst,[ 2,4 ] );
-  var expected = _.vectorAdapter.FromLong([ -1,-2,+1,+2 ]);
-  test.identical( got,expected );
+  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var got = _.box.centeredOfSize( dst, [ 2, 4 ] );
+  var expected = _.vectorAdapter.fromLong([ -1, -2, +1, +2 ]);
+  test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst array 2d with sizes in array'; /* */
 
-  var dst = [ 1,3 ];
-  var got = _.box.centeredOfSize( dst,[ 4 ] );
-  var expected = [ -2,+2 ];
-  test.identical( got,expected );
+  var dst = [ 1, 3 ];
+  var got = _.box.centeredOfSize( dst, [ 4 ] );
+  var expected = [ -2, +2 ];
+  test.identical( got, expected );
   test.is( got === dst );
 
 }
@@ -455,8 +455,8 @@ function from( test )
 
   test.case = 'Different instance returned - vector -> array'; /* */
 
-  var srcBox = _.vectorAdapter.FromLong( [ 0, 0, 2, 2 ] );
-  var expected = _.vectorAdapter.FromLong( [ 0, 0, 2, 2 ] );
+  var srcBox = _.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
+  var expected = _.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
@@ -1247,28 +1247,28 @@ function is( test )
   test.case = 'array'; /* */
 
   test.is( _.box.is( [] ) );
-  test.is( _.box.is([ 0,0 ]) );
-  test.is( _.box.is([ 1,2,3,4 ]) );
-  test.is( _.box.is([ 0,0,0,0,0,0 ]) );
+  test.is( _.box.is([ 0, 0 ]) );
+  test.is( _.box.is([ 1, 2, 3, 4 ]) );
+  test.is( _.box.is([ 0, 0, 0, 0, 0, 0 ]) );
 
   test.case = 'vector'; /* */
 
-  test.is( _.box.is( _.vectorAdapter.FromLong([]) ) );
-  test.is( _.box.is( _.vectorAdapter.FromLong([ 0,0 ]) ) );
-  test.is( _.box.is( _.vectorAdapter.FromLong([ 1,2,3,4 ]) ) );
-  test.is( _.box.is( _.vectorAdapter.FromLong([ 0,0,0,0,0,0 ]) ) );
+  test.is( _.box.is( _.vectorAdapter.fromLong([]) ) );
+  test.is( _.box.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.is( _.box.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
+  test.is( _.box.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not box'; /* */
 
   test.is( !_.box.is([ 0 ]) );
-  test.is( !_.box.is([ 0,0,0 ]) );
+  test.is( !_.box.is([ 0, 0, 0 ]) );
 
-  test.is( !_.box.is( _.vectorAdapter.FromLong([ 0 ]) ) );
-  test.is( !_.box.is( _.vectorAdapter.FromLong([ 0,0,0 ]) ) );
+  test.is( !_.box.is( _.vectorAdapter.fromLong([ 0 ]) ) );
+  test.is( !_.box.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
 
   test.is( !_.box.is( 'abc' ) );
-  test.is( !_.box.is( { center : [ 0,0,0 ], radius : 1 } ) );
-  test.is( !_.box.is( function( a,b,c ){} ) );
+  test.is( !_.box.is( { center : [ 0, 0, 0 ], radius : 1 } ) );
+  test.is( !_.box.is( function( a, b, c ){} ) );
 
 }
 
@@ -1280,33 +1280,33 @@ function isEmpty( test )
   test.case = 'empty'; /* */
 
   test.is( _.box.isEmpty([]) );
-  test.is( _.box.isEmpty([ 0,0 ]) );
-  test.is( _.box.isEmpty([ 0,0,0,0,0,0 ]) );
-  test.is( _.box.isEmpty([ 1,1 ]) );
-  test.is( _.box.isEmpty([ 5,0,5,0 ]) );
-  test.is( _.box.isEmpty([ -3,0,5,-3,0,5 ]) );
+  test.is( _.box.isEmpty([ 0, 0 ]) );
+  test.is( _.box.isEmpty([ 0, 0, 0, 0, 0, 0 ]) );
+  test.is( _.box.isEmpty([ 1, 1 ]) );
+  test.is( _.box.isEmpty([ 5, 0, 5, 0 ]) );
+  test.is( _.box.isEmpty([ -3, 0, 5, -3, 0, 5 ]) );
 
-  test.is( _.box.isEmpty([ 0,0,0,1 ]) );
-  test.is( _.box.isEmpty([ 0,-1 ]) );
-  test.is( _.box.isEmpty([ 0,0,0,-1 ]) );
-  test.is( _.box.isEmpty([ 0,0,5,0 ]) );
+  test.is( _.box.isEmpty([ 0, 0, 0, 1 ]) );
+  test.is( _.box.isEmpty([ 0, -1 ]) );
+  test.is( _.box.isEmpty([ 0, 0, 0, -1 ]) );
+  test.is( _.box.isEmpty([ 0, 0, 5, 0 ]) );
 
-  test.is( _.box.isEmpty([ 0,-Infinity ]) );
-  test.is( _.box.isEmpty([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
-  test.is( _.box.isEmpty([ 0,0,0,Infinity ]) );
+  test.is( _.box.isEmpty([ 0, -Infinity ]) );
+  test.is( _.box.isEmpty([ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ]) );
+  test.is( _.box.isEmpty([ 0, 0, 0, Infinity ]) );
 
-  test.is( _.box.isEmpty([ 0.1,-Infinity ]) );
-  test.is( _.box.isEmpty([ 0,0,0.1,-Infinity ]) );
+  test.is( _.box.isEmpty([ 0.1, -Infinity ]) );
+  test.is( _.box.isEmpty([ 0, 0, 0.1, -Infinity ]) );
 
   test.case = 'not empty'; /* */
 
-  test.is( !_.box.isEmpty([ 0,1 ]) );
+  test.is( !_.box.isEmpty([ 0, 1 ]) );
 
-  test.is( !_.box.isEmpty([ 0,+Infinity ]) );
-  test.is( !_.box.isEmpty([ -Infinity,0,0,+Infinity ]) );
+  test.is( !_.box.isEmpty([ 0, +Infinity ]) );
+  test.is( !_.box.isEmpty([ -Infinity, 0, 0, +Infinity ]) );
 
-  test.is( !_.box.isEmpty([ 0.1,+Infinity ]) );
-  test.is( !_.box.isEmpty([ 0,0.00001,0.1,+Infinity ]) );
+  test.is( !_.box.isEmpty([ 0.1, +Infinity ]) );
+  test.is( !_.box.isEmpty([ 0, 0.00001, 0.1, +Infinity ]) );
 
 }
 
@@ -1318,29 +1318,29 @@ function isZero( test )
   test.case = 'zero'; /* */
 
   test.is( _.box.isZero([]) );
-  test.is( _.box.isZero([ 0,0 ]) );
-  test.is( _.box.isZero([ 0,0,0,0,0,0 ]) );
-  test.is( _.box.isZero([ 1,1 ]) );
-  test.is( _.box.isZero([ 5,0,5,0 ]) );
-  test.is( _.box.isZero([ -3,0,5,-3,0,5 ]) );
+  test.is( _.box.isZero([ 0, 0 ]) );
+  test.is( _.box.isZero([ 0, 0, 0, 0, 0, 0 ]) );
+  test.is( _.box.isZero([ 1, 1 ]) );
+  test.is( _.box.isZero([ 5, 0, 5, 0 ]) );
+  test.is( _.box.isZero([ -3, 0, 5, -3, 0, 5 ]) );
 
   test.case = 'not zero'; /* */
 
-  test.is( !_.box.isZero([ 0,1 ]) );
-  test.is( !_.box.isZero([ 0,0,0,1 ]) );
+  test.is( !_.box.isZero([ 0, 1 ]) );
+  test.is( !_.box.isZero([ 0, 0, 0, 1 ]) );
 
-  test.is( !_.box.isZero([ 0,-1 ]) );
-  test.is( !_.box.isZero([ 0,0,0,-1 ]) );
-  test.is( !_.box.isZero([ 0,0,5,0 ]) );
+  test.is( !_.box.isZero([ 0, -1 ]) );
+  test.is( !_.box.isZero([ 0, 0, 0, -1 ]) );
+  test.is( !_.box.isZero([ 0, 0, 5, 0 ]) );
 
-  test.is( !_.box.isZero([ 0,-Infinity ]) );
-  test.is( !_.box.isZero([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
+  test.is( !_.box.isZero([ 0, -Infinity ]) );
+  test.is( !_.box.isZero([ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ]) );
 
-  test.is( !_.box.isZero([ 0,Infinity ]) );
-  test.is( !_.box.isZero([ 0,0,0,Infinity ]) );
+  test.is( !_.box.isZero([ 0, Infinity ]) );
+  test.is( !_.box.isZero([ 0, 0, 0, Infinity ]) );
 
-  test.is( !_.box.isZero([ 0.1,-Infinity ]) );
-  test.is( !_.box.isZero([ 0,0,0.1,-Infinity ]) );
+  test.is( !_.box.isZero([ 0.1, -Infinity ]) );
+  test.is( !_.box.isZero([ 0, 0, 0.1, -Infinity ]) );
 
 }
 
@@ -1351,19 +1351,19 @@ function isNil( test )
 
   test.case = 'nil'; /* */
 
-  test.is( _.box.isNil([ +Infinity,+Infinity,-Infinity,-Infinity ]) );
-  test.is( _.box.isNil([ +Infinity,+Infinity,+Infinity,-Infinity,-Infinity,-Infinity ]) );
+  test.is( _.box.isNil([ +Infinity, +Infinity, -Infinity, -Infinity ]) );
+  test.is( _.box.isNil([ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ]) );
 
-  test.is( _.box.isNil([ +1,+1,-2,-5 ]) );
-  test.is( _.box.isNil([ +1,+1,+1,-2,-3,-4 ]) );
+  test.is( _.box.isNil([ +1, +1, -2, -5 ]) );
+  test.is( _.box.isNil([ +1, +1, +1, -2, -3, -4 ]) );
 
   test.case = 'not nil'; /* */
 
-  test.is( !_.box.isNil([ 0,Infinity ]) );
-  test.is( !_.box.isNil([ 0,0,0,Infinity ]) );
+  test.is( !_.box.isNil([ 0, Infinity ]) );
+  test.is( !_.box.isNil([ 0, 0, 0, Infinity ]) );
 
-  test.is( !_.box.isNil([ Infinity,Infinity ]) );
-  test.is( !_.box.isNil([ 0,0,0.1,Infinity ]) );
+  test.is( !_.box.isNil([ Infinity, Infinity ]) );
+  test.is( !_.box.isNil([ 0, 0, 0.1, Infinity ]) );
 
 }
 
@@ -1486,7 +1486,7 @@ function cornerLeftGet( test )
   var srcBox = [ 0, 0, 1, 1 ];
   var oldsrcBox = srcBox.slice();
   var expected = [ 0, 0 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( srcBox );
   test.identical( gotCorner, expected );
@@ -1496,7 +1496,7 @@ function cornerLeftGet( test )
 
   var box = [];
   var expected = [];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1505,7 +1505,7 @@ function cornerLeftGet( test )
 
   var box = [ 0, 1 ];
   var expected = [ 0 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1514,7 +1514,7 @@ function cornerLeftGet( test )
 
   var box = [ 0, 0, 1, 1 ];
   var expected = [ 0, 0 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1523,7 +1523,7 @@ function cornerLeftGet( test )
 
   var box = [ - 1, - 2, - 3, 0, 1, 2 ];
   var expected = [ - 1, - 2, - 3 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1532,7 +1532,7 @@ function cornerLeftGet( test )
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   var expected = [ - 1, - 2.2, - 3, 5 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1541,7 +1541,7 @@ function cornerLeftGet( test )
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 3.5, 5.5, 2.3, 27, 2.2, 540 ];
   var expected = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1550,7 +1550,7 @@ function cornerLeftGet( test )
 
   var box = [ 1, 1, 0, 0 ];
   var expected = [ 1, 1 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1619,7 +1619,7 @@ function cornerRightGet( test )
   var srcBox = [ 0, 0, 1, 1 ];
   var oldSrcBox = srcBox.slice();
   var expected = [ 1, 1 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( srcBox );
   test.identical( gotCorner, expected );
@@ -1629,7 +1629,7 @@ function cornerRightGet( test )
 
   var box = [];
   var expected = [];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1638,7 +1638,7 @@ function cornerRightGet( test )
 
   var box = [ 0, 1 ];
   var expected = [ 1 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1647,7 +1647,7 @@ function cornerRightGet( test )
 
   var box = [ 0, 0, 1, 1 ];
   var expected = [ 1, 1 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1656,7 +1656,7 @@ function cornerRightGet( test )
 
   var box = [ - 1, - 2, - 3, 0, 1, 2 ];
   var expected = [ 0, 1, 2 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1665,7 +1665,7 @@ function cornerRightGet( test )
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   var expected = [ 0.1, 1, 2, 5.4 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1674,7 +1674,7 @@ function cornerRightGet( test )
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ];
   var expected = [ -1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1683,7 +1683,7 @@ function cornerRightGet( test )
 
   var box = [ 1, 1, 0, 0 ];
   var expected = [ 0, 0 ];
-  expected = _.vectorAdapter.From(expected);
+  expected = _.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1766,10 +1766,10 @@ function centerGet( test )
   var expected = [] ;
 
   var gotCenter = _.box.centerGet( box, point );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   var gotCenter = _.box.centerGet( box );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
   debugger;
 
   test.case = 'One dimension box'; /* */
@@ -1779,11 +1779,11 @@ function centerGet( test )
   var expected = [ 0 ];
 
   var gotCenter = _.box.centerGet( box, point );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   var box = [ 0, 0 ];
   var gotCenter = _.box.centerGet( box );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   test.case = 'Two dimension box'; /* */
 
@@ -1792,11 +1792,11 @@ function centerGet( test )
   var expected = [ 0.5, 1 ];
 
   var gotCenter = _.box.centerGet( box );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   var box = [ 0, 0, 1, 2 ];
   var gotCenter = _.box.centerGet( box, point );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   test.case = 'Three dimension box'; /* */
 
@@ -1805,12 +1805,12 @@ function centerGet( test )
   var point = [ 2, 4, - 6 ];
 
   var gotCenter = _.box.centerGet( box );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   var box = [ 0, - 1, - 2, 0, 1, 2 ];
 
   var gotCenter = _.box.centerGet( box, point );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   test.case = 'Four dimension box'; /* */
 
@@ -1819,7 +1819,7 @@ function centerGet( test )
   var point = [ 2, 4, - 6, 2 ];
 
   var gotCenter = _.box.centerGet( box );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   var box = [ 0, - 1, - 2, 2, 0, 1, 2, 6 ];
 
@@ -1842,16 +1842,16 @@ function centerGet( test )
   test.case = 'Point is vector'; /* */
 
   var box = [ 0, 0, 1, 2 ];
-  var point = _.vectorAdapter.From( [ 1, 1 ] );
+  var point = _.vectorAdapter.from( [ 1, 1 ] );
   var expected = [ 0.5, 1 ];
-  var expv = _.vectorAdapter.From( expected );
+  var expv = _.vectorAdapter.from( expected );
 
   var gotCenter = _.box.centerGet( box );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   var box = [ 0, 0, 1, 2 ];
   var gotCenter = _.box.centerGet( box, point );
-  test.equivalent( gotCenter,expv );
+  test.equivalent( gotCenter, expv );
 
   test.case = 'Point is null'; /* */
 
@@ -1860,11 +1860,11 @@ function centerGet( test )
   var expected = [ 0.5, 1 ];
 
   var gotCenter = _.box.centerGet( box );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   var box = [ 0, 0, 1, 2 ];
   var gotCenter = _.box.centerGet( box, point );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   test.case = 'Point is NaN'; /* */
 
@@ -1873,7 +1873,7 @@ function centerGet( test )
   var expected = [ 0.5, 1 ];
 
   var gotCenter = _.box.centerGet( box );
-  test.equivalent( gotCenter,expected );
+  test.equivalent( gotCenter, expected );
 
   var box = [ 0, 0, 1, 2 ];
   var gotCenter = _.box.centerGet( box, point );
@@ -2056,9 +2056,9 @@ function sizeGet( test )
   test.case = 'Point is vector'; /* */
 
   var box = [ 0, 0, 1, 2 ];
-  var point = _.vectorAdapter.From( [ 1, 1 ] );
+  var point = _.vectorAdapter.from( [ 1, 1 ] );
   var expected = [ 1, 2 ];
-  var expv = _.vectorAdapter.From( expected );
+  var expv = _.vectorAdapter.from( expected );
 
   var gotSize = _.box.sizeGet( box );
   test.identical( gotSize, expected );
@@ -2190,7 +2190,7 @@ function cornersGet( test )
   var srcBox = [ 0, 0, 1, 1 ];
   var expected =  _.Matrix.make( [ 2, 4 ] ).copy
   ([
-    0, 1, 0, 1,
+    0, 1, 0, 1, 
     0, 0, 1, 1
   ]);
 
@@ -2216,7 +2216,7 @@ function cornersGet( test )
   var box = [ 0, 1, 1, 2 ];
   var expected = _.Matrix.make( [ 2, 4 ] ).copy
   ([
-    0, 1, 0, 1,
+    0, 1, 0, 1, 
     1, 1, 2, 2
   ]);
 
@@ -2228,9 +2228,9 @@ function cornersGet( test )
   var box = [ 0, - 1, - 2, 1, 1, 2 ];
   var expected = _.Matrix.make( [ 3, 8 ] ).copy
   ([
-    0,   1,  0,  0, 0,  1,  1, 1,
-    -1, -1,  1, -1, 1, -1,  1, 1,
-    -2, -2, -2,  2, 2,  2, -2, 2,
+    0,   1,  0,  0, 0,  1,  1, 1, 
+    -1, -1,  1, -1, 1, -1,  1, 1, 
+    -2, -2, -2,  2, 2,  2, -2, 2, 
   ]);
 
   var gotCorners = _.box.cornersGet( box );
@@ -2241,9 +2241,9 @@ function cornersGet( test )
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = _.Matrix.make( [ 3, 8 ] ).copy
   ([
-    0, 1, 0, 0, 0, 1, 1, 1,
-    0, 0, 1, 0, 1, 0, 1, 1,
-    0, 0, 0, 1, 1, 1, 0, 1,
+    0, 1, 0, 0, 0, 1, 1, 1, 
+    0, 0, 1, 0, 1, 0, 1, 1, 
+    0, 0, 0, 1, 1, 1, 0, 1, 
   ]);
 
   var gotCorners = _.box.cornersGet( box );
@@ -2737,7 +2737,7 @@ function pointDistance( test )
   test.equivalent( expected, gotDist );
 
   var oldBox = box.slice();
-  test.equivalent( oldBox,oldBox );
+  test.equivalent( oldBox, oldBox );
 
   var oldPoint = point.slice();
   test.equivalent( point, oldPoint );
@@ -3109,8 +3109,8 @@ function pointClosestPoint( test )
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
-  var dstPoint = _.vectorAdapter.FromLong( [ 5 ] );
-  var expected = _.vectorAdapter.FromLong( [ 0 ] );
+  var dstPoint = _.vectorAdapter.fromLong( [ 5 ] );
+  var expected = _.vectorAdapter.fromLong( [ 0 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point, dstPoint );
   test.identical( gotClamped,  expected );
@@ -3296,9 +3296,9 @@ function pointExpand( test )
 
   test.case = 'Box is vector'; /* */
 
-  var box = _.vectorAdapter.From( [ 0, 1, 2, 3, 4, 5 ] );
+  var box = _.vectorAdapter.from( [ 0, 1, 2, 3, 4, 5 ] );
   var point = [ 0, 0, 0 ];
-  var expected = _.vectorAdapter.From( [ 0, 0, 0, 3, 4, 5 ] );
+  var expected = _.vectorAdapter.from( [ 0, 0, 0, 3, 4, 5 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -3622,7 +3622,7 @@ function boxContains( test )
   var expected = true;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box in box (other way aroud)'; /* */
 
@@ -3631,7 +3631,7 @@ function boxContains( test )
   var expected = false;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box half in box'; /* */
 
@@ -3640,7 +3640,7 @@ function boxContains( test )
   var expected = false;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box totally out of box'; /* */
 
@@ -3649,7 +3649,7 @@ function boxContains( test )
   var expected = false;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box out of box in two dimensions'; /* */
 
@@ -3658,7 +3658,7 @@ function boxContains( test )
   var expected = false;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box out of box in one dimensions'; /* */
 
@@ -3667,7 +3667,7 @@ function boxContains( test )
   var expected = false;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box in box (both normalized to one)'; /* */
 
@@ -3676,7 +3676,7 @@ function boxContains( test )
   var expected = true;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box out of box (normalized to one)'; /* */
 
@@ -3685,7 +3685,7 @@ function boxContains( test )
   var expected = false;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box in box (four dimensions)'; /* */
 
@@ -3694,7 +3694,7 @@ function boxContains( test )
   var expected = true;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box out of box (four dimensions)'; /* */
 
@@ -3703,7 +3703,7 @@ function boxContains( test )
   var expected = false;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box in box (one dimensions)'; /* */
 
@@ -3712,7 +3712,7 @@ function boxContains( test )
   var expected = true;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   test.case = 'Box out of box (four dimensions)'; /* */
 
@@ -3721,7 +3721,7 @@ function boxContains( test )
   var expected = false;
 
   var gotBool= _.box.boxContains( box, boxTwo );
-  test.identical( gotBool,expected );
+  test.identical( gotBool, expected );
 
   /* */
 
@@ -4134,8 +4134,8 @@ function boxClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstBox = [ -1, -2, -3, 3, 2, -1 ];
-  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.From( [ 3, 2, -1 ] );
+  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.from( [ 3, 2, -1 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
   test.identical( expected, gotBox );
@@ -4446,8 +4446,8 @@ function capsuleClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstCapsule = [ 5, 5, 1, 10, 5, 1, 0.2 ];
-  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.From( [ 4, 4, 1 ] );
+  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.from( [ 4, 4, 1 ] );
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
   test.equivalent( expected, gotCapsule );
@@ -4483,9 +4483,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 1, 1, 1, 3, 3, 3 ];
@@ -4498,9 +4498,9 @@ function frustumContains( test )
 
   var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   test.identical( frustum, oldFrustum );
@@ -4509,9 +4509,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ -1, -1, -1, 3, 3, 3 ];
@@ -4524,9 +4524,9 @@ function frustumContains( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     0,   0,   0,   0,   0,   0 ]
   );
 
@@ -4540,9 +4540,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -4555,9 +4555,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 0.1, 0.1, 0.1, 0.5, 0.5, 0.5 ];
@@ -4570,9 +4570,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 0.1, 0.1, 0.1, 2, 2, 2 ];
@@ -4585,9 +4585,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 3, 3, 3, 4, 4, 4 ];
@@ -4603,9 +4603,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1 ]
   );
 
@@ -4637,9 +4637,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
@@ -4652,9 +4652,9 @@ function frustumDistance( test )
 
   var oldF = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( frustum, oldF );
@@ -4663,9 +4663,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
@@ -4678,9 +4678,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
@@ -4693,9 +4693,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
@@ -4708,9 +4708,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   2,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   2,   1, - 1,   0,   0, 
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
@@ -4723,9 +4723,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   2,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   2,   1, - 1,   0,   0, 
     - 3,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ -2, -2, 2, 0, 0, 4 ];
@@ -4738,9 +4738,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   2,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   2,   1, - 1,   0,   0, 
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
@@ -4753,9 +4753,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
@@ -4792,9 +4792,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
@@ -4807,9 +4807,9 @@ function frustumClosestPoint( test )
 
   var oldFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( frustum, oldFrustum );
@@ -4818,9 +4818,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
@@ -4833,9 +4833,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
@@ -4848,9 +4848,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
@@ -4863,9 +4863,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   2,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   2,   1, - 1,   0,   0, 
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
@@ -4878,9 +4878,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   2,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   2,   1, - 1,   0,   0, 
     - 3,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ -2, -2, 2, 0, 0, 4 ];
@@ -4893,9 +4893,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   2,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   2,   1, - 1,   0,   0, 
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
@@ -4908,9 +4908,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
@@ -4948,9 +4948,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
@@ -4961,9 +4961,9 @@ function frustumExpand( test )
 
   var oldFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
@@ -4972,9 +4972,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 2,   0, - 2,   0,   0, - 2
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
@@ -4987,9 +4987,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 2, 0, - 2,   0,   0, - 2
   ]);
   var box = [ 0, 0, 0.5, 1.5, 2, 2 ];
@@ -5002,9 +5002,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
@@ -5017,9 +5017,9 @@ function frustumExpand( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
@@ -5032,9 +5032,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
@@ -5047,9 +5047,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   2,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   2,   1, - 1,   0,   0, 
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
@@ -5062,9 +5062,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   2,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   2,   1, - 1,   0,   0, 
     - 3,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ -2, -2, 2, 0, 0, 4 ];
@@ -5077,9 +5077,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   2,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   2,   1, - 1,   0,   0, 
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
@@ -5092,9 +5092,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1,
-    1, - 1,   0,   0,   0,   0,
-    0,   0,   1, - 1,   0,   0,
+    0,   0,   0,   0, - 1,   1, 
+    1, - 1,   0,   0,   0,   0, 
+    0,   0,   1, - 1,   0,   0, 
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
@@ -5205,8 +5205,8 @@ function lineClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.From( [ 4, 4, 1 ] );
+  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.from( [ 4, 4, 1 ] );
 
   var gotLine = _.box.lineClosestPoint( srcBox, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
@@ -5453,8 +5453,8 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, - 1, 0, - 7 ];
-  var dstPoint = _.vectorAdapter.FromLong( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.FromLong( [ 3, 0, 0 ] );
+  var dstPoint = _.vectorAdapter.fromLong( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.fromLong( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane, dstPoint );
   test.identical( expected, gotPoint );
@@ -5569,10 +5569,10 @@ function planeExpand( test )
 
   test.case = 'dstBox is vector'; /* */
 
-  var dstBox = _.vectorAdapter.FromLong( [ 0, 0, 0, 3, 3, 3 ] );
+  var dstBox = _.vectorAdapter.fromLong( [ 0, 0, 0, 3, 3, 3 ] );
   var srcPlane = [ 1, 1, 0, - 8 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.vectorAdapter.FromLong( [ 0, 0, 0, 4, 4, 3 ] );
+  var expected = _.vectorAdapter.fromLong( [ 0, 0, 0, 4, 4, 3 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -5678,8 +5678,8 @@ function rayClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.From( [ 4, 4, 1 ] );
+  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.from( [ 4, 4, 1 ] );
 
   var gotRay = _.box.rayClosestPoint( srcBox, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
@@ -5782,8 +5782,8 @@ function segmentClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSegment = [ 5, 5, 1, 10, 5, 1 ];
-  var dstPoint = _.vectorAdapter.From( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.From( [ 4, 4, 1 ] );
+  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.from( [ 4, 4, 1 ] );
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
@@ -6232,9 +6232,9 @@ function sphereExpand( test )
 
   test.case = 'dstBox vector'; /* */
 
-  var dstBox = _.vectorAdapter.From( [ 0, 0, 0, 1, 1, 1 ] );
+  var dstBox = _.vectorAdapter.from( [ 0, 0, 0, 1, 1, 1 ] );
   var srcSphere = [ 5, 5, 5, 3 ];
-  var expected = _.vectorAdapter.From( [ 0, 0, 0, 8, 8, 8 ] );
+  var expected = _.vectorAdapter.from( [ 0, 0, 0, 8, 8, 8 ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -6359,7 +6359,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcBox vector'; /* */
 
-  var srcBox = _.vectorAdapter.From( [- 1, - 1, - 1, 1, 1, 1 ] );
+  var srcBox = _.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 0, 0, 0, Math.sqrt( 3 )];
 
@@ -6369,8 +6369,8 @@ function boundingSphereGet( test )
   test.case = 'dstSphere vector'; /* */
 
   var srcBox = [- 1, - 1, - 1, 3, 3, 1 ];
-  var dstSphere = _.vectorAdapter.From( [ 5, 5, 5, 3 ] );
-  var expected = _.vectorAdapter.From( [ 1, 1, 0, 3 ] );
+  var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
+  var expected = _.vectorAdapter.from( [ 1, 1, 0, 3 ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -6395,7 +6395,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcBox inversed'; /* */
 
-  var srcBox = _.vectorAdapter.From( [ 4, 4, 4, 2, 2, 2 ] );
+  var srcBox = _.vectorAdapter.from( [ 4, 4, 4, 2, 2, 2 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 3, 3, 3, Math.sqrt( 3 )];
 
@@ -6429,78 +6429,78 @@ function boundingSphereGet( test )
 var Self =
 {
 
-  name : 'Tools.Math.Box',
-  silencing : 1,
-  enabled : 1,
-  // verbosity : 7,
-  // debug : 1,
-  // routine: 'frustumExpand',
+  name : 'Tools.Math.Box', 
+  silencing : 1, 
+  enabled : 1, 
+  // verbosity : 7, 
+  // debug : 1, 
+  // routine: 'frustumExpand', 
 
   tests :
   {
 
-    make,
-    makeZero,
-    makeNil,
+    make, 
+    makeZero, 
+    makeNil, 
 
-    zero,
-    nil,
-    centeredOfSize,
+    zero, 
+    nil, 
+    centeredOfSize, 
 
-    from,
-    fromPoints,
-    fromCenterAndSize,
-    fromSphere,
-    fromCube,
+    from, 
+    fromPoints, 
+    fromCenterAndSize, 
+    fromSphere, 
+    fromCube, 
 
-    is,
-    isEmpty,
-    isZero,
-    isNil,
+    is, 
+    isEmpty, 
+    isZero, 
+    isNil, 
 
-    dimGet,
-    cornerLeftGet,
-    cornerRightGet,
-    centerGet,
-    sizeGet,
-    cornersGet,
+    dimGet, 
+    cornerLeftGet, 
+    cornerRightGet, 
+    centerGet, 
+    sizeGet, 
+    cornersGet, 
 
-    expand,
+    expand, 
 
-    pointContains,
-    pointDistance,
-    pointClosestPoint,
-    pointExpand,
-    pointRelative,
+    pointContains, 
+    pointDistance, 
+    pointClosestPoint, 
+    pointExpand, 
+    pointRelative, 
 
-    boxContains,
-    boxIntersects,
-    boxDistance,
-    boxClosestPoint,
-    boxExpand,
+    boxContains, 
+    boxIntersects, 
+    boxDistance, 
+    boxClosestPoint, 
+    boxExpand, 
 
-    capsuleClosestPoint,
+    capsuleClosestPoint, 
 
-    frustumContains,
-    frustumDistance,
-    frustumClosestPoint,
-    frustumExpand,
+    frustumContains, 
+    frustumDistance, 
+    frustumClosestPoint, 
+    frustumExpand, 
 
-    lineClosestPoint,
+    lineClosestPoint, 
 
-    planeDistance,
-    planeClosestPoint,
-    planeExpand,
+    planeDistance, 
+    planeClosestPoint, 
+    planeExpand, 
 
-    rayClosestPoint,
+    rayClosestPoint, 
 
-    segmentClosestPoint,
+    segmentClosestPoint, 
 
-    sphereContains,
-    sphereDistance,
-    sphereClosestPoint,
-    sphereExpand,
-    boundingSphereGet,
+    sphereContains, 
+    sphereDistance, 
+    sphereClosestPoint, 
+    sphereExpand, 
+    boundingSphereGet, 
 
   }
 

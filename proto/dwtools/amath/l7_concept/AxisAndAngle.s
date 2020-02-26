@@ -12,8 +12,8 @@ let atan2 = Math.atan2;
 let asin = Math.asin;
 let acos = Math.acos;
 let abs = Math.abs;
-let sqr = _.sqr;
-let sqrt = _.sqrt;
+let sqr = _.math.sqr;
+let sqrt = _.math.sqrt;
 
 _.assert( !_.axisAndAngle );
 _.assert( _.objectIs( _.avector ) );
@@ -41,13 +41,13 @@ and angle corresponds to the rotation magnitude.
 
 /**
  * @descriptionNeeded
- * @param {Array} axisAndAngle 
- * @param {Array} angle 
+ * @param {Array} axisAndAngle
+ * @param {Array} angle
  * @function is
  * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
  */
 
-function is( axisAndAngle,angle )
+function is( axisAndAngle, angle )
 {
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
@@ -61,13 +61,13 @@ function is( axisAndAngle,angle )
 
 /**
  * @descriptionNeeded
- * @param {Array} axisAndAngle 
- * @param {Array} angle 
- * @function like
+ * @param {Array} axisAndAngle
+ * @param {Array} angle
+ * @function isWithAngle
  * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
  */
 
-function like( axisAndAngle,angle )
+function isWithAngle( axisAndAngle, angle )
 {
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
@@ -80,25 +80,31 @@ function like( axisAndAngle,angle )
   if( !_.longIs( axisAndAngle ) && !_.vectorAdapterIs( axisAndAngle ) )
   return false;
 
-  return ( ( axisAndAngle.length === 4 ) && ( angle === undefined ) ) || ( ( axisAndAngle.length === 3 ) && ( _.numberIs( angle ) || angle === null ) );
+  if( ( axisAndAngle.length === 4 ) && ( angle === undefined ) )
+  return true;
+
+  if( ( ( axisAndAngle.length === 3 ) && ( _.numberIs( angle ) || angle === null ) ) )
+  return true;
+
+  return false;
 }
 
 //
 
 /**
  * @descriptionNeeded
- * @param {Array} axisAndAngle 
- * @param {Array} angle 
+ * @param {Array} axisAndAngle
+ * @param {Array} angle
  * @function isZero
  * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
  */
 
-function isZero( axisAndAngle,angle )
+function isZero( axisAndAngle, angle )
 {
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
-  if( !this.is( axisAndAngle,angle ) )
+  if( !this.is( axisAndAngle, angle ) )
   return false;
 
   if( axisAndAngle && axisAndAngle.length === 3 )
@@ -115,35 +121,35 @@ function isZero( axisAndAngle,angle )
 
 /**
  * @descriptionNeeded
- * @param {Array} axisAndAngle 
- * @param {Array} angle 
+ * @param {Array} axisAndAngle
+ * @param {Array} angle
  * @function make
  * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
  */
 
-function make( axisAndAngle,angle )
+function make( axisAndAngle, angle )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 2 );
-  _.assert( axisAndAngle === undefined || axisAndAngle === null || _.axisAndAngle.is( axisAndAngle,angle ) );
+  _.assert( axisAndAngle === undefined || axisAndAngle === null || this.is( axisAndAngle, angle ) );
 
-  let result = _.axisAndAngle.makeZero();
-  let resultv = _.vectorAdapter.From( result );
+  let result = this.makeZero();
+  let resultv = _.vectorAdapter.from( result );
 
   let axisAndAnglev;
   if( axisAndAngle )
-  axisAndAnglev = _.vectorAdapter.From( axisAndAngle );
+  axisAndAnglev = _.vectorAdapter.from( axisAndAngle );
 
   if( axisAndAnglev )
   {
-    resultv.eSet( 0,axisAndAnglev.eGet( 0 ) );
-    resultv.eSet( 1,axisAndAnglev.eGet( 1 ) );
-    resultv.eSet( 2,axisAndAnglev.eGet( 2 ) );
+    resultv.eSet( 0, axisAndAnglev.eGet( 0 ) );
+    resultv.eSet( 1, axisAndAnglev.eGet( 1 ) );
+    resultv.eSet( 2, axisAndAnglev.eGet( 2 ) );
   }
 
   if( _.numberIs( angle ) )
-  resultv.eSet( 3,angle );
+  resultv.eSet( 3, angle );
   else if( axisAndAnglev )
-  resultv.eSet( 3,axisAndAnglev.eGet( 3 ) );
+  resultv.eSet( 3, axisAndAnglev.eGet( 3 ) );
 
   return result;
 }
@@ -159,7 +165,8 @@ function make( axisAndAngle,angle )
 function makeZero()
 {
   _.assert( arguments.length === 0, 'Expects no arguments' );
-  let result = _.dup( 0,4 );
+  let result = this.tools.longMakeZeroed( 4 );
+  // let result = _.dup( 0, 4 ); /* xxx */
   return result;
 }
 
@@ -167,31 +174,31 @@ function makeZero()
 
 /**
  * @descriptionNeeded
- * @param {Array} axisAndAngle 
- * @param {Array} angle 
+ * @param {Array} axisAndAngle
+ * @param {Array} angle
  * @function from
  * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
  */
 
-function from( axisAndAngle,angle )
+function from( axisAndAngle, angle )
 {
 
-  _.assert( axisAndAngle === null || _.axisAndAngle.like( axisAndAngle,angle ) );
+  _.assert( axisAndAngle === null || this.isWithAngle( axisAndAngle, angle ) );
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
   if( axisAndAngle === null )
-  return _.axisAndAngle.make( axisAndAngle,angle );
+  return this.make( axisAndAngle, angle );
 
   if( _.vectorAdapterIs( axisAndAngle ) )
   {
     if( axisAndAngle.length === 4 )
     {
       if( angle !== undefined && angle !== null )
-      axisAndAngle.eSet( 3 , angle );
+      axisAndAngle.eSet( 3, angle );
       return axisAndAngle;
     }
     debugger;
-    let result = axisAndAngle.resizedArray( 0,4 );
+    let result = axisAndAngle.representAdapter([ 0, 4 ]);
     if( angle !== undefined && angle !== null )
     result[ 3 ] = angle;
     return result;
@@ -200,7 +207,8 @@ function from( axisAndAngle,angle )
   {
     if( axisAndAngle.length === 3 )
     {
-      axisAndAngle = _.longResize( axisAndAngle,0,4 );
+      // axisAndAngle = _.longResize( axisAndAngle, 0, 4 );
+      axisAndAngle = this.tools.longGrow( axisAndAngle, [ 0, 4 ] )
       axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }
@@ -210,15 +218,15 @@ function from( axisAndAngle,angle )
 
 //
 
-function _from( axisAndAngle,angle )
+function toAdapter( axisAndAngle, angle )
 {
 
-  _.assert( axisAndAngle === null || _.axisAndAngle.like( axisAndAngle,angle ) );
+  _.assert( axisAndAngle === null || this.isWithAngle( axisAndAngle, angle ) );
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
   if( axisAndAngle === null )
   {
-    axisAndAngle = _.axisAndAngle.make( axisAndAngle,angle );
+    axisAndAngle = this.make( axisAndAngle, angle );
   }
   else if( _.vectorAdapterIs( axisAndAngle ) )
   {
@@ -229,7 +237,8 @@ function _from( axisAndAngle,angle )
       return axisAndAngle;
     }
     debugger;
-    let result = axisAndAngle.resizedVector( 0,4 );
+    // let result = axisAndAngle.resizedAdapter( 0, 4 );
+    let result = axisAndAngle.representAdapter([ 0, 4 ]);
     if( angle !== undefined && angle !== null )
     result.eSet( 3 , angle );
     return result;
@@ -238,26 +247,26 @@ function _from( axisAndAngle,angle )
   {
     if( axisAndAngle.length === 3 )
     {
-      axisAndAngle = _.longResize( axisAndAngle,0,4 );
+      axisAndAngle = _.longResize( axisAndAngle, 0, 4 );
       axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }
 
-  return _.vectorAdapter.FromLong( axisAndAngle );
+  return _.vectorAdapter.fromLong( axisAndAngle );
 }
 
 // {
-//   _.assert( axisAndAngle === null || _.axisAndAngle.like( axisAndAngle,angle ) );
+//   _.assert( axisAndAngle === null || this.isWithAngle( axisAndAngle, angle ) );
 //   _.assert( arguments.length === 1 || arguments.length === 2 );
 //
 //   if( axisAndAngle === null )
-//   axisAndAngle = _.axisAndAngle.make( axisAndAngle,angle );
+//   axisAndAngle = this.make( axisAndAngle, angle );
 //
 //   if( _.vectorAdapterIs( axisAndAngle ) )
 //   {
 //     debugger;
 //     throw _.err( 'not implemented' );
-//     let result = axisAndAngle.slice( 0,4 );
+//     let result = axisAndAngle.slice( 0, 4 );
 //     if( angle !== undefined )
 //     result[ 3 ] = angle;
 //     return result;
@@ -266,36 +275,36 @@ function _from( axisAndAngle,angle )
 //   {
 //     if( axisAndAngle.length === 3 )
 //     {
-//       axisAndAngle = _.longResize( axisAndAngle,0,4 );
+//       axisAndAngle = _.longResize( axisAndAngle, 0, 4 );
 //       axisAndAngle[ 3 ] = angle;
 //     }
 //   }
 //
-//   return _.vectorAdapter.From( axisAndAngle );
+//   return _.vectorAdapter.from( axisAndAngle );
 // }
 
 //
 
 /**
  * @descriptionNeeded
- * @param {Array} axisAndAngle 
- * @param {Array} angle 
+ * @param {Array} axisAndAngle
+ * @param {Array} angle
  * @function zero
  * @memberof module:Tools/math/Concepts.wTools.axisAndAngle
  */
 
-function zero( axisAndAngle,angle )
+function zero( axisAndAngle, angle )
 {
 
   _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 2 );
-  _.assert( axisAndAngle === undefined || axisAndAngle === null || _.axisAndAngle.is( axisAndAngle,angle ) );
+  _.assert( axisAndAngle === undefined || axisAndAngle === null || this.is( axisAndAngle, angle ) );
 
   if( axisAndAngle === undefined || axisAndAngle === null )
-  return _.axisAndAngle.makeZero();
+  return this.makeZero();
 
-  let axisAndAnglev = _.vectorAdapter.From( axisAndAngle );
+  let axisAndAnglev = _.vectorAdapter.from( axisAndAngle );
 
-  axisAndAnglev.eSet( 3,0 );
+  axisAndAnglev.eSet( 3, 0 );
 
   return axisAndAngle;
 }
@@ -332,7 +341,7 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
 
   _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
-  _.assert( _.Matrix.is( srcMatrix ) );
+  _.assert( _.Matrix.Is( srcMatrix ) );
   _.assert( srcMatrix.hasShape([ 3, 3 ]) );
 
 
@@ -374,7 +383,7 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
 
   _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
-  _.assert( _.Matrix.is( dstMatrix ) );
+  _.assert( _.Matrix.Is( dstMatrix ) );
   _.assert( dstMatrix.hasShape([ 3, 3 ]) );
 
   let quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axisAndAngle );
@@ -391,23 +400,29 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
 let Proto =
 {
 
+  //
+
   is,
-  like,
+  isWithAngle,
   isZero,
 
   make,
   makeZero,
 
   from,
-  _from,
+  toAdapter,
 
   zero,
 
   fromMatrixRotation,
   toMatrixRotation,
 
+  // ref
+
+  tools : _,
+
 }
 
-_.mapExtend( Self,Proto );
+_.mapExtend( Self, Proto );
 
 })();
