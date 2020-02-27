@@ -11,23 +11,23 @@ let Self = _.segment = _.segment || Object.create( null );
  * @description
  * A segment is a finite line, starting at an origin and finishing at an end point.
  *
- * For the following functions, segments must have the shape [ startX, startY, startZ, endX, endY, endZ ], 
+ * For the following functions, segments must have the shape [ startX, startY, startZ, endX, endY, endZ ],
  * where the dimension equals the object´s length divided by two.
  *
- * Moreover, startX, startY and startZ are the coordinates of the origin of the segment, 
+ * Moreover, startX, startY and startZ are the coordinates of the origin of the segment,
  * and endX, endY and endZ the coordinates of the end of the segment.
  * @namespace "wTools.segment"
- * @memberof module:Tools/math/Concepts 
+ * @memberof module:Tools/math/Concepts
  */
 
 /*
 
   A segment is a finite line, starting at an origin and finishing at an end point.
 
-  For the following functions, segments must have the shape [ startX, startY, startZ, endX, endY, endZ ], 
+  For the following functions, segments must have the shape [ startX, startY, startZ, endX, endY, endZ ],
 where the dimension equals the object´s length divided by two.
 
-  Moreover, startX, startY and startZ are the coordinates of the origin of the segment, 
+  Moreover, startX, startY and startZ are the coordinates of the origin of the segment,
 and endX, endY and endZ the coordinates of the end of the segment.
 
 */
@@ -230,7 +230,7 @@ function originGet( segment )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let segmentView = _.segment.toAdapter( segment );
-  return segmentView.subarray( 0, segment.length/ 2 );
+  return segmentView.review([ 0, segment.length / 2 - 1 ]);
 }
 
 //
@@ -255,11 +255,12 @@ function originGet( segment )
   * @throws { Error } An Error if ( segment ) is not segment.
   * @memberof module:Tools/math/Concepts.wTools.segment
   */
+
 function endPointGet( segment )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let segmentView = _.segment.toAdapter( segment );
-  return segmentView.subarray( segment.length/ 2, segment.length );
+  return segmentView.review([ segment.length / 2, segment.length - 1 ]);
 }
 
 //
@@ -648,11 +649,11 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 
     let o =
     {
-      x : null, 
-      m, 
-      y : or, 
-      kernel : null, 
-      pivoting : 1, 
+      x : null,
+      m,
+      y : or,
+      kernel : null,
+      pivoting : 1,
     }
 
     let x = _.Matrix.solveGeneral( o );
@@ -1458,9 +1459,9 @@ function capsuleClosestPoint( segment, capsule, dstPoint )
   * // returns true;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
@@ -1529,9 +1530,9 @@ function frustumIntersects( srcSegment, srcFrustum )
   * // returns 0;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
@@ -1588,9 +1589,9 @@ function frustumDistance( srcSegment, srcFrustum )
   * // returns 0;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
@@ -2907,70 +2908,70 @@ function boundingSphereGet( dstSphere, srcSegment )
 let Proto =
 {
 
-  make, 
-  makeZero, 
-  makeNil, 
+  make,
+  makeZero,
+  makeNil,
 
-  zero, 
-  nil, 
+  zero,
+  nil,
 
-  from, 
-  toAdapter, 
+  from,
+  toAdapter,
 
-  is, 
-  dimGet, 
-  originGet, 
-  endPointGet, 
-  directionGet, 
+  is,
+  dimGet,
+  originGet,
+  endPointGet,
+  directionGet,
 
-  segmentAt, 
-  getFactor, 
+  segmentAt,
+  getFactor,
 
-  segmentParallel, 
+  segmentParallel,
 
-  segmentIntersectionFactors, 
-  segmentIntersectionPoints, 
-  segmentIntersectionPoint, 
-  segmentIntersectionPointAccurate, 
+  segmentIntersectionFactors,
+  segmentIntersectionPoints,
+  segmentIntersectionPoint,
+  segmentIntersectionPointAccurate,
 
-  fromPair, 
-  pointContains, 
-  pointDistance, 
-  pointClosestPoint, 
+  fromPair,
+  pointContains,
+  pointDistance,
+  pointClosestPoint,
 
-  boxIntersects, 
-  boxDistance, 
-  boxClosestPoint, 
-  boundingBoxGet, 
+  boxIntersects,
+  boxDistance,
+  boxClosestPoint,
+  boundingBoxGet,
 
-  capsuleIntersects, 
-  capsuleDistance, 
-  capsuleClosestPoint, 
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
-  frustumIntersects, 
-  frustumDistance, 
-  frustumClosestPoint, 
+  frustumIntersects,
+  frustumDistance,
+  frustumClosestPoint,
 
-  lineIntersects, 
-  lineDistance, 
-  lineClosestPoint, 
+  lineIntersects,
+  lineDistance,
+  lineClosestPoint,
 
-  planeIntersects, 
-  planeDistance, 
-  planeClosestPoint, 
+  planeIntersects,
+  planeDistance,
+  planeClosestPoint,
 
-  rayIntersects, 
-  rayDistance, 
-  rayClosestPoint, 
+  rayIntersects,
+  rayDistance,
+  rayClosestPoint,
 
-  segmentIntersects, 
-  segmentDistance, 
-  segmentClosestPoint, 
+  segmentIntersects,
+  segmentDistance,
+  segmentClosestPoint,
 
-  sphereIntersects, 
-  sphereDistance, 
-  sphereClosestPoint, 
-  boundingSphereGet, 
+  sphereIntersects,
+  sphereDistance,
+  sphereClosestPoint,
+  boundingSphereGet,
 }
 
 _.mapSupplement( Self, Proto );

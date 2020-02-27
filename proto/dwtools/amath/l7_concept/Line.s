@@ -9,23 +9,23 @@ let Self = _.line = _.line || Object.create( null );
 
 /**
  * @description
- * For the following functions, ( infinite ) lines must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ], 
+ * For the following functions, ( infinite ) lines must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ],
  * where the dimension equals the object´s length divided by two.
- * 
- * Moreover, orX, orY and orZ, are the coordinates of the origin of the line, 
+ *
+ * Moreover, orX, orY and orZ, are the coordinates of the origin of the line,
  * and dirX, dirY, dirZ the coordinates of the direction of the line.
- * 
+ *
  * Finally lines extend also in the direction ( - dirX, - dirY, - dirZ ).
  * @namespace "wTools.line"
- * @memberof module:Tools/math/Concepts 
+ * @memberof module:Tools/math/Concepts
  */
 
 /*
 
-For the following functions, ( infinite ) lines must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ], 
+For the following functions, ( infinite ) lines must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ],
 where the dimension equals the object´s length divided by two.
 
-Moreover, orX, orY and orZ, are the coordinates of the origin of the line, 
+Moreover, orX, orY and orZ, are the coordinates of the origin of the line,
 and dirX, dirY, dirZ the coordinates of the direction of the line.
 
 Finally lines extend also in the direction ( - dirX, - dirY, - dirZ ).
@@ -273,7 +273,7 @@ function originGet( line )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let lineView = _.line.toAdapter( line );
-  return lineView.subarray( 0, line.length/ 2 );
+  return lineView.review([ 0, line.length / 2 - 1 ]);
 }
 
 //
@@ -302,7 +302,7 @@ function directionGet( line )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let lineView = _.line.toAdapter( line );
-  return lineView.subarray( line.length/ 2, line.length );
+  return lineView.review([ line.length / 2, line.length - 1 ]);
 }
 
 //
@@ -662,11 +662,11 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
       let or = _.Matrix.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
       let o =
       {
-        x : null, 
-        m, 
-        y : or, 
-        kernel : null, 
-        pivoting : 1, 
+        x : null,
+        m,
+        y : or,
+        kernel : null,
+        pivoting : 1,
       }
 
       let x = _.Matrix.solveGeneral( o );
@@ -1469,9 +1469,9 @@ function capsuleClosestPoint( line, capsule, dstPoint )
   * // returns true;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
@@ -2634,69 +2634,69 @@ function boundingSphereGet( dstSphere, srcLine )
 let Proto =
 {
 
-  make, 
-  makeZero, 
-  makeNil, 
+  make,
+  makeZero,
+  makeNil,
 
-  zero, 
-  nil, 
+  zero,
+  nil,
 
-  from, 
-  toAdapter, 
-  fromPair, // fromPoints, 
+  from,
+  toAdapter,
+  fromPair, // fromPoints,
 
-  is, 
-  dimGet, 
-  originGet, 
-  directionGet, 
+  is,
+  dimGet,
+  originGet,
+  directionGet,
 
-  lineAt, 
-  getFactor, 
+  lineAt,
+  getFactor,
 
-  lineParallel3D, 
-  lineParallel, 
-  lineIntersectionFactors, 
-  lineIntersectionPoints, 
-  lineIntersectionPoint, 
-  lineIntersectionPointAccurate, 
+  lineParallel3D,
+  lineParallel,
+  lineIntersectionFactors,
+  lineIntersectionPoints,
+  lineIntersectionPoint,
+  lineIntersectionPointAccurate,
 
-  pointContains, 
-  pointDistance, 
-  pointClosestPoint, 
+  pointContains,
+  pointDistance,
+  pointClosestPoint,
 
-  boxIntersects, 
-  boxDistance, 
-  boxClosestPoint, 
-  boundingBoxGet, 
+  boxIntersects,
+  boxDistance,
+  boxClosestPoint,
+  boundingBoxGet,
 
-  capsuleIntersects, 
-  capsuleDistance, 
-  capsuleClosestPoint, 
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
-  frustumIntersects, 
-  frustumDistance, 
-  frustumClosestPoint, 
+  frustumIntersects,
+  frustumDistance,
+  frustumClosestPoint,
 
-  lineIntersects, 
-  lineDistance, 
-  lineClosestPoint, 
+  lineIntersects,
+  lineDistance,
+  lineClosestPoint,
 
-  planeIntersects, 
-  planeDistance, 
-  planeClosestPoint, 
+  planeIntersects,
+  planeDistance,
+  planeClosestPoint,
 
-  rayIntersects, 
-  rayDistance, 
-  rayClosestPoint, 
+  rayIntersects,
+  rayDistance,
+  rayClosestPoint,
 
   segmentIntersects,  /* Same as _.segment.rayIntersects */
   segmentDistance,  /* Same as _.segment.rayDistance */
-  segmentClosestPoint, 
+  segmentClosestPoint,
 
-  sphereIntersects, 
-  sphereDistance, 
-  sphereClosestPoint, 
-  boundingSphereGet, 
+  sphereIntersects,
+  sphereDistance,
+  sphereClosestPoint,
+  boundingSphereGet,
 
 }
 

@@ -23,11 +23,11 @@ _.assert( !_.euler );
  * @description
  * An Euler Angle is a set of three consecutive rotations around the axes of coordinates.
  *
- * For the following functions, Euler Angles must have the shape [ angle1, angle2, angle3, axis1, axis2, axis3 ], 
+ * For the following functions, Euler Angles must have the shape [ angle1, angle2, angle3, axis1, axis2, axis3 ],
  * where angle1, angle2 and angle3 are the value of the rotations ( in radians )
  * and axis1, axis2, axis3 the corresponding axes of rotation.
  * @namespace "wTools.euler"
- * @memberof module:Tools/math/Concepts 
+ * @memberof module:Tools/math/Concepts
  */
 
 let Self = _.euler = _.euler || Object.create( _.avector );
@@ -36,7 +36,7 @@ let Self = _.euler = _.euler || Object.create( _.avector );
 
 An Euler Angle is a set of three consecutive rotations around the axes of coordinates.
 
-For the following functions, Euler Angles must have the shape [ angle1, angle2, angle3, axis1, axis2, axis3 ], 
+For the following functions, Euler Angles must have the shape [ angle1, angle2, angle3, axis1, axis2, axis3 ],
 where angle1, angle2 and angle3 are the value of the rotations ( in radians )
 and axis1, axis2, axis3 the corresponding axes of rotation.
 
@@ -476,73 +476,73 @@ function fromQuat( dst, quat, v )
 //
 // // trivial xyz sample :
 // // {
-// //   xw0 : 1, 
-// //   yz0 : -1, 
-// //   xz1 : 1, 
-// //   yw1 : 1, 
-// //   zw2 : 1, 
-// //   xy2 : -1, 
-// //   sqw0 : 1, 
-// //   sqx0 : -1, 
-// //   sqy0 : -1, 
-// //   sqz0 : 1, 
-// //   sqw2 : 1, 
-// //   sqx2 : 1, 
-// //   sqy2 : -1, 
+// //   xw0 : 1,
+// //   yz0 : -1,
+// //   xz1 : 1,
+// //   yw1 : 1,
+// //   zw2 : 1,
+// //   xy2 : -1,
+// //   sqw0 : 1,
+// //   sqx0 : -1,
+// //   sqy0 : -1,
+// //   sqz0 : 1,
+// //   sqw2 : 1,
+// //   sqx2 : 1,
+// //   sqy2 : -1,
 // //   sqz2 : -1
 // // }
 // //
 // // trivial xzy sample :
 // // {
-// //   xw0 : 1, 
-// //   yz0 : 1, 
-// //   xz1 : -1, 
-// //   yw1 : 1, 
-// //   zw2 : 1, 
-// //   xy2 : 1, 
-// //   sqw0 : 1, 
-// //   sqx0 : -1, 
-// //   sqy0 : -1, 
-// //   sqz0 : 1, 
-// //   sqw2 : 1, 
-// //   sqx2 : 1, 
-// //   sqy2 : -1, 
+// //   xw0 : 1,
+// //   yz0 : 1,
+// //   xz1 : -1,
+// //   yw1 : 1,
+// //   zw2 : 1,
+// //   xy2 : 1,
+// //   sqw0 : 1,
+// //   sqx0 : -1,
+// //   sqy0 : -1,
+// //   sqz0 : 1,
+// //   sqw2 : 1,
+// //   sqx2 : 1,
+// //   sqy2 : -1,
 // //   sqz2 : -1
 // // }
 // //
 // // trivial zyx sample :
 // // {
-// //   xw0 : 1, 
-// //   yz0 : 1, 
-// //   xz1 : -1, 
-// //   yw1 : 1, 
-// //   zw2 : 1, 
-// //   xy2 : 1, 
-// //   sqw0 : 1, 
-// //   sqx0 : -1, 
-// //   sqy0 : -1, 
-// //   sqz0 : 1, 
-// //   sqw2 : 1, 
-// //   sqx2 : 1, 
-// //   sqy2 : -1, 
+// //   xw0 : 1,
+// //   yz0 : 1,
+// //   xz1 : -1,
+// //   yw1 : 1,
+// //   zw2 : 1,
+// //   xy2 : 1,
+// //   sqw0 : 1,
+// //   sqx0 : -1,
+// //   sqy0 : -1,
+// //   sqz0 : 1,
+// //   sqw2 : 1,
+// //   sqx2 : 1,
+// //   sqy2 : -1,
 // //   sqz2 : -1
 // // }
 // //
 // // trivial zyx sample :
 // // {
-// //   xw0 : 1, 
-// //   yz0 : 1, 
-// //   xz1 : 1, 
-// //   yw1 : -1, 
-// //   zw2 : 1, 
-// //   xy2 : 1, 
-// //   sqw0 : 1, 
-// //   sqx0 : -1, 
-// //   sqy0 : -1, 
-// //   sqz0 : 1, 
-// //   sqw2 : 1, 
-// //   sqx2 : 1, 
-// //   sqy2 : -1, 
+// //   xw0 : 1,
+// //   yz0 : 1,
+// //   xz1 : 1,
+// //   yw1 : -1,
+// //   zw2 : 1,
+// //   xy2 : 1,
+// //   sqw0 : 1,
+// //   sqx0 : -1,
+// //   sqy0 : -1,
+// //   sqz0 : 1,
+// //   sqw2 : 1,
+// //   sqx2 : 1,
+// //   sqy2 : -1,
 // //   sqz2 : -1
 // // }
 //
@@ -662,13 +662,13 @@ function fromQuat( dst, quat, v )
   //
   //  atan2
   //  (
-  //    2 * (q[1] * q[0] - q[2] * q[3]), 
+  //    2 * (q[1] * q[0] - q[2] * q[3]),
   //    (q[0] * q[0] - q[1] * q[1] - q[2] * q[2] + q[3] * q[3])
   //  );
   // theta = asin(2 * ( q[2] * q[0]) + q[1] * q[3] );
   // phi = atan2
   // (
-  //    2 * (q[3] * q[0] - q[1] * q[2]), 
+  //    2 * (q[3] * q[0] - q[1] * q[2]),
   //    (q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3])
   // );
 
@@ -676,45 +676,45 @@ function fromQuat( dst, quat, v )
   // psi =
   //   atan2
   //   (
-  //    2 * (q[1] * q[0] + q[2] * q[3]), 
+  //    2 * (q[1] * q[0] + q[2] * q[3]),
   //    (q[0] * q[0] - q[1] * q[1] + q[2] * q[2] - q[3] * q[3])
   //   );
   // theta = asin(2 * (q[3] * q[0] - q[1] * q[2]));
   // phi = atan2
   // (
-  //   2 * (q[1] * q[3] + q[2] * q[0]), 
+  //   2 * (q[1] * q[3] + q[2] * q[0]),
   //   (q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3])
   // );
 
   // // case zyx:
 
   // (
-  //  2*(q.y*q.z + q.w*q.x), 
-  //  q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, 
-  //  -2*(q.x*q.z - q.w*q.y), 
-  //  2*(q.x*q.y + q.w*q.z), 
-  //  q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 
+  //  2*(q.y*q.z + q.w*q.x),
+  //  q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z,
+  //  -2*(q.x*q.z - q.w*q.y),
+  //  2*(q.x*q.y + q.w*q.z),
+  //  q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z,
   // )
 
   // // case xyz:
 
   // (
-  //   2*( - q.x*q.y + q.w*q.z), 
-  //   q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 
-  //   2*( - q.y*q.z + q.w*q.x), 
-  //   q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, 
-  //   +2*(q.x*q.z + q.w*q.y), 
+  //   2*( - q.x*q.y + q.w*q.z),
+  //   q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z,
+  //   2*( - q.y*q.z + q.w*q.x),
+  //   q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z,
+  //   +2*(q.x*q.z + q.w*q.y),
   // )
   //
 
   // // case xzy:
 
   // (
-  //   +2*(q.x*q.z + q.w*q.y), 
-  //   q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 
-  //   +2*(q.y*q.z + q.w*q.x), 
-  //   +q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z, 
-  //   -2*(q.x*q.y - q.w*q.z), 
+  //   +2*(q.x*q.z + q.w*q.y),
+  //   q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z,
+  //   +2*(q.y*q.z + q.w*q.x),
+  //   +q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z,
+  //   -2*(q.x*q.y - q.w*q.z),
   // )
 
   // void threeaxisrot(double r11, double r12, double r21, double r31, double r32, double res[])
@@ -763,22 +763,22 @@ function fromQuat( dst, quat, v )
 // fromQuat.variates =
 // {
 //
-//   xw0 : [ +1, -1 ], 
-//   yz0 : [ +1, -1 ], 
-//   xz1 : [ +1, -1 ], 
-//   yw1 : [ +1, -1 ], 
-//   zw2 : [ +1, -1 ], 
-//   xy2 : [ +1, -1 ], 
+//   xw0 : [ +1, -1 ],
+//   yz0 : [ +1, -1 ],
+//   xz1 : [ +1, -1 ],
+//   yw1 : [ +1, -1 ],
+//   zw2 : [ +1, -1 ],
+//   xy2 : [ +1, -1 ],
 //
-//   sqw0 : [ +1, -1 ], 
-//   sqx0 : [ +1, -1 ], 
-//   sqy0 : [ +1, -1 ], 
-//   sqz0 : [ +1, -1 ], 
+//   sqw0 : [ +1, -1 ],
+//   sqx0 : [ +1, -1 ],
+//   sqy0 : [ +1, -1 ],
+//   sqz0 : [ +1, -1 ],
 //
-//   sqw2 : [ +1, -1 ], 
-//   sqx2 : [ +1, -1 ], 
-//   sqy2 : [ +1, -1 ], 
-//   sqz2 : [ +1, -1 ], 
+//   sqw2 : [ +1, -1 ],
+//   sqx2 : [ +1, -1 ],
+//   sqy2 : [ +1, -1 ],
+//   sqz2 : [ +1, -1 ],
 //
 // }
 
@@ -786,110 +786,110 @@ function fromQuat( dst, quat, v )
 // {
 //     switch(rotSeq){
 //     case zyx:
-//       threeaxisrot( 2*(q.x*q.y + q.w*q.z), 
-//                      q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 
-//                     -2*(q.x*q.z - q.w*q.y), 
-//                      2*(q.y*q.z + q.w*q.x), 
-//                      q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, 
+//       threeaxisrot( 2*(q.x*q.y + q.w*q.z),
+//                      q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z,
+//                     -2*(q.x*q.z - q.w*q.y),
+//                      2*(q.y*q.z + q.w*q.x),
+//                      q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z,
 //                      res);
 //       break;
 //
 //     case zyz:
-//       twoaxisrot( 2*(q.y*q.z - q.w*q.x), 
-//                    2*(q.x*q.z + q.w*q.y), 
-//                    q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, 
-//                    2*(q.y*q.z + q.w*q.x), 
-//                   -2*(q.x*q.z - q.w*q.y), 
+//       twoaxisrot( 2*(q.y*q.z - q.w*q.x),
+//                    2*(q.x*q.z + q.w*q.y),
+//                    q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z,
+//                    2*(q.y*q.z + q.w*q.x),
+//                   -2*(q.x*q.z - q.w*q.y),
 //                   res);
 //       break;
 //
 //     case zxy:
-//       threeaxisrot( -2*(q.x*q.y - q.w*q.z), 
-//                       q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z, 
-//                       2*(q.y*q.z + q.w*q.x), 
-//                      -2*(q.x*q.z - q.w*q.y), 
-//                       q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, 
+//       threeaxisrot( -2*(q.x*q.y - q.w*q.z),
+//                       q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z,
+//                       2*(q.y*q.z + q.w*q.x),
+//                      -2*(q.x*q.z - q.w*q.y),
+//                       q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z,
 //                       res);
 //       break;
 //
 //     case zxz:
-//       twoaxisrot( 2*(q.x*q.z + q.w*q.y), 
-//                   -2*(q.y*q.z - q.w*q.x), 
-//                    q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, 
-//                    2*(q.x*q.z - q.w*q.y), 
-//                    2*(q.y*q.z + q.w*q.x), 
+//       twoaxisrot( 2*(q.x*q.z + q.w*q.y),
+//                   -2*(q.y*q.z - q.w*q.x),
+//                    q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z,
+//                    2*(q.x*q.z - q.w*q.y),
+//                    2*(q.y*q.z + q.w*q.x),
 //                    res);
 //       break;
 //
 //     case yxz:
-//       threeaxisrot( 2*(q.x*q.z + q.w*q.y), 
-//                      q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, 
-//                     -2*(q.y*q.z - q.w*q.x), 
-//                      2*(q.x*q.y + q.w*q.z), 
-//                      q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z, 
+//       threeaxisrot( 2*(q.x*q.z + q.w*q.y),
+//                      q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z,
+//                     -2*(q.y*q.z - q.w*q.x),
+//                      2*(q.x*q.y + q.w*q.z),
+//                      q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z,
 //                      res);
 //       break;
 //
 //     case yxy:
-//       twoaxisrot( 2*(q.x*q.y - q.w*q.z), 
-//                    2*(q.y*q.z + q.w*q.x), 
-//                    q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z, 
-//                    2*(q.x*q.y + q.w*q.z), 
-//                   -2*(q.y*q.z - q.w*q.x), 
+//       twoaxisrot( 2*(q.x*q.y - q.w*q.z),
+//                    2*(q.y*q.z + q.w*q.x),
+//                    q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z,
+//                    2*(q.x*q.y + q.w*q.z),
+//                   -2*(q.y*q.z - q.w*q.x),
 //                   res);
 //       break;
 //
 //     case yzx:
-//       threeaxisrot( -2*(q.x*q.z - q.w*q.y), 
-//                       q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 
-//                       2*(q.x*q.y + q.w*q.z), 
-//                      -2*(q.y*q.z - q.w*q.x), 
-//                       q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z, 
+//       threeaxisrot( -2*(q.x*q.z - q.w*q.y),
+//                       q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z,
+//                       2*(q.x*q.y + q.w*q.z),
+//                      -2*(q.y*q.z - q.w*q.x),
+//                       q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z,
 //                       res);
 //       break;
 //
 //     case yzy:
-//       twoaxisrot( 2*(q.y*q.z + q.w*q.x), 
-//                   -2*(q.x*q.y - q.w*q.z), 
-//                    q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z, 
-//                    2*(q.y*q.z - q.w*q.x), 
-//                    2*(q.x*q.y + q.w*q.z), 
+//       twoaxisrot( 2*(q.y*q.z + q.w*q.x),
+//                   -2*(q.x*q.y - q.w*q.z),
+//                    q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z,
+//                    2*(q.y*q.z - q.w*q.x),
+//                    2*(q.x*q.y + q.w*q.z),
 //                    res);
 //       break;
 //
 //     case xyz:
-//       threeaxisrot( -2*(q.y*q.z - q.w*q.x), 
-//                     q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z, 
-//                     2*(q.x*q.z + q.w*q.y), 
-//                    -2*(q.x*q.y - q.w*q.z), 
-//                     q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 
+//       threeaxisrot( -2*(q.y*q.z - q.w*q.x),
+//                     q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z,
+//                     2*(q.x*q.z + q.w*q.y),
+//                    -2*(q.x*q.y - q.w*q.z),
+//                     q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z,
 //                     res);
 //       break;
 //
 //     case xyx:
-//       twoaxisrot( 2*(q.x*q.y + q.w*q.z), 
-//                   -2*(q.x*q.z - q.w*q.y), 
-//                    q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 
-//                    2*(q.x*q.y - q.w*q.z), 
-//                    2*(q.x*q.z + q.w*q.y), 
+//       twoaxisrot( 2*(q.x*q.y + q.w*q.z),
+//                   -2*(q.x*q.z - q.w*q.y),
+//                    q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z,
+//                    2*(q.x*q.y - q.w*q.z),
+//                    2*(q.x*q.z + q.w*q.y),
 //                    res);
 //       break;
 //
 //     case xzy:
-//       threeaxisrot( 2*(q.y*q.z + q.w*q.x), 
-//                      q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z, 
-//                     -2*(q.x*q.y - q.w*q.z), 
-//                      2*(q.x*q.z + q.w*q.y), 
-//                      q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 
+//       threeaxisrot( 2*(q.y*q.z + q.w*q.x),
+//                      q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z,
+//                     -2*(q.x*q.y - q.w*q.z),
+//                      2*(q.x*q.z + q.w*q.y),
+//                      q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z,
 //                      res);
 //       break;
 //
 //     case xzx:
-//       twoaxisrot( 2*(q.x*q.z - q.w*q.y), 
-//                    2*(q.x*q.y + q.w*q.z), 
-//                    q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 
-//                    2*(q.x*q.z + q.w*q.y), 
-//                   -2*(q.x*q.y - q.w*q.z), 
+//       twoaxisrot( 2*(q.x*q.z - q.w*q.y),
+//                    2*(q.x*q.y + q.w*q.z),
+//                    q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z,
+//                    2*(q.x*q.z + q.w*q.y),
+//                   -2*(q.x*q.y - q.w*q.z),
 //                   res);
 //       break;
 //     default:
@@ -900,7 +900,7 @@ function fromQuat( dst, quat, v )
 
 //
 
-function fromMatrix( euler, mat )
+function fromMatrix( euler, mat ) /* xxx */
 {
   let /*eps*/accuracy = 1e-7;
   let one = 1-/*eps*/accuracy;
@@ -918,13 +918,13 @@ function fromMatrix( euler, mat )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
 // m1
-// -0.875, 0.250, 0.415, 
-// 0.250, -0.500, 0.829, 
-// 0.415, 0.829, 0.375, 
+// -0.875, 0.250, 0.415,
+// 0.250, -0.500, 0.829,
+// 0.415, 0.829, 0.375,
 // m2
-// -0.875, -0.476, 0.086, 
-// 0.250, -0.292, 0.923, 
-// -0.415, 0.829, 0.375, 
+// -0.875, -0.476, 0.086,
+// 0.250, -0.292, 0.923,
+// -0.415, 0.829, 0.375,
 
   // debugger; xxx
 
@@ -1240,12 +1240,12 @@ function toMatrix( euler, mat, premutating )
 let Order =
 {
 
-  'xyz' : [ 0, 1, 2 ], 
-  'xzy' : [ 0, 2, 1 ], 
-  'yxz' : [ 1, 0, 2 ], 
-  'yzx' : [ 1, 2, 0 ], 
-  'zxy' : [ 2, 0, 1 ], 
-  'zyx' : [ 2, 1, 0 ], 
+  'xyz' : [ 0, 1, 2 ],
+  'xzy' : [ 0, 2, 1 ],
+  'yxz' : [ 1, 0, 2 ],
+  'yzx' : [ 1, 2, 0 ],
+  'zxy' : [ 2, 0, 1 ],
+  'zyx' : [ 2, 1, 0 ],
 
 }
 
@@ -1788,8 +1788,8 @@ function toQuat2( srcEuler, dstQuat )
   * @example
   * // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
   *  srcMatrix  = _.Matrix.make( [ 3, 3 ] ).copy(
-  *            [ 0.7701, -0.4207, 0.4794, 
-  *             0.6224, 0.6599, - 0.4207, 
+  *            [ 0.7701, -0.4207, 0.4794,
+  *             0.6224, 0.6599, - 0.4207,
   *           - 0.1393, 0.6224, 0.7701 ] );
   * _.fromMatrix2( srcMatrix, [ 0, 0, 0, 0, 1, 2 ] );
   *
@@ -2221,14 +2221,14 @@ function fromMatrix3( dstEuler, srcMatrix )
   * @param { Space } dstMatrix - Destination matrix.
   *
   * @example
-  * // returns [ 0.7701, -0.4207, 0.4794, 
-  *              0.6224, 0.6599, - 0.4207, 
+  * // returns [ 0.7701, -0.4207, 0.4794,
+  *              0.6224, 0.6599, - 0.4207,
   *              - 0.1393, 0.6224, 0.7701 ];
   * _.toMatrix2( null, [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
   *
   * @example
-  * // returns [ 0.4741, - 0.6142, 0.6307, 
-  * //           0.7384, 0.6675, 0.0950, 
+  * // returns [ 0.4741, - 0.6142, 0.6307,
+  * //           0.7384, 0.6675, 0.0950,
   * //           - 0.4794, 0.4207, 0.7701 ]
   * _.toMatrix2( null, [ 1, 0.5, 0.5, 2, 1, 0 ] );
   *
@@ -2832,35 +2832,35 @@ function isGimbalLock( srcEuler )
 let Proto =
 {
 
-  is, 
-  isZero, 
+  is,
+  isZero,
 
-  make, 
-  makeZero, 
+  make,
+  makeZero,
 
-  zero, 
+  zero,
 
-  from, 
-  toAdapter, 
-  representationSet, 
+  from,
+  toAdapter,
+  representationSet,
 
-  fromAxisAndAngle, 
-  fromQuat, 
-  fromMatrix, 
-  toMatrix, 
+  fromAxisAndAngle,
+  fromQuat,
+  fromMatrix,
+  toMatrix,
 
-  fromQuat2, 
-  toQuat2, 
-  fromMatrix2, 
-  fromMatrix3, 
-  toMatrix2, 
-  fromAxisAndAngle2, 
-  toAxisAndAngle2, 
+  fromQuat2,
+  toQuat2,
+  fromMatrix2,
+  fromMatrix3,
+  toMatrix2,
+  fromAxisAndAngle2,
+  toAxisAndAngle2,
 
-  represent, 
-  isGimbalLock, 
+  represent,
+  isGimbalLock,
 
-  // Order, 
+  // Order,
 
 }
 

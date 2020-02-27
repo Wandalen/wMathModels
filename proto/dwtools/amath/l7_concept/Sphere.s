@@ -11,23 +11,23 @@ let Self = _.sphere = _.sphere || Object.create( null );
  * @description
  * A sphere is the space enclosed by all the points at a given distance to a center:
  *
- * For the following functions, spheres must have the shape [ centerX, centerY, centerZ, radius ], 
+ * For the following functions, spheres must have the shape [ centerX, centerY, centerZ, radius ],
  * where the dimension equals the object´s length minus one.
  *
- * Moreover, centerX, centerY, centerZ are the coordinates of the center of the sphere, 
+ * Moreover, centerX, centerY, centerZ are the coordinates of the center of the sphere,
  * and radius is the radius pf the sphere.
  * @namespace "wTools.sphere"
- * @memberof module:Tools/math/Concepts 
+ * @memberof module:Tools/math/Concepts
  */
 
 /*
 
   A sphere is the space enclosed by all the points at a given distance to a center:
 
-  For the following functions, spheres must have the shape [ centerX, centerY, centerZ, radius ], 
+  For the following functions, spheres must have the shape [ centerX, centerY, centerZ, radius ],
 where the dimension equals the object´s length minus one.
 
-  Moreover, centerX, centerY, centerZ are the coordinates of the center of the sphere, 
+  Moreover, centerX, centerY, centerZ are the coordinates of the center of the sphere,
 and radius is the radius pf the sphere.
 
 */
@@ -686,7 +686,7 @@ function centerGet( sphere )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let sphereView = _.sphere.toAdapter( sphere );
-  return sphereView.subarray( 0, sphere.length-1 );
+  return sphereView.review([ 0, sphere.length - 2 ]);
 }
 
 //
@@ -1471,9 +1471,9 @@ function frustumIntersects( srcSphere, tstFrustum )
   * @example
   * // returns 1;
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1, 
-  *     1, - 1,   0,   0,   0,   0, 
-  *     0,   0,   1, - 1,   0,   0, 
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.frustumDistance( [ 1, 3, 1, 1 ], frustum );
   *
@@ -1518,9 +1518,9 @@ function frustumDistance( srcSphere, tstFrustum )
   * @example
   * // returns [ 2, 0, 0 ];
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1, 
-  *     1, - 1,   0,   0,   0,   0, 
-  *     0,   0,   1, - 1,   0,   0, 
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.frustumClosestPoint( [ 3, 0, 0, 1 ], frustum );
   *
@@ -1580,9 +1580,9 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
   * @example
   * // returns [ 3, 0, 0, 3.3166247903554 ];
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1, 
-  *     1, - 1,   0,   0,   0,   0, 
-  *     0,   0,   1, - 1,   0,   0, 
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.frustumExpand( [ 3, 0, 0, 1 ], frustum );
   *
@@ -2428,48 +2428,48 @@ function translate( sphere, offset )
 let Proto =
 {
 
-  make, 
-  makeZero, 
-  makeNil, 
+  make,
+  makeZero,
+  makeNil,
 
-  zero, 
-  nil, 
-  centeredOfRadius, 
+  zero,
+  nil,
+  centeredOfRadius,
 
-  toStr, 
+  toStr,
 
-  from, 
-  toAdapter, 
-  fromPoints, 
-  fromBox, 
-  fromCenterAndRadius, 
+  from,
+  toAdapter,
+  fromPoints,
+  fromBox,
+  fromCenterAndRadius,
 
-  is, 
-  isEmpty, 
-  isZero, 
-  isNil, 
+  is,
+  isEmpty,
+  isZero,
+  isNil,
 
-  dimGet, 
-  centerGet, 
-  radiusGet, 
-  radiusSet, 
+  dimGet,
+  centerGet,
+  radiusGet,
+  radiusSet,
 
-  pointContains, 
-  pointDistance, 
-  pointClosestPoint, 
+  pointContains,
+  pointDistance,
+  pointClosestPoint,
   // pointClosestPoint, /* qqq : implement me - Already implemented - to test */
-  pointExpand, 
+  pointExpand,
 
   boxContains, /* qqq : implement me */
-  boxIntersects, 
+  boxIntersects,
   boxDistance, /* qqq : implement me - Same as _.box.sphereDistance */
   boxClosestPoint, /* qqq : implement me */
-  boxExpand, 
-  boundingBoxGet, 
+  boxExpand,
+  boundingBoxGet,
 
-  capsuleIntersects, 
-  capsuleDistance, 
-  capsuleClosestPoint, 
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
   frustumContains, /* qqq : implement me */
   frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
@@ -2479,7 +2479,7 @@ let Proto =
 
   lineIntersects, /* Same as _.line.sphereIntersects */
   lineDistance,  /* Same as _.line.sphereDistance */
-  lineClosestPoint, 
+  lineClosestPoint,
 
   planeIntersects, /* qqq : implement me - Same as _.plane.sphereIntersects */
   planeDistance, /* qqq : implement me - Same as _.plane.sphereDistance */
@@ -2488,20 +2488,20 @@ let Proto =
 
   rayIntersects, /* Same as _.ray.sphereIntersects */
   rayDistance,  /* Same as _.ray.sphereDistance */
-  rayClosestPoint, 
+  rayClosestPoint,
 
   segmentIntersects, /* Same as _.segment.sphereIntersects */
   segmentDistance,  /* Same as _.segment.sphereDistance */
-  segmentClosestPoint, 
+  segmentClosestPoint,
 
   sphereContains, /* qqq : implement me */
-  sphereIntersects, 
+  sphereIntersects,
   sphereDistance, /* qqq : implement me */
   sphereClosestPoint, /* qqq : implement me */
-  sphereExpand, 
+  sphereExpand,
 
-  matrixHomogenousApply, 
-  translate, 
+  matrixHomogenousApply,
+  translate,
 
 }
 

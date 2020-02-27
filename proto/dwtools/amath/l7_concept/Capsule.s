@@ -11,21 +11,21 @@ let Self = _.capsule = _.capsule || Object.create( null );
  * @description
  * A capsule is a basic geometric shape consisting of a cylinder with hemispherical ends.
  *
- * For the following functions, capsules must have the shape [ startX, startY, startZ, endX, endY, endZ, radius ], 
+ * For the following functions, capsules must have the shape [ startX, startY, startZ, endX, endY, endZ, radius ],
  * where the dimension equals the object´s length minus one, divided by two.
  *
  * Moreover, startX, startY and startZ are the coordinates of the center of the bottom circle of the cylinder.
  * EndX, endY and endZ are the coordinates of the center of the top circle of the cylinder. Finally, radius is
  * the radius of the cylinder circles and therefore the radius of the capsule hemispherical ends.
  * @namespace "wTools.capsule"
- * @memberof module:Tools/math/Concepts 
+ * @memberof module:Tools/math/Concepts
  */
 
 /*
 
   A capsule is a basic geometric shape consisting of a cylinder with hemispherical ends.
 
-  For the following functions, capsules must have the shape [ startX, startY, startZ, endX, endY, endZ, radius ], 
+  For the following functions, capsules must have the shape [ startX, startY, startZ, endX, endY, endZ, radius ],
 where the dimension equals the object´s length minus one, divided by two.
 
   Moreover, startX, startY and startZ are the coordinates of the center of the bottom circle of the cylinder.
@@ -221,7 +221,7 @@ function originGet( capsule )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let capsuleView = _.capsule.toAdapter( capsule );
-  return capsuleView.subarray( 0, ( capsule.length - 1 ) / 2 );
+  return capsuleView.review([ 0, ( capsule.length - 1 ) / 2 - 1 ]);
 }
 
 //
@@ -250,7 +250,7 @@ function endPointGet( capsule )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let capsuleView = _.capsule.toAdapter( capsule );
-  return capsuleView.subarray( ( capsule.length - 1 ) / 2, capsule.length - 1 );
+  return capsuleView.review([ ( capsule.length - 1 ) / 2, capsule.length - 2 ]);
 }
 
 //
@@ -1015,9 +1015,9 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   * // returns true;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] , srcFrustum );
@@ -1078,9 +1078,9 @@ function frustumIntersects( srcCapsule, srcFrustum )
   * // returns 0;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumDistance( [ 0, 0, 0, 2, 2, 2, 1 ], srcFrustum );
@@ -1141,9 +1141,9 @@ function frustumDistance( srcCapsule, srcFrustum )
   * // returns 0;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , srcFrustum );
@@ -2202,61 +2202,61 @@ function boundingSphereGet( dstSphere, srcCapsule )
 let Proto =
 {
 
-  make, 
-  makeZero, 
-  makeNil, 
+  make,
+  makeZero,
+  makeNil,
 
-  zero, 
-  nil, 
+  zero,
+  nil,
 
-  from, 
-  toAdapter, 
+  from,
+  toAdapter,
 
-  is, 
-  dimGet, 
-  originGet, 
-  endPointGet, 
-  radiusGet, 
-  radiusSet, 
+  is,
+  dimGet,
+  originGet,
+  endPointGet,
+  radiusGet,
+  radiusSet,
 
-  pointContains, 
-  pointDistance, 
-  pointClosestPoint, 
+  pointContains,
+  pointDistance,
+  pointClosestPoint,
 
-  boxContains, 
-  boxIntersects, 
-  boxDistance, 
-  boxClosestPoint, 
-  boundingBoxGet, 
+  boxContains,
+  boxIntersects,
+  boxDistance,
+  boxClosestPoint,
+  boundingBoxGet,
 
-  capsuleIntersects, 
-  capsuleDistance, 
-  capsuleClosestPoint, 
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
-  frustumIntersects, 
-  frustumDistance, 
-  frustumClosestPoint, 
+  frustumIntersects,
+  frustumDistance,
+  frustumClosestPoint,
 
-  lineIntersects, 
-  lineDistance, 
-  lineClosestPoint, 
+  lineIntersects,
+  lineDistance,
+  lineClosestPoint,
 
-  planeIntersects, 
-  planeDistance, 
-  planeClosestPoint, 
+  planeIntersects,
+  planeDistance,
+  planeClosestPoint,
 
-  rayIntersects, 
-  rayDistance, 
-  rayClosestPoint, 
+  rayIntersects,
+  rayDistance,
+  rayClosestPoint,
 
-  segmentIntersects, 
-  segmentDistance, 
-  segmentClosestPoint, 
+  segmentIntersects,
+  segmentDistance,
+  segmentClosestPoint,
 
-  sphereIntersects, 
-  sphereDistance, 
-  sphereClosestPoint, 
-  boundingSphereGet, 
+  sphereIntersects,
+  sphereDistance,
+  sphereClosestPoint,
+  boundingSphereGet,
 
 
 }

@@ -197,8 +197,8 @@ function from( axisAndAngle, angle )
       axisAndAngle.eSet( 3, angle );
       return axisAndAngle;
     }
-    debugger;
-    let result = axisAndAngle.representAdapter([ 0, 4 ]);
+    // debugger;
+    let result = axisAndAngle.growLong([ 0, 3 ]);
     if( angle !== undefined && angle !== null )
     result[ 3 ] = angle;
     return result;
@@ -236,9 +236,9 @@ function toAdapter( axisAndAngle, angle )
       axisAndAngle.eSet( 3 , angle );
       return axisAndAngle;
     }
-    debugger;
+    // debugger;
     // let result = axisAndAngle.resizedAdapter( 0, 4 );
-    let result = axisAndAngle.representAdapter([ 0, 4 ]);
+    let result = axisAndAngle.grow([ 0, 3 ]);
     if( angle !== undefined && angle !== null )
     result.eSet( 3 , angle );
     return result;
@@ -247,7 +247,8 @@ function toAdapter( axisAndAngle, angle )
   {
     if( axisAndAngle.length === 3 )
     {
-      axisAndAngle = _.longResize( axisAndAngle, 0, 4 );
+      // debugger;
+      axisAndAngle = _.longGrow( axisAndAngle, [ 0, 4 ] );
       axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }

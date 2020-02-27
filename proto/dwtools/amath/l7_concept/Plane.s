@@ -12,10 +12,10 @@ let Self = _.plane = _.plane || Object.create( null );
  * A plane is a flat surface represented by an equation of the type:
  *   Ax + By + Cz = D ( for 3D, where x, y and z represent the 3 axes )
  *
- * For the following functions, planes must have the shape [ A, B, ... , D ], 
+ * For the following functions, planes must have the shape [ A, B, ... , D ],
  * where the dimension equals the object´s length minus one.
  * @namespace "wTools.plane"
- * @memberof module:Tools/math/Concepts 
+ * @memberof module:Tools/math/Concepts
  */
 
 /*
@@ -23,7 +23,7 @@ let Self = _.plane = _.plane || Object.create( null );
   A plane is a flat surface represented by an equation of the type:
     Ax + By + Cz = D ( for 3D, where x, y and z represent the 3 axes )
 
-  For the following functions, planes must have the shape [ A, B, ... , D ], 
+  For the following functions, planes must have the shape [ A, B, ... , D ],
   where the dimension equals the object´s length minus one.
 
 */
@@ -237,7 +237,7 @@ function normalGet( plane )
 {
   let planeView = _.plane.toAdapter( plane );
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return planeView.subarray( 0, planeView.length-1 );
+  return planeView.review([ 0, planeView.length - 2 ]);
 }
 
 //
@@ -768,9 +768,9 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
   * // returns false;
   * let srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumIntersects( [ 0, 1, 0, 1 ] , srcFrustum );
@@ -807,9 +807,9 @@ function frustumIntersects( srcPlane, srcFrustum )
   * // returns 1;
   * let srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumDistance( [ 0, 1, 0, 1 ] , srcFrustum );
@@ -846,9 +846,9 @@ function frustumDistance( srcPlane , srcFrustum )
   * // returns [ 0, 1, 1 ];
   * let srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1
   * ]);
   * _.frustumClosestPoint( [ 0, 1, 0, 1 ] , srcFrustum );
@@ -1846,65 +1846,65 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
 let Proto =
 {
 
-  make, 
-  toAdapter, 
-  is, 
+  make,
+  toAdapter,
+  is,
 
-  from, 
-  fromNormalAndPoint, 
-  fromPoints, 
+  from,
+  fromNormalAndPoint,
+  fromPoints,
 
-  dimGet, 
-  normalGet, 
-  biasGet, 
-  biasSet, 
+  dimGet,
+  normalGet,
+  biasGet,
+  biasSet,
 
   pointContains, /* qqq : implement me */
-  pointDistance, 
-  pointCoplanarGet, 
+  pointDistance,
+  pointCoplanarGet,
   // pointClosestPoint, /* qqq : implement me - done in pointCoplanarGet */
 
-  boxIntersects, 
+  boxIntersects,
   boxDistance, /* qqq: implement me - Same as _.box.planeDistance */
   boxClosestPoint, /* qqq: implement me */
-  boundingBoxGet, 
+  boundingBoxGet,
 
-  capsuleIntersects, 
-  capsuleDistance, 
-  capsuleClosestPoint, 
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
   frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
   frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
   frustumClosestPoint, /* qqq: implement me */
 
-  lineIntersects, 
-  lineIntersection, 
-  lineDistance, 
-  lineClosestPoint, 
+  lineIntersects,
+  lineIntersection,
+  lineDistance,
+  lineClosestPoint,
 
   planeIntersects, /* qqq: implement me */
   planeDistance, /* qqq: implement me */
 
   rayIntersects, /* Same as _.ray.planeIntersects */
   rayDistance, /* Same as _.ray.planeDistance */
-  rayClosestPoint, 
+  rayClosestPoint,
 
-  segmentIntersects, 
-  segmentDistance, 
-  segmentClosestPoint, 
+  segmentIntersects,
+  segmentDistance,
+  segmentClosestPoint,
 
-  sphereIntersects, 
-  sphereDistance, 
+  sphereIntersects,
+  sphereDistance,
   sphereClosestPoint, /* qqq: implement me */
-  boundingSphereGet, 
+  boundingSphereGet,
 
-  matrixHomogenousApply, 
-  translate, 
+  matrixHomogenousApply,
+  translate,
 
-  normalize, 
-  negate, 
+  normalize,
+  negate,
 
-  threeIntersectionPoint, 
+  threeIntersectionPoint,
 
 }
 
