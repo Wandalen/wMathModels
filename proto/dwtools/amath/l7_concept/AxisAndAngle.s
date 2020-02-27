@@ -247,7 +247,8 @@ function toAdapter( axisAndAngle, angle )
   {
     if( axisAndAngle.length === 3 )
     {
-      axisAndAngle = _.longResize( axisAndAngle, 0, 4 );
+      // axisAndAngle = _.longResize( axisAndAngle, 0, 4 );
+      axisAndAngle = this.tools.longGrow( axisAndAngle, [ 0, 4 ] );
       axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }
