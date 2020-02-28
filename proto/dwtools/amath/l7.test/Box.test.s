@@ -6,7 +6,7 @@
 
 qqq : lack of tests for box
 
-  from, 
+  from,
 
 qqq : sort routines implementations
 
@@ -45,6 +45,8 @@ _.assert( _.routineIs( sqrt ) );
 
 function make( test )
 {
+
+  debugger;
 
   test.case = 'src undefined'; /* */
 
@@ -2190,7 +2192,7 @@ function cornersGet( test )
   var srcBox = [ 0, 0, 1, 1 ];
   var expected =  _.Matrix.make( [ 2, 4 ] ).copy
   ([
-    0, 1, 0, 1, 
+    0, 1, 0, 1,
     0, 0, 1, 1
   ]);
 
@@ -2216,7 +2218,7 @@ function cornersGet( test )
   var box = [ 0, 1, 1, 2 ];
   var expected = _.Matrix.make( [ 2, 4 ] ).copy
   ([
-    0, 1, 0, 1, 
+    0, 1, 0, 1,
     1, 1, 2, 2
   ]);
 
@@ -2228,9 +2230,9 @@ function cornersGet( test )
   var box = [ 0, - 1, - 2, 1, 1, 2 ];
   var expected = _.Matrix.make( [ 3, 8 ] ).copy
   ([
-    0,   1,  0,  0, 0,  1,  1, 1, 
-    -1, -1,  1, -1, 1, -1,  1, 1, 
-    -2, -2, -2,  2, 2,  2, -2, 2, 
+    0,   1,  0,  0, 0,  1,  1, 1,
+    -1, -1,  1, -1, 1, -1,  1, 1,
+    -2, -2, -2,  2, 2,  2, -2, 2,
   ]);
 
   var gotCorners = _.box.cornersGet( box );
@@ -2241,9 +2243,9 @@ function cornersGet( test )
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = _.Matrix.make( [ 3, 8 ] ).copy
   ([
-    0, 1, 0, 0, 0, 1, 1, 1, 
-    0, 0, 1, 0, 1, 0, 1, 1, 
-    0, 0, 0, 1, 1, 1, 0, 1, 
+    0, 1, 0, 0, 0, 1, 1, 1,
+    0, 0, 1, 0, 1, 0, 1, 1,
+    0, 0, 0, 1, 1, 1, 0, 1,
   ]);
 
   var gotCorners = _.box.cornersGet( box );
@@ -4483,9 +4485,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 1, 1, 1, 3, 3, 3 ];
@@ -4498,9 +4500,9 @@ function frustumContains( test )
 
   var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   test.identical( frustum, oldFrustum );
@@ -4509,9 +4511,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ -1, -1, -1, 3, 3, 3 ];
@@ -4524,9 +4526,9 @@ function frustumContains( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     0,   0,   0,   0,   0,   0 ]
   );
 
@@ -4540,9 +4542,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -4555,9 +4557,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 0.1, 0.1, 0.1, 0.5, 0.5, 0.5 ];
@@ -4570,9 +4572,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 0.1, 0.1, 0.1, 2, 2, 2 ];
@@ -4585,9 +4587,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ 3, 3, 3, 4, 4, 4 ];
@@ -4603,9 +4605,9 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1 ]
   );
 
@@ -4637,9 +4639,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
@@ -4652,9 +4654,9 @@ function frustumDistance( test )
 
   var oldF = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( frustum, oldF );
@@ -4663,9 +4665,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
@@ -4678,9 +4680,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
@@ -4693,9 +4695,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
@@ -4708,9 +4710,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   2,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
@@ -4723,9 +4725,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   2,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
     - 3,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ -2, -2, 2, 0, 0, 4 ];
@@ -4738,9 +4740,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   2,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
@@ -4753,9 +4755,9 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
@@ -4792,9 +4794,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
@@ -4807,9 +4809,9 @@ function frustumClosestPoint( test )
 
   var oldFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( frustum, oldFrustum );
@@ -4818,9 +4820,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
@@ -4833,9 +4835,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
@@ -4848,9 +4850,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
@@ -4863,9 +4865,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   2,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
@@ -4878,9 +4880,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   2,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
     - 3,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ -2, -2, 2, 0, 0, 4 ];
@@ -4893,9 +4895,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   2,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
@@ -4908,9 +4910,9 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
@@ -4948,9 +4950,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
@@ -4961,9 +4963,9 @@ function frustumExpand( test )
 
   var oldFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
@@ -4972,9 +4974,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 2,   0, - 2,   0,   0, - 2
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
@@ -4987,9 +4989,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 2, 0, - 2,   0,   0, - 2
   ]);
   var box = [ 0, 0, 0.5, 1.5, 2, 2 ];
@@ -5002,9 +5004,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
@@ -5017,9 +5019,9 @@ function frustumExpand( test )
 
   var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
@@ -5032,9 +5034,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
@@ -5047,9 +5049,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   2,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
@@ -5062,9 +5064,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   2,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
     - 3,   0, - 1,   0,   0, - 1 ]
   );
   var box = [ -2, -2, 2, 0, 0, 4 ];
@@ -5077,9 +5079,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   2,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   2,   1, - 1,   0,   0,
     - 3,   0, - 1,   0,   0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
@@ -5092,9 +5094,9 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0,   0,   0,   0, - 1,   1, 
-    1, - 1,   0,   0,   0,   0, 
-    0,   0,   1, - 1,   0,   0, 
+    0,   0,   0,   0, - 1,   1,
+    1, - 1,   0,   0,   0,   0,
+    0,   0,   1, - 1,   0,   0,
     - 1,   0, - 1,   0,   0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
@@ -6429,78 +6431,78 @@ function boundingSphereGet( test )
 var Self =
 {
 
-  name : 'Tools.Math.Box', 
-  silencing : 1, 
-  enabled : 1, 
-  // verbosity : 7, 
-  // debug : 1, 
-  // routine: 'frustumExpand', 
+  name : 'Tools.Math.Box',
+  silencing : 1,
+  enabled : 1,
+  // verbosity : 7,
+  // debug : 1,
+  // routine: 'frustumExpand',
 
   tests :
   {
 
-    make, 
-    makeZero, 
-    makeNil, 
+    make,
+    makeZero,
+    makeNil,
 
-    zero, 
-    nil, 
-    centeredOfSize, 
+    zero,
+    nil,
+    centeredOfSize,
 
-    from, 
-    fromPoints, 
-    fromCenterAndSize, 
-    fromSphere, 
-    fromCube, 
+    from,
+    fromPoints,
+    fromCenterAndSize,
+    fromSphere,
+    fromCube,
 
-    is, 
-    isEmpty, 
-    isZero, 
-    isNil, 
+    is,
+    isEmpty,
+    isZero,
+    isNil,
 
-    dimGet, 
-    cornerLeftGet, 
-    cornerRightGet, 
-    centerGet, 
-    sizeGet, 
-    cornersGet, 
+    dimGet,
+    cornerLeftGet,
+    cornerRightGet,
+    centerGet,
+    sizeGet,
+    cornersGet,
 
-    expand, 
+    expand,
 
-    pointContains, 
-    pointDistance, 
-    pointClosestPoint, 
-    pointExpand, 
-    pointRelative, 
+    pointContains,
+    pointDistance,
+    pointClosestPoint,
+    pointExpand,
+    pointRelative,
 
-    boxContains, 
-    boxIntersects, 
-    boxDistance, 
-    boxClosestPoint, 
-    boxExpand, 
+    boxContains,
+    boxIntersects,
+    boxDistance,
+    boxClosestPoint,
+    boxExpand,
 
-    capsuleClosestPoint, 
+    capsuleClosestPoint,
 
-    frustumContains, 
-    frustumDistance, 
-    frustumClosestPoint, 
-    frustumExpand, 
+    frustumContains,
+    frustumDistance,
+    frustumClosestPoint,
+    frustumExpand,
 
-    lineClosestPoint, 
+    lineClosestPoint,
 
-    planeDistance, 
-    planeClosestPoint, 
-    planeExpand, 
+    planeDistance,
+    planeClosestPoint,
+    planeExpand,
 
-    rayClosestPoint, 
+    rayClosestPoint,
 
-    segmentClosestPoint, 
+    segmentClosestPoint,
 
-    sphereContains, 
-    sphereDistance, 
-    sphereClosestPoint, 
-    sphereExpand, 
-    boundingSphereGet, 
+    sphereContains,
+    sphereDistance,
+    sphereClosestPoint,
+    sphereExpand,
+    boundingSphereGet,
 
   }
 
