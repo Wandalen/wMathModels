@@ -20,19 +20,19 @@ let Self = _.quat = _.quat || Object.create( _.avector );
 /**
  * @description
  * A Quaternion is an object that represents a rotation with a rotation vector and a scalar.
- * 
- * For the following functions, quaternions must have the shape [ dir1, dir2, dir3, scalar ], 
+ *
+ * For the following functions, quaternions must have the shape [ dir1, dir2, dir3, scalar ],
  * where dir1, dir2 and dir3 are the coordinates of the rotation vector
  * and scalar related with the rotation magnitude.
  * @namespace "wTools.quat"
- * @memberof module:Tools/math/Concepts 
+ * @memberof module:Tools/math/Concepts
  */
 
 /*
 
 A Quaternion is an object that reprrsents a rotation with a rotation vector and a scalar.
 
-For the following functions, quaternions must have the shape [ dir1, dir2, dir3, scalar ], 
+For the following functions, quaternions must have the shape [ dir1, dir2, dir3, scalar ],
 where dir1, dir2 and dir3 are the coordinates of the rotation vector
 and scalar related with the rotation magnitude.
 
@@ -385,51 +385,51 @@ function fromEuler( dst, euler, v )
 // fromEuler.variates =
 // {
 //
-//   // ox : [ 0, 1, 2, 3 ], 
-//   // oy : [ 0, 1, 2, 3 ], 
-//   // oz : [ 0, 1, 2, 3 ], 
-//   // ow : [ 0, 1, 2, 3 ], 
-//   // ow : [ 3 ], 
+//   // ox : [ 0, 1, 2, 3 ],
+//   // oy : [ 0, 1, 2, 3 ],
+//   // oz : [ 0, 1, 2, 3 ],
+//   // ow : [ 0, 1, 2, 3 ],
+//   // ow : [ 3 ],
 //
 //   // check : function()
 //   // {
 //   //   if( sample.ox0+sample.oy0+sample.oz0+sample.ow0 !== 6 )
 //   //   return false;
-//   // }, 
+//   // },
 //
-//   ox0 : [ 0, 1, 2, 3, 4, 5, 6, 7 ], 
-//   oy0 : [ 0, 1, 2, 3, 4, 5, 6, 7 ], 
-//   oz0 : [ 0, 1, 2, 3, 4, 5, 6, 7 ], 
-//   ow0 : [ 0, 1, 2, 3, 4, 5, 6, 7 ], 
+//   ox0 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+//   oy0 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+//   oz0 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+//   ow0 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
 //
-//   ox1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ], 
-//   oy1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ], 
-//   oz1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ], 
-//   ow1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ], 
+//   ox1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+//   oy1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+//   oz1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+//   ow1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
 //
-//   xs : [ +1, -1 ], 
-//   ys : [ +1, -1 ], 
-//   zs : [ +1, -1 ], 
-//   ws : [ +1, -1 ], 
+//   xs : [ +1, -1 ],
+//   ys : [ +1, -1 ],
+//   zs : [ +1, -1 ],
+//   ws : [ +1, -1 ],
 //
-//   // x1 : [ +1, -1 ], 
-//   // y1 : [ +1, -1 ], 
-//   // z1 : [ +1, -1 ], 
-//   // w1 : [ +1, -1 ], 
+//   // x1 : [ +1, -1 ],
+//   // y1 : [ +1, -1 ],
+//   // z1 : [ +1, -1 ],
+//   // w1 : [ +1, -1 ],
 //
-//   // ox2 : [ 0, 1, 2, 3 ], 
-//   // oy2 : [ 0, 1, 2, 3 ], 
-//   // oz2 : [ 0, 1, 2, 3 ], 
+//   // ox2 : [ 0, 1, 2, 3 ],
+//   // oy2 : [ 0, 1, 2, 3 ],
+//   // oz2 : [ 0, 1, 2, 3 ],
 //   //
-//   // x02 : [ +1, -1 ], 
-//   // y02 : [ +1, -1 ], 
-//   // z02 : [ +1, -1 ], 
-//   // w02 : [ +1, -1 ], 
+//   // x02 : [ +1, -1 ],
+//   // y02 : [ +1, -1 ],
+//   // z02 : [ +1, -1 ],
+//   // w02 : [ +1, -1 ],
 //   //
-//   // x12 : [ +1, -1 ], 
-//   // y12 : [ +1, -1 ], 
-//   // z12 : [ +1, -1 ], 
-//   // w12 : [ +1, -1 ], 
+//   // x12 : [ +1, -1 ],
+//   // y12 : [ +1, -1 ],
+//   // z12 : [ +1, -1 ],
+//   // w12 : [ +1, -1 ],
 //
 // }
 
@@ -497,7 +497,7 @@ function fromVectors( dst, src1, src2 )
 
   dst = _.quat.from( dst );
   let dstv = _.vectorAdapter.from( dst );
-  let dst3 = dstv.subarray( 0, 3 );
+  let dst3 = dstv.review([ 0, 2 ]);
   let dot = _.avector.dot( src1, src2 );
 
   dot += Math.sqrt( _.avector.magSqr( src1 ) * _.avector.magSqr( src2 ) );
@@ -570,7 +570,7 @@ function fromNormalizedVectors( dst, src1, src2 )
 
   dst = _.quat.from( dst );
   let dstv = _.vectorAdapter.from( dst );
-  let dst3 = dstv.subarray( 0, 3 );
+  let dst3 = dstv.review([ 0, 2 ]);
   let dot = _.avector.dot( src1, src2 ) + 1;
 
   if( _.numbersAreEquivalent( dot, 0 ) )
@@ -1060,47 +1060,47 @@ function applyTo( quat, vector )
 let Proto =
 {
 
-  make, 
-  makeZero, 
-  makeUnit, 
+  make,
+  makeZero,
+  makeUnit,
 
-  zero, 
-  unit, 
+  zero,
+  unit,
 
-  from, 
-  toAdapter, 
+  from,
+  toAdapter,
 
-  fromEuler, 
+  fromEuler,
 
-  fromAxisAndAngle, 
-  toAxisAndAngle, 
+  fromAxisAndAngle,
+  toAxisAndAngle,
 
-  fromVectors, 
-  fromVectors2, 
-  fromNormalizedVectors, 
+  fromVectors,
+  fromVectors2,
+  fromNormalizedVectors,
 
-  fromMatrixRotation, 
-  fromMatrixRotation2, 
-  fromMatrixWithScale, 
+  fromMatrixRotation,
+  fromMatrixRotation2,
+  fromMatrixWithScale,
 
-  fromPlane, 
+  fromPlane,
 
-  toMatrix, 
+  toMatrix,
 
-  is, 
-  isUnit, 
-  isZero, 
+  is,
+  isUnit,
+  isZero,
 
-  dimGet, 
+  dimGet,
 
-  conjugate, 
-  inv, 
+  conjugate,
+  inv,
 
-  _mul3, 
-  mul, 
-  mix, 
+  _mul3,
+  mul,
+  mix,
 
-  applyTo, 
+  applyTo,
 
 }
 

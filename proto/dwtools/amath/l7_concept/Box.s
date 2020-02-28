@@ -11,10 +11,10 @@ let Self = _.box = _.box || Object.create( null );
  * @description
  * A box is the space enclosed by orthogonal planes:
  *
- * For the following functions, boxes must have the shape [ minX, minY, minZ, maxX, maxY, maxZ ], 
+ * For the following functions, boxes must have the shape [ minX, minY, minZ, maxX, maxY, maxZ ],
  * where the dimension equals the object´s length divided by two.
  *
- * Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box, 
+ * Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box,
  * and maxX, maxY, maxZ the coordinates of the front, top right corner.
  * @namespace "wTools.box"
  * @memberof module:Tools/math/Concepts
@@ -22,11 +22,11 @@ let Self = _.box = _.box || Object.create( null );
 
 /*
 qqq : make sure all routines in all files of such kind in order
-  *Contains : *Contains, 
-  *Intersects : *Intersects, 
-  *Distance : *Distance, 
-  *ClosestPoint : *ClosestPoint, 
-  *Expand : *Expand, 
+  *Contains : *Contains,
+  *Intersects : *Intersects,
+  *Distance : *Distance,
+  *ClosestPoint : *ClosestPoint,
+  *Expand : *Expand,
 - *Distance returns 0 if intersection
 - _.*.*ClosestPoint does not accept undefines or null
 - _.*.pointClosestPoint writes result into 2-nd argument
@@ -45,10 +45,10 @@ qqq
 
   A box is the space enclosed by orthogonal planes:
 
-  For the following functions, boxes must have the shape [ minX, minY, minZ, maxX, maxY, maxZ ], 
+  For the following functions, boxes must have the shape [ minX, minY, minZ, maxX, maxY, maxZ ],
 where the dimension equals the object´s length divided by two.
 
-  Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box, 
+  Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box,
 and maxX, maxY, maxZ the coordinates of the front, top right corner.
 
 */
@@ -744,7 +744,7 @@ function cornerLeftGet( box )
 {
   let boxView = _.box.toAdapter( box );
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return boxView.subarray( 0 , box.length / 2 );
+  return boxView.review([ 0 , box.length / 2 - 1 ]);
 }
 
 //
@@ -773,7 +773,7 @@ function cornerRightGet( box )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let boxView = _.box.toAdapter( box );
-  return boxView.subarray( box.length / 2 , box.length );
+  return boxView.review([ box.length / 2 , box.length - 1 ]);
 }
 
 //
@@ -878,9 +878,9 @@ function sizeGet( box , dst )
   *
   * @example
   * // returns boxCorners =
-  * [ 0, 0, 0, 0, 1, 1, 1, 1, 
-  *   1, 0, 1, 0, 1, 0, 1, 0, 
-  *   1, 1, 0, 0, 1, 1, 0, 0, 
+  * [ 0, 0, 0, 0, 1, 1, 1, 1,
+  *   1, 0, 1, 0, 1, 0, 1, 0,
+  *   1, 1, 0, 0, 1, 1, 0, 0,
   * ];
   * _.cornersGet( [ 0, 0, 0, 1, 1, 1 ] );
   *
@@ -1671,9 +1671,9 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   * // returns true
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
   * _.frustumContains( [ 0, 0, 0, 2, 2, 2 ], frustum );
@@ -1726,9 +1726,9 @@ function frustumContains( box, frustum )
   * // returns true
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
   * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ], frustum );
@@ -1767,9 +1767,9 @@ function frustumIntersects( box, frustum )
   * // returns 0
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
   * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ], frustum );
@@ -1835,9 +1835,9 @@ function frustumDistance( box, frustum )
   * // returns 0
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
   * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ], frustum );
@@ -1921,9 +1921,9 @@ function frustumClosestPoint( box, frustum, dstPoint )
   * // returns [ 0, 0, 0, 2, 2, 2 ]
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1, 
-  *   1, - 1,   0,   0,   0,   0, 
-  *   0,   0,   1, - 1,   0,   0, 
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
   * _.frustumExpand( [ 0, 0, 0, 2, 2, 2 ], frustum );
@@ -2812,9 +2812,9 @@ function boundingSphereGet( dstSphere, srcBox )
   * // returns [ 0, 0, 0, 1, 1, 1 ]
   * let matrix = _.Matrix.make( [ 4, 4 ] ).copy
   *  ([
-  *    0.5, 0, 0, 0, 
-  *    0, 0.5, 0, 0, 
-  *    0, 0, 0.5, 0, 
+  *    0.5, 0, 0, 0,
+  *    0, 0.5, 0, 0,
+  *    0, 0, 0.5, 0,
   *    0, 0, 0, 1
   *  ]);
   * _.matrixHomogenousApply( [ 0, 0, 0, 2, 2, 2 ], matrix );
@@ -3037,50 +3037,50 @@ function translate( box, offset )
 let Proto =
 {
 
-  make, 
-  makeZero, 
-  makeNil, 
+  make,
+  makeZero,
+  makeNil,
 
-  zero, 
-  nil, 
-  centeredOfSize, 
+  zero,
+  nil,
+  centeredOfSize,
 
-  from, 
-  toAdapter, 
-  fromPoints, 
-  fromCenterAndSize, 
-  fromSphere, 
-  fromCube, 
+  from,
+  toAdapter,
+  fromPoints,
+  fromCenterAndSize,
+  fromSphere,
+  fromCube,
 
-  is, 
-  isEmpty, 
-  isZero, 
-  isNil, 
+  is,
+  isEmpty,
+  isZero,
+  isNil,
 
-  dimGet, 
-  cornerLeftGet, 
-  cornerRightGet, 
-  centerGet, 
-  sizeGet, 
-  cornersGet, 
+  dimGet,
+  cornerLeftGet,
+  cornerRightGet,
+  centerGet,
+  sizeGet,
+  cornersGet,
 
-  expand, 
+  expand,
 
-  pointContains, 
-  pointDistance, 
-  pointClosestPoint, 
-  pointExpand, 
-  pointRelative, 
+  pointContains,
+  pointDistance,
+  pointClosestPoint,
+  pointExpand,
+  pointRelative,
 
-  boxContains, 
-  boxIntersects, 
+  boxContains,
+  boxIntersects,
   boxDistance, /* qqq : implement me */
   boxClosestPoint, /* qqq : implement me */
-  boxExpand, 
+  boxExpand,
 
-  capsuleIntersects, 
-  capsuleDistance, 
-  capsuleClosestPoint, 
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
   frustumContains, /* qqq : implement me */
   frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
@@ -3090,7 +3090,7 @@ let Proto =
 
   lineIntersects, /* Same as _.line.boxIntersects */
   lineDistance, /* Same as _.line.boxDistance */
-  lineClosestPoint, 
+  lineClosestPoint,
 
   planeIntersects, /* qqq : implement me - Same as _.plane.boxIntersects */
   planeDistance, /* qqq : implement me */
@@ -3099,21 +3099,21 @@ let Proto =
 
   rayIntersects, /* qqq : implement me - Same as _.ray.boxIntersects */
   rayDistance, /* qqq : implement me - Same as _.ray.boxDistance */
-  rayClosestPoint, 
+  rayClosestPoint,
 
   segmentIntersects, /* Same as _.segment.boxIntersects */
   segmentDistance, /* Same as _.segment.boxDistance */
-  segmentClosestPoint, 
+  segmentClosestPoint,
 
   sphereContains, /* qqq : implement me */
   sphereIntersects, /* qqq : implement me - Same as _.sphere.boxIntersects */
   sphereDistance, /* qqq : implement me */
   sphereClosestPoint, /* qqq : implement me */
   sphereExpand, /* qqq : implement me */
-  boundingSphereGet, 
+  boundingSphereGet,
 
-  matrixHomogenousApply, 
-  translate, 
+  matrixHomogenousApply,
+  translate,
 
 }
 

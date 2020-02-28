@@ -35,6 +35,91 @@ var clamp = _.math.clamp;
 _.assert( _.routineIs( sqrt ) );
 
 // --
+// context
+// --
+
+function eachAngle( o )
+{
+
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.routineOptions( eachAngle, o );
+
+  if( o.representations === null )
+  o.representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  if( o.angles === null )
+  o.angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  if( o.anglesLocked === null )
+  o.anglesLocked = [ 0, Math.PI / 3 ];
+  if( o.quadrants === null )
+  o.quadrants = [ 0, 1, 2, 3 ];
+  if( o.quadrantsLocked === null )
+  o.quadrantsLocked = [ 0 ];
+  if( o.deltasLocked === null )
+  o.deltasLocked = [ 0 ];
+
+  var euler = _.euler.from( o.dst );
+  for( var r = 0; r < o.representations.length; r++ )
+  {
+    var representation = o.representations[ r ];
+    _.euler.representationSet( euler, representation );
+    for( var ang1 = 0; ang1 < o.angles.length; ang1++ )
+    {
+      for( var quad1 = 0; quad1 < o.quadrants.length; quad1++ )
+      {
+        for( var d = 0; d < o.deltas.length; d++ )
+        {
+          euler[ 0 ] = o.angles[ ang1 ] + o.quadrants[ quad1 ]*Math.PI/2 + o.deltas[ d ];
+          for( var ang2 = ang1; ang2 < o.angles.length; ang2++ )
+          {
+            for( var quad2 = quad1; quad2 < o.quadrants.length; quad2++ )
+            {
+              for( var d2 = 0; d2 < o.deltas.length; d2++ )
+              {
+                euler[ 1 ] = o.angles[ ang2 ] + o.quadrants[ quad2 ]*Math.PI/2 + o.deltas[ d2 ];
+                for( var ang3 = 0; ang3 < o.anglesLocked.length; ang3++ )
+                {
+                  for( var quad3 = 0; quad3 < o.quadrantsLocked.length; quad3++ )
+                  {
+                    for( var d3 = 0; d3 < o.deltasLocked.length; d3++ )
+                    {
+                      euler[ 2 ] = o.anglesLocked[ ang3 ] + o.quadrantsLocked[ quad3 ]*Math.PI/2 + o.deltasLocked[ d3 ];
+                      o.onEach( euler );
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+eachAngle.defaults =
+{
+  representations : null,
+  angles : null,
+  anglesLocked : null,
+  quadrants : null,
+  quadrantsLocked : null,
+  deltas : null,
+  deltasLocked : null,
+  onEach : null,
+  dst : null,
+  // representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
+  // angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
+  // anglesLocked : [ 0, Math.PI / 3 ],
+  // quadrants : [ 0, 1, 2, 3 ],
+  // quadrantsLocked : [ 0 ],
+  // deltas : null,
+  // deltasLocked : [ 0 ],
+  // onEach : null,
+  // dst : null,
+}
+
+// --
 // test
 // --
 
@@ -309,7 +394,6 @@ function from( test )
   test.case = 'from array and null'; /* */
 
   var src = [ 0, 1, 2 ];
-  debugger;
   var got = _.axisAndAngle.from( src, null );
   var expected = [ 0, 1, 2, 0 ];
   test.identical( got, expected );
@@ -341,7 +425,6 @@ function from( test )
 
   test.case = 'from vector and angle'; /* */
 
-  debugger;
   var src = _.vectorAdapter.from([ 0, 1, 2 ]);
   var got = _.axisAndAngle.from( src, 3 );
   var expected = [ 0, 1, 2, 3 ];
@@ -396,7 +479,6 @@ function toAdapter( test )
   test.case = 'toAdapter array and null'; /* */
 
   var src = [ 0, 1, 2 ];
-  debugger;
   var got = _.axisAndAngle.toAdapter( src, null );
   var expected = _.vectorAdapter.from([ 0, 1, 2, 0 ]);
   test.identical( got, expected );
@@ -514,7 +596,6 @@ function zero( test )
 
 function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast( test )
 {
-  debugger;
 
   var accuracy =  test.accuracy;
   var accuracySqr = test.accuracy*test.accuracy;
@@ -567,15 +648,14 @@ function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast( test )
 
 }
 
-eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast.timeOut = 20000;
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast.timeOut = 60000;
 eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast.usingSourceCode = 0;
-eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast.rapidity = 3;
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast.rapidity = -1;
 
 //
 
 function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow( test )
 {
-  debugger;
 
   var accuracy =  test.accuracy;
   var accuracySqr = test.accuracy*test.accuracy;
@@ -626,70 +706,9 @@ function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow( test )
 
 }
 
-eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow.timeOut =100000;
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow.timeOut = 300000;
 eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow.usingSourceCode = 0;
-eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow.rapidity = 2;
-
-//
-
-function eachAngle( o )
-{
-
-  _.assert( arguments.length === 1, 'Expects single argument' );
-  _.routineOptions( eachAngle, o );
-
-  var euler = _.euler.from( o.dst );
-  for( var r = 0; r < o.representations.length; r++ )
-  {
-    var representation = o.representations[ r ];
-    _.euler.representationSet( euler, representation );
-    for( var ang1 = 0; ang1 < o.angles.length; ang1++ )
-    {
-      for( var quad1 = 0; quad1 < o.quadrants.length; quad1++ )
-      {
-        for( var d = 0; d < o.deltas.length; d++ )
-        {
-          euler[ 0 ] = o.angles[ ang1 ] + o.quadrants[ quad1 ]*Math.PI/2 + o.deltas[ d ];
-          for( var ang2 = ang1; ang2 < o.angles.length; ang2++ )
-          {
-            for( var quad2 = quad1; quad2 < o.quadrants.length; quad2++ )
-            {
-              for( var d2 = 0; d2 < o.deltas.length; d2++ )
-              {
-                euler[ 1 ] = o.angles[ ang2 ] + o.quadrants[ quad2 ]*Math.PI/2 + o.deltas[ d2 ];
-                for( var ang3 = 0; ang3 < o.anglesLocked.length; ang3++ )
-                {
-                  for( var quad3 = 0; quad3 < o.quadrantsLocked.length; quad3++ )
-                  {
-                    for( var d3 = 0; d3 < o.deltasLocked.length; d3++ )
-                    {
-                      euler[ 2 ] = o.anglesLocked[ ang3 ] + o.quadrantsLocked[ quad3 ]*Math.PI/2 + o.deltasLocked[ d3 ];
-                      o.onEach( euler );
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-}
-
-eachAngle.defaults =
-{
-  representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
-  angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
-  anglesLocked : [ 0, Math.PI / 3 ],
-  quadrants : [ 0, 1, 2, 3 ],
-  quadrantsLocked : [ 0 ],
-  deltas : null,
-  deltasLocked : [ 0 ],
-  onEach : null,
-  dst : null,
-}
+eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow.rapidity = -2;
 
 // --
 // declare
