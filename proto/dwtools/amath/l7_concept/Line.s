@@ -9,26 +9,26 @@ let Self = _.line = _.line || Object.create( null );
 
 /**
  * @description
- * For the following functions, ( infinite ) lines must have the shape [ orX,orY,orZ,dirX,dirY,dirZ ],
+ * For the following functions,  ( infinite ) lines must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ],
  * where the dimension equals the long's length divided by two.
  *
- * Moreover,orX,orY and orZ,are the coordinates of the origin of the line,
- * and dirX,dirY,dirZ the coordinates of the direction of the line.
+ * Moreover, orX, orY and orZ, are the coordinates of the origin of the line,
+ * and dirX, dirY, dirZ the coordinates of the direction of the line.
  *
- * Finally lines extend also in the direction ( - dirX, - dirY, - dirZ ).
+ * Finally lines extend also in the direction ( - dirX,  - dirY,  - dirZ ).
  * @namespace "wTools.line"
  * @memberof module:Tools/math/Concepts
  */
 
 /*
 
-For the following functions, ( infinite ) lines must have the shape [ orX,orY,orZ,dirX,dirY,dirZ ],
+For the following functions,  ( infinite ) lines must have the shape [ orX, orY, orZ, dirX, dirY, dirZ ],
 where the dimension equals the long's length divided by two.
 
-Moreover,orX,orY and orZ,are the coordinates of the origin of the line,
-and dirX,dirY,dirZ the coordinates of the direction of the line.
+Moreover, orX, orY and orZ, are the coordinates of the origin of the line,
+and dirX, dirY, dirZ the coordinates of the direction of the line.
 
-Finally lines extend also in the direction ( - dirX, - dirY, - dirZ ).
+Finally lines extend also in the direction ( - dirX,  - dirY,  - dirZ ).
 
 */
 
@@ -41,7 +41,7 @@ function make( dim )
   _.assert( arguments.length === 0 || arguments.length === 1 );
   let result = this.makeZero( dim );
   if( this.is( dim ) )
-  _.avector.assign( result,dim );
+  _.avector.assign( result, dim );
   return result;
 }
 
@@ -55,7 +55,7 @@ function makeZero( dim )
   dim = 3;
   _.assert( dim >= 0 );
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  let result = _.dup( 0,dim*2 );
+  let result = _.dup( 0, dim*2 );
   return result;
 }
 
@@ -109,8 +109,8 @@ function nil( line )
     let min = this.originView( lineView );
     let max = this.directionView( lineView );
 
-    _.vectorAdapter.assign( min, +Infinity );
-    _.vectorAdapter.assign( max, -Infinity );
+    _.vectorAdapter.assign( min,  +Infinity );
+    _.vectorAdapter.assign( max,  -Infinity );
 
     return line;
   }
@@ -124,7 +124,7 @@ function from( line )
 {
 
   _.assert( this.is( line ) || line === null );
-  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( arguments.length === 1,  'Expects single argument' );
 
   if( line === null )
   return this.make();
@@ -137,7 +137,7 @@ function from( line )
 function toAdapter( line )
 {
   _.assert( this.is( line ) );
-  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( arguments.length === 1,  'Expects single argument' );
   return _.vectorAdapter.from( line );
 }
 
@@ -150,8 +150,8 @@ function toAdapter( line )
   * @param { Array } pair - The source points.
   *
   * @example
-  * // returns   _.vectorAdapter.from( [ 1,2,1,2 ] )
-  * _.fromPair( [ 1,2 ], [ 3,4 ] );
+  * // returns   _.vectorAdapter.from( [ 1, 2, 1, 2 ] )
+  * _.fromPair( [ 1, 2 ],  [ 3, 4 ] );
   *
   * @returns { Vector } Returns the line containing the two points.
   * @function fromPair
@@ -162,9 +162,9 @@ function toAdapter( line )
 
 function fromPair( pair )
 {
-  _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( pair.length === 2, 'Expects two points' );
-  _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
+  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( pair.length === 2,  'Expects two points' );
+  _.assert( pair[ 0 ].length === pair[ 1 ].length,  'Expects two points' );
 
   let result = _.vectorAdapter.make( pair[ 0 ].length * 2 );
   let pair0 = _.vectorAdapter.from( pair[ 0 ] );
@@ -172,8 +172,8 @@ function fromPair( pair )
 
   for( let i = 0; i < pair0.length ; i++ )
   {
-    result.eSet( i,pair0.eGet( i ) );
-    result.eSet( pair0.length + i,avector.sub( null,pair1,pair0 )[ i ] );
+    result.eSet( i, pair0.eGet( i ) );
+    result.eSet( pair0.length + i, avector.sub( null, pair1, pair0 )[ i ] );
   }
 
   return result;
@@ -181,13 +181,13 @@ function fromPair( pair )
 
 fromPair.shaderChunk =
 `
-  void line_fromPair( out vec2 dstLine[ 2 ], vec2 pair[ 2 ] )
+  void line_fromPair( out vec2 dstLine[ 2 ],  vec2 pair[ 2 ] )
   {
     dstLine[ 0 ] = pair[ 0 ];
     dstLine[ 1 ] = pair[ 1 ] - pair[ 0 ];
   }
 
-  void line_fromPair( out vec3 dstLine[ 2 ], vec3 pair[ 2 ] )
+  void line_fromPair( out vec3 dstLine[ 2 ],  vec3 pair[ 2 ] )
   {
     dstLine[ 0 ] = pair[ 0 ];
     dstLine[ 1 ] = pair[ 1 ] - pair[ 0 ];
@@ -203,7 +203,7 @@ fromPair.shaderChunk =
   *
   * @example
   * // returns true;
-  * _.is( [ 0,0,1,1 ] );
+  * _.is( [ 0, 0, 1, 1 ] );
   *
   * @returns { Boolean } Returns true if the input is line.
   * @function is
@@ -212,7 +212,7 @@ fromPair.shaderChunk =
   */
 function is( line )
 {
-  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( arguments.length === 1,  'Expects single argument' );
   return ( _.longIs( line ) || _.vectorAdapterIs( line ) ) && ( line.length >= 0 ) && ( line.length % 2 === 0 );
 }
 
@@ -225,11 +225,11 @@ function is( line )
   *
   * @example
   * // returns 2
-  * _.dimGet( [ 0,0,2,2 ] );
+  * _.dimGet( [ 0, 0, 2, 2 ] );
   *
   * @example
   * // returns 1
-  * _.dimGet( [ 0,1 ] );
+  * _.dimGet( [ 0, 1 ] );
   *
   * @returns { Number } Returns the dimension of the line.
   * @function dimGet
@@ -239,7 +239,7 @@ function is( line )
   */
 function dimGet( line )
 {
-  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( arguments.length === 1,  'Expects single argument' );
   _.assert( this.is( line ) );
   return line.length / 2;
 }
@@ -253,12 +253,12 @@ function dimGet( line )
   * @param { Vector } line - The source line.
   *
   * @example
-  * // returns   0,0
-  * _.originView( [ 0,0,2,2 ] );
+  * // returns   0, 0
+  * _.originView( [ 0, 0, 2, 2 ] );
   *
   * @example
   * // returns  1
-  * _.originView( [ 1,2 ] );
+  * _.originView( [ 1, 2 ] );
   *
   * @returns { Vector } Returns the coordinates of the origin of the line.
   * @function originView
@@ -269,9 +269,9 @@ function dimGet( line )
 
 function originView( line )
 {
-  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( arguments.length === 1,  'Expects single argument' );
   let lineView = this.toAdapter( line );
-  return lineView.review([ 0,line.length / 2 - 1 ]);
+  return lineView.review([ 0, line.length / 2 - 1 ]);
 }
 
 //
@@ -283,12 +283,12 @@ function originView( line )
   * @param { Vector } line - The source line.
   *
   * @example
-  * // returns   2,2
-  * _.directionView( [ 0,0,2,2 ] );
+  * // returns   2, 2
+  * _.directionView( [ 0, 0, 2, 2 ] );
   *
   * @example
   * // returns  2
-  * _.directionView( [ 1,2 ] );
+  * _.directionView( [ 1, 2 ] );
   *
   * @returns { Vector } Returns the direction of the line.
   * @function directionView
@@ -299,9 +299,9 @@ function originView( line )
 
 function directionView( line )
 {
-  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( arguments.length === 1,  'Expects single argument' );
   let lineView = this.toAdapter( line );
-  return lineView.review([ line.length / 2,line.length - 1 ]);
+  return lineView.review([ line.length / 2, line.length - 1 ]);
 }
 
 //
@@ -314,12 +314,12 @@ function directionView( line )
   * @param { Vector } factor - The source factor.
   *
   * @example
-  * // returns   4,4
-  * _.lineAt( [ 0,0,2,2 ], 2 );
+  * // returns   4, 4
+  * _.lineAt( [ 0, 0, 2, 2 ],  2 );
   *
   * @example
   * // returns  1
-  * _.lineAt( [ 1,2 ], 0 );
+  * _.lineAt( [ 1, 2 ],  0 );
   *
   * @returns { Vector } Returns a point in the line at a given factor.
   * @function lineAt
@@ -328,10 +328,10 @@ function directionView( line )
   * @throws { Error } An Error if ( factor ) is not number.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineAt( srcLine,factor )
+function lineAt( srcLine, factor )
 {
 
-  _.assert( arguments.length === 2, 'Expects single argument' );
+  _.assert( arguments.length === 2,  'Expects single argument' );
   _.assert( this.is( srcLine ) );
   _.assert( _.numberIs( factor ) );
 
@@ -339,15 +339,15 @@ function lineAt( srcLine,factor )
   let origin = this.originView( lineView );
   let direction = this.directionView( lineView );
 
-  let result = avector.mul( null,direction,factor );
-  result = avector.add( result,origin );
+  let result = avector.mul( null, direction, factor );
+  result = avector.add( result, origin );
 
   return result;
 }
 
 lineAt.shaderChunk =
 `
-  vec2 lineAt( vec2 srcLine[ 2 ], float factor )
+  vec2 lineAt( vec2 srcLine[ 2 ],  float factor )
   {
 
     vec2 result = srcLine[ 1 ]*factor;
@@ -367,13 +367,13 @@ lineAt.shaderChunk =
 *
 * @example
 * // returns 0.5
-* _.getFactor( [ 0,0,2,2 ], [ 1,1 ] );
+* _.getFactor( [ 0, 0, 2, 2 ],  [ 1, 1 ] );
 *
 * @example
 * // returns false
-* _.getFactor( [ 0,0,2,2 ], [ - 1,3 ] );
+* _.getFactor( [ 0, 0, 2, 2 ],  [ - 1, 3 ] );
 *
-* @returns { Number } Returns the factor if the point is inside the line,and false if the point is outside it.
+* @returns { Number } Returns the factor if the point is inside the line, and false if the point is outside it.
 * @function getFactor
 * @throws { Error } An Error if ( dim ) is different than point.length (line and point have not the same dimension).
 * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -381,9 +381,9 @@ lineAt.shaderChunk =
 * @throws { Error } An Error if ( srcPoint ) is not point.
 * @memberof module:Tools/math/Concepts.wTools.line
 */
-function getFactor( srcLine,srcPoint )
+function getFactor( srcLine, srcPoint )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = this.make( srcPoint.length );
@@ -394,8 +394,8 @@ function getFactor( srcLine,srcPoint )
   let dimension  = this.dimGet( srcLineView )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
-  _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
-  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView,origin ) );
+  _.assert( dimension === srcPoint.length,  'The line and the point must have the same dimension' );
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -454,11 +454,11 @@ function getFactor( srcLine,srcPoint )
   *
   * @example
   * // returns   true
-  * _.lineParallel( [ 0,0,0,2,2,2 ], [ 1,2,1,4,4,4 ] );
+  * _.lineParallel( [ 0, 0, 0, 2, 2, 2 ],  [ 1, 2, 1, 4, 4, 4 ] );
   *
   * @example
   * // returns  false
-  * _.lineParallel( [ 1,2,1,1,1,2 ], [ 1,2,1,1,3,3 ] );
+  * _.lineParallel( [ 1, 2, 1, 1, 1, 2 ],  [ 1, 2, 1, 1, 3, 3 ] );
   *
   * @returns { Boolean } Returns true if the lines are parallel.
   * @function lineParallel
@@ -468,7 +468,7 @@ function getFactor( srcLine,srcPoint )
   * @throws { Error } An Error if ( accuracySqr ) is not number.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineParallel3D( src1Line,src2Line,accuracySqr )
+function lineParallel3D( src1Line, src2Line, accuracySqr )
 {
   // _.assert( src1Line.length === 3 );
   // _.assert( src2Line.length === 3 );
@@ -477,7 +477,7 @@ function lineParallel3D( src1Line,src2Line,accuracySqr )
   // if( accuracySqr === undefined )
   // accuracySqr = Self.accuracySqr;
 
-  // return _magSqr( avector.cross( src1Line[ 1 ], src2Line[ 1 ] ) ) <= Self.accuracySqr;
+  // return _magSqr( avector.cross( src1Line[ 1 ],  src2Line[ 1 ] ) ) <= Self.accuracySqr;
 
   _.assert( this.is( src1Line ) );
   _.assert( this.is( src2Line ) );
@@ -490,13 +490,13 @@ function lineParallel3D( src1Line,src2Line,accuracySqr )
   let direction2 = this.directionView( src2Line );
 
   debugger;
-  return avector.magSqr( avector.cross( null,direction1,direction2 )) <= accuracySqr;
+  return avector.magSqr( avector.cross( null, direction1, direction2 )) <= accuracySqr;
 
 }
 
 //
 
-function lineParallel( src1Line,src2Line,accuracySqr )
+function lineParallel( src1Line, src2Line, accuracySqr )
 {
   // _.assert( src1Line.length === 3 );
   // _.assert( src2Line.length === 3 );
@@ -505,7 +505,7 @@ function lineParallel( src1Line,src2Line,accuracySqr )
   // if( accuracySqr === undefined )
   // accuracySqr = Self.accuracySqr;
 
-  // return _magSqr( avector.cross( src1Line[ 1 ], src2Line[ 1 ] ) ) <= Self.accuracySqr;
+  // return _magSqr( avector.cross( src1Line[ 1 ],  src2Line[ 1 ] ) ) <= Self.accuracySqr;
 
   _.assert( this.is( src1Line ) );
   _.assert( this.is( src2Line ) );
@@ -572,7 +572,7 @@ function lineParallel( src1Line,src2Line,accuracySqr )
 //
 
 /**
-  * Returns the factors for the intersection of two lines. Returns a vector with the intersection factors,0 if there is no intersection.
+  * Returns the factors for the intersection of two lines. Returns a vector with the intersection factors, 0 if there is no intersection.
   * Lines stay untouched.
   *
   * @param { Vector } src1Line - The first source line.
@@ -580,11 +580,11 @@ function lineParallel( src1Line,src2Line,accuracySqr )
   *
   * @example
   * // returns   0
-  * _.lineIntersectionFactors( [ 0,0,2,2 ], [ 1,1,4,4 ] );
+  * _.lineIntersectionFactors( [ 0, 0, 2, 2 ],  [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  _.vectorAdapter.from( [ 2,1 ] )
-  * _.lineIntersectionFactors( [ - 2,0,1,0 ], [ 0, - 2,0,2 ] );
+  * // returns  _.vectorAdapter.from( [ 2, 1 ] )
+  * _.lineIntersectionFactors( [ - 2, 0, 1, 0 ],  [ 0,  - 2, 0, 2 ] );
   *
   * @returns { Array } Returns the factors for the two lines intersection.
   * @function lineIntersectionFactors
@@ -593,10 +593,10 @@ function lineParallel( src1Line,src2Line,accuracySqr )
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineIntersectionFactors( srcLine1,srcLine2 )
+function lineIntersectionFactors( srcLine1, srcLine2 )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcLine1.length === srcLine2.length, 'The two lines must have the same dimension' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( srcLine1.length === srcLine2.length,  'The two lines must have the same dimension' );
 
   let srcLine1View = this.toAdapter( srcLine1.slice() );
   let srcLine2View = this.toAdapter( srcLine2.slice() );
@@ -604,11 +604,11 @@ function lineIntersectionFactors( srcLine1,srcLine2 )
   let origin1 = this.originView( srcLine1View );
   let origin2 = this.originView( srcLine2View );
 
-  let dOrigin = _.vectorAdapter.from( avector.subVectors( origin2.clone(), origin1 ) );
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( origin2.clone(),  origin1 ) );
 
   let direction1 = this.directionView( srcLine1View );
   let direction2 = this.directionView( srcLine2View );
-  let directions = _.Matrix.make( [ srcLine1.length / 2 , 2 ] );
+  let directions = _.Matrix.make( [ srcLine1.length / 2 ,  2 ] );
   directions.colVectorGet( 0 ).copy( direction1 );
   directions.colVectorGet( 1 ).copy( direction2.clone().mulScalar( - 1 ) );
 
@@ -621,21 +621,21 @@ function lineIntersectionFactors( srcLine1,srcLine2 )
   }
 
   if( identOrigin === origin1.length )
-  return _.vectorAdapter.from( [ 0,0 ] );
+  return _.vectorAdapter.from( [ 0, 0 ] );
 
   // Parallel lines
-  if( lineParallel( srcLine1,srcLine2 ) === true )
+  if( lineParallel( srcLine1, srcLine2 ) === true )
   {
-    let factor1 = this.getFactor( srcLine1View,origin2 );
-    let factor2 = this.getFactor( srcLine2View,origin1 );
+    let factor1 = this.getFactor( srcLine1View, origin2 );
+    let factor2 = this.getFactor( srcLine2View, origin1 );
 
     if( factor1 )
     {
-      return _.vectorAdapter.from( [ factor1,0 ] );
+      return _.vectorAdapter.from( [ factor1, 0 ] );
     }
     else if( factor2 )
     {
-      return _.vectorAdapter.from( [ 0,factor2 ] );
+      return _.vectorAdapter.from( [ 0, factor2 ] );
     }
     else
     {
@@ -643,22 +643,22 @@ function lineIntersectionFactors( srcLine1,srcLine2 )
     }
   }
 
-  let result = _.vectorAdapter.from( [ 0,0 ] );
+  let result = _.vectorAdapter.from( [ 0, 0 ] );
 
   debugger;
 
   let j = 0;
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
-    let m = _.Matrix.make( [ 2,2 ] );
-    m.rowSet( 0,directions.rowVectorGet( i ) );
-    m.rowSet( 1,directions.rowVectorGet( i + 1 ) );
+    let m = _.Matrix.make( [ 2, 2 ] );
+    m.rowSet( 0, directions.rowVectorGet( i ) );
+    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
 
     if( m.determinant() === 0 )
     {}
     else
     {
-      let or = _.Matrix.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+      let or = _.Matrix.makeCol( [ dOrigin.eGet( i ),  dOrigin.eGet( i + 1 ) ] );
       let o =
       {
         x : null,
@@ -685,11 +685,11 @@ function lineIntersectionFactors( srcLine1,srcLine2 )
         {
           if( samex1 )
           {
-            result.eSet( 0,_.vectorAdapter.from( x.base ).eGet( 0 ) );
+            result.eSet( 0, _.vectorAdapter.from( x.base ).eGet( 0 ) );
           }
           else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex2 )
           {
-            result.eSet( 0,_.vectorAdapter.from( x.base ).eGet( 0 ) );
+            result.eSet( 0, _.vectorAdapter.from( x.base ).eGet( 0 ) );
           }
           else
           {
@@ -700,11 +700,11 @@ function lineIntersectionFactors( srcLine1,srcLine2 )
         {
           if( samex2 )
           {
-            result.eSet( 1,_.vectorAdapter.from( x.base ).eGet( 1 ) );
+            result.eSet( 1, _.vectorAdapter.from( x.base ).eGet( 1 ) );
           }
           else if ( ( result.eGet( 0 ) === 0 || result.eGet( 1 ) === 0 ) && samex1 )
           {
-            result.eSet( 1,_.vectorAdapter.from( x.base ).eGet( 1 ) );
+            result.eSet( 1, _.vectorAdapter.from( x.base ).eGet( 1 ) );
           }
           else
           {
@@ -728,8 +728,8 @@ function lineIntersectionFactors( srcLine1,srcLine2 )
   let point2 = _.vectorAdapter.make( origin1.length );
   for( let i = 0; i < origin1.length; i++ )
   {
-    point1.eSet( i,origin1.eGet( i ) + result.eGet( 0 )*direction1.eGet( i ) )
-    point2.eSet( i,origin2.eGet( i ) + result.eGet( 1 )*direction2.eGet( i ) )
+    point1.eSet( i, origin1.eGet( i ) + result.eGet( 0 )*direction1.eGet( i ) )
+    point2.eSet( i, origin2.eGet( i ) + result.eGet( 1 )*direction2.eGet( i ) )
 
     if( Math.abs( point1.eGet( i ) - point2.eGet( i ) ) > _.accuracy )
     {
@@ -742,7 +742,7 @@ function lineIntersectionFactors( srcLine1,srcLine2 )
 //
 
 /**
-  * Returns the points of the intersection of two lines. Returns an array with the intersection points,0 if there is no intersection.
+  * Returns the points of the intersection of two lines. Returns an array with the intersection points, 0 if there is no intersection.
   * Lines stay untouched.
   *
   * @param { Vector } src1Line - The first source line.
@@ -750,11 +750,11 @@ function lineIntersectionFactors( srcLine1,srcLine2 )
   *
   * @example
   * // returns   0
-  * _.lineIntersectionPoints( [ 0,0,2,2 ], [ 1,1,4,4 ] );
+  * _.lineIntersectionPoints( [ 0, 0, 2, 2 ],  [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  [ [ 0,0 ], [ 0,0 ] ]
-  * _.lineIntersectionPoints( [ -3,0,1,0 ], [ 0, -2,0,1 ] );
+  * // returns  [ [ 0, 0 ],  [ 0, 0 ] ]
+  * _.lineIntersectionPoints( [ -3, 0, 1, 0 ],  [ 0,  -2, 0, 1 ] );
   *
   * @returns { Array } Returns the points of intersection of the two lines.
   * @function lineIntersectionPoints
@@ -763,25 +763,25 @@ function lineIntersectionFactors( srcLine1,srcLine2 )
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineIntersectionPoints( srcLine1,srcLine2 )
+function lineIntersectionPoints( srcLine1, srcLine2 )
 {
-  let factors = lineIntersectionFactors( srcLine1,srcLine2 );
+  let factors = lineIntersectionFactors( srcLine1, srcLine2 );
   if( factors === 0 )
   return 0;
 
   let factorsView = _.vectorAdapter.from( factors );
-  let result = [ Self.lineAt( srcLine1,factorsView.eGet( 0 ) ), Self.lineAt( srcLine2,factorsView.eGet( 1 ) ) ];
+  let result = [ Self.lineAt( srcLine1, factorsView.eGet( 0 ) ),  Self.lineAt( srcLine2, factorsView.eGet( 1 ) ) ];
   return result;
 }
 
 lineIntersectionPoints.shaderChunk =
 `
-  void lineIntersectionPoints( out vec2 result[ 2 ], vec2 srcLine1[ 2 ], vec2 srcLine2[ 2 ] )
+  void lineIntersectionPoints( out vec2 result[ 2 ],  vec2 srcLine1[ 2 ],  vec2 srcLine2[ 2 ] )
   {
 
-    vec2 factors = lineIntersectionFactors( srcLine1,srcLine2 );
-    result[ 0 ] = lineAt( srcLine1,factors[ 0 ] );
-    result[ 1 ] = lineAt( srcLine2,factors[ 1 ] );
+    vec2 factors = lineIntersectionFactors( srcLine1, srcLine2 );
+    result[ 0 ] = lineAt( srcLine1, factors[ 0 ] );
+    result[ 1 ] = lineAt( srcLine2, factors[ 1 ] );
 
   }
 `
@@ -789,7 +789,7 @@ lineIntersectionPoints.shaderChunk =
 //
 
 /**
-  * Returns the point of the intersection of two lines. Returns an array with the intersection point,0 if there is no intersection.
+  * Returns the point of the intersection of two lines. Returns an array with the intersection point, 0 if there is no intersection.
   * Lines stay untouched.
   *
   * @param { Vector } src1Line - The first source line.
@@ -797,11 +797,11 @@ lineIntersectionPoints.shaderChunk =
   *
   * @example
   * // returns   0
-  * _.lineIntersectionPoint( [ 0,0,2,2 ], [ 1,1,4,4 ] );
+  * _.lineIntersectionPoint( [ 0, 0, 2, 2 ],  [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  [ [ 0,0 ] ]
-  * _.lineIntersectionPoint( [ -3,0,1,0 ], [ 0, -2,0,1 ] );
+  * // returns  [ [ 0, 0 ] ]
+  * _.lineIntersectionPoint( [ -3, 0, 1, 0 ],  [ 0,  -2, 0, 1 ] );
   *
   * @returns { Array } Returns the point of intersection of the two lines.
   * @function lineIntersectionPoint
@@ -810,25 +810,25 @@ lineIntersectionPoints.shaderChunk =
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineIntersectionPoint( srcLine1,srcLine2 )
+function lineIntersectionPoint( srcLine1, srcLine2 )
 {
 
-  let factors = Self.lineIntersectionFactors( srcLine1,srcLine2 );
+  let factors = Self.lineIntersectionFactors( srcLine1, srcLine2 );
 
   if( factors === 0 )
   return 0;
 
-  return Self.lineAt( srcLine1,factors.eGet( 0 ) );
+  return Self.lineAt( srcLine1, factors.eGet( 0 ) );
 
 }
 
 lineIntersectionPoint.shaderChunk =
 `
-  vec2 lineIntersectionPoint( vec2 srcLine1[ 2 ], vec2 srcLine2[ 2 ] )
+  vec2 lineIntersectionPoint( vec2 srcLine1[ 2 ],  vec2 srcLine2[ 2 ] )
   {
 
-    vec2 factors = lineIntersectionFactors( srcLine1,srcLine2 );
-    return lineAt( srcLine1,factors[ 0 ] );
+    vec2 factors = lineIntersectionFactors( srcLine1, srcLine2 );
+    return lineAt( srcLine1, factors[ 0 ] );
 
   }
 `
@@ -836,7 +836,7 @@ lineIntersectionPoint.shaderChunk =
 //
 
 /**
-  * Returns the point of the intersection of two lines. Returns an array with the intersection point,0 if there is no intersection.
+  * Returns the point of the intersection of two lines. Returns an array with the intersection point, 0 if there is no intersection.
   * Lines stay untouched.
   *
   * @param { Vector } src1Line - The first source line.
@@ -844,11 +844,11 @@ lineIntersectionPoint.shaderChunk =
   *
   * @example
   * // returns   0
-  * _.lineIntersectionPointAccurate( [ 0,0,2,2 ], [ 1,1,4,4 ] );
+  * _.lineIntersectionPointAccurate( [ 0, 0, 2, 2 ],  [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  [ [ 0,0 ] ]
-  * _.lineIntersectionPointAccurate( [ -3,0,1,0 ], [ 0, -2,0,1 ] );
+  * // returns  [ [ 0, 0 ] ]
+  * _.lineIntersectionPointAccurate( [ -3, 0, 1, 0 ],  [ 0,  -2, 0, 1 ] );
   *
   * @returns { Array } Returns the point of intersection of the two lines.
   * @function lineIntersectionPointAccurate
@@ -857,26 +857,26 @@ lineIntersectionPoint.shaderChunk =
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineIntersectionPointAccurate( srcLine1,srcLine2 )
+function lineIntersectionPointAccurate( srcLine1, srcLine2 )
 {
 
-  let closestPoints = Self.lineIntersectionPoints( srcLine1,srcLine2 );
+  let closestPoints = Self.lineIntersectionPoints( srcLine1, srcLine2 );
   debugger;
 
   if( closestPoints === 0)
   return 0;
 
-  return _.avector.mulScalar( _.avector.add( null,closestPoints[ 0 ], closestPoints[ 1 ] ), 0.5 );
+  return _.avector.mulScalar( _.avector.add( null, closestPoints[ 0 ],  closestPoints[ 1 ] ),  0.5 );
 
 }
 
 lineIntersectionPointAccurate.shaderChunk =
 `
-  vec2 lineIntersectionPointAccurate( vec2 srcLine1[ 2 ], vec2 srcLine2[ 2 ] )
+  vec2 lineIntersectionPointAccurate( vec2 srcLine1[ 2 ],  vec2 srcLine2[ 2 ] )
   {
 
     vec2 closestPoints[ 2 ];
-    lineIntersectionPoints( closestPoints,srcLine1,srcLine2 );
+    lineIntersectionPoints( closestPoints, srcLine1, srcLine2 );
     return ( closestPoints[ 0 ] + closestPoints[ 1 ] ) * 0.5;
 
   }
@@ -885,7 +885,7 @@ lineIntersectionPointAccurate.shaderChunk =
 //
 
 /**
-  * Check if a given point is contained inside a line. Returs true if it is contained,false if not.
+  * Check if a given point is contained inside a line. Returs true if it is contained, false if not.
   * Point and line stay untouched.
   *
   * @param { Array } srcLine - The source line.
@@ -893,13 +893,13 @@ lineIntersectionPointAccurate.shaderChunk =
   *
   * @example
   * // returns true
-  * _.pointContains( [ 0,0,2,2 ], [ 1,1 ] );
+  * _.pointContains( [ 0, 0, 2, 2 ],  [ 1, 1 ] );
   *
   * @example
   * // returns false
-  * _.pointContains( [ 0,0,2,2 ], [ - 1,3 ] );
+  * _.pointContains( [ 0, 0, 2, 2 ],  [ - 1, 3 ] );
   *
-  * @returns { Boolen } Returns true if the point is inside the line,and false if the point is outside it.
+  * @returns { Boolen } Returns true if the point is inside the line, and false if the point is outside it.
   * @function pointContains
   * @throws { Error } An Error if ( dim ) is different than point.length (line and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -907,9 +907,9 @@ lineIntersectionPointAccurate.shaderChunk =
   * @throws { Error } An Error if ( srcPoint ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function pointContains( srcLine,srcPoint )
+function pointContains( srcLine, srcPoint )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = this.make( srcPoint.length );
@@ -920,8 +920,8 @@ function pointContains( srcLine,srcPoint )
   let dimension  = this.dimGet( srcLineView )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
-  _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
-  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView,origin ) );
+  _.assert( dimension === srcPoint.length,  'The line and the point must have the same dimension' );
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -978,11 +978,11 @@ function pointContains( srcLine,srcPoint )
   *
   * @example
   * // returns 0
-  * _.pointDistance( [ 0,0,0,2 ], [ 0,1 ] );
+  * _.pointDistance( [ 0, 0, 0, 2 ],  [ 0, 1 ] );
   *
   * @example
   * // returns 2
-  * _.pointDistance( [ 0,0,0,2 ], [ 2,2 ] );
+  * _.pointDistance( [ 0, 0, 0, 2 ],  [ 2, 2 ] );
   *
   * @returns { Boolen } Returns the distance between the point and the line.
   * @function pointDistance
@@ -992,9 +992,9 @@ function pointContains( srcLine,srcPoint )
   * @throws { Error } An Error if ( srcPoint ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function pointDistance( srcLine,srcPoint )
+function pointDistance( srcLine, srcPoint )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = this.make( srcPoint.length );
@@ -1005,19 +1005,19 @@ function pointDistance( srcLine,srcPoint )
   let dimension  = this.dimGet( srcLineView )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
-  _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
+  _.assert( dimension === srcPoint.length,  'The line and the point must have the same dimension' );
 
-  if( this.pointContains( srcLineView,srcPointView ) )
+  if( this.pointContains( srcLineView, srcPointView ) )
   {
     return 0;
   }
   else
   {
-    let projection = this.pointClosestPoint( srcLineView,srcPointView );
+    let projection = this.pointClosestPoint( srcLineView, srcPointView );
 
-    let dPoints = _.vectorAdapter.from( avector.subVectors( srcPointView,projection ) );
+    let dPoints = _.vectorAdapter.from( avector.subVectors( srcPointView, projection ) );
     debugger;
-    let mod = _.vectorAdapter.dot( dPoints,dPoints );
+    let mod = _.vectorAdapter.dot( dPoints, dPoints );
     mod = Math.sqrt( mod );
 
     return mod;
@@ -1033,11 +1033,11 @@ function pointDistance( srcLine,srcPoint )
   *
   * @example
   * // returns 0
-  * _.pointClosestPoint( [ 0,0,0,2 ], [ 0,1 ] );
+  * _.pointClosestPoint( [ 0, 0, 0, 2 ],  [ 0, 1 ] );
   *
   * @example
-  * // returns [ 0,2 ]
-  * _.pointClosestPoint( [ 0,0,0,2 ], [ 2,2 ] );
+  * // returns [ 0, 2 ]
+  * _.pointClosestPoint( [ 0, 0, 0, 2 ],  [ 2, 2 ] );
   *
   * @returns { Boolen } Returns the closest point in a line to a point.
   * @function pointClosestPoint
@@ -1048,9 +1048,9 @@ function pointDistance( srcLine,srcPoint )
   * @memberof module:Tools/math/Concepts.wTools.line
   */
 
-function pointClosestPoint( srcLine,srcPoint,dstPoint )
+function pointClosestPoint( srcLine, srcPoint, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = this.tools.longMake( srcPoint.length );
@@ -1068,7 +1068,7 @@ function pointClosestPoint( srcLine,srcPoint,dstPoint )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
   let dstPointView = _.vectorAdapter.from( dstPoint );
 
-  _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
+  _.assert( dimension === srcPoint.length,  'The line and the point must have the same dimension' );
 
   let pointVector;
 
@@ -1083,28 +1083,28 @@ function pointClosestPoint( srcLine,srcPoint,dstPoint )
   {
     pointVector = origin;
   }
-  else if( this.pointContains( srcLineView,srcPointView ) )
+  else if( this.pointContains( srcLineView, srcPointView ) )
   {
     pointVector = _.vectorAdapter.from( srcPointView );
   }
   else
   {
-    let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView,origin ) );
-    let dot = _.vectorAdapter.dot( direction,direction );
-    let factor = _.vectorAdapter.dot( direction , dOrigin ) / dot ;
+    let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
+    let dot = _.vectorAdapter.dot( direction, direction );
+    let factor = _.vectorAdapter.dot( direction ,  dOrigin ) / dot ;
     if( dot === 0 )
     {
       pointVector = _.vectorAdapter.from( origin );
     }
     else
     {
-      pointVector = _.vectorAdapter.from( this.lineAt( srcLineView,factor ) );
+      pointVector = _.vectorAdapter.from( this.lineAt( srcLineView, factor ) );
     }
   }
 
   for( let i = 0; i < pointVector.length; i++ )
   {
-    dstPointView.eSet( i,pointVector.eGet( i ) );
+    dstPointView.eSet( i, pointVector.eGet( i ) );
   }
 
   return dstPoint;
@@ -1121,11 +1121,11 @@ function pointClosestPoint( srcLine,srcPoint,dstPoint )
   *
   * @example
   * // returns true;
-  * _.boxIntersects( [ 0,0,0,2,2,2 ] , [ 0,0,0,1,1,1 ]);
+  * _.boxIntersects( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns false;
-  * _.boxIntersects( [ 0, -1,0,0, -2,0 ] , [ 2,2,2,2,2,2 ]);
+  * _.boxIntersects( [ 0,  -1, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Boolean } Returns true if the line and the box intersect.
   * @function boxIntersects
@@ -1135,9 +1135,9 @@ function pointClosestPoint( srcLine,srcPoint,dstPoint )
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the line and box don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function boxIntersects( srcLine,srcBox )
+function boxIntersects( srcLine, srcBox )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = this.make( srcBox.length / 2 );
@@ -1154,7 +1154,7 @@ function boxIntersects( srcLine,srcBox )
 
   _.assert( dimLine === dimBox );
 
-  if( _.box.pointContains( boxView,origin ) )
+  if( _.box.pointContains( boxView, origin ) )
   return true;
 
   /* box corners */
@@ -1163,9 +1163,9 @@ function boxIntersects( srcLine,srcBox )
   for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
-    let projection = this.pointClosestPoint( srcLineView,corner );
+    let projection = this.pointClosestPoint( srcLineView, corner );
 
-    if( _.box.pointContains( boxView,projection ) )
+    if( _.box.pointContains( boxView, projection ) )
     return true;
   }
 
@@ -1184,11 +1184,11 @@ function boxIntersects( srcLine,srcBox )
   *
   * @example
   * // returns 0;
-  * _.boxDistance( [ 0,0,0,2,2,2 ] , [ 0,0,0,1,1,1 ]);
+  * _.boxDistance( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 12 );
-  * _.boxDistance( [ 0,0,0,0, -2,0 ] , [ 2,2,2,2,2,2 ]);
+  * _.boxDistance( [ 0, 0, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the distance between the line and the box.
   * @function boxDistance
@@ -1198,9 +1198,9 @@ function boxIntersects( srcLine,srcBox )
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the line and box don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function boxDistance( srcLine,srcBox )
+function boxDistance( srcLine, srcBox )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = this.make( srcBox.length / 2 );
@@ -1217,11 +1217,11 @@ function boxDistance( srcLine,srcBox )
 
   _.assert( dimLine === dimBox );
 
-  if( this.boxIntersects( srcLineView,boxView ) )
+  if( this.boxIntersects( srcLineView, boxView ) )
   return 0;
 
-  let closestPoint = this.boxClosestPoint( srcLineView,boxView );
-  return _.box.pointDistance( boxView,closestPoint );
+  let closestPoint = this.boxClosestPoint( srcLineView, boxView );
+  return _.box.pointDistance( boxView, closestPoint );
 }
 
 //
@@ -1235,11 +1235,11 @@ function boxDistance( srcLine,srcBox )
   *
   * @example
   * // returns 0;
-  * _.boxClosestPoint( [ 0,0,0,2,2,2 ] , [ 0,0,0,1,1,1 ]);
+  * _.boxClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
-  * // returns [ 0, - 1,0 ];
-  * _.boxClosestPoint( [ 0, - 1,0,0, -2,0 ] , [ 2,2,2,2,2,2 ]);
+  * // returns [ 0,  - 1, 0 ];
+  * _.boxClosestPoint( [ 0,  - 1, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the closest point in the line to the box.
   * @function boxClosestPoint
@@ -1250,9 +1250,9 @@ function boxDistance( srcLine,srcBox )
   * @memberof module:Tools/math/Concepts.wTools.line
   */
 
-function boxClosestPoint( srcLine,srcBox,dstPoint )
+function boxClosestPoint( srcLine, srcBox, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcBox.length / 2 );
@@ -1276,31 +1276,31 @@ function boxClosestPoint( srcLine,srcBox,dstPoint )
   let dstPointView = _.vectorAdapter.from( dstPoint );
   _.assert( dimLine === dimBox );
 
-  if( this.boxIntersects( srcLineView,boxView ) )
+  if( this.boxIntersects( srcLineView, boxView ) )
   return 0;
 
   /* box corners */
   let c = _.box.cornersGet( boxView );
 
-  let distance = _.box.pointDistance( boxView,origin );
+  let distance = _.box.pointDistance( boxView, origin );
   let d = 0;
   let pointView = _.vectorAdapter.from( origin );
 
   for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
-    d = Math.abs( this.pointDistance( srcLineView,corner ) );
+    d = Math.abs( this.pointDistance( srcLineView, corner ) );
     if( d < distance )
     {
       distance = d;
-      pointView = this.pointClosestPoint( srcLineView,corner );
+      pointView = this.pointClosestPoint( srcLineView, corner );
     }
   }
 
   pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
-    dstPointView.eSet( i,pointView.eGet( i ) );
+    dstPointView.eSet( i, pointView.eGet( i ) );
   }
 
   return dstPoint;
@@ -1316,8 +1316,8 @@ function boxClosestPoint( srcLine,srcBox,dstPoint )
   * @param { Array } srcLine - source line for the bounding box.
   *
   * @example
-  * // returns [ - Infinity,0, - Infinity,Infinity,0,Infinity ]
-  * _.boundingBoxGet( null, [ 0,0,0, - 2,0,2 ] );
+  * // returns [ - Infinity, 0,  - Infinity, Infinity, 0, Infinity ]
+  * _.boundingBoxGet( null,  [ 0, 0, 0,  - 2, 0, 2 ] );
   *
   * @returns { Array } Returns the array of the bounding box.
   * @function boundingBoxGet
@@ -1327,9 +1327,9 @@ function boxClosestPoint( srcLine,srcBox,dstPoint )
   * @throws { Error } An Error if ( srcLine ) is not line
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function boundingBoxGet( dstBox,srcLine )
+function boundingBoxGet( dstBox, srcLine )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   let srcLineView = this.toAdapter( srcLine );
   let origin = this.originView( srcLineView );
@@ -1353,13 +1353,13 @@ function boundingBoxGet( dstBox,srcLine )
   {
     if( direction.eGet( i ) !== 0 )
     {
-      min.eSet( i, - Infinity );
-      max.eSet( i,Infinity );
+      min.eSet( i,  - Infinity );
+      max.eSet( i, Infinity );
     }
     else if( direction.eGet( i ) === 0 )
     {
-      min.eSet( i,origin.eGet( i ) );
-      max.eSet( i,origin.eGet( i ) );
+      min.eSet( i, origin.eGet( i ) );
+      max.eSet( i, origin.eGet( i ) );
     }
   }
 
@@ -1368,25 +1368,25 @@ function boundingBoxGet( dstBox,srcLine )
 
 //
 
-function capsuleIntersects( srcLine,tstCapsule )
+function capsuleIntersects( srcLine, tstCapsule )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
   let lineView = this.toAdapter( srcLine );
 
-  let gotBool = _.capsule.lineIntersects( tstCapsuleView,lineView );
+  let gotBool = _.capsule.lineIntersects( tstCapsuleView, lineView );
   return gotBool;
 }
 
 //
 
-function capsuleDistance( srcLine,tstCapsule )
+function capsuleDistance( srcLine, tstCapsule )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
   let lineView = this.toAdapter( srcLine );
 
-  let gotDist = _.capsule.lineDistance( tstCapsuleView,lineView );
+  let gotDist = _.capsule.lineDistance( tstCapsuleView, lineView );
 
   return gotDist;
 }
@@ -1403,12 +1403,12 @@ function capsuleDistance( srcLine,tstCapsule )
   *
   * @example
   * // returns 0
-  * let capsule = [ 0,0,0, - 1, - 1, - 1,1 ]
-  * _.capsuleClosestPoint( [ 0,0,0,2,2,2 ], capsule );
+  * let capsule = [ 0, 0, 0,  - 1,  - 1,  - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  capsule );
   *
   * @example
-  * // returns [ 2,2,2 ]
-  * _.capsuleClosestPoint( [ 2,2,2,3,3,3 ], capsule );
+  * // returns [ 2, 2, 2 ]
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ],  capsule );
   *
   * @returns { Array } Returns the closest point to the capsule.
   * @function capsuleClosestPoint
@@ -1418,9 +1418,9 @@ function capsuleDistance( srcLine,tstCapsule )
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function capsuleClosestPoint( line,capsule,dstPoint )
+function capsuleClosestPoint( line, capsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
 
   let lineView = this.toAdapter( line );
   let dimLine = this.dimGet( lineView );
@@ -1439,17 +1439,17 @@ function capsuleClosestPoint( line,capsule,dstPoint )
   _.assert( dimLine === dstPoint.length );
   _.assert( dimLine === dimCapsule );
 
-  if( _.capsule.lineIntersects( capsuleView,lineView ) )
+  if( _.capsule.lineIntersects( capsuleView, lineView ) )
   return 0
   else
   {
-    let capsulePoint = _.capsule.lineClosestPoint( capsuleView,lineView );
+    let capsulePoint = _.capsule.lineClosestPoint( capsuleView, lineView );
 
-    let linePoint = _.vectorAdapter.from( this.pointClosestPoint( lineView,capsulePoint ) );
+    let linePoint = _.vectorAdapter.from( this.pointClosestPoint( lineView, capsulePoint ) );
 
     for( let i = 0; i < dimLine; i++ )
     {
-      dstPointView.eSet( i,linePoint.eGet( i ) );
+      dstPointView.eSet( i, linePoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -1468,18 +1468,18 @@ function capsuleClosestPoint( line,capsule,dstPoint )
   *
   * @example
   * // returns true;
-  * var srcFrustum =  _.Matrix.make( [ 4,6 ] ).copy
+  * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1
+  *   0,    0,    0,    0,  - 1,    1,
+  *   1,  - 1,    0,    0,    0,    0,
+  *   0,    0,    1,  - 1,    0,    0,
+  *   - 1,    0,  - 1,    0,    0,  - 1
   * ]);
-  * _.frustumIntersects( [ 0,0,0,2,2,2 ] , srcFrustum );
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] ,  srcFrustum );
   *
   * @example
   * // returns false;
-  * _.frustumIntersects( [ 0, -1,0,0, -2,0 ] , srcFrustum );
+  * _.frustumIntersects( [ 0,  -1, 0, 0,  -2, 0 ] ,  srcFrustum );
   *
   * @returns { Boolean } Returns true if the line and the frustum intersect.
   * @function frustumIntersects
@@ -1490,9 +1490,9 @@ function capsuleClosestPoint( line,capsule,dstPoint )
   * @memberof module:Tools/math/Concepts.wTools.line
   */
 
-function frustumIntersects( srcLine,srcFrustum )
+function frustumIntersects( srcLine, srcFrustum )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1509,7 +1509,7 @@ function frustumIntersects( srcLine,srcFrustum )
 
   _.assert( dimLine === rows - 1 );
 
-  if( _.frustum.pointContains( srcFrustum,origin ) )
+  if( _.frustum.pointContains( srcFrustum, origin ) )
   return true;
 
   /* frustum corners */
@@ -1519,9 +1519,9 @@ function frustumIntersects( srcLine,srcFrustum )
   for( let j = 0 ; j < cornersLength ; j++ )
   {
     let corner = corners.colVectorGet( j );
-    let projection = this.pointClosestPoint( srcLineView,corner );
+    let projection = this.pointClosestPoint( srcLineView, corner );
 
-    if( _.frustum.pointContains( srcFrustum,projection ) )
+    if( _.frustum.pointContains( srcFrustum, projection ) )
     return true;
   }
 
@@ -1540,11 +1540,11 @@ function frustumIntersects( srcLine,srcFrustum )
   *
   * @example
   * // returns 0;
-  * _.frustumDistance( [ 0,0,0,2,2,2 ] , [ 0,0,0,1,1,1 ]);
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 17 );
-  * _.frustumDistance( [ 0, - 1,0,0, -2,0 ] , [ 2,2,2,2,2,2 ]);
+  * _.frustumDistance( [ 0,  - 1, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the distance between a line and a frustum.
   * @function frustumClosestPoint
@@ -1554,9 +1554,9 @@ function frustumIntersects( srcLine,srcFrustum )
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the line and frustum don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function frustumDistance( srcLine,srcFrustum )
+function frustumDistance( srcLine, srcFrustum )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1573,11 +1573,11 @@ function frustumDistance( srcLine,srcFrustum )
 
   _.assert( dimLine === rows - 1 );
 
-  if( this.frustumIntersects( srcLineView,srcFrustum ) )
+  if( this.frustumIntersects( srcLineView, srcFrustum ) )
   return 0;
 
-  let closestPoint = this.frustumClosestPoint( srcLineView,srcFrustum );
-  return _.frustum.pointDistance( srcFrustum,closestPoint );
+  let closestPoint = this.frustumClosestPoint( srcLineView, srcFrustum );
+  return _.frustum.pointDistance( srcFrustum, closestPoint );
 }
 
 //
@@ -1591,11 +1591,11 @@ function frustumDistance( srcLine,srcFrustum )
   *
   * @example
   * // returns 0;
-  * _.frustumClosestPoint( [ 0,0,0,2,2,2 ] , [ 0,0,0,1,1,1 ]);
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
-  * // returns [ 0, - 1,0 ];
-  * _.frustumClosestPoint( [ 0, - 1,0,0, -2,0 ] , [ 2,2,2,2,2,2 ]);
+  * // returns [ 0,  - 1, 0 ];
+  * _.frustumClosestPoint( [ 0,  - 1, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the closest point in the line to the frustum.
   * @function frustumClosestPoint
@@ -1605,9 +1605,9 @@ function frustumDistance( srcLine,srcFrustum )
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the line and frustum don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function frustumClosestPoint( srcLine,srcFrustum,dstPoint )
+function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1631,32 +1631,32 @@ function frustumClosestPoint( srcLine,srcFrustum,dstPoint )
   let dstPointView = _.vectorAdapter.from( dstPoint );
   _.assert( dimLine === rows - 1 );
 
-  if( this.frustumIntersects( srcLineView,srcFrustum ) )
+  if( this.frustumIntersects( srcLineView, srcFrustum ) )
   return 0;
 
   /* frustum corners */
   let corners = _.frustum.cornersGet( srcFrustum );
   let cornersLength = _.Matrix.dimsOf( corners )[ 1 ];
 
-  let distance = _.frustum.pointDistance( srcFrustum,origin );
+  let distance = _.frustum.pointDistance( srcFrustum, origin );
   let d = 0;
   let pointView = _.vectorAdapter.from( origin );
 
   for( let j = 0 ; j < _.Matrix.dimsOf( corners )[ 1 ] ; j++ )
   {
     let corner = corners.colVectorGet( j );
-    d = Math.abs( this.pointDistance( srcLineView,corner ) );
+    d = Math.abs( this.pointDistance( srcLineView, corner ) );
     if( d < distance )
     {
       distance = d;
-      pointView = this.pointClosestPoint( srcLineView,corner );
+      pointView = this.pointClosestPoint( srcLineView, corner );
     }
   }
 
   pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
-    dstPointView.eSet( i,pointView.eGet( i ) );
+    dstPointView.eSet( i, pointView.eGet( i ) );
   }
 
   return dstPoint;
@@ -1665,7 +1665,7 @@ function frustumClosestPoint( srcLine,srcFrustum,dstPoint )
 //
 
 /**
-  * Check if two lines intersect. Returns true if they intersect,false if not.
+  * Check if two lines intersect. Returns true if they intersect, false if not.
   * Lines stay untouched.
   *
   * @param { Vector } src1Line - The first source line.
@@ -1673,11 +1673,11 @@ function frustumClosestPoint( srcLine,srcFrustum,dstPoint )
   *
   * @example
   * // returns   true
-  * _.lineIntersects( [ 0,0,2,2 ], [ 1,1,4,4 ] );
+  * _.lineIntersects( [ 0, 0, 2, 2 ],  [ 1, 1, 4, 4 ] );
   *
   * @example
   * // returns  false
-  * _.lineIntersects( [ -3,0,1,0 ], [ 0, -2,1,0 ] );
+  * _.lineIntersects( [ -3, 0, 1, 0 ],  [ 0,  -2, 1, 0 ] );
   *
   * @returns { Boolean } Returns true if the two lines intersect.
   * @function lineIntersects
@@ -1686,10 +1686,10 @@ function frustumClosestPoint( srcLine,srcFrustum,dstPoint )
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineIntersects( srcLine1,srcLine2 )
+function lineIntersects( srcLine1, srcLine2 )
 {
 
-  if( this.lineIntersectionFactors( srcLine1,srcLine2 ) === 0 )
+  if( this.lineIntersectionFactors( srcLine1, srcLine2 ) === 0 )
   return false
 
   return true;
@@ -1706,11 +1706,11 @@ function lineIntersects( srcLine1,srcLine2 )
   *
   * @example
   * // returns 0;
-  * _.lineDistance( [ 0,0,0,2,2,2 ], [ 0,0,0,1,1,1 ]);
+  * _.lineDistance( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 12 );
-  * _.lineDistance( [ 0,0,0,0, -2,0 ] , [ 2,2,2,0,0,1 ]);
+  * _.lineDistance( [ 0, 0, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 0, 0, 1 ]);
   *
   * @returns { Number } Returns the distance between two lines.
   * @function lineDistance
@@ -1720,9 +1720,9 @@ function lineIntersects( srcLine1,srcLine2 )
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineDistance( srcLine,tstLine )
+function lineDistance( srcLine, tstLine )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = this.make( tstLine.length / 2 );
@@ -1741,14 +1741,14 @@ function lineDistance( srcLine,tstLine )
 
   let distance;
 
-  if( this.lineIntersects( srcLineView,tstLineView ) === true )
+  if( this.lineIntersects( srcLineView, tstLineView ) === true )
   return 0;
   // Parallel lines
-  if( this.lineParallel( srcLineView,tstLineView ) )
+  if( this.lineParallel( srcLineView, tstLineView ) )
   {
-    let d1 = this.pointDistance( srcLineView,tstOrigin );
-    let d2 = this.pointDistance( tstLineView,srcOrigin );
-    let d3 = _.avector.distance( srcOrigin,tstOrigin );
+    let d1 = this.pointDistance( srcLineView, tstOrigin );
+    let d2 = this.pointDistance( tstLineView, srcOrigin );
+    let d3 = _.avector.distance( srcOrigin, tstOrigin );
 
     if( d1 <= d2 && d1 <= d3 )
     {
@@ -1765,9 +1765,9 @@ function lineDistance( srcLine,tstLine )
   }
   else
   {
-    let srcPoint = this.lineClosestPoint( srcLineView,tstLineView );
-    let tstPoint = this.lineClosestPoint( tstLineView,srcLineView );
-    distance = _.avector.distance( srcPoint,tstPoint );
+    let srcPoint = this.lineClosestPoint( srcLineView, tstLineView );
+    let tstPoint = this.lineClosestPoint( tstLineView, srcLineView );
+    distance = _.avector.distance( srcPoint, tstPoint );
   }
 
 
@@ -1785,11 +1785,11 @@ function lineDistance( srcLine,tstLine )
   *
   * @example
   * // returns 0;
-  * _.lineClosestPoint( [ 0,0,0,2,2,2 ] , [ 0,0,0,1,1,1 ]);
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
-  * // returns [ 0,0,0 ];
-  * _.lineClosestPoint( [ 0,0,0,0,1,0 ] , [ 1,0,0,1,0,0 ]);
+  * // returns [ 0, 0, 0 ];
+  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0 ] ,  [ 1, 0, 0, 1, 0, 0 ]);
   *
   * @returns { Array } Returns the closest point in the srcLine to the tstLine.
   * @function lineClosestPoint
@@ -1799,9 +1799,9 @@ function lineDistance( srcLine,tstLine )
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineClosestPoint( srcLine,tstLine,dstPoint )
+function lineClosestPoint( srcLine, tstLine, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( tstLine.length / 2 );
@@ -1839,26 +1839,26 @@ function lineClosestPoint( srcLine,tstLine,dstPoint )
   else
   {
     // Parallel lines
-    if( this.lineParallel( srcLineView,tstLineView ) )
+    if( this.lineParallel( srcLineView, tstLineView ) )
     {
-      pointView = this.pointClosestPoint( srcLineView,tstOrigin );
+      pointView = this.pointClosestPoint( srcLineView, tstOrigin );
     }
     else
     {
-      let srcMod = _.vectorAdapter.dot( srcDir,srcDir );
-      let tstMod = _.vectorAdapter.dot( tstDir,tstDir );
-      let mod = _.vectorAdapter.dot( srcDir,tstDir );
-      let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
-      let factor = ( - mod*_.vectorAdapter.dot( tstDir,dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir,dOrigin ))/( tstMod*srcMod - mod*mod );
+      let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
+      let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
+      let mod = _.vectorAdapter.dot( srcDir, tstDir );
+      let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(),  srcOrigin ) );
+      let factor = ( - mod*_.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
-      pointView = this.lineAt( srcLineView,factor );
+      pointView = this.lineAt( srcLineView, factor );
     }
   }
 
   pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
-    dstPointView.eSet( i,pointView.eGet( i ) );
+    dstPointView.eSet( i, pointView.eGet( i ) );
   }
 
   return dstPoint;
@@ -1875,11 +1875,11 @@ function lineClosestPoint( srcLine,tstLine,dstPoint )
   *
   * @example
   * // returns true;
-  * _.planeIntersects( [ 0,0,0,2,2,2 ] , [ 1,0,0, - 1 ]);
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ] ,  [ 1, 0, 0,  - 1 ]);
   *
   * @example
   * // returns false;
-  * _.planeIntersects( [ 0, -1,0,0, -2,0 ] , [ 1,0,0, - 1 ]);
+  * _.planeIntersects( [ 0,  -1, 0, 0,  -2, 0 ] ,  [ 1, 0, 0,  - 1 ]);
   *
   * @returns { Boolean } Returns true if the line and the plane intersect.
   * @function planeIntersects
@@ -1889,9 +1889,9 @@ function lineClosestPoint( srcLine,tstLine,dstPoint )
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function planeIntersects( srcLine,srcPlane )
+function planeIntersects( srcLine, srcPlane )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = this.make( srcPlane.length - 1 );
@@ -1908,16 +1908,16 @@ function planeIntersects( srcLine,srcPlane )
 
   _.assert( dimLine === dimPlane );
 
-  if( _.plane.pointContains( planeView,origin ) )
+  if( _.plane.pointContains( planeView, origin ) )
   return true;
 
-  let dirDotNormal = _.vectorAdapter.dot( direction,normal );
+  let dirDotNormal = _.vectorAdapter.dot( direction, normal );
 
   if( dirDotNormal !== 0 )
   {
     return true;
   /*
-  *  let originDotNormal = _.vectorAdapter.dot( origin,normal );
+  *  let originDotNormal = _.vectorAdapter.dot( origin, normal );
   *  let factor = - ( originDotNormal + bias ) / dirDotNormal;
   *
   *  if( factor > 0 )
@@ -1942,11 +1942,11 @@ function planeIntersects( srcLine,srcPlane )
   *
   * @example
   * // returns 0;
-  * _.planeDistance( [ 0,0,0,2,2,2 ] , [ 1,0,0, - 1 ]);
+  * _.planeDistance( [ 0, 0, 0, 2, 2, 2 ] ,  [ 1, 0, 0,  - 1 ]);
   *
   * @example
   * // returns 1;
-  * _.planeDistance( [ 0, -1,0,0, -2,0 ] , [ 1,0,0, - 1 ]);
+  * _.planeDistance( [ 0,  -1, 0, 0,  -2, 0 ] ,  [ 1, 0, 0,  - 1 ]);
   *
   * @returns { Number } Returns the distance between the line and the plane.
   * @function planeDistance
@@ -1956,9 +1956,9 @@ function planeIntersects( srcLine,srcPlane )
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function planeDistance( srcLine,srcPlane )
+function planeDistance( srcLine, srcPlane )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = this.make( srcPlane.length - 1 );
@@ -1975,10 +1975,10 @@ function planeDistance( srcLine,srcPlane )
 
   _.assert( dimLine === dimPlane );
 
-  if( this.planeIntersects( srcLineView,planeView ) )
+  if( this.planeIntersects( srcLineView, planeView ) )
   return 0;
 
-  return Math.abs( _.plane.pointDistance( planeView,origin ) );
+  return Math.abs( _.plane.pointDistance( planeView, origin ) );
 }
 
 //
@@ -1993,11 +1993,11 @@ function planeDistance( srcLine,srcPlane )
   *
   * @example
   * // returns 0;
-  * _.planeClosestPoint( [ 0,0,0,2,2,2 ] , [ 1,0,0, - 1 ]);
+  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 1, 0, 0,  - 1 ]);
   *
   * @example
-  * // returns [ 0, -1,0 ];
-  * _.planeClosestPoint( [ 0, -1,0,0, -2,0 ] , [ 1,0,0, - 1 ]);
+  * // returns [ 0,  -1, 0 ];
+  * _.planeClosestPoint( [ 0,  -1, 0, 0,  -2, 0 ] ,  [ 1, 0, 0,  - 1 ]);
   *
   * @returns { Array } Returns the closest point in the line to the plane.
   * @function planeClosestPoint
@@ -2007,9 +2007,9 @@ function planeDistance( srcLine,srcPlane )
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function planeClosestPoint( srcLine,srcPlane,dstPoint )
+function planeClosestPoint( srcLine, srcPlane, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcPlane.length - 1 );
@@ -2034,13 +2034,13 @@ function planeClosestPoint( srcLine,srcPlane,dstPoint )
 
   _.assert( dimLine === dimPlane );
 
-  if( this.planeIntersects( srcLineView,planeView ) )
+  if( this.planeIntersects( srcLineView, planeView ) )
   return 0;
 
   origin = _.vectorAdapter.from( origin );
   for( let i = 0; i < origin.length; i++ )
   {
-    dstPointView.eSet( i,origin.eGet( i ) );
+    dstPointView.eSet( i, origin.eGet( i ) );
   }
 
 
@@ -2058,15 +2058,15 @@ function planeClosestPoint( srcLine,srcPlane,dstPoint )
   *
   * @example
   * // returns true;
-  * var srcRay =  [ -1, -1, -1,0,0,1 ]
-  * var srcLine = [ 0,0,0,2,2,2 ]
-  * _.rayIntersects( srcLine,srcRay );
+  * var srcRay =  [ -1,  -1,  -1, 0, 0, 1 ]
+  * var srcLine = [ 0, 0, 0, 2, 2, 2 ]
+  * _.rayIntersects( srcLine, srcRay );
   *
   * @example
   * // returns false;
-  * var srcRay =  [ -1, -1, -1,0,0,1 ]
-  * var srcLine = [ 0,1,0,2,2,2 ]
-  * _.rayIntersects( srcLine,srcRay );
+  * var srcRay =  [ -1,  -1,  -1, 0, 0, 1 ]
+  * var srcLine = [ 0, 1, 0, 2, 2, 2 ]
+  * _.rayIntersects( srcLine, srcRay );
   *
   * @returns { Boolean } Returns true if the line and the ray intersect.
   * @function rayIntersects
@@ -2076,9 +2076,9 @@ function planeClosestPoint( srcLine,srcPlane,dstPoint )
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function rayIntersects( srcLine,srcRay )
+function rayIntersects( srcLine, srcRay )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   let srcRayView = _.ray.toAdapter( srcRay );
   let rayOrigin = _.ray.originView( srcRayView );
@@ -2095,7 +2095,7 @@ function rayIntersects( srcLine,srcRay )
 
   _.assert( dimLine === dimRay );
 
-  let factors = this.lineIntersectionFactors( srcLineView,srcRayView );
+  let factors = this.lineIntersectionFactors( srcLineView, srcRayView );
 
   if( factors === 0 || factors.eGet( 1 ) < 0 )
   return false;
@@ -2114,11 +2114,11 @@ function rayIntersects( srcLine,srcRay )
   *
   * @example
   * // returns 0;
-  * _.rayDistance( [ 0,0,0,2,2,2 ], [ 0,0,0,1,1,1 ]);
+  * _.rayDistance( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 12 );
-  * _.rayDistance( [ 0,0,0,0, -2,0 ] , [ 2,2,2,0,0,1 ]);
+  * _.rayDistance( [ 0, 0, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 0, 0, 1 ]);
   *
   * @returns { Number } Returns the distance between a line and a ray.
   * @function rayDistance
@@ -2128,9 +2128,9 @@ function rayIntersects( srcLine,srcRay )
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function rayDistance( srcLine,srcRay )
+function rayDistance( srcLine, srcRay )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   if( srcLine === null )
   srcLine = this.make( srcRay.length / 2 );
@@ -2149,11 +2149,11 @@ function rayDistance( srcLine,srcRay )
 
   let distance;
 
-  if( this.rayIntersects( srcLineView,srcRayView ) === true )
+  if( this.rayIntersects( srcLineView, srcRayView ) === true )
   return 0;
 
   // Parallel line/ray
-  if( this.lineParallel( srcLineView,srcRayView ) )
+  if( this.lineParallel( srcLineView, srcRayView ) )
   {
     // Line is point
     let isPoint = 0;
@@ -2164,18 +2164,18 @@ function rayDistance( srcLine,srcRay )
     }
     if( isPoint === rayDim )
     {
-      distance = _.ray.pointDistance( srcRayView,srcOrigin );
+      distance = _.ray.pointDistance( srcRayView, srcOrigin );
     }
     else
     {
-      distance = this.pointDistance( srcLineView,rayOrigin );
+      distance = this.pointDistance( srcLineView, rayOrigin );
     }
   }
   else
   {
-    let srcPoint = this.rayClosestPoint( srcLineView,srcRayView );
-    let tstPoint = _.ray.lineClosestPoint( srcRayView,srcLineView );
-    distance = _.avector.distance( srcPoint,tstPoint );
+    let srcPoint = this.rayClosestPoint( srcLineView, srcRayView );
+    let tstPoint = _.ray.lineClosestPoint( srcRayView, srcLineView );
+    distance = _.avector.distance( srcPoint, tstPoint );
   }
 
   return distance;
@@ -2192,11 +2192,11 @@ function rayDistance( srcLine,srcRay )
   *
   * @example
   * // returns 0;
-  * _.rayClosestPoint( [ 0,0,0,2,2,2 ] , [ 0,0,0,1,1,1 ]);
+  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
-  * // returns [ 0,0,0 ];
-  * _.rayClosestPoint( [ 0,0,0,0,1,0 ] , [ 1,0,0,1,0,0 ]);
+  * // returns [ 0, 0, 0 ];
+  * _.rayClosestPoint( [ 0, 0, 0, 0, 1, 0 ] ,  [ 1, 0, 0, 1, 0, 0 ]);
   *
   * @returns { Array } Returns the closest point in the srcLine to the srcRay.
   * @function rayClosestPoint
@@ -2206,9 +2206,9 @@ function rayDistance( srcLine,srcRay )
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function rayClosestPoint( srcLine,srcRay,dstPoint )
+function rayClosestPoint( srcLine, srcRay, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcRay.length / 2 );
@@ -2246,26 +2246,26 @@ function rayClosestPoint( srcLine,srcRay,dstPoint )
   else
   {
     // Parallel lines
-    if( this.lineParallel( srcLineView,srcRayView ) )
+    if( this.lineParallel( srcLineView, srcRayView ) )
     {
-      pointView = this.pointClosestPoint( srcLineView,rayOrigin );
+      pointView = this.pointClosestPoint( srcLineView, rayOrigin );
     }
     else
     {
-      let srcMod = _.vectorAdapter.dot( srcDir,srcDir );
-      let tstMod = _.vectorAdapter.dot( tstDir,tstDir );
-      let mod = _.vectorAdapter.dot( srcDir,tstDir );
-      let dOrigin = _.vectorAdapter.from( avector.subVectors( rayOrigin.slice(), srcOrigin ) );
-      let factor = ( - mod*_.vectorAdapter.dot( tstDir,dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir,dOrigin ))/( tstMod*srcMod - mod*mod );
+      let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
+      let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
+      let mod = _.vectorAdapter.dot( srcDir, tstDir );
+      let dOrigin = _.vectorAdapter.from( avector.subVectors( rayOrigin.slice(),  srcOrigin ) );
+      let factor = ( - mod*_.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
-      pointView = this.lineAt( srcLineView,factor );
+      pointView = this.lineAt( srcLineView, factor );
     }
   }
 
   pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
-    dstPointView.eSet( i,pointView.eGet( i ) );
+    dstPointView.eSet( i, pointView.eGet( i ) );
   }
 
   return dstPoint;
@@ -2273,24 +2273,24 @@ function rayClosestPoint( srcLine,srcRay,dstPoint )
 
 //
 
-function segmentIntersects( srcLine , tstSegment )
+function segmentIntersects( srcLine ,  tstSegment )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
   let tstSegmentView = _.segment.toAdapter( tstSegment );
   let lineView = this.toAdapter( srcLine );
-  let gotBool = _.segment.lineIntersects( tstSegmentView,lineView );
+  let gotBool = _.segment.lineIntersects( tstSegmentView, lineView );
   return gotBool;
 }
 
 //
 
-function segmentDistance( srcLine , tstSegment )
+function segmentDistance( srcLine ,  tstSegment )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
   let tstSegmentView = _.segment.toAdapter( tstSegment );
   let lineView = this.toAdapter( srcLine );
 
-  let gotDist = _.segment.lineDistance( tstSegmentView,lineView );
+  let gotDist = _.segment.lineDistance( tstSegmentView, lineView );
 
   return gotDist;
 }
@@ -2305,12 +2305,12 @@ function segmentDistance( srcLine , tstSegment )
   * @param { Array } tstSegment - Test segment.
   *
   * @example
-  * // returns [ 0,0,0 ];
-  * _.segmentClosestPoint( [ 0,0,0,2,2,2 ] , [ 0,0,0,1,1,1 ]);
+  * // returns [ 0, 0, 0 ];
+  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
-  * // returns [ 0, - 1,0 ];
-  * _.segmentClosestPoint( [ 0, - 1,0,0, -2,0 ] , [ 2,2,2,2,2,2 ]);
+  * // returns [ 0,  - 1, 0 ];
+  * _.segmentClosestPoint( [ 0,  - 1, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Array } Returns the closest point in the srcLine to the tstLine.
   * @function segmentClosestPoint
@@ -2320,9 +2320,9 @@ function segmentDistance( srcLine , tstSegment )
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the line and segment don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function segmentClosestPoint( srcLine,tstSegment,dstPoint )
+function segmentClosestPoint( srcLine, tstSegment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( tstSegment.length / 2 );
@@ -2361,20 +2361,20 @@ function segmentClosestPoint( srcLine,tstSegment,dstPoint )
   else
   {
     // Parallel line and segment
-    let lineSegment = this.fromPair( [ tstOrigin,tstEnd ] );
-    if( this.lineParallel( srcLineView,lineSegment ) )
+    let lineSegment = this.fromPair( [ tstOrigin, tstEnd ] );
+    if( this.lineParallel( srcLineView, lineSegment ) )
     {
-      pointView = this.pointClosestPoint( srcLineView,tstOrigin );
+      pointView = this.pointClosestPoint( srcLineView, tstOrigin );
     }
     else
     {
-      let srcMod = _.vectorAdapter.dot( srcDir,srcDir );
-      let tstMod = _.vectorAdapter.dot( tstDir,tstDir );
-      let mod = _.vectorAdapter.dot( srcDir,tstDir );
-      let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
-      let factor = ( - mod*_.vectorAdapter.dot( tstDir,dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir,dOrigin ))/( tstMod*srcMod - mod*mod );
+      let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
+      let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
+      let mod = _.vectorAdapter.dot( srcDir, tstDir );
+      let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(),  srcOrigin ) );
+      let factor = ( - mod*_.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
-      pointView = this.lineAt( srcLineView,factor );
+      pointView = this.lineAt( srcLineView, factor );
 
     }
   }
@@ -2382,7 +2382,7 @@ function segmentClosestPoint( srcLine,tstSegment,dstPoint )
   pointView = _.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
-    dstPointView.eSet( i,pointView.eGet( i ) );
+    dstPointView.eSet( i, pointView.eGet( i ) );
   }
 
   return dstPoint;
@@ -2399,11 +2399,11 @@ function segmentClosestPoint( srcLine,tstSegment,dstPoint )
   *
   * @example
   * // returns true;
-  * _.sphereIntersects( [ 0,0,0,2,2,2 ], [ 0,0,0,1 ]);
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1 ]);
   *
   * @example
   * // returns false;
-  * _.sphereIntersects( [ 0,0,0,0, -2,0 ], [ 3,3,3,1 ]);
+  * _.sphereIntersects( [ 0, 0, 0, 0,  -2, 0 ],  [ 3, 3, 3, 1 ]);
   *
   * @returns { Boolean } Returns true if the line and the sphere intersect.
   * @function sphereIntersects
@@ -2413,9 +2413,9 @@ function segmentClosestPoint( srcLine,tstSegment,dstPoint )
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function sphereIntersects( srcLine,srcSphere )
+function sphereIntersects( srcLine, srcSphere )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcLine === null )
@@ -2433,10 +2433,10 @@ function sphereIntersects( srcLine,srcSphere )
 
   _.assert( dimLine === dimSphere );
 
-  if( _.sphere.pointContains( sphereView,origin ) )
+  if( _.sphere.pointContains( sphereView, origin ) )
   return true;
 
-  let distance = this.pointDistance( srcLineView,center );
+  let distance = this.pointDistance( srcLineView, center );
 
   if( distance <= radius)
   return true;
@@ -2456,11 +2456,11 @@ function sphereIntersects( srcLine,srcSphere )
   *
   * @example
   * // returns 0;
-  * _.sphereDistance( [ 0,0,0,2,2,2 ], [ 0,0,0,1 ]);
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 27 ) -1;
-  * _.sphereDistance( [ 0,0,0,0, -2,0 ], [ 3,3,3,1 ]);
+  * _.sphereDistance( [ 0, 0, 0, 0,  -2, 0 ],  [ 3, 3, 3, 1 ]);
   *
   * @returns { Boolean } Returns the distance between the line and the sphere.
   * @function sphereDistance
@@ -2470,9 +2470,9 @@ function sphereIntersects( srcLine,srcSphere )
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function sphereDistance( srcLine,srcSphere )
+function sphereDistance( srcLine, srcSphere )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcLine === null )
@@ -2490,10 +2490,10 @@ function sphereDistance( srcLine,srcSphere )
 
   _.assert( dimLine === dimSphere );
 
-  if( this.sphereIntersects( srcLineView,sphereView ) )
+  if( this.sphereIntersects( srcLineView, sphereView ) )
   return 0;
 
-  return this.pointDistance( srcLineView,center ) - radius;
+  return this.pointDistance( srcLineView, center ) - radius;
 }
 
 //
@@ -2508,11 +2508,11 @@ function sphereDistance( srcLine,srcSphere )
   *
   * @example
   * // returns 0;
-  * _.sphereClosestPoint( [ 0,0,0,2,2,2 ], [ 0,0,0,1 ]);
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1 ]);
   *
   * @example
-  * // returns [ 0,0,0 ];
-  * _.sphereClosestPoint( [ 0,0,0,0, -2,0 ], [ 3,3,3,1 ]);
+  * // returns [ 0, 0, 0 ];
+  * _.sphereClosestPoint( [ 0, 0, 0, 0,  -2, 0 ],  [ 3, 3, 3, 1 ]);
   *
   * @returns { Boolean } Returns the closest point in a line to a sphere.
   * @function sphereClosestPoint
@@ -2522,9 +2522,9 @@ function sphereDistance( srcLine,srcSphere )
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function sphereClosestPoint( srcLine,srcSphere,dstPoint )
+function sphereClosestPoint( srcLine, srcSphere, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( arguments.length === 2 )
@@ -2550,14 +2550,14 @@ function sphereClosestPoint( srcLine,srcSphere,dstPoint )
 
   _.assert( dimLine === dimSphere );
 
-  if( this.sphereIntersects( srcLineView,sphereView ) )
+  if( this.sphereIntersects( srcLineView, sphereView ) )
   return 0;
 
-  let pointVector = _.vectorAdapter.from( this.pointClosestPoint( srcLineView,center ) );
+  let pointVector = _.vectorAdapter.from( this.pointClosestPoint( srcLineView, center ) );
 
   for( let i = 0; i < pointVector.length; i++ )
   {
-    dstPointView.eSet( i,pointVector.eGet( i ) );
+    dstPointView.eSet( i, pointVector.eGet( i ) );
   }
 
   return dstPoint;
@@ -2573,8 +2573,8 @@ function sphereClosestPoint( srcLine,srcSphere,dstPoint )
   * @param { Array } srcLine - source line for the bounding sphere.
   *
   * @example
-  * // returns [ 0,0,0,Infinity ]
-  * _.boundingSphereGet( null, [ 0,0,0,2,2,2 ] );
+  * // returns [ 0, 0, 0, Infinity ]
+  * _.boundingSphereGet( null,  [ 0, 0, 0, 2, 2, 2 ] );
   *
   * @returns { Array } Returns the array of the bounding sphere.
   * @function boundingSphereGet
@@ -2584,9 +2584,9 @@ function sphereClosestPoint( srcLine,srcSphere,dstPoint )
   * @throws { Error } An Error if ( srcLine ) is not line
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function boundingSphereGet( dstSphere,srcLine )
+function boundingSphereGet( dstSphere, srcLine )
 {
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
 
   let srcLineView = this.toAdapter( srcLine );
   let origin = this.originView( srcLineView );
@@ -2607,19 +2607,19 @@ function boundingSphereGet( dstSphere,srcLine )
   // Center of the sphere
   for( let c = 0; c < center.length; c++ )
   {
-    center.eSet( c,origin.eGet( c ) );
+    center.eSet( c, origin.eGet( c ) );
   }
 
   // Radius of the sphere
-  let distOrigin = _.vectorAdapter.distance( _.vectorAdapter.from( _.long.longMakeZeroed( dimLine ) ), direction );
+  let distOrigin = _.vectorAdapter.distance( _.vectorAdapter.from( _.long.longMakeZeroed( dimLine ) ),  direction );
 
   if( distOrigin === 0  )
   {
-  _.sphere.radiusSet( dstSphereView,0 );
+  _.sphere.radiusSet( dstSphereView, 0 );
   }
   else
   {
-    _.sphere.radiusSet( dstSphereView,Infinity );
+    _.sphere.radiusSet( dstSphereView, Infinity );
   }
 
   return dstSphere;
@@ -2643,7 +2643,7 @@ let Extension =
 
   from,
   toAdapter,
-  fromPair, // fromPoints,
+  fromPair,  // fromPoints,
 
   is,
   dimGet,
@@ -2689,8 +2689,8 @@ let Extension =
   rayDistance,
   rayClosestPoint,
 
-  segmentIntersects,  /* Same as _.segment.rayIntersects */
-  segmentDistance,  /* Same as _.segment.rayDistance */
+  segmentIntersects,   /* Same as _.segment.rayIntersects */
+  segmentDistance,   /* Same as _.segment.rayDistance */
   segmentClosestPoint,
 
   sphereIntersects,
@@ -2704,7 +2704,7 @@ let Extension =
 
 }
 
-_.mapSupplement( Self,Extension );
+_.mapSupplement( Self, Extension );
 
 //
 
