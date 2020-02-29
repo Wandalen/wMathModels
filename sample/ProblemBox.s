@@ -1,5 +1,4 @@
 
-
 if( typeof module !== 'undefined' )
 require( 'wmathconcepts' );
 var _ = wTools;
