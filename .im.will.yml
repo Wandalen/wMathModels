@@ -13,6 +13,9 @@ submodule :
   wMathVector :
     path : npm:///wmathvector
     enabled : 0 # submodule
+  wEntityBasic :
+    path : npm:///wentitybasic
+    enabled : 0 # submodule
   wmathconcepts :
     path : hd://.
     enabled : 0 # submodule

@@ -29,6 +29,6 @@
     "wmathspace" : "", 
     "wmathvector" : ""
   }, 
-  "devDependencies" : { "wTesting" : "" }, 
+  "devDependencies" : { "wTesting" : "", "wmathconcepts" : "file:." }, 
   "keywords" : [ "wTools", "math", "vector", "dot product", "convolution" ]
 }
