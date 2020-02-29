@@ -1680,8 +1680,8 @@ function lineClosestPoint( sphere, line, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let lineView = _.line.toAdapter( line );
-  let origin = _.line.originView( lineView );
-  let direction = _.line.directionView( lineView );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
   let dimLine  = _.line.dimGet( lineView );
 
   let srcSphereView = _.sphere.toAdapter( sphere );
@@ -1968,8 +1968,8 @@ function rayClosestPoint( sphere, ray, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let rayView = _.ray.toAdapter( ray );
-  let origin = _.ray.originView( rayView );
-  let direction = _.ray.directionView( rayView );
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
   let dimRay  = _.ray.dimGet( rayView );
 
   let srcSphereView = _.sphere.toAdapter( sphere );
@@ -2062,8 +2062,8 @@ function segmentClosestPoint( sphere, segment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let segmentView = _.segment.toAdapter( segment );
-  let origin = _.segment.originView( segmentView );
-  let direction = _.segment.directionView( segmentView );
+  let origin = _.segment.originGet( segmentView );
+  let direction = _.segment.directionGet( segmentView );
   let dimSegment  = _.segment.dimGet( segmentView );
 
   let srcSphereView = _.sphere.toAdapter( sphere );

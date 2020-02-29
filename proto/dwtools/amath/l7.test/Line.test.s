@@ -561,14 +561,14 @@ function dimGet( test )
 
 //
 
-function originView( test )
+function originGet( test )
 {
   test.case = 'Source line remains unchanged'; /* */
 
   var srcLine = [ 0, 0, 1, 1 ];
   var expected = _.vectorAdapter.from( [ 0, 0 ] );
 
-  var gotOrigin = _.line.originView( srcLine );
+  var gotOrigin = _.line.originGet( srcLine );
   test.identical( gotOrigin, expected );
 
   var oldSrcLine = [ 0, 0, 1, 1 ];
@@ -577,7 +577,7 @@ function originView( test )
   test.case = 'srcLine 1D - array'; /* */
 
   var srcLine = [ 0, 1 ];
-  var gotOrigin = _.line.originView( srcLine );
+  var gotOrigin = _.line.originGet( srcLine );
   var expected = _.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
@@ -585,7 +585,7 @@ function originView( test )
   test.case = 'srcLine 1D - vector'; /* */
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
-  var gotOrigin = _.line.originView( srcLine );
+  var gotOrigin = _.line.originGet( srcLine );
   var expected = _.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
@@ -593,7 +593,7 @@ function originView( test )
   test.case = 'srcLine 2D - array'; /* */
 
   var srcLine = [ 0, 1, 2, 3 ];
-  var gotOrigin = _.line.originView( srcLine );
+  var gotOrigin = _.line.originGet( srcLine );
   var expected = _.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
@@ -601,7 +601,7 @@ function originView( test )
   test.case = 'srcLine 2D - vector'; /* */
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
-  var gotOrigin = _.line.originView( srcLine );
+  var gotOrigin = _.line.originGet( srcLine );
   var expected = _.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
@@ -609,7 +609,7 @@ function originView( test )
   test.case = 'srcLine 3D - array'; /* */
 
   var srcLine = [ 0, 1, 2, 3, 4, 5 ];
-  var gotOrigin = _.line.originView( srcLine );
+  var gotOrigin = _.line.originGet( srcLine );
   var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
@@ -617,7 +617,7 @@ function originView( test )
   test.case = 'srcLine 3D - vector'; /* */
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
-  var gotOrigin = _.line.originView( srcLine );
+  var gotOrigin = _.line.originGet( srcLine );
   var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
@@ -626,26 +626,26 @@ function originView( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.line.originView( ) );
-  test.shouldThrowErrorSync( () => _.line.originView( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.line.originView( [ 0, 0 ], [ 1, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.line.originView( 'line' ) );
-  test.shouldThrowErrorSync( () => _.line.originView( 0 ) );
-  test.shouldThrowErrorSync( () => _.line.originView( null ) );
-  test.shouldThrowErrorSync( () => _.line.originView( undefined ) );
+  test.shouldThrowErrorSync( () => _.line.originGet( ) );
+  test.shouldThrowErrorSync( () => _.line.originGet( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.originGet( [ 0, 0 ], [ 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.line.originGet( 'line' ) );
+  test.shouldThrowErrorSync( () => _.line.originGet( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.originGet( null ) );
+  test.shouldThrowErrorSync( () => _.line.originGet( undefined ) );
 
 }
 
 //
 
-function directionView( test )
+function directionGet( test )
 {
   test.case = 'Source line remains unchanged'; /* */
 
   var srcLine = [ 0, 0, 1, 1 ];
   var expected = _.vectorAdapter.from( [ 1, 1 ] );
 
-  var gotDirection = _.line.directionView( srcLine );
+  var gotDirection = _.line.directionGet( srcLine );
   test.identical( gotDirection, expected );
 
   var oldSrcLine = [ 0, 0, 1, 1 ];
@@ -654,7 +654,7 @@ function directionView( test )
   test.case = 'srcLine 1D - array'; /* */
 
   var srcLine = [ 0, 1 ];
-  var gotDirection = _.line.directionView( srcLine );
+  var gotDirection = _.line.directionGet( srcLine );
   var expected = _.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
@@ -662,7 +662,7 @@ function directionView( test )
   test.case = 'srcLine 1D - vector'; /* */
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
-  var gotDirection = _.line.directionView( srcLine );
+  var gotDirection = _.line.directionGet( srcLine );
   var expected = _.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
@@ -670,7 +670,7 @@ function directionView( test )
   test.case = 'srcLine 2D - array'; /* */
 
   var srcLine = [ 0, 1, 2, 3 ];
-  var gotDirection = _.line.directionView( srcLine );
+  var gotDirection = _.line.directionGet( srcLine );
   var expected = _.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
@@ -678,7 +678,7 @@ function directionView( test )
   test.case = 'srcLine 2D - vector'; /* */
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
-  var gotDirection = _.line.directionView( srcLine );
+  var gotDirection = _.line.directionGet( srcLine );
   var expected = _.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
@@ -686,7 +686,7 @@ function directionView( test )
   test.case = 'srcLine 3D - array'; /* */
 
   var srcLine = [ 0, 1, 2, 3, 4, 5 ];
-  var gotDirection = _.line.directionView( srcLine );
+  var gotDirection = _.line.directionGet( srcLine );
   var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
@@ -694,7 +694,7 @@ function directionView( test )
   test.case = 'srcLine 3D - vector'; /* */
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
-  var gotDirection = _.line.directionView( srcLine );
+  var gotDirection = _.line.directionGet( srcLine );
   var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
@@ -703,13 +703,13 @@ function directionView( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.line.directionView( ) );
-  test.shouldThrowErrorSync( () => _.line.directionView( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.line.directionView( [ 0, 0 ], [ 1, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.line.directionView( 'line' ) );
-  test.shouldThrowErrorSync( () => _.line.directionView( 0 ) );
-  test.shouldThrowErrorSync( () => _.line.directionView( null ) );
-  test.shouldThrowErrorSync( () => _.line.directionView( undefined ) );
+  test.shouldThrowErrorSync( () => _.line.directionGet( ) );
+  test.shouldThrowErrorSync( () => _.line.directionGet( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.directionGet( [ 0, 0 ], [ 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.line.directionGet( 'line' ) );
+  test.shouldThrowErrorSync( () => _.line.directionGet( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.directionGet( null ) );
+  test.shouldThrowErrorSync( () => _.line.directionGet( undefined ) );
 
 }
 
@@ -5893,8 +5893,8 @@ var Self =
 
     is,
     dimGet,
-    originView,
-    directionView,
+    originGet,
+    directionGet,
 
     lineAt,
     getFactor,

@@ -2033,8 +2033,8 @@ function lineClosestPoint( box, line, dstPoint )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   let lineView = _.line.toAdapter( line );
-  let origin = _.line.originView( lineView );
-  let direction = _.line.directionView( lineView );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
   let dimLine  = _.line.dimGet( lineView );
 
   let dstPointView = _.vectorAdapter.from( dstPoint );
@@ -2129,8 +2129,8 @@ function rayClosestPoint( box, ray, dstPoint )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   let rayView = _.ray.toAdapter( ray );
-  let origin = _.ray.originView( rayView );
-  let direction = _.ray.directionView( rayView );
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
   let dimRay  = _.ray.dimGet( rayView );
 
   let dstPointView = _.vectorAdapter.from( dstPoint );
@@ -2459,8 +2459,8 @@ function segmentClosestPoint( box, segment, dstPoint )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   let segmentView = _.segment.toAdapter( segment );
-  let origin = _.segment.originView( segmentView );
-  let direction = _.segment.directionView( segmentView );
+  let origin = _.segment.originGet( segmentView );
+  let direction = _.segment.directionGet( segmentView );
   let dimSegment  = _.segment.dimGet( segmentView );
 
   let dstPointView = _.vectorAdapter.from( dstPoint );

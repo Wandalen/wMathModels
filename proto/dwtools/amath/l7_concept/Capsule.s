@@ -109,7 +109,7 @@ function nil( capsule )
   if( _.capsule.is( capsule ) )
   {
     let capsuleView = _.capsule.toAdapter( capsule );
-    let min = _.capsule.originView( capsuleView );
+    let min = _.capsule.originGet( capsuleView );
     let max = _.capsule.endPointGet( capsuleView );
     let radius = _.capsule.radiusGet( capsuleView );
 
@@ -205,19 +205,19 @@ function dimGet( capsule )
   *
   * @example
   * // returns   0, 0
-  * _.originView( [ 0, 0, 2, 2, 1 ] );
+  * _.originGet( [ 0, 0, 2, 2, 1 ] );
   *
   * @example
   * // returns  1
-  * _.originView( [ 1, 2, 1 ] );
+  * _.originGet( [ 1, 2, 1 ] );
   *
   * @returns { Vector } Returns the coordinates of the origin of the capsule.
-  * @function originView
+  * @function originGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( capsule ) is not capsule.
   * @memberof module:Tools/math/Concepts.wTools.capsule
   */
-function originView( capsule )
+function originGet( capsule )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let capsuleView = _.capsule.toAdapter( capsule );
@@ -356,7 +356,7 @@ function pointContains( srcCapsule, srcPoint )
   srcCapsule = _.capsule.make( srcPoint.length );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   let dimension  = _.capsule.dimGet( srcCapsuleView );
@@ -409,7 +409,7 @@ function pointDistance( srcCapsule, srcPoint )
   srcCapsule = _.capsule.make( srcPoint.length );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -469,7 +469,7 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   srcCapsule = _.capsule.make( srcPoint.length );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -539,7 +539,7 @@ function boxContains( srcCapsule, srcBox )
   srcCapsule = _.capsule.make( srcBox.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
 
@@ -596,7 +596,7 @@ function boxIntersects( srcCapsule, srcBox )
   srcCapsule = _.capsule.make( srcBox.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -651,7 +651,7 @@ function boxDistance( srcCapsule, srcBox )
   srcCapsule = _.capsule.make( srcBox.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -712,7 +712,7 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   srcCapsule = _.capsule.make( srcBox.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -771,7 +771,7 @@ function boundingBoxGet( dstBox, srcCapsule )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -837,14 +837,14 @@ function capsuleIntersects( srcCapsule, tstCapsule )
   srcCapsule = _.capsule.make( _.capsule.dimGet( tstCapsule ) );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
   let srcDim  = _.capsule.dimGet( srcCapsuleView );
 
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
-  let tstOrigin = _.capsule.originView( tstCapsuleView );
+  let tstOrigin = _.capsule.originGet( tstCapsuleView );
   let tstEnd = _.capsule.endPointGet( tstCapsuleView );
   let tstRadius = _.capsule.radiusGet( tstCapsuleView );
   _.assert( tstRadius >= 0 );
@@ -898,14 +898,14 @@ function capsuleDistance( srcCapsule, tstCapsule )
   srcCapsule = _.capsule.make( _.capsule.dimGet( tstCapsule ) );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
   let srcDim  = _.capsule.dimGet( srcCapsuleView );
 
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
-  let tstOrigin = _.capsule.originView( tstCapsuleView );
+  let tstOrigin = _.capsule.originGet( tstCapsuleView );
   let tstEnd = _.capsule.endPointGet( tstCapsuleView );
   let tstRadius = _.capsule.radiusGet( tstCapsuleView );
   _.assert( tstRadius >= 0 );
@@ -958,14 +958,14 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   srcCapsule = _.capsule.make( _.capsule.dimGet( tstCapsule ) );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
   let srcDim  = _.capsule.dimGet( srcCapsuleView );
 
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
-  let tstOrigin = _.capsule.originView( tstCapsuleView );
+  let tstOrigin = _.capsule.originGet( tstCapsuleView );
   let tstEnd = _.capsule.endPointGet( tstCapsuleView );
   let tstRadius = _.capsule.radiusGet( tstCapsuleView );
   _.assert( tstRadius >= 0 );
@@ -1047,7 +1047,7 @@ function frustumIntersects( srcCapsule, srcFrustum )
   srcCapsule = _.capsule.make( rows - 1 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1110,7 +1110,7 @@ function frustumDistance( srcCapsule, srcFrustum )
   srcCapsule = _.capsule.make( rows - 1 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1179,7 +1179,7 @@ function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
   srcCapsule = _.capsule.make( rows - 1 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1241,15 +1241,15 @@ function lineIntersects( srcCapsule, srcLine )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcLineView = _.line.toAdapter( srcLine );
-  let lineOrigin = _.line.originView( srcLineView );
-  let lineDirection = _.line.directionView( srcLineView );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let lineDirection = _.line.directionGet( srcLineView );
   let dimLine  = _.line.dimGet( srcLineView );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( dimLine );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1301,15 +1301,15 @@ function lineDistance( srcCapsule, srcLine )
   srcCapsule = _.capsule.make( srcLine.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
   let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
 
   let srcLineView = _.line.toAdapter( srcLine );
-  let lineOrigin = _.line.originView( srcLineView );
-  let lineDirection = _.line.directionView( srcLineView );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let lineDirection = _.line.directionGet( srcLineView );
   let lineDim  = _.line.dimGet( srcLineView );
 
   _.assert( dimCapsule === lineDim );
@@ -1363,15 +1363,15 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   srcCapsule = _.capsule.make( srcLine.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
   let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
 
   let srcLineView = _.line.toAdapter( srcLine );
-  let lineOrigin = _.line.originView( srcLineView );
-  let tstDir = _.line.directionView( srcLineView );
+  let lineOrigin = _.line.originGet( srcLineView );
+  let tstDir = _.line.directionGet( srcLineView );
   let lineDim = _.line.dimGet( srcLineView );
 
   let dstPointView = _.vectorAdapter.from( dstPoint );
@@ -1429,7 +1429,7 @@ function planeIntersects( srcCapsule, srcPlane )
   srcCapsule = _.capsule.make( srcPlane.length - 1 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1485,7 +1485,7 @@ function planeDistance( srcCapsule, srcPlane )
   srcCapsule = _.capsule.make( srcPlane.length - 1 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1548,7 +1548,7 @@ function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
   srcCapsule = _.capsule.make( srcPlane.length - 1 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1616,15 +1616,15 @@ function rayIntersects( srcCapsule, srcRay )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcRayView = _.ray.toAdapter( srcRay );
-  let rayOrigin = _.ray.originView( srcRayView );
-  let rayDirection = _.ray.directionView( srcRayView );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let rayDirection = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcRay.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1674,15 +1674,15 @@ function rayDistance( srcCapsule, srcRay )
   srcCapsule = _.capsule.make( srcRay.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
   let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
 
   let srcRayView = _.ray.toAdapter( srcRay );
-  let rayOrigin = _.ray.originView( srcRayView );
-  let rayDirection = _.ray.directionView( srcRayView );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let rayDirection = _.ray.directionGet( srcRayView );
   let dimRay  = _.ray.dimGet( srcRayView );
 
   _.assert( dimCapsule === dimRay );
@@ -1736,15 +1736,15 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
   srcCapsule = _.capsule.make( srcRay.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
   let dimCapsule  = _.capsule.dimGet( srcCapsuleView );
 
   let srcRayView = _.ray.toAdapter( srcRay );
-  let rayOrigin = _.ray.originView( srcRayView );
-  let tstDir = _.ray.directionView( srcRayView );
+  let rayOrigin = _.ray.originGet( srcRayView );
+  let tstDir = _.ray.directionGet( srcRayView );
   let dimRay = _.ray.dimGet( srcRayView );
 
   let dstPointView = _.vectorAdapter.from( dstPoint );
@@ -1810,7 +1810,7 @@ function segmentIntersects( srcCapsule, srcSegment )
   srcCapsule = _.capsule.make( srcSegment.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1861,7 +1861,7 @@ function segmentDistance( srcCapsule, srcSegment )
   srcCapsule = _.capsule.make( srcSegment.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1921,7 +1921,7 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
   srcCapsule = _.capsule.make( srcSegment.length / 2 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -1990,7 +1990,7 @@ function sphereIntersects( srcCapsule, srcSphere )
   let dimSphere = _.sphere.dimGet( sphereView );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -2043,7 +2043,7 @@ function sphereDistance( srcCapsule, srcSphere )
   srcCapsule = _.capsule.make( srcSphere.length - 1 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -2105,7 +2105,7 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
   srcCapsule = _.capsule.make( srcSphere.length - 1 );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radius = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radius >= 0 );
@@ -2163,7 +2163,7 @@ function boundingSphereGet( dstSphere, srcCapsule )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
-  let origin = _.capsule.originView( srcCapsuleView );
+  let origin = _.capsule.originGet( srcCapsuleView );
   let end = _.capsule.endPointGet( srcCapsuleView );
   let radiusCapsule = _.capsule.radiusGet( srcCapsuleView );
   _.assert( radiusCapsule >= 0 );
@@ -2214,7 +2214,7 @@ let Extension =
 
   is,
   dimGet,
-  originView,
+  originGet,
   endPointGet,
   radiusGet,
   radiusSet,

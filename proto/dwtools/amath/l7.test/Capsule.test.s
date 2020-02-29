@@ -515,14 +515,14 @@ function dimGet( test )
 
 //
 
-function originView( test )
+function originGet( test )
 {
   test.case = 'Source capsule remains unchanged'; /* */
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var expected = _.vectorAdapter.from( [ 0, 0 ] );
 
-  var gotOrigin = _.capsule.originView( srcCapsule );
+  var gotOrigin = _.capsule.originGet( srcCapsule );
   test.identical( gotOrigin, expected );
 
   var oldSrcCapsule = [ 0, 0, 1, 1, 1 ];
@@ -531,7 +531,7 @@ function originView( test )
   test.case = 'srcCapsule 1D - array'; /* */
 
   var srcCapsule = [ 0, 1, 2 ];
-  var gotOrigin = _.capsule.originView( srcCapsule );
+  var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
@@ -539,7 +539,7 @@ function originView( test )
   test.case = 'srcCapsule 1D - vector'; /* */
 
   var srcCapsule = _.vectorAdapter.fromLong( [ 0, 1, 1 ] );
-  var gotOrigin = _.capsule.originView( srcCapsule );
+  var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
@@ -547,7 +547,7 @@ function originView( test )
   test.case = 'srcCapsule 2D - array'; /* */
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
-  var gotOrigin = _.capsule.originView( srcCapsule );
+  var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
@@ -555,7 +555,7 @@ function originView( test )
   test.case = 'srcCapsule 2D - vector'; /* */
 
   var srcCapsule = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
-  var gotOrigin = _.capsule.originView( srcCapsule );
+  var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
@@ -563,7 +563,7 @@ function originView( test )
   test.case = 'srcCapsule 3D - array'; /* */
 
   var srcCapsule = [ 0, 1, 2, 3, 4, 5, 6 ];
-  var gotOrigin = _.capsule.originView( srcCapsule );
+  var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
@@ -571,7 +571,7 @@ function originView( test )
   test.case = 'srcCapsule 3D - vector'; /* */
 
   var srcCapsule = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5, 6 ] );
-  var gotOrigin = _.capsule.originView( srcCapsule );
+  var gotOrigin = _.capsule.originGet( srcCapsule );
   var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
@@ -580,14 +580,14 @@ function originView( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.capsule.originView( ) );
-  test.shouldThrowErrorSync( () => _.capsule.originView( [ 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.originView( [ 0, 0, 1 ], [ 1, 1, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.originView( 'capsule' ) );
-  test.shouldThrowErrorSync( () => _.capsule.originView( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.originView( null ) );
-  test.shouldThrowErrorSync( () => _.capsule.originView( NaN ) );
-  test.shouldThrowErrorSync( () => _.capsule.originView( undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.originGet( ) );
+  test.shouldThrowErrorSync( () => _.capsule.originGet( [ 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.originGet( [ 0, 0, 1 ], [ 1, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.originGet( 'capsule' ) );
+  test.shouldThrowErrorSync( () => _.capsule.originGet( 0 ) );
+  test.shouldThrowErrorSync( () => _.capsule.originGet( null ) );
+  test.shouldThrowErrorSync( () => _.capsule.originGet( NaN ) );
+  test.shouldThrowErrorSync( () => _.capsule.originGet( undefined ) );
 
 }
 
@@ -5555,7 +5555,7 @@ var Self =
 
     is, 
     dimGet, 
-    originView, 
+    originGet, 
     endPointGet, 
     radiusGet, 
     radiusSet, 

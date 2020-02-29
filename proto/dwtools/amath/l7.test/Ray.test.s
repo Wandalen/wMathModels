@@ -561,14 +561,14 @@ function dimGet( test )
 
 //
 
-function originView( test )
+function originGet( test )
 {
   test.case = 'Source ray remains unchanged'; /* */
 
   var srcRay = [ 0, 0, 1, 1 ];
   var expected = _.vectorAdapter.from( [ 0, 0 ] );
 
-  var gotOrigin = _.ray.originView( srcRay );
+  var gotOrigin = _.ray.originGet( srcRay );
   test.identical( gotOrigin, expected );
 
   var oldSrcRay = [ 0, 0, 1, 1 ];
@@ -577,7 +577,7 @@ function originView( test )
   test.case = 'srcRay 1D - array'; /* */
 
   var srcRay = [ 0, 1 ];
-  var gotOrigin = _.ray.originView( srcRay );
+  var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
@@ -585,7 +585,7 @@ function originView( test )
   test.case = 'srcRay 1D - vector'; /* */
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1 ] );
-  var gotOrigin = _.ray.originView( srcRay );
+  var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
@@ -593,7 +593,7 @@ function originView( test )
   test.case = 'srcRay 2D - array'; /* */
 
   var srcRay = [ 0, 1, 2, 3 ];
-  var gotOrigin = _.ray.originView( srcRay );
+  var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
@@ -601,7 +601,7 @@ function originView( test )
   test.case = 'srcRay 2D - vector'; /* */
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
-  var gotOrigin = _.ray.originView( srcRay );
+  var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
@@ -609,7 +609,7 @@ function originView( test )
   test.case = 'srcRay 3D - array'; /* */
 
   var srcRay = [ 0, 1, 2, 3, 4, 5 ];
-  var gotOrigin = _.ray.originView( srcRay );
+  var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
@@ -617,7 +617,7 @@ function originView( test )
   test.case = 'srcRay 3D - vector'; /* */
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
-  var gotOrigin = _.ray.originView( srcRay );
+  var gotOrigin = _.ray.originGet( srcRay );
   var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
@@ -626,26 +626,26 @@ function originView( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.ray.originView( ) );
-  test.shouldThrowErrorSync( () => _.ray.originView( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.originView( [ 0, 0 ], [ 1, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.originView( 'ray' ) );
-  test.shouldThrowErrorSync( () => _.ray.originView( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.originView( null ) );
-  test.shouldThrowErrorSync( () => _.ray.originView( undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.originGet( ) );
+  test.shouldThrowErrorSync( () => _.ray.originGet( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.originGet( [ 0, 0 ], [ 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.originGet( 'ray' ) );
+  test.shouldThrowErrorSync( () => _.ray.originGet( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.originGet( null ) );
+  test.shouldThrowErrorSync( () => _.ray.originGet( undefined ) );
 
 }
 
 //
 
-function directionView( test )
+function directionGet( test )
 {
   test.case = 'Source ray remains unchanged'; /* */
 
   var srcRay = [ 0, 0, 1, 1 ];
   var expected = _.vectorAdapter.from( [ 1, 1 ] );
 
-  var gotDirection = _.ray.directionView( srcRay );
+  var gotDirection = _.ray.directionGet( srcRay );
   test.identical( gotDirection, expected );
 
   var oldSrcRay = [ 0, 0, 1, 1 ];
@@ -654,7 +654,7 @@ function directionView( test )
   test.case = 'srcRay 1D - array'; /* */
 
   var srcRay = [ 0, 1 ];
-  var gotDirection = _.ray.directionView( srcRay );
+  var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
@@ -662,7 +662,7 @@ function directionView( test )
   test.case = 'srcRay 1D - vector'; /* */
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1 ] );
-  var gotDirection = _.ray.directionView( srcRay );
+  var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
@@ -670,7 +670,7 @@ function directionView( test )
   test.case = 'srcRay 2D - array'; /* */
 
   var srcRay = [ 0, 1, 2, 3 ];
-  var gotDirection = _.ray.directionView( srcRay );
+  var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
@@ -678,7 +678,7 @@ function directionView( test )
   test.case = 'srcRay 2D - vector'; /* */
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
-  var gotDirection = _.ray.directionView( srcRay );
+  var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
@@ -686,7 +686,7 @@ function directionView( test )
   test.case = 'srcRay 3D - array'; /* */
 
   var srcRay = [ 0, 1, 2, 3, 4, 5 ];
-  var gotDirection = _.ray.directionView( srcRay );
+  var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
@@ -694,7 +694,7 @@ function directionView( test )
   test.case = 'srcRay 3D - vector'; /* */
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
-  var gotDirection = _.ray.directionView( srcRay );
+  var gotDirection = _.ray.directionGet( srcRay );
   var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
@@ -703,13 +703,13 @@ function directionView( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.ray.directionView( ) );
-  test.shouldThrowErrorSync( () => _.ray.directionView( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.directionView( [ 0, 0 ], [ 1, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.ray.directionView( 'ray' ) );
-  test.shouldThrowErrorSync( () => _.ray.directionView( 0 ) );
-  test.shouldThrowErrorSync( () => _.ray.directionView( null ) );
-  test.shouldThrowErrorSync( () => _.ray.directionView( undefined ) );
+  test.shouldThrowErrorSync( () => _.ray.directionGet( ) );
+  test.shouldThrowErrorSync( () => _.ray.directionGet( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.directionGet( [ 0, 0 ], [ 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.ray.directionGet( 'ray' ) );
+  test.shouldThrowErrorSync( () => _.ray.directionGet( 0 ) );
+  test.shouldThrowErrorSync( () => _.ray.directionGet( null ) );
+  test.shouldThrowErrorSync( () => _.ray.directionGet( undefined ) );
 
 }
 
@@ -5394,8 +5394,8 @@ var Self =
 
     is,
     dimGet,
-    originView,
-    directionView,
+    originGet,
+    directionGet,
 
     rayAt,
     getFactor,
