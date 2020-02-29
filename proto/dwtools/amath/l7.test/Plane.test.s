@@ -35,7 +35,7 @@ function from( test )
 
   test.case = 'Src plane, normal and bias stay unchanged, dst plane changes'; /* */
 
-  var dstPlane = [ 0, 0 ,  1, 2 ];
+  var dstPlane = [ 0, 0 , 1, 2 ];
   var srcPlane = [ 0, 1, 2, 3 ];
   var oldSrcPlane = srcPlane.slice();
   var normal = [ 0, 1, 2 ];
@@ -174,15 +174,15 @@ function from( test )
 
   test.shouldThrowErrorSync( () => _.plane.from( ));
   test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ],  [ 0, 0, 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ],  [ 0, 0, 0, 1 ],  2 ));
-  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ],  null, 1 ));
-  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ],  [ 1, 1, 1 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.from( NaN,  [ 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ],  NaN, 1 ));
-  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  2, 3 ));
+  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ], 2 ));
+  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ], null, 1 ));
+  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ], [ 1, 1, 1 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.from( NaN, [ 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ], NaN, 1 ));
+  test.shouldThrowErrorSync( () => _.plane.from( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], 2, 3 ));
 
 }
 
@@ -193,12 +193,12 @@ function fromNormalAndPoint( test )
 
   test.case = 'Normal and point stay unchanged, dst plane changes'; /* */
 
-  var dstPlane = [ 0, 0 ,  1, 2 ];
+  var dstPlane = [ 0, 0 , 1, 2 ];
   var normal = [ 0, 1, 0 ];
   var oldNormal = normal.slice();
   var point = [ 0, 3, 4 ];
   var oldPoint = point.slice();
-  var expected = [ 0, 1, 0,  - 3 ];
+  var expected = [ 0, 1, 0, - 3 ];
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, dstPlane );
@@ -211,7 +211,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ NaN, NaN, NaN, NaN ];
   var normal = [ 0, 0, 1 ];
   var point = [ 0, 0, 2 ];
-  var expected = [ 0, 0, 1,  - 2 ];
+  var expected = [ 0, 0, 1, - 2 ];
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -221,7 +221,7 @@ function fromNormalAndPoint( test )
   var dstPlane = null;
   var normal = [ 0, 0, 1 ];
   var point = [ 0, 0, 2 ];
-  var expected = [ 0, 0, 1,  - 2 ];
+  var expected = [ 0, 0, 1, - 2 ];
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -271,7 +271,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 1, 0, 1, 2 ];
   var normal = [ 1, 2, 1 ];
   var point = [ 0, 3, 0 ];
-  var expected = [ 1, 2, 1,  - 6 ];
+  var expected = [ 1, 2, 1, - 6 ];
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -298,9 +298,9 @@ function fromNormalAndPoint( test )
 
   test.case = 'Negative numbers'; /* */
 
-  var dstPlane = [ - 1,  - 3,  - 1 ];
+  var dstPlane = [ - 1, - 3, - 1 ];
   var normal = [ - 1, 0 ];
-  var point = [ 4,  - 4 ];
+  var point = [ 4, - 4 ];
   var expected = [ - 1, 0, 4 ];
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
@@ -308,10 +308,10 @@ function fromNormalAndPoint( test )
 
   test.case = 'Decimal numbers'; /* */
 
-  var dstPlane = [ 0.2, 0.3,  - 0.1 ];
+  var dstPlane = [ 0.2, 0.3, - 0.1 ];
   var normal = [ 0.57, 0.57 ];
   var point = [ 0, 0.500 ];
-  var expected = [ 0.57, 0.57,  - 0.285 ];
+  var expected = [ 0.57, 0.57, - 0.285 ];
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
@@ -323,15 +323,15 @@ function fromNormalAndPoint( test )
 
   test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( ));
   test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ],  [ 0, 0, 0, 1 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0, 1 ],  [ 0, 0, 1 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 1, 0 ],  [ 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ],  null,  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( NaN,  [ 0, 0, 1 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  NaN ));
+  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0, 1 ], [ 0, 0, 1 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ], null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( NaN, [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromNormalAndPoint( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], NaN ));
 }
 
 //
@@ -341,7 +341,7 @@ function fromPoints( test )
 
   test.case = 'Points stay unchanged, dst plane changes'; /* */
 
-  var dstPlane = [ 0, 0 ,  1, 2 ];
+  var dstPlane = [ 0, 0 , 1, 2 ];
   var a = [ 0, 1, 0 ];
   var oldA = a.slice();
   var b = [ 0, 3, 4 ];
@@ -363,7 +363,7 @@ function fromPoints( test )
   var a = [ 2, 1, 0 ];
   var b = [ 2, 3, 4 ];
   var c = [ 2, 2, 0 ];
-  var expected = [ 1, 0, 0,  - 2 ];
+  var expected = [ 1, 0, 0, - 2 ];
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
@@ -414,9 +414,9 @@ function fromPoints( test )
 
   test.case = 'Negative numbers'; /* */
 
-  var dstPlane = [ - 1,  - 3,  - 1, 3 ];
+  var dstPlane = [ - 1, - 3, - 1, 3 ];
   var a = [ 2, 0, 2 ];
-  var b = [ 2,  - 2,  - 2 ];
+  var b = [ 2, - 2, - 2 ];
   var c = [ 2, 2, 0 ];
   var expected = [ - 1, 0, 0, 2 ];
 
@@ -425,7 +425,7 @@ function fromPoints( test )
 
   test.case = 'Decimal numbers'; /* */
 
-  var dstPlane = [ 0.2, 0.3,  - 0.1, 0 ];
+  var dstPlane = [ 0.2, 0.3, - 0.1, 0 ];
   var a = [ 0, 0.2, 0.6 ];
   var b = [ 0, 0, 4.2 ];
   var c = [ 0, 0.3, 0 ];
@@ -436,7 +436,7 @@ function fromPoints( test )
 
   test.case = 'Points in same direction - no plane'; /* */
 
-  var dstPlane = [ 0.2, 0.3,  - 0.1, 0 ];
+  var dstPlane = [ 0.2, 0.3, - 0.1, 0 ];
   var a = [ 0, 0, 1 ];
   var b = [ 0, 0, 2 ];
   var c = [ 0, 0, 3 ];
@@ -452,21 +452,21 @@ function fromPoints( test )
 
   test.shouldThrowErrorSync( () => _.plane.fromPoints( ));
   test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 1, 0 ],  [ 1, 0, 0 ],  [ 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 0, 2 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 0, 1, 2 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 0, 0, 0 ],  [ 0, 0, 1 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  null,  [ 1, 0, 0 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 0, 1, 0 ],  null,  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 1, 0, 0 ],  [ 0, 0, 1 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  NaN,  [ 0, 0, 1 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 0, 0, 1 ],  NaN,  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ],  [ 0, 0, 0 ],  [ 0, 0, 1 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0 ],  [ 0, 4 ],  [ 0, 1 ],  [ 0, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0, 0 ],  [ 0, 4, 1, 0 ],  [ 0, 0, 1, 1 ],  [ 0, 2, 2, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0, 2 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0, 1, 2 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], null, [ 1, 0, 0 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 1, 0 ], null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 1, 0, 0 ], [ 0, 0, 1 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], NaN, [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 1 ], NaN, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 1 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0 ], [ 0, 4 ], [ 0, 1 ], [ 0, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.fromPoints( [ 0, 0, 0, 0, 0 ], [ 0, 4, 1, 0 ], [ 0, 0, 1, 1 ], [ 0, 2, 2, 0 ] ));
 }
 
 //
@@ -492,7 +492,7 @@ function pointContains( test )
   test.case = 'Trivial - Contained'; /* */
 
   var plane = [ 2, 1, 0, 0 ];
-  var point = [ 6, 3,  -4 ];
+  var point = [ 6, 3, -4 ];
   point = _.vectorAdapter.from( point );
   var expected = false;
 
@@ -522,7 +522,7 @@ function pointContains( test )
   test.case = 'Point under plane'; /* */
 
   var plane = [ 0, 0, 1, 1 ];
-  var point = [ 0, 0,  - 2 ];
+  var point = [ 0, 0, - 2 ];
   point = _.vectorAdapter.from( point );
   var expected = false;
 
@@ -540,7 +540,7 @@ function pointContains( test )
 
   test.case = 'Contained - Decimal numbers'; /* */
 
-  var plane = [ 0.2, 0.3,  - 0.1, 0 ];
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.2, 0.6 ];
   var expected = true;
 
@@ -549,7 +549,7 @@ function pointContains( test )
 
   test.case = 'Not Contained - Decimal numbers'; /* */
 
-  var plane = [ 0.2, 0.3,  - 0.1, 0 ];
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.1, 0.6 ];
   var expected = false;
 
@@ -558,7 +558,7 @@ function pointContains( test )
 
   test.case = 'Points in plane'; /* */
 
-  var plane = [ 0.2, 0.3,  - 0.1, 0 ];
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var a = [ 0, 0, 1 ];
   var b = [ 0, 1, 0 ];
   var c = [ 0, 0, 3 ];
@@ -583,13 +583,13 @@ function pointContains( test )
 
   test.shouldThrowErrorSync( () => _.plane.pointContains( ));
   test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ],  [ 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.pointContains( null,  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.pointContains( NaN,  [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], [ 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.pointContains( NaN, [ 0, 1, 0 ] ));
 }
 
 //
@@ -599,7 +599,7 @@ function pointDistance( test )
 
   test.case = 'Point and plane stay unchanged'; /* */
 
-  var plane = [ 0, 0 ,  1, 2 ];
+  var plane = [ 0, 0 , 1, 2 ];
   var oldPlane = plane.slice();
   var point = [ 0, 1, 0 ];
   var oldPoint = point.slice();
@@ -645,7 +645,7 @@ function pointDistance( test )
   test.case = 'Point under plane'; /* */
 
   var plane = [ 0, 0, 1, 1 ];
-  var point = [ 0, 0,  - 2 ];
+  var point = [ 0, 0, - 2 ];
   point = _.vectorAdapter.from( point );
   var expected = - 1;
 
@@ -664,7 +664,7 @@ function pointDistance( test )
 
   test.case = 'Decimal numbers'; /* */
 
-  var plane = [ 0.2, 0.3,  - 0.1, 0 ];
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.2, 0.6 ];
   point = _.vectorAdapter.from( point );
   var expected = 0;
@@ -674,7 +674,7 @@ function pointDistance( test )
 
   test.case = 'Decimal numbers'; /* */
 
-  var plane = [ 0.2, 0.3,  - 0.1, 0 ];
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.1, 0.6 ];
   point = _.vectorAdapter.from( point );
   var expected = - 0.08017837257372731;
@@ -684,7 +684,7 @@ function pointDistance( test )
 
   test.case = 'Points in plane'; /* */
 
-  var plane = [ 0.2, 0.3,  - 0.1, 0 ];
+  var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var a = [ 0, 0, 1 ];
   var b = [ 0, 1, 0 ];
   var c = [ 0, 0, 3 ];
@@ -712,13 +712,13 @@ function pointDistance( test )
 
   test.shouldThrowErrorSync( () => _.plane.pointDistance( ));
   test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ],  [ 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.pointDistance( null,  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.pointDistance( NaN,  [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], [ 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.pointDistance( NaN, [ 0, 1, 0 ] ));
 }
 
 //
@@ -743,7 +743,7 @@ function pointCoplanarGet( test )
 
   test.case = 'NaN array point'; /* */
 
-  var plane = [ 1, 0 ,  0, 1 ];
+  var plane = [ 1, 0 , 0, 1 ];
   var point = [ NaN, NaN, NaN ];
   var expected = [ NaN, NaN, NaN ];
 
@@ -752,7 +752,7 @@ function pointCoplanarGet( test )
 
   test.case = 'Trivial'; /* */
 
-  var plane = [ 1, 0 ,  0, 1 ];
+  var plane = [ 1, 0 , 0, 1 ];
   var point = [ 1, 3, 2 ];
   var expected = [ - 1, 3, 2 ];
 
@@ -761,7 +761,7 @@ function pointCoplanarGet( test )
 
   test.case = 'Trivial 2'; /* */
 
-  var plane = [ 1, 0 ,  - 1, 0 ];
+  var plane = [ 1, 0 , - 1, 0 ];
   var point = [ 2, 3, 2 ];
   var expected = [ 2, 3, 2 ];
 
@@ -770,16 +770,16 @@ function pointCoplanarGet( test )
 
   test.case = 'Proyection 3D'; /* */
 
-  var plane = [ 2,  - 1 ,  3, 1 ];
-  var point = [ 4, 1,  -3 ];
-  var expected = [ 29/7, 13/14,  -39/14  ];
+  var plane = [ 2, - 1 , 3, 1 ];
+  var point = [ 4, 1, -3 ];
+  var expected = [ 29/7, 13/14, -39/14  ];
 
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.equivalent( expected, gotPoint );
 
   test.case = 'Point in plane'; /* */
 
-  var plane = [ 1, 0 ,  0, 1 ];
+  var plane = [ 1, 0 , 0, 1 ];
   var point = [ - 1, 2, 3 ];
   var expected = [ - 1, 2, 3 ];
 
@@ -788,7 +788,7 @@ function pointCoplanarGet( test )
 
   test.case = 'Destination point is vector'; /* */
 
-  var plane = [ 1, 0 ,  0, 1 ];
+  var plane = [ 1, 0 , 0, 1 ];
   var point = [ - 1, 2, 3 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.vectorAdapter.from( [ - 1, 2, 3 ] );
@@ -803,15 +803,15 @@ function pointCoplanarGet( test )
   return;
 
   test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ],  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( null,  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 1, 0, 1 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN,  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( 'plane',  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ],  'point' ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 1, 0, 1 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( NaN, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( 'plane', [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.pointCoplanarGet( [ 0, 0, 1, 0 ], 'point' ));
 
 }
 
@@ -822,7 +822,7 @@ function boxIntersects( test )
 
   test.case = 'box and plane stay unchanged'; /* */
 
-  var plane = [ 1, 0 ,  0, 1 ];
+  var plane = [ 1, 0 , 0, 1 ];
   var oldPlane = plane.slice();
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var oldbox = box.slice();
@@ -845,7 +845,7 @@ function boxIntersects( test )
 
   test.case = 'No intersection diagonal plane'; /* */
 
-  var plane = [ - 1, 1, 0,  - 2 ];
+  var plane = [ - 1, 1, 0, - 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = false;
 
@@ -855,7 +855,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection x'; /* */
 
-  var plane = [ 3, 0, 0,  - 2 ];
+  var plane = [ 3, 0, 0, - 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = true;
 
@@ -864,7 +864,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection y'; /* */
 
-  var plane = [ 0, 2, 0,  - 2 ];
+  var plane = [ 0, 2, 0, - 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = true;
 
@@ -874,7 +874,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection z'; /* */
 
-  var plane = [ 0, 0, 1,  - 2 ];
+  var plane = [ 0, 0, 1, - 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = true;
 
@@ -884,7 +884,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection diagonal plane'; /* */
 
-  var plane = [ 1,  - 1, 0, 0 ];
+  var plane = [ 1, - 1, 0, 0 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
 
@@ -894,7 +894,7 @@ function boxIntersects( test )
   test.case = 'Intersection one side of box in plane'; /* */
 
   var plane = [ 0, 2, 0, 2 ];
-  var box = [ 0,  - 2, 0, 1, 3, 3 ];
+  var box = [ 0, - 2, 0, 1, 3, 3 ];
   var expected = true;
 
   var gotBool = _.plane.boxIntersects( plane, box );
@@ -902,8 +902,8 @@ function boxIntersects( test )
 
   test.case = 'Intersection one edge of box in plane'; /* */
 
-  var plane = [ 1,  - 1, 0, 0 ];
-  var box = [ 1, 1,  - 1, 2, 1, 0 ];
+  var plane = [ 1, - 1, 0, 0 ];
+  var box = [ 1, 1, - 1, 2, 1, 0 ];
   var expected = true;
 
   var gotBool = _.plane.boxIntersects( plane, box );
@@ -911,7 +911,7 @@ function boxIntersects( test )
 
   test.case = 'Zero box no intersection'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
+  var plane = [ 0, - 2, 0, 2 ];
   var box = _.box.makeZero( 3 );
   var expected = false;
 
@@ -920,7 +920,7 @@ function boxIntersects( test )
 
   test.case = 'Zero box intersection'; /* */
 
-  var plane = [ 4,  - 2, 1, 0 ];
+  var plane = [ 4, - 2, 1, 0 ];
   var box = _.box.makeZero( 3 );
   var expected = true;
 
@@ -930,7 +930,7 @@ function boxIntersects( test )
 
   test.case = 'Nil box'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
+  var plane = [ 0, - 2, 0, 2 ];
   var box = _.box.makeNil();
   var expected = false;
 
@@ -944,15 +944,15 @@ function boxIntersects( test )
 
   test.shouldThrowErrorSync( () => _.plane.boxIntersects( ));
   test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0, 2, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1 ],  [ 0, 0, 1, 0, 2, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.boxIntersects( null,  [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.boxIntersects( NaN,  [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ],  'box' ));
-  test.shouldThrowErrorSync( () => _.plane.boxIntersects( 'plane',  [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0, 2, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1 ], [ 0, 0, 1, 0, 2, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( null, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( NaN, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( [ 0, 0, 1, 0 ], 'box' ));
+  test.shouldThrowErrorSync( () => _.plane.boxIntersects( 'plane', [ 0, 1, 0, 1 ] ));
 
 }
 
@@ -979,7 +979,7 @@ function boxClosestPoint( test )
   test.case = 'Trivial'; /* */
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0,  - 3 ];
+  var plane = [ 1, 0, 0, - 3 ];
   var expected = [ 3, 0, 0 ];
 
   var gotPoint = _.plane.boxClosestPoint( plane, box );
@@ -987,7 +987,7 @@ function boxClosestPoint( test )
 
   test.case = 'Diagonal plane'; /* */
 
-  var plane = [ - 1, 1, 0,  - 2 ];
+  var plane = [ - 1, 1, 0, - 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = [ -0.5, 1.5, 0 ];
 
@@ -996,7 +996,7 @@ function boxClosestPoint( test )
 
   test.case = 'Intersection z'; /* */
 
-  var plane = [ 0, 0, 1,  - 2 ];
+  var plane = [ 0, 0, 1, - 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = 0;
 
@@ -1005,7 +1005,7 @@ function boxClosestPoint( test )
 
   test.case = 'Intersection diagonal plane'; /* */
 
-  var plane = [ 1,  - 1, 0, 0 ];
+  var plane = [ 1, - 1, 0, 0 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
@@ -1015,7 +1015,7 @@ function boxClosestPoint( test )
   test.case = 'Intersection one side of box in plane'; /* */
 
   var plane = [ 0, 2, 0, 2 ];
-  var box = [ 0,  - 2, 0, 1, 3, 3 ];
+  var box = [ 0, - 2, 0, 1, 3, 3 ];
   var expected = 0;
 
   var gotPoint = _.plane.boxClosestPoint( plane, box );
@@ -1023,8 +1023,8 @@ function boxClosestPoint( test )
 
   test.case = 'Intersection one edge of box in plane'; /* */
 
-  var plane = [ 1,  - 1, 0, 0 ];
-  var box = [ 1, 1,  - 1, 2, 1, 0 ];
+  var plane = [ 1, - 1, 0, 0 ];
+  var box = [ 1, 1, - 1, 2, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.plane.boxClosestPoint( plane, box );
@@ -1032,7 +1032,7 @@ function boxClosestPoint( test )
 
   test.case = 'Zero box'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
+  var plane = [ 0, - 2, 0, 2 ];
   var box = _.box.makeZero( 3 );
   var expected = [ 0, 1, 0 ];
 
@@ -1045,15 +1045,15 @@ function boxClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( ));
   test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0, 2, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1 ],  [ 0, 0, 1, 0, 2, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( null,  [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( NaN,  [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ],  'box' ));
-  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( 'plane',  [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0, 2, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1 ], [ 0, 0, 1, 0, 2, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( null, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( NaN, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( [ 0, 0, 1, 0 ], 'box' ));
+  test.shouldThrowErrorSync( () => _.plane.boxClosestPoint( 'plane', [ 0, 1, 0, 1 ] ));
 
 }
 
@@ -1066,7 +1066,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 1, 2, 3, 4 ];
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
-  var expected = [ - Infinity,  - Infinity,  - Infinity, Infinity, Infinity, Infinity ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -1079,7 +1079,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 0, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ - Infinity,  - Infinity,  - Infinity, Infinity, Infinity, Infinity ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1088,25 +1088,25 @@ function boundingBoxGet( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [ 0,  - Infinity,  - Infinity, 0, Infinity, Infinity ];
+  var expected = [ 0, - Infinity, - Infinity, 0, Infinity, Infinity ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
   test.case = 'Plane perpendicular to x axis with bias'; /* */
 
-  var srcPlane = [ 3, 0, 0,  - 6 ];
+  var srcPlane = [ 3, 0, 0, - 6 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [ 2,  - Infinity,  - Infinity, 2, Infinity, Infinity ];
+  var expected = [ 2, - Infinity, - Infinity, 2, Infinity, Infinity ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
   test.case = 'Plane perpendicular to y axis'; /* */
 
-  var srcPlane = [ 0,  - 3, 0, 0 ];
+  var srcPlane = [ 0, - 3, 0, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [  - Infinity, 0,  - Infinity, Infinity, 0, Infinity ];
+  var expected = [  - Infinity, 0, - Infinity, Infinity, 0, Infinity ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1115,34 +1115,34 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 0, 3, 0, 12 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [  - Infinity,  - 4,  - Infinity, Infinity,  - 4, Infinity ];
+  var expected = [  - Infinity, - 4, - Infinity, Infinity, - 4, Infinity ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
   test.case = 'Plane perpendicular to z axis'; /* */
 
-  var srcPlane = [ 0, 0,  - 1, 0 ];
+  var srcPlane = [ 0, 0, - 1, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [ - Infinity,  - Infinity, 0, Infinity, Infinity, 0 ];
+  var expected = [ - Infinity, - Infinity, 0, Infinity, Infinity, 0 ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
   test.case = 'Plane perpendicular to z axis with bias'; /* */
 
-  var srcPlane = [ 0, 0, 12,  - 6 ];
+  var srcPlane = [ 0, 0, 12, - 6 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [ - Infinity,  - Infinity, 0.5, Infinity, Infinity, 0.5 ];
+  var expected = [ - Infinity, - Infinity, 0.5, Infinity, Infinity, 0.5 ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
   test.case = 'srcPlane vector'; /* */
 
-  var srcPlane = _.vectorAdapter.from( [ - 8,  - 5, 4.5, 4 ] );
-  var dstBox = [ 1,  - 1, 5, 0, 3, 2 ];
-  var expected = [ - Infinity,  - Infinity,  - Infinity, Infinity, Infinity, Infinity ];
+  var srcPlane = _.vectorAdapter.from( [ - 8, - 5, 4.5, 4 ] );
+  var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
+  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1151,25 +1151,25 @@ function boundingBoxGet( test )
 
   var srcPlane = [ - 4, 0, 1 ];
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vectorAdapter.from( [ 0.25,  - Infinity, 0.25, Infinity ] );
+  var expected = _.vectorAdapter.from( [ 0.25, - Infinity, 0.25, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
   test.case = 'dstBox null'; /* */
 
-  var srcPlane = [ 2.2, 3.3,  - 4.4 ];
+  var srcPlane = [ 2.2, 3.3, - 4.4 ];
   var dstBox = null;
-  var expected = [ - Infinity,  - Infinity, Infinity, Infinity ];
+  var expected = [ - Infinity, - Infinity, Infinity, Infinity ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.equivalent( gotBox, expected );
 
   test.case = 'dstBox undefined'; /* */
 
-  var srcPlane = [ 0,  - 5,  - 3 ];
+  var srcPlane = [ 0, - 5, - 3 ];
   var dstBox = undefined;
-  var expected = [  - Infinity,  - 3 / 5, Infinity,  - 3 / 5 ];
+  var expected = [  - Infinity, - 3 / 5, Infinity, - 3 / 5 ];
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1181,15 +1181,15 @@ function boundingBoxGet( test )
 
   test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( ) );
   test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [],  [] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( 'box',  'plane' ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( 'box', 'plane' ) );
   test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ],  [ 0, 0, 0, 1, 1, 1 ],  [ 0, 1, 0, 1, 2, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 3, 4, 5 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( NaN,  [ 1, 0, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ],  NaN ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2 ],  [ 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4, 5 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingBoxGet( [ 0, 1, 0, 1, 2 ], [ 0, 0, 1 ] ) );
 
 }
 
@@ -1216,7 +1216,7 @@ function capsuleClosestPoint( test )
   test.case = 'Trivial'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
-  var plane = [ 1, 0, 0,  - 3 ];
+  var plane = [ 1, 0, 0, - 3 ];
   var expected = [ 3, 2, 2 ];
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
@@ -1224,7 +1224,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Diagonal plane'; /* */
 
-  var plane = [ - 1, 1, 0,  - 2 ];
+  var plane = [ - 1, 1, 0, - 2 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
   var expected = [ -1, 1, 0 ];
 
@@ -1233,7 +1233,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Intersection z'; /* */
 
-  var plane = [ 0, 0, 1,  - 2 ];
+  var plane = [ 0, 0, 1, - 2 ];
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
   var expected = 0;
 
@@ -1242,7 +1242,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Intersection diagonal plane'; /* */
 
-  var plane = [ 1,  - 1, 0, 0 ];
+  var plane = [ 1, - 1, 0, 0 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
   var expected = 0;
 
@@ -1252,7 +1252,7 @@ function capsuleClosestPoint( test )
   test.case = 'Intersection one side of capsule in plane'; /* */
 
   var plane = [ 0, 2, 0, 0 ];
-  var capsule = [ 0,  - 2, 1, 0,  - 2, 2, 2 ];
+  var capsule = [ 0, - 2, 1, 0, - 2, 2, 2 ];
   var expected = 0;
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
@@ -1260,7 +1260,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Zero capsule'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
+  var plane = [ 0, - 2, 0, 2 ];
   var capsule = _.capsule.makeZero( 3 );
   var expected = [ 0, 1, 0 ];
 
@@ -1274,16 +1274,16 @@ function capsuleClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( ));
   test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0, 1 ],  [ 0, 0, 1, 0, 2, 2, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1 ],  [ 0, 0, 1, 0, 2, 2, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( null,  [ 0, 1, 0, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( NaN,  [ 0, 1, 0, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ],  'capsule' ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( 'plane',  [ 0, 1, 0, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0,  - 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0, 1 ], [ 0, 0, 1, 0, 2, 2, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1 ], [ 0, 0, 1, 0, 2, 2, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( null, [ 0, 1, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( NaN, [ 0, 1, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], 'capsule' ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( 'plane', [ 0, 1, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.capsuleClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0, - 1 ] ));
 
 }
 
@@ -1296,10 +1296,10 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 1 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = [ -1, 1, 1 ];
 
@@ -1311,10 +1311,10 @@ function frustumClosestPoint( test )
 
   var oldSrcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldSrcFrustum );
 
@@ -1323,10 +1323,10 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 1 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = [ -1, 1, 1 ];
 
@@ -1335,13 +1335,13 @@ function frustumClosestPoint( test )
 
   test.case = 'srcFrustum and Plane intersect'; /* */
 
-  var srcPlane = [ 2, 4,  - 4,  - 6 ];
+  var srcPlane = [ 2, 4, - 4, - 6 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = 0;
 
@@ -1350,13 +1350,13 @@ function frustumClosestPoint( test )
 
   test.case = 'Plane is frustum side'; /* */
 
-  var srcPlane = [ 1, 0 ,  0,  -1 ];
+  var srcPlane = [ 1, 0 , 0, -1 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = 0;
 
@@ -1368,12 +1368,12 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 1, 1, 3 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
-  var expected = [ -1,  -1,  -1 ];
+  var expected = [ -1, -1, -1 ];
 
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.equivalent( expected, gotPoint );
@@ -1383,10 +1383,10 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 4 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = [ - 4, 1, 1 ];
 
@@ -1398,10 +1398,10 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 4 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] )
   var expected = _.vectorAdapter.from( [ - 4, 1, 1 ] );
@@ -1416,14 +1416,14 @@ function frustumClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( ));
   test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ],  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( null ,  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( NaN,  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 2, 0, 1 ] ,  null ));
-  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0,  - 1, 0, 2 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( 'plane',  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 1, 0, 0 ],  'plane' ));
+  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( null , [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( NaN, [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( 'plane', [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 1, 0, 0 ], 'plane' ));
 }
 
 //
@@ -1449,7 +1449,7 @@ function lineIntersects( test )
   test.case = 'Line and plane intersect'; /* */
 
   var plane = [ 1, 0, 0, 1 ];
-  var line = [ - 2,  - 2,  - 2 ,  2, 2, 2 ];
+  var line = [ - 2, - 2, - 2 , 2, 2, 2 ];
   var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -1457,7 +1457,7 @@ function lineIntersects( test )
 
   test.case = 'Line and Plane intersect'; /* */
 
-  var plane = [ 1, 0,  - 1, 0 ];
+  var plane = [ 1, 0, - 1, 0 ];
   var line = [ 2, 2, 1, 1, 1, 3 ];
   var expected = true;
 
@@ -1466,7 +1466,7 @@ function lineIntersects( test )
 
   test.case = 'Line and Plane don´t intersect - parallel'; /* */
 
-  var plane = [ 1, 0,  - 1, 0 ];
+  var plane = [ 1, 0, - 1, 0 ];
   var line = [ 2, 2, 3, 0, 1, 0 ];
   var expected = false;
 
@@ -1475,8 +1475,8 @@ function lineIntersects( test )
 
   test.case = 'Line and Plane don´t intersect - parallel opposite'; /* */
 
-  var plane = [ 1, 0,  - 1, 0 ];
-  var line = [ 2, 3,  -3, 0,  -1, 0 ];
+  var plane = [ 1, 0, - 1, 0 ];
+  var line = [ 2, 3, -3, 0, -1, 0 ];
   var expected = false;
 
   var interBool = _.plane.lineIntersects( plane, line );
@@ -1506,17 +1506,17 @@ function lineIntersects( test )
   return;
 
   test.shouldThrowErrorSync( () => _.plane.lineIntersects( ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ],  [ [ 0,  - 1, 0 ],  [ 0, 3, 1, 2 ] ] ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0, 2 ],  [ [ 0,  - 1, 0 ],  [ 3, 1, 2 ] ] ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ],  [ [ 0,  - 1, 0 ],  [ 0, 3, 1 ] ],  [ [ 0,  - 1, 0 ],  [ 0, 3, 1 ] ]  ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( null ,  [ [ 0,  - 1, 0 ],  [ 3, 1, 2 ] ] ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( NaN,  [ [ 0,  - 1, 0 ],  [ 3, 1, 2 ] ] ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 2, 0, 1 ] ,  null ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0,  - 1, 0, 2 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0,  - 1, 0, 2 ],  [ NaN, NaN ] ));
-  test.shouldThrowErrorSync( () => _.plane.lineIntersects( 'plane',  'line' ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ], [ [ 0, - 1, 0 ], [ 0, 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0, 2 ], [ [ 0, - 1, 0 ], [ 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 0, 1, 0 ], [ [ 0, - 1, 0 ], [ 0, 3, 1 ] ], [ [ 0, - 1, 0 ], [ 0, 3, 1 ] ]  ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( null , [ [ 0, - 1, 0 ], [ 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( NaN, [ [ 0, - 1, 0 ], [ 3, 1, 2 ] ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineIntersects( 'plane', 'line' ));
 }
 
 //
@@ -1569,7 +1569,7 @@ function lineClosestPoint( test )
   test.case = 'Negative factor'; /* */
 
   var srcPlane = [ - 1, 0, 0, 0 ];
-  var tstLine = [ -3,  -3,  -3,  -2,  -2,  -2 ];
+  var tstLine = [ -3, -3, -3, -2, -2, -2 ];
   var expected = 0;
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine );
@@ -1577,7 +1577,7 @@ function lineClosestPoint( test )
 
   test.case = 'Closest point is origin'; /* */
 
-  var srcPlane = [ 0, 0,  -1, 3 ];
+  var srcPlane = [ 0, 0, -1, 3 ];
   var tstLine = [ 5, 5, 2, 0, 1, 0 ];
   var expected = [ 5, 5, 3 ];
 
@@ -1586,7 +1586,7 @@ function lineClosestPoint( test )
 
   test.case = 'dstPoint Array'; /* */
 
-  var srcPlane = [ 0, 0, 1,  -1 ];
+  var srcPlane = [ 0, 0, 1, -1 ];
   var tstLine = [ 4, 4, 3, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = [ 4, 4, 1 ];
@@ -1597,7 +1597,7 @@ function lineClosestPoint( test )
 
   test.case = 'dstPoint Vector'; /* */
 
-  var srcPlane = [ 0, 1, 0,  -2 ];
+  var srcPlane = [ 0, 1, 0, -2 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.vectorAdapter.from( [ 5, 2, 1 ] );
@@ -1613,13 +1613,13 @@ function lineClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [] ) );
-  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( 'plane',  'line' ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( 'plane', 'line' ) );
   test.shouldThrowErrorSync( () => _.plane.lineClosestPoint(  null, NaN ) );
   test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 0, 0, 1, 1, 1 ],  [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2, 3 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2 ],  null ) );
-  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2 ],  undefined ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.lineClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
 
 }
 
@@ -1653,8 +1653,8 @@ function planeIntersects( test )
 
   test.case = 'tstPlane and Plane don´t intersect'; /* */
 
-  var srcPlane = [ 1, 0 ,  - 1, 0 ];
-  var tstPlane = [ 1, 0,  -1, 2 ];
+  var srcPlane = [ 1, 0 , - 1, 0 ];
+  var tstPlane = [ 1, 0, -1, 2 ];
   var expected = false;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
@@ -1662,8 +1662,8 @@ function planeIntersects( test )
 
   test.case = 'tstPlane and Plane don´t intersect'; /* */
 
-  var srcPlane = [ 1, 0 ,  - 1, 0 ];
-  var tstPlane = [ 2, 0,  -2, 1 ];
+  var srcPlane = [ 1, 0 , - 1, 0 ];
+  var tstPlane = [ 2, 0, -2, 1 ];
   var expected = false;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
@@ -1704,14 +1704,14 @@ function planeIntersects( test )
 
   test.shouldThrowErrorSync( () => _.plane.planeIntersects( ));
   test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ],  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeIntersects( null ,  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeIntersects( NaN,  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 2, 0, 1 ] ,  null ));
-  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0,  - 1, 0, 2 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.planeIntersects( 'plane',  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 1, 0, 0 ],  'plane' ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( null , [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( NaN, [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( 'plane', [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeIntersects( [ 0, 1, 0, 0 ], 'plane' ));
 }
 
 //
@@ -1744,8 +1744,8 @@ function planeDistance( test )
 
   test.case = 'tstPlane and Plane don´t intersect'; /* */
 
-  var srcPlane = [ 2, 4,  - 4,  - 6 ];
-  var tstPlane = [ 1, 2,  - 2, 9 ];
+  var srcPlane = [ 2, 4, - 4, - 6 ];
+  var tstPlane = [ 1, 2, - 2, 9 ];
   var expected = 4;
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
@@ -1753,8 +1753,8 @@ function planeDistance( test )
 
   test.case = 'tstPlane and Plane don´t intersect'; /* */
 
-  var srcPlane = [ 1, 0 ,  - 1, 0 ];
-  var tstPlane = [ 2, 0,  -2, 1 ];
+  var srcPlane = [ 1, 0 , - 1, 0 ];
+  var tstPlane = [ 2, 0, -2, 1 ];
   var expected = 0.5 / Math.sqrt( 2 );
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
@@ -1803,14 +1803,14 @@ function planeDistance( test )
 
   test.shouldThrowErrorSync( () => _.plane.planeDistance( ));
   test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ],  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeDistance( null ,  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeDistance( NaN,  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 2, 0, 1 ] ,  null ));
-  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0,  - 1, 0, 2 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.planeDistance( 'plane',  [ 0, 1, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 1, 0, 0 ],  'plane' ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( null , [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( NaN, [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( 'plane', [ 0, 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.planeDistance( [ 0, 1, 0, 0 ], 'plane' ));
 }
 
 //
@@ -1820,14 +1820,14 @@ function rayClosestPoint( test )
 
   test.case = 'Source plane and ray remain unchanged'; /* */
 
-  var srcPlane = [ - 1, 0, 0,  - 2 ];
+  var srcPlane = [ - 1, 0, 0, - 2 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
   var expected = [ - 2, 0, 0 ];
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  var oldSrcPlane = [ - 1, 0, 0,  - 2 ];
+  var oldSrcPlane = [ - 1, 0, 0, - 2 ];
   test.identical( srcPlane, oldSrcPlane );
 
   var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -1854,7 +1854,7 @@ function rayClosestPoint( test )
   test.case = 'Ray origin in plane pointing to the other side'; /* */
 
   var srcPlane = [ - 1, 0, 0, 0 ];
-  var tstRay = [ 0, 0, 0,  -1,  -1,  -1 ];
+  var tstRay = [ 0, 0, 0, -1, -1, -1 ];
   var expected = 0;
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
@@ -1863,15 +1863,15 @@ function rayClosestPoint( test )
   test.case = 'Ray origin is the closest point'; /* */
 
   var srcPlane = [ - 1, 0, 0, 0 ];
-  var tstRay = [ -3,  -3,  -3,  -2,  -2,  -2 ];
-  var expected = [ 0,  -3,  -3 ];
+  var tstRay = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = [ 0, -3, -3 ];
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
   test.case = 'Ray and plane are parallel'; /* */
 
-  var srcPlane = [ 0,  - 1, 0, 4 ];
+  var srcPlane = [ 0, - 1, 0, 4 ];
   var tstRay = [ 5, 5, 2, 1, 0, 1 ];
   var expected = [ 5, 4, 2 ];
 
@@ -1907,13 +1907,13 @@ function rayClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [] ) );
-  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( 'plane',  'ray' ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( 'plane', 'ray' ) );
   test.shouldThrowErrorSync( () => _.plane.rayClosestPoint(  null, NaN ) );
   test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 0, 0, 1, 1, 1 ],  [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2, 3 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2 ],  null ) );
-  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2 ],  undefined ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
 
 }
 
@@ -1940,7 +1940,7 @@ function segmentIntersects( test )
   test.case = 'Segment and plane intersect'; /* */
 
   var plane = [ 1, 0, 0, 1 ];
-  var segment = [ - 2,  - 2,  - 2, 2, 2, 2 ];
+  var segment = [ - 2, - 2, - 2, 2, 2, 2 ];
   var expected = true;
 
   var interBool = _.plane.segmentIntersects( plane, segment );
@@ -1948,7 +1948,7 @@ function segmentIntersects( test )
 
   test.case = 'Segment and Plane intersect'; /* */
 
-  var plane = [ 1, 0,  - 1, 0 ];
+  var plane = [ 1, 0, - 1, 0 ];
   var segment = [ 2, 2, 2, 3, 3, 3 ];
   var expected = true;
 
@@ -1957,7 +1957,7 @@ function segmentIntersects( test )
 
   test.case = 'Segment and Plane don´t intersect'; /* */
 
-  var plane = [ 1, 0,  - 1, 0 ];
+  var plane = [ 1, 0, - 1, 0 ];
   var segment = [ 2, 2, 3, 3, 3, 4 ];
   var expected = false;
 
@@ -1994,7 +1994,7 @@ function segmentIntersects( test )
   test.case = 'Perpendicular doesn´t intersect'; /* */
 
   var plane = [ 1, 0, 0, 0 ];
-  var segment = [ - 2, 2, 2,  - 1, 2, 2 ];
+  var segment = [ - 2, 2, 2, - 1, 2, 2 ];
   var expected = false;
 
   var interBool = _.plane.segmentIntersects( plane, segment );
@@ -2006,17 +2006,17 @@ function segmentIntersects( test )
   return;
 
   test.shouldThrowErrorSync( () => _.plane.segmentIntersects( ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ],  [ 0,  - 1, 0, 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0, 2 ],  [ 0,  - 1, 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ],  [ 0,  - 1, 0, 0, 3, 1 ],  [ 0,  - 1, 0, 0, 3, 1 ]  ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( null ,  [ 0,  - 1, 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( NaN,  [ 0,  - 1, 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 2, 0, 1 ] ,  null ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0,  - 1, 0, 2 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0,  - 1, 0, 2 ],  [ NaN, NaN ] ));
-  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( 'plane',  'segment' ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1 ], [ 0, - 1, 0, 0, 3, 1 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( null , [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( NaN, [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersects( 'plane', 'segment' ));
 }
 
 //
@@ -2060,7 +2060,7 @@ function segmentClosestPoint( test )
   test.case = 'Segment end is in plane'; /* */
 
   var srcPlane = [ - 1, 0, 0, 0 ];
-  var tstSegment = [ -3,  -3,  -3, 0, 0, 0 ];
+  var tstSegment = [ -3, -3, -3, 0, 0, 0 ];
   var expected = 0;
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
@@ -2087,15 +2087,15 @@ function segmentClosestPoint( test )
   test.case = 'Positive factor - no intersection'; /* */
 
   var srcPlane = [ - 1, 0, 0, 0 ];
-  var tstSegment = [ -3,  -3,  -3,  -2,  -2,  -2 ];
-  var expected = [ 0,  -2,  -2 ];
+  var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = [ 0, -2, -2 ];
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
   test.case = 'Closest point is origin'; /* */
 
-  var srcPlane = [ 0, 0,  -1, 3 ];
+  var srcPlane = [ 0, 0, -1, 3 ];
   var tstSegment = [ 5, 5, 2, 0, 1, 0 ];
   var expected = [ 5, 5, 3 ];
 
@@ -2104,7 +2104,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Closest point is end'; /* */
 
-  var srcPlane = [ 0, 0,  -1, 3 ];
+  var srcPlane = [ 0, 0, -1, 3 ];
   var tstSegment = [ 0, 1, 0, 5, 5, 2 ];
   var expected = [ 5, 5, 3 ];
 
@@ -2113,8 +2113,8 @@ function segmentClosestPoint( test )
 
   test.case = 'dstPoint Array'; /* */
 
-  var srcPlane = [ 0, 0, 1,  -1 ];
-  var tstSegment = [ 1, 0, 0, 4, 4,  - 3 ];
+  var srcPlane = [ 0, 0, 1, -1 ];
+  var tstSegment = [ 1, 0, 0, 4, 4, - 3 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = [ 1, 0, 1 ];
 
@@ -2124,8 +2124,8 @@ function segmentClosestPoint( test )
 
   test.case = 'dstPoint Vector'; /* */
 
-  var srcPlane = [ 0, 1, 0,  -2 ];
-  var tstSegment = [ 1, 0, 0, 5,  - 5, 1 ];
+  var srcPlane = [ 0, 1, 0, -2 ];
+  var tstSegment = [ 1, 0, 0, 5, - 5, 1 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.vectorAdapter.from( [ 1, 2, 0 ] );
 
@@ -2140,13 +2140,13 @@ function segmentClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [] ) );
-  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( 'plane',  'segment' ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( 'plane', 'segment' ) );
   test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint(  null, NaN ) );
   test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [ 0, 0, 0, 1, 1, 1 ],  [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2, 3 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2 ],  null ) );
-  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 1, 2 ],  undefined ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
 
 }
 
@@ -2157,7 +2157,7 @@ function sphereIntersects( test )
 
   test.case = 'Sphere and plane stay unchanged'; /* */
 
-  var plane = [ 1, 0 ,  0, 1 ];
+  var plane = [ 1, 0 , 0, 1 ];
   var oldPlane = plane.slice();
   var sphere = [ 2, 0, 0, 1 ];
   var oldSphere = sphere.slice();
@@ -2179,7 +2179,7 @@ function sphereIntersects( test )
 
   test.case = 'Trivial - intersection'; /* */
 
-  var plane = [ 0, 2, 0,  - 2 ];
+  var plane = [ 0, 2, 0, - 2 ];
   var sphere = [ 1, 1, 1, 1 ];
   var expected = true;
 
@@ -2189,7 +2189,7 @@ function sphereIntersects( test )
   test.case = 'Center in plane'; /* */
 
   var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0,  - 1, 0, 1 ];
+  var sphere = [ 0, - 1, 0, 1 ];
   var expected = true;
 
   var gotBool = _.plane.sphereIntersects( plane, sphere );
@@ -2215,8 +2215,8 @@ function sphereIntersects( test )
 
   test.case = 'Sphere under plane'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
-  var sphere = [ - 1,  - 1,  - 1, 1 ];
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ - 1, - 1, - 1, 1 ];
   var expected = false;
 
   var gotBool = _.plane.sphereIntersects( plane, sphere );
@@ -2224,7 +2224,7 @@ function sphereIntersects( test )
 
   test.case = 'Sphere over plane'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
+  var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ 0, 3, 0, 1 ];
   var expected = false;
 
@@ -2233,7 +2233,7 @@ function sphereIntersects( test )
 
   test.case = 'Zero sphere'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
+  var plane = [ 0, - 2, 0, 2 ];
   var sphere = _.sphere.makeZero();
   var expected = false;
 
@@ -2242,7 +2242,7 @@ function sphereIntersects( test )
 
   test.case = 'Nil sphere'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
+  var plane = [ 0, - 2, 0, 2 ];
   var sphere = _.sphere.makeNil();
   var expected = false;
 
@@ -2256,15 +2256,15 @@ function sphereIntersects( test )
 
   test.shouldThrowErrorSync( () => _.plane.sphereIntersects( ));
   test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( null,  [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( NaN,  [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ],  'sphere' ));
-  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( 'plane',  [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( null, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( NaN, [ 0, 1, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( [ 0, 0, 1, 0 ], 'sphere' ));
+  test.shouldThrowErrorSync( () => _.plane.sphereIntersects( 'plane', [ 0, 1, 0, 1 ] ));
 
 }
 
@@ -2307,7 +2307,7 @@ function sphereDistance( test )
   test.case = 'Center in plane'; /* */
 
   var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0,  - 1, 0, 1 ];
+  var sphere = [ 0, - 1, 0, 1 ];
   var expected = 0;
 
   var distance = _.plane.sphereDistance( plane, sphere );
@@ -2333,8 +2333,8 @@ function sphereDistance( test )
 
   test.case = 'Sphere under plane'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
-  var sphere = [ - 1,  - 1,  - 1, 1 ];
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ - 1, - 1, - 1, 1 ];
   var expected = 1;
 
   var distance = _.plane.sphereDistance( plane, sphere );
@@ -2342,7 +2342,7 @@ function sphereDistance( test )
 
   test.case = 'Sphere over plane'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
+  var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ 0, 3, 0, 1 ];
   var expected = 1;
 
@@ -2356,13 +2356,13 @@ function sphereDistance( test )
 
   test.shouldThrowErrorSync( () => _.plane.sphereDistance( ));
   test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( null,  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.sphereDistance( NaN,  [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.sphereDistance( NaN, [ 0, 1, 0 ] ));
 
 }
 
@@ -2399,7 +2399,7 @@ function sphereClosestPoint( test )
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 1, 1, 1, 1 ];
-  var expected = [ 1,  - 1, 1 ];
+  var expected = [ 1, - 1, 1 ];
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
@@ -2407,7 +2407,7 @@ function sphereClosestPoint( test )
   test.case = 'Center in plane'; /* */
 
   var plane = [ 0, 2, 0, 2 ];
-  var sphere = [ 0,  - 1, 0, 1 ];
+  var sphere = [ 0, - 1, 0, 1 ];
   var expected = 0;
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
@@ -2433,16 +2433,16 @@ function sphereClosestPoint( test )
 
   test.case = 'Sphere under plane'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
-  var sphere = [ - 1,  - 1,  - 1, 1 ];
-  var expected = [ -1, 1,  -1 ];
+  var plane = [ 0, - 2, 0, 2 ];
+  var sphere = [ - 1, - 1, - 1, 1 ];
+  var expected = [ -1, 1, -1 ];
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
 
   test.case = 'Sphere over plane'; /* */
 
-  var plane = [ 0,  - 2, 0, 2 ];
+  var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ 0, 3, 0, 1 ];
   var expected = [ 0, 1, 0 ];
 
@@ -2456,13 +2456,13 @@ function sphereClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( ));
   test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 1, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1 ],  [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( null,  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ],  NaN ));
-  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( NaN,  [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1 ], [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( null, [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( [ 0, 0, 1, 0 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.sphereClosestPoint( NaN, [ 0, 1, 0 ] ));
 
 }
 
@@ -2475,7 +2475,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [ 0, 0, 3, 3 ];
   var dstSphere = [ 1, 1, 2, 1 ];
-  var expected = [ 0, 0,  - 1, Infinity ];
+  var expected = [ 0, 0, - 1, Infinity ];
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( expected, gotSphere );
@@ -2504,7 +2504,7 @@ function boundingSphereGet( test )
 
   test.case = 'Sphere and plane intersect'; /* */
 
-  var srcPlane = [ 0, 0, 1,  - 2 ];
+  var srcPlane = [ 0, 0, 1, - 2 ];
   var dstSphere = [ 2, 2, 2, 1 ];
   var expected = [ 0, 0, 2, Infinity ];
 
@@ -2522,7 +2522,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcPlane vector'; /* */
 
-  var srcPlane = _.vectorAdapter.from( [- 1,  - 1,  - 1, 1 ] );
+  var srcPlane = _.vectorAdapter.from( [- 1, - 1, - 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 1 / 3, 1 / 3, 1 / 3, Infinity ];
 
@@ -2531,7 +2531,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere vector'; /* */
 
-  var srcPlane = [- 1,  - 1,  - 1, 3 ];
+  var srcPlane = [- 1, - 1, - 1, 3 ];
   var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
   var expected = _.vectorAdapter.from( [ 1, 1, 1, Infinity ] );
 
@@ -2540,7 +2540,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere null'; /* */
 
-  var srcPlane = [- 1, 5,  - 1, 0 ];
+  var srcPlane = [- 1, 5, - 1, 0 ];
   var dstSphere = null;
   var expected = [ 0, 0, 0, Infinity ];
 
@@ -2549,7 +2549,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere undefined'; /* */
 
-  var srcPlane = [ - 1,  - 3,  - 5, 0 ];
+  var srcPlane = [ - 1, - 3, - 5, 0 ];
   var dstSphere = undefined;
   var expected = [ 0, 0, 0, Infinity ];
 
@@ -2560,7 +2560,7 @@ function boundingSphereGet( test )
 
   var srcPlane = _.vectorAdapter.from( [ 1E-12, 1E-12, 1E-12, 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ - 1 / 3,  - 1 / 3,  - 1 / 3, Infinity ];
+  var expected = [ - 1 / 3, - 1 / 3, - 1 / 3, Infinity ];
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.equivalent( gotSphere, expected );
@@ -2569,7 +2569,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [ 1, 0, 1, 2, 3, 4 ];
   var dstSphere = [ 0, 1, 0, 1, 2, 1 ];
-  var expected = [ -0.26666666666666666, 0,  -0.26666666666666666,  -0.53333333333333333,  -0.8, Infinity  ];
+  var expected = [ -0.26666666666666666, 0, -0.26666666666666666, -0.53333333333333333, -0.8, Infinity  ];
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -2581,14 +2581,14 @@ function boundingSphereGet( test )
 
   test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( ) );
   test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [],  [] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( 'sphere',  'plane' ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( 'sphere', 'plane' ) );
   test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 0, 0, 1 ],  [ 0, 1, 0, 1 ],  [ 1, 0, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( NaN,  [ 1, 0, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ],  NaN ) );
-  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1 ],  [ 0, 0, 1, 2, 2, 3, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.boundingSphereGet( [ 0, 1, 0, 1 ], [ 0, 0, 1, 2, 2, 3, 1 ] ) );
 
 }
 
@@ -2599,7 +2599,7 @@ function translate( test )
 
   test.case = 'Offset remains unchanged, plane changes'; /* */
 
-  var plane = [ 1, 0 ,  0, 1 ];
+  var plane = [ 1, 0 , 0, 1 ];
   var offset = [ 1, 0, 1 ];
   var oldOffset = offset.slice();
   var expected = [ 1, 0, 0, 0 ];
@@ -2611,54 +2611,54 @@ function translate( test )
 
   test.case = 'No change (normal and offset are perpendicular)'; /* */
 
-  var plane = [ 1, 0 ,  0, 1 ];
+  var plane = [ 1, 0 , 0, 1 ];
   var offset = [ 0, 2, 3 ];
-  var expected = [ 1, 0 ,  0, 1 ];
+  var expected = [ 1, 0 , 0, 1 ];
 
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
 
   test.case = 'No change'; /* */
 
-  var plane = [ 1, 0 ,  - 1, 0 ];
+  var plane = [ 1, 0 , - 1, 0 ];
   var offset = [ 2, 2, 2 ];
-  var expected = [ 1, 0 ,  - 1, 0 ];
+  var expected = [ 1, 0 , - 1, 0 ];
 
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
 
   test.case = 'Trivial translation'; /* */
 
-  var plane = [ 1, 0 ,  0, 0 ];
+  var plane = [ 1, 0 , 0, 0 ];
   var offset = [ 3, 2, 3 ];
-  var expected =  [ 1, 0 ,  0,  - 3 ];
+  var expected =  [ 1, 0 , 0, - 3 ];
 
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
 
   test.case = 'Negative offset'; /* */
 
-  var plane = [ 1, 0 ,  0, 0 ];
-  var offset = [ - 3,  - 2,  - 3 ];
-  var expected =  [ 1, 0 ,  0, 3 ];
+  var plane = [ 1, 0 , 0, 0 ];
+  var offset = [ - 3, - 2, - 3 ];
+  var expected =  [ 1, 0 , 0, 3 ];
 
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
 
   test.case = 'More dimensions'; /* */
 
-  var plane = [ 1, 0 ,  0, 2, 3, 4, 0 ];
-  var offset = [ - 2,  - 2,  - 2, 2, 2, 2 ];
-  var expected = [ 1, 0 ,  0, 2, 3, 4,  -16 ];
+  var plane = [ 1, 0 , 0, 2, 3, 4, 0 ];
+  var offset = [ - 2, - 2, - 2, 2, 2, 2 ];
+  var expected = [ 1, 0 , 0, 2, 3, 4, -16 ];
 
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
 
   test.case = 'NaN offset'; /* */
 
-  var plane = [ 1, 0 ,  0, 0 ];
+  var plane = [ 1, 0 , 0, 0 ];
   var offset = [ NaN, NaN, NaN ];
-  var expected =  [ 1, 0 ,  0, NaN ];
+  var expected =  [ 1, 0 , 0, NaN ];
 
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
@@ -2670,14 +2670,14 @@ function translate( test )
 
   test.shouldThrowErrorSync( () => _.plane.translate( ));
   test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ],  [ 0, 0, 1 ],  [ 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ],  [ 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.translate( null,  [ 0, 0, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.translate( NaN,  [ 0, 0, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 2 ],  null ));
-  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 2 ],  NaN));
-  test.shouldThrowErrorSync( () => _.plane.translate( 'plane',  'offset' ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ], [ 0, 0, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 1, 0 ], [ 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( null, [ 0, 0, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( NaN, [ 0, 0, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 2 ], null ));
+  test.shouldThrowErrorSync( () => _.plane.translate( [ 0, 0, 2 ], NaN));
+  test.shouldThrowErrorSync( () => _.plane.translate( 'plane', 'offset' ));
 
 }
 
@@ -2688,7 +2688,7 @@ function normalize( test )
 
   test.case = 'Plane changes'; /* */
 
-  var plane = [ 2, 0 ,  0, 1 ];
+  var plane = [ 2, 0 , 0, 1 ];
   var expected = [ 1, 0, 0, 0.5 ];
 
   var newPlane = _.plane.normalize( plane );
@@ -2697,48 +2697,48 @@ function normalize( test )
 
   test.case = 'Trivial '; /* */
 
-  var plane = [ 2, 0 ,  0, 4 ];
-  var expected =  [ 1, 0 ,  0, 2 ];
+  var plane = [ 2, 0 , 0, 4 ];
+  var expected =  [ 1, 0 , 0, 2 ];
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.case = 'Trivial'; /* */
 
-  var plane = [ 2, 2 ,  2, 4 ];
-  var expected = [ 2/Math.sqrt( 12 ),  2/Math.sqrt( 12 ),  2/Math.sqrt( 12 ),  4/Math.sqrt( 12 ) ];
+  var plane = [ 2, 2 , 2, 4 ];
+  var expected = [ 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 4/Math.sqrt( 12 ) ];
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.case = 'Already normalized 1D'; /* */
 
-  var plane = [ 1, 0 ,  0, 3 ];
-  var expected = [ 1, 0 ,  0, 3 ];
+  var plane = [ 1, 0 , 0, 3 ];
+  var expected = [ 1, 0 , 0, 3 ];
 
   var normalized = _.plane.normalize( plane );
   test.identical( expected, normalized );
 
   test.case = 'Already normalized'; /* */
 
-  var plane = [ 1/Math.sqrt( 2 ),  1/Math.sqrt( 2 ),  0, 2/Math.sqrt( 2 ) ];
-  var expected = [1/Math.sqrt( 2 ),  1/Math.sqrt( 2 ),  0, 2/Math.sqrt( 2 ) ];
+  var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
+  var expected = [1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.case = 'Negative coordinates'; /* */
 
-  var plane = [ - 3,  - 6 ,  0, 8 ];
-  var expected =  [ - 3/Math.sqrt( 45 ),  - 6/Math.sqrt( 45 ) ,  0, 8/Math.sqrt( 45 ) ];
+  var plane = [ - 3, - 6 , 0, 8 ];
+  var expected =  [ - 3/Math.sqrt( 45 ), - 6/Math.sqrt( 45 ) , 0, 8/Math.sqrt( 45 ) ];
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
   test.case = 'More dimensions'; /* */
 
-  var plane = [ 4, 0 ,  0, 4, 0, 4, 8 ];
-  var expected = [ 4/Math.sqrt( 48 ),  0 ,  0, 4/Math.sqrt( 48 ),  0, 4/Math.sqrt( 48 ),  8/Math.sqrt( 48 ) ];
+  var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
+  var expected = [ 4/Math.sqrt( 48 ), 0 , 0, 4/Math.sqrt( 48 ), 0, 4/Math.sqrt( 48 ), 8/Math.sqrt( 48 ) ];
 
   var normalized = _.plane.normalize( plane );
   test.identical( expected, normalized );
@@ -2777,7 +2777,7 @@ function normalize( test )
 
   test.case = 'String coordinates'; /* */
 
-  var plane = [ 1,  'string',  0, 0 ];
+  var plane = [ 1, 'string', 0, 0 ];
   var expected =  [ NaN, NaN, NaN, NaN ];
 
   var normalized = _.plane.normalize( plane );
@@ -2790,7 +2790,7 @@ function normalize( test )
   return;
 
   test.shouldThrowErrorSync( () => _.plane.normalize( ));
-  test.shouldThrowErrorSync( () => _.plane.normalize( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.normalize( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
   test.shouldThrowErrorSync( () => _.plane.normalize( null ));
   test.shouldThrowErrorSync( () => _.plane.normalize( NaN ));
   test.shouldThrowErrorSync( () => _.plane.normalize( 'plane' ));
@@ -2804,7 +2804,7 @@ function negate( test )
 
   test.case = 'Zero'; /* */
 
-  var plane = [ 0, 0 ,  0, 0 ];
+  var plane = [ 0, 0 , 0, 0 ];
   var expected = [ 0, 0, 0, 0 ];
 
   var newPlane = _.plane.negate( plane );
@@ -2813,8 +2813,8 @@ function negate( test )
 
   test.case = 'Plane changes'; /* */
 
-  var plane = [ 2, 0 ,  0, 1 ];
-  var expected = [ - 2, 0, 0,  - 1 ];
+  var plane = [ 2, 0 , 0, 1 ];
+  var expected = [ - 2, 0, 0, - 1 ];
 
   var newPlane = _.plane.negate( plane );
   test.equivalent( expected, newPlane );
@@ -2822,48 +2822,48 @@ function negate( test )
 
   test.case = 'Trivial '; /* */
 
-  var plane = [ 2, 0 ,  0, 4 ];
-  var expected =  [ - 2, 0 ,  0,  - 4 ];
+  var plane = [ 2, 0 , 0, 4 ];
+  var expected =  [ - 2, 0 , 0, - 4 ];
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.case = 'Trivial'; /* */
 
-  var plane = [ 2, 2 ,  2, 4 ];
-  var expected = [ - 2,  - 2,  - 2,  - 4 ];
+  var plane = [ 2, 2 , 2, 4 ];
+  var expected = [ - 2, - 2, - 2, - 4 ];
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.case = 'Negate 1D'; /* */
 
-  var plane = [ 1, 0 ,  0, 3 ];
-  var expected = [ - 1, 0 ,  0,  - 3 ];
+  var plane = [ 1, 0 , 0, 3 ];
+  var expected = [ - 1, 0 , 0, - 3 ];
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.case = 'Negate'; /* */
 
-  var plane = [ 1/Math.sqrt( 2 ),  1/Math.sqrt( 2 ),  0, 2/Math.sqrt( 2 ) ];
-  var expected = [ - 1/Math.sqrt( 2 ),  - 1/Math.sqrt( 2 ),  0,  - 2/Math.sqrt( 2 ) ];
+  var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
+  var expected = [ - 1/Math.sqrt( 2 ), - 1/Math.sqrt( 2 ), 0, - 2/Math.sqrt( 2 ) ];
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.case = 'Negative coordinates'; /* */
 
-  var plane = [ - 3,  - 6 ,  0, 8 ];
-  var expected =  [ 3, 6, 0,  - 8 ];
+  var plane = [ - 3, - 6 , 0, 8 ];
+  var expected =  [ 3, 6, 0, - 8 ];
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
   test.case = 'More dimensions'; /* */
 
-  var plane = [ 4, 0 ,  0, 4, 0, 4, 8 ];
-  var expected = [  - 4, 0 ,  0,  - 4, 0,  - 4,  - 8 ];
+  var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
+  var expected = [  - 4, 0 , 0, - 4, 0, - 4, - 8 ];
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -2902,7 +2902,7 @@ function negate( test )
 
   test.case = 'String coordinates'; /* */
 
-  var plane = [ 1,  'string',  0, 0 ];
+  var plane = [ 1, 'string', 0, 0 ];
   var expected =  [ - 1, NaN, 0, 0 ];
 
   var negated = _.plane.negate( plane );
@@ -2915,7 +2915,7 @@ function negate( test )
   return;
 
   test.shouldThrowErrorSync( () => _.plane.negate( ));
-  test.shouldThrowErrorSync( () => _.plane.negate( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.negate( [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ));
   test.shouldThrowErrorSync( () => _.plane.negate( [] ));
   test.shouldThrowErrorSync( () => _.plane.negate( null ));
   test.shouldThrowErrorSync( () => _.plane.negate( NaN ));
@@ -2930,11 +2930,11 @@ function threeIntersectionPoint( test )
 
   test.case = 'Planes remain unchanged'; /* */
 
-  var plane1 = [ 1, 0 ,  0, 1 ];
+  var plane1 = [ 1, 0 , 0, 1 ];
   var oldPlane1 = plane1.slice();
-  var plane2 = [ 1, 1 ,  0, 1 ];
+  var plane2 = [ 1, 1 , 0, 1 ];
   var oldPlane2 = plane2.slice();
-  var plane3 = [ 1, 0 ,  1, 1 ];
+  var plane3 = [ 1, 0 , 1, 1 ];
   var oldPlane3 = plane3.slice();
   var expected = [ - 1, 0, 0 ];
   expected = _.vectorAdapter.from( expected );
@@ -2947,9 +2947,9 @@ function threeIntersectionPoint( test )
 
   test.case = 'Parallel planes'; /* */
 
-  var plane1 = [ 1, 0 ,  0, 1 ];
-  var plane2 = [ 2, 0 ,  0, 4 ];
-  var plane3 = [ 3, 0 ,  0, 7 ];
+  var plane1 = [ 1, 0 , 0, 1 ];
+  var plane2 = [ 2, 0 , 0, 4 ];
+  var plane3 = [ 3, 0 , 0, 7 ];
   var expected = NaN;
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
@@ -2957,9 +2957,9 @@ function threeIntersectionPoint( test )
 
   test.case = '2 Parallel planes'; /* */
 
-  var plane1 = [ 1, 0 ,  0, 1 ];
-  var plane2 = [ 2, 0 ,  0, 4 ];
-  var plane3 = [ 3, 1 ,  4, 7 ];
+  var plane1 = [ 1, 0 , 0, 1 ];
+  var plane2 = [ 2, 0 , 0, 4 ];
+  var plane3 = [ 3, 1 , 4, 7 ];
   var expected = NaN;
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
@@ -2967,9 +2967,9 @@ function threeIntersectionPoint( test )
 
   test.case = 'Perpendicular planes in origin'; /* */
 
-  var plane1 = [ 1, 0 ,  0, 0 ];
-  var plane2 = [ 0, 1 ,  0, 0 ];
-  var plane3 = [ 0, 0 ,  1, 0 ];
+  var plane1 = [ 1, 0 , 0, 0 ];
+  var plane2 = [ 0, 1 , 0, 0 ];
+  var plane3 = [ 0, 0 , 1, 0 ];
   var expected = [ 0, 0, 0 ];
   expected = _.vectorAdapter.from( expected );
 
@@ -2979,8 +2979,8 @@ function threeIntersectionPoint( test )
   test.case = 'Planes in origin'; /* */
 
   var plane1 = [ - 1, 1, 0, 0 ];
-  var plane2 = [ 0, 1 ,  0, 0 ];
-  var plane3 = [ 0,  - 1, 6, 0 ];
+  var plane2 = [ 0, 1 , 0, 0 ];
+  var plane3 = [ 0, - 1, 6, 0 ];
   var expected = [ 0, 0, 0 ];
   expected = _.vectorAdapter.from( expected );
 
@@ -2989,10 +2989,10 @@ function threeIntersectionPoint( test )
 
   test.case = 'Perpendicular planes'; /* */
 
-  var plane1 = [ 3, 0 ,  0, 3 ];
-  var plane2 = [ 0,  - 4 ,  0, 4 ];
-  var plane3 = [ 0, 0 ,  5, 5 ];
-  var expected = [ - 1, 1,  - 1 ];
+  var plane1 = [ 3, 0 , 0, 3 ];
+  var plane2 = [ 0, - 4 , 0, 4 ];
+  var plane3 = [ 0, 0 , 5, 5 ];
+  var expected = [ - 1, 1, - 1 ];
   expected = _.vectorAdapter.from( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
@@ -3001,8 +3001,8 @@ function threeIntersectionPoint( test )
   test.case = 'Trivial'; /* */
 
   var plane1 = [ 2, 1, 2, 4 ];
-  var plane2 = [ 1, 1 ,  0,  - 5 ];
-  var plane3 = [ 1,  - 1 ,  6, 0 ];
+  var plane2 = [ 1, 1 , 0, - 5 ];
+  var plane3 = [ 1, - 1 , 6, 0 ];
   var expected = [ - 32, 37, 11.5 ];
   expected = _.vectorAdapter.from( expected );
 
@@ -3016,14 +3016,14 @@ function threeIntersectionPoint( test )
 
   test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( ));
   test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ],  [ 0, 0, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ],  [ 0,  - 1, 0, 2 ],  [ 0, 3, 1, 2 ],  [ 0, 3, 1, 2 ]  ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0, 2 ],  [ 0,  - 1, 0, 2 ],  [ 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ],  [ 0,  - 1, 0, 2, 3 ],  [ 0, 3, 1, 2 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ],  [ 0,  - 1, 0, 2 ],  [ 0, 3, 1, 2, 4 ] ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( null,  [ 0,  - 1, 0, 2 ],  [ 0, 3, 1, 2 ]  ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ],  NaN,  [ 0, 3, 1, 2 ],  ));
-  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ ],  [ ],  [ ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ], [ 0, 3, 1, 2 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2, 3 ], [ 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2, 4 ] ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( null, [ 0, - 1, 0, 2 ], [ 0, 3, 1, 2 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ 0, 0, 1, 0 ], NaN, [ 0, 3, 1, 2 ], ));
+  test.shouldThrowErrorSync( () => _.plane.threeIntersectionPoint( [ ], [ ], [ ] ));
 
 }
 
@@ -3034,55 +3034,55 @@ function threeIntersectionPoint( test )
 var Self =
 {
 
-  name : 'Tools.Math.Plane',  
-  silencing : 1,  
-  enabled : 1,  
-  // verbosity : 7,  
-  // debug : 1,  
-  // routine: 'frustumClosestPoint',  
+  name : 'Tools.Math.Plane', 
+  silencing : 1, 
+  enabled : 1, 
+  // verbosity : 7, 
+  // debug : 1, 
+  // routine: 'frustumClosestPoint', 
 
   tests :
   {
 
-    from,  
-    fromNormalAndPoint,  
-    fromPoints,  
+    from, 
+    fromNormalAndPoint, 
+    fromPoints, 
 
-    pointContains,  
-    pointDistance,  
-    pointCoplanarGet,  
+    pointContains, 
+    pointDistance, 
+    pointCoplanarGet, 
 
-    boxIntersects,  
-    boxClosestPoint,  
-    boundingBoxGet,  
+    boxIntersects, 
+    boxClosestPoint, 
+    boundingBoxGet, 
 
-    capsuleClosestPoint,  
+    capsuleClosestPoint, 
 
-    frustumClosestPoint,  
+    frustumClosestPoint, 
 
-    lineIntersects,  
-    lineClosestPoint,  
+    lineIntersects, 
+    lineClosestPoint, 
 
-    planeIntersects,  
-    planeDistance, planeDistance,  
+    planeIntersects, 
+    planeDistance, planeDistance, 
 
-    rayClosestPoint,  
+    rayClosestPoint, 
 
-    segmentIntersects,  
-    segmentClosestPoint,  
+    segmentIntersects, 
+    segmentClosestPoint, 
 
-    sphereIntersects,  
-    sphereDistance,  
-    sphereClosestPoint,  
-    boundingSphereGet,  
+    sphereIntersects, 
+    sphereDistance, 
+    sphereClosestPoint, 
+    boundingSphereGet, 
 
-    //matrixHomogenousApply,  
-    translate,  
+    //matrixHomogenousApply, 
+    translate, 
 
-    normalize,  
-    negate,  
+    normalize, 
+    negate, 
 
-    threeIntersectionPoint,  
+    threeIntersectionPoint, 
 
   }
 

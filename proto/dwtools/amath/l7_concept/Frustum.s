@@ -32,7 +32,7 @@ let Self = _.frustum = _.frustum || Object.create( null );
 
 function make()
 {
-  _.assert( arguments.length === 0,  'Expects no arguments' );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
 
   let dst = _.Matrix.make([ 4, 6 ]);
 
@@ -41,14 +41,14 @@ function make()
 
 //
 
-function fromMatrixHomogenous( frustum ,  m )
+function fromMatrixHomogenous( frustum , m )
 {
-  // let frustum ,  m;
+  // let frustum , m;
 
   if( frustum === null )
   frustum = this.make();
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   _.assert( _.matrixIs( m ) );
   _.assert( m.hasShape([ 4, 4 ]) );
@@ -108,7 +108,7 @@ function fromMatrixHomogenous( frustum ,  m )
 
 function is( frustum )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return _.matrixIs( frustum ) && frustum.hasShape([ 4, 6 ])
 }
 
@@ -127,10 +127,10 @@ function is( frustum )
   *   1, 1, 0, 0, 1, 1, 0, 0,
   * ];
   * let srcfrustum = _.Matrix.make( [ 4, 6 ] ).copy
-  * ([ 0, 0, 0, 0,  - 1, 1,
-  *   1,  - 1, 0, 0, 0, 0,
-  *   0, 0, 1,  - 1, 0, 0,
-  *   - 1, 0,  - 1, 0, 0,  - 1
+  * ([ 0, 0, 0, 0, - 1, 1,
+  *   1, - 1, 0, 0, 0, 0,
+  *   0, 0, 1, - 1, 0, 0,
+  *   - 1, 0, - 1, 0, 0, - 1
   * ]);
   *
   * _.cornersGet( srcfrustum );
@@ -145,7 +145,7 @@ function is( frustum )
 function cornersGet( srcfrustum )
 {
 
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.frustum.is( srcfrustum ) );
   debugger;
 
@@ -168,7 +168,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 0 ],  point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 0 ],  point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 0 ],  point.eGet( 2 ) );
+    pointsFru.atomSet( [ 0, 0 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 0 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 0 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( far, top, left );
@@ -178,7 +178,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 1 ],  point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 1 ],  point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 1 ],  point.eGet( 2 ) );
+    pointsFru.atomSet( [ 0, 1 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 1 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 1 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( far, bottom, right );
@@ -188,7 +188,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 2 ],  point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 2 ],  point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 2 ],  point.eGet( 2 ) );
+    pointsFru.atomSet( [ 0, 2 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 2 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 2 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( far, bottom, left );
@@ -198,7 +198,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 3 ],  point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 3 ],  point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 3 ],  point.eGet( 2 ) );
+    pointsFru.atomSet( [ 0, 3 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 3 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 3 ], point.eGet( 2 ) );
   }
 
   point = _.plane.threeIntersectionPoint( near, top, right );
@@ -208,7 +208,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 4 ],  point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 4 ],  point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 4 ],  point.eGet( 2 ) );
+    pointsFru.atomSet( [ 0, 4 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 4 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 4 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( near, top, left );
@@ -218,7 +218,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 5 ],  point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 5 ],  point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 5 ],  point.eGet( 2 ) );
+    pointsFru.atomSet( [ 0, 5 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 5 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 5 ], point.eGet( 2 ) );
   }
 
   point =  _.plane.threeIntersectionPoint( near, bottom, right );
@@ -228,7 +228,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 6 ],  point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 6 ],  point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 6 ],  point.eGet( 2 ) );
+    pointsFru.atomSet( [ 0, 6 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 6 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 6 ], point.eGet( 2 ) );
   }
 
   point = _.plane.threeIntersectionPoint( near, bottom, left );
@@ -238,7 +238,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 7 ],  point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 7 ],  point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 7 ],  point.eGet( 2 ) );
+    pointsFru.atomSet( [ 0, 7 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 7 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 7 ], point.eGet( 2 ) );
   }
   debugger;
 
@@ -256,7 +256,7 @@ function cornersGet( srcfrustum )
   *
   * @example
   * // returns false;
-  * _.pointContains( _.frustum.make() ,  [ 1, 1, 1 ] );
+  * _.pointContains( _.frustum.make() , [ 1, 1, 1 ] );
   **
   * @returns { Boolean } Returns true if the frustum contains the point.
   * @function pointContains
@@ -266,10 +266,10 @@ function cornersGet( srcfrustum )
   * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
-function pointContains( frustum ,  point )
+function pointContains( frustum , point )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   debugger;
@@ -299,12 +299,12 @@ function pointContains( frustum ,  point )
   * // returns 1;
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *     0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
-  * _.pointDistance( frustum,  [ 1, 1, 2 ] );
+  * _.pointDistance( frustum, [ 1, 1, 2 ] );
   **
   * @returns { Distance } Returns the distance between the frustum and the point.
   * @function pointDistance
@@ -317,7 +317,7 @@ function pointContains( frustum ,  point )
 function pointDistance( frustum, point )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let dims = _.Matrix.dimsOf( frustum ) ;
@@ -377,11 +377,11 @@ function pointDistance( frustum, point )
   * @example
   * // returns [ 0, 0, 0 ];
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ] );
-  * _.pointClosestPoint( frustum ,  [ - 1,  - 1,  - 1 ] );
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.pointClosestPoint( frustum , [ - 1, - 1, - 1 ] );
   *
   * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
   * @function pointClosestPoint
@@ -393,9 +393,9 @@ function pointDistance( frustum, point )
 
 /* qqq : dstPoint is destination */
 
-function pointClosestPoint( frustum ,  srcPoint, dstPoint )
+function pointClosestPoint( frustum , srcPoint, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   if( arguments.length === 2 )
@@ -515,7 +515,7 @@ function pointClosestPoint( frustum ,  srcPoint, dstPoint )
   *
   * @example
   * // returns false;
-  * _.boxContains( _.frustum.make() ,  [ 2, 2, 2, 3, 3, 3 ] );
+  * _.boxContains( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
   **
   * @returns { Boolean } Returns true if the frustum contains the box.
   * @function boxContains
@@ -532,7 +532,7 @@ function boxContains( frustum, box )
   let dim1 = _.box.dimGet( boxView );
   let srcMin = _.box.cornerLeftGet( boxView );
   let srcMax = _.box.cornerRightGet( boxView );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
@@ -544,14 +544,14 @@ function boxContains( frustum, box )
   /* src corners */
 
   let c = _.Matrix.makeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ srcMin.eGet( 0 ),  srcMin.eGet( 1 ),  srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ srcMax.eGet( 0 ),  srcMin.eGet( 1 ),  srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ srcMin.eGet( 0 ),  srcMax.eGet( 1 ),  srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ srcMin.eGet( 0 ),  srcMin.eGet( 1 ),  srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ srcMax.eGet( 0 ),  srcMax.eGet( 1 ),  srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ srcMin.eGet( 0 ),  srcMax.eGet( 1 ),  srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ srcMax.eGet( 0 ),  srcMin.eGet( 1 ),  srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ srcMax.eGet( 0 ),  srcMax.eGet( 1 ),  srcMin.eGet( 2 )] );
+  c.colVectorGet( 0 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  c.colVectorGet( 1 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  c.colVectorGet( 2 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  c.colVectorGet( 3 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colVectorGet( 4 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colVectorGet( 5 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colVectorGet( 6 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colVectorGet( 7 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 )] );
 
   let distance = Infinity;
   for( let j = 0 ; j < 8 ; j++ )
@@ -578,7 +578,7 @@ function boxContains( frustum, box )
   *
   * @example
   * // returns false;
-  * _.boxIntersects( _.frustum.make() ,  [ 2, 2, 2, 3, 3, 3 ] );
+  * _.boxIntersects( _.frustum.make() , [ 2, 2, 2, 3, 3, 3 ] );
   **
   * @returns { Boolean } Returns true if the frustum and the box intersect.
   * @function boxIntersects
@@ -588,14 +588,14 @@ function boxContains( frustum, box )
   * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
-function boxIntersects( frustum ,  box )
+function boxIntersects( frustum , box )
 {
 
   let boxView = _.box.toAdapter( box );
   let dim1 = _.box.dimGet( boxView );
   let min1 = _.box.cornerLeftGet( boxView );
   let max1 = _.box.cornerRightGet( boxView );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
@@ -657,10 +657,10 @@ function boxIntersects( frustum ,  box )
   return false;
 }
 
-//function boxIntersects( frustum ,  box )
+//function boxIntersects( frustum , box )
 //{
 //
-//  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+//  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 //  _.assert( _.frustum.is( frustum ) );
 //  debugger;
 //
@@ -697,11 +697,11 @@ function boxIntersects( frustum ,  box )
   * @example
   * // returns 1;
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ] );
-  * _.boxDistance( frustum ,  [ 0, 0, 2, 3, 3, 3 ] );
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.boxDistance( frustum , [ 0, 0, 2, 3, 3, 3 ] );
   *
   * @returns { Number } Returns the distance between the frustum and the box.
   * @function boxDistance
@@ -714,7 +714,7 @@ function boxIntersects( frustum ,  box )
 function boxDistance( frustum, box )
 {
   let boxView = _.box.toAdapter( box );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   debugger;
 
@@ -735,11 +735,11 @@ function boxDistance( frustum, box )
   * @example
   * // returns [ 0, 0, 0 ];
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ] );
-  * _.boxClosestPoint( frustum ,  [ - 1,  - 1,  - 1,  -0.1,  -0.1,  -0.1 ] );
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.boxClosestPoint( frustum , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
   *
   * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
   * @function boxClosestPoint
@@ -761,7 +761,7 @@ function boxClosestPoint( frustum, box, dstPoint )
 
   _.assert( _.frustum.is( frustum ) );
   _.assert( dim1 === rows - 1 );
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( rows - 1 );
@@ -827,10 +827,10 @@ function boxClosestPoint( frustum, box, dstPoint )
   * @example
   * // returns [ 0, 0, 0, 1, 1, 1 ]
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ] );
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.boundingBoxGet( null, frustum );
   *
   * @returns { Array } Returns the array of the bounding box.
@@ -843,7 +843,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   */
 function boundingBoxGet( dstBox, srcFrustum )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   _.assert( _.frustum.is( srcFrustum ) );
   let dims = _.Matrix.dimsOf( srcFrustum ) ;
@@ -910,9 +910,9 @@ function boundingBoxGet( dstBox, srcFrustum )
 
 //
 
-function capsuleIntersects( srcFrustum ,  tstCapsule )
+function capsuleIntersects( srcFrustum , tstCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
@@ -923,9 +923,9 @@ function capsuleIntersects( srcFrustum ,  tstCapsule )
 
 //
 
-function capsuleDistance( srcFrustum ,  tstCapsule )
+function capsuleDistance( srcFrustum , tstCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
@@ -949,12 +949,12 @@ function capsuleDistance( srcFrustum ,  tstCapsule )
   * // returns 0
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
-  * let capsule = [ 0, 0, 0,  - 1,  - 1,  - 1, 1 ]
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
   * _.capsuleClosestPoint( srcFrustum, capsule );
   *
   * @example
@@ -971,7 +971,7 @@ function capsuleDistance( srcFrustum ,  tstCapsule )
   */
 function capsuleClosestPoint( frustum, capsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
   let dims = _.Matrix.dimsOf( frustum ) ;
   let rows = dims[ 0 ];
@@ -1023,19 +1023,19 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
 * // returns true;
 * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
 *  ([
-*     0,    0,    0,    0,  - 1,    1,
-*     1,  - 1,    0,    0,    0,    0,
-*     0,    0,    1,  - 1,    0,    0,
-*   - 1,    0,  - 1,    0,    0,  - 1 ]
+*     0,   0,   0,   0, - 1,   1,
+*     1, - 1,   0,   0,   0,   0,
+*     0,   0,   1, - 1,   0,   0,
+*   - 1,   0, - 1,   0,   0, - 1 ]
 *   );
 * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
 *   ([
-*    0,    0,    0,    0,  - 1,    1,
-*    1,  - 1,    0,    0,    0,    0,
-*    0,    0,    1,  - 1,    0,    0,
-*   -0.5,  -0.5,  -0.5,  -0.5,  -0.5,  -0.5 ]
+*    0,   0,   0,   0, - 1,   1,
+*    1, - 1,   0,   0,   0,   0,
+*    0,   0,   1, - 1,   0,   0,
+*   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
 *   );
-* _.frustumContains( srcFrustum ,  tstFrustum );
+* _.frustumContains( srcFrustum , tstFrustum );
 *
 * @returns { Boolean } Returns true if the srcFrustum contains the tstFrustum.
 * @function frustumContains
@@ -1045,10 +1045,10 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
 * @memberof module:Tools/math/Concepts.wTools.frustum
 */
 
-function frustumContains( srcFrustum ,  tstFrustum )
+function frustumContains( srcFrustum , tstFrustum )
 {
 
-_.assert( arguments.length === 2,  'Expects exactly two arguments' );
+_.assert( arguments.length === 2, 'Expects exactly two arguments' );
 _.assert( _.frustum.is( srcFrustum ) );
 _.assert( _.frustum.is( tstFrustum ) );
 debugger;
@@ -1080,19 +1080,19 @@ return true;
   * // returns true;
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *   ([
-  *    0,    0,    0,    0,  - 1,    1,
-  *    1,  - 1,    0,    0,    0,    0,
-  *    0,    0,    1,  - 1,    0,    0,
-  *   -0.5,  -0.5,  -0.5,  -0.5,  -0.5,  -0.5 ]
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
   *   );
-  * _.frustumIntersects( srcFrustum ,  tstFrustum );
+  * _.frustumIntersects( srcFrustum , tstFrustum );
   *
   * @returns { Boolean } Returns true if the frustums intersect.
   * @function frustumIntersects
@@ -1102,10 +1102,10 @@ return true;
   * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
-function frustumIntersects( srcFrustum ,  tstFrustum )
+function frustumIntersects( srcFrustum , tstFrustum )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
   _.assert( _.frustum.is( tstFrustum ) );
   debugger;
@@ -1148,19 +1148,19 @@ function frustumIntersects( srcFrustum ,  tstFrustum )
   * // returns 0;
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *   ([
-  *    0,    0,    0,    0,  - 1,    1,
-  *    1,  - 1,    0,    0,    0,    0,
-  *    0,    0,    1,  - 1,    0,    0,
-  *   -0.5,  -0.5,  -0.5,  -0.5,  -0.5,  -0.5 ]
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
   *   );
-  * _.frustumDistance( srcFrustum ,  tstFrustum );
+  * _.frustumDistance( srcFrustum , tstFrustum );
   *
   * @returns { Number } Returns the distance between the two frustums.
   * @function frustumDistance
@@ -1170,10 +1170,10 @@ function frustumIntersects( srcFrustum ,  tstFrustum )
   * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
-function frustumDistance( srcFrustum ,  tstFrustum )
+function frustumDistance( srcFrustum , tstFrustum )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
   _.assert( _.frustum.is( tstFrustum ) );
   debugger;
@@ -1218,19 +1218,19 @@ function frustumDistance( srcFrustum ,  tstFrustum )
   * // returns 0;
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *   ([
-  *    0,    0,    0,    0,  - 1,    1,
-  *    1,  - 1,    0,    0,    0,    0,
-  *    0,    0,    1,  - 1,    0,    0,
-  *   -0.5,  -0.5,  -0.5,  -0.5,  -0.5,  -0.5 ]
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
   *   );
-  * _.frustumClosestPoint( srcFrustum ,  testFrustum );
+  * _.frustumClosestPoint( srcFrustum , testFrustum );
   *
   * @returns { Number } Returns the closest point to a frustum.
   * @function frustumClosestPoint
@@ -1241,9 +1241,9 @@ function frustumDistance( srcFrustum ,  tstFrustum )
   * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
-function frustumClosestPoint( srcFrustum ,  tstFrustum, dstPoint )
+function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
   _.assert( _.frustum.is( tstFrustum ) );
 
@@ -1301,9 +1301,9 @@ function frustumClosestPoint( srcFrustum ,  tstFrustum, dstPoint )
 
 //
 
-function lineIntersects( srcFrustum ,  tstLine )
+function lineIntersects( srcFrustum , tstLine )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dims = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1317,9 +1317,9 @@ function lineIntersects( srcFrustum ,  tstLine )
 
 //
 
-function lineDistance( srcFrustum ,  tstLine )
+function lineDistance( srcFrustum , tstLine )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstLineView = _.line.toAdapter( tstLine );
 
   let gotDist = _.line.frustumDistance( tstLineView, srcFrustum );
@@ -1342,10 +1342,10 @@ function lineDistance( srcFrustum ,  tstLine )
   * let line = [ 2, 0, 0, 1, 0, 0 ]
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * _.lineClosestPoint( frusrum, line );
   *
@@ -1359,7 +1359,7 @@ function lineDistance( srcFrustum ,  tstLine )
   */
 function lineClosestPoint( frustum, line, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let dimF = _.Matrix.dimsOf( frustum ) ;
@@ -1406,7 +1406,7 @@ function lineClosestPoint( frustum, line, dstPoint )
   *
   * @example
   * // returns false;
-  * _.planeIntersects( _.frustum.make() ,  [ 2, 2, 2, 1 ] );
+  * _.planeIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
   **
   * @returns { Boolean } Returns true if the frustum and the plane intersect.
   * @function planeIntersects
@@ -1418,7 +1418,7 @@ function lineClosestPoint( frustum, line, dstPoint )
 
 function planeIntersects( frustum, plane )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let planeView = _.plane.toAdapter( plane );
@@ -1459,12 +1459,12 @@ function planeIntersects( frustum, plane )
   * // returns 2;
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
-  * _.planeDistance( frustum ,  [ 1, 0, 0, 2 ] );
+  * _.planeDistance( frustum , [ 1, 0, 0, 2 ] );
   **
   * @returns { Number } Returns the distance between the frustum and the plane.
   * @function planeDistance
@@ -1476,7 +1476,7 @@ function planeIntersects( frustum, plane )
 
 function planeDistance( frustum, plane )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let planeView = _.plane.toAdapter( plane );
@@ -1510,12 +1510,12 @@ function planeDistance( frustum, plane )
   * // returns [ 1, 1, 1 ];
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
-  * _.planeClosestPoint( frustum ,  [ 1, 1, 1, 6 ] );
+  * _.planeClosestPoint( frustum , [ 1, 1, 1, 6 ] );
   *
   * @returns { Array } Returns the coordinates of the closest point.
   * @function planeClosestPoint
@@ -1528,7 +1528,7 @@ function planeDistance( frustum, plane )
 
 function planeClosestPoint( frustum, plane, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   if( arguments.length === 2 )
@@ -1567,9 +1567,9 @@ function planeClosestPoint( frustum, plane, dstPoint )
 
 //
 
-function rayIntersects( srcFrustum ,  tstRay )
+function rayIntersects( srcFrustum , tstRay )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dims = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1583,9 +1583,9 @@ function rayIntersects( srcFrustum ,  tstRay )
 
 //
 
-function rayDistance( srcFrustum ,  tstRay )
+function rayDistance( srcFrustum , tstRay )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstRayView = _.ray.toAdapter( tstRay );
 
   let gotDist = _.ray.frustumDistance( tstRayView, srcFrustum );
@@ -1608,10 +1608,10 @@ function rayDistance( srcFrustum ,  tstRay )
   * let ray = [ 2, 0, 0, 1, 0, 0 ]
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * _.rayClosestPoint( frusrum, ray );
   *
@@ -1625,7 +1625,7 @@ function rayDistance( srcFrustum ,  tstRay )
   */
 function rayClosestPoint( frustum, ray, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let dimF = _.Matrix.dimsOf( frustum ) ;
@@ -1664,9 +1664,9 @@ function rayClosestPoint( frustum, ray, dstPoint )
 
 //
 
-function segmentIntersects( srcFrustum ,  tstSegment )
+function segmentIntersects( srcFrustum , tstSegment )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dims = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1680,9 +1680,9 @@ function segmentIntersects( srcFrustum ,  tstSegment )
 
 //
 
-function segmentDistance( srcFrustum ,  tstSegment )
+function segmentDistance( srcFrustum , tstSegment )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstSegmentView = _.segment.toAdapter( tstSegment );
 
   let gotDist = _.segment.frustumDistance( tstSegmentView, srcFrustum );
@@ -1705,10 +1705,10 @@ function segmentDistance( srcFrustum ,  tstSegment )
   * let segment = [ 2, 0, 0, 1, 0, 0 ]
   * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
   *  ([
-  *     0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
   * _.segmentClosestPoint( frusrum, segment );
   *
@@ -1722,7 +1722,7 @@ function segmentDistance( srcFrustum ,  tstSegment )
   */
 function segmentClosestPoint( frustum, segment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let dimF = _.Matrix.dimsOf( frustum ) ;
@@ -1770,7 +1770,7 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   *
   * @example
   * // returns false;
-  * _.sphereContains( _.frustum.make() ,  [ 2, 2, 2, 1 ] );
+  * _.sphereContains( _.frustum.make() , [ 2, 2, 2, 1 ] );
   *
   * @returns { Boolean } Returns true if the frustum contains the sphere.
   * @function sphereContains
@@ -1780,10 +1780,10 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
-function sphereContains( frustum ,  sphere )
+function sphereContains( frustum , sphere )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let center = _.sphere.centerGet( sphere );
@@ -1810,7 +1810,7 @@ function sphereContains( frustum ,  sphere )
   *
   * @example
   * // returns false;
-  * _.sphereIntersects( _.frustum.make() ,  [ 2, 2, 2, 1 ] );
+  * _.sphereIntersects( _.frustum.make() , [ 2, 2, 2, 1 ] );
   **
   * @returns { Boolean } Returns true if the frustum and the sphere intersect.
   * @function sphereIntersects
@@ -1820,10 +1820,10 @@ function sphereContains( frustum ,  sphere )
   * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
-function sphereIntersects( frustum ,  sphere )
+function sphereIntersects( frustum , sphere )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let center = _.sphere.centerGet( sphere );
@@ -1857,11 +1857,11 @@ function sphereIntersects( frustum ,  sphere )
   * @example
   * // returns 1;
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ] );
-  * _.sphereDistance( frustum ,  [ 0, 0, 3, 1 ] );
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.sphereDistance( frustum , [ 0, 0, 3, 1 ] );
   *
   * @returns { Number } Returns the distance between the frustum and the sphere.
   * @function sphereDistance
@@ -1874,7 +1874,7 @@ function sphereIntersects( frustum ,  sphere )
 function sphereDistance( frustum, sphere )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let sphereView = _.sphere.toAdapter( sphere );
@@ -1896,11 +1896,11 @@ function sphereDistance( frustum, sphere )
   * @example
   * // returns [ 0, 0, 0 ];
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ] );
-  * _.sphereClosestPoint( frustum ,  [ - 1,  - 1,  - 1, 0.1 ] );
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.sphereClosestPoint( frustum , [ - 1, - 1, - 1, 0.1 ] );
   *
   * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
   * @function sphereClosestPoint
@@ -1910,9 +1910,9 @@ function sphereDistance( frustum, sphere )
   * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
-function sphereClosestPoint( frustum ,  sphere, dstPoint )
+function sphereClosestPoint( frustum , sphere, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   let sphereView = _.sphere.toAdapter( sphere );
   let center = _.sphere.centerGet( sphereView );
@@ -1954,12 +1954,12 @@ function sphereClosestPoint( frustum ,  sphere, dstPoint )
   * @param { Array } srcFrustum - source frustum for the bounding sphere.
   *
   * @example
-  * // returns [ 0.5, 0.5, 0.5,   Math.sqrt( 0.75 ) ]
+  * // returns [ 0.5, 0.5, 0.5,  Math.sqrt( 0.75 ) ]
   * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
-  *   [ 0,    0,    0,    0,  - 1,    1,
-  *     1,  - 1,    0,    0,    0,    0,
-  *     0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ] );
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
   * _.boundingSphereGet( null, frustum );
   *
   * @returns { Array } Returns the array of the bounding sphere.
@@ -1972,7 +1972,7 @@ function sphereClosestPoint( frustum ,  sphere, dstPoint )
   */
 function boundingSphereGet( dstSphere, srcFrustum )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   _.assert( _.frustum.is( srcFrustum ) );
   let dims = _.Matrix.dimsOf( srcFrustum ) ;
@@ -2030,7 +2030,7 @@ function boundingSphereGet( dstSphere, srcFrustum )
   // Center of the sphere
   for( let c = 0; c < center.length; c++ )
   {
-    center.eSet( c,  ( max.eGet( c ) + min.eGet( c ) ) / 2 );
+    center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
   }
 
   // Radius of the sphere
@@ -2057,12 +2057,12 @@ let Extension =
   cornersGet,
 
   pointContains,
-  pointDistance,  /* qqq : implement me */
-  pointClosestPoint,  /* qqq : review please */
+  pointDistance, /* qqq : implement me */
+  pointClosestPoint, /* qqq : review please */
 
-  boxContains,  /* qqq : implement me */
+  boxContains, /* qqq : implement me */
   boxIntersects,
-  boxDistance,  /* qqq : implement me - Same as _.box.frustumDistance */
+  boxDistance, /* qqq : implement me - Same as _.box.frustumDistance */
   boxClosestPoint,
   boundingBoxGet,
 
@@ -2070,30 +2070,30 @@ let Extension =
   capsuleDistance,
   capsuleClosestPoint,
 
-  frustumContains,  /* qqq : implement me */
+  frustumContains, /* qqq : implement me */
   frustumIntersects,
-  frustumDistance,  /* qqq : implement me */
-  frustumClosestPoint,  /* qqq : implement me */
+  frustumDistance, /* qqq : implement me */
+  frustumClosestPoint, /* qqq : implement me */
 
-  lineIntersects,   /* Same as _.line.frustumIntersects */
-  lineDistance,   /* Same as _.line.frustumDistance */
+  lineIntersects,  /* Same as _.line.frustumIntersects */
+  lineDistance,  /* Same as _.line.frustumDistance */
   lineClosestPoint,
 
-  planeIntersects,  /* qqq : implement me */
-  planeDistance,  /* qqq : implement me */
-  planeClosestPoint,  /* qqq : implement me */
+  planeIntersects, /* qqq : implement me */
+  planeDistance, /* qqq : implement me */
+  planeClosestPoint, /* qqq : implement me */
 
-  rayIntersects,   /* Same as _.ray.frustumIntersects */
-  rayDistance,   /* Same as _.ray.frustumDistance */
+  rayIntersects,  /* Same as _.ray.frustumIntersects */
+  rayDistance,  /* Same as _.ray.frustumDistance */
   rayClosestPoint,
 
-  segmentIntersects,   /* Same as _.segment.frustumIntersects */
-  segmentDistance,   /* Same as _.segment.frustumDistance */
+  segmentIntersects,  /* Same as _.segment.frustumIntersects */
+  segmentDistance,  /* Same as _.segment.frustumDistance */
   segmentClosestPoint,
 
-  sphereContains,  /* qqq : implement me */
+  sphereContains, /* qqq : implement me */
   sphereIntersects,
-  sphereDistance,  /* qqq : implement me - Same as _.sphere.frustumDistance  */
+  sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
   sphereClosestPoint,
   boundingSphereGet,
 

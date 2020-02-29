@@ -132,11 +132,11 @@ function makeZero( dim )
   * @param { Number } dim - Dimension of the created box.
   *
   * @example
-  * // returns [ Infinity, Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  * // returns [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
   * _.makeNil( 3 );
   *
   * @example
-  * // returns [ Infinity, Infinity,  - Infinity,  - Infinity ];
+  * // returns [ Infinity, Infinity, - Infinity, - Infinity ];
   * _.makeNil( [ 1, 1, 2, 2] );
   *
   * @function makeNil
@@ -203,11 +203,11 @@ function zero( box )
   * @param { Array } box - Destination box.
   *
   * @example
-  * // returns [ Infinity, Infinity,  - Infinity,  - Infinity ];
+  * // returns [ Infinity, Infinity, - Infinity, - Infinity ];
   * _.nil( [ 1, 1, 2, 2] );
   *
   * @example
-  * // returns [ Infinity, Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  * // returns [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
   * _.nil( 3 );
   *
   * @function nil
@@ -226,8 +226,8 @@ function nil( box )
     let min = _.box.cornerLeftGet( boxView );
     let max = _.box.cornerRightGet( boxView );
 
-    _.vectorAdapter.assign( min,  +Infinity );
-    _.vectorAdapter.assign( max,  -Infinity );
+    _.vectorAdapter.assign( min, +Infinity );
+    _.vectorAdapter.assign( max, -Infinity );
 
     return box;
   }
@@ -245,16 +245,16 @@ function nil( box )
   * @param { Number } size - Source size.
   *
   * @example
-  * // returns [ -0.5,  -0.5, 0.5, 0.5 ];
+  * // returns [ -0.5, -0.5, 0.5, 0.5 ];
   * _.centeredOfSize( [ 1, 1, 2, 2] );
   *
   * @example
-  * // returns [ - 1.5,  -1.5,  -1.5, 1.5, 1.5, 1.5 ];
+  * // returns [ - 1.5, -1.5, -1.5, 1.5, 1.5, 1.5 ];
   * _.centeredOfSize( 3 );
   *
   * @example
-  * // returns [ - 1.5,  -1.5, 1.5, 1.5 ];
-  * _.centeredOfSize( [ 1, 1, 2, 2],  3 );
+  * // returns [ - 1.5, -1.5, 1.5, 1.5 ];
+  * _.centeredOfSize( [ 1, 1, 2, 2], 3 );
   *
   * @returns { Array } Returns the created box.
   * @function centeredOfSize
@@ -279,7 +279,7 @@ function centeredOfSize( box, size )
   size = _.numbersSlice( size );
   size = _.avector.mulScalar( size, 0.5 );
   _.vectorAdapter.assign( max, size );
-  size = _.avector.mulScalar( size,  -1 );
+  size = _.avector.mulScalar( size, -1 );
   _.vectorAdapter.assign( min, size );
 
   return box;
@@ -309,16 +309,16 @@ function from( box )
 
   // if( _.objectIs( box ) )
   // {
-  //   _.assertMapHasFields( box,  { min : 'min' ,  max : 'max' } );
+  //   _.assertMapHasFields( box, { min : 'min' , max : 'max' } );
   //   debugger;
-  //   box = _.arrayAppendArrays( [],  [ box.min, box.max ] );
+  //   box = _.arrayAppendArrays( [], [ box.min, box.max ] );
   // }
   //
   // if( box === null || box === undefined )
   // box = this.make();
 
   _.assert( _.box.is( box ) || box === null );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   if( box === null )
   return _.box.make();
@@ -352,7 +352,7 @@ function from( box )
 function toAdapter( box )
 {
   _.assert( _.box.is( box ) );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return _.vectorAdapter.from( box );
 }
 
@@ -367,11 +367,11 @@ function toAdapter( box )
   *
   * @example
   * // returns [ 0, 0, 3, 3 ];
-  * _.fromPoints( null ,  [ [ 1, 3 ],  [ 0, 0 ],  [ 3, 1 ] ] );
+  * _.fromPoints( null , [ [ 1, 3 ], [ 0, 0 ], [ 3, 1 ] ] );
   *
   * @example
-  * // returns [ 0,  - 1, 2, 2 ];
-  * _.fromPoints( [ 0, 0, 1, 1 ],  [ [ 1, 2 ],  [ 0, 0 ],  [ 2,  - 1 ] ] );
+  * // returns [ 0, - 1, 2, 2 ];
+  * _.fromPoints( [ 0, 0, 1, 1 ], [ [ 1, 2 ], [ 0, 0 ], [ 2, - 1 ] ] );
   *
   * @returns { Array } Returns the array of the box expanded.
   * @function fromPoints
@@ -384,7 +384,7 @@ function toAdapter( box )
 function fromPoints( box, points )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.vectorAdapterIs( points ) || _.arrayIs( points ) || _.longIs( points ) );
 
   let dimp = points[0].length;
@@ -419,12 +419,12 @@ function fromPoints( box, points )
   * @param { Array } size - Array of reference with size dimensions.
   *
   * @example
-  * // returns [ - 1,  - 1, 3, 3 ];
-  * _.fromCenterAndSize( [ 0, 0, 1, 1 ],  [ 1, 1 ],  [ 4, 4 ] );
+  * // returns [ - 1, - 1, 3, 3 ];
+  * _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 4, 4 ] );
   *
   * @example
   * // returns [ 0, 0, 2, 2 ];
-  * _.fromCenterAndSize( [ 0, 0, 1, 1 ],  [ 1, 1 ],  [ 2, 2 ] );
+  * _.fromCenterAndSize( [ 0, 0, 1, 1 ], [ 1, 1 ], [ 2, 2 ] );
   *
   * @returns { Array } Returns the array of the box expanded.
   * @function fromCenterAndSize
@@ -436,7 +436,7 @@ function fromPoints( box, points )
   */
 function fromCenterAndSize( box, center, size )
 {
-  _.assert( arguments.length === 3,  'Expects exactly three arguments' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   if( box === null )
   box = _.box.make( center.length );
@@ -457,9 +457,9 @@ function fromCenterAndSize( box, center, size )
   debugger;
   //throw _.err( 'not tested' );
 
-  size_ = _.vectorAdapter.mulScalar( size_.clone() ,  0.5 );
-  _.vectorAdapter.subAssigning( min.copy( center_ ) ,  size_ );
-  _.vectorAdapter.addAssigning( max.copy( center_ ) ,  size_ );
+  size_ = _.vectorAdapter.mulScalar( size_.clone() , 0.5 );
+  _.vectorAdapter.subAssigning( min.copy( center_ ) , size_ );
+  _.vectorAdapter.addAssigning( max.copy( center_ ) , size_ );
 
   return box;
 }
@@ -476,12 +476,12 @@ function fromCenterAndSize( box, center, size )
   * @param { Array } sphere - sphere of reference with expansion dimensions.
   *
   * @example
-  * // returns [ - 1,  - 1, 2, 2 ];
-  * _.fromSphere( [ 0, 0, 1, 1 ],  [ 1, 1, 1 ] );
+  * // returns [ - 1, - 1, 2, 2 ];
+  * _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 1 ] );
   *
   * @example
-  * // returns [ - 2,  - 2, 3, 3 ];
-  * _.fromSphere( [ 0, 0, 1, 1 ],  [ 1, 1, 2 ] );
+  * // returns [ - 2, - 2, 3, 3 ];
+  * _.fromSphere( [ 0, 0, 1, 1 ], [ 1, 1, 2 ] );
   *
   * @returns { Array } Returns the array of the expanded box.
   * @function fromSphere
@@ -492,7 +492,7 @@ function fromCenterAndSize( box, center, size )
   */
 function fromSphere( box, sphere )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( sphere ) );
 
   let sphereView = _.sphere.toAdapter( sphere );
@@ -510,13 +510,13 @@ function fromSphere( box, sphere )
 
   debugger;
   //throw _.err( 'not tested' );
-  logger.log('Start',  boxView )
-  _.box.fromPoints( boxView,  [ center ] );
+  logger.log('Start', boxView )
+  _.box.fromPoints( boxView, [ center ] );
 
-  logger.log('fromcenter',  boxView )
+  logger.log('fromcenter', boxView )
   _.box.expand( boxView, radius );
 
-  logger.log('radius',  boxView )
+  logger.log('radius', boxView )
   return box;
 }
 
@@ -530,12 +530,12 @@ function fromSphere( box, sphere )
   * @param { Number } size - Cube size.
   *
   * @example
-  * // returns [ - 2,  - 2, 2, 2 ];
-  * _.fromCube( [ 0, 0, 1, 1 ],  [ 4, 4 ] );
+  * // returns [ - 2, - 2, 2, 2 ];
+  * _.fromCube( [ 0, 0, 1, 1 ], [ 4, 4 ] );
   *
   * @example
-  * // returns [ - 1,  - 1, 1, 1 ];
-  * _.fromCube( [ 3, 3, 5, 5 ],  [ 2, 2 ] );
+  * // returns [ - 1, - 1, 1, 1 ];
+  * _.fromCube( [ 3, 3, 5, 5 ], [ 2, 2 ] );
   *
   * @returns { Array } Returns the array of the new cube.
   * @function fromCube
@@ -557,11 +557,11 @@ function fromCube( box, size )
   let max = _.box.cornerRightGet( boxView );
   let dim = _.box.dimGet( boxView );
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.numberIs( size ) );
 
-  _.vectorAdapter.assignScalar( min,  -size/2 );
-  _.vectorAdapter.assignScalar( max,  +size/2 );
+  _.vectorAdapter.assignScalar( min, -size/2 );
+  _.vectorAdapter.assignScalar( max, +size/2 );
 
   return box;
 }
@@ -584,7 +584,7 @@ function fromCube( box, size )
   */
 function is( box )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   // _.assert( !box.some( isNaN ) );
   return ( _.longIs( box ) || _.vectorAdapterIs( box ) ) && ( box.length >= 0 ) && ( box.length % 2 === 0 );
 }
@@ -607,7 +607,7 @@ function is( box )
   */
 function isEmpty( box )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let boxView = _.box.toAdapter( box );
   let dim = _.box.dimGet( boxView );
@@ -643,7 +643,7 @@ function isEmpty( box )
 function isZero( box )
 {
 
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let boxView = _.box.toAdapter( box );
   let dim = _.box.dimGet( boxView );
@@ -675,7 +675,7 @@ function isZero( box )
   */
 function isNil( box )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let boxView = _.box.toAdapter( box );
   let dim = _.box.dimGet( boxView );
@@ -713,7 +713,7 @@ function isNil( box )
   */
 function dimGet( box )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.box.is( box ) );
   return box.length / 2;
 }
@@ -743,8 +743,8 @@ function dimGet( box )
 function cornerLeftGet( box )
 {
   let boxView = _.box.toAdapter( box );
-  _.assert( arguments.length === 1,  'Expects single argument' );
-  return boxView.review([ 0 ,  box.length / 2 - 1 ]);
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  return boxView.review([ 0 , box.length / 2 - 1 ]);
 }
 
 //
@@ -771,9 +771,9 @@ function cornerLeftGet( box )
   */
 function cornerRightGet( box )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let boxView = _.box.toAdapter( box );
-  return boxView.review([ box.length / 2 ,  box.length - 1 ]);
+  return boxView.review([ box.length / 2 , box.length - 1 ]);
 }
 
 //
@@ -786,7 +786,7 @@ function cornerRightGet( box )
   *
   * @example
   * // returns [ 0, 1 ]
-  * _.centerGet( [ 0, 0, 2, 2 ] ,  [ 5, 0 ]);
+  * _.centerGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
   *
   * @example
   * // returns [ 0.5 ]
@@ -799,7 +799,7 @@ function cornerRightGet( box )
   * @throws { Error } An Error if ( dst ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function centerGet( box ,  dst )
+function centerGet( box , dst )
 {
 
   let boxView = _.box.toAdapter( box );
@@ -818,7 +818,7 @@ function centerGet( box ,  dst )
   // debugger;
   // throw _.err( 'not tested' );
 
-  _.vectorAdapter.addAssigning( dstv.copy( min ),  max ).mulScalar( 0.5 );
+  _.vectorAdapter.addAssigning( dstv.copy( min ), max ).mulScalar( 0.5 );
 
   // debugger;
   return dst;
@@ -835,7 +835,7 @@ function centerGet( box ,  dst )
   *
   * @example
   * // returns [ 2, 2 ]
-  * _.sizeGet( [ 0, 0, 2, 2 ] ,  [ 5, 0 ]);
+  * _.sizeGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
   *
   * @example
   * // returns [ 1 ]
@@ -848,7 +848,7 @@ function centerGet( box ,  dst )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function sizeGet( box ,  dst )
+function sizeGet( box , dst )
 {
   _.assert( arguments.length === 1 || arguments.length === 2 );
 
@@ -863,7 +863,7 @@ function sizeGet( box ,  dst )
 
   _.assert( dim === dst.length );
 
-  _.vectorAdapter.subVectors( dstv.copy( max ),  min );
+  _.vectorAdapter.subVectors( dstv.copy( max ), min );
 
   return dst;
 }
@@ -910,18 +910,18 @@ function cornersGet( box )
     {
       if( i < cols/2 )
       {
-        corners.atomSet( [ j, i ],  min.eGet( j ) );
+        corners.atomSet( [ j, i ], min.eGet( j ) );
         if( 0 < i && i < cols/2 )
         {
-          corners.atomSet( [ i - 1, i ],  max.eGet( i - 1 ) );
+          corners.atomSet( [ i - 1, i ], max.eGet( i - 1 ) );
         }
       }
       else if( i >= cols/2 )
       {
-        corners.atomSet( [ j, i ],  max.eGet( j ) );
+        corners.atomSet( [ j, i ], max.eGet( j ) );
         if( cols/2 <= i && i < cols - 1 )
         {
-          corners.atomSet( [ i - ( cols/2 ),  i ],  min.eGet( i - ( cols/2 ) ) );
+          corners.atomSet( [ i - ( cols/2 ), i ], min.eGet( i - ( cols/2 ) ) );
         }
       }
 
@@ -943,12 +943,12 @@ function cornersGet( box )
   * @param { Array } expand - Array of reference with expansion dimensions.
   *
   * @example
-  * // returns [ - 1,  - 3, 4, 6 ];
-  * _.expand( [ 0, 0, 2, 2 ],  [ 1, 3 ] );
+  * // returns [ - 1, - 3, 4, 6 ];
+  * _.expand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
   *
   * @example
-  * // returns [ - 1,  - 2, 2, 4 ];
-  * _.expand( [ 0, 0, 2, 2 ],  [ 1, 2 ] );
+  * // returns [ - 1, - 2, 2, 4 ];
+  * _.expand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
   *
   * @returns { Array } Returns the array of the box expanded.
   * @function expand
@@ -958,7 +958,7 @@ function cornersGet( box )
   * @throws { Error } An Error if ( expand ) is not an array.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function expand( box ,  expand )
+function expand( box , expand )
 {
 
   if( box === null )
@@ -973,13 +973,13 @@ function expand( box ,  expand )
   expand = _.vectorAdapter.fromMaybeNumber( expand, dim );
 
   _.assert( dim === expand.length );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   debugger;
   //throw _.err( 'not tested' );
 
-  _.vectorAdapter.subAssigning( min ,  expand );
-  _.vectorAdapter.addAssigning( max ,  expand );
+  _.vectorAdapter.subAssigning( min , expand );
+  _.vectorAdapter.addAssigning( max , expand );
 
   return box;
 }
@@ -994,11 +994,11 @@ function expand( box ,  expand )
   *
   * @example
   * // returns true
-  * _.pointContains( [ 0, 0, 2, 2 ],  [ 1, 1 ] );
+  * _.pointContains( [ 0, 0, 2, 2 ], [ 1, 1 ] );
   *
   * @example
   * // returns false
-  * _.pointContains( [ 0, 0, 2, 2 ],  [ - 1, 3 ] );
+  * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
   *
   * @returns { Boolen } Returns true if the point is inside the box, and false if the point is outside it.
   * @function pointContains
@@ -1008,7 +1008,7 @@ function expand( box ,  expand )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function pointContains( box ,  point )
+function pointContains( box , point )
 {
 
   if( box === null )
@@ -1021,12 +1021,12 @@ function pointContains( box ,  point )
   let pointView = _.vectorAdapter.from( point );
 
   _.assert( dim === pointView.length );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  if( _.vectorAdapter.anyLess( pointView ,  min ) )
+  if( _.vectorAdapter.anyLess( pointView , min ) )
   return false;
 
-  if( _.vectorAdapter.anyGreater( pointView ,  max ) )
+  if( _.vectorAdapter.anyGreater( pointView , max ) )
   return false;
 
   return true;
@@ -1043,11 +1043,11 @@ function pointContains( box ,  point )
   *
   * @example
   * // returns 1;
-  * _.pointDistance( [ 0, 0, 2, 2 ],  [ 0, 3 ] );
+  * _.pointDistance( [ 0, 0, 2, 2 ], [ 0, 3 ] );
   *
   * @example
   * // returns 0;
-  * _.pointDistance( [ 0, 0, 2, 2 ],  [ 1, 1 ] );
+  * _.pointDistance( [ 0, 0, 2, 2 ], [ 1, 1 ] );
   *
   * @returns { Number } Returns the distance between the point and the nearest point in the box.
   * @function pointDistance
@@ -1057,13 +1057,13 @@ function pointContains( box ,  point )
   * @throws { Error } An Error if ( point ) is not point
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function pointDistance( box ,  point )
+function pointDistance( box , point )
 {
 
   if( box === null )
   box = _.box.make();
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   debugger;
   //  throw _.err( 'not tested' );
@@ -1085,11 +1085,11 @@ function pointDistance( box ,  point )
   *
   * @example
   * // returns [ 0, 2 ]
-  * _.pointClosestPoint( [ 0, 0, 2, 2 ],  [ 0, 3 ] );
+  * _.pointClosestPoint( [ 0, 0, 2, 2 ], [ 0, 3 ] );
   *
   * @example
   * // returns [ 0, 1 ]
-  * _.pointClosestPoint( [ 0, 0, 2, 2 ],  [ 0, 1 ] );
+  * _.pointClosestPoint( [ 0, 0, 2, 2 ], [ 0, 1 ] );
   *
   * @returns { Array } Returns an array with the coordinates of the clamped point.
   * @function pointClosestPoint
@@ -1100,13 +1100,13 @@ function pointDistance( box ,  point )
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function pointClosestPoint( box ,  point, dstPoint )
+function pointClosestPoint( box , point, dstPoint )
 {
 
   if( box === null )
   box = _.box.make();
 
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = point.slice();
@@ -1147,11 +1147,11 @@ function pointClosestPoint( box ,  point, dstPoint )
   *
   * @example
   * // returns [ 0, 0, 3, 3 ];
-  * _.pointExpand( [ 0, 0, 2, 2 ],  [ 1, 3 ] );
+  * _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 3 ] );
   *
   * @example
   * // returns [ 0, 0, 2, 2 ];
-  * _.pointExpand( [ 0, 0, 2, 2 ],  [ 1, 2 ] );
+  * _.pointExpand( [ 0, 0, 2, 2 ], [ 1, 2 ] );
   *
   * @returns { Array } Returns the array of the box expanded.
   * @function pointExpand
@@ -1161,7 +1161,7 @@ function pointClosestPoint( box ,  point, dstPoint )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function pointExpand( dstBox ,  point )
+function pointExpand( dstBox , point )
 {
 
   if( dstBox === null )
@@ -1176,10 +1176,10 @@ function pointExpand( dstBox ,  point )
   let pointView = _.vectorAdapter.from( point );
 
   _.assert( dim === pointView.length );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  _.vectorAdapter.minVectors( min ,  pointView );
-  _.vectorAdapter.maxVectors( max ,  pointView );
+  _.vectorAdapter.minVectors( min , pointView );
+  _.vectorAdapter.maxVectors( max , pointView );
 
   return dstBox;
 }
@@ -1195,11 +1195,11 @@ function pointExpand( dstBox ,  point )
   *
   * @example
   * // returns [ 0.5, 1 ]
-  * _.pointRelative( [ 0, 0, 2, 2 ],  [ 1, 2 ] );
+  * _.pointRelative( [ 0, 0, 2, 2 ], [ 1, 2 ] );
   *
   * @example
   * // returns [ - 1.5, 2 ]
-  * _.pointRelative( [ 0, 0, 2, 2 ],  [ - 3, 4 ] );
+  * _.pointRelative( [ 0, 0, 2, 2 ], [ - 3, 4 ] );
   *
   * @returns { Array } Returns the relative coordinates of the point against the box coordinates.
   * @function pointRelative
@@ -1209,9 +1209,9 @@ function pointExpand( dstBox ,  point )
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function pointRelative( box ,  point, dstPoint )
+function pointRelative( box , point, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   if( box === null )
   box = _.box.make();
@@ -1235,7 +1235,7 @@ function pointRelative( box ,  point, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  _.vectorAdapter.divAssigning( _.vectorAdapter.subAssigning( dstPointView ,  min ) ,  _.vectorAdapter.subAssigning( max.clone() ,  min ) );
+  _.vectorAdapter.divAssigning( _.vectorAdapter.subAssigning( dstPointView , min ) , _.vectorAdapter.subAssigning( max.clone() , min ) );
 
   return dstPoint;
 }
@@ -1251,11 +1251,11 @@ function pointRelative( box ,  point, dstPoint )
   *
   * @example
   * // returns true
-  * _.boxContains( [ 0, 0, 2, 2 ],  [ 0.5, 0.5, 1, 1 ] );
+  * _.boxContains( [ 0, 0, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
   *
   * @example
   * // returns false
-  * _.boxContains( [ 0, 0, 2, 2 ],  [ 0, 0, 1, 2.5 ] );
+  * _.boxContains( [ 0, 0, 2, 2 ], [ 0, 0, 1, 2.5 ] );
   *
   * @returns { Boolean } Returns true if the box is contained and false if not.
   * @function boxContains
@@ -1264,7 +1264,7 @@ function pointRelative( box ,  point, dstPoint )
   * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function boxContains( box ,  box2 )
+function boxContains( box , box2 )
 {
 
   let boxView = _.box.toAdapter( box2 );
@@ -1272,7 +1272,7 @@ function boxContains( box ,  box2 )
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dim === _.box.dimGet( box ) );
 
   if( !_.box.pointContains( box, min ) )
@@ -1295,11 +1295,11 @@ function boxContains( box ,  box2 )
   *
   * @example
   * // returns true
-  * _.boxIntersects( [ 0, 0, 2, 2 ],  [ 1, 1, 3, 3 ] );
+  * _.boxIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
   *
   * @example
   * // returns false
-  * _.boxIntersects( [ 0, 0, 2, 2 ],  [ 3, 3, 4, 4 ] );
+  * _.boxIntersects( [ 0, 0, 2, 2 ], [ 3, 3, 4, 4 ] );
   *
   * @returns { Boolean } Returns true if the boxes intersect and false if not.
   * @function boxIntersects
@@ -1307,7 +1307,7 @@ function boxContains( box ,  box2 )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function boxIntersects( srcBox ,  tstBox )
+function boxIntersects( srcBox , tstBox )
 {
   let srcBoxView = _.box.toAdapter( srcBox );
   let srcDim = _.box.dimGet( srcBoxView );
@@ -1319,7 +1319,7 @@ function boxIntersects( srcBox ,  tstBox )
   let tstMin = _.box.cornerLeftGet( tstBoxView );
   let tstMax = _.box.cornerRightGet( tstBoxView );
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( tstDim === srcDim );
 
   debugger;
@@ -1360,11 +1360,11 @@ function boxIntersects( srcBox ,  tstBox )
   *
   * @example
   * // returns 0
-  * _.boxDistance( [ 0, 0, 2, 2 ],  [ 1, 1, 3, 3 ] );
+  * _.boxDistance( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
   *
   * @example
   * // returns 1
-  * _.boxDistance( [ 0, 0, 2, 2 ],  [ 0, 3, 2, 4 ] );
+  * _.boxDistance( [ 0, 0, 2, 2 ], [ 0, 3, 2, 4 ] );
   *
   * @returns { Number } Returns the distance between the two boxes.
   * @function boxDistance
@@ -1372,7 +1372,7 @@ function boxIntersects( srcBox ,  tstBox )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function boxDistance( srcBox ,  tstBox )
+function boxDistance( srcBox , tstBox )
 {
 
   let srcBoxView = _.box.toAdapter( srcBox );
@@ -1385,7 +1385,7 @@ function boxDistance( srcBox ,  tstBox )
   let tstMin = _.box.cornerLeftGet( tstBoxView );
   let tstMax = _.box.cornerRightGet( tstBoxView );
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( tstDim === srcDim );
 
   debugger;
@@ -1417,7 +1417,7 @@ function boxDistance( srcBox ,  tstBox )
 
   }
 
-  if( boxIntersects( srcBox ,  tstBox ) === true )
+  if( boxIntersects( srcBox , tstBox ) === true )
     return 0;
   else
     return distance;
@@ -1435,11 +1435,11 @@ function boxDistance( srcBox ,  tstBox )
   *
   * @example
   * // returns 0
-  * _.boxClosestPoint( [ 0, 0, 2, 2 ],  [ 1, 1, 3, 3 ] );
+  * _.boxClosestPoint( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
   *
   * @example
   * // returns [ 3, 3 ]
-  * _.boxClosestPoint( [ 0, 0, 2, 2 ],  [ 3, 3, 4, 4 ] );
+  * _.boxClosestPoint( [ 0, 0, 2, 2 ], [ 3, 3, 4, 4 ] );
   *
   * @returns { Array } Returns the coordinates of the closest point.
   * @function boxClosestPoint
@@ -1448,7 +1448,7 @@ function boxDistance( srcBox ,  tstBox )
   * @memberof module:Tools/math/Concepts.wTools.box
   */
 
-function boxClosestPoint( srcBox ,  tstBox, dstPoint )
+function boxClosestPoint( srcBox , tstBox, dstPoint )
 {
 
   let srcBoxView = _.box.toAdapter( srcBox );
@@ -1461,7 +1461,7 @@ function boxClosestPoint( srcBox ,  tstBox, dstPoint )
   let tstMin = _.box.cornerLeftGet( tstBoxView );
   let tstMax = _.box.cornerRightGet( tstBoxView );
 
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( tstDim === srcDim );
 
   if( arguments.length === 2 )
@@ -1477,7 +1477,7 @@ function boxClosestPoint( srcBox ,  tstBox, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  if( boxIntersects( srcBox ,  tstBox ) === true )
+  if( boxIntersects( srcBox , tstBox ) === true )
     return 0;
   else{
 
@@ -1529,11 +1529,11 @@ function boxClosestPoint( srcBox ,  tstBox, dstPoint )
   *
   * @example
   * // returns [ 0, 0, 3, 3 ];
-  * _.boxExpand( [ 0, 0, 2, 2 ],  [ 1, 1, 3, 3 ] );
+  * _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 1, 3, 3 ] );
   *
   * @example
   * // returns [ 0, 0, 2, 2 ];
-  * _.boxExpand( [ 0, 0, 2, 2 ],  [ 1, 1, 2, 2 ] );
+  * _.boxExpand( [ 0, 0, 2, 2 ], [ 1, 1, 2, 2 ] );
   *
   * @returns { Array } Returns the array of the expanded box, that contains new element ( src box ).
   * @function boxExpand
@@ -1542,9 +1542,9 @@ function boxClosestPoint( srcBox ,  tstBox, dstPoint )
   * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function boxExpand( dstBox ,  srcBox )
+function boxExpand( dstBox , srcBox )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let _dstBox = _.box.toAdapter( dstBox );
   let dim1 = _.box.dimGet( _dstBox );
@@ -1559,17 +1559,17 @@ function boxExpand( dstBox ,  srcBox )
 
   _.assert( dim1 === dim2 );
 
-  _.vectorAdapter.minVectors( min1 ,  min2 );
-  _.vectorAdapter.maxVectors( max1 ,  max2 );
+  _.vectorAdapter.minVectors( min1 , min2 );
+  _.vectorAdapter.maxVectors( max1 , max2 );
 
   return dstBox;
 }
 
 //
 
-function capsuleIntersects( srcBox ,  tstCapsule )
+function capsuleIntersects( srcBox , tstCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
   let boxView = _.box.toAdapter( srcBox );
 
@@ -1579,9 +1579,9 @@ function capsuleIntersects( srcBox ,  tstCapsule )
 
 //
 
-function capsuleDistance( srcBox ,  tstCapsule )
+function capsuleDistance( srcBox , tstCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
   let boxView = _.box.toAdapter( srcBox );
 
@@ -1602,12 +1602,12 @@ function capsuleDistance( srcBox ,  tstCapsule )
   *
   * @example
   * // returns 0
-  * let capsule = [ 0, 0, 0,  - 1,  - 1,  - 1, 1 ]
-  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  capsule );
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ], capsule );
   *
   * @example
   * // returns [ 2, 2, 2 ]
-  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ],  capsule );
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ], capsule );
   *
   * @returns { Array } Returns the closest point to the capsule.
   * @function capsuleClosestPoint
@@ -1619,7 +1619,7 @@ function capsuleDistance( srcBox ,  tstCapsule )
   */
 function capsuleClosestPoint( box, capsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box.toAdapter( box );
   let dimB = _.box.dimGet( boxView );
@@ -1671,16 +1671,16 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   * // returns true
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
-  * _.frustumContains( [ 0, 0, 0, 2, 2, 2 ],  frustum );
+  * _.frustumContains( [ 0, 0, 0, 2, 2, 2 ], frustum );
   *
   * @example
   * // returns false
-  * _.frustumContains( [ 2, 2, 2, 3, 3, 3 ],  frustum );
+  * _.frustumContains( [ 2, 2, 2, 3, 3, 3 ], frustum );
   *
   * @returns { Boolean } Returns true if the frustum is contained and false if not.
   * @function frustumContains
@@ -1691,7 +1691,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   */
 function frustumContains( box, frustum )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   let boxView = _.box.toAdapter( box );
   let dim = _.box.dimGet( boxView );
@@ -1726,16 +1726,16 @@ function frustumContains( box, frustum )
   * // returns true
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
-  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ],  frustum );
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ], frustum );
   *
   * @example
   * // returns false
-  * _.frustumIntersects( [ 2, 2, 2, 3, 3, 3 ],  frustum );
+  * _.frustumIntersects( [ 2, 2, 2, 3, 3, 3 ], frustum );
   *
   * @returns { Boolean } Returns true if the frustum and the box intersect.
   * @function frustumIntersects
@@ -1746,7 +1746,7 @@ function frustumContains( box, frustum )
   */
 function frustumIntersects( box, frustum )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
   let boxView = _.box.toAdapter( box );
 
@@ -1767,16 +1767,16 @@ function frustumIntersects( box, frustum )
   * // returns 0
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
-  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ],  frustum );
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ], frustum );
   *
   * @example
   * // returns 1
-  * _.frustumDistance( [ 2, 2, 2, 3, 3, 3 ],  frustum );
+  * _.frustumDistance( [ 2, 2, 2, 3, 3, 3 ], frustum );
   *
   * @returns { Number } Returns the distance between the box and the point.
   * @function frustumDistance
@@ -1788,7 +1788,7 @@ function frustumIntersects( box, frustum )
 function frustumDistance( box, frustum )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( frustum ) );
 
   let boxView = _.box.toAdapter( box );
@@ -1835,16 +1835,16 @@ function frustumDistance( box, frustum )
   * // returns 0
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
-  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  frustum );
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ], frustum );
   *
   * @example
   * // returns [ 2, 2, 2 ]
-  * _.frustumClosestPoint [ 2, 2, 2, 3, 3, 3 ],  frustum );
+  * _.frustumClosestPoint [ 2, 2, 2, 3, 3, 3 ], frustum );
   *
   * @returns { Array } Returns the closest point to the frustum.
   * @function frustumClosestPoint
@@ -1872,7 +1872,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
 
   let dstPointView = _.vectorAdapter.from( dstPoint );
 
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( dimB === 3 );
   _.assert( dimB === dstPoint.length );
 
@@ -1921,16 +1921,16 @@ function frustumClosestPoint( box, frustum, dstPoint )
   * // returns [ 0, 0, 0, 2, 2, 2 ]
   * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1 ]
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
   * );
-  * _.frustumExpand( [ 0, 0, 0, 2, 2, 2 ],  frustum );
+  * _.frustumExpand( [ 0, 0, 0, 2, 2, 2 ], frustum );
   *
   * @example
   * // returns [ 0, 0, 0, 3, 3, 3 ]
-  * _.frustumExpand( [ 2, 2, 2, 3, 3, 3 ],  frustum );
+  * _.frustumExpand( [ 2, 2, 2, 3, 3, 3 ], frustum );
   *
   * @returns { Array } Returns the expanded box.
   * @function frustumExpand
@@ -1942,7 +1942,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
 function frustumExpand( dstBox, srcFrustum )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let boxView = _.box.toAdapter( dstBox );
@@ -1967,9 +1967,9 @@ function frustumExpand( dstBox, srcFrustum )
 
 //
 
-function lineIntersects( srcBox ,  tstLine )
+function lineIntersects( srcBox , tstLine )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstLineView = _.line.toAdapter( tstLine );
   let boxView = _.box.toAdapter( srcBox );
 
@@ -1979,9 +1979,9 @@ function lineIntersects( srcBox ,  tstLine )
 
 //
 
-function lineDistance( srcBox ,  tstLine )
+function lineDistance( srcBox , tstLine )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstLineView = _.line.toAdapter( tstLine );
   let boxView = _.box.toAdapter( srcBox );
 
@@ -2002,12 +2002,12 @@ function lineDistance( srcBox ,  tstLine )
   *
   * @example
   * // returns 0
-  * let line = [ 0, 0, 0,  - 1,  - 1,  - 1 ]
-  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  line );
+  * let line = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ], line );
   *
   * @example
   * // returns [ 2, 2, 2 ]
-  * _.lineClosestPoint( [ 2, 2, 2, 3, 3, 3 ],  line );
+  * _.lineClosestPoint( [ 2, 2, 2, 3, 3, 3 ], line );
   *
   * @returns { Array } Returns the closest point to the line.
   * @function lineClosestPoint
@@ -2019,7 +2019,7 @@ function lineDistance( srcBox ,  tstLine )
   */
 function lineClosestPoint( box, line, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box.toAdapter( box );
   let dimB = _.box.dimGet( boxView );
@@ -2062,9 +2062,9 @@ function lineClosestPoint( box, line, dstPoint )
 
 //
 
-function rayIntersects( srcBox ,  tstRay )
+function rayIntersects( srcBox , tstRay )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstRayView = _.ray.toAdapter( tstRay );
   let boxView = _.box.toAdapter( srcBox );
 
@@ -2075,9 +2075,9 @@ function rayIntersects( srcBox ,  tstRay )
 
 //
 
-function rayDistance( srcBox ,  tstRay )
+function rayDistance( srcBox , tstRay )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstRayView = _.ray.toAdapter( tstRay );
   let boxView = _.box.toAdapter( srcBox );
 
@@ -2098,12 +2098,12 @@ function rayDistance( srcBox ,  tstRay )
   *
   * @example
   * // returns 0
-  * let ray = [ 0, 0, 0,  - 1,  - 1,  - 1 ]
-  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  ray );
+  * let ray = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ], ray );
   *
   * @example
   * // returns [ 2, 2, 2 ]
-  * _.rayClosestPoint( [ 2, 2, 2, 3, 3, 3 ],  ray );
+  * _.rayClosestPoint( [ 2, 2, 2, 3, 3, 3 ], ray );
   *
   * @returns { Array } Returns the closest point to the ray.
   * @function rayClosestPoint
@@ -2115,7 +2115,7 @@ function rayDistance( srcBox ,  tstRay )
   */
 function rayClosestPoint( box, ray, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box.toAdapter( box );
   let dimB = _.box.dimGet( boxView );
@@ -2167,11 +2167,11 @@ function rayClosestPoint( box, ray, dstPoint )
   *
   * @example
   * // returns true
-  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ],  [ 1, 0, 0,  -1 ] );
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, -1 ] );
   *
   * @example
   * // returns false
-  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ],  [ 1, 0, 0, 1 ] );
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 1 ] );
   *
   * @returns { Boolean } Returns true if the plane and the box intersect.
   * @function planeIntersects
@@ -2181,9 +2181,9 @@ function rayClosestPoint( box, ray, dstPoint )
   * @throws { Error } An Error if ( tstPlane ) is not plane
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function planeIntersects( srcBox ,  tstPlane )
+function planeIntersects( srcBox , tstPlane )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let _tstPlane = _.plane.toAdapter( tstPlane );
   let boxView = _.box.toAdapter( srcBox );
 
@@ -2203,11 +2203,11 @@ function planeIntersects( srcBox ,  tstPlane )
   *
   * @example
   * // returns 0;
-  * _.planeDistance( [ 1, 0, 0, 1 ] ,  [ -1, 2, 2,  -1, 2, 8 ]);
+  * _.planeDistance( [ 1, 0, 0, 1 ] , [ -1, 2, 2, -1, 2, 8 ]);
   *
   * @example
   * // returns 3;
-  * _.planeDistance( [ 0, 1, 0, 1 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
+  * _.planeDistance( [ 0, 1, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the distance between the plane and the box.
   * @function planeDistance
@@ -2219,7 +2219,7 @@ function planeIntersects( srcBox ,  tstPlane )
   */
 function planeDistance( srcBox, plane )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let boxView = _.box.toAdapter( srcBox );
   let dimB = _.box.dimGet( boxView );
@@ -2266,11 +2266,11 @@ function planeDistance( srcBox, plane )
   *
   * @example
   * // returns [ 0, 2 ]
-  * _.planeClosestPoint( [ 0, 0, 2, 2 ],  [ 0, 3 ] );
+  * _.planeClosestPoint( [ 0, 0, 2, 2 ], [ 0, 3 ] );
   *
   * @example
   * // returns [ 0, 1 ]
-  * _.planeClosestPoint( [ 0, 0, 2, 2 ],  [ 0, 1 ] );
+  * _.planeClosestPoint( [ 0, 0, 2, 2 ], [ 0, 1 ] );
   *
   * @returns { Array } Returns an array with the coordinates of the closest point.
   * @function planeClosestPoint
@@ -2283,7 +2283,7 @@ function planeDistance( srcBox, plane )
   */
 function planeClosestPoint( srcBox, plane, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box.toAdapter( srcBox );
   let dimB = _.box.dimGet( boxView );
@@ -2345,12 +2345,12 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   * @param { Array } srcPlane - The source plane.
   *
   * @example
-  * // returns [ -1,  -1,  -1, 2, 2, 2 ]
-  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ],  [ 1, 0, 0, 1 ] );
+  * // returns [ -1, -1, -1, 2, 2, 2 ]
+  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 1 ] );
   *
   * @example
   * // returns [ 0, 0, 0, 2, 2, 2 ]
-  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ],  [ 1, 0, 0, 0 ] );
+  * _.planeExpand( [ 0, 0, 0, 2, 2, 2 ], [ 1, 0, 0, 0 ] );
   *
   * @returns { Array } Returns an array with the coordinates of the expanded box.
   * @function planeExpand
@@ -2362,7 +2362,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   */
 function planeExpand( dstBox, srcPlane )
 {
-  _.assert( arguments.length === 2,  'Expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
 
   let boxView = _.box.toAdapter( dstBox );
   let dimB = _.box.dimGet( boxView );
@@ -2393,9 +2393,9 @@ function planeExpand( dstBox, srcPlane )
 
 //
 
-function segmentIntersects( srcBox ,  tstSegment )
+function segmentIntersects( srcBox , tstSegment )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstSegmentView = _.segment.toAdapter( tstSegment );
   let boxView = _.box.toAdapter( srcBox );
 
@@ -2405,9 +2405,9 @@ function segmentIntersects( srcBox ,  tstSegment )
 
 //
 
-function segmentDistance( srcBox ,  tstSegment )
+function segmentDistance( srcBox , tstSegment )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstSegmentView = _.segment.toAdapter( tstSegment );
   let boxView = _.box.toAdapter( srcBox );
 
@@ -2428,12 +2428,12 @@ function segmentDistance( srcBox ,  tstSegment )
   *
   * @example
   * // returns 0
-  * let segment = [ 0, 0, 0,  - 1,  - 1,  - 1 ]
-  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  segment );
+  * let segment = [ 0, 0, 0, - 1, - 1, - 1 ]
+  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2 ], segment );
   *
   * @example
   * // returns [ 2, 2, 2 ]
-  * _.segmentClosestPoint( [ 2, 2, 2, 3, 3, 3 ],  segment );
+  * _.segmentClosestPoint( [ 2, 2, 2, 3, 3, 3 ], segment );
   *
   * @returns { Array } Returns the closest point to the segment.
   * @function segmentClosestPoint
@@ -2445,7 +2445,7 @@ function segmentDistance( srcBox ,  tstSegment )
   */
 function segmentClosestPoint( box, segment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let boxView = _.box.toAdapter( box );
   let dimB = _.box.dimGet( boxView );
@@ -2497,11 +2497,11 @@ function segmentClosestPoint( box, segment, dstPoint )
   *
   * @example
   * // returns true
-  * _.sphereContains( [ 0, 0, 0, 2, 2, 2 ],  [ 1, 1, 1, 1 ] );
+  * _.sphereContains( [ 0, 0, 0, 2, 2, 2 ], [ 1, 1, 1, 1 ] );
   *
   * @example
   * // returns false
-  * _.sphereContains( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 1, 2.5 ] );
+  * _.sphereContains( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 1, 2.5 ] );
   *
   * @returns { Boolean } Returns true if the sphere is contained and false if not.
   * @function sphereContains
@@ -2512,7 +2512,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   * @memberof module:Tools/math/Concepts.wTools.box
   */
 
-function sphereContains( srcBox ,  tstSphere )
+function sphereContains( srcBox , tstSphere )
 {
   let _tstSphere = _.sphere.toAdapter( tstSphere );
   let center = _.sphere.centerGet( _tstSphere );
@@ -2522,7 +2522,7 @@ function sphereContains( srcBox ,  tstSphere )
   let boxView = _.box.toAdapter( srcBox );
   let dimB = _.box.dimGet( boxView );
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dimS === dimB );
 
   let pointp = _.vectorAdapter.from( center.slice() );
@@ -2553,11 +2553,11 @@ function sphereContains( srcBox ,  tstSphere )
   *
   * @example
   * // returns true
-  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ],  [ 0.5, 0.5, 1, 1 ] );
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
   *
   * @example
   * // returns false
-  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ],  [ 4, 4, 4, 1 ] );
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 4, 4, 4, 1 ] );
   *
   * @returns { Boolean } Returns true if the sphere and the box intersect.
   * @function sphereIntersects
@@ -2567,11 +2567,11 @@ function sphereContains( srcBox ,  tstSphere )
   * @throws { Error } An Error if ( tstSphere ) is not sphere
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function sphereIntersects( srcBox ,  tstSphere )
+function sphereIntersects( srcBox , tstSphere )
 {
   let _tstSphere = _.sphere.toAdapter( tstSphere );
   let boxView = _.box.toAdapter( srcBox );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let gotBool = _.sphere.boxIntersects( _tstSphere, boxView );
 
@@ -2589,11 +2589,11 @@ function sphereIntersects( srcBox ,  tstSphere )
   *
   * @example
   * // returns 0
-  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ],  [ 0.5, 0.5, 1, 1 ] );
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
   *
   * @example
   * // returns 1
-  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 4, 1 ] );
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 4, 1 ] );
   *
   * @returns { Number } Returns the distance between the box and the sphere.
   * @function sphereDistance
@@ -2603,7 +2603,7 @@ function sphereIntersects( srcBox ,  tstSphere )
   * @throws { Error } An Error if ( tstSphere ) is not sphere
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function sphereDistance( srcBox ,  tstSphere )
+function sphereDistance( srcBox , tstSphere )
 {
   let _tstSphere = _.sphere.toAdapter( tstSphere );
   let center = _.sphere.centerGet( _tstSphere );
@@ -2613,7 +2613,7 @@ function sphereDistance( srcBox ,  tstSphere )
   let boxView = _.box.toAdapter( srcBox );
   let dimB = _.box.dimGet( boxView );
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dimS === dimB );
 
   let distance = 0;
@@ -2637,11 +2637,11 @@ function sphereDistance( srcBox ,  tstSphere )
   *
   * @example
   * // returns 0
-  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  [ 0.5, 0.5, 1, 1 ] );
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0.5, 0.5, 1, 1 ] );
   *
   * @example
   * // returns [ 0, 0, 2 ]
-  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 4, 1 ] );
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 4, 1 ] );
   *
   * @returns { Array } Returns the closest point in the box to the sphere.
   * @function sphereClosestPoint
@@ -2652,7 +2652,7 @@ function sphereDistance( srcBox ,  tstSphere )
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function sphereClosestPoint( srcBox ,  tstSphere, dstPoint )
+function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 {
 
   let _tstSphere = _.sphere.toAdapter( tstSphere );
@@ -2671,7 +2671,7 @@ function sphereClosestPoint( srcBox ,  tstSphere, dstPoint )
 
   let dstPointView = _.vectorAdapter.from( dstPoint );
 
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( dimS === dimB );
   _.assert( dimS === dstPoint.length );
 
@@ -2700,8 +2700,8 @@ function sphereClosestPoint( srcBox ,  tstSphere, dstPoint )
   * @param { Array } srcSphere - source sphere with expansion dimensions.
   *
   * @example
-  * // returns [ -2,  -2,  -2, 3, 3, 3 ];
-  * _.sphereExpand( [ 1, 1, 1, 3, 3, 3 ],  [ 0, 0, 0, 2 ] );
+  * // returns [ -2, -2, -2, 3, 3, 3 ];
+  * _.sphereExpand( [ 1, 1, 1, 3, 3, 3 ], [ 0, 0, 0, 2 ] );
   *
   * @returns { Array } Returns the array of the expanded box, that contains new element ( src sphere ).
   * @function sphereExpand
@@ -2711,9 +2711,9 @@ function sphereClosestPoint( srcBox ,  tstSphere, dstPoint )
   * @throws { Error } An Error if ( srcSphere ) is not sphere
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function sphereExpand( dstBox ,  srcSphere )
+function sphereExpand( dstBox , srcSphere )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let _dstBox = _.box.toAdapter( dstBox );
   let dimB = _.box.dimGet( _dstBox );
@@ -2731,12 +2731,12 @@ function sphereExpand( dstBox ,  srcSphere )
   /* Sphere limits */
 
   let c1 = _.Matrix.makeZero( [ 3, 6 ] );
-  c1.colVectorGet( 0 ).copy( [ center.eGet( 0 ) + radius, center.eGet( 1 ),  center.eGet( 2 ) ] );
-  c1.colVectorGet( 1 ).copy( [ center.eGet( 0 ) - radius, center.eGet( 1 ),  center.eGet( 2 ) ] );
-  c1.colVectorGet( 2 ).copy( [ center.eGet( 0 ),  center.eGet( 1 ) + radius, center.eGet( 2 ) ] );
-  c1.colVectorGet( 3 ).copy( [ center.eGet( 0 ),  center.eGet( 1 ) - radius, center.eGet( 2 ) ] );
-  c1.colVectorGet( 4 ).copy( [ center.eGet( 0 ),  center.eGet( 1 ),  center.eGet( 2 ) + radius ] );
-  c1.colVectorGet( 5 ).copy( [ center.eGet( 0 ),  center.eGet( 1 ),  center.eGet( 2 ) - radius ] );
+  c1.colVectorGet( 0 ).copy( [ center.eGet( 0 ) + radius, center.eGet( 1 ), center.eGet( 2 ) ] );
+  c1.colVectorGet( 1 ).copy( [ center.eGet( 0 ) - radius, center.eGet( 1 ), center.eGet( 2 ) ] );
+  c1.colVectorGet( 2 ).copy( [ center.eGet( 0 ), center.eGet( 1 ) + radius, center.eGet( 2 ) ] );
+  c1.colVectorGet( 3 ).copy( [ center.eGet( 0 ), center.eGet( 1 ) - radius, center.eGet( 2 ) ] );
+  c1.colVectorGet( 4 ).copy( [ center.eGet( 0 ), center.eGet( 1 ), center.eGet( 2 ) + radius ] );
+  c1.colVectorGet( 5 ).copy( [ center.eGet( 0 ), center.eGet( 1 ), center.eGet( 2 ) - radius ] );
 
   for( let j = 0 ; j < 6 ; j++ )
   {
@@ -2758,7 +2758,7 @@ function sphereExpand( dstBox ,  srcSphere )
   *
   * @example
   * // returns [ 1, 1, 1, Math.sqrt( 3 ) ]
-  * _.boundingSphereGet( null,  [ 0, 0, 0, 2, 2, 2 ] );
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2 ] );
   *
   * @returns { Array } Returns the array of the bounding sphere.
   * @function boundingSphereGet
@@ -2770,7 +2770,7 @@ function sphereExpand( dstBox ,  srcSphere )
   */
 function boundingSphereGet( dstSphere, srcBox )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcBoxView = _.box.toAdapter( srcBox );
   let dimB = _.box.dimGet( srcBoxView );
@@ -2791,7 +2791,7 @@ function boundingSphereGet( dstSphere, srcBox )
   // Center of the sphere
   for( let c = 0; c < center.length; c++ )
   {
-    center.eSet( c,  ( max.eGet( c ) + min.eGet( c ) ) / 2 );
+    center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
   }
 
   // Radius of the sphere
@@ -2817,7 +2817,7 @@ function boundingSphereGet( dstSphere, srcBox )
   *    0, 0, 0.5, 0,
   *    0, 0, 0, 1
   *  ]);
-  * _.matrixHomogenousApply( [ 0, 0, 0, 2, 2, 2 ],  matrix );
+  * _.matrixHomogenousApply( [ 0, 0, 0, 2, 2, 2 ], matrix );
   *
   * @returns { Array } Returns the transformed box.
   * @function matrixHomogenousApply
@@ -2826,7 +2826,7 @@ function boundingSphereGet( dstSphere, srcBox )
   * @throws { Error } An Error if ( matrix ) is not space
   * @memberof module:Tools/math/Concepts.wTools.box
   */
-function matrixHomogenousApply( box ,  matrix )
+function matrixHomogenousApply( box , matrix )
 {
 
   let boxView = _.box.toAdapter( box );
@@ -2834,14 +2834,14 @@ function matrixHomogenousApply( box ,  matrix )
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.matrixIs( matrix ) );
   _.assert( matrix.hasShape([ dim+1, dim+1 ]) );
 
   let box2 = _.box.nil( dim );
 
   let point = [];
-  let samples = _.dup( [ 0, 1 ] ,  dim );
+  let samples = _.dup( [ 0, 1 ] , dim );
   _.eachSample( samples, function( sample, i )
   {
 
@@ -2867,7 +2867,7 @@ function matrixHomogenousApply( box ,  matrix )
   *
   * @example
   * // returns [ 3, 3, 3, 5, 5, 5 ]
-  * _.translate( [ 0, 0, 0, 2, 2, 2 ],  3 );
+  * _.translate( [ 0, 0, 0, 2, 2, 2 ], 3 );
   *
   * @returns { Array } Returns the translated box.
   * @function translate
@@ -2878,7 +2878,7 @@ function matrixHomogenousApply( box ,  matrix )
 function translate( box, offset )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let boxView = _.box.toAdapter( box );
   _.assert( _.numberIs( offset ) );
 
@@ -2891,7 +2891,7 @@ function translate( box, offset )
 
 /*
 *
-*  function translate( box ,  offset )
+*  function translate( box , offset )
 *  {
 *
 *    this.min.add( offset );
@@ -2907,7 +2907,7 @@ function translate( box, offset )
 // function pointContains( box, point )
 // {
 //
-//   _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+//   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
@@ -2916,7 +2916,7 @@ function translate( box, offset )
 //   let center = _.box.centerGet( boxView );
 //   let radius = _.box.radiusGet( boxView );
 //
-//   return( vector.distanceSqr( vector.From( point ) ,  center ) <= ( radius * radius ) );
+//   return( vector.distanceSqr( vector.From( point ) , center ) <= ( radius * radius ) );
 // }
 //
 // //
@@ -2924,7 +2924,7 @@ function translate( box, offset )
 // function pointDistance( box, point )
 // {
 //
-//   _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+//   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
@@ -2933,7 +2933,7 @@ function translate( box, offset )
 //   let center = _.box.centerGet( boxView );
 //   let radius = _.box.radiusGet( boxView );
 //
-//   return( vector.distance( vector.From( point ) ,  center ) - radius );
+//   return( vector.distance( vector.From( point ) , center ) - radius );
 // }
 //
 // //
@@ -2941,7 +2941,7 @@ function translate( box, offset )
 // function pointClosestPoint( box, point )
 // {
 //
-//   _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+//   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   debugger;
 //   throw _.err( 'not implemented' );
@@ -2951,7 +2951,7 @@ function translate( box, offset )
 //   let center = _.box.centerGet( boxView );
 //   let radius = _.box.radiusGet( boxView );
 //
-//   let distanseSqr = vector.distanceSqr( pointVector ,  center );
+//   let distanseSqr = vector.distanceSqr( pointVector , center );
 //
 //   if( distanseSqr > radius * radius )
 //   {
@@ -2971,7 +2971,7 @@ function translate( box, offset )
 // function boxIntersects( box1, box2 )
 // {
 //
-//   _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+//   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 //   _.assert( _.box.is( box1 ) );
 //   _.assert( _.box.is( box2 ) );
 //   debugger;
@@ -2994,7 +2994,7 @@ function translate( box, offset )
 // function matrixHomogenousApply( box, matrix )
 // {
 //
-//   _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+//   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   _.assert( _.matrixIs( matrix ) );
 //   debugger;
@@ -3015,7 +3015,7 @@ function translate( box, offset )
 // function translate( box, offset )
 // {
 //
-//   _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+//   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 //   _.assert( _.box.is( box ) );
 //   _.assert( _.matrixIs( matrix ) );
 //   debugger;
@@ -3074,42 +3074,42 @@ let Extension =
 
   boxContains,
   boxIntersects,
-  boxDistance,  /* qqq : implement me */
-  boxClosestPoint,  /* qqq : implement me */
+  boxDistance, /* qqq : implement me */
+  boxClosestPoint, /* qqq : implement me */
   boxExpand,
 
   capsuleIntersects,
   capsuleDistance,
   capsuleClosestPoint,
 
-  frustumContains,  /* qqq : implement me */
-  frustumIntersects,  /* qqq : implement me - Same as _.frustum.boxIntersects */
-  frustumDistance,  /* qqq : implement me */
-  frustumClosestPoint,  /* qqq : implement me */
-  frustumExpand,  /* qqq : implement me */
+  frustumContains, /* qqq : implement me */
+  frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
+  frustumDistance, /* qqq : implement me */
+  frustumClosestPoint, /* qqq : implement me */
+  frustumExpand, /* qqq : implement me */
 
-  lineIntersects,  /* Same as _.line.boxIntersects */
-  lineDistance,  /* Same as _.line.boxDistance */
+  lineIntersects, /* Same as _.line.boxIntersects */
+  lineDistance, /* Same as _.line.boxDistance */
   lineClosestPoint,
 
-  planeIntersects,  /* qqq : implement me - Same as _.plane.boxIntersects */
-  planeDistance,  /* qqq : implement me */
-  planeClosestPoint,  /* qqq : implement me */
-  planeExpand,  /* qqq : implement me */
+  planeIntersects, /* qqq : implement me - Same as _.plane.boxIntersects */
+  planeDistance, /* qqq : implement me */
+  planeClosestPoint, /* qqq : implement me */
+  planeExpand, /* qqq : implement me */
 
-  rayIntersects,  /* qqq : implement me - Same as _.ray.boxIntersects */
-  rayDistance,  /* qqq : implement me - Same as _.ray.boxDistance */
+  rayIntersects, /* qqq : implement me - Same as _.ray.boxIntersects */
+  rayDistance, /* qqq : implement me - Same as _.ray.boxDistance */
   rayClosestPoint,
 
-  segmentIntersects,  /* Same as _.segment.boxIntersects */
-  segmentDistance,  /* Same as _.segment.boxDistance */
+  segmentIntersects, /* Same as _.segment.boxIntersects */
+  segmentDistance, /* Same as _.segment.boxDistance */
   segmentClosestPoint,
 
-  sphereContains,  /* qqq : implement me */
-  sphereIntersects,  /* qqq : implement me - Same as _.sphere.boxIntersects */
-  sphereDistance,  /* qqq : implement me */
-  sphereClosestPoint,  /* qqq : implement me */
-  sphereExpand,  /* qqq : implement me */
+  sphereContains, /* qqq : implement me */
+  sphereIntersects, /* qqq : implement me - Same as _.sphere.boxIntersects */
+  sphereDistance, /* qqq : implement me */
+  sphereClosestPoint, /* qqq : implement me */
+  sphereExpand, /* qqq : implement me */
   boundingSphereGet,
 
   matrixHomogenousApply,

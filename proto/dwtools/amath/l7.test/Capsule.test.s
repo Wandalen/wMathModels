@@ -85,7 +85,7 @@ function make( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.capsule.make( [ 0, 0, 0 ],  [ 1, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.make( [ 0, 0, 0 ], [ 1, 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.make( [ 0, 0, 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.make( 'capsule' ));
 }
@@ -144,7 +144,7 @@ function makeZero( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.capsule.makeZero( [ 0, 0, 0 ],  [ 1, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.makeZero( [ 0, 0, 0 ], [ 1, 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.makeZero( [ 0, 0, 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.makeZero( 'capsule' ));
 
@@ -157,14 +157,14 @@ function makeNil( test )
   test.case = 'Default'; /* */
 
   var gotCapsule = _.capsule.makeNil();
-  var expected = [ Infinity, Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
 
   test.case = 'srcDim undefined'; /* */
 
   var srcDim = undefined;
   var gotCapsule = _.capsule.makeNil( srcDim );
-  var expected = [ Infinity, Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
@@ -172,7 +172,7 @@ function makeNil( test )
 
   var srcDim = null;
   var gotCapsule = _.capsule.makeNil( srcDim );
-  var expected = [ Infinity, Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
@@ -180,7 +180,7 @@ function makeNil( test )
 
   var srcDim = 2;
   var gotCapsule = _.capsule.makeNil( srcDim );
-  var expected = [ Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
@@ -188,7 +188,7 @@ function makeNil( test )
 
   var srcDim = [ 0, 1, 2, 3, 4 ];
   var gotCapsule = _.capsule.makeNil( srcDim );
-  var expected = [ Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
@@ -196,7 +196,7 @@ function makeNil( test )
 
   var srcDim = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.makeNil( srcDim );
-  var expected = [ Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
@@ -204,7 +204,7 @@ function makeNil( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.capsule.makeNil( [ 0, 0, 0 ],  [ 1, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.makeNil( [ 0, 0, 0 ], [ 1, 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.makeNil( [ 0, 0, 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.makeNil( 'capsule' ));
 }
@@ -263,7 +263,7 @@ function zero( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.capsule.zero( [ 0, 0, 1 ],  [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.zero( [ 0, 0, 1 ], [ 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.zero( [ 0, 0, 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.zero( 'capsule' ));
 
@@ -276,14 +276,14 @@ function nil( test )
   test.case = 'Default'; /* */
 
   var gotCapsule = _.capsule.nil();
-  var expected = [ Infinity, Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
 
   test.case = 'srcCapsule undefined'; /* */
 
   var srcCapsule = undefined;
   var gotCapsule = _.capsule.nil( srcCapsule );
-  var expected = [ Infinity, Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcCapsule );
 
@@ -291,7 +291,7 @@ function nil( test )
 
   var srcCapsule = null;
   var gotCapsule = _.capsule.nil( srcCapsule );
-  var expected = [ Infinity, Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcCapsule );
 
@@ -299,7 +299,7 @@ function nil( test )
 
   var srcCapsule = 2;
   var gotCapsule = _.capsule.nil( srcCapsule );
-  var expected = [ Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcCapsule );
 
@@ -307,7 +307,7 @@ function nil( test )
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotCapsule = _.capsule.nil( srcCapsule );
-  var expected = [ Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity ];
+  var expected = [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
   test.identical( gotCapsule, expected );
   test.is( gotCapsule === srcCapsule );
 
@@ -315,7 +315,7 @@ function nil( test )
 
   var srcCapsule = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.nil( srcCapsule );
-  var expected = _.vectorAdapter.fromLong( [ Infinity, Infinity,  - Infinity,  - Infinity,  - Infinity ] );
+  var expected = _.vectorAdapter.fromLong( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
   test.is( gotCapsule === srcCapsule );
 
@@ -323,7 +323,7 @@ function nil( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.capsule.nil( [ 0, 0, 1 ],  [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.nil( [ 0, 0, 1 ], [ 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.nil( [ 0, 0, 1, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.nil( 'capsule' ));
 }
@@ -358,7 +358,7 @@ function from( test )
   test.shouldThrowErrorSync( () => _.capsule.from( ));
   test.shouldThrowErrorSync( () => _.capsule.toAdapter( [] ));
   test.shouldThrowErrorSync( () => _.capsule.from( [ 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.capsule.from( [ 0, 0, 0, 0, 0 ],  [ 0, 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.from( [ 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.from( 'capsule' ));
   test.shouldThrowErrorSync( () => _.capsule.from( NaN ));
   test.shouldThrowErrorSync( () => _.capsule.from( undefined ));
@@ -394,7 +394,7 @@ function toAdapter( test )
   test.shouldThrowErrorSync( () => _.capsule.toAdapter( ));
     test.shouldThrowErrorSync( () => _.capsule.toAdapter( [] ));
   test.shouldThrowErrorSync( () => _.capsule.toAdapter( [ 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.capsule.toAdapter( [ 0, 0, 0, 0, 0 ],  [ 0, 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.toAdapter( [ 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.toAdapter( 'capsule' ));
   test.shouldThrowErrorSync( () => _.capsule.toAdapter( NaN ));
   test.shouldThrowErrorSync( () => _.capsule.toAdapter( null ));
@@ -427,7 +427,7 @@ function is( test )
   test.is( !_.capsule.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0 ]) ) );
 
   test.is( !_.capsule.is( 'abc' ) );
-  test.is( !_.capsule.is( { start : [ 0, 0, 0 ],  end : [ 1, 1, 1 ],  radius : 1 } ) );
+  test.is( !_.capsule.is( { start : [ 0, 0, 0 ], end : [ 1, 1, 1 ], radius : 1 } ) );
   test.is( !_.capsule.is( function( a, b, c ){} ) );
 
   test.is( !_.capsule.is( [] ) );
@@ -441,7 +441,7 @@ function is( test )
   if( !Config.debug )
   return;
   test.shouldThrowErrorSync( () => _.capsule.is( ));
-  test.shouldThrowErrorSync( () => _.capsule.is( [ 0, 0, 0 ],  [ 0, 2, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.is( [ 0, 0, 0 ], [ 0, 2, 1 ] ));
 
 }
 
@@ -504,7 +504,7 @@ function dimGet( test )
   test.shouldThrowErrorSync( () => _.capsule.dimGet( ) );
   test.shouldThrowErrorSync( () => _.capsule.dimGet( [] ) );
   test.shouldThrowErrorSync( () => _.capsule.dimGet( [ 0, 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.dimGet( [ 0, 0, 0 ],  [ 1, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.dimGet( [ 0, 0, 0 ], [ 1, 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.capsule.dimGet( 'capsule' ) );
   test.shouldThrowErrorSync( () => _.capsule.dimGet( 0 ) );
   test.shouldThrowErrorSync( () => _.capsule.dimGet( null ) );
@@ -582,7 +582,7 @@ function originView( test )
   return;
   test.shouldThrowErrorSync( () => _.capsule.originView( ) );
   test.shouldThrowErrorSync( () => _.capsule.originView( [ 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.originView( [ 0, 0, 1 ],  [ 1, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.originView( [ 0, 0, 1 ], [ 1, 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.capsule.originView( 'capsule' ) );
   test.shouldThrowErrorSync( () => _.capsule.originView( 0 ) );
   test.shouldThrowErrorSync( () => _.capsule.originView( null ) );
@@ -660,7 +660,7 @@ function endPointGet( test )
   return;
   test.shouldThrowErrorSync( () => _.capsule.endPointGet( ) );
   test.shouldThrowErrorSync( () => _.capsule.endPointGet( [ 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.endPointGet( [ 0, 0, 1 ],  [ 1, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.endPointGet( [ 0, 0, 1 ], [ 1, 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.capsule.endPointGet( 'capsule' ) );
   test.shouldThrowErrorSync( () => _.capsule.endPointGet( 0 ) );
   test.shouldThrowErrorSync( () => _.capsule.endPointGet( null ) );
@@ -703,7 +703,7 @@ function radiusGet( test )
 
   test.case = 'Three dimension capsule'; /* */
 
-  var capsule = [ 0,  - 1,  - 2, 2, 2, 2, 3 ];
+  var capsule = [ 0, - 1, - 2, 2, 2, 2, 3 ];
   var expected = 3;
 
   var gotRadius = _.capsule.radiusGet( capsule );
@@ -711,7 +711,7 @@ function radiusGet( test )
 
   test.case = 'Four dimension capsule'; /* */
 
-  var capsule = [ 0,  - 1,  - 2, 2, 4, 4, 4, 4, 3 ];
+  var capsule = [ 0, - 1, - 2, 2, 4, 4, 4, 4, 3 ];
   var expected =  3;
 
   var gotRadius = _.capsule.radiusGet( capsule );
@@ -719,7 +719,7 @@ function radiusGet( test )
 
   test.case = 'negative radius'; /* */
 
-  var capsule = [ 1, 2, 3, 4,  - 3 ];
+  var capsule = [ 1, 2, 3, 4, - 3 ];
   var expected = - 3;
 
   var gotRadius = _.capsule.radiusGet( capsule );
@@ -782,7 +782,7 @@ function radiusGet( test )
   test.shouldThrowErrorSync( () => _.capsule.radiusGet( ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusGet( [ ] ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusGet( [ 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.radiusGet( [ 0, 0, 1 ],  [ 1, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusGet( [ 0, 0, 1 ], [ 1, 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusGet( 'capsule' ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusGet( 0 ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusGet( null ) );
@@ -831,9 +831,9 @@ function radiusSet( test )
 
   test.case = 'Three dimension capsule'; /* */
 
-  var capsule = [ 0,  - 1,  - 2, 1, 1, 1, 2 ];
+  var capsule = [ 0, - 1, - 2, 1, 1, 1, 2 ];
   var radius = 4;
-  var expected = [ 0,  - 1,  - 2, 1, 1, 1, 4 ];
+  var expected = [ 0, - 1, - 2, 1, 1, 1, 4 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
@@ -841,9 +841,9 @@ function radiusSet( test )
 
   test.case = 'Four dimension capsule'; /* */
 
-  var capsule = [ 0,  - 1,  - 2, 2, 2, 2, 2, 2, 0 ];
+  var capsule = [ 0, - 1, - 2, 2, 2, 2, 2, 2, 0 ];
   var radius = 5;
-  var expected =  [ 0,  - 1,  - 2, 2, 2, 2, 2, 2, 5 ];
+  var expected =  [ 0, - 1, - 2, 2, 2, 2, 2, 2, 5 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
@@ -851,9 +851,9 @@ function radiusSet( test )
 
   test.case = 'negative radius'; /* */
 
-  var capsule = [ 1, 2,  - 3 ];
+  var capsule = [ 1, 2, - 3 ];
   var radius = - 2;
-  var expected = [ 1, 2,  - 2 ];
+  var expected = [ 1, 2, - 2 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
@@ -922,7 +922,7 @@ function radiusSet( test )
   test.shouldThrowErrorSync( () => _.capsule.radiusSet( 0, 1 ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusSet( [ ] ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusSet( [ 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.radiusSet( [ 0, 0, 1 ],  [ 1, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.radiusSet( [ 0, 0, 1 ], [ 1, 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusSet( 'radius' ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusSet( null ) );
   test.shouldThrowErrorSync( () => _.capsule.radiusSet( NaN ) );
@@ -937,14 +937,14 @@ function pointContains( test )
 
   test.case = 'Capsule and Point remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1 ,  1, 1, 1 ];
+  var capsule = [  - 1, - 1 , 1, 1, 1 ];
   var point = [ 0, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool, expected );
 
-  var oldCapsule = [  - 1,  - 1 ,  1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1 , 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldPoint = [ 0, 0 ];
@@ -1017,7 +1017,7 @@ function pointContains( test )
   test.case = 'Point closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var point = [ 0, 0,  -2 ];
+  var point = [ 0, 0, -2 ];
   var expected = false;
 
   var gotBool = _.capsule.pointContains( capsule, point );
@@ -1025,7 +1025,7 @@ function pointContains( test )
 
   test.case = 'Capsule of four dimensions contains point'; /* */
 
-  var capsule = [ - 1,  - 1,  - 1,  - 1, 1, 1, 1, 1, 1 ];
+  var capsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0, 1 ];
   var expected = true;
 
@@ -1034,8 +1034,8 @@ function pointContains( test )
 
   test.case = 'Capsule of four dimensions doesn´t contain point'; /* */
 
-  var capsule = [ - 1,  - 1,  - 1,  - 1, 1, 1, 1, 1, 1 ];
-  var point = [ 0, 0, 0 ,  2 ];
+  var capsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 2 ];
   var expected = false;
 
   var gotBool = _.capsule.pointContains( capsule, point );
@@ -1066,15 +1066,15 @@ function pointContains( test )
 
   test.shouldThrowErrorSync( () => _.capsule.pointContains( ) );
   test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointContains( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2, 1 ],  'capsule') );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2, 1 ], 'capsule') );
   test.shouldThrowErrorSync( () => _.capsule.pointContains( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointContains( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ],  [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointContains( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
 
 }
 
@@ -1085,14 +1085,14 @@ function pointDistance( test )
 
   test.case = 'Capsule and Point remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1 ,  1, 1, 0 ];
+  var capsule = [  - 1, - 1 , 1, 1, 0 ];
   var point = [ 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance, expected );
 
-  var oldCapsule = [  - 1,  - 1 ,  1, 1, 0 ];
+  var oldCapsule = [  - 1, - 1 , 1, 1, 0 ];
   test.identical( capsule, oldCapsule );
 
   var oldPoint = [ 0, 0 ];
@@ -1155,7 +1155,7 @@ function pointDistance( test )
   test.case = 'Point closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var point = [ 0, 0,  - 2 ];
+  var point = [ 0, 0, - 2 ];
   var expected = 1;
 
   var gotDistance = _.capsule.pointDistance( capsule, point );
@@ -1163,8 +1163,8 @@ function pointDistance( test )
 
   test.case = 'Capsule of four dimensions distance '; /* */
 
-  var capsule = [ - 1,  - 1,  - 1,  - 1, 1, 1, 1, 1, 2 ];
-  var point = [ 0, 0, 0 ,  4 ];
+  var capsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 2 ];
+  var point = [ 0, 0, 0 , 4 ];
   var expected = Math.sqrt( 12 ) - 2;
 
   var gotDistance = _.capsule.pointDistance( capsule, point );
@@ -1194,15 +1194,15 @@ function pointDistance( test )
 
   test.shouldThrowErrorSync( () => _.capsule.pointDistance( ) );
   test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointDistance( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ],  'point') );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], 'point') );
   test.shouldThrowErrorSync( () => _.capsule.pointDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointDistance( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ],  [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointDistance( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
 
 }
 
@@ -1213,14 +1213,14 @@ function pointClosestPoint( test )
 
   test.case = 'Capsule and Point remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1 ,  1, 1, 1 ];
+  var capsule = [  - 1, - 1 , 1, 1, 1 ];
   var point = [ 0, 0 ];
   var expected = [ 0, 0 ];
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  var oldCapsule = [  - 1,  - 1 ,  1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1 , 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldPoint = [ 0, 0 ];
@@ -1283,15 +1283,15 @@ function pointClosestPoint( test )
   test.case = 'Point closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
-  var point = [ - 2,  - 2,  - 2 ];
-  var expected = [ - 1 /Math.sqrt( 3 ),  - 1 /Math.sqrt( 3 ),  - 1 /Math.sqrt( 3 ) ];
+  var point = [ - 2, - 2, - 2 ];
+  var expected = [ - 1 /Math.sqrt( 3 ), - 1 /Math.sqrt( 3 ), - 1 /Math.sqrt( 3 ) ];
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
   test.case = 'Capsule of four dimensions distance '; /* */
 
-  var capsule = [ - 1,  - 1,  - 1,  - 1, 3, 3, 3, 3, 1 ];
+  var capsule = [ - 1, - 1, - 1, - 1, 3, 3, 3, 3, 1 ];
   var point = [ 0, 0, 0, 2 ];
   var expected = [ 0.21132486540518708, 0.21132486540518708, 0.21132486540518708, 1.3660254037844388 ];
 
@@ -1322,15 +1322,15 @@ function pointClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ],  'point') );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], 'point') );
   test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ],  [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.pointClosestPoint( [ 1, 1, 2, 2 ], [ 1, 2 ] ) );
 
 }
 
@@ -1341,14 +1341,14 @@ function boxContains( test )
 
   test.case = 'Capsule and box remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
 
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
@@ -1392,7 +1392,7 @@ function boxContains( test )
 
   test.case = 'Capsule contains box'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 1 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
 
@@ -1420,7 +1420,7 @@ function boxContains( test )
   test.case = 'box closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
-  var box = [ - 2,  - 2,  - 2,  -1,  -1,  -1 ];
+  var box = [ - 2, - 2, - 2, -1, -1, -1 ];
   var expected = false;
 
   var gotBool = _.capsule.boxContains( capsule, box );
@@ -1437,7 +1437,7 @@ function boxContains( test )
 
   test.case = '2D no intersection'; /* */
 
-  var capsule = [ 0, 0, 2,  -2, 1 ];
+  var capsule = [ 0, 0, 2, -2, 1 ];
   var box = [ 1, 2, 3, 4 ];
   var expected = false;
 
@@ -1461,14 +1461,14 @@ function boxContains( test )
 
   test.shouldThrowErrorSync( () => _.capsule.boxContains( ) );
   test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxContains( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2, 1 ],  'box') );
+  test.shouldThrowErrorSync( () => _.capsule.boxContains( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2, 1 ], 'box') );
   test.shouldThrowErrorSync( () => _.capsule.boxContains( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxContains( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2 ],  [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxContains( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxContains( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2 ] ) );
 
 }
 
@@ -1479,14 +1479,14 @@ function boxIntersects( test )
 
   test.case = 'Capsule and box remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
 
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
@@ -1530,7 +1530,7 @@ function boxIntersects( test )
 
   test.case = 'Capsule contains box'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 1 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
 
@@ -1539,7 +1539,7 @@ function boxIntersects( test )
 
   test.case = 'Capsule and box intersect'; /* */
 
-  var capsule = [ 0, 0,  -2, 0, 0, 2, 1 ];
+  var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
   var box = [ 0, 0, 1, 4, 4, 4 ];
   var expected = true;
 
@@ -1558,7 +1558,7 @@ function boxIntersects( test )
   test.case = 'box closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
-  var box = [ - 2,  - 2,  - 2,  -1,  -1,  -1 ];
+  var box = [ - 2, - 2, - 2, -1, -1, -1 ];
   var expected = false;
 
   var gotBool = _.capsule.boxIntersects( capsule, box );
@@ -1575,7 +1575,7 @@ function boxIntersects( test )
 
   test.case = '2D no intersection'; /* */
 
-  var capsule = [ 0, 0, 2,  -2, 0.3 ];
+  var capsule = [ 0, 0, 2, -2, 0.3 ];
   var box = [ 1, 2, 3, 4 ];
   var expected = false;
 
@@ -1590,15 +1590,15 @@ function boxIntersects( test )
 
   test.shouldThrowErrorSync( () => _.capsule.boxIntersects( ) );
   test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2, 1 ],  'box') );
+  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2, 1 ], 'box') );
   test.shouldThrowErrorSync( () => _.capsule.boxIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2 ],  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2,  -1 ],  [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxIntersects( [ 1, 1, 2, 2, -1 ], [ 1, 1, 2, 2 ] ) );
 
 }
 
@@ -1608,14 +1608,14 @@ function boxDistance( test )
 {
   test.case = 'Capsule and box remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
   var gotBool = _.capsule.boxDistance( capsule, box );
   test.identical( gotBool, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
@@ -1659,7 +1659,7 @@ function boxDistance( test )
 
   test.case = 'Capsule and box intersect'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 1 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
@@ -1678,7 +1678,7 @@ function boxDistance( test )
   test.case = 'box corner closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
-  var box = [ - 2,  - 2,  - 2,  -1,  -1,  -1 ];
+  var box = [ - 2, - 2, - 2, -1, -1, -1 ];
   var expected = Math.sqrt( 3 ) - 0.5;
 
   var gotBool = _.capsule.boxDistance( capsule, box );
@@ -1687,7 +1687,7 @@ function boxDistance( test )
   test.case = 'box side closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.2 ];
-  var box = [ -1,  -1,  -1, 0.5, 0.5,  - 0.3 ];
+  var box = [ -1, -1, -1, 0.5, 0.5, - 0.3 ];
   var expected = 0.1;
 
   var gotBool = _.capsule.boxDistance( capsule, box );
@@ -1709,15 +1709,15 @@ function boxDistance( test )
 
   test.shouldThrowErrorSync( () => _.capsule.boxDistance( ) );
   test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxDistance( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2, 1 ],  'box') );
+  test.shouldThrowErrorSync( () => _.capsule.boxDistance( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2, 1 ], 'box') );
   test.shouldThrowErrorSync( () => _.capsule.boxDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxDistance( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2 ],  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2,  -1 ],  [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxDistance( [ 1, 1, 2, 2, -1 ], [ 1, 1, 2, 2 ] ) );
 
 }
 
@@ -1727,14 +1727,14 @@ function boxClosestPoint( test )
 {
   test.case = 'Capsule and box remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
@@ -1778,7 +1778,7 @@ function boxClosestPoint( test )
 
   test.case = 'Capsule and box intersect'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 1 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
@@ -1797,8 +1797,8 @@ function boxClosestPoint( test )
   test.case = 'box corner closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
-  var box = [ - 2,  - 2,  - 2,  -1,  -1,  -1 ];
-  var expected = [ - 1 / Math.sqrt( 3 ),  - 1 / Math.sqrt( 3 ),  - 1 / Math.sqrt( 3 ) ];
+  var box = [ - 2, - 2, - 2, -1, -1, -1 ];
+  var expected = [ - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ) ];
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -1806,8 +1806,8 @@ function boxClosestPoint( test )
   test.case = 'box side closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.1 ];
-  var box = [ -1,  -1,  -1, 0.5, 0.5,  - 0.3 ];
-  var expected = [ 0, 0,  - 0.1 ];
+  var box = [ -1, -1, -1, 0.5, 0.5, - 0.3 ];
+  var expected = [ 0, 0, - 0.1 ];
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -1837,15 +1837,15 @@ function boxClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ],  'box') );
+  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ], 'box') );
   test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ],  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2,  -1 ],  [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boxClosestPoint( [ 1, 1, 2, 2, -1 ], [ 1, 1, 2, 2 ] ) );
 
 }
 
@@ -1858,7 +1858,7 @@ function boundingBoxGet( test )
 
   var srcCapsule = [ 0, 0, 0, 3, 3, 3, 1 ];
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
-  var expected = [ - 1,  - 1,  - 1, 4, 4, 4  ];
+  var expected = [ - 1, - 1, - 1, 4, 4, 4  ];
 
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( expected, gotBox );
@@ -1887,9 +1887,9 @@ function boundingBoxGet( test )
 
   test.case = 'Capsule outside Box'; /* */
 
-  var srcCapsule = [ - 1,  - 1,  - 1, 1, 1, 1, 0.5 ];
-  var dstBox = [ - 3,  - 4,  - 5,  - 5,  - 4,  - 2 ];
-  var expected = [ - 1.5,  - 1.5,  - 1.5, 1.5, 1.5, 1.5 ];
+  var srcCapsule = [ - 1, - 1, - 1, 1, 1, 1, 0.5 ];
+  var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
+  var expected = [ - 1.5, - 1.5, - 1.5, 1.5, 1.5, 1.5 ];
 
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
@@ -1914,25 +1914,25 @@ function boundingBoxGet( test )
 
   test.case = 'srcCapsule vector'; /* */
 
-  var srcCapsule = _.vectorAdapter.from( [ - 8,  - 5, 4.5, 4, 7, 16.5, 2 ] );
-  var dstBox = [ 1,  - 1, 5, 0, 3, 2 ];
-  var expected = [ - 10,  - 7, 2.5, 6, 9, 18.5 ];
+  var srcCapsule = _.vectorAdapter.from( [ - 8, - 5, 4.5, 4, 7, 16.5, 2 ] );
+  var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
+  var expected = [ - 10, - 7, 2.5, 6, 9, 18.5 ];
 
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
 
   test.case = 'dstBox vector - 2D'; /* */
 
-  var srcCapsule = [ - 1, 0,  - 2, 3, 1 ];
+  var srcCapsule = [ - 1, 0, - 2, 3, 1 ];
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vectorAdapter.from( [ - 3,  - 1, 0, 4 ] );
+  var expected = _.vectorAdapter.from( [ - 3, - 1, 0, 4 ] );
 
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
 
   test.case = 'dstBox null'; /* */
 
-  var srcCapsule = [ 2.2, 3.3,  - 4.4, 1, 0 ];
+  var srcCapsule = [ 2.2, 3.3, - 4.4, 1, 0 ];
   var dstBox = null;
   var expected = [ - 4.4, 1, 2.2, 3.3 ];
 
@@ -1941,9 +1941,9 @@ function boundingBoxGet( test )
 
   test.case = 'dstBox undefined'; /* */
 
-  var srcCapsule = [ - 1,  - 3,  - 5, 0, 0.5 ];
+  var srcCapsule = [ - 1, - 3, - 5, 0, 0.5 ];
   var dstBox = undefined;
-  var expected = [  - 5.5,  - 3.5,  - 0.5, 0.5 ];
+  var expected = [  - 5.5, - 3.5, - 0.5, 0.5 ];
 
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
@@ -1955,16 +1955,16 @@ function boundingBoxGet( test )
 
   test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( ) );
   test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [],  [] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( 'box',  'capsule' ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( 'box', 'capsule' ) );
   test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 0, 0, 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ],  [ 0, 0, 0, 1, 1, 1, 1 ],  [ 0, 1, 0, 1, 2, 1, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 3, 4,  - 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( NaN,  [ 1, 0, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ],  NaN ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2 ],  [ 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 1, 0, 1, 2, 1, 2 ], [ 0, 0, 0, 1, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4, - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingBoxGet( [ 0, 1, 0, 1, 2 ], [ 0, 0, 1 ] ) );
 
 }
 
@@ -1975,14 +1975,14 @@ function capsuleIntersects( test )
 
   test.case = 'Capsules remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var expected = true;
 
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldTstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -2026,7 +2026,7 @@ function capsuleIntersects( test )
 
   test.case = 'Capsule contains capsule'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 2 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var expected = true;
 
@@ -2035,7 +2035,7 @@ function capsuleIntersects( test )
 
   test.case = 'Capsules intersect'; /* */
 
-  var capsule = [ 0, 0,  -2, 0, 0, 2, 1 ];
+  var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
   var tstCapsule = [ 0, 0, 0, 0, 4, 0, 0.2 ];
   var expected = true;
 
@@ -2054,7 +2054,7 @@ function capsuleIntersects( test )
   test.case = 'capsule closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
-  var tstCapsule = [ - 2,  - 2,  - 2,  -1,  -1,  -1, 0.1 ];
+  var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
   var expected = false;
 
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
@@ -2071,7 +2071,7 @@ function capsuleIntersects( test )
 
   test.case = '2D no intersection'; /* */
 
-  var capsule = [ 0, 0, 2,  -2, 0.3 ];
+  var capsule = [ 0, 0, 2, -2, 0.3 ];
   var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
   var expected = false;
 
@@ -2086,17 +2086,17 @@ function capsuleIntersects( test )
 
   test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( ) );
   test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ],  'capsule') );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ], 'capsule') );
   test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ],  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2 ],  [ 1, 1, 2, 2, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2,  -1 ],  [ 1, 1, 2, 2, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ],  [ 1, 1, 2, 2,  - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, -1 ], [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleIntersects( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2, - 1 ] ) );
 
 }
 
@@ -2107,14 +2107,14 @@ function capsuleDistance( test )
 
   test.case = 'Capsules remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var expected = 0;
 
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldTstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -2158,7 +2158,7 @@ function capsuleDistance( test )
 
   test.case = 'Capsule contains capsule'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 2 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var expected = 0;
 
@@ -2167,7 +2167,7 @@ function capsuleDistance( test )
 
   test.case = 'Capsules intersect'; /* */
 
-  var capsule = [ 0, 0,  -2, 0, 0, 2, 1 ];
+  var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
   var tstCapsule = [ 0, 0, 0, 0, 4, 0, 0.2 ];
   var expected = 0;
 
@@ -2186,7 +2186,7 @@ function capsuleDistance( test )
   test.case = 'capsule closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
-  var tstCapsule = [ - 2,  - 2,  - 2,  -1,  -1,  -1, 0.1 ];
+  var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
   var expected = 0.8820508075688772;
 
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
@@ -2203,7 +2203,7 @@ function capsuleDistance( test )
 
   test.case = '2D no intersection'; /* */
 
-  var capsule = [ 0, 0, 2,  -2, 0.3 ];
+  var capsule = [ 0, 0, 2, -2, 0.3 ];
   var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
   var expected = 1.7360679774997898;
 
@@ -2218,17 +2218,17 @@ function capsuleDistance( test )
 
   test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( ) );
   test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ],  'capsule') );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ], 'capsule') );
   test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ],  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2 ],  [ 1, 1, 2, 2, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2,  -1 ],  [ 1, 1, 2, 2, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ],  [ 1, 1, 2, 2,  - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, -1 ], [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleDistance( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2, - 1 ] ) );
 
 }
 
@@ -2239,14 +2239,14 @@ function capsuleClosestPoint( test )
 
   test.case = 'Capsules remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var expected = 0;
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldTstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -2290,7 +2290,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Capsule contains capsule'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 2 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var expected = 0;
 
@@ -2299,7 +2299,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Capsules intersect'; /* */
 
-  var capsule = [ 0, 0,  -2, 0, 0, 2, 1 ];
+  var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
   var tstCapsule = [ 0, 0, 0, 0, 4, 0, 0.2 ];
   var expected = 0;
 
@@ -2318,8 +2318,8 @@ function capsuleClosestPoint( test )
   test.case = 'capsule closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
-  var tstCapsule = [ - 2,  - 2,  - 2,  -1,  -1,  -1, 0.1 ];
-  var expected = [ - 0.4330127018922194,  - 0.4330127018922194,  - 0.4330127018922194 ];
+  var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
+  var expected = [ - 0.4330127018922194, - 0.4330127018922194, - 0.4330127018922194 ];
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool, expected );
@@ -2335,7 +2335,7 @@ function capsuleClosestPoint( test )
 
   test.case = '2D no intersection'; /* */
 
-  var capsule = [ 0, 0, 2,  -2, 0.3 ];
+  var capsule = [ 0, 0, 2, -2, 0.3 ];
   var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
   var expected = [ 0.13416407864998736, 0.2683281572999747 ];
 
@@ -2360,17 +2360,17 @@ function capsuleClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ],  'capsule') );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ], 'capsule') );
   test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ],  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2 ],  [ 1, 1, 2, 2, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2,  -1 ],  [ 1, 1, 2, 2, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ],  [ 1, 1, 2, 2,  - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, -1 ], [ 1, 1, 2, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.capsuleClosestPoint( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2, - 1 ] ) );
 
 }
 
@@ -2383,10 +2383,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   var expected = true;
@@ -2399,10 +2399,10 @@ function frustumIntersects( test )
 
   var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -2411,10 +2411,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var expected = true;
@@ -2426,10 +2426,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 2, 2, 1, 4, 4, 2, Math.sqrt( 2 ) ];
   var expected = true;
@@ -2441,10 +2441,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 0, 0, 4, 1 ];
   var expected = true;
@@ -2456,12 +2456,12 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
-  var capsule = [ -1,  -1, 0, 0.5, 0.5, 0, 0.1 ];
+  var capsule = [ -1, -1, 0, 0.5, 0.5, 0, 0.1 ];
   var expected = true;
 
   var gotBool = _.capsule.frustumIntersects( capsule, srcFrustum );
@@ -2471,10 +2471,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 4, 4, 4, 5, 5, 5, 1 ];
   var expected = false;
@@ -2486,10 +2486,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.2, 1.2, 1.2, 5, 5, 5, 0.1 ];
   var expected = false;
@@ -2501,10 +2501,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.1, 1.1, 1.1, 5, 5, 5, Math.sqrt( 0.03 ) + test.accuracy ];
   var expected = true;
@@ -2516,10 +2516,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 5, 5, 5, 0.1 ];
   var expected = true;
@@ -2531,10 +2531,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = null;
   var expected = true;
@@ -2546,10 +2546,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0.5,  - 1, 0.5, 0.5,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = null;
   var expected = false;
@@ -2564,10 +2564,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 1]
   test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( ));
@@ -2586,7 +2586,7 @@ function frustumIntersects( test )
   test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule, srcFrustum ));
   capsule = [ 0, 0, 1, 1, 2, 2 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule, srcFrustum ));
-  capsule = [ 0, 0, 1, 1, 2, 2,  -1 ];
+  capsule = [ 0, 0, 1, 1, 2, 2, -1 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( capsule, srcFrustum ));
 
 }
@@ -2600,10 +2600,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   var expected = 0;
@@ -2616,10 +2616,10 @@ function frustumDistance( test )
 
   var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -2627,10 +2627,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 2 ];
   var expected = 0;
@@ -2642,10 +2642,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 2, 2, 1, 4, 4, 4, Math.sqrt( 2 ) ];
   var expected = 0;
@@ -2657,12 +2657,12 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
-  var capsule = [ -1,  -1, 0, 0.5, 0.5, 0, 0.01 ];
+  var capsule = [ -1, -1, 0, 0.5, 0.5, 0, 0.01 ];
   var expected = 0;
 
   var gotDistance = _.capsule.frustumDistance( capsule, srcFrustum );
@@ -2672,10 +2672,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 4, 4, 4, 5, 5, 5, Math.sqrt( 3 ) ];
   var expected = Math.sqrt( 12 );
@@ -2687,10 +2687,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.1, 1.1, 1.1, 5, 5, 5, 0 ];
   var expected = Math.sqrt( 0.03 );
@@ -2702,10 +2702,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = null;
   var expected = 0;
@@ -2717,10 +2717,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0.5,  - 1, 0.5, 0.5,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = null;
   var expected = Math.sqrt( 0.75 );
@@ -2732,10 +2732,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 3, 2,  - 3, 2, 2,  - 3
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 3, 2, - 3, 2, 2, - 3
   ]);
   var capsule = [ - 2, 0.3, 0, 1, 0, 0, 1 ];
   var expected = 2;
@@ -2746,10 +2746,10 @@ function frustumDistance( test )
   test.description = 'Inclined capsule closest to box side'; //
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 3, 2,  - 3, 2, 2,  - 3
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 3, 2, - 3, 2, 2, - 3
   ]);
   var capsule = [ -2, 0.3, 0, 1, 0, 0.1, 2 ];
   var expected = Math.sqrt( 8.61 ) - 2;
@@ -2764,10 +2764,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumDistance( ));
@@ -2786,7 +2786,7 @@ function frustumDistance( test )
   test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule, srcFrustum ));
   capsule = [ 0, 0, 1, 1, 2, 2 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule, srcFrustum ));
-  capsule = [ 0, 0, 1, 1, 2, 2,  - 2 ];
+  capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumDistance( capsule, srcFrustum ));
 
 }
@@ -2800,10 +2800,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   var expected = 0;
@@ -2816,10 +2816,10 @@ function frustumClosestPoint( test )
 
   var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -2827,10 +2827,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 2 ];
   var expected = 0;
@@ -2842,12 +2842,12 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
-  var capsule = [ 2, 2, 0,  - 1,  -1, 1, 0.5 ];
+  var capsule = [ 2, 2, 0, - 1, -1, 1, 0.5 ];
   var expected = 0;
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
@@ -2857,12 +2857,12 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
-  var capsule = [ -1,  -1, 0, 0.5, 0.5, 0, 0.1 ];
+  var capsule = [ -1, -1, 0, 0.5, 0.5, 0, 0.1 ];
   var expected = 0;
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
@@ -2872,10 +2872,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 4, 4, 4, 5, 5, 5, Math.sqrt( 3 ) ];
   var expected = [ 3, 3, 3 ];
@@ -2887,10 +2887,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.2, 1.2, 1.2, 5, 5, 5, Math.sqrt( 0.03 ) ];
   var expected = [ 1.1, 1.1, 1.1 ];
@@ -2902,10 +2902,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = null;
   var expected = 0;
@@ -2917,10 +2917,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0.5,  - 1, 0.5, 0.5,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = null;
   var expected = [ 0, 0, 0 ];
@@ -2932,12 +2932,12 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0.5,  - 1, 0.5, 0.5,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
-  var capsule = [ - 2, 0.3, 0,  -1, 0.3, 0, 0 ];
+  var capsule = [ - 2, 0.3, 0, -1, 0.3, 0, 0 ];
   var expected = [ -1, 0.3, 0 ];
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
@@ -2947,10 +2947,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 3, 2,  - 3, 2, 2,  - 3
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 3, 2, - 3, 2, 2, - 3
   ]);
   var capsule = [ -2, 0.3, 0, 1, 0, 0.1, 0.1 ];
   var expected = [ 1.0340799088295498, 0.06815981765909972, 0.16475182677614472 ];
@@ -2962,10 +2962,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0.5,  - 1, 0.5, 0.5,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = [ 0, 2, 2, 0, 1, 2, 0.5 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
@@ -2981,10 +2981,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0,  - 1, 1,  
-    1,  - 1, 0, 0, 0, 0,  
-    0, 0, 1,  - 1, 0, 0,  
-    - 1, 0,  - 1, 0, 0,  - 1
+    0, 0, 0, 0, - 1, 1, 
+    1, - 1, 0, 0, 0, 0, 
+    0, 0, 1, - 1, 0, 0, 
+    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( ));
@@ -3003,7 +3003,7 @@ function frustumClosestPoint( test )
   test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum ));
   capsule = [ 0, 0, 1, 1, 2, 2 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum ));
-  capsule = [ 0, 0, 1, 1, 2, 2,  - 2 ];
+  capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( capsule, srcFrustum ));
 
 }
@@ -3057,7 +3057,7 @@ function lineIntersects( test )
   test.case = 'Capsule and line intersect'; /* */
 
   var srcCapsule = [ 5, 5, 1, 1, 0.2 ];
-  var srcLine = [ 4, 0,  -1, 1 ];
+  var srcLine = [ 4, 0, -1, 1 ];
   var expected = true;
 
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
@@ -3084,7 +3084,7 @@ function lineIntersects( test )
   test.case = 'Capsule and line intersect '; /* */
 
   var srcCapsule = [ 0, 0, 1, 0, 1 ];
-  var srcLine = [ -2,  -6, 1, 2 ];
+  var srcLine = [ -2, -6, 1, 2 ];
   var expected = true;
 
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
@@ -3093,7 +3093,7 @@ function lineIntersects( test )
   test.case = 'Capsule and line are perpendicular '; /* */
 
   var srcCapsule = [ -3, 0, 1, 0, 0.2 ];
-  var srcLine = [ 0,  -2, 0, 1 ];
+  var srcLine = [ 0, -2, 0, 1 ];
   var expected = true;
 
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
@@ -3102,7 +3102,7 @@ function lineIntersects( test )
   test.case = 'Capsule and line don´t intersect 3D'; /* */
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
-  var srcLine = [ 3, 0, 1, 2, 2,  -1 ];
+  var srcLine = [ 3, 0, 1, 2, 2, -1 ];
   var expected = false;
 
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
@@ -3111,7 +3111,7 @@ function lineIntersects( test )
   test.case = 'Capsule and line intersect 3D'; /* */
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 3, 1 ];
-  var srcLine = [ - 3,  - 3, 2, 1, 1, 0 ];
+  var srcLine = [ - 3, - 3, 2, 1, 1, 0 ];
   var expected = true;
 
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
@@ -3120,7 +3120,7 @@ function lineIntersects( test )
   test.case = 'Capsule and line don´t intersect 4D'; /* */
 
   var srcCapsule = [ 0, 0, 0, 0, 1, 1, 1, 1, 0.7 ];
-  var srcLine = [ 3, 0, 1, 4, 2, 2, 2,  -1 ];
+  var srcLine = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
   var expected = false;
 
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
@@ -3142,16 +3142,16 @@ function lineIntersects( test )
 
   test.shouldThrowErrorSync( () => _.capsule.lineIntersects( ) );
   test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ],  'line') );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], 'line') );
   test.shouldThrowErrorSync( () => _.capsule.lineIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ],  [ 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2,  -1 ],  [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineIntersects( [ 1, 1, 2, 2, -1 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -3195,7 +3195,7 @@ function lineDistance( test )
   test.case = 'Capsule and line are parallel ( different origin - opposite direction )'; /* */
 
   var srcCapsule = [ 0, 0, 0, 9, 0, 0, 0.4 ];
-  var tstLine = [ 3, 7, 1,  - 7, 0, 0 ];
+  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
   var expected = Math.sqrt( 50 ) - 0.4;
 
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
@@ -3240,7 +3240,7 @@ function lineDistance( test )
   test.case = 'Capsule and line intersect 4D'; /* */
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 0.2 ];
-  var tstLine = [ 3, 4, 2, 1,  -1, 0, 0, 0 ];
+  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
@@ -3249,7 +3249,7 @@ function lineDistance( test )
   test.case = 'Capsule and line don´t intersect 2D - parallel'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 2 ];
-  var tstLine = [ - 3,  - 4, 1, 0 ];
+  var tstLine = [ - 3, - 4, 1, 0 ];
   var expected = 2;
 
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
@@ -3258,7 +3258,7 @@ function lineDistance( test )
   test.case = 'Capsule and line don´t intersect'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
-  var tstLine = [ - 3,  - 4, 0, 1 ];
+  var tstLine = [ - 3, - 4, 0, 1 ];
   var expected = 2;
 
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
@@ -3266,7 +3266,7 @@ function lineDistance( test )
 
   test.case = 'Capsule and line intersect with line´s negative factor 2D'; /* */
 
-  var srcCapsule = [ - 3,  - 4,  -3, 3, 1 ];
+  var srcCapsule = [ - 3, - 4, -3, 3, 1 ];
   var tstLine = [ 0, 0, 2, 0 ];
   var expected = 0;
 
@@ -3284,7 +3284,7 @@ function lineDistance( test )
 
   test.case = 'Capsule and line are perpendicular and don´t intersect'; /* */
 
-  var srcCapsule = [ 0, 0,  -3, 0, 0, 1, 0.5 ];
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
   var tstLine = [ 3, 0, 0, 0, 1, 0 ];
   var expected = 2.5;
 
@@ -3303,7 +3303,7 @@ function lineDistance( test )
   test.case = 'Capsule and line are parallel but in a opposite direction'; /* */
 
   var srcCapsule = [ 3, 7, 1, 9, 7, 1, 0.2 ];
-  var tstLine = [ 3, 7, 2,  - 1, 0, 0 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
   var expected = 0.8;
 
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
@@ -3312,7 +3312,7 @@ function lineDistance( test )
   test.case = 'Capsule and line are parallel and intersect'; /* */
 
   var srcCapsule = [ 3, 7, 1, 9, 7, 1, 1.2 ];
-  var tstLine = [ 3, 7, 2,  - 1, 0, 0 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
@@ -3322,7 +3322,7 @@ function lineDistance( test )
   test.case = 'srcCapsule is null'; /* */
 
   var srcCapsule = null;
-  var tstLine = [ 3, 7, 2,  - 1, 0, 0 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
   var expected = Math.sqrt( 53 );
 
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
@@ -3334,16 +3334,16 @@ function lineDistance( test )
   return;
   test.shouldThrowErrorSync( () => _.capsule.lineDistance( ) );
   test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineDistance( 'capsule',  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 0, 0, 1 ],  'line') );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 0, 0, 1 ], 'line') );
   test.shouldThrowErrorSync( () => _.capsule.lineDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineDistance( undefined,  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -3387,7 +3387,7 @@ function lineClosestPoint( test )
   test.case = 'Capsule and line are parallel ( different origin - opposite direction )'; /* */
 
   var srcCapsule = [ 0, 0, 0, 10, 0, 0, 3 ];
-  var tstLine = [ 3, 7, 1,  - 7, 0, 0 ];
+  var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
   var expected = [ 3, 2.9698484809835, 0.4242640687119285 ];
 
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
@@ -3423,7 +3423,7 @@ function lineClosestPoint( test )
   test.case = 'Capsule and line intersect 4D'; /* */
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 1 ];
-  var tstLine = [ 3, 4, 2, 1,  -1, 0, 0, 0 ];
+  var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
   var expected = 0;
 
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
@@ -3432,8 +3432,8 @@ function lineClosestPoint( test )
   test.case = 'Capsule and line don´t intersect 2D - parallel'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
-  var tstLine = [ - 3,  - 4, 1, 0 ];
-  var expected = [ 0,  - 0.5 ];
+  var tstLine = [ - 3, - 4, 1, 0 ];
+  var expected = [ 0, - 0.5 ];
 
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -3441,7 +3441,7 @@ function lineClosestPoint( test )
   test.case = 'Capsule and line don´t intersect'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
-  var tstLine = [ - 3,  - 4, 0, 1 ];
+  var tstLine = [ - 3, - 4, 0, 1 ];
   var expected = [ -0.5, 0 ];
 
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
@@ -3449,7 +3449,7 @@ function lineClosestPoint( test )
 
   test.case = 'Capsule and line intersect with line´s negative factor 2D'; /* */
 
-  var srcCapsule = [ - 3,  - 4,  -3, 4, 0.2 ];
+  var srcCapsule = [ - 3, - 4, -3, 4, 0.2 ];
   var tstLine = [ 0, 0, 2, 0 ];
   var expected = 0;
 
@@ -3467,9 +3467,9 @@ function lineClosestPoint( test )
 
   test.case = 'Capsule and line are perpendicular and don´t intersect'; /* */
 
-  var srcCapsule = [ 0, 0,  -3, 0, 0, 1, 2 ];
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 2 ];
   var tstLine = [ 3, 0, 0, 1, 1, 0 ];
-  var expected = [ 1.4142135623730951,  - 1.4142135623730951, 0 ];
+  var expected = [ 1.4142135623730951, - 1.4142135623730951, 0 ];
 
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -3486,7 +3486,7 @@ function lineClosestPoint( test )
   test.case = 'Capsule and line are parallel but in a opposite direction'; /* */
 
   var srcCapsule = [ 3, 7, 1, 4, 7, 1, 0.1 ];
-  var tstLine = [ 3, 7, 2,  - 1, 0, 0 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
   var expected = [ 3, 7, 1.1 ];
 
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
@@ -3495,7 +3495,7 @@ function lineClosestPoint( test )
   test.case = 'srcCapsule is null'; /* */
 
   var srcCapsule = null;
-  var tstLine = [ 3, 7, 2,  - 1, 0, 0 ];
+  var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
   var expected = [ 0, 0, 0 ];
 
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
@@ -3507,16 +3507,16 @@ function lineClosestPoint( test )
   return;
   test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( 'capsule',  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 0, 0, 0 ],  'line') );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 0, 0, 0 ], 'line') );
   test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( undefined,  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.lineClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -3527,14 +3527,14 @@ function planeIntersects( test )
 
   test.case = 'Capsule and plane remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldPlane = [ 1, 0, 0, 1 ];
@@ -3552,7 +3552,7 @@ function planeIntersects( test )
   test.case = 'Null capsule - Intersection'; /* */
 
   var capsule = null;
-  var plane = [ 1, 0,  -1, 0 ];
+  var plane = [ 1, 0, -1, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -3569,7 +3569,7 @@ function planeIntersects( test )
 
   test.case = 'point capsule in plane'; /* */
 
-  var capsule = [ - 1, 2, 3,  -1, 2, 3, 0 ];
+  var capsule = [ - 1, 2, 3, -1, 2, 3, 0 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = true;
 
@@ -3587,7 +3587,7 @@ function planeIntersects( test )
 
   test.case = 'point capsule intersection'; /* */
 
-  var capsule = [ - 1.1, 2, 3,  -1.1, 2, 3, 2 ];
+  var capsule = [ - 1.1, 2, 3, -1.1, 2, 3, 2 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = true;
 
@@ -3596,7 +3596,7 @@ function planeIntersects( test )
 
   test.case = 'Capsule and plane intersect'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 1 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = true;
 
@@ -3605,7 +3605,7 @@ function planeIntersects( test )
 
   test.case = 'Capsule over plane'; /* */
 
-  var capsule = [ 0,  -6, 4, 1, 1, 0, 0.5 ];
+  var capsule = [ 0, -6, 4, 1, 1, 0, 0.5 ];
   var plane = [ 1, 0, 0, 3 ];
   var expected = false;
 
@@ -3655,16 +3655,16 @@ function planeIntersects( test )
 
   test.shouldThrowErrorSync( () => _.capsule.planeIntersects( ) );
   test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( 'capsule',  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  'plane') );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], 'plane') );
   test.shouldThrowErrorSync( () => _.capsule.planeIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2, 3, 4, 5, 6 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -3675,14 +3675,14 @@ function planeDistance( test )
 
   test.case = 'Capsule and plane remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldPlane = [ 1, 0, 0, 1 ];
@@ -3708,7 +3708,7 @@ function planeDistance( test )
 
   test.case = 'point capsule in plane'; /* */
 
-  var capsule = [ - 1, 2, 3,  -1, 2, 3, 1 ];
+  var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = 0;
 
@@ -3726,7 +3726,7 @@ function planeDistance( test )
 
   test.case = 'sphere capsule intersection'; /* */
 
-  var capsule = [ - 1, 2, 3,  -1, 2, 3, 1 ];
+  var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = 0;
 
@@ -3735,7 +3735,7 @@ function planeDistance( test )
 
   test.case = 'Capsule and plane intersect'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 2 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = 0;
 
@@ -3744,7 +3744,7 @@ function planeDistance( test )
 
   test.case = 'Capsule over plane'; /* */
 
-  var capsule = [ 0,  -6, 4, 1, 1, 0, 1 ];
+  var capsule = [ 0, -6, 4, 1, 1, 0, 1 ];
   var plane = [ 1, 0, 0, 3 ];
   var expected = 2;
 
@@ -3794,16 +3794,16 @@ function planeDistance( test )
 
   test.shouldThrowErrorSync( () => _.capsule.planeDistance( ) );
   test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeDistance( 'capsule',  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  'plane') );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], 'plane') );
   test.shouldThrowErrorSync( () => _.capsule.planeDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeDistance( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2, 3, 4, 5, 6 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -3814,14 +3814,14 @@ function planeClosestPoint( test )
 
   test.case = 'Capsule and plane remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldPlane = [ 1, 0, 0, 1 ];
@@ -3847,7 +3847,7 @@ function planeClosestPoint( test )
 
   test.case = 'point capsule in plane'; /* */
 
-  var capsule = [ - 1, 2, 3,  - 1, 2, 3, 0 ];
+  var capsule = [ - 1, 2, 3, - 1, 2, 3, 0 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = 0;
 
@@ -3865,7 +3865,7 @@ function planeClosestPoint( test )
 
   test.case = 'sphere capsule intersection'; /* */
 
-  var capsule = [ - 1, 2, 3,  - 1, 2, 3, 1 ];
+  var capsule = [ - 1, 2, 3, - 1, 2, 3, 1 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = 0;
 
@@ -3874,7 +3874,7 @@ function planeClosestPoint( test )
 
   test.case = 'Capsule and plane intersect'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 2 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
   var expected = 0;
 
@@ -3883,9 +3883,9 @@ function planeClosestPoint( test )
 
   test.case = 'Capsule over plane'; /* */
 
-  var capsule = [ 0,  -6, 4, 1, 1, 0, 2 ];
+  var capsule = [ 0, -6, 4, 1, 1, 0, 2 ];
   var plane = [ 1, 0, 0, 3 ];
-  var expected = [ -2,  -6, 4 ];
+  var expected = [ -2, -6, 4 ];
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
@@ -3903,7 +3903,7 @@ function planeClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var plane = [ 0, 1, 0, 1.5 ];
-  var expected = [ 0,  -1, 0 ];
+  var expected = [ 0, -1, 0 ];
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
@@ -3928,7 +3928,7 @@ function planeClosestPoint( test )
 
   test.case = 'dstPoint is array'; /* */
 
-  var capsule = [ 0,  -6, 24, 1, 1, 1, 1 ];
+  var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = [ 0.29289321881345254, 1, 0.29289321881345254 ];
@@ -3938,7 +3938,7 @@ function planeClosestPoint( test )
 
   test.case = 'dstPoint is vector'; /* */
 
-  var capsule = [ 0,  -6, 24, 1, 1, 1, 1 ];
+  var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.vectorAdapter.from( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
@@ -3953,16 +3953,16 @@ function planeClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( 'capsule',  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  'plane') );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], 'plane') );
   test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2, 3, 4, 5, 6 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.planeClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -4015,7 +4015,7 @@ function rayIntersects( test )
   test.case = 'Capsule and ray intersect'; /* */
 
   var srcCapsule = [ 5, 5, 1, 1, 1 ];
-  var srcRay = [ 4, 0,  -1, 1 ];
+  var srcRay = [ 4, 0, -1, 1 ];
   var expected = true;
 
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
@@ -4042,7 +4042,7 @@ function rayIntersects( test )
   test.case = 'Capsule and ray intersect '; /* */
 
   var srcCapsule = [ 0, 0, 1, 0.5, 1 ];
-  var srcRay = [ -2,  -6, 1, 2 ];
+  var srcRay = [ -2, -6, 1, 2 ];
   var expected = true;
 
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
@@ -4051,7 +4051,7 @@ function rayIntersects( test )
   test.case = 'Capsule and ray are perpendicular '; /* */
 
   var srcCapsule = [ -3, 0.1, 1, 0.1, 0.2 ];
-  var srcRay = [ 0,  -2, 0, 1 ];
+  var srcRay = [ 0, -2, 0, 1 ];
   var expected = true;
 
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
@@ -4060,7 +4060,7 @@ function rayIntersects( test )
   test.case = 'Capsule and ray don´t intersect 3D'; /* */
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
-  var srcRay = [ 3, 0, 1, 2, 2,  -1 ];
+  var srcRay = [ 3, 0, 1, 2, 2, -1 ];
   var expected = false;
 
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
@@ -4069,7 +4069,7 @@ function rayIntersects( test )
   test.case = 'Capsule and ray intersect 3D'; /* */
 
   var srcCapsule = [ 1, 0, 0, 1, 0, 3, 1 ];
-  var srcRay = [ - 3,  - 3, 2, 1, 1, 0 ];
+  var srcRay = [ - 3, - 3, 2, 1, 1, 0 ];
   var expected = true;
 
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
@@ -4078,7 +4078,7 @@ function rayIntersects( test )
   test.case = 'Capsule and ray don´t intersect 4D'; /* */
 
   var srcCapsule = [ 0, 0, 0, 0, 1, 1, 1, 1, 1 ];
-  var srcRay = [ 3, 0, 1, 4, 2, 2, 2,  -1 ];
+  var srcRay = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
   var expected = false;
 
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
@@ -4100,16 +4100,16 @@ function rayIntersects( test )
 
   test.shouldThrowErrorSync( () => _.capsule.rayIntersects( ) );
   test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ],  'ray') );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], 'ray') );
   test.shouldThrowErrorSync( () => _.capsule.rayIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ],  [ 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2,  - 1 ],  [ 1, 2, 3, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2 ],  [ 1, 2, 1, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2, - 1 ], [ 1, 2, 3, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayIntersects( [ 1, 1, 2, 2 ], [ 1, 2, 1, 0 ] ) );
 
 }
 
@@ -4153,7 +4153,7 @@ function rayDistance( test )
   test.case = 'Capsule and ray are parallel ( different origin - opposite direction )'; /* */
 
   var srcCapsule = [ 0, 0, 0, 9, 0, 0, 3 ];
-  var tstRay = [ 3, 7, 1,  - 7, 0, 0 ];
+  var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
   var expected = Math.sqrt( 50 ) - 3;
 
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
@@ -4198,7 +4198,7 @@ function rayDistance( test )
   test.case = 'Capsule and ray intersect 4D'; /* */
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 1 ];
-  var tstRay = [ 3, 4, 2, 1,  -1, 0, 0, 0 ];
+  var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
@@ -4207,7 +4207,7 @@ function rayDistance( test )
   test.case = 'Capsule and ray don´t intersect 2D - parallel'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 2 ];
-  var tstRay = [ - 3,  - 4, 1, 0 ];
+  var tstRay = [ - 3, - 4, 1, 0 ];
   var expected = 2;
 
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
@@ -4216,7 +4216,7 @@ function rayDistance( test )
   test.case = 'Capsule and ray don´t intersect'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
-  var tstRay = [ - 3,  - 4, 0, 1 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
   var expected = 2.5;
 
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
@@ -4224,7 +4224,7 @@ function rayDistance( test )
 
   test.case = 'Capsule and ray don´t intersect with ray´s negative factor 2D'; /* */
 
-  var srcCapsule = [ - 3,  - 4,  -3, 3, 1 ];
+  var srcCapsule = [ - 3, - 4, -3, 3, 1 ];
   var tstRay = [ 0, 0, 2, 0 ];
   var expected = 2;
 
@@ -4242,7 +4242,7 @@ function rayDistance( test )
 
   test.case = 'Capsule and ray are perpendicular and don´t intersect'; /* */
 
-  var srcCapsule = [ 0, 0,  -3, 0, 0, 1, 2 ];
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 2 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
   var expected = 1;
 
@@ -4261,7 +4261,7 @@ function rayDistance( test )
   test.case = 'srcCapsule is null'; /* */
 
   var srcCapsule = null;
-  var tstRay = [ 3, 7, 2,  - 1, 0, 0 ];
+  var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
   var expected = Math.sqrt( 53 );
 
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
@@ -4273,16 +4273,16 @@ function rayDistance( test )
   return;
   test.shouldThrowErrorSync( () => _.capsule.rayDistance( ) );
   test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayDistance( 'capsule',  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 0, 0, 0 ],  'ray') );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 0, 0, 0 ], 'ray') );
   test.shouldThrowErrorSync( () => _.capsule.rayDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayDistance( undefined,  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 1, 1, 2, 2, 2 ] ) );
 
 }
 
@@ -4326,7 +4326,7 @@ function rayClosestPoint( test )
   test.case = 'Capsule and ray are parallel ( different origin - opposite direction )'; /* */
 
   var srcCapsule = [ 0, 0, 0, 10, 0, 0, 2 ];
-  var tstRay = [ 3, 7, 1,  - 7, 0, 0 ];
+  var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
   var expected = [ 3, 1.9798989873223332, 0.282842712474619 ];
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
@@ -4344,7 +4344,7 @@ function rayClosestPoint( test )
   test.case = 'srcCapsule is a sphere'; /* */
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
-  var tstRay = [ 0, 0, 0,  -1, 0, 0 ];
+  var tstRay = [ 0, 0, 0, -1, 0, 0 ];
   var expected = [ 2.609433267057528, 6.088677623134233, 0.8698110890191761 ];
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
@@ -4371,7 +4371,7 @@ function rayClosestPoint( test )
   test.case = 'Capsule and ray intersect 4D'; /* */
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 2 ];
-  var tstRay = [ 3, 5, 2, 1,  -1, 0, 0, 0 ];
+  var tstRay = [ 3, 5, 2, 1, -1, 0, 0, 0 ];
   var expected = 0;
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
@@ -4380,8 +4380,8 @@ function rayClosestPoint( test )
   test.case = 'Capsule and ray don´t intersect 2D - parallel'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
-  var tstRay = [ - 3,  - 4, 1, 0 ];
-  var expected = [ 0,  - 1 ];
+  var tstRay = [ - 3, - 4, 1, 0 ];
+  var expected = [ 0, - 1 ];
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -4389,7 +4389,7 @@ function rayClosestPoint( test )
   test.case = 'Capsule and ray don´t intersect 2D'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
-  var tstRay = [ - 3,  - 4, 0.5, 1 ];
+  var tstRay = [ - 3, - 4, 0.5, 1 ];
   var expected = 0;
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
@@ -4397,9 +4397,9 @@ function rayClosestPoint( test )
 
   test.case = 'Capsule and ray don´t intersect with ray´s negative factor 2D'; /* */
 
-  var srcCapsule = [ - 3,  - 4,  -3, 4, 1 ];
+  var srcCapsule = [ - 3, - 4, -3, 4, 1 ];
   var tstRay = [ 0, 0, 2, 1 ];
-  var expected = [ -2.1055728090000843,  -1.0527864045000421 ];
+  var expected = [ -2.1055728090000843, -1.0527864045000421 ];
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -4415,7 +4415,7 @@ function rayClosestPoint( test )
 
   test.case = 'Capsule and ray are perpendicular and don´t intersect'; /* */
 
-  var srcCapsule = [ 0, 0,  -3, 0, 0, 1, 0.5 ];
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
   var expected = [ 0.5, 0, 0 ];
 
@@ -4434,7 +4434,7 @@ function rayClosestPoint( test )
   test.case = 'srcCapsule is null'; /* */
 
   var srcCapsule = null;
-  var tstRay = [ 3, 7, 2,  - 1, 0, 0 ];
+  var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
   var expected = [ 0, 0, 0 ];
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
@@ -4446,16 +4446,16 @@ function rayClosestPoint( test )
   return;
   test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( 'capsule',  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 0, 0, 0 ],  'ray') );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 0, 0, 0 ], 'ray') );
   test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( undefined,  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.rayClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 1, 1, 2, 2, 2 ] ) );
 
 }
 
@@ -4517,7 +4517,7 @@ function segmentIntersects( test )
   test.case = 'Capsule and segment intersect '; /* */
 
   var srcCapsule = [ 0, 0, 1, 0.5, 1 ];
-  var srcSegment = [ -2,  -6, 2, 2 ];
+  var srcSegment = [ -2, -6, 2, 2 ];
   var expected = true;
 
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
@@ -4562,7 +4562,7 @@ function segmentIntersects( test )
   test.case = 'Capsule and segment are perpendicular and intersect'; /* */
 
   var srcCapsule = [ -3, 0.1, 1, 0.1, 0.2 ];
-  var srcSegment = [ 0,  -2, 0, 1 ];
+  var srcSegment = [ 0, -2, 0, 1 ];
   var expected = true;
 
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
@@ -4571,7 +4571,7 @@ function segmentIntersects( test )
   test.case = 'Capsule and segment don´t intersect 3D'; /* */
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
-  var srcSegment = [ 3, 0, 1, 2, 2,  -1 ];
+  var srcSegment = [ 3, 0, 1, 2, 2, -1 ];
   var expected = false;
 
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
@@ -4580,7 +4580,7 @@ function segmentIntersects( test )
   test.case = 'Capsule and segment intersect 3D'; /* */
 
   var srcCapsule = [ 1, 0, 0, 1, 0, 3, 1 ];
-  var srcSegment = [ - 3,  - 3, 2, 1, 1, 2 ];
+  var srcSegment = [ - 3, - 3, 2, 1, 1, 2 ];
   var expected = true;
 
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
@@ -4589,7 +4589,7 @@ function segmentIntersects( test )
   test.case = 'Capsule and segment don´t intersect 4D'; /* */
 
   var srcCapsule = [ 0, 0, 0, 0, 1, 1, 1, 1, 1 ];
-  var srcSegment = [ 3, 0, 1, 4, 2, 2, 2,  -1 ];
+  var srcSegment = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
   var expected = false;
 
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
@@ -4611,16 +4611,16 @@ function segmentIntersects( test )
 
   test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( ) );
   test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( 'capsule',  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ],  'segment') );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( 'capsule', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], 'segment') );
   test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ],  [ 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2,  - 1 ],  [ 1, 2, 3, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2 ],  [ 1, 2, 1, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2, - 1 ], [ 1, 2, 3, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentIntersects( [ 1, 1, 2, 2 ], [ 1, 2, 1, 0 ] ) );
 
 }
 
@@ -4664,7 +4664,7 @@ function segmentDistance( test )
   test.case = 'Capsule and segment are parallel ( different origin - opposite direction )'; /* */
 
   var srcCapsule = [ 0, 0, 0, 9, 0, 0, 3 ];
-  var tstSegment = [ 3, 7, 1,  - 7, 7, 1 ];
+  var tstSegment = [ 3, 7, 1, - 7, 7, 1 ];
   var expected = Math.sqrt( 50 ) - 3;
 
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
@@ -4709,7 +4709,7 @@ function segmentDistance( test )
   test.case = 'Capsule and segment intersect 4D'; /* */
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 1 ];
-  var tstSegment = [ 3, 4, 2, 1,  - 7, 4, 2, 1 ];
+  var tstSegment = [ 3, 4, 2, 1, - 7, 4, 2, 1 ];
   var expected = 0;
 
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
@@ -4718,7 +4718,7 @@ function segmentDistance( test )
   test.case = 'Capsule and segment don´t intersect 2D - parallel'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 2 ];
-  var tstSegment = [ - 3,  - 4, 5,  - 4 ];
+  var tstSegment = [ - 3, - 4, 5, - 4 ];
   var expected = 2;
 
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
@@ -4727,7 +4727,7 @@ function segmentDistance( test )
   test.case = 'Capsule and segment don´t intersect'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
-  var tstSegment = [ - 3,  - 4,  - 3, 4 ];
+  var tstSegment = [ - 3, - 4, - 3, 4 ];
   var expected = 2.5;
 
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
@@ -4745,7 +4745,7 @@ function segmentDistance( test )
   test.case = 'Capsule and segment don´t intersect with segment´s factor > 1'; /* */
 
   var srcCapsule = [ 1, 1, 1, 2, 0.5 ];
-  var tstSegment = [ 1,  - 1, 1, 0 ];
+  var tstSegment = [ 1, - 1, 1, 0 ];
   var expected = 0.5;
 
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
@@ -4762,7 +4762,7 @@ function segmentDistance( test )
 
   test.case = 'Capsule and segment are perpendicular and don´t intersect'; /* */
 
-  var srcCapsule = [ 0, 0,  -3, 0, 0, 1, 2 ];
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 2 ];
   var tstSegment = [ 3, 0, 0, 8, 5, 0 ];
   var expected = 1;
 
@@ -4781,7 +4781,7 @@ function segmentDistance( test )
   test.case = 'srcCapsule is null'; /* */
 
   var srcCapsule = null;
-  var tstSegment = [ 3, 7, 2,  - 1, 7, 2 ];
+  var tstSegment = [ 3, 7, 2, - 1, 7, 2 ];
   var expected = Math.sqrt( 53 );
 
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
@@ -4793,16 +4793,16 @@ function segmentDistance( test )
   return;
   test.shouldThrowErrorSync( () => _.capsule.segmentDistance( ) );
   test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( 'capsule',  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 0, 0, 0 ],  'segment') );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 0, 0, 0 ], 'segment') );
   test.shouldThrowErrorSync( () => _.capsule.segmentDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( undefined,  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 1, 1, 2, 2, 2 ] ) );
 
 }
 
@@ -4846,7 +4846,7 @@ function segmentClosestPoint( test )
   test.case = 'Capsule and segment are parallel ( different origin - opposite direction )'; /* */
 
   var srcCapsule = [ 0, 0, 0, 10, 0, 0, 2 ];
-  var tstSegment = [ 3, 7, 1,  - 7, 7, 1 ];
+  var tstSegment = [ 3, 7, 1, - 7, 7, 1 ];
   var expected = [ 3, 1.9798989873223332, 0.282842712474619 ];
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
@@ -4864,7 +4864,7 @@ function segmentClosestPoint( test )
   test.case = 'srcCapsule is a sphere'; /* */
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
-  var tstSegment = [ 0, 0, 0,  -1, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, -1, 0, 0 ];
   var expected = [ 2.609433267057528, 6.088677623134233, 0.8698110890191761 ];
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
@@ -4891,7 +4891,7 @@ function segmentClosestPoint( test )
   test.case = 'Capsule and segment intersect 4D'; /* */
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 2 ];
-  var tstSegment = [ 3, 5, 2, 1,  -3, 5, 2, 1 ];
+  var tstSegment = [ 3, 5, 2, 1, -3, 5, 2, 1 ];
   var expected = 0;
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
@@ -4900,8 +4900,8 @@ function segmentClosestPoint( test )
   test.case = 'Capsule and segment don´t intersect 2D - parallel'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
-  var tstSegment = [ - 3,  - 4, 1,  - 4 ];
-  var expected = [ 0,  - 1 ];
+  var tstSegment = [ - 3, - 4, 1, - 4 ];
+  var expected = [ 0, - 1 ];
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -4909,7 +4909,7 @@ function segmentClosestPoint( test )
   test.case = 'Capsule and segment don´t intersect 2D'; /* */
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
-  var tstSegment = [ - 3,  - 4, 1, 4 ];
+  var tstSegment = [ - 3, - 4, 1, 4 ];
   var expected = 0;
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
@@ -4917,9 +4917,9 @@ function segmentClosestPoint( test )
 
   test.case = 'Capsule and segment don´t intersect with segment´s negative factor'; /* */
 
-  var srcCapsule = [ - 3,  - 4,  -3, 4, 1 ];
+  var srcCapsule = [ - 3, - 4, -3, 4, 1 ];
   var tstSegment = [ 0, 0, 10, 5 ];
-  var expected = [ -2.1055728090000843,  -1.0527864045000421 ];
+  var expected = [ -2.1055728090000843, -1.0527864045000421 ];
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -4927,7 +4927,7 @@ function segmentClosestPoint( test )
   test.case = 'Capsule and segment don´t intersect with segment´s factor > 1'; /* */
 
   var srcCapsule = [ - 3, 1, 4, 1, 1 ];
-  var tstSegment = [ - 8, 1,  - 5, 1 ];
+  var tstSegment = [ - 8, 1, - 5, 1 ];
   var expected = [ - 4, 1 ];
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
@@ -4944,7 +4944,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Capsule and segment are perpendicular and don´t intersect'; /* */
 
-  var srcCapsule = [ 0, 0,  -3, 0, 0, 1, 0.5 ];
+  var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
   var tstSegment = [ 3, 0, 0, 5, 2, 0 ];
   var expected = [ 0.5, 0, 0 ];
 
@@ -4963,7 +4963,7 @@ function segmentClosestPoint( test )
   test.case = 'srcCapsule is null'; /* */
 
   var srcCapsule = null;
-  var tstSegment = [ 3, 7, 2,  - 3, 7, 2 ];
+  var tstSegment = [ 3, 7, 2, - 3, 7, 2 ];
   var expected = [ 0, 0, 0 ];
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
@@ -4975,16 +4975,16 @@ function segmentClosestPoint( test )
   return;
   test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( 'capsule',  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 0, 0, 0 ],  'segment') );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( 'capsule', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 0, 0, 0 ], 'segment') );
   test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( undefined,  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 1, 1, 2, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.segmentClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 1, 1, 2, 2, 2 ] ) );
 
 }
 
@@ -4995,14 +4995,14 @@ function sphereIntersects( test )
 
   test.case = 'Capsule and sphere remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldSphere = [ 0, 0, 0, 1 ];
@@ -5073,7 +5073,7 @@ function sphereIntersects( test )
 
   test.case = 'Capsule and sphere intersect'; /* */
 
-  var capsule = [ -2,  -2,  -2, 3, 3, 3, 1 ];
+  var capsule = [ -2, -2, -2, 3, 3, 3, 1 ];
   var sphere = [ 4, 4, 4, 1 ];
   var expected = true;
 
@@ -5082,7 +5082,7 @@ function sphereIntersects( test )
 
   test.case = 'Capsule over sphere'; /* */
 
-  var capsule = [ 0,  -6, 4, 0, 1, 4, 0.5 ];
+  var capsule = [ 0, -6, 4, 0, 1, 4, 0.5 ];
   var sphere = [ 0, 0, 0, 3 ];
   var expected = false;
 
@@ -5092,7 +5092,7 @@ function sphereIntersects( test )
   test.case = 'sphere closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
-  var sphere = [ - 2,  - 2,  - 2, 0.5 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
   var expected = false;
 
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
@@ -5105,16 +5105,16 @@ function sphereIntersects( test )
 
   test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( ) );
   test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( 'capsule',  [ 1, 1, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  'sphere') );
+  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( 'capsule', [ 1, 1, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], 'sphere') );
   test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2, 3, 4, 5, 6 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereIntersects( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -5125,14 +5125,14 @@ function sphereDistance( test )
 
   test.case = 'Capsule and sphere remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldSphere = [ 0, 0, 0, 1 ];
@@ -5203,7 +5203,7 @@ function sphereDistance( test )
 
   test.case = 'Capsule and sphere intersect'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 1 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
   var expected = 0;
 
@@ -5212,7 +5212,7 @@ function sphereDistance( test )
 
   test.case = 'Capsule over sphere'; /* */
 
-  var capsule = [ 0,  -6, 4, 0, 1, 4, 0.5 ];
+  var capsule = [ 0, -6, 4, 0, 1, 4, 0.5 ];
   var sphere = [ 0, 0, 0, 3 ];
   var expected = 0.5;
 
@@ -5222,7 +5222,7 @@ function sphereDistance( test )
   test.case = 'sphere closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5];
-  var sphere = [ - 2,  - 2,  - 2, 0.5 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
   var expected = Math.sqrt( 12 ) - 1;
 
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
@@ -5235,16 +5235,16 @@ function sphereDistance( test )
 
   test.shouldThrowErrorSync( () => _.capsule.sphereDistance( ) );
   test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( 'capsule',  [ 1, 1, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  'sphere') );
+  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( 'capsule', [ 1, 1, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ], 'sphere') );
   test.shouldThrowErrorSync( () => _.capsule.sphereDistance( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2, 3, 4, 5, 6 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereDistance( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -5255,14 +5255,14 @@ function sphereClosestPoint( test )
 
   test.case = 'Capsule and sphere remain unchanged'; /* */
 
-  var capsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
-  var oldCapsule = [  - 1,  - 1,  -1, 1, 1, 1, 1 ];
+  var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
   var oldSphere = [ 0, 0, 0, 1 ];
@@ -5333,7 +5333,7 @@ function sphereClosestPoint( test )
 
   test.case = 'Capsule and sphere intersect'; /* */
 
-  var capsule = [ -2,  -2,  -2, 2, 2, 2, 1 ];
+  var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
   var expected = 0;
 
@@ -5342,7 +5342,7 @@ function sphereClosestPoint( test )
 
   test.case = 'Capsule over sphere'; /* */
 
-  var capsule = [ 0,  -6, 4, 0, 1, 4, 0.5 ];
+  var capsule = [ 0, -6, 4, 0, 1, 4, 0.5 ];
   var sphere = [ 0, 0, 0, 3 ];
   var expected = [ 0, 0, 3.5 ];
 
@@ -5352,15 +5352,15 @@ function sphereClosestPoint( test )
   test.case = 'sphere closer to origin'; /* */
 
   var capsule = [ 0, 0, 0, 2, 2, 2, Math.sqrt( 3 ) ];
-  var sphere = [ - 2,  - 2,  - 2, 0.5 ];
-  var expected = [ - 1,  - 1,  - 1 ];
+  var sphere = [ - 2, - 2, - 2, 0.5 ];
+  var expected = [ - 1, - 1, - 1 ];
 
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
   test.case = 'dstPoint is vector'; /* */
 
-  var capsule = [ 0,  -6, 4, 0, 1, 4, 1 ];
+  var capsule = [ 0, -6, 4, 0, 1, 4, 1 ];
   var sphere = [ 0, 5, 0, 3 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.vectorAdapter.from( [ 0, 1 + Math.sqrt( 2 ) / 2, 3.2928932188134525 ] );
@@ -5370,7 +5370,7 @@ function sphereClosestPoint( test )
 
   test.case = 'dstPoint is array'; /* */
 
-  var capsule = [ 0,  -6, 4, 0, 1, 4, 1 ];
+  var capsule = [ 0, -6, 4, 0, 1, 4, 1 ];
   var sphere = [ 0, 5, 0, 3 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = [ 0, 1 + Math.sqrt( 2 ) / 2, 3.2928932188134525 ];
@@ -5385,16 +5385,16 @@ function sphereClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( 'capsule',  [ 1, 1, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  'sphere') );
+  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( 'capsule', [ 1, 1, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], 'sphere') );
   test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( 0 ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( undefined,  [ 1, 1, 2, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  - 2 ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ],  [ 1, 2, 3, 4, 5, 6 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2,  - 1 ],  [ 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ],  [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, 1 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2, - 1 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.sphereClosestPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4 ] ) );
 
 }
 
@@ -5463,7 +5463,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcCapsule vector'; /* */
 
-  var srcCapsule = _.vectorAdapter.from( [- 1,  - 1,  - 1, 1, 1, 1, 1 ] );
+  var srcCapsule = _.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 0, 0, 0, Math.sqrt( 3 ) + 1 ];
 
@@ -5472,7 +5472,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere vector'; /* */
 
-  var srcCapsule = [- 1,  - 1,  - 1, 3, 3, 1, 0.5 ];
+  var srcCapsule = [- 1, - 1, - 1, 3, 3, 1, 0.5 ];
   var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
   var expected = _.vectorAdapter.from( [ 1, 1, 0, 3.5 ] );
 
@@ -5481,7 +5481,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere null'; /* */
 
-  var srcCapsule = [- 1, 5,  - 1, 3, 7, 1, 1 ];
+  var srcCapsule = [- 1, 5, - 1, 3, 7, 1, 1 ];
   var dstSphere = null;
   var expected = [ 1, 6, 0, Math.sqrt( 6 ) + 1 ];
 
@@ -5490,9 +5490,9 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere undefined'; /* */
 
-  var srcCapsule = [- 1,  - 3,  - 5, 1, 0, 0, 0 ];
+  var srcCapsule = [- 1, - 3, - 5, 1, 0, 0, 0 ];
   var dstSphere = undefined;
-  var expected = [ 0,  - 1.5,  - 2.5, Math.sqrt( 9.5 ) ];
+  var expected = [ 0, - 1.5, - 2.5, Math.sqrt( 9.5 ) ];
 
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
@@ -5513,16 +5513,16 @@ function boundingSphereGet( test )
 
   test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( ) );
   test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [],  [] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( 'capsule',  'sphere' ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( 'capsule', 'sphere' ) );
   test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 0, 0, 0, 0, 0 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 0, 0, 1 ],  [ 0, 1, 0, 1 ],  [ 1, 0, 1, 2, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ],  [ 1, 0, 1, 2, 3, 4 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( NaN,  [ 1, 0, 1, 2 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ],  null ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ],  NaN ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1 ],  [ 0, 0, 1, 2, 2, 3 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1 ],  [ 0, 0, 1, 2, 2, 3,  - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( NaN, [ 1, 0, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1 ], [ 0, 0, 1, 2, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.capsule.boundingSphereGet( [ 0, 1, 0, 1 ], [ 0, 0, 1, 2, 2, 3, - 1 ] ) );
 
 }
 
@@ -5536,68 +5536,68 @@ function boundingSphereGet( test )
 var Self =
 {
 
-  name : 'Tools.Math.Capsule',  
-  silencing : 1,  
-  enabled : 1,  
-  // routine: 'is',  
+  name : 'Tools.Math.Capsule', 
+  silencing : 1, 
+  enabled : 1, 
+  // routine: 'is', 
 
   tests :
   {
-    make,  
-    makeZero,  
-    makeNil,  
+    make, 
+    makeZero, 
+    makeNil, 
 
-    zero,  
-    nil,  
+    zero, 
+    nil, 
 
-    from,  
-    toAdapter,  
+    from, 
+    toAdapter, 
 
-    is,  
-    dimGet,  
-    originView,  
-    endPointGet,  
-    radiusGet,  
-    radiusSet,  
+    is, 
+    dimGet, 
+    originView, 
+    endPointGet, 
+    radiusGet, 
+    radiusSet, 
 
-    pointContains,  
-    pointDistance,  
-    pointClosestPoint,  
+    pointContains, 
+    pointDistance, 
+    pointClosestPoint, 
 
-    boxContains,  
-    boxIntersects,  
-    boxDistance,  
-    boxClosestPoint,  
-    boundingBoxGet,  
+    boxContains, 
+    boxIntersects, 
+    boxDistance, 
+    boxClosestPoint, 
+    boundingBoxGet, 
 
-    capsuleIntersects,  
-    capsuleDistance,  
-    capsuleClosestPoint,  
+    capsuleIntersects, 
+    capsuleDistance, 
+    capsuleClosestPoint, 
 
-    frustumIntersects,  
-    frustumDistance,  
-    frustumClosestPoint,  
+    frustumIntersects, 
+    frustumDistance, 
+    frustumClosestPoint, 
 
-    lineIntersects,  
-    lineDistance,  
-    lineClosestPoint,  
+    lineIntersects, 
+    lineDistance, 
+    lineClosestPoint, 
 
-    planeIntersects,  
-    planeDistance,  
-    planeClosestPoint,  
+    planeIntersects, 
+    planeDistance, 
+    planeClosestPoint, 
 
-    rayIntersects,  
-    rayDistance,  
-    rayClosestPoint,  
+    rayIntersects, 
+    rayDistance, 
+    rayClosestPoint, 
 
-    segmentIntersects,  
-    segmentDistance,  
-    segmentClosestPoint,  
+    segmentIntersects, 
+    segmentDistance, 
+    segmentClosestPoint, 
 
-    sphereIntersects,  
-    sphereDistance,  
-    sphereClosestPoint,  
-    boundingSphereGet,  
+    sphereIntersects, 
+    sphereDistance, 
+    sphereClosestPoint, 
+    boundingSphereGet, 
 
   }
 

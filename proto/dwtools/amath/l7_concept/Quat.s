@@ -56,7 +56,7 @@ function make( src )
 
 function makeZero()
 {
-  _.assert( arguments.length === 0,  'Expects no arguments' );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
   let result = _.dup( 0, 4 );
   return result;
 }
@@ -65,7 +65,7 @@ function makeZero()
 
 function makeUnit()
 {
-  _.assert( arguments.length === 0,  'Expects no arguments' );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
   let result = _.dup( 0, 4 );
   result[ 3 ] = 1;
   return result;
@@ -113,8 +113,8 @@ function unit( quat )
 function from( quat )
 {
 
-  _.assert( quat === null || _.quat.is( quat ),  'Expects quaternion' );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( quat === null || _.quat.is( quat ), 'Expects quaternion' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   if( quat === null )
   return _.quat.make();
@@ -135,8 +135,8 @@ function from( quat )
 
 function toAdapter( quat )
 {
-  _.assert( /*quat === null ||*/ _.quat.is( quat ),  'Expects quaternion' );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( /*quat === null ||*/ _.quat.is( quat ), 'Expects quaternion' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   // if( quat === null )
   // quat = _.quat.make();
@@ -149,7 +149,7 @@ function toAdapter( quat )
 function fromEuler( dst, euler, v )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   dst = _.quat.from( dst );
   let dstv = _.vectorAdapter.from( dst );
@@ -181,7 +181,7 @@ function fromEuler( dst, euler, v )
   let s = s1 * s2 * s3;
 
   let vars = [ c, cs1, cs2, cs3, s, sc1, sc2, sc3 ];
-  // logger.log( 'vars',  vars.slice().sort() );
+  // logger.log( 'vars', vars.slice().sort() );
 
   // let xsign = ox === 0 ? oy === 1 : ox === 1;
   // let ysign = ox === 1 ? oy === 2 : ox === 2;
@@ -207,10 +207,10 @@ function fromEuler( dst, euler, v )
     else _.assert( 0 );
   }
 
-  // console.log( 'xsign',  xsign );
-  // console.log( 'ysign',  ysign );
-  // console.log( 'zsign',  zsign );
-  // console.log( 'wsign',  wsign );
+  // console.log( 'xsign', xsign );
+  // console.log( 'ysign', ysign );
+  // console.log( 'zsign', zsign );
+  // console.log( 'wsign', wsign );
 
   // if( 0 )
   // if( ox === 2 && oy === 1 && oz === 0 ) /* zyx */
@@ -227,10 +227,10 @@ function fromEuler( dst, euler, v )
   //   // dstv.eSet( 3, 0 + 4 );
   //
   //   // let vars = [ c, cs1, cs2, cs3, s, sc1, sc2, sc3 ];
-  //   // let vars = [ 0,   1,   2,   3, 4,   5,   6,   7 ];
+  //   // let vars = [ 0,  1,  2,  3, 4,  5,  6,  7 ];
   //
   //   // let vars = [ c1*c2*c3, s1*c2*c3, c1*s2*c3, c1*c2*s3, s1*s2*s3, c1*s2*s3, s1*c2*s3, s1*s2*c3 ];
-  //   // let vars = [ 0,        1,        2,        3,         4,        5,        6,        7 ];
+  //   // let vars = [ 0,       1,       2,       3,        4,       5,       6,       7 ];
   //
   // }
 
@@ -239,7 +239,7 @@ function fromEuler( dst, euler, v )
     dstv.eSet( ox, cs1 - sc1*wsign );
     dstv.eSet( oy, cs2 + sc2*wsign );
     dstv.eSet( oz, cs3 - sc3*wsign );
-    dstv.eSet( 3,   c   +   s*wsign );
+    dstv.eSet( 3,  c   +   s*wsign );
   }
   else if( ox === 0 && oy === 1 ) /* xyx */
   {
@@ -255,12 +255,12 @@ function fromEuler( dst, euler, v )
     // dstv.eSet( 3, 0 - 6 );
 
     // let vars = [ c1*c2*c3, s1*c2*c3, c1*s2*c3, c1*c2*s3, s1*s2*s3, c1*s2*s3, s1*c2*s3, s1*s2*c3 ];
-    // let vars = [ 0,        1,        2,        3,         4,        5,        6,        7 ];
+    // let vars = [ 0,       1,       2,       3,        4,       5,       6,       7 ];
 
     // dstv.eSet( ox, cs1 + cs3*wsign );
     // dstv.eSet( oy, cs2 + s*wsign );
     // dstv.eSet( oz, sc3 - sc1*wsign );
-    // dstv.eSet( 3,   c   - sc2*wsign );
+    // dstv.eSet( 3,  c   - sc2*wsign );
 
   }
   else if( ox === 0 && oy === 2 ) /* xzx */
@@ -277,7 +277,7 @@ function fromEuler( dst, euler, v )
     // dstv.eSet( 3, 0 - 6 );
 
     // let vars = [ c1*c2*c3, s1*c2*c3, c1*s2*c3, c1*c2*s3, s1*s2*s3, c1*s2*s3, s1*c2*s3, s1*s2*c3 ];
-    // let vars = [ 0,        1,        2,        3,         4,        5,        6,        7 ];
+    // let vars = [ 0,       1,       2,       3,        4,       5,       6,       7 ];
 
   }
   else if( ox === 1 && oy === 0 ) /* yxy */
@@ -294,7 +294,7 @@ function fromEuler( dst, euler, v )
     // dstv.eSet( 3, 0 - 6 );
 
     // let vars = [ c1*c2*c3, s1*c2*c3, c1*s2*c3, c1*c2*s3, s1*s2*s3, c1*s2*s3, s1*c2*s3, s1*s2*c3 ];
-    // let vars = [ 0,        1,        2,        3,         4,        5,        6,        7 ];
+    // let vars = [ 0,       1,       2,       3,        4,       5,       6,       7 ];
 
   }
   else if( ox === 1 && oy === 2 ) /* yzy */
@@ -311,7 +311,7 @@ function fromEuler( dst, euler, v )
     // dstv.eSet( 3, 0 - 6 );
 
     // let vars = [ c1*c2*c3, s1*c2*c3, c1*s2*c3, c1*c2*s3, s1*s2*s3, c1*s2*s3, s1*c2*s3, s1*s2*c3 ];
-    // let vars = [ 0,        1,        2,        3,         4,        5,        6,        7 ];
+    // let vars = [ 0,       1,       2,       3,        4,       5,       6,       7 ];
 
   }
   else if( ox === 2 && oy === 0 ) /* zxz */
@@ -328,10 +328,10 @@ function fromEuler( dst, euler, v )
     // dstv.eSet( 3, 0 - 6 );
 
     // let vars = [ c, cs1, cs2, cs3, s, sc1, sc2, sc3 ];
-    // let vars = [ 0,   1,   2,   3, 4,   5,   6,   7 ];
+    // let vars = [ 0,  1,  2,  3, 4,  5,  6,  7 ];
 
     // let vars = [ c1*c2*c3, s1*c2*c3, c1*s2*c3, c1*c2*s3, s1*s2*s3, c1*s2*s3, s1*c2*s3, s1*s2*c3 ];
-    // let vars = [ 0,        1,        2,        3,         4,        5,        6,        7 ];
+    // let vars = [ 0,       1,       2,       3,        4,       5,       6,       7 ];
 
   }
   else if( ox === 2 && oy === 1 ) /* zyz */
@@ -353,7 +353,7 @@ function fromEuler( dst, euler, v )
     // dstv.eSet( 3, 0 - 6 );
 
     // let vars = [ c, cs1, cs2, cs3, s, sc1, sc2, sc3 ];
-    // let vars = [ 0,   1,   2,   3, 4,   5,   6,   7 ];
+    // let vars = [ 0,  1,  2,  3, 4,  5,  6,  7 ];
 
   }
   // else _.assert( 0 );
@@ -407,29 +407,29 @@ function fromEuler( dst, euler, v )
 //   oz1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
 //   ow1 : [ 0, 1, 2, 3, 4, 5, 6, 7 ],
 //
-//   xs : [ +1,  -1 ],
-//   ys : [ +1,  -1 ],
-//   zs : [ +1,  -1 ],
-//   ws : [ +1,  -1 ],
+//   xs : [ +1, -1 ],
+//   ys : [ +1, -1 ],
+//   zs : [ +1, -1 ],
+//   ws : [ +1, -1 ],
 //
-//   // x1 : [ +1,  -1 ],
-//   // y1 : [ +1,  -1 ],
-//   // z1 : [ +1,  -1 ],
-//   // w1 : [ +1,  -1 ],
+//   // x1 : [ +1, -1 ],
+//   // y1 : [ +1, -1 ],
+//   // z1 : [ +1, -1 ],
+//   // w1 : [ +1, -1 ],
 //
 //   // ox2 : [ 0, 1, 2, 3 ],
 //   // oy2 : [ 0, 1, 2, 3 ],
 //   // oz2 : [ 0, 1, 2, 3 ],
 //   //
-//   // x02 : [ +1,  -1 ],
-//   // y02 : [ +1,  -1 ],
-//   // z02 : [ +1,  -1 ],
-//   // w02 : [ +1,  -1 ],
+//   // x02 : [ +1, -1 ],
+//   // y02 : [ +1, -1 ],
+//   // z02 : [ +1, -1 ],
+//   // w02 : [ +1, -1 ],
 //   //
-//   // x12 : [ +1,  -1 ],
-//   // y12 : [ +1,  -1 ],
-//   // z12 : [ +1,  -1 ],
-//   // w12 : [ +1,  -1 ],
+//   // x12 : [ +1, -1 ],
+//   // y12 : [ +1, -1 ],
+//   // z12 : [ +1, -1 ],
+//   // w12 : [ +1, -1 ],
 //
 // }
 
@@ -438,7 +438,7 @@ function fromEuler( dst, euler, v )
 function fromAxisAndAngle( dst, axisAndAngle, angle )
 {
 
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   dst = _.quat.from( dst );
   let dstv = _.vectorAdapter.from( dst );
@@ -461,7 +461,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 {
 
   _.assert( _.accuracySqr > 0 );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   quat = _.quat.from( quat );
   let quatView = _.vectorAdapter.from( quat );
@@ -493,7 +493,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 function fromVectors( dst, src1, src2 )
 {
 
-  _.assert( arguments.length === 3,  'Expects exactly three arguments' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   dst = _.quat.from( dst );
   let dstv = _.vectorAdapter.from( dst );
@@ -506,7 +506,7 @@ function fromVectors( dst, src1, src2 )
   {
 
     dot = 0;
-    dst3.assign([ - src1[ 2 ],  src1[ 1 ],  src1[ 0 ] ]);
+    dst3.assign([ - src1[ 2 ], src1[ 1 ], src1[ 0 ] ]);
 
   }
   else
@@ -554,7 +554,7 @@ function fromVectors2( src1, src2, axis )
     let invw = 1 / w;
     let v = [ 0, 0, 0 ];
     v.crossVectors( v1, v2 );
-    result.set( v[ 0 ]*invw ,  v[ 1 ]*invw ,  v[ 2 ]*invw ,  w * 0.5 );
+    result.set( v[ 0 ]*invw , v[ 1 ]*invw , v[ 2 ]*invw , w * 0.5 );
     result.normalize();
   }
 
@@ -566,7 +566,7 @@ function fromVectors2( src1, src2, axis )
 function fromNormalizedVectors( dst, src1, src2 )
 {
 
-  _.assert( arguments.length === 3,  'Expects exactly three arguments' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   dst = _.quat.from( dst );
   let dstv = _.vectorAdapter.from( dst );
@@ -577,7 +577,7 @@ function fromNormalizedVectors( dst, src1, src2 )
   {
 
     dot = 0;
-    dst3.assign([ - src1[ 2 ],  src1[ 1 ],  src1[ 0 ] ]);
+    dst3.assign([ - src1[ 2 ], src1[ 1 ], src1[ 0 ] ]);
 
   }
   else
@@ -599,16 +599,16 @@ function fromNormalizedVectors( dst, src1, src2 )
 function fromMatrixRotation( dst, mat )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.Matrix.Is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
 
   dst = _.quat.from( dst );
   let dstv = _.vectorAdapter.from( dst );
-  let m00 = mat.atomGet([ 0, 0 ]),  m01 = mat.atomGet([ 0, 1 ]),  m02 = mat.atomGet([ 0, 2 ]);
-  let m10 = mat.atomGet([ 1, 0 ]),  m11 = mat.atomGet([ 1, 1 ]),  m12 = mat.atomGet([ 1, 2 ]);
-  let m20 = mat.atomGet([ 2, 0 ]),  m21 = mat.atomGet([ 2, 1 ]),  m22 = mat.atomGet([ 2, 2 ]);
+  let m00 = mat.atomGet([ 0, 0 ]), m01 = mat.atomGet([ 0, 1 ]), m02 = mat.atomGet([ 0, 2 ]);
+  let m10 = mat.atomGet([ 1, 0 ]), m11 = mat.atomGet([ 1, 1 ]), m12 = mat.atomGet([ 1, 2 ]);
+  let m20 = mat.atomGet([ 2, 0 ]), m21 = mat.atomGet([ 2, 1 ]), m22 = mat.atomGet([ 2, 2 ]);
   let trace = m00 + m11 + m22;
 
   if( trace > 0 )
@@ -616,9 +616,9 @@ function fromMatrixRotation( dst, mat )
 
     let s = 0.5 / Math.sqrt( trace + 1.0 );
 
-    dstv.eSet( 0,  ( m21 - m12 ) * s );
-    dstv.eSet( 1,  ( m02 - m20 ) * s );
-    dstv.eSet( 2,  ( m10 - m01 ) * s );
+    dstv.eSet( 0, ( m21 - m12 ) * s );
+    dstv.eSet( 1, ( m02 - m20 ) * s );
+    dstv.eSet( 2, ( m10 - m01 ) * s );
     dstv.eSet( 3, 0.25 / s );
 
   }
@@ -628,9 +628,9 @@ function fromMatrixRotation( dst, mat )
     let s = 2.0 * Math.sqrt( 1.0 + m00 - m11 - m22 );
 
     dstv.eSet( 0, 0.25 * s );
-    dstv.eSet( 1,  ( m01 + m10 ) / s );
-    dstv.eSet( 2,  ( m02 + m20 ) / s );
-    dstv.eSet( 3,  ( m21 - m12 ) / s );
+    dstv.eSet( 1, ( m01 + m10 ) / s );
+    dstv.eSet( 2, ( m02 + m20 ) / s );
+    dstv.eSet( 3, ( m21 - m12 ) / s );
 
   }
   else if ( m11 > m22 )
@@ -638,10 +638,10 @@ function fromMatrixRotation( dst, mat )
 
     let s = 2.0 * Math.sqrt( 1.0 + m11 - m00 - m22 );
 
-    dstv.eSet( 0,  ( m01 + m10 ) / s );
+    dstv.eSet( 0, ( m01 + m10 ) / s );
     dstv.eSet( 1, 0.25 * s );
-    dstv.eSet( 2,  ( m12 + m21 ) / s );
-    dstv.eSet( 3,  ( m02 - m20 ) / s );
+    dstv.eSet( 2, ( m12 + m21 ) / s );
+    dstv.eSet( 3, ( m02 - m20 ) / s );
 
   }
   else
@@ -649,10 +649,10 @@ function fromMatrixRotation( dst, mat )
 
     let s = 2.0 * Math.sqrt( 1.0 + m22 - m00 - m11 );
 
-    dstv.eSet( 0,  ( m02 + m20 ) / s );
-    dstv.eSet( 1,  ( m12 + m21 ) / s );
+    dstv.eSet( 0, ( m02 + m20 ) / s );
+    dstv.eSet( 1, ( m12 + m21 ) / s );
     dstv.eSet( 2, 0.25 * s );
-    dstv.eSet( 3,  ( m10 - m01 ) / s );
+    dstv.eSet( 3, ( m10 - m01 ) / s );
 
   }
 
@@ -664,7 +664,7 @@ function fromMatrixRotation( dst, mat )
 function fromMatrixRotation2( dst, mat )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.Matrix.Is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -672,9 +672,9 @@ function fromMatrixRotation2( dst, mat )
   dst = _.quat.from( dst );
   let dstv = _.vectorAdapter.from( dst );
 
-  let m00 = mat.atomGet([ 0, 0 ]),  m01 = mat.atomGet([ 0, 1 ]),  m02 = mat.atomGet([ 0, 2 ]);
-  let m10 = mat.atomGet([ 1, 0 ]),  m11 = mat.atomGet([ 1, 1 ]),  m12 = mat.atomGet([ 1, 2 ]);
-  let m20 = mat.atomGet([ 2, 0 ]),  m21 = mat.atomGet([ 2, 1 ]),  m22 = mat.atomGet([ 2, 2 ]);
+  let m00 = mat.atomGet([ 0, 0 ]), m01 = mat.atomGet([ 0, 1 ]), m02 = mat.atomGet([ 0, 2 ]);
+  let m10 = mat.atomGet([ 1, 0 ]), m11 = mat.atomGet([ 1, 1 ]), m12 = mat.atomGet([ 1, 2 ]);
+  let m20 = mat.atomGet([ 2, 0 ]), m21 = mat.atomGet([ 2, 1 ]), m22 = mat.atomGet([ 2, 2 ]);
 
   let x = Math.sqrt( Math.max( 0, 1 + m00 - m11 - m22 ) ) / 2;
   let y = Math.sqrt( Math.max( 0, 1 - m00 + m11 - m22 ) ) / 2;
@@ -688,10 +688,10 @@ function fromMatrixRotation2( dst, mat )
   if( _.math.sign( z ) !== _.math.sign( m10 - m01 ) )
   z *= -1;
 
-  dstv.eSet( 0 ,  x );
-  dstv.eSet( 1 ,  y );
-  dstv.eSet( 2 ,  z );
-  dstv.eSet( 3 ,  w );
+  dstv.eSet( 0 , x );
+  dstv.eSet( 1 , y );
+  dstv.eSet( 2 , z );
+  dstv.eSet( 3 , w );
 
   dstv.normalize();
 
@@ -703,7 +703,7 @@ function fromMatrixRotation2( dst, mat )
 function fromMatrixWithScale( dst, mat )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.Matrix.Is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -722,9 +722,9 @@ function fromMatrixWithScale( dst, mat )
     let s = 0.5 / Math.sqrt( trace + 1.0 );
     let sm = s*m;
 
-    dstv.eSet( 0,  ( m21 - m12 ) * sm );
-    dstv.eSet( 1,  ( m02 - m20 ) * sm );
-    dstv.eSet( 2,  ( m10 - m01 ) * sm );
+    dstv.eSet( 0, ( m21 - m12 ) * sm );
+    dstv.eSet( 1, ( m02 - m20 ) * sm );
+    dstv.eSet( 2, ( m10 - m01 ) * sm );
     dstv.eSet( 3, 0.25*m / s );
 
   }
@@ -735,9 +735,9 @@ function fromMatrixWithScale( dst, mat )
     let sm = s/m;
 
     dstv.eSet( 0, 0.25 * s * m );
-    dstv.eSet( 1,  ( m01 + m10 ) / sm );
-    dstv.eSet( 2,  ( m02 + m20 ) / sm );
-    dstv.eSet( 3,  ( m21 - m12 ) / sm );
+    dstv.eSet( 1, ( m01 + m10 ) / sm );
+    dstv.eSet( 2, ( m02 + m20 ) / sm );
+    dstv.eSet( 3, ( m21 - m12 ) / sm );
 
   }
   else if ( m11 > m22 )
@@ -746,10 +746,10 @@ function fromMatrixWithScale( dst, mat )
     let s = 2.0 * Math.sqrt( 1.0 + m11 - m00 - m22 );
     let sm = s/m;
 
-    dstv.eSet( 0,  ( m01 + m10 ) / sm );
+    dstv.eSet( 0, ( m01 + m10 ) / sm );
     dstv.eSet( 1, 0.25 * s * m );
-    dstv.eSet( 2,  ( m12 + m21 ) / sm );
-    dstv.eSet( 3,  ( m02 - m20 ) / sm );
+    dstv.eSet( 2, ( m12 + m21 ) / sm );
+    dstv.eSet( 3, ( m02 - m20 ) / sm );
 
   }
   else
@@ -758,10 +758,10 @@ function fromMatrixWithScale( dst, mat )
     let s = 2.0 * Math.sqrt( 1.0 + m22 - m00 - m11 );
     let sm = s/m;
 
-    dstv.eSet( 0,  ( m02 + m20 ) / sm );
-    dstv.eSet( 1,  ( m12 + m21 ) / sm );
+    dstv.eSet( 0, ( m02 + m20 ) / sm );
+    dstv.eSet( 1, ( m12 + m21 ) / sm );
     dstv.eSet( 2, 0.25 * s * m );
-    dstv.eSet( 3,  ( m10 - m01 ) / sm );
+    dstv.eSet( 3, ( m10 - m01 ) / sm );
 
   }
 
@@ -815,7 +815,7 @@ function toMatrix( quat, mat )
 
 function is( quat )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( quat ) || _.vectorAdapterIs( quat ) ) && ( quat.length === 4 );
 }
 
@@ -824,7 +824,7 @@ function is( quat )
 function isUnit( quat )
 {
 
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let quatView = _.quat.toAdapter( quat );
 
@@ -843,7 +843,7 @@ function isUnit( quat )
 function isZero( quat )
 {
 
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let quatView = _.quat.toAdapter( quat );
 
@@ -861,7 +861,7 @@ function isZero( quat )
 
 function dimGet( quat )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.quat.is( quat ) );
   return quat.length;
 }
@@ -872,11 +872,11 @@ function conjugate( dst )
 {
   let dstv = _.quat.toAdapter( dst );
 
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
-  dstv.eSet( 0,  -dstv.eGet( 0 ) );
-  dstv.eSet( 1,  -dstv.eGet( 1 ) );
-  dstv.eSet( 2,  -dstv.eGet( 2 ) );
+  dstv.eSet( 0, -dstv.eGet( 0 ) );
+  dstv.eSet( 1, -dstv.eGet( 1 ) );
+  dstv.eSet( 2, -dstv.eGet( 2 ) );
 
   return dst;
 }
@@ -887,7 +887,7 @@ function inv( dst )
 {
   let dstv = _.quat.toAdapter( dst );
 
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   this.normalize( this.conjugate( dst ) );
 
@@ -899,8 +899,8 @@ function inv( dst )
 function _mul3( dst, src1, src2 )
 {
 
-  let src10 = src1.eGet( 0 ),  src11 = src1.eGet( 1 ),  src12 = src1.eGet( 2 ),  src13 = src1.eGet( 3 );
-  let src20 = src2.eGet( 0 ),  src21 = src2.eGet( 1 ),  src22 = src2.eGet( 2 ),  src23 = src2.eGet( 3 );
+  let src10 = src1.eGet( 0 ), src11 = src1.eGet( 1 ), src12 = src1.eGet( 2 ), src13 = src1.eGet( 3 );
+  let src20 = src2.eGet( 0 ), src21 = src2.eGet( 1 ), src22 = src2.eGet( 2 ), src23 = src2.eGet( 3 );
 
   dst.eSet( 0, src10 * src23 + src13 * src20 + src11 * src22 - src12 * src21 );
   dst.eSet( 1, src11 * src23 + src13 * src21 + src12 * src20 - src10 * src22 );
@@ -916,13 +916,13 @@ function mul( dst )
 {
   let first = 1;
 
-  _.assert( arguments.length >= 2,  'Expects at least two arguments' );
+  _.assert( arguments.length >= 2, 'Expects at least two arguments' );
 
   if( dst === null )
   {
     dst = this.make( arguments[ 1 ] );
     first = 2;
-    _.assert( arguments.length >= 3,  'Expects at least three arguments' );
+    _.assert( arguments.length >= 3, 'Expects at least three arguments' );
   }
 
   let dstv = _.quat.toAdapter( dst );
@@ -944,7 +944,7 @@ function mix( dst, src, val )
   let dstv = _.quat.toAdapter( dst );
   let srcv = _.quat.toAdapter( src );
 
-  _.assert( arguments.length === 3,  'Expects exactly three arguments' );
+  _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
   if( val === 0 )
   return dst;
@@ -954,8 +954,8 @@ function mix( dst, src, val )
   if( val === 1 )
   return this.copy( dst, src );
 
-  let src0 = srcv.eGet( 0 ),  src1 = srcv.eGet( 1 ),  src2 = srcv.eGet( 2 ),  src3 = srcv.eGet( 3 );
-  let dst0 = dstv.eGet( 0 ),  dst1 = dstv.eGet( 1 ),  dst2 = dstv.eGet( 2 ),  dst3 = dstv.eGet( 3 );
+  let src0 = srcv.eGet( 0 ), src1 = srcv.eGet( 1 ), src2 = srcv.eGet( 2 ), src3 = srcv.eGet( 3 );
+  let dst0 = dstv.eGet( 0 ), dst1 = dstv.eGet( 1 ), dst2 = dstv.eGet( 2 ), dst3 = dstv.eGet( 3 );
 
   let cosHalfTheta = src0 * src.eGet( 0 ) + src1 * src.eGet( 1 ) + src2 * src.eGet( 2 ) + src3 * src.eGet( 3 );
 
@@ -1016,10 +1016,10 @@ function mix( dst, src, val )
   let r1 = Math.sin( ( 1 - val ) * halfTheta ) / sinHalfTheta;
   let r2 = Math.sin( t * halfTheta ) / sinHalfTheta;
 
-  dstv.eSet( 0,  ( dst0 * r1 + src0 * r2 ) );
-  dstv.eSet( 1,  ( dst1 * r1 + src1 * r2 ) );
-  dstv.eSet( 2,  ( dst2 * r1 + src2 * r2 ) );
-  dstv.eSet( 3,  ( dst3 * r1 + src3 * r2 ) );
+  dstv.eSet( 0, ( dst0 * r1 + src0 * r2 ) );
+  dstv.eSet( 1, ( dst1 * r1 + src1 * r2 ) );
+  dstv.eSet( 2, ( dst2 * r1 + src2 * r2 ) );
+  dstv.eSet( 3, ( dst3 * r1 + src3 * r2 ) );
 
   return dst;
 }
@@ -1046,9 +1046,9 @@ function applyTo( quat, vector )
   let iz = + qw * z + qx * y - qy * x;
   let iw = - qx * x - qy * y - qz * z;
 
-  vectorv.eSet( 0 ,  ix * qw + iw * - qx + iy * - qz - iz * - qy );
-  vectorv.eSet( 1 ,  iy * qw + iw * - qy + iz * - qx - ix * - qz );
-  vectorv.eSet( 2 ,  iz * qw + iw * - qz + ix * - qy - iy * - qx );
+  vectorv.eSet( 0 , ix * qw + iw * - qx + iy * - qz - iz * - qy );
+  vectorv.eSet( 1 , iy * qw + iw * - qy + iz * - qx - ix * - qz );
+  vectorv.eSet( 2 , iz * qw + iw * - qz + ix * - qy - iy * - qx );
 
   return vector;
 }

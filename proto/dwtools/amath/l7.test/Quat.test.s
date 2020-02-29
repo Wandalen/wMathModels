@@ -33,11 +33,11 @@ _.assert( _.routineIs( sqrt ) );
 function eachAngle( o )
 {
 
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.routineOptions( eachAngle, o );
 
   if( o.representations === null )
-  o.representations = [ 'xyz',  'xzy',  'yxz',  'yzx',  'zxy',  'zyx',  'xyx',  'xzx',  'yxy',  'yzy',  'zxz',  'zyz' ];
+  o.representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
   if( o.angles === null )
   o.angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
   if( o.anglesLocked === null )
@@ -107,7 +107,7 @@ eachAngle.defaults =
 // function eachAngle( o )
 // {
 //
-//   _.assert( arguments.length === 1,  'Expects single argument' );
+//   _.assert( arguments.length === 1, 'Expects single argument' );
 //   _.routineOptions( eachAngle, o );
 //
 //   /**/
@@ -170,7 +170,7 @@ eachAngle.defaults =
 //
 // eachAngle.defaults =
 // {
-//   representations : [ 'xyz',  'xzy',  'yxz',  'yzx',  'zxy',  'zyx',  'xyx',  'xzx',  'yxy',  'yzy',  'zxz',  'zyz' ],
+//   representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
 //   angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
 //   anglesLocked : [ 0, Math.PI / 3 ],
 //   quadrants : [ 0, 1, 2, 3 ],
@@ -190,8 +190,8 @@ function eachQuat( onQuat )
 
   // test.case = 'ordinary cases 1'; /* */
 
-  var begin = [ -0.6,  -0.5,  -0.345 ];
-  var end = [ +0.5,  +0.7,  +0.345 ];
+  var begin = [ -0.6, -0.5, -0.345 ];
+  var end = [ +0.5, +0.7, +0.345 ];
   for( var i = 0 ; i < 1000 ; i++ )
   {
 
@@ -204,16 +204,16 @@ function eachQuat( onQuat )
 
     onQuat( quat1 );
 
-    // logger.log( 'quat1',  quat1 );
-    // logger.log( 'quat2',  quat2 );
-    // logger.log( 'axisAndAngle',  axisAndAngle );
+    // logger.log( 'quat1', quat1 );
+    // logger.log( 'quat2', quat2 );
+    // logger.log( 'axisAndAngle', axisAndAngle );
 
   }
 
   // test.case = 'ordinary cases 2'; /* */
 
-  var begin = [ -0.25,  -0.7,  -0.515 ];
-  var end = [ +0.6,  +0.3,  +0.246 ];
+  var begin = [ -0.25, -0.7, -0.515 ];
+  var end = [ +0.6, +0.3, +0.246 ];
   for( var i = 0 ; i < 1000 ; i++ )
   {
 
@@ -226,9 +226,9 @@ function eachQuat( onQuat )
     // var quat2 = _.quat.fromAxisAndAngle( null, axisAndAngle );
     // test.equivalent( quat1, quat2 );
 
-    // logger.log( 'quat1',  quat1 );
-    // logger.log( 'quat2',  quat2 );
-    // logger.log( 'axisAndAngle',  axisAndAngle );
+    // logger.log( 'quat1', quat1 );
+    // logger.log( 'quat2', quat2 );
+    // logger.log( 'axisAndAngle', axisAndAngle );
 
   }
 
@@ -262,7 +262,7 @@ function is( test )
   test.is( !_.quat.is( [] ) );
   test.is( !_.quat.is( _.vectorAdapter.fromLong([]) ) );
   test.is( !_.quat.is( 'abc' ) );
-  test.is( !_.quat.is( { center : [ 0, 0, 0 ],  radius : 1 } ) );
+  test.is( !_.quat.is( { center : [ 0, 0, 0 ], radius : 1 } ) );
   test.is( !_.quat.is( function( a, b, c ){} ) );
 
 }
@@ -375,7 +375,7 @@ function make( test )
   test.shouldThrowErrorSync( () => _.quat.make( 0 ) );
   test.shouldThrowErrorSync( () => _.quat.make( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.make( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.make( [ 0, 0, 0, 1 ],  2 ) );
+  test.shouldThrowErrorSync( () => _.quat.make( [ 0, 0, 0, 1 ], 2 ) );
 
 }
 
@@ -400,7 +400,7 @@ function makeZero( test )
   test.shouldThrowErrorSync( () => _.quat.makeZero( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.makeZero([ 0, 0, 0, 1 ]) );
   test.shouldThrowErrorSync( () => _.quat.makeZero( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.makeZero( [ 0, 0, 0, 1 ],  2 ) );
+  test.shouldThrowErrorSync( () => _.quat.makeZero( [ 0, 0, 0, 1 ], 2 ) );
 
 }
 
@@ -425,7 +425,7 @@ function makeUnit( test )
   test.shouldThrowErrorSync( () => _.quat.makeUnit( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.makeUnit([ 0, 0, 0, 1 ]) );
   test.shouldThrowErrorSync( () => _.quat.makeUnit( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.makeUnit( [ 0, 0, 0, 1 ],  2 ) );
+  test.shouldThrowErrorSync( () => _.quat.makeUnit( [ 0, 0, 0, 1 ], 2 ) );
 
 }
 
@@ -471,7 +471,7 @@ function zero( test )
   test.shouldThrowErrorSync( () => _.quat.zero( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.zero([ 0, 0, 0 ]) );
   test.shouldThrowErrorSync( () => _.quat.zero( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.zero( [ 0, 0, 0, 1 ],  2 ) );
+  test.shouldThrowErrorSync( () => _.quat.zero( [ 0, 0, 0, 1 ], 2 ) );
 
 }
 
@@ -517,7 +517,7 @@ function unit( test )
   test.shouldThrowErrorSync( () => _.quat.unit( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.unit([ 0, 0, 0 ]) );
   test.shouldThrowErrorSync( () => _.quat.unit( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.unit( [ 0, 0, 0, 1 ],  2 ) );
+  test.shouldThrowErrorSync( () => _.quat.unit( [ 0, 0, 0, 1 ], 2 ) );
 
 }
 
@@ -531,7 +531,7 @@ function fromEuler( test )
 
   // for( var order in _.euler.Order )
   // {
-  //   var euler = _.arrayAppendArray( [ 1, 1, 1 ],  _.euler.Order[ order ] );
+  //   var euler = _.arrayAppendArray( [ 1, 1, 1 ], _.euler.Order[ order ] );
   //   logger.log( order, _.quat.fromEuler( null, euler ) );
   // }
 
@@ -585,16 +585,16 @@ function fromEuler( test )
     euler1 = _.euler.fromQuat( euler1, quat1 );
 
     var quat2 = _.quat.fromEuler( null, euler1 );
-    var euler2 = _.euler.fromQuat( euler1.slice(),  quat2 );
+    var euler2 = _.euler.fromQuat( euler1.slice(), quat2 );
 
     // var quat3 = _.quat.fromEuler( null, euler2 );
     var m1 = _.quat.toMatrix( quat1, null );
-    var euler3 = _.euler.fromMatrix( euler1.slice(),  m1 );
+    var euler3 = _.euler.fromMatrix( euler1.slice(), m1 );
     var quat3 = _.quat.fromEuler( null, euler3 );
 
-    var applied1 = _.quat.applyTo( quat1,  [ 0.25, 0.5, 1.0 ] );
-    var applied2 = _.quat.applyTo( quat2,  [ 0.25, 0.5, 1.0 ] );
-    var applied3 = _.quat.applyTo( quat3,  [ 0.25, 0.5, 1.0 ] );
+    var applied1 = _.quat.applyTo( quat1, [ 0.25, 0.5, 1.0 ] );
+    var applied2 = _.quat.applyTo( quat2, [ 0.25, 0.5, 1.0 ] );
+    var applied3 = _.quat.applyTo( quat3, [ 0.25, 0.5, 1.0 ] );
 
     // test.equivalent( quat1, quat3 );
     // test.equivalent( quat2, quat3 );
@@ -603,19 +603,19 @@ function fromEuler( test )
     test.equivalent( applied2, applied1 );
     // test.equivalent( applied3, applied1 );
 
-    // logger.log( 'signs',  signs );
+    // logger.log( 'signs', signs );
 
-    logger.log( 'quat1',  quat1 );
-    logger.log( 'quat2',  quat2 );
-    logger.log( 'quat3',  quat3 );
+    logger.log( 'quat1', quat1 );
+    logger.log( 'quat2', quat2 );
+    logger.log( 'quat3', quat3 );
 
-    logger.log( 'applied1',  applied1 );
-    logger.log( 'applied2',  applied2 );
-    logger.log( 'applied3',  applied3 );
+    logger.log( 'applied1', applied1 );
+    logger.log( 'applied2', applied2 );
+    logger.log( 'applied3', applied3 );
 
-    logger.log( 'euler1',  euler1 );
-    logger.log( 'euler2',  euler2 );
-    logger.log( 'euler3',  euler3 );
+    logger.log( 'euler1', euler1 );
+    logger.log( 'euler2', euler2 );
+    logger.log( 'euler3', euler3 );
 
     // [ x: -1.1460588, y: 0.4274791, z: -2.863293 ]
 
@@ -635,26 +635,26 @@ function fromAxisAndAngle( test )
   test.case = 'zero'; /* */
 
   var expected = [ 0, 0, 0, 1 ];
-  var got = _.quat.fromAxisAndAngle( null,  [ 0, 0, 0 ],  0 );
+  var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 0 ], 0 );
   test.equivalent( got, expected );
-  var got = _.quat.fromAxisAndAngle( null,  [ 1, 0, 0 ],  0 );
+  var got = _.quat.fromAxisAndAngle( null, [ 1, 0, 0 ], 0 );
   test.equivalent( got, expected );
-  var got = _.quat.fromAxisAndAngle( null,  [ 0, 1, 0 ],  0 );
+  var got = _.quat.fromAxisAndAngle( null, [ 0, 1, 0 ], 0 );
   test.equivalent( got, expected );
-  var got = _.quat.fromAxisAndAngle( null,  [ 0, 0, 1 ],  0 );
+  var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 1 ], 0 );
   test.equivalent( got, expected );
 
   test.case = 'near zero'; /* */
 
   var angle = test.accuracy;
   var expected = [ 0.00000004999999873689376, 0, 0, 1 ];
-  var got = _.quat.fromAxisAndAngle( null,  [ 1, 0, 0 ],  angle );
+  var got = _.quat.fromAxisAndAngle( null, [ 1, 0, 0 ], angle );
   test.equivalent( got, expected );
   var expected = [ 0, 0.00000004999999873689376, 0, 1 ];
-  var got = _.quat.fromAxisAndAngle( null,  [ 0, 1, 0 ],  angle );
+  var got = _.quat.fromAxisAndAngle( null, [ 0, 1, 0 ], angle );
   test.equivalent( got, expected );
   var expected = [ 0, 0, 0.00000004999999873689376, 1 ];
-  var got = _.quat.fromAxisAndAngle( null,  [ 0, 0, 1 ],  angle );
+  var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 1 ], angle );
   test.equivalent( got, expected );
 
   /* */
@@ -663,16 +663,16 @@ function fromAxisAndAngle( test )
   var samples =
   [
 
-    { d : 'zero',  angle : 0, tc : 0, oc : 0, w : 1 },
+    { d : 'zero', angle : 0, tc : 0, oc : 0, w : 1 },
 
-    { d : '+pi/2',  angle : +pi/2, tc : +h, oc : 0, w : +h },
-    { d : '-pi/2',  angle : -pi/2, tc : -h, oc : 0, w : +h },
+    { d : '+pi/2', angle : +pi/2, tc : +h, oc : 0, w : +h },
+    { d : '-pi/2', angle : -pi/2, tc : -h, oc : 0, w : +h },
 
-    { d : '+pi',  angle : +pi, tc : +1, oc : 0, w : 0 },
-    { d : '-pi',  angle : -pi, tc : -1, oc : 0, w : 0 },
+    { d : '+pi', angle : +pi, tc : +1, oc : 0, w : 0 },
+    { d : '-pi', angle : -pi, tc : -1, oc : 0, w : 0 },
 
-    { d : '+pi*2',  angle : +pi*2, tc : 0, oc : 0, w : -1 },
-    { d : '-pi*2',  angle : -pi*2, tc : 0, oc : 0, w : -1 },
+    { d : '+pi*2', angle : +pi*2, tc : 0, oc : 0, w : -1 },
+    { d : '-pi*2', angle : -pi*2, tc : 0, oc : 0, w : -1 },
 
   ]
 
@@ -700,7 +700,7 @@ function fromAxisAndAngle( test )
     var axis2 = _.quat.toAxisAndAngle( quat, null );
 
     if( axis2[ 0 ]*axis[ 0 ] < 0 || axis2[ 1 ]*axis[ 1 ] < 0 || axis2[ 2 ]*axis[ 2 ] < 0 || axis2[ 3 ]*axis[ 3 ] < 0 )
-    _.avector.mul( axis2,  -1 );
+    _.avector.mul( axis2, -1 );
 
     if( axis2[ 0 ]*axis[ 0 ] < 0 || axis2[ 1 ]*axis[ 1 ] < 0 || axis2[ 2 ]*axis[ 2 ] < 0 || axis2[ 3 ]*axis[ 3 ] < 0 )
     {
@@ -710,7 +710,7 @@ function fromAxisAndAngle( test )
     }
 
     if( axis2[ 0 ]*axis[ 0 ] < 0 || axis2[ 1 ]*axis[ 1 ] < 0 || axis2[ 2 ]*axis[ 2 ] < 0 || axis2[ 3 ]*axis[ 3 ] < 0 )
-    _.avector.mul( axis2,  -1 );
+    _.avector.mul( axis2, -1 );
 
     test.equivalent( axis, axis2, test.accuracy*10 );
 
@@ -782,9 +782,9 @@ function fromAxisAndAngle( test )
 
     test.equivalent( quat1, quat2 );
 
-    // logger.log( 'quat1',  quat1 );
-    // logger.log( 'quat2',  quat2 );
-    // logger.log( 'axisAndAngle',  axisAndAngle );
+    // logger.log( 'quat1', quat1 );
+    // logger.log( 'quat2', quat2 );
+    // logger.log( 'axisAndAngle', axisAndAngle );
 
   });
 
@@ -795,17 +795,17 @@ function fromAxisAndAngle( test )
   return;
 
   test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( 1 ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ],  1 ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ],  [ 1, 2, 3 ] ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( undefined,  [ 1, 2, 3 ],  [ 1, 2, 3 ] ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( null,  [ 1, 2, 3 ] ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ],  undefined ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ],  [ 1 ],  1 ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ],  [ 1 ],  [ 1 ] ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [],  function(){} ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1, 1 ],  3 ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1, 1, 1 ],  3, 3 ) );
-  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1, 1, 1 ],  3,  [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ], 1 ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ], [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( undefined, [ 1, 2, 3 ], [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( null, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ], [ 1 ], 1 ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1 ], [ 1 ], [ 1 ] ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [], function(){} ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1, 1 ], 3 ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1, 1, 1 ], 3, 3 ) );
+  test.shouldThrowErrorSync( () => _.quat.fromAxisAndAngle( [ 1, 1, 1 ], 3, [ 1, 2, 3 ] ) );
 
 }
 
@@ -817,9 +817,9 @@ fromAxisAndAngle.timeOut = 10000;
 function fromVectors( test )
 {
 
-  _fromVectors( test,  'fromVectors',  0 );
+  _fromVectors( test, 'fromVectors', 0 );
 
-  _fromVectors( test,  'fromNormalizedVectors',  1 );
+  _fromVectors( test, 'fromNormalizedVectors', 1 );
 
   /* */
 
@@ -832,16 +832,16 @@ function fromVectors( test )
     test.case = 'same avectors'; /* */
 
     var expected = [ 0, 0, 0, normalized ? 1 : 0 ];
-    var got = _.quat[ r ]( null,  [ 0, 0, 0 ],  [ 0, 0, 0 ] );
+    var got = _.quat[ r ]( null, [ 0, 0, 0 ], [ 0, 0, 0 ] );
     test.equivalent( got, expected );
 
     var expected = [ 0, 0, 0, 1 ];
-    var got = _.quat[ r ]( null,  [ 1, 0, 0 ],  [ 1, 0, 0 ] );
+    var got = _.quat[ r ]( null, [ 1, 0, 0 ], [ 1, 0, 0 ] );
     test.equivalent( got, expected );
 
-    var got = _.quat[ r ]( null,  [ 0, 1, 0 ],  [ 0, 1, 0 ] );
+    var got = _.quat[ r ]( null, [ 0, 1, 0 ], [ 0, 1, 0 ] );
     test.equivalent( got, expected );
-    var got = _.quat[ r ]( null,  [ 0, 0, 1 ],  [ 0, 0, 1 ] );
+    var got = _.quat[ r ]( null, [ 0, 0, 1 ], [ 0, 0, 1 ] );
     test.equivalent( got, expected );
 
     /* */
@@ -849,29 +849,29 @@ function fromVectors( test )
     var samples =
     [
 
-      { d : 'from x',  v1 : [ 1, 0, 0 ],  v2 : [ 1, 0, 0 ],  e : [ 0, 0, 0, 1 ] },
-      { d : 'from x',  v1 : [ 1, 0, 0 ],  v2 : [ 0, 1, 0 ],  e : [ 0, 0,  +h,  +h ] },
-      { d : 'from x',  v1 : [ 1, 0, 0 ],  v2 : [ 0, 0, 1 ],  e : [ 0,  -h, 0,  +h ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 1, 0, 0 ], e : [ 0, 0, 0, 1 ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, 1, 0 ], e : [ 0, 0, +h, +h ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, 0, 1 ], e : [ 0, -h, 0, +h ] },
 
-      { d : 'from y',  v1 : [ 0, 1, 0 ],  v2 : [ 1, 0, 0 ],  e : [ 0, 0,  -h,  +h ] },
-      { d : 'from y',  v1 : [ 0, 1, 0 ],  v2 : [ 0, 1, 0 ],  e : [ 0, 0, 0, 1 ] },
-      { d : 'from y',  v1 : [ 0, 1, 0 ],  v2 : [ 0, 0, 1 ],  e : [ +h, 0, 0,  +h ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 1, 0, 0 ], e : [ 0, 0, -h, +h ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, 1, 0 ], e : [ 0, 0, 0, 1 ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, 0, 1 ], e : [ +h, 0, 0, +h ] },
 
-      { d : 'from z',  v1 : [ 0, 0, 1 ],  v2 : [ 1, 0, 0 ],  e : [ 0,  +h, 0,  +h ] },
-      { d : 'from z',  v1 : [ 0, 0, 1 ],  v2 : [ 0, 1, 0 ],  e : [ -h, 0, 0,  +h ] },
-      { d : 'from z',  v1 : [ 0, 0, 1 ],  v2 : [ 0, 0, 1 ],  e : [ 0, 0, 0, 1 ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 1, 0, 0 ], e : [ 0, +h, 0, +h ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, 1, 0 ], e : [ -h, 0, 0, +h ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, 0, 1 ], e : [ 0, 0, 0, 1 ] },
 
-      { d : 'from x',  v1 : [ 1, 0, 0 ],  v2 : [ -1, 0, 0 ],  e : [ 0, 0, 1, 0 ] },
-      { d : 'from x',  v1 : [ 1, 0, 0 ],  v2 : [ 0,  -1, 0 ],  e : [ 0, 0,  -h,  +h ] },
-      { d : 'from x',  v1 : [ 1, 0, 0 ],  v2 : [ 0, 0,  -1 ],  e : [ 0,  +h, 0,  +h ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ -1, 0, 0 ], e : [ 0, 0, 1, 0 ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, -1, 0 ], e : [ 0, 0, -h, +h ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, 0, -1 ], e : [ 0, +h, 0, +h ] },
 
-      { d : 'from y',  v1 : [ 0, 1, 0 ],  v2 : [ -1, 0, 0 ],  e : [ 0, 0,  +h,  +h ] },
-      { d : 'from y',  v1 : [ 0, 1, 0 ],  v2 : [ 0,  -1, 0 ],  e : [ 0, 1, 0, 0 ] },
-      { d : 'from y',  v1 : [ 0, 1, 0 ],  v2 : [ 0, 0,  -1 ],  e : [ -h, 0, 0,  +h ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ -1, 0, 0 ], e : [ 0, 0, +h, +h ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, -1, 0 ], e : [ 0, 1, 0, 0 ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, 0, -1 ], e : [ -h, 0, 0, +h ] },
 
-      { d : 'from z',  v1 : [ 0, 0, 1 ],  v2 : [ -1, 0, 0 ],  e : [ 0,  -h, 0,  +h ] },
-      { d : 'from z',  v1 : [ 0, 0, 1 ],  v2 : [ 0,  -1, 0 ],  e : [ +h, 0, 0,  +h ] },
-      { d : 'from z',  v1 : [ 0, 0, 1 ],  v2 : [ 0, 0,  -1 ],  e : [ -1, 0, 0, 0 ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ -1, 0, 0 ], e : [ 0, -h, 0, +h ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, -1, 0 ], e : [ +h, 0, 0, +h ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, 0, -1 ], e : [ -1, 0, 0, 0 ] },
 
     ]
 
@@ -949,20 +949,20 @@ function fromVectors( test )
     return;
 
     test.shouldThrowErrorSync( () => _.quat[ r ]( 1 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  1 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( null,  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  undefined ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  [ 1 ],  1 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  [ 1 ],  [ 1 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [],  function(){} ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1 ],  3 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ],  3, 3 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ],  3,  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ],  3,  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1, 1 ],  [ 1, 2, 3 ],  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1 ],  [ 1, 2, 3, 1 ],  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1 ],  [ 1, 2, 3 ],  [ 1, 2, 3, 1 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], 1 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( null, [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], undefined ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], [ 1 ], 1 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], [ 1 ], [ 1 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [], function(){} ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1 ], 3 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ], 3, 3 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ], 3, [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ], 3, [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1, 1 ], [ 1, 2, 3 ], [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1 ], [ 1, 2, 3, 1 ], [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1 ], [ 1, 2, 3 ], [ 1, 2, 3, 1 ] ) );
 
   }
 
@@ -975,8 +975,8 @@ fromVectors.accuracy = [ _.accuracy * 1e-3, 1e-3 ];
 function fromMatrixRotationFast( test )
 {
 
-  _fromMatrixRotation( test, 1,  'fromMatrixRotation' );
-  _fromMatrixRotation( test, 0,  'fromMatrixRotation2' );
+  _fromMatrixRotation( test, 1, 'fromMatrixRotation' );
+  _fromMatrixRotation( test, 0, 'fromMatrixRotation2' );
 
   /* */
 
@@ -991,16 +991,16 @@ function fromMatrixRotationFast( test )
     var samples =
     [
 
-      { d : 'zero',  angle : 0 },
+      { d : 'zero', angle : 0 },
 
-      { d : '+pi/2',  angle : +pi/2 },
-      { d : '-pi/2',  angle : -pi/2 },
+      { d : '+pi/2', angle : +pi/2 },
+      { d : '-pi/2', angle : -pi/2 },
 
-      { d : '+pi',  angle : +pi },
-      { d : '-pi',  angle : -pi },
+      { d : '+pi', angle : +pi },
+      { d : '-pi', angle : -pi },
 
-      { d : '+pi*2',  angle : +pi*2 },
-      { d : '-pi*2',  angle : -pi*2 },
+      { d : '+pi*2', angle : +pi*2 },
+      { d : '-pi*2', angle : -pi*2 },
 
     ]
 
@@ -1015,7 +1015,7 @@ function fromMatrixRotationFast( test )
       var quat2 = _.quat.fromMatrixRotation( null, matrix );
 
       if( quat1[ 0 ] * quat2[ 0 ] < 0 )
-      _.avector.mul( quat2,  -1 );
+      _.avector.mul( quat2, -1 );
 
       test.equivalent( quat1, quat2 );
 
@@ -1029,24 +1029,24 @@ function fromMatrixRotationFast( test )
     return;
 
     test.shouldThrowErrorSync( () => _.quat[ r ]( 1 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  1 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( null,  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  undefined ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  [ 1 ],  1 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ],  [ 1 ],  [ 1 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [],  function(){} ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1 ],  3 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ],  3, 3 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ],  3,  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ],  3,  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1, 1 ],  [ 1, 2, 3 ],  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1 ],  [ 1, 2, 3, 1 ],  [ 1, 2, 3 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1 ],  [ 1, 2, 3 ],  [ 1, 2, 3, 1 ] ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( null,  [ 0, 0 ],  1 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( null,  [ 0, 0, 0, 0 ],  1 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( null,  [ 0, 0, 0 ],  1, 1 ) );
-    test.shouldThrowErrorSync( () => _.quat[ r ]( null,  [ 0, 0, 0 ],  '1' ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], 1 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( null, [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], undefined ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], [ 1 ], 1 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1 ], [ 1 ], [ 1 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [], function(){} ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1 ], 3 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ], 3, 3 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ], 3, [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1 ], 3, [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1, 1 ], [ 1, 2, 3 ], [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1 ], [ 1, 2, 3, 1 ], [ 1, 2, 3 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( [ 1, 1, 1, 1 ], [ 1, 2, 3 ], [ 1, 2, 3, 1 ] ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( null, [ 0, 0 ], 1 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( null, [ 0, 0, 0, 0 ], 1 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( null, [ 0, 0, 0 ], 1, 1 ) );
+    test.shouldThrowErrorSync( () => _.quat[ r ]( null, [ 0, 0, 0 ], '1' ) );
 
     /* */
 
@@ -1059,24 +1059,24 @@ function fromMatrixRotationFast( test )
       var m2 = _.Matrix.make([ 3, 3 ]).fromQuat( q1 );
       var q3 = _.quat[ r ]( null, m2 );
 
-      // logger.log( 'q1',  q1 );
-      // logger.log( 'q2',  q2 );
-      // logger.log( 'q3',  q3 );
-      // logger.log( 'm1',  m1 );
-      // logger.log( 'm2',  m2 );
+      // logger.log( 'q1', q1 );
+      // logger.log( 'q2', q2 );
+      // logger.log( 'q3', q3 );
+      // logger.log( 'm1', m1 );
+      // logger.log( 'm2', m2 );
       //
-      // logger.log( 'q1',  _.quat.applyTo( q1,  [ 1, 1, 1 ] ) );
-      // logger.log( 'q2',  _.quat.applyTo( q2,  [ 1, 1, 1 ] ) );
-      // logger.log( 'q3',  _.quat.applyTo( q3,  [ 1, 1, 1 ] ) );
+      // logger.log( 'q1', _.quat.applyTo( q1, [ 1, 1, 1 ] ) );
+      // logger.log( 'q2', _.quat.applyTo( q2, [ 1, 1, 1 ] ) );
+      // logger.log( 'q3', _.quat.applyTo( q3, [ 1, 1, 1 ] ) );
 
-      var expected = _.quat.applyTo( q1,  [ 1, 1, 1 ] );
+      var expected = _.quat.applyTo( q1, [ 1, 1, 1 ] );
 
-      test.equivalent( _.quat.applyTo( q1,  [ 1, 1, 1 ] ) ,  expected );
-      test.equivalent( _.quat.applyTo( q2,  [ 1, 1, 1 ] ) ,  expected );
-      test.equivalent( _.quat.applyTo( q3,  [ 1, 1, 1 ] ) ,  expected );
+      test.equivalent( _.quat.applyTo( q1, [ 1, 1, 1 ] ) , expected );
+      test.equivalent( _.quat.applyTo( q2, [ 1, 1, 1 ] ) , expected );
+      test.equivalent( _.quat.applyTo( q3, [ 1, 1, 1 ] ) , expected );
 
-      test.equivalent( m1.matrixApplyTo([ 1, 1, 1 ]) ,  expected );
-      test.equivalent( m2.matrixApplyTo([ 1, 1, 1 ]) ,  expected );
+      test.equivalent( m1.matrixApplyTo([ 1, 1, 1 ]) , expected );
+      test.equivalent( m2.matrixApplyTo([ 1, 1, 1 ]) , expected );
 
       // test.equivalent( q3, q1 );
       // test.equivalent( q2, q1 );
@@ -1101,7 +1101,7 @@ function fromMatrixRotationFast( test )
       axis = [ 0, 0, 1 ];
       testSubCase();
 
-      axis = [ 1/sqrt( 3 ),  1/sqrt( 3 ),  1/sqrt( 3 ) ];
+      axis = [ 1/sqrt( 3 ), 1/sqrt( 3 ), 1/sqrt( 3 ) ];
       testSubCase();
 
       axis = [ 0.25, 0.5, 0.82915619758885 ];
@@ -1148,16 +1148,16 @@ function toMatrix( test )
   var samples =
   [
 
-    { d : 'zero',  angle : 0 },
+    { d : 'zero', angle : 0 },
 
-    { d : '+pi/2',  angle : +pi/2 },
-    { d : '-pi/2',  angle : -pi/2 },
+    { d : '+pi/2', angle : +pi/2 },
+    { d : '-pi/2', angle : -pi/2 },
 
-    { d : '+pi',  angle : +pi },
-    { d : '-pi',  angle : -pi },
+    { d : '+pi', angle : +pi },
+    { d : '-pi', angle : -pi },
 
-    { d : '+pi*2',  angle : +pi*2 },
-    { d : '-pi*2',  angle : -pi*2 },
+    { d : '+pi*2', angle : +pi*2 },
+    { d : '-pi*2', angle : -pi*2 },
 
   ]
 
@@ -1188,11 +1188,11 @@ function toMatrix( test )
 
   var q1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
   var m1 = _.quat.toMatrix( q1, null );
-  var applied1 = _.quat.applyTo( q1,  [ 0.25, 0.5, 1.0 ] );
+  var applied1 = _.quat.applyTo( q1, [ 0.25, 0.5, 1.0 ] );
   var applied2 = m1.matrixApplyTo([ 0.25, 0.5, 1.0 ] );
   test.equivalent( applied2, applied1 );
 
-  logger.log( 'm1',  m1 );
+  logger.log( 'm1', m1 );
 
 
   /* */
@@ -1204,10 +1204,10 @@ function toMatrix( test )
     var m1 = _.Matrix.make([ 3, 3 ]).fromAxisAndAngle( axis, angle );
     var m2 = _.quat.toMatrix( q1, null );
 
-    // logger.log( 'm1',  m1 );
-    // logger.log( 'm2',  m2 );
+    // logger.log( 'm1', m1 );
+    // logger.log( 'm2', m2 );
 
-    var applied1 = _.quat.applyTo( q1,  [ 0.25, 0.5, 1.0 ] );
+    var applied1 = _.quat.applyTo( q1, [ 0.25, 0.5, 1.0 ] );
     var applied2 = m1.matrixApplyTo([ 0.25, 0.5, 1.0 ] );
     var applied3 = m2.matrixApplyTo([ 0.25, 0.5, 1.0 ] );
 
@@ -1232,7 +1232,7 @@ function toMatrix( test )
     axis = [ 0, 0, 1 ];
     testSubCase();
 
-    axis = [ 1/sqrt( 3 ),  1/sqrt( 3 ),  1/sqrt( 3 ) ];
+    axis = [ 1/sqrt( 3 ), 1/sqrt( 3 ), 1/sqrt( 3 ) ];
     testSubCase();
 
     axis = [ 0.25, 0.5, 0.82915619758885 ];
@@ -1258,9 +1258,9 @@ function eulerToQuatToMatrixToQuatFast( test )
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
 
-  // var deltas = [ -0.1,  -accuracySqrt,  -accuracySqr, 0,  +accuracySqr,  +accuracySqrt,  +0.1 ];
-  // var deltas = [ -accuracySqr, 0,  +accuracySqr,  +accuracySqrt,  +0.1 ];
-  var deltas = [ -accuracySqr, 0,  +accuracySqr,  +0.1 ];
+  // var deltas = [ -0.1, -accuracySqrt, -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
+  // var deltas = [ -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
+  var deltas = [ -accuracySqr, 0, +accuracySqr, +0.1 ];
   var angles = [ 0, Math.PI / 6, Math.PI / 4 ];
   // var anglesLocked = [ 0, Math.PI / 3 ];
   var anglesLocked = [ Math.PI / 3 ];
@@ -1287,10 +1287,10 @@ function eulerToQuatToMatrixToQuatFast( test )
     quat2 = _.quat.fromMatrixRotation( quat2, matrix );
 
     var positiveResult = quat2;
-    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ),  -1 );
+    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
     var eq = false;
-    eq = eq || _.entityEquivalent( positiveResult, quat1,  { accuracy : test.accuracy } );
-    eq = eq || _.entityEquivalent( negativeResult, quat1,  { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
     test.is( eq );
   }
 
@@ -1314,7 +1314,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
 
-  var deltas = [ -0.1,  -accuracySqrt,  -accuracySqr, 0,  +accuracySqr,  +accuracySqrt,  +0.1 ];
+  var deltas = [ -0.1, -accuracySqrt, -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
   var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI/6 ];
   // var anglesLocked = [ 0, Math.PI / 3 ];
   var anglesLocked =  [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
@@ -1341,10 +1341,10 @@ function eulerToQuatToMatrixToQuatSlow( test )
     quat2 = _.quat.fromMatrixRotation( quat2, matrix );
 
     var positiveResult = quat2;
-    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ),  -1 );
+    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
     var eq = false;
-    eq = eq || _.entityEquivalent( positiveResult, quat1,  { accuracy : test.accuracy } );
-    eq = eq || _.entityEquivalent( negativeResult, quat1,  { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
     test.is( eq );
   }
 
@@ -1368,7 +1368,7 @@ function eulerToQuatToAxisAndAngleToQuatSlow( test )
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
 
-  var deltas = [ -0.1,  -accuracySqrt,  -accuracySqr, 0,  +accuracySqr,  +accuracySqrt,  +0.1 ];
+  var deltas = [ -0.1, -accuracySqrt, -accuracySqr, 0, +accuracySqr, +accuracySqrt, +0.1 ];
   var angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI/6 ];
   // var anglesLocked = [ 0, Math.PI / 3 ];
   var anglesLocked =  [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
@@ -1395,10 +1395,10 @@ function eulerToQuatToAxisAndAngleToQuatSlow( test )
     quat2 = _.quat.fromAxisAndAngle( quat2, axisAngle );
 
     var positiveResult = quat2;
-    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ),  -1 );
+    var negativeResult = _.avector.mul( _.avector.assign( quat2b, quat2 ), -1 );
     var eq = false;
-    eq = eq || _.entityEquivalent( positiveResult, quat1,  { accuracy : test.accuracy } );
-    eq = eq || _.entityEquivalent( negativeResult, quat1,  { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( positiveResult, quat1, { accuracy : test.accuracy } );
+    eq = eq || _.entityEquivalent( negativeResult, quat1, { accuracy : test.accuracy } );
     test.is( eq );
   }
 

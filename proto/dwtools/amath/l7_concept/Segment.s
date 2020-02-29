@@ -109,8 +109,8 @@ function nil( segment )
     let min = _.segment.originView( segmentView );
     let max = _.segment.endPointGet( segmentView );
 
-    _.vectorAdapter.assign( min,  +Infinity );
-    _.vectorAdapter.assign( max,  -Infinity );
+    _.vectorAdapter.assign( min, +Infinity );
+    _.vectorAdapter.assign( max, -Infinity );
 
     return segment;
   }
@@ -124,12 +124,12 @@ function from( segment )
 {
 //  if( _.objectIs( segment ) )
 //  {
-//    _.assertMapHasFields( segment,  { min : 'min' ,  max : 'max' } );
-//    segment = _.arrayAppendArray( [],  [ segment.min, segment.max ] );
+//    _.assertMapHasFields( segment, { min : 'min' , max : 'max' } );
+//    segment = _.arrayAppendArray( [], [ segment.min, segment.max ] );
 //  }
 
   _.assert( _.segment.is( segment ) || segment === null );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
 //  if( _.vectorAdapterIs( segment ) )
 //  {
@@ -149,7 +149,7 @@ function from( segment )
 function toAdapter( segment )
 {
   _.assert( _.segment.is( segment ) );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return _.vectorAdapter.from( segment );
 }
 
@@ -171,7 +171,7 @@ function toAdapter( segment )
   */
 function is( segment )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( segment ) || _.vectorAdapterIs( segment ) ) && ( segment.length >= 0 ) && ( segment.length % 2 === 0 );
 }
 
@@ -198,7 +198,7 @@ function is( segment )
   */
 function dimGet( segment )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.segment.is( segment ) );
   return segment.length / 2;
 }
@@ -227,7 +227,7 @@ function dimGet( segment )
   */
 function originView( segment )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let segmentView = _.segment.toAdapter( segment );
   return segmentView.review([ 0, segment.length / 2 - 1 ]);
 }
@@ -257,7 +257,7 @@ function originView( segment )
 
 function endPointGet( segment )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let segmentView = _.segment.toAdapter( segment );
   return segmentView.review([ segment.length / 2, segment.length - 1 ]);
 }
@@ -286,7 +286,7 @@ function endPointGet( segment )
   */
 function directionView( segment )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let segmentView = _.segment.toAdapter( segment );
   let origin = _.segment.originView( segment );
   let endPoint = _.segment.endPointGet( segment );
@@ -312,11 +312,11 @@ function directionView( segment )
   *
   * @example
   * // returns   1, 1
-  * _.segmentAt( [ 0, 0, 2, 2 ],  0.5 );
+  * _.segmentAt( [ 0, 0, 2, 2 ], 0.5 );
   *
   * @example
   * // returns  1
-  * _.segmentAt( [ 1, 2 ],  0 );
+  * _.segmentAt( [ 1, 2 ], 0 );
   *
   * @returns { Vector } Returns a point in the segment at a given factor.
   * @function segmentAt
@@ -327,14 +327,14 @@ function directionView( segment )
   */
 function segmentAt( srcSegment, factor )
 {
-  // let result = avector.mul( null, srcSegment[ 1 ],  factor );
+  // let result = avector.mul( null, srcSegment[ 1 ], factor );
   // avector.add( result, srcSegment[ 0 ] );
 
-  _.assert( arguments.length === 2,  'Expects single argument' );
+  _.assert( arguments.length === 2, 'Expects single argument' );
   _.assert( _.segment.is( srcSegment ) );
 
-  _.assert( factor >= 0,  'Factor can not be negative ( point must be in the segment )');
-  _.assert( factor <= 1,  'Factor can not be bigger than one ( point must be in the segment )');
+  _.assert( factor >= 0, 'Factor can not be negative ( point must be in the segment )');
+  _.assert( factor <= 1, 'Factor can not be bigger than one ( point must be in the segment )');
 
   let segmentView = _.segment.toAdapter( srcSegment )
   let origin = _.segment.originView( segmentView );
@@ -348,7 +348,7 @@ function segmentAt( srcSegment, factor )
 
 segmentAt.shaderChunk =
 `
-  vec2 segmentAt( vec2 srcSegment[ 2 ],  float factor )
+  vec2 segmentAt( vec2 srcSegment[ 2 ], float factor )
   {
 
     vec2 result = srcSegment[ 1 ]*factor;
@@ -368,11 +368,11 @@ segmentAt.shaderChunk =
 *
 * @example
 * // returns 0.5
-* _.getFactor( [ 0, 0, 2, 2 ],  [ 1, 1 ] );
+* _.getFactor( [ 0, 0, 2, 2 ], [ 1, 1 ] );
 *
 * @example
 * // returns false
-* _.getFactor( [ 0, 0, 2, 2 ],  [ - 1, 3 ] );
+* _.getFactor( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
 *
 * @returns { Number } Returns the factor if the point is inside the segment, and false if the point is outside it.
 * @function getFactor
@@ -384,7 +384,7 @@ segmentAt.shaderChunk =
 */
 function getFactor( srcSegment, srcPoint )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPoint.length );
@@ -395,7 +395,7 @@ function getFactor( srcSegment, srcPoint )
   let dimension  = _.segment.dimGet( srcSegmentView )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
-  _.assert( dimension === srcPoint.length,  'The segment and the point must have the same dimension' );
+  _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
   let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
 
   let factor;
@@ -462,11 +462,11 @@ function getFactor( srcSegment, srcPoint )
   *
   * @example
   * // returns   true
-  * _.segmentParallel( [ 0, 0, 0, 2, 2, 2 ],  [ 1, 2, 1, 3, 4, 3 ] );
+  * _.segmentParallel( [ 0, 0, 0, 2, 2, 2 ], [ 1, 2, 1, 3, 4, 3 ] );
   *
   * @example
   * // returns  false
-  * _.segmentParallel( [ 1, 2, 1, 1, 1, 2 ],  [ 1, 2, 1, 1, 3, 3 ] );
+  * _.segmentParallel( [ 1, 2, 1, 1, 1, 2 ], [ 1, 2, 1, 1, 3, 3 ] );
   *
   * @returns { Boolean } Returns true if the segments are parallel.
   * @function segmentParallel
@@ -551,11 +551,11 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
   *
   * @example
   * // returns   0
-  * _.segmentIntersectionFactors( [ 0, 0, 2, 2 ],  [ 3, 3, 4, 4 ] );
+  * _.segmentIntersectionFactors( [ 0, 0, 2, 2 ], [ 3, 3, 4, 4 ] );
   *
   * @example
   * // returns  _.vectorAdapter.from( [ 2/3, 0.5 ] )
-  * _.segmentIntersectionFactors( [ - 2, 0, 1, 0 ],  [ 0,  - 2, 0, 2 ] );
+  * _.segmentIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
   *
   * @returns { Array } Returns the factors for the two segments intersection.
   * @function segmentIntersectionFactors
@@ -566,8 +566,8 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
   */
 function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
-  _.assert( srcSegment1.length === srcSegment2.length,  'The two segments must have the same dimension' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcSegment1.length === srcSegment2.length, 'The two segments must have the same dimension' );
 
   let srcSegment1View = _.segment.toAdapter( srcSegment1.slice() );
   let srcSegment2View = _.segment.toAdapter( srcSegment2.slice() );
@@ -577,11 +577,11 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   let end1 = _.segment.endPointGet( srcSegment1View );
   let end2 = _.segment.endPointGet( srcSegment2View );
 
-  let dOrigin = _.vectorAdapter.from( avector.subVectors( origin2.clone(),  origin1 ) );
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( origin2.clone(), origin1 ) );
   let direction1 = _.segment.directionView( srcSegment1View );
   let direction2 = _.segment.directionView( srcSegment2View );
 
-  let directions = _.Matrix.make( [ srcSegment1.length / 2 ,  2 ] );
+  let directions = _.Matrix.make( [ srcSegment1.length / 2 , 2 ] );
   directions.colVectorGet( 0 ).copy( direction1 );
   directions.colVectorGet( 1 ).copy( direction2.clone().mulScalar( - 1 ) );
 
@@ -622,7 +622,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   {
     if( _.segment.pointContains( srcSegment1, origin2 ) )
     {
-      return _.vectorAdapter.from( [ _.segment.getFactor( srcSegment1, origin2),  0 ] );
+      return _.vectorAdapter.from( [ _.segment.getFactor( srcSegment1, origin2), 0 ] );
     }
     else if( _.segment.pointContains( srcSegment2, origin1 ) )
     {
@@ -644,7 +644,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
     m.rowSet( 0, directions.rowVectorGet( i ) );
     m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
 
-    let or = _.Matrix.makeCol( [ dOrigin.eGet( i ),  dOrigin.eGet( i + 1 ) ] );
+    let or = _.Matrix.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
 
     let o =
     {
@@ -693,11 +693,11 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   *
   * @example
   * // returns   0
-  * _.segmentIntersectionPoints( [ 0, 0, 2, 2 ],  [ 1, 1, 4, 4 ] );
+  * _.segmentIntersectionPoints( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
-  * // returns  [ [ 0, 0 ],  [ 0, 0 ] ]
-  * _.segmentIntersectionPoints( [ -3, 0, 1, 0 ],  [ 0,  -2, 0, 1 ] );
+  * // returns  [ [ 0, 0 ], [ 0, 0 ] ]
+  * _.segmentIntersectionPoints( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
   *
   * @returns { Array } Returns the points of intersection of the two segments.
   * @function segmentIntersectionPoints
@@ -713,13 +713,13 @@ function segmentIntersectionPoints( srcSegment1, srcSegment2 )
   return 0;
 
   let factorsView = _.vectorAdapter.from( factors );
-  let result = [ Self.segmentAt( srcSegment1, factorsView.eGet( 0 ) ),  Self.segmentAt( srcSegment2, factorsView.eGet( 1 ) ) ];
+  let result = [ Self.segmentAt( srcSegment1, factorsView.eGet( 0 ) ), Self.segmentAt( srcSegment2, factorsView.eGet( 1 ) ) ];
   return result;
 }
 
 segmentIntersectionPoints.shaderChunk =
 `
-  void segmentIntersectionPoints( out vec2 result[ 2 ],  vec2 srcSegment1[ 2 ],  vec2 srcSegment2[ 2 ] )
+  void segmentIntersectionPoints( out vec2 result[ 2 ], vec2 srcSegment1[ 2 ], vec2 srcSegment2[ 2 ] )
   {
 
     vec2 factors = segmentIntersectionFactors( srcSegment1, srcSegment2 );
@@ -740,11 +740,11 @@ segmentIntersectionPoints.shaderChunk =
   *
   * @example
   * // returns   0
-  * _.segmentIntersectionPoint( [ 0, 0, 2, 2 ],  [ 1, 1, 4, 4 ] );
+  * _.segmentIntersectionPoint( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
   * // returns  [ [ 0, 0 ] ]
-  * _.segmentIntersectionPoint( [ -3, 0, 1, 0 ],  [ 0,  -2, 0, 1 ] );
+  * _.segmentIntersectionPoint( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
   *
   * @returns { Array } Returns the point of intersection of the two segments.
   * @function segmentIntersectionPoint
@@ -767,7 +767,7 @@ function segmentIntersectionPoint( srcSegment1, srcSegment2 )
 
 segmentIntersectionPoint.shaderChunk =
 `
-  vec2 segmentIntersectionPoint( vec2 srcSegment1[ 2 ],  vec2 srcSegment2[ 2 ] )
+  vec2 segmentIntersectionPoint( vec2 srcSegment1[ 2 ], vec2 srcSegment2[ 2 ] )
   {
 
     vec2 factors = segmentIntersectionFactors( srcSegment1, srcSegment2 );
@@ -787,11 +787,11 @@ segmentIntersectionPoint.shaderChunk =
   *
   * @example
   * // returns   0
-  * _.segmentIntersectionPointAccurate( [ 0, 0, 2, 2 ],  [ 1, 1, 4, 4 ] );
+  * _.segmentIntersectionPointAccurate( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
   * // returns  [ [ 0, 0 ] ]
-  * _.segmentIntersectionPointAccurate( [ -3, 0, 1, 0 ],  [ 0,  -2, 0, 1 ] );
+  * _.segmentIntersectionPointAccurate( [ -3, 0, 1, 0 ], [ 0, -2, 0, 1 ] );
   *
   * @returns { Array } Returns the point of intersection of the two segments.
   * @function segmentIntersectionPointAccurate
@@ -809,13 +809,13 @@ function segmentIntersectionPointAccurate( srcSegment1, srcSegment2 )
   if( closestPoints === 0 )
   return 0;
 
-  return _.avector.mulScalar( _.avector.add( null, closestPoints[ 0 ],  closestPoints[ 1 ] ),  0.5 );
+  return _.avector.mulScalar( _.avector.add( null, closestPoints[ 0 ], closestPoints[ 1 ] ), 0.5 );
 
 }
 
 segmentIntersectionPointAccurate.shaderChunk =
 `
-  vec2 segmentIntersectionPointAccurate( vec2 srcSegment1[ 2 ],  vec2 srcSegment2[ 2 ] )
+  vec2 segmentIntersectionPointAccurate( vec2 srcSegment1[ 2 ], vec2 srcSegment2[ 2 ] )
   {
 
     vec2 closestPoints[ 2 ];
@@ -834,7 +834,7 @@ segmentIntersectionPointAccurate.shaderChunk =
   *
   * @example
   * // returns [ 0, 0, 1, 1 ]
-  * _.fromPair( [ [ 0, 0 ],  [ 1, 1 ] ] );
+  * _.fromPair( [ [ 0, 0 ], [ 1, 1 ] ] );
   *
   * @returns { Segment } Returns the segment defined by the source points.
   * @function fromPair
@@ -844,9 +844,9 @@ segmentIntersectionPointAccurate.shaderChunk =
   */
 function fromPair( pair )
 {
-    _.assert( arguments.length === 1,  'Expects single argument' );
-    _.assert( pair.length === 2,  'Expects two points' );
-    _.assert( pair[ 0 ].length === pair[ 1 ].length,  'Expects two points' );
+    _.assert( arguments.length === 1, 'Expects single argument' );
+    _.assert( pair.length === 2, 'Expects two points' );
+    _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
 
     let result = _.vectorAdapter.from( _.long.longMake( pair[ 0 ].length * 2 ) );
     let pair0 = _.vectorAdapter.from( pair[ 0 ] );
@@ -873,11 +873,11 @@ function fromPair( pair )
   *
   * @example
   * // returns true
-  * _.pointContains( [ 0, 0, 2, 2 ],  [ 1, 1 ] );
+  * _.pointContains( [ 0, 0, 2, 2 ], [ 1, 1 ] );
   *
   * @example
   * // returns false
-  * _.pointContains( [ 0, 0, 2, 2 ],  [ - 1, 3 ] );
+  * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
   *
   * @returns { Boolen } Returns true if the point is inside the segment, and false if the point is outside it.
   * @function pointContains
@@ -889,7 +889,7 @@ function fromPair( pair )
   */
 function pointContains( srcSegment, srcPoint )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPoint.length );
@@ -900,7 +900,7 @@ function pointContains( srcSegment, srcPoint )
   let dimension  = _.segment.dimGet( srcSegmentView )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
-  _.assert( dimension === srcPoint.length,  'The segment and the point must have the same dimension' );
+  _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
 
   let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
   let factor;
@@ -970,11 +970,11 @@ function pointContains( srcSegment, srcPoint )
   *
   * @example
   * // returns 0
-  * _.pointDistance( [ 0, 0, 0, 2 ],  [ 0, 1 ] );
+  * _.pointDistance( [ 0, 0, 0, 2 ], [ 0, 1 ] );
   *
   * @example
   * // returns 2
-  * _.pointDistance( [ 0, 0, 0, 2 ],  [ 2, 2 ] );
+  * _.pointDistance( [ 0, 0, 0, 2 ], [ 2, 2 ] );
   *
   * @returns { Boolen } Returns the distance between the point and the segment.
   * @function pointDistance
@@ -986,7 +986,7 @@ function pointContains( srcSegment, srcPoint )
   */
 function pointDistance( srcSegment, srcPoint )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPoint.length );
@@ -997,7 +997,7 @@ function pointDistance( srcSegment, srcPoint )
   let dimension  = _.segment.dimGet( srcSegmentView )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
-  _.assert( dimension === srcPoint.length,  'The segment and the point must have the same dimension' );
+  _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
 
   if( _.segment.pointContains( srcSegmentView, srcPointView ) )
   {
@@ -1027,11 +1027,11 @@ function pointDistance( srcSegment, srcPoint )
   *
   * @example
   * // returns 0
-  * _.pointClosestPoint( [ 0, 0, 0, 2 ],  [ 0, 1 ] );
+  * _.pointClosestPoint( [ 0, 0, 0, 2 ], [ 0, 1 ] );
   *
   * @example
   * // returns [ 0, 2 ]
-  * _.pointClosestPoint( [ 0, 0, 0, 2 ],  [ 2, 2 ] );
+  * _.pointClosestPoint( [ 0, 0, 0, 2 ], [ 2, 2 ] );
   *
   * @returns { Boolen } Returns the closest point in a segment to a point.
   * @function pointClosestPoint
@@ -1043,7 +1043,7 @@ function pointDistance( srcSegment, srcPoint )
   */
 function pointClosestPoint( srcSegment, srcPoint, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcPoint.length );
@@ -1062,7 +1062,7 @@ function pointClosestPoint( srcSegment, srcPoint, dstPoint )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
   let dstPointView = _.vectorAdapter.from( dstPoint );
 
-  _.assert( dimension === srcPoint.length,  'The segment and the point must have the same dimension' );
+  _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
 
   let pointVector;
 
@@ -1085,7 +1085,7 @@ function pointClosestPoint( srcSegment, srcPoint, dstPoint )
   {
     let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
     let dot = _.vectorAdapter.dot( direction, direction );
-    let factor = _.vectorAdapter.dot( direction ,  dOrigin ) / dot ;
+    let factor = _.vectorAdapter.dot( direction , dOrigin ) / dot ;
 
     if( factor < 0 || dot === 0 )
     {
@@ -1120,11 +1120,11 @@ function pointClosestPoint( srcSegment, srcPoint, dstPoint )
   *
   * @example
   * // returns true;
-  * _.boxIntersects( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.boxIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns false;
-  * _.boxIntersects( [ 0,  -1, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
+  * _.boxIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Boolean } Returns true if the segment and the box intersect.
   * @function boxIntersects
@@ -1136,7 +1136,7 @@ function pointClosestPoint( srcSegment, srcPoint, dstPoint )
   */
 function boxIntersects( srcSegment, srcBox )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcBox.length / 2 );
@@ -1184,11 +1184,11 @@ function boxIntersects( srcSegment, srcBox )
   *
   * @example
   * // returns 0;
-  * _.boxDistance( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.boxDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 12 );
-  * _.boxDistance( [ 0, 0, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
+  * _.boxDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the distance between the segment and the box.
   * @function boxDistance
@@ -1200,7 +1200,7 @@ function boxIntersects( srcSegment, srcBox )
   */
 function boxDistance( srcSegment, srcBox )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcBox.length / 2 );
@@ -1235,11 +1235,11 @@ function boxDistance( srcSegment, srcBox )
   *
   * @example
   * // returns 0;
-  * _.boxClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.boxClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
-  * // returns [ 0,  - 1, 0 ];
-  * _.boxClosestPoint( [ 0,  - 1, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
+  * // returns [ 0, - 1, 0 ];
+  * _.boxClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the closest point in the segment to the box.
   * @function boxClosestPoint
@@ -1251,7 +1251,7 @@ function boxDistance( srcSegment, srcBox )
   */
 function boxClosestPoint( srcSegment, srcBox, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcBox.length / 2 );
@@ -1315,8 +1315,8 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
   * @param { Array } srcSegment - source segment for the bounding box.
   *
   * @example
-  * // returns [ - 2,  - 2,  - 2, 2, 2, 2 ]
-  * _.boundingBoxGet( null,  [ 0, 0, 0, 2, 2, 2 ] );
+  * // returns [ - 2, - 2, - 2, 2, 2, 2 ]
+  * _.boundingBoxGet( null, [ 0, 0, 0, 2, 2, 2 ] );
   *
   * @returns { Array } Returns the array of the bounding box.
   * @function boundingBoxGet
@@ -1328,7 +1328,7 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
   */
 function boundingBoxGet( dstBox, srcSegment )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcSegmentView = _.segment.toAdapter( srcSegment );
   let origin = _.segment.originView( srcSegmentView );
@@ -1344,7 +1344,7 @@ function boundingBoxGet( dstBox, srcSegment )
   _.assert( dimSegment === dimB );
 
   let boxView = _.box.toAdapter( dstBox );
-  let box = _.box.toAdapter( _.box.fromPoints( null,  [ origin, endPoint ] ) );
+  let box = _.box.toAdapter( _.box.fromPoints( null, [ origin, endPoint ] ) );
 
   for( let b = 0; b < boxView.length; b++ )
   {
@@ -1356,9 +1356,9 @@ function boundingBoxGet( dstBox, srcSegment )
 
 //
 
-function capsuleIntersects( srcSegment ,  tstCapsule )
+function capsuleIntersects( srcSegment , tstCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
   let segmentView = _.segment.toAdapter( srcSegment );
 
@@ -1368,9 +1368,9 @@ function capsuleIntersects( srcSegment ,  tstCapsule )
 
 //
 
-function capsuleDistance( srcSegment ,  tstCapsule )
+function capsuleDistance( srcSegment , tstCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
   let segmentView = _.segment.toAdapter( srcSegment );
 
@@ -1391,12 +1391,12 @@ function capsuleDistance( srcSegment ,  tstCapsule )
   *
   * @example
   * // returns 0
-  * let capsule = [ 0, 0, 0,  - 1,  - 1,  - 1, 1 ]
-  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  capsule );
+  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2 ], capsule );
   *
   * @example
   * // returns [ 2, 2, 2 ]
-  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ],  capsule );
+  * _.capsuleClosestPoint( [ 2, 2, 2, 3, 3, 3 ], capsule );
   *
   * @returns { Array } Returns the closest point to the capsule.
   * @function capsuleClosestPoint
@@ -1408,7 +1408,7 @@ function capsuleDistance( srcSegment ,  tstCapsule )
   */
 function capsuleClosestPoint( segment, capsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let segmentView = _.segment.toAdapter( segment );
   let dimS = _.segment.dimGet( segmentView );
@@ -1458,16 +1458,16 @@ function capsuleClosestPoint( segment, capsule, dstPoint )
   * // returns true;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
   * ]);
-  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] ,  srcFrustum );
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
   *
   * @example
   * // returns false;
-  * _.frustumIntersects( [ 0,  -1, 0, 0,  -2, 0 ] ,  srcFrustum );
+  * _.frustumIntersects( [ 0, -1, 0, 0, -2, 0 ] , srcFrustum );
   *
   * @returns { Boolean } Returns true if the segment and the frustum intersect.
   * @function frustumIntersects
@@ -1479,7 +1479,7 @@ function capsuleClosestPoint( segment, capsule, dstPoint )
   */
 function frustumIntersects( srcSegment, srcFrustum )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1529,16 +1529,16 @@ function frustumIntersects( srcSegment, srcFrustum )
   * // returns 0;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
   * ]);
-  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] ,  srcFrustum );
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
   *
   * @example
   * // returns 1;
-  * _.frustumDistance( [ 0,  - 1, 0, 0,  -2, 0 ] ,  srcFrustum );
+  * _.frustumDistance( [ 0, - 1, 0, 0, -2, 0 ] , srcFrustum );
   *
   * @returns { Number } Returns the distance between a segment and a frustum.
   * @function frustumDistance
@@ -1550,7 +1550,7 @@ function frustumIntersects( srcSegment, srcFrustum )
   */
 function frustumDistance( srcSegment, srcFrustum )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1588,16 +1588,16 @@ function frustumDistance( srcSegment, srcFrustum )
   * // returns 0;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
   * ]);
-  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  srcFrustum );
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , srcFrustum );
   *
   * @example
-  * // returns [ 0,  - 1, 0 ];
-  * _.frustumClosestPoint( [ 0,  - 1, 0, 0,  -2, 0 ] ,  srcFrustum );
+  * // returns [ 0, - 1, 0 ];
+  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0 ] , srcFrustum );
   *
   * @returns { Array } Returns the closest point in the segment to the frustum.
   * @function frustumClosestPoint
@@ -1609,7 +1609,7 @@ function frustumDistance( srcSegment, srcFrustum )
   */
 function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1675,13 +1675,13 @@ function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
   *
   * @example
   * // returns true;
-  * var srcLine =  [ -1,  -1,  -1, 1, 1, 1 ]
+  * var srcLine =  [ -1, -1, -1, 1, 1, 1 ]
   * var srcSegment = [ 0, 0, 0, 2, 2, 2 ]
   * _.lineIntersects( srcSegment, srcLine );
   *
   * @example
   * // returns false;
-  * var srcLine =  [ -1,  -1,  -1, 0, 0, 1 ]
+  * var srcLine =  [ -1, -1, -1, 0, 0, 1 ]
   * var srcSegment = [ 0, 1, 0, 2, 2, 2 ]
   * _.lineIntersects( srcSegment, srcLine );
   *
@@ -1695,7 +1695,7 @@ function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
   */
 function lineIntersects( srcSegment, srcLine )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcLineView = _.line.toAdapter( srcLine );
   let lineOrigin = _.line.originView( srcLineView );
@@ -1739,11 +1739,11 @@ function lineIntersects( srcSegment, srcLine )
   *
   * @example
   * // returns 0;
-  * _.lineDistance( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.lineDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 8 );
-  * _.lineDistance( [ 0, 0, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 0, 0, 1 ]);
+  * _.lineDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
   *
   * @returns { Number } Returns the distance between a segment and a line.
   * @function lineDistance
@@ -1755,7 +1755,7 @@ function lineIntersects( srcSegment, srcLine )
   */
 function lineDistance( srcSegment, srcLine )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcLine.length / 2 );
@@ -1820,11 +1820,11 @@ function lineDistance( srcSegment, srcLine )
   *
   * @example
   * // returns 0;
-  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0 ] ,  [ 1, 0, 0, 1, 0, 0 ]);
+  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
   *
   * @returns { Array } Returns the closest point in the srcSegment to the srcLine.
   * @function lineClosestPoint
@@ -1836,7 +1836,7 @@ function lineDistance( srcSegment, srcLine )
   */
 function lineClosestPoint( srcSegment, srcLine, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcLine.length / 2 );
@@ -1895,7 +1895,7 @@ function lineClosestPoint( srcSegment, srcLine, dstPoint )
       let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
       let mod = _.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = _.vectorAdapter.from( avector.subVectors( lineOrigin.slice(),  srcOrigin ) );
+      let dOrigin = _.vectorAdapter.from( avector.subVectors( lineOrigin.slice(), srcOrigin ) );
 
       if( tstMod*srcMod - mod*mod === 0 )
       {
@@ -1940,11 +1940,11 @@ function lineClosestPoint( srcSegment, srcLine, dstPoint )
   *
   * @example
   * // returns true;
-  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
   *
   * @example
   * // returns false;
-  * _.planeIntersects( [ 0,  -1, 0, 0,  -2, 0 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeIntersects( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
   *
   * @returns { Boolean } Returns true if the segment and the plane intersect.
   * @function planeIntersects
@@ -1956,7 +1956,7 @@ function lineClosestPoint( srcSegment, srcLine, dstPoint )
   */
 function planeIntersects( srcSegment, srcPlane )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPlane.length - 1 );
@@ -2002,11 +2002,11 @@ function planeIntersects( srcSegment, srcPlane )
   *
   * @example
   * // returns 0;
-  * _.planeDistance( [ 0, 0, 0, 2, 2, 2 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeDistance( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
   *
   * @example
   * // returns 1;
-  * _.planeDistance( [ 0,  -1, 0, 0,  -2, 0 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeDistance( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
   *
   * @returns { Number } Returns the distance between the segment and the plane.
   * @function planeDistance
@@ -2018,7 +2018,7 @@ function planeIntersects( srcSegment, srcPlane )
   */
 function planeDistance( srcSegment, srcPlane )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcPlane.length - 1 );
@@ -2064,11 +2064,11 @@ function planeDistance( srcSegment, srcPlane )
   *
   * @example
   * // returns 0;
-  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 1, 0, 0, - 1 ]);
   *
   * @example
-  * // returns [ 0,  -1, 0 ];
-  * _.planeClosestPoint( [ 0,  -1, 0, 0,  -2, 0 ] ,  [ 1, 0, 0,  - 1 ]);
+  * // returns [ 0, -1, 0 ];
+  * _.planeClosestPoint( [ 0, -1, 0, 0, -2, 0 ] , [ 1, 0, 0, - 1 ]);
   *
   * @returns { Array } Returns the closest point in the segment to the plane.
   * @function planeClosestPoint
@@ -2080,7 +2080,7 @@ function planeDistance( srcSegment, srcPlane )
   */
 function planeClosestPoint( srcSegment, srcPlane, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcPlane.length - 1 );
@@ -2141,13 +2141,13 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
   *
   * @example
   * // returns true;
-  * var srcRay =  [ -1,  -1,  -1, 1, 1, 1 ]
+  * var srcRay =  [ -1, -1, -1, 1, 1, 1 ]
   * var srcSegment = [ 0, 0, 0, 2, 2, 2 ]
   * _.rayIntersects( srcSegment, srcRay );
   *
   * @example
   * // returns false;
-  * var srcRay =  [ -1,  -1,  -1, 0, 0, 1 ]
+  * var srcRay =  [ -1, -1, -1, 0, 0, 1 ]
   * var srcSegment = [ 0, 1, 0, 2, 2, 2 ]
   * _.rayIntersects( srcSegment, srcRay );
   *
@@ -2161,7 +2161,7 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
   */
 function rayIntersects( srcSegment, srcRay )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcRayView = _.ray.toAdapter( srcRay );
   let rayOrigin = _.ray.originView( srcRayView );
@@ -2189,7 +2189,7 @@ function rayIntersects( srcSegment, srcRay )
   }
 
   let factors = _.ray.rayIntersectionFactors( lineSegment, srcRayView );
-  logger.log( 'FACTORS',  factors)
+  logger.log( 'FACTORS', factors)
   if( factors === 0 || factors.eGet( 0 ) < 0 || factors.eGet( 1 ) < 0 || ( factors.eGet( 0 ) > 1 && factors.eGet( 1 ) > 1 ) )
   return false;
 
@@ -2224,11 +2224,11 @@ function rayIntersects( srcSegment, srcRay )
   *
   * @example
   * // returns 0;
-  * _.rayDistance( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.rayDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 12 );
-  * _.rayDistance( [ 0, 0, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 0, 0, 1 ]);
+  * _.rayDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
   *
   * @returns { Number } Returns the distance between a segment and a ray.
   * @function rayDistance
@@ -2240,7 +2240,7 @@ function rayIntersects( srcSegment, srcRay )
   */
 function rayDistance( srcSegment, srcRay )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( srcRay.length / 2 );
@@ -2318,11 +2318,11 @@ function rayDistance( srcSegment, srcRay )
   *
   * @example
   * // returns 0;
-  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.rayClosestPoint( [ 0, 0, 0, 0, 1, 0 ] ,  [ 1, 0, 0, 1, 0, 0 ]);
+  * _.rayClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
   *
   * @returns { Array } Returns the closest point in the srcSegment to the srcRay.
   * @function rayClosestPoint
@@ -2334,7 +2334,7 @@ function rayDistance( srcSegment, srcRay )
   */
 function rayClosestPoint( srcSegment, srcRay, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcRay.length / 2 );
@@ -2393,7 +2393,7 @@ function rayClosestPoint( srcSegment, srcRay, dstPoint )
       let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
       let mod = _.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = _.vectorAdapter.from( avector.subVectors( rayOrigin.slice(),  srcOrigin ) );
+      let dOrigin = _.vectorAdapter.from( avector.subVectors( rayOrigin.slice(), srcOrigin ) );
 
       if( tstMod*srcMod - mod*mod === 0 )
       {
@@ -2438,11 +2438,11 @@ function rayClosestPoint( srcSegment, srcRay, dstPoint )
   *
   * @example
   * // returns   true
-  * _.segmentIntersects( [ 0, 0, 2, 2 ],  [ 1, 1, 4, 4 ] );
+  * _.segmentIntersects( [ 0, 0, 2, 2 ], [ 1, 1, 4, 4 ] );
   *
   * @example
   * // returns  false
-  * _.segmentIntersects( [ -3, 0, 1, 0 ],  [ 0,  -2, 1, 0 ] );
+  * _.segmentIntersects( [ -3, 0, 1, 0 ], [ 0, -2, 1, 0 ] );
   *
   * @returns { Boolean } Returns true if the two segments intersect.
   * @function segmentIntersects
@@ -2471,11 +2471,11 @@ function segmentIntersects( srcSegment1, srcSegment2 )
   *
   * @example
   * // returns 0;
-  * _.segmentDistance( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.segmentDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 12 );
-  * _.segmentDistance( [ 0, 0, 0, 0,  -2, 0 ] ,  [ 2, 2, 2, 0, 0, 1 ]);
+  * _.segmentDistance( [ 0, 0, 0, 0, -2, 0 ] , [ 2, 2, 2, 0, 0, 1 ]);
   *
   * @returns { Number } Returns the distance between two segments.
   * @function segmentDistance
@@ -2487,7 +2487,7 @@ function segmentIntersects( srcSegment1, srcSegment2 )
   */
 function segmentDistance( srcSegment, tstSegment )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcSegment === null )
   srcSegment = _.segment.make( tstSegment.length / 2 );
@@ -2550,11 +2550,11 @@ function segmentDistance( srcSegment, tstSegment )
   *
   * @example
   * // returns 0;
-  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.segmentClosestPoint( [ 0, 0, 0, 0, 1, 0 ] ,  [ 1, 0, 0, 1, 0, 0 ]);
+  * _.segmentClosestPoint( [ 0, 0, 0, 0, 1, 0 ] , [ 1, 0, 0, 1, 0, 0 ]);
   *
   * @returns { Array } Returns the closest point in the srcSegment to the tstSegment.
   * @function segmentClosestPoint
@@ -2566,7 +2566,7 @@ function segmentDistance( srcSegment, tstSegment )
   */
 function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( tstSegment.length / 2 );
@@ -2626,7 +2626,7 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
         let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
         let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
         let mod = _.vectorAdapter.dot( srcDir, tstDir );
-        let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(),  srcOrigin ) );
+        let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
         let factor = ( - mod*_.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
         if( factor >= 0 && factor <= 1 )
@@ -2682,11 +2682,11 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
   *
   * @example
   * // returns true;
-  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1 ]);
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
   *
   * @example
   * // returns false;
-  * _.sphereIntersects( [ 0, 0, 0, 0,  -2, 0 ],  [ 3, 3, 3, 1 ]);
+  * _.sphereIntersects( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
   *
   * @returns { Boolean } Returns true if the segment and the sphere intersect.
   * @function sphereIntersects
@@ -2698,7 +2698,7 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
   */
 function sphereIntersects( srcSegment, srcSphere )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcSegment === null )
@@ -2739,11 +2739,11 @@ function sphereIntersects( srcSegment, srcSphere )
   *
   * @example
   * // returns 0;
-  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1 ]);
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 27 ) -1;
-  * _.sphereDistance( [ 0, 0, 0, 0,  -2, 0 ],  [ 3, 3, 3, 1 ]);
+  * _.sphereDistance( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
   *
   * @returns { Boolean } Returns the distance between the segment and the sphere.
   * @function sphereDistance
@@ -2755,7 +2755,7 @@ function sphereIntersects( srcSegment, srcSphere )
   */
 function sphereDistance( srcSegment, srcSphere )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcSegment === null )
@@ -2791,11 +2791,11 @@ function sphereDistance( srcSegment, srcSphere )
   *
   * @example
   * // returns 0;
-  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ],  [ 0, 0, 0, 1 ]);
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 0, 1 ]);
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.sphereClosestPoint( [ 0, 0, 0, 0,  -2, 0 ],  [ 3, 3, 3, 1 ]);
+  * _.sphereClosestPoint( [ 0, 0, 0, 0, -2, 0 ], [ 3, 3, 3, 1 ]);
   *
   * @returns { Boolean } Returns the closest point in a segment to a sphere.
   * @function sphereClosestPoint
@@ -2807,7 +2807,7 @@ function sphereDistance( srcSegment, srcSphere )
   */
 function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( arguments.length === 2 )
@@ -2857,7 +2857,7 @@ function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
   *
   * @example
   * // returns [ 1, 1, 1, Math.sqrt( 3 ) ]
-  * _.boundingSphereGet( null,  [ 0, 0, 0, 2, 2, 2 ] );
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2 ] );
   *
   * @returns { Array } Returns the array of the bounding sphere.
   * @function boundingSphereGet
@@ -2869,7 +2869,7 @@ function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
   */
 function boundingSphereGet( dstSphere, srcSegment )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcSegmentView = _.segment.toAdapter( srcSegment );
   let origin = _.segment.originView( srcSegmentView );
@@ -2890,7 +2890,7 @@ function boundingSphereGet( dstSphere, srcSegment )
   // Center of the sphere
   for( let c = 0; c < center.length; c++ )
   {
-    center.eSet( c,  ( endPoint.eGet( c ) + origin.eGet( c ) ) / 2 );
+    center.eSet( c, ( endPoint.eGet( c ) + origin.eGet( c ) ) / 2 );
   }
 
   // Radius of the sphere

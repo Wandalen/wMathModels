@@ -113,9 +113,9 @@ function nil( capsule )
     let max = _.capsule.endPointGet( capsuleView );
     let radius = _.capsule.radiusGet( capsuleView );
 
-    _.vectorAdapter.assign( min,  +Infinity );
-    _.vectorAdapter.assign( max,  -Infinity );
-    capsuleView.eSet( capsuleView.length - 1,  - Infinity );
+    _.vectorAdapter.assign( min, +Infinity );
+    _.vectorAdapter.assign( max, -Infinity );
+    capsuleView.eSet( capsuleView.length - 1, - Infinity );
 
     return capsule;
   }
@@ -128,7 +128,7 @@ function nil( capsule )
 function from( capsule )
 {
   _.assert( _.capsule.is( capsule ) || capsule === null );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   if( capsule === null )
   return _.capsule.make();
@@ -141,7 +141,7 @@ function from( capsule )
 function toAdapter( capsule )
 {
   _.assert( _.capsule.is( capsule ) );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return _.vectorAdapter.from( capsule );
 }
 
@@ -163,7 +163,7 @@ function toAdapter( capsule )
   */
 function is( capsule )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( capsule ) || _.vectorAdapterIs( capsule ) ) && ( capsule.length >= 0 ) && ( ( capsule.length - 1 ) % 2 === 0 );
 }
 
@@ -190,7 +190,7 @@ function is( capsule )
   */
 function dimGet( capsule )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.capsule.is( capsule ) );
   return ( capsule.length - 1 ) / 2;
 }
@@ -219,9 +219,9 @@ function dimGet( capsule )
   */
 function originView( capsule )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let capsuleView = _.capsule.toAdapter( capsule );
-  return capsuleView.review([ 0,  ( capsule.length - 1 ) / 2 - 1 ]);
+  return capsuleView.review([ 0, ( capsule.length - 1 ) / 2 - 1 ]);
 }
 
 //
@@ -248,7 +248,7 @@ function originView( capsule )
   */
 function endPointGet( capsule )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let capsuleView = _.capsule.toAdapter( capsule );
   return capsuleView.review([ ( capsule.length - 1 ) / 2, capsule.length - 2 ]);
 }
@@ -278,7 +278,7 @@ function endPointGet( capsule )
 
 function radiusGet( capsule )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   let capsuleView = _.capsule.toAdapter( capsule );
   return capsuleView.eGet( capsule.length - 1 );
 }
@@ -295,11 +295,11 @@ function radiusGet( capsule )
   *
   * @example
   * // returns [ 0, 0, 2, 2, 4 ]
-  * _.radiusSet( [ 0, 0, 2, 2, 0 ],  4 );
+  * _.radiusSet( [ 0, 0, 2, 2, 0 ], 4 );
   *
   * @example
-  * // returns  [ 0, 1,  - 2 ]
-  * _.radiusSet( [ 0, 1, 1 ],  -2 );
+  * // returns  [ 0, 1, - 2 ]
+  * _.radiusSet( [ 0, 1, 1 ], -2 );
   *
   * @returns { Array } Returns the capsule with the modified radius.
   * @function radiusSet
@@ -312,7 +312,7 @@ function radiusGet( capsule )
 function radiusSet( capsule, radius )
 {
   _.assert( _.capsule.is( capsule ) );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.numberIs( radius ) );
 
   let capsuleView = _.capsule.toAdapter( capsule );
@@ -333,11 +333,11 @@ function radiusSet( capsule, radius )
   *
   * @example
   * // returns true
-  * _.pointContains( [ 0, 0, 2, 2, 1 ],  [ 1, 1 ] );
+  * _.pointContains( [ 0, 0, 2, 2, 1 ], [ 1, 1 ] );
   *
   * @example
   * // returns false
-  * _.pointContains( [ 0, 0, 2, 2, 1 ],  [ - 1, 3 ] );
+  * _.pointContains( [ 0, 0, 2, 2, 1 ], [ - 1, 3 ] );
   *
   * @returns { Boolen } Returns true if the point is inside the capsule, and false if the point is outside it.
   * @function pointContains
@@ -349,7 +349,7 @@ function radiusSet( capsule, radius )
   */
 function pointContains( srcCapsule, srcPoint )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.longIs( srcPoint ) || _.vectorAdapterIs( srcPoint ) );
 
   if( srcCapsule === null )
@@ -362,7 +362,7 @@ function pointContains( srcCapsule, srcPoint )
   let dimension  = _.capsule.dimGet( srcCapsuleView );
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
-  _.assert( dimension === srcPoint.length,  'The capsule and the point must have the same dimension' );
+  _.assert( dimension === srcPoint.length, 'The capsule and the point must have the same dimension' );
 
   let srcSegment = _.segment.fromPair( [ origin, end ] );
 
@@ -387,11 +387,11 @@ function pointContains( srcCapsule, srcPoint )
   *
   * @example
   * // returns 0
-  * _.pointDistance( [ 0, 0, 0, 2, 1 ],  [ 0, 1 ] );
+  * _.pointDistance( [ 0, 0, 0, 2, 1 ], [ 0, 1 ] );
   *
   * @example
   * // returns 1
-  * _.pointDistance( [ 0, 0, 0, 2, 1 ],  [ 2, 2 ] );
+  * _.pointDistance( [ 0, 0, 0, 2, 1 ], [ 2, 2 ] );
   *
   * @returns { Boolen } Returns the distance between the point and the capsule.
   * @function pointDistance
@@ -403,7 +403,7 @@ function pointContains( srcCapsule, srcPoint )
   */
 function pointDistance( srcCapsule, srcPoint )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcPoint.length );
@@ -416,7 +416,7 @@ function pointDistance( srcCapsule, srcPoint )
   let dimension  = _.capsule.dimGet( srcCapsuleView );
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
-  _.assert( dimension === srcPoint.length,  'The capsule and the point must have the same dimension' );
+  _.assert( dimension === srcPoint.length, 'The capsule and the point must have the same dimension' );
 
   if( _.capsule.pointContains( srcCapsuleView, srcPointView ) )
   {
@@ -441,11 +441,11 @@ function pointDistance( srcCapsule, srcPoint )
   *
   * @example
   * // returns 0
-  * _.pointClosestPoint( [ 0, 0, 0, 2, 1 ],  [ 0, 1 ] );
+  * _.pointClosestPoint( [ 0, 0, 0, 2, 1 ], [ 0, 1 ] );
   *
   * @example
   * // returns [ 1, 2 ]
-  * _.pointClosestPoint( [ 0, 0, 0, 2, 1 ],  [ 2, 2 ] );
+  * _.pointClosestPoint( [ 0, 0, 0, 2, 1 ], [ 2, 2 ] );
   *
   * @returns { Boolen } Returns the closest point in a capsule to a point.
   * @function pointClosestPoint
@@ -457,7 +457,7 @@ function pointDistance( srcCapsule, srcPoint )
   */
 function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcPoint.length );
@@ -477,7 +477,7 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
   let dstPointView = _.vectorAdapter.from( dstPoint );
 
-  _.assert( dimension === srcPoint.length,  'The capsule and the point must have the same dimension' );
+  _.assert( dimension === srcPoint.length, 'The capsule and the point must have the same dimension' );
 
   if( _.capsule.pointContains( srcCapsuleView, srcPointView ) )
   {
@@ -517,11 +517,11 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   *
   * @example
   * // returns true;
-  * _.boxContains( [ 0, 0, 0, 2, 2, 2, 2 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.boxContains( [ 0, 0, 0, 2, 2, 2, 2 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns false;
-  * _.boxContains( [ 0,  -1, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
+  * _.boxContains( [ 0, -1, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Boolean } Returns true if the capsule and the box contains.
   * @function boxContains
@@ -533,7 +533,7 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   */
 function boxContains( srcCapsule, srcBox )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcBox.length / 2 );
@@ -574,11 +574,11 @@ function boxContains( srcCapsule, srcBox )
   *
   * @example
   * // returns true;
-  * _.boxIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.boxIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns false;
-  * _.boxIntersects( [ 0,  -1, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
+  * _.boxIntersects( [ 0, -1, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Boolean } Returns true if the capsule and the box intersect.
   * @function boxIntersects
@@ -590,7 +590,7 @@ function boxContains( srcCapsule, srcBox )
   */
 function boxIntersects( srcCapsule, srcBox )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcBox.length / 2 );
@@ -629,11 +629,11 @@ function boxIntersects( srcCapsule, srcBox )
   *
   * @example
   * // returns 0;
-  * _.boxDistance( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.boxDistance( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 12 ) - 1;
-  * _.boxDistance( [ 0, 0, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
+  * _.boxDistance( [ 0, 0, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the distance between the capsule and the box.
   * @function boxDistance
@@ -645,7 +645,7 @@ function boxIntersects( srcCapsule, srcBox )
   */
 function boxDistance( srcCapsule, srcBox )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcBox.length / 2 );
@@ -684,11 +684,11 @@ function boxDistance( srcCapsule, srcBox )
   *
   * @example
   * // returns 0;
-  * _.boxClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.boxClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.boxClosestPoint( [ 0,  - 1, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 2, 2, 2 ]);
+  * _.boxClosestPoint( [ 0, - 1, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2 ]);
   *
   * @returns { Number } Returns the closest point in the capsule to the box.
   * @function boxClosestPoint
@@ -700,7 +700,7 @@ function boxDistance( srcCapsule, srcBox )
   */
 function boxClosestPoint( srcCapsule, srcBox, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcBox.length / 2 );
@@ -755,8 +755,8 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   * @param { Array } srcCapsule - source capsule for the bounding box.
   *
   * @example
-  * // returns [ - 1,  - 1,  - 1, 3, 3, 3 ]
-  * _.boundingBoxGet( null,  [ 0, 0, 0, 2, 2, 2, 1 ] );
+  * // returns [ - 1, - 1, - 1, 3, 3, 3 ]
+  * _.boundingBoxGet( null, [ 0, 0, 0, 2, 2, 2, 1 ] );
   *
   * @returns { Array } Returns the array of the bounding box.
   * @function boundingBoxGet
@@ -768,7 +768,7 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   */
 function boundingBoxGet( dstBox, srcCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
   let origin = _.capsule.originView( srcCapsuleView );
@@ -790,7 +790,7 @@ function boundingBoxGet( dstBox, srcCapsule )
   _.vectorAdapter.mulScalar( center, 0.5 );
 
   let size = end.clone();
-  _.vectorAdapter.abs( size, _.vectorAdapter.addVectors( size, _.vectorAdapter.mulScalar( origin.clone(),  - 1 ) ) ); // Get size
+  _.vectorAdapter.abs( size, _.vectorAdapter.addVectors( size, _.vectorAdapter.mulScalar( origin.clone(), - 1 ) ) ); // Get size
   _.vectorAdapter.addScalar( size, 2*radius )  // Add radius
 
   let boxView = _.box.toAdapter( dstBox );
@@ -815,11 +815,11 @@ function boundingBoxGet( dstBox, srcCapsule )
   *
   * @example
   * // returns true;
-  * _.capsuleIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 0, 0, 0, 1, 1, 1, 0 ]);
+  * _.capsuleIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1, 0 ]);
   *
   * @example
   * // returns false;
-  * _.capsuleIntersects( [ 0,  -1, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 2, 2, 2, 1 ]);
+  * _.capsuleIntersects( [ 0, -1, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2, 1 ]);
   *
   * @returns { Boolean } Returns true if the capsules intersect.
   * @function capsuleIntersects
@@ -831,7 +831,7 @@ function boundingBoxGet( dstBox, srcCapsule )
   */
 function capsuleIntersects( srcCapsule, tstCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( _.capsule.dimGet( tstCapsule ) );
@@ -875,11 +875,11 @@ function capsuleIntersects( srcCapsule, tstCapsule )
   *
   * @example
   * // returns 0;
-  * _.capsuleDistance( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 0, 0, 0, 1, 1, 1, 0 ]);
+  * _.capsuleDistance( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1, 0 ]);
   *
   * @example
   * // returns Math.sqrt( 12 ) - 1;
-  * _.capsuleDistance( [ 0, 0, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 2, 2, 2, 0 ]);
+  * _.capsuleDistance( [ 0, 0, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2, 0 ]);
   *
   * @returns { Number } Returns the distance between two capsules.
   * @function capsuleDistance
@@ -891,7 +891,7 @@ function capsuleIntersects( srcCapsule, tstCapsule )
   */
 function capsuleDistance( srcCapsule, tstCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
 
   if( srcCapsule === null )
@@ -936,11 +936,11 @@ function capsuleDistance( srcCapsule, tstCapsule )
   *
   * @example
   * // returns 0;
-  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 0, 0, 0, 1, 1, 1, 0 ]);
+  * _.capsuleClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1, 0 ]);
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.capsuleClosestPoint( [ 0,  - 1, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 2, 2, 2, 0 ]);
+  * _.capsuleClosestPoint( [ 0, - 1, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 2, 2, 2, 0 ]);
   *
   * @returns { Number } Returns the closest point in the capsule to the capsule.
   * @function capsuleClosestPoint
@@ -952,7 +952,7 @@ function capsuleDistance( srcCapsule, tstCapsule )
   */
 function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( _.capsule.dimGet( tstCapsule ) );
@@ -1015,16 +1015,16 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   * // returns true;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
   * ]);
-  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] ,  srcFrustum );
+  * _.frustumIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] , srcFrustum );
   *
   * @example
   * // returns false;
-  * _.frustumIntersects( [ 0,  -2, 0, 0,  -3, 1, 0.5 ] ,  srcFrustum );
+  * _.frustumIntersects( [ 0, -2, 0, 0, -3, 1, 0.5 ] , srcFrustum );
   *
   * @returns { Boolean } Returns true if the capsule and the frustum intersect.
   * @function frustumIntersects
@@ -1036,7 +1036,7 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   */
 function frustumIntersects( srcCapsule, srcFrustum )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1078,16 +1078,16 @@ function frustumIntersects( srcCapsule, srcFrustum )
   * // returns 0;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
   * ]);
-  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2, 1 ],  srcFrustum );
+  * _.frustumDistance( [ 0, 0, 0, 2, 2, 2, 1 ], srcFrustum );
   *
   * @example
   * // 1;
-  * _.frustumDistance( [ 0,  - 2, 0, 0,  -3, 0, 1 ],  srcFrustum );
+  * _.frustumDistance( [ 0, - 2, 0, 0, -3, 0, 1 ], srcFrustum );
   *
   * @returns { Number } Returns the distance between a capsule and a frustum.
   * @function frustumDistance
@@ -1099,7 +1099,7 @@ function frustumIntersects( srcCapsule, srcFrustum )
   */
 function frustumDistance( srcCapsule, srcFrustum )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1141,16 +1141,16 @@ function frustumDistance( srcCapsule, srcFrustum )
   * // returns 0;
   * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   * ([
-  *   0,    0,    0,    0,  - 1,    1,
-  *   1,  - 1,    0,    0,    0,    0,
-  *   0,    0,    1,  - 1,    0,    0,
-  *   - 1,    0,  - 1,    0,    0,  - 1
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
   * ]);
-  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] ,  srcFrustum );
+  * _.frustumClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , srcFrustum );
   *
   * @example
-  * // returns [ 0,  - 0.5, 0 ];
-  * _.frustumClosestPoint( [ 0,  - 1, 0, 0,  -2, 0, 0.5 ] ,  srcFrustum );
+  * // returns [ 0, - 0.5, 0 ];
+  * _.frustumClosestPoint( [ 0, - 1, 0, 0, -2, 0, 0.5 ] , srcFrustum );
   *
   * @returns { Array } Returns the closest point in the capsule to the frustum.
   * @function frustumClosestPoint
@@ -1162,7 +1162,7 @@ function frustumDistance( srcCapsule, srcFrustum )
   */
 function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
   let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
@@ -1218,13 +1218,13 @@ function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
   *
   * @example
   * // returns true;
-  * var srcLine =  [ -1,  -1,  -1, 1, 1, 1 ]
+  * var srcLine =  [ -1, -1, -1, 1, 1, 1 ]
   * var srcCapsule = [ 0, 0, 0, 2, 2, 2, 1 ]
   * _.lineIntersects( srcCapsule, srcLine );
   *
   * @example
   * // returns false;
-  * var srcLine =  [ -1,  -1,  -1, 0, 0, 1 ]
+  * var srcLine =  [ -1, -1, -1, 0, 0, 1 ]
   * var srcCapsule = [ 0, 1, 0, 2, 2, 2, 0.5 ]
   * _.lineIntersects( srcCapsule, srcLine );
   *
@@ -1238,7 +1238,7 @@ function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
   */
 function lineIntersects( srcCapsule, srcLine )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcLineView = _.line.toAdapter( srcLine );
   let lineOrigin = _.line.originView( srcLineView );
@@ -1279,11 +1279,11 @@ function lineIntersects( srcCapsule, srcLine )
   *
   * @example
   * // returns 0;
-  * _.lineDistance( [ 0, 0, 0, 2, 2, 2, 1 ],  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.lineDistance( [ 0, 0, 0, 2, 2, 2, 1 ], [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 8 ) - 1;
-  * _.lineDistance( [ 0, 0, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 0, 0, 1 ]);
+  * _.lineDistance( [ 0, 0, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 0, 0, 1 ]);
   *
   * @returns { Number } Returns the distance between a capsule and a line.
   * @function lineDistance
@@ -1295,7 +1295,7 @@ function lineIntersects( srcCapsule, srcLine )
   */
 function lineDistance( srcCapsule, srcLine )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcLine.length / 2 );
@@ -1335,11 +1335,11 @@ function lineDistance( srcCapsule, srcLine )
   *
   * @example
   * // returns 0;
-  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.lineClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns [ 0.5, 0, 0 ];
-  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0, 0.5 ] ,  [ 1, 0, 0, 1, 0, 0 ]);
+  * _.lineClosestPoint( [ 0, 0, 0, 0, 1, 0, 0.5 ] , [ 1, 0, 0, 1, 0, 0 ]);
   *
   * @returns { Array } Returns the closest point in the srcCapsule to the srcLine.
   * @function lineClosestPoint
@@ -1351,7 +1351,7 @@ function lineDistance( srcCapsule, srcLine )
   */
 function lineClosestPoint( srcCapsule, srcLine, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcLine.length / 2 );
@@ -1407,11 +1407,11 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   *
   * @example
   * // returns true;
-  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeIntersects( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 1, 0, 0, - 1 ]);
   *
   * @example
   * // returns false;
-  * _.planeIntersects( [ 0,  -1, 0, 0,  -2, 0, 0.5 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeIntersects( [ 0, -1, 0, 0, -2, 0, 0.5 ] , [ 1, 0, 0, - 1 ]);
   *
   * @returns { Boolean } Returns true if the capsule and the plane intersect.
   * @function planeIntersects
@@ -1423,7 +1423,7 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   */
 function planeIntersects( srcCapsule, srcPlane )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcPlane.length - 1 );
@@ -1463,11 +1463,11 @@ function planeIntersects( srcCapsule, srcPlane )
   *
   * @example
   * // returns 0;
-  * _.planeDistance( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeDistance( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 1, 0, 0, - 1 ]);
   *
   * @example
   * // returns 0.5;
-  * _.planeDistance( [ 0,  -1, 0, 0,  -2, 0, 0.5 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeDistance( [ 0, -1, 0, 0, -2, 0, 0.5 ] , [ 1, 0, 0, - 1 ]);
   *
   * @returns { Number } Returns the distance between the capsule and the plane.
   * @function planeDistance
@@ -1479,7 +1479,7 @@ function planeIntersects( srcCapsule, srcPlane )
   */
 function planeDistance( srcCapsule, srcPlane )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcPlane.length - 1 );
@@ -1520,11 +1520,11 @@ function planeDistance( srcCapsule, srcPlane )
   *
   * @example
   * // returns 0;
-  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] ,  [ 1, 0, 0,  - 1 ]);
+  * _.planeClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ] , [ 1, 0, 0, - 1 ]);
   *
   * @example
-  * // returns [ 0,  -0.5, 0 ];
-  * _.planeClosestPoint( [ 0,  -1, 0, 0,  -2, 0, 0.5 ] ,  [ 1, 0, 0,  - 1 ]);
+  * // returns [ 0, -0.5, 0 ];
+  * _.planeClosestPoint( [ 0, -1, 0, 0, -2, 0, 0.5 ] , [ 1, 0, 0, - 1 ]);
   *
   * @returns { Array } Returns the closest point in the capsule to the plane.
   * @function planeClosestPoint
@@ -1536,7 +1536,7 @@ function planeDistance( srcCapsule, srcPlane )
   */
 function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcPlane.length - 1 );
@@ -1593,13 +1593,13 @@ function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
   *
   * @example
   * // returns true;
-  * var srcRay =  [ -1,  -1,  -1, 1, 1, 1 ]
+  * var srcRay =  [ -1, -1, -1, 1, 1, 1 ]
   * var srcCapsule = [ 0, 0, 0, 2, 2, 2, 1 ]
   * _.rayIntersects( srcCapsule, srcRay );
   *
   * @example
   * // returns false;
-  * var srcRay =  [ -1,  -1,  -1, 0, 0, 1 ]
+  * var srcRay =  [ -1, -1, -1, 0, 0, 1 ]
   * var srcCapsule = [ 0, 1, 0, 2, 2, 2, 0.5 ]
   * _.rayIntersects( srcCapsule, srcRay );
   *
@@ -1613,7 +1613,7 @@ function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
   */
 function rayIntersects( srcCapsule, srcRay )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcRayView = _.ray.toAdapter( srcRay );
   let rayOrigin = _.ray.originView( srcRayView );
@@ -1652,11 +1652,11 @@ function rayIntersects( srcCapsule, srcRay )
   *
   * @example
   * // returns 0;
-  * _.rayDistance( [ 0, 0, 0, 2, 2, 2, 1 ],  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.rayDistance( [ 0, 0, 0, 2, 2, 2, 1 ], [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 12 ) - 1;
-  * _.rayDistance( [ 0, 0, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 0, 0, 1 ]);
+  * _.rayDistance( [ 0, 0, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 0, 0, 1 ]);
   *
   * @returns { Number } Returns the distance between a capsule and a ray.
   * @function rayDistance
@@ -1668,7 +1668,7 @@ function rayIntersects( srcCapsule, srcRay )
   */
 function rayDistance( srcCapsule, srcRay )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcRay.length / 2 );
@@ -1708,11 +1708,11 @@ function rayDistance( srcCapsule, srcRay )
   *
   * @example
   * // returns 0;
-  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2, 0 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.rayClosestPoint( [ 0, 0, 0, 2, 2, 2, 0 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns [ -1, 0, 0 ];
-  * _.rayClosestPoint( [ 0, 0, 0, 1, 0, 0, 1 ] ,  [ -2, 0, 0,  -1, 0, 0 ]);
+  * _.rayClosestPoint( [ 0, 0, 0, 1, 0, 0, 1 ] , [ -2, 0, 0, -1, 0, 0 ]);
   *
   * @returns { Array } Returns the closest point in the srcCapsule to the srcRay.
   * @function rayClosestPoint
@@ -1724,7 +1724,7 @@ function rayDistance( srcCapsule, srcRay )
   */
 function rayClosestPoint( srcCapsule, srcRay, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcRay.length / 2 );
@@ -1781,13 +1781,13 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
   *
   * @example
   * // returns true;
-  * var srcSegment =  [ -1,  -1,  -1, 1, 1, 1 ]
+  * var srcSegment =  [ -1, -1, -1, 1, 1, 1 ]
   * var srcCapsule = [ 0, 0, 0, 2, 2, 2, 1 ]
   * _.segmentIntersects( srcCapsule, srcSegment );
   *
   * @example
   * // returns false;
-  * var srcSegment =  [ -1,  -1,  -1, 0, 0, 1 ]
+  * var srcSegment =  [ -1, -1, -1, 0, 0, 1 ]
   * var srcCapsule = [ 0, 1, 0, 2, 2, 2, 0.5 ]
   * _.segmentIntersects( srcCapsule, srcSegment );
   *
@@ -1801,7 +1801,7 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
   */
 function segmentIntersects( srcCapsule, srcSegment )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcSegmentView = _.segment.toAdapter( srcSegment );
   let dimSegment  = _.segment.dimGet( srcSegmentView );
@@ -1839,11 +1839,11 @@ function segmentIntersects( srcCapsule, srcSegment )
   *
   * @example
   * // returns 0;
-  * _.segmentDistance( [ 0, 0, 0, 2, 2, 2, 1 ],  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.segmentDistance( [ 0, 0, 0, 2, 2, 2, 1 ], [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 12 ) - 1;
-  * _.segmentDistance( [ 0, 0, 0, 0,  -2, 0, 1 ] ,  [ 2, 2, 2, 0, 0, 1 ]);
+  * _.segmentDistance( [ 0, 0, 0, 0, -2, 0, 1 ] , [ 2, 2, 2, 0, 0, 1 ]);
   *
   * @returns { Number } Returns the distance between a capsule and a segment.
   * @function segmentDistance
@@ -1855,7 +1855,7 @@ function segmentIntersects( srcCapsule, srcSegment )
   */
 function segmentDistance( srcCapsule, srcSegment )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( srcCapsule === null )
   srcCapsule = _.capsule.make( srcSegment.length / 2 );
@@ -1893,11 +1893,11 @@ function segmentDistance( srcCapsule, srcSegment )
   *
   * @example
   * // returns 0;
-  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2, 0 ] ,  [ 0, 0, 0, 1, 1, 1 ]);
+  * _.segmentClosestPoint( [ 0, 0, 0, 2, 2, 2, 0 ] , [ 0, 0, 0, 1, 1, 1 ]);
   *
   * @example
   * // returns [ -1, 0, 0 ];
-  * _.segmentClosestPoint( [ 0, 0, 0, 1, 0, 0, 1 ] ,  [ -2, 0, 0,  -1, 0, 0 ]);
+  * _.segmentClosestPoint( [ 0, 0, 0, 1, 0, 0, 1 ] , [ -2, 0, 0, -1, 0, 0 ]);
   *
   * @returns { Arsegment } Returns the closest point in the srcCapsule to the srcSegment.
   * @function segmentClosestPoint
@@ -1909,7 +1909,7 @@ function segmentDistance( srcCapsule, srcSegment )
   */
 function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
   dstPoint = _.long.longMake( srcSegment.length / 2 );
@@ -1964,11 +1964,11 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
   *
   * @example
   * // returns true;
-  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2, 1 ],  [ 0, 0, 0, 1 ]);
+  * _.sphereIntersects( [ 0, 0, 0, 2, 2, 2, 1 ], [ 0, 0, 0, 1 ]);
   *
   * @example
   * // returns false;
-  * _.sphereIntersects( [ 0, 0, 0, 0,  -2, 0, 1 ],  [ 3, 3, 3, 1 ]);
+  * _.sphereIntersects( [ 0, 0, 0, 0, -2, 0, 1 ], [ 3, 3, 3, 1 ]);
   *
   * @returns { Boolean } Returns true if the capsule and the sphere intersect.
   * @function sphereIntersects
@@ -1980,7 +1980,7 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
   */
 function sphereIntersects( srcCapsule, srcSphere )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcCapsule === null )
@@ -2020,11 +2020,11 @@ function sphereIntersects( srcCapsule, srcSphere )
   *
   * @example
   * // returns 0;
-  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2, 1 ],  [ 0, 0, 0, 1 ]);
+  * _.sphereDistance( [ 0, 0, 0, 2, 2, 2, 1 ], [ 0, 0, 0, 1 ]);
   *
   * @example
   * // returns Math.sqrt( 27 ) - 2;
-  * _.sphereDistance( [ 0, 0, 0, 0,  -2, 0, 1 ],  [ 3, 3, 3, 1 ]);
+  * _.sphereDistance( [ 0, 0, 0, 0, -2, 0, 1 ], [ 3, 3, 3, 1 ]);
   *
   * @returns { Boolean } Returns the distance between the capsule and the sphere.
   * @function sphereDistance
@@ -2036,7 +2036,7 @@ function sphereIntersects( srcCapsule, srcSphere )
   */
 function sphereDistance( srcCapsule, srcSphere )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( srcCapsule === null )
@@ -2076,11 +2076,11 @@ function sphereDistance( srcCapsule, srcSphere )
   *
   * @example
   * // returns 0;
-  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ],  [ 0, 0, 0, 1 ]);
+  * _.sphereClosestPoint( [ 0, 0, 0, 2, 2, 2, 1 ], [ 0, 0, 0, 1 ]);
   *
   * @example
   * // returns [ 1, 1, 1 ];
-  * _.sphereClosestPoint( [ 0, 0, 0, 0,  -2, 0, Math.sqrt( 3 ) ],  [ 3, 3, 3, 1 ]);
+  * _.sphereClosestPoint( [ 0, 0, 0, 0, -2, 0, Math.sqrt( 3 ) ], [ 3, 3, 3, 1 ]);
   *
   * @returns { Boolean } Returns the closest point in a capsule to a sphere.
   * @function sphereClosestPoint
@@ -2092,7 +2092,7 @@ function sphereDistance( srcCapsule, srcSphere )
   */
 function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
 {
-  _.assert( arguments.length === 2 || arguments.length === 3 ,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.sphere.is( srcSphere ) );
 
   if( arguments.length === 2 )
@@ -2148,7 +2148,7 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
   *
   * @example
   * // returns [ 1, 1, 1, Math.sqrt( 3 ) + 1 ]
-  * _.boundingSphereGet( null,  [ 0, 0, 0, 2, 2, 2, 1 ] );
+  * _.boundingSphereGet( null, [ 0, 0, 0, 2, 2, 2, 1 ] );
   *
   * @returns { Array } Returns the array of the bounding sphere.
   * @function boundingSphereGet
@@ -2160,7 +2160,7 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
   */
 function boundingSphereGet( dstSphere, srcCapsule )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let srcCapsuleView = _.capsule.toAdapter( srcCapsule );
   let origin = _.capsule.originView( srcCapsuleView );
@@ -2183,7 +2183,7 @@ function boundingSphereGet( dstSphere, srcCapsule )
   // Center of the sphere
   for( let c = 0; c < center.length; c++ )
   {
-    center.eSet( c,  ( end.eGet( c ) + origin.eGet( c ) ) / 2 );
+    center.eSet( c, ( end.eGet( c ) + origin.eGet( c ) ) / 2 );
   }
 
   // Radius of the sphere

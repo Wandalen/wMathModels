@@ -48,7 +48,7 @@ and axis1, axis2, axis3 the corresponding axes of rotation.
 
 function is( euler )
 {
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( euler ) || _.vectorAdapterIs( euler ) ) && ( euler.length === 6 );
 }
 
@@ -57,7 +57,7 @@ function is( euler )
 function isZero( euler )
 {
 
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   let eulerView = _.euler.toAdapter( euler );
 
@@ -130,7 +130,7 @@ function from( euler )
 {
 
   _.assert( euler === null || _.euler.is( euler ) );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   if( euler === null )
   return _.euler.make();
@@ -152,7 +152,7 @@ function from( euler )
 function toAdapter( euler )
 {
   _.assert( _.euler.is( euler ) );
-  _.assert( arguments.length === 1,  'Expects single argument' );
+  _.assert( arguments.length === 1, 'Expects single argument' );
 
   return _.vectorAdapter.from( euler );
 }
@@ -163,7 +163,7 @@ function representationSet( dstEuler, representation )
 {
   let dstEulerView = _.euler.toAdapter( dstEuler );
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   if( _.arrayIs( representation ) || _.longIs( representation ) )
   {
@@ -183,7 +183,7 @@ function representationSet( dstEuler, representation )
       dstEulerView.eSet( 4, representation[ 1 ] );
       dstEulerView.eSet( 5, representation[ 2 ] );
     }
-    else _.assert( 0,  'Not an Euler Representation' );
+    else _.assert( 0, 'Not an Euler Representation' );
   }
   else if( _.strIs( representation ) )
   {
@@ -260,9 +260,9 @@ function representationSet( dstEuler, representation )
       dstEulerView.eSet( 4, 1 );
       dstEulerView.eSet( 5, 2 );
     }
-    else _.assert( 0,  'Not an Euler Representation',  _.strQuote( representation ) );
+    else _.assert( 0, 'Not an Euler Representation', _.strQuote( representation ) );
   }
-  else _.assert( 0,  'unknown type of {-representation-}',  _.strType( representation ) )
+  else _.assert( 0, 'unknown type of {-representation-}', _.strType( representation ) )
 
   return dstEuler;
 }
@@ -280,20 +280,20 @@ function representationSet( dstEuler, representation )
   // y /= magnitude;
   // z /= magnitude;
   if((x*y*t + z*s) > 0.998) { // north pole singularity detected
-    heading = 2*atan2(x*Math.sin(angle/2),  Math.cos(angle/2));
+    heading = 2*atan2(x*Math.sin(angle/2), Math.cos(angle/2));
     attitude = Math.PI/2;
     bank = 0;
     return;
   }
   if((x*y*t + z*s) < -0.998) { // south pole singularity detected
-    heading = -2*atan2(x*Math.sin(angle/2),  Math.cos(angle/2));
+    heading = -2*atan2(x*Math.sin(angle/2), Math.cos(angle/2));
     attitude = -Math.PI/2;
     bank = 0;
     return;
   }
-  heading = Math.atan2(y * s- x * z * t ,  1 - (y*y+ z*z ) * t);
+  heading = Math.atan2(y * s- x * z * t , 1 - (y*y+ z*z ) * t);
   attitude = Math.asin(x * y * t + z * s) ;
-  bank = Math.atan2(x * s - y * z * t ,  1 - (x*x + z*z) * t);
+  bank = Math.atan2(x * s - y * z * t , 1 - (x*x + z*z) * t);
 */
 
 function fromAxisAndAngle( dst, axis, angle )
@@ -306,7 +306,7 @@ function fromAxisAndAngle( dst, axis, angle )
   if( angle === undefined )
   angle = axis[ 3 ];
 
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
   _.assert( _.numberIs( angle ) );
   _.assert( this.accuracy > 0 );
@@ -322,7 +322,7 @@ function fromAxisAndAngle( dst, axis, angle )
   if( ( x*y*t + z*s ) > 1-this.accuracy )
   {
     xxx
-    dstv.eSet( 0, 2*atan2( x*sin( angle/2 ),  cos( angle/2 ) ) );
+    dstv.eSet( 0, 2*atan2( x*sin( angle/2 ), cos( angle/2 ) ) );
     dstv.eSet( 1, Math.PI/2 );
     dstv.eSet( 2, bank = 0 );
     return dst;
@@ -330,8 +330,8 @@ function fromAxisAndAngle( dst, axis, angle )
   else if( ( x*y*t + z*s ) < -1+this.accuracy )
   {
     yyy
-    dstv.eSet( 0,  -2*atan2( x*sin( angle/2 ),  cos( angle/2 ) ) );
-    dstv.eSet( 1,  -Math.PI/2 );
+    dstv.eSet( 0, -2*atan2( x*sin( angle/2 ), cos( angle/2 ) ) );
+    dstv.eSet( 1, -Math.PI/2 );
     dstv.eSet( 2, bank = 0 );
     return dst;
   }
@@ -342,14 +342,14 @@ function fromAxisAndAngle( dst, axis, angle )
 
   // xyz
 
-  dstv.eSet( 0, atan2( y*s - x*z*t ,  1 - ( y2 + z2 ) * t ) );
+  dstv.eSet( 0, atan2( y*s - x*z*t , 1 - ( y2 + z2 ) * t ) );
   dstv.eSet( 1, asin( x*y*t + z*s ) );
-  dstv.eSet( 2, atan2( x*s - y*z*t ,  1 - ( x2 + z2 ) * t ) );
+  dstv.eSet( 2, atan2( x*s - y*z*t , 1 - ( x2 + z2 ) * t ) );
 
   // xzy
 
-  dstv.eSet( 0, atan2( z*s - x*y*t ,  1 - ( z2 + y2 ) * t ) );
-  dstv.eSet( 1, atan2( x*s - z*y*t ,  1 - ( x2 + y2 ) * t ) );
+  dstv.eSet( 0, atan2( z*s - x*y*t , 1 - ( z2 + y2 ) * t ) );
+  dstv.eSet( 1, atan2( x*s - z*y*t , 1 - ( x2 + y2 ) * t ) );
   dstv.eSet( 2, asin( x*z*t + y*s ) );
 
   return dst;
@@ -366,7 +366,7 @@ function fromQuat( dst, quat, v )
   let dstv = _.vectorAdapter.from( dst );
   let quatv = _.quat.toAdapter( quat );
 
-  // _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  // _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let ox = dstv.eGet( 3 );
   let oy = dstv.eGet( 4 );
@@ -391,7 +391,7 @@ function fromQuat( dst, quat, v )
   // }
 
   sign = sign ? -1 : + 1;
-  // console.log( 'sign',  sign );
+  // console.log( 'sign', sign );
 
   let ex, ey, ez;
 
@@ -413,27 +413,27 @@ function fromQuat( dst, quat, v )
   //
 
   // xyx
-  // psi = atan2((q[1] * q[2] + q[3] * q[0]),  (q[2] * q[0] - q[1] * q[3]));
+  // psi = atan2((q[1] * q[2] + q[3] * q[0]), (q[2] * q[0] - q[1] * q[3]));
   // theta = acos(q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3]);
-  // phi = atan2((q[1] * q[2] - q[3] * q[0]),  (q[1] * q[3] + q[2] * q[0]));
+  // phi = atan2((q[1] * q[2] - q[3] * q[0]), (q[1] * q[3] + q[2] * q[0]));
 
   // xzx
-  // psi = atan2((q[1] * q[3] - q[2] * q[0]),  (q[1] * q[2] + q[3] * q[0]));
+  // psi = atan2((q[1] * q[3] - q[2] * q[0]), (q[1] * q[2] + q[3] * q[0]));
   // theta = acos(q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3]);
-  // phi = atan2((q[1] * q[3] + q[2] * q[0]),  (q[3] * q[0] - q[1] * q[2]));
+  // phi = atan2((q[1] * q[3] + q[2] * q[0]), (q[3] * q[0] - q[1] * q[2]));
 
   // yxy
-  // psi = atan2((q[1] * q[2] - q[3] * q[0]),  (q[1] * q[0] + q[2] * q[3]));
+  // psi = atan2((q[1] * q[2] - q[3] * q[0]), (q[1] * q[0] + q[2] * q[3]));
   // theta = acos(q[0] * q[0] - q[1] * q[1] + q[2] * q[2] - q[3] * q[3]);
-  // phi = atan2((q[1] * q[2] + q[3] * q[0]),  (q[1] * q[0] - q[2] * q[3]));
+  // phi = atan2((q[1] * q[2] + q[3] * q[0]), (q[1] * q[0] - q[2] * q[3]));
 
 //   if( same )
 //   {
 //
 //     // sign = 1;
-//     dstv.eSet( 0, atan2( ( x * y + sign * z * w ) ,  ( y * w - sign * x * z ) ) );
+//     dstv.eSet( 0, atan2( ( x * y + sign * z * w ) , ( y * w - sign * x * z ) ) );
 //     dstv.eSet( 1, acos( sqw + sqx - sqy - sqz ) );
-//     dstv.eSet( 2, atan2( ( x * y - sign * z * w ) ,  ( y * w + sign * x * z ) ) );
+//     dstv.eSet( 2, atan2( ( x * y - sign * z * w ) , ( y * w + sign * x * z ) ) );
 //
 //   }
 //   else
@@ -445,34 +445,34 @@ function fromQuat( dst, quat, v )
 //     if( test > +half )
 //     {
 //       xxx
-//       dstv.eSet( ox,  +2 * Math.atan2( z, w ) );
-//       dstv.eSet( oy,  +Math.PI / 2 );
+//       dstv.eSet( ox, +2 * Math.atan2( z, w ) );
+//       dstv.eSet( oy, +Math.PI / 2 );
 //       dstv.eSet( oz, 0 );
 //     }
 //     else if( test < -half )
 //     {
 //       yyy
-//       dstv.eSet( ox,  -2 * Math.atan2( z, w ) );
-//       dstv.eSet( oy,  -Math.PI / 2 );
+//       dstv.eSet( ox, -2 * Math.atan2( z, w ) );
+//       dstv.eSet( oy, -Math.PI / 2 );
 //       dstv.eSet( oz, 0 );
 //     }
 //     else
 //     {
-//       // dstv.eSet( ox, sign * atan2( 2 * ( x * w - y * z ) ,  ( sqw - sqx - sqy + sqz ) ) );
-//       // dstv.eSet( oy, sign * asin( clamp( 2 * test,  - 1, 1 ) ) );
-//       // dstv.eSet( oz, sign * atan2( 2 * ( z * w - x * y ) ,  ( sqw + sqx - sqy - sqz ) ) );
+//       // dstv.eSet( ox, sign * atan2( 2 * ( x * w - y * z ) , ( sqw - sqx - sqy + sqz ) ) );
+//       // dstv.eSet( oy, sign * asin( clamp( 2 * test, - 1, 1 ) ) );
+//       // dstv.eSet( oz, sign * atan2( 2 * ( z * w - x * y ) , ( sqw + sqx - sqy - sqz ) ) );
 //
-//       dstv.eSet( 0, sign * atan2( 2 * ( x * w - y * z ) ,  ( sqw - sqx - sqy + sqz ) ) );
-//       dstv.eSet( 1, asin( clamp( 2 * test,  - 1, 1 ) ) );
-//       dstv.eSet( 2, sign * atan2( 2 * ( z * w - x * y ) ,  ( sqw + sqx - sqy - sqz ) ) );
+//       dstv.eSet( 0, sign * atan2( 2 * ( x * w - y * z ) , ( sqw - sqx - sqy + sqz ) ) );
+//       dstv.eSet( 1, asin( clamp( 2 * test, - 1, 1 ) ) );
+//       dstv.eSet( 2, sign * atan2( 2 * ( z * w - x * y ) , ( sqw + sqx - sqy - sqz ) ) );
 //
-//       // dstv.eSet( 0, atan2( 2 * ( v.xw0 * x * w + v.yz0 * y * z ) ,  ( v.sqw0*sqw + v.sqx0*sqx + v.sqy0*sqy + v.sqz0*sqz ) ) );
-//       // dstv.eSet( 1, asin( clamp( 2 * test,  - 1, 1 ) ) );
-//       // dstv.eSet( 2, atan2( 2 * ( v.zw2 * z * w + v.xy2 * x * y ) ,  ( v.sqw2*sqw + v.sqx2*sqx + v.sqy2*sqy + v.sqz2*sqz ) ) );
+//       // dstv.eSet( 0, atan2( 2 * ( v.xw0 * x * w + v.yz0 * y * z ) , ( v.sqw0*sqw + v.sqx0*sqx + v.sqy0*sqy + v.sqz0*sqz ) ) );
+//       // dstv.eSet( 1, asin( clamp( 2 * test, - 1, 1 ) ) );
+//       // dstv.eSet( 2, atan2( 2 * ( v.zw2 * z * w + v.xy2 * x * y ) , ( v.sqw2*sqw + v.sqx2*sqx + v.sqy2*sqy + v.sqz2*sqz ) ) );
 //
-//       // dstv.eSet( 0, atan2( 2 * ( x * w + v.yz0 * y * z ) ,  ( v.sqw0*sqw + v.sqx0*sqx + v.sqy0*sqy + v.sqz0*sqz ) ) );
-//       // dstv.eSet( 1, asin( clamp( 2 * test,  - 1, 1 ) ) );
-//       // dstv.eSet( 2, atan2( 2 * ( v.zw2 * z * w + v.xy2 * x * y ) ,  ( v.sqw2*sqw + v.sqx2*sqx + v.sqy2*sqy + v.sqz2*sqz ) ) );
+//       // dstv.eSet( 0, atan2( 2 * ( x * w + v.yz0 * y * z ) , ( v.sqw0*sqw + v.sqx0*sqx + v.sqy0*sqy + v.sqz0*sqz ) ) );
+//       // dstv.eSet( 1, asin( clamp( 2 * test, - 1, 1 ) ) );
+//       // dstv.eSet( 2, atan2( 2 * ( v.zw2 * z * w + v.xy2 * x * y ) , ( v.sqw2*sqw + v.sqx2*sqx + v.sqy2*sqy + v.sqz2*sqz ) ) );
 //
 // // trivial xyz sample :
 // // {
@@ -551,24 +551,24 @@ function fromQuat( dst, quat, v )
 //       // let z = quatv.eGet( 2 );
 //       // let w = quatv.eGet( 3 );
 //
-//       // dstv.eSet( ox,  -sign * atan2( 2 * ( x * w + y * z ) ,  ( sqw - sqx - sqy + sqz ) ) );
-//       // dstv.eSet( oy,  -asin( clamp( 2 * test,  - 1, 1 ) ) );
-//       // dstv.eSet( oz, sign * atan2( 2 * ( z * w - x * y ) ,  ( sqw - sqx - sqy + sqz ) ) );
+//       // dstv.eSet( ox, -sign * atan2( 2 * ( x * w + y * z ) , ( sqw - sqx - sqy + sqz ) ) );
+//       // dstv.eSet( oy, -asin( clamp( 2 * test, - 1, 1 ) ) );
+//       // dstv.eSet( oz, sign * atan2( 2 * ( z * w - x * y ) , ( sqw - sqx - sqy + sqz ) ) );
 //
-//       // dstv.eSet( ox, atan2( 2 * ( x * w - y * z ) ,  ( sqw - sqx - sqy + sqz ) ) );
-//       // dstv.eSet( oy, asin( clamp( 2 * ( x*z + y*w ),  - 1, 1 ) ) );
-//       // dstv.eSet( oz, atan2( 2 * ( z * w - x * y ) ,  ( sqw + sqx - sqy - sqz ) ) );
+//       // dstv.eSet( ox, atan2( 2 * ( x * w - y * z ) , ( sqw - sqx - sqy + sqz ) ) );
+//       // dstv.eSet( oy, asin( clamp( 2 * ( x*z + y*w ), - 1, 1 ) ) );
+//       // dstv.eSet( oz, atan2( 2 * ( z * w - x * y ) , ( sqw + sqx - sqy - sqz ) ) );
 //
-//       // dstv.eSet( ox, atan2( 2 * ( z*w - x*y ) ,  ( sqw + sqx - sqy - sqz ) ) );
-//       // dstv.eSet( oy, asin( clamp( 2 * ( x*w - y*z ),  - 1, 1 ) ) );
-//       // dstv.eSet( oz, atan2( ( sqw - sqx - sqy + sqz ) ,  2 * ( x*z + w*y ) ) );
+//       // dstv.eSet( ox, atan2( 2 * ( z*w - x*y ) , ( sqw + sqx - sqy - sqz ) ) );
+//       // dstv.eSet( oy, asin( clamp( 2 * ( x*w - y*z ), - 1, 1 ) ) );
+//       // dstv.eSet( oz, atan2( ( sqw - sqx - sqy + sqz ) , 2 * ( x*z + w*y ) ) );
 //
 //       // /* xzy */
 //       //
 //       // let sign = 1;
-//       // dstv.eSet( ox, atan2( 2 * ( x * w + y * z ) ,  ( sqw - sqx - sqy + sqz ) ) );
-//       // dstv.eSet( oy, asin( clamp( 2 * ( w*y - x*z ),  - 1, 1 ) ) );
-//       // dstv.eSet( oz, atan2( 2 * ( z * w + x * y ) ,  ( sqw + sqx - sqy - sqz ) ) );
+//       // dstv.eSet( ox, atan2( 2 * ( x * w + y * z ) , ( sqw - sqx - sqy + sqz ) ) );
+//       // dstv.eSet( oy, asin( clamp( 2 * ( w*y - x*z ), - 1, 1 ) ) );
+//       // dstv.eSet( oz, atan2( 2 * ( z * w + x * y ) , ( sqw + sqx - sqy - sqz ) ) );
 //
 //     }
 //
@@ -576,83 +576,83 @@ function fromQuat( dst, quat, v )
 
   // debugger;
 
-  // ex = atan2( ( x * y + z * w ),  ( y * w - x * z ) );
+  // ex = atan2( ( x * y + z * w ), ( y * w - x * z ) );
   // ey = acos( w * w + x * x - y * y - z * z );
-  // ez = atan2( ( x * y - z * w ),  ( x * z + y * w ) );
+  // ez = atan2( ( x * y - z * w ), ( x * z + y * w ) );
 
   if( ox === 0 && oy === 1 && oz === 2 ) // xyz
   {
-    ex = atan2( 2 * ( x * w - y * z ),  ( w * w - x * x - y * y + z * z ) );
+    ex = atan2( 2 * ( x * w - y * z ), ( w * w - x * x - y * y + z * z ) );
     ey = asin( 2 * ( x * z + y * w ) );
-    ez = atan2( 2 * ( z * w - x * y ),  ( w * w + x * x - y * y - z * z ) );
+    ez = atan2( 2 * ( z * w - x * y ), ( w * w + x * x - y * y - z * z ) );
   }
   else if( ox === 0 && oy === 2 && oz === 1 ) // xzy
   {
-    ex = atan2( 2 * ( x * w + y * z ),  ( w * w - x * x + y * y - z * z ) );
+    ex = atan2( 2 * ( x * w + y * z ), ( w * w - x * x + y * y - z * z ) );
     ey = asin( 2 * ( z * w - x * y ) );
-    ez = atan2( 2 * ( x * z + y * w ),  ( w * w + x * x - y * y - z * z ) );
+    ez = atan2( 2 * ( x * z + y * w ), ( w * w + x * x - y * y - z * z ) );
   }
   else if( ox === 1 && oy === 0 && oz === 2 ) // yxz
   {
-    ex = atan2( 2 * ( x * z + y * w ),  ( w * w - x * x - y * y + z * z ) );
+    ex = atan2( 2 * ( x * z + y * w ), ( w * w - x * x - y * y + z * z ) );
     ey = asin( 2 * ( x * w - y * z ) );
-    ez = atan2( 2 * ( x * y + z * w ),  ( w * w - x * x + y * y - z * z ) );
+    ez = atan2( 2 * ( x * y + z * w ), ( w * w - x * x + y * y - z * z ) );
   }
   else if( ox === 1 && oy === 2 && oz === 0 ) // yzx
   {
-    ex = atan2( 2 * ( y * w - x * z ),  ( w * w + x * x - y * y - z * z ) );
+    ex = atan2( 2 * ( y * w - x * z ), ( w * w + x * x - y * y - z * z ) );
     ey = asin( 2 * ( x * y + z * w ) );
-    ez = atan2( 2 * ( x * w - z * y ),  ( w * w - x * x + y * y - z * z ) );
+    ez = atan2( 2 * ( x * w - z * y ), ( w * w - x * x + y * y - z * z ) );
   }
   else if( ox === 2 && oy === 0 && oz === 1 ) // zxy
   {
-    ex = atan2( 2 * ( z * w - x * y ),  ( w * w - x * x + y * y - z * z ) );
+    ex = atan2( 2 * ( z * w - x * y ), ( w * w - x * x + y * y - z * z ) );
     ey = asin( 2 * ( x * w + y * z ) );
-    ez = atan2( 2 * ( y * w - z * x ),  ( w * w - x * x - y * y + z * z ) );
+    ez = atan2( 2 * ( y * w - z * x ), ( w * w - x * x - y * y + z * z ) );
   }
   else if( ox === 2 && oy === 1 && oz === 0 ) // zyx
   {
-    ex = atan2( 2 * ( x * y + z * w ),  ( w * w + x * x - y * y - z * z ) );
+    ex = atan2( 2 * ( x * y + z * w ), ( w * w + x * x - y * y - z * z ) );
     ey = asin( 2 * ( y * w - x * z ) );
-    ez = atan2( 2 * ( x * w + z * y ),  ( w * w - x * x - y * y + z * z ) );
+    ez = atan2( 2 * ( x * w + z * y ), ( w * w - x * x - y * y + z * z ) );
   }
   else if( ox === 0 && oy === 1 && oz === 0 ) // xyx
   {
-    ex = atan2( ( x * y + z * w ),  ( y * w - x * z ) );
+    ex = atan2( ( x * y + z * w ), ( y * w - x * z ) );
     ey = acos( w * w + x * x - y * y - z * z );
-    ez = atan2( ( x * y - z * w ),  ( x * z + y * w ) );
+    ez = atan2( ( x * y - z * w ), ( x * z + y * w ) );
   }
   else if( ox === 0 && oy === 2 && oz === 0 ) // xzx
   {
-    ex = atan2( ( x * z - y * w ),  ( x * y + z * w ) );
+    ex = atan2( ( x * z - y * w ), ( x * y + z * w ) );
     ey = acos( w * w + x * x - y * y - z * z );
-    ez = atan2( ( x * z + y * w ),  ( z * w - x * y ) );
+    ez = atan2( ( x * z + y * w ), ( z * w - x * y ) );
   }
   else if( ox === 1 && oy === 0 && oz === 1 ) // yxy
   {
-    ex = atan2( ( x * y - z * w ),  ( x * w + y * z ) );
+    ex = atan2( ( x * y - z * w ), ( x * w + y * z ) );
     ey = acos( w * w - x * x + y * y - z * z );
-    ez = atan2( ( x * y + z * w ),  ( x * w - y * z ) );
+    ez = atan2( ( x * y + z * w ), ( x * w - y * z ) );
   }
   else if( ox === 1 && oy === 2 && oz === 1 ) // yzy
   {
-    ex = atan2( ( x * w + y * z ),  ( z * w - x * y ) );
+    ex = atan2( ( x * w + y * z ), ( z * w - x * y ) );
     ey = acos( w * w - x * x + y * y - z * z );
-    ez = atan2( ( y * z - x * w ),  ( x * y + z * w ) );
+    ez = atan2( ( y * z - x * w ), ( x * y + z * w ) );
   }
   else if( ox === 2 && oy === 0 && oz === 2 ) // zxz
   {
-    ex = atan2( ( x * z + y * w ),  ( x * w - y * z ) );
+    ex = atan2( ( x * z + y * w ), ( x * w - y * z ) );
     ey = acos( w * w - x * x - y * y + z * z );
-    ez = atan2( ( x * z - y * w ),  ( x * w + y * z ) );
+    ez = atan2( ( x * z - y * w ), ( x * w + y * z ) );
   }
   else if( ox === 2 && oy === 1 && oz === 2 ) // zyz
   {
-    ex = atan2( ( y * z - x * w ),  ( x * z + y * w ) );
+    ex = atan2( ( y * z - x * w ), ( x * z + y * w ) );
     ey = acos( w * w - x * x - y * y + z * z );
-    ez = atan2( ( x * w + y * z ),  ( y * w - x * z ) );
+    ez = atan2( ( x * w + y * z ), ( y * w - x * z ) );
   }
-  else _.assert( 0,  'unexpected euler order',  dst );
+  else _.assert( 0, 'unexpected euler order', dst );
 
   dstv.eSet( 0, ex );
   dstv.eSet( 1, ey );
@@ -737,22 +737,22 @@ function fromQuat( dst, quat, v )
   //   if( test > +half )
   //   {
   //     xxx
-  //     dstv.eSet( 0,  +2 * Math.atan2( z, w ) );
-  //     dstv.eSet( 1,  +Math.PI / 2 );
+  //     dstv.eSet( 0, +2 * Math.atan2( z, w ) );
+  //     dstv.eSet( 1, +Math.PI / 2 );
   //     dstv.eSet( 2, 0 );
   //   }
   //   else if( test < -half )
   //   {
   //     yyy
-  //     dstv.eSet( 0,  -2 * Math.atan2( z, w ) );
-  //     dstv.eSet( 1,  -Math.PI / 2 );
+  //     dstv.eSet( 0, -2 * Math.atan2( z, w ) );
+  //     dstv.eSet( 1, -Math.PI / 2 );
   //     dstv.eSet( 2, 0 );
   //   }
   //   else
   //   {
-  //     dstv.eSet( 0, atan2( 2 * ( x * w - y * z ) ,  ( sqw - sqx - sqy + sqz ) ) );
-  //     dstv.eSet( 1, asin( clamp( 2 * test,  - 1, 1 ) ) );
-  //     dstv.eSet( 2, atan2( 2 * ( z * w - x * y ) ,  ( sqw + sqx - sqy - sqz ) ) );
+  //     dstv.eSet( 0, atan2( 2 * ( x * w - y * z ) , ( sqw - sqx - sqy + sqz ) ) );
+  //     dstv.eSet( 1, asin( clamp( 2 * test, - 1, 1 ) ) );
+  //     dstv.eSet( 2, atan2( 2 * ( z * w - x * y ) , ( sqw + sqx - sqy - sqz ) ) );
   //   }
   //
   // }
@@ -763,26 +763,26 @@ function fromQuat( dst, quat, v )
 // fromQuat.variates =
 // {
 //
-//   xw0 : [ +1,  -1 ],
-//   yz0 : [ +1,  -1 ],
-//   xz1 : [ +1,  -1 ],
-//   yw1 : [ +1,  -1 ],
-//   zw2 : [ +1,  -1 ],
-//   xy2 : [ +1,  -1 ],
+//   xw0 : [ +1, -1 ],
+//   yz0 : [ +1, -1 ],
+//   xz1 : [ +1, -1 ],
+//   yw1 : [ +1, -1 ],
+//   zw2 : [ +1, -1 ],
+//   xy2 : [ +1, -1 ],
 //
-//   sqw0 : [ +1,  -1 ],
-//   sqx0 : [ +1,  -1 ],
-//   sqy0 : [ +1,  -1 ],
-//   sqz0 : [ +1,  -1 ],
+//   sqw0 : [ +1, -1 ],
+//   sqx0 : [ +1, -1 ],
+//   sqy0 : [ +1, -1 ],
+//   sqz0 : [ +1, -1 ],
 //
-//   sqw2 : [ +1,  -1 ],
-//   sqx2 : [ +1,  -1 ],
-//   sqy2 : [ +1,  -1 ],
-//   sqz2 : [ +1,  -1 ],
+//   sqw2 : [ +1, -1 ],
+//   sqx2 : [ +1, -1 ],
+//   sqy2 : [ +1, -1 ],
+//   sqz2 : [ +1, -1 ],
 //
 // }
 
-// void quaternion2Euler(const Quaternion& q, double res[],  RotSeq rotSeq)
+// void quaternion2Euler(const Quaternion& q, double res[], RotSeq rotSeq)
 // {
 //     switch(rotSeq){
 //     case zyx:
@@ -908,27 +908,27 @@ function fromMatrix( euler, mat ) /* xxx */
   euler = _.euler.from( euler );
   let eulerView = _.vectorAdapter.from( euler );
 
-  let s00 = mat.atomGet([ 0, 0 ]),  s10 = mat.atomGet([ 1, 0 ]),  s20 = mat.atomGet([ 2, 0 ]);
-  let s01 = mat.atomGet([ 0, 1 ]),  s11 = mat.atomGet([ 1, 1 ]),  s21 = mat.atomGet([ 2, 1 ]);
-  let s02 = mat.atomGet([ 0, 2 ]),  s12 = mat.atomGet([ 1, 2 ]),  s22 = mat.atomGet([ 2, 2 ]);
+  let s00 = mat.atomGet([ 0, 0 ]), s10 = mat.atomGet([ 1, 0 ]), s20 = mat.atomGet([ 2, 0 ]);
+  let s01 = mat.atomGet([ 0, 1 ]), s11 = mat.atomGet([ 1, 1 ]), s21 = mat.atomGet([ 2, 1 ]);
+  let s02 = mat.atomGet([ 0, 2 ]), s12 = mat.atomGet([ 1, 2 ]), s22 = mat.atomGet([ 2, 2 ]);
 
   _.assert( _.Matrix.Is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
 // m1
 // -0.875, 0.250, 0.415,
-// 0.250,  -0.500, 0.829,
+// 0.250, -0.500, 0.829,
 // 0.415, 0.829, 0.375,
 // m2
-// -0.875,  -0.476, 0.086,
-// 0.250,  -0.292, 0.923,
+// -0.875, -0.476, 0.086,
+// 0.250, -0.292, 0.923,
 // -0.415, 0.829, 0.375,
 
   // debugger; xxx
 
-  eulerView.eSet( 1, asin( clamp( s02,  - 1,  + 1 ) ) );
+  eulerView.eSet( 1, asin( clamp( s02, - 1, + 1 ) ) );
 
   if( abs( /*eps*/accuracy ) < one )
   {
@@ -948,43 +948,43 @@ function fromMatrix( euler, mat ) /* xxx */
 //
 // [ cy*cz, cz*sx*sy - cx*sz, sx*sz + cx*cz*sy]
 // [ cy*sz, cx*cz + sx*sy*sz, cx*sy*sz - cz*sx]
-// [ -sy,    cy*sx,       cx*cy]
+// [ -sy,   cy*sx,      cx*cy]
 //
 // ry*rz*rx
 //
 // [  cy*cz, sx*sy - cx*cy*sz, cx*sy + cy*sx*sz]
-// [         sz,       cx*cz,      -cz*sx]
+// [         sz,      cx*cz,     -cz*sx]
 // [ -cz*sy, cy*sx + cx*sy*sz, cx*cy - sx*sy*sz]
 //
 // rz*rx*ry
 //
-// [ cy*cz - sx*sy*sz,  -cx*sz, cz*sy + cy*sx*sz]
-// [ cy*sz + cz*sx*sy,   cx*cz, sy*sz - cy*cz*sx]
-// [     -cx*sy,          sx,       cx*cy]
+// [ cy*cz - sx*sy*sz, -cx*sz, cz*sy + cy*sx*sz]
+// [ cy*sz + cz*sx*sy,  cx*cz, sy*sz - cy*cz*sx]
+// [     -cx*sy,         sx,      cx*cy]
 //
 // rx*rz*ry
 //
-// [      cy*cz,        -sz,       cz*sy]
+// [      cy*cz,       -sz,      cz*sy]
 // [ sx*sy + cx*cy*sz, cx*cz, cx*sy*sz - cy*sx]
 // [ cy*sx*sz - cx*sy, cz*sx, cx*cy + sx*sy*sz]
 //
 // ry*rx*rz
 //
 // [ cy*cz + sx*sy*sz, cz*sx*sy - cy*sz, cx*sy]
-// [      cx*sz,       cx*cz,        -sx]
+// [      cx*sz,      cx*cz,       -sx]
 // [ cy*sx*sz - cz*sy, sy*sz + cy*cz*sx, cx*cy]
 //
 // rx*ry*rz
 //
-// [      cy*cz,      -cy*sz,          sy]
-// [ cx*sz + cz*sx*sy, cx*cz - sx*sy*sz,  -cy*sx]
-// [ sx*sz - cx*cz*sy, cz*sx + cx*sy*sz,   cx*cy]
+// [      cy*cz,     -cy*sz,         sy]
+// [ cx*sz + cz*sx*sy, cx*cz - sx*sy*sz, -cy*sx]
+// [ sx*sz - cx*cz*sy, cz*sx + cx*sy*sz,  cx*cy]
 //
 // rxz*ry*rx
 //
-// [  cy,         sx*sy,           cx*sy]
-// [  sy*sz, cx*cz - cy*sx*sz,  - cz*sx - cx*cy*sz]
-// [ -cz*sy, cx*sz + cy*cz*sx,    cx*cy*cz - sx*sz]
+// [  cy,        sx*sy,          cx*sy]
+// [  sy*sz, cx*cz - cy*sx*sz, - cz*sx - cx*cy*sz]
+// [ -cz*sy, cx*sz + cy*cz*sx,   cx*cy*cz - sx*sz]
 
   // let sx = sin( x );
   // let sy = sin( y );
@@ -1035,7 +1035,7 @@ function toMatrix( euler, mat, premutating )
 
   let sign = ( ( ox !== 0 ) + ( oy !== 1 ) + ( oz !== 2 ) ) === 2;
   sign = sign ? -1 : + 1;
-  // console.log( 'sign',  sign );
+  // console.log( 'sign', sign );
 
   // let sx = ( ox === 0 && sign === 1 ) ? sin( x ) : cos( x );
   let sx = sin( x );
@@ -1067,61 +1067,61 @@ function toMatrix( euler, mat, premutating )
   if( premutating )
   {
 
-    mat.atomSet( [ 0, 0 ],  +cy_cz );
-    mat.atomSet( [ 1, 0 ],  +cy_sz*sign );
-    mat.atomSet( [ 2, 0 ],  -sy*sign );
+    mat.atomSet( [ 0, 0 ], +cy_cz );
+    mat.atomSet( [ 1, 0 ], +cy_sz*sign );
+    mat.atomSet( [ 2, 0 ], -sy*sign );
 
-    mat.atomSet( [ 0, 1 ],  +( +sx_sy*cz - cx_sz*sign ) );
-    mat.atomSet( [ 1, 1 ],  +cx_cz + sx_sy*sz*sign );
-    mat.atomSet( [ 2, 1 ],  +sx_cy*sign );
+    mat.atomSet( [ 0, 1 ], +( +sx_sy*cz - cx_sz*sign ) );
+    mat.atomSet( [ 1, 1 ], +cx_cz + sx_sy*sz*sign );
+    mat.atomSet( [ 2, 1 ], +sx_cy*sign );
 
-    mat.atomSet( [ 0, 2 ],  +sx_sz + cx_sy*cz*sign );
-    mat.atomSet( [ 1, 2 ],  +( +cx_sy*sz - sx_cz*sign ) );
-    mat.atomSet( [ 2, 2 ],  +cx_cy );
+    mat.atomSet( [ 0, 2 ], +sx_sz + cx_sy*cz*sign );
+    mat.atomSet( [ 1, 2 ], +( +cx_sy*sz - sx_cz*sign ) );
+    mat.atomSet( [ 2, 2 ], +cx_cy );
 
   }
   else
   {
 
-    mat.atomSet( [ ox, ox ],  +cy_cz );
-    mat.atomSet( [ oy, ox ],  -cy_sz*sign );
-    mat.atomSet( [ oz, ox ],  sy*sign );
+    mat.atomSet( [ ox, ox ], +cy_cz );
+    mat.atomSet( [ oy, ox ], -cy_sz*sign );
+    mat.atomSet( [ oz, ox ], sy*sign );
 
-    mat.atomSet( [ ox, oy ],  +( +sx_sy*cz + cx_sz*sign ) );
-    mat.atomSet( [ oy, oy ],  +cx_cz - sx_sy*sz*sign );
-    mat.atomSet( [ oz, oy ],  -sx_cy*sign );
+    mat.atomSet( [ ox, oy ], +( +sx_sy*cz + cx_sz*sign ) );
+    mat.atomSet( [ oy, oy ], +cx_cz - sx_sy*sz*sign );
+    mat.atomSet( [ oz, oy ], -sx_cy*sign );
 
-    mat.atomSet( [ ox, oz ],  +sx_sz - cx_sy*cz*sign );
-    mat.atomSet( [ oy, oz ],  +( +cx_sy*sz + sx_cz*sign ) );
-    mat.atomSet( [ oz, oz ],  +cx_cy );
+    mat.atomSet( [ ox, oz ], +sx_sz - cx_sy*cz*sign );
+    mat.atomSet( [ oy, oz ], +( +cx_sy*sz + sx_cz*sign ) );
+    mat.atomSet( [ oz, oz ], +cx_cy );
 
     // /* */
     //
-    // mat.atomSet( [ 0, 0 ],  +cy_cz );
-    // mat.atomSet( [ 1, 0 ],  -cy_sz*sign );
-    // mat.atomSet( [ 2, 0 ],  sy*sign );
+    // mat.atomSet( [ 0, 0 ], +cy_cz );
+    // mat.atomSet( [ 1, 0 ], -cy_sz*sign );
+    // mat.atomSet( [ 2, 0 ], sy*sign );
     //
-    // mat.atomSet( [ 0, 1 ],  +( +sx_sy*cz + cx_sz*sign ) );
-    // mat.atomSet( [ 1, 1 ],  +cx_cz - sx_sy*sz*sign );
-    // mat.atomSet( [ 2, 1 ],  -sx_cy*sign );
+    // mat.atomSet( [ 0, 1 ], +( +sx_sy*cz + cx_sz*sign ) );
+    // mat.atomSet( [ 1, 1 ], +cx_cz - sx_sy*sz*sign );
+    // mat.atomSet( [ 2, 1 ], -sx_cy*sign );
     //
-    // mat.atomSet( [ 0, 2 ],  +sx_sz - cx_sy*cz*sign );
-    // mat.atomSet( [ 1, 2 ],  +( +cx_sy*sz + sx_cz*sign ) );
-    // mat.atomSet( [ 2, 2 ],  +cx_cy );
+    // mat.atomSet( [ 0, 2 ], +sx_sz - cx_sy*cz*sign );
+    // mat.atomSet( [ 1, 2 ], +( +cx_sy*sz + sx_cz*sign ) );
+    // mat.atomSet( [ 2, 2 ], +cx_cy );
 
   }
 
-  mat.atomSet( [ 0, 0 ],  +cy_cz );
-  mat.atomSet( [ 1, 0 ],  -cy_sz*sign );
-  mat.atomSet( [ 2, 0 ],  sy*sign );
+  mat.atomSet( [ 0, 0 ], +cy_cz );
+  mat.atomSet( [ 1, 0 ], -cy_sz*sign );
+  mat.atomSet( [ 2, 0 ], sy*sign );
 
-  mat.atomSet( [ 0, 1 ],  +( +sx_sy*cz + cx_sz*sign ) );
-  mat.atomSet( [ 1, 1 ],  +cx_cz - sx_sy*sz*sign );
-  mat.atomSet( [ 2, 1 ],  -sx_cy*sign );
+  mat.atomSet( [ 0, 1 ], +( +sx_sy*cz + cx_sz*sign ) );
+  mat.atomSet( [ 1, 1 ], +cx_cz - sx_sy*sz*sign );
+  mat.atomSet( [ 2, 1 ], -sx_cy*sign );
 
-  mat.atomSet( [ 0, 2 ],  +sx_sz - cx_sy*cz*sign );
-  mat.atomSet( [ 1, 2 ],  +( +cx_sy*sz + sx_cz*sign ) );
-  mat.atomSet( [ 2, 2 ],  +cx_cy );
+  mat.atomSet( [ 0, 2 ], +sx_sz - cx_sy*cz*sign );
+  mat.atomSet( [ 1, 2 ], +( +cx_sy*sz + sx_cz*sign ) );
+  mat.atomSet( [ 2, 2 ], +cx_cy );
 
   // debugger;
 
@@ -1168,53 +1168,53 @@ function toMatrix( euler, mat, premutating )
   //
   // /* */
   //
-  // mat.atomSet( [ 0, 0 ],  m00 );
-  // mat.atomSet( [ 1, 0 ],  m10 );
-  // mat.atomSet( [ 2, 0 ],  m20 );
+  // mat.atomSet( [ 0, 0 ], m00 );
+  // mat.atomSet( [ 1, 0 ], m10 );
+  // mat.atomSet( [ 2, 0 ], m20 );
   //
-  // mat.atomSet( [ 0, 1 ],  m01 );
-  // mat.atomSet( [ 1, 1 ],  m11 );
-  // mat.atomSet( [ 2, 1 ],  m21 );
+  // mat.atomSet( [ 0, 1 ], m01 );
+  // mat.atomSet( [ 1, 1 ], m11 );
+  // mat.atomSet( [ 2, 1 ], m21 );
   //
-  // mat.atomSet( [ 0, 2 ],  m02 );
-  // mat.atomSet( [ 1, 2 ],  m12 );
-  // mat.atomSet( [ 2, 2 ],  m22 );
+  // mat.atomSet( [ 0, 2 ], m02 );
+  // mat.atomSet( [ 1, 2 ], m12 );
+  // mat.atomSet( [ 2, 2 ], m22 );
 
 // rz*ry*rx
 //
 // [ cy*cz, cz*sx*sy - cx*sz, sx*sz + cx*cz*sy]
 // [ cy*sz, cx*cz + sx*sy*sz, cx*sy*sz - cz*sx]
-// [ -sy,    cy*sx,       cx*cy]
+// [ -sy,   cy*sx,      cx*cy]
 //
 // ry*rz*rx
 //
 // [  cy*cz, sx*sy - cx*cy*sz, cx*sy + cy*sx*sz]
-// [         sz,       cx*cz,      -cz*sx]
+// [         sz,      cx*cz,     -cz*sx]
 // [ -cz*sy, cy*sx + cx*sy*sz, cx*cy - sx*sy*sz]
 //
 // rz*rx*ry
 //
-// [ cy*cz - sx*sy*sz,  -cx*sz, cz*sy + cy*sx*sz]
-// [ cy*sz + cz*sx*sy,   cx*cz, sy*sz - cy*cz*sx]
-// [     -cx*sy,          sx,       cx*cy]
+// [ cy*cz - sx*sy*sz, -cx*sz, cz*sy + cy*sx*sz]
+// [ cy*sz + cz*sx*sy,  cx*cz, sy*sz - cy*cz*sx]
+// [     -cx*sy,         sx,      cx*cy]
 //
 // rx*rz*ry
 //
-// [      cy*cz,        -sz,       cz*sy]
+// [      cy*cz,       -sz,      cz*sy]
 // [ sx*sy + cx*cy*sz, cx*cz, cx*sy*sz - cy*sx]
 // [ cy*sx*sz - cx*sy, cz*sx, cx*cy + sx*sy*sz]
 //
 // ry*rx*rz
 //
 // [ cy*cz + sx*sy*sz, cz*sx*sy - cy*sz, cx*sy]
-// [      cx*sz,       cx*cz,        -sx]
+// [      cx*sz,      cx*cz,       -sx]
 // [ cy*sx*sz - cz*sy, sy*sz + cy*cz*sx, cx*cy]
 //
 // rx*ry*rz
 //
-// [      cy*cz,      -cy*sz,          sy]
-// [ cx*sz + cz*sx*sy, cx*cz - sx*sy*sz,  -cy*sx]
-// [ sx*sz - cx*cz*sy, cz*sx + cx*sy*sz,   cx*cy]
+// [      cy*cz,     -cy*sz,         sy]
+// [ cx*sz + cz*sx*sy, cx*cz - sx*sy*sz, -cy*sx]
+// [ sx*sz - cx*cz*sy, cz*sx + cx*sy*sz,  cx*cy]
 //
 // | cx*cy    cx*sy*sz - sx*cz    cx*sy*cz + sx*sz |
 // | sx*cy    sx*sy*sz + cx*cz    sx*sy*cz - cx*sz |
@@ -1222,13 +1222,13 @@ function toMatrix( euler, mat, premutating )
 //
 // [ cy*cx, cx*sz*sy - cz*sx, sz*sx + cz*cx*sy ]
 // [ cy*sx, cz*cx + sz*sy*sx, cz*sy*sx - cx*sz ]
-// [ -sy,    cy*sz,             cz*cy ]
+// [ -sy,   cy*sz,            cz*cy ]
 
 // rxz*ry*rx
 //
-// [  cy,         sx*sy,           cx*sy]
-// [  sy*sz, cx*cz - cy*sx*sz,  - cz*sx - cx*cy*sz]
-// [ -cz*sy, cx*sz + cy*cz*sx,    cx*cy*cz - sx*sz]
+// [  cy,        sx*sy,          cx*sy]
+// [  sy*sz, cx*cz - cy*sx*sz, - cz*sx - cx*cy*sz]
+// [ -cz*sy, cx*sz + cy*cz*sx,   cx*cy*cz - sx*sz]
 
   return mat;
 }
@@ -1259,11 +1259,11 @@ let Order =
   *
   * @example
   * // returns [ 1, 0, 0, 0, 1, 2 ];
-  * _.fromQuat2( [ 0.49794255, 0, 0, 0.8775826 ],  [ 0, 0, 0, 0, 1, 2 ] );
+  * _.fromQuat2( [ 0.49794255, 0, 0, 0.8775826 ], [ 0, 0, 0, 0, 1, 2 ] );
   *
   * @example
   * // returns [ 0, 1, 0, 2, 1, 0 ];
-  * _.fromQuat2( [ 0, 0.4794255, 0, 0.8775826 ],  [ 0, 0, 0, 2, 1, 0 ] );
+  * _.fromQuat2( [ 0, 0.4794255, 0, 0.8775826 ], [ 0, 0, 0, 2, 1, 0 ] );
   *
   * @returns { Quat } Returns the corresponding quaternion.
   * @function fromQuat2
@@ -1276,7 +1276,7 @@ let Order =
 function fromQuat2( dstEuler, srcQuat )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
   if( dstEuler === undefined || dstEuler === null )
@@ -1306,21 +1306,21 @@ function fromQuat2( dstEuler, srcQuat )
     lim = xz2 + yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( -( xy2 - zw2 ) ,  w2  + x2 - z2 - y2 ) );
+      dstEulerView.eSet( 2, atan2( -( xy2 - zw2 ) , w2  + x2 - z2 - y2 ) );
       dstEulerView.eSet( 1, asin( lim ) );
-      dstEulerView.eSet( 0, atan2( - ( yz2 - xw2 ) ,  z2 - y2 - x2 + w2 ) );
+      dstEulerView.eSet( 0, atan2( - ( yz2 - xw2 ) , z2 - y2 - x2 + w2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstEulerView.eSet( 0,  - atan2( ( xy2 + zw2 ),  ( xz2 - yw2 ) ) );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 0, - atan2( ( xy2 + zw2 ), ( xz2 - yw2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstEulerView.eSet( 0,  - atan2( -1*( xy2 + zw2 ),  -1*( xz2 - yw2 ) ) );
+      dstEulerView.eSet( 0, - atan2( -1*( xy2 + zw2 ), -1*( xz2 - yw2 ) ) );
       dstEulerView.eSet( 1, pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
@@ -1331,22 +1331,22 @@ function fromQuat2( dstEuler, srcQuat )
     lim = xy2 - zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( xz2 + yw2 ,  x2 + w2 - z2 - y2 ) );
-      dstEulerView.eSet( 1,  - asin( lim ) );
-      dstEulerView.eSet( 0, atan2( yz2 + xw2 ,  y2 - z2 + w2 - x2 ) );
+      dstEulerView.eSet( 2, atan2( xz2 + yw2 , x2 + w2 - z2 - y2 ) );
+      dstEulerView.eSet( 1, - asin( lim ) );
+      dstEulerView.eSet( 0, atan2( yz2 + xw2 , y2 - z2 + w2 - x2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstEulerView.eSet( 0, atan2( (xz2 - yw2 ),  ( xy2 + zw2 ) ) );
+      dstEulerView.eSet( 0, atan2( (xz2 - yw2 ), ( xy2 + zw2 ) ) );
       dstEulerView.eSet( 1, pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstEulerView.eSet( 0, atan2( -1*( yz2 - xw2 ),  1-2*( x2 + y2 ) ) );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 0, atan2( -1*( yz2 - xw2 ), 1-2*( x2 + y2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
   }
@@ -1356,22 +1356,22 @@ function fromQuat2( dstEuler, srcQuat )
     lim = yz2 - xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( xy2 + zw2 ,  y2 - z2 + w2 - x2 ) );
-      dstEulerView.eSet( 1,  - asin( lim ) );
-      dstEulerView.eSet( 0, atan2( xz2 + yw2 ,  z2 - y2 - x2 + w2 ) );
+      dstEulerView.eSet( 2, atan2( xy2 + zw2 , y2 - z2 + w2 - x2 ) );
+      dstEulerView.eSet( 1, - asin( lim ) );
+      dstEulerView.eSet( 0, atan2( xz2 + yw2 , z2 - y2 - x2 + w2 ) );
     }
     else if( lim <= -1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstEulerView.eSet( 0, atan2( ( xy2 - zw2 ),  ( yz2 + xw2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( xy2 - zw2 ), ( yz2 + xw2 ) ) );
       dstEulerView.eSet( 1, pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z = 0. ');
-      dstEulerView.eSet( 0, atan2( -1*( xz2 - yw2 ),  1-2*( y2 + z2 ) ) );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 0, atan2( -1*( xz2 - yw2 ), 1-2*( y2 + z2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
   }
@@ -1381,22 +1381,22 @@ function fromQuat2( dstEuler, srcQuat )
     lim = xy2 + zw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( - yz2 + xw2 ,  y2 - z2 + w2 - x2 ) );
+      dstEulerView.eSet( 2, atan2( - yz2 + xw2 , y2 - z2 + w2 - x2 ) );
       dstEulerView.eSet( 1, asin( lim ) );
-      dstEulerView.eSet( 0, atan2( - xz2 + yw2 ,  x2 + w2 - z2 - y2  ) );
+      dstEulerView.eSet( 0, atan2( - xz2 + yw2 , x2 + w2 - z2 - y2  ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstEulerView.eSet( 0, atan2( (xz2 + yw2 ),  ( xy2 - zw2 ) ) );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 0, atan2( (xz2 + yw2 ), ( xy2 - zw2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
     else if( ( xy2 + zw2 ) >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle x = 0. ');
       dstEulerView.eSet( 0, atan2( xz2 + yw2, 1-2*( x2 + y2 ) ) );
-      dstEulerView.eSet( 1,  + pi/2 );
+      dstEulerView.eSet( 1, + pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
   }
@@ -1406,15 +1406,15 @@ function fromQuat2( dstEuler, srcQuat )
     lim = yz2 + xw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( - xz2 + yw2 ,  z2 - y2 - x2 + w2  ) );
+      dstEulerView.eSet( 2, atan2( - xz2 + yw2 , z2 - y2 - x2 + w2  ) );
       dstEulerView.eSet( 1, asin( lim ) );
-      dstEulerView.eSet( 0, atan2( - xy2 + zw2 ,  y2 - z2 + w2 - x2  ) );
+      dstEulerView.eSet( 0, atan2( - xy2 + zw2 , y2 - z2 + w2 - x2  ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y = 0. ');
-      dstEulerView.eSet( 0, atan2( ( xy2 + zw2 ),  ( yz2 - xw2 ) ) );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 0, atan2( ( xy2 + zw2 ), ( yz2 - xw2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
@@ -1431,22 +1431,22 @@ function fromQuat2( dstEuler, srcQuat )
     lim = xz2 - yw2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( yz2 + xw2 ,  z2 - y2 - x2 + w2 ) );
+      dstEulerView.eSet( 2, atan2( yz2 + xw2 , z2 - y2 - x2 + w2 ) );
       dstEulerView.eSet( 1, asin( - lim ) );
-      dstEulerView.eSet( 0, atan2( xy2 + zw2 ,  x2 + w2 - y2 - z2 ) );
+      dstEulerView.eSet( 0, atan2( xy2 + zw2 , x2 + w2 - y2 - z2 ) );
     }
     else if( lim <= - 1 + accuracy*accuracy )
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstEulerView.eSet( 0,  - atan2( ( xy2 - zw2 ),  ( xz2 + yw2 ) ) );
+      dstEulerView.eSet( 0, - atan2( ( xy2 - zw2 ), ( xz2 + yw2 ) ) );
       dstEulerView.eSet( 1, pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracy*accuracy)
     {
       // console.log('Indeterminate; We set angle x = 0. ');
-      dstEulerView.eSet( 0, atan2( -1*( xy2 - zw2 ),  -1*( xz2 + yw2 ) ) );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 0, atan2( -1*( xy2 - zw2 ), -1*( xz2 + yw2 ) ) );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
   }
@@ -1456,21 +1456,21 @@ function fromQuat2( dstEuler, srcQuat )
     lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( xy2 - zw2 ,  xz2 + yw2 ) );
+      dstEulerView.eSet( 2, atan2( xy2 - zw2 , xz2 + yw2 ) );
       dstEulerView.eSet( 1, acos( lim ) );
-      dstEulerView.eSet( 0, atan2( xy2 + zw2 ,  -xz2 + yw2 ) );
+      dstEulerView.eSet( 0, atan2( xy2 + zw2 , -xz2 + yw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstEulerView.eSet( 0, atan2( ( yz2 - xw2 ),  1 - 2*( x2 + z2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( yz2 - xw2 ), 1 - 2*( x2 + z2 ) ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstEulerView.eSet( 0, atan2( ( yz2 + xw2 ),  1 - 2*( x2 + z2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + z2 ) ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
     }
@@ -1481,21 +1481,21 @@ function fromQuat2( dstEuler, srcQuat )
     lim = x2 + w2 - z2 - y2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr)
     {
-      dstEulerView.eSet( 2, atan2( xz2 + yw2 ,  -xy2 + zw2 ) );
+      dstEulerView.eSet( 2, atan2( xz2 + yw2 , -xy2 + zw2 ) );
       dstEulerView.eSet( 1, acos( lim ) );
-      dstEulerView.eSet( 0, atan2( xz2 - yw2 ,  xy2 + zw2 ) );
+      dstEulerView.eSet( 0, atan2( xz2 - yw2 , xy2 + zw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstEulerView.eSet( 0,  - atan2( ( yz2 + xw2 ),  1 - 2*( x2 + y2 ) ) );
+      dstEulerView.eSet( 0, - atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle x2 = 0. ');
-      dstEulerView.eSet( 0, atan2( ( yz2 + xw2 ),  1 - 2*( x2 + y2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( yz2 + xw2 ), 1 - 2*( x2 + y2 ) ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
     }
@@ -1506,21 +1506,21 @@ function fromQuat2( dstEuler, srcQuat )
     lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( xy2 + zw2 ,  -yz2 + xw2 ) );
+      dstEulerView.eSet( 2, atan2( xy2 + zw2 , -yz2 + xw2 ) );
       dstEulerView.eSet( 1, acos( lim ) );
-      dstEulerView.eSet( 0, atan2( xy2 - zw2 ,  yz2 + xw2 ) );
+      dstEulerView.eSet( 0, atan2( xy2 - zw2 , yz2 + xw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstEulerView.eSet( 0,  - atan2( ( xz2 - yw2 ),  1 - 2*( z2 + y2 ) ) );
+      dstEulerView.eSet( 0, - atan2( ( xz2 - yw2 ), 1 - 2*( z2 + y2 ) ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstEulerView.eSet( 0, atan2( ( xz2 + yw2 ),  1 - 2*( z2 + y2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( z2 + y2 ) ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
     }
@@ -1531,21 +1531,21 @@ function fromQuat2( dstEuler, srcQuat )
     lim = y2 - z2 + w2 - x2;
     if( - 1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( yz2 - xw2 ,  xy2 + zw2 ) );
+      dstEulerView.eSet( 2, atan2( yz2 - xw2 , xy2 + zw2 ) );
       dstEulerView.eSet( 1, acos( lim ) );
-      dstEulerView.eSet( 0, atan2( yz2 + xw2 ,  -xy2 + zw2 ) );
+      dstEulerView.eSet( 0, atan2( yz2 + xw2 , -xy2 + zw2 ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstEulerView.eSet( 0, atan2( ( xz2 - yw2 ),  1 - 2*( y2 + x2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( xz2 - yw2 ), 1 - 2*( y2 + x2 ) ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle y2 = 0. ');
-      dstEulerView.eSet( 0, atan2( ( xz2 + yw2 ),  1 - 2*( y2 + x2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( xz2 + yw2 ), 1 - 2*( y2 + x2 ) ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
     }
@@ -1556,21 +1556,21 @@ function fromQuat2( dstEuler, srcQuat )
     lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( ( xz2 - yw2 ),  ( yz2 + xw2 ) ) );
+      dstEulerView.eSet( 2, atan2( ( xz2 - yw2 ), ( yz2 + xw2 ) ) );
       dstEulerView.eSet( 1, acos( lim ) );
-      dstEulerView.eSet( 0, atan2( ( xz2 + yw2 ),  - ( yz2 - xw2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( xz2 + yw2 ), - ( yz2 - xw2 ) ) );
     }
     else if( lim <= - 1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstEulerView.eSet( 0, atan2( ( xy2 - zw2 ),  1 - 2*( y2 + z2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 - accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstEulerView.eSet( 0,  - atan2( ( xy2 - zw2 ),  1 - 2*( y2 + z2 ) ) );
+      dstEulerView.eSet( 0, - atan2( ( xy2 - zw2 ), 1 - 2*( y2 + z2 ) ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
     }
@@ -1581,21 +1581,21 @@ function fromQuat2( dstEuler, srcQuat )
     lim = z2 - x2 - y2 + w2;
     if( -1 + accuracySqr < lim && lim < 1 - accuracySqr )
     {
-      dstEulerView.eSet( 2, atan2( ( yz2 + xw2 ),  ( - xz2 + yw2 ) ) );
+      dstEulerView.eSet( 2, atan2( ( yz2 + xw2 ), ( - xz2 + yw2 ) ) );
       dstEulerView.eSet( 1, acos( lim ) );
-      dstEulerView.eSet( 0, atan2( ( yz2 - xw2 ),  ( xz2 + yw2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( yz2 - xw2 ), ( xz2 + yw2 ) ) );
     }
     else if( lim <= -1 + accuracySqr )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstEulerView.eSet( 0, atan2( -( xy2 - zw2 ),  1 - 2*( x2 + z2 ) ) );
+      dstEulerView.eSet( 0, atan2( -( xy2 - zw2 ), 1 - 2*( x2 + z2 ) ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( lim >= 1 )
     {
       // console.log('Indeterminate; We set angle z2 = 0. ');
-      dstEulerView.eSet( 0, atan2( ( xy2 + zw2 ),  1 - 2*( x2 + z2 ) ) );
+      dstEulerView.eSet( 0, atan2( ( xy2 + zw2 ), 1 - 2*( x2 + z2 ) ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
     }
@@ -1617,11 +1617,11 @@ function fromQuat2( dstEuler, srcQuat )
   *
   * @example
   * // returns [ 0.49794255, 0, 0, 0.8775826 ];
-  * _.toQuat2( [ 1, 0, 0, 0, 1, 2 ],  null );
+  * _.toQuat2( [ 1, 0, 0, 0, 1, 2 ], null );
   *
   * @example
   * // returns [ 0, 0.4794255, 0, 0.8775826 ];
-  * _.toQuat2( [ 0, 1, 0, 2, 1, 0 ],  null );
+  * _.toQuat2( [ 0, 1, 0, 2, 1, 0 ], null );
   *
   * @returns { Quat } Returns the corresponding quaternion.
   * @function toQuat2
@@ -1633,7 +1633,7 @@ function fromQuat2( dstEuler, srcQuat )
 function toQuat2( srcEuler, dstQuat )
 {
 
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.euler.is( srcEuler ) );
   _.assert( dstQuat === undefined || dstQuat === null || _.quat.is( dstQuat ) );
 
@@ -1691,7 +1691,7 @@ function toQuat2( srcEuler, dstQuat )
     dif = ( e0 - e2 )/2;
 
     dstQuatVector.eSet( 0, sin( sum )*c1 );
-    dstQuatVector.eSet( 1,  - sin( dif )*s1 );
+    dstQuatVector.eSet( 1, - sin( dif )*s1 );
     dstQuatVector.eSet( 2, cos( dif )*s1 );
     dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
@@ -1719,7 +1719,7 @@ function toQuat2( srcEuler, dstQuat )
 
     dstQuatVector.eSet( 0, cos( dif )*s1 );
     dstQuatVector.eSet( 1, sin( sum )*c1 );
-    dstQuatVector.eSet( 2,  - sin( dif )*s1 );
+    dstQuatVector.eSet( 2, - sin( dif )*s1 );
     dstQuatVector.eSet( 3, cos( sum )*c1 );
   }
 
@@ -1766,7 +1766,7 @@ function toQuat2( srcEuler, dstQuat )
     sum = ( e0 + e2 )/2;
     dif = ( e0 - e2 )/2;
 
-    dstQuatVector.eSet( 0,  - sin( dif )*s1 );
+    dstQuatVector.eSet( 0, - sin( dif )*s1 );
     dstQuatVector.eSet( 1, cos( dif )*s1 );
     dstQuatVector.eSet( 2, sin( sum )*c1 );
     dstQuatVector.eSet( 3, cos( sum )*c1 );
@@ -1788,10 +1788,10 @@ function toQuat2( srcEuler, dstQuat )
   * @example
   * // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
   *  srcMatrix  = _.Matrix.make( [ 3, 3 ] ).copy(
-  *            [ 0.7701,  -0.4207, 0.4794,
-  *             0.6224, 0.6599,  - 0.4207,
+  *            [ 0.7701, -0.4207, 0.4794,
+  *             0.6224, 0.6599, - 0.4207,
   *           - 0.1393, 0.6224, 0.7701 ] );
-  * _.fromMatrix2( srcMatrix,  [ 0, 0, 0, 0, 1, 2 ] );
+  * _.fromMatrix2( srcMatrix, [ 0, 0, 0, 0, 1, 2 ] );
   *
   * @returns { Array } Returns the corresponding euler angles.
   * @function fromMatrix2
@@ -1803,7 +1803,7 @@ function toQuat2( srcEuler, dstQuat )
 
 function fromMatrix2( dstEuler, srcMatrix )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
 
   if( dstEuler === undefined || dstEuler === null )
@@ -1836,8 +1836,8 @@ function fromMatrix2( dstEuler, srcMatrix )
     else if( m02 <= - 1 )
     {
       let m10 = srcMatrix.atomGet( [ 1, 0 ] ); let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerView.eSet( 0,  - atan2( m10, m11 ) );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 0, - atan2( m10, m11 ) );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
     else if( m02 >= 1 )
@@ -1868,13 +1868,13 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerView.eSet( 0, atan2( - m20, m22 ) );
       dstEulerView.eSet( 2, 0 );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 1, - pi/2 );
     }
     else if( m01 <= - 1 )
     {
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerView.eSet( 0,  - atan2( - m20, m22 ) );
+      dstEulerView.eSet( 0, - atan2( - m20, m22 ) );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 1, pi/2 );
     }
@@ -1897,7 +1897,7 @@ function fromMatrix2( dstEuler, srcMatrix )
     {
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 0, atan2( - m01, m00 ) );
       dstEulerView.eSet( 2, 0 );
     }
@@ -1906,7 +1906,7 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       dstEulerView.eSet( 1, pi/2);
-      dstEulerView.eSet( 0,  - atan2( - m01, m00 )  );
+      dstEulerView.eSet( 0, - atan2( - m01, m00 )  );
       dstEulerView.eSet( 2, 0 );
     }
   }
@@ -1929,8 +1929,8 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
       dstEulerView.eSet( 2, 0 );
-      dstEulerView.eSet( 0,  - atan2( m21, m22 ) );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 0, - atan2( m21, m22 ) );
+      dstEulerView.eSet( 1, - pi/2 );
     }
     else if( m10 >= 1 )
     {
@@ -1959,9 +1959,9 @@ function fromMatrix2( dstEuler, srcMatrix )
     {
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
-      dstEulerView.eSet( 0,  - atan2( m02, m00 ) );
+      dstEulerView.eSet( 0, - atan2( m02, m00 ) );
     }
     else if( m21 >= 1 )
     {
@@ -1992,14 +1992,14 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 1, pi/2 );
-      dstEulerView.eSet( 0,  - atan2( - m12, m11 ) );
+      dstEulerView.eSet( 0, - atan2( - m12, m11 ) );
     }
     else if( m20 >= 1 )
     {
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
       dstEulerView.eSet( 2, 0 );
-      dstEulerView.eSet( 1,  - pi/2 );
+      dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 0, atan2( - m12, m11 ) );
     }
   }
@@ -2013,7 +2013,7 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      dstEulerView.eSet( 0, atan2( m10,  - m20 ) );
+      dstEulerView.eSet( 0, atan2( m10, - m20 ) );
       dstEulerView.eSet( 1, acos( m00 ) );
       dstEulerView.eSet( 2, atan2( m01, m02 ) );
     }
@@ -2021,7 +2021,7 @@ function fromMatrix2( dstEuler, srcMatrix )
     {
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerView.eSet( 0,  - atan2( - m12, m11 ) );
+      dstEulerView.eSet( 0, - atan2( - m12, m11 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
@@ -2046,13 +2046,13 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       dstEulerView.eSet( 0, atan2( m20, m10 ) );
       dstEulerView.eSet( 1, acos( m00 ) );
-      dstEulerView.eSet( 2, atan2( m02,  - m01 ) );
+      dstEulerView.eSet( 2, atan2( m02, - m01 ) );
     }
     else if( m00 <= - 1 )
     {
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
       let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      dstEulerView.eSet( 0,  - atan2( m21, m22 ) );
+      dstEulerView.eSet( 0, - atan2( m21, m22 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
@@ -2077,13 +2077,13 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       dstEulerView.eSet( 0, atan2( m01, m21 ) );
       dstEulerView.eSet( 1, acos( m11 ) );
-      dstEulerView.eSet( 2, atan2( m10,  - m12 ) );
+      dstEulerView.eSet( 2, atan2( m10, - m12 ) );
     }
     else if( m11 <= - 1 )
     {
       let m02 = srcMatrix.atomGet( [ 0, 2 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerView.eSet( 0,  - atan2( m02, m00 ) );
+      dstEulerView.eSet( 0, - atan2( m02, m00 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
@@ -2106,7 +2106,7 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      dstEulerView.eSet( 0, atan2( m21,  - m01 ) );
+      dstEulerView.eSet( 0, atan2( m21, - m01 ) );
       dstEulerView.eSet( 1, acos( m11 ) );
       dstEulerView.eSet( 2, atan2( m12, m10 ) );
     }
@@ -2137,7 +2137,7 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m12 = srcMatrix.atomGet( [ 1, 2 ] );
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      dstEulerView.eSet( 0, atan2( m02,  - m12 ) );
+      dstEulerView.eSet( 0, atan2( m02, - m12 ) );
       dstEulerView.eSet( 1, acos( m22 ) );
       dstEulerView.eSet( 2, atan2( m20, m21 ) );
     }
@@ -2153,7 +2153,7 @@ function fromMatrix2( dstEuler, srcMatrix )
     {
       let m01 = srcMatrix.atomGet( [ 0, 1 ] );
       let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      dstEulerView.eSet( 0,  - atan2( m01, m00 ) );
+      dstEulerView.eSet( 0, - atan2( m01, m00 ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
     }
@@ -2170,13 +2170,13 @@ function fromMatrix2( dstEuler, srcMatrix )
       let m20 = srcMatrix.atomGet( [ 2, 0 ] );
       dstEulerView.eSet( 0, atan2( m12, m02 ) );
       dstEulerView.eSet( 1, acos( m22 ) );
-      dstEulerView.eSet( 2, atan2( m21,  - m20 ) );
+      dstEulerView.eSet( 2, atan2( m21, - m20 ) );
     }
     else if( m22 <= - 1 )
     {
       let m10 = srcMatrix.atomGet( [ 1, 0 ] );
       let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      dstEulerView.eSet( 0,  - atan2( m10, m11 ) );
+      dstEulerView.eSet( 0, - atan2( m10, m11 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
@@ -2197,14 +2197,14 @@ function fromMatrix2( dstEuler, srcMatrix )
 
 function fromMatrix3( dstEuler, srcMatrix )
 {
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.euler.is( dstEuler ) );
 
   _.assert( _.Matrix.Is( srcMatrix ) );
   _.assert( srcMatrix.dims[ 0 ] >= 3 );
   _.assert( srcMatrix.dims[ 1 ] >= 3 );
 
-  let quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ],  srcMatrix );
+  let quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
 
   dstEuler = _.euler.fromQuat2( dstEuler, quat );
 
@@ -2221,16 +2221,16 @@ function fromMatrix3( dstEuler, srcMatrix )
   * @param { Space } dstMatrix - Destination matrix.
   *
   * @example
-  * // returns [ 0.7701,  -0.4207, 0.4794,
-  *              0.6224, 0.6599,  - 0.4207,
+  * // returns [ 0.7701, -0.4207, 0.4794,
+  *              0.6224, 0.6599, - 0.4207,
   *              - 0.1393, 0.6224, 0.7701 ];
-  * _.toMatrix2( null,  [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
+  * _.toMatrix2( null, [ 0.5, 0.5, 0.5, 0, 1, 2 ] );
   *
   * @example
-  * // returns [ 0.4741,  - 0.6142, 0.6307,
+  * // returns [ 0.4741, - 0.6142, 0.6307,
   * //           0.7384, 0.6675, 0.0950,
   * //           - 0.4794, 0.4207, 0.7701 ]
-  * _.toMatrix2( null,  [ 1, 0.5, 0.5, 2, 1, 0 ] );
+  * _.toMatrix2( null, [ 1, 0.5, 0.5, 2, 1, 0 ] );
   *
   * @returns { Space } Returns the corresponding rotation matrix.
   * @function toMatrix2
@@ -2254,7 +2254,7 @@ function toMatrix2( srcEuler, dstMatrix )
 
   _.assert( dstMatrix.dims[ 0 ] === 3 );
   _.assert( dstMatrix.dims[ 1 ] === 3 );
-  _.assert( arguments.length === 2,  'Expects exactly two arguments' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let e1 = srcEulerView.eGet( 0 );
   let e2 = srcEulerView.eGet( 1 );
@@ -2272,158 +2272,158 @@ function toMatrix2( srcEuler, dstMatrix )
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  ce2*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ],  - ce2*se3 );
-    dstMatrix.atomSet( [ 0, 2 ],  se2 );
-    dstMatrix.atomSet( [ 1, 0 ],  se1*se2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 1, 1 ],  -se1*se2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ],  -se1*ce2 );
-    dstMatrix.atomSet( [ 2, 0 ],  -ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 2, 1 ],  ce1*se2*se3+ se1*ce3 );
-    dstMatrix.atomSet( [ 2, 2 ],  ce1*ce2 );
+    dstMatrix.atomSet( [ 0, 0 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], - ce2*se3 );
+    dstMatrix.atomSet( [ 0, 2 ], se2 );
+    dstMatrix.atomSet( [ 1, 0 ], se1*se2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], -se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], -se1*ce2 );
+    dstMatrix.atomSet( [ 2, 0 ], -ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], ce1*se2*se3+ se1*ce3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce1*ce2 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  ce2*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ],  - se2 );
-    dstMatrix.atomSet( [ 0, 2 ],  ce2*se3 );
-    dstMatrix.atomSet( [ 1, 0 ],  ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 1, 1 ],  ce1*ce2 );
-    dstMatrix.atomSet( [ 1, 2 ],  ce1*se2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 2, 0 ],  se1*se2*ce3 - ce1*se3 );
-    dstMatrix.atomSet( [ 2, 1 ],  se1*ce2 );
-    dstMatrix.atomSet( [ 2, 2 ],  se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], - se2 );
+    dstMatrix.atomSet( [ 0, 2 ], ce2*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 1, 2 ], ce1*se2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 2, 0 ], se1*se2*ce3 - ce1*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*ce2 );
+    dstMatrix.atomSet( [ 2, 2 ], se1*se2*se3 + ce1*ce3 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  se1*se2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ],  se1*se2*ce3 - ce1*se3 );
-    dstMatrix.atomSet( [ 0, 2 ],  se1*ce2 );
-    dstMatrix.atomSet( [ 1, 0 ],  ce2*se3 );
-    dstMatrix.atomSet( [ 1, 1 ],  ce2*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ],  -se2 );
-    dstMatrix.atomSet( [ 2, 0 ],  ce1*se2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 2, 1 ],  ce1*se2*ce3+ se1*se3 );
-    dstMatrix.atomSet( [ 2, 2 ],  ce1*ce2 );
+    dstMatrix.atomSet( [ 0, 0 ], se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], se1*se2*ce3 - ce1*se3 );
+    dstMatrix.atomSet( [ 0, 2 ], se1*ce2 );
+    dstMatrix.atomSet( [ 1, 0 ], ce2*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], -se2 );
+    dstMatrix.atomSet( [ 2, 0 ], ce1*se2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 2, 1 ], ce1*se2*ce3+ se1*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce1*ce2 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  ce1*ce2 );
-    dstMatrix.atomSet( [ 0, 1 ],  - ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 0, 2 ],  ce1*se2*se3 + se1*ce3 );
-    dstMatrix.atomSet( [ 1, 0 ],  se2 );
-    dstMatrix.atomSet( [ 1, 1 ],  ce2*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ],  - ce2*se3 );
-    dstMatrix.atomSet( [ 2, 0 ],  - se1*ce2 );
-    dstMatrix.atomSet( [ 2, 1 ],  se1*se2*ce3+ ce1*se3 );
-    dstMatrix.atomSet( [ 2, 2 ],  - se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 0, 1 ], - ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 0, 2 ], ce1*se2*se3 + se1*ce3 );
+    dstMatrix.atomSet( [ 1, 0 ], se2 );
+    dstMatrix.atomSet( [ 1, 1 ], ce2*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce2*se3 );
+    dstMatrix.atomSet( [ 2, 0 ], - se1*ce2 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*se2*ce3+ ce1*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], - se1*se2*se3 + ce1*ce3 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  - se1*se2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ],  - se1*ce2 );
-    dstMatrix.atomSet( [ 0, 2 ],  se1*se2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 1, 0 ],  ce1*se2*se3 + se1*ce3 );
-    dstMatrix.atomSet( [ 1, 1 ],  ce1*ce2 );
-    dstMatrix.atomSet( [ 1, 2 ],  - ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 2, 0 ],  - ce2*se3 );
-    dstMatrix.atomSet( [ 2, 1 ],  se2 );
-    dstMatrix.atomSet( [ 2, 2 ],  ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], - se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], - se1*ce2 );
+    dstMatrix.atomSet( [ 0, 2 ], se1*se2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], ce1*se2*se3 + se1*ce3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 2, 0 ], - ce2*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], se2 );
+    dstMatrix.atomSet( [ 2, 2 ], ce2*ce3 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  ce1*ce2 );
-    dstMatrix.atomSet( [ 0, 1 ],  ce1*se2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 0, 2 ],  ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 1, 0 ],  se1*ce2 );
-    dstMatrix.atomSet( [ 1, 1 ],  se1*se2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ],  se1*se2*ce3 - ce1*se3 );
-    dstMatrix.atomSet( [ 2, 0 ],  - se2 );
-    dstMatrix.atomSet( [ 2, 1 ],  ce2*se3 );
-    dstMatrix.atomSet( [ 2, 2 ],  ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2 );
+    dstMatrix.atomSet( [ 0, 1 ], ce1*se2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 0, 2 ], ce1*se2*ce3 + se1*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], se1*ce2 );
+    dstMatrix.atomSet( [ 1, 1 ], se1*se2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], se1*se2*ce3 - ce1*se3 );
+    dstMatrix.atomSet( [ 2, 0 ], - se2 );
+    dstMatrix.atomSet( [ 2, 1 ], ce2*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce2*ce3 );
   }
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  ce2 );
-    dstMatrix.atomSet( [ 0, 1 ],  se2*se3 );
-    dstMatrix.atomSet( [ 0, 2 ],  se2*ce3 );
-    dstMatrix.atomSet( [ 1, 0 ],  se1*se2 );
-    dstMatrix.atomSet( [ 1, 1 ],  ce1*ce3 - se1*ce2*se3 );
-    dstMatrix.atomSet( [ 1, 2 ],  - ce1*se3 - se1*ce2*ce3 );
-    dstMatrix.atomSet( [ 2, 0 ],  - ce1*se2 );
-    dstMatrix.atomSet( [ 2, 1 ],  se1*ce3 + ce1*ce2*se3  );
-    dstMatrix.atomSet( [ 2, 2 ],  - se1*se3 + ce1*ce2*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce2 );
+    dstMatrix.atomSet( [ 0, 1 ], se2*se3 );
+    dstMatrix.atomSet( [ 0, 2 ], se2*ce3 );
+    dstMatrix.atomSet( [ 1, 0 ], se1*se2 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce3 - se1*ce2*se3 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce1*se3 - se1*ce2*ce3 );
+    dstMatrix.atomSet( [ 2, 0 ], - ce1*se2 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*ce3 + ce1*ce2*se3  );
+    dstMatrix.atomSet( [ 2, 2 ], - se1*se3 + ce1*ce2*ce3 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  ce2 );
-    dstMatrix.atomSet( [ 0, 1 ],  - se2*ce3 );
-    dstMatrix.atomSet( [ 0, 2 ],  se2*se3 );
-    dstMatrix.atomSet( [ 1, 0 ],  ce1*se2 );
-    dstMatrix.atomSet( [ 1, 1 ],  ce1*ce2*ce3 - se1*se3 );
-    dstMatrix.atomSet( [ 1, 2 ],  - ce1*ce2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 2, 0 ],  se1*se2 );
-    dstMatrix.atomSet( [ 2, 1 ],  se1*ce2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 2, 2 ],  - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce2 );
+    dstMatrix.atomSet( [ 0, 1 ], - se2*ce3 );
+    dstMatrix.atomSet( [ 0, 2 ], se2*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], ce1*se2 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce1*ce2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 2, 0 ], se1*se2 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*ce2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  - se1*ce2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ],  se1*se2 );
-    dstMatrix.atomSet( [ 0, 2 ],  se1*ce2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 1, 0 ],  se2*se3 );
-    dstMatrix.atomSet( [ 1, 1 ],  ce2 );
-    dstMatrix.atomSet( [ 1, 2 ],  - se2*ce3 );
-    dstMatrix.atomSet( [ 2, 0 ],  - ce1*ce2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 2, 1 ],  ce1*se2 );
-    dstMatrix.atomSet( [ 2, 2 ],  ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], se1*se2 );
+    dstMatrix.atomSet( [ 0, 2 ], se1*ce2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 1, 0 ], se2*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce2 );
+    dstMatrix.atomSet( [ 1, 2 ], - se2*ce3 );
+    dstMatrix.atomSet( [ 2, 0 ], - ce1*ce2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 2, 1 ], ce1*se2 );
+    dstMatrix.atomSet( [ 2, 2 ], ce1*ce2*ce3 - se1*se3 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  ce1*ce2*ce3 - se1*se3 );
-    dstMatrix.atomSet( [ 0, 1 ],  - ce1*se2 );
-    dstMatrix.atomSet( [ 0, 2 ],  ce1*ce2*se3 + se1*ce3 );
-    dstMatrix.atomSet( [ 1, 0 ],  se2*ce3 );
-    dstMatrix.atomSet( [ 1, 1 ],  ce2 );
-    dstMatrix.atomSet( [ 1, 2 ],  se2*se3 );
-    dstMatrix.atomSet( [ 2, 0 ],  - se1*ce2*ce3 - ce1*se3 );
-    dstMatrix.atomSet( [ 2, 1 ],  se1*se2 );
-    dstMatrix.atomSet( [ 2, 2 ],  - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 0, 1 ], - ce1*se2 );
+    dstMatrix.atomSet( [ 0, 2 ], ce1*ce2*se3 + se1*ce3 );
+    dstMatrix.atomSet( [ 1, 0 ], se2*ce3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce2 );
+    dstMatrix.atomSet( [ 1, 2 ], se2*se3 );
+    dstMatrix.atomSet( [ 2, 0 ], - se1*ce2*ce3 - ce1*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], se1*se2 );
+    dstMatrix.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  - se1*ce2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ],  - se1*ce2*ce3 - ce1*se3  );
-    dstMatrix.atomSet( [ 0, 2 ],  se1*se2 );
-    dstMatrix.atomSet( [ 1, 0 ],  ce1*ce2*se3 + se1*ce3 );
-    dstMatrix.atomSet( [ 1, 1 ],  ce1*ce2*ce3 - se1*se3 );
-    dstMatrix.atomSet( [ 1, 2 ],  - ce1*se2 );
-    dstMatrix.atomSet( [ 2, 0 ],  se2*se3 );
-    dstMatrix.atomSet( [ 2, 1 ],  se2*ce3 );
-    dstMatrix.atomSet( [ 2, 2 ],  ce2 );
+    dstMatrix.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 0, 1 ], - se1*ce2*ce3 - ce1*se3  );
+    dstMatrix.atomSet( [ 0, 2 ], se1*se2 );
+    dstMatrix.atomSet( [ 1, 0 ], ce1*ce2*se3 + se1*ce3 );
+    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 1, 2 ], - ce1*se2 );
+    dstMatrix.atomSet( [ 2, 0 ], se2*se3 );
+    dstMatrix.atomSet( [ 2, 1 ], se2*ce3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce2 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    dstMatrix.atomSet( [ 0, 0 ],  ce1*ce2*ce3 - se1*se3 );
-    dstMatrix.atomSet( [ 0, 1 ],  - ce1*ce2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 0, 2 ],  ce1*se2 );
-    dstMatrix.atomSet( [ 1, 0 ],  se1*ce2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 1, 1 ],  - se1*ce2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ],  se1*se2 );
-    dstMatrix.atomSet( [ 2, 0 ],  - se2*ce3 );
-    dstMatrix.atomSet( [ 2, 1 ],  se2*se3 );
-    dstMatrix.atomSet( [ 2, 2 ],  ce2 );
+    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.atomSet( [ 0, 1 ], - ce1*ce2*se3 - se1*ce3 );
+    dstMatrix.atomSet( [ 0, 2 ], ce1*se2 );
+    dstMatrix.atomSet( [ 1, 0 ], se1*ce2*ce3 + ce1*se3 );
+    dstMatrix.atomSet( [ 1, 1 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.atomSet( [ 1, 2 ], se1*se2 );
+    dstMatrix.atomSet( [ 2, 0 ], - se2*ce3 );
+    dstMatrix.atomSet( [ 2, 1 ], se2*se3 );
+    dstMatrix.atomSet( [ 2, 2 ], ce2 );
   }
   else
   {
@@ -2445,7 +2445,7 @@ function toMatrix2( srcEuler, dstMatrix )
   *
   * @example
   * // returns [ PI, PI/2, 0, 2, 1, 0 ]
-  * _.fromaxisAndAngle2( [ 0, 0, 0, 1, 2, 0 ],  [ 1, 1, 0 ],  PI );
+  * _.fromaxisAndAngle2( [ 0, 0, 0, 1, 2, 0 ], [ 1, 1, 0 ], PI );
   *
   * @returns { Array } Returns the corresponding euler angles.
   * @function fromAxisAndAngle2
@@ -2462,17 +2462,17 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
   let dstEulerView = _.vectorAdapter.from( dstEuler );
   let srcAxisVector = _.vectorAdapter.from( axis );
 
-  _.assert( arguments.length === 2 || arguments.length === 3,  'Expects two or three arguments' );
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
 
   let quat;
   if( arguments.length === 2 )
   {
-    quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ],  axis );
+    quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis );
   }
   else
   {
-    quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ],  axis, angle );
+    quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
   }
 
   dstEulerView = _.euler.fromQuat2( dstEulerView, quat );
@@ -2490,7 +2490,7 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
   *
   * @example
   * // returns [ 1, 1, 0, PI ]
-  * _.toAxisAndAngle2( [ PI, PI/2, 0, 2, 1, 0 ],  [ 0, 0, 0, 0 ] );
+  * _.toAxisAndAngle2( [ PI, PI/2, 0, 2, 1, 0 ], [ 0, 0, 0, 0 ] );
   *
   * @returns { Array } Returns the corresponding axis and angle.
   * @function toAxisAndAngle2
@@ -2505,10 +2505,10 @@ function toAxisAndAngle2( euler, axisAndAngle )
 
   let srcEuler = _.euler.from( euler );
 
-  _.assert( arguments.length === 2,  'Expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
 
-  let quat = _.euler.toQuat2( srcEuler,  [ 0, 0, 0, 0 ] );
+  let quat = _.euler.toQuat2( srcEuler, [ 0, 0, 0, 0 ] );
 
   axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
   return axisAndAngle;
@@ -2526,11 +2526,11 @@ function toAxisAndAngle2( euler, axisAndAngle )
   *
   * @example
   * // returns [ 0, 0, 0, 2, 0, 2 ]
-  * _.represent( [ 0, 0, 0, 0, 0, 0 ],  [ 2, 0, 2 ] );
+  * _.represent( [ 0, 0, 0, 0, 0, 0 ], [ 2, 0, 2 ] );
   *
   * @example
-  * // returns [ 0, 0, 0,  'yzx' ]
-  * _.represent( [ 0, 0, 0, 1, 2, 0 ],  'yzx' );
+  * // returns [ 0, 0, 0, 'yzx' ]
+  * _.represent( [ 0, 0, 0, 1, 2, 0 ], 'yzx' );
   *
   * @returns { Array } Returns the destination Euler angle with the corresponding representation.
   * @function represent
@@ -2544,7 +2544,7 @@ function represent( dstEuler, representation )
 {
   _.assert( dstEuler === null || dstEuler === undefined || _.euler.is( dstEuler ) );
   _.assert( _.longIs( representation ) || _.arrayIs( representation ) || _.strIs( representation ) );
-  _.assert( arguments.length === 2,  'Expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
 
   if( dstEuler === null || dstEuler === undefined )
   dstEuler = [ 0, 0, 0, 0, 1, 2 ];

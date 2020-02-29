@@ -164,7 +164,7 @@ function make( axisAndAngle, angle )
 
 function makeZero()
 {
-  _.assert( arguments.length === 0,  'Expects no arguments' );
+  _.assert( arguments.length === 0, 'Expects no arguments' );
   let result = this.tools.longMakeZeroed( 4 );
   // let result = _.dup( 0, 4 ); /* xxx */
   return result;
@@ -208,7 +208,7 @@ function from( axisAndAngle, angle )
     if( axisAndAngle.length === 3 )
     {
       // axisAndAngle = _.longResize( axisAndAngle, 0, 4 );
-      axisAndAngle = this.tools.longGrow( axisAndAngle,  [ 0, 4 ] )
+      axisAndAngle = this.tools.longGrow( axisAndAngle, [ 0, 4 ] )
       axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }
@@ -233,14 +233,14 @@ function toAdapter( axisAndAngle, angle )
     if( axisAndAngle.length === 4 )
     {
       if( angle !== undefined && angle !== null )
-      axisAndAngle.eSet( 3 ,  angle );
+      axisAndAngle.eSet( 3 , angle );
       return axisAndAngle;
     }
     // debugger;
     // let result = axisAndAngle.resizedAdapter( 0, 4 );
     let result = axisAndAngle.grow([ 0, 3 ]);
     if( angle !== undefined && angle !== null )
-    result.eSet( 3 ,  angle );
+    result.eSet( 3 , angle );
     return result;
   }
   else
@@ -248,7 +248,7 @@ function toAdapter( axisAndAngle, angle )
     if( axisAndAngle.length === 3 )
     {
       // debugger;
-      axisAndAngle = _.longGrow( axisAndAngle,  [ 0, 4 ] );
+      axisAndAngle = _.longGrow( axisAndAngle, [ 0, 4 ] );
       axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }
@@ -323,11 +323,11 @@ function zero( axisAndAngle, angle )
   * // returns [ 0.6520678, 0.38680106, 0.6520678, 0.92713394 ]
   * let srcMatrix = _.Matrix.make([ 3, 3 ]).copy
   * ([
-  *   0.7701511383,  -0.4207354784, 0.479425549507,
-  *   0.6224468350, 0.65995573997,  - 0.420735478401,
+  *   0.7701511383, -0.4207354784, 0.479425549507,
+  *   0.6224468350, 0.65995573997, - 0.420735478401,
   *   - 0.13938128948, 0.622446835, 0.7701511383
   * ]);
-  * _.fromMatrixRotation( [ 0, 0, 0, 0 ],  srcMatrix );
+  * _.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
   *
   * @returns { Array } Returns the corresponding axis and angle.
   * @function fromMatrixRotation
@@ -340,13 +340,13 @@ function zero( axisAndAngle, angle )
 function fromMatrixRotation( axisAndAngle, srcMatrix )
 {
 
-  _.assert( arguments.length === 2,  'Expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
   _.assert( _.Matrix.Is( srcMatrix ) );
   _.assert( srcMatrix.hasShape([ 3, 3 ]) );
 
 
-  let quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ],  srcMatrix );
+  let quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
   axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
 
   return axisAndAngle;
@@ -365,11 +365,11 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
   * @example
   * // returns
   * ([
-  *   0.7701511383,  -0.4207354784, 0.479425549507,
-  *   0.6224468350, 0.65995573997,  - 0.420735478401,
+  *   0.7701511383, -0.4207354784, 0.479425549507,
+  *   0.6224468350, 0.65995573997, - 0.420735478401,
   *   - 0.13938128948, 0.622446835, 0.7701511383
   * ]);
-  * _.toMatrixRotation( [ 0.6520678, 0.38680106, 0.6520678, 0.92713394 ],  srcMatrix );
+  * _.toMatrixRotation( [ 0.6520678, 0.38680106, 0.6520678, 0.92713394 ], srcMatrix );
   *
   * @returns { Space } Returns the corresponding matrix rotation.
   * @function toMatrixRotation
@@ -382,12 +382,12 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
 function toMatrixRotation( axisAndAngle, dstMatrix )
 {
 
-  _.assert( arguments.length === 2,  'Expects two arguments' );
+  _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
   _.assert( _.Matrix.Is( dstMatrix ) );
   _.assert( dstMatrix.hasShape([ 3, 3 ]) );
 
-  let quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ],  axisAndAngle );
+  let quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axisAndAngle );
   dstMatrix = _.quat.toMatrix( quat, dstMatrix );
 
   return dstMatrix;
