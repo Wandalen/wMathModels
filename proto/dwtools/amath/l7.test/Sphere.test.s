@@ -134,7 +134,7 @@ function makeNil( test )
 
   var src = undefined;
   var got = _.sphere.makeNil( src );
-  var expected = [ 0,0,0,-Infinity ];
+  var expected = [ 0,0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got !== src );
 
@@ -142,7 +142,7 @@ function makeNil( test )
 
   var src = null;
   var got = _.sphere.makeNil( src );
-  var expected = [ 0,0,0,-Infinity ];
+  var expected = [ 0,0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got !== src );
 
@@ -150,7 +150,7 @@ function makeNil( test )
 
   var src = 2;
   var got = _.sphere.makeNil( src );
-  var expected = [ 0,0,-Infinity ];
+  var expected = [ 0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got !== src );
 
@@ -158,7 +158,7 @@ function makeNil( test )
 
   var src = [ 0,1,2,3 ];
   var got = _.sphere.makeNil( src );
-  var expected = [ 0,0,0,-Infinity ];
+  var expected = [ 0,0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got !== src );
 
@@ -166,7 +166,7 @@ function makeNil( test )
 
   var src = _.vectorAdapter.fromLong([ 0,1,2,3 ]);
   var got = _.sphere.makeNil( src );
-  var expected = [ 0,0,0,-Infinity ];
+  var expected = [ 0,0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got !== src );
 
@@ -236,7 +236,7 @@ function nil( test )
 
   var src = undefined;
   var got = _.sphere.nil( src );
-  var expected = [ 0,0,0,-Infinity ];
+  var expected = [ 0,0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got !== src );
 
@@ -244,7 +244,7 @@ function nil( test )
 
   var src = null;
   var got = _.sphere.nil( src );
-  var expected = [ 0,0,0,-Infinity ];
+  var expected = [ 0,0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got !== src );
 
@@ -252,7 +252,7 @@ function nil( test )
 
   var src = 2;
   var got = _.sphere.nil( src );
-  var expected = [ 0,0,-Infinity ];
+  var expected = [ 0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got !== src );
 
@@ -260,7 +260,7 @@ function nil( test )
 
   var dst = [ 0,1,2,3 ];
   var got = _.sphere.nil( dst );
-  var expected = [ 0,0,0,-Infinity ];
+  var expected = [ 0,0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got === dst );
 
@@ -268,7 +268,7 @@ function nil( test )
 
   var dst = _.vectorAdapter.fromLong([ 0,1,2,3 ]);
   var got = _.sphere.nil( dst );
-  var expected = _.vectorAdapter.fromLong([ 0,0,0,-Infinity ]);
+  var expected = _.vectorAdapter.fromLong([ 0,0,0, -Infinity ]);
   test.identical( got,expected );
   test.is( got === dst );
 
@@ -276,7 +276,7 @@ function nil( test )
 
   var dst = [ 0,1,5 ];
   var got = _.sphere.nil( dst );
-  var expected = [ 0,0,-Infinity ];
+  var expected = [ 0,0, -Infinity ];
   test.identical( got,expected );
   test.is( got === dst );
 
@@ -378,20 +378,20 @@ function fromPoints( test )
   test.case = 'Points remain unchanged and Destination sphere changes'; /* */
 
   var dstSphere = [ 0,0,0,1 ];
-  var points = [ [ 1,1,0 ],[ 0,0,0 ],[ 0,0,2 ] ];
+  var points = [ [ 1,1,0 ], [ 0,0,0 ], [ 0,0,2 ] ];
   var expected = [ 0,0,0,2 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points );
   test.identical( gotSphere,expected );
   test.identical( dstSphere,expected );
 
-  var oldpoints = [ [ 1,1,0 ],[ 0,0,0 ],[ 0,0,2 ] ];
+  var oldpoints = [ [ 1,1,0 ], [ 0,0,0 ], [ 0,0,2 ] ];
   test.identical( points,oldpoints );
 
   test.case = 'Create sphere of two dimensions'; /* */
 
   var dstSphere = null;
-  var points = [ [ 1,0 ],[ 0,- 2 ],[ 0,3 ],[ - 3,4 ] ];
+  var points = [ [ 1,0 ], [ 0, - 2 ], [ 0,3 ], [ - 3,4 ] ];
   var expected = [ 0,0,5 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points );
@@ -400,7 +400,7 @@ function fromPoints( test )
   test.case = 'Create sphere three dimensions'; /* */
 
   var dstSphere = null;
-  var points = [ [ 1,0,0 ],[ 0,2,0 ],[ 0,0,3 ] ];
+  var points = [ [ 1,0,0 ], [ 0,2,0 ], [ 0,0,3 ] ];
   var expected = [ 0,0,0,3 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points );
@@ -409,7 +409,7 @@ function fromPoints( test )
   test.case = 'Zero points - sphere not expanded'; /* */
 
   var dstSphere = null;
-  var points= [ [ 0,0,0 ],[ 0,0,0 ] ];
+  var points= [ [ 0,0,0 ], [ 0,0,0 ] ];
   var expected = [ 0,0,0,0 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
@@ -418,7 +418,7 @@ function fromPoints( test )
   test.case = 'sphere expanded'; /* */
 
   var dstSphere = [ 0,0,0,2 ];
-  var points= [ [ - 1,0,- 1 ],[ 0,3,0 ],[ 0,- 3,0 ] ] ;
+  var points= [ [ - 1,0, - 1 ], [ 0,3,0 ], [ 0, - 3,0 ] ] ;
   var expected = [ 0,0,0,3 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
@@ -427,8 +427,8 @@ function fromPoints( test )
   test.case = 'sphere NOT expanded ( points inside sphere )'; /* */
 
   var dstSphere = [ 1,1,1,2 ];
-  var points= [ [ 0,1,1 ],[ 1,0,1 ],[ 1,1,0 ] ];
-  var expected = [ 1, 1,1,1 ];
+  var points= [ [ 0,1,1 ], [ 1,0,1 ], [ 1,1,0 ] ];
+  var expected = [ 1,1,1,1 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
   test.identical( gotSphere,expected );
@@ -436,7 +436,7 @@ function fromPoints( test )
   test.case = 'sphere ( normalized to 1 ) expanded'; /* */
 
   var dstSphere = [ 0,0,0,0 ];
-  var points= [ [ - 0.500,0,0 ],[ 0,0.005,0 ] ];
+  var points= [ [ - 0.500,0,0 ], [ 0,0.005,0 ] ];
   var expected = [ 0,0,0,0.5 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
@@ -445,7 +445,7 @@ function fromPoints( test )
   test.case = 'Null sphere of four dimensions expanded'; /* */
 
   var dstSphere = [ 0,0,0,0,0 ];
-  var points= [ [ 0,0,0,1 ],[ 0,0,3 ,4 ] ];
+  var points= [ [ 0,0,0,1 ], [ 0,0,3 , 4 ] ];
   var expected = [ 0,0,0,0,5 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
@@ -454,7 +454,7 @@ function fromPoints( test )
   test.case = 'Null sphere of 7 dimensions expanded'; /* */
 
   var dstSphere = [  0,0,0,0,0,0,0,1 ];
-  var points= [ [ 0,2,0,0,0,0,0 ],[ 0,0,0 ,4,0,0,0 ] ] ;
+  var points= [ [ 0,2,0,0,0,0,0 ], [ 0,0,0 , 4,0,0,0 ] ] ;
   var expected = [ 0,0,0,0,0,0,0,4 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
@@ -463,7 +463,7 @@ function fromPoints( test )
   test.case = 'sphere of 1 dimension expanded'; /* */
 
   var dstSphere = [ 0,0 ];
-  var points= [ [ - 1 ],[ 0 ],[ 1 ] ];
+  var points= [ [ - 1 ], [ 0 ], [ 1 ] ];
   var expected = [ 0,1 ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
@@ -473,7 +473,7 @@ function fromPoints( test )
   test.case = 'sphere of 1 dimension not expanded - NaN'; /* */
 
   var dstSphere = [ NaN,NaN ];
-  var points= [ [ NaN ],[ NaN ],[ NaN ] ];
+  var points= [ [ NaN ], [ NaN ], [ NaN ] ];
   var expected = [ NaN,NaN ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
@@ -482,7 +482,7 @@ function fromPoints( test )
   test.case = 'sphere of 1 dimension not expanded - NaN'; /* */
 
   var dstShere = [ NaN,NaN ];
-  var points= [ [ 1 ],[ 2 ],[ 0 ] ];
+  var points= [ [ 1 ], [ 2 ], [ 0 ] ];
   var expected = [ NaN,NaN ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
@@ -492,7 +492,7 @@ function fromPoints( test )
   test.case = 'sphere of 1 dimension not expanded - NaN'; /* */
 
   var dstSphere = [ 0,1 ];
-  var points= [ [ NaN ],[ NaN ],[ NaN ] ];
+  var points= [ [ NaN ], [ NaN ], [ NaN ] ];
   var expected = [ 0,NaN ];
 
   var gotSphere = _.sphere.fromPoints( dstSphere,points);
@@ -513,13 +513,13 @@ function fromPoints( test )
   test.case = 'Wrong type of argument - none'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromPoints( [ ] ,[ [ ],[ ] ] );
+    _.sphere.fromPoints( [ ] , [ [ ], [ ] ] );
   });
 
   test.case = 'Wrong type of argument - string'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromPoints( 'sphere','points' );
+    _.sphere.fromPoints( 'sphere', 'points' );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
@@ -543,31 +543,31 @@ function fromPoints( test )
   test.case = 'Too few arguments - one point'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromPoints( [ 0,0,0 ],[ 1,1,1 ]);
+    _.sphere.fromPoints( [ 0,0,0 ], [ 1,1,1 ]);
   });
 
   test.case = 'too many arguments'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromPoints( [ 0,0,0 ],[ [ 0,1 ],[ 2,1 ],[ 0,3 ] ],[ 1,0 ] );
+    _.sphere.fromPoints( [ 0,0,0 ], [ [ 0,1 ], [ 2,1 ], [ 0,3 ] ], [ 1,0 ] );
   });
 
   test.case = 'Wrong points dimension (sphere 3D vs points 4D)'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromPoints( [ 0,0,0,0 ],[ [ 0,1,0,2 ],[ 0,1,- 3,4 ] ] );
+    _.sphere.fromPoints( [ 0,0,0,0 ], [ [ 0,1,0,2 ], [ 0,1, - 3,4 ] ] );
   });
 
   test.case = 'Wrong points dimension (sphere 3D vs points 2D)'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromPoints( [ 0,0,0,0 ],[ [ 0,1 ],[ 2,1 ],[ 0,3 ] ] );
+    _.sphere.fromPoints( [ 0,0,0,0 ], [ [ 0,1 ], [ 2,1 ], [ 0,3 ] ] );
   });
 
   test.case = 'Wrong points dimension (sphere 2D vs points 1D)'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromPoints( [ 0,0,0 ],[ [ 1 ],[ 0 ] ] );
+    _.sphere.fromPoints( [ 0,0,0 ], [ [ 1 ], [ 0 ] ] );
   });
 }
 
@@ -598,7 +598,7 @@ function fromBox( test )
 
   var expected = [ -2.5,0.5,5.5,sqrt( 0.75 ) ];
   var bsphere = [ 0,0,0,0 ];
-  var bbox = [ -3,0,5,-2,1,6 ];
+  var bbox = [ -3,0,5, -2,1,6 ];
 
   _.sphere.fromBox( bsphere,bbox );
   test.equivalent( bsphere,expected );
@@ -614,7 +614,7 @@ function fromBox( test )
 
   var expected = [ -2,0.5,7,sqrt( 21 )/2 ];
   var bsphere = [ 0,0,0,0 ];
-  var bbox = [ -3,0,5,-1,1,9 ];
+  var bbox = [ -3,0,5, -1,1,9 ];
 
   _.sphere.fromBox( bsphere,bbox );
   test.equivalent( bsphere,expected );
@@ -636,23 +636,23 @@ function fromBox( test )
 
     test.shouldThrowErrorSync( () => _.avector[ rname ]() );
     test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],[ 5 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],1 ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],undefined ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ],[ 3,4 ],'1' ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3,4 ],[ 1,2,3,4,5 ] ) );
-    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3 ],[ 1,2,3,4,5,6 ] ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ], [ 3 ] ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ], [ 3,4 ], [ 5 ] ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ], [ 3,4 ], 1 ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ], [ 3,4 ], undefined ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2 ], [ 3,4 ], '1' ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3,4 ], [ 1,2,3,4,5 ] ) );
+    test.shouldThrowErrorSync( () => _.avector[ rname ]( [ 1,2,3 ], [ 1,2,3,4,5,6 ] ) );
 
     test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]() );
     test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]) ) );
-    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3 ]) ) );
-    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),vec([ 5 ]) ) );
-    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),1 ) );
-    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),undefined ) );
-    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]),vec([ 3,4 ]),'1' ) );
-    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2,3,4 ]),vec([ 1,2,3,4,5 ]) ) );
-    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2,3 ]),vec([ 1,2,3,4,5,6 ]) ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]), vec([ 3 ]) ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]), vec([ 3,4 ]), vec([ 5 ]) ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]), vec([ 3,4 ]), 1 ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]), vec([ 3,4 ]), undefined ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2 ]), vec([ 3,4 ]), '1' ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2,3,4 ]), vec([ 1,2,3,4,5 ]) ) );
+    test.shouldThrowErrorSync( () => _.vectorAdapter[ rname ]( vec([ 1,2,3 ]), vec([ 1,2,3,4,5,6 ]) ) );
 
   }
 
@@ -715,9 +715,9 @@ function fromCenterAndRadius( test )
   test.case = 'sphere expanded - center moved'; /* */
 
   var dstSphere = [ 0,0,0,2 ];
-  var center = [ 0,- 5.5,101 ];
+  var center = [ 0, - 5.5,101 ];
   var radius = 6;
-  var expected = [ 0,- 5.5,101,6 ];
+  var expected = [ 0, - 5.5,101,6 ];
 
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere,center,radius);
   test.identical( gotSphere,expected );
@@ -727,17 +727,17 @@ function fromCenterAndRadius( test )
   var dstSphere = [ 1,1,1,2 ];
   var center = [ 1,1,1 ];
   var radius = 1;
-  var expected = [ 1, 1,1,1 ];
+  var expected = [ 1,1,1,1 ];
 
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere,center,radius);
   test.identical( gotSphere,expected );
 
   test.case = 'sphere ( normalized to 1 ) expanded'; /* */
 
-  var dstSphere = [ 0.2,- 0.1,0.6,0.2 ];
-  var center = [ - 0.4, 0.1,0.3 ];
+  var dstSphere = [ 0.2, - 0.1,0.6,0.2 ];
+  var center = [ - 0.4,0.1,0.3 ];
   var radius = 0.5;
-  var expected = [ - 0.4, 0.1,0.3,0.5 ];
+  var expected = [ - 0.4,0.1,0.3,0.5 ];
 
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere,center,radius);
   test.identical( gotSphere,expected );
@@ -755,9 +755,9 @@ function fromCenterAndRadius( test )
   test.case = 'Null sphere of 7 dimensions expanded'; /* */
 
   var dstSphere = [  0,0,0,0,0,0,0,1 ];
-  var center = [  0,3,0,- 2,0,3,0 ];
+  var center = [  0,3,0, - 2,0,3,0 ];
   var radius = 2;
-  var expected = [ 0,3,0,- 2,0,3,0,2 ];
+  var expected = [ 0,3,0, - 2,0,3,0,2 ];
 
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere,center,radius);
   test.identical( gotSphere,expected );
@@ -816,13 +816,13 @@ function fromCenterAndRadius( test )
   test.case = 'Wrong type of argument - none'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromCenterAndRadius( [ ] ,[ ],[ ]  );
+    _.sphere.fromCenterAndRadius( [ ] , [ ], [ ]  );
   });
 
   test.case = 'Wrong type of argument - string'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromCenterAndRadius( 'sphere','center','radius' );
+    _.sphere.fromCenterAndRadius( 'sphere', 'center', 'radius' );
   });
 
   test.case = 'Wrong type of argument - number'; /* */
@@ -840,43 +840,43 @@ function fromCenterAndRadius( test )
   test.case = 'Too few arguments - no radius'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromCenterAndRadius( [ 0,0,0 ],[ 1,1,1 ] );
+    _.sphere.fromCenterAndRadius( [ 0,0,0 ], [ 1,1,1 ] );
   });
 
   test.case = 'Too few arguments - no center'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromCenterAndRadius( [ 0,0,0 ],1 );
+    _.sphere.fromCenterAndRadius( [ 0,0,0 ], 1 );
   });
 
   test.case = 'too many arguments'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromCenterAndRadius( [ 0,0,0 ],[ 0,1 ],[ 2,1 ],3 );
+    _.sphere.fromCenterAndRadius( [ 0,0,0 ], [ 0,1 ], [ 2,1 ], 3 );
   });
 
   test.case = 'Wrong center dimension ( sphere 3D vs center 4D )'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromCenterAndRadius( [ 0,0,0,0 ],[ 0,1,0,2 ],3 );
+    _.sphere.fromCenterAndRadius( [ 0,0,0,0 ], [ 0,1,0,2 ], 3 );
   });
 
   test.case = 'Wrong center dimension ( sphere 3D vs center 2D )'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromCenterAndRadius( [ 0,0,0,0 ],[ 2,1 ],2 );
+    _.sphere.fromCenterAndRadius( [ 0,0,0,0 ], [ 2,1 ], 2 );
   });
 
   test.case = 'Wrong center dimension ( sphere 2D vs center 1D )'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromCenterAndRadius( [ 0,0,0 ],[ 1 ],1 );
+    _.sphere.fromCenterAndRadius( [ 0,0,0 ], [ 1 ], 1 );
   });
 
   test.case = 'Wrong radius dimension'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.fromCenterAndRadius( [ 0,0,0 ],[ 1,1 ],[1,0] );
+    _.sphere.fromCenterAndRadius( [ 0,0,0 ], [ 1,1 ], [1,0] );
   });
 
 }
@@ -915,7 +915,7 @@ function is( test )
   test.is( !_.sphere.is( [] ) );
   test.is( !_.sphere.is( _.vectorAdapter.fromLong([]) ) );
   test.is( !_.sphere.is( 'abc' ) );
-  test.is( !_.sphere.is( { center : [ 0,0,0 ],radius : 1 } ) );
+  test.is( !_.sphere.is( { center : [ 0,0,0 ], radius : 1 } ) );
   test.is( !_.sphere.is( function( a,b,c ){} ) );
 
 }
@@ -940,18 +940,18 @@ function isEmpty( test )
   test.is( _.sphere.isEmpty([ 1,0,0,0 ]) );
 
   test.is( _.sphere.isEmpty([ -1 ]) );
-  test.is( _.sphere.isEmpty([ 0,-1 ]) );
-  test.is( _.sphere.isEmpty([ 0,0,-1 ]) );
-  test.is( _.sphere.isEmpty([ 0,0,0,-1 ]) );
+  test.is( _.sphere.isEmpty([ 0, -1 ]) );
+  test.is( _.sphere.isEmpty([ 0,0, -1 ]) );
+  test.is( _.sphere.isEmpty([ 0,0,0, -1 ]) );
 
   test.is( _.sphere.isEmpty([ -Infinity ]) );
-  test.is( _.sphere.isEmpty([ 0,-Infinity ]) );
-  test.is( _.sphere.isEmpty([ 0,0,-Infinity ]) );
-  test.is( _.sphere.isEmpty([ 0,0,0,-Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0, -Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0,0, -Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0,0,0, -Infinity ]) );
 
-  test.is( _.sphere.isEmpty([ 0.1,-Infinity ]) );
-  test.is( _.sphere.isEmpty([ 0,0.1,-Infinity ]) );
-  test.is( _.sphere.isEmpty([ 0,0,0.1,-Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0.1, -Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0,0.1, -Infinity ]) );
+  test.is( _.sphere.isEmpty([ 0,0,0.1, -Infinity ]) );
 
   test.case = 'not empty'; /* */
 
@@ -992,23 +992,23 @@ function isZero( test )
   test.is( !_.sphere.isZero([ 0,0,0,1 ]) );
 
   test.is( !_.sphere.isZero([ -1 ]) );
-  test.is( !_.sphere.isZero([ 0,-1 ]) );
-  test.is( !_.sphere.isZero([ 0,0,-1 ]) );
-  test.is( !_.sphere.isZero([ 0,0,0,-1 ]) );
+  test.is( !_.sphere.isZero([ 0, -1 ]) );
+  test.is( !_.sphere.isZero([ 0,0, -1 ]) );
+  test.is( !_.sphere.isZero([ 0,0,0, -1 ]) );
 
   test.is( !_.sphere.isZero([ -Infinity ]) );
-  test.is( !_.sphere.isZero([ 0,-Infinity ]) );
-  test.is( !_.sphere.isZero([ 0,0,-Infinity ]) );
-  test.is( !_.sphere.isZero([ 0,0,0,-Infinity ]) );
+  test.is( !_.sphere.isZero([ 0, -Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0, -Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0,0, -Infinity ]) );
 
   test.is( !_.sphere.isZero([ Infinity ]) );
   test.is( !_.sphere.isZero([ 0,Infinity ]) );
   test.is( !_.sphere.isZero([ 0,0,Infinity ]) );
   test.is( !_.sphere.isZero([ 0,0,0,Infinity ]) );
 
-  test.is( !_.sphere.isZero([ 0.1,-Infinity ]) );
-  test.is( !_.sphere.isZero([ 0,0.1,-Infinity ]) );
-  test.is( !_.sphere.isZero([ 0,0,0.1,-Infinity ]) );
+  test.is( !_.sphere.isZero([ 0.1, -Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0.1, -Infinity ]) );
+  test.is( !_.sphere.isZero([ 0,0,0.1, -Infinity ]) );
 
 }
 
@@ -1020,9 +1020,9 @@ function isNil( test )
   test.case = 'nil'; /* */
 
   test.is( _.sphere.isNil([ -Infinity ]) );
-  test.is( _.sphere.isNil([ 0,-Infinity ]) );
-  test.is( _.sphere.isNil([ 0,0,-Infinity ]) );
-  test.is( _.sphere.isNil([ 0,0,0,-Infinity ]) );
+  test.is( _.sphere.isNil([ 0, -Infinity ]) );
+  test.is( _.sphere.isNil([ 0,0, -Infinity ]) );
+  test.is( _.sphere.isNil([ 0,0,0, -Infinity ]) );
 
   test.case = 'not nil'; /* */
 
@@ -1031,9 +1031,9 @@ function isNil( test )
   test.is( !_.sphere.isNil([ 0,0,Infinity ]) );
   test.is( !_.sphere.isNil([ 0,0,0,Infinity ]) );
 
-  test.is( !_.sphere.isNil([ 0.1,-Infinity ]) );
-  test.is( !_.sphere.isNil([ 0,0.1,-Infinity ]) );
-  test.is( !_.sphere.isNil([ 0,0,0.1,-Infinity ]) );
+  test.is( !_.sphere.isNil([ 0.1, -Infinity ]) );
+  test.is( !_.sphere.isNil([ 0,0.1, -Infinity ]) );
+  test.is( !_.sphere.isNil([ 0,0,0.1, -Infinity ]) );
 
 }
 
@@ -1054,7 +1054,7 @@ function dimGet( test )
 
   test.case = 'Nil sphere sphere'; /* */
 
-  var sphere = [ 1,1,1,-Infinity ];
+  var sphere = [ 1,1,1, -Infinity ];
   var expected = 3;
 
   var gotDim = _.sphere.dimGet( sphere );
@@ -1078,7 +1078,7 @@ function dimGet( test )
 
   test.case = 'Two dimension sphere'; /* */
 
-  var sphere = [ 0,- 1,1.5 ];
+  var sphere = [ 0, - 1,1.5 ];
   var expected = 2;
 
   var gotDim = _.sphere.dimGet( sphere );
@@ -1094,7 +1094,7 @@ function dimGet( test )
 
   test.case = 'Four dimension sphere'; /* */
 
-  var sphere = [ - 1,- 2.2,1,2,5.4 ];
+  var sphere = [ - 1, - 2.2,1,2,5.4 ];
   var expected = 4;
 
   var gotDim = _.sphere.dimGet( sphere );
@@ -1102,7 +1102,7 @@ function dimGet( test )
 
   test.case = 'Eight dimension sphere'; /* */
 
-  var sphere = [ - 1,- 2.2,- 3,5,0.1,1,2,5.4,- 1.1 ];
+  var sphere = [ - 1, - 2.2, - 3,5,0.1,1,2,5.4, - 1.1 ];
   var expected = 8;
 
   var gotDim = _.sphere.dimGet( sphere );
@@ -1111,7 +1111,7 @@ function dimGet( test )
 
   test.case = 'NaN'; /* */
 
-  var sphere = [ 'Hi','world' ];
+  var sphere = [ 'Hi', 'world' ];
   var expected = 1;
 
   var gotDim = _.sphere.dimGet( sphere );
@@ -1119,7 +1119,7 @@ function dimGet( test )
 
   test.case = 'NaN'; /* */
 
-  var sphere = [ 'Hi','world',null,null,NaN,NaN ];
+  var sphere = [ 'Hi', 'world', null,null,NaN,NaN ];
   var expected = 5;
 
   var gotDim = _.sphere.dimGet( sphere );
@@ -1163,7 +1163,7 @@ function dimGet( test )
   test.case = 'To many arguments'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.dimGet( [ 0,1 ],[ 0,1 ] );
+    _.sphere.dimGet( [ 0,1 ], [ 0,1 ] );
   });
 
 }
@@ -1214,8 +1214,8 @@ function centerGet( test )
 
   test.case = 'Three dimension sphere'; /* */
 
-  var sphere = [ 0,- 1,- 2,2 ];
-  var expected = [ 0,- 1,- 2 ];
+  var sphere = [ 0, - 1, - 2,2 ];
+  var expected = [ 0, - 1, - 2 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
@@ -1223,8 +1223,8 @@ function centerGet( test )
 
   test.case = 'Four dimension sphere'; /* */
 
-  var sphere = [ 0,- 1,- 2,2,0 ];
-  var expected = [ 0,- 1,- 2,2 ];
+  var sphere = [ 0, - 1, - 2,2,0 ];
+  var expected = [ 0, - 1, - 2,2 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
@@ -1232,8 +1232,8 @@ function centerGet( test )
 
   test.case = 'Eight dimension sphere'; /* */
 
-  var sphere = [  0,- 1,- 2,2,0,1,2,6,- 1 ];
-  var expected = [ 0,- 1,-2,2,0,1,2,6 ];
+  var sphere = [  0, - 1, - 2,2,0,1,2,6, - 1 ];
+  var expected = [ 0, - 1, -2,2,0,1,2,6 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
@@ -1250,7 +1250,7 @@ function centerGet( test )
 
   test.case = 'negative radius'; /* */
 
-  var sphere = [ 1,2,- 3 ];
+  var sphere = [ 1,2, - 3 ];
   var expected = [ 1,2 ];
   expected = _.vectorAdapter.from(expected);
 
@@ -1290,7 +1290,7 @@ function centerGet( test )
   test.case = 'Too many arguments'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.centerGet( [ 0,0,1,1 ],[ 0,0,0,0 ] );
+    _.sphere.centerGet( [ 0,0,1,1 ], [ 0,0,0,0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
@@ -1362,7 +1362,7 @@ function radiusGet( test )
 
   test.case = 'Three dimension sphere'; /* */
 
-  var sphere = [ 0,- 1,- 2,2 ];
+  var sphere = [ 0, - 1, - 2,2 ];
   var expected = 2;
 
   var gotRadius = _.sphere.radiusGet( sphere );
@@ -1370,7 +1370,7 @@ function radiusGet( test )
 
   test.case = 'Four dimension sphere'; /* */
 
-  var sphere = [ 0,- 1,- 2,2,0 ];
+  var sphere = [ 0, - 1, - 2,2,0 ];
   var expected =  0;
 
   var gotRadius = _.sphere.radiusGet( sphere );
@@ -1378,7 +1378,7 @@ function radiusGet( test )
 
   test.case = 'Eight dimension sphere'; /* */
 
-  var sphere = [  0,- 1,- 2,2,0,1,2,6,1 ];
+  var sphere = [  0, - 1, - 2,2,0,1,2,6,1 ];
   var expected = 1;
 
   var gotRadius = _.sphere.radiusGet( sphere );
@@ -1394,7 +1394,7 @@ function radiusGet( test )
 
   test.case = 'negative radius'; /* */
 
-  var sphere = [ 1,2,- 3 ];
+  var sphere = [ 1,2, - 3 ];
   var expected = -3;
 
   var gotRadius = _.sphere.radiusGet( sphere );
@@ -1471,7 +1471,7 @@ function radiusGet( test )
   test.case = 'Too many arguments'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.radiusGet( [ 0,0,1,1 ],[ 0,0,0,0 ] );
+    _.sphere.radiusGet( [ 0,0,1,1 ], [ 0,0,0,0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
@@ -1550,9 +1550,9 @@ function radiusSet( test )
 
   test.case = 'Three dimension sphere'; /* */
 
-  var sphere = [ 0,- 1,- 2,2 ];
+  var sphere = [ 0, - 1, - 2,2 ];
   var radius = 4;
-  var expected = [ 0,- 1,- 2,4 ];
+  var expected = [ 0, - 1, - 2,4 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere,radius );
@@ -1560,9 +1560,9 @@ function radiusSet( test )
 
   test.case = 'Four dimension sphere'; /* */
 
-  var sphere = [ 0,- 1,- 2,2,0 ];
+  var sphere = [ 0, - 1, - 2,2,0 ];
   var radius = 5;
-  var expected =  [ 0,- 1,- 2,2,5 ];
+  var expected =  [ 0, - 1, - 2,2,5 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere,radius );
@@ -1570,9 +1570,9 @@ function radiusSet( test )
 
   test.case = 'Eight dimension sphere'; /* */
 
-  var sphere = [  0,- 1,- 2,2,0,1,2,6,1 ];
+  var sphere = [  0, - 1, - 2,2,0,1,2,6,1 ];
   var radius = 2;
-  var expected = [  0,- 1,- 2,2,0,1,2,6,2 ];
+  var expected = [  0, - 1, - 2,2,0,1,2,6,2 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere,radius );
@@ -1590,9 +1590,9 @@ function radiusSet( test )
 
   test.case = 'negative radius'; /* */
 
-  var sphere = [ 1,2,- 3 ];
+  var sphere = [ 1,2, - 3 ];
   var radius = - 2;
-  var expected = [ 1,2,- 2 ];
+  var expected = [ 1,2, - 2 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere,radius );
@@ -1666,13 +1666,13 @@ function radiusSet( test )
   test.case = 'Too many arguments'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.radiusSet( [ 0,0,1,1 ],2,3 );
+    _.sphere.radiusSet( [ 0,0,1,1 ], 2,3 );
   });
 
   test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.radiusSet( [ 0,0,1,1 ],[ 0,0,0,0 ] );
+    _.sphere.radiusSet( [ 0,0,1,1 ], [ 0,0,0,0 ] );
   });
 
   test.case = 'Wrong type of arguments'; /* */
@@ -1684,7 +1684,7 @@ function radiusSet( test )
   test.case = 'Wrong type of arguments'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.radiusSet( 'string','Hi' );
+    _.sphere.radiusSet( 'string', 'Hi' );
   });
 
   test.case = 'Wrong type of arguments'; /* */
@@ -1696,7 +1696,7 @@ function radiusSet( test )
   test.case = 'Wrong sphere dimension'; /* */
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.sphere.radiusSet( [ ],2 );
+    _.sphere.radiusSet( [ ], 2 );
   });
 
 }
@@ -1755,7 +1755,7 @@ function pointContains( test )
   test.case = 'Point below the sphere';
 
   var sphere = [ 0,0,0,1 ];
-  var point = [ - 3,- 3,- 3 ];
+  var point = [ - 3, - 3, - 3 ];
 
   var expected = false;
   var gotContains = _.sphere.pointContains( sphere,point );
@@ -1820,13 +1820,13 @@ function pointContains( test )
   test.shouldThrowErrorSync( () => _.sphere.pointContains( ) );
   test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0,0,0,1 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0,0,0,1 ],[ 1,2,3 ],[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 1,2,3,4 ],[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 1,2,3,4,5 ],[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointContains( null,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0,0,0,1 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointContains( NaN,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0,0,0,1 ],NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0,0,0,1 ], [ 1,2,3 ], [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 1,2,3,4 ], [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 1,2,3,4,5 ], [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( null, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0,0,0,1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( NaN, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointContains( [ 0,0,0,1 ], NaN ) );
 }
 
 //
@@ -1879,7 +1879,7 @@ function pointDistance( test )
   test.case = 'Point below the sphere';
 
   var sphere = [ 0,0,0,1 ];
-  var point = [ - 3,- 3,- 3 ];
+  var point = [ - 3, - 3, - 3 ];
   var expected = 4.196152422706632;
 
   var gotDistance = _.sphere.pointDistance( sphere,point );
@@ -1944,13 +1944,13 @@ function pointDistance( test )
   test.shouldThrowErrorSync( () => _.sphere.pointDistance( ) );
   test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0,0,0,1 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0,0,0,1 ],[ 1,2,3 ],[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 1,2,3,4 ],[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 1,2,3,4,5 ],[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointDistance( null,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0,0,0,1 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointDistance( NaN,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0,0,0,1 ],NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0,0,0,1 ], [ 1,2,3 ], [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 1,2,3,4 ], [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 1,2,3,4,5 ], [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( null, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0,0,0,1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( NaN, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointDistance( [ 0,0,0,1 ], NaN ) );
 }
 
 //
@@ -2003,8 +2003,8 @@ function pointClosestPoint( test )
   test.case = 'Point below the sphere';
 
   var sphere = [ 0,0,0,1 ];
-  var point = [ - 3,- 3,- 3 ];
-  var expected = [ -0.5773502691896257,-0.5773502691896257,-0.5773502691896257 ];
+  var point = [ - 3, - 3, - 3 ];
+  var expected = [ -0.5773502691896257, -0.5773502691896257, -0.5773502691896257 ];
 
   var gotClosestPoint = _.sphere.pointClosestPoint( sphere,point );
 
@@ -2090,12 +2090,12 @@ function pointClosestPoint( test )
   test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 0,0,0,1 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 1,2,3,4 ],[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 1,2,3,4,5 ],[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( null,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 0,0,0,1 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( NaN,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 0,0,0,1 ],NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 1,2,3,4 ], [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 1,2,3,4,5 ], [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( null, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 0,0,0,1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( NaN, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.pointClosestPoint( [ 0,0,0,1 ], NaN ) );
 }
 
 //
@@ -2123,7 +2123,7 @@ function pointExpand( test )
   var got = _.sphere.pointExpand( sphere,point );
   //var d1 = _.avector.distance( point,center );
   debugger;
-  //var d2 = _.avector.distance( _.dup( 0,3 ),center );
+  //var d2 = _.avector.distance( _.dup( 0,3 ), center );
 
   test.equivalent( got,expected );
   // test.equivalent( d1,d2 );
@@ -2134,11 +2134,11 @@ function pointExpand( test )
 
   var sphere = [ 1,1,1,1 ];
   var center = _.sphere.centerGet( sphere );
-  var point = [ -1,-1,-1 ];
+  var point = [ -1, -1, -1 ];
   var expected = [ 1,1,1,3.4641016151377544 ];
   var got = _.sphere.pointExpand( sphere,point );
   // var d1 = _.avector.distance( point,center );
-  // var d2 = _.avector.distance( _.dup( 1+_.math.sqrt( 3 ) / 3,3 ),center );
+  // var d2 = _.avector.distance( _.dup( 1+_.math.sqrt( 3 ) / 3,3 ), center );
 
   test.equivalent( got,expected );
   // test.equivalent( d1,d2 );
@@ -2147,10 +2147,10 @@ function pointExpand( test )
 
   test.case = 'expand nil sphere by point';
 
-  var sphere = [ 1,1,1,-Infinity ];
+  var sphere = [ 1,1,1, -Infinity ];
   var center = _.sphere.centerGet( sphere );
-  var point = [ -1,-1,-1 ];
-  var expected = [ -1,-1,-1,0 ];
+  var point = [ -1, -1, -1 ];
+  var expected = [ -1, -1, -1,0 ];
   var got = _.sphere.pointExpand( sphere,point );
 
   test.equivalent( got,expected );
@@ -2217,7 +2217,7 @@ function boxContains( test )
   test.case = 'Sphere inside box'; /* */
 
   var sphere = [ 0,0,0,1 ];
-  var box = [ - 2,- 2,- 2,2,2,2 ];
+  var box = [ - 2, - 2, - 2,2,2,2 ];
   var expected = false;
   var gotBool = _.sphere.boxContains( sphere,box );
 
@@ -2226,7 +2226,7 @@ function boxContains( test )
   test.case = 'Box inside sphere'; /* */
 
   var sphere = [ 0,0,0,6 ];
-  var box = [ - 2,- 2,- 2,2,2,2 ];
+  var box = [ - 2, - 2, - 2,2,2,2 ];
   var expected = true;
   var gotBool = _.sphere.boxContains( sphere,box );
 
@@ -2280,7 +2280,7 @@ function boxContains( test )
   test.case = 'Negative distance no intersection';
 
   var sphere = [ 0,0,0,2 ];
-  var box = [ -4,-4,-4,-3,-3,-3 ];
+  var box = [ -4, -4, -4, -3, -3, -3 ];
   var expected = false;
   var gotBool = _.sphere.boxContains( sphere,box );
 
@@ -2288,8 +2288,8 @@ function boxContains( test )
 
   test.case = 'Negative distance - sphere contains box';
 
-  var sphere = [ -3,-3,-3,4 ];
-  var box = [ -4,-4,-4,-1,-1,-1 ];
+  var sphere = [ -3, -3, -3,4 ];
+  var box = [ -4, -4, -4, -1, -1, -1 ];
   var expected = true;
   var gotBool = _.sphere.boxContains( sphere,box );
 
@@ -2302,14 +2302,14 @@ function boxContains( test )
 
   test.shouldThrowErrorSync( () => _.sphere.boxContains( ) );
   test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4,5,6 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxContains( 'sphere','box' ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ],'box' ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxContains( 'sphere',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ] ,[ 1,2,3,4,5,6,7 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxContains( null,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4,5,6 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( 'sphere', 'box' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ], 'box' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ] , [ 1,2,3,4,5,6,7 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxContains( null, [ 1,2,3,4 ] ) );
 
 }
 
@@ -2351,7 +2351,7 @@ function boxIntersects( test )
   test.case = 'Sphere inside box'; /* */
 
   var sphere = [ 0,0,0,1 ];
-  var box = [ - 2,- 2,- 2,2,2,2 ];
+  var box = [ - 2, - 2, - 2,2,2,2 ];
   var expected = true;
   var gotBool = _.sphere.boxIntersects( sphere,box );
 
@@ -2360,7 +2360,7 @@ function boxIntersects( test )
   test.case = 'Box inside sphere'; /* */
 
   var sphere = [ 0,0,0,6 ];
-  var box = [ - 2,- 2,- 2,2,2,2 ];
+  var box = [ - 2, - 2, - 2,2,2,2 ];
   var expected = true;
   var gotBool = _.sphere.boxIntersects( sphere,box );
 
@@ -2414,7 +2414,7 @@ function boxIntersects( test )
   test.case = 'Negative distance no intersection';
 
   var sphere = [ 0,0,0,2 ];
-  var box = [ -4,-4,-4,-3,-3,-3 ];
+  var box = [ -4, -4, -4, -3, -3, -3 ];
   var expected = false;
   var gotBool = _.sphere.boxIntersects( sphere,box );
 
@@ -2423,7 +2423,7 @@ function boxIntersects( test )
   test.case = 'Negative distance - intersection';
 
   var sphere = [ 0,0,0,2 ];
-  var box = [ -4,-4,-4,-1,-1,-1 ];
+  var box = [ -4, -4, -4, -1, -1, -1 ];
   var expected = true;
   var gotBool = _.sphere.boxIntersects( sphere,box );
 
@@ -2436,14 +2436,14 @@ function boxIntersects( test )
 
   test.shouldThrowErrorSync( () => _.sphere.boxIntersects( ) );
   test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4,5,6 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( 'sphere','box' ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ],'box' ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( 'sphere',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ] ,[ 1,2,3,4,5,6,7 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( null,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4,5,6 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( 'sphere', 'box' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ], 'box' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ] , [ 1,2,3,4,5,6,7 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxIntersects( null, [ 1,2,3,4 ] ) );
 
 }
 
@@ -2497,8 +2497,8 @@ function boxClosestPoint( test )
   test.case = 'Box below the sphere';
 
   var sphere = [ 0,0,0,1 ];
-  var box = [ -5,-6,-4,- 3,- 3,- 3 ];
-  var expected = [ -0.5773502691896257,-0.5773502691896257,-0.5773502691896257 ];
+  var box = [ -5, -6, -4, - 3, - 3, - 3 ];
+  var expected = [ -0.5773502691896257, -0.5773502691896257, -0.5773502691896257 ];
 
   var gotClosestPoint = _.sphere.boxClosestPoint( sphere,box );
 
@@ -2537,7 +2537,7 @@ function boxClosestPoint( test )
   test.case = 'Sphere inside box';
 
   var sphere = [ 0,0,0,1 ];
-  var box = [ -1,-1,-1,1,1,1 ];
+  var box = [ -1, -1, -1,1,1,1 ];
   var expected = 0;
 
   var gotClosestPoint = _.sphere.boxClosestPoint( sphere,box );
@@ -2574,12 +2574,12 @@ function boxClosestPoint( test )
   test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 0,0,0,1 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 1,2,3,4 ],[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 1,2,3,4,5 ],[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( null,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 0,0,0,1 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( NaN,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 0,0,0,1 ],NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 1,2,3,4 ], [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 1,2,3,4,5 ], [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( null, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 0,0,0,1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( NaN, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxClosestPoint( [ 0,0,0,1 ], NaN ) );
 }
 
 //
@@ -2632,7 +2632,7 @@ function boxExpand( test )
   test.case = 'Sphere inside box'; /* */
 
   var sphere = [ 0,0,0,1 ];
-  var box = [ - 2,- 2,- 2,2,2,2 ];
+  var box = [ - 2, - 2, - 2,2,2,2 ];
   var expected = [ 0,0,0,3.46410161513 ];
   var gotSphere = _.sphere.boxExpand( sphere,box );
 
@@ -2642,7 +2642,7 @@ function boxExpand( test )
   test.case = 'Box inside sphere - no expansion'; /* */
 
   var sphere = [ 0,0,0,6 ];
-  var box = [ - 2,- 2,- 2,2,2,2 ];
+  var box = [ - 2, - 2, - 2,2,2,2 ];
   var expected = [ 0,0,0,6 ];
   var gotSphere = _.sphere.boxExpand( sphere,box );
 
@@ -2682,7 +2682,7 @@ function boxExpand( test )
   test.case = 'One corner of the box in sphere'; /* */
 
   var sphere = [ 0,0,0,1 ];
-  var box = [ 0,0,0,2,- 2,2 ];
+  var box = [ 0,0,0,2, - 2,2 ];
   var expected = [ 0,0,0,3.4641016151 ];
   var gotSphere = _.sphere.boxExpand( sphere,box );
 
@@ -2716,15 +2716,15 @@ function boxExpand( test )
 
   test.shouldThrowErrorSync( () => _.sphere.boxExpand( ) );
   test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4,5,6 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( 'sphere','box' ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ],'box' ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( 'sphere',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ] ,[ 1,2,3,4,5,6,7 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ],undefined ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( null,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ],null ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4,5,6 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( 'sphere', 'box' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ], 'box' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ] , [ 1,2,3,4,5,6,7 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boxExpand( [ 1,2,3,4 ], null ) );
 
 }
 
@@ -2737,7 +2737,7 @@ function boundingBoxGet( test )
 
   var srcSphere = [ 0,0,0,3 ];
   var dstBox = [ 1,1,1,2,2,2 ];
-  var expected = [ - 3,- 3,- 3,3,3,3 ];
+  var expected = [ - 3, - 3, - 3,3,3,3 ];
 
   var gotBox = _.sphere.boundingBoxGet( dstBox,srcSphere );
   test.identical( expected,gotBox );
@@ -2759,7 +2759,7 @@ function boundingBoxGet( test )
 
   var srcSphere = [ 1,1,1,4 ];
   var dstBox = [ 0,0,0,2,2,2 ];
-  var expected = [ - 3,- 3,- 3,5,5,5 ];
+  var expected = [ - 3, - 3, - 3,5,5,5 ];
 
   var gotBox = _.sphere.boundingBoxGet( dstBox,srcSphere );
   test.identical( gotBox,expected );
@@ -2775,9 +2775,9 @@ function boundingBoxGet( test )
 
   test.case = 'Sphere inside Box'; /* */
 
-  var srcSphere = [ - 1,- 1,- 1,1 ];
-  var dstBox = [ - 3,- 4,- 5,5,4,3 ];
-  var expected = [ - 2,- 2,- 2,0,0,0 ];
+  var srcSphere = [ - 1, - 1, - 1,1 ];
+  var dstBox = [ - 3, - 4, - 5,5,4,3 ];
+  var expected = [ - 2, - 2, - 2,0,0,0 ];
 
   var gotBox = _.sphere.boundingBoxGet( dstBox,srcSphere );
   test.identical( gotBox,expected );
@@ -2793,36 +2793,36 @@ function boundingBoxGet( test )
 
   test.case = 'srcSphere vector'; /* */
 
-  var srcSphere = _.vectorAdapter.from( [ - 2, 1,10.5,6 ] );
-  var dstBox = [ 1,- 1,5,0,3,2 ];
-  var expected = [ - 8,- 5,4.5,4,7,16.5 ];
+  var srcSphere = _.vectorAdapter.from( [ - 2,1,10.5,6 ] );
+  var dstBox = [ 1, - 1,5,0,3,2 ];
+  var expected = [ - 8, - 5,4.5,4,7,16.5 ];
 
   var gotBox = _.sphere.boundingBoxGet( dstBox,srcSphere );
   test.identical( gotBox,expected );
 
   test.case = 'dstBox vector'; /* */
 
-  var srcSphere = [ - 1,0,- 2,3 ];
+  var srcSphere = [ - 1,0, - 2,3 ];
   var dstBox = _.vectorAdapter.from( [ 1,2,3,9,8,7 ] );
-  var expected = _.vectorAdapter.from( [ - 4,- 3,- 5,2,3,1  ] );
+  var expected = _.vectorAdapter.from( [ - 4, - 3, - 5,2,3,1  ] );
 
   var gotBox = _.sphere.boundingBoxGet( dstBox,srcSphere );
   test.identical( gotBox,expected );
 
   test.case = 'dstBox null'; /* */
 
-  var srcSphere = [ 2.2,3.3,- 4.4,1 ];
+  var srcSphere = [ 2.2,3.3, - 4.4,1 ];
   var dstBox = null;
-  var expected = [ 1.2,2.3,-5.4,3.2,4.3,-3.4 ];
+  var expected = [ 1.2,2.3, -5.4,3.2,4.3, -3.4 ];
 
   var gotBox = _.sphere.boundingBoxGet( dstBox,srcSphere );
   test.equivalent( gotBox,expected );
 
   test.case = 'dstBox undefined'; /* */
 
-  var srcSphere = [ - 1,- 3,- 5,0 ];
+  var srcSphere = [ - 1, - 3, - 5,0 ];
   var dstBox = undefined;
-  var expected = [  - 1,- 3,- 5,- 1,- 3,- 5 ];
+  var expected = [  - 1, - 3, - 5, - 1, - 3, - 5 ];
 
   var gotBox = _.sphere.boundingBoxGet( dstBox,srcSphere );
   test.identical( gotBox,expected );
@@ -2834,15 +2834,15 @@ function boundingBoxGet( test )
 
   test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( ) );
   test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [],[] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( 'box','sphere' ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [], [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( 'box', 'sphere' ) );
   test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0,0,0,0,0,0 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 1,0,1,2,1,2 ],[ 0,0,0,1 ],[ 0,1,0,1 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0,1,0,1,2,1 ],[ 1,0,1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( NaN,[ 1,0,1,2 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0,1,0,1,2,1 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0,1,0,1,2,1 ],NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0,1,0,1,2 ],[ 0,0,1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 1,0,1,2,1,2 ], [ 0,0,0,1 ], [ 0,1,0,1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0,1,0,1,2,1 ], [ 1,0,1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( NaN, [ 1,0,1,2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0,1,0,1,2,1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0,1,0,1,2,1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.boundingBoxGet( [ 0,1,0,1,2 ], [ 0,0,1 ] ) );
 
 }
 
@@ -2896,8 +2896,8 @@ function capsuleClosestPoint( test )
   test.case = 'Capsule below the sphere';
 
   var sphere = [ 0,0,0,1 ];
-  var capsule = [ -5,-6,-4,- 3,- 3,- 3,1 ];
-  var expected = [ -0.5773502691896257,-0.5773502691896257,-0.5773502691896257 ];
+  var capsule = [ -5, -6, -4, - 3, - 3, - 3,1 ];
+  var expected = [ -0.5773502691896257, -0.5773502691896257, -0.5773502691896257 ];
 
   var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere,capsule );
 
@@ -2936,7 +2936,7 @@ function capsuleClosestPoint( test )
   test.case = 'Sphere inside capsule';
 
   var sphere = [ 0,0,0,1 ];
-  var capsule = [ -1,-1,-1,1,1,1,2 ];
+  var capsule = [ -1, -1, -1,1,1,1,2 ];
   var expected = 0;
 
   var gotClosestPoint = _.sphere.capsuleClosestPoint( sphere,capsule );
@@ -2973,14 +2973,14 @@ function capsuleClosestPoint( test )
   test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 0,0,0,1 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1,2,3,4 ],[ 1,2,3,4,5 ],[ 1,2,3,4,5 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1,2,3,4 ],[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1,2,3,4,5 ],[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1,2,3,4,5 ],[ 1,2,3,4,- 1 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( null,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 0,0,0,1 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( NaN,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 0,0,0,1 ],NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1,2,3,4 ], [ 1,2,3,4,5 ], [ 1,2,3,4,5 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1,2,3,4 ], [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1,2,3,4,5 ], [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 1,2,3,4,5 ], [ 1,2,3,4, - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( null, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 0,0,0,1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( NaN, [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleClosestPoint( [ 0,0,0,1 ], NaN ) );
 }
 
 //
@@ -2991,10 +2991,10 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 3,3,3,2 ];
 
@@ -3007,10 +3007,10 @@ function frustumContains( test )
 
   var oldFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   test.identical( tstFrustum,oldFrustum );
 
@@ -3018,10 +3018,10 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,2 ];
 
@@ -3033,10 +3033,10 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,Math.sqrt( 3 ) + 0.1 ];
 
@@ -3048,10 +3048,10 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,Math.sqrt( 3 ) + test.accuracy ];
 
@@ -3063,10 +3063,10 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,Math.sqrt( 3 ) - test.accuracy ];
 
@@ -3078,10 +3078,10 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 5,5,5,1 ];
 
@@ -3093,10 +3093,10 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 2,2,2,2 ];
 
@@ -3120,23 +3120,23 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
 
   test.shouldThrowErrorSync( () => _.sphere.frustumContains( ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere','frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ],'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ],null ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], null ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumContains( null,tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ],NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ], NaN ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumContains( NaN,tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3 ] ,tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3 ] , tstFrustum ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumContains( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
 
 }
 
@@ -3148,10 +3148,10 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 3,3,3,2 ];
 
@@ -3164,10 +3164,10 @@ function frustumDistance( test )
 
   var oldFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   test.identical( tstFrustum,oldFrustum );
 
@@ -3175,10 +3175,10 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,2 ];
 
@@ -3190,10 +3190,10 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,Math.sqrt( 3 ) + 0.1 ];
 
@@ -3205,10 +3205,10 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,Math.sqrt( 3 ) - test.accuracy ];
 
@@ -3220,10 +3220,10 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 5,5,5,1 ];
 
@@ -3235,10 +3235,10 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 2,2,2,2 ];
 
@@ -3250,10 +3250,10 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,3,0,1 ];
 
@@ -3277,23 +3277,23 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
 
   test.shouldThrowErrorSync( () => _.sphere.frustumDistance( ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( 'sphere','frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ],'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( 'sphere',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ],null ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ], 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ], null ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumDistance( null,tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ],NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ], NaN ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumDistance( NaN,tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3 ] ,tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3 ] , tstFrustum ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumDistance( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
 
 }
 
@@ -3305,10 +3305,10 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 3,0,0,1 ];
 
@@ -3321,10 +3321,10 @@ function frustumClosestPoint( test )
 
   var oldFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   test.identical( tstFrustum,oldFrustum );
 
@@ -3332,10 +3332,10 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,2 ];
 
@@ -3347,10 +3347,10 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-  0,  0,  0,  0,- 1,  1,
-  1,- 1,  0,  0,  0,  0,
-  0,  0,  1,- 1,  0,  0,
-  - 1,  0,- 1,  0,  0,- 1 ]
+  0,0,0,0, - 1,1, 
+  1, - 1,0,0,0,0, 
+  0,0,1, - 1,0,0, 
+  - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 2,2,2,2 ];
 
@@ -3362,10 +3362,10 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,1 ];
 
@@ -3377,10 +3377,10 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,5,1,1 ];
 
@@ -3392,10 +3392,10 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,3,3,1 ];
 
@@ -3407,10 +3407,10 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 3,3,3,1 ];
 
@@ -3434,23 +3434,23 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
 
   test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere','frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ],'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ],null ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ], 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ], null ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( null,tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ],NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ], NaN ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( NaN,tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3 ] ,tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3 ] , tstFrustum ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
 
 }
 
@@ -3462,10 +3462,10 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 3,0,0,1 ];
 
@@ -3478,10 +3478,10 @@ function frustumExpand( test )
 
   var oldFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   test.identical( tstFrustum,oldFrustum );
 
@@ -3489,10 +3489,10 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,2 ];
 
@@ -3504,10 +3504,10 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-  0,  0,  0,  0,- 1,  1,
-  1,- 1,  0,  0,  0,  0,
-  0,  0,  1,- 1,  0,  0,
-  - 1,  0,- 1,  0,  0,- 1 ]
+  0,0,0,0, - 1,1, 
+  1, - 1,0,0,0,0, 
+  0,0,1, - 1,0,0, 
+  - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 2,2,2,2 ];
 
@@ -3519,10 +3519,10 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,0,0,1 ];
 
@@ -3534,10 +3534,10 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,5,1,1 ];
 
@@ -3549,10 +3549,10 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 0,3,3,1 ];
 
@@ -3564,10 +3564,10 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
   var srcSphere = [ 3,3,3,1 ];
 
@@ -3591,23 +3591,23 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4,6 ] ).copy
   ([
-    0,  0,  0,  0,- 1,  1,
-    1,- 1,  0,  0,  0,  0,
-    0,  0,  1,- 1,  0,  0,
-    - 1,  0,- 1,  0,  0,- 1 ]
+    0,0,0,0, - 1,1, 
+    1, - 1,0,0,0,0, 
+    0,0,1, - 1,0,0, 
+    - 1,0, - 1,0,0, - 1 ]
   );
 
   test.shouldThrowErrorSync( () => _.sphere.frustumExpand( ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere','frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ],'frustum' ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ],null ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere', 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ], 'frustum' ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ], null ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumExpand( null,tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ],NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ], NaN ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumExpand( NaN,tstFrustum ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3 ] ,tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3 ] , tstFrustum ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,tstFrustum ) );
+  test.shouldThrowErrorSync( () => _.sphere.frustumExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , tstFrustum ) );
 
 }
 
@@ -3618,14 +3618,14 @@ function lineClosestPoint( test )
 
   test.case = 'Source sphere and line remain unchanged'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,2 ];
+  var srcSphere = [ - 1, - 1, -1,2 ];
   var tstLine = [ 0,0,0,1,1,1 ];
   var expected = 0;
 
   var gotLine = _.sphere.lineClosestPoint( srcSphere,tstLine );
   test.identical( expected,gotLine );
 
-  var oldSrcSphere = [ - 1,- 1,-1,2 ];
+  var oldSrcSphere = [ - 1, - 1, -1,2 ];
   test.identical( srcSphere,oldSrcSphere );
 
   var oldTstLine = [ 0,0,0,1,1,1 ];
@@ -3633,7 +3633,7 @@ function lineClosestPoint( test )
 
   test.case = 'sphere and line intersect'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,3 ];
+  var srcSphere = [ - 1, - 1, -1,3 ];
   var tstLine = [ 0,0,0,1,1,1 ];
   var expected = 0;
 
@@ -3642,8 +3642,8 @@ function lineClosestPoint( test )
 
   test.case = 'Line origin touches sphere'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,1 ];
-  var tstLine = [ -1,-1,0,0,0,1 ];
+  var srcSphere = [ - 1, - 1, -1,1 ];
+  var tstLine = [ -1, -1,0,0,0,1 ];
   var expected = 0;
 
   var gotLine = _.sphere.lineClosestPoint( srcSphere,tstLine );
@@ -3651,8 +3651,8 @@ function lineClosestPoint( test )
 
   test.case = 'Negative factor'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,1 ];
-  var tstLine = [ - 1,-1,2,0,0,1 ];
+  var srcSphere = [ - 1, - 1, -1,1 ];
+  var tstLine = [ - 1, -1,2,0,0,1 ];
   var expected = 0;
 
   var gotLine = _.sphere.lineClosestPoint( srcSphere,tstLine );
@@ -3660,9 +3660,9 @@ function lineClosestPoint( test )
 
   test.case = 'Line and sphere don´t intersect'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,1 ];
-  var tstLine = [ - 1,-1,2,0,1,0 ];
-  var expected = [ - 1,- 1,0 ];
+  var srcSphere = [ - 1, - 1, -1,1 ];
+  var tstLine = [ - 1, -1,2,0,1,0 ];
+  var expected = [ - 1, - 1,0 ];
 
   var gotLine = _.sphere.lineClosestPoint( srcSphere,tstLine );
   test.identical( expected,gotLine );
@@ -3705,13 +3705,13 @@ function lineClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [] ) );
-  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( 'sphere','line' ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( 'sphere', 'line' ) );
   test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint(  null,NaN ) );
   test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0,0,0,0,0,0 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0,0,0,1,1,1 ],[ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2 ],undefined ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0,0,0,1,1,1 ], [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.lineClosestPoint( [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2 ], undefined ) );
 
 }
 
@@ -3781,7 +3781,7 @@ function planeClosestPoint( test )
   test.case = 'Plane separate from sphere - plane over sphere'; /* */
 
   var srcSphere = [ 0,0,0,1 ];
-  var tstPlane = [ 1,0,0,- 3 ];
+  var tstPlane = [ 1,0,0, - 3 ];
   var expected = [ 1,0,0 ];
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere,tstPlane );
 
@@ -3792,7 +3792,7 @@ function planeClosestPoint( test )
   var srcSphere = [ 2,2,0,1 ];
   var tstPlane = [ 1,1,0,0 ];
   var dstPoint = [ 0,0,0 ];
-  var expected = [ 1.2928932188134525, 1.2928932188134525,0 ];
+  var expected = [ 1.2928932188134525,1.2928932188134525,0 ];
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere,tstPlane,dstPoint );
 
   test.equivalent( gotClosestPoint,expected );
@@ -3813,17 +3813,17 @@ function planeClosestPoint( test )
   return;
 
   test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne','sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ],'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( null,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ],NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( NaN,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] ,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeClosestPoint( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
 
 }
 
@@ -3893,7 +3893,7 @@ function planeExpand( test )
   test.case = 'Plane separate from sphere - plane over sphere'; /* */
 
   var srcSphere = [ 0,0,0,1 ];
-  var tstPlane = [ 1,0,0,- 3 ];
+  var tstPlane = [ 1,0,0, - 3 ];
   var expected = [ 0,0,0,3 ];
   var gotExpand = _.sphere.planeExpand( srcSphere,tstPlane );
 
@@ -3923,17 +3923,17 @@ function planeExpand( test )
   return;
 
   test.shouldThrowErrorSync( () => _.sphere.planeExpand( ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne','sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ],'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( null,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ],NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( NaN,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] ,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.planeExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
 
 }
 
@@ -3944,14 +3944,14 @@ function rayClosestPoint( test )
 
   test.case = 'Source sphere and ray remain unchanged'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,2 ];
+  var srcSphere = [ - 1, - 1, -1,2 ];
   var tstRay = [ 0,0,0,1,1,1 ];
   var expected = 0;
 
   var gotRay = _.sphere.rayClosestPoint( srcSphere,tstRay );
   test.identical( expected,gotRay );
 
-  var oldSrcSphere = [ - 1,- 1,-1,2 ];
+  var oldSrcSphere = [ - 1, - 1, -1,2 ];
   test.identical( srcSphere,oldSrcSphere );
 
   var oldTstRay = [ 0,0,0,1,1,1 ];
@@ -3959,7 +3959,7 @@ function rayClosestPoint( test )
 
   test.case = 'sphere and ray intersect'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,3 ];
+  var srcSphere = [ - 1, - 1, -1,3 ];
   var tstRay = [ 0,0,0,1,1,1 ];
   var expected = 0;
 
@@ -3968,8 +3968,8 @@ function rayClosestPoint( test )
 
   test.case = 'Ray origin touches sphere'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,1 ];
-  var tstRay = [ -1,-1,0,0,0,1 ];
+  var srcSphere = [ - 1, - 1, -1,1 ];
+  var tstRay = [ -1, -1,0,0,0,1 ];
   var expected = 0;
 
   var gotRay = _.sphere.rayClosestPoint( srcSphere,tstRay );
@@ -3977,9 +3977,9 @@ function rayClosestPoint( test )
 
   test.case = 'Ray and sphere don´t intersect'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,1 ];
-  var tstRay = [ - 1,-1,2,0,0,1 ];
-  var expected = [ - 1,- 1,0 ];
+  var srcSphere = [ - 1, - 1, -1,1 ];
+  var tstRay = [ - 1, -1,2,0,0,1 ];
+  var expected = [ - 1, - 1,0 ];
 
   var gotRay = _.sphere.rayClosestPoint( srcSphere,tstRay );
   test.identical( expected,gotRay );
@@ -4022,13 +4022,13 @@ function rayClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [] ) );
-  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( 'sphere','ray' ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( 'sphere', 'ray' ) );
   test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint(  null,NaN ) );
   test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0,0,0,0,0,0 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0,0,0,1,1,1 ],[ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2 ],undefined ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0,0,0,1,1,1 ], [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2 ], undefined ) );
 
 }
 
@@ -4039,14 +4039,14 @@ function segmentClosestPoint( test )
 
   test.case = 'Source sphere and segment remain unchanged'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,2 ];
+  var srcSphere = [ - 1, - 1, -1,2 ];
   var tstSegment = [ 0,0,0,1,1,1 ];
   var expected = 0;
 
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere,tstSegment );
   test.identical( expected,gotSegment );
 
-  var oldSrcSphere = [ - 1,- 1,-1,2 ];
+  var oldSrcSphere = [ - 1, - 1, -1,2 ];
   test.identical( srcSphere,oldSrcSphere );
 
   var oldTstSegment = [ 0,0,0,1,1,1 ];
@@ -4054,7 +4054,7 @@ function segmentClosestPoint( test )
 
   test.case = 'sphere and segment intersect'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,3 ];
+  var srcSphere = [ - 1, - 1, -1,3 ];
   var tstSegment = [ 0,0,0,1,1,1 ];
   var expected = 0;
 
@@ -4063,8 +4063,8 @@ function segmentClosestPoint( test )
 
   test.case = 'Segment origin touches sphere'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,1 ];
-  var tstSegment = [ -1,-1,0,0,0,1 ];
+  var srcSphere = [ - 1, - 1, -1,1 ];
+  var tstSegment = [ -1, -1,0,0,0,1 ];
   var expected = 0;
 
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere,tstSegment );
@@ -4072,8 +4072,8 @@ function segmentClosestPoint( test )
 
   test.case = 'Segment end touches sphere'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,1 ];
-  var tstSegment = [ -7,-1,-1,-1,-1,0 ];
+  var srcSphere = [ - 1, - 1, -1,1 ];
+  var tstSegment = [ -7, -1, -1, -1, -1,0 ];
   var expected = 0;
 
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere,tstSegment );
@@ -4082,9 +4082,9 @@ function segmentClosestPoint( test )
 
   test.case = 'Negative factor - no intersection'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,1 ];
-  var tstSegment = [ - 1,-1,2,-1,-1,5 ];
-  var expected = [ -1,-1,0 ];
+  var srcSphere = [ - 1, - 1, -1,1 ];
+  var tstSegment = [ - 1, -1,2, -1, -1,5 ];
+  var expected = [ -1, -1,0 ];
 
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere,tstSegment );
   test.identical( expected,gotSegment );
@@ -4092,18 +4092,18 @@ function segmentClosestPoint( test )
 
   test.case = 'Positive factor - no intersection'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,1 ];
-  var tstSegment = [ - 1,-1,-5,-1,-1,-3 ];
-  var expected = [ -1,-1,-2 ];
+  var srcSphere = [ - 1, - 1, -1,1 ];
+  var tstSegment = [ - 1, -1, -5, -1, -1, -3 ];
+  var expected = [ -1, -1, -2 ];
 
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere,tstSegment );
   test.identical( expected,gotSegment );
 
   test.case = 'Segment and sphere don´t intersect'; /* */
 
-  var srcSphere = [ - 1,- 1,-1,2 ];
-  var tstSegment = [ - 1,-1,3,- 1,- 1,2 ];
-  var expected = [ - 1,- 1,1 ];
+  var srcSphere = [ - 1, - 1, -1,2 ];
+  var tstSegment = [ - 1, -1,3, - 1, - 1,2 ];
+  var expected = [ - 1, - 1,1 ];
 
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere,tstSegment );
   test.identical( expected,gotSegment );
@@ -4111,7 +4111,7 @@ function segmentClosestPoint( test )
   test.case = 'Closest point to segment side'; /* */
 
   var srcSphere = [ 0,0,0,1 ];
-  var tstSegment = [ 5,2,0,-5,2,0 ];
+  var tstSegment = [ 5,2,0, -5,2,0 ];
   var expected = [ 0,1,0 ];
 
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere,tstSegment );
@@ -4121,7 +4121,7 @@ function segmentClosestPoint( test )
 
   var srcSphere = [ 0,0,0,1 ];
   var tstSegment = [ 3,0,0,0,3,0 ];
-  var expected = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ),0 ];
+  var expected = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0 ];
 
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere,tstSegment );
   test.equivalent( expected,gotSegment );
@@ -4155,13 +4155,13 @@ function segmentClosestPoint( test )
 
   test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [] ) );
-  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( 'sphere','segment' ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( 'sphere', 'segment' ) );
   test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint(  null,NaN ) );
   test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0,0,0,0,0,0 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0,0,0,1,1,1 ],[ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0,1,0,1,2,1 ],[ 1,0,1,2,1,2 ],undefined ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0,0,0,1,1,1 ], [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentClosestPoint( [ 0,1,0,1,2,1 ], [ 1,0,1,2,1,2 ], undefined ) );
 
 }
 
@@ -4279,17 +4279,17 @@ function sphereContains( test )
   return;
 
   test.shouldThrowErrorSync( () => _.sphere.sphereContains( ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( 'sphereOne','sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ],'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( 'sphereOne',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( null,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ],NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( NaN,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ] ,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereContains( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
 
 }
 
@@ -4394,13 +4394,13 @@ function sphereIntersects( test )
   return;
 
   test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( 'sphereOne','sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ],'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( 'sphereOne',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ] ,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereIntersects( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
 
 }
 
@@ -4461,7 +4461,7 @@ function sphereDistance( test )
   test.case = 'Different centers 2D'; /* */
 
   var srcSphere = [ 2,2,0,1 ];
-  var tstSphere = [ -2,-2,0,1 ];
+  var tstSphere = [ -2, -2,0,1 ];
   var expected = Math.sqrt( 32 ) - 2;
   var gotDistance = _.sphere.sphereDistance( srcSphere,tstSphere );
 
@@ -4470,7 +4470,7 @@ function sphereDistance( test )
   test.case = 'Different centers 3D'; /* */
 
   var srcSphere = [ 2,2,2,1 ];
-  var tstSphere = [ -2,-2,-2,1 ];
+  var tstSphere = [ -2, -2, -2,1 ];
   var expected = Math.sqrt( 48 ) - 2;
   var gotDistance = _.sphere.sphereDistance( srcSphere,tstSphere );
 
@@ -4491,17 +4491,17 @@ function sphereDistance( test )
   return;
 
   test.shouldThrowErrorSync( () => _.sphere.sphereDistance( ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( 'sphereOne','sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ],'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( 'sphereOne',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( null,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ],NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( NaN,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ] ,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereDistance( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
 
 }
 
@@ -4562,8 +4562,8 @@ function sphereClosestPoint( test )
   test.case = 'Different centers 2D'; /* */
 
   var srcSphere = [ 2,2,0,1 ];
-  var tstSphere = [ -2,-2,0,1 ];
-  var expected = [ 1.2928932188134525, 1.2928932188134525,0 ];
+  var tstSphere = [ -2, -2,0,1 ];
+  var expected = [ 1.2928932188134525,1.2928932188134525,0 ];
   var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere,tstSphere );
 
   test.equivalent( gotClosestPoint,expected );
@@ -4571,7 +4571,7 @@ function sphereClosestPoint( test )
   test.case = 'Different centers 3D'; /* */
 
   var srcSphere = [ 2,2,2,1 ];
-  var tstSphere = [ -2,-2,-2,1 ];
+  var tstSphere = [ -2, -2, -2,1 ];
   var expected = [ 1.4226497308103743,1.4226497308103743,1.4226497308103743 ];
   var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere,tstSphere );
 
@@ -4589,9 +4589,9 @@ function sphereClosestPoint( test )
   test.case = 'DstPoint is array'; /* */
 
   var srcSphere = [ 2,2,0,1 ];
-  var tstSphere = [ -2,-2,0,2 ];
+  var tstSphere = [ -2, -2,0,2 ];
   var dstPoint = [ 0,0,0 ];
-  var expected = [ 1.2928932188134525, 1.2928932188134525,0 ];
+  var expected = [ 1.2928932188134525,1.2928932188134525,0 ];
   var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere,tstSphere,dstPoint );
 
   test.equivalent( gotClosestPoint,expected );
@@ -4599,7 +4599,7 @@ function sphereClosestPoint( test )
   test.case = 'DstPoint is vector'; /* */
 
   var srcSphere = [ 2,2,2,1 ];
-  var tstSphere = [ -2,-2,-2,1 ];
+  var tstSphere = [ -2, -2, -2,1 ];
   var dstPoint = _.vectorAdapter.fromLong( [ 0,0,0 ] );
   var expected = _.vectorAdapter.fromLong( [ 1.4226497308103743,1.4226497308103743,1.4226497308103743 ] );
   var gotClosestPoint = _.sphere.sphereClosestPoint( srcSphere,tstSphere,dstPoint );
@@ -4612,17 +4612,17 @@ function sphereClosestPoint( test )
   return;
 
   test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( 'sphereOne','sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ],'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( 'sphereOne',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ],null ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( null,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ],NaN ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( NaN,[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ] ,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( null, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( NaN, [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereClosestPoint( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
 
 }
 
@@ -4685,7 +4685,7 @@ function sphereExpand( test )
   test.case = 'different radius,overlap';
 
   var s1 = [ 1,2,3,5 ];
-  var s2 = [ -1,-2,-3,5 ];
+  var s2 = [ -1, -2, -3,5 ];
   var expected = [ 1,2,3,12.483314773547882 ];
   var got = _.sphere.sphereExpand( s1,s2 );
 
@@ -4776,7 +4776,7 @@ function sphereExpand( test )
 
   var s1 = _.sphere.makeNil();
   var s2 = _.sphere.makeNil();
-  var expected = [ 0,0,0,-Infinity ];
+  var expected = [ 0,0,0, -Infinity ];
   var got = _.sphere.sphereExpand( s1,s2 );
 
   test.identical( got,expected );
@@ -4786,13 +4786,13 @@ function sphereExpand( test )
   return;
 
   test.shouldThrowErrorSync( () => _.sphere.sphereExpand( ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'sphereOne','sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ],'sphereTwo' ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'sphereOne',[ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] ,[ 1,2,3 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'sphereOne', 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ], 'sphereTwo' ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( 'sphereOne', [ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] , [ 1,2,3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3 ] , [ 1,2,3,4 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] ) );
-  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] ,[ 1,2,3,4 ] ,[ 1,2,3,4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.sphereExpand( [ 1,2,3,4 ] , [ 1,2,3,4 ] , [ 1,2,3,4 ] ) );
 
 }
 
@@ -4806,70 +4806,70 @@ function sphereExpand( test )
 var Self =
 {
 
-  name : 'Tools.Math.Sphere',
-  silencing : 1,
-  enabled : 1,
-  // verbosity : 7,
-  // debug : 1,
-  // routine : 'frustumExpand',
+  name : 'Tools.Math.Sphere', 
+  silencing : 1, 
+  enabled : 1, 
+  // verbosity : 7, 
+  // debug : 1, 
+  // routine : 'frustumExpand', 
 
   tests :
   {
 
-    make,
-    makeZero,
-    makeNil,
+    make, 
+    makeZero, 
+    makeNil, 
 
-    zero,
-    nil,
-    centeredOfRadius,
+    zero, 
+    nil, 
+    centeredOfRadius, 
 
-    fromPoints,
-    fromBox,
-    fromCenterAndRadius,
+    fromPoints, 
+    fromBox, 
+    fromCenterAndRadius, 
 
-    is,
-    isEmpty,
-    isZero,
-    isNil,
+    is, 
+    isEmpty, 
+    isZero, 
+    isNil, 
 
-    dimGet,
-    centerGet,
-    radiusGet,
-    radiusSet,
+    dimGet, 
+    centerGet, 
+    radiusGet, 
+    radiusSet, 
 
-    pointContains,
-    pointDistance,
-    pointClosestPoint,
-    pointExpand,
+    pointContains, 
+    pointDistance, 
+    pointClosestPoint, 
+    pointExpand, 
 
-    boxContains,
-    boxIntersects,
-    boxClosestPoint,
-    boxExpand,
-    boundingBoxGet,
+    boxContains, 
+    boxIntersects, 
+    boxClosestPoint, 
+    boxExpand, 
+    boundingBoxGet, 
 
-    capsuleClosestPoint,
+    capsuleClosestPoint, 
 
-    frustumContains,
-    frustumDistance,
-    frustumClosestPoint,
-    frustumExpand,
+    frustumContains, 
+    frustumDistance, 
+    frustumClosestPoint, 
+    frustumExpand, 
 
-    lineClosestPoint,
+    lineClosestPoint, 
 
-    planeClosestPoint,
-    planeExpand,
+    planeClosestPoint, 
+    planeExpand, 
 
-    rayClosestPoint,
+    rayClosestPoint, 
 
-    segmentClosestPoint,
+    segmentClosestPoint, 
 
-    sphereContains,
-    sphereIntersects,
-    sphereDistance,
-    sphereClosestPoint,
-    sphereExpand,
+    sphereContains, 
+    sphereIntersects, 
+    sphereDistance, 
+    sphereClosestPoint, 
+    sphereExpand, 
   }
 
 }

@@ -11,10 +11,10 @@ let Self = _.sphere = _.sphere || Object.create( null );
  * @description
  * A sphere is the space enclosed by all the points at a given distance to a center:
  *
- * For the following functions, spheres must have the shape [ centerX, centerY, centerZ, radius ],
- * where the dimension equals the object´s length minus one.
+ * For the following functions,spheres must have the shape [ centerX,centerY,centerZ,radius ],
+ * where the dimension equals the long's length minus one.
  *
- * Moreover, centerX, centerY, centerZ are the coordinates of the center of the sphere,
+ * Moreover,centerX,centerY,centerZ are the coordinates of the center of the sphere,
  * and radius is the radius pf the sphere.
  * @namespace "wTools.sphere"
  * @memberof module:Tools/math/Concepts
@@ -24,13 +24,14 @@ let Self = _.sphere = _.sphere || Object.create( null );
 
   A sphere is the space enclosed by all the points at a given distance to a center:
 
-  For the following functions, spheres must have the shape [ centerX, centerY, centerZ, radius ],
-where the dimension equals the object´s length minus one.
+  For the following functions,spheres must have the shape [ centerX,centerY,centerZ,radius ],
+where the dimension equals the long's length minus one.
 
-  Moreover, centerX, centerY, centerZ are the coordinates of the center of the sphere,
+  Moreover,centerX,centerY,centerZ are the coordinates of the center of the sphere,
 and radius is the radius pf the sphere.
 
 */
+
 // --
 //
 // --
@@ -42,12 +43,12 @@ and radius is the radius pf the sphere.
   * @param { Number } dim - Dimension of the created sphere.
   *
   * @example
-  * // returns [ 0, 0, 0, 0 ];
+  * // returns [ 0,0,0,0 ];
   * _.make( 3 );
   *
   * @example
-  * // returns [ 0, 0, 0, 1 ];
-  * _.make( [ 0, 0, 0, 1 ] );
+  * // returns [ 0,0,0,1 ];
+  * _.make( [ 0,0,0,1 ] );
   *
   * @returns { Array } Returns the array of the created sphere.
   * @function make
@@ -60,7 +61,7 @@ function make( dim )
   _.assert( arguments.length === 0 || arguments.length === 1 );
   let result = _.sphere.makeZero( dim );
   if( _.sphere.is( dim ) )
-  _.avector.assign( result, dim );
+  _.avector.assign( result,dim );
   return result;
 }
 
@@ -73,12 +74,12 @@ function make( dim )
   * @param { Number } dim - Dimension of the created sphere.
   *
   * @example
-  * // returns [ 0, 0, 0, 0 ];
+  * // returns [ 0,0,0,0 ];
   * _.makeZero( 3 );
   *
   * @example
-  * // returns [ 0, 0, 0, 0 ];
-  * _.makeZero( [ 0, 0, 0, 1 ] );
+  * // returns [ 0,0,0,0 ];
+  * _.makeZero( [ 0,0,0,1 ] );
   *
   * @returns { Array } Returns the array of the created sphere.
   * @function makeZero
@@ -97,7 +98,7 @@ function makeZero( dim )
   _.assert( arguments.length === 0 || arguments.length === 1 );
   _.assert( _.numberIs( dim ) );
 
-  let result = _.dup( 0, dim+1 );
+  let result = _.dup( 0,dim+1 );
 
   return result;
 }
@@ -111,12 +112,12 @@ function makeZero( dim )
   * @param { Number } dim - Dimension of the created sphere.
   *
   * @example
-  * // returns [ 0, 0, 0, - Infinity ];
+  * // returns [ 0,0,0, - Infinity ];
   * _.makeNil( 3 );
   *
   * @example
-  * // returns [ 0, 0, 0, - Infinity ];
-  * _.makeNil( [ 0, 2, 0, 1 ] );
+  * // returns [ 0,0,0, - Infinity ];
+  * _.makeNil( [ 0,2,0,1 ] );
   *
   * @returns { Array } Returns the array of the created sphere.
   * @function makeNil
@@ -140,12 +141,12 @@ function makeNil( dim )
   * @param { Array } sphere - Destination sphere.
   *
   * @example
-  * // returns [ 0, 0, 0, 0 ];
+  * // returns [ 0,0,0,0 ];
   * _.zero( 3 );
   *
   * @example
-  * // returns [ 0, 0, 0, 0 ];
-  * _.zero( [ 0, 2, 0, 1 ] );
+  * // returns [ 0,0,0,0 ];
+  * _.zero( [ 0,2,0,1 ] );
   *
   * @returns { Array } Returns the array of the transformed sphere.
   * @function zero
@@ -160,7 +161,7 @@ function zero( sphere )
 
   let sphereView = _.sphere.toAdapter( sphere );
   for( let i = 0 ; i < sphereView.length ; i++ )
-  sphereView.eSet( i, 0 );
+  sphereView.eSet( i,0 );
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
   _.assert( _.sphere.is( sphere ) );
@@ -176,12 +177,12 @@ function zero( sphere )
   * @param { Array } sphere - Destination sphere.
   *
   * @example
-  * // returns [ 0, 0, 0, - Infinity ];
+  * // returns [ 0,0,0, - Infinity ];
   * _.nil( 3 );
   *
   * @example
-  * // returns [ 0, 0, 0, - Infinity ];
-  * _.nil( [ 0, 2, 0, 1 ] );
+  * // returns [ 0,0,0, - Infinity ];
+  * _.nil( [ 0,2,0,1 ] );
   *
   * @returns { Array } Returns the array of the transformed sphere.
   * @function nil
@@ -196,7 +197,7 @@ function nil( sphere )
 
   let sphereView = _.sphere.toAdapter( sphere );
   for( let i = 0 ; i < sphereView.length-1 ; i++ )
-  sphereView.eSet( i, 0 );
+  sphereView.eSet( i,0 );
   sphereView.eSet( sphereView.length-1, -Infinity );
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
@@ -215,16 +216,16 @@ function nil( sphere )
   * @param { Number } radius - Source radius.
   *
   * @example
-  * // returns [ 0, 0, 0, 0.5 ];
-  * _.centeredOfRadius( [ 1, 1, 1, 2] );
+  * // returns [ 0,0,0,0.5 ];
+  * _.centeredOfRadius( [ 1,1,1,2] );
   *
   * @example
-  * // returns [ 0, 0, 0, 3 ];
+  * // returns [ 0,0,0,3 ];
   * _.centeredOfRadius( 3 );
   *
   * @example
-  * // returns [ 0, 0, 0, 3 ];
-  * _.centeredOfSize( [ 1, 1, 2, 2], 3 );
+  * // returns [ 0,0,0,3 ];
+  * _.centeredOfSize( [ 1,1,2,2], 3 );
   *
   * @returns { Array } Returns the created sphere.
   * @function centeredOfRadius
@@ -232,7 +233,7 @@ function nil( sphere )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function centeredOfRadius( sphere, radius )
+function centeredOfRadius( sphere,radius )
 {
   _.assert( arguments.length === 1 || arguments.length === 2 );
   _.assert( _.numberIs( radius ) );
@@ -240,7 +241,7 @@ function centeredOfRadius( sphere, radius )
   sphere = _.sphere.zero( sphere );
   _.assert( _.sphere.is( sphere ) );
 
-  _.sphere.radiusSet( sphere, radius );
+  _.sphere.radiusSet( sphere,radius );
 
   return sphere;
 }
@@ -255,8 +256,8 @@ function centeredOfRadius( sphere, radius )
   * @param { Number } options - Source options.
   *
   * @example
-  * // returns [ 1, 1, 2, 2 ];
-  * _.toStr( [ 1, 1, 2, 2] );
+  * // returns [ 1,1,2,2 ];
+  * _.toStr( [ 1,1,2,2] );
   *
   * @returns { String } Returns an string with the box information.
   * @function toStr
@@ -264,7 +265,7 @@ function centeredOfRadius( sphere, radius )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function toStr( sphere, options )
+function toStr( sphere,options )
 {
   _.assert( arguments.length === 1 || arguments.length === 2 );
   _.assert( _.sphere.is( sphere ) );
@@ -274,7 +275,7 @@ function toStr( sphere, options )
   // let radius = _.sphere.radiusGet( sphereView );
   // let dim = _.sphere.dimGet( sphereView );
 
-  return _.toStr( sphere, options );
+  return _.toStr( sphere,options );
   debugger;
 }
 
@@ -286,12 +287,12 @@ function toStr( sphere, options )
   * @param { Array } sphere - Destination sphere.
   *
   * @example
-  * // returns [ 1, 1, 2, 2 ];
-  * _.from( [ 1, 1, 2, 2 ] );
+  * // returns [ 1,1,2,2 ];
+  * _.from( [ 1,1,2,2 ] );
   *
   * @example
-  * // returns _.vectorAdapter.from( [ 1, 1, 2, 2 ] );
-  * _.from( _.vectorAdapter.from( [ 1, 1, 2, 2 ] ) );
+  * // returns _.vectorAdapter.from( [ 1,1,2,2 ] );
+  * _.from( _.vectorAdapter.from( [ 1,1,2,2 ] ) );
   *
   * @function from
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
@@ -332,8 +333,8 @@ function from( sphere )
   * @param { Array } sphere - Destination sphere.
   *
   * @example
-  * // returns _.vectorAdapter.from( [ 1, 1, 2, 2 ] );
-  * _.toAdapter( [ 1, 1, 2, 2 ] );
+  * // returns _.vectorAdapter.from( [ 1,1,2,2 ] );
+  * _.toAdapter( [ 1,1,2,2 ] );
   *
   * @returns { Vector } Returns the vector of the sphere.
   * @function toAdapter
@@ -352,18 +353,18 @@ function toAdapter( sphere )
 
 /**
   * Create or expand a sphere from an array of points. Returns the expanded sphere. Spheres are stored in Array data structure.
-  * Points stay untouched, sphere changes. Created spheres have center in origin.
+  * Points stay untouched,sphere changes. Created spheres have center in origin.
   *
   * @param { Array } sphere - sphere to be expanded.
   * @param { Array } points - Array of points of reference with expansion dimensions.
   *
   * @example
-  * // returns [ 0, 0, 0, 3 ];
-  * _.fromPoints( null , [ [ 0, 0, 3 ], [ 0, 2, 0 ], [ 1, 0, 0 ] ] );
+  * // returns [ 0,0,0,3 ];
+  * _.fromPoints( null , [ [ 0,0,3 ], [ 0,2,0 ], [ 1,0,0 ] ] );
   *
   * @example
-  * // returns [ 0, - 1, 2 ];
-  * _.fromPoints( [ 0, - 1, 1 ], [ [ 1, 0 ], [ 0, -3 ], [ 0, 0 ] ] );
+  * // returns [ 0, - 1,2 ];
+  * _.fromPoints( [ 0, - 1,1 ], [ [ 1,0 ], [ 0, -3 ], [ 0,0 ] ] );
   *
   * @returns { Array } Returns the array of the sphere expanded.
   * @function fromPoints
@@ -373,7 +374,7 @@ function toAdapter( sphere )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function fromPoints( sphere, points )
+function fromPoints( sphere,points )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -394,7 +395,7 @@ function fromPoints( sphere, points )
 
   for ( let i = 0 ; i < points.length ; i += 1 )
   {
-    maxr = Math.max( maxr, _.vectorAdapter.distanceSqr( center , _.vectorAdapter.from( points[ i ] ) ) );
+    maxr = Math.max( maxr,_.vectorAdapter.distanceSqr( center , _.vectorAdapter.from( points[ i ] ) ) );
   }
 
   debugger;
@@ -407,14 +408,14 @@ function fromPoints( sphere, points )
 
 /**
   * Create or expand a sphere from a box. Returns the expanded sphere. Spheres are stored in Array data structure.
-  * Box stay untouched, sphere changes.
+  * Box stay untouched,sphere changes.
   *
   * @param { Array } sphere - sphere to be expanded.
   * @param { Array } box - box of reference with expansion dimensions.
   *
   * @example
-  * // returns [ 0, 0, 0, Math.sqrt( 27 ) ];
-  * _.fromBox( null , [ - 3, - 3, -3, 3, 3, 3 ] );
+  * // returns [ 0,0,0,Math.sqrt( 27 ) ];
+  * _.fromBox( null , [ - 3, - 3, -3,3,3,3 ] );
   *
   * @returns { Array } Returns the array of the sphere expanded.
   * @function fromBox
@@ -424,7 +425,7 @@ function fromPoints( sphere, points )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function fromBox( sphere, box )
+function fromBox( sphere,box )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -448,14 +449,14 @@ function fromBox( sphere, box )
   //  _.assert( dim === _.sphere.dimGet(  sphere) );
 
   center.copy( min );
-  vector.addVectors( center, max );
-  vector.divScalar( center, 2 );
+  vector.addVectors( center,max );
+  vector.divScalar( center,2 );
 
   /* radius based on 2 major dimensions */
 
   // debugger;
   // _.avector.sort( size );
-  // _.sphere.radiusSet( sphereView , _.avector.mag( size.slice( 1, 3 ) ) / 2 );
+  // _.sphere.radiusSet( sphereView , _.avector.mag( size.slice( 1,3 ) ) / 2 );
   _.sphere.radiusSet( sphereView , _.avector.mag( size ) / 2 );
 
   return sphere;
@@ -465,19 +466,19 @@ function fromBox( sphere, box )
 
 /**
   * Create or modify sphere coordinates from a center and a radius. Returns the modified sphere.
-  * Spheres are stored in Array data structure. Center and radius stay untouched, sphere changes.
+  * Spheres are stored in Array data structure. Center and radius stay untouched,sphere changes.
   *
   * @param { Array } sphere - sphere to be modified.
   * @param { Array } center - Array of coordinates for new center of sphere.
   * @param { Number } radius - Value for new radius of sphere.
   *
   * @example
-  * // returns [ 0, 2, 0, 1 ];
-  * _.fromCenterAndRadius( null , [ 0, 2, 0 ], 1 );
+  * // returns [ 0,2,0,1 ];
+  * _.fromCenterAndRadius( null , [ 0,2,0 ], 1 );
   *
   * @example
-  * // returns [ 1, 0, 2 ];
-  * _.fromCenterAndRadius( [ 0, - 1, 1 ], [ 1, 0 ], 2 );
+  * // returns [ 1,0,2 ];
+  * _.fromCenterAndRadius( [ 0, - 1,1 ], [ 1,0 ], 2 );
   *
   * @returns { Array } Returns the array of the sphere with new coordinates.
   * @function fromCenterAndRadius
@@ -488,7 +489,7 @@ function fromBox( sphere, box )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function fromCenterAndRadius( sphere, center, radius )
+function fromCenterAndRadius( sphere,center,radius )
 {
   _.assert( arguments.length === 3, 'Expects exactly three arguments' );
   _.assert( _.longIs( center ) );
@@ -518,7 +519,7 @@ function fromCenterAndRadius( sphere, center, radius )
   *
   * @example
   * // returns true;
-  * _.is( [ 0, 0, 0, 1 ] );
+  * _.is( [ 0,0,0,1 ] );
   *
   * @returns { Boolean } Returns true if the input is sphere
   * @function is
@@ -541,7 +542,7 @@ function is( sphere )
   *
   * @example
   * // returns true;
-  * _.isEmpty( [ 0, 0, 0, 0 ] );
+  * _.isEmpty( [ 0,0,0,0 ] );
   *
   * @returns { Boolean } Returns true if the input is an empty sphere
   * @function isEmpty
@@ -570,7 +571,7 @@ function isEmpty( sphere )
   *
   * @example
   * // returns true;
-  * _.isZero( [ 0, 0, 0, 0 ] );
+  * _.isZero( [ 0,0,0,0 ] );
   *
   * @returns { Boolean } Returns true if the input is a zero sphere
   * @function isZero
@@ -599,7 +600,7 @@ function isZero( sphere )
   *
   * @example
   * // returns true;
-  * _.isNil( [ 0, 0, 0, - Infinity ] );
+  * _.isNil( [ 0,0,0, - Infinity ] );
   *
   * @returns { Boolean } Returns true if the input is a nil sphere
   * @function isNil
@@ -639,11 +640,11 @@ function isNil( sphere )
   *
   * @example
   * // returns 3
-  * _.dimGet( [ 0, 0, 2, 2 ] );
+  * _.dimGet( [ 0,0,2,2 ] );
   *
   * @example
   * // returns 1
-  * _.dimGet( [ 0, 1 ] );
+  * _.dimGet( [ 0,1 ] );
   *
   * @returns { Number } Returns the dimension of the sphere.
   * @function dimGet
@@ -668,12 +669,12 @@ function dimGet( sphere )
   * @param { Array } sphere - The source sphere.
   *
   * @example
-  * // returns   0, 0, 2
-  * _.centerGet( [ 0, 0, 2, 2 ] );
+  * // returns   0,0,2
+  * _.centerGet( [ 0,0,2,2 ] );
   *
   * @example
   * // returns  0
-  * _.centerGet( [ 0, 1 ] );
+  * _.centerGet( [ 0,1 ] );
   *
   * @returns { Vector } Returns the coordinates of the center of the sphere.
   * @function centerGet
@@ -686,7 +687,7 @@ function centerGet( sphere )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   let sphereView = _.sphere.toAdapter( sphere );
-  return sphereView.review([ 0, sphere.length - 2 ]);
+  return sphereView.review([ 0,sphere.length - 2 ]);
 }
 
 //
@@ -699,11 +700,11 @@ function centerGet( sphere )
   *
   * @example
   * // returns 2
-  * _.radiusGet( [ 0, 0, 2, 2 ] );
+  * _.radiusGet( [ 0,0,2,2 ] );
   *
   * @example
   * // returns  1
-  * _.radiusGet( [ 0, 1 ] );
+  * _.radiusGet( [ 0,1 ] );
   *
   * @returns { Number } Returns the radius of the sphere.
   * @function radiusGet
@@ -730,12 +731,12 @@ function radiusGet( sphere )
   * @param { Number } radius - The source radius to set.
   *
   * @example
-  * // returns [ 0, 0, 2, 4 ]
-  * _.radiusSet( [ 0, 0, 2, 2 ], 4 );
+  * // returns [ 0,0,2,4 ]
+  * _.radiusSet( [ 0,0,2,2 ], 4 );
   *
   * @example
   * // returns  [ 0, - 2 ]
-  * _.radiusSet( [ 0, 1 ], -2 );
+  * _.radiusSet( [ 0,1 ], -2 );
   *
   * @returns { Array } Returns the sphere with the modified radius.
   * @function radiusSet
@@ -745,7 +746,7 @@ function radiusGet( sphere )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function radiusSet( sphere, radius )
+function radiusSet( sphere,radius )
 {
   _.assert( _.sphere.is( sphere ) );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -754,9 +755,9 @@ function radiusSet( sphere, radius )
   //if( _.vectorAdapterIs( sphere ) )
   //{
   let sphereView = _.sphere.toAdapter( sphere );
-  //return sphereView.eSet( sphere.length-1, radius );
+  //return sphereView.eSet( sphere.length-1,radius );
   //console.log('vector');
-  sphereView.eSet( sphere.length-1, radius );
+  sphereView.eSet( sphere.length-1,radius );
   return sphereView;
   //}
 
@@ -779,7 +780,7 @@ function radiusSet( sphere, radius )
   *
   * @example
   * // returns true;
-  * _.pointContains( [ 0, 0, 0, 1 ], [ 0, 0, 0 ] );
+  * _.pointContains( [ 0,0,0,1 ], [ 0,0,0 ] );
   *
   * @returns { Boolean } Returns true if the sphere contains the point
   * @function pointContains
@@ -787,7 +788,7 @@ function radiusSet( sphere, radius )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function pointContains( sphere, point )
+function pointContains( sphere,point )
 {
 
   let sphereView = _.sphere.toAdapter( sphere );
@@ -814,7 +815,7 @@ function pointContains( sphere, point )
   *
   * @example
   * // returns 0;
-  * _.pointDistance( [ 0, 0, 0, 1 ], [ 0, 0, 0 ] );
+  * _.pointDistance( [ 0,0,0,1 ], [ 0,0,0 ] );
   *
   * @returns { Number } Returns the distance between the sphere and the point
   * @function pointDistance
@@ -822,7 +823,7 @@ function pointContains( sphere, point )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function pointDistance( sphere, point )
+function pointDistance( sphere,point )
 {
 
   let sphereView = _.sphere.toAdapter( sphere );
@@ -854,8 +855,8 @@ function pointDistance( sphere, point )
   * @param { Array } dstPoint - The destination point.
   *
   * @example
-  * // returns [ 3, 0, 0 ]
-  * _.pointClosestPoint( [ 1, 0, 0, 2 ], [ 4, 0, 0 ] );
+  * // returns [ 3,0,0 ]
+  * _.pointClosestPoint( [ 1,0,0,2 ], [ 4,0,0 ] );
   *
   *
   * @returns { Array } Returns an array with the coordinates of the clamped point.
@@ -868,7 +869,7 @@ function pointDistance( sphere, point )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function pointClosestPoint( sphere, srcPoint, dstPoint )
+function pointClosestPoint( sphere,srcPoint,dstPoint )
 {
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
@@ -889,7 +890,7 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
   _.assert( dim === dstPoint.length );
   let dstPointv = _.vectorAdapter.from( dstPoint );
 
-  if( _.sphere.pointContains( sphereView, srcPointv ) )
+  if( _.sphere.pointContains( sphereView,srcPointv ) )
   return srcPointv;
 
   debugger;
@@ -897,16 +898,16 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
 
   for( let i = 0; i < dim; i++ )
   {
-    dstPointv.eSet( i, srcPointv.eGet( i ) );
+    dstPointv.eSet( i,srcPointv.eGet( i ) );
   }
 
   let distanseSqr = vector.distanceSqr( srcPointv , center );
   if( distanseSqr > radius * radius )
   {
-    _.vectorAdapter.subVectors( dstPointv, center );
+    _.vectorAdapter.subVectors( dstPointv,center );
     _.vectorAdapter.normalize( dstPointv );
-    _.vectorAdapter.mulScalar( dstPointv, radius );
-    _.vectorAdapter.addVectors( dstPointv, center );
+    _.vectorAdapter.mulScalar( dstPointv,radius );
+    _.vectorAdapter.addVectors( dstPointv,center );
   }
 
   return dstPoint;
@@ -919,14 +920,14 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
 
 /**
   * Expand a sphere with a point. Returns the new sphere.
-  * Point remains unchanged, sphere changes.
+  * Point remains unchanged,sphere changes.
   *
   * @param { Array } sphere - Destination sphere.
   * @param { Array } point - Source point.
   *
   * @example
-  * // returns [ 0, 0, 0, Math.sqrt( 27 ) ];
-  * _.pointExpand( [ 0, 0, 0, 1 ], [ 3, 3, 3 ] );
+  * // returns [ 0,0,0,Math.sqrt( 27 ) ];
+  * _.pointExpand( [ 0,0,0,1 ], [ 3,3,3 ] );
   *
   * @returns { Array } Returns the coordinates of the expanded sphere
   * @function pointExpand
@@ -954,7 +955,7 @@ function pointExpand( sphere , point )
   if( radius === -Infinity )
   {
     center.copy( point );
-    _.sphere.radiusSet( sphereView, 0 );
+    _.sphere.radiusSet( sphereView,0 );
     return sphere;
   }
 
@@ -964,9 +965,9 @@ function pointExpand( sphere , point )
 
     _.assert( distance > 0 );
 
-    // _.vectorAdapter.mix( center, point, 0.5 + ( -radius ) / ( distance*2 ) );
+    // _.vectorAdapter.mix( center,point,0.5 + ( -radius ) / ( distance*2 ) );
     // _.sphere.radiusSet( sphereView, ( distance+radius ) / 2 );
-    _.sphere.radiusSet( sphereView, distance );
+    _.sphere.radiusSet( sphereView,distance );
 
   }
 
@@ -984,20 +985,20 @@ function pointExpand( sphere , point )
   *
   * @example
   * // returns true
-  * _.boxContains( [ 1, 1, 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  * _.boxContains( [ 1,1,1,2 ], [ 0,0,0,2,2,2 ] );
   *
   * @example
   * // returns false
-  * _.boxContains( [ - 2, - 2, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
+  * _.boxContains( [ - 2, - 2, - 2,1 ], [ 0,0,0,1,1,1 ] );
   *
-  * @returns { Boolean } Returns true if the sphere contains the box, and false if not.
+  * @returns { Boolean } Returns true if the sphere contains the box,and false if not.
   * @function boxContains
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the sphere and box don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function boxContains( sphere, box )
+function boxContains( sphere,box )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1015,7 +1016,7 @@ function boxContains( sphere, box )
 
   /* src corners */
 
-  let c = _.Matrix.makeZero( [ 3, 8 ] );
+  let c = _.Matrix.makeZero( [ 3,8 ] );
   c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
   c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
   c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
@@ -1029,7 +1030,7 @@ function boxContains( sphere, box )
   {
     let srcCorner = c.colVectorGet( j );
 
-    if( _.sphere.pointContains( sphereView, srcCorner ) === false )
+    if( _.sphere.pointContains( sphereView,srcCorner ) === false )
     {
     return false;
     }
@@ -1049,11 +1050,11 @@ function boxContains( sphere, box )
   *
   * @example
   * // returns true
-  * _.boxIntersects( [ - 1, - 1, - 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  * _.boxIntersects( [ - 1, - 1, - 1,2 ], [ 0,0,0,2,2,2 ] );
   *
   * @example
   * // returns false
-  * _.boxIntersects( [ - 2, - 2, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
+  * _.boxIntersects( [ - 2, - 2, - 2,1 ], [ 0,0,0,1,1,1 ] );
   *
   * @returns { Boolean } Returns true if the box and the sphere intersect and false if not.
   * @function boxIntersects
@@ -1062,7 +1063,7 @@ function boxContains( sphere, box )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function boxIntersects( sphere, box )
+function boxIntersects( sphere,box )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1076,13 +1077,13 @@ function boxIntersects( sphere, box )
 
   _.assert( dimS === dimB, 'Arguments must have same dimension' );
 
-  if( _.box.pointContains( boxView, center ) === true )
+  if( _.box.pointContains( boxView,center ) === true )
   {
     return true;
   }
   else
   {
-    let distance = _.box.pointDistance( boxView, center );
+    let distance = _.box.pointDistance( boxView,center );
     if( distance <= radius )
     {
       return true;
@@ -1102,11 +1103,11 @@ function boxIntersects( sphere, box )
   *
   * @example
   * // returns 0
-  * _.boxDistance( [ - 1, - 1, - 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  * _.boxDistance( [ - 1, - 1, - 1,2 ], [ 0,0,0,2,2,2 ] );
   *
   * @example
   * // returns 1
-  * _.boxDistance( [ 0, 0, - 2, 1 ], [ 0, 0, 0, 1, 1, 1 ] );
+  * _.boxDistance( [ 0,0, - 2,1 ], [ 0,0,0,1,1,1 ] );
   *
   * @returns { Boolean } Returns the distance between the sphere and the plane.
   * @function boxDistance
@@ -1115,14 +1116,14 @@ function boxIntersects( sphere, box )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function boxDistance( sphere, box )
+function boxDistance( sphere,box )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let sphereView = _.sphere.toAdapter( sphere );
   let boxView = _.box.toAdapter( box );
 
-  let distance = _.box.sphereDistance( boxView, sphereView );
+  let distance = _.box.sphereDistance( boxView,sphereView );
 
   return distance;
 }
@@ -1139,7 +1140,7 @@ function boxDistance( sphere, box )
   *
   * @example
   * // returns Math.sqrt( 27 ) - 2
-  * _.boxClosestPoint( [ 0, 0, 0, 1 ], [ 2, 0, 0, 4, 0, 0 ] );
+  * _.boxClosestPoint( [ 0,0,0,1 ], [ 2,0,0,4,0,0 ] );
   *
   * @returns { Array } Returns the closest point in a sphere to a box.
   * @function boxClosestPoint
@@ -1147,7 +1148,7 @@ function boxDistance( sphere, box )
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
-function boxClosestPoint( srcSphere, srcBox, dstPoint )
+function boxClosestPoint( srcSphere,srcBox,dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
@@ -1172,15 +1173,15 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   _.assert( dimB === dstPoint.length );
   let dstPointView = _.vectorAdapter.from( dstPoint );
 
-  if( _.sphere.boxIntersects( sphereView, boxView ) )
+  if( _.sphere.boxIntersects( sphereView,boxView ) )
   return 0;
 
-  let boxPoint = _.box.sphereClosestPoint( boxView, sphereView );
-  let point = _.sphere.pointClosestPoint( sphereView, boxPoint );
+  let boxPoint = _.box.sphereClosestPoint( boxView,sphereView );
+  let point = _.sphere.pointClosestPoint( sphereView,boxPoint );
 
   for( let i = 0; i < point.length; i++ )
   {
-    dstPointView.eSet( i, point[ i ] );
+    dstPointView.eSet( i,point[ i ] );
   }
 
   return dstPoint;
@@ -1196,8 +1197,8 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   * @param { Array } srcBox - Source box
   *
   * @example
-  * // returns [ -1, -1, -1, Math.sqrt( 27 )]
-  * _.boxExpand( [ - 1, - 1, - 1, 2 ], [ 0, 0, 0, 2, 2, 2 ] );
+  * // returns [ -1, -1, -1,Math.sqrt( 27 )]
+  * _.boxExpand( [ - 1, - 1, - 1,2 ], [ 0,0,0,2,2,2 ] );
   *
   * @returns { Sphere } Returns an array with the center and radius of the expanded sphere.
   * @function boxExpand
@@ -1205,7 +1206,7 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
-function boxExpand( dstSphere, srcBox )
+function boxExpand( dstSphere,srcBox )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -1229,14 +1230,14 @@ function boxExpand( dstSphere, srcBox )
   for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
-    let d = _.avector.distance( corner, center );
+    let d = _.avector.distance( corner,center );
     if( d > distance )
     {
       distance = d;
     }
   }
 
-  _.sphere.radiusSet( sphereView, distance );
+  _.sphere.radiusSet( sphereView,distance );
 
   return dstSphere;
 }
@@ -1251,8 +1252,8 @@ function boxExpand( dstSphere, srcBox )
   * @param { Array } srcSphere - source sphere for the bounding box.
   *
   * @example
-  * // returns [ - 2, - 2, - 2, 2, 2, 2 ]
-  * _.boundingBoxGet( null, [ 0, 0, 0, 2 ] );
+  * // returns [ - 2, - 2, - 2,2,2,2 ]
+  * _.boundingBoxGet( null, [ 0,0,0,2 ] );
   *
   * @returns { Array } Returns the array of the bounding box.
   * @function boundingBoxGet
@@ -1262,7 +1263,7 @@ function boxExpand( dstSphere, srcBox )
   * @throws { Error } An Error if ( srcSphere ) is not sphere
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
-function boundingBoxGet( dstBox, srcSphere )
+function boundingBoxGet( dstBox,srcSphere )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -1280,11 +1281,11 @@ function boundingBoxGet( dstBox, srcSphere )
   _.assert( dimS === dimB );
 
   let boxView = _.box.toAdapter( dstBox );
-  let box = _.box.toAdapter( _.box.fromSphere( null, sphereView ) );
+  let box = _.box.toAdapter( _.box.fromSphere( null,sphereView ) );
 
   for( let b = 0; b < boxView.length; b++ )
   {
-    boxView.eSet( b, box.eGet( b ) );
+    boxView.eSet( b,box.eGet( b ) );
   }
 
   return dstBox;
@@ -1298,7 +1299,7 @@ function capsuleIntersects( srcSphere , tstCapsule )
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
   let sphereView = _.sphere.toAdapter( srcSphere );
 
-  let gotBool = _.capsule.sphereIntersects( tstCapsuleView, sphereView );
+  let gotBool = _.capsule.sphereIntersects( tstCapsuleView,sphereView );
   return gotBool;
 }
 
@@ -1310,7 +1311,7 @@ function capsuleDistance( srcSphere , tstCapsule )
   let tstCapsuleView = _.capsule.toAdapter( tstCapsule );
   let sphereView = _.sphere.toAdapter( srcSphere );
 
-  let gotDist = _.capsule.sphereDistance( tstCapsuleView, sphereView );
+  let gotDist = _.capsule.sphereDistance( tstCapsuleView,sphereView );
 
   return gotDist;
 }
@@ -1327,12 +1328,12 @@ function capsuleDistance( srcSphere , tstCapsule )
   *
   * @example
   * // returns 0
-  * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
-  * _.capsuleClosestPoint( [ 0, 0, 0, 2 ], capsule );
+  * let capsule = [ 0,0,0, - 1, - 1, - 1,1 ]
+  * _.capsuleClosestPoint( [ 0,0,0,2 ], capsule );
   *
   * @example
-  * // returns [ 1, 0, 0 ]
-  * _.capsuleClosestPoint( [ 2, 0, 0, 1 ], capsule );
+  * // returns [ 1,0,0 ]
+  * _.capsuleClosestPoint( [ 2,0,0,1 ], capsule );
   *
   * @returns { Array } Returns the closest point to the capsule.
   * @function capsuleClosestPoint
@@ -1342,7 +1343,7 @@ function capsuleDistance( srcSphere , tstCapsule )
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
-function capsuleClosestPoint( sphere, capsule, dstPoint )
+function capsuleClosestPoint( sphere,capsule,dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
@@ -1363,17 +1364,17 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimCapsule );
 
-  if( _.capsule.sphereIntersects( capsuleView, sphereView ) )
+  if( _.capsule.sphereIntersects( capsuleView,sphereView ) )
   return 0
   else
   {
-    let capsulePoint = _.capsule.sphereClosestPoint( capsule, sphereView );
+    let capsulePoint = _.capsule.sphereClosestPoint( capsule,sphereView );
 
-    let spherePoint = _.vectorAdapter.from( _.sphere.pointClosestPoint( sphereView, capsulePoint ) );
+    let spherePoint = _.vectorAdapter.from( _.sphere.pointClosestPoint( sphereView,capsulePoint ) );
 
     for( let i = 0; i < dimSphere; i++ )
     {
-      dstPointView.eSet( i, spherePoint.eGet( i ) );
+      dstPointView.eSet( i,spherePoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -1392,7 +1393,7 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   *
   * @example
   * // returns false;
-  * _.frustumContains( [ 2, 2, 2, 1 ], _.frustum.make() );
+  * _.frustumContains( [ 2,2,2,1 ], _.frustum.make() );
   **
   * @returns { Boolean } Returns true if the sphere contains the frustum.
   * @function frustumContains
@@ -1402,7 +1403,7 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function frustumContains( srcSphere, tstFrustum )
+function frustumContains( srcSphere,tstFrustum )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1418,7 +1419,7 @@ function frustumContains( srcSphere, tstFrustum )
   for( let i = 0 ; i < points.length ; i += 1 )
   {
     let point = points.colVectorGet( i );
-    let c = _.sphere.pointContains( srcSphereView, point );
+    let c = _.sphere.pointContains( srcSphereView,point );
     if( c === false )
     return false;
   }
@@ -1437,9 +1438,9 @@ function frustumContains( srcSphere, tstFrustum )
   *
   * @example
   * // returns false;
-  * _.frustumIntersects( [ 2, 2, 2, 1 ], _.frustum.make() );
+  * _.frustumIntersects( [ 2,2,2,1 ], _.frustum.make() );
   **
-  * @returns { Boolean } Returns true if the sphere and the frustum intersect, false if not.
+  * @returns { Boolean } Returns true if the sphere and the frustum intersect,false if not.
   * @function frustumIntersects
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
@@ -1447,14 +1448,14 @@ function frustumContains( srcSphere, tstFrustum )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function frustumIntersects( srcSphere, tstFrustum )
+function frustumIntersects( srcSphere,tstFrustum )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( tstFrustum ) );
   let srcSphereView = _.sphere.toAdapter( srcSphere );
 
-  let gotBool = _.frustum.sphereIntersects( tstFrustum, srcSphereView );
+  let gotBool = _.frustum.sphereIntersects( tstFrustum,srcSphereView );
 
   return gotBool;
 }
@@ -1470,12 +1471,12 @@ function frustumIntersects( srcSphere, tstFrustum )
   *
   * @example
   * // returns 1;
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.make( [ 4,6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ] );
-  * _.frustumDistance( [ 1, 3, 1, 1 ], frustum );
+  * _.frustumDistance( [ 1,3,1,1 ], frustum );
   *
   * @returns { Number } Returns the distance between sphere and frustum.
   * @function frustumDistance
@@ -1485,7 +1486,7 @@ function frustumIntersects( srcSphere, tstFrustum )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function frustumDistance( srcSphere, tstFrustum )
+function frustumDistance( srcSphere,tstFrustum )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1496,11 +1497,11 @@ function frustumDistance( srcSphere, tstFrustum )
   let radius = _.sphere.radiusGet( srcSphereView );
   let dimS = _.sphere.dimGet( srcSphereView );
 
-  if( _.frustum.sphereIntersects( tstFrustum, srcSphereView ) )
+  if( _.frustum.sphereIntersects( tstFrustum,srcSphereView ) )
   return 0;
 
-  let closestPoint = _.frustum.sphereClosestPoint( tstFrustum, srcSphereView );
-  let distance = _.avector.distance( closestPoint, center ) - radius;
+  let closestPoint = _.frustum.sphereClosestPoint( tstFrustum,srcSphereView );
+  let distance = _.avector.distance( closestPoint,center ) - radius;
 
   return distance;
 }
@@ -1516,13 +1517,13 @@ function frustumDistance( srcSphere, tstFrustum )
   * @param { Point } dstPoint - Destination point.
   *
   * @example
-  * // returns [ 2, 0, 0 ];
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * // returns [ 2,0,0 ];
+  * let frustum = _.Matrix.make( [ 4,6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ] );
-  * _.frustumClosestPoint( [ 3, 0, 0, 1 ], frustum );
+  * _.frustumClosestPoint( [ 3,0,0,1 ], frustum );
   *
   * @returns { Array } Returns the closest point to a frustum.
   * @function frustumClosestPoint
@@ -1533,14 +1534,14 @@ function frustumDistance( srcSphere, tstFrustum )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
+function frustumClosestPoint( srcSphere,tstFrustum,dstPoint )
 {
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( _.frustum.is( tstFrustum ) );
 
   if( arguments.length === 2 )
-  dstPoint = [ 0, 0, 0 ];
+  dstPoint = [ 0,0,0 ];
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1554,15 +1555,15 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
 
   _.assert( dimS === dstPoint.length );
 
-  if( _.frustum.sphereIntersects( tstFrustum, srcSphereView ) )
+  if( _.frustum.sphereIntersects( tstFrustum,srcSphereView ) )
   return 0;
 
-  let fClosestPoint = _.frustum.sphereClosestPoint( tstFrustum, srcSphereView );
-  let sClosestPoint = _.sphere.pointClosestPoint( srcSphereView, fClosestPoint );
+  let fClosestPoint = _.frustum.sphereClosestPoint( tstFrustum,srcSphereView );
+  let sClosestPoint = _.sphere.pointClosestPoint( srcSphereView,fClosestPoint );
 
   for( let i = 0; i < sClosestPoint.length; i++ )
   {
-    dstPointView.eSet( i, sClosestPoint[ i ] );
+    dstPointView.eSet( i,sClosestPoint[ i ] );
   }
 
   return dstPoint;
@@ -1578,13 +1579,13 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
   * @param { Frustum } tstFrustum - Source frustum.
   *
   * @example
-  * // returns [ 3, 0, 0, 3.3166247903554 ];
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * // returns [ 3,0,0,3.3166247903554 ];
+  * let frustum = _.Matrix.make( [ 4,6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ] );
-  * _.frustumExpand( [ 3, 0, 0, 1 ], frustum );
+  * _.frustumExpand( [ 3,0,0,1 ], frustum );
   *
   * @returns { Array } Returns an array with the expanded sphere dimensions.
   * @function frustumExpand
@@ -1594,7 +1595,7 @@ function frustumClosestPoint( srcSphere, tstFrustum, dstPoint )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function frustumExpand( dstSphere, srcFrustum )
+function frustumExpand( dstSphere,srcFrustum )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1605,7 +1606,7 @@ function frustumExpand( dstSphere, srcFrustum )
   let radius = _.sphere.radiusGet( dstSphereView );
   let dimS = _.sphere.dimGet( dstSphereView );
 
-  if( _.sphere.frustumContains( dstSphereView, srcFrustum ) )
+  if( _.sphere.frustumContains( dstSphereView,srcFrustum ) )
   return dstSphere;
 
   let points = _.frustum.cornersGet( srcFrustum );
@@ -1613,8 +1614,8 @@ function frustumExpand( dstSphere, srcFrustum )
   for( let i = 0 ; i < points.length ; i += 1 )
   {
     let point = points.colVectorGet( i );
-    if( _.sphere.pointContains( dstSphereView, point ) === false )
-    _.sphere.pointExpand( dstSphereView, point )
+    if( _.sphere.pointContains( dstSphereView,point ) === false )
+    _.sphere.pointExpand( dstSphereView,point )
 
   }
 
@@ -1623,13 +1624,13 @@ function frustumExpand( dstSphere, srcFrustum )
 
 //
 
-function lineIntersects( srcSphere, tstLine )
+function lineIntersects( srcSphere,tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = _.sphere.toAdapter( srcSphere );
   let tstLineView = _.line.toAdapter( tstLine );
 
-  let gotBool = _.line.sphereIntersects( tstLineView, srcSphereView );
+  let gotBool = _.line.sphereIntersects( tstLineView,srcSphereView );
 
   return gotBool;
 }
@@ -1642,7 +1643,7 @@ function lineDistance( srcSphere , tstLine )
   let srcSphereView = _.sphere.toAdapter( srcSphere );
   let tstLineView = _.line.toAdapter( tstLine );
 
-  let gotDist = _.line.sphereDistance( tstLineView, srcSphereView );
+  let gotDist = _.line.sphereDistance( tstLineView,srcSphereView );
 
   return gotDist;
 }
@@ -1659,12 +1660,12 @@ function lineDistance( srcSphere , tstLine )
   *
   * @example
   * // returns 0
-  * let line = [ 0, 0, 0, - 1, - 1, - 1 ]
-  * _.lineClosestPoint( [ 0, 0, 0, 1 ], line );
+  * let line = [ 0,0,0, - 1, - 1, - 1 ]
+  * _.lineClosestPoint( [ 0,0,0,1 ], line );
   *
   * @example
-  * // returns [ 1, 0, 0 ]
-  * _.lineClosestPoint( [ 2, 0, 0, 1 ], line );
+  * // returns [ 1,0,0 ]
+  * _.lineClosestPoint( [ 2,0,0,1 ], line );
   *
   * @returns { Array } Returns the closest point to the line.
   * @function lineClosestPoint
@@ -1674,13 +1675,13 @@ function lineDistance( srcSphere , tstLine )
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
-function lineClosestPoint( sphere, line, dstPoint )
+function lineClosestPoint( sphere,line,dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let lineView = _.line.toAdapter( line );
-  let origin = _.line.originGet( lineView );
-  let direction = _.line.directionGet( lineView );
+  let origin = _.line.originView( lineView );
+  let direction = _.line.directionView( lineView );
   let dimLine  = _.line.dimGet( lineView );
 
   let srcSphereView = _.sphere.toAdapter( sphere );
@@ -1698,17 +1699,17 @@ function lineClosestPoint( sphere, line, dstPoint )
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimLine );
 
-  if( _.line.sphereIntersects( lineView, srcSphereView ) )
+  if( _.line.sphereIntersects( lineView,srcSphereView ) )
   return 0
   else
   {
-    let linePoint = _.line.sphereClosestPoint( line, srcSphereView );
+    let linePoint = _.line.sphereClosestPoint( line,srcSphereView );
 
-    let spherePoint = _.vectorAdapter.from( _.sphere.pointClosestPoint( srcSphereView, linePoint ) );
+    let spherePoint = _.vectorAdapter.from( _.sphere.pointClosestPoint( srcSphereView,linePoint ) );
 
     for( let i = 0; i < dimSphere; i++ )
     {
-      dstPointView.eSet( i, spherePoint.eGet( i ) );
+      dstPointView.eSet( i,spherePoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -1726,27 +1727,27 @@ function lineClosestPoint( sphere, line, dstPoint )
   *
   * @example
   * // returns true
-  * _.planeIntersects( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
+  * _.planeIntersects( [ 0,0,0,2 ], [ 1,0,0,1 ] );
   *
   * @example
   * // returns false
-  * _.planeIntersects( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
+  * _.planeIntersects( [ 0,0,0,2 ], [ 1,0,0,3 ] );
   *
-  * @returns { Boolean } Returns true of they intersect, false if not.
+  * @returns { Boolean } Returns true of they intersect,false if not.
   * @function planeIntersects
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the sphere and the plane don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function planeIntersects( sphere, plane )
+function planeIntersects( sphere,plane )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let sphereView = _.sphere.toAdapter( sphere );
   let planeView = _.plane.toAdapter( plane );
 
-  let gotBool = _.plane.sphereIntersects( planeView, sphereView );
+  let gotBool = _.plane.sphereIntersects( planeView,sphereView );
 
   return gotBool;
 }
@@ -1762,11 +1763,11 @@ function planeIntersects( sphere, plane )
   *
   * @example
   * // returns 0
-  * _.planeDistance( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
+  * _.planeDistance( [ 0,0,0,2 ], [ 1,0,0,1 ] );
   *
   * @example
   * // returns 1
-  * _.planeDistance( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
+  * _.planeDistance( [ 0,0,0,2 ], [ 1,0,0,3 ] );
   *
   * @returns { Array } Returns the calculated distance.
   * @function planeDistance
@@ -1775,14 +1776,14 @@ function planeIntersects( sphere, plane )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function planeDistance( sphere, plane )
+function planeDistance( sphere,plane )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   let sphereView = _.sphere.toAdapter( sphere );
   let planeView = _.plane.toAdapter( plane );
 
-  let distance = _.plane.sphereDistance( planeView, sphereView );
+  let distance = _.plane.sphereDistance( planeView,sphereView );
 
   return distance;
 }
@@ -1799,11 +1800,11 @@ function planeDistance( sphere, plane )
   *
   * @example
   * // returns 0
-  * _.planeClosestPoint( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
+  * _.planeClosestPoint( [ 0,0,0,2 ], [ 1,0,0,1 ] );
   *
   * @example
-  * // returns [ -2, 0, 0 ]
-  * _.planeClosestPoint( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
+  * // returns [ -2,0,0 ]
+  * _.planeClosestPoint( [ 0,0,0,2 ], [ 1,0,0,3 ] );
   *
   * @returns { Array } Returns the calculated point.
   * @function planeClosestPoint
@@ -1812,7 +1813,7 @@ function planeDistance( sphere, plane )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function planeClosestPoint( sphere, plane, dstPoint )
+function planeClosestPoint( sphere,plane,dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
@@ -1838,18 +1839,18 @@ function planeClosestPoint( sphere, plane, dstPoint )
 
   let dstPointView = _.vectorAdapter.from( dstPoint );
 
-  if( _.plane.sphereIntersects( planeView, sphereView ) )
+  if( _.plane.sphereIntersects( planeView,sphereView ) )
   return 0;
 
   debugger;
   // throw _.err( 'not tested' );
 
-  let planePoint = _.plane.pointCoplanarGet( planeView, center );
-  let spherePoint = _.sphere.pointClosestPoint( sphereView, planePoint );
+  let planePoint = _.plane.pointCoplanarGet( planeView,center );
+  let spherePoint = _.sphere.pointClosestPoint( sphereView,planePoint );
 
   for ( let i = 0; i < spherePoint.length; i++ )
   {
-    dstPointView.eSet( i, spherePoint[ i ] );
+    dstPointView.eSet( i,spherePoint[ i ] );
   }
 
   return dstPoint;
@@ -1865,12 +1866,12 @@ function planeClosestPoint( sphere, plane, dstPoint )
   * @param { Array } srcPlane - Source plane
   *
   * @example
-  * // returns [ 0, 0, 0, 2 ]
-  * _.planeExpand( [ 0, 0, 0, 2 ], [ 1, 0, 0, 1 ] );
+  * // returns [ 0,0,0,2 ]
+  * _.planeExpand( [ 0,0,0,2 ], [ 1,0,0,1 ] );
   *
   * @example
-  * // returns [ 0, 0, 0, 3 ]
-  * _.planeExpand( [ 0, 0, 0, 2 ], [ 1, 0, 0, 3 ] );
+  * // returns [ 0,0,0,3 ]
+  * _.planeExpand( [ 0,0,0,2 ], [ 1,0,0,3 ] );
   *
   * @returns { Array } Returns the expanded sphere.
   * @function planeExpand
@@ -1879,7 +1880,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function planeExpand( dstSphere, srcPlane )
+function planeExpand( dstSphere,srcPlane )
 {
   _.assert( arguments.length === 2 , 'Expects two arguments' );
 
@@ -1897,27 +1898,27 @@ function planeExpand( dstSphere, srcPlane )
 
   _.assert( dim === dimP );
 
-  if( _.plane.sphereIntersects( planeView, sphereView ) )
+  if( _.plane.sphereIntersects( planeView,sphereView ) )
   return dstSphere;
 
   debugger;
   // throw _.err( 'not tested' );
 
-  let planePoint = _.plane.pointCoplanarGet( planeView, center );
-  _.sphere.pointExpand( sphereView, planePoint );
+  let planePoint = _.plane.pointCoplanarGet( planeView,center );
+  _.sphere.pointExpand( sphereView,planePoint );
 
   return dstSphere;
 }
 
 //
 
-function rayIntersects( srcSphere, tstRay )
+function rayIntersects( srcSphere,tstRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = _.sphere.toAdapter( srcSphere );
   let tstRayView = _.ray.toAdapter( tstRay );
 
-  let gotBool = _.ray.sphereIntersects( tstRayView, srcSphereView );
+  let gotBool = _.ray.sphereIntersects( tstRayView,srcSphereView );
 
   return gotBool;
 }
@@ -1930,7 +1931,7 @@ function rayDistance( srcSphere , tstRay )
   let srcSphereView = _.sphere.toAdapter( srcSphere );
   let tstRayView = _.ray.toAdapter( tstRay );
 
-  let gotDist = _.ray.sphereDistance( tstRayView, srcSphereView );
+  let gotDist = _.ray.sphereDistance( tstRayView,srcSphereView );
 
   return gotDist;
 }
@@ -1947,12 +1948,12 @@ function rayDistance( srcSphere , tstRay )
   *
   * @example
   * // returns 0
-  * let ray = [ 0, 0, 0, - 1, - 1, - 1 ]
-  * _.rayClosestPoint( [ 0, 0, 0, 1 ], ray );
+  * let ray = [ 0,0,0, - 1, - 1, - 1 ]
+  * _.rayClosestPoint( [ 0,0,0,1 ], ray );
   *
   * @example
-  * // returns [ 1, 0, 0 ]
-  * _.rayClosestPoint( [ 2, 0, 0, 1 ], ray );
+  * // returns [ 1,0,0 ]
+  * _.rayClosestPoint( [ 2,0,0,1 ], ray );
   *
   * @returns { Array } Returns the closest point to the ray.
   * @function rayClosestPoint
@@ -1962,13 +1963,13 @@ function rayDistance( srcSphere , tstRay )
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
-function rayClosestPoint( sphere, ray, dstPoint )
+function rayClosestPoint( sphere,ray,dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let rayView = _.ray.toAdapter( ray );
-  let origin = _.ray.originGet( rayView );
-  let direction = _.ray.directionGet( rayView );
+  let origin = _.ray.originView( rayView );
+  let direction = _.ray.directionView( rayView );
   let dimRay  = _.ray.dimGet( rayView );
 
   let srcSphereView = _.sphere.toAdapter( sphere );
@@ -1986,17 +1987,17 @@ function rayClosestPoint( sphere, ray, dstPoint )
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimRay );
 
-  if( _.ray.sphereIntersects( rayView, srcSphereView ) )
+  if( _.ray.sphereIntersects( rayView,srcSphereView ) )
   return 0
   else
   {
-    let rayPoint = _.ray.sphereClosestPoint( ray, srcSphereView );
+    let rayPoint = _.ray.sphereClosestPoint( ray,srcSphereView );
 
-    let spherePoint = _.vectorAdapter.from( _.sphere.pointClosestPoint( srcSphereView, rayPoint ) );
+    let spherePoint = _.vectorAdapter.from( _.sphere.pointClosestPoint( srcSphereView,rayPoint ) );
 
     for( let i = 0; i < dimSphere; i++ )
     {
-      dstPointView.eSet( i, spherePoint.eGet( i ) );
+      dstPointView.eSet( i,spherePoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -2005,13 +2006,13 @@ function rayClosestPoint( sphere, ray, dstPoint )
 
 //
 
-function segmentIntersects( srcSphere, tstSegment )
+function segmentIntersects( srcSphere,tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = _.sphere.toAdapter( srcSphere );
   let tstSegmentView = _.segment.toAdapter( tstSegment );
 
-  let gotBool = _.segment.sphereIntersects( tstSegmentView, srcSphereView );
+  let gotBool = _.segment.sphereIntersects( tstSegmentView,srcSphereView );
 
   return gotBool;
 }
@@ -2024,7 +2025,7 @@ function segmentDistance( srcSphere , tstSegment )
   let srcSphereView = _.sphere.toAdapter( srcSphere );
   let tstSegmentView = _.segment.toAdapter( tstSegment );
 
-  let gotDist = _.segment.sphereDistance( tstSegmentView, srcSphereView );
+  let gotDist = _.segment.sphereDistance( tstSegmentView,srcSphereView );
 
   return gotDist;
 }
@@ -2041,12 +2042,12 @@ function segmentDistance( srcSphere , tstSegment )
   *
   * @example
   * // returns 0
-  * let segment = [ 0, 0, 0, - 1, - 1, - 1 ]
-  * _.segmentClosestPoint( [ 0, 0, 0, 1 ], segment );
+  * let segment = [ 0,0,0, - 1, - 1, - 1 ]
+  * _.segmentClosestPoint( [ 0,0,0,1 ], segment );
   *
   * @example
-  * // returns [ 1, 0, 0 ]
-  * _.segmentClosestPoint( [ 2, 0, 0, 1 ], segment );
+  * // returns [ 1,0,0 ]
+  * _.segmentClosestPoint( [ 2,0,0,1 ], segment );
   *
   * @returns { Array } Returns the closest point to the segment.
   * @function segmentClosestPoint
@@ -2056,13 +2057,13 @@ function segmentDistance( srcSphere , tstSegment )
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
-function segmentClosestPoint( sphere, segment, dstPoint )
+function segmentClosestPoint( sphere,segment,dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
   let segmentView = _.segment.toAdapter( segment );
-  let origin = _.segment.originGet( segmentView );
-  let direction = _.segment.directionGet( segmentView );
+  let origin = _.segment.originView( segmentView );
+  let direction = _.segment.directionView( segmentView );
   let dimSegment  = _.segment.dimGet( segmentView );
 
   let srcSphereView = _.sphere.toAdapter( sphere );
@@ -2080,17 +2081,17 @@ function segmentClosestPoint( sphere, segment, dstPoint )
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimSegment );
 
-  if( _.segment.sphereIntersects( segmentView, srcSphereView ) )
+  if( _.segment.sphereIntersects( segmentView,srcSphereView ) )
   return 0
   else
   {
-    let segmentPoint = _.segment.sphereClosestPoint( segment, srcSphereView );
+    let segmentPoint = _.segment.sphereClosestPoint( segment,srcSphereView );
 
-    let spherePoint = _.vectorAdapter.from( _.sphere.pointClosestPoint( srcSphereView, segmentPoint ) );
+    let spherePoint = _.vectorAdapter.from( _.sphere.pointClosestPoint( srcSphereView,segmentPoint ) );
 
     for( let i = 0; i < dimSphere; i++ )
     {
-      dstPointView.eSet( i, spherePoint.eGet( i ) );
+      dstPointView.eSet( i,spherePoint.eGet( i ) );
     }
 
     return dstPoint;
@@ -2100,7 +2101,7 @@ function segmentClosestPoint( sphere, segment, dstPoint )
 //
 
 /**
-  *Check if the source sphere contains test sphere. Returns true if it is contained, false if not.
+  *Check if the source sphere contains test sphere. Returns true if it is contained,false if not.
   * Spheres are stored in Array data structure and remain unchanged
   *
   * @param { Array } srcSphere - The source sphere (container).
@@ -2108,11 +2109,11 @@ function segmentClosestPoint( sphere, segment, dstPoint )
   *
   * @example
   * // returns true
-  * _.sphereContains( [ 0, 0, 0, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  * _.sphereContains( [ 0,0,0,2 ], [ 0.5,0.5,1,1 ] );
   *
   * @example
   * // returns false
-  * _.sphereContains( [ 0, 0, 0, 2 ], [ 0, 0, 1, 2.5 ] );
+  * _.sphereContains( [ 0,0,0,2 ], [ 0,0,1,2.5 ] );
   *
   * @returns { Boolean } Returns true if the sphere is contained and false if not.
   * @function sphereContains
@@ -2123,7 +2124,7 @@ function segmentClosestPoint( sphere, segment, dstPoint )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function sphereContains( srcSphere, tstSphere )
+function sphereContains( srcSphere,tstSphere )
 {
 
   let _srcSphere = _.sphere.toAdapter( srcSphere );
@@ -2141,7 +2142,7 @@ function sphereContains( srcSphere, tstSphere )
   debugger;
   // throw _.err( 'not tested' );
 
-  let d = _.sphere.pointDistance( _srcSphere, tstCenter ) + tstRadius;
+  let d = _.sphere.pointDistance( _srcSphere,tstCenter ) + tstRadius;
   if( d <= srcRadius )
   return true;
   else
@@ -2158,11 +2159,11 @@ function sphereContains( srcSphere, tstSphere )
   *
   * @example
   * // returns true
-  * _.sphereIntersects( [ - 1, 0, 0, 2 ], [ 1, 0, 0, 2 ] );
+  * _.sphereIntersects( [ - 1,0,0,2 ], [ 1,0,0,2 ] );
   *
   * @example
   * // returns false
-  * _.sphereIntersects( [ - 2, 0, 0, 1 ], [ 2, 0, 0, 1 ] );
+  * _.sphereIntersects( [ - 2,0,0,1 ], [ 2,0,0,1 ] );
   *
   * @returns { Boolean } Returns true if the two spheres intersect and false if not.
   * @function sphereIntersects
@@ -2171,7 +2172,7 @@ function sphereContains( srcSphere, tstSphere )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function sphereIntersects( sphere1, sphere2 )
+function sphereIntersects( sphere1,sphere2 )
 {
 
   let sphereView1 = _.sphere.toAdapter( sphere1 );
@@ -2190,13 +2191,13 @@ function sphereIntersects( sphere1, sphere2 )
   // throw _.err( 'not tested' );
 
   let r = radius1 + radius2;
-  return _.vectorAdapter.distanceSqr( center1, center2 ) <= r*r;
+  return _.vectorAdapter.distanceSqr( center1,center2 ) <= r*r;
 }
 
 //
 
 /**
-  * Calculates the distance between two spheres. Returns the distance value, 0 if they intersect.
+  * Calculates the distance between two spheres. Returns the distance value,0 if they intersect.
   * Spheres are stored in Array data structure and remain unchanged.
   *
   * @param { Array } srcSphere - The source sphere.
@@ -2204,11 +2205,11 @@ function sphereIntersects( sphere1, sphere2 )
   *
   * @example
   * // returns 0
-  * _.sphereDistance( [ 0, 0, 0, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  * _.sphereDistance( [ 0,0,0,2 ], [ 0.5,0.5,1,1 ] );
   *
   * @example
   * // returns 1
-  * _.sphereDistance( [ 0, 0, 0, 2 ], [ 0, 0, 4, 1 ] );
+  * _.sphereDistance( [ 0,0,0,2 ], [ 0,0,4,1 ] );
   *
   * @returns { Number } Returns the calculated distance.
   * @function sphereDistance
@@ -2219,7 +2220,7 @@ function sphereIntersects( sphere1, sphere2 )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function sphereDistance( srcSphere, tstSphere )
+function sphereDistance( srcSphere,tstSphere )
 {
 
   let _srcSphere = _.sphere.toAdapter( srcSphere );
@@ -2237,10 +2238,10 @@ function sphereDistance( srcSphere, tstSphere )
   debugger;
   // throw _.err( 'not tested' );
 
-  if( _.sphere.sphereIntersects( srcSphere, tstSphere ) )
+  if( _.sphere.sphereIntersects( srcSphere,tstSphere ) )
   return 0;
 
-  let distance = _.vectorAdapter.distance( srcCenter, tstCenter ) - tstRadius - srcRadius;
+  let distance = _.vectorAdapter.distance( srcCenter,tstCenter ) - tstRadius - srcRadius;
 
   return distance;
 }
@@ -2257,11 +2258,11 @@ function sphereDistance( srcSphere, tstSphere )
   *
   * @example
   * // returns 0
-  * _.sphereClosestPoint( [ 0, 0, 0, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  * _.sphereClosestPoint( [ 0,0,0,2 ], [ 0.5,0.5,1,1 ] );
   *
   * @example
-  * // returns [ 0, 0, 2 ]
-  * _.sphereClosestPoint( [ 0, 0, 0, 2 ], [ 0, 0, 4, 1 ] );
+  * // returns [ 0,0,2 ]
+  * _.sphereClosestPoint( [ 0,0,0,2 ], [ 0,0,4,1 ] );
   *
   * @returns { Array } Returns the calculated point.
   * @function sphereClosestPoint
@@ -2273,7 +2274,7 @@ function sphereDistance( srcSphere, tstSphere )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
+function sphereClosestPoint( srcSphere,tstSphere,dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
@@ -2301,14 +2302,14 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
   _.assert( srcDim === dstPoint.length );
   let dstPointv = _.vectorAdapter.from( dstPoint );
 
-  if( _.sphere.sphereIntersects( srcSphere, tstSphere ) )
+  if( _.sphere.sphereIntersects( srcSphere,tstSphere ) )
   return 0;
 
-  let point = _.sphere.pointClosestPoint( _srcSphere, tstCenter );
+  let point = _.sphere.pointClosestPoint( _srcSphere,tstCenter );
 
   for( let i = 0; i < point.length; i++ )
   {
-    dstPointv.eSet( i, point[ i ] );
+    dstPointv.eSet( i,point[ i ] );
   }
 
   return dstPoint;
@@ -2323,8 +2324,8 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
   * @param { Array } sphereSrc - Source Sphere.
   *
   * @example
-  * // returns [ 0, 0, 0, 3 ]
-  * _.sphereExpand( [ 0, 0, 0, 2 ], [ 0, 0, 0, 3 ] );
+  * // returns [ 0,0,0,3 ]
+  * _.sphereExpand( [ 0,0,0,2 ], [ 0,0,0,3 ] );
   *
   * @returns { Array } Returns an array with the coordinates of the expanded sphere.
   * @function sphereExpand
@@ -2333,7 +2334,7 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
   * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
-function sphereExpand( sphereDst, sphereSrc )
+function sphereExpand( sphereDst,sphereSrc )
 {
 
   let sphereViewDst = _.sphere.toAdapter( sphereDst );
@@ -2362,17 +2363,17 @@ function sphereExpand( sphereDst, sphereSrc )
     return sphereDst;
   }
 
-  let distance = _.vectorAdapter.distance( centerDst, centerSrc );
+  let distance = _.vectorAdapter.distance( centerDst,centerSrc );
   if( radiusDst < distance+radiusSrc )
   {
     //if( distance > 0 )
-    //_.vectorAdapter.mix( centerDst, centerSrc, 0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
+    //_.vectorAdapter.mix( centerDst,centerSrc,0.5 + ( radiusSrc-radiusDst ) / ( distance*2 ) );
 
     //if( distance > 0 )
     //_.sphere.radiusSet( sphereViewDst, ( distance+radiusSrc+radiusDst ) / 2 );
     _.sphere.radiusSet( sphereViewDst, ( distance + radiusSrc ) );
     //else
-    //_.sphere.radiusSet( sphereViewDst, Math.max( radiusDst, radiusSrc ) );
+    //_.sphere.radiusSet( sphereViewDst,Math.max( radiusDst,radiusSrc ) );
 
   }
 
@@ -2381,7 +2382,7 @@ function sphereExpand( sphereDst, sphereSrc )
 
 //
 
-function matrixHomogenousApply( sphere, matrix )
+function matrixHomogenousApply( sphere,matrix )
 {
 
   let sphereView = _.sphere.toAdapter( sphere );
@@ -2394,14 +2395,14 @@ function matrixHomogenousApply( sphere, matrix )
   _.assert( dim+1 === matrix.ncol );
 
   matrix.matrixHomogenousApply( center );
-  _.sphere.radiusSet( sphereView, radius * matrix.scaleMaxGet() )
+  _.sphere.radiusSet( sphereView,radius * matrix.scaleMaxGet() )
 
   return sphere;
 }
 
 //
 
-function translate( sphere, offset )
+function translate( sphere,offset )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -2425,7 +2426,7 @@ function translate( sphere, offset )
 // declare
 // --
 
-let Proto =
+let Extension =
 {
 
   make,
@@ -2503,15 +2504,19 @@ let Proto =
   matrixHomogenousApply,
   translate,
 
+  // ref
+
+  tools : _,
+
 }
 
-_.mapSupplement( Self, Proto );
+_.mapSupplement( Self,Extension );
 
 //
 
-if( typeof module !== 'undefined' )
-{
-  // require( './Box.s' );
-}
+// if( typeof module !== 'undefined' )
+// {
+//   // require( './Box.s' );
+// }
 
 })();
