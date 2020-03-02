@@ -924,7 +924,7 @@ function expand( test )
   // var expected = true;
   var dstCapsule = [ 0, 0, 1, 1, 2 ];
   var expand = [ 0, 2, 1 ];
-  var expected = [ 0, - 2, 1, 3, 3 ];
+  var expected = _.capsule.tools.longMake( [ 0, - 2, 1, 3, 3 ] );
 
   var gotCapsule = _.capsule.expand( dstCapsule, expand );
   test.identical( gotCapsule, expected );
@@ -942,7 +942,7 @@ function expand( test )
 
   var capsule = null;
   var expand = [ 1, 2, 3, 1 ];
-  var expected = [ - 1, - 2, - 3, 1, 2, 3, 1 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 2, - 3, 1, 2, 3, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -953,7 +953,7 @@ function expand( test )
 
   var capsule = null;
   var expand = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -964,7 +964,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 1 ];
   var expand = [ 0, 0, 3, 0 ];
-  var expected = [ 0,  0, - 3, 0, 0, 3, 1 ];
+  var expected = _.capsule.tools.longMake( [ 0,  0, - 3, 0, 0, 3, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -975,7 +975,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var expand = [ 1, 3, 1, 1 ];
-  var expected = [ - 1, - 3, - 1, 3, 5, 3, 2 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 3, - 1, 3, 5, 3, 2 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -984,7 +984,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
   var expand = 1;
-  var expected = [ - 1, - 1, - 1, 3, 3, 3, 1 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 1, - 1, 3, 3, 3, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -995,7 +995,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
   var expand = [ 1, 1, 1, 1 ];
-  var expected = [ - 1, - 1, - 1, 3, 3, 3, 1 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 1, - 1, 3, 3, 3, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -1006,7 +1006,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var expand = [  0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0, 2, 2, 2, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -1017,7 +1017,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 3, 3, 3, 4 ];
   var expand = - 1;
-  var expected = [ 1, 1, 1, 2, 2, 2, 3 ];
+  var expected = _.capsule.tools.longMake( [ 1, 1, 1, 2, 2, 2, 3 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1028,7 +1028,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 3, 3, 3, 4 ];
   var expand = [ - 1, - 1, - 1, - 1 ];
-  var expected = [ 1, 1, 1, 2, 2, 2, 3 ];
+  var expected = _.capsule.tools.longMake( [ 1, 1, 1, 2, 2, 2, 3 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1040,7 +1040,7 @@ function expand( test )
 
   var capsule = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766, 0.5 ];
   var expand = [ -0.100, 0, 0.100, 0.2 ];
-  var expected = [  0.050,  0.002, -0.338, 0.094, 0.766, 0.866, 0.7 ];
+  var expected = _.capsule.tools.longMake( [  0.050,  0.002, -0.338, 0.094, 0.766, 0.866, 0.7 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.equivalent( gotCapsule, expected );
@@ -1052,7 +1052,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var expand = [ 1, 2, 3, 4, 5 ];
-  var expected = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4, 5 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 2, - 3, - 4, 1, 2, 3, 4, 5 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1064,7 +1064,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ];
   var expand = [ 1, 2, 3 , 4, 5, 6, 7, 1 ];
-  var expected = [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7, 2 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7, 2 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1076,7 +1076,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0 ];
   var expand = 1;
-  var expected = [ - 1, 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ - 1, 1, 1 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1088,7 +1088,7 @@ function expand( test )
 
   var capsule = null;
   var expand =  4 ;
-  var expected = [ - 4, -4, -4, 4, 4, 4, 4 ];
+  var expected = _.capsule.tools.longMake( [ - 4, -4, -4, 4, 4, 4, 4 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
