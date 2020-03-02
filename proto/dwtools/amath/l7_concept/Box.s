@@ -1091,12 +1091,12 @@ function getProjectionFactors( srcBox, projBox )
 
   _.assert( srcDim === projDim );
 
-  let project = this.tools.long/* _.array.makeArrayOfLength */( srcDim + 1 );
+  let project = this.tools.longMake/* _.array.makeArrayOfLength */( srcDim + 1 );
   let projectView = this.tools.vectorAdapter.from( project );
 
   let translation = this.tools.vectorAdapter.subVectors( projCenter, srcCenter );
 
-  projectView.eSet( 0, translation.toArray() );
+  projectView.eSet( 0, translation.toLong() );
 
   debugger;
   for( let i = 0; i < srcDim; i++ )

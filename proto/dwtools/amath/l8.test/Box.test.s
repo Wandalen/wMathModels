@@ -2941,67 +2941,67 @@ function getProjectionFactors( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors();
   });
 
   test.case = 'Wrong type of argument - string'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( 'box', 'projBox' );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( null, [ 0, 1, 2, 3 ] );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( [ 0, 1, 2, 3 ], null );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( undefined, [ 0, 1, 2, 3 ] );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( [ 0, 1, 2, 3 ], undefined );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( [ 0, 0 ], [ 1, 0 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (box 3D vs box 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1, 1, 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong project array dimension (box 3D vs box 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 2, 3 ] );
   });
 
   test.case = 'Wrong project array dimension (box 2D vs box 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.getProjectionFactors( [ 0, 0, 0, 0 ], [ 0, 2 ] );
   });
