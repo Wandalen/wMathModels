@@ -3765,7 +3765,7 @@ function rayClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var tstRay = [ -3, -3, -3, -1, -1, -1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
 
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay );
   test.identical( expected, gotRay );
@@ -3780,7 +3780,7 @@ function rayClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var tstRay = [ 0.5, 0.5, 2, 0, 0, 1 ];
-  var expected = [ 0.5, 0.5, 1 ];
+  var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 1 ] );
 
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay );
   test.identical( expected, gotRay );
@@ -3796,7 +3796,7 @@ function rayClosestPoint( test )
   ]);
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
 
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay, dstPoint );
   test.identical( expected, gotRay );
@@ -3812,8 +3812,8 @@ function rayClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var tstRay = [ - 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, 1, 1 ] );
+  var dstPoint = _.frustum.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.vectorAdapter.from( [ 0, 1, 1 ] );
 
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
