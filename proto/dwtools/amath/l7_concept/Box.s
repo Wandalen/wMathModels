@@ -2204,7 +2204,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2226,7 +2226,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
 
     let distance = Infinity;
     let point = [ 0, 0, 0 ];
-    for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+    for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       let d = this.tools.avector.distance( corner, frustumPoint ); /* qqq : why slice??? */
