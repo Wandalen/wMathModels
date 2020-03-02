@@ -6855,7 +6855,7 @@ function segmentClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
   var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = [ -1, -1, -1 ];
+  var expected = _.box.tools.longMake( [ -1, -1, -1 ] );
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
   test.identical( expected, gotSegment );
@@ -6864,7 +6864,7 @@ function segmentClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSegment = [ 5, 5, 2, 5, 11, 2 ];
-  var expected = [ 4, 4, 2 ];
+  var expected = _.box.tools.longMake( [ 4, 4, 2 ] );
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment );
   test.identical( expected, gotSegment );
@@ -6874,7 +6874,7 @@ function segmentClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSegment = [ 5, 5, 1, 11, 5, 1 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 4, 4, 1 ];
+  var expected = _.box.tools.longMake( [ 4, 4, 1 ] );
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment, dstPoint );
   test.identical( expected, gotSegment );
@@ -6884,8 +6884,8 @@ function segmentClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstSegment = [ 5, 5, 1, 10, 5, 1 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 4, 4, 1 ] );
+  var dstPoint = _.box.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.box.tools.vectorAdapter.from( [ 4, 4, 1 ] );
 
   var gotSegment = _.box.segmentClosestPoint( srcBox, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
