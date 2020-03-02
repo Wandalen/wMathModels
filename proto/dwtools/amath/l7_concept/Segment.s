@@ -710,7 +710,7 @@ function getProjectionFactors( srcSegment, projSegment )
 
   _.assert( srcDim === projDim );
 
-  let project = _.array.makeArrayOfLength( 2 );
+  let project = this.tools.longMake( 2 );
   let projectView = this.tools.vectorAdapter.from( project );
 
   debugger;
@@ -974,8 +974,8 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
     }
     let x = _.Matrix.solveGeneral( o );
     result = _.vector.from( x.base );
-    let point1 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
-    let point2 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point1 = _.vector.from( this.tools.longMake( dOrigin.length ) );
+    let point2 = _.vector.from( this.tools.longMake( dOrigin.length ) );
     let equal = 0;
     for( var j = 0; j < dOrigin.length; j++ )
     {
@@ -1738,7 +1738,7 @@ function capsuleClosestPoint( segment, capsule, dstPoint )
   let dimS = this.dimGet( segmentView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimS );
+  dstPoint = this.tools.longMake( dimS );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2187,7 +2187,7 @@ function lineIntersectionPoint( segment, line, dstPoint )
   let dimS = _.ray.dimGet( segmentView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimS );
+  dstPoint = this.tools.longMake( dimS );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2557,7 +2557,7 @@ function planeIntersectionPoint( segment, plane, dstPoint )
   let dimS = this.dimGet( segmentView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimS );
+  dstPoint = this.tools.longMake( dimS );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2839,7 +2839,7 @@ function rayIntersectionPoint( segment, ray, dstPoint )
   let dimS = this.dimGet( segmentView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimS );
+  dstPoint = this.tools.longMake( dimS );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -3270,7 +3270,7 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( tstSegment.length / 2 );
+  dstPoint = this.tools.longMake( tstSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -3306,8 +3306,8 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
   }
   else
   {
-    let srcLine = _.vector.from( _.array.makeArrayOfLength( srcDim*2 ) );
-    let tstLine = _.vector.from( _.array.makeArrayOfLength( srcDim*2 ) );
+    let srcLine = _.vector.from( this.tools.longMake( srcDim*2 ) );
+    let tstLine = _.vector.from( this.tools.longMake( srcDim*2 ) );
 
     for( var i = 0 ; i < srcDim ; i++ )
     {
