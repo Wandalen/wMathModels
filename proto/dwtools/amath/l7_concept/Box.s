@@ -1537,7 +1537,7 @@ function boxDistance( srcBox , tstBox )
   let c1 =  this.cornersGet( tstBoxView );
 
   let distance = Infinity;
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let srcCorner = c.colVectorGet( j );
     let tstCorner = c1.colVectorGet( j );
@@ -1556,7 +1556,7 @@ function boxDistance( srcBox , tstBox )
 
   }
 
-  if( boxIntersects( srcBox , tstBox ) === true )
+  if( this.boxIntersects( srcBox , tstBox ) === true )
     return 0;
   else
     return distance;
