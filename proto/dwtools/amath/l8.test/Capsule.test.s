@@ -1381,7 +1381,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 1, 1, 1 ];
   var projCapsule = [ 0.5, 0.5, 2.5, 2.5, 2 ];
-  var expected = [ [ 1, 1 ], 2, 2 ];
+  var expected = _.capsule.tools.longMake( [ [ 1, 1 ], 2, 2 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1396,7 +1396,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 1, 0, 0, 2 ];
   var projCapsule = [ -0.5, 1, 0, 1.5, 1, 0, 6 ];
-  var expected = [ [ 0, 1, 0 ], 2, 3 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 1, 0 ], 2, 3 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1405,7 +1405,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ -1, -1, -1, 3, 3, 3, 2 ];
-  var expected = [ [ 0, 0, 0 ], 2, 2 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0, 0 ], 2, 2 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1414,7 +1414,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ];
-  var expected = [ [ 0, 0, 0 ], 0.5, 0.5 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0, 0 ], 0.5, 0.5 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1423,7 +1423,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 1, 2, 3, 3, 4, 5, 1 ];
-  var expected = [ [ 1, 2, 3 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 1, 2, 3 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1432,7 +1432,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 2, 3, 4, 2, 3, 4, 0 ];
-  var expected = [ [ 1, 2, 3 ], 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ [ 1, 2, 3 ], 0, 0 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1441,7 +1441,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 2, 3, 4, 2, 3, 4, 1 ];
-  var expected = [ [ 1, 2, 3 ], 0, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 1, 2, 3 ], 0, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1450,7 +1450,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 3 ];
   var projCapsule = [ 0, 0, 0, 2, 2, 2, 3 ];
-  var expected = [ [ 0, 0, 0 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0, 0 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1459,7 +1459,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 1 ];
   var projCapsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 4 ];
-  var expected = [ [ 0, 0, 0, 0 ], 2, 4 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0, 0, 0 ], 2, 4 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1468,7 +1468,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 1, 1 ];
   var projCapsule = [ 0.5, 2.5, 1 ];
-  var expected = [ [ 1 ], 2, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 1 ], 2, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1515,7 +1515,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 1, 1, 1 ];
   var projCapsule = [ 0, 0, 1, 1, 1 ];
-  var expected = [ [ 0, 0 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1527,7 +1527,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 3, 4, 3, 4, 0 ];
   var projCapsule = [ 3, 4, 3, 4, 0 ];
-  var expected = [ [ 0, 0 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1539,7 +1539,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 3, 4, 3, 4, 0 ];
   var projCapsule = [ 5, 5, 5, 5, 0 ];
-  var expected = [ [ 2, 1 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 2, 1 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1551,7 +1551,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 3, 4, 6, 7, 1 ];
   var projCapsule = [ 5, 5, 5, 5, 0 ];
-  var expected = [ [ 0.5, -0.5 ], 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ [ 0.5, -0.5 ], 0, 0 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1563,7 +1563,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 3, 4, 6, 7, 2 ];
   var projCapsule = [ -1, 8, 2, 11, 2 ];
-  var expected = [ [ -4, 4 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ -4, 4 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1575,7 +1575,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 4, 4, 2 ];
   var projCapsule = [ 1, 1, 3, 3, 1 ];
-  var expected = [ [ 0, 0 ], 0.5, 0.5 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 0.5, 0.5 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1587,7 +1587,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 4, 4, 1 ];
   var projCapsule = [ -1, -1, 5, 5, 3/2 ];
-  var expected = [ [ 0, 0 ], 3/2, 3/2 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 3/2, 3/2 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.equivalent( gotFactors, expected );
@@ -1599,7 +1599,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 4, 4, 4 ];
   var projCapsule = [ -1, -1, 5, 5, 1 ];
-  var expected = [ [ 0, 0 ], 3/2, 0.25 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 3/2, 0.25 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.equivalent( gotFactors, expected );
@@ -1611,7 +1611,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 4, 4, 2 ];
   var projCapsule = [ -7, -3, 9, 13, 4 ];
-  var expected = [ [ -1, 3 ], 4, 2 ];;
+  var expected = _.capsule.tools.longMake( [ [ -1, 3 ], 4, 2 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
