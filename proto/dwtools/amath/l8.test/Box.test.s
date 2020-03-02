@@ -5040,7 +5040,7 @@ function capsuleClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
   var tstCapsule = [ -3, -3, -3, -2, -2, -2, 1 ];
-  var expected = [ -1, -1, -1 ];
+  var expected = _.box.tools.longMake( [ -1, -1, -1 ] );
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
   test.identical( expected, gotCapsule );
@@ -5049,7 +5049,7 @@ function capsuleClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstCapsule = [ 5, 5, 2, 5, 11, 2, 0.5 ];
-  var expected = [ 4, 4, 2 ];
+  var expected = _.box.tools.longMake( [ 4, 4, 2 ] );
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule );
   test.identical( expected, gotCapsule );
@@ -5059,7 +5059,7 @@ function capsuleClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstCapsule = [ 5, 5, 1, 11, 5, 1, 0.3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 4, 4, 1 ];
+  var expected = _.box.tools.longMake( [ 4, 4, 1 ] );
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
   test.identical( expected, gotCapsule );
@@ -5069,8 +5069,8 @@ function capsuleClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstCapsule = [ 5, 5, 1, 10, 5, 1, 0.2 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 4, 4, 1 ] );
+  var dstPoint = _.box.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.box.tools.vectorAdapter.from( [ 4, 4, 1 ] );
 
   var gotCapsule = _.box.capsuleClosestPoint( srcBox, tstCapsule, dstPoint );
   test.equivalent( expected, gotCapsule );
