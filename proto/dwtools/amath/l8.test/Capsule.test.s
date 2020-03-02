@@ -4306,7 +4306,7 @@ function frustumClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 4, 4, 4, 5, 5, 5, Math.sqrt( 3 ) ];
-  var expected = [ 3, 3, 3 ];
+  var expected = _.capsule.tools.longMake( [ 3, 3, 3 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.equivalent( gotClosestPoint, expected );
@@ -4321,7 +4321,7 @@ function frustumClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.2, 1.2, 1.2, 5, 5, 5, Math.sqrt( 0.03 ) ];
-  var expected = [ 1.1, 1.1, 1.1 ];
+  var expected = _.capsule.tools.longMake( [ 1.1, 1.1, 1.1 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.equivalent( gotClosestPoint, expected );
@@ -4351,7 +4351,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = null;
-  var expected = [ 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -4366,7 +4366,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = [ - 2, 0.3, 0, -1, 0.3, 0, 0 ];
-  var expected = [ -1, 0.3, 0 ];
+  var expected = _.capsule.tools.longMake( [ -1, 0.3, 0 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -4381,7 +4381,7 @@ function frustumClosestPoint( test )
     - 3, 2, - 3, 2, 2, - 3
   ]);
   var capsule = [ -2, 0.3, 0, 1, 0, 0.1, 0.1 ];
-  var expected = [ 1.0340799088295498, 0.06815981765909972, 0.16475182677614472 ];
+  var expected = _.capsule.tools.longMake( [ 1.0340799088295498, 0.06815981765909972, 0.16475182677614472 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -4396,8 +4396,8 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = [ 0, 2, 2, 0, 1, 2, 0.5 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0.22360679774997896, 1, 1.55278640 ] );
+  var dstPoint = _.capsule.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0.22360679774997896, 1, 1.55278640 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum, dstPoint );
   test.equivalent( gotClosestPoint, expected );
