@@ -1886,7 +1886,7 @@ function convexPolygonContains( box, polygon )
 
   let boxView = this.adapterFrom( box );
   let dimB = this.dimGet( boxView );
-  let dimP =  _.Matrix.dimsOf( polygon );
+  let dimP =  _.Matrix.DimsOf( polygon );
 
   _.assert( dimB === dimP[ 0 ] );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
