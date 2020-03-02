@@ -733,7 +733,7 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   }
   else
   {
-    let pointVector = this.tools.vectorAdapter.from( _.long.longMakeZeroed( dimension ));
+    let pointVector = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dimension ));
 
     let srcSegment = _.segment.fromPair( [ origin, end ] );
 
