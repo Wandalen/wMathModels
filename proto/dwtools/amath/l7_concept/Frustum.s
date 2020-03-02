@@ -430,7 +430,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 
   let srcPointView = this.tools.vectorAdapter.from( srcPoint );  /* xxx qqq : problem? */
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
-  let dims = _.Matrix.dimsOf( frustum ) ;
+  let dims = _.Matrix.DimsOf( frustum ) ;
 
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
@@ -443,7 +443,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   let max = this.tools.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
   let min = this.tools.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
 
-  for( let j = 1 ; j < _.Matrix.dimsOf( fpoints )[ 1 ] ; j++ )
+  for( let j = 1 ; j < _.Matrix.DimsOf( fpoints )[ 1 ] ; j++ )
   {
     let newp = fpoints.colVectorGet( j );
 
@@ -780,7 +780,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   let dim1 = _.box.dimGet( boxView );
   let min1 = _.box.cornerLeftGet( boxView );
   let max1 = _.box.cornerRightGet( boxView );
-  let dims = _.Matrix.dimsOf( frustum ) ;
+  let dims = _.Matrix.DimsOf( frustum ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
 
@@ -789,7 +789,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( rows - 1 );
+  dstPoint = this.tools.longMake( rows - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -799,7 +799,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   if( this.boxIntersects( frustum, boxView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( _.long.longMake( rows - 1 ) );
+  let point = this.tools.vectorAdapter.from( this.tools.longMake( rows - 1 ) );
 
   /* frustum corners */
 
@@ -820,7 +820,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   /* box corners */
   let c = _.box.cornersGet( boxView );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let proj = this.pointClosestPoint( frustum, corner );
