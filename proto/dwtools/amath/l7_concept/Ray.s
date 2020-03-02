@@ -717,8 +717,8 @@ function rayIntersectionFactors( r1, r2 )
 
     result = this.tools.vectorAdapter.from( x.base );
 
-    let point1 = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
-    let point2 = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
+    let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
 
     for( var j = 0; j < dOrigin.length; j++ )
     {
@@ -1618,7 +1618,7 @@ function convexPolygonClosestPoint( ray, polygon, dstPoint )
   let dimR = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimR );
+  dstPoint = this.tools.longMake( dimR );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1636,7 +1636,7 @@ function convexPolygonClosestPoint( ray, polygon, dstPoint )
   {
     let polygonPoint = _.convexPolygon.rayClosestPoint( polygon, rayView );
 
-    let rayPoint = this.pointClosestPoint( rayView, polygonPoint, this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dimR ) ) ) ;
+    let rayPoint = this.pointClosestPoint( rayView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimR ) ) ) ;
 
     for( let i = 0; i < dimR; i++ )
     {
@@ -1896,7 +1896,7 @@ function lineIntersectionPoint( ray, line, dstPoint )
   let dimR = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimR );
+  dstPoint = this.tools.longMake( dimR );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2173,7 +2173,7 @@ function planeIntersectionPoint( ray, plane, dstPoint )
   let dimR = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimR );
+  dstPoint = this.tools.longMake( dimR );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2586,7 +2586,7 @@ function segmentIntersectionPoint( srcRay, srcSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( srcSegment.length / 2 );
+  dstPoint = this.tools.longMake( srcSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
