@@ -4854,8 +4854,8 @@ function boundingSphereGet( test )
     0, 0, 1, - 1, 0, 0,
     1, 3, 1, 1, 3, 1
   ]);
-  var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vectorAdapter.from( [ 1, 1, 0, 3 ] );
+  var dstSphere = _.frustum.tools.vectorAdapter.from( [ 5, 5, 5, 3 ] );
+  var expected = _.frustum.tools.vectorAdapter.from( [ 1, 1, 0, 3 ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
