@@ -899,7 +899,7 @@ function cornersGet( box )
   let max = this.cornerRightGet( boxView );
 
   let corners = _.Matrix.makeZero( [ dim, Math.pow( 2, dim ) ] );
-  let dims = _.Matrix.dimsOf( corners) ;
+  let dims = _.Matrix.DimsOf( corners) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
 
