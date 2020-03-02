@@ -5737,7 +5737,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
   var tstRay = [ 3, 0, 1, 0, 0, 1 ];
-  var expected = [ 1, 0, 1 ];
+  var expected = _.capsule.tools.longMake( [ 1, 0, 1 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5746,7 +5746,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 7, 1, 0, 7, 8, 1 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 0, 6, 1 ];
+  var expected = _.capsule.tools.longMake( [ 0, 6, 1 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5755,7 +5755,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, 0, 10, 0, 0, 2 ];
   var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = [ 3, 1.9798989873223332, 0.282842712474619 ];
+  var expected = _.capsule.tools.longMake( [ 3, 1.9798989873223332, 0.282842712474619 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5764,7 +5764,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.capsule.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5773,7 +5773,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
   var tstRay = [ 0, 0, 0, -1, 0, 0 ];
-  var expected = [ 2.609433267057528, 6.088677623134233, 0.8698110890191761 ];
+  var expected = _.capsule.tools.longMake( [ 2.609433267057528, 6.088677623134233, 0.8698110890191761 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5782,7 +5782,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, 0, 9, 9, 9, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
-  var expected = [ 3.5123633167045747, 4.438183416477126, 3.0494532668182988 ];
+  var expected = _.capsule.tools.longMake( [ 3.5123633167045747, 4.438183416477126, 3.0494532668182988 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.equivalent( gotClosestPoint, expected );
@@ -5809,7 +5809,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
-  var expected = [ 0, - 1 ];
+  var expected = _.capsule.tools.longMake( [ 0, - 1 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5827,7 +5827,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ - 3, - 4, -3, 4, 1 ];
   var tstRay = [ 0, 0, 2, 1 ];
-  var expected = [ -2.1055728090000843, -1.0527864045000421 ];
+  var expected = _.capsule.tools.longMake( [ -2.1055728090000843, -1.0527864045000421 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5845,7 +5845,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
-  var expected = [ 0.5, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0.5, 0, 0 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5854,7 +5854,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 3, 7, 1, 4, 7, 1, 1 ];
   var tstRay = [ 3, 7, 3, 1, 0, 0 ];
-  var expected = [ 3, 7, 2 ];
+  var expected = _.capsule.tools.longMake( [ 3, 7, 2 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5863,7 +5863,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
