@@ -2366,7 +2366,7 @@ function lineClosestPoint( box, line, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
