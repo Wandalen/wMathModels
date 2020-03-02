@@ -371,7 +371,7 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
   * ]);
   * _.toMatrixRotation( [ 0.6520678, 0.38680106, 0.6520678, 0.92713394 ], srcMatrix );
   *
-  * @returns { Space } Returns the corresponding matrix rotation.
+  * @returns { Matrix } Returns the corresponding matrix rotation.
   * @function toMatrixRotation
   * @throws { Error } An Error if( arguments.length ) is different than two.
   * @throws { Error } An Error if( dstMatrix ) is not matrix.
@@ -398,7 +398,7 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
 // declare
 // --
 
-let Extension =
+let Extension = /* qqq : normalize order */
 {
 
   //

@@ -14,17 +14,31 @@ let Self = _.frustum = _.frustum || Object.create( null );
  * In the following methods, frustums will be defined by a space where each column
  * represents one of the frustum planes.
  *
+
+    Frustums are defined in a very special way, and therefore planes must be included following
+    an order:
+    Frustum planes convention : [ right, left, bottom, top, far, near ];
+    Frustum planes must have director vectors pointing outside frustum!!!;
+
+    If this convention is not followed when creating a frustum, routines may return
+    wrong results.
+
+    @Example: The frustum representation of the box [ 0, 0, 0, 1, 1, 1 ] would be:
+    var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+    ([
+      0,   0,   0,   0,  -1,   1,
+      1,  -1,   0,   0,   0,   0,
+      0,   0,  -1,   1,   0,   0,
+      -1,  0,   0,  -1,   0,  -1
+    ]);
+
+    Where all director vectors point outwards the frustum.
+
  * Frustum planes convention : right, left, bottom, top, far, near;
  * Frustum planes must have director vectors pointing outside frustum;
  * @namespace "wTools.frustum"
  * @memberof module:Tools/math/Concepts
  */
-
-/*
-
-
-
-*/
 
 // --
 // routines
@@ -135,7 +149,7 @@ function is( frustum )
   *
   * _.cornersGet( srcfrustum );
   *
-  * @returns { Space } Returns the coordintes of the points in the frustum corners.
+  * @returns { Matrix } Returns the coordintes of the points in the frustum corners.
   * @function cornersGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( frustum ) is not frustum.
@@ -278,6 +292,7 @@ function pointContains( frustum , point )
   {
 
     let plane = frustum.colVectorGet( i );
+
     if( _.plane.pointDistance( plane, point ) > 1E-12 )
     return false;
 
@@ -373,6 +388,7 @@ function pointDistance( frustum, point )
   *
   * @param { Frustum } frustum - Source frustum.
   * @param { Array } srcpoint - Source point.
+  * @param { Array } dstPoint - Source point.
   *
   * @example
   * // returns [ 0, 0, 0 ];
@@ -385,9 +401,10 @@ function pointDistance( frustum, point )
   *
   * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
   * @function pointClosestPoint
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( frustum ) is not frustum.
-  * @throws { Error } An Error if ( point ) is not point.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @throws { Error } An Error if ( dstPoint ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
@@ -404,16 +421,24 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
 
-  let srcPointVector = _.vectorAdapter.from( srcPoint );  /* qqq : problem */
+  // let srcPointVector = _.vectorAdapter.from( srcPoint );  /* xxx qqq : problem? */
+  // let dstPointView = _.vectorAdapter.from( dstPoint );
+  // let dims = _.Matrix.dimsOf( frustum ) ;
+
+  if( _.frustum.pointContains( frustum, srcPoint ) )
+  return 0;
+
+  let srcPointView = _.vectorAdapter.from( srcPoint );  /* xxx qqq : problem? */
   let dstPointView = _.vectorAdapter.from( dstPoint );
   let dims = _.Matrix.dimsOf( frustum ) ;
+
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
   let fpoints = _.frustum.cornersGet( frustum );
   _.assert( _.matrixIs( fpoints ) );
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
-  _.assert( rows - 1 === srcPointVector.length );
-  _.assert( dstPointView.length === srcPointVector.length );
+  _.assert( rows - 1 === srcPointView.length );
+  _.assert( dstPointView.length === srcPointView.length );
 
   let max = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
   let min = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
@@ -450,17 +475,17 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 
   for( let i = 0 ; i < 3 ; i++ )
   {
-    if( srcPointVector.eGet( i ) >= max.eGet( i ) )
+    if( srcPointView.eGet( i ) >= max.eGet( i ) )
     {
       dstPointView.eSet( i, max.eGet( i ) );
     }
-    else if( srcPointVector.eGet( i ) <= min.eGet( i ) )
+    else if( srcPointView.eGet( i ) <= min.eGet( i ) )
     {
       dstPointView.eSet( i, min.eGet( i ) );
     }
     else
     {
-      dstPointView.eSet( i, srcPointVector.eGet( i ) );
+      dstPointView.eSet( i, srcPointView.eGet( i ) );
     }
   }
 
@@ -498,7 +523,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
     {
       dstPointView.eSet( i, finalPoint.eGet( i ) );
     }
-
+    logger.log( dstPointView )
     _.assert( _.frustum.pointContains( frustum, dstPointView ) === true );
     return dstPoint;
   }
@@ -867,6 +892,8 @@ function boundingBoxGet( dstBox, srcFrustum )
   // Frustum limits
   let maxF = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
   let minF = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
+  // let maxF = fpoints.colVectorGet( 0 ).clone();
+  // let minF = fpoints.colVectorGet( 0 ).clone();
 
   for( let j = 1 ; j < _.Matrix.dimsOf( fpoints )[ 1 ] ; j++ )
   {
@@ -906,6 +933,59 @@ function boundingBoxGet( dstBox, srcFrustum )
   }
 
   return dstBox;
+}
+
+//
+
+/**
+  * Check if a frustum contains a capsule. Returns true it contains the capsule.
+  * Frustum and capsule remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Sphere } capsule - Source capsule.
+  *
+  * @example
+  * // returns false;
+  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  *   [ 0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * _.capsuleContains( frustum , [ 0, 0, 0, 2, 2, 2, 1 ] );
+  *
+  * @returns { Boolean } Returns true if the frustum contains the capsule.
+  * @function capsuleContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @memberof wTools.frustum
+  */
+
+function capsuleContains( frustum , capsule )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  let dims = _.Matrix.dimsOf( frustum );
+
+  let capsuleView = _.capsule._from( capsule );
+  let dimC = _.capsule.dimGet( capsuleView );
+  let origin = _.vectorAdapter.from( _.capsule.originGet( capsuleView ) );
+  let end = _.vectorAdapter.from( _.capsule.endPointGet( capsuleView ) );
+  let radius = _.capsule.radiusGet( capsuleView );
+
+  _.assert( dims[ 0 ] - 1 === dimC, 'Capsule and frustum must have same length' );
+
+  let bottomSphere = _.sphere.fromCenterAndRadius( null, origin, radius );
+  let topSphere = _.sphere.fromCenterAndRadius( null, end, radius );
+
+  if( !_.frustum.sphereContains( frustum, bottomSphere ) )
+  return false;
+
+  if( !_.frustum.sphereContains( frustum, topSphere ) )
+  return false;
+
+  return true;
 }
 
 //
@@ -1009,6 +1089,159 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
 
 }
 
+//
+
+/**
+  * Check if a frustum contains a convex polygon. Returns true it contains the polygon.
+  * Frustum and polygon remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { ConvexPolygon } polygon - Source convex polygon.
+  *
+  * @example
+  * // returns false;
+  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * ([
+  *    0,   0,   0,   0, - 1,   1,
+  *    1, - 1,   0,   0,   0,   0,
+  *    0,   0,   1, - 1,   0,   0,
+  *    - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * let polygon = _.Matrix.make( [ 3, 3 ] ).copy
+  * ([
+  *    0,   0, -1,
+  *    0,  -1,  0,
+  *    -1,  0,  0
+  * ]);
+  * _.convexPolygonContains( frustum, polygon );
+  *
+  * @returns { Boolean } Returns true if the frustum contains the convex polygon.
+  * @function convexPolygonContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( polygon ) is not convex polygon.
+  * @memberof wTools.frustum
+  */
+
+function convexPolygonContains( frustum , polygon )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let dimsF = _.Matrix.dimsOf( frustum );
+  let dimsP = _.Matrix.dimsOf( polygon );
+  _.assert( dimsF[ 0 ] - 1 === dimsP[ 0 ], 'Polygon and frustum must have same length' );
+
+  for( let i = 0; i < dimsP[ 1 ]; i++ )
+  {
+    let vertex = polygon.colVectorGet( i );
+    if( !_.frustum.pointContains( frustum, vertex ) )
+    return false;
+  }
+
+  return true;
+}
+
+//
+
+function convexPolygonIntersects( srcFrustum , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let gotBool = _.convexPolygon.frustumIntersects( polygon, srcFrustum );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcFrustum , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  _.assert( _.frustum.is( srcFrustum ) );
+
+  let gotDist = _.convexPolygon.frustumDistance( polygon, srcFrustum );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a frustum to a convex polygon. Returns the calculated point.
+  * Frustum and polygon remain unchanged
+  *
+  * @param { Matrix } frustum - The source frustum.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ]
+  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  *  ([
+  *    -1,  -1, -1,  -1,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  *  ([
+  *     0,   0,   0,   0, - 1,   1,
+  *     1, - 1,   0,   0,   0,   0,
+  *     0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1 ]
+  *   );
+  * _.convexPolygonClosestPoint( srcFrustum, polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( frustum ) is not frustum
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.frustum
+  */
+function convexPolygonClosestPoint( frustum, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  _.assert( _.frustum.is( frustum ) );
+
+  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimF  = _.Matrix.dimsOf( frustum );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP[ 0 ] );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimP[ 0 ] === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimF[ 0 ] - 1 );
+
+  if( _.convexPolygon.frustumIntersects( polygon, frustum ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+    let frustumPoint = _.vectorAdapter.from( _.frustum.pointClosestPoint( frustum, polygonPoint ) );
+
+    for( let i = 0; i < dimP[ 0 ]; i++ )
+    {
+      dstPointView.eSet( i, frustumPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
 
 //
 
@@ -1664,6 +1897,58 @@ function rayClosestPoint( frustum, ray, dstPoint )
 
 //
 
+/**
+  * Check if a frustum contains a segment. Returns true it contains the segment.
+  * Frustum and segment remain unchanged.
+  *
+  * @param { Frustum } frustum - Source frustum.
+  * @param { Segment } segment - Source segment.
+  *
+  * @example
+  * // returns false;
+  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.segmentContains( frustum , [ 1, 1, 1, 2, 2, 2 ] );
+  *
+  * @returns { Boolean } Returns true if the frustum contains the segment.
+  * @function segmentContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( frustum ) is not frustum.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @memberof wTools.frustum
+  */
+
+function segmentContains( frustum, segment )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.frustum.is( frustum ) );
+  let dims = _.Matrix.dimsOf( frustum );
+
+  let segmentView = _.segment._from( segment );
+  let dimS = _.segment.dimGet( segmentView );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+
+  _.assert( dimS = dims[ 0 ] - 1, 'Frustum and segment must have the same dimension')
+
+  if( !_.frustum.pointContains( frustum, origin ) )
+  return false;
+
+  if( !_.frustum.pointContains( frustum, end ) )
+  return false;
+
+  return true;
+
+}
+
+//
+
 function segmentIntersects( srcFrustum , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1770,7 +2055,14 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   *
   * @example
   * // returns false;
-  * _.sphereContains( _.frustum.make() , [ 2, 2, 2, 1 ] );
+  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * ([
+  *   0,   0,   0,   0, - 1,   1,
+  *   1, - 1,   0,   0,   0,   0,
+  *   0,   0,   1, - 1,   0,   0,
+  *   - 1,   0, - 1,   0,   0, - 1
+  * ]);
+  * _.sphereContains( frustum , [ 2, 2, 2, 1 ] );
   *
   * @returns { Boolean } Returns true if the frustum contains the sphere.
   * @function sphereContains
@@ -1968,7 +2260,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
-  * @memberof wTools.capsule
+  * @memberof wTools.Frustum
   */
 function boundingSphereGet( dstSphere, srcFrustum )
 {
@@ -1994,8 +2286,10 @@ function boundingSphereGet( dstSphere, srcFrustum )
   _.assert( rows - 1 === dimSphere );
 
   // Frustum limits
-  let max = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
-  let min = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
+  let maxF = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
+  let minF = _.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
+  // let maxF = fpoints.colVectorGet( 0 ).clone();
+  // let minF = fpoints.colVectorGet( 0 ).clone();
 
   for( let j = 1 ; j < _.Matrix.dimsOf( fpoints )[ 1 ] ; j++ )
   {
@@ -2047,7 +2341,7 @@ function boundingSphereGet( dstSphere, srcFrustum )
 
 /* qqq : please sort */
 
-let Extension =
+let Extension = /* qqq : normalize order */
 {
 
   make,
@@ -2066,6 +2360,7 @@ let Extension =
   boxClosestPoint,
   boundingBoxGet,
 
+  capsuleContains,
   capsuleIntersects,
   capsuleDistance,
   capsuleClosestPoint,
@@ -2083,10 +2378,16 @@ let Extension =
   planeDistance, /* qqq : implement me */
   planeClosestPoint, /* qqq : implement me */
 
+  convexPolygonContains,
+  convexPolygonIntersects,
+  convexPolygonDistance,
+  convexPolygonClosestPoint,
+
   rayIntersects,  /* Same as _.ray.frustumIntersects */
   rayDistance,  /* Same as _.ray.frustumDistance */
   rayClosestPoint,
 
+  segmentContains,
   segmentIntersects,  /* Same as _.segment.frustumIntersects */
   segmentDistance,  /* Same as _.segment.frustumDistance */
   segmentClosestPoint,
@@ -2096,8 +2397,6 @@ let Extension =
   sphereDistance, /* qqq : implement me - Same as _.sphere.frustumDistance  */
   sphereClosestPoint,
   boundingSphereGet,
-
-  // ref
 
   tools : _,
 
