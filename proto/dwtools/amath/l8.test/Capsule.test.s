@@ -3210,7 +3210,7 @@ function capsuleClosestPoint( test )
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var tstCapsule = [ 0, 1, 1, 3, 7, 3, 1 ];
-  var expected = [ 0, 0.15811388300841897, 3.525658350974743 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0.15811388300841897, 3.525658350974743 ] );
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
@@ -3219,7 +3219,7 @@ function capsuleClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
   var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
-  var expected = [ - 0.4330127018922194,  - 0.4330127018922194,  - 0.4330127018922194 ];
+  var expected = _.capsule.tools.longMake( [ - 0.4330127018922194,  - 0.4330127018922194,  - 0.4330127018922194 ] );
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
@@ -3237,7 +3237,7 @@ function capsuleClosestPoint( test )
 
   var capsule = [ 0, 0, 2, -2, 0.3 ];
   var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
-  var expected = [ 0.13416407864998736, 0.2683281572999747 ];
+  var expected = _.capsule.tools.longMake( [ 0.13416407864998736, 0.2683281572999747 ] );
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
