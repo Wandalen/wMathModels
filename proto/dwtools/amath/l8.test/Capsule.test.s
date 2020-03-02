@@ -1625,73 +1625,73 @@ function getProjectionFactors( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors();
   });
 
   test.case = 'Wrong type of argument - string'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( 'capsule', 'projCapsule' );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( null, [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 1, 2, 3, 1 ], null );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( undefined, [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 1, 2, 3, 1 ], undefined );
   });
 
   test.case = 'Empty arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [], [] );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 3D vs capsule 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 1 ], [ 1, 1, 1, 1, 0, 1, 0, 2, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 3D vs capsule 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 2D vs capsule 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 1 ], [ 0, 2, 1 ] );
   });
