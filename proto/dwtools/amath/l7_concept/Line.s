@@ -716,8 +716,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   }
   logger.log('result', result)
   // Check result
-  let point1 = _.vector.from( _.array.makeArrayOfLength( origin1.length ) )
-  let point2 = _.vector.from( _.array.makeArrayOfLength( origin1.length ) )
+  let point1 = _.vector.from( this.tools.longMake( origin1.length ) )
+  let point2 = _.vector.from( this.tools.longMake( origin1.length ) )
   for( let i = 0; i < origin1.length; i++ )
   {
     point1.eSet( i, origin1.eGet( i ) + result.eGet( 0 )*direction1.eGet( i ) )
@@ -755,8 +755,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
 
     result = this.tools.vectorAdapter.from( x.base );
 
-    let point1 = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
-    let point2 = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
+    let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
     for( var j = 0; j < dOrigin.length; j++ )
     {
       point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) );
@@ -1625,7 +1625,7 @@ function convexPolygonClosestPoint( line, polygon, dstPoint )
   let dimL = this.dimGet( lineView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimL );
+  dstPoint = this.tools.longMake( dimL );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1643,7 +1643,7 @@ function convexPolygonClosestPoint( line, polygon, dstPoint )
   {
     let polygonPoint = _.convexPolygon.lineClosestPoint( polygon, lineView );
 
-    let linePoint = this.pointClosestPoint( lineView, polygonPoint, this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dimL ) ) ) ;
+    let linePoint = this.pointClosestPoint( lineView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimL ) ) ) ;
 
     for( let i = 0; i < dimL; i++ )
     {
@@ -2159,7 +2159,7 @@ function planeIntersectionPoint( srcLine, srcPlane, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( srcPlane.length - 1 );
+  dstPoint = this.tools.longMake( srcPlane.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2413,7 +2413,7 @@ function rayIntersectionPoint( srcLine, srcRay, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( srcRay.length / 2 );
+  dstPoint = this.tools.longMake( srcRay.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2720,7 +2720,7 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( tstSegment.length / 2 );
+  dstPoint = this.tools.longMake( tstSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
