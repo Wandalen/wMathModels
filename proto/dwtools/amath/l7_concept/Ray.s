@@ -986,8 +986,8 @@ function pointContains( srcRay, srcPoint )
   // let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( srcPointView, origin ) );
   let srcPointView = this.tools.vectorAdapter.from( srcPoint );
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
-  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( srcPointView.clone(), origin ) );
-  debugger; xxx
+  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub/* Vectors */( srcPointView.clone(), origin ) );
+  debugger; /* xxx */
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
