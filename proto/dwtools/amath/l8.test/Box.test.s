@@ -6370,7 +6370,7 @@ function planeClosestPoint( test )
   var oldSrcBox = srcBox.slice();
   var srcPlane = [ 1, 0, 0, 1 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = [ 0, 0, 0 ];
+  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -6399,7 +6399,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -6408,7 +6408,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 0, 1, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -6417,7 +6417,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, 0, 0, - 4 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.box.tools.longMake( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -6426,7 +6426,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 0, 1, 0, - 4 ];
-  var expected = [ 0, 3, 0 ];
+  var expected = _.box.tools.longMake( [ 0, 3, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -6435,7 +6435,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, 1, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -6444,7 +6444,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, 1, 0, - 7 ];
-  var expected = [ 3, 3, 0 ];
+  var expected = _.box.tools.longMake( [ 3, 3, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -6453,7 +6453,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, - 1, 0, - 7 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.box.tools.longMake( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
   test.identical( expected, gotPoint );
@@ -6463,7 +6463,7 @@ function planeClosestPoint( test )
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, - 1, 0, - 7 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.box.tools.longMake( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane, dstPoint );
   test.identical( expected, gotPoint );
@@ -6473,8 +6473,8 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var srcPlane = [ 1, - 1, 0, - 7 ];
-  var dstPoint = _.vectorAdapter.fromLong( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.fromLong( [ 3, 0, 0 ] );
+  var dstPoint = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 0 ] );
+  var expected = _.box.tools.vectorAdapter.fromLong( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane, dstPoint );
   test.identical( expected, gotPoint );
