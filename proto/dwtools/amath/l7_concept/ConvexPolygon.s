@@ -447,12 +447,12 @@ function pointDistance( polygon, point )
   return 0;
 
 
-  let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+  let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
   if( dims[ 0 ] === 3 )
   {
-    let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] ) );
     let i = 0;
-    while( this.tools.vectorAdapter.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -1374,11 +1374,11 @@ function lineIntersects( polygon, line )
 
   if( dims[ 0 ] > 2 )
   {
-    let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
-    let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] ) );
+    let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -1786,11 +1786,11 @@ function rayIntersects( polygon, ray )
   }
   if( dims[ 0 ] > 2 )
   {
-    let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
-    let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] ) );
+    let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
