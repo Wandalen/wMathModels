@@ -207,9 +207,9 @@ function fromPoints( plane, a, b, c )
   b = this.tools.vectorAdapter.from( b );
   c = this.tools.vectorAdapter.from( c );
 
-  let n1 = vector.subVectors( a.clone() , b );
-  let n2 = vector.subVectors( c.clone() , b );
-  normal = vector.cross( n1, n2 );
+  let n1 = this.tools.vectorAdapter.subVectors( a.clone() , b );
+  let n2 = this.tools.vectorAdapter.subVectors( c.clone() , b );
+  normal = this.tools.vectorAdapter.cross( n1, n2 );
   debugger;
   normal.normalize();
 
@@ -366,7 +366,7 @@ function pointCoplanarGet( plane , point, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( point.length );
+  dstPoint = this.tools.longMake( point.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -468,7 +468,7 @@ function boxIntersects( plane , srcBox )
   else
   {
     let side = distance/ Math.abs( distance );
-    for( let j = 1 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+    for( let j = 1 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       distance = this.pointDistance( plane, corner );

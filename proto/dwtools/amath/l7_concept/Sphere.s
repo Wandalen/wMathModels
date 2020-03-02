@@ -929,7 +929,7 @@ function pointContains( sphere, point )
   debugger;
   //throw _.err( 'not tested' );
 
-  return ( vector.distanceSqr( vector.from( point ) , center ) <= ( radius * radius ) + this.tools.accuracy ); /* xxx */
+  return ( this.tools.vectorAdapter.distanceSqr( this.tools.vectorAdapter.from( point ) , center ) <= ( radius * radius ) + this.tools.accuracy ); /* xxx */
 }
 
 //
@@ -1013,7 +1013,7 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
   _.assert( dim === srcPoint.length );
-  let srcPointv = vector.From( srcPoint );
+  let srcPointv = this.tools.vectorAdapter.from( srcPoint );
   _.assert( dim === dstPoint.length );
   let dstPointv = this.tools.vectorAdapter.from( dstPoint );
 
@@ -1028,7 +1028,7 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
     dstPointv.eSet( i, srcPointv.eGet( i ) );
   }
 
-  let distanseSqr = vector.distanceSqr( srcPointv , center );
+  let distanseSqr = this.vectorAdapter.distanceSqr( srcPointv , center );
   if( distanseSqr > radius * radius )
   {
     this.tools.vectorAdapter.subVectors( dstPointv, center );
@@ -1292,7 +1292,7 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   _.assert( dimS === dimB );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMakeZeroed( dimB );
+  dstPoint = this.tools/* _.long */.longMakeZeroed( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );

@@ -986,8 +986,8 @@ function pointContains( srcRay, srcPoint )
   // let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( srcPointView, origin ) );
   let srcPointView = this.tools.vectorAdapter.from( srcPoint );
   _.assert( dimension === srcPoint.length, 'The ray and the point must have the same dimension' );
-  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( srcPointView.clone(), origin ) );
-  debugger; xxx
+  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub/* Vectors */( srcPointView.clone(), origin ) );
+  debugger; /* xxx */
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -1137,7 +1137,7 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcPoint.length );
+  dstPoint = this.tools.longMake( srcPoint.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1250,7 +1250,7 @@ function boxIntersects( srcRay, srcBox )
   /* box corners */
   let c = _.box.cornersGet( boxView );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let projection = this.pointClosestPoint( srcRayView, corner );
@@ -1344,7 +1344,7 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcBox.length / 2 );
+  dstPoint = this.tools.longMake( srcBox.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1375,7 +1375,7 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
   let d = 0;
   let pointView = this.tools.vectorAdapter.from( origin );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     d = Math.abs( this.pointDistance( srcRayView, corner ) );
