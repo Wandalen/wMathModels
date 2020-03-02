@@ -9,7 +9,7 @@ if( typeof module !== 'undefined' )
 
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
-  _.include( 'wMathSpace' );
+  _.include( 'wMathMatrix' );
 
   require( '../l8/Concepts.s' );
 

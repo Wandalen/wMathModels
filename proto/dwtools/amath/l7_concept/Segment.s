@@ -2564,6 +2564,7 @@ function segmentDistance( srcSegment, tstSegment )
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the segments don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.segment
   */
+
 function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );

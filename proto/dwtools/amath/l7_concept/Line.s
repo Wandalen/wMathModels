@@ -2584,6 +2584,7 @@ function sphereClosestPoint( srcLine, srcSphere, dstPoint )
   * @throws { Error } An Error if ( srcLine ) is not line
   * @memberof module:Tools/math/Concepts.wTools.line
   */
+
 function boundingSphereGet( dstSphere, srcLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -2624,8 +2625,6 @@ function boundingSphereGet( dstSphere, srcLine )
 
   return dstSphere;
 }
-
-
 
 // --
 // extension
