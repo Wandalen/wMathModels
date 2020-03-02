@@ -2786,7 +2786,7 @@ function boundingSphereGet( dstSphere, srcCapsule )
   }
 
   // Radius of the sphere
-  _.sphere.radiusSet( dstSphereView, vector.distance( center, end )  + radiusCapsule );
+  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, end )  + radiusCapsule );
 
   return dstSphere;
 }
