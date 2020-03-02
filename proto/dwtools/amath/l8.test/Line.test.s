@@ -6871,7 +6871,7 @@ function boundingSphereGet( test )
 
   var srcLine = [ 0, 0, 0, 3, 3, 3 ];
   var dstSphere = [ 1, 1, 2, 1 ];
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, Infinity ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( expected, gotSphere );
@@ -6884,7 +6884,7 @@ function boundingSphereGet( test )
 
   var srcLine = [ 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
@@ -6893,7 +6893,7 @@ function boundingSphereGet( test )
 
   var srcLine = [ 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 3, 3, 3, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
@@ -6902,7 +6902,7 @@ function boundingSphereGet( test )
 
   var srcLine = [ 0, 0, 0, 4, 4, 4 ];
   var dstSphere = [ 2, 2, 2, 1 ];
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, Infinity ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
@@ -6911,7 +6911,7 @@ function boundingSphereGet( test )
 
   var srcLine = [ 0, 0, 0, - 1, - 1, - 1 ];
   var dstSphere = [ 0, 0, 0, 3 ];
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, Infinity ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
@@ -6920,7 +6920,7 @@ function boundingSphereGet( test )
 
   var srcLine = [ 1, 2, 3, 5, 8, 9 ];
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 1, 2, 3, Infinity ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3, Infinity ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
@@ -6929,7 +6929,7 @@ function boundingSphereGet( test )
 
   var srcLine = _.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ - 1, - 1, - 1, Infinity ];
+  var expected = _.line.tools.longMake( [ - 1, - 1, - 1, Infinity ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
@@ -6937,8 +6937,8 @@ function boundingSphereGet( test )
   test.case = 'dstSphere vector'; /* */
 
   var srcLine = [- 1, - 1, - 1, 3, 3, 1 ];
-  var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vectorAdapter.from( [ - 1, - 1, - 1, Infinity ] );
+  var dstSphere = _.line.tools.vectorAdapter.from( [ 5, 5, 5, 3 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ - 1, - 1, - 1, Infinity ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
@@ -6947,7 +6947,7 @@ function boundingSphereGet( test )
 
   var srcLine = [- 1, 5, - 1, 0, 0, 0 ];
   var dstSphere = null;
-  var expected = [ - 1, 5, - 1, 0 ];
+  var expected = _.line.tools.longMake( [ - 1, 5, - 1, 0 ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
@@ -6956,7 +6956,7 @@ function boundingSphereGet( test )
 
   var srcLine = [ - 1, - 3, - 5, 1, 0, 0 ];
   var dstSphere = undefined;
-  var expected = [ - 1, - 3, - 5, Infinity ];
+  var expected = _.line.tools.longMake( [ - 1, - 3, - 5, Infinity ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
@@ -6965,7 +6965,7 @@ function boundingSphereGet( test )
 
   var srcLine = _.vectorAdapter.from( [ 4, 4, 4, 1E-12, 1E-12, 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 4, 4, 4, Infinity ];
+  var expected = _.line.tools.longMake( [ 4, 4, 4, Infinity ] );
 
   var gotSphere = _.line.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );

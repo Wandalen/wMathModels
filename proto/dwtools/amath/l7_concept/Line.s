@@ -3193,7 +3193,7 @@ function boundingSphereGet( dstSphere, srcLine )
   }
 
   // Radius of the sphere
-  let distOrigin = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( _.long.longMakeZeroed( dimLine ) ), direction );
+  let distOrigin = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dimLine ) ), direction );
 
   if( distOrigin === 0  )
   {
