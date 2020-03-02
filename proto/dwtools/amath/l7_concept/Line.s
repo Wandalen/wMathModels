@@ -2759,16 +2759,16 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
   else
   {
 
-    if( this.lineParallel( srcLineView, srcRayView ) )
+    if( this.lineParallel( srcLineView, tstSegmentView ) )
     {
-      pointView = this.pointClosestPoint( srcLineView, rayOrigin );
+      pointView = this.pointClosestPoint( srcLineView, tstOrigin );
     }
     else
     {
       let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
       let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( rayOrigin.slice(), srcOrigin ) );
+      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( tstOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       pointView = this.lineAt( srcLineView, factor );
