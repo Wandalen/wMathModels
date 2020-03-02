@@ -1215,7 +1215,7 @@ function convexPolygonClosestPoint( frustum, polygon, dstPoint )
   let dimF  = _.Matrix.DimsOf( frustum );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP[ 0 ] );
+  dstPoint = this.tools.longMake( dimP[ 0 ] );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
