@@ -3159,7 +3159,7 @@ function lineClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var tstLine = [ 1, 1, 2, 0, 1, 0 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
 
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
   test.identical( expected, gotLine );
@@ -3190,7 +3190,7 @@ function lineClosestPoint( test )
   ]);
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, 1, 1 ];
+  var expected = _.frustum.tools.longMake( [ 0, 1, 1 ] );
 
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine, dstPoint );
   test.identical( expected, gotLine );
@@ -3206,8 +3206,8 @@ function lineClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var tstLine = [ - 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, 1, 1 ] );
+  var dstPoint = _.frustum.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.frustum.tools.vectorAdapter.from( [ 0, 1, 1 ] );
 
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
