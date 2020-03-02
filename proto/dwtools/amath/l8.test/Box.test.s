@@ -7405,7 +7405,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var dstSphere = [ 1, 1, 2, 1 ];
-  var expected = [ 1.5, 1.5, 1.5, Math.sqrt( 6.75 ) ];
+  var expected = _.box.tools.longMake( [ 1.5, 1.5, 1.5, Math.sqrt( 6.75 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( expected, gotSphere );
@@ -7418,7 +7418,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -7427,7 +7427,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var dstSphere = [ 2, 2, 2, 1 ];
-  var expected = [ 2, 2, 2, Math.sqrt( 12 ) ];
+  var expected = _.box.tools.longMake( [ 2, 2, 2, Math.sqrt( 12 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -7436,7 +7436,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 3, 3, 3, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -7445,7 +7445,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 0, 0, 0, 1, 1, 1 ];
   var dstSphere = [ 0, 0, 0, 3 ];
-  var expected = [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ];
+  var expected = _.box.tools.longMake( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -7454,7 +7454,7 @@ function boundingSphereGet( test )
 
   var srcBox = [ 1, 2, 3, 5, 8, 9 ];
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 3, 5, 6, Math.sqrt( 22 ) ];
+  var expected = _.box.tools.longMake( [ 3, 5, 6, Math.sqrt( 22 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -7463,7 +7463,7 @@ function boundingSphereGet( test )
 
   var srcBox = _.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 0, 0, 0, Math.sqrt( 3 )];
+  var expected = _.box.tools.longMake( [ 0, 0, 0, Math.sqrt( 3 )] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -7471,8 +7471,8 @@ function boundingSphereGet( test )
   test.case = 'dstSphere vector'; /* */
 
   var srcBox = [- 1, - 1, - 1, 3, 3, 1 ];
-  var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vectorAdapter.from( [ 1, 1, 0, 3 ] );
+  var dstSphere = _.box.tools.vectorAdapter.from( [ 5, 5, 5, 3 ] );
+  var expected = _.box.tools.vectorAdapter.from( [ 1, 1, 0, 3 ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -7481,7 +7481,7 @@ function boundingSphereGet( test )
 
   var srcBox = [- 1, 5, - 1, 3, 7, 1 ];
   var dstSphere = null;
-  var expected = [ 1, 6, 0, Math.sqrt( 6 ) ];
+  var expected = _.box.tools.longMake( [ 1, 6, 0, Math.sqrt( 6 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -7490,7 +7490,7 @@ function boundingSphereGet( test )
 
   var srcBox = [- 1, - 3, - 5, 1, 0, 0 ];
   var dstSphere = undefined;
-  var expected = [ 0, - 1.5, - 2.5, Math.sqrt( 9.5 ) ];
+  var expected = _.box.tools.longMake( [ 0, - 1.5, - 2.5, Math.sqrt( 9.5 ) ] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
@@ -7499,7 +7499,7 @@ function boundingSphereGet( test )
 
   var srcBox = _.vectorAdapter.from( [ 4, 4, 4, 2, 2, 2 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 3, 3, 3, Math.sqrt( 3 )];
+  var expected = _.box.tools.longMake( [ 3, 3, 3, Math.sqrt( 3 )] );
 
   var gotSphere = _.box.boundingSphereGet( dstSphere, srcBox );
   test.identical( gotSphere, expected );
