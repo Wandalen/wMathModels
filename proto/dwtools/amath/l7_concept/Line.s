@@ -628,7 +628,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   return this.tools.vectorAdapter.from( [ 0, 0 ] );
 
   // Parallel lines
-  if( lineParallel( srcLine1, srcLine2 ) === true )
+  if( this.lineParallel( srcLine1, srcLine2 ) === true )
   {
     let factor1 = this.getFactor( srcLine1View, origin2 );
     let factor2 = this.getFactor( srcLine2View, origin1 );
