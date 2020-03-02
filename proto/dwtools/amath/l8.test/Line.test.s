@@ -1501,7 +1501,7 @@ function lineIntersectionPoints( test )
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 2, 2 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.line.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.line.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
@@ -1516,7 +1516,7 @@ function lineIntersectionPoints( test )
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 1, 1 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.line.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.line.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
@@ -1543,7 +1543,7 @@ function lineIntersectionPoints( test )
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 0, 2, -1 ];
-  var expected = [ [ 1, 1 ], [ 1, 1 ] ];
+  var expected = _.line.tools.longMake( [ [ 1, 1 ], [ 1, 1 ] ] );
 
   var isIntersectionPoints = _.line.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
@@ -1552,7 +1552,7 @@ function lineIntersectionPoints( test )
 
   var src1Line = [ 3, 7, 1, 0 ];
   var src2Line = [ 3, 7, 0, 1 ];
-  var expected = [ [ 3, 7 ], [ 3, 7 ] ];
+  var expected = _.line.tools.longMake( [ [ 3, 7 ], [ 3, 7 ] ] );
 
   var isIntersectionPoints = _.line.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
@@ -1561,7 +1561,7 @@ function lineIntersectionPoints( test )
 
   var src1Line = [ 0, 0, 1, 0 ];
   var src2Line = [ -2, -6, 1, 2 ];
-  var expected = [ [ 1, 0 ], [ 1, 0 ] ];
+  var expected = _.line.tools.longMake( [ [ 1, 0 ], [ 1, 0 ] ] );
 
   var isIntersectionPoints = _.line.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
@@ -1570,7 +1570,7 @@ function lineIntersectionPoints( test )
 
   var src1Line = [ -3, 0, 1, 0 ];
   var src2Line = [ 0, -2, 0, 1 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.line.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.line.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
@@ -1588,7 +1588,7 @@ function lineIntersectionPoints( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 3, 1, 4 ];
-  var expected = [ [ 9, 9, 9 ], [ 9, 9, 9 ] ];
+  var expected = _.line.tools.longMake( [ [ 9, 9, 9 ], [ 9, 9, 9 ] ] );
 
   var isIntersectionPoints = _.line.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
@@ -1597,7 +1597,7 @@ function lineIntersectionPoints( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 0 ];
   var src2Line = [ 3, 3, 0, 0, 1, 0 ];
-  var expected = [ [ 3, 3, 0 ], [ 3, 3, 0 ] ];
+  var expected = _.line.tools.longMake( [ [ 3, 3, 0 ], [ 3, 3, 0 ] ] );
 
   var isIntersectionPoints = _.line.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
@@ -1615,7 +1615,7 @@ function lineIntersectionPoints( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
-  var expected = [ [ 9, 9, 9, 10 ], [ 9, 9, 9, 10 ] ];
+  var expected = _.line.tools.longMake( [ [ 9, 9, 9, 10 ], [ 9, 9, 9, 10 ] ] );
 
   var isIntersectionPoints = _.line.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );

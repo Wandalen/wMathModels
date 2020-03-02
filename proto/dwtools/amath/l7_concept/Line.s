@@ -809,7 +809,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   */
 function lineIntersectionPoints( srcLine1, srcLine2 )
 {
-  let factors = lineIntersectionFactors( srcLine1, srcLine2 );
+  let factors = this.lineIntersectionFactors( srcLine1, srcLine2 );
   if( factors === 0 )
   return 0;
 
