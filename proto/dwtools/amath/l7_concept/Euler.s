@@ -3,8 +3,8 @@
 'use strict';
 
 let _ = _global_.wTools;
-let avector = _.avector;
-let vector = _.vectorAdapter;
+// let this.tools.avector = this.tools.avector;
+// let vector = this.tools.vectorAdapter;
 let pi = Math.PI;
 let sin = Math.sin;
 let cos = Math.cos;
@@ -17,7 +17,7 @@ let sqrt = _.math.sqrt;
 let clamp = _.math.clamp;
 
 _.assert( _.routineIs( clamp ) )
-_.assert( !_.euler );
+_.assert( !this );
 
 /**
  * @description
@@ -59,7 +59,7 @@ function isZero( euler )
 
   _.assert( arguments.length === 1, 'Expects single argument' );
 
-  let eulerView = _.euler.toAdapter( euler );
+  let eulerView = this.adapterFrom( euler );
 
   for( let d = 0 ; d < 3 ; d++ )
   if( eulerView.eGet( d ) !== 0 )
@@ -72,17 +72,17 @@ function isZero( euler )
 
 function make( srcEuler, representation )
 {
-  let result = _.euler.makeZero();
+  let result = this.makeZero();
 
   _.assert( arguments.length === 0 || arguments.length === 1 || arguments.length === 2 );
-  _.assert( srcEuler === undefined || srcEuler === null || _.euler.is( srcEuler ) );
+  _.assert( srcEuler === undefined || srcEuler === null || this.is( srcEuler ) );
   _.assert( representation === undefined || representation );
 
-  if( _.euler.is( srcEuler ) )
-  _.avector.assign( result, srcEuler );
+  if( this.is( srcEuler ) )
+  this.tools.avector.assign( result, srcEuler );
 
   if( representation )
-  _.euler.representationSet( result, representation );
+  this.representationSet( result, representation );
 
   return result;
 }
@@ -100,7 +100,7 @@ function makeZero( representation )
   _.assert( representation === undefined || representation );
 
   if( representation )
-  _.euler.representationSet( result, representation );
+  this.representationSet( result, representation );
 
   return result;
 }
@@ -111,17 +111,17 @@ function zero( euler )
 {
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  _.assert( euler === undefined || euler === null || _.euler.is( euler ) );
+  _.assert( euler === undefined || euler === null || this.is( euler ) );
 
-  if( _.euler.is( euler ) )
+  if( this.is( euler ) )
   {
-    let eulerView = _.euler.toAdapter( euler );
+    let eulerView = this.adapterFrom( euler );
     for( let i = 0 ; i < 3 ; i++ )
     eulerView.eSet( i, 0 );
     return euler;
   }
 
-  return _.euler.makeZero();
+  return this.makeZero();
 }
 
 //
@@ -129,11 +129,11 @@ function zero( euler )
 function from( euler )
 {
 
-  _.assert( euler === null || _.euler.is( euler ) );
+  _.assert( euler === null || this.is( euler ) );
   _.assert( arguments.length === 1, 'Expects single argument' );
 
   if( euler === null )
-  return _.euler.make();
+  return this.make();
 
   if( _.vectorAdapterIs( euler ) )
   {
@@ -149,19 +149,19 @@ function from( euler )
 
 //
 
-function toAdapter( euler )
+function adapterFrom( euler )
 {
-  _.assert( _.euler.is( euler ) );
+  _.assert( this.is( euler ) );
   _.assert( arguments.length === 1, 'Expects single argument' );
 
-  return _.vectorAdapter.from( euler );
+  return this.tools.vectorAdapter.from( euler );
 }
 
 //
 
 function representationSet( dstEuler, representation )
 {
-  let dstEulerView = _.euler.toAdapter( dstEuler );
+  let dstEulerView = this.adapterFrom( dstEuler );
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -299,9 +299,9 @@ function representationSet( dstEuler, representation )
 function fromAxisAndAngle( dst, axis, angle )
 {
 
-  dst = _.euler.from( dst );
-  let dstv = _.vectorAdapter.from( dst );
-  let axisv = _.vectorAdapter.from( axis );
+  dst = this.from( dst );
+  let dstv = this.tools.vectorAdapter.from( dst );
+  let axisv = this.tools.vectorAdapter.from( axis );
 
   if( angle === undefined )
   angle = axis[ 3 ];
@@ -362,9 +362,9 @@ function fromQuat( dst, quat, v )
   let /*eps*/accuracy = 1e-9;
   let half = 0.5-/*eps*/accuracy;
 
-  dst = _.euler.from( dst );
-  let dstv = _.vectorAdapter.from( dst );
-  let quatv = _.quat.toAdapter( quat );
+  dst = this.from( dst );
+  let dstv = this.tools.vectorAdapter.from( dst );
+  let quatv = _.quat.adapterFrom( quat );
 
   // _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -905,8 +905,8 @@ function fromMatrix( euler, mat ) /* xxx */
   let /*eps*/accuracy = 1e-7;
   let one = 1-/*eps*/accuracy;
 
-  euler = _.euler.from( euler );
-  let eulerView = _.vectorAdapter.from( euler );
+  euler = this.from( euler );
+  let eulerView = this.tools.vectorAdapter.from( euler );
 
   let s00 = mat.atomGet([ 0, 0 ]), s10 = mat.atomGet([ 1, 0 ]), s20 = mat.atomGet([ 2, 0 ]);
   let s01 = mat.atomGet([ 0, 1 ]), s11 = mat.atomGet([ 1, 1 ]), s21 = mat.atomGet([ 2, 1 ]);
@@ -1007,13 +1007,13 @@ function toMatrix( euler, mat, premutating )
   if( mat === null || mat === undefined )
   mat = _.Matrix.make([ 3, 3 ]);
 
-  euler = _.euler.from( euler );
-  let eulerView = _.vectorAdapter.from( euler );
+  euler = this.from( euler );
+  let eulerView = this.tools.vectorAdapter.from( euler );
 
   if( premutating === undefined )
   premutating = true;
 
-  _.assert( _.euler.is( euler ) );
+  _.assert( this.is( euler ) );
   _.assert( _.Matrix.Is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -1277,15 +1277,15 @@ function fromQuat2( dstEuler, srcQuat )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
+  _.assert( dstEuler === undefined || dstEuler === null || this.is( dstEuler ) );
 
   if( dstEuler === undefined || dstEuler === null )
-  dstEuler = _.euler.makeZero();
+  dstEuler = this.makeZero();
 
-  dstEuler = _.euler.from( dstEuler );
-  let dstEulerView = _.euler.toAdapter( dstEuler );
-  let srcQuatVector = _.quat.toAdapter( srcQuat );
-  let accuracy =  _.accuracy;
+  dstEuler = this.from( dstEuler );
+  let dstEulerView = this.adapterFrom( dstEuler );
+  let srcQuatVector = _.quat.adapterFrom( srcQuat );
+  let accuracy =  this.tools.accuracy;
   let accuracySqr = _.accuracySqr;
 
   let x = srcQuatVector.eGet( 0 ); let x2 = x*x;
@@ -1634,16 +1634,16 @@ function toQuat2( srcEuler, dstQuat )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( _.euler.is( srcEuler ) );
+  _.assert( this.is( srcEuler ) );
   _.assert( dstQuat === undefined || dstQuat === null || _.quat.is( dstQuat ) );
 
   if( dstQuat === undefined || dstQuat === null )
   dstQuat = _.quat.makeUnit();
 
-  srcEuler = _.euler.from( srcEuler );
-  let srcEulerView = _.euler.toAdapter( srcEuler );
+  srcEuler = this.from( srcEuler );
+  let srcEulerView = this.adapterFrom( srcEuler );
   dstQuat = _.quat.from( dstQuat );
-  let dstQuatVector = _.quat.toAdapter( dstQuat );
+  let dstQuatVector = _.quat.adapterFrom( dstQuat );
 
   let e0 = srcEulerView.eGet( 0 );
   let e1 = srcEulerView.eGet( 1 );
@@ -1783,7 +1783,7 @@ function toQuat2( srcEuler, dstQuat )
   * Rotation matrix stays untouched.
   *
   * @param { Array } dstEuler - Destination array with euler angle source code.
-  * @param { Space } srcMatrix - Source rotation matrix.
+  * @param { Matrix } srcMatrix - Source rotation matrix.
   *
   * @example
   * // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
@@ -1804,13 +1804,13 @@ function toQuat2( srcEuler, dstQuat )
 function fromMatrix2( dstEuler, srcMatrix )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( dstEuler === undefined || dstEuler === null || _.euler.is( dstEuler ) );
+  _.assert( dstEuler === undefined || dstEuler === null || this.is( dstEuler ) );
 
   if( dstEuler === undefined || dstEuler === null )
-  dstEuler = _.euler.makeZero();
+  dstEuler = this.makeZero();
 
-  dstEuler = _.euler.from( dstEuler );
-  let dstEulerView = _.vectorAdapter.from( dstEuler );
+  dstEuler = this.from( dstEuler );
+  let dstEulerView = this.tools.vectorAdapter.from( dstEuler );
 
   _.assert( _.Matrix.Is( srcMatrix ) );
   _.assert( srcMatrix.dims[ 0 ] >= 3 );
@@ -2198,7 +2198,7 @@ function fromMatrix2( dstEuler, srcMatrix )
 function fromMatrix3( dstEuler, srcMatrix )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( _.euler.is( dstEuler ) );
+  _.assert( this.is( dstEuler ) );
 
   _.assert( _.Matrix.Is( srcMatrix ) );
   _.assert( srcMatrix.dims[ 0 ] >= 3 );
@@ -2206,7 +2206,7 @@ function fromMatrix3( dstEuler, srcMatrix )
 
   let quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
 
-  dstEuler = _.euler.fromQuat2( dstEuler, quat );
+  dstEuler = this.fromQuat2( dstEuler, quat );
 
   return dstEuler;
 }
@@ -2218,7 +2218,7 @@ function fromMatrix3( dstEuler, srcMatrix )
   * Euler angles stay untouched.
   *
   * @param { Array } srcEuler - Source representation of Euler angles.
-  * @param { Space } dstMatrix - Destination matrix.
+  * @param { Matrix } dstMatrix - Destination matrix.
   *
   * @example
   * // returns [ 0.7701, -0.4207, 0.4794,
@@ -2232,7 +2232,7 @@ function fromMatrix3( dstEuler, srcMatrix )
   * //           - 0.4794, 0.4207, 0.7701 ]
   * _.toMatrix2( null, [ 1, 0.5, 0.5, 2, 1, 0 ] );
   *
-  * @returns { Space } Returns the corresponding rotation matrix.
+  * @returns { Matrix } Returns the corresponding rotation matrix.
   * @function toMatrix2
   * @throws { Error } An Error if( arguments.length ) is different than one.
   * @throws { Error } An Error if( srcEuler ) is not euler.
@@ -2245,8 +2245,8 @@ function fromMatrix3( dstEuler, srcMatrix )
 function toMatrix2( srcEuler, dstMatrix )
 {
 
-  srcEuler = _.euler.from( srcEuler );
-  let srcEulerView = _.vectorAdapter.from( srcEuler );
+  srcEuler = this.from( srcEuler );
+  let srcEulerView = this.tools.vectorAdapter.from( srcEuler );
 
   _.assert( _.Matrix.Is( dstMatrix ) || dstMatrix === null || dstMatrix === undefined );
   if( dstMatrix === null || dstMatrix === undefined )
@@ -2458,9 +2458,9 @@ function toMatrix2( srcEuler, dstMatrix )
 function fromAxisAndAngle2( dstEuler, axis, angle )
 {
 
-  dstEuler = _.euler.from( dstEuler );
-  let dstEulerView = _.vectorAdapter.from( dstEuler );
-  let srcAxisVector = _.vectorAdapter.from( axis );
+  dstEuler = this.from( dstEuler );
+  let dstEulerView = this.tools.vectorAdapter.from( dstEuler );
+  let srcAxisVector = this.tools.vectorAdapter.from( axis );
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
@@ -2475,7 +2475,7 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
     quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
   }
 
-  dstEulerView = _.euler.fromQuat2( dstEulerView, quat );
+  dstEulerView = this.fromQuat2( dstEulerView, quat );
   return dstEuler;
 }
 
@@ -2503,12 +2503,12 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
 function toAxisAndAngle2( euler, axisAndAngle )
 {
 
-  let srcEuler = _.euler.from( euler );
+  let srcEuler = this.from( euler );
 
   _.assert( arguments.length === 2, 'Expects two arguments' );
   _.assert( axisAndAngle.length === 4 );
 
-  let quat = _.euler.toQuat2( srcEuler, [ 0, 0, 0, 0 ] );
+  let quat = this.toQuat2( srcEuler, [ 0, 0, 0, 0 ] );
 
   axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
   return axisAndAngle;
@@ -2542,7 +2542,7 @@ function toAxisAndAngle2( euler, axisAndAngle )
 
 function represent( dstEuler, representation )
 {
-  _.assert( dstEuler === null || dstEuler === undefined || _.euler.is( dstEuler ) );
+  _.assert( dstEuler === null || dstEuler === undefined || this.is( dstEuler ) );
   _.assert( _.longIs( representation ) || _.arrayIs( representation ) || _.strIs( representation ) );
   _.assert( arguments.length === 2, 'Expects two arguments' );
 
@@ -2550,17 +2550,17 @@ function represent( dstEuler, representation )
   dstEuler = [ 0, 0, 0, 0, 1, 2 ];
 
   let eulerArray = dstEuler.slice();
-  let dstEulerView = _.vectorAdapter.from( dstEuler );
+  let dstEulerView = this.tools.vectorAdapter.from( dstEuler );
   let dstQuat = [ 0, 0, 0, 0 ];
-  let gotQuaternion = _.euler.toQuat2( eulerArray, dstQuat );
+  let gotQuaternion = this.toQuat2( eulerArray, dstQuat );
 
   if( representation )
   {
-    eulerArray = _.euler.make( eulerArray, representation );
+    eulerArray = this.make( eulerArray, representation );
   }
 
-  eulerArray = _.euler.fromQuat2( eulerArray, gotQuaternion );
-  _.vectorAdapter.assign( dstEulerView, eulerArray );
+  eulerArray = this.fromQuat2( eulerArray, gotQuaternion );
+  this.tools.vectorAdapter.assign( dstEulerView, eulerArray );
   return dstEuler;
 
 }
@@ -2593,14 +2593,14 @@ function isGimbalLock( srcEuler )
 {
 
   _.assert( arguments.length === 1 );
-  _.assert( _.euler.is( srcEuler ) );
+  _.assert( this.is( srcEuler ) );
 
-  srcEuler = _.euler.from( srcEuler );
-  let srcEulerView = _.vectorAdapter.fromLong( srcEuler );
-  let accuracy =  _.accuracy;
+  srcEuler = this.from( srcEuler );
+  let srcEulerView = this.tools.vectorAdapter.fromLong( srcEuler );
+  let accuracy =  this.tools.accuracy;
   let accuracySqr = _.accuracySqr;
 
-  let srcQuatVector = _.vectorAdapter.fromLong( _.euler.toQuat2( srcEuler, null ) );
+  let srcQuatVector = this.tools.vectorAdapter.fromLong( this.toQuat2( srcEuler, null ) );
   let x = srcQuatVector.eGet( 0 ); let x2 = x*x;
   let y = srcQuatVector.eGet( 1 ); let y2 = y*y;
   let z = srcQuatVector.eGet( 2 ); let z2 = z*z;
@@ -2829,7 +2829,7 @@ function isGimbalLock( srcEuler )
 // declare
 // --
 
-let Proto =
+let Extension = /* qqq : normalize order */
 {
 
   is,
@@ -2841,7 +2841,7 @@ let Proto =
   zero,
 
   from,
-  toAdapter,
+  adapterFrom,
   representationSet,
 
   fromAxisAndAngle,
@@ -2862,8 +2862,12 @@ let Proto =
 
   // Order,
 
+  // ref
+
+  tools : _,
+
 }
 
-_.mapExtend( Self, Proto );
+_.mapExtend( Self, Extension );
 
 })();

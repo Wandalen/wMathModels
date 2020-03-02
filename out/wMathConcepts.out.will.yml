@@ -2,15 +2,12 @@ format: outwillfile-2.0
 root:
   - wMathConcepts.out
 consistency:
-  wMathConcepts.out.will.yml: &ref_0
-    hash: adcb893bbd1f93a6acd97afef85da91b
-    size: 41854
-  ../.ex.will.yml: &ref_1
+  ../.ex.will.yml: &ref_0
     hash: 3c25b64598cc53925af81c87f7479106
     size: 2647
-  ../.im.will.yml: &ref_2
-    hash: 36b1c3cc03d1b556ac473bdddfc062b5
-    size: 5160
+  ../.im.will.yml: &ref_1
+    hash: abc2a5d28ca616b8a808fad2636adbb9
+    size: 5236
 module:
   wMathConcepts.out:
     about:
@@ -32,11 +29,11 @@ module:
         problems and to get a more flexible program.
       enabled: 1
       version: 0.5.0
-      interpreters:
+      interpreters: &ref_2
         - njs >= 8.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords:
+      keywords: &ref_3
         - wTools
         - math
         - vector
@@ -44,11 +41,11 @@ module:
         - convolution
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors:
+      contributors: &ref_4
         - Kostiantyn Wandalen <wanalen@willbe.so>
         - Pablo Garcimartin <pablogarcimartinruiz@gmail.com>
       npm.name: wmathconcepts
-      npm.scripts:
+      npm.scripts: &ref_5
         test: wtest .run proto/**
         docgen: wdocgen .build proto
     path:
@@ -176,23 +173,11 @@ module:
           - ../proto/dwtools/Tools.s
           - ../proto/dwtools/abase
           - ../proto/dwtools/amath
-          - ../proto/dwtools/amath/l7.test
-          - ../proto/dwtools/amath/l7.test/AxisAndAngle.test.s
-          - ../proto/dwtools/amath/l7.test/Box.test.s
-          - ../proto/dwtools/amath/l7.test/Capsule.test.s
-          - ../proto/dwtools/amath/l7.test/Euler.test.s
-          - ../proto/dwtools/amath/l7.test/Experiment.experiment.s
-          - ../proto/dwtools/amath/l7.test/Frustum.test.s
-          - ../proto/dwtools/amath/l7.test/Line.test.s
-          - ../proto/dwtools/amath/l7.test/Plane.test.s
-          - ../proto/dwtools/amath/l7.test/Quat.test.s
-          - ../proto/dwtools/amath/l7.test/Ray.test.s
-          - ../proto/dwtools/amath/l7.test/Segment.test.s
-          - ../proto/dwtools/amath/l7.test/Sphere.test.s
           - ../proto/dwtools/amath/l7_concept
           - ../proto/dwtools/amath/l7_concept/AxisAndAngle.s
           - ../proto/dwtools/amath/l7_concept/Box.s
           - ../proto/dwtools/amath/l7_concept/Capsule.s
+          - ../proto/dwtools/amath/l7_concept/ConvexPolygon.s
           - ../proto/dwtools/amath/l7_concept/Euler.s
           - ../proto/dwtools/amath/l7_concept/Frustum.s
           - ../proto/dwtools/amath/l7_concept/Line.s
@@ -203,6 +188,20 @@ module:
           - ../proto/dwtools/amath/l7_concept/Sphere.s
           - ../proto/dwtools/amath/l8
           - ../proto/dwtools/amath/l8/Concepts.s
+          - ../proto/dwtools/amath/l8.test
+          - ../proto/dwtools/amath/l8.test/AxisAndAngle.test.s
+          - ../proto/dwtools/amath/l8.test/Box.test.s
+          - ../proto/dwtools/amath/l8.test/Capsule.test.s
+          - ../proto/dwtools/amath/l8.test/ConvexPolygon.test.s
+          - ../proto/dwtools/amath/l8.test/Euler.test.s
+          - ../proto/dwtools/amath/l8.test/Experiment.experiment.s
+          - ../proto/dwtools/amath/l8.test/Frustum.test.s
+          - ../proto/dwtools/amath/l8.test/Line.test.s
+          - ../proto/dwtools/amath/l8.test/Plane.test.s
+          - ../proto/dwtools/amath/l8.test/Quat.test.s
+          - ../proto/dwtools/amath/l8.test/Ray.test.s
+          - ../proto/dwtools/amath/l8.test/Segment.test.s
+          - ../proto/dwtools/amath/l8.test/Sphere.test.s
           - ../proto/dwtools/amid
           - ../proto/dwtools/atop
     submodule:
@@ -220,6 +219,10 @@ module:
         enabled: 0
       wMathVector:
         path: 'npm:///wmathvector'
+        autoExporting: 0
+        enabled: 0
+      wEntityBasic:
+        path: 'npm:///wentitybasic'
         autoExporting: 0
         enabled: 0
       wmathconcepts:
@@ -749,24 +752,6 @@ module:
           content: prime
         inherit:
           - files.transpile
-      exported.proto.export:
-        opts:
-          reflector: 'reflector::exported.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
-      exported.files.proto.export:
-        opts:
-          reflector: 'reflector::exported.files.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
     build:
       proto.export:
         steps:
@@ -855,9 +840,8 @@ module:
           content: proto
           export: 1
     consistency:
-      wMathConcepts.out.will.yml: *ref_0
-      ../.ex.will.yml: *ref_1
-      ../.im.will.yml: *ref_2
+      ../.ex.will.yml: *ref_0
+      ../.im.will.yml: *ref_1
   ../:
     about:
       name: wMathConcepts
@@ -878,25 +862,13 @@ module:
         problems and to get a more flexible program.
       enabled: 1
       version: 0.5.0
-      interpreters:
-        - njs >= 8.0.0
-        - chrome >= 60.0.0
-        - firefox >= 60.0.0
-      keywords:
-        - wTools
-        - math
-        - vector
-        - dot product
-        - convolution
+      interpreters: *ref_2
+      keywords: *ref_3
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors:
-        - Kostiantyn Wandalen <wanalen@willbe.so>
-        - Pablo Garcimartin <pablogarcimartinruiz@gmail.com>
+      contributors: *ref_4
       npm.name: wmathconcepts
-      npm.scripts:
-        test: wtest .run proto/**
-        docgen: wdocgen .build proto
+      npm.scripts: *ref_5
     path:
       module.willfiles:
         criterion:
@@ -1020,6 +992,10 @@ module:
         enabled: 0
       wMathVector:
         path: 'npm:///wmathvector'
+        autoExporting: 0
+        enabled: 0
+      wEntityBasic:
+        path: 'npm:///wentitybasic'
         autoExporting: 0
         enabled: 0
       wmathconcepts:
@@ -1578,6 +1554,5 @@ module:
         hash: 3c25b64598cc53925af81c87f7479106
         size: 2647
       ../.im.will.yml:
-        hash: 36b1c3cc03d1b556ac473bdddfc062b5
-        size: 5160
-      wMathConcepts.out.will.yml: *ref_0
+        hash: abc2a5d28ca616b8a808fad2636adbb9
+        size: 5236

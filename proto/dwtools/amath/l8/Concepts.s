@@ -18,10 +18,11 @@ if( typeof module !== 'undefined' )
 
   _.include( 'wMathScalar' );
   _.include( 'wMathVector' );
-  _.include( 'wMathSpace' );
+  _.include( 'wMathMatrix' );
 
   require( '../l7_concept/Box.s' );
   require( '../l7_concept/Capsule.s' );
+  require( '../l7_concept/ConvexPolygon.s' );
   require( '../l7_concept/Frustum.s' );
   require( '../l7_concept/Line.s' );
   require( '../l7_concept/Plane.s' );

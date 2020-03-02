@@ -1,25 +1,20 @@
-
 if( typeof module !== 'undefined' )
 require( 'wmathconcepts' );
 
 let _ = wTools;
 
-/*
-var capsule = [ -3, 0, 0, -1, 0, 0, 1 ];
-var segment = [ 1, 0, 0, 3, 0, 0 ];
+let srcSegment = [ 3, 0, -1, 4, 0, 0 ];
+var polygon =  _.Space.make( [ 3, 4 ] ).copy
+([
+  0,   0,   0,   0,
+  1,   0, - 1,   0,
+  0,   1,   0, - 1
+]);
 
-var intersection = _.segment.capsuleIntersects( segment, capsule );
-var distance = _.segment.capsuleDistance( segment, capsule );
-var closestPoint = _.segment.capsuleClosestPoint( segment, capsule );
-logger.log('Final result: ', intersection );
-logger.log('Final result: ', distance );
-logger.log('Final result: ', closestPoint );
-*/
-
-
-var segment = [ 0, 0, 0, 1, 0, 0 ];
-
-let result = _.segment.boundingSphereGet( null, segment )
-logger.log( 'Result :', result );
-result = _.segment.boundingBoxGet( null, segment )
-logger.log( 'Result :', result );
+result = _.segment.convexPolygonIntersects( srcSegment, polygon );
+logger.log( result );
+result = _.segment.convexPolygonDistance( srcSegment, polygon );
+logger.log( result );
+result = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
+logger.log( result );
+debugger;
