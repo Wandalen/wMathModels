@@ -271,11 +271,11 @@ function endPointGet( segment )
   * @param { Vector } segment - The source segment.
   *
   * @example
-  * // returns   2, 2
+  * // returns  [ 2, 2 ]
   * _.directionGet( [ 0, 0, 2, 2 ] );
   *
   * @example
-  * // returns  2
+  * // returns  [ 2 ]
   * _.directionGet( [ 1, 2 ] );
   *
   * @returns { Vector } Returns the direction of the segment.
@@ -299,6 +299,50 @@ function directionGet( segment )
   }
 
   return direction;
+}
+
+//
+
+/**
+  * Get the center of a segment. Returns the center of the segment. Segment stays untouched.
+  *
+  * @param { Array } segment - The source segment.
+  * @param { Array } dst - The destination array (optional - sets the type of the returned object).
+  *
+  * @example
+  * // returns [ 0.5, 1 ]
+  * _.centerGet( [ 0, 0, 1, 2 ], [ 5, 0 ]);
+  *
+  * @example
+  * // returns [ 0.5 ]
+  * _.centerGet( [ 0, 1 ] );
+  *
+  * @returns { Array } Returns the coordinates of the center of the segment.
+  * @function centerGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one or two.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( dst ) is not point.
+  * @memberof wTools.segment
+  */
+function centerGet( segment, dst )
+{
+  _.assert( arguments.length === 1 || arguments.length === 2 );
+
+  let segmentView = _.segment._from( segment );
+  let dim = _.segment.dimGet( segmentView );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+
+  if( !dst )
+  dst = _.dup( 0, dim ) ;
+
+  let dstv = _.vectorAdapter.from( dst );
+
+  _.assert( dim === dst.length );
+
+  _.vectorAdapter.addAssigning( dstv.copy( origin ), end ).mulScalar( 0.5 );
+
+  return dst;
 }
 
 //
@@ -396,7 +440,8 @@ function getFactor( srcSegment, srcPoint )
   let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
 
   _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
-  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
+  // let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) ); /* xxx */
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView.clone(), origin ) );
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -418,6 +463,11 @@ function getFactor( srcSegment, srcPoint )
   // Factor can not be negative
   if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
   return false;
+
+  let newPoint = _.segment.segmentAt( srcSegmentView, factor );
+
+  if( _.avector.allEquivalent( newPoint, srcPointView ) )
+  return factor;
 
   for( var i = 1; i < dOrigin.length; i++ )
   {
@@ -441,13 +491,19 @@ function getFactor( srcSegment, srcPoint )
         return false;
       }
       factor = newFactor;
+
       // Factor can not be negative
       if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
       return false;
+
     }
+    let newPoint = _.segment.segmentAt( srcSegmentView, factor );
+
+    if( _.avector.allEquivalent( newPoint, srcPointView ) )
+    return factor;
   }
 
-  return factor;
+  return false;
 }
 
 //
@@ -543,6 +599,155 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
 //
 
 /**
+  * Project a segment: the projection vector ( projVector ) translates the center of the segment, and the projection scaling factor ( l )
+  * scales the segment length ( l ). The projection parameters should have the shape:
+  * project = [ projVector, l ];
+  * Returns the projected segment. Segment is stored in Array data structure.
+  * The projection array stays untouched, the segment changes.
+  *
+  * @param { Array } segment - segment to be projected.
+  * @param { Array } project - Array of reference with projection parameters.
+  *
+  * @example
+  * // returns [ 1, 1, 3, 3 ];
+  * _.project( [ 0, 0, 2, 2 ], [ [ 1, 1 ], 1 ] );
+  *
+  * @example
+  * // returns [ -1, -1, 3, 3 ];
+  * _.expand( [ 0, 0, 2, 2 ], [ [ 0, 0 ], 2 ] );
+  *
+  * @returns { Array } Returns the array of the projected segment.
+  * @function project
+  * @throws { Error } An Error if ( dim ) is different than project.length - 1 / 2 (the segment and the projection array don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( project ) is not an array.
+  * @memberof wTools.segment
+  */
+function project( segment, project )
+{
+
+  if( segment === null )
+  segment = _.segment.make();
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.longIs( project ) || _.vectorAdapterIs( project ) );
+  _.assert( project.length === 2, 'Project array expects exactly two entries')
+
+  let segmentView = _.segment._from( segment );
+  let origin = _.vectorAdapter.from( _.segment.originGet( segmentView ) );
+  let end = _.vectorAdapter.from( _.segment.endPointGet( segmentView ) );
+  let center = _.vectorAdapter.from( _.segment.centerGet( segmentView ) );
+  let dim = _.segment.dimGet( segmentView );
+
+  let projectView = _.vectorAdapter.from( project );
+  let projVector = _.vectorAdapter.from( projectView.eGet( 0 ) );
+  _.assert( dim === projVector.length );
+  let scalLength = projectView.eGet( 1 );
+
+
+  let segTop = _.vectorAdapter.mulScalar( _.vectorAdapter.subVectors( end.clone(), center ), scalLength );
+  let segSub = _.vectorAdapter.mulScalar( _.vectorAdapter.subVectors( origin.clone(), center ), scalLength );
+
+  let newCenter = _.vectorAdapter.addVectors( center.clone(), projVector );
+  let newOrigin = _.vectorAdapter.addVectors( newCenter.clone(), segSub );
+  let newEnd = _.vectorAdapter.addVectors( newCenter.clone(), segTop );
+
+  debugger;
+
+  for( let i = 0; i < dim; i ++ )
+  {
+    segmentView.eSet( i, newOrigin.eGet( i ) );
+    segmentView.eSet( i + dim, newEnd.eGet( i ) );
+  }
+
+  return segment;
+}
+
+//
+
+/**
+  * Get the projection factors of two segments: the projection vector ( projVector ) translates the center of the segment, and the projection scaling factor ( l )
+  * scale the segment length. The projection parameters should have the shape:
+  * project = [ projVector, l ];
+  * Returns the projection parameters, 0 when not possible ( i.e: Segments are not parallel ).
+  * Segments are stored in Array data structure. The segments stay untouched.
+  *
+  * @param { Array } srcSegment - Original segment.
+  * @param { Array } projSegment - Projected segment.
+  *
+  * @example
+  * // returns [ [ 0.5, 0.5 ], 2 ];
+  * _.getProjectionFactors( [ 0, 0, 1, 1 ], [ -0.5, -0.5, 2.5, 2.5 ] );
+  *
+  *
+  * @returns { Array } Returns the array with the projection factors between the two segmentes.
+  * @function getProjectionFactors
+  * @throws { Error } An Error if ( dim ) is different than ( dim2 ) (the segments don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( projSegment ) is not segment.
+  * @memberof wTools.segment
+  */
+function getProjectionFactors( srcSegment, projSegment )
+{
+
+  _.assert( _.segment.is( srcSegment ), 'Expects segment' );
+  _.assert( _.segment.is( projSegment ), 'Expects segment' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let srcSegmentView = _.segment._from( srcSegment );
+  let srcOrigin = _.vectorAdapter.from( _.segment.originGet( srcSegmentView ) );
+  let srcEnd = _.vectorAdapter.from( _.segment.endPointGet( srcSegmentView ) );
+  let srcCenter = _.vectorAdapter.from( _.segment.centerGet( srcSegmentView ) );
+  let srcDim = _.segment.dimGet( srcSegmentView );
+
+  let projSegmentView = _.segment._from( projSegment );
+  let projOrigin = _.vectorAdapter.from( _.segment.originGet( projSegmentView ) );
+  let projEnd = _.vectorAdapter.from( _.segment.endPointGet( projSegmentView ) );
+  let projCenter = _.vectorAdapter.from( _.segment.centerGet( projSegmentView ) );
+  let projDim = _.segment.dimGet( projSegmentView );
+
+  _.assert( srcDim === projDim );
+
+  let project = _.array.makeArrayOfLength( 2 );
+  let projectView = _.vectorAdapter.from( project );
+
+  debugger;
+  if( !_.segment.segmentParallel( srcSegmentView, projSegmentView, 1e-7 ) )
+  return 0;
+
+  let translation = _.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
+  projectView.eSet( 0, translation.toArray() );
+
+  let srcTop = _.vectorAdapter.subVectors( srcEnd.clone(), srcCenter );
+  let projTop = _.vectorAdapter.subVectors( projEnd.clone(), projCenter );
+  debugger;
+
+  let srcTopMag = _.vectorAdapter.mag( srcTop);
+  let projTopMag = _.vectorAdapter.mag( projTop);
+
+  let scalLength;
+  if( srcTopMag === 0 )
+  {
+    if( projTopMag === 0 )
+    {
+      scalLength = 1;
+    }
+    else return 0;
+  }
+  else
+  {
+    scalLength = projTopMag / srcTopMag;
+  }
+  projectView.eSet( 1, scalLength );
+
+  return project;
+}
+
+//
+
+/**
   * Returns the factors for the intersection of two segments. Returns a vector with the intersection factors, 0 if there is no intersection.
   * Segments stay untouched.
   *
@@ -564,20 +769,24 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
   * @throws { Error } An Error if ( src2Segment ) is not segment.
   * @memberof module:Tools/math/Concepts.wTools.segment
   */
+
 function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( srcSegment1.length === srcSegment2.length, 'The two segments must have the same dimension' );
 
-  let srcSegment1View = _.segment.toAdapter( srcSegment1.slice() );
-  let srcSegment2View = _.segment.toAdapter( srcSegment2.slice() );
+  // let srcSegment1View = _.segment.toAdapter( srcSegment1.slice() );
+  // let srcSegment2View = _.segment.toAdapter( srcSegment2.slice() );
+  let srcSegment1View = _.segment._from( srcSegment1 );
+  let srcSegment2View = _.segment._from( srcSegment2 );
 
   let origin1 = _.segment.originGet( srcSegment1View );
   let origin2 = _.segment.originGet( srcSegment2View );
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( origin2.clone(), origin1 ) );
+
   let end1 = _.segment.endPointGet( srcSegment1View );
   let end2 = _.segment.endPointGet( srcSegment2View );
 
-  let dOrigin = _.vectorAdapter.from( avector.subVectors( origin2.clone(), origin1 ) );
   let direction1 = _.segment.directionGet( srcSegment1View );
   let direction2 = _.segment.directionGet( srcSegment2View );
 
@@ -635,7 +844,6 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   }
 
   let result = _.vectorAdapter.from( [ 0, 0 ] );
-  let oldResult = _.vectorAdapter.from( [ 0, 0 ] );
   debugger;
 
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
@@ -643,13 +851,12 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
     let m = _.Matrix.make( [ 2, 2 ] );
     m.rowSet( 0, directions.rowVectorGet( i ) );
     m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
-
     let or = _.Matrix.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
 
     let o =
     {
       x : null,
-      m,
+      m : m,
       y : or,
       kernel : null,
       pivoting : 1,
@@ -659,28 +866,136 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 
     result = _.vectorAdapter.from( x.base );
 
-    let point1 = _.vectorAdapter.from( _.long.longMake( dOrigin.length ) );
-    let point2 = _.vectorAdapter.from( _.long.longMake( dOrigin.length ) );
-    let equal = 0;
+    let point1 = _.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point2 = _.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
+
     for( var j = 0; j < dOrigin.length; j++ )
     {
-      point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) )
-      point2.eSet( j, origin2.eGet( j ) + direction2.eGet( j )*result.eGet( 1 ) )
-
-      if( point1.eGet( j ) + 1E-6 >= point2.eGet( j ) && point2.eGet( j ) >= point1.eGet( j ) - 1E-6 )
-      {
-        equal = equal + 1;
-      }
+      point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) );
+      point2.eSet( j, origin2.eGet( j ) + direction2.eGet( j )*result.eGet( 1 ) );
     }
+
+    let contained = 0;
+    if( _.segment.pointContains( srcSegment1View, point2 ) )
+    {
+      result.eSet( 0, _.segment.getFactor( srcSegment1View, point2 ) );
+      contained = 1;
+    }
+    else if( _.segment.pointContains( srcSegment2View, point1 ) )
+    {
+      result.eSet( 1, _.segment.getFactor( srcSegment2View, point1 ) );
+      contained = 1;
+    }
+
+
 
     let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
     let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
-    if( equal === dOrigin.length && result0 && result1 )
+
+    if( result0 && result1 && contained === 1 )
     return result;
   }
 
   return 0;
 }
+/*
+function segmentIntersectionFactors( srcSegment1, srcSegment2 )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcSegment1.length === srcSegment2.length,'The two segments must have the same dimension' );
+  let srcSegment1View = _.segment._from( srcSegment1.slice() );
+  let srcSegment2View = _.segment._from( srcSegment2.slice() );
+  let origin1 = _.segment.originGet( srcSegment1View );
+  let origin2 = _.segment.originGet( srcSegment2View );
+  let end1 = _.segment.endPointGet( srcSegment1View );
+  let end2 = _.segment.endPointGet( srcSegment2View );
+  let dOrigin = _.vector.from( avector.subVectors( origin2.clone(), origin1 ) );
+  let direction1 = _.segment.directionGet( srcSegment1View );
+  let direction2 = _.segment.directionGet( srcSegment2View );
+  let directions = _.Matrix.make( [ srcSegment1.length / 2 , 2 ] );
+  directions.colVectorGet( 0 ).copy( direction1 );
+  directions.colVectorGet( 1 ).copy( direction2.clone().mulScalar( - 1 ) );
+  // Same origin
+  let identOrigin = 0;
+  let identEnd = 0;
+  let origin1End2 = 0;
+  let end1Origin2 = 0;
+  for( let i = 0; i < origin1.length; i++ )
+  {
+    if( origin1.eGet( i ) === origin2.eGet( i ) )
+    identOrigin = identOrigin + 1;
+    if( origin1.eGet( i ) === end2.eGet( i ) )
+    origin1End2 = origin1End2 + 1;
+    if( end1.eGet( i ) === origin2.eGet( i ) )
+    end1Origin2 = end1Origin2 + 1;
+    if( end1.eGet( i ) === end2.eGet( i ) )
+    identEnd = identEnd + 1;
+  }
+  if( identOrigin === origin1.length )
+  return _.vector.from( [ 0, 0 ] );
+  else if( origin1End2 === origin1.length )
+  return _.vector.from( [ 0, 1 ] );
+  else if( end1Origin2 === origin1.length )
+  return _.vector.from( [ 1, 0 ] );
+  else if( identEnd === origin1.length )
+  return _.vector.from( [ 1, 1 ] );
+  // Parallel segments
+  if( segmentParallel( srcSegment1, srcSegment2 ) === true )
+  {
+    if( _.segment.pointContains( srcSegment1, origin2 ) )
+    {
+      return _.vector.from( [ _.segment.getFactor( srcSegment1, origin2), 0 ] );
+    }
+    else if( _.segment.pointContains( srcSegment2, origin1 ) )
+    {
+      return _.vector.from( [  0, _.segment.getFactor( srcSegment2, origin1) ] );
+    }
+    else
+    {
+      return 0;
+    }
+  }
+  let result = _.vector.from( [ 0, 0 ] );
+  let oldResult = _.vector.from( [ 0, 0 ] );
+  debugger;
+  for( let i = 0; i < dOrigin.length - 1 ; i++ )
+  {
+    let m = _.Matrix.make( [ 2, 2 ] );
+    m.rowSet( 0, directions.rowVectorGet( i ) );
+    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+    let or = _.Matrix.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+    let o =
+    {
+      x : null,
+      m : m,
+      y : or,
+      kernel : null,
+      pivoting : 1,
+    }
+    let x = _.Matrix.solveGeneral( o );
+    result = _.vector.from( x.base );
+    let point1 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point2 = _.vector.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let equal = 0;
+    for( var j = 0; j < dOrigin.length; j++ )
+    {
+      point1.eSet( j, origin1.eGet( j ) + direction1.eGet( j )*result.eGet( 0 ) )
+      point2.eSet( j, origin2.eGet( j ) + direction2.eGet( j )*result.eGet( 1 ) )
+      logger.log('Points', point1.slice(), point2.slice() )
+      if( point1.eGet( j ) + 1E-6 >= point2.eGet( j ) && point2.eGet( j ) >= point1.eGet( j ) - 1E-6 )
+      {
+        equal = equal + 1;
+      }
+    }
+    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
+    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
+    logger.log( 'RES', equal,  dOrigin.length,result0, result1 )
+    if( equal === dOrigin.length && result0 && result1 )
+    return result;
+  }
+  return 0;
+}
+*/
 
 //
 
@@ -898,11 +1213,13 @@ function pointContains( srcSegment, srcPoint )
   let origin = _.segment.originGet( srcSegmentView );
   let direction = _.segment.directionGet( srcSegmentView );
   let dimension  = _.segment.dimGet( srcSegmentView )
-  let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
-
+  // let srcPointView = _.vectorAdapter.from( srcPoint.slice() );
+  // _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
+  // let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
+  let srcPointView = _.vectorAdapter.from( srcPoint );
   _.assert( dimension === srcPoint.length, 'The segment and the point must have the same dimension' );
+  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView.clone(), origin ) );
 
-  let dOrigin = _.vectorAdapter.from( avector.subVectors( srcPointView, origin ) );
   let factor;
 
   if( direction.eGet( 0 ) === 0 )
@@ -923,9 +1240,12 @@ function pointContains( srcSegment, srcPoint )
 
   // Factor can not be negative or superior to one
   if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
-  {
-    return false;
-  }
+  return false;
+
+  let newPoint = _.segment.segmentAt( srcSegmentView, factor );
+
+  if( _.avector.allEquivalent( newPoint, srcPoint ) )
+  return true;
 
   for( var i = 1; i < dOrigin.length; i++ )
   {
@@ -955,9 +1275,13 @@ function pointContains( srcSegment, srcPoint )
       if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
       return false;
     }
+
+    newPoint = _.segment.segmentAt( srcSegmentView, factor );
+    if( _.avector.allEquivalent( newPoint, srcPoint ) )
+    return true;
   }
 
-  return true;
+  return false;
 }
 
 //
@@ -1404,22 +1728,22 @@ function capsuleDistance( srcSegment , tstCapsule )
   * @throws { Error } An Error if ( segment ) is not segment
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof wTools.segment
   */
 function capsuleClosestPoint( segment, capsule, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
-  let segmentView = _.segment.toAdapter( segment );
+  let segmentView = _.segment._from( segment );
   let dimS = _.segment.dimGet( segmentView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimS );
+  dstPoint = _.array.makeArrayOfLength( dimS );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let capsuleView = _.capsule.toAdapter( capsule );
+  let capsuleView = _.capsule._from( capsule );
   let dimCapsule  = _.capsule.dimGet( capsuleView );
 
   let dstPointView = _.vectorAdapter.from( dstPoint );
@@ -1434,6 +1758,103 @@ function capsuleClosestPoint( segment, capsule, dstPoint )
     let capsulePoint = _.capsule.segmentClosestPoint( capsule, segmentView );
 
     let segmentPoint = _.vectorAdapter.from( _.segment.pointClosestPoint( segmentView, capsulePoint ) );
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, segmentPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+function convexPolygonIntersects( srcSegment , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let segmentView = _.segment._from( srcSegment );
+
+  let gotBool = _.convexPolygon.segmentIntersects( polygon, segmentView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcSegment , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let segmentView = _.segment._from( srcSegment );
+
+  let gotDist = _.convexPolygon.segmentDistance( polygon, segmentView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a segment to a convex polygon. Returns the calculated point.
+  * Segment and polygon remain unchanged
+  *
+  * @param { Array } segment - The source segment.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 2, 0 ]
+  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ -5, 2, -5, 1, 2, 1 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof module:Tools/math/Concepts.wTools.segment
+  */
+function convexPolygonClosestPoint( segment, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let segmentView = _.segment.toAdapter( segment );
+  let dimS = _.segment.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.long.longMake( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  // let capsuleView = _.capsule.toAdapter( capsule );
+  // let dimCapsule  = _.capsule.dimGet( capsuleView );
+  let dimP  = _.Matrix.dimsOf( polygon );
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimS );
+
+  if( _.convexPolygon.segmentIntersects( polygon, segmentView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.segmentClosestPoint( polygon, segmentView );
+
+    // xxx
+    // let segmentPoint = _.vectorAdapter.from( _.segment.pointClosestPoint( segmentView, capsulePoint ) );
+    let segmentPoint = _.segment.pointClosestPoint( segmentView, polygonPoint, _.vectorAdapter.make( dimS ) ) ;
 
     for( let i = 0; i < dimS; i++ )
     {
@@ -1712,6 +2133,11 @@ function lineIntersects( srcSegment, srcLine )
 
   _.assert( dimSegment === dimLine );
 
+  if( _.line.pointContains( srcLineView, segmentOrigin ) || _.line.pointContains( srcLineView, segmentEnd ) )
+  return true;
+
+  if( _.segment.pointContains( srcSegmentView, lineOrigin ) )
+  return true;
   let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
   if( _.line.lineParallel( lineSegment, srcLineView ) )
   {
@@ -1720,12 +2146,120 @@ function lineIntersects( srcSegment, srcLine )
     else
     return false;
   }
+
   let factors = _.line.lineIntersectionFactors( lineSegment, srcLineView );
 
-  if( factors === 0 || factors.eGet( 0 ) < 0 || factors.eGet( 0 ) > 1 )
+  if( factors === 0 || factors.eGet( 0 ) < 0 - _.accuracy || factors.eGet( 0 ) > 1 - _.accuracy )
   return false;
 
   return true;
+}
+
+//
+
+/**
+  * Returns the intersection point between a segment and a line. Returns the intersection point coordinates.
+  * The segment and line remain unchanged.
+  *
+  * @param { Array } segment - Source segment.
+  * @param { Array } line -  Source line.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.lineIntersectionPoint( [ 1, 2, 3, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a segment and a line.
+  * @function lineIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.segment
+  */
+
+function lineIntersectionPoint( segment, line, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let segmentView = _.ray._from( segment );
+  let dimS = _.ray.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let lineView = _.line._from( line );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
+  let dimLine  = _.line.dimGet( lineView );
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimS === dimLine );
+
+  if( !_.line.segmentIntersects( lineView, segmentView ) )
+  return 0
+  else
+  {
+    let linePoint =  _.vectorAdapter.from( _.line.segmentIntersectionPoint( lineView, segmentView ) );
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, linePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
+/**
+  * Returns the factors for the intersection between a line and a segment. Returns a vector with the intersection factors, 0 if there is no intersection.
+  * Line and segment stay untouched.
+  *
+  * @param { Vector } srcSegment - The source segment.
+  * @param { Vector } srcLine - The source line.
+  *
+  * @example
+  * // returns   0
+  * _.lineIntersectionFactors( [ 1, 0, 1, 0 ], [ 0, 0, 2, 2 ] );
+  *
+  * @example
+  * // returns  _.vectorAdapter.from( [ 0, 0 ] )
+  * _.lineIntersectionFactors( [ 0, - 2, 0, 2 ], [ - 2, 0, 1, 0 ] );
+  *
+  * @returns { Array } Returns the factors of the intersection between a line and a segment.
+  * @function lineIntersectionFactors
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @memberof wTools.segment
+  */
+function lineIntersectionFactors( srcSegment, srcLine )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcLine.length === srcSegment.length,'The line and the segment must have the same dimension' );
+
+  let srcLineView = _.line._from( srcLine.slice() );
+  let srcSegmentView = _.line._from( srcSegment.slice() );
+  let origin = _.segment.originGet( srcSegmentView );
+  let end = _.segment.endPointGet( srcSegmentView );
+
+  let intersection = _.line.segmentIntersects( srcLineView, srcSegmentView );
+
+  if( !intersection )
+  return 0;
+
+  let segmentLine = _.line.fromPair( [ origin, end ] );
+
+  return _.line.lineIntersectionFactors( srcLineView, segmentLine );
 }
 
 //
@@ -1994,6 +2528,66 @@ function planeIntersects( srcSegment, srcPlane )
 //
 
 /**
+  * Returns the intersection point between a segment and a plane. Returns the intersection point coordinates.
+  * The segment and plane remain unchanged.
+  *
+  * @param { Array } segment - Source segment.
+  * @param { Array } plane -  Source plane.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.planeIntersectionPoint( [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 0, 0, 0 ] , [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a segment and a plane.
+  * @function planeIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.segment
+  */
+
+function planeIntersectionPoint( segment, plane, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let segmentView = _.segment._from( segment );
+  let dimS = _.segment.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let planeView = _.plane._from( plane );
+  let dimP  = _.plane.dimGet( planeView );
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimS === dimP );
+
+  if( !_.plane.segmentIntersects( planeView, segmentView ) )
+  return 0
+  else
+  {
+    let planePoint =  _.vectorAdapter.from( _.plane.segmentIntersectionPoint( planeView, segmentView ) );
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
+/**
   * Get the distance between a segment and a plane. Returns the calculated distance.
   * The plane and the segment remain unchanged.
   *
@@ -2179,17 +2773,17 @@ function rayIntersects( srcSegment, srcRay )
   _.assert( dimSegment === dimRay );
 
   let lineSegment = _.line.fromPair( [ segmentOrigin, segmentEnd ] );
-
   if( _.line.lineParallel( lineSegment, srcRayView ) )
   {
-    if( _.ray.pointContains( srcRayView, segmentOrigin ) )
+    let rayContainsSegment = _.ray.pointContains( srcRayView, segmentOrigin ) || _.ray.pointContains( srcRayView, segmentEnd );
+    let segmentContainsRay = _.segment.pointContains( srcSegmentView, rayOrigin );
+    if(  rayContainsSegment || segmentContainsRay )
     return true;
     else
     return false;
   }
+  let factors = _.ray.rayIntersectionFactors( srcRayView, lineSegment );
 
-  let factors = _.ray.rayIntersectionFactors( lineSegment, srcRayView );
-  logger.log( 'FACTORS', factors)
   if( factors === 0 || factors.eGet( 0 ) < 0 || factors.eGet( 1 ) < 0 || ( factors.eGet( 0 ) > 1 && factors.eGet( 1 ) > 1 ) )
   return false;
 
@@ -2211,6 +2805,112 @@ function rayIntersects( srcSegment, srcRay )
   }
 
   return true;
+}
+
+//
+
+/**
+  * Returns the intersection point between a segment and a ray. Returns the intersection point coordinates.
+  * The segment and ray remain unchanged.
+  *
+  * @param { Array } segment - Source segment.
+  * @param { Array } ray -  Source ray.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.rayIntersectionPoint( [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 0, 0, -1, 0, 0 ] , [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a segment and a ray.
+  * @function rayIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.segment
+  */
+
+function rayIntersectionPoint( segment, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let segmentView = _.segment._from( segment );
+  let dimS = _.segment.dimGet( segmentView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let rayView = _.ray._from( ray );
+  let dimR  = _.ray.dimGet( rayView );
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimS === dimR );
+
+  if( !_.ray.segmentIntersects( rayView, segmentView ) )
+  return 0
+  else
+  {
+    let rayPoint =  _.vectorAdapter.from( _.ray.segmentIntersectionPoint( rayView, segmentView ) );
+
+    for( let i = 0; i < dimS; i++ )
+    {
+      dstPointView.eSet( i, rayPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+}
+
+//
+
+/**
+  * Returns the factors for the intersection between a segment and a ray. Returns a vector with the intersection factors, 0 if there is no intersection.
+  * Segment and ray stay untouched.
+  *
+  * @param { Vector } srcSegment - The source segment.
+  * @param { Vector } srcRay - The source ray.
+  *
+  * @example
+  * // returns   0
+  * _.rayIntersectionFactors( [ 0, 0, 2, 2 ], [ 1, 0, 1, 0 ] );
+  *
+  * @example
+  * // returns  _.vectorAdapter.from( [ 0, 0 ] )
+  * _.rayIntersectionFactors( [ - 2, 0, 1, 0 ], [ 0, - 2, 0, 2 ] );
+  *
+  * @returns { Array } Returns the factors of the intersection between a segment and a ray.
+  * @function rayIntersectionFactors
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment.
+  * @throws { Error } An Error if ( srcRay ) is not ray.
+  * @memberof wTools.segment
+  */
+function rayIntersectionFactors( srcSegment, srcRay )
+{
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcSegment.length === srcRay.length,'The segment and the ray must have the same dimension' );
+
+  let srcSegmentView = _.segment._from( srcSegment.slice() );
+  let origin = _.segment.originGet( srcSegmentView );
+  let end = _.segment.endPointGet( srcSegmentView );
+  let srcRayView = _.segment._from( srcRay.slice() );
+
+  let intersection = _.segment.rayIntersects( srcSegmentView, srcRayView );
+
+  if( !intersection )
+  return 0;
+
+  let segmentLine = _.line.fromPair( [ origin, end ] );
+
+  return _.line.lineIntersectionFactors( srcRayView, segmentLine  );
+
 }
 
 //
@@ -2564,12 +3264,13 @@ function segmentDistance( srcSegment, tstSegment )
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the segments don´t have the same dimension).
   * @memberof module:Tools/math/Concepts.wTools.segment
   */
+
 function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( tstSegment.length / 2 );
+  dstPoint = _.array.makeArrayOfLength( tstSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2577,92 +3278,88 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
   if( srcSegment === null )
   srcSegment = _.segment.make( tstSegment.length / 2 );
 
-  let srcSegmentView = _.segment.toAdapter( srcSegment );
+  let srcSegmentView = _.segment._from( srcSegment );
   let srcOrigin = _.segment.originGet( srcSegmentView );
   let srcEnd = _.segment.endPointGet( srcSegmentView );
   let srcDir = _.segment.directionGet( srcSegmentView );
   let srcDim  = _.segment.dimGet( srcSegmentView );
 
-  let tstSegmentView = _.segment.toAdapter( tstSegment );
+  let tstSegmentView = _.segment._from( tstSegment );
   let tstOrigin = _.segment.originGet( tstSegmentView );
   let tstEnd = _.segment.endPointGet( tstSegmentView );
   let tstDir = _.segment.directionGet( tstSegmentView );
   let tstDim = _.segment.dimGet( tstSegmentView );
 
-  let dstPointView = _.vectorAdapter.from( dstPoint );
+  let dstPointView = _.vector.from( dstPoint );
   _.assert( srcDim === tstDim );
 
   let pointView;
 
 
   if( _.segment.segmentIntersects( srcSegmentView, tstSegmentView ) )
+  return 0;
+
+  // Parallel segments
+  if( _.segment.segmentParallel( srcSegmentView, tstSegmentView ) )
   {
-    pointView = _.segment.segmentIntersectionPoint( srcSegmentView, tstSegmentView );
+    pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
   }
   else
   {
-    // Parallel segments
-    if( _.segment.segmentParallel( srcSegmentView, tstSegmentView ) )
+    let srcLine = _.vector.from( _.array.makeArrayOfLength( srcDim*2 ) );
+    let tstLine = _.vector.from( _.array.makeArrayOfLength( srcDim*2 ) );
+
+    for( var i = 0 ; i < srcDim ; i++ )
     {
-      pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+      srcLine.eSet( i, srcOrigin.eGet( i ) );
+      srcLine.eSet( srcDim + i, srcDir.eGet( i ) );
+      tstLine.eSet( i, tstOrigin.eGet( i ) );
+      tstLine.eSet( srcDim + i, tstDir.eGet( i ) );
     }
-    else
+
+    let factors = _.line.lineIntersectionFactors( srcLine, tstLine );
+
+    if( factors === 0 )
     {
-      let srcLine = _.vectorAdapter.from( _.long.longMake( srcDim*2 ) );
-      let tstLine = _.vectorAdapter.from( _.long.longMake( srcDim*2 ) );
+      let srcMod = _.vector.dot( srcDir, srcDir );
+      let tstMod = _.vector.dot( tstDir, tstDir );
+      let mod = _.vector.dot( srcDir, tstDir );
+      let dOrigin = _.vector.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
-      for( var i = 0 ; i < srcDim ; i++ )
+      if( factor >= 0 && factor <= 1 )
       {
-        srcLine.eSet( i, srcOrigin.eGet( i ) );
-        srcLine.eSet( srcDim + i, srcDir.eGet( i ) );
-        tstLine.eSet( i, tstOrigin.eGet( i ) );
-        tstLine.eSet( srcDim + i, tstDir.eGet( i ) );
+        pointView = _.segment.segmentAt( srcSegmentView, factor );
       }
-
-      let factors = _.line.lineIntersectionFactors( srcLine, tstLine );
-
-      if( factors === 0 )
-      {
-        let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
-        let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
-        let mod = _.vectorAdapter.dot( srcDir, tstDir );
-        let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
-        let factor = ( - mod*_.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
-
-        if( factor >= 0 && factor <= 1 )
-        {
-          pointView = _.segment.segmentAt( srcSegmentView, factor );
-        }
-        else if( factor > 1 )
-        {
-          pointView = srcEnd;
-        }
-        else if ( factor < 0 )
-        {
-          pointView = srcOrigin;
-        }
-      }
-      else if( factors.eGet( 1 ) < 0 )
-      {
-        pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
-      }
-      else if( factors.eGet( 1 ) > 1 )
-      {
-        pointView = _.segment.pointClosestPoint( srcSegmentView, tstEnd );
-      }
-      else if( factors.eGet( 0 ) < 0 )
-      {
-        //pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
-        pointView = srcOrigin;
-      }
-      else if( factors.eGet( 0 ) > 1 )
+      else if( factor > 1 )
       {
         pointView = srcEnd;
       }
+      else if ( factor < 0 )
+      {
+        pointView = srcOrigin;
+      }
+    }
+    else if( factors.eGet( 1 ) < 0 )
+    {
+      pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+    }
+    else if( factors.eGet( 1 ) > 1 )
+    {
+      pointView = _.segment.pointClosestPoint( srcSegmentView, tstEnd );
+    }
+    else if( factors.eGet( 0 ) < 0 )
+    {
+      //pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+      pointView = srcOrigin;
+    }
+    else if( factors.eGet( 0 ) > 1 )
+    {
+      pointView = srcEnd;
     }
   }
 
-  pointView = _.vectorAdapter.from( pointView );
+  pointView = _.vector.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
   {
     dstPointView.eSet( i, pointView.eGet( i ) );
@@ -2670,6 +3367,113 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
 
   return dstPoint;
 }
+
+// function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
+// {
+//   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
+//
+//   if( arguments.length === 2 )
+//   dstPoint = _.long.longMake( tstSegment.length / 2 );
+//
+//   if( dstPoint === null || dstPoint === undefined )
+//   throw _.err( 'Not a valid destination point' );
+//
+//   if( srcSegment === null )
+//   srcSegment = _.segment.make( tstSegment.length / 2 );
+//
+//   let srcSegmentView = _.segment.toAdapter( srcSegment );
+//   let srcOrigin = _.segment.originGet( srcSegmentView );
+//   let srcEnd = _.segment.endPointGet( srcSegmentView );
+//   let srcDir = _.segment.directionGet( srcSegmentView );
+//   let srcDim  = _.segment.dimGet( srcSegmentView );
+//
+//   let tstSegmentView = _.segment.toAdapter( tstSegment );
+//   let tstOrigin = _.segment.originGet( tstSegmentView );
+//   let tstEnd = _.segment.endPointGet( tstSegmentView );
+//   let tstDir = _.segment.directionGet( tstSegmentView );
+//   let tstDim = _.segment.dimGet( tstSegmentView );
+//
+//   let dstPointView = _.vectorAdapter.from( dstPoint );
+//   _.assert( srcDim === tstDim );
+//
+//   let pointView;
+//
+//
+//   if( _.segment.segmentIntersects( srcSegmentView, tstSegmentView ) )
+//   {
+//     pointView = _.segment.segmentIntersectionPoint( srcSegmentView, tstSegmentView );
+//   }
+//   else
+//   {
+//     // Parallel segments
+//     if( _.segment.segmentParallel( srcSegmentView, tstSegmentView ) )
+//     {
+//       pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+//     }
+//     else
+//     {
+//       let srcLine = _.vectorAdapter.from( _.long.longMake( srcDim*2 ) );
+//       let tstLine = _.vectorAdapter.from( _.long.longMake( srcDim*2 ) );
+//
+//       for( var i = 0 ; i < srcDim ; i++ )
+//       {
+//         srcLine.eSet( i, srcOrigin.eGet( i ) );
+//         srcLine.eSet( srcDim + i, srcDir.eGet( i ) );
+//         tstLine.eSet( i, tstOrigin.eGet( i ) );
+//         tstLine.eSet( srcDim + i, tstDir.eGet( i ) );
+//       }
+//
+//       let factors = _.line.lineIntersectionFactors( srcLine, tstLine );
+//
+//       if( factors === 0 )
+//       {
+//         let srcMod = _.vectorAdapter.dot( srcDir, srcDir );
+//         let tstMod = _.vectorAdapter.dot( tstDir, tstDir );
+//         let mod = _.vectorAdapter.dot( srcDir, tstDir );
+//         let dOrigin = _.vectorAdapter.from( avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+//         let factor = ( - mod*_.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*_.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+//
+//         if( factor >= 0 && factor <= 1 )
+//         {
+//           pointView = _.segment.segmentAt( srcSegmentView, factor );
+//         }
+//         else if( factor > 1 )
+//         {
+//           pointView = srcEnd;
+//         }
+//         else if ( factor < 0 )
+//         {
+//           pointView = srcOrigin;
+//         }
+//       }
+//       else if( factors.eGet( 1 ) < 0 )
+//       {
+//         pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+//       }
+//       else if( factors.eGet( 1 ) > 1 )
+//       {
+//         pointView = _.segment.pointClosestPoint( srcSegmentView, tstEnd );
+//       }
+//       else if( factors.eGet( 0 ) < 0 )
+//       {
+//         //pointView = _.segment.pointClosestPoint( srcSegmentView, tstOrigin );
+//         pointView = srcOrigin;
+//       }
+//       else if( factors.eGet( 0 ) > 1 )
+//       {
+//         pointView = srcEnd;
+//       }
+//     }
+//   }
+//
+//   pointView = _.vectorAdapter.from( pointView );
+//   for( let i = 0; i < pointView.length; i++ )
+//   {
+//     dstPointView.eSet( i, pointView.eGet( i ) );
+//   }
+//
+//   return dstPoint;
+// }
 
 //
 
@@ -2904,7 +3708,7 @@ function boundingSphereGet( dstSphere, srcSegment )
 // extension
 // --
 
-let Extension =
+let Extension = /* qqq : normalize order */
 {
 
   make,
@@ -2922,11 +3726,15 @@ let Extension =
   originGet,
   endPointGet,
   directionGet,
+  centerGet,
 
   segmentAt,
   getFactor,
 
   segmentParallel,
+
+  project,
+  getProjectionFactors,
 
   segmentIntersectionFactors,
   segmentIntersectionPoints,
@@ -2947,19 +3755,28 @@ let Extension =
   capsuleDistance,
   capsuleClosestPoint,
 
+  convexPolygonIntersects,
+  convexPolygonDistance,
+  convexPolygonClosestPoint,
+
   frustumIntersects,
   frustumDistance,
   frustumClosestPoint,
 
   lineIntersects,
+  lineIntersectionPoint,
+  lineIntersectionFactors,
   lineDistance,
   lineClosestPoint,
 
   planeIntersects,
+  planeIntersectionPoint,
   planeDistance,
   planeClosestPoint,
 
   rayIntersects,
+  rayIntersectionPoint,
+  rayIntersectionFactors,
   rayDistance,
   rayClosestPoint,
 

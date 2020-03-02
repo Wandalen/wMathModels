@@ -17,7 +17,7 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Matrix;
+var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromLong;
 var avector = _.avector;
@@ -1289,6 +1289,348 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonContains( test )
+{
+
+  test.case = 'Source plane and polygon remain unchanged'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  var oldSrcPlane = [ - 1, 0, 0, 0 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Plane and polygon intersect'; /* */
+
+  var srcPlane = [ 0, 1, 0, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Polygon in plane'; /* */
+
+  var srcPlane = [ 1, 0, 0, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Polygon in plane'; /* */
+
+  var srcPlane = [ 1, -2, 0, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  ([
+    0,   2,   4,
+    0,   1,   2,
+    1,   1,   3
+  ]);
+  var expected = true;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Plane cuts polygon vertex'; /* */
+
+  var srcPlane = [ 0, 0, -1, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Plane and polygon don´t intersect'; /* */
+
+  var srcPlane = [ 0, 0, -1, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Plane cuts polygon'; /* */
+
+  var srcPlane = [ 1, -2, 1, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( 'plane', polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 0, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains(  [ 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains(  [ 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 1, 0, 1 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 1, 0, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonContains( [ 0, 1, 0, 2, 2 ], polygon ) );
+
+}
+
+//
+
+function convexPolygonClosestPoint( test )
+{
+
+  test.case = 'Source plane and polygon remain unchanged'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcPlane = [ - 1, 0, 0, 0 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Plane and polygon intersect'; /* */
+
+  var srcPlane = [ 0, 1, 0, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon in plane'; /* */
+
+  var srcPlane = [ 1, 0, 0, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Plane cuts polygon vertex'; /* */
+
+  var srcPlane = [ 0, 0, -1, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Plane next to polygon vertex'; /* */
+
+  var srcPlane = [ 0, 0, -1, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -2, 0, 2 ];
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Plane cuts polygon edge'; /* */
+
+  var srcPlane = [ 0, 1, 1, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Plane next to polygon edge'; /* */
+
+  var srcPlane = [ 0, 1, 1, -2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ 0, 1.5, 0.5 ];
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
+  test.equivalent( expected, gotPoint );
+
+  test.case = 'Plane cuts polygon'; /* */
+
+  var srcPlane = [ 1, -2, 1, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Plane next to polygon'; /* */
+
+  var srcPlane = [ 0, 0, 2, -1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 1, 0, 0.5 ];
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcPlane = [ 3, 0, 0, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ -1/3, 1, 0 ];
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcPlane = [ 3, 0, 0, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.vectorAdapter.from( [ -1/3, 1, 0 ] );
+
+  var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( 'plane', polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( [ 0, 0, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( [ 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( [ 0, 0, 0, 1 ], [ 0, 1, 0, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( [ 0, 1, 0, 1 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( [ 0, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( [ 0, 1, 0, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.plane.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2 ], polygon ) );
+
+}
+
+//
+
 function frustumClosestPoint( test )
 {
   test.case = 'Plane and frustum remain unchanged'; /* */
@@ -1296,9 +1638,9 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 1 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = [ -1, 1, 1 ];
@@ -1311,9 +1653,9 @@ function frustumClosestPoint( test )
 
   var oldSrcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldSrcFrustum );
@@ -1323,9 +1665,9 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 1 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = [ -1, 1, 1 ];
@@ -1338,9 +1680,9 @@ function frustumClosestPoint( test )
   var srcPlane = [ 2, 4, - 4, - 6 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = 0;
@@ -1353,9 +1695,9 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 0 , 0, -1 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = 0;
@@ -1368,9 +1710,9 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 1, 1, 3 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = [ -1, -1, -1 ];
@@ -1383,9 +1725,9 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 4 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = [ - 4, 1, 1 ];
@@ -1398,9 +1740,9 @@ function frustumClosestPoint( test )
   var srcPlane = [ 1, 0, 0, 4 ];
   var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] )
@@ -1424,6 +1766,99 @@ function frustumClosestPoint( test )
   test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, - 1, 0, 2 ], NaN ));
   test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( 'plane', [ 0, 1, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.plane.frustumClosestPoint( [ 0, 1, 0, 0 ], 'plane' ));
+}
+
+//
+
+function lineContains( test )
+{
+
+  test.case = 'Plane and line remain unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var line = [ 1, 0, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldLine = [ 1, 0, 1, 1, 1, 1 ];
+  test.identical( line, oldLine );
+
+  test.case = 'Line and plane intersect'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var line = [ - 2, - 2, - 2 , 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  test.case = 'Line and Plane intersect'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var line = [ 2, 2, 1, 1, 1, 3 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  test.case = 'Line and Plane don´t intersect - parallel'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var line = [ 2, 2, 3, 0, 1, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  test.case = 'Line in Plane'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var line = [ 0, 2, 3, 0, 3, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Line in Plane'; /* */
+
+  var plane = [ 1, -2, 0, 0 ];
+  var line = [ 2, 1, 3, 4, 2, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Perpendicular line intersects'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var line = [ 1, 2, 2, 1, 0, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.lineContains( plane, line );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.lineContains( ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1 ], [ 0, - 1, 0, 0, 3, 1 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( null , [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( NaN, [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.lineContains( 'plane', 'line' ));
 }
 
 //
@@ -1517,6 +1952,99 @@ function lineIntersects( test )
   test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, - 1, 0, 2 ], NaN ));
   test.shouldThrowErrorSync( () => _.plane.lineIntersects( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
   test.shouldThrowErrorSync( () => _.plane.lineIntersects( 'plane', 'line' ));
+}
+
+//
+
+function lineIntersectionPoint( test )
+{
+
+  test.case = 'Source plane and line remain unchanged'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 2 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 2, 2, 2 ];
+
+  var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
+  test.identical( expected, gotLine );
+
+  var oldSrcPlane = [ - 1, 0, 0, 2 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldtstLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstLine, oldtstLine );
+
+  test.case = 'Plane and line intersect'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 1 ];
+  var tstLine = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Line origin is in plane'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstLine = [ 0, 0, 0, 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Line is in plane '; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstLine = [ 0, 0, 0, 0, 1, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Negative factor'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstLine = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'Closest point is origin'; /* */
+
+  var srcPlane = [ 0, 0, -1, 3 ];
+  var tstLine = [ 5, 5, 2, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
+  test.identical( expected, gotLine );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcPlane = [ 1, 0, 0, -2 ];
+  var tstLine = [ 5, 5, 1, 1, 0, 0 ];
+  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.from( [ 2, 5, 1 ] );
+
+  var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine, dstPoint );
+  test.equivalent( expected, gotLine );
+  test.is( dstPoint === gotLine );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.lineIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.plane.lineIntersectionPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineIntersectionPoint( 'plane', 'line' ) );
+  test.shouldThrowErrorSync( () => _.plane.lineIntersectionPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.lineIntersectionPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineIntersectionPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineIntersectionPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.lineIntersectionPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.lineIntersectionPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
 }
 
 //
@@ -1815,6 +2343,201 @@ function planeDistance( test )
 
 //
 
+function rayContains( test )
+{
+
+  test.case = 'Plane and ray remain unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var ray = [ 1, 0, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldRay = [ 1, 0, 1, 1, 1, 1 ];
+  test.identical( ray, oldRay );
+
+  test.case = 'Ray and plane intersect'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var ray = [ - 2, - 2, - 2 , 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  test.case = 'Ray and Plane intersect'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var ray = [ 2, 2, 1, 1, 1, 3 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  test.case = 'Ray and Plane don´t intersect - parallel'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var ray = [ 2, 2, 3, 0, 1, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  test.case = 'Ray in Plane'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var ray = [ 0, 2, 3, 0, 3, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Ray in Plane'; /* */
+
+  var plane = [ 1, -2, 0, 0 ];
+  var ray = [ 2, 1, 3, 4, 2, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Perpendicular ray intersects'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var ray = [ 1, 2, 2, 1, 0, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.rayContains( plane, ray );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.rayContains( ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1 ], [ 0, - 1, 0, 0, 3, 1 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( null , [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( NaN, [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.rayContains( 'plane', 'ray' ));
+}
+
+//
+
+function rayIntersectionPoint( test )
+{
+
+  test.case = 'Source plane and ray remain unchanged'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 2 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 2, 2, 2 ];
+
+  var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  var oldSrcPlane = [ - 1, 0, 0, 2 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstRay, oldtstRay );
+
+  test.case = 'Plane and ray intersect'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 1 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray origin is in plane'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Ray is in plane '; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 0, 1, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Positive factor - intersection'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ -3, -3, -3, 2, 2, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Negative factor - no intersection'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstRay = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = 0;
+
+  var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'Closest point is origin'; /* */
+
+  var srcPlane = [ 0, 0, -1, 3 ];
+  var tstRay = [ 5, 5, 2, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
+  test.identical( expected, gotRay );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcPlane = [ 1, 0, 0, -2 ];
+  var tstRay = [ 5, 5, 1, -1, 0, 0 ];
+  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.from( [ 2, 5, 1 ] );
+
+  var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay, dstPoint );
+  test.equivalent( expected, gotRay );
+  test.is( dstPoint === gotRay );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.rayIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.plane.rayIntersectionPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayIntersectionPoint( 'plane', 'ray' ) );
+  test.shouldThrowErrorSync( () => _.plane.rayIntersectionPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.rayIntersectionPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayIntersectionPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayIntersectionPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.rayIntersectionPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.rayIntersectionPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+//
+
 function rayClosestPoint( test )
 {
 
@@ -1919,6 +2642,99 @@ function rayClosestPoint( test )
 
 //
 
+function segmentContains( test )
+{
+
+  test.case = 'Plane and segment remain unchanged'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var segment = [ 1, 0, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  var oldPlane = [ 1, 0, 0, 1 ];
+  test.identical( plane, oldPlane );
+
+  var oldSegment = [ 1, 0, 1, 1, 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  test.case = 'Segment and plane intersect'; /* */
+
+  var plane = [ 1, 0, 0, 1 ];
+  var segment = [ - 2, - 2, - 2 , 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment and Plane intersect'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var segment = [ 2, 2, 1, 0, 0, 3 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment and Plane don´t intersect - parallel'; /* */
+
+  var plane = [ 1, 0, - 1, 0 ];
+  var segment = [ 2, 2, 3, 4, 4, 5 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment in Plane'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var segment = [ 0, 2, 3, 0, 3, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Segment in Plane'; /* */
+
+  var plane = [ 1, -2, 0, 0 ];
+  var segment = [ 2, 1, 3, 4, 2, 4 ];
+  var expected = true;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.equivalent( expected, gotBool );
+
+  test.case = 'Perpendicular segment intersects'; /* */
+
+  var plane = [ 1, 0, 0, 0 ];
+  var segment = [ 1, 2, 2, 1, 0, 0 ];
+  var expected = false;
+
+  var gotBool = _.plane.segmentContains( plane, segment );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0 ], [ 0, 0, 1 ], [ 0, 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0, 2 ], [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 0, 1, 0 ], [ 0, - 1, 0, 0, 3, 1 ], [ 0, - 1, 0, 0, 3, 1 ]  ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( null , [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( NaN, [ 0, - 1, 0, 3, 1, 2 ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, 2, 0, 1 ] , null ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, - 1, 0, 2 ], NaN ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
+  test.shouldThrowErrorSync( () => _.plane.segmentContains( 'plane', 'segment' ));
+}
+
+//
+
 function segmentIntersects( test )
 {
 
@@ -2017,6 +2833,108 @@ function segmentIntersects( test )
   test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, - 1, 0, 2 ], NaN ));
   test.shouldThrowErrorSync( () => _.plane.segmentIntersects( [ 0, - 1, 0, 2 ], [ NaN, NaN ] ));
   test.shouldThrowErrorSync( () => _.plane.segmentIntersects( 'plane', 'segment' ));
+}
+
+//
+
+function segmentIntersectionPoint( test )
+{
+
+  test.case = 'Source plane and segment remain unchanged'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 2 ];
+  var tstSegment = [ 0, 0, 0, 4, 1, 1 ];
+  var expected = [ 2, 0.5, 0.5 ];
+
+  var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
+  test.identical( expected, gotSegment );
+
+  var oldSrcPlane = [ - 1, 0, 0, 2 ];
+  test.identical( srcPlane, oldSrcPlane );
+
+  var oldtstSegment = [ 0, 0, 0, 4, 1, 1 ];
+  test.identical( tstSegment, oldtstSegment );
+
+  test.case = 'Plane and segment intersect'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 1 ];
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ 1, 1, 1 ];
+
+  var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment origin is in plane'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment is in plane '; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 0, 1, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Positive factor - no intersection'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
+  var expected = 0;
+
+  var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Negative factor - no intersection'; /* */
+
+  var srcPlane = [ - 1, 0, 0, 0 ];
+  var tstSegment = [ -2, -2, -2, -3, -3, -3 ];
+  var expected = 0;
+
+  var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Closest point is origin'; /* */
+
+  var srcPlane = [ 0, 0, -1, 3 ];
+  var tstSegment = [ 5, 5, 2, 0, 1, 0 ];
+  var expected = 0;
+
+  var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcPlane = [ 1, 0, 0, -2 ];
+  var tstSegment = [ 5, 5, 1, -1, 5, 1 ];
+  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.vectorAdapter.from( [ 2, 5, 1 ] );
+
+  var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment, dstPoint );
+  test.equivalent( expected, gotSegment );
+  test.is( dstPoint === gotSegment );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersectionPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersectionPoint( 'plane', 'segment' ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersectionPoint(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersectionPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersectionPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersectionPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersectionPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.plane.segmentIntersectionPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
 }
 
 //
@@ -3034,55 +3952,64 @@ function threeIntersectionPoint( test )
 var Self =
 {
 
-  name : 'Tools.Math.Plane', 
-  silencing : 1, 
-  enabled : 1, 
-  // verbosity : 7, 
-  // debug : 1, 
-  // routine: 'frustumClosestPoint', 
+  name : 'Tools.Math.Plane',
+  silencing : 1,
+  enabled : 1,
+  // verbosity : 7,
+  // debug : 1,
+  // routine: 'frustumClosestPoint',
 
   tests :
   {
 
-    from, 
-    fromNormalAndPoint, 
-    fromPoints, 
+    from,
+    fromNormalAndPoint,
+    fromPoints,
 
-    pointContains, 
-    pointDistance, 
-    pointCoplanarGet, 
+    pointContains,
+    pointDistance,
+    pointCoplanarGet,
 
-    boxIntersects, 
-    boxClosestPoint, 
-    boundingBoxGet, 
+    boxIntersects,
+    boxClosestPoint,
+    boundingBoxGet,
 
-    capsuleClosestPoint, 
+    capsuleClosestPoint,
 
-    frustumClosestPoint, 
+    convexPolygonContains,
+    convexPolygonClosestPoint,
 
-    lineIntersects, 
-    lineClosestPoint, 
+    frustumClosestPoint,
 
-    planeIntersects, 
-    planeDistance, planeDistance, 
+    lineContains,
+    lineIntersects,
+    lineIntersectionPoint,
+    lineClosestPoint,
 
-    rayClosestPoint, 
+    planeIntersects,
+    planeDistance,
 
-    segmentIntersects, 
-    segmentClosestPoint, 
+    rayContains,
+    rayIntersectionPoint,
+    rayClosestPoint,
 
-    sphereIntersects, 
-    sphereDistance, 
-    sphereClosestPoint, 
-    boundingSphereGet, 
+    segmentContains,
+    segmentIntersects,
+    segmentIntersectionPoint,
+    segmentClosestPoint,
 
-    //matrixHomogenousApply, 
-    translate, 
+    sphereIntersects,
+    sphereDistance,
+    sphereClosestPoint,
+    boundingSphereGet,
 
-    normalize, 
-    negate, 
+    //matrixHomogenousApply,
+    translate,
 
-    threeIntersectionPoint, 
+    normalize,
+    negate,
+
+    threeIntersectionPoint,
 
   }
 

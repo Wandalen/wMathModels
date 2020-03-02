@@ -41,7 +41,7 @@ if( typeof module !== 'undefined' )
 
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
-  _.include( 'wMathSpace' );
+  _.include( 'wMathMatrix' );
   _.include( 'wLogger' );
 
   require( '../l8/Concepts.s' );
@@ -51,7 +51,7 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Matrix;
+var Matrix = _.Matrix;
 var Parent = wTester;
 
 var avector = _.avector;

@@ -510,13 +510,10 @@ function fromSphere( box, sphere )
 
   debugger;
   //throw _.err( 'not tested' );
-  logger.log('Start', boxView )
   _.box.fromPoints( boxView, [ center ] );
 
-  logger.log('fromcenter', boxView )
   _.box.expand( boxView, radius );
 
-  logger.log('radius', boxView )
   return box;
 }
 
@@ -785,7 +782,7 @@ function cornerRightGet( box )
   * @param { Array } dst - The destination array (optional - sets the type of the returned object).
   *
   * @example
-  * // returns [ 0, 1 ]
+  * // returns [ 1, 1 ]
   * _.centerGet( [ 0, 0, 2, 2 ] , [ 5, 0 ]);
   *
   * @example
@@ -884,7 +881,7 @@ function sizeGet( box , dst )
   * ];
   * _.cornersGet( [ 0, 0, 0, 1, 1, 1 ] );
   *
-  * @returns { Space } Returns the coordintes of the points in the box corners.
+  * @returns { Matrix } Returns the coordintes of the points in the box corners.
   * @function cornersGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( box ) is not box.
@@ -935,7 +932,7 @@ function cornersGet( box )
 //
 
 /**
-  * Expand all sides of a box by the dimensions in the expansion array.
+  * Expand all sides of a box by the dimensions in the expansion array ( exoansion values are added twice to each side ).
   * Returns the expanded box. Box are stored in Array data structure.
   * The expansion array stays untouched, the box changes.
   *
@@ -970,6 +967,7 @@ function expand( box , expand )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
+
   expand = _.vectorAdapter.fromMaybeNumber( expand, dim );
 
   _.assert( dim === expand.length );
@@ -982,6 +980,144 @@ function expand( box , expand )
   _.vectorAdapter.addAssigning( max , expand );
 
   return box;
+}
+
+//
+
+/**
+  * Project a box: the projection vector ( projVector ) translates the center of the box, and the projection scaling factors ( ax, ay, ..., an )
+  * scale the sides of the box. The projection parameters should have the shape:
+  * project = [ projVector, ax, ay, .., an ];
+  * Returns the projected box. Box is stored in Array data structure.
+  * The projection array stays untouched, the box changes.
+  *
+  * @param { Array } box - box to be expanded.
+  * @param { Array } project - Array of reference with projection parameters.
+  *
+  * @example
+  * // returns [ 1, 2, 3, 6 ];
+  * _.project( [ 0, 0, 2, 2 ], [ [ 1, 3 ], 1, 2 ] );
+  *
+  * @example
+  * // returns [ 0, 0, 2, 2 ];
+  * _.expand( [ 0, 0, 2, 2 ], [ [ 0, 0 ], 1, 1 ] );
+  *
+  * @returns { Array } Returns the array of the projected box.
+  * @function project
+  * @throws { Error } An Error if ( dim ) is different than project.length / 2 (the box and the projection array don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( project ) is not an array.
+  * @memberof wTools.box
+  */
+function project( box, project )
+{
+
+  if( box === null )
+  box = _.box.make();
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.longIs( project ) || _.vectorAdapterIs( project ) );
+
+  let boxView = _.box._from( box );
+  let center = _.vectorAdapter.from( _.box.centerGet( boxView ) );
+  let sizes = _.vectorAdapter.from( _.box.sizeGet( boxView ) );
+  let dim = _.box.dimGet( boxView );
+  let projectView = _.vectorAdapter.from( project );
+
+  _.assert( dim === projectView.length - 1 );
+  let projVector = _.vectorAdapter.from( projectView.eGet( 0 ) );
+
+  _.assert( dim === projVector.length );
+
+  debugger;
+  let newCenter = _.vectorAdapter.addVectors( center, projVector );
+
+  debugger;
+  let newSizes = _.vectorAdapter.from( _.array.makeArrayOfLength( dim ) );
+  for( let i = 0; i < dim; i++ )
+  {
+    newSizes.eSet( i, sizes.eGet( i ) * projectView.eGet( i + 1 ) );
+  }
+
+  boxView = _.box.fromCenterAndSize( boxView, newCenter, newSizes );
+  return box;
+}
+
+//
+
+/**
+  * Get the projection factors of two boxes: the projection vector ( projVector ) translates the center of the box, and the projection scaling factors ( ax, ay, ..., an )
+  * scale the sides of the box. The projection parameters should have the shape:
+  * project = [ projVector, ax, ay, .., an ];
+  * Returns the projection parameters, 0 when not possible ( i.e: srcBox is a point and projBox is a box - no scaling factors ).
+  * Boxes are stored in Array data structure. The boxes stay untouched.
+  *
+  * @param { Array } srcBox - Original box.
+  * @param { Array } projBox - Projected box.
+  *
+  * @example
+  * // returns [ [ 0.5, 0.5 ], 2, 2 ];
+  * _.getProjectionFactors( [ 0, 0, 1, 1 ], [ 0.5, 0.5, 2, 2 ] );
+  *
+  *
+  * @returns { Array } Returns the array with the projection factors between the two boxes.
+  * @function getProjectionFactors
+  * @throws { Error } An Error if ( dim ) is different than ( dim2 ) (the boxes don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box.
+  * @throws { Error } An Error if ( projBox ) is not box.
+  * @memberof wTools.box
+  */
+function getProjectionFactors( srcBox, projBox )
+{
+
+  _.assert( _.box.is( srcBox ), 'Expects box' );
+  _.assert( _.box.is( projBox ), 'Expects box' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let srcBoxView = _.box._from( srcBox );
+  let srcCenter = _.vectorAdapter.from( _.box.centerGet( srcBoxView ) );
+  let srcSizes = _.vectorAdapter.from( _.box.sizeGet( srcBoxView ) );
+  let srcDim = _.box.dimGet( srcBoxView );
+
+  let projBoxView = _.box._from( projBox );
+  let projCenter = _.vectorAdapter.from( _.box.centerGet( projBoxView ) );
+  let projSizes = _.vectorAdapter.from( _.box.sizeGet( projBoxView ) );
+  let projDim = _.box.dimGet( projBoxView );
+
+  _.assert( srcDim === projDim );
+
+  let project = _.array.makeArrayOfLength( srcDim + 1 );
+  let projectView = _.vectorAdapter.from( project );
+
+  let translation = _.vectorAdapter.subVectors( projCenter, srcCenter );
+
+  projectView.eSet( 0, translation.toArray() );
+
+  debugger;
+  for( let i = 0; i < srcDim; i++ )
+  {
+    if( srcSizes.eGet( i ) === 0 )
+    {
+      if( projSizes.eGet( i ) === 0 )
+      {
+        projectView.eSet( i + 1, 1 );
+      }
+      else
+      {
+        return 0;
+      }
+    }
+    else
+    {
+      var scalingFactor = projSizes.eGet( i ) / srcSizes.eGet( i );
+
+      projectView.eSet( i + 1, scalingFactor );
+    }
+  }
+
+  return project;
 }
 
 //
@@ -1567,6 +1703,61 @@ function boxExpand( dstBox , srcBox )
 
 //
 
+/**
+  * Check if a given capsule is contained inside a box. Returs true if it is contained, false if not. Capsule and box stay untouched.
+  *
+  * @param { Array } box - The box to check if the capsule is inside.
+  * @param { Array } capsule - The capsule to check.
+  *
+  * @example
+  * // returns true
+  * _.capsuleContains( [ 0, 0, 2, 2 ], [ 1, 1, 1.5, 1.5, 0.1 ] );
+  *
+  * @example
+  * // returns false
+  * _.capsuleContains( [ 0, 0, 2, 2 ], [ - 1, 3, 3, 3, 1 ] );
+  *
+  * @returns { Boolen } Returns true if the capsule is inside the box, and false if the capsule is outside it.
+  * @function capsuleContains
+  * @throws { Error } An Error if ( dim ) is different than capsule.length (Box and capsule have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @memberof wTools.box
+  */
+
+
+function capsuleContains( box, capsule )
+{
+
+  if( box === null )
+  box = _.box.make();
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let capsuleView = _.capsule._from( capsule );
+  let dimC = _.capsule.dimGet( capsuleView );
+  let origin = _.vectorAdapter.from( _.capsule.originGet( capsuleView ) );
+  let end = _.vectorAdapter.from( _.capsule.endPointGet( capsuleView ) );
+  let radius = _.capsule.radiusGet( capsuleView );
+
+  _.assert( dimB === dimC );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let bottomSphere = _.sphere.fromCenterAndRadius( null, origin, radius );
+  let topSphere = _.sphere.fromCenterAndRadius( null, end, radius );
+
+  if( !_.box.sphereContains( boxView, bottomSphere ) )
+  return false;
+
+  if( !_.box.sphereContains( boxView, topSphere ) )
+  return false;
+
+  return true;
+}
+
+//
+
 function capsuleIntersects( srcBox , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1661,11 +1852,153 @@ function capsuleClosestPoint( box, capsule, dstPoint )
 //
 
 /**
+  * Check if a given convex polygon is contained inside a box. Returs true if it is contained, false if not. Polygon and box stay untouched.
+  *
+  * @param { Array } box - The box to check if the convex polygon is inside.
+  * @param { Polygon } convex polygon - The convex polygon to check.
+  *
+  * @example
+  * // returns true
+  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  *  ([ 0,   1,   1,   0,
+  *     0,   1,   1,   0,
+  *     0,   1,   3,   3 ] );
+  * _.convexPolygonContains( [ 0, 0, 0, 3, 3, 3 ], polygon );
+  *
+  * @returns { Boolen } Returns true if the convexPolygon is inside the box, and false if not.
+  * @function convexPolygonContains
+  * @throws { Error } An Error if ( dim ) is different than convexPolygon.length (Box and polygon don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( box ) is not box.
+  * @throws { Error } An Error if ( convexPolygon ) is not convexPolygon.
+  * @memberof wTools.box
+  */
+
+
+function convexPolygonContains( box, polygon )
+{
+
+  if( box === null )
+  box = _.box.make();
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+  let dimP =  _.Matrix.dimsOf( polygon );
+
+  _.assert( dimB === dimP[ 0 ] );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  for( let i = 0; i < dimP[ 1 ]; i++ )
+  {
+    let vertex = polygon.colVectorGet( i );
+    if( !_.box.pointContains( boxView, vertex ) )
+    return false;
+  }
+
+  return true;
+}
+
+//
+
+function convexPolygonIntersects( srcBox , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let boxView = _.box._from( srcBox );
+
+  let gotBool = _.convexPolygon.boxIntersects( polygon, boxView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcBox , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let boxView = _.box._from( srcBox );
+
+  let gotDist = _.convexPolygon.boxDistance( polygon, boxView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a box to a convex polygon. Returns the calculated point.
+  * Box and polygon remain unchanged
+  *
+  * @param { Array } box - The source box.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 1.5, 1.5, 1.5 ]
+  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ 1.5, 1.5, 1.5, 2, 2, 2 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( box ) is not box
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.box
+  */
+function convexPolygonClosestPoint( box, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let boxView = _.box._from( box );
+  let dimB = _.box.dimGet( boxView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimB );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dimP  = _.Matrix.dimsOf( polygon );
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimB === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimB );
+
+  if( _.convexPolygon.boxIntersects( polygon, boxView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.boxClosestPoint( polygon, boxView );
+
+    let boxPoint = _.vectorAdapter.from( _.box.pointClosestPoint( boxView, polygonPoint ) ) ;
+
+    for( let i = 0; i < dimB; i++ )
+    {
+      dstPointView.eSet( i, boxPoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+/**
   * Check if a box contains a frustum. Returns true if it is contained, false if not.
   * Box and frustum remain unchanged
   *
   * @param { Array } box - The source box (container).
-  * @param { Space } frustum - The tested frustum (the frustum to check if it is contained in box).
+  * @param { Matrix } frustum - The tested frustum (the frustum to check if it is contained in box).
   *
   * @example
   * // returns true
@@ -1697,11 +2030,14 @@ function frustumContains( box, frustum )
   let dim = _.box.dimGet( boxView );
   let min = _.box.cornerLeftGet( boxView );
   let max = _.box.cornerRightGet( boxView );
+  let dims = _.Matrix.dimsOf( frustum );
+  _.assert( dim = dims[ 0 ], 'Frustum and box must have same dim');
 
   let fpoints = _.frustum.cornersGet( frustum );
+  let dimsPoints = _.Matrix.dimsOf( fpoints );
   _.assert( _.matrixIs( fpoints ) );
 
-  for( let i = 0 ; i < 6 ; i += 1 )
+  for( let i = 0 ; i < dimsPoints[ 1 ] ; i += 1 )
   {
     let point = fpoints.colVectorGet( i );
 
@@ -1720,7 +2056,7 @@ function frustumContains( box, frustum )
   * Box and frustum remain unchanged
   *
   * @param { Array } box - The source box.
-  * @param { Space } frustum - The tested frustum.
+  * @param { Matrix } frustum - The tested frustum.
   *
   * @example
   * // returns true
@@ -1761,7 +2097,7 @@ function frustumIntersects( box, frustum )
   * Box and frustum remain unchanged
   *
   * @param { Array } box - The source box.
-  * @param { Space } frustum - The source frustum.
+  * @param { Matrix } frustum - The source frustum.
   *
   * @example
   * // returns 0
@@ -1828,7 +2164,7 @@ function frustumDistance( box, frustum )
   * Box and frustum remain unchanged
   *
   * @param { Array } box - The source box.
-  * @param { Space } frustum - The source frustum.
+  * @param { Matrix } frustum - The source frustum.
   * @param { Array } dstPoint - The destination point.
   *
   * @example
@@ -1915,7 +2251,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   * Frustum remains unchanged
   *
   * @param { Array } dstBox - The destination box.
-  * @param { Space } srcFrustum - The source frustum.
+  * @param { Matrix } srcFrustum - The source frustum.
   *
   * @example
   * // returns [ 0, 0, 0, 2, 2, 2 ]
@@ -2181,6 +2517,7 @@ function rayClosestPoint( box, ray, dstPoint )
   * @throws { Error } An Error if ( tstPlane ) is not plane
   * @memberof module:Tools/math/Concepts.wTools.box
   */
+
 function planeIntersects( srcBox , tstPlane )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -2281,6 +2618,7 @@ function planeDistance( srcBox, plane )
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
+
 function planeClosestPoint( srcBox, plane, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
@@ -2360,6 +2698,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @memberof module:Tools/math/Concepts.wTools.box
   */
+
 function planeExpand( dstBox, srcPlane )
 {
   _.assert( arguments.length === 2, 'Expects two arguments' );
@@ -2389,6 +2728,55 @@ function planeExpand( dstBox, srcPlane )
     }
     return dstBox;
   }
+}
+
+//
+
+/**
+  *Check if the source box contains the test segment. Returns true if it is contained, false if not.
+  * Box and segment are stored in Array data structure and remain unchanged
+  *
+  * @param { Array } srcBox - The source box (container).
+  * @param { Array } tstSegment - The tested segment (the segment to check if it is contained in srcBox).
+  *
+  * @example
+  * // returns true
+  * _.segmentContains( [ 0, 0, 0, 2, 2, 2 ], [ 1, 1, 1, 2, 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.segmentContains( [ 0, 0, 0, 2, 2, 2 ], [ 0, 0, 1, 1, 1, 2.5 ] );
+  *
+  * @returns { Boolean } Returns true if the segment is contained and false if not.
+  * @function segmentContains
+  * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the box and segment don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcBox ) is not box
+  * @throws { Error } An Error if ( tstSegment ) is not segment
+  * @memberof wTools.box
+  */
+
+function segmentContains( srcBox , tstSegment )
+{
+
+  let segmentView = _.segment._from( tstSegment );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+  let dimS = _.segment.dimGet( segmentView );
+
+  let boxView = _.box._from( srcBox );
+  let dimB = _.box.dimGet( boxView );
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( dimS === dimB );
+
+  if( !_.box.pointContains( boxView, origin ) )
+  return false;
+
+  if( !_.box.pointContains( boxView, end ) )
+  return false;
+
+  return true;
 }
 
 //
@@ -2537,6 +2925,9 @@ function sphereContains( srcBox , tstSphere )
 
     if( !_.box.pointContains( boxView, pointn ) )
     return false;
+
+    pointp.eSet( i, pointp.eGet( i ) - radius );
+    pointn.eSet( i, pointn.eGet( i ) + radius );
   }
 
   return true;
@@ -2806,7 +3197,7 @@ function boundingSphereGet( dstSphere, srcBox )
   * Apply a space transformation to a box. Returns the transformed box.
   *
   * @param { Array } box - The destination box.
-  * @param { Space } matrix - The transformation matrix.
+  * @param { Matrix } matrix - The transformation matrix.
   *
   * @example
   * // returns [ 0, 0, 0, 1, 1, 1 ]
@@ -3034,7 +3425,7 @@ function translate( box, offset )
 // declare
 // --
 
-let Extension =
+let Extension = /* qqq : normalize order */
 {
 
   make,
@@ -3066,11 +3457,11 @@ let Extension =
 
   expand,
 
-  pointContains,
-  pointDistance,
-  pointClosestPoint,
-  pointExpand,
-  pointRelative,
+  // pointContains,
+  // pointDistance,
+  // pointClosestPoint,
+  // pointExpand,
+  // pointRelative,
 
   boxContains,
   boxIntersects,
@@ -3078,15 +3469,18 @@ let Extension =
   boxClosestPoint, /* qqq : implement me */
   boxExpand,
 
-  capsuleIntersects,
-  capsuleDistance,
-  capsuleClosestPoint,
+  // capsuleIntersects,
+  // capsuleDistance,
+  // capsuleClosestPoint,
 
-  frustumContains, /* qqq : implement me */
-  frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
-  frustumDistance, /* qqq : implement me */
-  frustumClosestPoint, /* qqq : implement me */
-  frustumExpand, /* qqq : implement me */
+  project,
+  getProjectionFactors, /* xxx */
+
+  pointContains,
+  pointDistance,
+  pointClosestPoint,
+  pointExpand,
+  pointRelative,
 
   lineIntersects, /* Same as _.line.boxIntersects */
   lineDistance, /* Same as _.line.boxDistance */
@@ -3096,6 +3490,22 @@ let Extension =
   planeDistance, /* qqq : implement me */
   planeClosestPoint, /* qqq : implement me */
   planeExpand, /* qqq : implement me */
+
+  capsuleContains,
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
+
+  convexPolygonContains,
+  convexPolygonIntersects,
+  convexPolygonDistance,
+  convexPolygonClosestPoint,
+
+  frustumContains, /* qqq : implement me */
+  frustumIntersects, /* qqq : implement me - Same as _.frustum.boxIntersects */
+  frustumDistance, /* qqq : implement me */
+  frustumClosestPoint, /* qqq : implement me */
+  frustumExpand, /* qqq : implement me */
 
   rayIntersects, /* qqq : implement me - Same as _.ray.boxIntersects */
   rayDistance, /* qqq : implement me - Same as _.ray.boxDistance */
@@ -3114,6 +3524,11 @@ let Extension =
 
   matrixHomogenousApply,
   translate,
+
+  segmentContains,
+  segmentIntersects, /* Same as _.segment.boxIntersects */
+  segmentDistance, /* Same as _.segment.boxDistance */
+  segmentClosestPoint,
 
   // ref
 

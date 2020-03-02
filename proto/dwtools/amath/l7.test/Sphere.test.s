@@ -19,7 +19,7 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Matrix;
+var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromLong;
 var avector = _.avector;
@@ -1703,6 +1703,495 @@ function radiusSet( test )
 
 //
 
+function project( test )
+{
+
+  test.case = 'Projection array remains unchanged and Destination sphere changes'; /* */
+
+  var dstSphere = [ 0.5, 0.5, 1 ];
+  var project = [ [ 1, 1 ], 2 ];
+  var expected = [ 1.5, 1.5, 2 ];
+
+  var gotSphere = _.sphere.project( dstSphere, project );
+  test.identical( gotSphere, expected );
+  test.identical( dstSphere, expected );
+
+  var oldProject = [ [ 1, 1 ], 2 ];
+  test.identical( project, oldProject );
+
+  var oldSphere = [ 0.5, 0.5, 1 ];
+  test.is( oldSphere !== gotSphere );
+
+  test.case = 'Null sphere projected'; /* */
+
+  var sphere = null;
+  var project = [ [ 1, 0, 0 ], 2 ];
+  var expected = [ 1, 0, 0, 0 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Null sphere NOT projected'; /* */
+
+  var sphere = null;
+  var project = [ [ 0, 0, 0 ], 0 ];
+  var expected = [ 0, 0, 0, 0 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere projected'; /* */
+
+  var sphere = [ 0.5, 0, 0, 2 ];
+  var project = [ [ 0, 1, 0 ], 3 ];
+  var expected = [ 0.5, 1, 0, 6 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere expanded'; /* */
+
+  var sphere = [ 0, 2, 2, 1 ];
+  var project = [ [ 0, 0, 0 ], 2 ];
+  var expected = [ 0, 2, 2, 2 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere contracted'; /* */
+
+  var sphere = [ 0, 2, 2, 1 ];
+  var project = [ [ 0, 0, 0 ], 0.5 ];
+  var expected = [ 0, 2, 2, 0.5 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere translated'; /* */
+
+  var sphere = [ 0, 2, 2, 1 ];
+  var project = [ [ 1, 2, 3 ], 1 ];
+  var expected = [ 1, 4, 5, 1 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere reduced to a point'; /* */
+
+  var sphere = [ 0, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 0 ];
+  var expected = [ 1, 4, 5, 0 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere NOT projected ( empty project array )'; /* */
+
+  var sphere = [ 0, 2, 2, 3 ];
+  var project = [ [ 0, 0, 0 ], 1 ];
+  var expected = [ 0, 2, 2, 3 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere of four dimensions projected'; /* */
+
+  var sphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
+  var project = [ [ 0, 0, 0, 0 ], 4 ];
+  var expected = [ -0.5, -0.5, 0.5, 0.5, 4 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  test.case = 'Sphere of 1 dimension projected'; /* */
+
+  var sphere = [ 0, 1 ];
+  var project = [ [ 1 ], 2 ];
+  var expected = [ 1, 2 ];
+
+  var gotSphere = _.sphere.project( sphere, project );
+  test.identical( gotSphere, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( 'sphere', 'project' );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0 ], [ [ 0, 0 ], 1 ], [ [ 1, 1 ], 0 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 3D vs array 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 3D vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1 ], 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 2D vs array 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0 ], [ [ 0 ], 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (null sphere vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( null, [ [ 0, 1 ], 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (project has less than 2 entries)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ] ] );
+  });
+
+  test.case = 'Wrong project array dimension (project has more than 2 entries)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2 ] );
+  });
+
+  test.case = 'Empty arrays'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.project( [ ], [ [  ],  ] );
+  });
+
+}
+
+//
+
+function getProjectionFactors( test )
+{
+
+  test.case = 'Spheres remain unchanged'; /* */
+
+  var dstSphere = [ 0, 0, 1, 1 ];
+  var projSphere = [ 0.5, 0.5, 1.5, 2 ];
+  var expected = [ [ 0.5, 0.5, 0.5 ], 2 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var oldSphere = [ 0, 0, 1, 1 ];
+  test.identical( oldSphere, dstSphere );
+
+  var oldProjSphere = [ 0.5, 0.5, 1.5, 2 ];
+  test.identical( oldProjSphere, projSphere );
+
+  test.case = 'Sphere projected'; /* */
+
+  var dstSphere = [ 1, 0, 0, 2 ];
+  var projSphere = [ -0.5, 1, 0, 6 ];
+  var expected = [ [ -1.5, 1, 0 ], 3 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere expanded'; /* */
+
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var projSphere = [ 2, 2, 2, 2 ];
+  var expected = [ [ 0, 0, 0 ], 2 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere contracted'; /* */
+
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var projSphere = [ 2, 2, 2, 0.5 ];
+  var expected = [ [ 0, 0, 0 ], 0.5 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere translated'; /* */
+
+  var dstSphere = [ 0, 2, 2, 1 ];
+  var projSphere = [ 1, 4, 5, 1 ];
+  var expected = [ [ 1, 2, 3 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere reduced to point'; /* */
+
+  var dstSphere = [ 2, 2, 2, 1 ];
+  var projSphere = [ 3, 4, 5, 0 ];
+  var expected = [ [ 1, 2, 3 ], 0 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere reduced'; /* */
+
+  var dstSphere = [ 0, 0, 0, 4 ];
+  var projSphere = [ 2, 3, 4, 1 ];
+  var expected = [ [ 2, 3, 4 ], 0.25 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere NOT projected ( empty project array )'; /* */
+
+  var dstSphere = [ 2, 2, 2, 3 ];
+  var projSphere = [ 2, 2, 2, 3 ];
+  var expected = [ [ 0, 0, 0 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere of four dimensions projected'; /* */
+
+  var dstSphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
+  var projSphere = [ - 1, - 1, 1, 1, 4 ];
+  var expected = [ [ -0.5, -0.5, 0.5, 0.5 ], 4 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere of 1 dimension projected'; /* */
+
+  var dstSphere = [ 0, 1 ];
+  var projSphere = [ 1, 1 ];
+  var expected = [ [ 1 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Point to point'; /* */
+
+  var dstSphere = [ 3, 4, 0 ];
+  var projSphere = [ 5, 5, 0 ];
+  var expected = [ [ 2, 1 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Point to sphere'; /* */
+
+  var dstSphere = [ 3, 4, 0 ];
+  var projSphere = [ 5, 5, 7 ];
+  var expected = 0;
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Sphere to sphere'; /* */
+
+  var dstSphere = [ 3, 4, 3, 1 ];
+  var projSphere = [ 5, 5, 7, 2 ];
+  var expected = [ [ 2, 1, 4 ], 2 ];;
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  // Test cases including _.sphere.project()
+
+  test.case = 'Two equal spheres'; /* */
+
+  var dstSphere = [ 0, 0, 1, 1, 1 ];
+  var projSphere = [ 0, 0, 1, 1, 1 ];
+  var expected = [ [ 0, 0, 0, 0 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Two equal point spheres'; /* */
+
+  var dstSphere = [ 3, 4, 0 ];
+  var projSphere = [ 3, 4, 0 ];
+  var expected = [ [ 0, 0 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Point to point'; /* */
+
+  var dstSphere = [ 3, 4, 0 ];
+  var projSphere = [ 5, 5, 0 ];
+  var expected = [ [ 2, 1 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Sphere to point'; /* */
+
+  var dstSphere = [ 3, 4, 6, 1 ];
+  var projSphere = [ 5, 5, 5, 0 ];
+  var expected = [ [ 2, 1, -1 ], 0 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Sphere translated'; /* */
+
+  var dstSphere = [ 3, 4, 6, 2 ];
+  var projSphere = [ -1, 8, 2, 2 ];
+  var expected = [ [ -4, 4, -4 ], 1 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Sphere contracted'; /* */
+
+  var dstSphere = [ 0, 0, 4, 2 ];
+  var projSphere = [ 0, 0, 4, 1 ];
+  var expected = [ [ 0, 0, 0 ], 0.5 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  test.case = 'Sphere expanded'; /* */
+
+  var dstSphere = [ 0, 0, 4, 1 ];
+  var projSphere = [ 0, 0, 4, 3/2 ];
+  var expected = [ [ 0, 0, 0 ], 3/2 ];
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.equivalent( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.equivalent( gotSphere, projSphere );
+
+  test.case = 'Sphere projected'; /* */
+
+  var dstSphere = [ 0, 0, 4, 2 ];
+  var projSphere = [ -7, -3, 9, 4 ];
+  var expected = [ [ -7, -3, 5 ], 2 ];;
+
+  var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
+  test.identical( gotFactors, expected );
+
+  var gotSphere = _.sphere.project( dstSphere, gotFactors );
+  test.identical( gotSphere, projSphere );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors();
+  });
+
+  test.case = 'Wrong type of argument - string'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( 'sphere', 'projSphere' );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( null, [ 0, 1, 2, 3, 1 ] );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], null );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( undefined, [ 0, 1, 2, 3, 1 ] );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], undefined );
+  });
+
+  test.case = 'Empty arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [], [] );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 3D vs sphere 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 1, 1, 1, 1, 0 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 3D vs sphere 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 0, 1, 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (sphere 2D vs sphere 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.sphere.getProjectionFactors( [ 0, 0, 0 ], [ 0, 2 ] );
+  });
+
+}
+
+//
+
 function pointContains( test )
 {
   test.case = 'Sphere and point remain unchanged';
@@ -2848,6 +3337,125 @@ function boundingBoxGet( test )
 
 //
 
+function capsuleContains( test )
+{
+  test.case = 'Sphere and capsule remain unchanged';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 0, 0, 2, 1, 1, 3, 0.5 ];
+  var expected = false;
+  var gotBool = _.sphere.capsuleContains( sphere, capsule );
+
+  test.identical( gotBool, expected );
+  var oldSphere = [ 0, 0, 0, 1 ];
+  test.identical( sphere, oldSphere );
+  var oldCapsule = [ 0, 0, 2, 1, 1, 3, 0.5 ];
+  test.identical( capsule, oldCapsule );
+
+  test.case = 'Sphere and capsule intersect';
+
+  var sphere = [ 4, 4, 4, 1 ];
+  var capsule = [ 3, 3, 3, 5, 3, 3, 0.1 ];
+  var expected = false;
+
+  var gotBool = _.sphere.capsuleContains( sphere, capsule );
+
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere contains capsule';
+
+  var sphere = [ 4, 4, 4, 4 ];
+  var capsule = [ 3, 3, 3, 5, 3, 3, 0.1 ];
+  var expected = true;
+
+  var gotBool = _.sphere.capsuleContains( sphere, capsule );
+
+  test.identical( gotBool, expected );
+
+  test.case = 'sphere contains capsule in 2D';
+
+  var sphere = [ -3, 4, 8  ];
+  var capsule = [ -1, 3, -2, 5, 1 ];
+  var expected = true;
+
+  var gotBool = _.sphere.capsuleContains( sphere, capsule );
+
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Capsule and sphere don´t intersect';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ -5, -6, -4, - 3, - 3, - 3, 1 ];
+  var expected = false;
+
+  var gotBool = _.sphere.capsuleContains( sphere, capsule );
+
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Capsule corner touching the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 2, 0, 0, 5, 0, 0, 1 ];
+  var expected = false;
+
+  var gotBool = _.sphere.capsuleContains( sphere, capsule );
+
+  test.identical( gotBool, expected );
+
+  test.case = 'Capsule and sphere intersect';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 0, 0, 0.5, 1, 1, 1, 0.1 ];
+  var expected = false;
+
+  var gotBool = _.sphere.capsuleContains( sphere, capsule );
+
+  test.identical( gotBool, expected );
+
+//   var srcSphere = [ - 1, 0, - 2, 3 ];
+//   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9, 8, 7 ] );
+//   var expected = _.vectorAdapter.from( [ - 4, - 3, - 5, 2, 3, 1  ] );
+
+  test.case = 'Capsule inside the sphere';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ 0, 0, 0, 0.5, 0.5, 0.5, 0.1 ];
+  var expected = true;
+
+  var gotBool = _.sphere.capsuleContains( sphere, capsule );
+
+  test.identical( gotBool, expected );
+
+  test.case = 'Sphere inside capsule';
+
+  var sphere = [ 0, 0, 0, 1 ];
+  var capsule = [ -1, -1, -1, 1, 1, 1, 2 ];
+  var expected = false;
+
+  var gotBool = _.sphere.capsuleContains( sphere, capsule );
+
+  test.identical( gotBool, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( [ 0, 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( [ 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( [ 1, 2, 3, 4 ], [ 1, 2, 3, 4, 5 ], [ 1, 2, 3, 4, 5 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( [ 1, 2, 3, 4 ], [ 1, 2, 3, 4 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( [ 1, 2, 3, 4, 5 ], [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( [ 1, 2, 3, 4, 5 ], [ 1, 2, 3, 4, - 1 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( null, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( [ 0, 0, 0, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( NaN, [ 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.capsuleContains( [ 0, 0, 0, 1 ], NaN ) );
+}
+
+//
+
 function capsuleClosestPoint( test )
 {
   test.case = 'Sphere and point remain unchanged';
@@ -2985,15 +3593,380 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonContains( test )
+{
+
+  test.case = 'Source sphere and polygon remain unchanged'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 3, ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
+  test.identical( expected, gotBool );
+
+  var oldSrcSphere = [ - 1, - 1, -1, 3 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Sphere and polygon intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Sphere cuts polygon vertex'; /* */
+
+  var srcSphere = [ 0, 1, 0, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Sphere and polygon don´t intersect'; /* */
+
+  var srcSphere = [ 0, 1, 0, 1.5 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Sphere contains polygon in origin'; /* */
+
+  var srcSphere = [ 0, 0, 0, 3 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Sphere contains polygon'; /* */
+
+  var srcSphere = [ -2, 0, 0, 1.5 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Sphere contains polygon - touching sides'; /* */
+
+  var srcSphere = [ -2, 0, 0, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = '2D - Contained'; /* */
+
+  var srcSphere = [ 4, 4, Math.sqrt( 2 ) ];
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    3,   5,   5,   3,
+    3,   3,   5,   5
+  ]);
+  var expected = true;
+
+  var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = '2D - Not contained'; /* */
+
+  var srcSphere = [ 4, 4, Math.sqrt( 2 )/2 ];
+  var polygon =  _.Matrix.make( [ 2, 3 ] ).copy
+  ([
+    2,   8,  2,
+    2,   2,  8
+  ]);
+  var expected = false;
+
+  var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains( ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains( 'sphere', polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains( [ 0, 0, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains(  [ 0, 1, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains(  [ 0, 1, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains( [ 0, 0, 1 ], [ 0, 1, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains( [ 0, 1, 0 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains( [ 0, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonContains( [ 0, 1, 0, 2 ], polygon ) );
+
+}
+
+//
+
+function convexPolygonClosestPoint( test )
+{
+
+  test.case = 'Source sphere and polygon remain unchanged'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 3, ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcSphere = [ - 1, - 1, -1, 3 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Sphere and polygon intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere cuts polygon vertex'; /* */
+
+  var srcSphere = [ 0, 1, 0, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere next to polygon vertex'; /* */
+
+  var srcSphere = [ 0, 1, 0, 1.5 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -1.5, 1, 0 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere cuts polygon edge'; /* */
+
+  var srcSphere = [ 0, 1, 1, Math.sqrt( 2 )/2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere next to polygon edge'; /* */
+
+  var srcSphere = [ 0, 2, 2, Math.sqrt( 2 ) ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ 0, 1, 1 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.equivalent( expected, gotPoint );
+
+  test.case = 'Sphere cuts polygon'; /* */
+
+  var srcSphere = [ - 3, 0, 0, 1.5 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Sphere next to polygon'; /* */
+
+  var srcSphere = [ 0, 0, - 1, 0.5 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 0, 0, -0.5 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D'; /* */
+
+  var srcSphere = [ 4, 4, Math.sqrt( 2 )/2 ];
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = [ 3.5, 3.5 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcSphere = [ 3, 4, 4, Math.sqrt( 3 ) ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 2.1022415975031303, 2.9526151970869856, 2.9526151970869856 ];
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcSphere = [ -1, -2, -4, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.vectorAdapter.from( [ -0.4654775161751512, -0.9309550323503024, -2.3964325485254534 ] );
+
+  var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( 'sphere', polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 0, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint(  [ 0, 1, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint(  [ 0, 1, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 0, 1 ], [ 0, 1, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 1, 0 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.sphere.convexPolygonClosestPoint( [ 0, 1, 0, 2 ], polygon ) );
+
+}
+
+//
+
 function frustumContains( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 3, 3, 3, 2 ];
@@ -3007,9 +3980,9 @@ function frustumContains( test )
 
   var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   test.identical( tstFrustum, oldFrustum );
@@ -3018,9 +3991,9 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, 2 ];
@@ -3033,9 +4006,9 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
@@ -3048,9 +4021,9 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + test.accuracy ];
@@ -3063,9 +4036,9 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
@@ -3078,9 +4051,9 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 5, 5, 5, 1 ];
@@ -3093,9 +4066,9 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 2, 2, 2, 2 ];
@@ -3120,9 +4093,9 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
 
@@ -3148,9 +4121,9 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 3, 3, 3, 2 ];
@@ -3164,9 +4137,9 @@ function frustumDistance( test )
 
   var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   test.identical( tstFrustum, oldFrustum );
@@ -3175,9 +4148,9 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, 2 ];
@@ -3190,9 +4163,9 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
@@ -3205,9 +4178,9 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
@@ -3220,9 +4193,9 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 5, 5, 5, 1 ];
@@ -3235,9 +4208,9 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 2, 2, 2, 2 ];
@@ -3250,9 +4223,9 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 3, 0, 1 ];
@@ -3277,9 +4250,9 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
 
@@ -3305,9 +4278,9 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 3, 0, 0, 1 ];
@@ -3321,9 +4294,9 @@ function frustumClosestPoint( test )
 
   var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   test.identical( tstFrustum, oldFrustum );
@@ -3332,9 +4305,9 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, 2 ];
@@ -3347,9 +4320,9 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-  0, 0, 0, 0, - 1, 1, 
-  1, - 1, 0, 0, 0, 0, 
-  0, 0, 1, - 1, 0, 0, 
+  0, 0, 0, 0, - 1, 1,
+  1, - 1, 0, 0, 0, 0,
+  0, 0, 1, - 1, 0, 0,
   - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 2, 2, 2, 2 ];
@@ -3362,9 +4335,9 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, 1 ];
@@ -3377,9 +4350,9 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 5, 1, 1 ];
@@ -3392,9 +4365,9 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 3, 3, 1 ];
@@ -3407,9 +4380,9 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 3, 3, 3, 1 ];
@@ -3434,9 +4407,9 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
 
@@ -3462,9 +4435,9 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 3, 0, 0, 1 ];
@@ -3478,9 +4451,9 @@ function frustumExpand( test )
 
   var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   test.identical( tstFrustum, oldFrustum );
@@ -3489,9 +4462,9 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, 2 ];
@@ -3504,9 +4477,9 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-  0, 0, 0, 0, - 1, 1, 
-  1, - 1, 0, 0, 0, 0, 
-  0, 0, 1, - 1, 0, 0, 
+  0, 0, 0, 0, - 1, 1,
+  1, - 1, 0, 0, 0, 0,
+  0, 0, 1, - 1, 0, 0,
   - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 2, 2, 2, 2 ];
@@ -3519,9 +4492,9 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 0, 0, 1 ];
@@ -3534,9 +4507,9 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 5, 1, 1 ];
@@ -3549,9 +4522,9 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 0, 3, 3, 1 ];
@@ -3564,9 +4537,9 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
   var srcSphere = [ 3, 3, 3, 1 ];
@@ -3591,9 +4564,9 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1, 
-    1, - 1, 0, 0, 0, 0, 
-    0, 0, 1, - 1, 0, 0, 
+    0, 0, 0, 0, - 1, 1,
+    1, - 1, 0, 0, 0, 0,
+    0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1 ]
   );
 
@@ -4029,6 +5002,107 @@ function rayClosestPoint( test )
   test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
   test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
   test.shouldThrowErrorSync( () => _.sphere.rayClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
+
+}
+
+//
+
+function segmentContains( test )
+{
+
+  test.case = 'Source sphere and segment remain unchanged'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = false;
+
+  var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  var oldSrcSphere = [ - 1, - 1, -1, 2 ];
+  test.identical( srcSphere, oldSrcSphere );
+
+  var oldTstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstSegment, oldTstSegment );
+
+  test.case = 'sphere and segment intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 3 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = false;
+
+  var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment origin touches sphere'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 1 ];
+  var tstSegment = [ -1, -1, 0, 0, 0, 1 ];
+  var expected = false;
+
+  var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Segment and sphere don´t intersect'; /* */
+
+  var srcSphere = [ - 1, - 1, -1, 2 ];
+  var tstSegment = [ - 1, -1, 3, - 1, - 1, 2 ];
+  var expected = false;
+
+  var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Sphere contains segment'; /* */
+
+  var srcSphere = [ 0, 0, 0, 2 ];
+  var tstSegment = [ - 1, -1, -1, 1, 1, 1 ];
+  var expected = true;
+
+  var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = 'Sphere contains segment - touching sides'; /* */
+
+  var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) ];
+  var tstSegment = [ - 1, -1, -1, 1, 1, 1 ];
+  var expected = true;
+
+  var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = '2D - contained'; /* */
+
+  var srcSphere = [ 3, 4, 8 ];
+  var tstSegment = [ 3, 5, 2, 6 ];
+  var expected = true;
+
+  var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+  test.case = '2D - Not contained'; /* */
+
+  var srcSphere = [ 6, 7, Math.sqrt( 3 ) ];
+  var tstSegment = [ - 1, -1, 6, 0 ];
+  var expected = false;
+
+  var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
+  test.identical( expected, gotSegment );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.sphere.segmentContains( ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentContains( [] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentContains( 'sphere', 'segment' ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentContains(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentContains( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentContains( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentContains( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentContains( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.sphere.segmentContains( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
 
 }
 
@@ -4806,70 +5880,75 @@ function sphereExpand( test )
 var Self =
 {
 
-  name : 'Tools.Math.Sphere', 
-  silencing : 1, 
-  enabled : 1, 
-  // verbosity : 7, 
-  // debug : 1, 
-  // routine : 'frustumExpand', 
+  name : 'Tools.Math.Sphere',
+  silencing : 1,
 
   tests :
   {
 
-    make, 
-    makeZero, 
-    makeNil, 
+    make,
+    makeZero,
+    makeNil,
 
-    zero, 
-    nil, 
-    centeredOfRadius, 
+    zero,
+    nil,
+    centeredOfRadius,
 
-    fromPoints, 
-    fromBox, 
-    fromCenterAndRadius, 
+    fromPoints,
+    fromBox,
+    fromCenterAndRadius,
 
-    is, 
-    isEmpty, 
-    isZero, 
-    isNil, 
+    is,
+    isEmpty,
+    isZero,
+    isNil,
 
-    dimGet, 
-    centerGet, 
-    radiusGet, 
-    radiusSet, 
+    dimGet,
+    centerGet,
+    radiusGet,
+    radiusSet,
 
-    pointContains, 
-    pointDistance, 
-    pointClosestPoint, 
-    pointExpand, 
+    project,
+    getProjectionFactors,
 
-    boxContains, 
-    boxIntersects, 
-    boxClosestPoint, 
-    boxExpand, 
-    boundingBoxGet, 
+    pointContains,
+    pointDistance,
+    pointClosestPoint,
+    pointExpand,
 
-    capsuleClosestPoint, 
+    boxContains,
+    boxIntersects,
+    boxClosestPoint,
+    boxExpand,
+    boundingBoxGet,
 
-    frustumContains, 
-    frustumDistance, 
-    frustumClosestPoint, 
-    frustumExpand, 
+    capsuleContains,
+    capsuleClosestPoint,
 
-    lineClosestPoint, 
+    convexPolygonContains,
+    convexPolygonClosestPoint,
 
-    planeClosestPoint, 
-    planeExpand, 
+    frustumContains,
+    frustumDistance,
+    frustumClosestPoint,
+    frustumExpand,
 
-    rayClosestPoint, 
+    lineClosestPoint,
 
-    segmentClosestPoint, 
+    planeClosestPoint,
+    planeExpand,
 
-    sphereContains, 
-    sphereIntersects, 
-    sphereDistance, 
-    sphereClosestPoint, 
-    sphereExpand, 
+    rayClosestPoint,
+
+    segmentContains,
+    segmentClosestPoint,
+
+    sphereContains,
+    sphereIntersects,
+    sphereDistance,
+    sphereClosestPoint,
+    sphereExpand,
+
   }
 
 }

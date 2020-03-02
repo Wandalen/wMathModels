@@ -4,10 +4,14 @@ require( 'wmathconcepts' );
 
 var _ = wTools;
 
- var box = _.vector.fromArray( [ 0, 0, 2, 2 ] );
- var box = _.box.boundingSphereGet( null, box );
+var srcBox = [ - 1, - 1, -1, 2, 2, 2 ];
+var polygon =  _.Space.make( [ 3, 4 ] ).copy
+([
+  0,   0,   0,   0,
+  1,   0, - 1,   0,
+  0,   1,   0, - 1
+]);
 
- console.log( box );
-
-
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+logger.log( gotBool )
 debugger;

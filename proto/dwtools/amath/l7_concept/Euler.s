@@ -1783,7 +1783,7 @@ function toQuat2( srcEuler, dstQuat )
   * Rotation matrix stays untouched.
   *
   * @param { Array } dstEuler - Destination array with euler angle source code.
-  * @param { Space } srcMatrix - Source rotation matrix.
+  * @param { Matrix } srcMatrix - Source rotation matrix.
   *
   * @example
   * // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
@@ -2218,7 +2218,7 @@ function fromMatrix3( dstEuler, srcMatrix )
   * Euler angles stay untouched.
   *
   * @param { Array } srcEuler - Source representation of Euler angles.
-  * @param { Space } dstMatrix - Destination matrix.
+  * @param { Matrix } dstMatrix - Destination matrix.
   *
   * @example
   * // returns [ 0.7701, -0.4207, 0.4794,
@@ -2232,7 +2232,7 @@ function fromMatrix3( dstEuler, srcMatrix )
   * //           - 0.4794, 0.4207, 0.7701 ]
   * _.toMatrix2( null, [ 1, 0.5, 0.5, 2, 1, 0 ] );
   *
-  * @returns { Space } Returns the corresponding rotation matrix.
+  * @returns { Matrix } Returns the corresponding rotation matrix.
   * @function toMatrix2
   * @throws { Error } An Error if( arguments.length ) is different than one.
   * @throws { Error } An Error if( srcEuler ) is not euler.
@@ -2829,7 +2829,7 @@ function isGimbalLock( srcEuler )
 // declare
 // --
 
-let Extension =
+let Extension = /* qqq : normalize order */
 {
 
   is,
