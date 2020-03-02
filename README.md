@@ -3,82 +3,23 @@
 
 Collection of functions to operate such geometrical concepts as Sphere, Box, Plane, Frustum, Ray, Axis and Angle, Euler's Angles, Quaternion and other. Why MathConcepts? Three reasons. All functions of the module are purely functional. MathConcepts heavily relies on another great concept MathVector what makes the module less sensible to data formats of operational objects. The module provides functions for conversions from one to another conceptual form, for example from Quaternion to Euler's Angles or from Euler's Angles to Quaternion or between different representations of Euler's Angles. Unlike MathConcepts, many alternatives do conversions inconsistently or inaccurately. MathConcepts is densely covered by tests and optimized for accuracy. Use MathConcepts to have uniform experience solving geometrical problems and to get a more flexible program.
 
+MathConcepts implements algorithms on such math concepts:
+
+- Axis and angle.
+- Box.
+- Capsule.
+- Convex polygon.
+- Euler angles.
+- Frustum.
+- Line.
+- Plane.
+- Quaternion.
+- Ray.
+- Segment.
+- Sphere.
+
 ### Try out
 ```
 npm install
 node sample/Sample.js
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

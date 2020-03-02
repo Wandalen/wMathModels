@@ -2278,6 +2278,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
   * @memberof module:Tools/math/Concepts.wTools.box
   */
+
 function frustumExpand( dstBox, srcFrustum )
 {
 
