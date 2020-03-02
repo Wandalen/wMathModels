@@ -2538,25 +2538,25 @@ function project( test )
 
   test.case = 'Projection array remains unchanged and Destination box changes'; /* */
 
-  var dstBox = [ 0, 0, 1, 1 ];
-  var project = [ [ 1, 1 ], 1, 2 ];
-  var expected = [ 1, 0.5, 2, 2.5 ];
+  var dstBox = _.box.tools.longMake( [ 0, 0, 1, 1 ] );
+  var project = _.box.tools.longMake( [ [ 1, 1 ], 1, 2 ] );
+  var expected = _.box.tools.longMake( [ 1, 0.5, 2, 2.5 ] );
 
   var gotBox = _.box.project( dstBox, project );
   test.identical( gotBox, expected );
   test.identical( dstBox, expected );
 
-  var oldProject = [ [ 1, 1 ], 1, 2 ];
+  var oldProject = _.box.tools.longMake( [ [ 1, 1 ], 1, 2 ] );
   test.identical( project, oldProject );
 
-  var oldBox = [ 0, 0, 1, 1 ];
+  var oldBox = _.box.tools.longMake( [ 0, 0, 1, 1 ] );
   test.is( oldBox !== gotBox );
 
   test.case = 'Null box projected'; /* */
 
   var box = null;
-  var project = [ [ 1, 0, 0 ], 1, 2, 3 ];
-  var expected = [ 1, 0, 0, 1, 0, 0 ];
+  var project = _.box.tools.longMake( [ [ 1, 0, 0 ], 1, 2, 3 ] );
+  var expected = _.box.tools.longMake( [ 1, 0, 0, 1, 0, 0 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -2564,89 +2564,89 @@ function project( test )
   test.case = 'Null box NOT projected'; /* */
 
   var box = null;
-  var project = [ [ 0, 0, 0 ], 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 0, 0, 0 ] );
+  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
   test.case = 'One side box projected'; /* */
 
-  var box = [ 0, 0, 0, 1, 0, 0 ];
-  var project = [ [ 0, 1, 0 ], 2, 0, 3 ];
-  var expected = [ -0.5, 1, 0, 1.5, 1, 0 ];
+  var box = _.box.tools.longMake( [ 0, 0, 0, 1, 0, 0 ] );
+  var project = _.box.tools.longMake( [ [ 0, 1, 0 ], 2, 0, 3 ] );
+  var expected = _.box.tools.longMake( [ -0.5, 1, 0, 1.5, 1, 0 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
   test.case = 'Box expanded'; /* */
 
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var project = [ [ 0, 0, 0 ], 1, 3, 1 ];
-  var expected = [ 0, -2, 0, 2, 4, 2 ];
+  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 1, 3, 1 ] );
+  var expected = _.box.tools.longMake( [ 0, -2, 0, 2, 4, 2 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
   test.case = 'Box contracted'; /* */
 
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var project = [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ];
-  var expected = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ] );
+  var expected = _.box.tools.longMake( [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
   test.case = 'Box translated'; /* */
 
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var project = [ [ 1, 2, 3 ], 1, 1, 1 ];
-  var expected = [ 1, 2, 3, 3, 4, 5 ];
+  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.longMake( [ [ 1, 2, 3 ], 1, 1, 1 ] );
+  var expected = _.box.tools.longMake( [ 1, 2, 3, 3, 4, 5 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
   test.case = 'Box reduced to point'; /* */
 
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var project = [ [ 1, 2, 3 ], 0, 0, 0 ];
-  var expected = [ 2, 3, 4, 2, 3, 4 ];
+  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.longMake( [ [ 1, 2, 3 ], 0, 0, 0 ] );
+  var expected = _.box.tools.longMake( [ 2, 3, 4, 2, 3, 4 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
   test.case = 'Box NOT projected ( empty project array )'; /* */
 
-  var box = [ 0, 0, 0, 2, 2, 2 ];
-  var project = [ [ 0, 0, 0 ], 1, 1, 1 ];
-  var expected = [ 0, 0, 0, 2, 2, 2 ];
+  var box = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
+  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 1, 1, 1 ] );
+  var expected = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
   test.case = 'Box of four dimensions projected'; /* */
 
-  var box = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
-  var project = [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ];
-  var expected = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ];
+  var box = _.box.tools.longMake( [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ] );
+  var project = _.box.tools.longMake( [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ] );
+  var expected = _.box.tools.longMake( [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
   test.case = 'Box of 1 dimension projected'; /* */
 
-  var box = [ 0, 0 ];
-  var project = [ [ 1 ], 2 ];
-  var expected = [ 1, 1 ];
+  var box = _.box.tools.longMake( [ 0, 0 ] );
+  var project = _.box.tools.longMake( [ [ 1 ], 2 ] );
+  var expected = _.box.tools.longMake( [ 1, 1 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
 
   test.case = 'Box of 0 dimension projected'; /* */
 
-  var box = [ ];
-  var project = [ [], ];
-  var expected = [ ];
+  var box = _.box.tools.longMake( [ ] );
+  var project = _.box.tools.longMake( [ [], ] );
+  var expected = _.box.tools.longMake( [ ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
@@ -2654,8 +2654,8 @@ function project( test )
   test.case = 'Null box projected by value'; /* */
 
   var box = null;
-  var project = [ [ 0, 0, 0 ], 8, 8, 8 ] ;
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var project = _.box.tools.longMake( [ [ 0, 0, 0 ], 8, 8, 8 ] ) ;
+  var expected = _.box.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.box.project( box, project );
   test.identical( gotBox, expected );
