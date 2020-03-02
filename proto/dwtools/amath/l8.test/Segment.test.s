@@ -347,14 +347,14 @@ function from( test )
 
 //
 
-function toAdapter( test )
+function adapterFrom( test )
 {
   test.case = 'Same instance returned - vector'; /* */
 
   var srcSegment = [ 0, 0, 2, 2 ];
   var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
-  var gotSegment = _.segment.toAdapter( srcSegment );
+  var gotSegment = _.segment.adapterFrom( srcSegment );
   test.identical( gotSegment, expected );
   test.is( srcSegment !== gotSegment );
 
@@ -363,7 +363,7 @@ function toAdapter( test )
   var srcSegment = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
   var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
-  var gotSegment = _.segment.toAdapter( srcSegment );
+  var gotSegment = _.segment.adapterFrom( srcSegment );
   test.identical( gotSegment, expected );
   test.is( srcSegment === gotSegment );
 
@@ -372,7 +372,7 @@ function toAdapter( test )
   var srcSegment = [];
   var expected =  _.vectorAdapter.from( [] );
 
-  var gotSegment = _.segment.toAdapter( srcSegment );
+  var gotSegment = _.segment.adapterFrom( srcSegment );
   test.identical( gotSegment, expected );
   test.is( srcSegment !== gotSegment );
 
@@ -381,13 +381,13 @@ function toAdapter( test )
   if( !Config.debug )
   return;
 
-  test.shouldThrowErrorSync( () => _.segment.toAdapter( ));
-  test.shouldThrowErrorSync( () => _.segment.toAdapter( [ 0, 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.segment.toAdapter( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.segment.toAdapter( 'segment' ));
-  test.shouldThrowErrorSync( () => _.segment.toAdapter( NaN ));
-  test.shouldThrowErrorSync( () => _.segment.toAdapter( null ));
-  test.shouldThrowErrorSync( () => _.segment.toAdapter( undefined ));
+  test.shouldThrowErrorSync( () => _.segment.adapterFrom( ));
+  test.shouldThrowErrorSync( () => _.segment.adapterFrom( [ 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.segment.adapterFrom( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.segment.adapterFrom( 'segment' ));
+  test.shouldThrowErrorSync( () => _.segment.adapterFrom( NaN ));
+  test.shouldThrowErrorSync( () => _.segment.adapterFrom( null ));
+  test.shouldThrowErrorSync( () => _.segment.adapterFrom( undefined ));
 }
 
 //
@@ -7616,7 +7616,7 @@ var Self =
     nil,
 
     from,
-    toAdapter,
+    adapterFrom,
 
     is,
     dimGet,

@@ -347,14 +347,14 @@ function from( test )
 
 //
 
-function toAdapter( test )
+function adapterFrom( test )
 {
   test.case = 'Same instance returned - vector'; /* */
 
   var srcLine = [ 0, 0, 2, 2 ];
   var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
-  var gotLine = _.line.toAdapter( srcLine );
+  var gotLine = _.line.adapterFrom( srcLine );
   test.identical( gotLine, expected );
   test.is( srcLine !== gotLine );
 
@@ -363,7 +363,7 @@ function toAdapter( test )
   var srcLine = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
   var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
-  var gotLine = _.line.toAdapter( srcLine );
+  var gotLine = _.line.adapterFrom( srcLine );
   test.identical( gotLine, expected );
   test.is( srcLine === gotLine );
 
@@ -372,7 +372,7 @@ function toAdapter( test )
   var srcLine = [];
   var expected =  _.vectorAdapter.from( [] );
 
-  var gotLine = _.line.toAdapter( srcLine );
+  var gotLine = _.line.adapterFrom( srcLine );
   test.identical( gotLine, expected );
   test.is( srcLine !== gotLine );
 
@@ -381,13 +381,13 @@ function toAdapter( test )
   if( !Config.debug )
   return;
 
-  test.shouldThrowErrorSync( () => _.line.toAdapter( ));
-  test.shouldThrowErrorSync( () => _.line.toAdapter( [ 0, 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.line.toAdapter( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.line.toAdapter( 'line' ));
-  test.shouldThrowErrorSync( () => _.line.toAdapter( NaN ));
-  test.shouldThrowErrorSync( () => _.line.toAdapter( null ));
-  test.shouldThrowErrorSync( () => _.line.toAdapter( undefined ));
+  test.shouldThrowErrorSync( () => _.line.adapterFrom( ));
+  test.shouldThrowErrorSync( () => _.line.adapterFrom( [ 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.line.adapterFrom( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.line.adapterFrom( 'line' ));
+  test.shouldThrowErrorSync( () => _.line.adapterFrom( NaN ));
+  test.shouldThrowErrorSync( () => _.line.adapterFrom( null ));
+  test.shouldThrowErrorSync( () => _.line.adapterFrom( undefined ));
 }
 
 //
@@ -7012,7 +7012,7 @@ var Self =
     nil,
 
     from,
-    toAdapter,
+    adapterFrom,
     fromPair,
 
     is,

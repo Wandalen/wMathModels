@@ -354,7 +354,7 @@ function from( test )
   return;
 
   test.shouldThrowErrorSync( () => _.capsule.from( ));
-  test.shouldThrowErrorSync( () => _.capsule.toAdapter( [] ));
+  test.shouldThrowErrorSync( () => _.capsule.adapterFrom( [] ));
   test.shouldThrowErrorSync( () => _.capsule.from( [ 0, 0, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.capsule.from( [ 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.capsule.from( 'capsule' ));
@@ -364,14 +364,14 @@ function from( test )
 
 //
 
-function toAdapter( test )
+function adapterFrom( test )
 {
   test.case = 'Same instance returned - vector'; /* */
 
   var srcCapsule = [ 0, 0, 2, 2, 1 ];
   var expected = _.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
 
-  var gotCapsule = _.capsule.toAdapter( srcCapsule );
+  var gotCapsule = _.capsule.adapterFrom( srcCapsule );
   test.identical( gotCapsule, expected );
   test.is( srcCapsule !== gotCapsule );
 
@@ -380,7 +380,7 @@ function toAdapter( test )
   var srcCapsule = _.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
   var expected = _.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
 
-  var gotCapsule = _.capsule.toAdapter( srcCapsule );
+  var gotCapsule = _.capsule.adapterFrom( srcCapsule );
   test.identical( gotCapsule, expected );
   test.is( srcCapsule === gotCapsule );
 
@@ -389,14 +389,14 @@ function toAdapter( test )
   if( !Config.debug )
   return;
 
-  test.shouldThrowErrorSync( () => _.capsule.toAdapter( ));
-    test.shouldThrowErrorSync( () => _.capsule.toAdapter( [] ));
-  test.shouldThrowErrorSync( () => _.capsule.toAdapter( [ 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.capsule.toAdapter( [ 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.capsule.toAdapter( 'capsule' ));
-  test.shouldThrowErrorSync( () => _.capsule.toAdapter( NaN ));
-  test.shouldThrowErrorSync( () => _.capsule.toAdapter( null ));
-  test.shouldThrowErrorSync( () => _.capsule.toAdapter( undefined ));
+  test.shouldThrowErrorSync( () => _.capsule.adapterFrom( ));
+    test.shouldThrowErrorSync( () => _.capsule.adapterFrom( [] ));
+  test.shouldThrowErrorSync( () => _.capsule.adapterFrom( [ 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.adapterFrom( [ 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.adapterFrom( 'capsule' ));
+  test.shouldThrowErrorSync( () => _.capsule.adapterFrom( NaN ));
+  test.shouldThrowErrorSync( () => _.capsule.adapterFrom( null ));
+  test.shouldThrowErrorSync( () => _.capsule.adapterFrom( undefined ));
 }
 
 //
@@ -7174,7 +7174,7 @@ var Self =
     nil,
 
     from,
-    toAdapter,
+    adapterFrom,
 
     is,
     dimGet,

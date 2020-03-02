@@ -347,14 +347,14 @@ function from( test )
 
 //
 
-function toAdapter( test )
+function adapterFrom( test )
 {
   test.case = 'Same instance returned - vector'; /* */
 
   var srcRay = [ 0, 0, 2, 2 ];
   var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
-  var gotRay = _.ray.toAdapter( srcRay );
+  var gotRay = _.ray.adapterFrom( srcRay );
   test.identical( gotRay, expected );
   test.is( srcRay !== gotRay );
 
@@ -363,7 +363,7 @@ function toAdapter( test )
   var srcRay = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
   var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
-  var gotRay = _.ray.toAdapter( srcRay );
+  var gotRay = _.ray.adapterFrom( srcRay );
   test.identical( gotRay, expected );
   test.is( srcRay === gotRay );
 
@@ -372,7 +372,7 @@ function toAdapter( test )
   var srcRay = [];
   var expected =  _.vectorAdapter.from( [] );
 
-  var gotRay = _.ray.toAdapter( srcRay );
+  var gotRay = _.ray.adapterFrom( srcRay );
   test.identical( gotRay, expected );
   test.is( srcRay !== gotRay );
 
@@ -381,13 +381,13 @@ function toAdapter( test )
   if( !Config.debug )
   return;
 
-  test.shouldThrowErrorSync( () => _.ray.toAdapter( ));
-  test.shouldThrowErrorSync( () => _.ray.toAdapter( [ 0, 0, 0, 0, 0 ] ));
-  test.shouldThrowErrorSync( () => _.ray.toAdapter( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
-  test.shouldThrowErrorSync( () => _.ray.toAdapter( 'ray' ));
-  test.shouldThrowErrorSync( () => _.ray.toAdapter( NaN ));
-  test.shouldThrowErrorSync( () => _.ray.toAdapter( null ));
-  test.shouldThrowErrorSync( () => _.ray.toAdapter( undefined ));
+  test.shouldThrowErrorSync( () => _.ray.adapterFrom( ));
+  test.shouldThrowErrorSync( () => _.ray.adapterFrom( [ 0, 0, 0, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.ray.adapterFrom( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
+  test.shouldThrowErrorSync( () => _.ray.adapterFrom( 'ray' ));
+  test.shouldThrowErrorSync( () => _.ray.adapterFrom( NaN ));
+  test.shouldThrowErrorSync( () => _.ray.adapterFrom( null ));
+  test.shouldThrowErrorSync( () => _.ray.adapterFrom( undefined ));
 }
 
 //
@@ -6464,7 +6464,7 @@ var Self =
     nil,
 
     from,
-    toAdapter,
+    adapterFrom,
     fromPair,
 
     is,

@@ -3,8 +3,8 @@
 'use strict';
 
 let _ = _global_.wTools;
-let avector = _.avector;
-let vector = _.vectorAdapter;
+// let this.tools.avector = this.tools.avector;
+// let vector = this.tools.vectorAdapter;
 let pi = Math.PI;
 let sin = Math.sin;
 let cos = Math.cos;
@@ -14,7 +14,7 @@ let abs = Math.abs;
 let sqr = _.math.sqr;
 let sqrt = _.math.sqrt;
 
-_.assert( !_.quat );
+_.assert( !this );
 let Self = _.quat = _.quat || Object.create( _.avector );
 
 /**
@@ -45,10 +45,10 @@ and scalar related with the rotation magnitude.
 function make( src )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  _.assert( src === undefined || src === null || _.quat.is( src ) );
-  let result = _.quat.makeUnit();
-  if( _.quat.is( src ) )
-  _.avector.assign( result, src );
+  _.assert( src === undefined || src === null || this.is( src ) );
+  let result = this.makeUnit();
+  if( this.is( src ) )
+  this.tools.avector.assign( result, src );
   return result;
 }
 
@@ -77,16 +77,16 @@ function zero( quat )
 {
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  _.assert( quat === undefined || quat === null || _.quat.is( quat ) );
+  _.assert( quat === undefined || quat === null || this.is( quat ) );
 
-  if( _.quat.is( quat ) )
+  if( this.is( quat ) )
   {
-    let quatView = _.quat.toAdapter( quat );
+    let quatView = this.adapterFrom( quat );
     quatView.assign( 0 );
     return quat;
   }
 
-  return _.quat.makeZero();
+  return this.makeZero();
 }
 
 //
@@ -95,17 +95,17 @@ function unit( quat )
 {
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  _.assert( quat === undefined || quat === null || _.quat.is( quat ) );
+  _.assert( quat === undefined || quat === null || this.is( quat ) );
 
-  if( _.quat.is( quat ) )
+  if( this.is( quat ) )
   {
-    let quatView = _.quat.toAdapter( quat );
+    let quatView = this.adapterFrom( quat );
     quatView.assign( 0 );
     quatView.eSet( 3, 1 );
     return quat;
   }
 
-  return _.quat.makeUnit();
+  return this.makeUnit();
 }
 
 //
@@ -113,11 +113,11 @@ function unit( quat )
 function from( quat )
 {
 
-  _.assert( quat === null || _.quat.is( quat ), 'Expects quaternion' );
+  _.assert( quat === null || this.is( quat ), 'Expects quaternion' );
   _.assert( arguments.length === 1, 'Expects single argument' );
 
   if( quat === null )
-  return _.quat.make();
+  return this.make();
 
   if( _.vectorAdapterIs( quat ) )
   {
@@ -133,15 +133,15 @@ function from( quat )
 
 //
 
-function toAdapter( quat )
+function adapterFrom( quat )
 {
-  _.assert( /*quat === null ||*/ _.quat.is( quat ), 'Expects quaternion' );
+  _.assert( /*quat === null ||*/ this.is( quat ), 'Expects quaternion' );
   _.assert( arguments.length === 1, 'Expects single argument' );
 
   // if( quat === null )
-  // quat = _.quat.make();
+  // quat = this.make();
 
-  return _.vectorAdapter.from( quat );
+  return this.tools.vectorAdapter.from( quat );
 }
 
 //
@@ -151,9 +151,9 @@ function fromEuler( dst, euler, v )
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  dst = _.quat.from( dst );
-  let dstv = _.vectorAdapter.from( dst );
-  let eulerView = _.euler.toAdapter( euler );
+  dst = this.from( dst );
+  let dstv = this.tools.vectorAdapter.from( dst );
+  let eulerView = _.euler.adapterFrom( euler );
 
   let ox = eulerView.eGet( 3 );
   let oy = eulerView.eGet( 4 );
@@ -440,9 +440,9 @@ function fromAxisAndAngle( dst, axisAndAngle, angle )
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
-  dst = _.quat.from( dst );
-  let dstv = _.vectorAdapter.from( dst );
-  let axisAndAnglev = _.axisAndAngle.toAdapter( axisAndAngle, angle );
+  dst = this.from( dst );
+  let dstv = this.tools.vectorAdapter.from( dst );
+  let axisAndAnglev = _.axisAndAngle.adapterFrom( axisAndAngle, angle );
 
   let halfAngle = axisAndAnglev.eGet( 3 ) / 2;
   let s = sin( halfAngle );
@@ -463,10 +463,10 @@ function toAxisAndAngle( quat, axisAndAngle )
   _.assert( _.accuracySqr > 0 );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  quat = _.quat.from( quat );
-  let quatView = _.vectorAdapter.from( quat );
+  quat = this.from( quat );
+  let quatView = this.tools.vectorAdapter.from( quat );
   axisAndAngle = _.axisAndAngle.from( axisAndAngle );
-  let axisAndAnglev = _.vectorAdapter.from( axisAndAngle );
+  let axisAndAnglev = this.tools.vectorAdapter.from( axisAndAngle );
 
   let w = quatView.eGet( 3 );
 
@@ -495,12 +495,12 @@ function fromVectors( dst, src1, src2 )
 
   _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
-  dst = _.quat.from( dst );
-  let dstv = _.vectorAdapter.from( dst );
+  dst = this.from( dst );
+  let dstv = this.tools.vectorAdapter.from( dst );
   let dst3 = dstv.review([ 0, 2 ]);
-  let dot = _.avector.dot( src1, src2 );
+  let dot = this.tools.avector.dot( src1, src2 );
 
-  dot += Math.sqrt( _.avector.magSqr( src1 ) * _.avector.magSqr( src2 ) );
+  dot += Math.sqrt( this.tools.avector.magSqr( src1 ) * this.tools.avector.magSqr( src2 ) );
 
   if( _.numbersAreEquivalent( dot, 0 ) )
   {
@@ -512,7 +512,7 @@ function fromVectors( dst, src1, src2 )
   else
   {
 
-    _.avector.cross3( dst3, src1, src2 );
+    this.tools.avector.cross3( dst3, src1, src2 );
 
   }
 
@@ -529,8 +529,8 @@ function fromVectors2( src1, src2, axis )
 {
   throw _.err( 'not tested' );
 
-  src1 = _.vectorAdapter.slice( src1 );
-  src2 = _.vectorAdapter.slice( src2 );
+  src1 = this.tools.vectorAdapter.slice( src1 );
+  src2 = this.tools.vectorAdapter.slice( src2 );
 
   let accuracy = 0.01;
   let v1 = src1.slice().normalize();
@@ -568,10 +568,10 @@ function fromNormalizedVectors( dst, src1, src2 )
 
   _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
-  dst = _.quat.from( dst );
-  let dstv = _.vectorAdapter.from( dst );
+  dst = this.from( dst );
+  let dstv = this.tools.vectorAdapter.from( dst );
   let dst3 = dstv.review([ 0, 2 ]);
-  let dot = _.avector.dot( src1, src2 ) + 1;
+  let dot = this.tools.avector.dot( src1, src2 ) + 1;
 
   if( _.numbersAreEquivalent( dot, 0 ) )
   {
@@ -583,7 +583,7 @@ function fromNormalizedVectors( dst, src1, src2 )
   else
   {
 
-    _.avector.cross3( dst3, src1, src2 );
+    this.tools.avector.cross3( dst3, src1, src2 );
 
   }
 
@@ -604,8 +604,8 @@ function fromMatrixRotation( dst, mat )
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
 
-  dst = _.quat.from( dst );
-  let dstv = _.vectorAdapter.from( dst );
+  dst = this.from( dst );
+  let dstv = this.tools.vectorAdapter.from( dst );
   let m00 = mat.atomGet([ 0, 0 ]), m01 = mat.atomGet([ 0, 1 ]), m02 = mat.atomGet([ 0, 2 ]);
   let m10 = mat.atomGet([ 1, 0 ]), m11 = mat.atomGet([ 1, 1 ]), m12 = mat.atomGet([ 1, 2 ]);
   let m20 = mat.atomGet([ 2, 0 ]), m21 = mat.atomGet([ 2, 1 ]), m22 = mat.atomGet([ 2, 2 ]);
@@ -669,8 +669,8 @@ function fromMatrixRotation2( dst, mat )
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
 
-  dst = _.quat.from( dst );
-  let dstv = _.vectorAdapter.from( dst );
+  dst = this.from( dst );
+  let dstv = this.tools.vectorAdapter.from( dst );
 
   let m00 = mat.atomGet([ 0, 0 ]), m01 = mat.atomGet([ 0, 1 ]), m02 = mat.atomGet([ 0, 2 ]);
   let m10 = mat.atomGet([ 1, 0 ]), m11 = mat.atomGet([ 1, 1 ]), m12 = mat.atomGet([ 1, 2 ]);
@@ -708,8 +708,8 @@ function fromMatrixWithScale( dst, mat )
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
 
-  dst = _.quat.from( dst );
-  let dstv = _.vectorAdapter.from( dst );
+  dst = this.from( dst );
+  let dstv = this.tools.vectorAdapter.from( dst );
   let m = mat.scaleGet().clone().abs().reduceToMean();
   let m00 = mat.atomGet([ 0, 0 ]) / m, m01 = mat.atomGet([ 0, 1 ]) / m, m02 = mat.atomGet([ 0, 2 ]) / m;
   let m10 = mat.atomGet([ 1, 0 ]) / m, m11 = mat.atomGet([ 1, 1 ]) / m, m12 = mat.atomGet([ 1, 2 ]) / m;
@@ -801,7 +801,7 @@ function toMatrix( quat, mat )
   mat = _.Matrix.make([ 3, 3 ]);
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
-  _.assert( _.quat.is( quat ) );
+  _.assert( this.is( quat ) );
   _.assert( _.Matrix.Is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
   _.assert( mat.dims[ 1 ] >= 3 );
@@ -826,7 +826,7 @@ function isUnit( quat )
 
   _.assert( arguments.length === 1, 'Expects single argument' );
 
-  let quatView = _.quat.toAdapter( quat );
+  let quatView = this.adapterFrom( quat );
 
   if( quatView.eGet( 3 ) !== 1 )
   return false;
@@ -845,7 +845,7 @@ function isZero( quat )
 
   _.assert( arguments.length === 1, 'Expects single argument' );
 
-  let quatView = _.quat.toAdapter( quat );
+  let quatView = this.adapterFrom( quat );
 
   if( quatView.eGet( 3 ) !== 0 )
   return false;
@@ -862,7 +862,7 @@ function isZero( quat )
 function dimGet( quat )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.quat.is( quat ) );
+  _.assert( this.is( quat ) );
   return quat.length;
 }
 
@@ -870,7 +870,7 @@ function dimGet( quat )
 
 function conjugate( dst )
 {
-  let dstv = _.quat.toAdapter( dst );
+  let dstv = this.adapterFrom( dst );
 
   _.assert( arguments.length === 1, 'Expects single argument' );
 
@@ -885,7 +885,7 @@ function conjugate( dst )
 
 function inv( dst )
 {
-  let dstv = _.quat.toAdapter( dst );
+  let dstv = this.adapterFrom( dst );
 
   _.assert( arguments.length === 1, 'Expects single argument' );
 
@@ -925,11 +925,11 @@ function mul( dst )
     _.assert( arguments.length >= 3, 'Expects at least three arguments' );
   }
 
-  let dstv = _.quat.toAdapter( dst );
+  let dstv = this.adapterFrom( dst );
 
   for( let a = first ; a < arguments.length ; a++ )
   {
-    let srcv = _.quat.toAdapter( arguments[ a ] );
+    let srcv = this.adapterFrom( arguments[ a ] );
     this._mul3( dstv, dstv, srcv );
   }
 
@@ -941,8 +941,8 @@ function mul( dst )
 function mix( dst, src, val )
 {
 
-  let dstv = _.quat.toAdapter( dst );
-  let srcv = _.quat.toAdapter( src );
+  let dstv = this.adapterFrom( dst );
+  let srcv = this.adapterFrom( src );
 
   _.assert( arguments.length === 3, 'Expects exactly three arguments' );
 
@@ -1029,8 +1029,8 @@ function mix( dst, src, val )
 function applyTo( quat, vector )
 {
 
-  let quatView = _.quat.toAdapter( quat );
-  let vectorv = _.vectorAdapter.from( vector );
+  let quatView = this.adapterFrom( quat );
+  let vectorv = this.tools.vectorAdapter.from( vector );
 
   let x = vectorv.eGet( 0 );
   let y = vectorv.eGet( 1 );
@@ -1068,7 +1068,7 @@ let Extension = /* qqq : normalize order */
   unit,
 
   from,
-  toAdapter,
+  adapterFrom,
 
   fromEuler,
 

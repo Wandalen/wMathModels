@@ -3,8 +3,8 @@
 'use strict';
 
 let _ = _global_.wTools;
-let avector = _.avector;
-let vector = _.vectorAdapter;
+// let this.tools.avector = this.tools.avector;
+// let vector = this.tools.vectorAdapter;
 let pi = Math.PI;
 let sin = Math.sin;
 let cos = Math.cos;
@@ -15,7 +15,7 @@ let abs = Math.abs;
 let sqr = _.math.sqr;
 let sqrt = _.math.sqrt;
 
-_.assert( !_.axisAndAngle );
+_.assert( !this );
 _.assert( _.objectIs( _.avector ) );
 
 /**
@@ -133,11 +133,11 @@ function make( axisAndAngle, angle )
   _.assert( axisAndAngle === undefined || axisAndAngle === null || this.is( axisAndAngle, angle ) );
 
   let result = this.makeZero();
-  let resultv = _.vectorAdapter.from( result );
+  let resultv = this.tools.vectorAdapter.from( result );
 
   let axisAndAnglev;
   if( axisAndAngle )
-  axisAndAnglev = _.vectorAdapter.from( axisAndAngle );
+  axisAndAnglev = this.tools.vectorAdapter.from( axisAndAngle );
 
   if( axisAndAnglev )
   {
@@ -218,7 +218,7 @@ function from( axisAndAngle, angle )
 
 //
 
-function toAdapter( axisAndAngle, angle )
+function adapterFrom( axisAndAngle, angle )
 {
 
   _.assert( axisAndAngle === null || this.isWithAngle( axisAndAngle, angle ) );
@@ -253,7 +253,7 @@ function toAdapter( axisAndAngle, angle )
     }
   }
 
-  return _.vectorAdapter.fromLong( axisAndAngle );
+  return this.tools.vectorAdapter.fromLong( axisAndAngle );
 }
 
 // {
@@ -281,7 +281,7 @@ function toAdapter( axisAndAngle, angle )
 //     }
 //   }
 //
-//   return _.vectorAdapter.from( axisAndAngle );
+//   return this.tools.vectorAdapter.from( axisAndAngle );
 // }
 
 //
@@ -303,7 +303,7 @@ function zero( axisAndAngle, angle )
   if( axisAndAngle === undefined || axisAndAngle === null )
   return this.makeZero();
 
-  let axisAndAnglev = _.vectorAdapter.from( axisAndAngle );
+  let axisAndAnglev = this.tools.vectorAdapter.from( axisAndAngle );
 
   axisAndAnglev.eSet( 3, 0 );
 
@@ -411,7 +411,7 @@ let Extension = /* qqq : normalize order */
   makeZero,
 
   from,
-  toAdapter,
+  adapterFrom,
 
   zero,
 
