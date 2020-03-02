@@ -4755,7 +4755,7 @@ function boundingSphereGet( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var dstSphere = [ 1, 1, 2, 1 ];
-  var expected = [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ];
+  var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( expected, gotSphere );
@@ -4780,7 +4780,7 @@ function boundingSphereGet( test )
     0, 0, 0, 0, 0, 0
   ]);
   var dstSphere = [ 0, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.frustum.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -4795,7 +4795,7 @@ function boundingSphereGet( test )
     - 4, 0, - 4, 0, 0, - 4
   ]);
   var dstSphere = [ 2, 2, 2, 1 ];
-  var expected = [ 2, 2, 2, Math.sqrt( 12 ) ];
+  var expected = _.frustum.tools.longMake( [ 2, 2, 2, Math.sqrt( 12 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -4810,7 +4810,7 @@ function boundingSphereGet( test )
     - 1, 1, - 1, 1, 1, - 1
   ]);
   var dstSphere = [ 3, 3, 3, 0 ];
-  var expected = [ 1, 1, 1, 0 ];
+  var expected = _.frustum.tools.longMake( [ 1, 1, 1, 0 ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -4825,7 +4825,7 @@ function boundingSphereGet( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var dstSphere = [ 0, 0, 0, 3 ];
-  var expected = [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ];
+  var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -4840,7 +4840,7 @@ function boundingSphereGet( test )
     - 2, 0, - 2, 0, 0, - 2
   ]);
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 1, 1, 1, Math.sqrt( 3 ) ];
+  var expected = _.frustum.tools.longMake( [ 1, 1, 1, Math.sqrt( 3 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -4870,7 +4870,7 @@ function boundingSphereGet( test )
     - 5, 7, 1, 1, 3, 1
   ]);
   var dstSphere = null;
-  var expected = [ 1, 6, 0, Math.sqrt( 6 ) ];
+  var expected = _.frustum.tools.longMake( [ 1, 6, 0, Math.sqrt( 6 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -4885,7 +4885,7 @@ function boundingSphereGet( test )
     3, 0, 0, 5, 1, 1
   ]);
   var dstSphere = undefined;
-  var expected = [ 0, - 1.5, 2.5, Math.sqrt( 9.5 ) ];
+  var expected = _.frustum.tools.longMake( [ 0, - 1.5, 2.5, Math.sqrt( 9.5 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
@@ -4900,7 +4900,7 @@ function boundingSphereGet( test )
     - 2, 4, - 2, 4, 4, - 2
   ]);
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 3, 3, 3, Math.sqrt( 3 ) ];
+  var expected = _.frustum.tools.longMake( [ 3, 3, 3, Math.sqrt( 3 ) ] );
 
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
