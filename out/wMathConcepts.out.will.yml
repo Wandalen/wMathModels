@@ -2,10 +2,13 @@ format: outwillfile-2.0
 root:
   - wMathConcepts.out
 consistency:
-  ../.ex.will.yml: &ref_0
+  wMathConcepts.out.will.yml: &ref_0
+    hash: b62e3d6a3e826495e25bacbdcbb2742d
+    size: 42180
+  ../.ex.will.yml: &ref_1
     hash: 3c25b64598cc53925af81c87f7479106
     size: 2647
-  ../.im.will.yml: &ref_1
+  ../.im.will.yml: &ref_2
     hash: abc2a5d28ca616b8a808fad2636adbb9
     size: 5236
 module:
@@ -29,11 +32,11 @@ module:
         problems and to get a more flexible program.
       enabled: 1
       version: 0.5.0
-      interpreters: &ref_2
+      interpreters:
         - njs >= 8.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords: &ref_3
+      keywords:
         - wTools
         - math
         - vector
@@ -41,11 +44,11 @@ module:
         - convolution
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors: &ref_4
+      contributors:
         - Kostiantyn Wandalen <wanalen@willbe.so>
         - Pablo Garcimartin <pablogarcimartinruiz@gmail.com>
       npm.name: wmathconcepts
-      npm.scripts: &ref_5
+      npm.scripts:
         test: wtest .run proto/**
         docgen: wdocgen .build proto
     path:
@@ -752,6 +755,24 @@ module:
           content: prime
         inherit:
           - files.transpile
+      exported.proto.export:
+        opts:
+          reflector: 'reflector::exported.proto.export*'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
+      exported.files.proto.export:
+        opts:
+          reflector: 'reflector::exported.files.proto.export*'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
     build:
       proto.export:
         steps:
@@ -840,8 +861,9 @@ module:
           content: proto
           export: 1
     consistency:
-      ../.ex.will.yml: *ref_0
-      ../.im.will.yml: *ref_1
+      wMathConcepts.out.will.yml: *ref_0
+      ../.ex.will.yml: *ref_1
+      ../.im.will.yml: *ref_2
   ../:
     about:
       name: wMathConcepts
@@ -862,13 +884,25 @@ module:
         problems and to get a more flexible program.
       enabled: 1
       version: 0.5.0
-      interpreters: *ref_2
-      keywords: *ref_3
+      interpreters:
+        - njs >= 8.0.0
+        - chrome >= 60.0.0
+        - firefox >= 60.0.0
+      keywords:
+        - wTools
+        - math
+        - vector
+        - dot product
+        - convolution
       license: MIT
       author: Kostiantyn Wandalen <wanalen@willbe.so>
-      contributors: *ref_4
+      contributors:
+        - Kostiantyn Wandalen <wanalen@willbe.so>
+        - Pablo Garcimartin <pablogarcimartinruiz@gmail.com>
       npm.name: wmathconcepts
-      npm.scripts: *ref_5
+      npm.scripts:
+        test: wtest .run proto/**
+        docgen: wdocgen .build proto
     path:
       module.willfiles:
         criterion:
@@ -1556,3 +1590,6 @@ module:
       ../.im.will.yml:
         hash: abc2a5d28ca616b8a808fad2636adbb9
         size: 5236
+      wMathConcepts.out.will.yml:
+        hash: b62e3d6a3e826495e25bacbdcbb2742d
+        size: 42180
