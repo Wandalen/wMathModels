@@ -30,7 +30,7 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Matrix;
+var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromLong;
 var avector = _.avector;
@@ -1789,6 +1789,19 @@ function centerGet( test )
 
   test.case = 'Two dimension box'; /* */
 
+  var box = [ 0, 0, 2, 2 ];
+  var point = [ 5, 0 ];
+  var expected = [ 1, 1 ];
+
+  var gotCenter = _.box.centerGet( box );
+  test.equivalent( gotCenter,expected );
+
+  var box = [ 0, 0, 2, 2 ];
+  var gotCenter = _.box.centerGet( box, point );
+  test.equivalent( gotCenter,expected );
+
+  test.case = 'Two dimension box'; /* */
+
   var box = [ 0, 0, 1, 2 ];
   var point = [ 1, 1 ];
   var expected = [ 0.5, 1 ];
@@ -2343,6 +2356,9 @@ function expand( test )
   var oldexpand = [ 0, 2 ];
   test.identical( expand, oldexpand );
 
+  var oldBox = [ 0, 0, 1, 1 ];
+  test.is( oldBox !== gotBox );
+
   test.case = 'Null box expanded'; /* */
 
   var box = null;
@@ -2511,6 +2527,483 @@ function expand( test )
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.box.expand( null, [ 0, 1 ] );
+  });
+
+}
+
+//
+
+function project( test )
+{
+
+  test.case = 'Projection array remains unchanged and Destination box changes'; /* */
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var project = [ [ 1, 1 ], 1, 2 ];
+  var expected = [ 1, 0.5, 2, 2.5 ];
+
+  var gotBox = _.box.project( dstBox, project );
+  test.identical( gotBox, expected );
+  test.identical( dstBox, expected );
+
+  var oldProject = [ [ 1, 1 ], 1, 2 ];
+  test.identical( project, oldProject );
+
+  var oldBox = [ 0, 0, 1, 1 ];
+  test.is( oldBox !== gotBox );
+
+  test.case = 'Null box projected'; /* */
+
+  var box = null;
+  var project = [ [ 1, 0, 0 ], 1, 2, 3 ];
+  var expected = [ 1, 0, 0, 1, 0, 0 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Null box NOT projected'; /* */
+
+  var box = null;
+  var project = [ [ 0, 0, 0 ], 0, 0, 0 ];
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'One side box projected'; /* */
+
+  var box = [ 0, 0, 0, 1, 0, 0 ];
+  var project = [ [ 0, 1, 0 ], 2, 0, 3 ];
+  var expected = [ -0.5, 1, 0, 1.5, 1, 0 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box expanded'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 0, 0, 0 ], 1, 3, 1 ];
+  var expected = [ 0, -2, 0, 2, 4, 2 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box contracted'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ];
+  var expected = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box translated'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 1, 1, 1 ];
+  var expected = [ 1, 2, 3, 3, 4, 5 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box reduced to point'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 1, 2, 3 ], 0, 0, 0 ];
+  var expected = [ 2, 3, 4, 2, 3, 4 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box NOT projected ( empty project array )'; /* */
+
+  var box = [ 0, 0, 0, 2, 2, 2 ];
+  var project = [ [ 0, 0, 0 ], 1, 1, 1 ];
+  var expected = [ 0, 0, 0, 2, 2, 2 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box of four dimensions projected'; /* */
+
+  var box = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
+  var project = [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ];
+  var expected = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box of 1 dimension projected'; /* */
+
+  var box = [ 0, 0 ];
+  var project = [ [ 1 ], 2 ];
+  var expected = [ 1, 1 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Box of 0 dimension projected'; /* */
+
+  var box = [ ];
+  var project = [ [], ];
+  var expected = [ ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  test.case = 'Null box projected by value'; /* */
+
+  var box = null;
+  var project = [ [ 0, 0, 0 ], 8, 8, 8 ] ;
+  var expected = [ 0, 0, 0, 0, 0, 0 ];
+
+  var gotBox = _.box.project( box, project );
+  test.identical( gotBox, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project();
+  });
+
+  test.case = 'Wrong type of argument'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( 'box', 'project' );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0 ], [ [ 0 ], 1, 0 ], [ [ 1 ], 0, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 3D vs array 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0, 1, 0, 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 3D vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 2D vs array 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( [ 0, 0, 0, 0 ], [ [ 0, 1 ], 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (null box vs array 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.project( null, [ [ 0, 1 ], 1, 1 ] );
+  });
+
+}
+
+//
+
+function getProjectionFactors( test )
+{
+
+  test.case = 'Boxes remain unchanged'; /* */
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var projBox = [ 1, 0.5, 2, 2.5 ];
+  var expected = [ [ 1, 1 ], 1, 2 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var oldBox = [ 0, 0, 1, 1 ];
+  test.identical( oldBox, dstBox );
+
+  var oldProjBox = [ 1, 0.5, 2, 2.5 ];
+  test.identical( oldProjBox, projBox );
+
+  test.case = 'One side box projected'; /* */
+
+  var dstBox = [ 0, 0, 0, 1, 0, 0 ];
+  var projBox = [ -0.5, 1, 0, 1.5, 1, 0 ];
+  var expected = [ [ 0, 1, 0 ], 2, 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box expanded'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 0, -2, 0, 2, 4, 2 ];
+  var expected = [ [ 0, 0, 0 ], 1, 3, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box contracted'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var expected = [ [ 0, 0, 0 ], 0.5, 0.5, 0.5 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box translated'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 1, 2, 3, 3, 4, 5 ];
+  var expected = [ [ 1, 2, 3 ], 1, 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box reduced to point'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 2, 3, 4, 2, 3, 4 ];
+  var expected = [ [ 1, 2, 3 ], 0, 0, 0 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box NOT projected ( empty project array )'; /* */
+
+  var dstBox = [ 0, 0, 0, 2, 2, 2 ];
+  var projBox = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ [ 0, 0, 0 ], 1, 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Null box of four dimensions projected'; /* */
+
+  var dstBox = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
+  var projBox = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4 ];
+  var expected = [ [ 0, 0, 0, 0 ], 2, 4, 6, 8 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box of 1 dimension projected'; /* */
+
+  var dstBox = [ 0, 0 ];
+  var projBox = [ 1, 1 ];
+  var expected = [ [ 1 ], 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Box of 0 dimension projected'; /* */
+
+  var dstBox = [ ];
+  var projBox = [ ];
+  var expected = [ [], ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  test.case = 'Point to box'; /* */
+
+  var dstBox = [ 3, 4, 3, 4 ];
+  var projBox = [ 5, 5, 7, 8 ];
+  var expected = 0;
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  // Test cases including _.box.project()
+
+  test.case = 'Two equal boxes'; /* */
+
+  var dstBox = [ 0, 0, 1, 1 ];
+  var projBox = [ 0, 0, 1, 1 ];
+  var expected = [ [ 0, 0 ], 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Two equal point boxes'; /* */
+
+  var dstBox = [ 3, 4, 3, 4 ];
+  var projBox = [ 3, 4, 3, 4 ];
+  var expected = [ [ 0, 0 ], 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Point to point'; /* */
+
+  var dstBox = [ 3, 4, 3, 4 ];
+  var projBox = [ 5, 5, 5, 5 ];
+  var expected = [ [ 2, 1 ], 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box to point'; /* */
+
+  var dstBox = [ 3, 4, 6, 7 ];
+  var projBox = [ 5, 5, 5, 5 ];
+  var expected = [ [ 0.5, -0.5 ], 0, 0 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box translated'; /* */
+
+  var dstBox = [ 3, 4, 6, 7 ];
+  var projBox = [ -1, 8, 2, 11 ];
+  var expected = [ [ -4, 4 ], 1, 1 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box contracted'; /* */
+
+  var dstBox = [ 0, 0, 4, 4 ];
+  var projBox = [ 1, 1, 3, 3 ];
+  var expected = [ [ 0, 0 ], 0.5, 0.5 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box expanded'; /* */
+
+  var dstBox = [ 0, 0, 4, 4 ];
+  var projBox = [ -1, -1, 5, 5 ];
+  var expected = [ [ 0, 0 ], 3/2, 3/2 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box expanded on a side and contracted on the other side'; /* */
+
+  var dstBox = [ 0, 0, 4, 4 ];
+  var projBox = [ -1, 1, 5, 3 ];
+  var expected = [ [ 0, 0 ], 3/2, 0.5 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  test.case = 'Box projected'; /* */
+
+  var dstBox = [ 0, 0, 4, 4 ];
+  var projBox = [ 3, -2, 6, 6 ];
+  var expected = [ [ 2.5, 0 ], 3/4, 2 ];
+
+  var gotFactors = _.box.getProjectionFactors( dstBox, projBox );
+  test.identical( gotFactors, expected );
+
+  var gotBox = _.box.project( dstBox, gotFactors );
+  test.identical( gotBox, projBox );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'No arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors();
+  });
+
+  test.case = 'Wrong type of argument - string'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( 'box', 'projBox' );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( null, [ 0, 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong type of argument - null'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 1, 2, 3 ], null );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( undefined, [ 0, 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong type of argument - undefined'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 1, 2, 3 ], undefined );
+  });
+
+  test.case = 'Too few arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ] );
+  });
+
+  test.case = 'too many arguments'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0 ], [ 1, 0 ], [ 0, 1 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 3D vs box 4D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ], [ 1, 1, 1, 1, 0, 1, 0, 2 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 3D vs box 2D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ], [ 0, 1, 2, 3 ] );
+  });
+
+  test.case = 'Wrong project array dimension (box 2D vs box 1D)'; /* */
+  test.shouldThrowError( function()
+  {
+    _.box.getProjectionFactors( [ 0, 0, 0, 0 ], [ 0, 2 ] );
   });
 
 }
@@ -4370,6 +4863,134 @@ function boxExpand( test )
 
 //
 
+function capsuleContains( test )
+{
+
+  test.case = 'Source box and capsule remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  test.identical( srcBox, oldSrcBox );
+
+  var oldtstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  test.identical( tstCapsule, oldtstCapsule );
+
+  test.case = 'Box and capsule intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Box and capsule don´t intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstCapsule = [ 4, 5, 6, 8, 8, 8, 1 ];
+  var expected = false;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Capsule origin is in box corner'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstCapsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
+  var expected = false;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Capsule is in box side'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstCapsule = [ - 1, 0, 0, 1, 0, 0, 0 ];
+  var expected = false;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Capsule contains box'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstCapsule = [ -1, -1, -1, 1, 1, 1, 1 ];
+  var expected = false;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Box contains capsule'; /* */
+
+  var srcBox = [ - 3, - 3, - 3, 3, 3, 3 ];
+  var tstCapsule = [ -1, -1, -1, 1, 1, 1, 1 ];
+  var expected = true;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Box contains capsule'; /* */
+
+  var srcBox = [ - 3, - 3, - 3, 3, 3, 3 ];
+  var tstCapsule = [ 1, 1, -1, -1, -1, 1, 1 ];
+  var expected = true;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Box contains capsule touching box sides'; /* */
+
+  var srcBox = [ - 3, - 3, - 3, 3, 3, 3 ];
+  var tstCapsule = [ -1, -1, -1, 1, 1, 1, 2 ];
+  var expected = true;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'Box contains capsule with radius = 0'; /* */
+
+  var srcBox = [  -1, -1, -1, 1, 1, 1 ];
+  var tstCapsule = [ -1, -1, -1, 1, 1, 1, 0 ];
+  var expected = true;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  test.case = 'null box'; /* */
+
+  var srcBox = null;
+  var tstCapsule = [ -1, -1, -1, 1, 1, 1, 0 ];
+  var expected = false;
+
+  var gotCapsule = _.box.capsuleContains( srcBox, tstCapsule );
+  test.identical( expected, gotCapsule );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.capsuleContains( ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleContains( [] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleContains( 'box', [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleContains( [ 0, 0, 0, 1, 1, 1 ], 'capsule' ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleContains(  [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleContains(  NaN, [ 0, 1, 0, 1, 2, 1, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleContains(  [ 0, 1, 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleContains( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleContains( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1, 1 ], [ 1, 0, 1, 2, 1, 2, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.capsuleContains( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+
+}
+
+//
+
 function capsuleClosestPoint( test )
 {
 
@@ -4476,6 +5097,403 @@ function capsuleClosestPoint( test )
   test.shouldThrowErrorSync( () => _.box.capsuleClosestPoint( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ], undefined ) );
 
 }
+
+//
+
+function convexPolygonContains( test )
+{
+
+  test.case = 'Source box and polygon remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+  test.identical( expected, gotBool );
+
+  var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  test.identical( srcBox, oldSrcBox );
+
+  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Box and polygon intersect'; /* */
+
+  var srcBox = [ 0, 0, 0, 1, 1, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Box contains polygon'; /* */
+
+  var srcBox = [ -2, -2, -2, 2, 2, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -1, -1, - 1,  -1,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Polygon touches box sides'; /* */
+
+  var srcBox = [ -2, -2, -2, 1, 1, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -1,  -1,  -1,  -1,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Polygon in box side'; /* */
+
+  var srcBox = [ -2, -1, -1, 1, 1, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = true;
+
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Polygon and box don´t intersect'; /* */
+
+  var srcBox = [ 0, 0.5, 0.5, 1, 2, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    3,   3,   3,   3,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = false;
+
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = 'Polygon and box just touching'; /* */
+
+  var srcBox = [ 0, 0.5, 0.5, 1, 2, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,     0,  0,   0,
+    0.5, 0.5,  0,   0,
+    0.5,   0,  0, 0.5
+  ]);
+  var expected = false;
+
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = '2D contained'; /* */
+
+  var srcBox = [ 0, 2, 4, 4 ];
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    0, 0.5,  2,  3,
+    2,   3,  4,  3
+  ]);
+  var expected = true;
+
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+  test.identical( expected, gotBool );
+
+  test.case = '2D not contained'; /* */
+
+  var srcBox = [ 0, 2, 4, 4 ];
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   3,   0,
+    0,   0,   3,   1
+  ]);
+  var expected = false;
+
+  var gotBool = _.box.convexPolygonContains( srcBox, polygon );
+  test.identical( expected, gotBool );
+
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( [] ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( 'box', polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( [ 0, 0, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains(  [ 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains(  [ 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( [ 0, 1, 0, 1, 2, 1 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( [ 0, 1, 0 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( [ 0, 1, 0, 2, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonContains( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
+
+}
+
+//
+
+function convexPolygonClosestPoint( test )
+{
+
+  test.case = 'Source box and polygon remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  test.identical( srcBox, oldSrcBox );
+
+  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Box and polygon intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon vertex in box corner'; /* */
+
+  var srcBox = [ -2, 1, 0, -1, 2, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon vertex next to box corner'; /* */
+
+  var srcBox = [ 3, 0, 0, 4, 1, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ 3, 1, 0 ];
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon edge in box corner'; /* */
+
+  var srcBox = [ 0, 0.5, 0.5, 1, 2, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon edge next to box corner'; /* */
+
+  var srcBox = [ 0, 1, 1, 4, 2, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ 0, 1, 1 ];
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon vertex next to box edge'; /* */
+
+  var srcBox = [ - 3, 2, 0, - 1, 3, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -2, 2, 0 ];
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon edge next to box edge'; /* */
+
+  var srcBox = [ 1, 1, - 1, 2, 2, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 1, 1, 0 ];
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon vertex next to box side'; /* */
+
+  var srcBox = [ - 1, -1, 2, 1, 1, 3 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ 0, 0, 2 ];
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Polygon edge next to box side'; /* */
+
+  var srcBox = [ 0, 2, -1, 1, 3, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 1, 2, 0 ];
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D'; /* */
+
+  var srcBox = [ 0, 2, 3, 3 ];
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = [ 1, 2 ];
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcBox = [ 3, 3, 3, 4, 4, 4 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 3, 3, 3 ];
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon, dstPoint );
+  test.identical( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcBox = [ -1, 2, 0, 2, 3, 4 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.vectorAdapter.from( [ 0, 2, 0 ] );
+
+  var gotPoint = _.box.convexPolygonClosestPoint( srcBox, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( 'box', polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( [ 0, 0, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( [ 0, 1, 0, 1, 2, 1 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( [ 0, 1, 0 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.box.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
+
+}
+convexPolygonClosestPoint.timeOut = 9000;
 
 //
 
@@ -5706,6 +6724,88 @@ function rayClosestPoint( test )
 
 //
 
+function segmentContains( test )
+{
+
+  test.case = 'Source box and segment remain unchanged'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = false;
+
+  var gotBool = _.box.segmentContains( srcBox, tstSegment );
+  test.identical( expected, gotBool );
+
+  var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
+  test.identical( srcBox, oldSrcBox );
+
+  var oldtstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  test.identical( tstSegment, oldtstSegment );
+
+  test.case = 'Box and segment intersect'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = false;
+
+  var gotBool = _.box.segmentContains( srcBox, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Box contains segment'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 2, 2, 2 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = true;
+
+  var gotBool = _.box.segmentContains( srcBox, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = 'Segment is in box edge'; /* */
+
+  var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
+  var tstSegment = [ - 1, 0, 0, 0, 0, 0 ];
+  var expected = true;
+
+  var gotBool = _.box.segmentContains( srcBox, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = '2D - not contained'; /* */
+
+  var srcBox = [ - 1, - 1, 0, 0 ];
+  var tstSegment = [ -3, -3, -2, -2 ];
+  var expected = false;
+
+  var gotBool = _.box.segmentContains( srcBox, tstSegment );
+  test.identical( expected, gotBool );
+
+  test.case = '2D - contained'; /* */
+
+  var srcBox = [ - 1, - 1, 3, 3 ];
+  var tstSegment = [ 0, 0, 2, 2 ];
+  var expected = true;
+
+  var gotBool = _.box.segmentContains( srcBox, tstSegment );
+  test.identical( expected, gotBool );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.box.segmentContains( ) );
+  test.shouldThrowErrorSync( () => _.box.segmentContains( [] ) );
+  test.shouldThrowErrorSync( () => _.box.segmentContains( 'box', 'segment' ) );
+  test.shouldThrowErrorSync( () => _.box.segmentContains(  null, NaN ) );
+  test.shouldThrowErrorSync( () => _.box.segmentContains( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.box.segmentContains( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.box.segmentContains( [ 0, 1, 0, 1, 2, 1 ], [ 1, 0, 1, 2, 1, 2, 3 ] ) );
+  test.shouldThrowErrorSync( () => _.box.segmentContains( [ 0, 1, 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.box.segmentContains( [ 0, 1, 0, 1, 2, 1 ], undefined ) );
+
+}
+
+//
+
 function segmentClosestPoint( test )
 {
 
@@ -6469,6 +7569,9 @@ var Self =
 
     expand,
 
+    project,
+    getProjectionFactors,
+
     pointContains,
     pointDistance,
     pointClosestPoint,
@@ -6481,7 +7584,11 @@ var Self =
     boxClosestPoint,
     boxExpand,
 
+    capsuleContains,
     capsuleClosestPoint,
+
+    convexPolygonContains,
+    convexPolygonClosestPoint,
 
     frustumContains,
     frustumDistance,
@@ -6496,6 +7603,7 @@ var Self =
 
     rayClosestPoint,
 
+    segmentContains,
     segmentClosestPoint,
 
     sphereContains,

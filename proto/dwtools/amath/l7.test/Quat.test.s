@@ -18,7 +18,7 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Matrix;
+var Matrix = _.Matrix;
 var Parent = wTester;
 var sqrt = _.math.sqrt;
 var abs = Math.abs;

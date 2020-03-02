@@ -492,7 +492,7 @@ function fromBox( sphere, box )
 function fromCenterAndRadius( sphere, center, radius )
 {
   _.assert( arguments.length === 3, 'Expects exactly three arguments' );
-  _.assert( _.longIs( center ) );
+  _.assert( _.longIs( center ) || _.vectorAdapterIs( center ) );
   _.assert( _.numberIs( radius ) );
 
   if( sphere === null )
@@ -773,6 +773,133 @@ function radiusSet( sphere, radius )
 //
 
 /**
+  * Project a sphere: the projection vector ( projVector ) translates the center of the sphere, and the projection scaling factor ( r )
+  * scale the radius of the sphere. The projection parameters should have the shape:
+  * project = [ projVector, r ];
+  * Returns the projected sphere. Sphere is stored in Array data structure.
+  * The projection array stays untouched, the sphere changes.
+  *
+  * @param { Array } sphere - sphere to be projected.
+  * @param { Array } project - Array of reference with projection parameters.
+  *
+  * @example
+  * // returns [ 1, 1, 3, 3, 2 ];
+  * _.project( [ 0, 0, 2, 2, 1 ], [ [ 1, 1, 1, 1 ], 2 ] );
+  *
+  *
+  * @returns { Array } Returns the array of the projected sphere.
+  * @function project
+  * @throws { Error } An Error if ( dim ) is different than projVector.length (the sphere and the projection vector don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @throws { Error } An Error if ( project ) is not an array.
+  * @memberof wTools.sphere
+  */
+function project( sphere, project )
+{
+
+  if( sphere === null )
+  sphere = _.sphere.make();
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.longIs( project ) || _.vectorAdapterIs( project ) );
+  _.assert( project.length === 2, 'Project array expects exactly two entries')
+
+  let sphereView = _.sphere._from( sphere );
+  let center = _.vectorAdapter.from( _.sphere.centerGet( sphereView ) );
+  let radius = _.sphere.radiusGet( sphereView );
+  let dim = _.sphere.dimGet( sphereView );
+  let projectView = _.vectorAdapter.from( project );
+
+  let projVector = _.vectorAdapter.from( projectView.eGet( 0 ) );
+  _.assert( dim === projVector.length );
+  let scalRadius = projectView.eGet( 1 );
+
+  let newCenter = _.vectorAdapter.addVectors( center.clone(), projVector );
+  let newRadius = scalRadius * radius;
+
+  debugger;
+
+  for( let i = 0; i < dim; i ++ )
+  {
+    sphereView.eSet( i, newCenter.eGet( i ) );
+  }
+
+  sphereView.eSet( sphereView.length - 1, newRadius );
+  return sphere;
+}
+
+//
+
+/**
+  * Get the projection factors of two spheres: the projection vector ( projVector ) translates the center of the sphere, and the projection scaling factors( l, r )
+  * scale the segment length ( l ) and the radius ( r ) of the sphere. The projection parameters should have the shape:
+  * project = [ projVector, l, r ];
+  * Returns the projection parameters, 0 when not possible ( i.e: srcSphere is a point and projSphere is a sphere - no scaling factors ).
+  * Spheres are stored in Array data structure. The spheres stay untouched.
+  *
+  * @param { Array } srcSphere - Original sphere.
+  * @param { Array } projSphere - Projected sphere.
+  *
+  * @example
+  * // returns [ [ 0.5, 0.5 ], 2, 2 ];
+  * _.getProjectionFactors( [ 0, 0, 1, 1, 1 ], [ -0.5, -0.5, 2.5, 2.5, 2 ] );
+  *
+  *
+  * @returns { Array } Returns the array with the projection factors between the two spherees.
+  * @function getProjectionFactors
+  * @throws { Error } An Error if ( dim ) is different than ( dim2 ) (the spheres don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSphere ) is not sphere.
+  * @throws { Error } An Error if ( projSphere ) is not sphere.
+  * @memberof wTools.sphere
+  */
+function getProjectionFactors( srcSphere, projSphere )
+{
+
+  _.assert( _.sphere.is( srcSphere ), 'Expects sphere' );
+  _.assert( _.sphere.is( projSphere ), 'Expects sphere' );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let srcSphereView = _.sphere._from( srcSphere );
+  let srcCenter = _.vectorAdapter.from( _.sphere.centerGet( srcSphereView ) );
+  let srcRadius = _.sphere.radiusGet( srcSphereView );
+  let srcDim = _.sphere.dimGet( srcSphereView );
+
+  let projSphereView = _.sphere._from( projSphere );
+  let projCenter = _.vectorAdapter.from( _.sphere.centerGet( projSphereView ) );
+  let projRadius = _.sphere.radiusGet( projSphereView );
+  let projDim = _.sphere.dimGet( projSphereView );
+
+  _.assert( srcDim === projDim );
+
+  let project = _.array.makeArrayOfLength( 2 );
+  let projectView = _.vectorAdapter.from( project );
+
+  let translation = _.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
+  projectView.eSet( 0, translation.toArray() );
+
+  let scalRadius;
+  if( srcRadius === 0 )
+  {
+    if( projRadius === 0 )
+    {
+      scalRadius = 1;
+    }
+    else return 0;
+  }
+  else
+  {
+    scalRadius = projRadius / srcRadius;
+  }
+  projectView.eSet( 1, scalRadius );
+
+  return project;
+}
+
+//
+
+/**
   * Check if a sphere contains a point. Returns true if it is contained and false if not.
   *
   * @param { Array } sphere - Source sphere.
@@ -802,7 +929,7 @@ function pointContains( sphere, point )
   debugger;
   //throw _.err( 'not tested' );
 
-  return ( vector.distanceSqr( vector.From( point ) , center ) <= ( radius * radius ) );
+  return ( vector.distanceSqr( vector.from( point ) , center ) <= ( radius * radius ) + _.accuracy ); /* xxx */
 }
 
 //
@@ -1293,6 +1420,58 @@ function boundingBoxGet( dstBox, srcSphere )
 
 //
 
+/**
+  * Check if a given capsule is contained inside a sphere. Returs true if it is contained, false if not. Capsule and sphere stay untouched.
+  *
+  * @param { Array } sphere - The sphere to check if the capsule is inside.
+  * @param { Array } capsule - The capsule to check.
+  *
+  * @example
+  * // returns true
+  * _.capsuleContains( [ 0, 0, 4 ], [ 1, 1, 1.5, 1.5, 0.1 ] );
+  *
+  * @example
+  * // returns false
+  * _.capsuleContains( [ 0, 0, 2 ], [ - 1, 3, 3, 3, 1 ] );
+  *
+  * @returns { Boolen } Returns true if the capsule is inside the sphere, and false if the capsule is outside it.
+  * @function capsuleContains
+  * @throws { Error } An Error if ( dim ) is different than capsule.length (Sphere and capsule have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( sphere ) is not sphere.
+  * @throws { Error } An Error if ( capsule ) is not capsule.
+  * @memberof wTools.sphere
+  */
+
+
+function capsuleContains( sphere, capsule )
+{
+
+  let sphereView = _.sphere._from( sphere );
+  let dimS = _.sphere.dimGet( sphereView );
+  let capsuleView = _.capsule._from( capsule );
+  let dimC = _.capsule.dimGet( capsuleView );
+  let origin = _.vectorAdapter.from( _.capsule.originGet( capsuleView ) );
+  let end = _.vectorAdapter.from( _.capsule.endPointGet( capsuleView ) );
+  let radius = _.capsule.radiusGet( capsuleView );
+
+  _.assert( dimS === dimC );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let bottomSphere = _.sphere.fromCenterAndRadius( null, origin, radius );
+  let topSphere = _.sphere.fromCenterAndRadius( null, end, radius );
+
+  if( !_.sphere.sphereContains( sphereView, bottomSphere ) )
+  return false;
+
+  if( !_.sphere.sphereContains( sphereView, topSphere ) )
+  return false;
+
+  return true;
+}
+
+//
+
 function capsuleIntersects( srcSphere , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1373,6 +1552,149 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
     let spherePoint = _.vectorAdapter.from( _.sphere.pointClosestPoint( sphereView, capsulePoint ) );
 
     for( let i = 0; i < dimSphere; i++ )
+    {
+      dstPointView.eSet( i, spherePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+/**
+  * Check if a sphere contains a convex polygon. Returns true if it is cotained, false if not.
+  * Sphere and polygon remain unchanged
+  *
+  * @param { Array } sphere - The source sphere.
+  * @param { Polygon } polygon - The source polygon.
+  *
+  * @example
+  * // returns false
+  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonContains( [ 0, 0, 4, 1 ], polygon );
+  *
+  * @returns { Array } Returns true if the sphere contains the polygon.
+  * @function convexPolygonContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( sphere ) is not sphere
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @memberof wTools.sphere
+  */
+function convexPolygonContains( sphere, polygon )
+{
+  _.assert( arguments.length === 2, 'Expects two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let sphereView = _.sphere._from( sphere );
+  let dimS = _.sphere.dimGet( sphereView );
+
+  let dimP  = _.Matrix.dimsOf( polygon );
+
+  _.assert( dimP[ 0 ] === dimS );
+
+  for( let i = 0; i < dimP[ 1 ]; i++ )
+  {
+    let vertex = polygon.colVectorGet( i );
+
+    if( !_.sphere.pointContains( sphereView, vertex ) )
+    return false;
+  }
+
+  return true;
+
+}
+
+//
+
+function convexPolygonIntersects( srcSphere , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let sphereView = _.sphere._from( srcSphere );
+
+  let gotBool = _.convexPolygon.sphereIntersects( polygon, sphereView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcSphere , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let sphereView = _.sphere._from( srcSphere );
+
+  let gotDist = _.convexPolygon.sphereDistance( polygon, sphereView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a sphere to a convex polygon. Returns the calculated point.
+  * Sphere and polygon remain unchanged
+  *
+  * @param { Array } sphere - The source sphere.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 3 ]
+  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ 0, 0, 4, 1 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( sphere ) is not sphere
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.sphere
+  */
+function convexPolygonClosestPoint( sphere, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let sphereView = _.sphere._from( sphere );
+  let dimS = _.sphere.dimGet( sphereView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimS );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dimP  = _.Matrix.dimsOf( polygon );
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimS === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimS );
+
+  if( _.convexPolygon.sphereIntersects( polygon, sphereView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.sphereClosestPoint( polygon, sphereView );
+
+    let spherePoint = _.sphere.pointClosestPoint( sphereView, polygonPoint, _.vectorAdapter.from( _.array.makeArrayOfLength( dimS ) ) ) ;
+
+    for( let i = 0; i < dimS; i++ )
     {
       dstPointView.eSet( i, spherePoint.eGet( i ) );
     }
@@ -2006,6 +2328,56 @@ function rayClosestPoint( sphere, ray, dstPoint )
 
 //
 
+/**
+  *Check if the source sphere contains the test segment. Returns true if it is contained, false if not.
+  * Segment and sphere are stored in Array data structure and remain unchanged.
+  *
+  * @param { Array } srcSphere - The source sphere
+  * @param { Array } tstSegment - The tested segment
+  *
+  * @example
+  * // returns true
+  * _.segmentContains( [ 0, 0, 2 ], [ 0.5, 0.5, 1, 1 ] );
+  *
+  * @example
+  * // returns false
+  * _.segmentContains( [ 0, 0, 2 ], [ 0, 0, 1, 2.5 ] );
+  *
+  * @returns { Boolean } Returns true if the segment is contained and false if not.
+  * @function segmentContains
+  * @throws { Error } An Error if ( dim ) is different than dimGet( segment ) ( The segment and the sphere don´t have the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcSegment ) is not segment
+  * @throws { Error } An Error if ( tstSphere ) is not sphere
+  * @memberof wTools.sphere
+  */
+
+function segmentContains( srcSphere, tstSegment )
+{
+
+  let srcSphereView = _.sphere._from( srcSphere );
+  let srcDim = _.sphere.dimGet( srcSphereView );
+
+  let tstSegmentView = _.segment._from( tstSegment );
+  let origin = _.segment.originGet( tstSegmentView );
+  let end = _.segment.endPointGet( tstSegmentView );
+  let tstDim = _.segment.dimGet( tstSegmentView );
+
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( srcDim === tstDim, 'Sphere and segment must have the same dimension' );
+  debugger;
+  // throw _.err( 'not tested' );
+  if( !_.sphere.pointContains( srcSphereView, origin ) )
+  return false;
+
+  if( !_.sphere.pointContains( srcSphereView, end ) )
+  return false;
+
+  return true;
+}
+
+//
+
 function segmentIntersects( srcSphere, tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -2127,22 +2499,26 @@ function segmentClosestPoint( sphere, segment, dstPoint )
 function sphereContains( srcSphere, tstSphere )
 {
 
-  let _srcSphere = _.sphere.toAdapter( srcSphere );
-  let srcCenter = _.sphere.centerGet( _srcSphere );
-  let srcRadius = _.sphere.radiusGet( _srcSphere );
-  let srcDim = _.sphere.dimGet( _srcSphere );
+  let srcSphereView = _.sphere._from( srcSphere );
+  let srcCenter = _.sphere.centerGet( srcSphereView );
+  let srcRadius = _.sphere.radiusGet( srcSphereView );
+  let srcDim = _.sphere.dimGet( srcSphereView );
 
-  let _tstSphere = _.sphere.toAdapter( tstSphere );
-  let tstCenter = _.sphere.centerGet( _tstSphere );
-  let tstRadius = _.sphere.radiusGet( _tstSphere );
-  let tstDim = _.sphere.dimGet( _tstSphere );
+  let tstSphereView = _.sphere._from( tstSphere );
+  let tstCenter = _.sphere.centerGet( tstSphereView );
+  let tstRadius = _.sphere.radiusGet( tstSphereView );
+  let tstDim = _.sphere.dimGet( tstSphereView );
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( srcDim === tstDim );
   debugger;
   // throw _.err( 'not tested' );
 
-  let d = _.sphere.pointDistance( _srcSphere, tstCenter ) + tstRadius;
+  if( !_.sphere.pointContains( srcSphereView, tstCenter ) )
+  return false;
+
+  let d = _.vectorAdapter.distance( srcCenter, tstCenter ) + tstRadius;
+
   if( d <= srcRadius )
   return true;
   else
@@ -2426,7 +2802,7 @@ function translate( sphere, offset )
 // declare
 // --
 
-let Extension =
+let Extension = /* qqq : normalize order */
 {
 
   make,
@@ -2457,8 +2833,7 @@ let Extension =
 
   pointContains,
   pointDistance,
-  pointClosestPoint,
-  // pointClosestPoint, /* qqq : implement me - Already implemented - to test */
+  pointClosestPoint, /* qqq : implement me - Already implemented - to test */
   pointExpand,
 
   boxContains, /* qqq : implement me */
@@ -2468,9 +2843,15 @@ let Extension =
   boxExpand,
   boundingBoxGet,
 
+  capsuleContains,
   capsuleIntersects,
   capsuleDistance,
   capsuleClosestPoint,
+
+  convexPolygonContains,
+  convexPolygonIntersects,
+  convexPolygonDistance,
+  convexPolygonClosestPoint,
 
   frustumContains, /* qqq : implement me */
   frustumIntersects, /* qqq : implement me - Same as _.frustum.sphereIntersects */
@@ -2491,9 +2872,10 @@ let Extension =
   rayDistance,  /* Same as _.ray.sphereDistance */
   rayClosestPoint,
 
-  segmentIntersects, /* Same as _.segment.sphereIntersects */
-  segmentDistance,  /* Same as _.segment.sphereDistance */
-  segmentClosestPoint,
+  segmentContains : segmentContains,
+  segmentIntersects : segmentIntersects, /* Same as _.segment.sphereIntersects */
+  segmentDistance : segmentDistance,  /* Same as _.segment.sphereDistance */
+  segmentClosestPoint : segmentClosestPoint,
 
   sphereContains, /* qqq : implement me */
   sphereIntersects,

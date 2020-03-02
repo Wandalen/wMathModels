@@ -20,7 +20,7 @@ if( typeof module !== 'undefined' )
 //
 
 var _ = _global_.wTools.withDefaultLong.Fx;
-var Space = _.Matrix;
+var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromLong;
 var avector = _.avector;
@@ -3084,6 +3084,206 @@ function capsuleClosestPoint( test )
 
 //
 
+function convexPolygonClosestPoint( test )
+{
+
+  test.case = 'Source line and polygon remain unchanged'; /* */
+
+  var srcLine = [ - 1, - 1, -1, 1, 0, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  var oldSrcLine = [ - 1, - 1, -1, 1, 0, 1 ];
+  test.identical( srcLine, oldSrcLine );
+
+  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.identical( polygon, oldPolygon );
+
+  test.case = 'Line and polygon intersect'; /* */
+
+  var srcLine = [ - 1, - 1, -1, 1, 1, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line cuts polygon vertex'; /* */
+
+  var srcLine = [ 0, 1, 0, 1, 0, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line next to polygon vertex'; /* */
+
+  var srcLine = [ 0, 2, 0, 1, 0, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ -2, 2, 0 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line cuts polygon edge'; /* */
+
+  var srcLine = [ -1, 0, 0, 1, 0.5, 0.5 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line next to polygon edge'; /* */
+
+  var srcLine = [ -1, 0, 0, 1, 1, 1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = [ - 1/3, 2/3, 2/3 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.equivalent( expected, gotPoint );
+
+  test.case = 'Line cuts polygon'; /* */
+
+  var srcLine = [ - 3, 2, 0, - 1, 1.5, 0.5 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    -2,  -2,  -2,  -2,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var expected = 0;
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'Line next to polygon'; /* */
+
+  var srcLine = [ 3, 4, - 1, 1, 1, 0 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1,
+    0,   0,   0,   0
+  ]);
+  var expected = [ 0, 1, -1 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = '2D'; /* */
+
+  var srcLine = [ 0, 3, 3, 3 ];
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    0,   1,   1,   0,
+    0,   0,   1,   1
+  ]);
+  var expected = [ -1, 2 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
+  test.identical( expected, gotPoint );
+
+  test.case = 'dstPoint Array'; /* */
+
+  var srcLine = [ 3, 3, 3, 1, 1, 2 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = [ 0, 0, 0 ];
+  var expected = [ 2/3, 2/3, -5/3 ];
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  test.case = 'dstPoint Vector'; /* */
+
+  var srcLine = [ -1, 2, -4, 0, 0, -1 ];
+  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  ([
+    0,   0,   0,   0,
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.vectorAdapter.from( [ -1, 2, 0 ] );
+
+  var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon, dstPoint );
+  test.equivalent( expected, gotPoint );
+  test.is( dstPoint === gotPoint );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  ([
+    1,   0, - 1,   0,
+    0,   1,   0, - 1
+  ]);
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [] ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( 'line', polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 0, 1, 1 ], 'polygon' ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint(  null, polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint(  NaN, polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint(  [ 0, 1, 2, 1 ], NaN ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 0, 0, 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 0, 0, 1, 1, 1 ], [ 0, 1, 0, 1, 2, 1 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 1, 0, 1, 2, 1 ], polygon, polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 1, 0 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2 ], polygon ) );
+  test.shouldThrowErrorSync( () => _.line.convexPolygonClosestPoint( [ 0, 1, 0, 2, 2, 2 ], polygon ) );
+
+}
+
+//
+
 function frustumIntersects( test )
 {
 
@@ -4381,6 +4581,190 @@ function planeIntersects( test )
 
 //
 
+function planeIntersectionPoint( test )
+{
+
+  test.case = 'Line and plane remain unchanged'; /* */
+
+  var line = [  - 1,  - 1, -1, 1, 0, 0 ];
+  var plane = [ 1, 0, 0, - 1 ];
+  var expected = [ 1, -1, -1 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint, expected );
+
+  var oldLine = [  - 1, - 1, -1, 1, 0, 0 ];
+  test.identical( line, oldLine );
+
+  var oldPlane = [ 1, 0, 0, -1 ];
+  test.identical( plane, oldPlane );
+
+  test.case = 'Null line'; /* */
+
+  var line = null;
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point line - no intersection'; /* */
+
+  var line = [ 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'point line in plane'; /* */
+
+  var line = [ - 1, 2, 3, 0, 0, 0 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ -1, 2, 3 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line and plane intersect'; /* */
+
+  var line = [ -2, -2, -2, 2, 2, 2 ];
+  var plane = [ 1, 0, 0, 1 ];
+  var expected = [ -1, -1, -1 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Negative factor'; /* */
+
+  var line = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, 3 ];
+  var expected = [ - 3, -9, 4 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Positive factor'; /* */
+
+  var line = [ 0, -6, 4, 1, 1, 0 ];
+  var plane = [ 1, 0, 0, - 3 ];
+  var expected = [ 3, -3, 4 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+
+  var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var plane = [ 0, 2, 0, - 2 ];
+  var expected = [ 1, 1, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+
+  var line = [ 0, 0, 0, 0, 0.194, 0 ];
+  var plane = [ 3, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'plane parallel to line'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0.5 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane parallel contains line'; /* */
+
+  var line = [ 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane contains line origin'; /* */
+
+  var line = [ 0, 0, 0, 0, 3, 2 ];
+  var plane = [ 0, 1, 0, 0 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane perpendicular to line'; /* */
+
+  var line = [ 3, 4, 4, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = [ 3, 4, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane parallel to line 4D'; /* */
+
+  var line = [ 0, 2, 0, 0, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane perpendicular to line 4D'; /* */
+
+  var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
+  var plane = [ 0, 0, 0, 3, 0 ];
+  var expected = [ 0, 1, 2, 0 ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.identical( gotPoint,  expected );
+
+  test.case = 'plane and line intersect 4D'; /* */
+
+  var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
+  var plane = [ 0, 1, 2, 3, 0 ];
+  var expected = [ 0, 1, 2, - ( 1 + 2/3 ) ];
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane );
+  test.equivalent( gotPoint,  expected );
+
+  test.case = 'dstPoint is vector'; /* */
+
+  var line = [ 3, 4, 4, 0, 0, 2 ];
+  var plane = [ 0, 0, 1, 0 ];
+  var expected = _.vectorAdapter.from( [ 3, 4, 0 ] );
+
+  var gotPoint = _.line.planeIntersectionPoint( line, plane, _.vectorAdapter.from( [ 0, 0, 0 ] ) );
+  test.identical( gotPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], 'plane') );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.planeIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2, 3, 4, 5, 6 ] ) );
+
+}
+
+planeIntersectionPoint.accuracy = 1e-6;
+
+//
+
 function planeDistance( test )
 {
 
@@ -4841,6 +5225,385 @@ function rayIntersects( test )
 
 //
 
+function rayIntersectionPoint( test )
+{
+  test.case = 'Source line and ray remain unchanged'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = [ 0, 0, 0 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  var oldSrcLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstRay, oldTstRay );
+
+  test.case = 'Line and ray are parallel ( different origin - same direction )'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are parallel ( different origin - different direction )'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are parallel and intersect'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstRay = [ 3, 7, 7, 0, 0, 0.5 ];
+  var expected = [ 3, 7, 7 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is a point not in ray'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is a point in ray'; /* */
+
+  var srcLine = [ 3, 3, 3, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 3, 3, 3 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'tstRay is a point not in line'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'tstRay is a point in line'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ -4, -4, -4, 0, 0, 0 ];
+  var expected = [ -4, -4, -4 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are the same'; /* */
+
+  var srcLine = [ 0, 4, 2, 1, 1, 1 ];
+  var tstRay = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray intersect 4D'; /* */
+
+  var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray don´t intersect 2D - parallel'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstRay = [ - 3, - 4, 1, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray intersect with line´s positive factor 2D'; /* */
+
+  var srcLine = [ 0, 0, -2, 0 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = [ -3, 0 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = [ -3, 0 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D'; /* */
+
+  var srcLine = [ - 3, - 4, 0, 1 ];
+  var tstRay = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are perpendicular and intersect'; /* */
+
+  var srcLine = [ 5, 7, 1, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are perpendicular and don´t intersect'; /* */
+
+  var srcLine = [ 0, 0, -3, 0, 0, 1 ];
+  var tstRay = [ 3, 0, 0, 1, 1, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and ray are parallel to x'; /* */
+
+  var srcLine = [ 3, 7, 1, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is null'; /* */
+
+  var srcLine = null;
+  var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
+  test.identical( gotIntersectionPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 0, 0 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function rayIntersectionFactors( test )
+{
+  test.case = 'Source line and ray remain unchanged'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  var oldSrcLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstRay, oldTstRay );
+
+  test.case = 'Line and ray are parallel ( different origin - same direction )'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray are parallel ( different origin - different direction )'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray are parallel and intersect in the origin'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, -7 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 0.5 ];
+  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray are parallel and intersect'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstRay = [ 3, 7, 7, 0, 0, 0.5 ];
+  var expected = _.vectorAdapter.from( [ 0.8571428571428571, 0 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'srcLine is a point not in ray'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'srcLine is a point in ray'; /* */
+
+  var srcLine = [ 3, 3, 3, 0, 0, 0 ];
+  var tstRay = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = _.vectorAdapter.from( [ 0, 3 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'tstRay is a point not in line'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 0 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'tstRay is a point in line'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstRay = [ -4, -4, -4, 0, 0, 0 ];
+  var expected = _.vectorAdapter.from( [ -4, 0 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray are the same'; /* */
+
+  var srcLine = [ 0, 4, 2, 1, 1, 1 ];
+  var tstRay = [ 0, 4, 2, 1, 1, 1 ];
+  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray intersect 4D'; /* */
+
+  var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
+  var expected = _.vectorAdapter.from( [ 4, 3 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray don´t intersect 2D - parallel'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstRay = [ - 3, - 4, 1, 0 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray intersect with line´s positive factor 2D'; /* */
+
+  var srcLine = [ 0, 0, -2, 0 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = _.vectorAdapter.from( [ 1.5, 4 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = _.vectorAdapter.from( [ -1.5, 4 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D'; /* */
+
+  var srcLine = [ - 3, - 4, 0, 1 ];
+  var tstRay = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray are perpendicular and intersect'; /* */
+
+  var srcLine = [ 5, 7, 1, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 1, 0, 0, 1 ];
+  var expected = _.vectorAdapter.from( [ -2, 0 ] );
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray are perpendicular and don´t intersect'; /* */
+
+  var srcLine = [ 0, 0, -3, 0, 0, 1 ];
+  var tstRay = [ 3, 0, 0, 1, 1, 0 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and ray are parallel to x'; /* */
+
+  var srcLine = [ 3, 7, 1, 1, 0, 0 ];
+  var tstRay = [ 3, 7, 2, 1, 0, 0 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
+  test.identical( gotIntersectionFactors, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( [ 0, 0 ], 'ray') );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( null, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.rayIntersectionFactors( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
 function rayDistance( test )
 {
   test.case = 'Source line and ray remain unchanged'; /* */
@@ -5018,7 +5781,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5078,7 +5841,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5087,7 +5850,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5101,11 +5864,20 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
+  test.case = 'Line and ray intersect with line´s positive factor 2D'; /* */
+
+  var srcLine = [ 0, 0, -2, 0 ];
+  var tstRay = [ - 3, - 4, 0, 1 ];
+  var expected = 0;
+
+  var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
+  test.identical( gotClosestPoint, expected );
+
   test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
-  var expected = [ -3, 0 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5123,7 +5895,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5183,13 +5955,365 @@ function rayClosestPoint( test )
 
 //
 
-function segmentClosestPoint( test )
+function segmentIntersectionPoint( test )
 {
   test.case = 'Source line and segment remain unchanged'; /* */
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var expected = [ 0, 0, 0 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  var oldSrcLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstSegment, oldTstSegment );
+
+  test.case = 'Line and segment are parallel ( different origin - same direction )'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 7 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are parallel ( different origin - different direction )'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstSegment = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is a point - not contained'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is a point - contained'; /* */
+
+  var srcLine = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = [ 0.5, 0.5, 0.5 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'tstSegment is a point - not contained'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'tstSegment is a point - contained'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
+  var expected = [ 7, 7, 7 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.equivalent( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are the same'; /* */
+
+  var srcLine = [ 0, 4, 2, 1, 1, 1 ];
+  var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
+  var expected = [ 0, 4, 2 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment intersect 4D'; /* */
+
+  var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
+  var expected = [ 0, 4, 2, 1 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment don´t intersect 2D - parallel'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstSegment = [ - 3, - 4, 3, -4 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment intersect with line´s negative factor 2D'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstSegment = [ - 3, - 4, -3, 1 ];
+  var expected = [ -3, 0 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment don´t intersect with segment´s negative factor 2D'; /* */
+
+  var srcLine = [ - 3, - 4, 0, 1 ];
+  var tstSegment = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are perpendicular and intersect'; /* */
+
+  var srcLine = [ 5, 7, 1, 1, 0, 0 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var expected = [ 3, 7, 1 ];
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are perpendicular and don´t intersect'; /* */
+
+  var srcLine = [ 0, 0, -3, 0, 0, 1 ];
+  var tstSegment = [ 3, 2, 0, -3, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'Line and segment are parallel to x'; /* */
+
+  var srcLine = [ 3, 7, 1, 1, 0, 0 ];
+  var tstSegment = [ 3, 7, 2, 9, 7, 2 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  test.case = 'srcLine is null'; /* */
+
+  var srcLine = null;
+  var tstSegment = [ 3, 7, 2, -3, 7, 2 ];
+  var expected = 0;
+
+  var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
+  test.identical( gotIntersectionPoint, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionPoint( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function segmentIntersectionFactors( test )
+{
+  test.case = 'Source line and segment remain unchanged'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  var oldSrcLine = [ 0, 0, 0, 1, 1, 1 ];
+  test.equivalent( srcLine, oldSrcLine );
+
+  var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  test.equivalent( tstSegment, oldTstSegment );
+
+  test.case = 'Line and segment are parallel ( different origin - same direction )'; /* */
+
+  var srcLine = [ 0, 0, 0, 0, 0, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 7 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment are parallel ( different origin - different direction )'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstSegment = [ 0, 0, 0, 0, 0, 0.5 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment are parallel same origin'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 7 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment are parallel different origin'; /* */
+
+  var srcLine = [ 3, 7, 4.5, 0, 0, 7 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var expected = _.vectorAdapter.from( [ -0.5, 0 ] );
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'srcLine is a point - not contained'; /* */
+
+  var srcLine = [ 3, 7, 1, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'srcLine is a point - contained'; /* */
+
+  var srcLine = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
+  var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
+  var expected = _.vectorAdapter.from( [ 0, 0.5 ] );
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'tstSegment is a point - not contained'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'tstSegment is a point - contained'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
+  var expected = _.vectorAdapter.from( [ 7, 0 ] );
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment are the same'; /* */
+
+  var srcLine = [ 0, 4, 2, 1, 1, 1 ];
+  var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
+  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment intersect 4D'; /* */
+
+  var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
+  var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
+  var expected = _.vectorAdapter.from( [ 4, 0.5 ] );
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment don´t intersect 2D - parallel'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstSegment = [ - 3, - 4, 3, -4 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment intersect with line´s negative factor 2D'; /* */
+
+  var srcLine = [ 0, 0, 2, 0 ];
+  var tstSegment = [ - 3, - 4, -3, 1 ];
+  var expected = _.vectorAdapter.from( [ -1.5, 0.8 ] );
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment don´t intersect with segment´s negative factor 2D'; /* */
+
+  var srcLine = [ - 3, - 4, 0, 1 ];
+  var tstSegment = [ 0, 0, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment are perpendicular and intersect'; /* */
+
+  var srcLine = [ 5, 7, 1, 1, 0, 0 ];
+  var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
+  var expected = _.vectorAdapter.from( [ -2, 0 ] );
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.equivalent( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment are perpendicular and don´t intersect'; /* */
+
+  var srcLine = [ 0, 0, -3, 0, 0, 1 ];
+  var tstSegment = [ 3, 2, 0, -3, 2, 0 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  test.case = 'Line and segment are parallel to x'; /* */
+
+  var srcLine = [ 3, 7, 1, 1, 0, 0 ];
+  var tstSegment = [ 3, 7, 2, 9, 7, 2 ];
+  var expected = 0;
+
+  var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
+  test.identical( gotIntersectionFactors, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( 'line', [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( [ 0, 0 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( 0 ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( null, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( undefined, [ 1, 1, 1, 2, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( [ 1, 1, 1, 2, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( [ 1, 1, 1, 2, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( [ 1, 1, 1, 2, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.line.segmentIntersectionFactors( [ 1, 1, 1, 2, 2, 2 ], [ 1, 2 ] ) );
+
+}
+
+//
+
+function segmentClosestPoint( test )
+{
+  test.case = 'Source line and segment remain unchanged'; /* */
+
+  var srcLine = [ 0, 0, 0, 1, 1, 1 ];
+  var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -5249,7 +6373,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -5258,7 +6382,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -5276,7 +6400,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, -3, 1 ];
-  var expected = [ -3, 0 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -5294,7 +6418,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = 0;
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -5918,6 +7042,8 @@ var Self =
 
     capsuleClosestPoint,
 
+    convexPolygonClosestPoint,
+
     frustumIntersects,
     frustumDistance,
     frustumClosestPoint,
@@ -5927,13 +7053,18 @@ var Self =
     lineClosestPoint,
 
     planeIntersects,
+    planeIntersectionPoint,
     planeDistance,
     planeClosestPoint,
 
     rayIntersects,
+    rayIntersectionPoint,
+    rayIntersectionFactors,
     rayDistance,
     rayClosestPoint,
 
+    segmentIntersectionPoint,
+    segmentIntersectionFactors,
     segmentClosestPoint,
 
     sphereIntersects,

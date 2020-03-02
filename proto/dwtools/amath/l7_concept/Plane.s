@@ -176,7 +176,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
   *
   * @example
   * // returns [ 0, 1, 0, 0 ];
-  * _.fromPoints( [ 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
+  * _.fromPoints( null, [ 0, 0, 0 ] , [ 0, 0, 1 ], [ 2, 0, 0 ] );
   *
   * @returns { Array } Returns the array of the new plane.
   * @function fromPoints
@@ -291,7 +291,7 @@ function pointContains( plane , point )
   let planeView = _.plane.toAdapter( plane );
   let pointVector = _.vectorAdapter.from( point );
 
-  if( Math.abs( _.plane.pointDistance( plane, pointVector ) ) < 1E-12 )
+  if( Math.abs( _.plane.pointDistance( plane, pointVector ) ) < 1E-7 )
   return true;
   else
   return false;
@@ -359,6 +359,7 @@ function pointDistance( plane , point )
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.plane
   */
+
 function pointCoplanarGet( plane , point, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
@@ -633,7 +634,6 @@ function boundingBoxGet( dstBox, srcPlane )
       zeros = zeros + 1;
     }
   }
-  logger.log( zeros )
 
   if( zeros === dimB - 1 )
   {
@@ -746,6 +746,148 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
     let planePoint = _.vectorAdapter.from( _.plane.pointCoplanarGet( planeView, capsulePoint ) );
 
     for( let i = 0; i < dimPlane; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
+
+}
+
+//
+
+/**
+  * Check if a plane contains a convex polygon. Returns true if it is contained and false if not.
+  * Plane and polygon remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Polygon } polygon - The source polygon.
+  *
+  * @example
+  * // returns false
+  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonContains( [ 0, 0, 1, -2 ], polygon );
+  *
+  * @returns { Array } Returns true if the plane contains the polygon.
+  * @function convexPolygonContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @memberof wTools.plane
+  */
+function convexPolygonContains( plane, polygon )
+{
+  _.assert( arguments.length === 2 , 'Expects two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let planeView = _.plane._from( plane );
+  let dimPl = _.plane.dimGet( planeView );
+  let dimP  = _.Matrix.dimsOf( polygon );
+
+  _.assert( dimP[ 0 ] === dimPl, 'Plane and polygon must have the same dimensions' );
+
+  for( let i = 0; i < dimP[ 1 ]; i++ )
+  {
+    let vertex = polygon.colVectorGet( i );
+
+    if( !_.plane.pointContains( planeView, vertex ) )
+    return false;
+  }
+
+  return true;
+
+}
+
+//
+
+function convexPolygonIntersects( srcPlane , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotBool = _.convexPolygon.planeIntersects( polygon, planeView );
+
+  return gotBool;
+}
+
+//
+
+function convexPolygonDistance( srcPlane , polygon )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+  let planeView = _.plane._from( srcPlane );
+
+  let gotDist = _.convexPolygon.planeDistance( polygon, planeView );
+
+  return gotDist;
+}
+
+//
+
+/**
+  * Calculates the closest point in a plane to a convex polygon. Returns the calculated point.
+  * Plane and polygon remain unchanged
+  *
+  * @param { Array } plane - The source plane.
+  * @param { Polygon } polygon - The source polygon.
+  * @param { Array } dstPoint - The destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 2 ]
+  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  *  ([
+  *    0,   0,   0,   0,
+  *    1,   0, - 1,   0,
+  *    0,   1,   0, - 1
+  *  ]);
+  * _.convexPolygonClosestPoint( [ 0, 0, 1, -2 ], polygon );
+  *
+  * @returns { Array } Returns the closest point to the polygon.
+  * @function convexPolygonClosestPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
+  * @throws { Error } An Error if ( plane ) is not plane
+  * @throws { Error } An Error if ( polygon ) is not convexPolygon
+  * @throws { Error } An Error if ( dstPoint ) is not point
+  * @memberof wTools.plane
+  */
+function convexPolygonClosestPoint( plane, polygon, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+  _.assert( _.convexPolygon.is( polygon ) );
+
+  let planeView = _.plane._from( plane );
+  let dimPl = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimPl );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let dimP  = _.Matrix.dimsOf( polygon );
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimPl === dstPoint.length );
+  _.assert( dimP[ 0 ] === dimPl );
+
+  if( _.convexPolygon.planeIntersects( polygon, planeView ) )
+  return 0
+  else
+  {
+    let polygonPoint = _.convexPolygon.planeClosestPoint( polygon, planeView );
+
+    let planePoint = _.plane.pointCoplanarGet( planeView, polygonPoint, _.vectorAdapter.from( _.array.makeArrayOfLength( dimPl ) ) ) ;
+
+    for( let i = 0; i < dimPl; i++ )
     {
       dstPointView.eSet( i, planePoint.eGet( i ) );
     }
@@ -902,11 +1044,58 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
 //
 
 /**
+  * Check if a plane contains a line. Returns true it contains the line, false if not.
+  * The plane and line remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } line -  Source line.
+  *
+  * @example
+  * // returns false
+  * _.lineContains( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
+  *
+  * @example
+  * // returns true
+  * _.lineContains( [ 1, 0, 0, 1 ] , [ -1, 2, 2, 0, 1, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the plane contains the line, false if not.
+  * @function lineContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @memberof wTools.plane
+*/
+function lineContains( srcPlane, tstLine )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  let tstLineView = _.line._from( tstLine );
+  let planeView = _.plane._from( srcPlane );
+
+  let dimL = _.line.dimGet( tstLineView );
+  let dimP = _.plane.dimGet( planeView );
+  _.assert( dimL === dimP, 'Plane and line must have the same dimension' );
+
+  let origin = _.line.originGet( tstLineView );
+
+  if( !_.plane.pointContains( planeView, origin ) )
+  return false;
+
+  let secondPoint = _.line.lineAt( tstLineView, 1 );
+
+  if( !_.plane.pointContains( planeView, secondPoint ) )
+  return false;
+
+  return true;
+}
+
+//
+
+/**
   * Check if a plane and a line intersect. Returns true if they intersect.
   * The plane and line remain unchanged.
   *
   * @param { Array } plane - Source plane.
-  * @param { Array } line -  First and last points in line.
+  * @param { Array } line -  Source line.
   *
   * @example
   * // returns true
@@ -941,65 +1130,70 @@ function lineIntersects( srcPlane , tstLine )
   * The plane and line remain unchanged.
   *
   * @param { Array } plane - Source plane.
-  * @param { Array } line -  First and last points in line.
+  * @param { Array } line -  Source line.
+  * @param { Array } dstPoint -  Destination point.
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * _.lineIntersection( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 ], [ 3, 3, 3 ]);
+  * _.lineIntersectionPoint( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
   *
   *
   * @returns { Point } Returns the point of intersection between a plane and a line.
-  * @function lineIntersection
-  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @function lineIntersectionPoint
+  * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
   * @throws { Error } An Error if ( point ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.plane
   */
-function lineIntersection( plane , line , point )
+
+function lineIntersectionPoint( plane, line, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = _.long.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let planeView = _.plane.toAdapter( plane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let lineView = _.vectorAdapter.from( line );
+  let lineView = _.line._from( line );
+  let origin = _.line.originGet( lineView );
+  let direction = _.line.directionGet( lineView );
+  let dimLine  = _.line.dimGet( lineView );
 
-  debugger;
   throw _.err( 'not tested' );
 
-  if( point === null )
-  point = [ 0, 0, 0 ];
-
-  let direction = _.line.pointDirection( point );
-
+  let dstPointView = _.vectorAdapter.from( dstPoint );
   let dot = _.vectorAdapter.dot( normal , direction );
 
-  if( Math.abs( dot ) < _.accuracySqr )
-  {
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimLine );
 
-    if( _.plane.pointDistance( plane, lineView.eGet( 0 ) ) < _.accuracySqr )
+  xxx
+  if( !_.line.planeIntersects( lineView, planeView ) )
+  return 0; /* xxx */
+  else
+  {
+    let linePoint =  _.vectorAdapter.from( _.line.planeIntersectionPoint( lineView, planeView ) );
+
+    for( let i = 0; i < dimP; i++ )
     {
-      _.avector.assign( point, lineView.eGet( 0 ) );
-      return point
+      dstPointView.eSet( i, linePoint.eGet( i ) );
     }
 
-    return false;
+    return dstPoint;
   }
 
-  let t = - ( _.vectorAdapter.dot( lineView.eGet( 0 ) , this.normal ) + bias ) / dot;
-
-  if( t < 0 || t > 1 )
-  return false;
-
-  return _.line.at( [ lineView.eGet( 0 ), direction ] , t );
+  // let t = - ( _.vectorAdapter.dot( lineView.eGet( 0 ) , this.normal ) + bias ) / dot;
+  //
+  // if( t < 0 || t > 1 )
+  // return false;
+  //
+  // return _.line.at( [ lineView.eGet( 0 ), direction ] , t );
 }
 
 //
@@ -1189,6 +1383,54 @@ function planeDistance( srcPlane, tstPlane )
 
 //
 
+/**
+  * Check if a plane contains a ray. Returns true it contains the ray, false if not.
+  * The plane and ray remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } ray -  Source ray.
+  *
+  * @example
+  * // returns false
+  * _.rayContains( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
+  *
+  * @example
+  * // returns true
+  * _.rayContains( [ 1, 0, 0, 1 ] , [ -1, 2, 2, 0, 1, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the plane contains the ray, false if not.
+  * @function rayContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @memberof wTools.plane
+*/
+
+function rayContains( srcPlane, tstRay )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  let tstRayView = _.ray._from( tstRay );
+  let planeView = _.plane._from( srcPlane );
+
+  let dimR = _.ray.dimGet( tstRayView );
+  let dimP = _.plane.dimGet( planeView );
+  _.assert( dimR === dimP, 'Plane and ray must have the same dimension' );
+
+  let origin = _.ray.originGet( tstRayView );
+
+  if( !_.plane.pointContains( planeView, origin ) )
+  return false;
+
+  let secondPoint = _.ray.rayAt( tstRayView, 1 );
+
+  if( !_.plane.pointContains( planeView, secondPoint ) )
+  return false;
+
+  return true;
+}
+
+//
+
 function rayIntersects( srcPlane , tstRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1199,6 +1441,70 @@ function rayIntersects( srcPlane , tstRay )
   let gotBool = _.ray.planeIntersects( tstRayView, planeView );
 
   return gotBool;
+}
+
+//
+
+/**
+  * Returns the intersection point between a plane and a ray. Returns the intersection point coordinates.
+  * The plane and ray remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } ray -  Source ray.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.rayIntersection( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2 , 3, 3, 3 ], [ 1, 1, 1 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a plane and a ray.
+  * @function rayIntersection
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( ray ) is not ray.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.plane
+  */
+
+function rayIntersectionPoint( plane, ray, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let rayView = _.ray._from( ray );
+  let origin = _.ray.originGet( rayView );
+  let direction = _.ray.directionGet( rayView );
+  let dimRay  = _.ray.dimGet( rayView );
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimRay );
+
+  if( !_.ray.planeIntersects( rayView, planeView ) )
+  return 0
+  else
+  {
+    let rayPoint = _.line.planeIntersectionPoint( rayView, planeView );
+
+    let planePoint = _.vectorAdapter.from( _.plane.pointCoplanarGet( planeView, rayPoint ) );
+
+    for( let i = 0; i < dimP; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
 }
 
 //
@@ -1285,6 +1591,53 @@ function rayClosestPoint( plane, ray, dstPoint )
 //
 
 /**
+  * Check if a plane contains a segment. Returns true it contains the segment, false if not.
+  * The plane and segment remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } segment -  Source segment.
+  *
+  * @example
+  * // returns false
+  * _.segmentContains( [ 1, 0, 0, 1 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
+  *
+  * @example
+  * // returns true
+  * _.segmentContains( [ 1, 0, 0, 1 ] , [ -1, 2, 2, -1, 1, 1 ]);
+  *
+  * @returns { Boolean } Returns true if the plane contains the segment, false if not.
+  * @function segmentContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @memberof wTools.plane
+*/
+function segmentContains( srcPlane, tstSegment )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  let tstSegmentView = _.segment._from( tstSegment );
+  let planeView = _.plane._from( srcPlane );
+
+  let dimS = _.segment.dimGet( tstSegmentView );
+  let dimP = _.plane.dimGet( planeView );
+  _.assert( dimS === dimP, 'Plane and segment must have the same dimension' );
+
+  let origin = _.segment.originGet( tstSegmentView );
+
+  if( !_.plane.pointContains( planeView, origin ) )
+  return false;
+
+  let end = _.segment.endPointGet( tstSegmentView );
+
+  if( !_.plane.pointContains( planeView, end ) )
+  return false;
+
+  return true;
+}
+
+//
+
+/**
 * Check if a plane and a segment intersect. Returns true if they intersect.
 * The plane and segment remain unchanged.
 *
@@ -1326,6 +1679,71 @@ function segmentIntersects( plane , segment )
 
   debugger;
   return ( b <= 0 && e >= 0 ) || ( e <= 0 && b >= 0 );
+}
+
+//
+
+/**
+  * Returns the intersection point between a plane and a segment. Returns the intersection point coordinates.
+  * The plane and segment remain unchanged.
+  *
+  * @param { Array } plane - Source plane.
+  * @param { Array } segment -  Source segment.
+  * @param { Array } dstPoint -  Destination point.
+  *
+  * @example
+  * // returns [ 0, 0, 0 ];
+  * _.segmentIntersection( [ 1, 0, 0, 0 ] , [ - 2, - 2, - 2, 3, 3, 3 ]);
+  *
+  *
+  * @returns { Point } Returns the point of intersection between a plane and a segment.
+  * @function segmentIntersection
+  * @throws { Error } An Error if ( arguments.length ) is different than three.
+  * @throws { Error } An Error if ( plane ) is not plane.
+  * @throws { Error } An Error if ( segment ) is not segment.
+  * @throws { Error } An Error if ( point ) is not point.
+  * @memberof wTools.plane
+  */
+
+function segmentIntersectionPoint( plane, segment, dstPoint )
+{
+  _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
+
+  let planeView = _.plane._from( plane );
+  let dimP = _.plane.dimGet( planeView );
+
+  if( arguments.length === 2 )
+  dstPoint = _.array.makeArrayOfLength( dimP );
+
+  if( dstPoint === null || dstPoint === undefined )
+  throw _.err( 'Null or undefined dstPoint is not allowed' );
+
+  let segmentView = _.segment._from( segment );
+  let origin = _.segment.originGet( segmentView );
+  let end = _.segment.endPointGet( segmentView );
+  let dimSegment  = _.segment.dimGet( segmentView );
+
+  let dstPointView = _.vectorAdapter.from( dstPoint );
+
+  _.assert( dimP === dstPoint.length );
+  _.assert( dimP === dimSegment );
+
+  if( !_.segment.planeIntersects( segmentView, planeView ) )
+  return 0
+  else
+  {
+    let lineSegment = _.line.fromPair( [ origin, end ] );
+    let segmentPoint = _.line.planeIntersectionPoint( lineSegment, planeView );
+
+    let planePoint = _.vectorAdapter.from( _.plane.pointCoplanarGet( planeView, segmentPoint ) );
+
+    for( let i = 0; i < dimP; i++ )
+    {
+      dstPointView.eSet( i, planePoint.eGet( i ) );
+    }
+
+    return dstPoint;
+  }
 }
 
 //
@@ -1593,7 +2011,7 @@ function boundingSphereGet( dstSphere, srcPlane )
   let center = _.sphere.centerGet( dstSphereView );
   let radiusSphere = _.sphere.radiusGet( dstSphereView );
   let dimSphere = _.sphere.dimGet( dstSphereView );
-  logger.log( dimPlane, dimSphere )
+
   _.assert( dimPlane === dimSphere );
 
   let distOrigin = _.vectorAdapter.distance( _.vectorAdapter.from( _.long.longMakeZeroed( dimPlane ) ), normal );
@@ -1608,7 +2026,8 @@ function boundingSphereGet( dstSphere, srcPlane )
   }
   else
   {
-    let pointInPlane = _.vectorAdapter.from( _.plane.pointCoplanarGet( planeView, _.long.longMakeZeroed( dimPlane ) ) );
+    debugger; xxx
+    let pointInPlane = _.vectorAdapter.from( _.plane.pointCoplanarGet( planeView, _.long.longMakeZeroed( dimPlane ) ) ); /* xxx */
     logger.log( pointInPlane )
 
     for( let c = 0; c < center.length; c++ )
@@ -1843,7 +2262,7 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
 // declare
 // --
 
-let Extension =
+let Extension = /* qqq : normalize order */
 {
 
   make,
@@ -1877,17 +2296,23 @@ let Extension =
   frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
   frustumClosestPoint, /* qqq: implement me */
 
-  lineIntersects,
-  lineIntersection,
-  lineDistance,
-  lineClosestPoint,
-
   planeIntersects, /* qqq: implement me */
   planeDistance, /* qqq: implement me */
 
-  rayIntersects, /* Same as _.ray.planeIntersects */
-  rayDistance, /* Same as _.ray.planeDistance */
-  rayClosestPoint,
+  convexPolygonContains,
+  convexPolygonIntersects,
+  convexPolygonDistance,
+  convexPolygonClosestPoint,
+
+  frustumIntersects, /* qqq: implement me - Same as _.frustum.planeIntersects */
+  frustumDistance, /* qqq: implement me - Same as _.frustum.planeDistance */
+  frustumClosestPoint, /* qqq: implement me */
+
+  lineContains,
+  lineIntersects,
+  lineIntersectionPoint,
+  lineDistance,
+  lineClosestPoint,
 
   segmentIntersects,
   segmentDistance,
@@ -1900,6 +2325,18 @@ let Extension =
 
   matrixHomogenousApply,
   translate,
+
+  rayContains,
+  rayIntersects, /* Same as _.ray.planeIntersects */
+  rayIntersectionPoint,
+  rayDistance, /* Same as _.ray.planeDistance */
+  rayClosestPoint,
+
+  segmentContains,
+  segmentIntersects,
+  segmentIntersectionPoint,
+  segmentDistance,
+  segmentClosestPoint,
 
   normalize,
   negate,

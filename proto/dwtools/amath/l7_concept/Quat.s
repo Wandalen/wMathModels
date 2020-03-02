@@ -1057,7 +1057,7 @@ function applyTo( quat, vector )
 // declare
 // --
 
-let Extension =
+let Extension = /* qqq : normalize order */
 {
 
   make,
