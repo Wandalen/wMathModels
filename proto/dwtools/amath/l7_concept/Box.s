@@ -1964,12 +1964,12 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
   let dimB = this.dimGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = this.tools.longMake/* _.array.makeArrayOfLength */( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 

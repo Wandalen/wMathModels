@@ -827,7 +827,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   return this.tools.vectorAdapter.from( [ 1, 1 ] );
 
   // Parallel segments
-  if( segmentParallel( srcSegment1, srcSegment2 ) === true )
+  if( this.segmentParallel( srcSegment1, srcSegment2 ) === true )
   {
     if( this.pointContains( srcSegment1, origin2 ) )
     {
@@ -866,8 +866,8 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 
     result = this.tools.vectorAdapter.from( x.base );
 
-    let point1 = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
-    let point2 = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point1 = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( dOrigin.length ) );
+    let point2 = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( dOrigin.length ) );
 
     for( var j = 0; j < dOrigin.length; j++ )
     {

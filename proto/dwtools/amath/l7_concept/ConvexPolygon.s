@@ -97,17 +97,17 @@ function isPolygon( polygon )
   _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.matrixIs( polygon ) );
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
 
   if(  dims[ 0 ] < 2 || dims[ 0 ] > 3 || dims[ 1 ] < 3 )
   return false;
   else if( dims[ 0 ] === 3 && dims[ 1 ] > 3 )
   {
-    let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
-    let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) );
+    let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -170,13 +170,13 @@ function is( polygon )
   if( !this.isPolygon( polygon ) )
   return false;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
 
-  let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+  let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) );
   if( dims[ 0 ] === 3 )
   {
     let i = 0;
-    while( this.tools.vectorAdapter.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -187,7 +187,7 @@ function is( polygon )
     }
   }
 
-  let angles = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 1 ] ) );
+  let angles = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 1 ] ) );
   let zeros = 0;
   for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
   {
@@ -214,7 +214,7 @@ function is( polygon )
     }
   }
 
-  if(  this.tools.avector.allEquivalent( angles, _.array.makeArrayOfLengthZeroed( dims[ 1 ] - zeros ) ) || angles.length === 0 )
+  if(  this.tools.avector.allEquivalent( angles, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 1 ] - zeros ) ) || angles.length === 0 )
   return true;
 
   debugger;
@@ -343,17 +343,17 @@ function pointContains( polygon, point )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
 
   let pointView = this.tools.vectorAdapter.from( point );
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
 
   _.assert( dims[ 0 ] === point.length, 'Polygon and point must have same dimension' );
   debugger;
 
-  let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+  let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) );
   if( dims[ 0 ] === 3 )
   {
-    let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] + 1 ) );
     let i = 0;
-    while( this.tools.vectorAdapter.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -367,7 +367,7 @@ function pointContains( polygon, point )
     return false;
   }
 
-  let angles = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 1 ] ) );
+  let angles = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 1 ] ) );
   let zeros = 0;
   for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )
   {
@@ -395,7 +395,7 @@ function pointContains( polygon, point )
     }
   }
 
-  if(  this.tools.avector.allEquivalent( angles, _.array.makeArrayOfLengthZeroed( dims[ 1 ] - zeros ) ) || angles.length === 0 )
+  if(  this.tools.avector.allEquivalent( angles, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 1 ] - zeros ) ) || angles.length === 0 )
   return false;
 
   debugger;
@@ -519,13 +519,13 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
 
   let pointView = this.tools.vectorAdapter.from( srcPoint );
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
 
   _.assert( dims[ 0 ] === pointView.length, 'Polygon and point must have same dimension' );
   debugger;
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLengthZeroed( dims[ 0 ] );
+  dstPoint = this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -538,12 +538,12 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
     return dstPoint;
   }
 
-  let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+  let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] + 1 ) );
   if( dims[ 0 ] === 3 )
   {
-    let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) );
     let i = 0;
-    while( this.tools.vectorAdapter.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -625,10 +625,10 @@ function boxIntersects( polygon, box )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
 
   let boxCorners = _.box.cornersGet( boxView );
-  let dimCorners = _.Matrix.dimsOf( boxCorners );
+  let dimCorners = _.Matrix.DimsOf( boxCorners );
 
   for( let b = 0; b < dimCorners[ 1 ]; b++ )
   {
@@ -753,7 +753,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   let dimB = _.box.dimGet( boxView );
   let minB = _.box.cornerLeftGet( boxView );
   let maxB = _.box.cornerRightGet( boxView );
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
 
@@ -762,7 +762,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( rows );
+  dstPoint = this.tools.longMake( rows );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -773,7 +773,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   if( this.boxIntersects( polygon, boxView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( rows ) );
+  let point = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( rows ) );
 
   /* polygon vertices */
 
@@ -793,7 +793,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   /* box corners */
   let c = _.box.cornersGet( boxView );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let proj = this.pointClosestPoint( polygon, corner );
@@ -2035,7 +2035,7 @@ function segmentIntersects( polygon, segment )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and segment must have the same dimension' );
 
   let containOrigin = this.pointContains( polygon, sOrigin );
@@ -2061,11 +2061,11 @@ function segmentIntersects( polygon, segment )
 
   if( dims[ 0 ] > 2 )
   {
-    let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
-    let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] ) );
+    let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -2524,6 +2524,9 @@ let Extension = /* qqq xxx : normalize order */
   sphereClosestPoint : sphereClosestPoint,
   boundingSphereGet : boundingSphereGet,
 
+  // ref
+
+  tools : _,
 }
 
 _.mapExtend( Self, Extension );
