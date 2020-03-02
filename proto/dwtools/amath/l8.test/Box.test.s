@@ -6678,7 +6678,7 @@ function rayClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstRay = [ 5, 5, 2, 0, 1, 0 ];
-  var expected = [ 4, 4, 2 ];
+  var expected = _.box.tools.longMake( [ 4, 4, 2 ] );
 
   var gotRay = _.box.rayClosestPoint( srcBox, tstRay );
   test.identical( expected, gotRay );
@@ -6688,7 +6688,7 @@ function rayClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 4, 4, 1 ];
+  var expected = _.box.tools.longMake( [ 4, 4, 1 ] );
 
   var gotRay = _.box.rayClosestPoint( srcBox, tstRay, dstPoint );
   test.identical( expected, gotRay );
@@ -6698,8 +6698,8 @@ function rayClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 4, 4, 1 ] );
+  var dstPoint = _.box.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.box.tools.vectorAdapter.from( [ 4, 4, 1 ] );
 
   var gotRay = _.box.rayClosestPoint( srcBox, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
