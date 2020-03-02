@@ -2666,49 +2666,49 @@ function project( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.project();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.project( 'box', 'project' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.project( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.project( [ 0, 0 ], [ [ 0 ], 1, 0 ], [ [ 1 ], 0, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (box 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0, 1, 0, 2 ] );
   });
 
   test.case = 'Wrong project array dimension (box 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1, 2, 3 ] );
   });
 
   test.case = 'Wrong project array dimension (box 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.project( [ 0, 0, 0, 0 ], [ [ 0, 1 ], 2 ] );
   });
 
   test.case = 'Wrong project array dimension (null box vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.box.project( null, [ [ 0, 1 ], 1, 1 ] );
   });

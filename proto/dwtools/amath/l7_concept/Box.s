@@ -1037,7 +1037,7 @@ function project( box, project )
   let newCenter = this.tools.vectorAdapter.addVectors( center, projVector );
 
   debugger;
-  let newSizes = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dim ) );
+  let newSizes = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( dim ) );
   for( let i = 0; i < dim; i++ )
   {
     newSizes.eSet( i, sizes.eGet( i ) * projectView.eGet( i + 1 ) );
