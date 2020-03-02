@@ -1590,6 +1590,4 @@ module:
       ../.im.will.yml:
         hash: abc2a5d28ca616b8a808fad2636adbb9
         size: 5236
-      wMathConcepts.out.will.yml:
-        hash: b62e3d6a3e826495e25bacbdcbb2742d
-        size: 42180
+      wMathConcepts.out.will.yml: *ref_0
