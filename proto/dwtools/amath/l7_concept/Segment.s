@@ -3321,11 +3321,11 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
 
     if( factors === 0 )
     {
-      let srcMod = _.vector.dot( srcDir, srcDir );
-      let tstMod = _.vector.dot( tstDir, tstDir );
-      let mod = _.vector.dot( srcDir, tstDir );
+      let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
+      let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
+      let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
       let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( tstOrigin.slice(), srcOrigin ) );
-      let factor = ( - mod*_.vector.dot( tstDir, dOrigin ) + tstMod*_.vector.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
+      let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       if( factor >= 0 && factor <= 1 )
       {
