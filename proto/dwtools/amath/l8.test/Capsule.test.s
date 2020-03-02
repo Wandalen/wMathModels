@@ -2557,7 +2557,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
-  var expected = [ 0, 0.35355339059327373, 3.646446609406726 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0.35355339059327373, 3.646446609406726 ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -2566,7 +2566,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
-  var expected = [ - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ) ];
+  var expected = _.capsule.tools.longMake( [ - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ) ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -2575,7 +2575,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.1 ];
   var box = [ -1, -1, -1, 0.5, 0.5, - 0.3 ];
-  var expected = [ 0, 0, - 0.1 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, - 0.1 ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -2584,7 +2584,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var box = [ 6, 6, 8, 6, 9, 10 ];
-  var expected = [ 2.485071250072666, 2.485071250072666, 2.727606875108999 ];
+  var expected = _.capsule.tools.longMake( [ 2.485071250072666, 2.485071250072666, 2.727606875108999 ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -2593,7 +2593,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 2, 10, 1 ];
   var box = [ 6, 7, 10, 8 ];
-  var expected = [ 2.7498114449216895, 8.650037711015663 ];
+  var expected = _.capsule.tools.longMake( [ 2.7498114449216895, 8.650037711015663 ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
