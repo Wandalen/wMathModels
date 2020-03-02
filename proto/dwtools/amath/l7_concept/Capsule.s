@@ -796,7 +796,7 @@ function boxContains( srcCapsule, srcBox )
   /* box corners */
   let c = _.box.cornersGet( boxView );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
 
@@ -1329,7 +1329,7 @@ function convexPolygonContains( capsule, polygon )
 
   let capsuleView = this.adapterFrom( capsule );
   let dimC = this.dimGet( capsuleView );
-  let dimP =  _.Matrix.dimsOf( polygon );
+  let dimP =  _.Matrix.DimsOf( polygon );
 
   _.assert( dimC === dimP[ 0 ] );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1412,7 +1412,7 @@ function convexPolygonClosestPoint( capsule, polygon, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -1474,11 +1474,11 @@ function frustumContains( capsule, frustum )
   _.assert( _.frustum.is( frustum ) );
   let capsuleView = this.adapterFrom( capsule );
   let dim = this.dimGet( capsuleView );
-  let dims = _.Matrix.dimsOf( frustum );
+  let dims = _.Matrix.DimsOf( frustum );
   _.assert( dim = dims[ 0 ], 'Frustum and capsule must have same dim');
 
   let fpoints = _.frustum.cornersGet( frustum );
-  let dimPoints = _.Matrix.dimsOf( fpoints );
+  let dimPoints = _.Matrix.DimsOf( fpoints );
   _.assert( _.matrixIs( fpoints ) );
 
   for( let i = 0 ; i < dimPoints[ 1 ] ; i += 1 )
@@ -1530,7 +1530,7 @@ function frustumIntersects( srcCapsule, srcFrustum )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -1593,7 +1593,7 @@ function frustumDistance( srcCapsule, srcFrustum )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -1656,7 +1656,7 @@ function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
