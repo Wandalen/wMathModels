@@ -782,8 +782,8 @@ function radiusSet( test )
 
   var capsule = [ 0, 0, 1, 1, 0 ];
   var srcRadius = 2;
-  var expected =  [ 0, 0, 1, 1, 2 ] ;
-  expected = _.vectorAdapter.from(expected);
+  var expected =  _.capsule.tools.longMake( [ 0, 0, 1, 1, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, srcRadius );
   test.identical( gotCapsule, expected );
@@ -795,8 +795,8 @@ function radiusSet( test )
 
   var capsule = [ 0, 1, 0 ];
   var radius = 2;
-  var expected = [ 0, 1, 2 ] ;
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, 1, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -805,8 +805,8 @@ function radiusSet( test )
 
   var capsule = [ 0, 0, 1, 1, 2 ];
   var radius = 3;
-  var expected = [ 0, 0, 1, 1, 3 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, 0, 1, 1, 3 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -815,8 +815,8 @@ function radiusSet( test )
 
   var capsule = [ 0, - 1, - 2, 1, 1, 1, 2 ];
   var radius = 4;
-  var expected = [ 0, - 1, - 2, 1, 1, 1, 4 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, - 1, - 2, 1, 1, 1, 4 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -825,8 +825,8 @@ function radiusSet( test )
 
   var capsule = [ 0, - 1, - 2, 2, 2, 2, 2, 2, 0 ];
   var radius = 5;
-  var expected =  [ 0, - 1, - 2, 2, 2, 2, 2, 2, 5 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, - 1, - 2, 2, 2, 2, 2, 2, 5 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -835,8 +835,8 @@ function radiusSet( test )
 
   var capsule = [ 1, 2, - 3 ];
   var radius = - 2;
-  var expected = [ 1, 2, - 2 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 1, 2, - 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -845,8 +845,8 @@ function radiusSet( test )
 
   var capsule = [ 1, 2, 3 ];
   var radius = NaN;
-  var expected = [ 1, 2, NaN ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 1, 2, NaN ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -855,8 +855,8 @@ function radiusSet( test )
 
   var capsule = [ NaN, NaN, 0 ];
   var radius = 2;
-  var expected = [ NaN, NaN, 2 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ NaN, NaN, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -869,8 +869,8 @@ function radiusSet( test )
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  var expected = [ 0, 2, 2 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, 2, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -886,8 +886,8 @@ function radiusSet( test )
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  var expected = [ 0, 0, 1, 1, 2 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, 0, 1, 1, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -1045,8 +1045,8 @@ function expand( test )
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.equivalent( gotCapsule, expected );
 
-  var gotBool = _.capsule.pointContains( capsule, point );
-  test.identical( gotBool, expected );
+  // var gotBool = _.capsule.pointContains( capsule, point );
+  // test.identical( gotBool, expected );
 
   test.case = 'Null capsule of four dimensions expanded'; /* */
 
@@ -1099,55 +1099,55 @@ function expand( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( 'capsule', 'expand' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 1 ] );
   });
 
   test.case = 'empty arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ ], [ ] );
   });
 
   test.case = 'Wrong expand array dimension (capsule 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 0, 2, 1 ] );
   });
 
   test.case = 'Wrong expand array dimension (capsule 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 1 ] );
   });
 
   test.case = 'Wrong expand array dimension (capsule 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 1 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong expand array dimension (null capsule vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( null, [ 0, 1, 1 ] );
   });
@@ -1305,67 +1305,67 @@ function project( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( 'capsule', 'project' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0 ], [ [ 0 ], 1, 0 ], [ [ 1 ], 0, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1, 2 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0 ], [ [ 0 ], 2, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (null capsule vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( null, [ [ 0, 1 ], 1, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (project has less than 3 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (project has more than 3 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2, 3 ] );
   });
 
   test.case = 'Empty arrays'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ ], [ [  ],  ] );
   });

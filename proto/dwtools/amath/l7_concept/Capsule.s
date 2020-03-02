@@ -319,7 +319,7 @@ function radiusSet( capsule, radius )
   _.assert( this.is( capsule ) );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.numberIs( radius ) );
-  _.assert( radius >= 0 );
+  // _.assert( radius >= 0 );
 
   let capsuleView = this.adapterFrom( capsule );
 
@@ -510,7 +510,7 @@ function getProjectionFactors( srcCapsule, projCapsule )
 
   _.assert( srcDim === projDim );
 
-  let project = _.array.makeArrayOfLength( 3 );
+  let project = this.tools.longMake/* _.array.makeArrayOfLength */( 3 );
   let projectView = this.tools.vectorAdapter.from( project );
 
   let srcCapsuleSegment = _.segment.fromPair( [ srcOrigin, srcEnd ] );
@@ -526,7 +526,7 @@ function getProjectionFactors( srcCapsule, projCapsule )
   return 0;
 
   let translation = this.tools.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
-  projectView.eSet( 0, translation.toArray() );
+  projectView.eSet( 0, translation.toLong() );
 
   let srcTop = this.tools.vectorAdapter.subVectors( srcEnd.clone(), srcCenter );
   let projTop = this.tools.vectorAdapter.subVectors( projEnd.clone(), projCenter );
