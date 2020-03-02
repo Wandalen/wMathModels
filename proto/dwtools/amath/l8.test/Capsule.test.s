@@ -1166,7 +1166,7 @@ function project( test )
   // var expected = 0;
   var dstCapsule = [ 0, 0, 1, 1, 1 ];
   var project = [ [ 1, 1 ], 2, 2 ];
-  var expected = [ 0.5, 0.5, 2.5, 2.5, 2 ];
+  var expected = _.capsule.tools.longMake( [ 0.5, 0.5, 2.5, 2.5, 2 ] );
 
   var gotCapsule = _.capsule.project( dstCapsule, project ); /* xxx : ? */
   test.identical( gotCapsule, expected );
@@ -1184,7 +1184,7 @@ function project( test )
 
   var capsule = null;
   var project = [ [ 1, 0, 0 ], 1, 2 ];
-  var expected = [ 1, 0, 0, 1, 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 1, 0, 0, 1, 0, 0, 0 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1195,7 +1195,7 @@ function project( test )
 
   var capsule = null;
   var project = [ [ 0, 0, 0 ], 0, 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1206,7 +1206,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 1, 0, 0, 2 ];
   var project = [ [ 0, 1, 0 ], 2, 3 ];
-  var expected = [ -0.5, 1, 0, 1.5, 1, 0, 6 ];
+  var expected = _.capsule.tools.longMake( [ -0.5, 1, 0, 1.5, 1, 0, 6 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1217,7 +1217,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 2, 2 ];
-  var expected = [ -1, -1, -1, 3, 3, 3, 2 ];
+  var expected = _.capsule.tools.longMake( [ -1, -1, -1, 3, 3, 3, 2 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1228,7 +1228,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 0.5, 0.5 ];
-  var expected = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ];
+  var expected = _.capsule.tools.longMake( [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1239,7 +1239,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var project = [ [ 1, 2, 3 ], 1, 1 ];
-  var expected = [ 1, 2, 3, 3, 4, 5, 1 ];
+  var expected = _.capsule.tools.longMake( [ 1, 2, 3, 3, 4, 5, 1 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1250,7 +1250,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0, 0 ];
-  var expected = [ 2, 3, 4, 2, 3, 4, 0 ];
+  var expected = _.capsule.tools.longMake( [ 2, 3, 4, 2, 3, 4, 0 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1261,7 +1261,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0, 1 ];
-  var expected = [ 2, 3, 4, 2, 3, 4, 2 ];
+  var expected = _.capsule.tools.longMake( [ 2, 3, 4, 2, 3, 4, 2 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1272,7 +1272,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 3 ];
   var project = [ [ 0, 0, 0 ], 1, 1 ];
-  var expected = [ 0, 0, 0, 2, 2, 2, 3 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0, 2, 2, 2, 3 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1283,7 +1283,7 @@ function project( test )
 
   var capsule = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 1 ];
   var project = [ [ 0, 0, 0, 0 ], 2, 4 ];
-  var expected = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 4 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 4 ] );
 
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
@@ -1292,7 +1292,7 @@ function project( test )
 
   var capsule = [ 0, 1, 1 ];
   var project = [ [ 1 ], 2, 1 ];
-  var expected = [ 0.5, 2.5, 1 ];
+  var expected = _.capsule.tools.longMake( [ 0.5, 2.5, 1 ] );
 
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
