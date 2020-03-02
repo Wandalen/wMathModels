@@ -6205,7 +6205,7 @@ function lineClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstLine = [ 5, 5, 2, 0, 1, 0 ];
-  var expected = [ 4, 4, 2 ];
+  var expected = _.box.tools.longMake( [ 4, 4, 2 ] );
 
   var gotLine = _.box.lineClosestPoint( srcBox, tstLine );
   test.identical( expected, gotLine );
@@ -6215,7 +6215,7 @@ function lineClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 4, 4, 1 ];
+  var expected = _.box.tools.longMake( [ 4, 4, 1 ] );
 
   var gotLine = _.box.lineClosestPoint( srcBox, tstLine, dstPoint );
   test.identical( expected, gotLine );
@@ -6225,8 +6225,8 @@ function lineClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 4, 4, 1 ] );
+  var dstPoint = _.box.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.box.tools.vectorAdapter.from( [ 4, 4, 1 ] );
 
   var gotLine = _.box.lineClosestPoint( srcBox, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
