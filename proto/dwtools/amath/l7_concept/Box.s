@@ -2580,7 +2580,7 @@ function planeDistance( srcBox, plane )
 
     let distance = Infinity;
     let d = 0;
-    for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ]  ; j++ )
+    for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ]  ; j++ )
     {
       let corner = c.colVectorGet( j );
       d = Math.abs( _.plane.pointDistance( plane, corner ) );
