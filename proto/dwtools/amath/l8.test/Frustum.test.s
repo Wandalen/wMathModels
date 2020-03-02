@@ -2071,7 +2071,7 @@ function convexPolygonClosestPoint( test )
     0,   0, 0.5, 0.5,
     0, 0.5, 0.5,   0
   ]);
-  var expected = [ 1, 1, 1 ];
+  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
 
   var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
   test.equivalent( closestPoint, expected );
@@ -2091,7 +2091,7 @@ function convexPolygonClosestPoint( test )
     0,   0, 0.5, 0.5,
     0, 0.5, 0.5,   0
   ]);
-  var expected = [ 1, 1, 1 ];
+  var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
 
   var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
   test.equivalent( closestPoint, expected );
@@ -2111,7 +2111,7 @@ function convexPolygonClosestPoint( test )
     1,   2,   1, 0.5,
     4,   4,   4,   4
   ]);
-  var expected = [ 0.75, 0.75, 3 ];
+  var expected = _.frustum.tools.longMake( [ 0.75, 0.75, 3 ] );
 
   var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
   test.equivalent( closestPoint, expected );
@@ -2131,7 +2131,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ 1, 0, 0 ];
+  var expected = _.frustum.tools.longMake( [ 1, 0, 0 ] );
 
   var closestPoint = _.frustum.convexPolygonClosestPoint( srcFrustum, polygon );
   test.equivalent( closestPoint, expected );
