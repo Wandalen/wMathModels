@@ -438,7 +438,7 @@ function pointDistance( polygon, point )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
 
   let pointView = this.tools.vectorAdapter.from( point );
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
 
   _.assert( dims[ 0 ] === pointView.length, 'Polygon and point must have same dimension' )
   debugger;
@@ -447,12 +447,12 @@ function pointDistance( polygon, point )
   return 0;
 
 
-  let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+  let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
   if( dims[ 0 ] === 3 )
   {
-    let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
+    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] ) );
     let i = 0;
-    while( this.tools.vectorAdapter.allIdentical( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -845,7 +845,7 @@ function boundingBoxGet( polygon, dstBox  )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   _.assert( this.is( polygon ) );
-  let dims = _.Matrix.dimsOf( polygon ) ;
+  let dims = _.Matrix.DimsOf( polygon ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
 
@@ -927,7 +927,7 @@ function capsuleIntersects( polygon, capsule )
   let radiusC = _.capsule.radiusGet( capsuleView );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimC === dims[ 0 ], 'Capsule and polygon must have the same dimension' );
 
   let segment = _.segment.fromPair( [ originC, endC ] );
@@ -979,7 +979,7 @@ function capsuleDistance( polygon, capsule )
   let radiusC = _.capsule.radiusGet( capsuleView );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimC === dims[ 0 ], 'Polygon and capsule must have the same dimension' );
 
   if( this.capsuleIntersects( polygon, capsuleView ) )
@@ -1032,11 +1032,11 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   let radiusC = _.capsule.radiusGet( capsuleView );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimC === dims[ 0 ], 'Polygon and capsule must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimC );
+  dstPoint = this.tools.longMake( dimC );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1047,7 +1047,7 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   if( this.capsuleIntersects( polygon, capsuleView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dimC ) );
+  let point = this.tools.vectorAdapter.from( this.tools.longMake( dimC ) );
   let segment = _.segment.fromPair( [ originC, endC ] );
 
   point = this.segmentClosestPoint( polygon, segment, point );
@@ -1102,13 +1102,13 @@ function frustumIntersects( polygon, frustum )
   _.assert( _.frustum.is( frustum ), 'frustumIntersects expects frustum' );
   debugger;
 
-  let dimsP = _.Matrix.dimsOf( polygon );
-  let dimsF = _.Matrix.dimsOf( frustum );
+  let dimsP = _.Matrix.DimsOf( polygon );
+  let dimsF = _.Matrix.DimsOf( frustum );
   _.assert( dimsP[ 0 ] === dimsF[ 0 ] - 1, 'Polygon and frustum must have the same dimension' );
 
   // Frustum corners
   let points = _.frustum.cornersGet( frustum );
-  let dimsFP = _.Matrix.dimsOf( points );
+  let dimsFP = _.Matrix.DimsOf( points );
   for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
   {
     let point = points.colVectorGet( i );
@@ -1254,12 +1254,12 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   _.assert( _.frustum.is( frustum ), 'frustumDistance expects frustum' );
 
-  let dimsP = _.Matrix.dimsOf( polygon ) ;
-  let dimsF = _.Matrix.dimsOf( frustum ) ;
+  let dimsP = _.Matrix.DimsOf( polygon ) ;
+  let dimsF = _.Matrix.DimsOf( frustum ) ;
   _.assert( dimsP[ 0 ] === dimsF[ 0 ] - 1, 'Polygon and frustum must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimsP[ 0 ] );
+  dstPoint = this.tools.longMake( dimsP[ 0 ] );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1273,11 +1273,11 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   return 0;
 
   let distance = Infinity;
-  let finalPoint = _.array.makeArrayOfLength( dimsP[ 0 ] );
+  let finalPoint = this.tools.longMake( dimsP[ 0 ] );
 
   //Frustum corners
   let fPoints = _.frustum.cornersGet( frustum );
-  let dimsFP = _.Matrix.dimsOf( fPoints );
+  let dimsFP = _.Matrix.DimsOf( fPoints );
 
   for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
   {
@@ -1348,7 +1348,7 @@ function lineIntersects( polygon, line )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
 
   let containOrigin = this.pointContains( polygon, lOrigin );
@@ -1374,11 +1374,11 @@ function lineIntersects( polygon, line )
 
   if( dims[ 0 ] > 2 )
   {
-    let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
-    let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] ) );
+    let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -1443,7 +1443,7 @@ function lineDistance( polygon, line )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
 
   if( this.lineIntersects( polygon, lineView ) )
@@ -1491,11 +1491,11 @@ function lineClosestPoint( polygon, line, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( lDim );
+  dstPoint = this.tools.longMake( lDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1506,7 +1506,7 @@ function lineClosestPoint( polygon, line, dstPoint )
   if( this.lineIntersects( polygon, lineView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( lDim ) );
+  let point = this.tools.vectorAdapter.from( this.tools.longMake( lDim ) );
 
   let dist = Infinity;
 
@@ -1573,7 +1573,7 @@ function planeIntersects( polygon, plane )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
 
   let bool = false;
@@ -1642,7 +1642,7 @@ function planeDistance( polygon, plane )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
 
   if( this.planeIntersects( polygon, planeView ) )
@@ -1689,11 +1689,11 @@ function planeClosestPoint( polygon, plane, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP );
+  dstPoint = this.tools.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1704,7 +1704,7 @@ function planeClosestPoint( polygon, plane, dstPoint )
   if( this.planeIntersects( polygon, planeView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dimP ) );
+  let point = this.tools.vectorAdapter.from( this.tools.longMake( dimP ) );
 
   let dist = Infinity;
 
@@ -1764,7 +1764,7 @@ function rayIntersects( polygon, ray )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
 
   let containOrigin = this.pointContains( polygon, sOrigin );
@@ -1786,11 +1786,11 @@ function rayIntersects( polygon, ray )
   }
   if( dims[ 0 ] > 2 )
   {
-    let normal = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) );
-    let plane = this.tools.vectorAdapter.from( _.array.makeArrayOfLengthZeroed( dims[ 0 ] + 1 ) );
+    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] ) );
+    let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, _.array.makeArrayOfLengthZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -1854,7 +1854,7 @@ function rayDistance( polygon, ray )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
 
   if( this.rayIntersects( polygon, rayView ) )
@@ -1901,11 +1901,11 @@ function rayClosestPoint( polygon, ray, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( sDim );
+  dstPoint = this.tools.longMake( sDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1916,7 +1916,7 @@ function rayClosestPoint( polygon, ray, dstPoint )
   if( this.rayIntersects( polygon, rayView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( sDim ) );
+  let point = this.tools.vectorAdapter.from( this.tools.longMake( sDim ) );
 
   let dist = Infinity;
 
@@ -1987,7 +1987,7 @@ function segmentContains( polygon, segment )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and segment must have the same dimension' );
 
   if( !this.pointContains( polygon, sOrigin ) )
@@ -2130,7 +2130,7 @@ function segmentDistance( polygon, segment )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and segment must have the same dimension' );
 
   if( this.segmentIntersects( polygon, segmentView ) )
@@ -2178,11 +2178,11 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and segment must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( sDim );
+  dstPoint = this.tools.longMake( sDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2193,7 +2193,7 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   if( this.segmentIntersects( polygon, segmentView ) )
   return 0;
 
-  let point = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( sDim ) );
+  let point = this.tools.vectorAdapter.from( this.tools.longMake( sDim ) );
 
   let dist = Infinity;
 
@@ -2270,7 +2270,7 @@ function sphereIntersects( polygon, sphere )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
 
   let distance = this.pointDistance( polygon, center );
@@ -2317,7 +2317,7 @@ function sphereDistance( polygon, sphere )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
 
   if( this.sphereIntersects( polygon, sphereView ) )
@@ -2365,11 +2365,11 @@ function sphereClosestPoint( polygon, sphere, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimS );
+  dstPoint = this.tools.longMake( dimS );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2380,7 +2380,7 @@ function sphereClosestPoint( polygon, sphere, dstPoint )
   if( this.sphereIntersects( polygon, sphereView ) )
   return 0;
 
-  let point = this.pointClosestPoint( polygon, center, this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dimS ) ) );
+  let point = this.pointClosestPoint( polygon, center, this.tools.vectorAdapter.from( this.tools.longMake( dimS ) ) );
 
 
   for( var i = 0; i < dstPointView.length; i++ )
@@ -2423,7 +2423,7 @@ function boundingSphereGet( polygon, dstSphere )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   _.assert( this.is( polygon ) );
-  let dims = _.Matrix.dimsOf( polygon ) ;
+  let dims = _.Matrix.DimsOf( polygon ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
 

@@ -319,7 +319,7 @@ function radiusSet( capsule, radius )
   _.assert( this.is( capsule ) );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.numberIs( radius ) );
-  _.assert( radius >= 0 );
+  // _.assert( radius >= 0 );
 
   let capsuleView = this.adapterFrom( capsule );
 
@@ -510,7 +510,7 @@ function getProjectionFactors( srcCapsule, projCapsule )
 
   _.assert( srcDim === projDim );
 
-  let project = _.array.makeArrayOfLength( 3 );
+  let project = this.tools.longMake/* _.array.makeArrayOfLength */( 3 );
   let projectView = this.tools.vectorAdapter.from( project );
 
   let srcCapsuleSegment = _.segment.fromPair( [ srcOrigin, srcEnd ] );
@@ -526,7 +526,7 @@ function getProjectionFactors( srcCapsule, projCapsule )
   return 0;
 
   let translation = this.tools.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
-  projectView.eSet( 0, translation.toArray() );
+  projectView.eSet( 0, translation.toLong() );
 
   let srcTop = this.tools.vectorAdapter.subVectors( srcEnd.clone(), srcCenter );
   let projTop = this.tools.vectorAdapter.subVectors( projEnd.clone(), projCenter );
@@ -705,7 +705,7 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcPoint.length );
+  dstPoint = this.tools.longMake( srcPoint.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -733,7 +733,7 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   }
   else
   {
-    let pointVector = this.tools.vectorAdapter.from( _.long.longMakeZeroed( dimension ));
+    let pointVector = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dimension ));
 
     let srcSegment = _.segment.fromPair( [ origin, end ] );
 
@@ -796,7 +796,7 @@ function boxContains( srcCapsule, srcBox )
   /* box corners */
   let c = _.box.cornersGet( boxView );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
 
@@ -1270,7 +1270,7 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   _.assert( srcDim === tstDim );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcDim );
+  dstPoint = this.tools.longMake( srcDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1329,7 +1329,7 @@ function convexPolygonContains( capsule, polygon )
 
   let capsuleView = this.adapterFrom( capsule );
   let dimC = this.dimGet( capsuleView );
-  let dimP =  _.Matrix.dimsOf( polygon );
+  let dimP =  _.Matrix.DimsOf( polygon );
 
   _.assert( dimC === dimP[ 0 ] );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1407,12 +1407,12 @@ function convexPolygonClosestPoint( capsule, polygon, dstPoint )
   let dimB = this.dimGet( capsuleView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -1474,11 +1474,11 @@ function frustumContains( capsule, frustum )
   _.assert( _.frustum.is( frustum ) );
   let capsuleView = this.adapterFrom( capsule );
   let dim = this.dimGet( capsuleView );
-  let dims = _.Matrix.dimsOf( frustum );
+  let dims = _.Matrix.DimsOf( frustum );
   _.assert( dim = dims[ 0 ], 'Frustum and capsule must have same dim');
 
   let fpoints = _.frustum.cornersGet( frustum );
-  let dimPoints = _.Matrix.dimsOf( fpoints );
+  let dimPoints = _.Matrix.DimsOf( fpoints );
   _.assert( _.matrixIs( fpoints ) );
 
   for( let i = 0 ; i < dimPoints[ 1 ] ; i += 1 )
@@ -1530,7 +1530,7 @@ function frustumIntersects( srcCapsule, srcFrustum )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -1593,7 +1593,7 @@ function frustumDistance( srcCapsule, srcFrustum )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -1656,12 +1656,12 @@ function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( rows - 1 );
+  dstPoint = this.tools.longMake( rows - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1845,7 +1845,7 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcLine.length / 2 );
+  dstPoint = this.tools.longMake( srcLine.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2030,7 +2030,7 @@ function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcPlane.length - 1 );
+  dstPoint = this.tools.longMake( srcPlane.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2218,7 +2218,7 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcRay.length / 2 );
+  dstPoint = this.tools.longMake( srcRay.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2452,7 +2452,7 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcSegment.length / 2 );
+  dstPoint = this.tools.longMake( srcSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2695,7 +2695,7 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
   _.assert( _.sphere.is( srcSphere ) );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcSphere.length - 1 );
+  dstPoint = this.tools.longMake( srcSphere.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2786,7 +2786,7 @@ function boundingSphereGet( dstSphere, srcCapsule )
   }
 
   // Radius of the sphere
-  _.sphere.radiusSet( dstSphereView, vector.distance( center, end )  + radiusCapsule );
+  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, end )  + radiusCapsule );
 
   return dstSphere;
 }

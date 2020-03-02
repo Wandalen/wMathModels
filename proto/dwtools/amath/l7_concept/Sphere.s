@@ -1530,7 +1530,7 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   let dimSphere = this.dimGet( sphereView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimSphere );
+  dstPoint = this.tools.longMake( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2010,7 +2010,7 @@ function lineClosestPoint( sphere, line, dstPoint )
   let dimSphere = this.dimGet( srcSphereView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimSphere );
+  dstPoint = this.tools.longMake( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2152,7 +2152,7 @@ function planeClosestPoint( sphere, plane, dstPoint )
   _.assert( dim === dimP );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dim );
+  dstPoint = this.tools.longMake( dim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2298,7 +2298,7 @@ function rayClosestPoint( sphere, ray, dstPoint )
   let dimSphere = this.dimGet( srcSphereView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimSphere );
+  dstPoint = this.tools.longMake( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2442,7 +2442,7 @@ function segmentClosestPoint( sphere, segment, dstPoint )
   let dimSphere = this.dimGet( srcSphereView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimSphere );
+  dstPoint = this.tools.longMake( dimSphere );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2670,7 +2670,7 @@ function sphereClosestPoint( srcSphere, tstSphere, dstPoint )
   // throw _.err( 'not tested' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcDim );
+  dstPoint = this.tools.longMake( srcDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );

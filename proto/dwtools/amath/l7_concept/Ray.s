@@ -183,7 +183,7 @@ function fromPair( pair )
   _.assert( pair.length === 2, 'Expects two points' );
   _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
 
-  let result = this.tools.vectorAdapter.from( _.long.longMake( pair[ 0 ].length * 2 ) );
+  let result = this.tools.vectorAdapter.from( this.tools.longMake( pair[ 0 ].length * 2 ) );
   let pair0 = this.tools.vectorAdapter.from( pair[ 0 ] );
   let pair1 = this.tools.vectorAdapter.from( pair[ 1 ] );
 
@@ -717,8 +717,8 @@ function rayIntersectionFactors( r1, r2 )
 
     result = this.tools.vectorAdapter.from( x.base );
 
-    let point1 = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
-    let point2 = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dOrigin.length ) );
+    let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
+    let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
 
     for( var j = 0; j < dOrigin.length; j++ )
     {
@@ -1436,7 +1436,7 @@ function boundingBoxGet( dstBox, srcRay )
 
   _.assert( dimRay === dimB );
 
-  let endPoint = _.long.longMake( dimB );
+  let endPoint = this.tools.longMake( dimB );
 
   for( let i = 0; i < dimB; i++ )
   {
@@ -1524,7 +1524,7 @@ function capsuleClosestPoint( ray, capsule, dstPoint )
   let dimRay = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimRay );
+  dstPoint = this.tools.longMake( dimRay );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1618,7 +1618,7 @@ function convexPolygonClosestPoint( ray, polygon, dstPoint )
   let dimR = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimR );
+  dstPoint = this.tools.longMake( dimR );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1636,7 +1636,7 @@ function convexPolygonClosestPoint( ray, polygon, dstPoint )
   {
     let polygonPoint = _.convexPolygon.rayClosestPoint( polygon, rayView );
 
-    let rayPoint = this.pointClosestPoint( rayView, polygonPoint, this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dimR ) ) ) ;
+    let rayPoint = this.pointClosestPoint( rayView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimR ) ) ) ;
 
     for( let i = 0; i < dimR; i++ )
     {
@@ -1805,7 +1805,7 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
   let cols = dimFrustum[ 1 ];
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcFrustum.length / 2 );
+  dstPoint = this.tools.longMake( srcFrustum.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1896,7 +1896,7 @@ function lineIntersectionPoint( ray, line, dstPoint )
   let dimR = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimR );
+  dstPoint = this.tools.longMake( dimR );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2010,7 +2010,7 @@ function lineClosestPoint( srcRay, tstLine, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( tstLine.length / 2 );
+  dstPoint = this.tools.longMake( tstLine.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2173,7 +2173,7 @@ function planeIntersectionPoint( ray, plane, dstPoint )
   let dimR = this.dimGet( rayView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimR );
+  dstPoint = this.tools.longMake( dimR );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2282,7 +2282,7 @@ function planeClosestPoint( srcRay, srcPlane, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcPlane.length - 1 );
+  dstPoint = this.tools.longMake( srcPlane.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2467,7 +2467,7 @@ function rayClosestPoint( srcRay, tstRay, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( tstRay.length / 2 );
+  dstPoint = this.tools.longMake( tstRay.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2586,7 +2586,7 @@ function segmentIntersectionPoint( srcRay, srcSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( srcSegment.length / 2 );
+  dstPoint = this.tools.longMake( srcSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2739,7 +2739,7 @@ function segmentClosestPoint( srcRay, tstSegment, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( tstSegment.length / 2 );
+  dstPoint = this.tools.longMake( tstSegment.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -2948,7 +2948,7 @@ function sphereClosestPoint( srcRay, srcSphere, dstPoint )
   _.assert( _.sphere.is( srcSphere ) );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcSphere.length - 1 );
+  dstPoint = this.tools.longMake( srcSphere.length - 1 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );

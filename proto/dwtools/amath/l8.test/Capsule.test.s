@@ -782,8 +782,8 @@ function radiusSet( test )
 
   var capsule = [ 0, 0, 1, 1, 0 ];
   var srcRadius = 2;
-  var expected =  [ 0, 0, 1, 1, 2 ] ;
-  expected = _.vectorAdapter.from(expected);
+  var expected =  _.capsule.tools.longMake( [ 0, 0, 1, 1, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, srcRadius );
   test.identical( gotCapsule, expected );
@@ -795,8 +795,8 @@ function radiusSet( test )
 
   var capsule = [ 0, 1, 0 ];
   var radius = 2;
-  var expected = [ 0, 1, 2 ] ;
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, 1, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -805,8 +805,8 @@ function radiusSet( test )
 
   var capsule = [ 0, 0, 1, 1, 2 ];
   var radius = 3;
-  var expected = [ 0, 0, 1, 1, 3 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, 0, 1, 1, 3 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -815,8 +815,8 @@ function radiusSet( test )
 
   var capsule = [ 0, - 1, - 2, 1, 1, 1, 2 ];
   var radius = 4;
-  var expected = [ 0, - 1, - 2, 1, 1, 1, 4 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, - 1, - 2, 1, 1, 1, 4 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -825,8 +825,8 @@ function radiusSet( test )
 
   var capsule = [ 0, - 1, - 2, 2, 2, 2, 2, 2, 0 ];
   var radius = 5;
-  var expected =  [ 0, - 1, - 2, 2, 2, 2, 2, 2, 5 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, - 1, - 2, 2, 2, 2, 2, 2, 5 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -835,8 +835,8 @@ function radiusSet( test )
 
   var capsule = [ 1, 2, - 3 ];
   var radius = - 2;
-  var expected = [ 1, 2, - 2 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 1, 2, - 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -845,8 +845,8 @@ function radiusSet( test )
 
   var capsule = [ 1, 2, 3 ];
   var radius = NaN;
-  var expected = [ 1, 2, NaN ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 1, 2, NaN ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -855,8 +855,8 @@ function radiusSet( test )
 
   var capsule = [ NaN, NaN, 0 ];
   var radius = 2;
-  var expected = [ NaN, NaN, 2 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ NaN, NaN, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -869,8 +869,8 @@ function radiusSet( test )
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  var expected = [ 0, 2, 2 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, 2, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -886,8 +886,8 @@ function radiusSet( test )
   test.equivalent( radiusOld, radiusSph );
 
   var radius = 2;
-  var expected = [ 0, 0, 1, 1, 2 ];
-  expected = _.vectorAdapter.from(expected);
+  var expected = _.capsule.tools.longMake( [ 0, 0, 1, 1, 2 ] );
+  expected = _.capsule.tools.vectorAdapter.from(expected);
 
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
@@ -924,7 +924,7 @@ function expand( test )
   // var expected = true;
   var dstCapsule = [ 0, 0, 1, 1, 2 ];
   var expand = [ 0, 2, 1 ];
-  var expected = [ 0, - 2, 1, 3, 3 ];
+  var expected = _.capsule.tools.longMake( [ 0, - 2, 1, 3, 3 ] );
 
   var gotCapsule = _.capsule.expand( dstCapsule, expand );
   test.identical( gotCapsule, expected );
@@ -942,7 +942,7 @@ function expand( test )
 
   var capsule = null;
   var expand = [ 1, 2, 3, 1 ];
-  var expected = [ - 1, - 2, - 3, 1, 2, 3, 1 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 2, - 3, 1, 2, 3, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -953,7 +953,7 @@ function expand( test )
 
   var capsule = null;
   var expand = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -964,7 +964,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 1 ];
   var expand = [ 0, 0, 3, 0 ];
-  var expected = [ 0,  0, - 3, 0, 0, 3, 1 ];
+  var expected = _.capsule.tools.longMake( [ 0,  0, - 3, 0, 0, 3, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -975,7 +975,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var expand = [ 1, 3, 1, 1 ];
-  var expected = [ - 1, - 3, - 1, 3, 5, 3, 2 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 3, - 1, 3, 5, 3, 2 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -984,7 +984,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
   var expand = 1;
-  var expected = [ - 1, - 1, - 1, 3, 3, 3, 1 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 1, - 1, 3, 3, 3, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -995,7 +995,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
   var expand = [ 1, 1, 1, 1 ];
-  var expected = [ - 1, - 1, - 1, 3, 3, 3, 1 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 1, - 1, 3, 3, 3, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -1006,7 +1006,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var expand = [  0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 2, 2, 2, 1 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0, 2, 2, 2, 1 ] );
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
@@ -1017,7 +1017,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 3, 3, 3, 4 ];
   var expand = - 1;
-  var expected = [ 1, 1, 1, 2, 2, 2, 3 ];
+  var expected = _.capsule.tools.longMake( [ 1, 1, 1, 2, 2, 2, 3 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1028,7 +1028,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 3, 3, 3, 4 ];
   var expand = [ - 1, - 1, - 1, - 1 ];
-  var expected = [ 1, 1, 1, 2, 2, 2, 3 ];
+  var expected = _.capsule.tools.longMake( [ 1, 1, 1, 2, 2, 2, 3 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1040,19 +1040,19 @@ function expand( test )
 
   var capsule = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766, 0.5 ];
   var expand = [ -0.100, 0, 0.100, 0.2 ];
-  var expected = [  0.050,  0.002, -0.338, 0.094, 0.766, 0.866, 0.7 ];
+  var expected = _.capsule.tools.longMake( [  0.050,  0.002, -0.338, 0.094, 0.766, 0.866, 0.7 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.equivalent( gotCapsule, expected );
 
-  var gotBool = _.capsule.pointContains( capsule, point );
-  test.identical( gotBool, expected );
+  // var gotBool = _.capsule.pointContains( capsule, point );
+  // test.identical( gotBool, expected );
 
   test.case = 'Null capsule of four dimensions expanded'; /* */
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var expand = [ 1, 2, 3, 4, 5 ];
-  var expected = [ - 1, - 2, - 3, - 4, 1, 2, 3, 4, 5 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 2, - 3, - 4, 1, 2, 3, 4, 5 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1064,7 +1064,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ];
   var expand = [ 1, 2, 3 , 4, 5, 6, 7, 1 ];
-  var expected = [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7, 2 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 2, - 3, - 4, - 5, - 6, - 7, 1, 2, 3, 4, 5, 6, 7, 2 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1076,7 +1076,7 @@ function expand( test )
 
   var capsule = [ 0, 0, 0 ];
   var expand = 1;
-  var expected = [ - 1, 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ - 1, 1, 1 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1088,7 +1088,7 @@ function expand( test )
 
   var capsule = null;
   var expand =  4 ;
-  var expected = [ - 4, -4, -4, 4, 4, 4, 4 ];
+  var expected = _.capsule.tools.longMake( [ - 4, -4, -4, 4, 4, 4, 4 ] );
 
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
@@ -1099,55 +1099,55 @@ function expand( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( 'capsule', 'expand' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 1 ] );
   });
 
   test.case = 'empty arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ ], [ ] );
   });
 
   test.case = 'Wrong expand array dimension (capsule 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 0, 2, 1 ] );
   });
 
   test.case = 'Wrong expand array dimension (capsule 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 1 ] );
   });
 
   test.case = 'Wrong expand array dimension (capsule 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 1 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong expand array dimension (null capsule vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( null, [ 0, 1, 1 ] );
   });
@@ -1166,7 +1166,7 @@ function project( test )
   // var expected = 0;
   var dstCapsule = [ 0, 0, 1, 1, 1 ];
   var project = [ [ 1, 1 ], 2, 2 ];
-  var expected = [ 0.5, 0.5, 2.5, 2.5, 2 ];
+  var expected = _.capsule.tools.longMake( [ 0.5, 0.5, 2.5, 2.5, 2 ] );
 
   var gotCapsule = _.capsule.project( dstCapsule, project ); /* xxx : ? */
   test.identical( gotCapsule, expected );
@@ -1184,7 +1184,7 @@ function project( test )
 
   var capsule = null;
   var project = [ [ 1, 0, 0 ], 1, 2 ];
-  var expected = [ 1, 0, 0, 1, 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 1, 0, 0, 1, 0, 0, 0 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1195,7 +1195,7 @@ function project( test )
 
   var capsule = null;
   var project = [ [ 0, 0, 0 ], 0, 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1206,7 +1206,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 1, 0, 0, 2 ];
   var project = [ [ 0, 1, 0 ], 2, 3 ];
-  var expected = [ -0.5, 1, 0, 1.5, 1, 0, 6 ];
+  var expected = _.capsule.tools.longMake( [ -0.5, 1, 0, 1.5, 1, 0, 6 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1217,7 +1217,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 2, 2 ];
-  var expected = [ -1, -1, -1, 3, 3, 3, 2 ];
+  var expected = _.capsule.tools.longMake( [ -1, -1, -1, 3, 3, 3, 2 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1228,7 +1228,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 0.5, 0.5 ];
-  var expected = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ];
+  var expected = _.capsule.tools.longMake( [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1239,7 +1239,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var project = [ [ 1, 2, 3 ], 1, 1 ];
-  var expected = [ 1, 2, 3, 3, 4, 5, 1 ];
+  var expected = _.capsule.tools.longMake( [ 1, 2, 3, 3, 4, 5, 1 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1250,7 +1250,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0, 0 ];
-  var expected = [ 2, 3, 4, 2, 3, 4, 0 ];
+  var expected = _.capsule.tools.longMake( [ 2, 3, 4, 2, 3, 4, 0 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1261,7 +1261,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0, 1 ];
-  var expected = [ 2, 3, 4, 2, 3, 4, 2 ];
+  var expected = _.capsule.tools.longMake( [ 2, 3, 4, 2, 3, 4, 2 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1272,7 +1272,7 @@ function project( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 3 ];
   var project = [ [ 0, 0, 0 ], 1, 1 ];
-  var expected = [ 0, 0, 0, 2, 2, 2, 3 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0, 2, 2, 2, 3 ] );
 
   // var gotDistance = _.capsule.pointDistance( capsule, point );
   // test.identical( gotDistance, expected );
@@ -1283,7 +1283,7 @@ function project( test )
 
   var capsule = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 1 ];
   var project = [ [ 0, 0, 0, 0 ], 2, 4 ];
-  var expected = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 4 ];
+  var expected = _.capsule.tools.longMake( [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 4 ] );
 
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
@@ -1292,7 +1292,7 @@ function project( test )
 
   var capsule = [ 0, 1, 1 ];
   var project = [ [ 1 ], 2, 1 ];
-  var expected = [ 0.5, 2.5, 1 ];
+  var expected = _.capsule.tools.longMake( [ 0.5, 2.5, 1 ] );
 
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
@@ -1305,67 +1305,67 @@ function project( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( 'capsule', 'project' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0 ], [ [ 0 ], 1, 0 ], [ [ 1 ], 0, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1, 2 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0 ], [ [ 0 ], 2, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (null capsule vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( null, [ [ 0, 1 ], 1, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (project has less than 3 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (project has more than 3 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2, 3 ] );
   });
 
   test.case = 'Empty arrays'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ ], [ [  ],  ] );
   });
@@ -1381,7 +1381,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 1, 1, 1 ];
   var projCapsule = [ 0.5, 0.5, 2.5, 2.5, 2 ];
-  var expected = [ [ 1, 1 ], 2, 2 ];
+  var expected = _.capsule.tools.longMake( [ [ 1, 1 ], 2, 2 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1396,7 +1396,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 1, 0, 0, 2 ];
   var projCapsule = [ -0.5, 1, 0, 1.5, 1, 0, 6 ];
-  var expected = [ [ 0, 1, 0 ], 2, 3 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 1, 0 ], 2, 3 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1405,7 +1405,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ -1, -1, -1, 3, 3, 3, 2 ];
-  var expected = [ [ 0, 0, 0 ], 2, 2 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0, 0 ], 2, 2 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1414,7 +1414,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ];
-  var expected = [ [ 0, 0, 0 ], 0.5, 0.5 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0, 0 ], 0.5, 0.5 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1423,7 +1423,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 1, 2, 3, 3, 4, 5, 1 ];
-  var expected = [ [ 1, 2, 3 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 1, 2, 3 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1432,7 +1432,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 2, 3, 4, 2, 3, 4, 0 ];
-  var expected = [ [ 1, 2, 3 ], 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ [ 1, 2, 3 ], 0, 0 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1441,7 +1441,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 2, 3, 4, 2, 3, 4, 1 ];
-  var expected = [ [ 1, 2, 3 ], 0, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 1, 2, 3 ], 0, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1450,7 +1450,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 3 ];
   var projCapsule = [ 0, 0, 0, 2, 2, 2, 3 ];
-  var expected = [ [ 0, 0, 0 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0, 0 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1459,7 +1459,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 1 ];
   var projCapsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 4 ];
-  var expected = [ [ 0, 0, 0, 0 ], 2, 4 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0, 0, 0 ], 2, 4 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1468,7 +1468,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 1, 1 ];
   var projCapsule = [ 0.5, 2.5, 1 ];
-  var expected = [ [ 1 ], 2, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 1 ], 2, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1515,7 +1515,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 1, 1, 1 ];
   var projCapsule = [ 0, 0, 1, 1, 1 ];
-  var expected = [ [ 0, 0 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1527,7 +1527,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 3, 4, 3, 4, 0 ];
   var projCapsule = [ 3, 4, 3, 4, 0 ];
-  var expected = [ [ 0, 0 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1539,7 +1539,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 3, 4, 3, 4, 0 ];
   var projCapsule = [ 5, 5, 5, 5, 0 ];
-  var expected = [ [ 2, 1 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ 2, 1 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1551,7 +1551,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 3, 4, 6, 7, 1 ];
   var projCapsule = [ 5, 5, 5, 5, 0 ];
-  var expected = [ [ 0.5, -0.5 ], 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ [ 0.5, -0.5 ], 0, 0 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1563,7 +1563,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 3, 4, 6, 7, 2 ];
   var projCapsule = [ -1, 8, 2, 11, 2 ];
-  var expected = [ [ -4, 4 ], 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ [ -4, 4 ], 1, 1 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1575,7 +1575,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 4, 4, 2 ];
   var projCapsule = [ 1, 1, 3, 3, 1 ];
-  var expected = [ [ 0, 0 ], 0.5, 0.5 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 0.5, 0.5 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1587,7 +1587,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 4, 4, 1 ];
   var projCapsule = [ -1, -1, 5, 5, 3/2 ];
-  var expected = [ [ 0, 0 ], 3/2, 3/2 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 3/2, 3/2 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.equivalent( gotFactors, expected );
@@ -1599,7 +1599,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 4, 4, 4 ];
   var projCapsule = [ -1, -1, 5, 5, 1 ];
-  var expected = [ [ 0, 0 ], 3/2, 0.25 ];
+  var expected = _.capsule.tools.longMake( [ [ 0, 0 ], 3/2, 0.25 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.equivalent( gotFactors, expected );
@@ -1611,7 +1611,7 @@ function getProjectionFactors( test )
 
   var dstCapsule = [ 0, 0, 4, 4, 2 ];
   var projCapsule = [ -7, -3, 9, 13, 4 ];
-  var expected = [ [ -1, 3 ], 4, 2 ];;
+  var expected = _.capsule.tools.longMake( [ [ -1, 3 ], 4, 2 ] );
 
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
@@ -1625,73 +1625,73 @@ function getProjectionFactors( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors();
   });
 
   test.case = 'Wrong type of argument - string'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( 'capsule', 'projCapsule' );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( null, [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 1, 2, 3, 1 ], null );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( undefined, [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 1, 2, 3, 1 ], undefined );
   });
 
   test.case = 'Empty arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [], [] );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 3D vs capsule 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 1 ], [ 1, 1, 1, 1, 0, 1, 0, 2, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 3D vs capsule 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (capsule 2D vs capsule 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 1 ], [ 0, 2, 1 ] );
   });
@@ -1983,7 +1983,7 @@ function pointClosestPoint( test )
 
   var capsule = [  - 1, - 1 , 1, 1, 1 ];
   var point = [ 0, 0 ];
-  var expected = [ 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -1998,7 +1998,7 @@ function pointClosestPoint( test )
 
   var capsule = null;
   var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2007,7 +2007,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2016,7 +2016,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 1, 2, 3, 0, 0, 0, 0 ];
   var point = [ 3, 4, 5 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.capsule.tools.longMake( [ 1, 2, 3 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2025,7 +2025,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var point = [ 1, 1, 1 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.capsule.tools.longMake( [ 1, 1, 1 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2034,7 +2034,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var point = [ 1.2, 0.9, 1.3 ];
-  var expected = [ 1.2, 0.9, 1.3 ];
+  var expected = _.capsule.tools.longMake( [ 1.2, 0.9, 1.3 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2043,7 +2043,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var point = [ 0, 0, 4 ];
-  var expected = [ 0, 0, 3 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 3 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2052,7 +2052,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var point = [ - 2, - 2, - 2 ];
-  var expected = [ - 1 /Math.sqrt( 3 ), - 1 /Math.sqrt( 3 ), - 1 /Math.sqrt( 3 ) ];
+  var expected = _.capsule.tools.longMake( [ - 1 /Math.sqrt( 3 ), - 1 /Math.sqrt( 3 ), - 1 /Math.sqrt( 3 ) ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2061,7 +2061,7 @@ function pointClosestPoint( test )
 
   var capsule = [ - 1, - 1, - 1, - 1, 3, 3, 3, 3, 1 ];
   var point = [ 0, 0, 0, 2 ];
-  var expected = [ 0.21132486540518708, 0.21132486540518708, 0.21132486540518708, 1.3660254037844388 ];
+  var expected = _.capsule.tools.longMake( [ 0.21132486540518708, 0.21132486540518708, 0.21132486540518708, 1.3660254037844388 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2070,7 +2070,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 2, 1 ];
   var point = [ 1 ];
-  var expected = [ 1 ];
+  var expected = _.capsule.tools.longMake( [ 1 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2079,7 +2079,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 2, 1 ];
   var point = [ - 3 ];
-  var expected = [ - 1 ];
+  var expected = _.capsule.tools.longMake( [ - 1 ] );
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2557,7 +2557,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
-  var expected = [ 0, 0.35355339059327373, 3.646446609406726 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0.35355339059327373, 3.646446609406726 ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -2566,7 +2566,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
-  var expected = [ - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ) ];
+  var expected = _.capsule.tools.longMake( [ - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ), - 1 / Math.sqrt( 3 ) ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -2575,7 +2575,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.1 ];
   var box = [ -1, -1, -1, 0.5, 0.5, - 0.3 ];
-  var expected = [ 0, 0, - 0.1 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, - 0.1 ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -2584,7 +2584,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var box = [ 6, 6, 8, 6, 9, 10 ];
-  var expected = [ 2.485071250072666, 2.485071250072666, 2.727606875108999 ];
+  var expected = _.capsule.tools.longMake( [ 2.485071250072666, 2.485071250072666, 2.727606875108999 ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -2593,7 +2593,7 @@ function boxClosestPoint( test )
 
   var capsule = [ 0, 0, 2, 10, 1 ];
   var box = [ 6, 7, 10, 8 ];
-  var expected = [ 2.7498114449216895, 8.650037711015663 ];
+  var expected = _.capsule.tools.longMake( [ 2.7498114449216895, 8.650037711015663 ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
@@ -3210,7 +3210,7 @@ function capsuleClosestPoint( test )
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var tstCapsule = [ 0, 1, 1, 3, 7, 3, 1 ];
-  var expected = [ 0, 0.15811388300841897, 3.525658350974743 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0.15811388300841897, 3.525658350974743 ] );
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
@@ -3219,7 +3219,7 @@ function capsuleClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
   var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
-  var expected = [ - 0.4330127018922194,  - 0.4330127018922194,  - 0.4330127018922194 ];
+  var expected = _.capsule.tools.longMake( [ - 0.4330127018922194,  - 0.4330127018922194,  - 0.4330127018922194 ] );
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
@@ -3237,7 +3237,7 @@ function capsuleClosestPoint( test )
 
   var capsule = [ 0, 0, 2, -2, 0.3 ];
   var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
-  var expected = [ 0.13416407864998736, 0.2683281572999747 ];
+  var expected = _.capsule.tools.longMake( [ 0.13416407864998736, 0.2683281572999747 ] );
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
@@ -3480,7 +3480,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ -1, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ -1, 0, 0 ] );
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( expected, gotPoint );
@@ -3508,7 +3508,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ 1, -0.5, -0.5 ];
+  var expected = _.capsule.tools.longMake( [ 1, -0.5, -0.5 ] );
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( expected, gotPoint );
@@ -3522,7 +3522,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ -2, 1.5, 0 ];
+  var expected = _.capsule.tools.longMake( [ -2, 1.5, 0 ] );
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( expected, gotPoint );
@@ -3536,7 +3536,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1,
     0,   0,   0,   0
   ]);
-  var expected = [ 1, 1, 0 ];
+  var expected = _.capsule.tools.longMake( [ 1, 1, 0 ] );
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( expected, gotPoint );
@@ -3550,7 +3550,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ 0, 1.5, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 1.5, 0 ] );
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( expected, gotPoint );
@@ -3564,7 +3564,7 @@ function convexPolygonClosestPoint( test )
     0,   0,   1,   1,
     0,   0,   0,   0
   ]);
-  var expected = [ 1, 2, 0 ];
+  var expected = _.capsule.tools.longMake( [ 1, 2, 0 ] );
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( expected, gotPoint );
@@ -3577,7 +3577,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   1,   0,
     0,   0,   1,   1
   ]);
-  var expected = [ 0, 1.5 ];
+  var expected = _.capsule.tools.longMake( [ 0, 1.5 ] );
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( expected, gotPoint );
@@ -3592,7 +3592,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   1,   0
   ]);
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 2, 2, 2 ];
+  var expected = _.capsule.tools.longMake( [ 2, 2, 2 ] );
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon, dstPoint );
   test.identical( expected, gotPoint );
@@ -3607,8 +3607,8 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
-  var expected = _.vectorAdapter.from( [ 0, 2, 0 ] );
+  var dstPoint = _.capsule.tools.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 2, 0 ] );
 
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -4306,7 +4306,7 @@ function frustumClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 4, 4, 4, 5, 5, 5, Math.sqrt( 3 ) ];
-  var expected = [ 3, 3, 3 ];
+  var expected = _.capsule.tools.longMake( [ 3, 3, 3 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.equivalent( gotClosestPoint, expected );
@@ -4321,7 +4321,7 @@ function frustumClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.2, 1.2, 1.2, 5, 5, 5, Math.sqrt( 0.03 ) ];
-  var expected = [ 1.1, 1.1, 1.1 ];
+  var expected = _.capsule.tools.longMake( [ 1.1, 1.1, 1.1 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.equivalent( gotClosestPoint, expected );
@@ -4351,7 +4351,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = null;
-  var expected = [ 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -4366,7 +4366,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = [ - 2, 0.3, 0, -1, 0.3, 0, 0 ];
-  var expected = [ -1, 0.3, 0 ];
+  var expected = _.capsule.tools.longMake( [ -1, 0.3, 0 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -4381,7 +4381,7 @@ function frustumClosestPoint( test )
     - 3, 2, - 3, 2, 2, - 3
   ]);
   var capsule = [ -2, 0.3, 0, 1, 0, 0.1, 0.1 ];
-  var expected = [ 1.0340799088295498, 0.06815981765909972, 0.16475182677614472 ];
+  var expected = _.capsule.tools.longMake( [ 1.0340799088295498, 0.06815981765909972, 0.16475182677614472 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -4396,8 +4396,8 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = [ 0, 2, 2, 0, 1, 2, 0.5 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0.22360679774997896, 1, 1.55278640 ] );
+  var dstPoint = _.capsule.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0.22360679774997896, 1, 1.55278640 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum, dstPoint );
   test.equivalent( gotClosestPoint, expected );
@@ -5737,7 +5737,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
   var tstRay = [ 3, 0, 1, 0, 0, 1 ];
-  var expected = [ 1, 0, 1 ];
+  var expected = _.capsule.tools.longMake( [ 1, 0, 1 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5746,7 +5746,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 7, 1, 0, 7, 8, 1 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 0, 6, 1 ];
+  var expected = _.capsule.tools.longMake( [ 0, 6, 1 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5755,7 +5755,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, 0, 10, 0, 0, 2 ];
   var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = [ 3, 1.9798989873223332, 0.282842712474619 ];
+  var expected = _.capsule.tools.longMake( [ 3, 1.9798989873223332, 0.282842712474619 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5764,7 +5764,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.capsule.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5773,7 +5773,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
   var tstRay = [ 0, 0, 0, -1, 0, 0 ];
-  var expected = [ 2.609433267057528, 6.088677623134233, 0.8698110890191761 ];
+  var expected = _.capsule.tools.longMake( [ 2.609433267057528, 6.088677623134233, 0.8698110890191761 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5782,7 +5782,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, 0, 9, 9, 9, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
-  var expected = [ 3.5123633167045747, 4.438183416477126, 3.0494532668182988 ];
+  var expected = _.capsule.tools.longMake( [ 3.5123633167045747, 4.438183416477126, 3.0494532668182988 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.equivalent( gotClosestPoint, expected );
@@ -5809,7 +5809,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
-  var expected = [ 0, - 1 ];
+  var expected = _.capsule.tools.longMake( [ 0, - 1 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5827,7 +5827,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ - 3, - 4, -3, 4, 1 ];
   var tstRay = [ 0, 0, 2, 1 ];
-  var expected = [ -2.1055728090000843, -1.0527864045000421 ];
+  var expected = _.capsule.tools.longMake( [ -2.1055728090000843, -1.0527864045000421 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5845,7 +5845,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
-  var expected = [ 0.5, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0.5, 0, 0 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5854,7 +5854,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = [ 3, 7, 1, 4, 7, 1, 1 ];
   var tstRay = [ 3, 7, 3, 1, 0, 0 ];
-  var expected = [ 3, 7, 2 ];
+  var expected = _.capsule.tools.longMake( [ 3, 7, 2 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5863,7 +5863,7 @@ function rayClosestPoint( test )
 
   var srcCapsule = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.capsule.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
