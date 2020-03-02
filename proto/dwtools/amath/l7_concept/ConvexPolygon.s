@@ -438,7 +438,7 @@ function pointDistance( polygon, point )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
 
   let pointView = this.tools.vectorAdapter.from( point );
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
 
   _.assert( dims[ 0 ] === pointView.length, 'Polygon and point must have same dimension' )
   debugger;
@@ -845,7 +845,7 @@ function boundingBoxGet( polygon, dstBox  )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   _.assert( this.is( polygon ) );
-  let dims = _.Matrix.dimsOf( polygon ) ;
+  let dims = _.Matrix.DimsOf( polygon ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
 
@@ -927,7 +927,7 @@ function capsuleIntersects( polygon, capsule )
   let radiusC = _.capsule.radiusGet( capsuleView );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimC === dims[ 0 ], 'Capsule and polygon must have the same dimension' );
 
   let segment = _.segment.fromPair( [ originC, endC ] );
@@ -979,7 +979,7 @@ function capsuleDistance( polygon, capsule )
   let radiusC = _.capsule.radiusGet( capsuleView );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimC === dims[ 0 ], 'Polygon and capsule must have the same dimension' );
 
   if( this.capsuleIntersects( polygon, capsuleView ) )
@@ -1032,7 +1032,7 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   let radiusC = _.capsule.radiusGet( capsuleView );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimC === dims[ 0 ], 'Polygon and capsule must have the same dimension' );
 
   if( arguments.length === 2 )
@@ -1102,13 +1102,13 @@ function frustumIntersects( polygon, frustum )
   _.assert( _.frustum.is( frustum ), 'frustumIntersects expects frustum' );
   debugger;
 
-  let dimsP = _.Matrix.dimsOf( polygon );
-  let dimsF = _.Matrix.dimsOf( frustum );
+  let dimsP = _.Matrix.DimsOf( polygon );
+  let dimsF = _.Matrix.DimsOf( frustum );
   _.assert( dimsP[ 0 ] === dimsF[ 0 ] - 1, 'Polygon and frustum must have the same dimension' );
 
   // Frustum corners
   let points = _.frustum.cornersGet( frustum );
-  let dimsFP = _.Matrix.dimsOf( points );
+  let dimsFP = _.Matrix.DimsOf( points );
   for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
   {
     let point = points.colVectorGet( i );
@@ -1254,8 +1254,8 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   _.assert( _.frustum.is( frustum ), 'frustumDistance expects frustum' );
 
-  let dimsP = _.Matrix.dimsOf( polygon ) ;
-  let dimsF = _.Matrix.dimsOf( frustum ) ;
+  let dimsP = _.Matrix.DimsOf( polygon ) ;
+  let dimsF = _.Matrix.DimsOf( frustum ) ;
   _.assert( dimsP[ 0 ] === dimsF[ 0 ] - 1, 'Polygon and frustum must have the same dimension' );
 
   if( arguments.length === 2 )
@@ -1277,7 +1277,7 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
 
   //Frustum corners
   let fPoints = _.frustum.cornersGet( frustum );
-  let dimsFP = _.Matrix.dimsOf( fPoints );
+  let dimsFP = _.Matrix.DimsOf( fPoints );
 
   for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
   {
@@ -1348,7 +1348,7 @@ function lineIntersects( polygon, line )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
 
   let containOrigin = this.pointContains( polygon, lOrigin );
@@ -1443,7 +1443,7 @@ function lineDistance( polygon, line )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
 
   if( this.lineIntersects( polygon, lineView ) )
@@ -1491,7 +1491,7 @@ function lineClosestPoint( polygon, line, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( lDim === dims[ 0 ], 'Polygon and line must have the same dimension' );
 
   if( arguments.length === 2 )
@@ -1573,7 +1573,7 @@ function planeIntersects( polygon, plane )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
 
   let bool = false;
@@ -1642,7 +1642,7 @@ function planeDistance( polygon, plane )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
 
   if( this.planeIntersects( polygon, planeView ) )
@@ -1689,7 +1689,7 @@ function planeClosestPoint( polygon, plane, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimP === dims[ 0 ], 'Polygon and plane must have the same dimension' );
 
   if( arguments.length === 2 )
@@ -1764,7 +1764,7 @@ function rayIntersects( polygon, ray )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
 
   let containOrigin = this.pointContains( polygon, sOrigin );
@@ -1854,7 +1854,7 @@ function rayDistance( polygon, ray )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
 
   if( this.rayIntersects( polygon, rayView ) )
@@ -1901,7 +1901,7 @@ function rayClosestPoint( polygon, ray, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and ray must have the same dimension' );
 
   if( arguments.length === 2 )
@@ -1987,7 +1987,7 @@ function segmentContains( polygon, segment )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and segment must have the same dimension' );
 
   if( !this.pointContains( polygon, sOrigin ) )
@@ -2130,7 +2130,7 @@ function segmentDistance( polygon, segment )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and segment must have the same dimension' );
 
   if( this.segmentIntersects( polygon, segmentView ) )
@@ -2178,7 +2178,7 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( sDim === dims[ 0 ], 'Polygon and segment must have the same dimension' );
 
   if( arguments.length === 2 )
@@ -2270,7 +2270,7 @@ function sphereIntersects( polygon, sphere )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
 
   let distance = this.pointDistance( polygon, center );
@@ -2317,7 +2317,7 @@ function sphereDistance( polygon, sphere )
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
 
   if( this.sphereIntersects( polygon, sphereView ) )
@@ -2365,7 +2365,7 @@ function sphereClosestPoint( polygon, sphere, dstPoint )
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
 
-  let dims = _.Matrix.dimsOf( polygon );
+  let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimS === dims[ 0 ], 'Polygon and sphere must have the same dimension' );
 
   if( arguments.length === 2 )
@@ -2423,7 +2423,7 @@ function boundingSphereGet( polygon, dstSphere )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   _.assert( this.is( polygon ) );
-  let dims = _.Matrix.dimsOf( polygon ) ;
+  let dims = _.Matrix.DimsOf( polygon ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
 
