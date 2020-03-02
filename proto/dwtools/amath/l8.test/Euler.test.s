@@ -361,11 +361,11 @@ function fromQuat( test )
     // console.log( test.case );
     // _.diagnosticVariate
     // ({
-    //   routine : variateRoutine, 
-    //   test : vtest, 
-    //   expected : appliedQuat1, 
-    //   variates : _.quat.fromEuler.variates, 
-    //   accuracy : 1e-4, 
+    //   routine : variateRoutine,
+    //   test : vtest,
+    //   expected : appliedQuat1,
+    //   variates : _.quat.fromEuler.variates,
+    //   accuracy : 1e-4,
     // });
 
   }
@@ -624,9 +624,9 @@ function fromMatrix( test )
   var euler3 = _.euler.fromMatrix( [ 0, 0, 0, 0, 1, 2 ], m2 ); /* x */
 
 // m1
-// 0.593, -0.634, 0.496, 
-// 0.647, 0.742, 0.175, 
-// -0.479, 0.217, 0.850, 
+// 0.593, -0.634, 0.496,
+// 0.647, 0.742, 0.175,
+// -0.479, 0.217, 0.850,
 
   var quat2 = _.quat.fromEuler( null, euler1 );
   var quat3 = _.quat.fromEuler( null, euler2 );
@@ -877,9 +877,9 @@ function toMatrix( test )
 
   var m2 = _.Matrix.make([ 3, 3 ]).copy
   ([
-      0.8503,  0.1754,  0.4962, 
-      0.2171,  0.7420, -0.6343, 
-     -0.4794,  0.6471,  0.5928, 
+      0.8503,  0.1754,  0.4962,
+      0.2171,  0.7420, -0.6343,
+     -0.4794,  0.6471,  0.5928,
   ]);
 
   logger.log( 'm2', m2 );
@@ -1596,8 +1596,8 @@ function fromMatrix2( test )
 
   var srcMatrix = _.Matrix.make([ 3, 3 ]).copy
   ([
-    0.7701511383, -0.4207354784, 0.479425549507, 
-    0.6224468350, 0.65995573997, - 0.420735478401, 
+    0.7701511383, -0.4207354784, 0.479425549507,
+    0.6224468350, 0.65995573997, - 0.420735478401,
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
@@ -1610,8 +1610,8 @@ function fromMatrix2( test )
 
   var oldMatrix = _.Matrix.make([ 3, 3 ]).copy
   ([
-    0.7701511383, -0.4207354784, 0.479425549507, 
-    0.6224468350, 0.65995573997, - 0.420735478401, 
+    0.7701511383, -0.4207354784, 0.479425549507,
+    0.6224468350, 0.65995573997, - 0.420735478401,
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
   test.equivalent( srcMatrix, oldMatrix );
@@ -1620,8 +1620,8 @@ function fromMatrix2( test )
 
   var srcMatrix = _.Matrix.make([ 3, 3 ]).copy
   ([
-    0.7701511383, -0.4207354784, 0.479425549507, 
-    0.6224468350, 0.65995573997, - 0.420735478401, 
+    0.7701511383, -0.4207354784, 0.479425549507,
+    0.6224468350, 0.65995573997, - 0.420735478401,
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
@@ -1635,8 +1635,8 @@ function fromMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.7701511383, -0.479425549507, 0.4207354784, 
-    0.5990789532, 0.7701511383, - 0.21902415156, 
+    0.7701511383, -0.479425549507, 0.4207354784,
+    0.5990789532, 0.7701511383, - 0.21902415156,
     - 0.21902415156, 0.4207354784, 0.8803465366
   ]);
 
@@ -1651,8 +1651,8 @@ function fromMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.6675710082, 0.095001988, 0.738460242, 
-    0.4207354784, 0.770151138, - 0.479425549, 
+    0.6675710082, 0.095001988, 0.738460242,
+    0.4207354784, 0.770151138, - 0.479425549,
     - 0.6142724156, 0.6307470202, 0.474159896
   ]);
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
@@ -1666,8 +1666,8 @@ function fromMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.5235056281089, 0.286113649, 0.802546501, 
-    0.2474039644002, 0.8503006696, - 0.464521348, 
+    0.5235056281089, 0.286113649, 0.802546501,
+    0.2474039644002, 0.8503006696, - 0.464521348,
     - 0.8153116703033, 0.441732704, 0.374351501
   ]);
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
@@ -1681,8 +1681,8 @@ function fromMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.7504922747, - 0.1336729228, 0.64721935987, 
-    0.607998669, 0.5235056281, - 0.5968915224, 
+    0.7504922747, - 0.1336729228, 0.64721935987,
+    0.607998669, 0.5235056281, - 0.5968915224,
     - 0.259034723, 0.8414709568, 0.47415989637
   ]);
   var dstEuler = [ 0, 0, 0, 2, 0, 1 ]
@@ -1696,8 +1696,8 @@ function fromMatrix2( test )
 
   var srcMatrix =  _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.4741598963737, - 0.6142724156, 0.6307470202, 
-    0.7384602427, 0.6675710082, 0.095001988, 
+    0.4741598963737, - 0.6142724156, 0.6307470202,
+    0.7384602427, 0.6675710082, 0.095001988,
     - 0.4794255495, 0.4207354784, 0.770151138
   ]);
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
@@ -1711,8 +1711,8 @@ function fromMatrix2( test )
 
   var srcMatrix = _.Matrix.make([ 3, 3 ]).copy
   ([
-    0.7701511383, -0.4207354784, 0.479425549507, 
-    0.6224468350, 0.65995573997, - 0.420735478401, 
+    0.7701511383, -0.4207354784, 0.479425549507,
+    0.6224468350, 0.65995573997, - 0.420735478401,
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
   var dstEuler = null;
@@ -1727,8 +1727,8 @@ function fromMatrix2( test )
 
   var srcMatrix = _.Matrix.make([ 3, 3 ]).copy
   ([
-    0.7701511383, -0.4207354784, 0.479425549507, 
-    0.6224468350, 0.65995573997, - 0.420735478401, 
+    0.7701511383, -0.4207354784, 0.479425549507,
+    0.6224468350, 0.65995573997, - 0.420735478401,
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
   var dstEuler = undefined;
@@ -1911,8 +1911,8 @@ function toMatrix2( test )
   var oldEuler = srcEuler.slice();
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.7701511383, -0.4207354784, 0.479425549507, 
-    0.6224468350, 0.65995573997, - 0.420735478401, 
+    0.7701511383, -0.4207354784, 0.479425549507,
+    0.6224468350, 0.65995573997, - 0.420735478401,
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
 
@@ -1927,8 +1927,8 @@ function toMatrix2( test )
   var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.7701511383, -0.4207354784, 0.479425549507, 
-    0.6224468350, 0.65995573997, - 0.420735478401, 
+    0.7701511383, -0.4207354784, 0.479425549507,
+    0.6224468350, 0.65995573997, - 0.420735478401,
     - 0.13938128948, 0.622446835, 0.7701511383
   ]);
 
@@ -1941,8 +1941,8 @@ function toMatrix2( test )
   var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.7701511383, -0.479425549507, 0.4207354784, 
-    0.5990789532, 0.7701511383, - 0.21902415156, 
+    0.7701511383, -0.479425549507, 0.4207354784,
+    0.5990789532, 0.7701511383, - 0.21902415156,
     - 0.21902415156, 0.4207354784, 0.8803465366
   ]);
 
@@ -1955,8 +1955,8 @@ function toMatrix2( test )
   var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.6675710082, 0.095001988, 0.738460242, 
-    0.4207354784, 0.770151138, - 0.479425549, 
+    0.6675710082, 0.095001988, 0.738460242,
+    0.4207354784, 0.770151138, - 0.479425549,
     - 0.6142724156, 0.6307470202, 0.474159896
   ]);
 
@@ -1969,8 +1969,8 @@ function toMatrix2( test )
   var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.5235056281089, 0.286113649, 0.802546501, 
-    0.2474039644002, 0.8503006696, - 0.464521348, 
+    0.5235056281089, 0.286113649, 0.802546501,
+    0.2474039644002, 0.8503006696, - 0.464521348,
     - 0.8153116703033, 0.441732704, 0.374351501
   ]);
 
@@ -1983,8 +1983,8 @@ function toMatrix2( test )
   var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.7504922747, - 0.1336729228, 0.64721935987, 
-    0.607998669, 0.5235056281, - 0.5968915224, 
+    0.7504922747, - 0.1336729228, 0.64721935987,
+    0.607998669, 0.5235056281, - 0.5968915224,
     - 0.259034723, 0.8414709568, 0.47415989637
   ]);
 
@@ -1997,8 +1997,8 @@ function toMatrix2( test )
   var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
   var expected =  _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.4741598963737, - 0.6142724156, 0.6307470202, 
-    0.7384602427, 0.6675710082, 0.095001988, 
+    0.4741598963737, - 0.6142724156, 0.6307470202,
+    0.7384602427, 0.6675710082, 0.095001988,
     - 0.4794255495, 0.4207354784, 0.770151138
   ]);
 
@@ -2011,8 +2011,8 @@ function toMatrix2( test )
   var dstMatrix = null;
   var expected =  _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.4741598963737, - 0.6142724156, 0.6307470202, 
-    0.7384602427, 0.6675710082, 0.095001988, 
+    0.4741598963737, - 0.6142724156, 0.6307470202,
+    0.7384602427, 0.6675710082, 0.095001988,
     - 0.4794255495, 0.4207354784, 0.770151138
   ]);
 
@@ -2026,8 +2026,8 @@ function toMatrix2( test )
   var dstMatrix = undefined;
   var expected =  _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.4741598963737, - 0.6142724156, 0.6307470202, 
-    0.7384602427, 0.6675710082, 0.095001988, 
+    0.4741598963737, - 0.6142724156, 0.6307470202,
+    0.7384602427, 0.6675710082, 0.095001988,
     - 0.4794255495, 0.4207354784, 0.770151138
   ]);
 
@@ -2039,15 +2039,15 @@ function toMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.877582550048, 0.229848861694, 0.42073550820, 
-    0.229848861694, 0.568439781665, - 0.789965629577, 
+    0.877582550048, 0.229848861694, 0.42073550820,
+    0.229848861694, 0.568439781665, - 0.789965629577,
     - 0.42073550820, 0.78996562957, 0.44602233171
   ]);
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
   var expected =  _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.877582550048, 0.229848861694, 0.42073550820, 
-    0.229848861694, 0.568439781665, - 0.789965629577, 
+    0.877582550048, 0.229848861694, 0.42073550820,
+    0.229848861694, 0.568439781665, - 0.789965629577,
     - 0.42073550820, 0.78996562957, 0.44602233171
   ]);
 
@@ -2060,15 +2060,15 @@ function toMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.877582550048, - 0.42073550820, 0.229848861694, 
-    0.42073550820, 0.44602233171, - 0.789965629577, 
+    0.877582550048, - 0.42073550820, 0.229848861694,
+    0.42073550820, 0.44602233171, - 0.789965629577,
     0.229848861694, 0.78996562957, 0.56843978166
   ]);
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.877582550048, - 0.42073550820, 0.229848861694, 
-    0.42073550820, 0.44602233171, - 0.789965629577, 
+    0.877582550048, - 0.42073550820, 0.229848861694,
+    0.42073550820, 0.44602233171, - 0.789965629577,
     0.229848861694, 0.78996562957, 0.56843978166
   ]);
 
@@ -2081,15 +2081,15 @@ function toMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.56843978166, 0.229848861694, 0.789965629577, 
-    0.229848861694, 0.877582550048, - 0.42073550820, 
+    0.56843978166, 0.229848861694, 0.789965629577,
+    0.229848861694, 0.877582550048, - 0.42073550820,
     - 0.789965629577, 0.42073550820, 0.44602233171
   ]);
   var dstEuler =  [ 0, 0, 0, 1, 0, 1 ];
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.56843978166, 0.229848861694, 0.789965629577, 
-    0.229848861694, 0.877582550048, - 0.42073550820, 
+    0.56843978166, 0.229848861694, 0.789965629577,
+    0.229848861694, 0.877582550048, - 0.42073550820,
     - 0.789965629577, 0.42073550820, 0.44602233171
   ]);
 
@@ -2102,15 +2102,15 @@ function toMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.44602233171, - 0.42073550820, 0.789965629577, 
-    0.42073550820, 0.877582550048, 0.229848861694, 
+    0.44602233171, - 0.42073550820, 0.789965629577,
+    0.42073550820, 0.877582550048, 0.229848861694,
     - 0.789965629577, 0.229848861694, 0.56843978166
   ]);
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.44602233171, - 0.42073550820, 0.789965629577, 
-    0.42073550820, 0.877582550048, 0.229848861694, 
+    0.44602233171, - 0.42073550820, 0.789965629577,
+    0.42073550820, 0.877582550048, 0.229848861694,
     - 0.789965629577, 0.229848861694, 0.56843978166
   ]);
 
@@ -2123,15 +2123,15 @@ function toMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.568439841270, - 0.78996562957, 0.22984884679, 
-    0.789965629577, 0.44602236151, - 0.4207354784, 
+    0.568439841270, - 0.78996562957, 0.22984884679,
+    0.789965629577, 0.44602236151, - 0.4207354784,
     0.229848867931, 0.4207354784, 0.877582550048
   ]);
   var dstEuler = [ 0, 0, 0, 2, 0, 2 ] ;
   var expected = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.568439841270, - 0.78996562957, 0.22984884679, 
-    0.789965629577, 0.44602236151, - 0.4207354784, 
+    0.568439841270, - 0.78996562957, 0.22984884679,
+    0.789965629577, 0.44602236151, - 0.4207354784,
     0.229848867931, 0.4207354784, 0.877582550048
   ]);
 
@@ -2144,15 +2144,15 @@ function toMatrix2( test )
 
   var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.44602233171, - 0.789965629577, 0.42073550820, 
-    0.789965629577, 0.56843978166, 0.229848861694, 
+    0.44602233171, - 0.789965629577, 0.42073550820,
+    0.789965629577, 0.56843978166, 0.229848861694,
     - 0.42073550820, 0.229848861694, 0.877582550048
   ]);
   var dstEuler =  [ 0, 0, 0, 2, 1, 2 ];
   var expected =  _.Matrix.make( [ 3, 3 ] ).copy
   ([
-    0.44602233171, - 0.789965629577, 0.42073550820, 
-    0.789965629577, 0.56843978166, 0.229848861694, 
+    0.44602233171, - 0.789965629577, 0.42073550820,
+    0.789965629577, 0.56843978166, 0.229848861694,
     - 0.42073550820, 0.229848861694, 0.877582550048
   ]);
 
@@ -2503,11 +2503,11 @@ function eulerToQuatToEulerToQuatFast( test )
 
   var o =
   {
-    deltas, 
-    angles, 
-    anglesLocked, 
-    onEach, 
-    dst : euler1, 
+    deltas,
+    angles,
+    anglesLocked,
+    onEach,
+    dst : euler1,
   }
 
   this.eachAngle( o );
@@ -2560,11 +2560,11 @@ function eulerToQuatToEulerToQuatSlow( test )
 
   var o =
   {
-    deltas, 
-    angles, 
-    anglesLocked, 
-    onEach, 
-    dst : euler1, 
+    deltas,
+    angles,
+    anglesLocked,
+    onEach,
+    dst : euler1,
   }
 
   this.eachAngle( o );
@@ -2616,14 +2616,14 @@ function eulerToQuatToMatrixToQuatSlow( test )
 
   var o =
   {
-    //representations, 
-    //angles, 
-    //quadrants, 
-    // quadrantsLocked, 
-    deltas, 
-    anglesLocked, 
-    onEach, 
-    dst : euler1, 
+    //representations,
+    //angles,
+    //quadrants,
+    // quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
+    dst : euler1,
   }
 
   this.eachAngle( o );
@@ -2682,14 +2682,14 @@ function eulerToQuatToMatrixToEulerSlow( test )
 
   var o =
   {
-    // representations, 
-    angles, 
-    // quadrants, 
-    // quadrantsLocked, 
-    deltas, 
-    anglesLocked, 
-    onEach, 
-    dst : euler1, 
+    // representations,
+    angles,
+    // quadrants,
+    // quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
+    dst : euler1,
   }
 
   var fails = 0;
@@ -2759,14 +2759,14 @@ function eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast( test )
 
   var o =
   {
-    //representations, 
-    angles, 
-    // quadrants, 
-    // quadrantsLocked, 
-    deltas, 
-    anglesLocked, 
-    onEach, 
-    dst : euler1, 
+    //representations,
+    angles,
+    // quadrants,
+    // quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
+    dst : euler1,
   }
 
   this.eachAngle( o );
@@ -2826,14 +2826,14 @@ function eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow( test )
 
   var o =
   {
-    representations, 
-    // angles, 
-    // quadrants, 
-    // quadrantsLocked, 
-    deltas, 
-    anglesLocked, 
-    onEach, 
-    dst : euler1, 
+    representations,
+    // angles,
+    // quadrants,
+    // quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
+    dst : euler1,
   }
 
   this.eachAngle( o );
@@ -3245,14 +3245,14 @@ function representFullCoverageFast( test )
 
   var o =
   {
-    // representations, 
-    angles, 
-    // quadrants, 
-    quadrantsLocked, 
-    deltas, 
-    anglesLocked, 
-    onEach, 
-    dst : euler1, 
+    // representations,
+    angles,
+    // quadrants,
+    quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
+    dst : euler1,
   }
 
   this.eachAngle( o );
@@ -3302,8 +3302,8 @@ function representFullCoverageSlow( test )
   var positiveResult = [];
   var negativeResult = [];
   var eq = false;
-  var representationsFull = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz', 
-    [ 0, 1, 2 ], [ 0, 2, 1 ], [ 1, 0, 2 ], [ 1, 2, 0 ], [ 2, 0, 1 ], [ 2, 1, 0 ], 
+  var representationsFull = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz',
+    [ 0, 1, 2 ], [ 0, 2, 1 ], [ 1, 0, 2 ], [ 1, 2, 0 ], [ 2, 0, 1 ], [ 2, 1, 0 ],
     [ 0, 1, 0], [ 0, 2, 0 ], [ 1, 0, 1], [ 1, 2, 1 ], [ 2, 0, 2 ], [ 2, 1, 2 ] ];
 
   // var representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
@@ -3319,14 +3319,14 @@ function representFullCoverageSlow( test )
 
   var o =
   {
-    // representations, 
-    angles, 
-    // quadrants, 
-    quadrantsLocked, 
-    deltas, 
-    anglesLocked, 
-    onEach, 
-    dst : euler1, 
+    // representations,
+    angles,
+    // quadrants,
+    quadrantsLocked,
+    deltas,
+    anglesLocked,
+    onEach,
+    dst : euler1,
   }
 
   this.eachAngle( o );
@@ -3712,15 +3712,15 @@ function eachAngle( o )
 
 eachAngle.defaults =
 {
-  representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ], 
-  angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ], 
-  anglesLocked : [ 0, Math.PI / 3 ], 
-  quadrants : [ 0, 1, 2, 3 ], 
-  quadrantsLocked : [ 0 ], 
-  deltas : null, 
-  deltasLocked : [ 0 ], 
-  onEach : null, 
-  dst : null, 
+  representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
+  angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
+  anglesLocked : [ 0, Math.PI / 3 ],
+  quadrants : [ 0, 1, 2, 3 ],
+  quadrantsLocked : [ 0 ],
+  deltas : null,
+  deltasLocked : [ 0 ],
+  onEach : null,
+  dst : null,
 }
 
 //
@@ -3740,66 +3740,66 @@ eachAngle.defaults =
 var Self =
 {
 
-  name : 'Tools.Math.Euler', 
-  silencing : 1, 
-  enabled : 1, 
-  // routine : 'eulerToQuatToMatrixToEulerSlow', 
+  name : 'Tools.Math.Euler',
+  silencing : 1,
+  enabled : 1,
+  // routine : 'eulerToQuatToMatrixToEulerSlow',
 
   context :
   {
-    eachAngle, 
-  }, 
+    eachAngle,
+  },
 
   tests :
   {
 
-    is, 
-    isZero, 
+    is,
+    isZero,
 
-    make, 
-    makeZero, 
+    make,
+    makeZero,
 
-    zero, 
+    zero,
 
-    //fromAxisAndAngle, 
-    fromQuat, 
-    fromMatrix, 
-    toMatrix, 
+    //fromAxisAndAngle,
+    fromQuat,
+    fromMatrix,
+    toMatrix,
 
-    fromQuat2, 
-    toQuat2, 
-    eulerToQuatToEulerGimbalLock, 
+    fromQuat2,
+    toQuat2,
+    eulerToQuatToEulerGimbalLock,
 
-    fromMatrix2, 
-    toMatrix2, 
-    eulerToRotationMatrixToEulerGimbalLock, 
+    fromMatrix2,
+    toMatrix2,
+    eulerToRotationMatrixToEulerGimbalLock,
 
     /* takes 6 seconds */
-    eulerToQuatToEulerToQuatFast, 
+    eulerToQuatToEulerToQuatFast,
     /* takes 88 seconds - accuracy [ 1e-10, 1e-1 ] */
-    eulerToQuatToEulerToQuatSlow, 
+    eulerToQuatToEulerToQuatSlow,
 
     /* takes 140 seconds */
-    eulerToQuatToMatrixToQuatSlow, 
+    eulerToQuatToMatrixToQuatSlow,
 
     /* takes 50 seconds - accuracy is 1E-5 */
-    eulerToQuatToMatrixToEulerSlow, 
+    eulerToQuatToMatrixToEulerSlow,
 
     /* takes 8 seconds */
-    eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast, 
+    eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast,
     /* takes 94.4 seconds */
-    eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow, 
+    eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow,
 
-    represent, 
+    represent,
 
     /* takes 16 seconds */
-    representFullCoverageFast, 
+    representFullCoverageFast,
 
     /* takes 117 seconds */
-    representFullCoverageSlow, 
+    representFullCoverageSlow,
 
-    isGimbalLock, 
-  }, 
+    isGimbalLock,
+  },
 
 }
 

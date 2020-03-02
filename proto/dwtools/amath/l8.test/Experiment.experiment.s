@@ -29,7 +29,7 @@ function execute()
   var arctan = Math.atan;
   var tan = Math.tan;
   var pow = Math.pow;
-  var sqrt = _.sqrt;
+  var sqrt = _.math.sqrt;
 
   debugger;
 
