@@ -1407,7 +1407,7 @@ function convexPolygonClosestPoint( capsule, polygon, dstPoint )
   let dimB = this.dimGet( capsuleView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
