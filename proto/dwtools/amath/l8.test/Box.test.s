@@ -4582,7 +4582,7 @@ function boxClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
   var tstBox = [ 1, 1, 1, 2, 2, 2 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.box.tools.longMake( [ 1, 1, 1 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
   test.identical( expected, gotBox );
@@ -4591,7 +4591,7 @@ function boxClosestPoint( test )
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 0 ];
   var tstBox = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = [ -2, -2, -2 ];
+  var expected = _.box.tools.longMake( [ -2, -2, -2 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
   test.identical( expected, gotBox );
@@ -4600,7 +4600,7 @@ function boxClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstBox = [ 1, 1, 5, 3, 3, 6 ];
-  var expected = [ 3, 3, 5 ];
+  var expected = _.box.tools.longMake( [ 3, 3, 5 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
   test.identical( expected, gotBox );
@@ -4609,7 +4609,7 @@ function boxClosestPoint( test )
 
   var srcBox = [ 1, 1, 5, 3, 3, 6 ];
   var tstBox = [ 0, 0, 0, 4, 4, 4 ];
-  var expected = [ 3, 3, 4 ];
+  var expected = _.box.tools.longMake( [ 3, 3, 4 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox );
   test.identical( expected, gotBox );
@@ -4619,7 +4619,7 @@ function boxClosestPoint( test )
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstBox = [ -1, -2, -3, 3, 2, -1 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 3, 2, -1 ];
+  var expected = _.box.tools.longMake( [ 3, 2, -1 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
   test.identical( expected, gotBox );
@@ -4629,8 +4629,8 @@ function boxClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 4, 4, 4 ];
   var tstBox = [ -1, -2, -3, 3, 2, -1 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 3, 2, -1 ] );
+  var dstPoint = _.box.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.box.tools.vectorAdapter.from( [ 3, 2, -1 ] );
 
   var gotBox = _.box.boxClosestPoint( srcBox, tstBox, dstPoint );
   test.identical( expected, gotBox );

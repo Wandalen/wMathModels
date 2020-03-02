@@ -1604,7 +1604,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   _.assert( tstDim === srcDim );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( tstDim );
+  dstPoint = this.tools/* _.long */.longMake( tstDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1616,7 +1616,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  if( boxIntersects( srcBox , tstBox ) === true )
+  if( this.boxIntersects( srcBox , tstBox ) === true )
     return 0;
   else{
 
