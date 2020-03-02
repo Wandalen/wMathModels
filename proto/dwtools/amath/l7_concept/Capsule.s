@@ -948,7 +948,7 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcBox.length / 2 );
+  dstPoint = this.tools/* .long */.longMake( srcBox.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );

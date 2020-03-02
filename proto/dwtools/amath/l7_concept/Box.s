@@ -899,7 +899,7 @@ function cornersGet( box )
   let max = this.cornerRightGet( boxView );
 
   let corners = _.Matrix.makeZero( [ dim, Math.pow( 2, dim ) ] );
-  let dims = _.Matrix.dimsOf( corners) ;
+  let dims = _.Matrix.DimsOf( corners) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
 
@@ -1037,7 +1037,7 @@ function project( box, project )
   let newCenter = this.tools.vectorAdapter.addVectors( center, projVector );
 
   debugger;
-  let newSizes = this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dim ) );
+  let newSizes = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( dim ) );
   for( let i = 0; i < dim; i++ )
   {
     newSizes.eSet( i, sizes.eGet( i ) * projectView.eGet( i + 1 ) );
@@ -1091,12 +1091,12 @@ function getProjectionFactors( srcBox, projBox )
 
   _.assert( srcDim === projDim );
 
-  let project = _.array.makeArrayOfLength( srcDim + 1 );
+  let project = this.tools.longMake/* _.array.makeArrayOfLength */( srcDim + 1 );
   let projectView = this.tools.vectorAdapter.from( project );
 
   let translation = this.tools.vectorAdapter.subVectors( projCenter, srcCenter );
 
-  projectView.eSet( 0, translation.toArray() );
+  projectView.eSet( 0, translation.toLong() );
 
   debugger;
   for( let i = 0; i < srcDim; i++ )
@@ -1537,7 +1537,7 @@ function boxDistance( srcBox , tstBox )
   let c1 =  this.cornersGet( tstBoxView );
 
   let distance = Infinity;
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let srcCorner = c.colVectorGet( j );
     let tstCorner = c1.colVectorGet( j );
@@ -1556,7 +1556,7 @@ function boxDistance( srcBox , tstBox )
 
   }
 
-  if( boxIntersects( srcBox , tstBox ) === true )
+  if( this.boxIntersects( srcBox , tstBox ) === true )
     return 0;
   else
     return distance;
@@ -1604,7 +1604,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   _.assert( tstDim === srcDim );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( tstDim );
+  dstPoint = this.tools/* _.long */.longMake( tstDim );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1616,7 +1616,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  if( boxIntersects( srcBox , tstBox ) === true )
+  if( this.boxIntersects( srcBox , tstBox ) === true )
     return 0;
   else{
 
@@ -1821,7 +1821,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools/* _.long */.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1886,7 +1886,7 @@ function convexPolygonContains( box, polygon )
 
   let boxView = this.adapterFrom( box );
   let dimB = this.dimGet( boxView );
-  let dimP =  _.Matrix.dimsOf( polygon );
+  let dimP =  _.Matrix.DimsOf( polygon );
 
   _.assert( dimB === dimP[ 0 ] );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1964,12 +1964,12 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
   let dimB = this.dimGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimB );
+  dstPoint = this.tools.longMake/* _.array.makeArrayOfLength */( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -2033,11 +2033,11 @@ function frustumContains( box, frustum )
   let dim = this.dimGet( boxView );
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
-  let dims = _.Matrix.dimsOf( frustum );
+  let dims = _.Matrix.DimsOf( frustum );
   _.assert( dim = dims[ 0 ], 'Frustum and box must have same dim');
 
   let fpoints = _.frustum.cornersGet( frustum );
-  let dimsPoints = _.Matrix.dimsOf( fpoints );
+  let dimsPoints = _.Matrix.DimsOf( fpoints );
   _.assert( _.matrixIs( fpoints ) );
 
   for( let i = 0 ; i < dimsPoints[ 1 ] ; i += 1 )
@@ -2146,7 +2146,7 @@ function frustumDistance( box, frustum )
   let c = this.cornersGet( boxView );
 
   let distance = Infinity;
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let proj = _.frustum.pointClosestPoint( frustum, corner );
@@ -2204,7 +2204,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2226,7 +2226,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
 
     let distance = Infinity;
     let point = [ 0, 0, 0 ];
-    for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+    for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       let d = this.tools.avector.distance( corner, frustumPoint ); /* qqq : why slice??? */
@@ -2366,7 +2366,7 @@ function lineClosestPoint( box, line, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2462,7 +2462,7 @@ function rayClosestPoint( box, ray, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2580,7 +2580,7 @@ function planeDistance( srcBox, plane )
 
     let distance = Infinity;
     let d = 0;
-    for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ]  ; j++ )
+    for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ]  ; j++ )
     {
       let corner = c.colVectorGet( j );
       d = Math.abs( _.plane.pointDistance( plane, corner ) );
@@ -2635,7 +2635,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   let dimP = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2654,8 +2654,8 @@ function planeClosestPoint( srcBox, plane, dstPoint )
 
     let distance = Infinity;
     let d = 0;
-    let point = _.long.longMake( dimB );
-    for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+    let point = this.tools.longMake( dimB );
+    for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       d = Math.abs( _.plane.pointDistance( plane, corner ) );
@@ -2844,7 +2844,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   let max = this.cornerRightGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -3058,7 +3058,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   let dimB = this.dimGet( boxView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools/* _.long */.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -3189,7 +3189,7 @@ function boundingSphereGet( dstSphere, srcBox )
   }
 
   // Radius of the sphere
-  _.sphere.radiusSet( dstSphereView, vector.distance( center, max ) );
+  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, max ) );
 
   return dstSphere;
 }

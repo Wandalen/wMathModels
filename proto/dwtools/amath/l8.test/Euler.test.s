@@ -2533,7 +2533,7 @@ function eulerToQuatToEulerToQuatFast( test )
 
 eulerToQuatToEulerToQuatFast.timeOut = 20000;
 eulerToQuatToEulerToQuatFast.usingSourceCode = 0;
-eulerToQuatToEulerToQuatFast.rapidity = 3;
+eulerToQuatToEulerToQuatFast.rapidity = -1;
 
 //
 
@@ -2590,7 +2590,7 @@ function eulerToQuatToEulerToQuatSlow( test )
 
 eulerToQuatToEulerToQuatSlow.timeOut = 120000;
 eulerToQuatToEulerToQuatSlow.usingSourceCode = 0;
-eulerToQuatToEulerToQuatSlow.rapidity = 2;
+eulerToQuatToEulerToQuatSlow.rapidity = -2;
 eulerToQuatToEulerToQuatSlow.accuracy = [ 1e-10, 1e-1 ];
 
 //
@@ -2650,7 +2650,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
 
 eulerToQuatToMatrixToQuatSlow.timeOut = 100000;
 eulerToQuatToMatrixToQuatSlow.usingSourceCode = 0;
-eulerToQuatToMatrixToQuatSlow.rapidity = 2;
+eulerToQuatToMatrixToQuatSlow.rapidity = -2;
 eulerToQuatToEulerToQuatSlow.accuracy = [ 1e-10, 1e-1 ];
 
 //
@@ -2730,7 +2730,7 @@ function eulerToQuatToMatrixToEulerSlow( test )
 
 eulerToQuatToMatrixToEulerSlow.timeOut = 180000;
 eulerToQuatToMatrixToEulerSlow.usingSourceCode = 0;
-eulerToQuatToMatrixToEulerSlow.rapidity = 2;
+eulerToQuatToMatrixToEulerSlow.rapidity = -2;
 //eulerToQuatToMatrixToEulerSlow.accuracy = [ 1e-7, 1e-1 ];
 
 //
@@ -2795,7 +2795,7 @@ function eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast( test )
 
 eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.timeOut = 60000;
 eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.usingSourceCode = 0;
-eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.rapidity = 3;
+eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.rapidity = -1;
 eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatFast.accuracy = [ 1e-10, 1e-1 ];
 
 //
@@ -2862,7 +2862,7 @@ function eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow( test )
 
 eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow.timeOut = 100000;
 eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow.usingSourceCode = 0;
-eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow.rapidity = 2;
+eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow.rapidity = -2;
 eulerToQuatToAxisAndAngleToEulerToAxisAndAngleToQuatSlow.accuracy = [ 1e-10, 1e-1 ];
 
 //
@@ -3284,7 +3284,7 @@ function representFullCoverageFast( test )
 
 representFullCoverageFast.timeOut = 100000;
 representFullCoverageFast.usingSourceCode = 0;
-representFullCoverageFast.rapidity = 3;
+representFullCoverageFast.rapidity = -1;
 
 //
 
@@ -3358,7 +3358,7 @@ function representFullCoverageSlow( test )
 
 representFullCoverageSlow.timeOut = 150000;
 representFullCoverageSlow.usingSourceCode = 0;
-representFullCoverageSlow.rapidity = 2;
+representFullCoverageSlow.rapidity = -2;
 
 //
 

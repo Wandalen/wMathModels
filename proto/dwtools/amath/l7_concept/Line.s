@@ -1265,7 +1265,7 @@ function boxIntersects( srcLine, srcBox )
   /* box corners */
   let c = _.box.cornersGet( boxView );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let projection = this.pointClosestPoint( srcLineView, corner );
@@ -1360,7 +1360,7 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( srcBox.length / 2 );
+  dstPoint = this.tools.longMake( srcBox.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1391,7 +1391,7 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
   let d = 0;
   let pointView = this.tools.vectorAdapter.from( origin );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     d = Math.abs( this.pointDistance( srcLineView, corner ) );
