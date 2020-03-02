@@ -2635,7 +2635,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   let dimP = _.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimB );
+  dstPoint = this.tools.longMake( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2654,8 +2654,8 @@ function planeClosestPoint( srcBox, plane, dstPoint )
 
     let distance = Infinity;
     let d = 0;
-    let point = _.long.longMake( dimB );
-    for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+    let point = this.tools.longMake( dimB );
+    for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       d = Math.abs( _.plane.pointDistance( plane, corner ) );

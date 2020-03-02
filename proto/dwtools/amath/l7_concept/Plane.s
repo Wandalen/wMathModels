@@ -468,7 +468,7 @@ function boxIntersects( plane , srcBox )
   else
   {
     let side = distance/ Math.abs( distance );
-    for( let j = 1 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+    for( let j = 1 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
       distance = this.pointDistance( plane, corner );
