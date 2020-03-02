@@ -2033,11 +2033,11 @@ function frustumContains( box, frustum )
   let dim = this.dimGet( boxView );
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
-  let dims = _.Matrix.dimsOf( frustum );
+  let dims = _.Matrix.DimsOf( frustum );
   _.assert( dim = dims[ 0 ], 'Frustum and box must have same dim');
 
   let fpoints = _.frustum.cornersGet( frustum );
-  let dimsPoints = _.Matrix.dimsOf( fpoints );
+  let dimsPoints = _.Matrix.DimsOf( fpoints );
   _.assert( _.matrixIs( fpoints ) );
 
   for( let i = 0 ; i < dimsPoints[ 1 ] ; i += 1 )

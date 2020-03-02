@@ -163,7 +163,7 @@ function cornersGet( srcfrustum )
   _.assert( this.is( srcfrustum ) );
   debugger;
 
-  let dims = _.Matrix.dimsOf( srcfrustum ) ;
+  let dims = _.Matrix.DimsOf( srcfrustum ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
   let pointsFru = _.Matrix.makeZero( [ rows - 1, cols + 2 ] );
