@@ -1839,7 +1839,7 @@ function convexPolygonClosestPoint( segment, polygon, dstPoint )
 
   // let capsuleView = _.capsule.adapterFrom( capsule );
   // let dimCapsule  = _.capsule.dimGet( capsuleView );
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -1903,7 +1903,7 @@ function frustumIntersects( srcSegment, srcFrustum )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -1922,7 +1922,7 @@ function frustumIntersects( srcSegment, srcFrustum )
 
   /* frustum corners */
   let corners = _.frustum.cornersGet( srcFrustum );
-  let cornersLength = _.Matrix.dimsOf( corners )[ 1 ];
+  let cornersLength = _.Matrix.DimsOf( corners )[ 1 ];
 
   for( let j = 0 ; j < cornersLength ; j++ )
   {
@@ -1974,7 +1974,7 @@ function frustumDistance( srcSegment, srcFrustum )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -2033,7 +2033,7 @@ function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -2059,13 +2059,13 @@ function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
 
   /* frustum corners */
   let corners = _.frustum.cornersGet( srcFrustum );
-  let cornersLength = _.Matrix.dimsOf( corners )[ 1 ];
+  let cornersLength = _.Matrix.DimsOf( corners )[ 1 ];
 
   let distance = _.frustum.pointDistance( srcFrustum, origin );
   let d = 0;
   let pointView = this.tools.vectorAdapter.from( origin );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( corners )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( corners )[ 1 ] ; j++ )
   {
     let corner = corners.colVectorGet( j );
     d = Math.abs( this.pointDistance( srcSegmentView, corner ) );
