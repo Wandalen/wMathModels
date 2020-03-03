@@ -2997,7 +2997,7 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 2, 2, 2, 3, 3, 3 ];
-  var expected = [ 0, 2, 2 ];
+  var expected = _.plane.tools.longMake([ 0, 2, 2 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -3006,7 +3006,7 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = [ 0, -2, -2 ];
+  var expected = _.plane.tools.longMake([ 0, -2, -2 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -3015,7 +3015,7 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstSegment = [ 5, 5, 2, 0, 1, 0 ];
-  var expected = [ 5, 5, 3 ];
+  var expected = _.plane.tools.longMake([ 5, 5, 3 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -3024,7 +3024,7 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstSegment = [ 0, 1, 0, 5, 5, 2 ];
-  var expected = [ 5, 5, 3 ];
+  var expected = _.plane.tools.longMake([ 5, 5, 3 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -3034,7 +3034,7 @@ function segmentClosestPoint( test )
   var srcPlane = [ 0, 0, 1, -1 ];
   var tstSegment = [ 1, 0, 0, 4, 4, - 3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 1, 0, 1 ];
+  var expected = _.plane.tools.longMake([ 1, 0, 1 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment, dstPoint );
   test.identical( expected, gotSegment );
@@ -3044,8 +3044,8 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ 0, 1, 0, -2 ];
   var tstSegment = [ 1, 0, 0, 5, - 5, 1 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 1, 2, 0 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 1, 2, 0 ] );
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
