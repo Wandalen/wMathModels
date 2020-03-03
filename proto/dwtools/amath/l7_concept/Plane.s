@@ -868,7 +868,7 @@ function convexPolygonClosestPoint( plane, polygon, dstPoint )
   let dimPl = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimPl );
+  dstPoint = this.tools.longMake( dimPl );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -886,7 +886,7 @@ function convexPolygonClosestPoint( plane, polygon, dstPoint )
   {
     let polygonPoint = _.convexPolygon.planeClosestPoint( polygon, planeView );
 
-    let planePoint = this.pointCoplanarGet( planeView, polygonPoint, this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dimPl ) ) ) ;
+    let planePoint = this.pointCoplanarGet( planeView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimPl ) ) ) ;
 
     for( let i = 0; i < dimPl; i++ )
     {
@@ -1476,7 +1476,7 @@ function rayIntersectionPoint( plane, ray, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP );
+  dstPoint = this.tools.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1714,7 +1714,7 @@ function segmentIntersectionPoint( plane, segment, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP );
+  dstPoint = this.tools.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
