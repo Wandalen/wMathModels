@@ -2107,7 +2107,7 @@ function lineClosestPoint( test )
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstLine = [ 5, 5, 2, 0, 1, 0 ];
-  var expected = [ 5, 5, 3 ];
+  var expected = _.plane.tools.longMake( [ 5, 5, 3 ] );
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
@@ -2117,7 +2117,7 @@ function lineClosestPoint( test )
   var srcPlane = [ 0, 0, 1, -1 ];
   var tstLine = [ 4, 4, 3, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 4, 4, 1 ];
+  var expected = _.plane.tools.longMake( [ 4, 4, 1 ] );
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine, dstPoint );
   test.identical( expected, gotLine );
@@ -2127,8 +2127,8 @@ function lineClosestPoint( test )
 
   var srcPlane = [ 0, 1, 0, -2 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 5, 2, 1 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 5, 2, 1 ] );
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
