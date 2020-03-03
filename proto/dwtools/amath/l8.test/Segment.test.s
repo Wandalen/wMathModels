@@ -4489,7 +4489,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
   var tstLine = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4522,7 +4522,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 3, 7, 1, 3, 7, 7 ];
   var tstLine = [ 3, 7, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4540,7 +4540,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 3, 3, 3, 3, 3, 3 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 3, 3 ];
+  var expected = _.segment.tools.longMake( [ 3, 3, 3 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4558,7 +4558,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 0, 0, 0, -5, -5, -5 ];
   var tstLine = [ -4, -4, -4, 0, 0, 0 ];
-  var expected = [ -4, -4, -4 ];
+  var expected = _.segment.tools.longMake( [ -4, -4, -4 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.equivalent( gotIntersectionPoint, expected );
@@ -4567,7 +4567,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 0, 4, 2, 1, 5, 3 ];
   var tstLine = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4576,7 +4576,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 0, 0, 2, 1, 0, 10, 2, 1 ];
   var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4621,7 +4621,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 5, 7, 1, -1, 7, 1 ];
   var tstLine = [ 3, 7, 3, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
