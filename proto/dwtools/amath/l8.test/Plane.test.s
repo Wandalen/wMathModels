@@ -1202,7 +1202,7 @@ function capsuleClosestPoint( test )
 
   var plane = [ 1, 0, 0, 1 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
-  var expected = [ - 1, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( expected, gotPoint );
@@ -1217,7 +1217,7 @@ function capsuleClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
   var plane = [ 1, 0, 0, - 3 ];
-  var expected = [ 3, 2, 2 ];
+  var expected = _.plane.tools.longMake( [ 3, 2, 2 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
@@ -1226,7 +1226,7 @@ function capsuleClosestPoint( test )
 
   var plane = [ - 1, 1, 0, - 2 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
-  var expected = [ -1, 1, 0 ];
+  var expected = _.plane.tools.longMake( [ -1, 1, 0 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
@@ -1262,7 +1262,7 @@ function capsuleClosestPoint( test )
 
   var plane = [ 0, - 2, 0, 2 ];
   var capsule = _.capsule.makeZero( 3 );
-  var expected = [ 0, 1, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
