@@ -1089,7 +1089,7 @@ function project( test )
 
   var dstSegment = [ 0, 0, 1, 1 ];
   var project = [ [ 1, 1 ], 2 ];
-  var expected = [ 0.5, 0.5, 2.5, 2.5 ];
+  var expected = _.segment.tools.longMake( [ 0.5, 0.5, 2.5, 2.5 ] );
 
   var gotSegment = _.segment.project( dstSegment, project );
   test.identical( gotSegment, expected );
@@ -1105,7 +1105,7 @@ function project( test )
 
   var segment = null;
   var project = [ [ 1, 0, 0 ], 1 ];
-  var expected = [ 1, 0, 0, 1, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 1, 0, 0, 1, 0, 0 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1114,7 +1114,7 @@ function project( test )
 
   var segment = null;
   var project = [ [ 0, 0, 0 ], 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1123,7 +1123,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 1, 0, 0 ];
   var project = [ [ 0, 1, 0 ], 2 ];
-  var expected = [ -0.5, 1, 0, 1.5, 1, 0 ];
+  var expected = _.segment.tools.longMake( [ -0.5, 1, 0, 1.5, 1, 0 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1132,7 +1132,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 0, 0, 0 ], 2 ];
-  var expected = [ -1, -1, -1, 3, 3, 3 ];
+  var expected = _.segment.tools.longMake( [ -1, -1, -1, 3, 3, 3 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1141,7 +1141,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 0, 0, 0 ], 0.5 ];
-  var expected = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var expected = _.segment.tools.longMake( [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1150,7 +1150,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 1 ];
-  var expected = [ 1, 2, 3, 3, 4, 5 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3, 3, 4, 5 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1159,7 +1159,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0 ];
-  var expected = [ 2, 3, 4, 2, 3, 4 ];
+  var expected = _.segment.tools.longMake( [ 2, 3, 4, 2, 3, 4 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1168,7 +1168,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 0, 0, 0 ], 1 ];
-  var expected = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1177,7 +1177,7 @@ function project( test )
 
   var segment = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
   var project = [ [ 0, 0, 0, 0 ], 2 ];
-  var expected = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var expected = _.segment.tools.longMake( [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1186,7 +1186,7 @@ function project( test )
 
   var segment = [ 0, 1 ];
   var project = [ [ 1 ], 2 ];
-  var expected = [ 0.5, 2.5 ];
+  var expected = _.segment.tools.longMake( [ 0.5, 2.5 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1197,67 +1197,67 @@ function project( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( 'segment', 'project' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0 ], [ [ 0 ], 1 ], [ [ 1 ], 0 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0 ], [ [ 0 ], 2 ] );
   });
 
   test.case = 'Wrong project array dimension (null segment vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( null, [ [ 0, 1 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (project has less than 3 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ] ] );
   });
 
   test.case = 'Wrong project array dimension (project has more than 2 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2 ] );
   });
 
   test.case = 'Empty arrays'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ ], [ [  ],  ] );
   });
@@ -1495,67 +1495,67 @@ function getProjectionFactors( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors();
   });
 
   test.case = 'Wrong type of argument - string'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( 'segment', 'projSegment' );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( null, [ 0, 1, 2, 3 ] );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 1, 2, 3 ], null );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( undefined, [ 0, 1, 2, 3 ] );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 1, 2, 3 ], undefined );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0 ], [ 1, 0 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 3D vs segment 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0, 0, 0, 0, 1 ], [ 1, 1, 1, 0, 1, 0, 2, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 3D vs segment 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0, 0, 0, 0, 1 ], [ 0, 1, 2, 3 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 2D vs segment 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0, 0, 1 ], [ 2, 1 ] );
   });
