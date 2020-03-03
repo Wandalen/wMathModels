@@ -5405,7 +5405,7 @@ function segmentIntersectionPoint( test )
 
   var srcRay = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.ray.tools.longMake( [ 0, 0, 0 ] );
 
   var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
   test.identical( gotIntersectionPoint, expected );
@@ -5438,7 +5438,7 @@ function segmentIntersectionPoint( test )
 
   var srcRay = [ 3, 7, 1, 0, 0, 7 ];
   var tstSegment = [ 3, 7, 3, 3, 7, 0.5 ];
-  var expected = [ 3, 7, 3 ];
+  var expected = _.ray.tools.longMake( [ 3, 7, 3 ] );
 
   var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
   test.identical( gotIntersectionPoint, expected );
@@ -5456,7 +5456,7 @@ function segmentIntersectionPoint( test )
 
   var srcRay = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 0.5, 0.5, 0.5 ];
+  var expected = _.ray.tools.longMake( [ 0.5, 0.5, 0.5 ] );
 
   var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
   test.identical( gotIntersectionPoint, expected );
@@ -5474,7 +5474,7 @@ function segmentIntersectionPoint( test )
 
   var srcRay = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
-  var expected = [ 7, 7, 7 ];
+  var expected = _.ray.tools.longMake( [ 7, 7, 7 ] );
 
   var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
   test.equivalent( gotIntersectionPoint, expected );
@@ -5492,7 +5492,7 @@ function segmentIntersectionPoint( test )
 
   var srcRay = [ 0, 4, 2, 1, 1, 1 ];
   var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = _.ray.tools.longMake( [ 0, 4, 2 ] );
 
   var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
   test.identical( gotIntersectionPoint, expected );
@@ -5501,7 +5501,7 @@ function segmentIntersectionPoint( test )
 
   var srcRay = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = _.ray.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
   test.identical( gotIntersectionPoint, expected );
@@ -5537,7 +5537,7 @@ function segmentIntersectionPoint( test )
 
   var srcRay = [ 5, 7, 1, -1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.ray.tools.longMake( [ 3, 7, 1 ] );
 
   var gotIntersectionPoint = _.ray.segmentIntersectionPoint( srcRay, tstSegment );
   test.identical( gotIntersectionPoint, expected );
