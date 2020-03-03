@@ -2830,6 +2830,8 @@ let Extension = /* qqq : normalize order */
   centerGet,
   radiusGet,
   radiusSet,
+  
+  project,
 
   pointContains,
   pointDistance,

@@ -1710,7 +1710,7 @@ function project( test )
 
   var dstSphere = [ 0.5, 0.5, 1 ];
   var project = [ [ 1, 1 ], 2 ];
-  var expected = [ 1.5, 1.5, 2 ];
+  var expected = _.sphere.tools.longMake( [ 1.5, 1.5, 2 ] );
 
   var gotSphere = _.sphere.project( dstSphere, project );
   test.identical( gotSphere, expected );
@@ -1726,7 +1726,7 @@ function project( test )
 
   var sphere = null;
   var project = [ [ 1, 0, 0 ], 2 ];
-  var expected = [ 1, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 1, 0, 0, 0 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1735,7 +1735,7 @@ function project( test )
 
   var sphere = null;
   var project = [ [ 0, 0, 0 ], 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1744,7 +1744,7 @@ function project( test )
 
   var sphere = [ 0.5, 0, 0, 2 ];
   var project = [ [ 0, 1, 0 ], 3 ];
-  var expected = [ 0.5, 1, 0, 6 ];
+  var expected = _.sphere.tools.longMake( [ 0.5, 1, 0, 6 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1753,7 +1753,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 2 ];
-  var expected = [ 0, 2, 2, 2 ];
+  var expected = _.sphere.tools.longMake( [ 0, 2, 2, 2 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1762,7 +1762,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 0.5 ];
-  var expected = [ 0, 2, 2, 0.5 ];
+  var expected = _.sphere.tools.longMake( [ 0, 2, 2, 0.5 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1771,7 +1771,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 1 ];
   var project = [ [ 1, 2, 3 ], 1 ];
-  var expected = [ 1, 4, 5, 1 ];
+  var expected = _.sphere.tools.longMake( [ 1, 4, 5, 1 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1780,7 +1780,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0 ];
-  var expected = [ 1, 4, 5, 0 ];
+  var expected = _.sphere.tools.longMake( [ 1, 4, 5, 0 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1789,7 +1789,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 3 ];
   var project = [ [ 0, 0, 0 ], 1 ];
-  var expected = [ 0, 2, 2, 3 ];
+  var expected = _.sphere.tools.longMake( [ 0, 2, 2, 3 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1798,7 +1798,7 @@ function project( test )
 
   var sphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
   var project = [ [ 0, 0, 0, 0 ], 4 ];
-  var expected = [ -0.5, -0.5, 0.5, 0.5, 4 ];
+  var expected = _.sphere.tools.longMake( [ -0.5, -0.5, 0.5, 0.5, 4 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1807,7 +1807,7 @@ function project( test )
 
   var sphere = [ 0, 1 ];
   var project = [ [ 1 ], 2 ];
-  var expected = [ 1, 2 ];
+  var expected = _.sphere.tools.longMake( [ 1, 2 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1818,67 +1818,67 @@ function project( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( 'sphere', 'project' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0 ], [ [ 0, 0 ], 1 ], [ [ 1, 1 ], 0 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1 ], 2 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0 ], [ [ 0 ], 2 ] );
   });
 
   test.case = 'Wrong project array dimension (null sphere vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( null, [ [ 0, 1 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (project has less than 2 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ] ] );
   });
 
   test.case = 'Wrong project array dimension (project has more than 2 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2 ] );
   });
 
   test.case = 'Empty arrays'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ ], [ [  ],  ] );
   });
@@ -2117,73 +2117,73 @@ function getProjectionFactors( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors();
   });
 
   test.case = 'Wrong type of argument - string'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( 'sphere', 'projSphere' );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( null, [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], null );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( undefined, [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], undefined );
   });
 
   test.case = 'Empty arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [], [] );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 3D vs sphere 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 1, 1, 1, 1, 0 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 3D vs sphere 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 0, 1, 2 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 2D vs sphere 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0 ], [ 0, 2 ] );
   });
