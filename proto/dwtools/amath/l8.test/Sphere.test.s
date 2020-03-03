@@ -2597,7 +2597,7 @@ function pointExpand( test )
 
   var sphere = [ 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
@@ -2608,7 +2608,7 @@ function pointExpand( test )
   var sphere = [ 0, 0, 0, 0 ];
   //var center = _.sphere.centerGet( sphere );
   var point = [ 1, 1, 1 ];
-  var expected = [ 0, 0, 0, _.math.sqrt( 3 ) ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, _.math.sqrt( 3 ) ] );
   var got = _.sphere.pointExpand( sphere, point );
   //var d1 = _.avector.distance( point, center );
   debugger;
@@ -2624,7 +2624,7 @@ function pointExpand( test )
   var sphere = [ 1, 1, 1, 1 ];
   var center = _.sphere.centerGet( sphere );
   var point = [ -1, -1, -1 ];
-  var expected = [ 1, 1, 1, 3.4641016151377544 ];
+  var expected = _.sphere.tools.longMake( [ 1, 1, 1, 3.4641016151377544 ] );
   var got = _.sphere.pointExpand( sphere, point );
   // var d1 = _.avector.distance( point, center );
   // var d2 = _.avector.distance( _.dup( 1+_.math.sqrt( 3 ) / 3, 3 ), center );
@@ -2639,7 +2639,7 @@ function pointExpand( test )
   var sphere = [ 1, 1, 1, -Infinity ];
   var center = _.sphere.centerGet( sphere );
   var point = [ -1, -1, -1 ];
-  var expected = [ -1, -1, -1, 0 ];
+  var expected = _.sphere.tools.longMake( [ -1, -1, -1, 0 ] );
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
@@ -2649,7 +2649,7 @@ function pointExpand( test )
 
   var sphere = [ 1, 1, 1, 3 ];
   var point = [ 0, 0, 0 ];
-  var expected = [ 1, 1, 1, 3 ];
+  var expected = _.sphere.tools.longMake( [ 1, 1, 1, 3 ] );
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
@@ -2659,7 +2659,7 @@ function pointExpand( test )
 
   var sphere = [ 1, 1, 1, 3 ];
   var point = [ 1, 5, 1 ];
-  var expected = [ 1, 1, 1, 4 ];
+  var expected = _.sphere.tools.longMake( [ 1, 1, 1, 4 ] );
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
