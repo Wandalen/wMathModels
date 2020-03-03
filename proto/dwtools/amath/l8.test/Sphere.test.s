@@ -1894,7 +1894,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 1, 1 ];
   var projSphere = [ 0.5, 0.5, 1.5, 2 ];
-  var expected = [ [ 0.5, 0.5, 0.5 ], 2 ];
+  var expected = _.sphere.tools.longMake( [ [ 0.5, 0.5, 0.5 ], 2 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1909,7 +1909,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 1, 0, 0, 2 ];
   var projSphere = [ -0.5, 1, 0, 6 ];
-  var expected = [ [ -1.5, 1, 0 ], 3 ];
+  var expected = _.sphere.tools.longMake( [ [ -1.5, 1, 0 ], 3 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1918,7 +1918,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 2, 2, 2, 1 ];
   var projSphere = [ 2, 2, 2, 2 ];
-  var expected = [ [ 0, 0, 0 ], 2 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 2 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1927,7 +1927,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 2, 2, 2, 1 ];
   var projSphere = [ 2, 2, 2, 0.5 ];
-  var expected = [ [ 0, 0, 0 ], 0.5 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 0.5 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1936,7 +1936,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 2, 2, 1 ];
   var projSphere = [ 1, 4, 5, 1 ];
-  var expected = [ [ 1, 2, 3 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 1, 2, 3 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1945,7 +1945,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 2, 2, 2, 1 ];
   var projSphere = [ 3, 4, 5, 0 ];
-  var expected = [ [ 1, 2, 3 ], 0 ];
+  var expected = _.sphere.tools.longMake( [ [ 1, 2, 3 ], 0 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1954,7 +1954,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 0, 4 ];
   var projSphere = [ 2, 3, 4, 1 ];
-  var expected = [ [ 2, 3, 4 ], 0.25 ];
+  var expected = _.sphere.tools.longMake( [ [ 2, 3, 4 ], 0.25 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1963,7 +1963,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 2, 2, 2, 3 ];
   var projSphere = [ 2, 2, 2, 3 ];
-  var expected = [ [ 0, 0, 0 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1972,7 +1972,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
   var projSphere = [ - 1, - 1, 1, 1, 4 ];
-  var expected = [ [ -0.5, -0.5, 0.5, 0.5 ], 4 ];
+  var expected = _.sphere.tools.longMake( [ [ -0.5, -0.5, 0.5, 0.5 ], 4 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1981,7 +1981,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 1 ];
   var projSphere = [ 1, 1 ];
-  var expected = [ [ 1 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 1 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1990,7 +1990,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 5, 5, 0 ];
-  var expected = [ [ 2, 1 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 2, 1 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2008,7 +2008,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 3, 1 ];
   var projSphere = [ 5, 5, 7, 2 ];
-  var expected = [ [ 2, 1, 4 ], 2 ];;
+  var expected = _.sphere.tools.longMake( [ [ 2, 1, 4 ], 2 ] );;
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2019,7 +2019,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 1, 1, 1 ];
   var projSphere = [ 0, 0, 1, 1, 1 ];
-  var expected = [ [ 0, 0, 0, 0 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0, 0 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2031,7 +2031,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 3, 4, 0 ];
-  var expected = [ [ 0, 0 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2043,7 +2043,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 5, 5, 0 ];
-  var expected = [ [ 2, 1 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 2, 1 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2055,7 +2055,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 6, 1 ];
   var projSphere = [ 5, 5, 5, 0 ];
-  var expected = [ [ 2, 1, -1 ], 0 ];
+  var expected = _.sphere.tools.longMake( [ [ 2, 1, -1 ], 0 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2067,7 +2067,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 6, 2 ];
   var projSphere = [ -1, 8, 2, 2 ];
-  var expected = [ [ -4, 4, -4 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ -4, 4, -4 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2079,7 +2079,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 4, 2 ];
   var projSphere = [ 0, 0, 4, 1 ];
-  var expected = [ [ 0, 0, 0 ], 0.5 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 0.5 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2091,7 +2091,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 4, 1 ];
   var projSphere = [ 0, 0, 4, 3/2 ];
-  var expected = [ [ 0, 0, 0 ], 3/2 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 3/2 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.equivalent( gotFactors, expected );
@@ -2103,7 +2103,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 4, 2 ];
   var projSphere = [ -7, -3, 9, 4 ];
-  var expected = [ [ -7, -3, 5 ], 2 ];;
+  var expected = _.sphere.tools.longMake( [ [ -7, -3, 5 ], 2 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );

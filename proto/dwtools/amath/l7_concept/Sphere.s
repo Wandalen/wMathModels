@@ -873,11 +873,11 @@ function getProjectionFactors( srcSphere, projSphere )
 
   _.assert( srcDim === projDim );
 
-  let project = _.array.makeArrayOfLength( 2 );
+  let project = this.tools.longMake( 2 );
   let projectView = this.tools.vectorAdapter.from( project );
 
   let translation = this.tools.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
-  projectView.eSet( 0, translation.toArray() );
+  projectView.eSet( 0, translation.toLong() );
 
   let scalRadius;
   if( srcRadius === 0 )
@@ -1354,7 +1354,7 @@ function boxExpand( dstSphere, srcBox )
   let c = _.box.cornersGet( boxView );
 
   let distance = radius;
-  for( let j = 0 ; j < _.Matrix.dimsOf( c )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
     let d = this.tools.avector.distance( corner, center );
@@ -1595,7 +1595,7 @@ function convexPolygonContains( sphere, polygon )
   let sphereView = this.adapterFrom( sphere );
   let dimS = this.dimGet( sphereView );
 
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   _.assert( dimP[ 0 ] === dimS );
 
@@ -1674,12 +1674,12 @@ function convexPolygonClosestPoint( sphere, polygon, dstPoint )
   let dimS = this.dimGet( sphereView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimS );
+  dstPoint = this.tools.longMake( dimS );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -1692,7 +1692,7 @@ function convexPolygonClosestPoint( sphere, polygon, dstPoint )
   {
     let polygonPoint = _.convexPolygon.sphereClosestPoint( polygon, sphereView );
 
-    let spherePoint = this.pointClosestPoint( sphereView, polygonPoint, this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dimS ) ) ) ;
+    let spherePoint = this.pointClosestPoint( sphereView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimS ) ) ) ;
 
     for( let i = 0; i < dimS; i++ )
     {
@@ -2832,6 +2832,7 @@ let Extension = /* qqq : normalize order */
   radiusSet,
   
   project,
+  getProjectionFactors,
 
   pointContains,
   pointDistance,
