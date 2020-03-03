@@ -1166,15 +1166,15 @@ function lineIntersectionPoint( plane, line, dstPoint )
   let direction = _.line.directionGet( lineView );
   let dimLine  = _.line.dimGet( lineView );
 
-  throw _.err( 'not tested' );
+  // throw _.err( 'not tested' );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
-  let dot = this.tools.vectorAdapter.dot( normal , direction );
+  let dot = this.tools.vectorAdapter.dot( origin , direction );
 
   _.assert( dimP === dstPoint.length );
   _.assert( dimP === dimLine );
 
-  xxx
+  // xxx
   if( !_.line.planeIntersects( lineView, planeView ) )
   return 0; /* xxx */
   else
@@ -2027,7 +2027,7 @@ function boundingSphereGet( dstSphere, srcPlane )
   }
   else
   {
-    debugger; xxx
+    debugger; /* xxx */
     let pointInPlane = this.tools.vectorAdapter.from( this.pointCoplanarGet( planeView, this.tools.longMakeZeroed( dimPlane ) ) ); /* xxx */
     logger.log( pointInPlane )
 
