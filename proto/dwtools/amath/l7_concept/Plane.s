@@ -113,7 +113,7 @@ function from( plane )
   {
     debugger;
   //  throw _.err( 'not tested' );
-    this.tools.avector.assign( normal, vector.From( arguments[ 1 ] ) );
+    this.tools.avector.assign( normal, this.tools.vectorAdapter.from( arguments[ 1 ] ) );
     this.biasSet( planeView, arguments[ 2 ] );
   }
   else _.assert( 0, 'unexpected arguments' );

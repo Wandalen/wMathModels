@@ -41,7 +41,7 @@ function from( test )
   var normal = [ 0, 1, 2 ];
   var oldNormal = normal.slice();
   var bias = 3;
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 2, 3 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, dstPlane );
@@ -56,7 +56,7 @@ function from( test )
 
   var dstPlane = null;
   var srcPlane = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -66,7 +66,7 @@ function from( test )
   var dstPlane = null;
   var normal = [ 0, 0, 0 ];
   var bias = 0;
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -76,7 +76,7 @@ function from( test )
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ NaN, NaN, NaN ];
   var bias = 2;
-  var expected = [ NaN, NaN, NaN, 2 ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, 2 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -86,7 +86,7 @@ function from( test )
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ 0, 1, 0 ];
   var bias = NaN;
-  var expected = [ 0, 1, 0, NaN ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, NaN ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -95,7 +95,7 @@ function from( test )
 
   var dstPlane = [ 1, 1, 1, 1 ];
   var srcPlane = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -105,7 +105,7 @@ function from( test )
   var dstPlane = [ 1, 1, 1, 1 ];
   var normal = [ 0, 0, 0 ];
   var bias = 0;
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -114,7 +114,7 @@ function from( test )
 
   var dstPlane = [ 1, 0, 1, 2 ];
   var srcPlane = [ 0, 1, 0, 1 ];
-  var expected = [ 0, 1, 0, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -124,7 +124,7 @@ function from( test )
   var dstPlane = [ 1, 0, 1, 2 ];
   var normal = [ 1, 2, 1 ];
   var bias = 1;
-  var expected = [ 1, 2, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 1, 2, 1, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -133,7 +133,7 @@ function from( test )
 
   var dstPlane = [ 0, 0, 0 ];
   var srcPlane = [ 0, 1, 1 ];
-  var expected = [ 0, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -143,7 +143,7 @@ function from( test )
   var dstPlane = [ 0, 0, 0 ];
   var normal = [ 0, 1 ];
   var bias = 1;
-  var expected = [ 0, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -152,7 +152,7 @@ function from( test )
 
   var dstPlane = [ 0, 0, 0, 0, 0 ];
   var srcPlane = [ 0, 1, 1, 0, 1 ];
-  var expected = [ 0, 1, 1, 0, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 1, 0, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -162,7 +162,7 @@ function from( test )
   var dstPlane = [ 0, 0, 0, 0, 0 ];
   var normal = [ 0, 1, 1, 0 ];
   var bias = 1;
-  var expected = [ 0, 1, 1, 0, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 1, 0, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
