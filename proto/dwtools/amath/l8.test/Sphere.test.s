@@ -3081,7 +3081,7 @@ function boxExpand( test )
   var oldSphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 4, 3, 0 ];
   var oldBox = [ 0, 0, 0, 4, 3, 0 ];
-  var expected = [ 0, 0, 0, 5 ];;
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 5 ] );;
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3092,7 +3092,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3102,7 +3102,7 @@ function boxExpand( test )
 
   var sphere = [ - 1, 0, 0, 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ - 1, 0, 0, 4.1231056256 ];
+  var expected = _.sphere.tools.longMake( [ - 1, 0, 0, 4.1231056256 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3112,7 +3112,7 @@ function boxExpand( test )
 
   var sphere = [ - 1, 0, 0, 2 ];
   var box = [ 3, 0, 0, 3, 0, 0 ];
-  var expected = [ - 1, 0, 0, 4 ];
+  var expected = _.sphere.tools.longMake( [ - 1, 0, 0, 4 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3122,7 +3122,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
-  var expected = [ 0, 0, 0, 3.46410161513 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3.46410161513 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3132,7 +3132,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 6 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
-  var expected = [ 0, 0, 0, 6 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 6 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3142,7 +3142,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 6 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 6 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 6 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3152,7 +3152,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 1, 0, 0, 2, 1, 1 ];
-  var expected = [ 0, 0, 0, 2.449489742 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2.449489742 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3162,7 +3162,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3172,7 +3172,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 2, - 2, 2 ];
-  var expected = [ 0, 0, 0, 3.4641016151 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3.4641016151 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3182,7 +3182,7 @@ function boxExpand( test )
 
   var sphere = _.sphere.makeNil();
   var box = [ 0, 0, 0, 2, 2, 2 ];
-  var expected =  [ 0, 0, 0, 3.4641016151 ];
+  var expected =  _.sphere.tools.longMake( [ 0, 0, 0, 3.4641016151 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3192,7 +3192,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 2 ];
   var box = _.box.makeNil();
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, Infinity ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
