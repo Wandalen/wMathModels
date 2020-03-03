@@ -352,7 +352,7 @@ function adapterFrom( test )
   test.case = 'Same instance returned - vector'; /* */
 
   var srcRay = [ 0, 0, 2, 2 ];
-  var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
   var gotRay = _.ray.adapterFrom( srcRay );
   test.identical( gotRay, expected );
@@ -360,8 +360,8 @@ function adapterFrom( test )
 
   test.case = 'Different instance returned - vector -> vector'; /* */
 
-  var srcRay = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
-  var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
+  var srcRay = _.ray.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
   var gotRay = _.ray.adapterFrom( srcRay );
   test.identical( gotRay, expected );
@@ -370,7 +370,7 @@ function adapterFrom( test )
   test.case = 'Same instance returned - empty vector'; /* */
 
   var srcRay = [];
-  var expected =  _.vectorAdapter.from( [] );
+  var expected =  _.ray.tools.vectorAdapter.from( [] );
 
   var gotRay = _.ray.adapterFrom( srcRay );
   test.identical( gotRay, expected );
@@ -397,7 +397,7 @@ function fromPair( test )
   test.case = 'Pair stay unchanged'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
-  var expected = _.vectorAdapter.from( [ 0, 1, 2, 0, 1, 2 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 1, 2, 0, 1, 2 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -408,7 +408,7 @@ function fromPair( test )
   test.case = 'Ray starts in origin'; /* */
 
   var pair = [ [ 0, 0, 0 ], [ 0, 1, 2 ] ];
-  var expected = _.vectorAdapter.from( [ 0, 0, 0, 0, 1, 2 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0, 0, 0, 1, 2 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -416,7 +416,7 @@ function fromPair( test )
   test.case = 'Ray is point'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 1, 2 ] ];
-  var expected =  _.vectorAdapter.from( [ 0, 1, 2, 0, 0, 0 ] );
+  var expected =  _.ray.tools.vectorAdapter.from( [ 0, 1, 2, 0, 0, 0 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -424,7 +424,7 @@ function fromPair( test )
   test.case = 'Ray of 1 dimension'; /* */
 
   var pair = [ [ 3 ], [ 4 ] ];
-  var expected =  _.vectorAdapter.from( [ 3, 1 ] );
+  var expected =  _.ray.tools.vectorAdapter.from( [ 3, 1 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -432,7 +432,7 @@ function fromPair( test )
   test.case = 'Ray goes up in y and down in z'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 3, 1 ] ];
-  var expected =  _.vectorAdapter.from( [ 0, 1, 2, 0, 2, -1 ] );
+  var expected =  _.ray.tools.vectorAdapter.from( [ 0, 1, 2, 0, 2, -1 ] );
 
   var gotRay = _.ray.fromPair( pair );
   test.identical( gotRay, expected );
@@ -566,7 +566,7 @@ function originGet( test )
   test.case = 'Source ray remains unchanged'; /* */
 
   var srcRay = [ 0, 0, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotOrigin = _.ray.originGet( srcRay );
   test.identical( gotOrigin, expected );
@@ -578,7 +578,7 @@ function originGet( test )
 
   var srcRay = [ 0, 1 ];
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
@@ -586,7 +586,7 @@ function originGet( test )
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1 ] );
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
@@ -594,7 +594,7 @@ function originGet( test )
 
   var srcRay = [ 0, 1, 2, 3 ];
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 0, 1 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
@@ -602,7 +602,7 @@ function originGet( test )
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 0, 1 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
@@ -610,7 +610,7 @@ function originGet( test )
 
   var srcRay = [ 0, 1, 2, 3, 4, 5 ];
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
@@ -618,7 +618,7 @@ function originGet( test )
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotOrigin = _.ray.originGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcRay );
 
@@ -643,7 +643,7 @@ function directionGet( test )
   test.case = 'Source ray remains unchanged'; /* */
 
   var srcRay = [ 0, 0, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 1, 1 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 1, 1 ] );
 
   var gotDirection = _.ray.directionGet( srcRay );
   test.identical( gotDirection, expected );
@@ -655,7 +655,7 @@ function directionGet( test )
 
   var srcRay = [ 0, 1 ];
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 1 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
@@ -663,7 +663,7 @@ function directionGet( test )
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1 ] );
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 1 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
@@ -671,7 +671,7 @@ function directionGet( test )
 
   var srcRay = [ 0, 1, 2, 3 ];
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 2, 3 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
@@ -679,7 +679,7 @@ function directionGet( test )
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 2, 3 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
@@ -687,7 +687,7 @@ function directionGet( test )
 
   var srcRay = [ 0, 1, 2, 3, 4, 5 ];
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
@@ -695,7 +695,7 @@ function directionGet( test )
 
   var srcRay = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotDirection = _.ray.directionGet( srcRay );
-  var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcRay );
 
@@ -1300,7 +1300,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 1, 1 ];
   var src2Ray = [ 0, 0, 2, 2 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.identical( isIntersectionFactors, expected );
@@ -1315,7 +1315,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 1, 1 ];
   var src2Ray = [ 0, 0, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.identical( isIntersectionFactors, expected );
@@ -1351,7 +1351,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 3, 7, 1, 0 ];
   var src2Ray = [ 3, 7, 0, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1360,7 +1360,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 1, 0 ];
   var src2Ray = [ -2, -6, 1, 2 ];
-  var expected = _.vectorAdapter.from( [ 1, 3 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 1, 3 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1369,7 +1369,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ -3, 0, 1, 0 ];
   var src2Ray = [ 0, -2, 0, 1 ];
-  var expected = _.vectorAdapter.from( [ 3, 2 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 3, 2 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1378,7 +1378,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
   var src2Ray = [ 3, 3, 3, 0, 1, 4 ];
-  var expected = _.vectorAdapter.from( [ 3, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1387,7 +1387,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 1, 1, 0 ];
   var src2Ray = [ 3, 3, 0, 0, 1, 0 ];
-  var expected = _.vectorAdapter.from( [ 3, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1405,7 +1405,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Ray = [ 3, 3, 3, 3, 0, 2, 1, 4 ];
-  var expected = _.vectorAdapter.from( [ 3, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -1432,7 +1432,7 @@ function rayIntersectionFactors( test )
 
   var src1Ray = [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1  ];
   var src2Ray = [ 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 1, 4, 0, 2, 1, 4 ];
-  var expected = _.vectorAdapter.from( [ 3, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.ray.rayIntersectionFactors( src1Ray, src2Ray );
   test.equivalent( isIntersectionFactors, expected );
@@ -2816,7 +2816,7 @@ function boundingBoxGet( test )
 
   test.case = 'srcRay vector'; /* */
 
-  var srcRay = _.vectorAdapter.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
+  var srcRay = _.ray.tools.vectorAdapter.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
   var expected = [ - 8, - 5, 4.5, Infinity, Infinity, Infinity ];
 
@@ -2826,8 +2826,8 @@ function boundingBoxGet( test )
   test.case = 'dstBox vector - 2D'; /* */
 
   var srcRay = [ - 1, 0, - 2, 3 ];
-  var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vectorAdapter.from( [ - Infinity, 0, - 1, Infinity ] );
+  var dstBox = _.ray.tools.vectorAdapter.from( [ 1, 2, 3, 9 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ - Infinity, 0, - 1, Infinity ] );
 
   var gotBox = _.ray.boundingBoxGet( dstBox, srcRay );
   test.identical( gotBox, expected );
@@ -3169,8 +3169,8 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
-  var expected = _.vectorAdapter.from( [ -1, 2, 0 ] );
+  var dstPoint = _.ray.tools.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ -1, 2, 0 ] );
 
   var gotPoint = _.ray.convexPolygonClosestPoint( srcRay, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -3794,8 +3794,8 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var ray = [ 0, 2, 2, - 1, - 1, - 1 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ -0.5, 1.5, 1.5 ] );
+  var dstPoint = _.ray.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ -0.5, 1.5, 1.5 ] );
 
   var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -4012,7 +4012,7 @@ function lineIntersectionFactors( test )
 
   var srcRay = [ 0, 0, 0, 1, 1, 1 ];
   var tstLine = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.ray.lineIntersectionFactors( srcRay, tstLine );
   test.identical( gotIntersectionFactors, expected );
@@ -4054,7 +4054,7 @@ function lineIntersectionFactors( test )
 
   var srcRay = [ 3, 3, 3, 0, 0, 0 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 3 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 3 ] );
 
   var gotIntersectionFactors = _.ray.lineIntersectionFactors( srcRay, tstLine );
   test.identical( gotIntersectionFactors, expected );
@@ -4072,7 +4072,7 @@ function lineIntersectionFactors( test )
 
   var srcRay = [ 0, 0, 0, -1, -1, -1 ];
   var tstLine = [ -4, -4, -4, 0, 0, 0 ];
-  var expected = _.vectorAdapter.from( [ 4, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 4, 0 ] );
 
   var gotIntersectionFactors = _.ray.lineIntersectionFactors( srcRay, tstLine );
   test.equivalent( gotIntersectionFactors, expected );
@@ -4081,7 +4081,7 @@ function lineIntersectionFactors( test )
 
   var srcRay = [ 0, 4, 2, 1, 1, 1 ];
   var tstLine = [ 0, 4, 2, 1, 1, 1 ];
-  var expected =  _.vectorAdapter.from( [ 0, 0 ] );
+  var expected =  _.ray.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.ray.lineIntersectionFactors( srcRay, tstLine );
   test.identical( gotIntersectionFactors, expected );
@@ -4090,7 +4090,7 @@ function lineIntersectionFactors( test )
 
   var srcRay = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected =  _.vectorAdapter.from( [ 4, 3 ] );
+  var expected =  _.ray.tools.vectorAdapter.from( [ 4, 3 ] );
 
   var gotIntersectionFactors = _.ray.lineIntersectionFactors( srcRay, tstLine );
   test.equivalent( gotIntersectionFactors, expected );
@@ -4108,7 +4108,7 @@ function lineIntersectionFactors( test )
 
   var srcRay = [ 0, 0, -2, 0 ];
   var tstLine = [ - 3, - 4, 0, 1 ];
-  var expected =  _.vectorAdapter.from( [ 1.5, 4 ] );
+  var expected =  _.ray.tools.vectorAdapter.from( [ 1.5, 4 ] );
 
   var gotIntersectionFactors = _.ray.lineIntersectionFactors( srcRay, tstLine );
   test.equivalent( gotIntersectionFactors, expected );
@@ -4117,7 +4117,7 @@ function lineIntersectionFactors( test )
 
   var srcRay = [ 0, 0, -2, 0 ];
   var tstLine = [ - 3, 4, 0, 1 ];
-  var expected =  _.vectorAdapter.from( [ 1.5, -4 ] );
+  var expected =  _.ray.tools.vectorAdapter.from( [ 1.5, -4 ] );
 
   var gotIntersectionFactors = _.ray.lineIntersectionFactors( srcRay, tstLine );
   test.equivalent( gotIntersectionFactors, expected );
@@ -4135,7 +4135,7 @@ function lineIntersectionFactors( test )
 
   var srcRay = [ 5, 7, 1, -1, 0, 0 ];
   var tstLine = [ 3, 7, 3, 0, 0, 1 ];
-  var expected =  _.vectorAdapter.from( [ 2, -2 ] );
+  var expected =  _.ray.tools.vectorAdapter.from( [ 2, -2 ] );
 
   var gotIntersectionFactors = _.ray.lineIntersectionFactors( srcRay, tstLine );
   test.equivalent( gotIntersectionFactors, expected );
@@ -4903,8 +4903,8 @@ function planeClosestPoint( test )
 
   var ray = [ 0, -6, 24, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, -6, 24 ] );
+  var dstPoint = _.ray.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, -6, 24 ] );
 
   var gotPoint = _.ray.planeClosestPoint( ray, plane, dstPoint );
   test.identical( gotPoint, expected );
@@ -5594,7 +5594,7 @@ function segmentIntersectionFactors( test )
 
   var srcRay = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.ray.segmentIntersectionFactors( srcRay, tstSegment );
   test.identical( gotIntersectionFactors, expected );
@@ -5627,7 +5627,7 @@ function segmentIntersectionFactors( test )
 
   var srcRay = [ 3, 7, 1, 0, 0, 7 ];
   var tstSegment = [ 3, 7, 3, 3, 7, 0.5 ];
-  var expected = _.vectorAdapter.from( [ 0.2857142857142857, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0.2857142857142857, 0 ] );
 
   var gotIntersectionFactors = _.ray.segmentIntersectionFactors( srcRay, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
@@ -5645,7 +5645,7 @@ function segmentIntersectionFactors( test )
 
   var srcRay = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0.5 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0.5 ] );
 
   var gotIntersectionFactors = _.ray.segmentIntersectionFactors( srcRay, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
@@ -5663,7 +5663,7 @@ function segmentIntersectionFactors( test )
 
   var srcRay = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
-  var expected = _.vectorAdapter.from( [ 7, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 7, 0 ] );
 
   var gotIntersectionFactors = _.ray.segmentIntersectionFactors( srcRay, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
@@ -5681,7 +5681,7 @@ function segmentIntersectionFactors( test )
 
   var srcRay = [ 0, 4, 2, 1, 1, 1 ];
   var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.ray.segmentIntersectionFactors( srcRay, tstSegment );
   test.identical( gotIntersectionFactors, expected );
@@ -5690,7 +5690,7 @@ function segmentIntersectionFactors( test )
 
   var srcRay = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
-  var expected = _.vectorAdapter.from( [ 4, 0.5 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 4, 0.5 ] );
 
   var gotIntersectionFactors = _.ray.segmentIntersectionFactors( srcRay, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
@@ -5726,7 +5726,7 @@ function segmentIntersectionFactors( test )
 
   var srcRay = [ 5, 7, 1, -1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
-  var expected = _.vectorAdapter.from( [ 2, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 2, 0 ] );
 
   var gotIntersectionFactors = _.ray.segmentIntersectionFactors( srcRay, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
@@ -6281,8 +6281,8 @@ function sphereClosestPoint( test )
 
   var ray = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 0, 5, 0, 3 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, 5, 4 ] );
+  var dstPoint = _.ray.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 0, 5, 4 ] );
 
   var gotClosestPoint = _.ray.sphereClosestPoint( ray, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -6380,7 +6380,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcRay vector'; /* */
 
-  var srcRay = _.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
+  var srcRay = _.ray.tools.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ - 1, - 1, - 1, Infinity ];
 
@@ -6390,8 +6390,8 @@ function boundingSphereGet( test )
   test.case = 'dstSphere vector'; /* */
 
   var srcRay = [- 1, - 1, - 1, 3, 3, 1 ];
-  var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vectorAdapter.from( [ - 1, - 1, - 1, Infinity ] );
+  var dstSphere = _.ray.tools.vectorAdapter.from( [ 5, 5, 5, 3 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ - 1, - 1, - 1, Infinity ] );
 
   var gotSphere = _.ray.boundingSphereGet( dstSphere, srcRay );
   test.identical( gotSphere, expected );
@@ -6416,7 +6416,7 @@ function boundingSphereGet( test )
 
   test.case = 'Direccion module very small'; /* */
 
-  var srcRay = _.vectorAdapter.from( [ 4, 4, 4, 0, 1E-12, - 1E-12 ] );
+  var srcRay = _.ray.tools.vectorAdapter.from( [ 4, 4, 4, 0, 1E-12, - 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = [ 4, 4, 4, Infinity ];
 
