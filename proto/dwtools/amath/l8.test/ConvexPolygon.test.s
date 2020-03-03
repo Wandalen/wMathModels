@@ -992,15 +992,15 @@ function pointContains( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( [ 3 ], [ 1, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( 3, [ 1, 0, 0 ] ));
 
-  var polygon = _.convexPolygon.make( 2, 4 ).copy
-  ([
-    1, 0, 0, 0.1,
-    0, 0, 1, 0.1
-  ]);
-  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1, 0 ] ));
+  // var polygon = _.convexPolygon.make( 2, 4 ).copy
+  // ([
+  //   1, 0, 0, 0.1,
+  //   0, 0, 1, 0.1
+  // ]);
+  // test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1, 0 ] ));
 
-  var polygon = _.Matrix.make( [ 1, 2 ] );
-  test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1 ] ));
+  // var polygon = _.Matrix.make( [ 1, 2 ] );
+  // test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1 ] ));
 }
 
 //

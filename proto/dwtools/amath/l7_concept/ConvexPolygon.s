@@ -408,7 +408,7 @@ function pointContains( polygon, point )
 
   debugger;
 
-  if( this.tools.vectorAdapter.allLessEqual( angles, Math.PI ) || this.tools.vectorAdapter.allGreaterEqual( angles, Math.PI ) )
+  if( this.tools.vectorAdapter.allLessEquivalent( angles, Math.PI ) || this.tools.vectorAdapter.allGreaterEquivalent( angles, Math.PI ) )
   return true;
 
   return false;
