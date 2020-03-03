@@ -6451,7 +6451,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6466,7 +6466,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 0, 0, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6475,7 +6475,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 3, 7, 8 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6484,7 +6484,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 10, 0, 0 ];
   var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 3, 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6493,7 +6493,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 3, 7, 1 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6502,7 +6502,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 9, 9, 9 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
-  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+  var expected = _.segment.tools.longMake( [ 3.6666666, 3.6666666, 3.6666666 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.equivalent( gotClosestPoint, expected );
@@ -6511,7 +6511,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 4, 2, 3, 7, 5 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6520,7 +6520,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 2, 1, 0, 9, 2, 1 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6529,7 +6529,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6538,7 +6538,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6547,7 +6547,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ - 3, - 4, -3, 4 ];
   var tstRay = [ 0, 0, 2, 0 ];
-  var expected = [ -3, 0 ];
+  var expected = _.segment.tools.longMake( [ -3, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6556,7 +6556,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 8, 7, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6565,7 +6565,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, -3, 0, 0, 1 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6574,7 +6574,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
   var tstRay = [ 3, 7, 2, 4, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6583,7 +6583,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6592,7 +6592,7 @@ function rayClosestPoint( test )
 
   var srcSegment = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
