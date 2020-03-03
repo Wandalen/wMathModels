@@ -3031,7 +3031,7 @@ function boundingSphereGet( dstSphere, srcRay )
   }
 
   // Radius of the sphere
-  let difDirection = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( _.long.longMakeZeroed( dimRay ) ), direction );
+  let difDirection = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dimRay ) ), direction );
 
   if( difDirection === 0  )
   {
