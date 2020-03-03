@@ -352,7 +352,7 @@ function adapterFrom( test )
   test.case = 'Same instance returned - vector'; /* */
 
   var srcLine = [ 0, 0, 2, 2 ];
-  var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
   var gotLine = _.line.adapterFrom( srcLine );
   test.identical( gotLine, expected );
@@ -360,8 +360,8 @@ function adapterFrom( test )
 
   test.case = 'Different instance returned - vector -> vector'; /* */
 
-  var srcLine = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
-  var expected = _.vectorAdapter.from( [ 0, 0, 2, 2 ] );
+  var srcLine = _.line.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
 
   var gotLine = _.line.adapterFrom( srcLine );
   test.identical( gotLine, expected );
@@ -370,7 +370,7 @@ function adapterFrom( test )
   test.case = 'Same instance returned - empty vector'; /* */
 
   var srcLine = [];
-  var expected =  _.vectorAdapter.from( [] );
+  var expected =  _.line.tools.vectorAdapter.from( [] );
 
   var gotLine = _.line.adapterFrom( srcLine );
   test.identical( gotLine, expected );
@@ -566,7 +566,7 @@ function originGet( test )
   test.case = 'Source line remains unchanged'; /* */
 
   var srcLine = [ 0, 0, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotOrigin = _.line.originGet( srcLine );
   test.identical( gotOrigin, expected );
@@ -578,7 +578,7 @@ function originGet( test )
 
   var srcLine = [ 0, 1 ];
   var gotOrigin = _.line.originGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
@@ -586,7 +586,7 @@ function originGet( test )
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
   var gotOrigin = _.line.originGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
@@ -594,7 +594,7 @@ function originGet( test )
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotOrigin = _.line.originGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 0, 1 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
@@ -602,7 +602,7 @@ function originGet( test )
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotOrigin = _.line.originGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 0, 1 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
@@ -610,7 +610,7 @@ function originGet( test )
 
   var srcLine = [ 0, 1, 2, 3, 4, 5 ];
   var gotOrigin = _.line.originGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
@@ -618,7 +618,7 @@ function originGet( test )
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotOrigin = _.line.originGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
@@ -643,7 +643,7 @@ function directionGet( test )
   test.case = 'Source line remains unchanged'; /* */
 
   var srcLine = [ 0, 0, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 1, 1 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 1, 1 ] );
 
   var gotDirection = _.line.directionGet( srcLine );
   test.identical( gotDirection, expected );
@@ -655,7 +655,7 @@ function directionGet( test )
 
   var srcLine = [ 0, 1 ];
   var gotDirection = _.line.directionGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 1 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
@@ -663,7 +663,7 @@ function directionGet( test )
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
   var gotDirection = _.line.directionGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 1 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
@@ -671,7 +671,7 @@ function directionGet( test )
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotDirection = _.line.directionGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 2, 3 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
@@ -679,7 +679,7 @@ function directionGet( test )
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotDirection = _.line.directionGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 2, 3 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
@@ -687,7 +687,7 @@ function directionGet( test )
 
   var srcLine = [ 0, 1, 2, 3, 4, 5 ];
   var gotDirection = _.line.directionGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
@@ -695,7 +695,7 @@ function directionGet( test )
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotDirection = _.line.directionGet( srcLine );
-  var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
@@ -1319,7 +1319,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 2, 2 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.identical( isIntersectionFactors, expected );
@@ -1334,7 +1334,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.identical( isIntersectionFactors, expected );
@@ -1361,7 +1361,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 0, 2, -1 ];
-  var expected = _.vectorAdapter.from( [ 1, -1 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 1, -1 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -1370,7 +1370,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 3, 7, 1, 0 ];
   var src2Line = [ 3, 7, 0, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -1379,7 +1379,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 0, 0, 1, 0 ];
   var src2Line = [ -2, -6, 1, 2 ];
-  var expected = _.vectorAdapter.from( [ 1, 3 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 1, 3 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -1388,7 +1388,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ -3, 0, 1, 0 ];
   var src2Line = [ 0, -2, 0, 1 ];
-  var expected = _.vectorAdapter.from( [ 3, 2 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 3, 2 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -1397,7 +1397,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 3, 3, 0, 1, 4 ];
-  var expected = _.vectorAdapter.from( [ 3, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -1406,7 +1406,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ - 3, - 3, - 3, 0, 1, 4 ];
-  var expected = _.vectorAdapter.from( [ - 3, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ - 3, 0 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -1415,7 +1415,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 5, 5, 7, 0, 0, 1 ];
   var src2Line = [ 0, 0, 0, 4, 4, 4 ];
-  var expected = _.vectorAdapter.from( [ -2, 1.25 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ -2, 1.25 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -1425,7 +1425,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 0 ];
   var src2Line = [ 3, 3, 0, 0, 1, 0 ];
-  var expected = _.vectorAdapter.from( [ 3, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -1443,7 +1443,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Line = [ 3, 3, 3, 3, 0, 2, 1, 4 ];
-  var expected = _.vectorAdapter.from( [ 3, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -1470,7 +1470,7 @@ function lineIntersectionFactors( test )
 
   var src1Line = [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1  ];
   var src2Line = [ 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 1, 4, 0, 2, 1, 4 ];
-  var expected = _.vectorAdapter.from( [ 3, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 3, 0 ] );
 
   var isIntersectionFactors = _.line.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
@@ -2910,7 +2910,7 @@ function boundingBoxGet( test )
 
   test.case = 'srcLine vector'; /* */
 
-  var srcLine = _.vectorAdapter.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
+  var srcLine = _.line.tools.vectorAdapter.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
   var expected = [  - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
 
@@ -2920,8 +2920,8 @@ function boundingBoxGet( test )
   test.case = 'dstBox vector - 2D'; /* */
 
   var srcLine = [ - 1, 0, - 2, 3 ];
-  var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vectorAdapter.from( [ - Infinity, - Infinity, Infinity, Infinity ] );
+  var dstBox = _.line.tools.vectorAdapter.from( [ 1, 2, 3, 9 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ - Infinity, - Infinity, Infinity, Infinity ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -3248,8 +3248,8 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
-  var expected = _.vectorAdapter.from( [ -1, 2, 0 ] );
+  var dstPoint = _.line.tools.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ -1, 2, 0 ] );
 
   var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -3915,8 +3915,8 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var line = [ 0, 2, 2, - 1, - 1, - 1 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ -0.5, 1.5, 1.5 ] );
+  var dstPoint = _.line.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ -0.5, 1.5, 1.5 ] );
 
   var gotClosestPoint = _.line.frustumClosestPoint( line, srcFrustum, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -4738,9 +4738,9 @@ function planeIntersectionPoint( test )
 
   var line = [ 3, 4, 4, 0, 0, 2 ];
   var plane = [ 0, 0, 1, 0 ];
-  var expected = _.vectorAdapter.from( [ 3, 4, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 3, 4, 0 ] );
 
-  var gotPoint = _.line.planeIntersectionPoint( line, plane, _.vectorAdapter.from( [ 0, 0, 0 ] ) );
+  var gotPoint = _.line.planeIntersectionPoint( line, plane, _.line.tools.vectorAdapter.from( [ 0, 0, 0 ] ) );
   test.identical( gotPoint, expected );
 
   /* */
@@ -5054,8 +5054,8 @@ function planeClosestPoint( test )
 
   var line = [ 0, -6, 24, 0, 1, 0 ];
   var plane = [ 1, 0, 0, 3 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, -6, 24 ] );
+  var dstPoint = _.line.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, -6, 24 ] );
 
   var gotPoint = _.line.planeClosestPoint( line, plane, dstPoint );
   test.identical( gotPoint, expected );
@@ -5420,7 +5420,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
@@ -5453,7 +5453,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 3, 7, 1, 0, 0, -7 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0.5 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
@@ -5462,7 +5462,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstRay = [ 3, 7, 7, 0, 0, 0.5 ];
-  var expected = _.vectorAdapter.from( [ 0.8571428571428571, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0.8571428571428571, 0 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
@@ -5480,7 +5480,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 3, 3, 3, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 3 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 3 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
@@ -5498,7 +5498,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ -4, -4, -4, 0, 0, 0 ];
-  var expected = _.vectorAdapter.from( [ -4, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ -4, 0 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
@@ -5507,7 +5507,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
@@ -5516,7 +5516,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = _.vectorAdapter.from( [ 4, 3 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 4, 3 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
@@ -5534,7 +5534,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 0, 0, -2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
-  var expected = _.vectorAdapter.from( [ 1.5, 4 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 1.5, 4 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
@@ -5543,7 +5543,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
-  var expected = _.vectorAdapter.from( [ -1.5, 4 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ -1.5, 4 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
@@ -5561,7 +5561,7 @@ function rayIntersectionFactors( test )
 
   var srcLine = [ 5, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = _.vectorAdapter.from( [ -2, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ -2, 0 ] );
 
   var gotIntersectionFactors = _.line.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
@@ -6106,6 +6106,13 @@ function segmentIntersectionPoint( test )
 
   var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
+  
+  test.case = ''; /* */
+  
+  var srcLine = [ 3, 7, 0, 0, 0, 0.5 ]
+  var tstSegment  = [ 3, 7, 1, 3, 7, 7 ]
+  var got = _.line.segmentIntersectionPoint( srcLine, tstSegment )
+  test.identical( got, [] )
 
   /* */
 
@@ -6132,7 +6139,7 @@ function segmentIntersectionFactors( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
@@ -6165,7 +6172,7 @@ function segmentIntersectionFactors( test )
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
@@ -6174,10 +6181,11 @@ function segmentIntersectionFactors( test )
 
   var srcLine = [ 3, 7, 4.5, 0, 0, 7 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
-  var expected = _.vectorAdapter.from( [ -0.5, 0 ] );
-
+  var expected = _.line.tools.vectorAdapter.from( [ -0.5, 0 ] );
+  
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
+  
 
   test.case = 'srcLine is a point - not contained'; /* */
 
@@ -6192,7 +6200,7 @@ function segmentIntersectionFactors( test )
 
   var srcLine = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0.5 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0.5 ] );
 
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
@@ -6210,7 +6218,7 @@ function segmentIntersectionFactors( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
-  var expected = _.vectorAdapter.from( [ 7, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 7, 0 ] );
 
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
@@ -6219,7 +6227,7 @@ function segmentIntersectionFactors( test )
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
@@ -6228,7 +6236,7 @@ function segmentIntersectionFactors( test )
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
-  var expected = _.vectorAdapter.from( [ 4, 0.5 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 4, 0.5 ] );
 
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
@@ -6246,7 +6254,7 @@ function segmentIntersectionFactors( test )
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, -3, 1 ];
-  var expected = _.vectorAdapter.from( [ -1.5, 0.8 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ -1.5, 0.8 ] );
 
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
@@ -6264,7 +6272,7 @@ function segmentIntersectionFactors( test )
 
   var srcLine = [ 5, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
-  var expected = _.vectorAdapter.from( [ -2, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ -2, 0 ] );
 
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
@@ -6828,8 +6836,8 @@ function sphereClosestPoint( test )
 
   var line = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 0, 5, 0, 3 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, 5, 4 ] );
+  var dstPoint = _.line.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.from( [ 0, 5, 4 ] );
 
   var gotClosestPoint = _.line.sphereClosestPoint( line, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -6927,7 +6935,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcLine vector'; /* */
 
-  var srcLine = _.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
+  var srcLine = _.line.tools.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = _.line.tools.longMake( [ - 1, - 1, - 1, Infinity ] );
 
@@ -6963,7 +6971,7 @@ function boundingSphereGet( test )
 
   test.case = 'Very small direction'; /* */
 
-  var srcLine = _.vectorAdapter.from( [ 4, 4, 4, 1E-12, 1E-12, 1E-12 ] );
+  var srcLine = _.line.tools.vectorAdapter.from( [ 4, 4, 4, 1E-12, 1E-12, 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = _.line.tools.longMake( [ 4, 4, 4, Infinity ] );
 
