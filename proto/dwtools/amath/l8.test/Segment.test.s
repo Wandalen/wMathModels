@@ -3373,7 +3373,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
   var capsule = [ 1, 2, 4, 3, 4, 0, 0.2 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3382,7 +3382,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 1, 2, 3, 1, 0, 0 ];
   var capsule = [ 1, 2, 4, 1, 2, 4, 0 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3391,7 +3391,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 1, 2, 3, 1, 0, 0 ];
   var capsule = [ 1, 2, 4, 1, 2, 4, 0.5 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3418,7 +3418,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 4, 0, 0, 6 ];
   var capsule = [ 0, 1, 1, 3, 7, 3, 0.2 ];
-  var expected = [ 0, 0, 4 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 4 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3427,7 +3427,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ - 2, - 2, - 2, -1, -1, -1, 1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3436,7 +3436,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ -1, -1, -1, 0.5, 0.5, - 0.2 , 0.1];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3445,7 +3445,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ 6, 7, 8, 6, 9, 10, 2 ];
-  var expected = [ 2, 2, 2 ];
+  var expected = _.segment.tools.longMake( [ 2, 2, 2 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3454,7 +3454,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 2, 10 ];
   var capsule = [ 6, 7, 10, 8, 1 ];
-  var expected = [ 1.5769230769230769, 7.884615384615384 ];
+  var expected = _.segment.tools.longMake( [ 1.5769230769230769, 7.884615384615384 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
