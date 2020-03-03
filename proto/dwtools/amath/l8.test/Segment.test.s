@@ -7364,7 +7364,7 @@ function sphereClosestPoint( test )
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
   var sphere = [ 4, 3, 4, 1 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
   test.identical( gotClosestPoint, expected );
@@ -7391,7 +7391,7 @@ function sphereClosestPoint( test )
 
   var segment = [ 0, -6, 4, 0, 1, 4 ];
   var sphere = [ 0, 0, 0, 3 ];
-  var expected = [ 0, 0, 4 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 4 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
   test.identical( gotClosestPoint, expected );
@@ -7400,7 +7400,7 @@ function sphereClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var sphere = [ - 2, - 2, - 2, 0.5 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
   test.identical( gotClosestPoint, expected );
@@ -7418,7 +7418,7 @@ function sphereClosestPoint( test )
 
   var segment = [ 0, 0, 0, 0, 0, 1 ];
   var sphere = [ 3, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
   test.equivalent( gotClosestPoint, expected );
@@ -7427,8 +7427,8 @@ function sphereClosestPoint( test )
 
   var segment = [ 0, -6, 4, 0, 1, 4 ];
   var sphere = [ 0, 5, 0, 3 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, 1, 4 ] );
+  var dstPoint = _.segment.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.segment.tools.vectorAdapter.from( [ 0, 1, 4 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -7438,7 +7438,7 @@ function sphereClosestPoint( test )
   var segment = [ 0, -6, 4, 0, 1, 4 ];
   var sphere = [ 1, 5, 0, 3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, 1, 4 ];
+  var expected = _.segment.tools.longMake( [ 0, 1, 4 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
