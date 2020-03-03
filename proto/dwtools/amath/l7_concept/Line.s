@@ -809,7 +809,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   */
 function lineIntersectionPoints( srcLine1, srcLine2 )
 {
-  let factors = lineIntersectionFactors( srcLine1, srcLine2 );
+  let factors = this.lineIntersectionFactors( srcLine1, srcLine2 );
   if( factors === 0 )
   return 0;
 
@@ -1630,7 +1630,7 @@ function convexPolygonClosestPoint( line, polygon, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -1693,7 +1693,7 @@ function frustumIntersects( srcLine, srcFrustum )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -1712,7 +1712,7 @@ function frustumIntersects( srcLine, srcFrustum )
 
   /* frustum corners */
   let corners = _.frustum.cornersGet( srcFrustum );
-  let cornersLength = _.Matrix.dimsOf( corners )[ 1 ];
+  let cornersLength = _.Matrix.DimsOf( corners )[ 1 ];
 
   for( let j = 0 ; j < cornersLength ; j++ )
   {
@@ -1757,7 +1757,7 @@ function frustumDistance( srcLine, srcFrustum )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -1808,7 +1808,7 @@ function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( _.frustum.is( srcFrustum ) );
 
-  let dimFrustum = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimFrustum = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimFrustum[ 0 ];
   let cols = dimFrustum[ 1 ];
 
@@ -1834,13 +1834,13 @@ function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
 
   /* frustum corners */
   let corners = _.frustum.cornersGet( srcFrustum );
-  let cornersLength = _.Matrix.dimsOf( corners )[ 1 ];
+  let cornersLength = _.Matrix.DimsOf( corners )[ 1 ];
 
   let distance = _.frustum.pointDistance( srcFrustum, origin );
   let d = 0;
   let pointView = this.tools.vectorAdapter.from( origin );
 
-  for( let j = 0 ; j < _.Matrix.dimsOf( corners )[ 1 ] ; j++ )
+  for( let j = 0 ; j < _.Matrix.DimsOf( corners )[ 1 ] ; j++ )
   {
     let corner = corners.colVectorGet( j );
     d = Math.abs( this.pointDistance( srcLineView, corner ) );
@@ -2759,16 +2759,16 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
   else
   {
 
-    if( this.lineParallel( srcLineView, srcRayView ) )
+    if( this.lineParallel( srcLineView, tstSegmentView ) )
     {
-      pointView = this.pointClosestPoint( srcLineView, rayOrigin );
+      pointView = this.pointClosestPoint( srcLineView, tstOrigin );
     }
     else
     {
       let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
       let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( rayOrigin.slice(), srcOrigin ) );
+      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( tstOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       pointView = this.lineAt( srcLineView, factor );
@@ -3193,7 +3193,7 @@ function boundingSphereGet( dstSphere, srcLine )
   }
 
   // Radius of the sphere
-  let distOrigin = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( _.long.longMakeZeroed( dimLine ) ), direction );
+  let distOrigin = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dimLine ) ), direction );
 
   if( distOrigin === 0  )
   {

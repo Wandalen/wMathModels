@@ -1215,7 +1215,7 @@ function convexPolygonClosestPoint( frustum, polygon, dstPoint )
   let dimF  = _.Matrix.DimsOf( frustum );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP[ 0 ] );
+  dstPoint = this.tools.longMake( dimP[ 0 ] );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2295,40 +2295,40 @@ function boundingSphereGet( dstSphere, srcFrustum )
   {
     let newp = fpoints.colVectorGet( j );
 
-    if( newp.eGet( 0 ) < min.eGet( 0 ) )
+    if( newp.eGet( 0 ) < minF.eGet( 0 ) )
     {
-      min.eSet( 0, newp.eGet( 0 ) );
+      minF.eSet( 0, newp.eGet( 0 ) );
     }
-    if( newp.eGet( 1 ) < min.eGet( 1 ) )
+    if( newp.eGet( 1 ) < minF.eGet( 1 ) )
     {
-      min.eSet( 1, newp.eGet( 1 ) );
+      minF.eSet( 1, newp.eGet( 1 ) );
     }
-    if( newp.eGet( 2 ) < min.eGet( 2 ) )
+    if( newp.eGet( 2 ) < minF.eGet( 2 ) )
     {
-      min.eSet( 2, newp.eGet( 2 ) );
+      minF.eSet( 2, newp.eGet( 2 ) );
     }
-    if( newp.eGet( 0 ) > max.eGet( 0 ) )
+    if( newp.eGet( 0 ) > maxF.eGet( 0 ) )
     {
-      max.eSet( 0, newp.eGet( 0 ) );
+      maxF.eSet( 0, newp.eGet( 0 ) );
     }
-    if( newp.eGet( 1 ) > max.eGet( 1 ) )
+    if( newp.eGet( 1 ) > maxF.eGet( 1 ) )
     {
-      max.eSet( 1, newp.eGet( 1 ) );
+      maxF.eSet( 1, newp.eGet( 1 ) );
     }
-    if( newp.eGet( 2 ) > max.eGet( 2 ) )
+    if( newp.eGet( 2 ) > maxF.eGet( 2 ) )
     {
-      max.eSet( 2, newp.eGet( 2 ) );
+      maxF.eSet( 2, newp.eGet( 2 ) );
     }
   }
 
   // Center of the sphere
   for( let c = 0; c < center.length; c++ )
   {
-    center.eSet( c, ( max.eGet( c ) + min.eGet( c ) ) / 2 );
+    center.eSet( c, ( maxF.eGet( c ) + minF.eGet( c ) ) / 2 );
   }
 
   // Radius of the sphere
-  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, max ) );
+  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, maxF ) );
 
   return dstSphere;
 }
