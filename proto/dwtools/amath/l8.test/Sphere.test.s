@@ -580,7 +580,7 @@ function fromBox( test )
 
   test.case = 'trivial'; /* */
 
-  var expected = [ 0.5, 0.5, 0.5, sqrt( 0.75 ) ];
+  var expected = _.sphere.tools.longMake( [ 0.5, 0.5, 0.5, sqrt( 0.75 ) ] );
   var bsphere = [ 0, 0, 0, 0 ];
   var bbox = [ 0, 0, 0, 1, 1, 1 ];
 
@@ -596,7 +596,7 @@ function fromBox( test )
 
   test.case = 'same sizes, different position'; /* */
 
-  var expected = [ -2.5, 0.5, 5.5, sqrt( 0.75 ) ];
+  var expected = _.sphere.tools.longMake( [ -2.5, 0.5, 5.5, sqrt( 0.75 ) ] );
   var bsphere = [ 0, 0, 0, 0 ];
   var bbox = [ -3, 0, 5, -2, 1, 6 ];
 
@@ -612,7 +612,7 @@ function fromBox( test )
 
   test.case = 'different sizes, different position'; /* */
 
-  var expected = [ -2, 0.5, 7, sqrt( 21 )/2 ];
+  var expected = _.sphere.tools.longMake( [ -2, 0.5, 7, sqrt( 21 )/2 ] );
   var bsphere = [ 0, 0, 0, 0 ];
   var bbox = [ -3, 0, 5, -1, 1, 9 ];
 
@@ -1710,7 +1710,7 @@ function project( test )
 
   var dstSphere = [ 0.5, 0.5, 1 ];
   var project = [ [ 1, 1 ], 2 ];
-  var expected = [ 1.5, 1.5, 2 ];
+  var expected = _.sphere.tools.longMake( [ 1.5, 1.5, 2 ] );
 
   var gotSphere = _.sphere.project( dstSphere, project );
   test.identical( gotSphere, expected );
@@ -1726,7 +1726,7 @@ function project( test )
 
   var sphere = null;
   var project = [ [ 1, 0, 0 ], 2 ];
-  var expected = [ 1, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 1, 0, 0, 0 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1735,7 +1735,7 @@ function project( test )
 
   var sphere = null;
   var project = [ [ 0, 0, 0 ], 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1744,7 +1744,7 @@ function project( test )
 
   var sphere = [ 0.5, 0, 0, 2 ];
   var project = [ [ 0, 1, 0 ], 3 ];
-  var expected = [ 0.5, 1, 0, 6 ];
+  var expected = _.sphere.tools.longMake( [ 0.5, 1, 0, 6 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1753,7 +1753,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 2 ];
-  var expected = [ 0, 2, 2, 2 ];
+  var expected = _.sphere.tools.longMake( [ 0, 2, 2, 2 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1762,7 +1762,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 0.5 ];
-  var expected = [ 0, 2, 2, 0.5 ];
+  var expected = _.sphere.tools.longMake( [ 0, 2, 2, 0.5 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1771,7 +1771,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 1 ];
   var project = [ [ 1, 2, 3 ], 1 ];
-  var expected = [ 1, 4, 5, 1 ];
+  var expected = _.sphere.tools.longMake( [ 1, 4, 5, 1 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1780,7 +1780,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0 ];
-  var expected = [ 1, 4, 5, 0 ];
+  var expected = _.sphere.tools.longMake( [ 1, 4, 5, 0 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1789,7 +1789,7 @@ function project( test )
 
   var sphere = [ 0, 2, 2, 3 ];
   var project = [ [ 0, 0, 0 ], 1 ];
-  var expected = [ 0, 2, 2, 3 ];
+  var expected = _.sphere.tools.longMake( [ 0, 2, 2, 3 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1798,7 +1798,7 @@ function project( test )
 
   var sphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
   var project = [ [ 0, 0, 0, 0 ], 4 ];
-  var expected = [ -0.5, -0.5, 0.5, 0.5, 4 ];
+  var expected = _.sphere.tools.longMake( [ -0.5, -0.5, 0.5, 0.5, 4 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1807,7 +1807,7 @@ function project( test )
 
   var sphere = [ 0, 1 ];
   var project = [ [ 1 ], 2 ];
-  var expected = [ 1, 2 ];
+  var expected = _.sphere.tools.longMake( [ 1, 2 ] );
 
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
@@ -1818,67 +1818,67 @@ function project( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( 'sphere', 'project' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0 ], [ [ 0, 0 ], 1 ], [ [ 1, 1 ], 0 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1 ], 2 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0 ], [ [ 0 ], 2 ] );
   });
 
   test.case = 'Wrong project array dimension (null sphere vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( null, [ [ 0, 1 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (project has less than 2 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ] ] );
   });
 
   test.case = 'Wrong project array dimension (project has more than 2 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2 ] );
   });
 
   test.case = 'Empty arrays'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ ], [ [  ],  ] );
   });
@@ -1894,7 +1894,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 1, 1 ];
   var projSphere = [ 0.5, 0.5, 1.5, 2 ];
-  var expected = [ [ 0.5, 0.5, 0.5 ], 2 ];
+  var expected = _.sphere.tools.longMake( [ [ 0.5, 0.5, 0.5 ], 2 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1909,7 +1909,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 1, 0, 0, 2 ];
   var projSphere = [ -0.5, 1, 0, 6 ];
-  var expected = [ [ -1.5, 1, 0 ], 3 ];
+  var expected = _.sphere.tools.longMake( [ [ -1.5, 1, 0 ], 3 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1918,7 +1918,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 2, 2, 2, 1 ];
   var projSphere = [ 2, 2, 2, 2 ];
-  var expected = [ [ 0, 0, 0 ], 2 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 2 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1927,7 +1927,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 2, 2, 2, 1 ];
   var projSphere = [ 2, 2, 2, 0.5 ];
-  var expected = [ [ 0, 0, 0 ], 0.5 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 0.5 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1936,7 +1936,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 2, 2, 1 ];
   var projSphere = [ 1, 4, 5, 1 ];
-  var expected = [ [ 1, 2, 3 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 1, 2, 3 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1945,7 +1945,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 2, 2, 2, 1 ];
   var projSphere = [ 3, 4, 5, 0 ];
-  var expected = [ [ 1, 2, 3 ], 0 ];
+  var expected = _.sphere.tools.longMake( [ [ 1, 2, 3 ], 0 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1954,7 +1954,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 0, 4 ];
   var projSphere = [ 2, 3, 4, 1 ];
-  var expected = [ [ 2, 3, 4 ], 0.25 ];
+  var expected = _.sphere.tools.longMake( [ [ 2, 3, 4 ], 0.25 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1963,7 +1963,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 2, 2, 2, 3 ];
   var projSphere = [ 2, 2, 2, 3 ];
-  var expected = [ [ 0, 0, 0 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1972,7 +1972,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
   var projSphere = [ - 1, - 1, 1, 1, 4 ];
-  var expected = [ [ -0.5, -0.5, 0.5, 0.5 ], 4 ];
+  var expected = _.sphere.tools.longMake( [ [ -0.5, -0.5, 0.5, 0.5 ], 4 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1981,7 +1981,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 1 ];
   var projSphere = [ 1, 1 ];
-  var expected = [ [ 1 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 1 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -1990,7 +1990,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 5, 5, 0 ];
-  var expected = [ [ 2, 1 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 2, 1 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2008,7 +2008,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 3, 1 ];
   var projSphere = [ 5, 5, 7, 2 ];
-  var expected = [ [ 2, 1, 4 ], 2 ];;
+  var expected = _.sphere.tools.longMake( [ [ 2, 1, 4 ], 2 ] );;
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2019,7 +2019,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 1, 1, 1 ];
   var projSphere = [ 0, 0, 1, 1, 1 ];
-  var expected = [ [ 0, 0, 0, 0 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0, 0 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2031,7 +2031,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 3, 4, 0 ];
-  var expected = [ [ 0, 0 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2043,7 +2043,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 5, 5, 0 ];
-  var expected = [ [ 2, 1 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ 2, 1 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2055,7 +2055,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 6, 1 ];
   var projSphere = [ 5, 5, 5, 0 ];
-  var expected = [ [ 2, 1, -1 ], 0 ];
+  var expected = _.sphere.tools.longMake( [ [ 2, 1, -1 ], 0 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2067,7 +2067,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 3, 4, 6, 2 ];
   var projSphere = [ -1, 8, 2, 2 ];
-  var expected = [ [ -4, 4, -4 ], 1 ];
+  var expected = _.sphere.tools.longMake( [ [ -4, 4, -4 ], 1 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2079,7 +2079,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 4, 2 ];
   var projSphere = [ 0, 0, 4, 1 ];
-  var expected = [ [ 0, 0, 0 ], 0.5 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 0.5 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2091,7 +2091,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 4, 1 ];
   var projSphere = [ 0, 0, 4, 3/2 ];
-  var expected = [ [ 0, 0, 0 ], 3/2 ];
+  var expected = _.sphere.tools.longMake( [ [ 0, 0, 0 ], 3/2 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.equivalent( gotFactors, expected );
@@ -2103,7 +2103,7 @@ function getProjectionFactors( test )
 
   var dstSphere = [ 0, 0, 4, 2 ];
   var projSphere = [ -7, -3, 9, 4 ];
-  var expected = [ [ -7, -3, 5 ], 2 ];;
+  var expected = _.sphere.tools.longMake( [ [ -7, -3, 5 ], 2 ] );
 
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
@@ -2117,73 +2117,73 @@ function getProjectionFactors( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors();
   });
 
   test.case = 'Wrong type of argument - string'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( 'sphere', 'projSphere' );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( null, [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], null );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( undefined, [ 0, 1, 2, 3, 1 ] );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], undefined );
   });
 
   test.case = 'Empty arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [], [] );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 3D vs sphere 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 1, 1, 1, 1, 0 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 3D vs sphere 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 0, 1, 2 ] );
   });
 
   test.case = 'Wrong project array dimension (sphere 2D vs sphere 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0 ], [ 0, 2 ] );
   });
@@ -2597,7 +2597,7 @@ function pointExpand( test )
 
   var sphere = [ 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
@@ -2608,7 +2608,7 @@ function pointExpand( test )
   var sphere = [ 0, 0, 0, 0 ];
   //var center = _.sphere.centerGet( sphere );
   var point = [ 1, 1, 1 ];
-  var expected = [ 0, 0, 0, _.math.sqrt( 3 ) ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, _.math.sqrt( 3 ) ] );
   var got = _.sphere.pointExpand( sphere, point );
   //var d1 = _.avector.distance( point, center );
   debugger;
@@ -2624,7 +2624,7 @@ function pointExpand( test )
   var sphere = [ 1, 1, 1, 1 ];
   var center = _.sphere.centerGet( sphere );
   var point = [ -1, -1, -1 ];
-  var expected = [ 1, 1, 1, 3.4641016151377544 ];
+  var expected = _.sphere.tools.longMake( [ 1, 1, 1, 3.4641016151377544 ] );
   var got = _.sphere.pointExpand( sphere, point );
   // var d1 = _.avector.distance( point, center );
   // var d2 = _.avector.distance( _.dup( 1+_.math.sqrt( 3 ) / 3, 3 ), center );
@@ -2639,7 +2639,7 @@ function pointExpand( test )
   var sphere = [ 1, 1, 1, -Infinity ];
   var center = _.sphere.centerGet( sphere );
   var point = [ -1, -1, -1 ];
-  var expected = [ -1, -1, -1, 0 ];
+  var expected = _.sphere.tools.longMake( [ -1, -1, -1, 0 ] );
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
@@ -2649,7 +2649,7 @@ function pointExpand( test )
 
   var sphere = [ 1, 1, 1, 3 ];
   var point = [ 0, 0, 0 ];
-  var expected = [ 1, 1, 1, 3 ];
+  var expected = _.sphere.tools.longMake( [ 1, 1, 1, 3 ] );
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
@@ -2659,7 +2659,7 @@ function pointExpand( test )
 
   var sphere = [ 1, 1, 1, 3 ];
   var point = [ 1, 5, 1 ];
-  var expected = [ 1, 1, 1, 4 ];
+  var expected = _.sphere.tools.longMake( [ 1, 1, 1, 4 ] );
   var got = _.sphere.pointExpand( sphere, point );
 
   test.equivalent( got, expected );
@@ -3081,7 +3081,7 @@ function boxExpand( test )
   var oldSphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 4, 3, 0 ];
   var oldBox = [ 0, 0, 0, 4, 3, 0 ];
-  var expected = [ 0, 0, 0, 5 ];;
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 5 ] );;
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3092,7 +3092,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3102,7 +3102,7 @@ function boxExpand( test )
 
   var sphere = [ - 1, 0, 0, 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ - 1, 0, 0, 4.1231056256 ];
+  var expected = _.sphere.tools.longMake( [ - 1, 0, 0, 4.1231056256 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3112,7 +3112,7 @@ function boxExpand( test )
 
   var sphere = [ - 1, 0, 0, 2 ];
   var box = [ 3, 0, 0, 3, 0, 0 ];
-  var expected = [ - 1, 0, 0, 4 ];
+  var expected = _.sphere.tools.longMake( [ - 1, 0, 0, 4 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3122,7 +3122,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
-  var expected = [ 0, 0, 0, 3.46410161513 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3.46410161513 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3132,7 +3132,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 6 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
-  var expected = [ 0, 0, 0, 6 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 6 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3142,7 +3142,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 6 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 6 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 6 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3152,7 +3152,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 1, 0, 0, 2, 1, 1 ];
-  var expected = [ 0, 0, 0, 2.449489742 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2.449489742 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3162,7 +3162,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3172,7 +3172,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 2, - 2, 2 ];
-  var expected = [ 0, 0, 0, 3.4641016151 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3.4641016151 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3182,7 +3182,7 @@ function boxExpand( test )
 
   var sphere = _.sphere.makeNil();
   var box = [ 0, 0, 0, 2, 2, 2 ];
-  var expected =  [ 0, 0, 0, 3.4641016151 ];
+  var expected =  _.sphere.tools.longMake( [ 0, 0, 0, 3.4641016151 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3192,7 +3192,7 @@ function boxExpand( test )
 
   var sphere = [ 0, 0, 0, 2 ];
   var box = _.box.makeNil();
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, Infinity ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
   test.is( gotSphere === sphere );
@@ -3824,7 +3824,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ -1.5, 1, 0 ];
+  var expected = _.sphere.tools.longMake( [ -1.5, 1, 0 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
@@ -3852,7 +3852,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ 0, 1, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 1, 1 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.equivalent( expected, gotPoint );
@@ -3880,7 +3880,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1,
     0,   0,   0,   0
   ]);
-  var expected = [ 0, 0, -0.5 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, -0.5 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
@@ -3893,7 +3893,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   1,   0,
     0,   0,   1,   1
   ]);
-  var expected = [ 3.5, 3.5 ];
+  var expected = _.sphere.tools.longMake( [ 3.5, 3.5 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
@@ -3908,7 +3908,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 2.1022415975031303, 2.9526151970869856, 2.9526151970869856 ];
+  var expected = _.sphere.tools.longMake( [ 2.1022415975031303, 2.9526151970869856, 2.9526151970869856 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -3923,8 +3923,8 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
-  var expected = _.vectorAdapter.from( [ -0.4654775161751512, -0.9309550323503024, -2.3964325485254534 ] );
+  var dstPoint = _.sphere.tools.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.sphere.tools.vectorAdapter.from( [ -0.4654775161751512, -0.9309550323503024, -2.3964325485254534 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -4442,7 +4442,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 3, 0, 0, 1 ];
 
-  var expected = [ 3, 0, 0, 3.3166247903554 ];
+  var expected = _.sphere.tools.longMake( [ 3, 0, 0, 3.3166247903554 ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.equivalent( gotDistance, expected );
 
@@ -4469,7 +4469,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 0, 0, 0, 2 ];
 
-  var expected = [ 0, 0, 0, 2 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
@@ -4484,7 +4484,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 2, 2, 2, 2 ];
 
-  var expected = [ 2, 2, 2, Math.sqrt( 12 ) ];
+  var expected = _.sphere.tools.longMake( [ 2, 2, 2, Math.sqrt( 12 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
@@ -4499,7 +4499,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 0, 0, 0, 1 ];
 
-  var expected = [ 0, 0, 0, Math.sqrt( 3 ) ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, Math.sqrt( 3 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
@@ -4514,7 +4514,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 0, 5, 1, 1 ];
 
-  var expected = [ 0, 5, 1, Math.sqrt( 27 ) ];
+  var expected = _.sphere.tools.longMake( [ 0, 5, 1, Math.sqrt( 27 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
@@ -4529,7 +4529,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 0, 3, 3, 1 ];
 
-  var expected = [ 0, 3, 3, Math.sqrt( 19 ) ];
+  var expected = _.sphere.tools.longMake( [ 0, 3, 3, Math.sqrt( 19 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.equivalent( gotDistance, expected );
 
@@ -4544,7 +4544,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 3, 3, 3, 1 ];
 
-  var expected = [ 3, 3, 3, Math.sqrt( 27 ) ];
+  var expected = _.sphere.tools.longMake( [ 3, 3, 3, Math.sqrt( 27 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.equivalent( gotDistance, expected );
 
@@ -4553,7 +4553,7 @@ function frustumExpand( test )
   var tstFrustum =  _.frustum.make();
   var srcSphere = [ 0, 0, 0, 2 ];
 
-  var expected = [ 0, 0, 0, 2 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
@@ -4808,7 +4808,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
   test.identical( gotExpand, expected );
 
@@ -4822,7 +4822,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.identical( gotExpand, expected );
@@ -4831,7 +4831,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.identical( gotExpand, expected );
@@ -4840,7 +4840,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 2 ];
   var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 2 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.identical( gotExpand, expected );
@@ -4849,7 +4849,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.identical( gotExpand, expected );
@@ -4858,7 +4858,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, 3 ];
-  var expected = [ 0, 0, 0, 3 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.equivalent( gotExpand, expected );
@@ -4867,7 +4867,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, - 3 ];
-  var expected = [ 0, 0, 0, 3 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.equivalent( gotExpand, expected );
@@ -4876,7 +4876,7 @@ function planeExpand( test )
 
   var srcSphere = [ 2, 2, 0, 1 ];
   var tstPlane = [ 1, 1, 0, 0 ];
-  var expected = [ 2, 2, 0, 2.8284271247461903 ];
+  var expected = _.sphere.tools.longMake( [ 2, 2, 0, 2.8284271247461903 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.equivalent( gotExpand, expected );
@@ -4885,7 +4885,7 @@ function planeExpand( test )
 
   var srcSphere = [ 2, 2, 2, 1 ];
   var tstPlane = [ 1, 1, 1, 0 ];
-  var expected = [ 2, 2, 2, 3.4641016151377544 ];
+  var expected = _.sphere.tools.longMake( [ 2, 2, 2, 3.4641016151377544 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.equivalent( gotExpand, expected );

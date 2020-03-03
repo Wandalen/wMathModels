@@ -41,7 +41,7 @@ function from( test )
   var normal = [ 0, 1, 2 ];
   var oldNormal = normal.slice();
   var bias = 3;
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 2, 3 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, dstPlane );
@@ -56,7 +56,7 @@ function from( test )
 
   var dstPlane = null;
   var srcPlane = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -66,7 +66,7 @@ function from( test )
   var dstPlane = null;
   var normal = [ 0, 0, 0 ];
   var bias = 0;
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -76,7 +76,7 @@ function from( test )
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ NaN, NaN, NaN ];
   var bias = 2;
-  var expected = [ NaN, NaN, NaN, 2 ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, 2 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -86,7 +86,7 @@ function from( test )
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ 0, 1, 0 ];
   var bias = NaN;
-  var expected = [ 0, 1, 0, NaN ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, NaN ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -95,7 +95,7 @@ function from( test )
 
   var dstPlane = [ 1, 1, 1, 1 ];
   var srcPlane = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -105,7 +105,7 @@ function from( test )
   var dstPlane = [ 1, 1, 1, 1 ];
   var normal = [ 0, 0, 0 ];
   var bias = 0;
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -114,7 +114,7 @@ function from( test )
 
   var dstPlane = [ 1, 0, 1, 2 ];
   var srcPlane = [ 0, 1, 0, 1 ];
-  var expected = [ 0, 1, 0, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -124,7 +124,7 @@ function from( test )
   var dstPlane = [ 1, 0, 1, 2 ];
   var normal = [ 1, 2, 1 ];
   var bias = 1;
-  var expected = [ 1, 2, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 1, 2, 1, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -133,7 +133,7 @@ function from( test )
 
   var dstPlane = [ 0, 0, 0 ];
   var srcPlane = [ 0, 1, 1 ];
-  var expected = [ 0, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -143,7 +143,7 @@ function from( test )
   var dstPlane = [ 0, 0, 0 ];
   var normal = [ 0, 1 ];
   var bias = 1;
-  var expected = [ 0, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -152,7 +152,7 @@ function from( test )
 
   var dstPlane = [ 0, 0, 0, 0, 0 ];
   var srcPlane = [ 0, 1, 1, 0, 1 ];
-  var expected = [ 0, 1, 1, 0, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 1, 0, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
@@ -162,7 +162,7 @@ function from( test )
   var dstPlane = [ 0, 0, 0, 0, 0 ];
   var normal = [ 0, 1, 1, 0 ];
   var bias = 1;
-  var expected = [ 0, 1, 1, 0, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 1, 0, 1 ] );
 
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
@@ -1202,7 +1202,7 @@ function capsuleClosestPoint( test )
 
   var plane = [ 1, 0, 0, 1 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
-  var expected = [ - 1, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( expected, gotPoint );
@@ -1217,7 +1217,7 @@ function capsuleClosestPoint( test )
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
   var plane = [ 1, 0, 0, - 3 ];
-  var expected = [ 3, 2, 2 ];
+  var expected = _.plane.tools.longMake( [ 3, 2, 2 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
@@ -1226,7 +1226,7 @@ function capsuleClosestPoint( test )
 
   var plane = [ - 1, 1, 0, - 2 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
-  var expected = [ -1, 1, 0 ];
+  var expected = _.plane.tools.longMake( [ -1, 1, 0 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
@@ -1262,7 +1262,7 @@ function capsuleClosestPoint( test )
 
   var plane = [ 0, - 2, 0, 2 ];
   var capsule = _.capsule.makeZero( 3 );
-  var expected = [ 0, 1, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
@@ -1509,7 +1509,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ -2, 0, 2 ];
+  var expected = _.plane.tools.longMake( [ -2, 0, 2 ] );
 
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
@@ -1537,7 +1537,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ 0, 1.5, 0.5 ];
+  var expected = _.plane.tools.longMake( [ 0, 1.5, 0.5 ] );
 
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.equivalent( expected, gotPoint );
@@ -1565,7 +1565,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1,
     0,   0,   0,   0
   ]);
-  var expected = [ 1, 0, 0.5 ];
+  var expected = _.plane.tools.longMake( [ 1, 0, 0.5 ] );
 
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
@@ -1580,7 +1580,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ -1/3, 1, 0 ];
+  var expected = _.plane.tools.longMake( [ -1/3, 1, 0 ] );
 
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -1595,8 +1595,8 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
-  var expected = _.vectorAdapter.from( [ -1/3, 1, 0 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ -1/3, 1, 0 ] );
 
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -2107,7 +2107,7 @@ function lineClosestPoint( test )
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstLine = [ 5, 5, 2, 0, 1, 0 ];
-  var expected = [ 5, 5, 3 ];
+  var expected = _.plane.tools.longMake( [ 5, 5, 3 ] );
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
@@ -2117,7 +2117,7 @@ function lineClosestPoint( test )
   var srcPlane = [ 0, 0, 1, -1 ];
   var tstLine = [ 4, 4, 3, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 4, 4, 1 ];
+  var expected = _.plane.tools.longMake( [ 4, 4, 1 ] );
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine, dstPoint );
   test.identical( expected, gotLine );
@@ -2127,8 +2127,8 @@ function lineClosestPoint( test )
 
   var srcPlane = [ 0, 1, 0, -2 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 5, 2, 1 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 5, 2, 1 ] );
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
@@ -2443,7 +2443,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 2, 2, 2 ];
+  var expected = _.plane.tools.longMake( [ 2, 2, 2 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2458,7 +2458,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 1, 1, 1 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2467,7 +2467,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2476,7 +2476,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2485,7 +2485,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ -3, -3, -3, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2512,8 +2512,8 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ 1, 0, 0, -2 ];
   var tstRay = [ 5, 5, 1, -1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 2, 5, 1 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 2, 5, 1 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
@@ -2545,7 +2545,7 @@ function rayClosestPoint( test )
 
   var srcPlane = [ - 1, 0, 0, - 2 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ - 2, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 2, 0, 0 ] );
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2587,7 +2587,7 @@ function rayClosestPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = [ 0, -3, -3 ];
+  var expected = _.plane.tools.longMake( [ 0, -3, -3 ] );
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2596,7 +2596,7 @@ function rayClosestPoint( test )
 
   var srcPlane = [ 0, - 1, 0, 4 ];
   var tstRay = [ 5, 5, 2, 1, 0, 1 ];
-  var expected = [ 5, 4, 2 ];
+  var expected = _.plane.tools.longMake( [ 5, 4, 2 ] );
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2606,7 +2606,7 @@ function rayClosestPoint( test )
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, 5, 1 ];
+  var expected = _.plane.tools.longMake( [ 0, 5, 1 ] );
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay, dstPoint );
   test.identical( expected, gotRay );
@@ -2616,8 +2616,8 @@ function rayClosestPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, 5, 1 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 0, 5, 1 ] );
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
@@ -2844,7 +2844,7 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstSegment = [ 0, 0, 0, 4, 1, 1 ];
-  var expected = [ 2, 0.5, 0.5 ];
+  var expected = _.plane.tools.longMake( [ 2, 0.5, 0.5 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -2859,7 +2859,7 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 1, 1, 1 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -2868,7 +2868,7 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -2877,7 +2877,7 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -2913,8 +2913,8 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ 1, 0, 0, -2 ];
   var tstSegment = [ 5, 5, 1, -1, 5, 1 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 2, 5, 1 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 2, 5, 1 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
@@ -2997,7 +2997,7 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 2, 2, 2, 3, 3, 3 ];
-  var expected = [ 0, 2, 2 ];
+  var expected = _.plane.tools.longMake([ 0, 2, 2 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -3006,7 +3006,7 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = [ 0, -2, -2 ];
+  var expected = _.plane.tools.longMake([ 0, -2, -2 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -3015,7 +3015,7 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstSegment = [ 5, 5, 2, 0, 1, 0 ];
-  var expected = [ 5, 5, 3 ];
+  var expected = _.plane.tools.longMake([ 5, 5, 3 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -3024,7 +3024,7 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstSegment = [ 0, 1, 0, 5, 5, 2 ];
-  var expected = [ 5, 5, 3 ];
+  var expected = _.plane.tools.longMake([ 5, 5, 3 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -3034,7 +3034,7 @@ function segmentClosestPoint( test )
   var srcPlane = [ 0, 0, 1, -1 ];
   var tstSegment = [ 1, 0, 0, 4, 4, - 3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 1, 0, 1 ];
+  var expected = _.plane.tools.longMake([ 1, 0, 1 ]);
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment, dstPoint );
   test.identical( expected, gotSegment );
@@ -3044,8 +3044,8 @@ function segmentClosestPoint( test )
 
   var srcPlane = [ 0, 1, 0, -2 ];
   var tstSegment = [ 1, 0, 0, 5, - 5, 1 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 1, 2, 0 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 1, 2, 0 ] );
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
