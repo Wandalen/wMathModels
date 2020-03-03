@@ -2866,8 +2866,8 @@ function capsuleIntersects( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleIntersects( polygon, capsule ));
   capsule = [ 0, 0, 1, 1, 2];
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleIntersects( polygon, capsule ));
-  capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
-  test.shouldThrowErrorSync( () => _.convexPolygon.capsuleIntersects( polygon, capsule ));
+  // capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
+  // test.shouldThrowErrorSync( () => _.convexPolygon.capsuleIntersects( polygon, capsule ));
   capsule = [ 0, 0, 1, 1, 2, 2, 2, 2 ];
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleIntersects( polygon, capsule ));
 
@@ -3136,8 +3136,8 @@ function capsuleDistance( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleDistance( polygon, capsule ));
   capsule = [ 0, 0, 1, 1, 2];
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleDistance( polygon, capsule ));
-  capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
-  test.shouldThrowErrorSync( () => _.convexPolygon.capsuleDistance( polygon, capsule ));
+  // capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
+  // test.shouldThrowErrorSync( () => _.convexPolygon.capsuleDistance( polygon, capsule ));
   capsule = [ 0, 0, 1, 1, 2, 2, 2, 2 ];
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleDistance( polygon, capsule ));
 
@@ -3392,8 +3392,8 @@ function capsuleClosestPoint( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleClosestPoint( polygon, capsule ));
   capsule = [ 0, 0, 1, 1, 2, 1 ];
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleClosestPoint( polygon, capsule ));
-  capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
-  test.shouldThrowErrorSync( () => _.convexPolygon.capsuleClosestPoint( polygon, capsule ));
+  // capsule = [ 0, 0, 1, 1, 2, 2, - 2 ];
+  // test.shouldThrowErrorSync( () => _.convexPolygon.capsuleClosestPoint( polygon, capsule ));
   capsule = [ 0, 0, 1, 1, 2, 2, 2, 1 ];
   test.shouldThrowErrorSync( () => _.convexPolygon.capsuleClosestPoint( polygon, capsule ));
 
