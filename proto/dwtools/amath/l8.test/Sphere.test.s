@@ -4808,7 +4808,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
   test.identical( gotExpand, expected );
 
@@ -4822,7 +4822,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.identical( gotExpand, expected );
@@ -4831,7 +4831,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.identical( gotExpand, expected );
@@ -4840,7 +4840,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 2 ];
   var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 2 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.identical( gotExpand, expected );
@@ -4849,7 +4849,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.identical( gotExpand, expected );
@@ -4858,7 +4858,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, 3 ];
-  var expected = [ 0, 0, 0, 3 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.equivalent( gotExpand, expected );
@@ -4867,7 +4867,7 @@ function planeExpand( test )
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, - 3 ];
-  var expected = [ 0, 0, 0, 3 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.equivalent( gotExpand, expected );
@@ -4876,7 +4876,7 @@ function planeExpand( test )
 
   var srcSphere = [ 2, 2, 0, 1 ];
   var tstPlane = [ 1, 1, 0, 0 ];
-  var expected = [ 2, 2, 0, 2.8284271247461903 ];
+  var expected = _.sphere.tools.longMake( [ 2, 2, 0, 2.8284271247461903 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.equivalent( gotExpand, expected );
@@ -4885,7 +4885,7 @@ function planeExpand( test )
 
   var srcSphere = [ 2, 2, 2, 1 ];
   var tstPlane = [ 1, 1, 1, 0 ];
-  var expected = [ 2, 2, 2, 3.4641016151377544 ];
+  var expected = _.sphere.tools.longMake( [ 2, 2, 2, 3.4641016151377544 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
   test.equivalent( gotExpand, expected );
