@@ -2844,7 +2844,7 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstSegment = [ 0, 0, 0, 4, 1, 1 ];
-  var expected = [ 2, 0.5, 0.5 ];
+  var expected = _.plane.tools.longMake( [ 2, 0.5, 0.5 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -2859,7 +2859,7 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 1, 1, 1 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -2868,7 +2868,7 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -2877,7 +2877,7 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
@@ -2913,8 +2913,8 @@ function segmentIntersectionPoint( test )
 
   var srcPlane = [ 1, 0, 0, -2 ];
   var tstSegment = [ 5, 5, 1, -1, 5, 1 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 2, 5, 1 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 2, 5, 1 ] );
 
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment, dstPoint );
   test.equivalent( expected, gotSegment );
