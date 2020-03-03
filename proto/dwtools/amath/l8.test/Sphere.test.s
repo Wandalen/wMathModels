@@ -3824,7 +3824,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ -1.5, 1, 0 ];
+  var expected = _.sphere.tools.longMake( [ -1.5, 1, 0 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
@@ -3852,7 +3852,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ 0, 1, 1 ];
+  var expected = _.sphere.tools.longMake( [ 0, 1, 1 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.equivalent( expected, gotPoint );
@@ -3880,7 +3880,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1,
     0,   0,   0,   0
   ]);
-  var expected = [ 0, 0, -0.5 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, -0.5 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
@@ -3893,7 +3893,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   1,   0,
     0,   0,   1,   1
   ]);
-  var expected = [ 3.5, 3.5 ];
+  var expected = _.sphere.tools.longMake( [ 3.5, 3.5 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
@@ -3908,7 +3908,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 2.1022415975031303, 2.9526151970869856, 2.9526151970869856 ];
+  var expected = _.sphere.tools.longMake( [ 2.1022415975031303, 2.9526151970869856, 2.9526151970869856 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -3923,8 +3923,8 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
-  var expected = _.vectorAdapter.from( [ -0.4654775161751512, -0.9309550323503024, -2.3964325485254534 ] );
+  var dstPoint = _.sphere.tools.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.sphere.tools.vectorAdapter.from( [ -0.4654775161751512, -0.9309550323503024, -2.3964325485254534 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -4442,7 +4442,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 3, 0, 0, 1 ];
 
-  var expected = [ 3, 0, 0, 3.3166247903554 ];
+  var expected = _.sphere.tools.longMake( [ 3, 0, 0, 3.3166247903554 ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.equivalent( gotDistance, expected );
 
@@ -4469,7 +4469,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 0, 0, 0, 2 ];
 
-  var expected = [ 0, 0, 0, 2 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
@@ -4484,7 +4484,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 2, 2, 2, 2 ];
 
-  var expected = [ 2, 2, 2, Math.sqrt( 12 ) ];
+  var expected = _.sphere.tools.longMake( [ 2, 2, 2, Math.sqrt( 12 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
@@ -4499,7 +4499,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 0, 0, 0, 1 ];
 
-  var expected = [ 0, 0, 0, Math.sqrt( 3 ) ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, Math.sqrt( 3 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
@@ -4514,7 +4514,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 0, 5, 1, 1 ];
 
-  var expected = [ 0, 5, 1, Math.sqrt( 27 ) ];
+  var expected = _.sphere.tools.longMake( [ 0, 5, 1, Math.sqrt( 27 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
@@ -4529,7 +4529,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 0, 3, 3, 1 ];
 
-  var expected = [ 0, 3, 3, Math.sqrt( 19 ) ];
+  var expected = _.sphere.tools.longMake( [ 0, 3, 3, Math.sqrt( 19 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.equivalent( gotDistance, expected );
 
@@ -4544,7 +4544,7 @@ function frustumExpand( test )
   );
   var srcSphere = [ 3, 3, 3, 1 ];
 
-  var expected = [ 3, 3, 3, Math.sqrt( 27 ) ];
+  var expected = _.sphere.tools.longMake( [ 3, 3, 3, Math.sqrt( 27 ) ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.equivalent( gotDistance, expected );
 
@@ -4553,7 +4553,7 @@ function frustumExpand( test )
   var tstFrustum =  _.frustum.make();
   var srcSphere = [ 0, 0, 0, 2 ];
 
-  var expected = [ 0, 0, 0, 2 ];
+  var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var gotDistance = _.sphere.frustumExpand( srcSphere, tstFrustum );
   test.identical( gotDistance, expected );
 
