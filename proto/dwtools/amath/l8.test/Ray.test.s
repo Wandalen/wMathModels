@@ -4493,7 +4493,7 @@ function planeIntersectionPoint( test )
 
   var ray = [ - 4, - 4, - 4, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
-  var expected = [ -1, -1, -1 ];
+  var expected = _.ray.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.ray.planeIntersectionPoint( ray, plane );
   test.identical( gotPoint, expected );
@@ -4517,7 +4517,7 @@ function planeIntersectionPoint( test )
 
   var ray = [ - 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
-  var expected = [ -1, 2, 3 ];
+  var expected = _.ray.tools.longMake( [ -1, 2, 3 ] );
 
   var gotPoint = _.ray.planeIntersectionPoint( ray, plane );
   test.identical( gotPoint,  expected );
@@ -4526,7 +4526,7 @@ function planeIntersectionPoint( test )
 
   var ray = [ -2, -2, -2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
-  var expected = [ -1, -1, -1 ];
+  var expected = _.ray.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.ray.planeIntersectionPoint( ray, plane );
   test.identical( gotPoint,  expected );
@@ -4553,7 +4553,7 @@ function planeIntersectionPoint( test )
 
   var ray = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var plane = [ 0, 2, 0, - 2 ];
-  var expected = [ 1, 1, 0 ];
+  var expected = _.ray.tools.longMake( [ 1, 1, 0 ] );
 
   var gotPoint = _.ray.planeIntersectionPoint( ray, plane );
   test.equivalent( gotPoint,  expected );
@@ -4580,7 +4580,7 @@ function planeIntersectionPoint( test )
 
   var ray = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.ray.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.ray.planeIntersectionPoint( ray, plane );
   test.identical( gotPoint,  expected );
@@ -4589,7 +4589,7 @@ function planeIntersectionPoint( test )
 
   var ray = [ 0, 0, -3, 0, 0, 2 ];
   var plane = [ 0, 0, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.ray.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.ray.planeIntersectionPoint( ray, plane );
   test.identical( gotPoint,  expected );
@@ -4599,7 +4599,7 @@ function planeIntersectionPoint( test )
   var ray = [ 0, 0, 2, 1, 0, -2 ];
   var plane = [ 1, 0, 0, -3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 3, 0, -4 ];
+  var expected = _.ray.tools.longMake( [ 3, 0, -4 ] );
 
   var gotPoint = _.ray.planeIntersectionPoint( ray, plane, dstPoint );
   test.identical( gotPoint, expected );
@@ -4608,8 +4608,8 @@ function planeIntersectionPoint( test )
 
   var ray = [ 0, 0, 24, 1, 0, 1 ];
   var plane = [ 1, 0, 0, -3 ];
-  var dstPoint = _.vector.from( [ 0, 0, 0 ] );
-  var expected = _.vector.from( [ 3, 0, 27 ] );
+  var dstPoint = _.ray.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.ray.tools.vectorAdapter.from( [ 3, 0, 27 ] );
 
   var gotPoint = _.ray.planeIntersectionPoint( ray, plane, dstPoint );
   test.identical( gotPoint,  expected );
