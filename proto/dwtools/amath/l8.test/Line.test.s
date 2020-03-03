@@ -6106,6 +6106,13 @@ function segmentIntersectionPoint( test )
 
   var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
+  
+  test.case = ''; /* */
+  
+  var srcLine = [ 3, 7, 0, 0, 0, 0.5 ]
+  var tstSegment  = [ 3, 7, 1, 3, 7, 7 ]
+  var got = _.line.segmentIntersectionPoint( srcLine, tstSegment )
+  test.identical( got, [] )
 
   /* */
 
