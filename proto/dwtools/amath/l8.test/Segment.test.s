@@ -1273,7 +1273,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 1, 1 ];
   var projSegment = [ 0.5, 0.5, 2.5, 2.5 ];
-  var expected = [ [ 1, 1 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 1, 1 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1288,7 +1288,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [];
   var projSegment = [];
-  var expected = [ [ ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ ], 1 ] );
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
 
@@ -1296,7 +1296,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 1, 0, 0 ];
   var projSegment = [ -0.5, 1, 0, 1.5, 1, 0 ];
-  var expected = [ [ 0, 1, 0 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 1, 0 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1305,7 +1305,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ -1, -1, -1, 3, 3, 3 ];
-  var expected = [ [ 0, 0, 0 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1314,7 +1314,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
-  var expected = [ [ 0, 0, 0 ], 0.5 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0 ], 0.5 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1323,7 +1323,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ 1, 2, 3, 3, 4, 5 ];
-  var expected = [ [ 1, 2, 3 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 1, 2, 3 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1332,7 +1332,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ 2, 3, 4, 2, 3, 4 ];
-  var expected = [ [ 1, 2, 3 ], 0 ];
+  var expected = _.segment.tools.longMake( [ [ 1, 2, 3 ], 0 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1341,7 +1341,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ [ 0, 0, 0 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1350,7 +1350,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
   var projSegment = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
-  var expected = [ [ 0, 0, 0, 0 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0, 0 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1359,7 +1359,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 1 ];
   var projSegment = [ 0.5, 2.5 ];
-  var expected = [ [ 1 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 1 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1397,7 +1397,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 1, 1 ];
   var projSegment = [ 0, 0, 1, 1 ];
-  var expected = [ [ 0, 0 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1409,7 +1409,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 3, 4, 3, 4 ];
   var projSegment = [ 3, 4, 3, 4 ];
-  var expected = [ [ 0, 0 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1421,7 +1421,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 3, 4, 3, 4 ];
   var projSegment = [ 5, 5, 5, 5 ];
-  var expected = [ [ 2, 1 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 2, 1 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1433,7 +1433,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 3, 4, 6, 7 ];
   var projSegment = [ 5, 5, 5, 5 ];
-  var expected = [ [ 0.5, -0.5 ], 0 ];
+  var expected = _.segment.tools.longMake( [ [ 0.5, -0.5 ], 0 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1445,7 +1445,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 3, 4, 6, 7 ];
   var projSegment = [ -1, 8, 2, 11 ];
-  var expected = [ [ -4, 4 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ -4, 4 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1457,7 +1457,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 4, 4 ];
   var projSegment = [ 1, 1, 3, 3 ];
-  var expected = [ [ 0, 0 ], 0.5 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], 0.5 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1469,7 +1469,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 4, 4 ];
   var projSegment = [ -1, -1, 5, 5 ];
-  var expected = [ [ 0, 0 ], 3/2 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], 3/2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.equivalent( gotFactors, expected );
@@ -1481,7 +1481,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 4, 4 ];
   var projSegment = [ -7, -3, 9, 13 ];
-  var expected = [ [ -1, 3 ], 4 ];;
+  var expected = _.segment.tools.longMake( [ [ -1, 3 ], 4 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );

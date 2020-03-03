@@ -718,7 +718,7 @@ function getProjectionFactors( srcSegment, projSegment )
   return 0;
 
   let translation = this.tools.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
-  projectView.eSet( 0, translation.toArray() );
+  projectView.eSet( 0, translation.toLong() );
 
   let srcTop = this.tools.vectorAdapter.subVectors( srcEnd.clone(), srcCenter );
   let projTop = this.tools.vectorAdapter.subVectors( projEnd.clone(), projCenter );
