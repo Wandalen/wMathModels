@@ -2015,7 +2015,7 @@ function boundingSphereGet( dstSphere, srcPlane )
 
   _.assert( dimPlane === dimSphere );
 
-  let distOrigin = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( _.long.longMakeZeroed( dimPlane ) ), normal );
+  let distOrigin = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dimPlane ) ), normal );
 
   // Center of the sphere
   if( distOrigin === 0 )
@@ -2028,7 +2028,7 @@ function boundingSphereGet( dstSphere, srcPlane )
   else
   {
     debugger; xxx
-    let pointInPlane = this.tools.vectorAdapter.from( this.pointCoplanarGet( planeView, _.long.longMakeZeroed( dimPlane ) ) ); /* xxx */
+    let pointInPlane = this.tools.vectorAdapter.from( this.pointCoplanarGet( planeView, this.tools.longMakeZeroed( dimPlane ) ) ); /* xxx */
     logger.log( pointInPlane )
 
     for( let c = 0; c < center.length; c++ )
