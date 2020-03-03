@@ -2226,7 +2226,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 0, 0, 1, 1 ];
   var src2Segment = [ 0, 0, 2, 2 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.identical( isIntersectionPoint, expected );
@@ -2241,7 +2241,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 0, 0, 1, 1 ];
   var src2Segment = [ 0, 0, 1, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.identical( isIntersectionPoint, expected );
@@ -2268,7 +2268,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 3, 7, 1, 0 ];
   var src2Segment = [ 3, 7, 0, 1 ];
-  var expected = [ 3, 7 ];
+  var expected = _.segment.tools.longMake( [ 3, 7 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.identical( isIntersectionPoint, expected );
@@ -2277,7 +2277,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ -5, 0, 5, 0 ];
   var src2Segment = [ -2, -4, 1, 2 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoint, expected );
@@ -2286,7 +2286,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ -3, 0, 1, 0 ];
   var src2Segment = [ 0, -2, 0, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoint, expected );
@@ -2304,7 +2304,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 0, 0, 0, - 8, - 8, - 8 ];
   var src2Segment = [ - 3, - 7, - 3, - 3, - 1, - 3 ];
-  var expected = [ - 3, - 3, - 3 ];
+  var expected = _.segment.tools.longMake( [ - 3, - 3, - 3 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoint, expected );
@@ -2313,7 +2313,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 2, -2, -2, 4, 2, 2 ];
   var src2Segment = [ 2, -2,  0, 4, 2, 0 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 3, 0, 0 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -2331,7 +2331,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 0, 0, 0, 1, 6, 6, 6, 7 ];
   var src2Segment = [ 3, 3, 3, 2, 0, 0, 0, 2 ];
-  var expected = [ 1, 1, 1, 2 ];
+  var expected = _.segment.tools.longMake( [ 1, 1, 1, 2 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoint, expected );
@@ -3148,7 +3148,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 4, 0, 0, 6 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
-  var expected = [ 0, 0, 4 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 4 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
@@ -3157,7 +3157,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
@@ -3166,7 +3166,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ -1, -1, -1, 0.5, 0.5, - 0.1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
@@ -3175,7 +3175,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ 6, 7, 8, 6, 9, 10 ];
-  var expected = [ 2, 2, 2 ];
+  var expected = _.segment.tools.longMake( [ 2, 2, 2 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
@@ -3193,7 +3193,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, - 0.303 ];
-  var expected = [ 0.005519293548276563, 0.021792674525669315, 0.021792674525669315 ];
+  var expected = _.segment.tools.longMake( [ 0.005519293548276563, 0.021792674525669315, 0.021792674525669315 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.equivalent( gotPoint, expected );
@@ -3202,7 +3202,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 2, 10 ];
   var box = [ 6, 7, 10, 8 ];
-  var expected = [ 1.7692307692307692, 8.846153846153847 ];
+  var expected = _.segment.tools.longMake( [ 1.7692307692307692, 8.846153846153847 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
