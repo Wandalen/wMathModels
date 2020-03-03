@@ -789,7 +789,7 @@ function convexPolygonContains( plane, polygon )
 
   let planeView = this.adapterFrom( plane );
   let dimPl = this.dimGet( planeView );
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   _.assert( dimP[ 0 ] === dimPl, 'Plane and polygon must have the same dimensions' );
 
@@ -873,7 +873,7 @@ function convexPolygonClosestPoint( plane, polygon, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -1022,7 +1022,7 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
   let dimP = this.dimGet( planeView );
   _.assert( dimP === dstPointView.length );
 
-  let dimF = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimF = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimF[ 0 ];
   let cols = dimF[ 1 ];
   _.assert( dimP === rows - 1 );
