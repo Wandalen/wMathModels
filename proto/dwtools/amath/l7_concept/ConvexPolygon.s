@@ -131,6 +131,13 @@ function isPolygon( polygon )
 
 //
 
+function is( polygon )
+{
+  return _.matrixIs( polygon );
+}
+
+//
+
 /**
   * Check if the source polygon is a convex polygon. Returns true if it is a convex polygon.
   * Source polygon stays unchanged.
@@ -158,11 +165,12 @@ function isPolygon( polygon )
   * _.is( polygon );
   *
   * @returns { Boolean } Returns true if polygon is a convex polygon and false if not.
-  * @function is
+  * @function isValid
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @memberof wTools.convexPolygon
   */
-function is( polygon )
+
+function isValid( polygon )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.matrixIs( polygon ) );
@@ -209,7 +217,7 @@ function is( polygon )
 
     if( angles.eGet( i - zeros ) === 0 || angles.eGet( i - zeros ) === 2*Math.PI )
     {
-      angles._vectorBuffer.splice( i - zeros, 1 );
+      angles._vectorBuffer.splice( i - zeros, 1 ); /* xxx qqq : cant use *._vectorBuffer.splice! */
       zeros= zeros + 1;
     }
   }
@@ -2483,6 +2491,7 @@ let Extension = /* qqq xxx : normalize order */
   make : make,
   isPolygon : isPolygon,
   is : is,
+  isValid : isValid,
   angleThreePoints : angleThreePoints,
 
   pointContains : pointContains,
