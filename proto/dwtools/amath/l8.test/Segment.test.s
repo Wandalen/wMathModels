@@ -6927,7 +6927,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
   var src2Segment = [ 3, 7, 1, 3, 7, 2 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -6936,7 +6936,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, 3, 7, 8 ];
   var src2Segment = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -6945,7 +6945,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 0, 1, 0, 0 ];
   var src2Segment = [ 3, 7, 1, - 7, 7, 1 ];
-  var expected = [ 1, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 1, 0, 0 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -6954,7 +6954,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, 3, 7, 1 ];
   var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -6963,7 +6963,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
   var src2Segment = [ 3, 7, 1, 3, 7, 1 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.segment.tools.longMake( [ 1, 1, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.equivalent( gotClosestPoint, expected );
@@ -6999,7 +6999,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 2, 1 ];
   var src2Segment = [ - 3, - 4, 1, 0 ];
-  var expected = [ 0.8, 0.4 ];
+  var expected = _.segment.tools.longMake( [ 0.8, 0.4 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7017,7 +7017,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 7, 1, 9, 7, 1 ];
   var src2Segment = [ 3, -2, 2, 3, 11, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7026,7 +7026,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, 6, 7, 1 ];
   var src2Segment = [ 3, 7, 2, 6, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7035,7 +7035,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
   var src2Segment = [ 3, 7, 2, 8, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7044,7 +7044,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
   var src2Segment = [ 3, 7, 2, 8, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7053,7 +7053,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
   var src2Segment = [ 3, 7, 2, 8, 7, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7062,7 +7062,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = null;
   var src2Segment = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
