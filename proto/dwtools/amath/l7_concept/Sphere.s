@@ -449,8 +449,8 @@ function fromBox( sphere, box )
   //  _.assert( dim === this.dimGet(  sphere) );
 
   center.copy( min );
-  vector.addVectors( center, max );
-  vector.divScalar( center, 2 );
+  this.tools.vectorAdapter.addVectors( center, max );
+  this.tools.vectorAdapter.divScalar( center, 2 );
 
   /* radius based on 2 major dimensions */
 
@@ -964,7 +964,7 @@ function pointDistance( sphere, point )
   debugger;
   //throw _.err( 'not tested' );
 
-  let distance = vector.distance( vector.From( point ) , center ) - radius;
+  let distance = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( point ) , center ) - radius;
 
   if( distance < 0 )
   return 0;
@@ -1073,7 +1073,7 @@ function pointExpand( sphere , point )
   let dim = this.dimGet( sphereView );
 
 
-  let pointView = vector.From( point );
+  let pointView = this.tools.vectorAdapter.from( point );
 
   _.assert( dim === point.length );
 

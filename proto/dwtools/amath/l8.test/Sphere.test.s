@@ -580,7 +580,7 @@ function fromBox( test )
 
   test.case = 'trivial'; /* */
 
-  var expected = [ 0.5, 0.5, 0.5, sqrt( 0.75 ) ];
+  var expected = _.sphere.tools.longMake( [ 0.5, 0.5, 0.5, sqrt( 0.75 ) ] );
   var bsphere = [ 0, 0, 0, 0 ];
   var bbox = [ 0, 0, 0, 1, 1, 1 ];
 
@@ -596,7 +596,7 @@ function fromBox( test )
 
   test.case = 'same sizes, different position'; /* */
 
-  var expected = [ -2.5, 0.5, 5.5, sqrt( 0.75 ) ];
+  var expected = _.sphere.tools.longMake( [ -2.5, 0.5, 5.5, sqrt( 0.75 ) ] );
   var bsphere = [ 0, 0, 0, 0 ];
   var bbox = [ -3, 0, 5, -2, 1, 6 ];
 
@@ -612,7 +612,7 @@ function fromBox( test )
 
   test.case = 'different sizes, different position'; /* */
 
-  var expected = [ -2, 0.5, 7, sqrt( 21 )/2 ];
+  var expected = _.sphere.tools.longMake( [ -2, 0.5, 7, sqrt( 21 )/2 ] );
   var bsphere = [ 0, 0, 0, 0 ];
   var bbox = [ -3, 0, 5, -1, 1, 9 ];
 
