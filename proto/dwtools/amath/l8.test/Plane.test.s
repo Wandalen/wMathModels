@@ -2443,7 +2443,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 2, 2, 2 ];
+  var expected = _.plane.tools.longMake( [ 2, 2, 2 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2458,7 +2458,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 1, 1, 1 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2467,7 +2467,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2476,7 +2476,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2485,7 +2485,7 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ -3, -3, -3, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
@@ -2512,8 +2512,8 @@ function rayIntersectionPoint( test )
 
   var srcPlane = [ 1, 0, 0, -2 ];
   var tstRay = [ 5, 5, 1, -1, 0, 0 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 2, 5, 1 ] );
+  var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 2, 5, 1 ] );
 
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay, dstPoint );
   test.equivalent( expected, gotRay );
