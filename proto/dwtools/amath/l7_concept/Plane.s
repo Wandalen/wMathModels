@@ -113,7 +113,7 @@ function from( plane )
   {
     debugger;
   //  throw _.err( 'not tested' );
-    this.tools.avector.assign( normal, vector.From( arguments[ 1 ] ) );
+    this.tools.avector.assign( normal, this.tools.vectorAdapter.from( arguments[ 1 ] ) );
     this.biasSet( planeView, arguments[ 2 ] );
   }
   else _.assert( 0, 'unexpected arguments' );
@@ -725,7 +725,7 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
   let dimPlane = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimPlane );
+  dstPoint = this.tools.longMake( dimPlane );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -789,7 +789,7 @@ function convexPolygonContains( plane, polygon )
 
   let planeView = this.adapterFrom( plane );
   let dimPl = this.dimGet( planeView );
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   _.assert( dimP[ 0 ] === dimPl, 'Plane and polygon must have the same dimensions' );
 
@@ -868,12 +868,12 @@ function convexPolygonClosestPoint( plane, polygon, dstPoint )
   let dimPl = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimPl );
+  dstPoint = this.tools.longMake( dimPl );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let dimP  = _.Matrix.dimsOf( polygon );
+  let dimP  = _.Matrix.DimsOf( polygon );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -886,7 +886,7 @@ function convexPolygonClosestPoint( plane, polygon, dstPoint )
   {
     let polygonPoint = _.convexPolygon.planeClosestPoint( polygon, planeView );
 
-    let planePoint = this.pointCoplanarGet( planeView, polygonPoint, this.tools.vectorAdapter.from( _.array.makeArrayOfLength( dimPl ) ) ) ;
+    let planePoint = this.pointCoplanarGet( planeView, polygonPoint, this.tools.vectorAdapter.from( this.tools.longMake( dimPl ) ) ) ;
 
     for( let i = 0; i < dimPl; i++ )
     {
@@ -1022,7 +1022,7 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
   let dimP = this.dimGet( planeView );
   _.assert( dimP === dstPointView.length );
 
-  let dimF = _.Matrix.dimsOf( srcFrustum ) ;
+  let dimF = _.Matrix.DimsOf( srcFrustum ) ;
   let rows = dimF[ 0 ];
   let cols = dimF[ 1 ];
   _.assert( dimP === rows - 1 );
@@ -1156,7 +1156,7 @@ function lineIntersectionPoint( plane, line, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimP );
+  dstPoint = this.tools.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1248,7 +1248,7 @@ function lineClosestPoint( plane, line, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimP );
+  dstPoint = this.tools.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1476,7 +1476,7 @@ function rayIntersectionPoint( plane, ray, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP );
+  dstPoint = this.tools.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1557,7 +1557,7 @@ function rayClosestPoint( plane, ray, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimP );
+  dstPoint = this.tools.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1714,7 +1714,7 @@ function segmentIntersectionPoint( plane, segment, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.array.makeArrayOfLength( dimP );
+  dstPoint = this.tools.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -1798,7 +1798,7 @@ function segmentClosestPoint( plane, segment, dstPoint )
   let dimP = this.dimGet( planeView );
 
   if( arguments.length === 2 )
-  dstPoint = _.long.longMake( dimP );
+  dstPoint = this.tools.longMake( dimP );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
@@ -2015,7 +2015,7 @@ function boundingSphereGet( dstSphere, srcPlane )
 
   _.assert( dimPlane === dimSphere );
 
-  let distOrigin = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( _.long.longMakeZeroed( dimPlane ) ), normal );
+  let distOrigin = this.tools.vectorAdapter.distance( this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dimPlane ) ), normal );
 
   // Center of the sphere
   if( distOrigin === 0 )
@@ -2028,7 +2028,7 @@ function boundingSphereGet( dstSphere, srcPlane )
   else
   {
     debugger; xxx
-    let pointInPlane = this.tools.vectorAdapter.from( this.pointCoplanarGet( planeView, _.long.longMakeZeroed( dimPlane ) ) ); /* xxx */
+    let pointInPlane = this.tools.vectorAdapter.from( this.pointCoplanarGet( planeView, this.tools.longMakeZeroed( dimPlane ) ) ); /* xxx */
     logger.log( pointInPlane )
 
     for( let c = 0; c < center.length; c++ )

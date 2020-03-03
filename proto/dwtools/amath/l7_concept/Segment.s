@@ -718,7 +718,7 @@ function getProjectionFactors( srcSegment, projSegment )
   return 0;
 
   let translation = this.tools.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
-  projectView.eSet( 0, translation.toArray() );
+  projectView.eSet( 0, translation.toLong() );
 
   let srcTop = this.tools.vectorAdapter.subVectors( srcEnd.clone(), srcCenter );
   let projTop = this.tools.vectorAdapter.subVectors( projEnd.clone(), projCenter );
@@ -1023,7 +1023,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   */
 function segmentIntersectionPoints( srcSegment1, srcSegment2 )
 {
-  let factors = segmentIntersectionFactors( srcSegment1, srcSegment2 );
+  let factors = this.segmentIntersectionFactors( srcSegment1, srcSegment2 );
   if( factors === 0 )
   return 0;
 
@@ -3698,7 +3698,7 @@ function boundingSphereGet( dstSphere, srcSegment )
   }
 
   // Radius of the sphere
-  _.sphere.radiusSet( dstSphereView, vector.distance( center, endPoint ) );
+  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, endPoint ) );
 
   return dstSphere;
 }

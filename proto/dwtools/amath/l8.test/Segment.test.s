@@ -1089,7 +1089,7 @@ function project( test )
 
   var dstSegment = [ 0, 0, 1, 1 ];
   var project = [ [ 1, 1 ], 2 ];
-  var expected = [ 0.5, 0.5, 2.5, 2.5 ];
+  var expected = _.segment.tools.longMake( [ 0.5, 0.5, 2.5, 2.5 ] );
 
   var gotSegment = _.segment.project( dstSegment, project );
   test.identical( gotSegment, expected );
@@ -1105,7 +1105,7 @@ function project( test )
 
   var segment = null;
   var project = [ [ 1, 0, 0 ], 1 ];
-  var expected = [ 1, 0, 0, 1, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 1, 0, 0, 1, 0, 0 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1114,7 +1114,7 @@ function project( test )
 
   var segment = null;
   var project = [ [ 0, 0, 0 ], 0 ];
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1123,7 +1123,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 1, 0, 0 ];
   var project = [ [ 0, 1, 0 ], 2 ];
-  var expected = [ -0.5, 1, 0, 1.5, 1, 0 ];
+  var expected = _.segment.tools.longMake( [ -0.5, 1, 0, 1.5, 1, 0 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1132,7 +1132,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 0, 0, 0 ], 2 ];
-  var expected = [ -1, -1, -1, 3, 3, 3 ];
+  var expected = _.segment.tools.longMake( [ -1, -1, -1, 3, 3, 3 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1141,7 +1141,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 0, 0, 0 ], 0.5 ];
-  var expected = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
+  var expected = _.segment.tools.longMake( [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1150,7 +1150,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 1 ];
-  var expected = [ 1, 2, 3, 3, 4, 5 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3, 3, 4, 5 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1159,7 +1159,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0 ];
-  var expected = [ 2, 3, 4, 2, 3, 4 ];
+  var expected = _.segment.tools.longMake( [ 2, 3, 4, 2, 3, 4 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1168,7 +1168,7 @@ function project( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var project = [ [ 0, 0, 0 ], 1 ];
-  var expected = [ 0, 0, 0, 2, 2, 2 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1177,7 +1177,7 @@ function project( test )
 
   var segment = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
   var project = [ [ 0, 0, 0, 0 ], 2 ];
-  var expected = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var expected = _.segment.tools.longMake( [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1186,7 +1186,7 @@ function project( test )
 
   var segment = [ 0, 1 ];
   var project = [ [ 1 ], 2 ];
-  var expected = [ 0.5, 2.5 ];
+  var expected = _.segment.tools.longMake( [ 0.5, 2.5 ] );
 
   var gotSegment = _.segment.project( segment, project );
   test.identical( gotSegment, expected );
@@ -1197,67 +1197,67 @@ function project( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project();
   });
 
   test.case = 'Wrong type of argument'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( 'segment', 'project' );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0 ], [ [ 0 ], 1 ], [ [ 1 ], 0 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 3D vs array 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 3D vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 2D vs array 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0 ], [ [ 0 ], 2 ] );
   });
 
   test.case = 'Wrong project array dimension (null segment vs array 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( null, [ [ 0, 1 ], 1 ] );
   });
 
   test.case = 'Wrong project array dimension (project has less than 3 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ] ] );
   });
 
   test.case = 'Wrong project array dimension (project has more than 2 entries)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2 ] );
   });
 
   test.case = 'Empty arrays'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.project( [ ], [ [  ],  ] );
   });
@@ -1273,7 +1273,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 1, 1 ];
   var projSegment = [ 0.5, 0.5, 2.5, 2.5 ];
-  var expected = [ [ 1, 1 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 1, 1 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1288,7 +1288,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [];
   var projSegment = [];
-  var expected = [ [ ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ ], 1 ] );
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
 
@@ -1296,7 +1296,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 1, 0, 0 ];
   var projSegment = [ -0.5, 1, 0, 1.5, 1, 0 ];
-  var expected = [ [ 0, 1, 0 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 1, 0 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1305,7 +1305,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ -1, -1, -1, 3, 3, 3 ];
-  var expected = [ [ 0, 0, 0 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1314,7 +1314,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
-  var expected = [ [ 0, 0, 0 ], 0.5 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0 ], 0.5 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1323,7 +1323,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ 1, 2, 3, 3, 4, 5 ];
-  var expected = [ [ 1, 2, 3 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 1, 2, 3 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1332,7 +1332,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ 2, 3, 4, 2, 3, 4 ];
-  var expected = [ [ 1, 2, 3 ], 0 ];
+  var expected = _.segment.tools.longMake( [ [ 1, 2, 3 ], 0 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1341,7 +1341,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var projSegment = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ [ 0, 0, 0 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1350,7 +1350,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5 ];
   var projSegment = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
-  var expected = [ [ 0, 0, 0, 0 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0, 0 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1359,7 +1359,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 1 ];
   var projSegment = [ 0.5, 2.5 ];
-  var expected = [ [ 1 ], 2 ];
+  var expected = _.segment.tools.longMake( [ [ 1 ], 2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1397,7 +1397,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 1, 1 ];
   var projSegment = [ 0, 0, 1, 1 ];
-  var expected = [ [ 0, 0 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1409,7 +1409,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 3, 4, 3, 4 ];
   var projSegment = [ 3, 4, 3, 4 ];
-  var expected = [ [ 0, 0 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1421,7 +1421,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 3, 4, 3, 4 ];
   var projSegment = [ 5, 5, 5, 5 ];
-  var expected = [ [ 2, 1 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ 2, 1 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1433,7 +1433,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 3, 4, 6, 7 ];
   var projSegment = [ 5, 5, 5, 5 ];
-  var expected = [ [ 0.5, -0.5 ], 0 ];
+  var expected = _.segment.tools.longMake( [ [ 0.5, -0.5 ], 0 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1445,7 +1445,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 3, 4, 6, 7 ];
   var projSegment = [ -1, 8, 2, 11 ];
-  var expected = [ [ -4, 4 ], 1 ];
+  var expected = _.segment.tools.longMake( [ [ -4, 4 ], 1 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1457,7 +1457,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 4, 4 ];
   var projSegment = [ 1, 1, 3, 3 ];
-  var expected = [ [ 0, 0 ], 0.5 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], 0.5 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1469,7 +1469,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 4, 4 ];
   var projSegment = [ -1, -1, 5, 5 ];
-  var expected = [ [ 0, 0 ], 3/2 ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], 3/2 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.equivalent( gotFactors, expected );
@@ -1481,7 +1481,7 @@ function getProjectionFactors( test )
 
   var dstSegment = [ 0, 0, 4, 4 ];
   var projSegment = [ -7, -3, 9, 13 ];
-  var expected = [ [ -1, 3 ], 4 ];;
+  var expected = _.segment.tools.longMake( [ [ -1, 3 ], 4 ] );
 
   var gotFactors = _.segment.getProjectionFactors( dstSegment, projSegment );
   test.identical( gotFactors, expected );
@@ -1495,67 +1495,67 @@ function getProjectionFactors( test )
   return;
 
   test.case = 'No arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors();
   });
 
   test.case = 'Wrong type of argument - string'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( 'segment', 'projSegment' );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( null, [ 0, 1, 2, 3 ] );
   });
 
   test.case = 'Wrong type of argument - null'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 1, 2, 3 ], null );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( undefined, [ 0, 1, 2, 3 ] );
   });
 
   test.case = 'Wrong type of argument - undefined'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 1, 2, 3 ], undefined );
   });
 
   test.case = 'Too few arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0, 0, 0, 0, 0 ] );
   });
 
   test.case = 'too many arguments'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0 ], [ 1, 0 ], [ 0, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 3D vs segment 4D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0, 0, 0, 0, 1 ], [ 1, 1, 1, 0, 1, 0, 2, 1 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 3D vs segment 2D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0, 0, 0, 0, 1 ], [ 0, 1, 2, 3 ] );
   });
 
   test.case = 'Wrong project array dimension (segment 2D vs segment 1D)'; /* */
-  test.shouldThrowError( function()
+  test.shouldThrowErrorSync( function()
   {
     _.segment.getProjectionFactors( [ 0, 0, 0, 1 ], [ 2, 1 ] );
   });
@@ -1936,7 +1936,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ -1, 0, 1, 0 ];
   var src2Segment = [ 0, -1, 0, 2 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoints, expected );
@@ -1951,7 +1951,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 0, 0, 1, 1 ];
   var src2Segment = [ 0, 0, 1, 1 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );
@@ -1978,7 +1978,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 3, 7, 3, 8 ];
   var src2Segment = [ 3, 7, 4, 7 ];
-  var expected = [ [ 3, 7 ], [ 3, 7 ] ];
+  var expected = _.segment.tools.longMake( [ [ 3, 7 ], [ 3, 7 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );
@@ -1987,7 +1987,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 0, 0, 1, 0 ];
   var src2Segment = [ 3, -6, 1, 0 ];
-  var expected = [ [ 1, 0 ], [ 1, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 1, 0 ], [ 1, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );
@@ -1996,7 +1996,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ -3, 0, 1, 0 ];
   var src2Segment = [ 0, -2, 0, 1 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoints, expected );
@@ -2014,7 +2014,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ -1, -1, -1, 2, 2, 5 ];
   var src2Segment = [ 3, 3, 3, - 3, - 3, -1 ];
-  var expected = [ [ 0, 0, 1 ], [ 0, 0, 1 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 1 ], [ 0, 0, 1 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoints, expected );
@@ -2023,7 +2023,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 2, -2, -2, 4, 2, 2 ];
   var src2Segment = [ 2, -2,  0, 4, 2, 0 ];
-  var expected = [ [ 3, 0, 0 ], [ 3, 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 3, 0, 0 ], [ 3, 0, 0 ] ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -2032,7 +2032,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 0, 0, 0, 1, 1, 0 ];
   var src2Segment = [ 3, 3, 0, -1, -1, 0 ];
-  var expected = [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0 ], [ 0, 0, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );
@@ -2050,7 +2050,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 0, 0, 0, 1, 4, 4, 4, 5 ];
   var src2Segment = [ 3, 3, 3, 3, - 3, - 3, -3, -1 ];
-  var expected = [ [ 0, 0, 0, 1 ], [ 0, 0, 0, 1 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0, 1 ], [ 0, 0, 0, 1 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );
@@ -2226,7 +2226,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 0, 0, 1, 1 ];
   var src2Segment = [ 0, 0, 2, 2 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.identical( isIntersectionPoint, expected );
@@ -2241,7 +2241,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 0, 0, 1, 1 ];
   var src2Segment = [ 0, 0, 1, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.identical( isIntersectionPoint, expected );
@@ -2268,7 +2268,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 3, 7, 1, 0 ];
   var src2Segment = [ 3, 7, 0, 1 ];
-  var expected = [ 3, 7 ];
+  var expected = _.segment.tools.longMake( [ 3, 7 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.identical( isIntersectionPoint, expected );
@@ -2277,7 +2277,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ -5, 0, 5, 0 ];
   var src2Segment = [ -2, -4, 1, 2 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoint, expected );
@@ -2286,7 +2286,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ -3, 0, 1, 0 ];
   var src2Segment = [ 0, -2, 0, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoint, expected );
@@ -2304,7 +2304,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 0, 0, 0, - 8, - 8, - 8 ];
   var src2Segment = [ - 3, - 7, - 3, - 3, - 1, - 3 ];
-  var expected = [ - 3, - 3, - 3 ];
+  var expected = _.segment.tools.longMake( [ - 3, - 3, - 3 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoint, expected );
@@ -2313,7 +2313,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 2, -2, -2, 4, 2, 2 ];
   var src2Segment = [ 2, -2,  0, 4, 2, 0 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 3, 0, 0 ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -2331,7 +2331,7 @@ function segmentIntersectionPointAccurate( test )
 
   var src1Segment = [ 0, 0, 0, 1, 6, 6, 6, 7 ];
   var src2Segment = [ 3, 3, 3, 2, 0, 0, 0, 2 ];
-  var expected = [ 1, 1, 1, 2 ];
+  var expected = _.segment.tools.longMake( [ 1, 1, 1, 2 ] );
 
   var isIntersectionPoint = _.segment.segmentIntersectionPointAccurate( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoint, expected );
@@ -3148,7 +3148,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 4, 0, 0, 6 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
-  var expected = [ 0, 0, 4 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 4 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
@@ -3157,7 +3157,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
@@ -3166,7 +3166,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ -1, -1, -1, 0.5, 0.5, - 0.1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
@@ -3175,7 +3175,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ 6, 7, 8, 6, 9, 10 ];
-  var expected = [ 2, 2, 2 ];
+  var expected = _.segment.tools.longMake( [ 2, 2, 2 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
@@ -3193,7 +3193,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, - 0.303 ];
-  var expected = [ 0.005519293548276563, 0.021792674525669315, 0.021792674525669315 ];
+  var expected = _.segment.tools.longMake( [ 0.005519293548276563, 0.021792674525669315, 0.021792674525669315 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.equivalent( gotPoint, expected );
@@ -3202,7 +3202,7 @@ function boxClosestPoint( test )
 
   var segment = [ 0, 0, 2, 10 ];
   var box = [ 6, 7, 10, 8 ];
-  var expected = [ 1.7692307692307692, 8.846153846153847 ];
+  var expected = _.segment.tools.longMake( [ 1.7692307692307692, 8.846153846153847 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
   test.identical( gotPoint, expected );
@@ -3373,7 +3373,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
   var capsule = [ 1, 2, 4, 3, 4, 0, 0.2 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3382,7 +3382,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 1, 2, 3, 1, 0, 0 ];
   var capsule = [ 1, 2, 4, 1, 2, 4, 0 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3391,7 +3391,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 1, 2, 3, 1, 0, 0 ];
   var capsule = [ 1, 2, 4, 1, 2, 4, 0.5 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3418,7 +3418,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 4, 0, 0, 6 ];
   var capsule = [ 0, 1, 1, 3, 7, 3, 0.2 ];
-  var expected = [ 0, 0, 4 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 4 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3427,7 +3427,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ - 2, - 2, - 2, -1, -1, -1, 1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3436,7 +3436,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ -1, -1, -1, 0.5, 0.5, - 0.2 , 0.1];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3445,7 +3445,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ 6, 7, 8, 6, 9, 10, 2 ];
-  var expected = [ 2, 2, 2 ];
+  var expected = _.segment.tools.longMake( [ 2, 2, 2 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3454,7 +3454,7 @@ function capsuleClosestPoint( test )
 
   var segment = [ 0, 0, 2, 10 ];
   var capsule = [ 6, 7, 10, 8, 1 ];
-  var expected = [ 1.5769230769230769, 7.884615384615384 ];
+  var expected = _.segment.tools.longMake( [ 1.5769230769230769, 7.884615384615384 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
   test.identical( gotPoint, expected );
@@ -3547,7 +3547,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ -2, 2, 0 ];
+  var expected = _.segment.tools.longMake( [ -2, 2, 0 ] );
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
   test.identical( expected, gotPoint );
@@ -3575,7 +3575,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ - 1/3, 2/3, 2/3 ];
+  var expected = _.segment.tools.longMake( [ - 1/3, 2/3, 2/3 ] );
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
   test.equivalent( expected, gotPoint );
@@ -3603,7 +3603,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1,
     0,   0,   0,   0
   ]);
-  var expected = [ 0, 1, -1 ];
+  var expected = _.segment.tools.longMake( [ 0, 1, -1 ] );
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
   test.identical( expected, gotPoint );
@@ -3631,7 +3631,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1,
     0,   0,   0,   0
   ]);
-  var expected = [ 2, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 2, 0, 0 ] );
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
   test.identical( expected, gotPoint );
@@ -3644,7 +3644,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   1,   0,
     0,   0,   1,   1
   ]);
-  var expected = [ 2, -1 ];
+  var expected = _.segment.tools.longMake( [ 2, -1 ] );
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
   test.identical( expected, gotPoint );
@@ -3659,7 +3659,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 2/3, 2/3, -5/3 ];
+  var expected = _.segment.tools.longMake( [ 2/3, 2/3, -5/3 ] );
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -3674,8 +3674,8 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var dstPoint = _.vectorAdapter.from( [ 0, 2, 1 ] );
-  var expected = _.vectorAdapter.from( [ -1, 2, 0 ] );
+  var dstPoint = _.segment.tools.vectorAdapter.from( [ 0, 2, 1 ] );
+  var expected = _.segment.tools.vectorAdapter.from( [ -1, 2, 0 ] );
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -4489,7 +4489,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
   var tstLine = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4522,7 +4522,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 3, 7, 1, 3, 7, 7 ];
   var tstLine = [ 3, 7, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4540,7 +4540,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 3, 3, 3, 3, 3, 3 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 3, 3 ];
+  var expected = _.segment.tools.longMake( [ 3, 3, 3 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4558,7 +4558,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 0, 0, 0, -5, -5, -5 ];
   var tstLine = [ -4, -4, -4, 0, 0, 0 ];
-  var expected = [ -4, -4, -4 ];
+  var expected = _.segment.tools.longMake( [ -4, -4, -4 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.equivalent( gotIntersectionPoint, expected );
@@ -4567,7 +4567,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 0, 4, 2, 1, 5, 3 ];
   var tstLine = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4576,7 +4576,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 0, 0, 2, 1, 0, 10, 2, 1 ];
   var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -4621,7 +4621,7 @@ function lineIntersectionPoint( test )
 
   var srcSegment = [ 5, 7, 1, -1, 7, 1 ];
   var tstLine = [ 3, 7, 3, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
   test.identical( gotIntersectionPoint, expected );
@@ -5022,7 +5022,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
   var tstLine = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5037,7 +5037,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 0, 0, 1 ];
   var tstLine = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 1 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5046,7 +5046,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 3, 7, 8 ];
   var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5055,7 +5055,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 10, 0, 0 ];
   var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 3, 0, 0 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5064,7 +5064,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 3, 7, 1 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5073,7 +5073,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 9, 9, 9 ];
   var tstLine = [ 3, 7, 1, 0, 0, 0 ];
-  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+  var expected = _.segment.tools.longMake( [ 3.6666666, 3.6666666, 3.6666666 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.equivalent( gotClosestPoint, expected );
@@ -5082,7 +5082,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 0, 4, 2, 3, 7, 5 ];
   var tstLine = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5091,7 +5091,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 0, 0, 2, 1, 0, 9, 2, 1 ];
   var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5100,7 +5100,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 0, 0, 2, 0 ];
   var tstLine = [ - 3, - 4, 1, 0 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5109,7 +5109,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 0, 0, 2, 0 ];
   var tstLine = [ - 3, - 4, 0, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5118,7 +5118,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ - 3, - 4, -3, 4 ];
   var tstLine = [ 0, 0, 2, 0 ];
-  var expected = [ -3, 0 ];
+  var expected = _.segment.tools.longMake( [ -3, 0 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5127,7 +5127,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 8, 7, 1 ];
   var tstLine = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5136,7 +5136,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 0, 0, -3, 0, 0, 1 ];
   var tstLine = [ 3, 0, 0, 1, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5145,7 +5145,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
   var tstLine = [ 3, 7, 2, 4, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5154,7 +5154,7 @@ function lineClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
   var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -5163,7 +5163,7 @@ function lineClosestPoint( test )
 
   var srcSegment = null;
   var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
   test.identical( gotClosestPoint, expected );
@@ -6451,7 +6451,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6466,7 +6466,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 0, 0, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6475,7 +6475,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 3, 7, 8 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6484,7 +6484,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 10, 0, 0 ];
   var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 3, 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6493,7 +6493,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 3, 7, 1 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6502,7 +6502,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 0, 9, 9, 9 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
-  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+  var expected = _.segment.tools.longMake( [ 3.6666666, 3.6666666, 3.6666666 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.equivalent( gotClosestPoint, expected );
@@ -6511,7 +6511,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 4, 2, 3, 7, 5 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6520,7 +6520,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 2, 1, 0, 9, 2, 1 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6529,7 +6529,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6538,7 +6538,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6547,7 +6547,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ - 3, - 4, -3, 4 ];
   var tstRay = [ 0, 0, 2, 0 ];
-  var expected = [ -3, 0 ];
+  var expected = _.segment.tools.longMake( [ -3, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6556,7 +6556,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 8, 7, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6565,7 +6565,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 0, 0, -3, 0, 0, 1 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6574,7 +6574,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
   var tstRay = [ 3, 7, 2, 4, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6583,7 +6583,7 @@ function rayClosestPoint( test )
 
   var srcSegment = [ 3, 7, 1, 4, 7, 1 ];
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6592,7 +6592,7 @@ function rayClosestPoint( test )
 
   var srcSegment = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6927,7 +6927,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 0, 0, 0, 1 ];
   var src2Segment = [ 3, 7, 1, 3, 7, 2 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -6936,7 +6936,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, 3, 7, 8 ];
   var src2Segment = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -6945,7 +6945,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 0, 1, 0, 0 ];
   var src2Segment = [ 3, 7, 1, - 7, 7, 1 ];
-  var expected = [ 1, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 1, 0, 0 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -6954,7 +6954,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, 3, 7, 1 ];
   var src2Segment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -6963,7 +6963,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 0, 1, 1, 1 ];
   var src2Segment = [ 3, 7, 1, 3, 7, 1 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.segment.tools.longMake( [ 1, 1, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.equivalent( gotClosestPoint, expected );
@@ -6999,7 +6999,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 0, 2, 1 ];
   var src2Segment = [ - 3, - 4, 1, 0 ];
-  var expected = [ 0.8, 0.4 ];
+  var expected = _.segment.tools.longMake( [ 0.8, 0.4 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7017,7 +7017,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 0, 7, 1, 9, 7, 1 ];
   var src2Segment = [ 3, -2, 2, 3, 11, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7026,7 +7026,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, 6, 7, 1 ];
   var src2Segment = [ 3, 7, 2, 6, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7035,7 +7035,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
   var src2Segment = [ 3, 7, 2, 8, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7044,7 +7044,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
   var src2Segment = [ 3, 7, 2, 8, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7053,7 +7053,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = [ 3, 7, 1, -3, 7, 1 ];
   var src2Segment = [ 3, 7, 2, 8, 7, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7062,7 +7062,7 @@ function segmentClosestPoint( test )
 
   var src1Segment = null;
   var src2Segment = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
   test.identical( gotClosestPoint, expected );
@@ -7364,7 +7364,7 @@ function sphereClosestPoint( test )
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
   var sphere = [ 4, 3, 4, 1 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
   test.identical( gotClosestPoint, expected );
@@ -7391,7 +7391,7 @@ function sphereClosestPoint( test )
 
   var segment = [ 0, -6, 4, 0, 1, 4 ];
   var sphere = [ 0, 0, 0, 3 ];
-  var expected = [ 0, 0, 4 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 4 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
   test.identical( gotClosestPoint, expected );
@@ -7400,7 +7400,7 @@ function sphereClosestPoint( test )
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
   var sphere = [ - 2, - 2, - 2, 0.5 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
   test.identical( gotClosestPoint, expected );
@@ -7418,7 +7418,7 @@ function sphereClosestPoint( test )
 
   var segment = [ 0, 0, 0, 0, 0, 1 ];
   var sphere = [ 3, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
   test.equivalent( gotClosestPoint, expected );
@@ -7427,8 +7427,8 @@ function sphereClosestPoint( test )
 
   var segment = [ 0, -6, 4, 0, 1, 4 ];
   var sphere = [ 0, 5, 0, 3 ];
-  var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, 1, 4 ] );
+  var dstPoint = _.segment.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.segment.tools.vectorAdapter.from( [ 0, 1, 4 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -7438,7 +7438,7 @@ function sphereClosestPoint( test )
   var segment = [ 0, -6, 4, 0, 1, 4 ];
   var sphere = [ 1, 5, 0, 3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, 1, 4 ];
+  var expected = _.segment.tools.longMake( [ 0, 1, 4 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -7470,7 +7470,7 @@ function boundingSphereGet( test )
 
   var srcSegment = [ 0, 0, 0, 3, 3, 3 ];
   var dstSphere = [ 1, 1, 2, 1 ];
-  var expected = [ 1.5, 1.5, 1.5, Math.sqrt( 6.75 ) ];
+  var expected = _.segment.tools.longMake( [ 1.5, 1.5, 1.5, Math.sqrt( 6.75 ) ] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( expected, gotSphere );
@@ -7483,7 +7483,7 @@ function boundingSphereGet( test )
 
   var srcSegment = [ 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.segment.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
@@ -7492,7 +7492,7 @@ function boundingSphereGet( test )
 
   var srcSegment = [ 0, 0, 0, 4, 2, 4 ];
   var dstSphere = [ 2, 2, 2, 1 ];
-  var expected = [ 2, 1, 2, 3 ];
+  var expected = _.segment.tools.longMake( [ 2, 1, 2, 3 ] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
@@ -7501,7 +7501,7 @@ function boundingSphereGet( test )
 
   var srcSegment = [ 1, 2, 3, 1, 2, 3 ];
   var dstSphere = [ 3, 3, 3, 0 ];
-  var expected = [ 1, 2, 3, 0 ];
+  var expected = _.segment.tools.longMake( [ 1, 2, 3, 0 ] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
@@ -7510,7 +7510,7 @@ function boundingSphereGet( test )
 
   var srcSegment = [ - 1, - 1, - 1, 0, 0, 1 ];
   var dstSphere = [ 0, 0, 0, 3 ];
-  var expected = [ - 0.5, - 0.5, 0, Math.sqrt( 1.5 ) ];
+  var expected = _.segment.tools.longMake( [ - 0.5, - 0.5, 0, Math.sqrt( 1.5 ) ] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
@@ -7519,7 +7519,7 @@ function boundingSphereGet( test )
 
   var srcSegment = [ 1, 2, 3, 5, 8, 9 ];
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 3, 5, 6, Math.sqrt( 22 ) ];
+  var expected = _.segment.tools.longMake( [ 3, 5, 6, Math.sqrt( 22 ) ] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
@@ -7528,7 +7528,7 @@ function boundingSphereGet( test )
 
   var srcSegment = _.vectorAdapter.from( [ - 2, 1, 10.5, 6, 1, 8.5 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 2, 1, 9.5, Math.sqrt( 17 )];
+  var expected = _.segment.tools.longMake( [ 2, 1, 9.5, Math.sqrt( 17 )] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
@@ -7546,7 +7546,7 @@ function boundingSphereGet( test )
 
   var srcSegment = [- 1, 5, - 1, 3, 7, 1 ];
   var dstSphere = null;
-  var expected = [ 1, 6, 0, Math.sqrt( 6 ) ];
+  var expected = _.segment.tools.longMake( [ 1, 6, 0, Math.sqrt( 6 ) ] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
@@ -7555,7 +7555,7 @@ function boundingSphereGet( test )
 
   var srcSegment = [- 1, - 3, - 5, 1, 0, 0 ];
   var dstSphere = undefined;
-  var expected = [ 0, - 1.5, - 2.5, Math.sqrt( 9.5 ) ];
+  var expected = _.segment.tools.longMake( [ 0, - 1.5, - 2.5, Math.sqrt( 9.5 ) ] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
@@ -7564,7 +7564,7 @@ function boundingSphereGet( test )
 
   var srcSegment = _.vectorAdapter.from( [ 4, 4, 4, 2, 2, 2 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 3, 3, 3, Math.sqrt( 3 )];
+  var expected = _.segment.tools.longMake( [ 3, 3, 3, Math.sqrt( 3 )] );
 
   var gotSphere = _.segment.boundingSphereGet( dstSphere, srcSegment );
   test.identical( gotSphere, expected );
