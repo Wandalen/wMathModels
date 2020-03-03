@@ -1936,7 +1936,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ -1, 0, 1, 0 ];
   var src2Segment = [ 0, -1, 0, 2 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoints, expected );
@@ -1951,7 +1951,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 0, 0, 1, 1 ];
   var src2Segment = [ 0, 0, 1, 1 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );
@@ -1978,7 +1978,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 3, 7, 3, 8 ];
   var src2Segment = [ 3, 7, 4, 7 ];
-  var expected = [ [ 3, 7 ], [ 3, 7 ] ];
+  var expected = _.segment.tools.longMake( [ [ 3, 7 ], [ 3, 7 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );
@@ -1987,7 +1987,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 0, 0, 1, 0 ];
   var src2Segment = [ 3, -6, 1, 0 ];
-  var expected = [ [ 1, 0 ], [ 1, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 1, 0 ], [ 1, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );
@@ -1996,7 +1996,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ -3, 0, 1, 0 ];
   var src2Segment = [ 0, -2, 0, 1 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoints, expected );
@@ -2014,7 +2014,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ -1, -1, -1, 2, 2, 5 ];
   var src2Segment = [ 3, 3, 3, - 3, - 3, -1 ];
-  var expected = [ [ 0, 0, 1 ], [ 0, 0, 1 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 1 ], [ 0, 0, 1 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.equivalent( isIntersectionPoints, expected );
@@ -2023,7 +2023,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 2, -2, -2, 4, 2, 2 ];
   var src2Segment = [ 2, -2,  0, 4, 2, 0 ];
-  var expected = [ [ 3, 0, 0 ], [ 3, 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 3, 0, 0 ], [ 3, 0, 0 ] ] );
 
   var isIntersectionFactors = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.equivalent( isIntersectionFactors, expected );
@@ -2032,7 +2032,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 0, 0, 0, 1, 1, 0 ];
   var src2Segment = [ 3, 3, 0, -1, -1, 0 ];
-  var expected = [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0 ], [ 0, 0, 0 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );
@@ -2050,7 +2050,7 @@ function segmentIntersectionPoints( test )
 
   var src1Segment = [ 0, 0, 0, 1, 4, 4, 4, 5 ];
   var src2Segment = [ 3, 3, 3, 3, - 3, - 3, -3, -1 ];
-  var expected = [ [ 0, 0, 0, 1 ], [ 0, 0, 0, 1 ] ];
+  var expected = _.segment.tools.longMake( [ [ 0, 0, 0, 1 ], [ 0, 0, 0, 1 ] ] );
 
   var isIntersectionPoints = _.segment.segmentIntersectionPoints( src1Segment, src2Segment );
   test.identical( isIntersectionPoints, expected );

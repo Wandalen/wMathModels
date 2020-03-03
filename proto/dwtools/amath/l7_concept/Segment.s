@@ -1023,7 +1023,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   */
 function segmentIntersectionPoints( srcSegment1, srcSegment2 )
 {
-  let factors = segmentIntersectionFactors( srcSegment1, srcSegment2 );
+  let factors = this.segmentIntersectionFactors( srcSegment1, srcSegment2 );
   if( factors === 0 )
   return 0;
 
