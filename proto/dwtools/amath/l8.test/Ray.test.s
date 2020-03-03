@@ -3704,7 +3704,7 @@ function frustumClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var ray = [ 4, 4, 4, 5, 5, 5 ];
-  var expected = [ 4, 4, 4 ];
+  var expected = _.ray.tools.longMake( [ 4, 4, 4 ] );
 
   var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -3719,7 +3719,7 @@ function frustumClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var ray = [ 1.1, 1.1, 1.1, 5, 5, 5 ];
-  var expected = [ 1.1, 1.1, 1.1 ];
+  var expected = _.ray.tools.longMake( [ 1.1, 1.1, 1.1 ] );
 
   var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -3749,7 +3749,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var ray = null;
-  var expected = [ 0, 0, 0 ];
+  var expected = _.ray.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -3764,7 +3764,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var ray = [ - 2, 0.3, 0, 1, 0, 0 ];
-  var expected = [ 0.5, 0.3, 0 ];
+  var expected = _.ray.tools.longMake( [ 0.5, 0.3, 0 ] );
 
   var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -3779,7 +3779,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var ray = [ -2, 0.3, 0, 1, 0, 0.1 ];
-  var expected = [ 1.0198019801980198, 0.3, 0.301980198019802 ];
+  var expected = _.ray.tools.longMake( [ 1.0198019801980198, 0.3, 0.301980198019802 ] );
 
   var gotClosestPoint = _.ray.frustumClosestPoint( ray, srcFrustum );
   test.identical( gotClosestPoint, expected );
