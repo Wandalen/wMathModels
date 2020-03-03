@@ -2657,7 +2657,7 @@ function boxClosestPoint( test )
 
   var ray = [ 0, 0, 4, 0, 0, 2 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
-  var expected = [ 0, 0, 4 ];
+  var expected = _.ray.tools.longMake( [ 0, 0, 4 ] );
 
   var gotPoint = _.ray.boxClosestPoint( ray, box );
   test.identical( gotPoint, expected );
@@ -2666,7 +2666,7 @@ function boxClosestPoint( test )
 
   var ray = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.ray.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.ray.boxClosestPoint( ray, box );
   test.identical( gotPoint, expected );
@@ -2675,7 +2675,7 @@ function boxClosestPoint( test )
 
   var ray = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ -1, -1, -1, 0.5, 0.5, - 0.1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.ray.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.ray.boxClosestPoint( ray, box );
   test.identical( gotPoint, expected );
@@ -2684,7 +2684,7 @@ function boxClosestPoint( test )
 
   var ray = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ 6, 7, 8, 6, 9, 10 ];
-  var expected = [ 7, 7, 7 ];
+  var expected = _.ray.tools.longMake( [ 7, 7, 7 ] );
 
   var gotPoint = _.ray.boxClosestPoint( ray, box );
   test.identical( gotPoint, expected );
@@ -2702,7 +2702,7 @@ function boxClosestPoint( test )
 
   var ray = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, - 0.303 ];
-  var expected = [ 0.005519293548276563, 0.021792674525669315, 0.021792674525669315 ];
+  var expected = _.ray.tools.longMake( [ 0.005519293548276563, 0.021792674525669315, 0.021792674525669315 ] );
 
   var gotPoint = _.ray.boxClosestPoint( ray, box );
   test.equivalent( gotPoint, expected );
@@ -2711,7 +2711,7 @@ function boxClosestPoint( test )
 
   var ray = [ 0, 0, 2, 1 ];
   var box = [ 6, 7, 10, 8 ];
-  var expected = [ 10.8, 5.4 ];
+  var expected = _.ray.tools.longMake( [ 10.8, 5.4 ] );
 
   var gotPoint = _.ray.boxClosestPoint( ray, box );
   test.identical( gotPoint, expected );
