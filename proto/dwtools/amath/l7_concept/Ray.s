@@ -827,7 +827,7 @@ function rayIntersectionFactors( r1, r2 )
   */
 function rayIntersectionPoints( r1, r2 )
 {
-  let factors = rayIntersectionFactors( r1, r2 );
+  let factors = this.rayIntersectionFactors( r1, r2 );
   if( factors === 0 )
   return 0;
 

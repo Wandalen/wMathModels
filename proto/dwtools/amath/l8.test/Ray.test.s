@@ -1463,7 +1463,7 @@ function rayIntersectionPoints( test )
 
   var src1Ray = [ 0, 0, 1, 1 ];
   var src2Ray = [ 0, 0, 2, 2 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.ray.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
@@ -1478,7 +1478,7 @@ function rayIntersectionPoints( test )
 
   var src1Ray = [ 0, 0, 1, 1 ];
   var src2Ray = [ 0, 0, 1, 1 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.ray.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
@@ -1514,7 +1514,7 @@ function rayIntersectionPoints( test )
 
   var src1Ray = [ 3, 7, 1, 0 ];
   var src2Ray = [ 3, 7, 0, 1 ];
-  var expected = [ [ 3, 7 ], [ 3, 7 ] ];
+  var expected = _.ray.tools.longMake( [ [ 3, 7 ], [ 3, 7 ] ] );
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
@@ -1523,7 +1523,7 @@ function rayIntersectionPoints( test )
 
   var src1Ray = [ 0, 0, 1, 0 ];
   var src2Ray = [ -2, -6, 1, 2 ];
-  var expected = [ [ 1, 0 ], [ 1, 0 ] ];
+  var expected = _.ray.tools.longMake( [ [ 1, 0 ], [ 1, 0 ] ] );
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
@@ -1532,7 +1532,7 @@ function rayIntersectionPoints( test )
 
   var src1Ray = [ -3, 0, 1, 0 ];
   var src2Ray = [ 0, -2, 0, 1 ];
-  var expected = [ [ 0, 0 ], [ 0, 0 ] ];
+  var expected = _.ray.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
@@ -1550,7 +1550,7 @@ function rayIntersectionPoints( test )
 
   var src1Ray = [ 0, 0, 0, 1, 1, 1 ];
   var src2Ray = [ 3, 7, 1, 3, 1, 4 ];
-  var expected = [ [ 9, 9, 9 ], [ 9, 9, 9 ] ];
+  var expected = _.ray.tools.longMake( [ [ 9, 9, 9 ], [ 9, 9, 9 ] ] );
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
@@ -1559,7 +1559,7 @@ function rayIntersectionPoints( test )
 
   var src1Ray = [ 0, 0, 0, 1, 1, 0 ];
   var src2Ray = [ 3, 3, 0, 0, 1, 0 ];
-  var expected = [ [ 3, 3, 0 ], [ 3, 3, 0 ] ];
+  var expected = _.ray.tools.longMake( [ [ 3, 3, 0 ], [ 3, 3, 0 ] ] );
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
@@ -1577,7 +1577,7 @@ function rayIntersectionPoints( test )
 
   var src1Ray = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
   var src2Ray = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
-  var expected = [ [ 9, 9, 9, 10 ], [ 9, 9, 9, 10 ] ];
+  var expected = _.ray.tools.longMake( [ [ 9, 9, 9, 10 ], [ 9, 9, 9, 10 ] ] );
 
   var isIntersectionPoints = _.ray.rayIntersectionPoints( src1Ray, src2Ray );
   test.identical( isIntersectionPoints, expected );
