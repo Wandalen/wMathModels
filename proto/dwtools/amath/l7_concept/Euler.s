@@ -364,7 +364,7 @@ function fromQuat( dst, quat, v )
 
   dst = this.from( dst );
   let dstv = this.tools.vectorAdapter.from( dst );
-  let quatv = _.quat.adapterFrom( quat );
+  let quatv = this.tools.quat.adapterFrom( quat );
 
   // _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -1284,7 +1284,7 @@ function fromQuat2( dstEuler, srcQuat )
 
   dstEuler = this.from( dstEuler );
   let dstEulerView = this.adapterFrom( dstEuler );
-  let srcQuatVector = _.quat.adapterFrom( srcQuat );
+  let srcQuatVector = this.tools.quat.adapterFrom( srcQuat );
   let accuracy =  this.tools.accuracy;
   let accuracySqr = _.accuracySqr;
 
@@ -1638,12 +1638,12 @@ function toQuat2( srcEuler, dstQuat )
   _.assert( dstQuat === undefined || dstQuat === null || _.quat.is( dstQuat ) );
 
   if( dstQuat === undefined || dstQuat === null )
-  dstQuat = _.quat.makeUnit();
+  dstQuat = this.tools.quat.makeUnit();
 
   srcEuler = this.from( srcEuler );
   let srcEulerView = this.adapterFrom( srcEuler );
-  dstQuat = _.quat.from( dstQuat );
-  let dstQuatVector = _.quat.adapterFrom( dstQuat );
+  dstQuat = this.tools.quat.from( dstQuat );
+  let dstQuatVector = this.tools.quat.adapterFrom( dstQuat );
 
   let e0 = srcEulerView.eGet( 0 );
   let e1 = srcEulerView.eGet( 1 );
@@ -2204,7 +2204,7 @@ function fromMatrix3( dstEuler, srcMatrix )
   _.assert( srcMatrix.dims[ 0 ] >= 3 );
   _.assert( srcMatrix.dims[ 1 ] >= 3 );
 
-  let quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+  let quat = this.tools.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
 
   dstEuler = this.fromQuat2( dstEuler, quat );
 
@@ -2468,11 +2468,11 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
   let quat;
   if( arguments.length === 2 )
   {
-    quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis );
+    quat = this.tools.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis );
   }
   else
   {
-    quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
+    quat = this.tools.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axis, angle );
   }
 
   dstEulerView = this.fromQuat2( dstEulerView, quat );
@@ -2510,7 +2510,7 @@ function toAxisAndAngle2( euler, axisAndAngle )
 
   let quat = this.toQuat2( srcEuler, [ 0, 0, 0, 0 ] );
 
-  axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
+  axisAndAngle = this.tools.quat.toAxisAndAngle( quat, axisAndAngle );
   return axisAndAngle;
 
 }
