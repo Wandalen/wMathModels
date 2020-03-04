@@ -1738,11 +1738,11 @@ function capsuleContains( box, capsule )
 
   let boxView = this.adapterFrom( box );
   let dimB = this.dimGet( boxView );
-  let capsuleView = _.capsule.adapterFrom( capsule );
-  let dimC = _.capsule.dimGet( capsuleView );
-  let origin = this.tools.vectorAdapter.from( _.capsule.originGet( capsuleView ) );
-  let end = this.tools.vectorAdapter.from( _.capsule.endPointGet( capsuleView ) );
-  let radius = _.capsule.radiusGet( capsuleView );
+  let capsuleView = this.tools.capsule.adapterFrom( capsule );
+  let dimC = this.tools.capsule.dimGet( capsuleView );
+  let origin = this.tools.vectorAdapter.from( this.tools.capsule.originGet( capsuleView ) );
+  let end = this.tools.vectorAdapter.from( this.tools.capsule.endPointGet( capsuleView ) );
+  let radius = this.tools.capsule.radiusGet( capsuleView );
 
   _.assert( dimB === dimC );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1764,10 +1764,10 @@ function capsuleContains( box, capsule )
 function capsuleIntersects( srcBox , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstCapsuleView = _.capsule.adapterFrom( tstCapsule );
+  let tstCapsuleView = this.tools.capsule.adapterFrom( tstCapsule );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotBool = _.capsule.boxIntersects( tstCapsuleView, boxView );
+  let gotBool = this.tools.capsule.boxIntersects( tstCapsuleView, boxView );
   return gotBool;
 }
 
@@ -1776,10 +1776,10 @@ function capsuleIntersects( srcBox , tstCapsule )
 function capsuleDistance( srcBox , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstCapsuleView = _.capsule.adapterFrom( tstCapsule );
+  let tstCapsuleView = this.tools.capsule.adapterFrom( tstCapsule );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotDist = _.capsule.boxDistance( tstCapsuleView, boxView );
+  let gotDist = this.tools.capsule.boxDistance( tstCapsuleView, boxView );
 
   return gotDist;
 }
@@ -1826,19 +1826,19 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let capsuleView = _.capsule.adapterFrom( capsule );
-  let dimCapsule  = _.capsule.dimGet( capsuleView );
+  let capsuleView = this.tools.capsule.adapterFrom( capsule );
+  let dimCapsule  = this.tools.capsule.dimGet( capsuleView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimCapsule );
 
-  if( _.capsule.boxIntersects( capsuleView, boxView ) )
+  if( this.tools.capsule.boxIntersects( capsuleView, boxView ) )
   return 0
   else
   {
-    let capsulePoint = _.capsule.boxClosestPoint( capsule, boxView );
+    let capsulePoint = this.tools.capsule.boxClosestPoint( capsule, boxView );
 
     let boxPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( boxView, capsulePoint ) );
 
@@ -1909,7 +1909,7 @@ function convexPolygonIntersects( srcBox , polygon )
   _.assert( _.convexPolygon.is( polygon ) );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotBool = _.convexPolygon.boxIntersects( polygon, boxView );
+  let gotBool = this.tools.convexPolygon.boxIntersects( polygon, boxView );
 
   return gotBool;
 }
@@ -1922,7 +1922,7 @@ function convexPolygonDistance( srcBox , polygon )
   _.assert( _.convexPolygon.is( polygon ) );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotDist = _.convexPolygon.boxDistance( polygon, boxView );
+  let gotDist = this.tools.convexPolygon.boxDistance( polygon, boxView );
 
   return gotDist;
 }
@@ -1976,11 +1976,11 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
   _.assert( dimB === dstPoint.length );
   _.assert( dimP[ 0 ] === dimB );
 
-  if( _.convexPolygon.boxIntersects( polygon, boxView ) )
+  if( this.tools.convexPolygon.boxIntersects( polygon, boxView ) )
   return 0
   else
   {
-    let polygonPoint = _.convexPolygon.boxClosestPoint( polygon, boxView );
+    let polygonPoint = this.tools.convexPolygon.boxClosestPoint( polygon, boxView );
 
     let boxPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( boxView, polygonPoint ) ) ;
 
