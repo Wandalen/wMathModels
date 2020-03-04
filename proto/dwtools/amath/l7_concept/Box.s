@@ -2036,7 +2036,7 @@ function frustumContains( box, frustum )
   let dims = _.Matrix.DimsOf( frustum );
   _.assert( dim = dims[ 0 ], 'Frustum and box must have same dim');
 
-  let fpoints = _.frustum.cornersGet( frustum );
+  let fpoints = this.tools.frustum.cornersGet( frustum );
   let dimsPoints = _.Matrix.DimsOf( fpoints );
   _.assert( _.matrixIs( fpoints ) );
 
@@ -2089,7 +2089,7 @@ function frustumIntersects( box, frustum )
   _.assert( _.frustum.is( frustum ) );
   let boxView = this.adapterFrom( box );
 
-  let gotBool = _.frustum.boxIntersects( frustum, boxView );
+  let gotBool = this.tools.frustum.boxIntersects( frustum, boxView );
   return gotBool;
 }
 
@@ -2137,10 +2137,10 @@ function frustumDistance( box, frustum )
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
 
-  if( _.frustum.boxIntersects( frustum, boxView ) )
+  if( this.tools.frustum.boxIntersects( frustum, boxView ) )
   return 0;
 
-  let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
+  let frustumPoint = this.tools.frustum.boxClosestPoint( frustum, boxView );
 
   /* box corners */
   let c = this.cornersGet( boxView );
@@ -2149,7 +2149,7 @@ function frustumDistance( box, frustum )
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
-    let proj = _.frustum.pointClosestPoint( frustum, corner );
+    let proj = this.tools.frustum.pointClosestPoint( frustum, corner );
     let d = this.tools.avector.distance( corner, frustumPoint );
     if( d < distance )
     {
@@ -2215,11 +2215,11 @@ function frustumClosestPoint( box, frustum, dstPoint )
   _.assert( dimB === 3 );
   _.assert( dimB === dstPoint.length );
 
-  if( _.frustum.boxIntersects( frustum, boxView ) )
+  if( this.tools.frustum.boxIntersects( frustum, boxView ) )
   return 0
   else
   {
-    let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
+    let frustumPoint = this.tools.frustum.boxClosestPoint( frustum, boxView );
 
     /* box corners */
     let c = this.cornersGet( boxView );
@@ -2292,7 +2292,7 @@ function frustumExpand( dstBox, srcFrustum )
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
 
-  let fpoints = _.frustum.cornersGet( srcFrustum );
+  let fpoints = this.tools.frustum.cornersGet( srcFrustum );
   _.assert( _.matrixIs( fpoints ) );
   _.assert( fpoints.hasShape([ 3, 8 ] ) );
 
