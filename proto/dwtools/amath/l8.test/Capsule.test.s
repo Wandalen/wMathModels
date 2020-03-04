@@ -4819,7 +4819,7 @@ function lineClosestPoint( test )
   var expected = _.capsule.tools.longMake( [ 3, 2.9698484809835, 0.4242640687119285 ] );
 
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected, _.accuracySqrt );
 
   test.case = 'srcCapsule is a point'; /* */
 
@@ -4909,7 +4909,7 @@ function lineClosestPoint( test )
   var expected = _.capsule.tools.longMake( [ 2.940271890656845, 6.895475808649478, 1.4852908884131368 ] );
 
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Capsule and line are parallel but in a opposite direction'; /* */
 
