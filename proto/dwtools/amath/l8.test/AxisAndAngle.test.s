@@ -277,7 +277,7 @@ function make( test )
 
   var src = undefined;
   var got = _.axisAndAngle.make( src );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -285,7 +285,7 @@ function make( test )
 
   var src = null;
   var got = _.axisAndAngle.make( src );
-  var expected = [ 0, 0, 0, 0, ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0, ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -293,7 +293,7 @@ function make( test )
 
   var src = [ 0, 1, 2, 5, ];
   var got = _.axisAndAngle.make( src );
-  var expected = [ 0, 1, 2, 5 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -301,7 +301,7 @@ function make( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.make( src, 5 );
-  var expected = [ 0, 1, 2, 5 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -309,7 +309,7 @@ function make( test )
 
   var src = _.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
   var got = _.axisAndAngle.make( src );
-  var expected = [ 0, 1, 2, 5 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -317,7 +317,7 @@ function make( test )
 
   var src = _.vectorAdapter.fromLong([ 0, 1, 2 ]);
   var got = _.axisAndAngle.make( src, 5 );
-  var expected = [ 0, 1, 2, 5 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -343,7 +343,7 @@ function makeZero( test )
   test.case = 'trivial'; /* */
 
   var got = _.axisAndAngle.makeZero();
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
 
   if( !Config.debug )
@@ -371,7 +371,7 @@ function from( test )
 
   var src = null;
   var got = _.axisAndAngle.from( src );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -379,7 +379,7 @@ function from( test )
 
   var src = null;
   var got = _.axisAndAngle.from( src, null );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -387,7 +387,7 @@ function from( test )
 
   var src = null;
   var got = _.axisAndAngle.from( src, 3 );
-  var expected = [ 0, 0, 0, 3 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 3 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -395,7 +395,7 @@ function from( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.from( src, null );
-  var expected = [ 0, 1, 2, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -403,7 +403,7 @@ function from( test )
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.axisAndAngle.from( src );
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
   test.is( got === src );
 
@@ -411,7 +411,7 @@ function from( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.from( src, 3 );
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -427,7 +427,7 @@ function from( test )
 
   var src = _.vectorAdapter.from([ 0, 1, 2 ]);
   var got = _.axisAndAngle.from( src, 3 );
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -552,7 +552,7 @@ function zero( test )
 
   var src = undefined;
   var got = _.axisAndAngle.zero( src );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -560,7 +560,7 @@ function zero( test )
 
   var src = null;
   var got = _.axisAndAngle.zero( src );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -568,7 +568,7 @@ function zero( test )
 
   var dst = [ 0, 1, 2, 5 ];
   var got = _.axisAndAngle.zero( dst );
-  var expected = [ 0, 1, 2, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 0 ] );
   test.identical( got, expected );
   test.is( got === dst );
 
