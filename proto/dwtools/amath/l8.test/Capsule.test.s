@@ -6969,7 +6969,7 @@ function sphereClosestPoint( test )
   var expected = _.capsule.tools.longMake( [ 0, 0, 3.5 ] );
 
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'sphere closer to origin'; /* */
 
