@@ -1602,7 +1602,7 @@ function pointClosestPoint( test )
   var dstPoint = _.vectorAdapter.from( [ 5, 5 ] );
 
   var gotClosestPoint = _.convexPolygon.pointClosestPoint( polygon, srcPoint, dstPoint );
-  var expected = _.vectorAdapter.from( [ -1.5065312052018862, 0.5805515273629065 ] );
+  var expected = _.convexPolygon.tools.vectorAdapter.from( [ -1.5065312052018862, 0.5805515273629065 ] );
   test.equivalent( gotClosestPoint, expected );
 
 
@@ -2563,7 +2563,7 @@ function boundingBoxGet( test )
       0,   2,   2,   0
     ]);
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9, 10, - 1 ] );
-  var expected = _.vectorAdapter.from( [ 0, 0, 0, 2, 2, 2  ] );
+  var expected = _.convexPolygon.tools.vectorAdapter.from( [ 0, 0, 0, 2, 2, 2  ] );
 
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
@@ -3995,7 +3995,7 @@ function frustumClosestPoint( test )
     0,   0,   1, - 1,   0,   0,
     - 2, 1, - 2,   1,   1,  -2
   ]);
-  var expected = _.vectorAdapter.from( [ 1, 0.4, 3.2 ] );
+  var expected = _.convexPolygon.tools.vectorAdapter.from( [ 1, 0.4, 3.2 ] );
 
   var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum, _.vectorAdapter.from( [ 0, 0, 0 ] ) );
   test.identical( gotBool, expected );
@@ -7828,7 +7828,7 @@ function boundingSphereGet( test )
       0,   2,   2,   0
     ]);
   var dstSphere = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vectorAdapter.from( [ 1, 1, 1, Math.sqrt( 3 )  ] );
+  var expected = _.convexPolygon.tools.vectorAdapter.from( [ 1, 1, 1, Math.sqrt( 3 )  ] );
 
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );
