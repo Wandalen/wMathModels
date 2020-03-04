@@ -417,15 +417,15 @@ function from( test )
 
   test.case = 'from vector'; /* */
 
-  var src = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   var got = _.axisAndAngle.from( src );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got === src );
 
   test.case = 'from vector and angle'; /* */
 
-  var src = _.vectorAdapter.from([ 0, 1, 2 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2 ]);
   var got = _.axisAndAngle.from( src, 3 );
   var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
@@ -456,7 +456,7 @@ function adapterFrom( test )
 
   var src = null;
   var got = _.axisAndAngle.adapterFrom( src );
-  var expected = _.vectorAdapter.from([ 0, 0, 0, 0 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 0, 0, 0 ]);
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -464,7 +464,7 @@ function adapterFrom( test )
 
   var src = null;
   var got = _.axisAndAngle.adapterFrom( src, null );
-  var expected = _.vectorAdapter.from([ 0, 0, 0, 0 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 0, 0, 0 ]);
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -472,7 +472,7 @@ function adapterFrom( test )
 
   var src = null;
   var got = _.axisAndAngle.adapterFrom( src, 3 );
-  var expected = _.vectorAdapter.from([ 0, 0, 0, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 0, 0, 3 ]);
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -480,7 +480,7 @@ function adapterFrom( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.adapterFrom( src, null );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 0 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 0 ]);
   test.identical( got, expected );
   test.is( got !== src );
   test.is( got._vectorBuffer !== src );
@@ -490,7 +490,7 @@ function adapterFrom( test )
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.axisAndAngle.adapterFrom( src );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got !== src );
   test.is( got._vectorBuffer === src );
@@ -500,7 +500,7 @@ function adapterFrom( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.adapterFrom( src, 3 );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got !== src );
   test.is( got._vectorBuffer !== src );
@@ -508,17 +508,17 @@ function adapterFrom( test )
 
   test.case = 'adapterFrom vector'; /* */
 
-  var src = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   var got = _.axisAndAngle.adapterFrom( src );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got === src );
 
   test.case = 'adapterFrom vector and angle'; /* */
 
-  var src = _.vectorAdapter.from([ 0, 1, 2 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2 ]);
   var got = _.axisAndAngle.adapterFrom( src, 3 );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got !== src );
   test.is( got._vectorBuffer !== src );
@@ -535,8 +535,8 @@ function adapterFrom( test )
   test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( [ 1, 2, 3 ] ) );
   test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( [ 1, 2, 3, 4, 5 ] ) );
 
-  test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( _.vectorAdapter.from([ 1, 2, 3 ]) ) );
-  test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( _.vectorAdapter.from([ 1, 2, 3, 4, 5 ]) ) );
+  test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( _.axisAndAngle.tools.vectorAdapter.from([ 1, 2, 3 ]) ) );
+  test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( _.axisAndAngle.tools.vectorAdapter.from([ 1, 2, 3, 4, 5 ]) ) );
 
   test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( 'abcd' ) );
   test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( {} ) );
