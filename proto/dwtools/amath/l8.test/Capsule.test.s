@@ -4636,7 +4636,7 @@ function lineDistance( test )
   var expected =  Math.sqrt( 168 / 9 );
 
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   test.case = 'srcCapsule is a sphere'; /* */
 
@@ -4645,7 +4645,7 @@ function lineDistance( test )
   var expected =  Math.sqrt( 168 / 9 ) - 1;
 
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   test.case = 'tstLine is a point'; /* */
 
