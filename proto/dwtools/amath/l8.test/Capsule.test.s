@@ -2863,8 +2863,8 @@ function capsuleContains( test )
   test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], - 2 ) );
   test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2 ] ) );
   test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2 ], [ 1, 1, 2, 2, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, -1 ], [ 1, 1, 2, 2, 1 ] ) );
-  test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2, - 1 ] ) );
+  // test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, -1 ], [ 1, 1, 2, 2, 1 ] ) );
+  // test.shouldThrowErrorSync( () => _.capsule.capsuleContains( [ 1, 1, 2, 2, 1 ], [ 1, 1, 2, 2, - 1 ] ) );
 
 }
 
