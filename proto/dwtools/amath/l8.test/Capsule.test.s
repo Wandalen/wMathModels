@@ -369,7 +369,7 @@ function adapterFrom( test )
   test.case = 'Same instance returned - vector'; /* */
 
   var srcCapsule = [ 0, 0, 2, 2, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
 
   var gotCapsule = _.capsule.adapterFrom( srcCapsule );
   test.identical( gotCapsule, expected );
@@ -378,7 +378,7 @@ function adapterFrom( test )
   test.case = 'Different instance returned - vector -> vector'; /* */
 
   var srcCapsule = _.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
-  var expected = _.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
 
   var gotCapsule = _.capsule.adapterFrom( srcCapsule );
   test.identical( gotCapsule, expected );
@@ -519,7 +519,7 @@ function originGet( test )
   test.case = 'Source capsule remains unchanged'; /* */
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
-  var expected = _.vectorAdapter.from( [ 0, 0 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 0 ] );
 
   var gotOrigin = _.capsule.originGet( srcCapsule );
   test.identical( gotOrigin, expected );
@@ -531,7 +531,7 @@ function originGet( test )
 
   var srcCapsule = [ 0, 1, 2 ];
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 0 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
@@ -539,7 +539,7 @@ function originGet( test )
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 1 ] );
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 0 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
@@ -547,7 +547,7 @@ function originGet( test )
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 0, 1 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
@@ -555,7 +555,7 @@ function originGet( test )
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 0, 1 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
@@ -563,7 +563,7 @@ function originGet( test )
 
   var srcCapsule = [ 0, 1, 2, 3, 4, 5, 6 ];
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
@@ -571,7 +571,7 @@ function originGet( test )
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5, 6 ] );
   var gotOrigin = _.capsule.originGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 0, 1, 2 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1, 2 ] );
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
@@ -597,7 +597,7 @@ function endPointGet( test )
   test.case = 'Source capsule remains unchanged'; /* */
 
   var srcCapsule = [ 0, 0, 1, 1, 2 ];
-  var expected = _.vectorAdapter.from( [ 1, 1 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 1, 1 ] );
 
   var gotDirection = _.capsule.endPointGet( srcCapsule );
   test.identical( gotDirection, expected );
@@ -609,7 +609,7 @@ function endPointGet( test )
 
   var srcCapsule = [ 0, 1, 2 ];
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 1 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
@@ -617,7 +617,7 @@ function endPointGet( test )
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2 ] );
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 1 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 1 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
@@ -625,7 +625,7 @@ function endPointGet( test )
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 2, 3 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
@@ -633,7 +633,7 @@ function endPointGet( test )
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 2, 3 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 2, 3 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
@@ -641,7 +641,7 @@ function endPointGet( test )
 
   var srcCapsule = [ 0, 1, 2, 3, 4, 5, 6 ];
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
@@ -649,7 +649,7 @@ function endPointGet( test )
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5, 6 ] );
   var gotDirection = _.capsule.endPointGet( srcCapsule );
-  var expected = _.vectorAdapter.from( [ 3, 4, 5 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 3, 4, 5 ] );
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
@@ -2693,7 +2693,7 @@ function boundingBoxGet( test )
 
   var srcCapsule = [ - 1, 0, - 2, 3, 1 ];
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vectorAdapter.from( [ - 3, - 1, 0, 4 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ - 3, - 1, 0, 4 ] );
 
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
@@ -3247,7 +3247,7 @@ function capsuleClosestPoint( test )
   var capsule = [ 0, 0, 1, 0, 1 ];
   var tstCapsule = [ 0, 2, 1, 2, 0.5 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0 ]);
-  var expected =  _.vectorAdapter.from( [ 0, 1 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1 ] );
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule, dstPoint );
   test.identical( gotBool,  expected );
@@ -5369,7 +5369,7 @@ function planeClosestPoint( test )
   var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane, dstPoint );
   test.identical( gotPoint, expected );
@@ -6985,7 +6985,7 @@ function sphereClosestPoint( test )
   var capsule = [ 0, -6, 4, 0, 1, 4, 1 ];
   var sphere = [ 0, 5, 0, 3 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 0, 1 + Math.sqrt( 2 ) / 2, 3.2928932188134525 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 0, 1 + Math.sqrt( 2 ) / 2, 3.2928932188134525 ] );
 
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
@@ -7096,7 +7096,7 @@ function boundingSphereGet( test )
 
   var srcCapsule = [- 1, - 1, - 1, 3, 3, 1, 0.5 ];
   var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vectorAdapter.from( [ 1, 1, 0, 3.5 ] );
+  var expected = _.capsule.tools.vectorAdapter.from( [ 1, 1, 0, 3.5 ] );
 
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
