@@ -32,7 +32,7 @@ if( typeof module !== 'undefined' )
 var _ = _global_.wTools.withDefaultLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
-var vec = _.vectorAdapter.fromLong;
+var vec = _.box.tools.vectorAdapter.fromLong;
 var avector = _.avector;
 var sqrt = _.math.sqrt;
 var Parent = wTester;
@@ -82,7 +82,7 @@ function make( test )
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var src = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.make( src );
   var expected = _.box.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
@@ -129,7 +129,7 @@ function makeZero( test )
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var src = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.makeZero( src );
   var expected = _.box.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
@@ -176,7 +176,7 @@ function makeNil( test )
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var src = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.makeNil( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
@@ -223,9 +223,9 @@ function zero( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var dst = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.zero( dst );
-  var expected = _.vectorAdapter.fromLong([ 0, 0, 0, 0 ]);
+  var expected = _.box.tools.vectorAdapter.fromLong([ 0, 0, 0, 0 ]);
   test.identical( got, expected );
   test.is( got === dst );
 
@@ -278,9 +278,9 @@ function nil( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var dst = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.nil( dst );
-  var expected = _.vectorAdapter.fromLong([ +Infinity, +Infinity, -Infinity, -Infinity ]);
+  var expected = _.box.tools.vectorAdapter.fromLong([ +Infinity, +Infinity, -Infinity, -Infinity ]);
   test.identical( got, expected );
   test.is( got === dst );
 
@@ -333,9 +333,9 @@ function centeredOfSize( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var dst = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.centeredOfSize( dst, 2 );
-  var expected = _.vectorAdapter.fromLong([ -1, -1, +1, +1 ]);
+  var expected = _.box.tools.vectorAdapter.fromLong([ -1, -1, +1, +1 ]);
   test.identical( got, expected );
   test.is( got === dst );
 
@@ -375,9 +375,9 @@ function centeredOfSize( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ] );
+  var dst = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ] );
   var got = _.box.centeredOfSize( dst, 1 );
-  var expected = _.vectorAdapter.fromLong([ -0.5, -0.5, +0.5, +0.5 ]);
+  var expected = _.box.tools.vectorAdapter.fromLong([ -0.5, -0.5, +0.5, +0.5 ]);
   test.identical( got, expected );
   test.is( got === dst );
 
@@ -425,9 +425,9 @@ function centeredOfSize( test )
 
   test.case = 'dst vector with sizes in array'; /* */
 
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var dst = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.box.centeredOfSize( dst, [ 2, 4 ] );
-  var expected = _.vectorAdapter.fromLong([ -1, -2, +1, +2 ]);
+  var expected = _.box.tools.vectorAdapter.fromLong([ -1, -2, +1, +2 ]);
   test.identical( got, expected );
   test.is( got === dst );
 
@@ -457,8 +457,8 @@ function from( test )
 
   test.case = 'Different instance returned - vector -> array'; /* */
 
-  var srcBox = _.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
-  var expected = _.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
+  var srcBox = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
+  var expected = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
 
   var gotBox = _.box.from( srcBox );
   test.identical( gotBox, expected );
@@ -1255,18 +1255,18 @@ function is( test )
 
   test.case = 'vector'; /* */
 
-  test.is( _.box.is( _.vectorAdapter.fromLong([]) ) );
-  test.is( _.box.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
-  test.is( _.box.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
-  test.is( _.box.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( _.box.is( _.box.tools.vectorAdapter.fromLong([]) ) );
+  test.is( _.box.is( _.box.tools.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.is( _.box.is( _.box.tools.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
+  test.is( _.box.is( _.box.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not box'; /* */
 
   test.is( !_.box.is([ 0 ]) );
   test.is( !_.box.is([ 0, 0, 0 ]) );
 
-  test.is( !_.box.is( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.box.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.is( !_.box.is( _.box.tools.vectorAdapter.fromLong([ 0 ]) ) );
+  test.is( !_.box.is( _.box.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
 
   test.is( !_.box.is( 'abc' ) );
   test.is( !_.box.is( { center : [ 0, 0, 0 ], radius : 1 } ) );
@@ -3604,8 +3604,8 @@ function pointClosestPoint( test )
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
-  var dstPoint = _.vectorAdapter.fromLong( [ 5 ] );
-  var expected = _.vectorAdapter.fromLong( [ 0 ] );
+  var dstPoint = _.box.tools.vectorAdapter.fromLong( [ 5 ] );
+  var expected = _.box.tools.vectorAdapter.fromLong( [ 0 ] );
 
   var gotClamped = _.box.pointClosestPoint( box, point, dstPoint );
   test.identical( gotClamped, expected );
@@ -6589,10 +6589,10 @@ function planeExpand( test )
 
   test.case = 'dstBox is vector'; /* */
 
-  var dstBox = _.vectorAdapter.fromLong( [ 0, 0, 0, 3, 3, 3 ] );
+  var dstBox = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 0, 3, 3, 3 ] );
   var srcPlane = [ 1, 1, 0, - 8 ];
   var oldSrcPlane = srcPlane.slice();
-  var expected = _.vectorAdapter.fromLong( [ 0, 0, 0, 4, 4, 3 ] );
+  var expected = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 0, 4, 4, 3 ] );
 
   var gotBox = _.box.planeExpand( dstBox, srcPlane );
   test.identical( expected, gotBox );
