@@ -149,22 +149,22 @@ function is( test )
 
   test.case = 'vector'; /* */
 
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0 ]) ) );
 
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
-  test.is( _.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0 ]), 0 ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0 ]), null ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.is( _.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0 ]), 0 ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0 ]), null ) );
 
-  test.is( _.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), 0 ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), null ) );
+  test.is( _.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), 0 ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), null ) );
 
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not axisAndAngle'; /* */
 
@@ -202,22 +202,22 @@ function like( test )
 
   test.case = 'vector'; /* */
 
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0 ]) ) );
 
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
-  test.is( _.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0 ]), 0 ) );
-  test.is( _.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0 ]), null ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.is( _.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0 ]), 0 ) );
+  test.is( _.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0 ]), null ) );
 
-  test.is( _.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), 0 ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), null ) );
+  test.is( _.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), 0 ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), null ) );
 
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not axisAndAngle'; /* */
 
@@ -307,7 +307,7 @@ function make( test )
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
   var got = _.axisAndAngle.make( src );
   var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
@@ -315,7 +315,7 @@ function make( test )
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.fromLong([ 0, 1, 2 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2 ]);
   var got = _.axisAndAngle.make( src, 5 );
   var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
@@ -574,9 +574,9 @@ function zero( test )
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
+  var dst = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
   var got = _.axisAndAngle.zero( dst );
-  var expected = _.vectorAdapter.fromLong([ 0, 1, 2, 0 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2, 0 ]);
   test.identical( got, expected );
   test.is( got === dst );
 
