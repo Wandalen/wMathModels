@@ -39,7 +39,7 @@ function make( test )
 
   var srcDim = undefined;
   var gotLine = _.line.make( srcDim );
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -47,7 +47,7 @@ function make( test )
 
   var srcDim = null;
   var gotLine = _.line.make( srcDim );
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -55,7 +55,7 @@ function make( test )
 
   var srcDim = 2;
   var gotLine = _.line.make( srcDim );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -63,7 +63,7 @@ function make( test )
 
   var srcDim = [ 0, 1, 2, 3 ];
   var gotLine = _.line.make( srcDim );
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -71,7 +71,7 @@ function make( test )
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var gotLine = _.line.make( srcDim );
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -91,7 +91,7 @@ function makeZero( test )
 
   var srcDim = undefined;
   var gotLine = _.line.makeZero( srcDim );
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -99,7 +99,7 @@ function makeZero( test )
 
   var srcDim = null;
   var gotLine = _.line.makeZero( srcDim );
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -107,7 +107,7 @@ function makeZero( test )
 
   var srcDim = 2;
   var gotLine = _.line.makeZero( srcDim );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -115,7 +115,7 @@ function makeZero( test )
 
   var srcDim = [ 0, 1, 2, 3 ];
   var gotLine = _.line.makeZero( srcDim );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -123,7 +123,7 @@ function makeZero( test )
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var gotLine = _.line.makeZero( srcDim );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -144,7 +144,7 @@ function makeNil( test )
 
   var srcDim = undefined;
   var gotLine = _.line.makeNil( srcDim );
-  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  var expected = _.line.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -152,7 +152,7 @@ function makeNil( test )
 
   var srcDim = null;
   var gotLine = _.line.makeNil( srcDim );
-  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  var expected = _.line.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -160,7 +160,7 @@ function makeNil( test )
 
   var srcDim = 2;
   var gotLine = _.line.makeNil( srcDim );
-  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  var expected = _.line.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -168,7 +168,7 @@ function makeNil( test )
 
   var srcDim = [ 0, 1, 2, 3 ];
   var gotLine = _.line.makeNil( srcDim );
-  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  var expected = _.line.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -176,7 +176,7 @@ function makeNil( test )
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var gotLine = _.line.makeNil( srcDim );
-  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  var expected = _.line.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
@@ -196,7 +196,7 @@ function zero( test )
 
   var srcLine = undefined;
   var gotLine = _.line.zero( srcLine );
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
@@ -204,7 +204,7 @@ function zero( test )
 
   var srcLine = null;
   var gotLine = _.line.zero( srcLine );
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
@@ -212,7 +212,7 @@ function zero( test )
 
   var srcLine = 2;
   var gotLine = _.line.zero( srcLine );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
@@ -220,7 +220,7 @@ function zero( test )
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotLine = _.line.zero( srcLine );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine === srcLine );
 
@@ -228,7 +228,7 @@ function zero( test )
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotLine = _.line.zero( srcLine );
-  var expected =  _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] );
   test.identical( gotLine, expected );
   test.is( gotLine === srcLine );
 
@@ -249,7 +249,7 @@ function nil( test )
 
   var srcLine = undefined;
   var gotLine = _.line.nil( srcLine );
-  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  var expected = _.line.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
@@ -257,7 +257,7 @@ function nil( test )
 
   var srcLine = null;
   var gotLine = _.line.nil( srcLine );
-  var expected = [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
+  var expected = _.line.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
@@ -265,7 +265,7 @@ function nil( test )
 
   var srcLine = 2;
   var gotLine = _.line.nil( srcLine );
-  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  var expected = _.line.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
@@ -273,7 +273,7 @@ function nil( test )
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotLine = _.line.nil( srcLine );
-  var expected = [ Infinity, Infinity, - Infinity, - Infinity ];
+  var expected = _.line.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine === srcLine );
 
@@ -281,7 +281,7 @@ function nil( test )
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotLine = _.line.nil( srcLine );
-  var expected = _.vectorAdapter.fromLong( [ Infinity, Infinity, - Infinity, - Infinity ] );
+  var expected = _.line.tools.vectorAdapter.fromLong( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine === srcLine );
 
@@ -300,7 +300,7 @@ function from( test )
   test.case = 'Same instance returned - array'; /* */
 
   var srcLine = [ 0, 0, 2, 2 ];
-  var expected = [ 0, 0, 2, 2 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 2, 2 ] );
 
   var gotLine = _.line.from( srcLine );
   test.identical( gotLine, expected );
@@ -309,7 +309,7 @@ function from( test )
   test.case = 'Different instance returned - vector -> array'; /* */
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
-  var expected = _.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
+  var expected = _.line.tools.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
 
   var gotLine = _.line.from( srcLine );
   test.identical( gotLine, expected );
@@ -318,7 +318,7 @@ function from( test )
   test.case = 'Same instance returned - empty array'; /* */
 
   var srcLine = [];
-  var expected =  [];
+  var expected = _.line.tools.longMake( [] );
 
   var gotLine = _.line.from( srcLine );
   test.identical( gotLine, expected );
@@ -327,7 +327,7 @@ function from( test )
   test.case = 'Different instance returned - null -> array'; /* */
 
   var srcLine = null;
-  var expected =  [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotLine = _.line.from( srcLine );
   test.identical( gotLine, expected );
@@ -397,7 +397,7 @@ function fromPair( test )
   test.case = 'Pair stay unchanged'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
-  var expected = _.vectorAdapter.make( [ 0, 1, 2, 0, 1, 2 ] );
+  var expected = _.line.tools.vectorAdapter.make( [ 0, 1, 2, 0, 1, 2 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
@@ -408,7 +408,7 @@ function fromPair( test )
   test.case = 'Line starts in origin'; /* */
 
   var pair = [ [ 0, 0, 0 ], [ 0, 1, 2 ] ];
-  var expected = _.vectorAdapter.make( [ 0, 0, 0, 0, 1, 2 ] );
+  var expected = _.line.tools.vectorAdapter.make( [ 0, 0, 0, 0, 1, 2 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
@@ -416,7 +416,7 @@ function fromPair( test )
   test.case = 'Line is point'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 1, 2 ] ];
-  var expected =  _.vectorAdapter.make( [ 0, 1, 2, 0, 0, 0 ] );
+  var expected = _.line.tools.vectorAdapter.make( [ 0, 1, 2, 0, 0, 0 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
@@ -424,7 +424,7 @@ function fromPair( test )
   test.case = 'Line of 1 dimension'; /* */
 
   var pair = [ [ 3 ], [ 4 ] ];
-  var expected =  _.vectorAdapter.make( [ 3, 1 ] );
+  var expected = _.line.tools.vectorAdapter.make( [ 3, 1 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
@@ -432,7 +432,7 @@ function fromPair( test )
   test.case = 'Line goes up in y and down in z'; /* */
 
   var pair = [ [ 0, 1, 2 ], [ 0, 3, 1 ] ];
-  var expected =  _.vectorAdapter.make( [ 0, 1, 2, 0, 2, -1 ] );
+  var expected = _.line.tools.vectorAdapter.make( [ 0, 1, 2, 0, 2, -1 ] );
 
   var gotLine = _.line.fromPair( pair );
   test.identical( gotLine, expected );
@@ -721,7 +721,7 @@ function lineAt( test )
 
   var srcLine = [ 0, 0, 1, 1 ];
   var factor = 1;
-  var expected = [ 1, 1 ];
+  var expected = _.line.tools.longMake( [ 1, 1 ] );
 
   var gotPoint = _.line.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
@@ -736,7 +736,7 @@ function lineAt( test )
 
   var srcLine = [ 0, 0, 1, 1 ];
   var factor = 0;
-  var expected = [ 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0 ] );
 
   var gotPoint = _.line.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
@@ -745,7 +745,7 @@ function lineAt( test )
 
   var srcLine = [ 0, 0, 1, 1 ];
   var factor = 0;
-  var expected = [ 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0 ] );
 
   var gotPoint = _.line.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
@@ -754,7 +754,7 @@ function lineAt( test )
 
   var srcLine = [ 0, 1, 1, 1 ];
   var factor = 1;
-  var expected = [ 1, 2 ];
+  var expected = _.line.tools.longMake( [ 1, 2 ] );
 
   var gotPoint = _.line.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
@@ -763,7 +763,7 @@ function lineAt( test )
 
   var srcLine = [ 0, 1, 2, 1, 1, 1 ];
   var factor = 1;
-  var expected = [ 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.line.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
@@ -772,7 +772,7 @@ function lineAt( test )
 
   var srcLine = [ 0, 1, 2, 2, 2, 2 ];
   var factor = 0.5;
-  var expected = [ 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.line.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
@@ -781,7 +781,7 @@ function lineAt( test )
 
   var srcLine = [ 0, 1, 2, 1, 1, 1 ];
   var factor = 5;
-  var expected = [ 5, 6, 7 ];
+  var expected = _.line.tools.longMake( [ 5, 6, 7 ] );
 
   var gotPoint = _.line.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
@@ -790,7 +790,7 @@ function lineAt( test )
 
   var srcLine = [ 0, 1, 2, 1, 1, 1 ];
   var factor = - 5;
-  var expected = [ - 5, - 4, - 3 ];
+  var expected = _.line.tools.longMake( [ - 5, - 4, - 3 ] );
 
   var gotPoint = _.line.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
@@ -1646,7 +1646,7 @@ function lineIntersectionPoint( test )
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 2, 2 ];
-  var expected = [ 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.line.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
@@ -1661,7 +1661,7 @@ function lineIntersectionPoint( test )
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 1, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.line.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
@@ -1688,7 +1688,7 @@ function lineIntersectionPoint( test )
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 0, 2, -1 ];
-  var expected = [ 1, 1 ];
+  var expected = _.line.tools.longMake( [ 1, 1 ] );
 
   var isIntersectionPoint = _.line.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
@@ -1697,7 +1697,7 @@ function lineIntersectionPoint( test )
 
   var src1Line = [ 3, 7, 1, 0 ];
   var src2Line = [ 3, 7, 0, 1 ];
-  var expected = [ 3, 7 ];
+  var expected = _.line.tools.longMake( [ 3, 7 ] );
 
   var isIntersectionPoint = _.line.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
@@ -1706,7 +1706,7 @@ function lineIntersectionPoint( test )
 
   var src1Line = [ 0, 0, 1, 0 ];
   var src2Line = [ -2, -6, 1, 2 ];
-  var expected = [ 1, 0 ];
+  var expected = _.line.tools.longMake( [ 1, 0 ] );
 
   var isIntersectionPoint = _.line.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
@@ -1715,7 +1715,7 @@ function lineIntersectionPoint( test )
 
   var src1Line = [ -3, 0, 1, 0 ];
   var src2Line = [ 0, -2, 0, 1 ];
-  var expected = [ 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0 ] );
 
   var isIntersectionPoint = _.line.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
@@ -1733,7 +1733,7 @@ function lineIntersectionPoint( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 3, 1, 4 ];
-  var expected = [ 9, 9, 9 ];
+  var expected = _.line.tools.longMake( [ 9, 9, 9 ] );
 
   var isIntersectionPoint = _.line.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
@@ -1751,7 +1751,7 @@ function lineIntersectionPoint( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
-  var expected = [ 9, 9, 9, 10 ];
+  var expected = _.line.tools.longMake( [ 9, 9, 9, 10 ] );
 
   var isIntersectionPoint = _.line.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
@@ -2266,7 +2266,7 @@ function pointClosestPoint( test )
 
   var line = [  - 1, - 1 , 1, 1 ];
   var point = [ 0, 0 ];
-  var expected = [ 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2281,7 +2281,7 @@ function pointClosestPoint( test )
 
   var line = null;
   var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2290,7 +2290,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2299,7 +2299,7 @@ function pointClosestPoint( test )
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var point = [ 3, 4, 0 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2308,7 +2308,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 1, 1, 1 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.line.tools.longMake( [ 1, 1, 1 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2317,7 +2317,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var point = [ 0, 1, 4 ];
-  var expected = [ 0, 0, 4 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 4 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2326,7 +2326,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 2, - 2, - 2 ];
-  var expected = [ - 2, - 2, - 2 ];
+  var expected = _.line.tools.longMake( [ - 2, - 2, - 2 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2335,7 +2335,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var point = [ 0.500, 0.500, 0.000 ];
-  var expected = [ 0.5, 0.5, 0 ];
+  var expected = _.line.tools.longMake( [ 0.5, 0.5, 0 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2344,7 +2344,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, - 0.303 ];
-  var expected = [ 0.02572500470627867, 0.10157398765468795, 0.10157398765468795 ];
+  var expected = _.line.tools.longMake( [ 0.02572500470627867, 0.10157398765468795, 0.10157398765468795 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.equivalent( gotClosestPoint, expected );
@@ -2353,7 +2353,7 @@ function pointClosestPoint( test )
 
   var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 4 ];
-  var expected = [ 1, 1, 1, 1 ];
+  var expected = _.line.tools.longMake( [ 1, 1, 1, 1 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2362,7 +2362,7 @@ function pointClosestPoint( test )
 
   var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
   var point = [ 2, 2, 2, 2, 2, 2, 2 ];
-  var expected = [ - 2, - 2, - 2, - 2, - 2, - 2, 2 ];
+  var expected = _.line.tools.longMake( [ - 2, - 2, - 2, - 2, - 2, - 2, 2 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2371,7 +2371,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = [ 1 ];
+  var expected = _.line.tools.longMake( [ 1 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2380,7 +2380,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = [ - 3 ];
+  var expected = _.line.tools.longMake( [ - 3 ] );
 
   var gotClosestPoint = _.line.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2724,7 +2724,7 @@ function boxClosestPoint( test )
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var box = [ 1, 2, 4, 3, 4, 0 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.line.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
@@ -2751,7 +2751,7 @@ function boxClosestPoint( test )
 
   var line = [ 0, 0, 4, 0, 0, 2 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 1 ] );
 
   var gotPoint = _.line.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
@@ -2769,7 +2769,7 @@ function boxClosestPoint( test )
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ 0, - 2, 0, 1, -1, 1 ];
-  var expected = [ - 1/3, - 1/3, - 1/3 ];
+  var expected = _.line.tools.longMake( [ - 1/3, - 1/3, - 1/3 ] );
 
   var gotPoint = _.line.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
@@ -2778,7 +2778,7 @@ function boxClosestPoint( test )
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ 6, 7, 8, 6, 9, 10 ];
-  var expected = [ 7, 7, 7 ];
+  var expected = _.line.tools.longMake( [ 7, 7, 7 ] );
 
   var gotPoint = _.line.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
@@ -2796,7 +2796,7 @@ function boxClosestPoint( test )
 
   var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, - 0.303 ];
-  var expected = [ 0.005519293548276563, 0.021792674525669315, 0.021792674525669315 ];
+  var expected = _.line.tools.longMake( [ 0.005519293548276563, 0.021792674525669315, 0.021792674525669315 ] );
 
   var gotPoint = _.line.boxClosestPoint( line, box );
   test.equivalent( gotPoint, expected );
@@ -2805,7 +2805,7 @@ function boxClosestPoint( test )
 
   var line = [ 0, 0, 2, 1 ];
   var box = [ 6, 7, 10, 8 ];
-  var expected = [ 10.8, 5.4 ];
+  var expected = _.line.tools.longMake( [ 10.8, 5.4 ] );
 
   var gotPoint = _.line.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
@@ -2836,7 +2836,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ 0, 0, 0, 3, 3, 3 ];
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
-  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+  var expected = _.line.tools.longMake( [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( expected, gotBox );
@@ -2849,7 +2849,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ ];
   var dstBox = [ ];
-  var expected = [ ];
+  var expected = _.line.tools.longMake( [ ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -2858,7 +2858,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ 0, 0, 0, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 0, 0, 0, 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -2867,7 +2867,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ 1, 1, 1, 4, 4, 4 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+  var expected = _.line.tools.longMake( [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -2876,7 +2876,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ - 1, - 1, - 1, 1, 2, 3 ];
   var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
-  var expected = [  - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+  var expected = _.line.tools.longMake( [  - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -2885,7 +2885,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ 1, 2, 3, 0, 0, 0 ];
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
-  var expected = [ 1, 2, 3, 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3, 1, 2, 3 ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -2894,7 +2894,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ 1, 2, 3, - 3, - 2, - 1 ];
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
-  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+  var expected = _.line.tools.longMake( [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -2903,7 +2903,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ 1, 2, 3, - 1, 0, 1 ];
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
-  var expected = [ - Infinity, 2, - Infinity, Infinity, 2, Infinity ];
+  var expected = _.line.tools.longMake( [ - Infinity, 2, - Infinity, Infinity, 2, Infinity ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -2912,7 +2912,7 @@ function boundingBoxGet( test )
 
   var srcLine = _.line.tools.vectorAdapter.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
-  var expected = [  - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+  var expected = _.line.tools.longMake( [  - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -2930,7 +2930,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ 2.2, 3.3, - 4.4, 0 ];
   var dstBox = null;
-  var expected = [ - Infinity, 3.3, Infinity, 3.3 ];
+  var expected = _.line.tools.longMake( [ - Infinity, 3.3, Infinity, 3.3 ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.equivalent( gotBox, expected );
@@ -2939,7 +2939,7 @@ function boundingBoxGet( test )
 
   var srcLine = [ - 1, - 3, 0, 1 ];
   var dstBox = undefined;
-  var expected = [  -1, - Infinity, - 1, Infinity ];
+  var expected = _.line.tools.longMake( [  -1, - Infinity, - 1, Infinity ] );
 
   var gotBox = _.line.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
@@ -2994,7 +2994,7 @@ function capsuleClosestPoint( test )
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var capsule = [ 1, 2, 4, 3, 4, 0, 0.5 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.line.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
@@ -3021,7 +3021,7 @@ function capsuleClosestPoint( test )
 
   var line = [ 0, 0, 4, 0, 0, 2 ];
   var capsule = [ 0, 1, 1, 3, 7, 3, 0.2 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 1 ] );
 
   var gotPoint = _.line.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
@@ -3039,7 +3039,7 @@ function capsuleClosestPoint( test )
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ 0, - 2, 0, 1, -1, 1, 0.2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.line.capsuleClosestPoint( line, capsule );
   test.equivalent( gotPoint, expected );
@@ -3048,7 +3048,7 @@ function capsuleClosestPoint( test )
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ 6, 7, 8, 6, 9, 10, 1 ];
-  var expected = [ 7, 7, 7 ];
+  var expected = _.line.tools.longMake( [ 7, 7, 7 ] );
 
   var gotPoint = _.line.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
@@ -3057,7 +3057,7 @@ function capsuleClosestPoint( test )
 
   var line = [ 0, 0, 2, 1 ];
   var capsule = [ 6, 7, 10, 8, 0.1 ];
-  var expected = [ 11.2, 5.6 ];
+  var expected = _.line.tools.longMake( [ 11.2, 5.6 ] );
 
   var gotPoint = _.line.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
@@ -3149,7 +3149,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ -2, 2, 0 ];
+  var expected = _.line.tools.longMake( [ -2, 2, 0 ] );
 
   var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
@@ -3177,7 +3177,7 @@ function convexPolygonClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var expected = [ - 1/3, 2/3, 2/3 ];
+  var expected = _.line.tools.longMake( [ - 1/3, 2/3, 2/3 ] );
 
   var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
   test.equivalent( expected, gotPoint );
@@ -3205,7 +3205,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1,
     0,   0,   0,   0
   ]);
-  var expected = [ 0, 1, -1 ];
+  var expected = _.line.tools.longMake( [ 0, 1, -1 ] );
 
   var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
@@ -3218,7 +3218,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   1,   0,
     0,   0,   1,   1
   ]);
-  var expected = [ -1, 2 ];
+  var expected = _.line.tools.longMake( [ -1, 2 ] );
 
   var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
@@ -3233,7 +3233,7 @@ function convexPolygonClosestPoint( test )
     0,   1,   0, - 1
   ]);
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 2/3, 2/3, -5/3 ];
+  var expected = _.line.tools.longMake( [ 2/3, 2/3, -5/3 ] );
 
   var gotPoint = _.line.convexPolygonClosestPoint( srcLine, polygon, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -3828,7 +3828,7 @@ function frustumClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var line = [ 4, 4, 4, 5, 5, 0 ];
-  var expected = [ 1, 1, 4 ];
+  var expected = _.line.tools.longMake( [ 1, 1, 4 ] );
 
   test.description = 'Frustum and line almost intersecting'; //
 
@@ -3840,7 +3840,7 @@ function frustumClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var line = [ 1.1, 1.1, 1.1, 5, 5, 0 ];
-  var expected = [ 1, 1, 1.1 ];
+  var expected = _.line.tools.longMake( [ 1, 1, 1.1 ] );
 
   var gotClosestPoint = _.line.frustumClosestPoint( line, srcFrustum );
   test.equivalent( gotClosestPoint, expected );
@@ -3870,7 +3870,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var line = null;
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.line.frustumClosestPoint( line, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -3885,7 +3885,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var line = [ - 2, 0.3, 0, 1, 0, 0 ];
-  var expected = [ 0.5, 0.3, 0 ];
+  var expected = _.line.tools.longMake( [ 0.5, 0.3, 0 ] );
 
   var gotClosestPoint = _.line.frustumClosestPoint( line, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -3900,7 +3900,7 @@ function frustumClosestPoint( test )
     - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var line = [ -2, 0.3, 0, 1, 0, 0.1 ];
-  var expected = [ 1.0198019801980198, 0.3, 0.301980198019802 ];
+  var expected = _.line.tools.longMake( [ 1.0198019801980198, 0.3, 0.301980198019802 ] );
 
   var gotClosestPoint = _.line.frustumClosestPoint( line, srcFrustum );
   test.identical( gotClosestPoint, expected );
@@ -4269,7 +4269,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4284,7 +4284,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 0, 0, 0, 0, 0, 1 ];
   var src2Line = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 1 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4293,7 +4293,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 3, 7, 1, 0, 0, 7 ];
   var src2Line = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 0 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 0 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4302,7 +4302,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 0, 0, 0, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 3, 0, 0 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4311,7 +4311,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 3, 7, 1, 0, 0, 0 ];
   var src2Line = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4320,7 +4320,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 0, 0, 0 ];
-  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+  var expected = _.line.tools.longMake( [ 3.6666666, 3.6666666, 3.6666666 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.equivalent( gotClosestPoint, expected );
@@ -4329,7 +4329,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 0, 4, 2, 1, 1, 1 ];
   var src2Line = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = _.line.tools.longMake( [ 0, 4, 2 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4338,7 +4338,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var src2Line = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = _.line.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4347,7 +4347,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 0, 0, 2, 0 ];
   var src2Line = [ - 3, - 4, 1, 0 ];
-  var expected = [ -3, 0 ];
+  var expected = _.line.tools.longMake( [ -3, 0 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4356,7 +4356,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 0, 0, 2, 0 ];
   var src2Line = [ - 3, - 4, 0, 1 ];
-  var expected = [ -3, 0 ];
+  var expected = _.line.tools.longMake( [ -3, 0 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4365,7 +4365,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4374,7 +4374,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, -2, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4383,7 +4383,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 2, 1, 0, 0 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4392,7 +4392,7 @@ function lineClosestPoint( test )
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4401,7 +4401,7 @@ function lineClosestPoint( test )
 
   var src1Line = null;
   var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.line.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
@@ -4588,7 +4588,7 @@ function planeIntersectionPoint( test )
 
   var line = [  - 1,  - 1, -1, 1, 0, 0 ];
   var plane = [ 1, 0, 0, - 1 ];
-  var expected = [ 1, -1, -1 ];
+  var expected = _.line.tools.longMake( [ 1, -1, -1 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.identical( gotPoint, expected );
@@ -4621,7 +4621,7 @@ function planeIntersectionPoint( test )
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
-  var expected = [ -1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ -1, 2, 3 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
@@ -4630,7 +4630,7 @@ function planeIntersectionPoint( test )
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
-  var expected = [ -1, -1, -1 ];
+  var expected = _.line.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
@@ -4639,7 +4639,7 @@ function planeIntersectionPoint( test )
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
   var plane = [ 1, 0, 0, 3 ];
-  var expected = [ - 3, -9, 4 ];
+  var expected = _.line.tools.longMake( [ - 3, -9, 4 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
@@ -4648,7 +4648,7 @@ function planeIntersectionPoint( test )
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
   var plane = [ 1, 0, 0, - 3 ];
-  var expected = [ 3, -3, 4 ];
+  var expected = _.line.tools.longMake( [ 3, -3, 4 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
@@ -4657,7 +4657,7 @@ function planeIntersectionPoint( test )
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var plane = [ 0, 2, 0, - 2 ];
-  var expected = [ 1, 1, 0 ];
+  var expected = _.line.tools.longMake( [ 1, 1, 0 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.equivalent( gotPoint,  expected );
@@ -4684,7 +4684,7 @@ function planeIntersectionPoint( test )
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
@@ -4693,7 +4693,7 @@ function planeIntersectionPoint( test )
 
   var line = [ 0, 0, 0, 0, 3, 2 ];
   var plane = [ 0, 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
@@ -4702,7 +4702,7 @@ function planeIntersectionPoint( test )
 
   var line = [ 3, 4, 4, 0, 0, 2 ];
   var plane = [ 0, 0, 1, 0 ];
-  var expected = [ 3, 4, 0 ];
+  var expected = _.line.tools.longMake( [ 3, 4, 0 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
@@ -4720,7 +4720,7 @@ function planeIntersectionPoint( test )
 
   var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
   var plane = [ 0, 0, 0, 3, 0 ];
-  var expected = [ 0, 1, 2, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 1, 2, 0 ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
@@ -4729,7 +4729,7 @@ function planeIntersectionPoint( test )
 
   var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 2, 3, 0 ];
-  var expected = [ 0, 1, 2, - ( 1 + 2/3 ) ];
+  var expected = _.line.tools.longMake( [ 0, 1, 2, - ( 1 + 2/3 ) ] );
 
   var gotPoint = _.line.planeIntersectionPoint( line, plane );
   test.equivalent( gotPoint,  expected );
@@ -4935,7 +4935,7 @@ function planeClosestPoint( test )
 
   var line = null;
   var plane = [ 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.line.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
@@ -4944,7 +4944,7 @@ function planeClosestPoint( test )
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.line.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
@@ -4989,7 +4989,7 @@ function planeClosestPoint( test )
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
   var plane = [ 3, 0, 0, 1 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.line.planeClosestPoint( line, plane );
   test.equivalent( gotPoint, expected );
@@ -4998,7 +4998,7 @@ function planeClosestPoint( test )
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0.5 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.line.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
@@ -5026,7 +5026,7 @@ function planeClosestPoint( test )
 
   var line = [ 1, 2, 3, 4, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0, 0 ];
-  var expected = [ 1, 2, 3, 4 ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3, 4 ] );
 
   var gotPoint = _.line.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
@@ -5045,7 +5045,7 @@ function planeClosestPoint( test )
   var line = [ 0, -6, 24, 0, 1, 0 ];
   var plane = [ 1, 0, 0, 3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, -6, 24 ];
+  var expected = _.line.tools.longMake( [ 0, -6, 24 ] );
 
   var gotPoint = _.line.planeClosestPoint( line, plane, dstPoint );
   test.identical( gotPoint, expected );
@@ -5231,7 +5231,7 @@ function rayIntersectionPoint( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
@@ -5264,7 +5264,7 @@ function rayIntersectionPoint( test )
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstRay = [ 3, 7, 7, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 7 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 7 ] );
 
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
@@ -5282,7 +5282,7 @@ function rayIntersectionPoint( test )
 
   var srcLine = [ 3, 3, 3, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 3, 3 ];
+  var expected = _.line.tools.longMake( [ 3, 3, 3 ] );
 
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
@@ -5300,7 +5300,7 @@ function rayIntersectionPoint( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ -4, -4, -4, 0, 0, 0 ];
-  var expected = [ -4, -4, -4 ];
+  var expected = _.line.tools.longMake( [ -4, -4, -4 ] );
 
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.equivalent( gotIntersectionPoint, expected );
@@ -5309,7 +5309,7 @@ function rayIntersectionPoint( test )
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
-  var expected = [ 0, 4, 2 ];
+  var expected = _.line.tools.longMake( [ 0, 4, 2 ] );
 
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
@@ -5318,7 +5318,7 @@ function rayIntersectionPoint( test )
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
-  var expected = [ 0, 4, 2, 1 ];
+  var expected = _.line.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
@@ -5336,7 +5336,7 @@ function rayIntersectionPoint( test )
 
   var srcLine = [ 0, 0, -2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
-  var expected = [ -3, 0 ];
+  var expected = _.line.tools.longMake( [ -3, 0 ] );
 
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
@@ -5345,7 +5345,7 @@ function rayIntersectionPoint( test )
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
-  var expected = [ -3, 0 ];
+  var expected = _.line.tools.longMake( [ -3, 0 ] );
 
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
@@ -5363,7 +5363,7 @@ function rayIntersectionPoint( test )
 
   var srcLine = [ 5, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotIntersectionPoint = _.line.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
@@ -5796,7 +5796,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 0, 0, 0, 0, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 1 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5805,7 +5805,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 0 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 0 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5814,7 +5814,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 0, 0, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 3, 0, 0 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5823,7 +5823,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5832,7 +5832,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
-  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+  var expected = _.line.tools.longMake( [ 3.6666666, 3.6666666, 3.6666666 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.equivalent( gotClosestPoint, expected );
@@ -5859,7 +5859,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
-  var expected = [ -3, 0 ];
+  var expected = _.line.tools.longMake( [ -3, 0 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5886,7 +5886,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ - 3, - 4, 0, 1 ];
   var tstRay = [ 0, 0, 2, 0 ];
-  var expected = [ -3, 0 ];
+  var expected = _.line.tools.longMake( [ -3, 0 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5904,7 +5904,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 0, 0, -3, 0, 0, 1 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5913,7 +5913,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 2, 1, 0, 0 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5922,7 +5922,7 @@ function rayClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -5931,7 +5931,7 @@ function rayClosestPoint( test )
 
   var srcLine = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.line.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
@@ -6003,7 +6003,7 @@ function segmentIntersectionPoint( test )
 
   var srcLine = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 0.5, 0.5, 0.5 ];
+  var expected = _.line.tools.longMake( [ 0.5, 0.5, 0.5 ] );
 
   var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
@@ -6336,7 +6336,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 0, 0, 0, 0, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 7 ];
-  var expected = [ 0, 0, 1 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 1 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6345,7 +6345,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstSegment = [ 0, 0, 0, 0, 0, 0.5 ];
-  var expected = [ 3, 7, 0 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 0 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6354,7 +6354,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 0, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, - 7, 7, 1 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 3, 0, 0 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6363,7 +6363,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6372,7 +6372,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
-  var expected = [ 3.6666666, 3.6666666, 3.6666666 ];
+  var expected = _.line.tools.longMake( [ 3.6666666, 3.6666666, 3.6666666 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.equivalent( gotClosestPoint, expected );
@@ -6399,7 +6399,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, 3, -4 ];
-  var expected = [ -3, 0 ];
+  var expected = _.line.tools.longMake( [ -3, 0 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6417,7 +6417,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ - 3, - 4, 0, 1 ];
   var tstSegment = [ 0, 0, 2, 0 ];
-  var expected = [ -3, 0 ];
+  var expected = _.line.tools.longMake( [ -3, 0 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6435,7 +6435,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 0, 0, -3, 0, 0, 1 ];
   var tstSegment = [ 3, 2, 0, -3, 2, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6444,7 +6444,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 2, 9, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6453,7 +6453,7 @@ function segmentClosestPoint( test )
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 2, -3, 7, 2 ];
-  var expected = [ 3, 7, 1 ];
+  var expected = _.line.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6462,7 +6462,7 @@ function segmentClosestPoint( test )
 
   var srcLine = null;
   var tstSegment = [ 3, 7, 2, -3, 7, 2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 0 ] );
 
   var gotClosestPoint = _.line.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
@@ -6773,7 +6773,7 @@ function sphereClosestPoint( test )
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var sphere = [ 4, 3, 4, 1 ];
-  var expected = [ 1, 2, 3 ];
+  var expected = _.line.tools.longMake( [ 1, 2, 3 ] );
 
   var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
@@ -6800,7 +6800,7 @@ function sphereClosestPoint( test )
 
   var line = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 0, 0, 0, 3 ];
-  var expected = [ 0, 0, 4 ];
+  var expected = _.line.tools.longMake( [ 0, 0, 4 ] );
 
   var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
@@ -6827,7 +6827,7 @@ function sphereClosestPoint( test )
 
   var line = [ 0, 0, 0, 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ) ];
   var sphere = [ 3, 0, 0, 1 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.line.tools.longMake( [ 1, 1, 1 ] );
 
   var gotClosestPoint = _.line.sphereClosestPoint( line, sphere );
   test.equivalent( gotClosestPoint, expected );
@@ -6847,7 +6847,7 @@ function sphereClosestPoint( test )
   var line = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 1, 5, 0, 3 ];
   var dstPoint = [ 0, 0, 0 ];
-  var expected = [ 0, 5, 4 ];
+  var expected = _.line.tools.longMake( [ 0, 5, 4 ] );
 
   var gotClosestPoint = _.line.sphereClosestPoint( line, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
