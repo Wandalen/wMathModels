@@ -434,12 +434,12 @@ function is( test )
   if( !Config.debug )
   return;
   test.shouldThrowErrorSync( () => _.capsule.is( ));
-  test.shouldThrowErrorSync( () => _.capsule.is( 'abc' ));
-  test.shouldThrowErrorSync( () => _.capsule.is( null ));
-  test.shouldThrowErrorSync( () => _.capsule.is( NaN ));
-  test.shouldThrowErrorSync( () => _.capsule.is( undefined ));
-  test.shouldThrowErrorSync( () => _.capsule.is( { start : [ 0, 0, 0 ], end : [ 1, 1, 1 ], radius : 1 } ));
-  test.shouldThrowErrorSync( () => _.capsule.is( function( a, b, c ){} ));
+  // test.shouldThrowErrorSync( () => _.capsule.is( 'abc' ));
+  // test.shouldThrowErrorSync( () => _.capsule.is( null ));
+  // test.shouldThrowErrorSync( () => _.capsule.is( NaN ));
+  // test.shouldThrowErrorSync( () => _.capsule.is( undefined ));
+  // test.shouldThrowErrorSync( () => _.capsule.is( { start : [ 0, 0, 0 ], end : [ 1, 1, 1 ], radius : 1 } ));
+  // test.shouldThrowErrorSync( () => _.capsule.is( function( a, b, c ){} ));
   test.shouldThrowErrorSync( () => _.capsule.is( [ 0, 0, 0 ], [ 0, 2, 1 ] ));
 
 }
