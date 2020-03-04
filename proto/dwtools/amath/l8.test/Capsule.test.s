@@ -6360,7 +6360,7 @@ function segmentClosestPoint( test )
   var expected = _.capsule.tools.longMake( [ 0, 6, 1 ] );
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Capsule and segment are parallel ( different origin - opposite direction )'; /* */
 
@@ -6369,7 +6369,7 @@ function segmentClosestPoint( test )
   var expected = _.capsule.tools.longMake( [ 3, 1.9798989873223332, 0.282842712474619 ] );
 
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'srcCapsule is a point'; /* */
 
