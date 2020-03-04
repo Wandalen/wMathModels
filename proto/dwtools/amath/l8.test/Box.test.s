@@ -1488,7 +1488,7 @@ function cornerLeftGet( test )
   var srcBox = [ 0, 0, 1, 1 ];
   var oldsrcBox = srcBox.slice();
   var expected = _.box.tools.longMake( [ 0, 0 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( srcBox );
   test.identical( gotCorner, expected );
@@ -1498,7 +1498,7 @@ function cornerLeftGet( test )
 
   var box = [];
   var expected = _.box.tools.longMake( [] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1507,7 +1507,7 @@ function cornerLeftGet( test )
 
   var box = [ 0, 1 ];
   var expected = _.box.tools.longMake( [ 0 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1516,7 +1516,7 @@ function cornerLeftGet( test )
 
   var box = [ 0, 0, 1, 1 ];
   var expected = _.box.tools.longMake( [ 0, 0 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1525,7 +1525,7 @@ function cornerLeftGet( test )
 
   var box = [ - 1, - 2, - 3, 0, 1, 2 ];
   var expected = _.box.tools.longMake( [ - 1, - 2, - 3 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1534,7 +1534,7 @@ function cornerLeftGet( test )
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   var expected = _.box.tools.longMake( [ - 1, - 2.2, - 3, 5 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1543,7 +1543,7 @@ function cornerLeftGet( test )
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 3.5, 5.5, 2.3, 27, 2.2, 540 ];
   var expected = _.box.tools.longMake( [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1552,7 +1552,7 @@ function cornerLeftGet( test )
 
   var box = [ 1, 1, 0, 0 ];
   var expected = _.box.tools.longMake( [ 1, 1 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1621,7 +1621,7 @@ function cornerRightGet( test )
   var srcBox = [ 0, 0, 1, 1 ];
   var oldSrcBox = srcBox.slice();
   var expected = _.box.tools.longMake( [ 1, 1 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( srcBox );
   test.identical( gotCorner, expected );
@@ -1631,7 +1631,7 @@ function cornerRightGet( test )
 
   var box = [];
   var expected = _.box.tools.longMake( [] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1640,7 +1640,7 @@ function cornerRightGet( test )
 
   var box = [ 0, 1 ];
   var expected = _.box.tools.longMake( [ 1 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1649,7 +1649,7 @@ function cornerRightGet( test )
 
   var box = [ 0, 0, 1, 1 ];
   var expected = _.box.tools.longMake( [ 1, 1 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1658,7 +1658,7 @@ function cornerRightGet( test )
 
   var box = [ - 1, - 2, - 3, 0, 1, 2 ];
   var expected = _.box.tools.longMake( [ 0, 1, 2 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1667,7 +1667,7 @@ function cornerRightGet( test )
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4 ];
   var expected = _.box.tools.longMake( [ 0.1, 1, 2, 5.4 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1676,7 +1676,7 @@ function cornerRightGet( test )
 
   var box = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ];
   var expected = _.box.tools.longMake( [ -1.1, - 3.2, - 5, 5.5, 2.3, 27, 2.2, 540 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1685,7 +1685,7 @@ function cornerRightGet( test )
 
   var box = [ 1, 1, 0, 0 ];
   var expected = _.box.tools.longMake( [ 0, 0 ] );
-  expected = _.vectorAdapter.from(expected);
+  expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -1857,9 +1857,9 @@ function centerGet( test )
   test.case = 'Point is vector'; /* */
 
   var box = [ 0, 0, 1, 2 ];
-  var point = _.vectorAdapter.from( [ 1, 1 ] );
+  var point = _.box.tools.vectorAdapter.from( [ 1, 1 ] );
   var expected = _.box.tools.longMake( [ 0.5, 1 ] );
-  var expv = _.vectorAdapter.from( expected );
+  var expv = _.box.tools.vectorAdapter.from( expected );
 
   var gotCenter = _.box.centerGet( box );
   test.equivalent( gotCenter, expected );
@@ -2071,9 +2071,9 @@ function sizeGet( test )
   test.case = 'Point is vector'; /* */
 
   var box = [ 0, 0, 1, 2 ];
-  var point = _.vectorAdapter.from( [ 1, 1 ] );
+  var point = _.box.tools.vectorAdapter.from( [ 1, 1 ] );
   var expected = _.box.tools.longMake( [ 1, 2 ] );
-  var expv = _.vectorAdapter.from( expected );
+  var expv = _.box.tools.vectorAdapter.from( expected );
 
   var gotSize = _.box.sizeGet( box );
   test.identical( gotSize, expected );
@@ -3791,9 +3791,9 @@ function pointExpand( test )
 
   test.case = 'Box is vector'; /* */
 
-  var box = _.vectorAdapter.from( [ 0, 1, 2, 3, 4, 5 ] );
+  var box = _.box.tools.vectorAdapter.from( [ 0, 1, 2, 3, 4, 5 ] );
   var point = [ 0, 0, 0 ];
-  var expected = _.vectorAdapter.from( [ 0, 0, 0, 3, 4, 5 ] );
+  var expected = _.box.tools.vectorAdapter.from( [ 0, 0, 0, 3, 4, 5 ] );
 
   var gotBox = _.box.pointExpand( box, point );
   test.identical( gotBox, expected );
@@ -7334,9 +7334,9 @@ function sphereExpand( test )
 
   test.case = 'dstBox vector'; /* */
 
-  var dstBox = _.vectorAdapter.from( [ 0, 0, 0, 1, 1, 1 ] );
+  var dstBox = _.box.tools.vectorAdapter.from( [ 0, 0, 0, 1, 1, 1 ] );
   var srcSphere = [ 5, 5, 5, 3 ];
-  var expected = _.vectorAdapter.from( [ 0, 0, 0, 8, 8, 8 ] );
+  var expected = _.box.tools.vectorAdapter.from( [ 0, 0, 0, 8, 8, 8 ] );
 
   var gotBox = _.box.sphereExpand( dstBox, srcSphere );
   test.identical( gotBox, expected );
@@ -7461,7 +7461,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcBox vector'; /* */
 
-  var srcBox = _.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
+  var srcBox = _.box.tools.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = _.box.tools.longMake( [ 0, 0, 0, Math.sqrt( 3 )] );
 
@@ -7497,7 +7497,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcBox inversed'; /* */
 
-  var srcBox = _.vectorAdapter.from( [ 4, 4, 4, 2, 2, 2 ] );
+  var srcBox = _.box.tools.vectorAdapter.from( [ 4, 4, 4, 2, 2, 2 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = _.box.tools.longMake( [ 3, 3, 3, Math.sqrt( 3 )] );
 
