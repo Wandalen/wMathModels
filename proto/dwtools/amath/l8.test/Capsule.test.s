@@ -3045,7 +3045,7 @@ function capsuleDistance( test )
   var expected = 0.07735026918962584;
 
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
-  test.identical( gotBool, expected );
+  test.equivalent( gotBool, expected );
 
   test.case = 'sphere capsule in capsule'; /* */
 
