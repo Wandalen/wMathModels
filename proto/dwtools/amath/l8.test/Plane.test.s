@@ -198,7 +198,7 @@ function fromNormalAndPoint( test )
   var oldNormal = normal.slice();
   var point = [ 0, 3, 4 ];
   var oldPoint = point.slice();
-  var expected = [ 0, 1, 0, - 3 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, - 3 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, dstPlane );
@@ -211,7 +211,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ NaN, NaN, NaN, NaN ];
   var normal = [ 0, 0, 1 ];
   var point = [ 0, 0, 2 ];
-  var expected = [ 0, 0, 1, - 2 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 1, - 2 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -221,7 +221,7 @@ function fromNormalAndPoint( test )
   var dstPlane = null;
   var normal = [ 0, 0, 1 ];
   var point = [ 0, 0, 2 ];
-  var expected = [ 0, 0, 1, - 2 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 1, - 2 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -231,7 +231,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ NaN, NaN, NaN ];
   var point = [ 0, 0, 2 ];
-  var expected = [ NaN, NaN, NaN, NaN ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -241,7 +241,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = NaN ;
   var point = [ 0, 0, 2 ];
-  var expected = [ NaN, NaN, NaN, NaN ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -251,7 +251,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ 0, 1, 0 ];
   var point = [ NaN, NaN, NaN ];
-  var expected = [ 0, 1, 0, NaN ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, NaN ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -261,7 +261,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 1, 1, 1, 1 ];
   var normal = [ 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
@@ -271,7 +271,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 1, 0, 1, 2 ];
   var normal = [ 1, 2, 1 ];
   var point = [ 0, 3, 0 ];
-  var expected = [ 1, 2, 1, - 6 ];
+  var expected = _.plane.tools.longMake( [ 1, 2, 1, - 6 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -281,7 +281,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 0, 0, 0 ];
   var normal = [ 0, 1 ];
   var point = [ 1, 0 ];
-  var expected = [ 0, 1, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
@@ -291,7 +291,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 0, 0, 0, 0, 0 ];
   var normal = [ 0, 1, 1, 0 ];
   var point = [ 0, 0, 0, 4 ];
-  var expected = [ 0, 1, 1, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 1, 0, 0 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
@@ -301,7 +301,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ - 1, - 3, - 1 ];
   var normal = [ - 1, 0 ];
   var point = [ 4, - 4 ];
-  var expected = [ - 1, 0, 4 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 4 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -311,7 +311,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 0.2, 0.3, - 0.1 ];
   var normal = [ 0.57, 0.57 ];
   var point = [ 0, 0.500 ];
-  var expected = [ 0.57, 0.57, - 0.285 ];
+  var expected = _.plane.tools.longMake( [ 0.57, 0.57, - 0.285 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
@@ -348,7 +348,7 @@ function fromPoints( test )
   var oldB = b.slice();
   var c = [ 0, 2, 0 ];
   var oldC = c.slice();
-  var expected = [ 1, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c );
   test.identical( gotPlane, dstPlane );
@@ -363,7 +363,7 @@ function fromPoints( test )
   var a = [ 2, 1, 0 ];
   var b = [ 2, 3, 4 ];
   var c = [ 2, 2, 0 ];
-  var expected = [ 1, 0, 0, - 2 ];
+  var expected = _.plane.tools.longMake( [ 1, 0, 0, - 2 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
@@ -374,7 +374,7 @@ function fromPoints( test )
   var a = [ 0, 1, 0 ];
   var b = [ 0, 3, 4 ];
   var c = [ 0, 2, 0 ];
-  var expected = [ 1, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
@@ -385,7 +385,7 @@ function fromPoints( test )
   var a = [ NaN, NaN, NaN ];
   var b = [ 0, 3, 4 ];
   var c = [ 0, 2, 0 ];
-  var expected = [ NaN, NaN, NaN, NaN ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
@@ -396,7 +396,7 @@ function fromPoints( test )
   var a = [ 0, 0, 0 ];
   var b = [ 0, 0, 0 ];
   var c = [ 0, 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
@@ -407,7 +407,7 @@ function fromPoints( test )
   var a = [ 1, 3, 0 ];
   var b = [ 1, 3, 4 ];
   var c = [ 1, 2, 0 ];
-  var expected = [ - 1, 0, 0, 1 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 1 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
@@ -418,7 +418,7 @@ function fromPoints( test )
   var a = [ 2, 0, 2 ];
   var b = [ 2, - 2, - 2 ];
   var c = [ 2, 2, 0 ];
-  var expected = [ - 1, 0, 0, 2 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 2 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
@@ -429,7 +429,7 @@ function fromPoints( test )
   var a = [ 0, 0.2, 0.6 ];
   var b = [ 0, 0, 4.2 ];
   var c = [ 0, 0.3, 0 ];
-  var expected = [ 1, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
@@ -440,7 +440,7 @@ function fromPoints( test )
   var a = [ 0, 0, 1 ];
   var b = [ 0, 0, 2 ];
   var c = [ 0, 0, 3 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
@@ -562,7 +562,7 @@ function pointContains( test )
   var a = [ 0, 0, 1 ];
   var b = [ 0, 1, 0 ];
   var c = [ 0, 0, 3 ];
-  var expected = [ - 1, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 0 ] );
 
   var plane = _.plane.fromPoints( plane, a, b, c );
   test.equivalent( plane, expected );
@@ -688,7 +688,7 @@ function pointDistance( test )
   var a = [ 0, 0, 1 ];
   var b = [ 0, 1, 0 ];
   var c = [ 0, 0, 3 ];
-  var expected = [ - 1, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 0 ] );
 
   var plane = _.plane.fromPoints( plane, a, b, c );
   test.equivalent( plane, expected );
@@ -730,7 +730,7 @@ function pointCoplanarGet( test )
 
   var plane = [ 1, 0, 0, 1 ];
   var point = [ 2, 0, 2 ];
-  var expected = [ - 1, 0, 2 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 2 ] );
 
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
@@ -745,7 +745,7 @@ function pointCoplanarGet( test )
 
   var plane = [ 1, 0 , 0, 1 ];
   var point = [ NaN, NaN, NaN ];
-  var expected = [ NaN, NaN, NaN ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN ] );
 
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
@@ -754,7 +754,7 @@ function pointCoplanarGet( test )
 
   var plane = [ 1, 0 , 0, 1 ];
   var point = [ 1, 3, 2 ];
-  var expected = [ - 1, 3, 2 ];
+  var expected = _.plane.tools.longMake( [ - 1, 3, 2 ] );
 
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
@@ -763,7 +763,7 @@ function pointCoplanarGet( test )
 
   var plane = [ 1, 0 , - 1, 0 ];
   var point = [ 2, 3, 2 ];
-  var expected = [ 2, 3, 2 ];
+  var expected = _.plane.tools.longMake( [ 2, 3, 2 ] );
 
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
@@ -772,7 +772,7 @@ function pointCoplanarGet( test )
 
   var plane = [ 2, - 1 , 3, 1 ];
   var point = [ 4, 1, -3 ];
-  var expected = [ 29/7, 13/14, -39/14  ];
+  var expected = _.plane.tools.longMake( [ 29/7, 13/14, -39/14  ] );
 
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.equivalent( expected, gotPoint );
@@ -781,7 +781,7 @@ function pointCoplanarGet( test )
 
   var plane = [ 1, 0 , 0, 1 ];
   var point = [ - 1, 2, 3 ];
-  var expected = [ - 1, 2, 3 ];
+  var expected = _.plane.tools.longMake( [ - 1, 2, 3 ] );
 
   gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
@@ -791,7 +791,7 @@ function pointCoplanarGet( test )
   var plane = [ 1, 0 , 0, 1 ];
   var point = [ - 1, 2, 3 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ - 1, 2, 3 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ - 1, 2, 3 ] );
 
   gotPoint = _.plane.pointCoplanarGet( plane, point, dstPoint );
   test.identical( expected, gotPoint );
@@ -965,7 +965,7 @@ function boxClosestPoint( test )
 
   var plane = [ 1, 0, 0, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ - 1, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0 ] );
 
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( expected, gotPoint );
@@ -980,7 +980,7 @@ function boxClosestPoint( test )
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var plane = [ 1, 0, 0, - 3 ];
-  var expected = [ 3, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 3, 0, 0 ] );
 
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( gotPoint, expected );
@@ -989,7 +989,7 @@ function boxClosestPoint( test )
 
   var plane = [ - 1, 1, 0, - 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ -0.5, 1.5, 0 ];
+  var expected = _.plane.tools.longMake( [ -0.5, 1.5, 0 ] );
 
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( gotPoint, expected );
@@ -1034,7 +1034,7 @@ function boxClosestPoint( test )
 
   var plane = [ 0, - 2, 0, 2 ];
   var box = _.box.makeZero( 3 );
-  var expected = [ 0, 1, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( gotPoint, expected );
@@ -1066,7 +1066,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 1, 2, 3, 4 ];
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
-  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+  var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( expected, gotBox );
@@ -1079,7 +1079,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 0, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+  var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1088,7 +1088,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [ 0, - Infinity, - Infinity, 0, Infinity, Infinity ];
+  var expected = _.plane.tools.longMake( [ 0, - Infinity, - Infinity, 0, Infinity, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1097,7 +1097,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 3, 0, 0, - 6 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [ 2, - Infinity, - Infinity, 2, Infinity, Infinity ];
+  var expected = _.plane.tools.longMake( [ 2, - Infinity, - Infinity, 2, Infinity, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1106,7 +1106,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 0, - 3, 0, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [  - Infinity, 0, - Infinity, Infinity, 0, Infinity ];
+  var expected = _.plane.tools.longMake( [  - Infinity, 0, - Infinity, Infinity, 0, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1115,7 +1115,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 0, 3, 0, 12 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [  - Infinity, - 4, - Infinity, Infinity, - 4, Infinity ];
+  var expected = _.plane.tools.longMake( [  - Infinity, - 4, - Infinity, Infinity, - 4, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1124,7 +1124,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 0, 0, - 1, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [ - Infinity, - Infinity, 0, Infinity, Infinity, 0 ];
+  var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, 0, Infinity, Infinity, 0 ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1133,7 +1133,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 0, 0, 12, - 6 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
-  var expected = [ - Infinity, - Infinity, 0.5, Infinity, Infinity, 0.5 ];
+  var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, 0.5, Infinity, Infinity, 0.5 ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1142,7 +1142,7 @@ function boundingBoxGet( test )
 
   var srcPlane = _.vectorAdapter.from( [ - 8, - 5, 4.5, 4 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
-  var expected = [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ];
+  var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1151,7 +1151,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ - 4, 0, 1 ];
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
-  var expected = _.vectorAdapter.from( [ 0.25, - Infinity, 0.25, Infinity ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 0.25, - Infinity, 0.25, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1160,7 +1160,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 2.2, 3.3, - 4.4 ];
   var dstBox = null;
-  var expected = [ - Infinity, - Infinity, Infinity, Infinity ];
+  var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, Infinity, Infinity ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.equivalent( gotBox, expected );
@@ -1169,7 +1169,7 @@ function boundingBoxGet( test )
 
   var srcPlane = [ 0, - 5, - 3 ];
   var dstBox = undefined;
-  var expected = [  - Infinity, - 3 / 5, Infinity, - 3 / 5 ];
+  var expected = _.plane.tools.longMake( [  - Infinity, - 3 / 5, Infinity, - 3 / 5 ] );
 
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
@@ -1643,7 +1643,7 @@ function frustumClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
-  var expected = [ -1, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ -1, 1, 1 ] );
 
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.identical( expected, gotPoint );
@@ -1670,7 +1670,7 @@ function frustumClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
-  var expected = [ -1, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ -1, 1, 1 ] );
 
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.identical( expected, gotPoint );
@@ -1715,7 +1715,7 @@ function frustumClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
-  var expected = [ -1, -1, -1 ];
+  var expected = _.plane.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.equivalent( expected, gotPoint );
@@ -1730,7 +1730,7 @@ function frustumClosestPoint( test )
     0, 0, 1, - 1, 0, 0,
     - 1, 0, - 1, 0, 0, - 1
   ]);
-  var expected = [ - 4, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ - 4, 1, 1 ] );
 
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.equivalent( expected, gotPoint );
@@ -1746,7 +1746,7 @@ function frustumClosestPoint( test )
     - 1, 0, - 1, 0, 0, - 1
   ]);
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] )
-  var expected = _.vectorAdapter.from( [ - 4, 1, 1 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ - 4, 1, 1 ] );
 
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum, dstPoint );
   test.equivalent( expected, gotPoint );
@@ -1963,7 +1963,7 @@ function lineIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 2, 2, 2 ];
+  var expected = _.plane.tools.longMake( [ 2, 2, 2 ] );
 
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
@@ -1978,7 +1978,7 @@ function lineIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = [ 1, 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 1, 1, 1 ] );
 
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
@@ -1987,7 +1987,7 @@ function lineIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstLine = [ 0, 0, 0, 1, 0, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
@@ -1996,7 +1996,7 @@ function lineIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstLine = [ 0, 0, 0, 0, 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
@@ -2005,7 +2005,7 @@ function lineIntersectionPoint( test )
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstLine = [ -3, -3, -3, -2, -2, -2 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
 
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
@@ -2024,7 +2024,7 @@ function lineIntersectionPoint( test )
   var srcPlane = [ 1, 0, 0, -2 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
-  var expected = _.vectorAdapter.from( [ 2, 5, 1 ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 2, 5, 1 ] );
 
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine, dstPoint );
   test.equivalent( expected, gotLine );
@@ -3293,7 +3293,7 @@ function sphereClosestPoint( test )
 
   var plane = [ 1, 0, 0, 1 ];
   var sphere = [ 2, 0, 0, 1 ];
-  var expected = [ -1, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ -1, 0, 0 ] );
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( expected, gotPoint );
@@ -3308,7 +3308,7 @@ function sphereClosestPoint( test )
 
   var sphere = [ 2, 0, 0, 1 ];
   var plane = [ 1, 0, 0, 2 ];
-  var expected = [ -2, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ -2, 0, 0 ] );
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
@@ -3317,7 +3317,7 @@ function sphereClosestPoint( test )
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 1, 1, 1, 1 ];
-  var expected = [ 1, - 1, 1 ];
+  var expected = _.plane.tools.longMake( [ 1, - 1, 1 ] );
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
@@ -3353,7 +3353,7 @@ function sphereClosestPoint( test )
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ - 1, - 1, - 1, 1 ];
-  var expected = [ -1, 1, -1 ];
+  var expected = _.plane.tools.longMake( [ -1, 1, -1 ] );
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
@@ -3362,7 +3362,7 @@ function sphereClosestPoint( test )
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ 0, 3, 0, 1 ];
-  var expected = [ 0, 1, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
@@ -3393,7 +3393,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [ 0, 0, 3, 3 ];
   var dstSphere = [ 1, 1, 2, 1 ];
-  var expected = [ 0, 0, - 1, Infinity ];
+  var expected = _.plane.tools.longMake( [ 0, 0, - 1, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( expected, gotSphere );
@@ -3406,7 +3406,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [ 0, 0, 0, 0 ];
   var dstSphere = [ 0, 0, 0, 0 ];
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -3415,7 +3415,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [ 0, 0, 0, 4 ];
   var dstSphere = [ 3, 3, 3, 0 ];
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -3424,7 +3424,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [ 0, 0, 1, - 2 ];
   var dstSphere = [ 2, 2, 2, 1 ];
-  var expected = [ 0, 0, 2, Infinity ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 2, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -3433,7 +3433,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [ 1, 0, 0, 1 ];
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ - 1, 0, 0, Infinity ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -3442,7 +3442,7 @@ function boundingSphereGet( test )
 
   var srcPlane = _.vectorAdapter.from( [- 1, - 1, - 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ 1 / 3, 1 / 3, 1 / 3, Infinity ];
+  var expected = _.plane.tools.longMake( [ 1 / 3, 1 / 3, 1 / 3, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -3451,7 +3451,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [- 1, - 1, - 1, 3 ];
   var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
-  var expected = _.vectorAdapter.from( [ 1, 1, 1, Infinity ] );
+  var expected = _.plane.tools.vectorAdapter.from( [ 1, 1, 1, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -3460,7 +3460,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [- 1, 5, - 1, 0 ];
   var dstSphere = null;
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -3469,7 +3469,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [ - 1, - 3, - 5, 0 ];
   var dstSphere = undefined;
-  var expected = [ 0, 0, 0, Infinity ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -3478,7 +3478,7 @@ function boundingSphereGet( test )
 
   var srcPlane = _.vectorAdapter.from( [ 1E-12, 1E-12, 1E-12, 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
-  var expected = [ - 1 / 3, - 1 / 3, - 1 / 3, Infinity ];
+  var expected = _.plane.tools.longMake( [ - 1 / 3, - 1 / 3, - 1 / 3, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.equivalent( gotSphere, expected );
@@ -3487,7 +3487,7 @@ function boundingSphereGet( test )
 
   var srcPlane = [ 1, 0, 1, 2, 3, 4 ];
   var dstSphere = [ 0, 1, 0, 1, 2, 1 ];
-  var expected = [ -0.26666666666666666, 0, -0.26666666666666666, -0.53333333333333333, -0.8, Infinity  ];
+  var expected = _.plane.tools.longMake( [ -0.26666666666666666, 0, -0.26666666666666666, -0.53333333333333333, -0.8, Infinity  ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
@@ -3520,7 +3520,7 @@ function translate( test )
   var plane = [ 1, 0 , 0, 1 ];
   var offset = [ 1, 0, 1 ];
   var oldOffset = offset.slice();
-  var expected = [ 1, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
 
   var newPlane = _.plane.translate( plane, offset );
   test.identical( expected, newPlane );
@@ -3531,7 +3531,7 @@ function translate( test )
 
   var plane = [ 1, 0 , 0, 1 ];
   var offset = [ 0, 2, 3 ];
-  var expected = [ 1, 0 , 0, 1 ];
+  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 1 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
@@ -3540,7 +3540,7 @@ function translate( test )
 
   var plane = [ 1, 0 , - 1, 0 ];
   var offset = [ 2, 2, 2 ];
-  var expected = [ 1, 0 , - 1, 0 ];
+  var expected = _.plane.tools.longMake( [ 1, 0 , - 1, 0 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
@@ -3549,7 +3549,7 @@ function translate( test )
 
   var plane = [ 1, 0 , 0, 0 ];
   var offset = [ 3, 2, 3 ];
-  var expected =  [ 1, 0 , 0, - 3 ];
+  var expected = _.plane.tools.longMake( [ 1, 0 , 0, - 3 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
@@ -3558,7 +3558,7 @@ function translate( test )
 
   var plane = [ 1, 0 , 0, 0 ];
   var offset = [ - 3, - 2, - 3 ];
-  var expected =  [ 1, 0 , 0, 3 ];
+  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 3 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
@@ -3567,7 +3567,7 @@ function translate( test )
 
   var plane = [ 1, 0 , 0, 2, 3, 4, 0 ];
   var offset = [ - 2, - 2, - 2, 2, 2, 2 ];
-  var expected = [ 1, 0 , 0, 2, 3, 4, -16 ];
+  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 2, 3, 4, -16 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
@@ -3576,7 +3576,7 @@ function translate( test )
 
   var plane = [ 1, 0 , 0, 0 ];
   var offset = [ NaN, NaN, NaN ];
-  var expected =  [ 1, 0 , 0, NaN ];
+  var expected = _.plane.tools.longMake( [ 1, 0 , 0, NaN ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
@@ -3607,7 +3607,7 @@ function normalize( test )
   test.case = 'Plane changes'; /* */
 
   var plane = [ 2, 0 , 0, 1 ];
-  var expected = [ 1, 0, 0, 0.5 ];
+  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0.5 ] );
 
   var newPlane = _.plane.normalize( plane );
   test.identical( expected, newPlane );
@@ -3616,7 +3616,7 @@ function normalize( test )
   test.case = 'Trivial '; /* */
 
   var plane = [ 2, 0 , 0, 4 ];
-  var expected =  [ 1, 0 , 0, 2 ];
+  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 2 ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -3624,7 +3624,7 @@ function normalize( test )
   test.case = 'Trivial'; /* */
 
   var plane = [ 2, 2 , 2, 4 ];
-  var expected = [ 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 4/Math.sqrt( 12 ) ];
+  var expected = _.plane.tools.longMake( [ 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 4/Math.sqrt( 12 ) ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -3632,7 +3632,7 @@ function normalize( test )
   test.case = 'Already normalized 1D'; /* */
 
   var plane = [ 1, 0 , 0, 3 ];
-  var expected = [ 1, 0 , 0, 3 ];
+  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 3 ] );
 
   var normalized = _.plane.normalize( plane );
   test.identical( expected, normalized );
@@ -3640,7 +3640,7 @@ function normalize( test )
   test.case = 'Already normalized'; /* */
 
   var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
-  var expected = [1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
+  var expected = _.plane.tools.longMake( [1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -3648,7 +3648,7 @@ function normalize( test )
   test.case = 'Negative coordinates'; /* */
 
   var plane = [ - 3, - 6 , 0, 8 ];
-  var expected =  [ - 3/Math.sqrt( 45 ), - 6/Math.sqrt( 45 ) , 0, 8/Math.sqrt( 45 ) ];
+  var expected = _.plane.tools.longMake( [ - 3/Math.sqrt( 45 ), - 6/Math.sqrt( 45 ) , 0, 8/Math.sqrt( 45 ) ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -3656,7 +3656,7 @@ function normalize( test )
   test.case = 'More dimensions'; /* */
 
   var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
-  var expected = [ 4/Math.sqrt( 48 ), 0 , 0, 4/Math.sqrt( 48 ), 0, 4/Math.sqrt( 48 ), 8/Math.sqrt( 48 ) ];
+  var expected = _.plane.tools.longMake( [ 4/Math.sqrt( 48 ), 0 , 0, 4/Math.sqrt( 48 ), 0, 4/Math.sqrt( 48 ), 8/Math.sqrt( 48 ) ] );
 
   var normalized = _.plane.normalize( plane );
   test.identical( expected, normalized );
@@ -3664,7 +3664,7 @@ function normalize( test )
   test.case = 'NaN result'; /* */
 
   var plane = [ NaN, NaN, NaN, NaN ];
-  var expected =  [ NaN, NaN, NaN, NaN ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -3672,7 +3672,7 @@ function normalize( test )
   test.case = 'Plane  [ 0 ]'; /* */
 
   var plane = [ 0 ];
-  var expected =  [ NaN ];
+  var expected = _.plane.tools.longMake( [ NaN ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -3680,7 +3680,7 @@ function normalize( test )
   test.case = 'Null coordinate'; /* */
 
   var plane = [ 1, null, 0, 0 ];
-  var expected =  [ 1, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -3688,7 +3688,7 @@ function normalize( test )
   test.case = 'NaN coordinates'; /* */
 
   var plane = [ 1, NaN, 0, 0 ];
-  var expected =  [ NaN, NaN, NaN, NaN ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -3696,7 +3696,7 @@ function normalize( test )
   test.case = 'String coordinates'; /* */
 
   var plane = [ 1, 'string', 0, 0 ];
-  var expected =  [ NaN, NaN, NaN, NaN ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -3723,7 +3723,7 @@ function negate( test )
   test.case = 'Zero'; /* */
 
   var plane = [ 0, 0 , 0, 0 ];
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var newPlane = _.plane.negate( plane );
   test.equivalent( expected, newPlane );
@@ -3732,7 +3732,7 @@ function negate( test )
   test.case = 'Plane changes'; /* */
 
   var plane = [ 2, 0 , 0, 1 ];
-  var expected = [ - 2, 0, 0, - 1 ];
+  var expected = _.plane.tools.longMake( [ - 2, 0, 0, - 1 ] );
 
   var newPlane = _.plane.negate( plane );
   test.equivalent( expected, newPlane );
@@ -3741,7 +3741,7 @@ function negate( test )
   test.case = 'Trivial '; /* */
 
   var plane = [ 2, 0 , 0, 4 ];
-  var expected =  [ - 2, 0 , 0, - 4 ];
+  var expected = _.plane.tools.longMake( [ - 2, 0 , 0, - 4 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3749,7 +3749,7 @@ function negate( test )
   test.case = 'Trivial'; /* */
 
   var plane = [ 2, 2 , 2, 4 ];
-  var expected = [ - 2, - 2, - 2, - 4 ];
+  var expected = _.plane.tools.longMake( [ - 2, - 2, - 2, - 4 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3757,7 +3757,7 @@ function negate( test )
   test.case = 'Negate 1D'; /* */
 
   var plane = [ 1, 0 , 0, 3 ];
-  var expected = [ - 1, 0 , 0, - 3 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0 , 0, - 3 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3765,7 +3765,7 @@ function negate( test )
   test.case = 'Negate'; /* */
 
   var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
-  var expected = [ - 1/Math.sqrt( 2 ), - 1/Math.sqrt( 2 ), 0, - 2/Math.sqrt( 2 ) ];
+  var expected = _.plane.tools.longMake( [ - 1/Math.sqrt( 2 ), - 1/Math.sqrt( 2 ), 0, - 2/Math.sqrt( 2 ) ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3773,7 +3773,7 @@ function negate( test )
   test.case = 'Negative coordinates'; /* */
 
   var plane = [ - 3, - 6 , 0, 8 ];
-  var expected =  [ 3, 6, 0, - 8 ];
+  var expected = _.plane.tools.longMake( [ 3, 6, 0, - 8 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3781,7 +3781,7 @@ function negate( test )
   test.case = 'More dimensions'; /* */
 
   var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
-  var expected = [  - 4, 0 , 0, - 4, 0, - 4, - 8 ];
+  var expected = _.plane.tools.longMake( [  - 4, 0 , 0, - 4, 0, - 4, - 8 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3789,7 +3789,7 @@ function negate( test )
   test.case = 'NaN result'; /* */
 
   var plane = [ NaN, NaN, NaN, NaN ];
-  var expected =  [ NaN, NaN, NaN, NaN ];
+  var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3797,7 +3797,7 @@ function negate( test )
   test.case = 'Plane  [ 0 ]'; /* */
 
   var plane = [ 0 ];
-  var expected =  [ 0 ];
+  var expected = _.plane.tools.longMake( [ 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3805,7 +3805,7 @@ function negate( test )
   test.case = 'Null coordinate'; /* */
 
   var plane = [ 1, null, 0, 0 ];
-  var expected =  [ - 1, 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3813,7 +3813,7 @@ function negate( test )
   test.case = 'NaN coordinates'; /* */
 
   var plane = [ 1, NaN, 0, 0 ];
-  var expected =  [ - 1, NaN, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 1, NaN, 0, 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3821,7 +3821,7 @@ function negate( test )
   test.case = 'String coordinates'; /* */
 
   var plane = [ 1, 'string', 0, 0 ];
-  var expected =  [ - 1, NaN, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 1, NaN, 0, 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -3854,7 +3854,7 @@ function threeIntersectionPoint( test )
   var oldPlane2 = plane2.slice();
   var plane3 = [ 1, 0 , 1, 1 ];
   var oldPlane3 = plane3.slice();
-  var expected = [ - 1, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ - 1, 0, 0 ] );
   expected = _.vectorAdapter.from( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
@@ -3888,7 +3888,7 @@ function threeIntersectionPoint( test )
   var plane1 = [ 1, 0 , 0, 0 ];
   var plane2 = [ 0, 1 , 0, 0 ];
   var plane3 = [ 0, 0 , 1, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
   expected = _.vectorAdapter.from( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
@@ -3899,7 +3899,7 @@ function threeIntersectionPoint( test )
   var plane1 = [ - 1, 1, 0, 0 ];
   var plane2 = [ 0, 1 , 0, 0 ];
   var plane3 = [ 0, - 1, 6, 0 ];
-  var expected = [ 0, 0, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
   expected = _.vectorAdapter.from( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
@@ -3910,7 +3910,7 @@ function threeIntersectionPoint( test )
   var plane1 = [ 3, 0 , 0, 3 ];
   var plane2 = [ 0, - 4 , 0, 4 ];
   var plane3 = [ 0, 0 , 5, 5 ];
-  var expected = [ - 1, 1, - 1 ];
+  var expected = _.plane.tools.longMake( [ - 1, 1, - 1 ] );
   expected = _.vectorAdapter.from( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
@@ -3921,7 +3921,7 @@ function threeIntersectionPoint( test )
   var plane1 = [ 2, 1, 2, 4 ];
   var plane2 = [ 1, 1 , 0, - 5 ];
   var plane3 = [ 1, - 1 , 6, 0 ];
-  var expected = [ - 32, 37, 11.5 ];
+  var expected = _.plane.tools.longMake( [ - 32, 37, 11.5 ] );
   expected = _.vectorAdapter.from( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );

@@ -495,10 +495,10 @@ function fromSphere( box, sphere )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.sphere.is( sphere ) );
 
-  let sphereView = _.sphere.adapterFrom( sphere );
-  let dim1 = _.sphere.dimGet( sphereView );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
+  let sphereView = this.tools.sphere.adapterFrom( sphere );
+  let dim1 = this.tools.sphere.dimGet( sphereView );
+  let center = this.tools.sphere.centerGet( sphereView );
+  let radius = this.tools.sphere.radiusGet( sphereView );
 
   if( box === null )
   box = this.makeNil( dim1 );
@@ -1738,17 +1738,17 @@ function capsuleContains( box, capsule )
 
   let boxView = this.adapterFrom( box );
   let dimB = this.dimGet( boxView );
-  let capsuleView = _.capsule.adapterFrom( capsule );
-  let dimC = _.capsule.dimGet( capsuleView );
-  let origin = this.tools.vectorAdapter.from( _.capsule.originGet( capsuleView ) );
-  let end = this.tools.vectorAdapter.from( _.capsule.endPointGet( capsuleView ) );
-  let radius = _.capsule.radiusGet( capsuleView );
+  let capsuleView = this.tools.capsule.adapterFrom( capsule );
+  let dimC = this.tools.capsule.dimGet( capsuleView );
+  let origin = this.tools.vectorAdapter.from( this.tools.capsule.originGet( capsuleView ) );
+  let end = this.tools.vectorAdapter.from( this.tools.capsule.endPointGet( capsuleView ) );
+  let radius = this.tools.capsule.radiusGet( capsuleView );
 
   _.assert( dimB === dimC );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let bottomSphere = _.sphere.fromCenterAndRadius( null, origin, radius );
-  let topSphere = _.sphere.fromCenterAndRadius( null, end, radius );
+  let bottomSphere = this.tools.sphere.fromCenterAndRadius( null, origin, radius );
+  let topSphere = this.tools.sphere.fromCenterAndRadius( null, end, radius );
 
   if( !this.sphereContains( boxView, bottomSphere ) )
   return false;
@@ -1764,10 +1764,10 @@ function capsuleContains( box, capsule )
 function capsuleIntersects( srcBox , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstCapsuleView = _.capsule.adapterFrom( tstCapsule );
+  let tstCapsuleView = this.tools.capsule.adapterFrom( tstCapsule );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotBool = _.capsule.boxIntersects( tstCapsuleView, boxView );
+  let gotBool = this.tools.capsule.boxIntersects( tstCapsuleView, boxView );
   return gotBool;
 }
 
@@ -1776,10 +1776,10 @@ function capsuleIntersects( srcBox , tstCapsule )
 function capsuleDistance( srcBox , tstCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstCapsuleView = _.capsule.adapterFrom( tstCapsule );
+  let tstCapsuleView = this.tools.capsule.adapterFrom( tstCapsule );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotDist = _.capsule.boxDistance( tstCapsuleView, boxView );
+  let gotDist = this.tools.capsule.boxDistance( tstCapsuleView, boxView );
 
   return gotDist;
 }
@@ -1826,19 +1826,19 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let capsuleView = _.capsule.adapterFrom( capsule );
-  let dimCapsule  = _.capsule.dimGet( capsuleView );
+  let capsuleView = this.tools.capsule.adapterFrom( capsule );
+  let dimCapsule  = this.tools.capsule.dimGet( capsuleView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimCapsule );
 
-  if( _.capsule.boxIntersects( capsuleView, boxView ) )
+  if( this.tools.capsule.boxIntersects( capsuleView, boxView ) )
   return 0
   else
   {
-    let capsulePoint = _.capsule.boxClosestPoint( capsule, boxView );
+    let capsulePoint = this.tools.capsule.boxClosestPoint( capsule, boxView );
 
     let boxPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( boxView, capsulePoint ) );
 
@@ -1909,7 +1909,7 @@ function convexPolygonIntersects( srcBox , polygon )
   _.assert( _.convexPolygon.is( polygon ) );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotBool = _.convexPolygon.boxIntersects( polygon, boxView );
+  let gotBool = this.tools.convexPolygon.boxIntersects( polygon, boxView );
 
   return gotBool;
 }
@@ -1922,7 +1922,7 @@ function convexPolygonDistance( srcBox , polygon )
   _.assert( _.convexPolygon.is( polygon ) );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotDist = _.convexPolygon.boxDistance( polygon, boxView );
+  let gotDist = this.tools.convexPolygon.boxDistance( polygon, boxView );
 
   return gotDist;
 }
@@ -1976,11 +1976,11 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
   _.assert( dimB === dstPoint.length );
   _.assert( dimP[ 0 ] === dimB );
 
-  if( _.convexPolygon.boxIntersects( polygon, boxView ) )
+  if( this.tools.convexPolygon.boxIntersects( polygon, boxView ) )
   return 0
   else
   {
-    let polygonPoint = _.convexPolygon.boxClosestPoint( polygon, boxView );
+    let polygonPoint = this.tools.convexPolygon.boxClosestPoint( polygon, boxView );
 
     let boxPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( boxView, polygonPoint ) ) ;
 
@@ -2036,7 +2036,7 @@ function frustumContains( box, frustum )
   let dims = _.Matrix.DimsOf( frustum );
   _.assert( dim = dims[ 0 ], 'Frustum and box must have same dim');
 
-  let fpoints = _.frustum.cornersGet( frustum );
+  let fpoints = this.tools.frustum.cornersGet( frustum );
   let dimsPoints = _.Matrix.DimsOf( fpoints );
   _.assert( _.matrixIs( fpoints ) );
 
@@ -2089,7 +2089,7 @@ function frustumIntersects( box, frustum )
   _.assert( _.frustum.is( frustum ) );
   let boxView = this.adapterFrom( box );
 
-  let gotBool = _.frustum.boxIntersects( frustum, boxView );
+  let gotBool = this.tools.frustum.boxIntersects( frustum, boxView );
   return gotBool;
 }
 
@@ -2137,10 +2137,10 @@ function frustumDistance( box, frustum )
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
 
-  if( _.frustum.boxIntersects( frustum, boxView ) )
+  if( this.tools.frustum.boxIntersects( frustum, boxView ) )
   return 0;
 
-  let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
+  let frustumPoint = this.tools.frustum.boxClosestPoint( frustum, boxView );
 
   /* box corners */
   let c = this.cornersGet( boxView );
@@ -2149,7 +2149,7 @@ function frustumDistance( box, frustum )
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
     let corner = c.colVectorGet( j );
-    let proj = _.frustum.pointClosestPoint( frustum, corner );
+    let proj = this.tools.frustum.pointClosestPoint( frustum, corner );
     let d = this.tools.avector.distance( corner, frustumPoint );
     if( d < distance )
     {
@@ -2215,11 +2215,11 @@ function frustumClosestPoint( box, frustum, dstPoint )
   _.assert( dimB === 3 );
   _.assert( dimB === dstPoint.length );
 
-  if( _.frustum.boxIntersects( frustum, boxView ) )
+  if( this.tools.frustum.boxIntersects( frustum, boxView ) )
   return 0
   else
   {
-    let frustumPoint = _.frustum.boxClosestPoint( frustum, boxView );
+    let frustumPoint = this.tools.frustum.boxClosestPoint( frustum, boxView );
 
     /* box corners */
     let c = this.cornersGet( boxView );
@@ -2292,7 +2292,7 @@ function frustumExpand( dstBox, srcFrustum )
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
 
-  let fpoints = _.frustum.cornersGet( srcFrustum );
+  let fpoints = this.tools.frustum.cornersGet( srcFrustum );
   _.assert( _.matrixIs( fpoints ) );
   _.assert( fpoints.hasShape([ 3, 8 ] ) );
 
@@ -2310,10 +2310,10 @@ function frustumExpand( dstBox, srcFrustum )
 function lineIntersects( srcBox , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = _.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.line.adapterFrom( tstLine );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotBool = _.line.boxIntersects( tstLineView, boxView );
+  let gotBool = this.tools.line.boxIntersects( tstLineView, boxView );
   return gotBool;
 }
 
@@ -2322,10 +2322,10 @@ function lineIntersects( srcBox , tstLine )
 function lineDistance( srcBox , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = _.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.line.adapterFrom( tstLine );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotDist = _.line.boxDistance( tstLineView, boxView );
+  let gotDist = this.tools.line.boxDistance( tstLineView, boxView );
 
   return gotDist;
 }
@@ -2372,21 +2372,21 @@ function lineClosestPoint( box, line, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let lineView = _.line.adapterFrom( line );
-  let origin = _.line.originGet( lineView );
-  let direction = _.line.directionGet( lineView );
-  let dimLine  = _.line.dimGet( lineView );
+  let lineView = this.tools.line.adapterFrom( line );
+  let origin = this.tools.line.originGet( lineView );
+  let direction = this.tools.line.directionGet( lineView );
+  let dimLine  = this.tools.line.dimGet( lineView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimLine );
 
-  if( _.line.boxIntersects( lineView, boxView ) )
+  if( this.tools.line.boxIntersects( lineView, boxView ) )
   return 0
   else
   {
-    let linePoint = _.line.boxClosestPoint( line, boxView );
+    let linePoint = this.tools.line.boxClosestPoint( line, boxView );
 
     let boxPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( boxView, linePoint ) );
 
@@ -2405,10 +2405,10 @@ function lineClosestPoint( box, line, dstPoint )
 function rayIntersects( srcBox , tstRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstRayView = _.ray.adapterFrom( tstRay );
+  let tstRayView = this.tools.ray.adapterFrom( tstRay );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotBool = _.ray.boxIntersects( tstRayView, boxView );
+  let gotBool = this.tools.ray.boxIntersects( tstRayView, boxView );
 
   return gotBool;
 }
@@ -2418,10 +2418,10 @@ function rayIntersects( srcBox , tstRay )
 function rayDistance( srcBox , tstRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstRayView = _.ray.adapterFrom( tstRay );
+  let tstRayView = this.tools.ray.adapterFrom( tstRay );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotDist = _.ray.boxDistance( tstRayView, boxView );
+  let gotDist = this.tools.ray.boxDistance( tstRayView, boxView );
 
   return gotDist;
 }
@@ -2468,21 +2468,21 @@ function rayClosestPoint( box, ray, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let rayView = _.ray.adapterFrom( ray );
-  let origin = _.ray.originGet( rayView );
-  let direction = _.ray.directionGet( rayView );
-  let dimRay  = _.ray.dimGet( rayView );
+  let rayView = this.tools.ray.adapterFrom( ray );
+  let origin = this.tools.ray.originGet( rayView );
+  let direction = this.tools.ray.directionGet( rayView );
+  let dimRay  = this.tools.ray.dimGet( rayView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimRay );
 
-  if( _.ray.boxIntersects( rayView, boxView ) )
+  if( this.tools.ray.boxIntersects( rayView, boxView ) )
   return 0
   else
   {
-    let rayPoint = _.ray.boxClosestPoint( ray, boxView );
+    let rayPoint = this.tools.ray.boxClosestPoint( ray, boxView );
 
     let boxPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( boxView, rayPoint ) );
 
@@ -2525,10 +2525,10 @@ function rayClosestPoint( box, ray, dstPoint )
 function planeIntersects( srcBox , tstPlane )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let _tstPlane = _.plane.adapterFrom( tstPlane );
+  let _tstPlane = this.tools.plane.adapterFrom( tstPlane );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotBool = _.plane.boxIntersects( _tstPlane, boxView );
+  let gotBool = this.tools.plane.boxIntersects( _tstPlane, boxView );
 
   return gotBool;
 }
@@ -2567,12 +2567,12 @@ function planeDistance( srcBox, plane )
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
 
-  let planeView = _.plane.adapterFrom( plane );
-  let dimP = _.plane.dimGet( planeView );
+  let planeView = this.tools.plane.adapterFrom( plane );
+  let dimP = this.tools.plane.dimGet( planeView );
 
   _.assert( dimP === dimB );
 
-  if( _.plane.boxIntersects( planeView, boxView ) )
+  if( this.tools.plane.boxIntersects( planeView, boxView ) )
     return 0;
   else
   {
@@ -2584,7 +2584,7 @@ function planeDistance( srcBox, plane )
     for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ]  ; j++ )
     {
       let corner = c.colVectorGet( j );
-      d = Math.abs( _.plane.pointDistance( plane, corner ) );
+      d = Math.abs( this.tools.plane.pointDistance( plane, corner ) );
 
       if( d < distance )
       {
@@ -2632,8 +2632,8 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
 
-  let planeView = _.plane.adapterFrom( plane );
-  let dimP = _.plane.dimGet( planeView );
+  let planeView = this.tools.plane.adapterFrom( plane );
+  let dimP = this.tools.plane.dimGet( planeView );
 
   if( arguments.length === 2 )
   dstPoint = this.tools.longMake( dimB );
@@ -2646,7 +2646,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   _.assert( dimP === dimB );
   _.assert( dimP === dstPoint.length );
 
-  if( _.plane.boxIntersects( planeView, boxView ) )
+  if( this.tools.plane.boxIntersects( planeView, boxView ) )
     return 0;
   else
   {
@@ -2659,7 +2659,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
     for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
       let corner = c.colVectorGet( j );
-      d = Math.abs( _.plane.pointDistance( plane, corner ) );
+      d = Math.abs( this.tools.plane.pointDistance( plane, corner ) );
 
       if( d < distance )
       {
@@ -2714,17 +2714,17 @@ function planeExpand( dstBox, srcPlane )
 
   _.assert( _.plane.is( srcPlane ) );
 
-  let planeView = _.plane.adapterFrom( srcPlane );
-  let dimP = _.plane.dimGet( planeView );
+  let planeView = this.tools.plane.adapterFrom( srcPlane );
+  let dimP = this.tools.plane.dimGet( planeView );
 
   _.assert( dimP === dimB );
 
-  if( _.plane.boxIntersects( planeView, boxView ) )
+  if( this.tools.plane.boxIntersects( planeView, boxView ) )
   return dstBox;
   else
   {
     let boxPoint = this.planeClosestPoint( boxView, planeView );
-    let planePoint = _.plane.pointCoplanarGet( planeView, boxPoint );
+    let planePoint = this.tools.plane.pointCoplanarGet( planeView, boxPoint );
     let box = this.pointExpand( boxView, planePoint);
     for( let i = 0; i < box.length; i++ )
     {
@@ -2763,10 +2763,10 @@ function planeExpand( dstBox, srcPlane )
 function segmentContains( srcBox , tstSegment )
 {
 
-  let segmentView = _.segment.adapterFrom( tstSegment );
-  let origin = _.segment.originGet( segmentView );
-  let end = _.segment.endPointGet( segmentView );
-  let dimS = _.segment.dimGet( segmentView );
+  let segmentView = this.tools.segment.adapterFrom( tstSegment );
+  let origin = this.tools.segment.originGet( segmentView );
+  let end = this.tools.segment.endPointGet( segmentView );
+  let dimS = this.tools.segment.dimGet( segmentView );
 
   let boxView = this.adapterFrom( srcBox );
   let dimB = this.dimGet( boxView );
@@ -2788,10 +2788,10 @@ function segmentContains( srcBox , tstSegment )
 function segmentIntersects( srcBox , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstSegmentView = _.segment.adapterFrom( tstSegment );
+  let tstSegmentView = this.tools.segment.adapterFrom( tstSegment );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotBool = _.segment.boxIntersects( tstSegmentView, boxView );
+  let gotBool = this.tools.segment.boxIntersects( tstSegmentView, boxView );
   return gotBool;
 }
 
@@ -2800,10 +2800,10 @@ function segmentIntersects( srcBox , tstSegment )
 function segmentDistance( srcBox , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstSegmentView = _.segment.adapterFrom( tstSegment );
+  let tstSegmentView = this.tools.segment.adapterFrom( tstSegment );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotDist = _.segment.boxDistance( tstSegmentView, boxView );
+  let gotDist = this.tools.segment.boxDistance( tstSegmentView, boxView );
 
   return gotDist;
 }
@@ -2850,21 +2850,21 @@ function segmentClosestPoint( box, segment, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let segmentView = _.segment.adapterFrom( segment );
-  let origin = _.segment.originGet( segmentView );
-  let direction = _.segment.directionGet( segmentView );
-  let dimSegment  = _.segment.dimGet( segmentView );
+  let segmentView = this.tools.segment.adapterFrom( segment );
+  let origin = this.tools.segment.originGet( segmentView );
+  let direction = this.tools.segment.directionGet( segmentView );
+  let dimSegment  = this.tools.segment.dimGet( segmentView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimSegment );
 
-  if( _.segment.boxIntersects( segmentView, boxView ) )
+  if( this.tools.segment.boxIntersects( segmentView, boxView ) )
   return 0
   else
   {
-    let segmentPoint = _.segment.boxClosestPoint( segment, boxView );
+    let segmentPoint = this.tools.segment.boxClosestPoint( segment, boxView );
 
     let boxPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( boxView, segmentPoint ) );
 
@@ -2906,10 +2906,10 @@ function segmentClosestPoint( box, segment, dstPoint )
 
 function sphereContains( srcBox , tstSphere )
 {
-  let _tstSphere = _.sphere.adapterFrom( tstSphere );
-  let center = _.sphere.centerGet( _tstSphere );
-  let radius = _.sphere.radiusGet( _tstSphere );
-  let dimS = _.sphere.dimGet( _tstSphere );
+  let _tstSphere = this.tools.sphere.adapterFrom( tstSphere );
+  let center = this.tools.sphere.centerGet( _tstSphere );
+  let radius = this.tools.sphere.radiusGet( _tstSphere );
+  let dimS = this.tools.sphere.dimGet( _tstSphere );
 
   let boxView = this.adapterFrom( srcBox );
   let dimB = this.dimGet( boxView );
@@ -2964,11 +2964,11 @@ function sphereContains( srcBox , tstSphere )
   */
 function sphereIntersects( srcBox , tstSphere )
 {
-  let _tstSphere = _.sphere.adapterFrom( tstSphere );
+  let _tstSphere = this.tools.sphere.adapterFrom( tstSphere );
   let boxView = this.adapterFrom( srcBox );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let gotBool = _.sphere.boxIntersects( _tstSphere, boxView );
+  let gotBool = this.tools.sphere.boxIntersects( _tstSphere, boxView );
 
   return gotBool;
 }
@@ -3000,10 +3000,10 @@ function sphereIntersects( srcBox , tstSphere )
   */
 function sphereDistance( srcBox , tstSphere )
 {
-  let _tstSphere = _.sphere.adapterFrom( tstSphere );
-  let center = _.sphere.centerGet( _tstSphere );
-  let radius = _.sphere.radiusGet( _tstSphere );
-  let dimS = _.sphere.dimGet( _tstSphere );
+  let _tstSphere = this.tools.sphere.adapterFrom( tstSphere );
+  let center = this.tools.sphere.centerGet( _tstSphere );
+  let radius = this.tools.sphere.radiusGet( _tstSphere );
+  let dimS = this.tools.sphere.dimGet( _tstSphere );
 
   let boxView = this.adapterFrom( srcBox );
   let dimB = this.dimGet( boxView );
@@ -3012,7 +3012,7 @@ function sphereDistance( srcBox , tstSphere )
   _.assert( dimS === dimB );
 
   let distance = 0;
-  if( _.sphere.boxIntersects( _tstSphere, boxView ) )
+  if( this.tools.sphere.boxIntersects( _tstSphere, boxView ) )
     return distance;
   else
     distance = this.pointDistance( boxView, center ) - radius;
@@ -3050,10 +3050,10 @@ function sphereDistance( srcBox , tstSphere )
 function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 {
 
-  let _tstSphere = _.sphere.adapterFrom( tstSphere );
-  let center = _.sphere.centerGet( _tstSphere );
-  let radius = _.sphere.radiusGet( _tstSphere );
-  let dimS = _.sphere.dimGet( _tstSphere );
+  let _tstSphere = this.tools.sphere.adapterFrom( tstSphere );
+  let center = this.tools.sphere.centerGet( _tstSphere );
+  let radius = this.tools.sphere.radiusGet( _tstSphere );
+  let dimS = this.tools.sphere.dimGet( _tstSphere );
 
   let boxView = this.adapterFrom( srcBox );
   let dimB = this.dimGet( boxView );
@@ -3070,7 +3070,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   _.assert( dimS === dimB );
   _.assert( dimS === dstPoint.length );
 
-  if( _.sphere.boxIntersects( _tstSphere, boxView ) )
+  if( this.tools.sphere.boxIntersects( _tstSphere, boxView ) )
     return 0
   else
   {
@@ -3116,10 +3116,10 @@ function sphereExpand( dstBox , srcSphere )
   let max1 = this.cornerRightGet( _dstBox );
 
   _.assert( _.sphere.is( srcSphere ) );
-  let _srcSphere = _.sphere.adapterFrom( srcSphere );
-  let center = _.sphere.centerGet( _srcSphere );
-  let radius = _.sphere.radiusGet( _srcSphere );
-  let dimS = _.sphere.dimGet( _srcSphere );
+  let _srcSphere = this.tools.sphere.adapterFrom( srcSphere );
+  let center = this.tools.sphere.centerGet( _srcSphere );
+  let radius = this.tools.sphere.radiusGet( _srcSphere );
+  let dimS = this.tools.sphere.dimGet( _srcSphere );
 
   _.assert( dimB === dimS );
 
@@ -3173,13 +3173,13 @@ function boundingSphereGet( dstSphere, srcBox )
   let max = this.cornerRightGet( srcBoxView );
 
   if( dstSphere === null || dstSphere === undefined )
-  dstSphere = _.sphere.makeZero( dimB );
+  dstSphere = this.tools.sphere.makeZero( dimB );
 
   _.assert( _.sphere.is( dstSphere ) );
-  let dstSphereView = _.sphere.adapterFrom( dstSphere );
-  let center = _.sphere.centerGet( dstSphereView );
-  let radius = _.sphere.radiusGet( dstSphereView );
-  let dimS = _.sphere.dimGet( dstSphereView );
+  let dstSphereView = this.tools.sphere.adapterFrom( dstSphere );
+  let center = this.tools.sphere.centerGet( dstSphereView );
+  let radius = this.tools.sphere.radiusGet( dstSphereView );
+  let dimS = this.tools.sphere.dimGet( dstSphereView );
 
   _.assert( dimB === dimS );
 
@@ -3190,7 +3190,7 @@ function boundingSphereGet( dstSphere, srcBox )
   }
 
   // Radius of the sphere
-  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, max ) );
+  this.tools.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, max ) );
 
   return dstSphere;
 }

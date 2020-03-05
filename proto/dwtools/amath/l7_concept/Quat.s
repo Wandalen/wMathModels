@@ -153,7 +153,7 @@ function fromEuler( dst, euler, v )
 
   dst = this.from( dst );
   let dstv = this.tools.vectorAdapter.from( dst );
-  let eulerView = _.euler.adapterFrom( euler );
+  let eulerView = this.tools.euler.adapterFrom( euler );
 
   let ox = eulerView.eGet( 3 );
   let oy = eulerView.eGet( 4 );
@@ -442,7 +442,7 @@ function fromAxisAndAngle( dst, axisAndAngle, angle )
 
   dst = this.from( dst );
   let dstv = this.tools.vectorAdapter.from( dst );
-  let axisAndAnglev = _.axisAndAngle.adapterFrom( axisAndAngle, angle );
+  let axisAndAnglev = this.tools.axisAndAngle.adapterFrom( axisAndAngle, angle );
 
   let halfAngle = axisAndAnglev.eGet( 3 ) / 2;
   let s = sin( halfAngle );
@@ -465,7 +465,7 @@ function toAxisAndAngle( quat, axisAndAngle )
 
   quat = this.from( quat );
   let quatView = this.tools.vectorAdapter.from( quat );
-  axisAndAngle = _.axisAndAngle.from( axisAndAngle );
+  axisAndAngle = this.tools.axisAndAngle.from( axisAndAngle );
   let axisAndAnglev = this.tools.vectorAdapter.from( axisAndAngle );
 
   let w = quatView.eGet( 3 );

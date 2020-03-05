@@ -175,7 +175,7 @@ function cornersGet( srcfrustum )
   let far = srcfrustum.colVectorGet( 4 );
   let near = srcfrustum.colVectorGet( 5 );
 
-  let point = _.plane.threeIntersectionPoint( far, top, right );
+  let point = this.tools.plane.threeIntersectionPoint( far, top, right );
   if( ! _.vectorAdapterIs(point) )
   {
     return false;
@@ -185,7 +185,7 @@ function cornersGet( srcfrustum )
     pointsFru.atomSet( [ 0, 0 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 0 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 0 ], point.eGet( 2 ) );
   }
 
-  point =  _.plane.threeIntersectionPoint( far, top, left );
+  point =  this.tools.plane.threeIntersectionPoint( far, top, left );
   if( ! _.vectorAdapterIs( point ) )
   {
     return false;
@@ -195,7 +195,7 @@ function cornersGet( srcfrustum )
     pointsFru.atomSet( [ 0, 1 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 1 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 1 ], point.eGet( 2 ) );
   }
 
-  point =  _.plane.threeIntersectionPoint( far, bottom, right );
+  point =  this.tools.plane.threeIntersectionPoint( far, bottom, right );
   if( ! _.vectorAdapterIs( point) )
   {
     return false;
@@ -205,7 +205,7 @@ function cornersGet( srcfrustum )
     pointsFru.atomSet( [ 0, 2 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 2 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 2 ], point.eGet( 2 ) );
   }
 
-  point =  _.plane.threeIntersectionPoint( far, bottom, left );
+  point =  this.tools.plane.threeIntersectionPoint( far, bottom, left );
   if( ! _.vectorAdapterIs( point) )
   {
     return false;
@@ -215,7 +215,7 @@ function cornersGet( srcfrustum )
     pointsFru.atomSet( [ 0, 3 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 3 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 3 ], point.eGet( 2 ) );
   }
 
-  point = _.plane.threeIntersectionPoint( near, top, right );
+  point = this.tools.plane.threeIntersectionPoint( near, top, right );
   if( ! _.vectorAdapterIs( point) )
   {
     return false;
@@ -225,7 +225,7 @@ function cornersGet( srcfrustum )
     pointsFru.atomSet( [ 0, 4 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 4 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 4 ], point.eGet( 2 ) );
   }
 
-  point =  _.plane.threeIntersectionPoint( near, top, left );
+  point =  this.tools.plane.threeIntersectionPoint( near, top, left );
   if( ! _.vectorAdapterIs(point) )
   {
     return false;
@@ -235,7 +235,7 @@ function cornersGet( srcfrustum )
     pointsFru.atomSet( [ 0, 5 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 5 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 5 ], point.eGet( 2 ) );
   }
 
-  point =  _.plane.threeIntersectionPoint( near, bottom, right );
+  point =  this.tools.plane.threeIntersectionPoint( near, bottom, right );
   if( ! _.vectorAdapterIs(point) )
   {
     return false;
@@ -245,7 +245,7 @@ function cornersGet( srcfrustum )
     pointsFru.atomSet( [ 0, 6 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 6 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 6 ], point.eGet( 2 ) );
   }
 
-  point = _.plane.threeIntersectionPoint( near, bottom, left );
+  point = this.tools.plane.threeIntersectionPoint( near, bottom, left );
   if( ! _.vectorAdapterIs(point) )
   {
     return false;
@@ -293,7 +293,7 @@ function pointContains( frustum , point )
 
     let plane = frustum.colVectorGet( i );
 
-    if( _.plane.pointDistance( plane, point ) > 1E-12 )
+    if( this.tools.plane.pointDistance( plane, point ) > 1E-12 )
     return false;
 
   }
@@ -353,10 +353,10 @@ function pointDistance( frustum, point )
   {
     let plane = frustum.colVectorGet( i );
 
-    let newDistPlane = Math.abs( _.plane.pointDistance( plane, point ) );
+    let newDistPlane = Math.abs( this.tools.plane.pointDistance( plane, point ) );
     if( newDistPlane < distancePlane )
     {
-      let projection = _.plane.pointCoplanarGet( plane, point );
+      let projection = this.tools.plane.pointCoplanarGet( plane, point );
       if( this.pointContains( frustum, projection ))
       {
         distancePlane = newDistPlane;
@@ -503,7 +503,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
     {
       let plane = this.tools.vectorAdapter.from( frustum.colVectorGet( i ) );
 
-      let p =  _.plane.pointCoplanarGet( plane, dstPointView );
+      let p =  this.tools.plane.pointCoplanarGet( plane, dstPointView );
 
       let d = this.tools.avector.distance( dstPointView, p );
 
@@ -553,10 +553,10 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 function boxContains( frustum, box )
 {
 
-  let boxView = _.box.adapterFrom( box );
-  let dim1 = _.box.dimGet( boxView );
-  let srcMin = _.box.cornerLeftGet( boxView );
-  let srcMax = _.box.cornerRightGet( boxView );
+  let boxView = this.tools.box.adapterFrom( box );
+  let dim1 = this.tools.box.dimGet( boxView );
+  let srcMin = this.tools.box.cornerLeftGet( boxView );
+  let srcMax = this.tools.box.cornerRightGet( boxView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
   debugger;
@@ -616,10 +616,10 @@ function boxContains( frustum, box )
 function boxIntersects( frustum , box )
 {
 
-  let boxView = _.box.adapterFrom( box );
-  let dim1 = _.box.dimGet( boxView );
-  let min1 = _.box.cornerLeftGet( boxView );
-  let max1 = _.box.cornerRightGet( boxView );
+  let boxView = this.tools.box.adapterFrom( box );
+  let dim1 = this.tools.box.dimGet( boxView );
+  let min1 = this.tools.box.cornerLeftGet( boxView );
+  let max1 = this.tools.box.cornerRightGet( boxView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
   debugger;
@@ -674,7 +674,7 @@ function boxIntersects( frustum , box )
   {
     let point = fpoints.colVectorGet( i );
 
-    if( _.box.pointContains( box, point ) === true )
+    if( this.tools.box.pointContains( box, point ) === true )
     {
       return true;
     }
@@ -738,12 +738,12 @@ function boxIntersects( frustum , box )
 
 function boxDistance( frustum, box )
 {
-  let boxView = _.box.adapterFrom( box );
+  let boxView = this.tools.box.adapterFrom( box );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
   debugger;
 
-  let distance = _.box.frustumDistance( boxView, frustum );
+  let distance = this.tools.box.frustumDistance( boxView, frustum );
 
   return distance;
 }
@@ -776,10 +776,10 @@ function boxDistance( frustum, box )
 
 function boxClosestPoint( frustum, box, dstPoint )
 {
-  let boxView = _.box.adapterFrom( box );
-  let dim1 = _.box.dimGet( boxView );
-  let min1 = _.box.cornerLeftGet( boxView );
-  let max1 = _.box.cornerRightGet( boxView );
+  let boxView = this.tools.box.adapterFrom( box );
+  let dim1 = this.tools.box.dimGet( boxView );
+  let min1 = this.tools.box.cornerLeftGet( boxView );
+  let max1 = this.tools.box.cornerRightGet( boxView );
   let dims = _.Matrix.DimsOf( frustum ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
@@ -808,7 +808,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   for ( let j = 0 ; j < cols ; j++ )
   {
     let newp = fpoints.colVectorGet( j );
-    let d = _.box.pointDistance( boxView, newp );
+    let d = this.tools.box.pointDistance( boxView, newp );
 
     if( d < dist )
     {
@@ -818,7 +818,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   }
 
   /* box corners */
-  let c = _.box.cornersGet( boxView );
+  let c = this.tools.box.cornersGet( boxView );
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
@@ -879,13 +879,13 @@ function boundingBoxGet( dstBox, srcFrustum )
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = _.box.makeNil( rows - 1 );
+  dstBox = this.tools.box.makeNil( rows - 1 );
 
   _.assert( _.box.is( dstBox ) );
-  let boxView = _.box.adapterFrom( dstBox );
-  let minB = _.box.cornerLeftGet( boxView );
-  let maxB = _.box.cornerRightGet( boxView );
-  let dimB = _.box.dimGet( boxView );
+  let boxView = this.tools.box.adapterFrom( dstBox );
+  let minB = this.tools.box.cornerLeftGet( boxView );
+  let maxB = this.tools.box.cornerRightGet( boxView );
+  let dimB = this.tools.box.dimGet( boxView );
 
   _.assert( rows - 1 === dimB );
 
@@ -968,16 +968,16 @@ function capsuleContains( frustum , capsule )
   _.assert( this.is( frustum ) );
   let dims = _.Matrix.DimsOf( frustum );
 
-  let capsuleView = _.capsule.adapterFrom( capsule );
-  let dimC = _.capsule.dimGet( capsuleView );
-  let origin = this.tools.vectorAdapter.from( _.capsule.originGet( capsuleView ) );
-  let end = this.tools.vectorAdapter.from( _.capsule.endPointGet( capsuleView ) );
-  let radius = _.capsule.radiusGet( capsuleView );
+  let capsuleView = this.tools.capsule.adapterFrom( capsule );
+  let dimC = this.tools.capsule.dimGet( capsuleView );
+  let origin = this.tools.vectorAdapter.from( this.tools.capsule.originGet( capsuleView ) );
+  let end = this.tools.vectorAdapter.from( this.tools.capsule.endPointGet( capsuleView ) );
+  let radius = this.tools.capsule.radiusGet( capsuleView );
 
   _.assert( dims[ 0 ] - 1 === dimC, 'Capsule and frustum must have same length' );
 
-  let bottomSphere = _.sphere.fromCenterAndRadius( null, origin, radius );
-  let topSphere = _.sphere.fromCenterAndRadius( null, end, radius );
+  let bottomSphere = this.tools.sphere.fromCenterAndRadius( null, origin, radius );
+  let topSphere = this.tools.sphere.fromCenterAndRadius( null, end, radius );
 
   if( !this.sphereContains( frustum, bottomSphere ) )
   return false;
@@ -995,9 +995,9 @@ function capsuleIntersects( srcFrustum , tstCapsule )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( srcFrustum ) );
 
-  let tstCapsuleView = _.capsule.adapterFrom( tstCapsule );
+  let tstCapsuleView = this.tools.capsule.adapterFrom( tstCapsule );
 
-  let gotBool = _.capsule.frustumIntersects( tstCapsuleView, srcFrustum );
+  let gotBool = this.tools.capsule.frustumIntersects( tstCapsuleView, srcFrustum );
   return gotBool;
 }
 
@@ -1008,9 +1008,9 @@ function capsuleDistance( srcFrustum , tstCapsule )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( srcFrustum ) );
 
-  let tstCapsuleView = _.capsule.adapterFrom( tstCapsule );
+  let tstCapsuleView = this.tools.capsule.adapterFrom( tstCapsule );
 
-  let gotDist = _.capsule.frustumDistance( tstCapsuleView, srcFrustum );
+  let gotDist = this.tools.capsule.frustumDistance( tstCapsuleView, srcFrustum );
 
   return gotDist;
 }
@@ -1063,19 +1063,19 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let capsuleView = _.capsule.adapterFrom( capsule );
-  let dimCapsule  = _.capsule.dimGet( capsuleView );
+  let capsuleView = this.tools.capsule.adapterFrom( capsule );
+  let dimCapsule  = this.tools.capsule.dimGet( capsuleView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimCapsule === dstPoint.length );
   _.assert( dimCapsule === rows - 1 );
 
-  if( _.capsule.frustumIntersects( capsuleView, frustum ) )
+  if( this.tools.capsule.frustumIntersects( capsuleView, frustum ) )
   return 0
   else
   {
-    let capsulePoint = _.capsule.frustumClosestPoint( capsule, frustum );
+    let capsulePoint = this.tools.capsule.frustumClosestPoint( capsule, frustum );
 
     let frustumPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( frustum, capsulePoint ) );
 
@@ -1152,7 +1152,7 @@ function convexPolygonIntersects( srcFrustum , polygon )
   _.assert( _.convexPolygon.is( polygon ) );
   _.assert( this.is( srcFrustum ) );
 
-  let gotBool = _.convexPolygon.frustumIntersects( polygon, srcFrustum );
+  let gotBool = this.tools.convexPolygon.frustumIntersects( polygon, srcFrustum );
 
   return gotBool;
 }
@@ -1165,7 +1165,7 @@ function convexPolygonDistance( srcFrustum , polygon )
   _.assert( _.convexPolygon.is( polygon ) );
   _.assert( this.is( srcFrustum ) );
 
-  let gotDist = _.convexPolygon.frustumDistance( polygon, srcFrustum );
+  let gotDist = this.tools.convexPolygon.frustumDistance( polygon, srcFrustum );
 
   return gotDist;
 }
@@ -1226,11 +1226,11 @@ function convexPolygonClosestPoint( frustum, polygon, dstPoint )
   _.assert( dimP[ 0 ] === dstPoint.length );
   _.assert( dimP[ 0 ] === dimF[ 0 ] - 1 );
 
-  if( _.convexPolygon.frustumIntersects( polygon, frustum ) )
+  if( this.tools.convexPolygon.frustumIntersects( polygon, frustum ) )
   return 0
   else
   {
-    let polygonPoint = _.convexPolygon.frustumClosestPoint( polygon, frustum );
+    let polygonPoint = this.tools.convexPolygon.frustumClosestPoint( polygon, frustum );
     let frustumPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( frustum, polygonPoint ) );
 
     for( let i = 0; i < dimP[ 0 ]; i++ )
@@ -1541,9 +1541,9 @@ function lineIntersects( srcFrustum , tstLine )
 
   let dims = _.Matrix.DimsOf( srcFrustum ) ;
 
-  let tstLineView = _.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.line.adapterFrom( tstLine );
 
-  let gotBool = _.line.frustumIntersects( tstLineView, srcFrustum );
+  let gotBool = this.tools.line.frustumIntersects( tstLineView, srcFrustum );
 
   return gotBool;
 }
@@ -1553,9 +1553,9 @@ function lineIntersects( srcFrustum , tstLine )
 function lineDistance( srcFrustum , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = _.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.line.adapterFrom( tstLine );
 
-  let gotDist = _.line.frustumDistance( tstLineView, srcFrustum );
+  let gotDist = this.tools.line.frustumDistance( tstLineView, srcFrustum );
 
   return gotDist;
 }
@@ -1603,19 +1603,19 @@ function lineClosestPoint( frustum, line, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let lineView = _.line.adapterFrom( line );
-  let dimLine  = _.line.dimGet( lineView );
+  let lineView = this.tools.line.adapterFrom( line );
+  let dimLine  = this.tools.line.dimGet( lineView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimF[ 0 ] - 1 === dstPoint.length );
   _.assert( dimF[ 0 ] - 1 === dimLine );
 
-  if( _.line.frustumIntersects( lineView, frustum ) )
+  if( this.tools.line.frustumIntersects( lineView, frustum ) )
   return 0
   else
   {
-    let linePoint = _.line.frustumClosestPoint( lineView, frustum );
+    let linePoint = this.tools.line.frustumClosestPoint( lineView, frustum );
 
     let frustumPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( frustum, linePoint ) );
 
@@ -1654,13 +1654,13 @@ function planeIntersects( frustum, plane )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
 
-  let planeView = _.plane.adapterFrom( plane );
+  let planeView = this.tools.plane.adapterFrom( plane );
   let corners = this.cornersGet( frustum );
   let side;
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
     let corner = corners.colVectorGet( j );
-    let distance = _.plane.pointDistance( planeView, corner );
+    let distance = this.tools.plane.pointDistance( planeView, corner );
     if( distance === 0 )
     return true;
 
@@ -1712,7 +1712,7 @@ function planeDistance( frustum, plane )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
 
-  let planeView = _.plane.adapterFrom( plane );
+  let planeView = this.tools.plane.adapterFrom( plane );
   if( this.planeIntersects( frustum, planeView ) )
   return 0;
 
@@ -1721,7 +1721,7 @@ function planeDistance( frustum, plane )
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
     let corner = corners.colVectorGet( j );
-    let dist = Math.abs( _.plane.pointDistance( planeView, corner ) );
+    let dist = Math.abs( this.tools.plane.pointDistance( planeView, corner ) );
     if( dist < distance )
     distance = dist;
   }
@@ -1772,7 +1772,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
-  let planeView = _.plane.adapterFrom( plane );
+  let planeView = this.tools.plane.adapterFrom( plane );
   if( this.planeIntersects( frustum, planeView ) )
   return 0;
 
@@ -1782,7 +1782,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
     let corner = corners.colVectorGet( j );
-    let dist = Math.abs( _.plane.pointDistance( planeView, corner ) );
+    let dist = Math.abs( this.tools.plane.pointDistance( planeView, corner ) );
     if( dist < distance )
     {
       distance = dist;
@@ -1807,9 +1807,9 @@ function rayIntersects( srcFrustum , tstRay )
 
   let dims = _.Matrix.DimsOf( srcFrustum ) ;
 
-  let tstRayView = _.ray.adapterFrom( tstRay );
+  let tstRayView = this.tools.ray.adapterFrom( tstRay );
 
-  let gotBool = _.ray.frustumIntersects( tstRayView, srcFrustum );
+  let gotBool = this.tools.ray.frustumIntersects( tstRayView, srcFrustum );
 
   return gotBool;
 }
@@ -1819,9 +1819,9 @@ function rayIntersects( srcFrustum , tstRay )
 function rayDistance( srcFrustum , tstRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstRayView = _.ray.adapterFrom( tstRay );
+  let tstRayView = this.tools.ray.adapterFrom( tstRay );
 
-  let gotDist = _.ray.frustumDistance( tstRayView, srcFrustum );
+  let gotDist = this.tools.ray.frustumDistance( tstRayView, srcFrustum );
 
   return gotDist;
 }
@@ -1869,19 +1869,19 @@ function rayClosestPoint( frustum, ray, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let rayView = _.ray.adapterFrom( ray );
-  let dimRay  = _.ray.dimGet( rayView );
+  let rayView = this.tools.ray.adapterFrom( ray );
+  let dimRay  = this.tools.ray.dimGet( rayView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimF[ 0 ] - 1 === dstPoint.length );
   _.assert( dimF[ 0 ] - 1 === dimRay );
 
-  if( _.ray.frustumIntersects( rayView, frustum ) )
+  if( this.tools.ray.frustumIntersects( rayView, frustum ) )
   return 0
   else
   {
-    let rayPoint = _.ray.frustumClosestPoint( rayView, frustum );
+    let rayPoint = this.tools.ray.frustumClosestPoint( rayView, frustum );
 
     let frustumPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( frustum, rayPoint ) );
 
@@ -1930,10 +1930,10 @@ function segmentContains( frustum, segment )
   _.assert( this.is( frustum ) );
   let dims = _.Matrix.DimsOf( frustum );
 
-  let segmentView = _.segment.adapterFrom( segment );
-  let dimS = _.segment.dimGet( segmentView );
-  let origin = _.segment.originGet( segmentView );
-  let end = _.segment.endPointGet( segmentView );
+  let segmentView = this.tools.segment.adapterFrom( segment );
+  let dimS = this.tools.segment.dimGet( segmentView );
+  let origin = this.tools.segment.originGet( segmentView );
+  let end = this.tools.segment.endPointGet( segmentView );
 
   _.assert( dimS = dims[ 0 ] - 1, 'Frustum and segment must have the same dimension')
 
@@ -1956,9 +1956,9 @@ function segmentIntersects( srcFrustum , tstSegment )
 
   let dims = _.Matrix.DimsOf( srcFrustum ) ;
 
-  let tstSegmentView = _.segment.adapterFrom( tstSegment );
+  let tstSegmentView = this.tools.segment.adapterFrom( tstSegment );
 
-  let gotBool = _.segment.frustumIntersects( tstSegmentView, srcFrustum );
+  let gotBool = this.tools.segment.frustumIntersects( tstSegmentView, srcFrustum );
 
   return gotBool;
 }
@@ -1968,9 +1968,9 @@ function segmentIntersects( srcFrustum , tstSegment )
 function segmentDistance( srcFrustum , tstSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstSegmentView = _.segment.adapterFrom( tstSegment );
+  let tstSegmentView = this.tools.segment.adapterFrom( tstSegment );
 
-  let gotDist = _.segment.frustumDistance( tstSegmentView, srcFrustum );
+  let gotDist = this.tools.segment.frustumDistance( tstSegmentView, srcFrustum );
 
   return gotDist;
 }
@@ -2018,19 +2018,19 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let segmentView = _.segment.adapterFrom( segment );
-  let dimSegment  = _.segment.dimGet( segmentView );
+  let segmentView = this.tools.segment.adapterFrom( segment );
+  let dimSegment  = this.tools.segment.dimGet( segmentView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimF[ 0 ] - 1 === dstPoint.length );
   _.assert( dimF[ 0 ] - 1 === dimSegment );
 
-  if( _.segment.frustumIntersects( segmentView, frustum ) )
+  if( this.tools.segment.frustumIntersects( segmentView, frustum ) )
   return 0
   else
   {
-    let segmentPoint = _.segment.frustumClosestPoint( segmentView, frustum );
+    let segmentPoint = this.tools.segment.frustumClosestPoint( segmentView, frustum );
 
     let frustumPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( frustum, segmentPoint ) );
 
@@ -2078,13 +2078,13 @@ function sphereContains( frustum , sphere )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
 
-  let center = _.sphere.centerGet( sphere );
-  let radius = _.sphere.radiusGet( sphere );
+  let center = this.tools.sphere.centerGet( sphere );
+  let radius = this.tools.sphere.radiusGet( sphere );
 
   for( let i = 0 ; i < 6 ; i += 1 )
   {
     let plane = frustum.colVectorGet( i );
-    if( _.plane.pointDistance( plane, center ) > - radius + 1E-12 )
+    if( this.tools.plane.pointDistance( plane, center ) > - radius + 1E-12 )
     return false;
   }
 
@@ -2118,8 +2118,8 @@ function sphereIntersects( frustum , sphere )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
 
-  let center = _.sphere.centerGet( sphere );
-  let radius = _.sphere.radiusGet( sphere );
+  let center = this.tools.sphere.centerGet( sphere );
+  let radius = this.tools.sphere.radiusGet( sphere );
 
   if( this.pointContains( frustum, this.tools.vectorAdapter.from( center )) === true )
   {
@@ -2169,9 +2169,9 @@ function sphereDistance( frustum, sphere )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
 
-  let sphereView = _.sphere.adapterFrom( sphere );
+  let sphereView = this.tools.sphere.adapterFrom( sphere );
 
-  let distance = _.sphere.frustumDistance( sphereView, frustum );
+  let distance = this.tools.sphere.frustumDistance( sphereView, frustum );
 
   return distance;
 }
@@ -2206,10 +2206,10 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
-  let sphereView = _.sphere.adapterFrom( sphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dim = _.sphere.dimGet( sphereView );
+  let sphereView = this.tools.sphere.adapterFrom( sphere );
+  let center = this.tools.sphere.centerGet( sphereView );
+  let radius = this.tools.sphere.radiusGet( sphereView );
+  let dim = this.tools.sphere.dimGet( sphereView );
   _.assert( dim === 3 );
 
   if( arguments.length === 2 )
@@ -2275,13 +2275,13 @@ function boundingSphereGet( dstSphere, srcFrustum )
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
 
   if( dstSphere === null || dstSphere === undefined )
-  dstSphere = _.sphere.makeZero( rows - 1 );
+  dstSphere = this.tools.sphere.makeZero( rows - 1 );
 
   _.assert( _.sphere.is( dstSphere ) );
-  let dstSphereView = _.sphere.adapterFrom( dstSphere );
-  let center = _.sphere.centerGet( dstSphereView );
-  let radiusSphere = _.sphere.radiusGet( dstSphereView );
-  let dimSphere = _.sphere.dimGet( dstSphereView );
+  let dstSphereView = this.tools.sphere.adapterFrom( dstSphere );
+  let center = this.tools.sphere.centerGet( dstSphereView );
+  let radiusSphere = this.tools.sphere.radiusGet( dstSphereView );
+  let dimSphere = this.tools.sphere.dimGet( dstSphereView );
 
   _.assert( rows - 1 === dimSphere );
 
@@ -2328,7 +2328,7 @@ function boundingSphereGet( dstSphere, srcFrustum )
   }
 
   // Radius of the sphere
-  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, maxF ) );
+  this.tools.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, maxF ) );
 
   return dstSphere;
 }

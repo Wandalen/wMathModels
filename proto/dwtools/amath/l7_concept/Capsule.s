@@ -441,8 +441,8 @@ function project( capsule, project )
   let scalLength = projectView.eGet( 1 );
   let scalRadius = projectView.eGet( 2 );
 
-  let capsuleSegment = _.segment.fromPair( [ origin, end ] );
-  let center = this.tools.vectorAdapter.from( _.segment.centerGet( capsuleSegment ) );
+  let capsuleSegment = this.tools.segment.fromPair( [ origin, end ] );
+  let center = this.tools.vectorAdapter.from( this.tools.segment.centerGet( capsuleSegment ) );
 
   let segTop = this.tools.vectorAdapter.mulScalar( this.tools.vectorAdapter.subVectors( end.clone(), center ), scalLength );
   let segSub = this.tools.vectorAdapter.mulScalar( this.tools.vectorAdapter.subVectors( origin.clone(), center ), scalLength );
@@ -513,16 +513,16 @@ function getProjectionFactors( srcCapsule, projCapsule )
   let project = this.tools.longMake/* _.array.makeArrayOfLength */( 3 );
   let projectView = this.tools.vectorAdapter.from( project );
 
-  let srcCapsuleSegment = _.segment.fromPair( [ srcOrigin, srcEnd ] );
-  let srcCenter = this.tools.vectorAdapter.from( _.segment.centerGet( srcCapsuleSegment ) );
+  let srcCapsuleSegment = this.tools.segment.fromPair( [ srcOrigin, srcEnd ] );
+  let srcCenter = this.tools.vectorAdapter.from( this.tools.segment.centerGet( srcCapsuleSegment ) );
   let srcDir = this.tools.vectorAdapter.subVectors( srcEnd.clone(), srcOrigin );
 
-  let projCapsuleSegment = _.segment.fromPair( [ projOrigin, projEnd ] );
-  let projCenter = this.tools.vectorAdapter.from( _.segment.centerGet( projCapsuleSegment ) );
+  let projCapsuleSegment = this.tools.segment.fromPair( [ projOrigin, projEnd ] );
+  let projCenter = this.tools.vectorAdapter.from( this.tools.segment.centerGet( projCapsuleSegment ) );
   let projDir = this.tools.vectorAdapter.subVectors( projEnd.clone(), projOrigin );
 
   debugger;
-  if( !_.segment.segmentParallel( srcCapsuleSegment, projCapsuleSegment, 1e-7 )  )
+  if( !this.tools.segment.segmentParallel( srcCapsuleSegment, projCapsuleSegment, 1e-7 )  )
   return 0;
 
   let translation = this.tools.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
@@ -610,9 +610,9 @@ function pointContains( srcCapsule, srcPoint )
 
   _.assert( dimension === srcPoint.length, 'The capsule and the point must have the same dimension' );
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.pointDistance( srcSegment, srcPointView );
+  let distance = this.tools.segment.pointDistance( srcSegment, srcPointView );
   if( distance <= radius )
   {
     return true;
@@ -669,9 +669,9 @@ function pointDistance( srcCapsule, srcPoint )
   }
   else
   {
-    let srcSegment = _.segment.fromPair( [ origin, end ] );
+    let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-    let distance = _.segment.pointDistance( srcSegment, srcPointView );
+    let distance = this.tools.segment.pointDistance( srcSegment, srcPointView );
 
     return distance - radius;
   }
@@ -735,12 +735,12 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   {
     let pointVector = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dimension ));
 
-    let srcSegment = _.segment.fromPair( [ origin, end ] );
+    let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-    let center = _.segment.pointClosestPoint( srcSegment, srcPointView );
-    let sphere = _.sphere.make( dimension );
-    _.sphere.fromCenterAndRadius( sphere, center, radius );
-    pointVector = this.tools.vectorAdapter.from( _.sphere.pointClosestPoint( sphere, srcPointView ) );
+    let center = this.tools.segment.pointClosestPoint( srcSegment, srcPointView );
+    let sphere = this.tools.sphere.make( dimension );
+    this.tools.sphere.fromCenterAndRadius( sphere, center, radius );
+    pointVector = this.tools.vectorAdapter.from( this.tools.sphere.pointClosestPoint( sphere, srcPointView ) );
 
     for( let i = 0; i < pointVector.length; i++ )
     {
@@ -788,13 +788,13 @@ function boxContains( srcCapsule, srcBox )
   let end = this.endPointGet( srcCapsuleView );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let boxView = _.box.adapterFrom( srcBox );
-  let dimBox = _.box.dimGet( boxView );
+  let boxView = this.tools.box.adapterFrom( srcBox );
+  let dimBox = this.tools.box.dimGet( boxView );
 
   _.assert( dimCapsule === dimBox );
 
   /* box corners */
-  let c = _.box.cornersGet( boxView );
+  let c = this.tools.box.cornersGet( boxView );
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
@@ -847,14 +847,14 @@ function boxIntersects( srcCapsule, srcBox )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let boxView = _.box.adapterFrom( srcBox );
-  let dimBox = _.box.dimGet( boxView );
+  let boxView = this.tools.box.adapterFrom( srcBox );
+  let dimBox = this.tools.box.dimGet( boxView );
 
   _.assert( dimCapsule === dimBox );
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.boxDistance( srcSegment, boxView );
+  let distance = this.tools.segment.boxDistance( srcSegment, boxView );
 
   if( distance <= radius )
   { return true; }
@@ -902,17 +902,17 @@ function boxDistance( srcCapsule, srcBox )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let boxView = _.box.adapterFrom( srcBox );
-  let dimBox = _.box.dimGet( boxView );
+  let boxView = this.tools.box.adapterFrom( srcBox );
+  let dimBox = this.tools.box.dimGet( boxView );
 
   _.assert( dimCapsule === dimBox );
 
   if( this.boxIntersects( srcCapsuleView, boxView ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.boxDistance( srcSegment, boxView );
+  let distance = this.tools.segment.boxDistance( srcSegment, boxView );
 
   return distance - radius;
 }
@@ -963,10 +963,10 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let boxView = _.box.adapterFrom( srcBox );
-  let dimBox = _.box.dimGet( boxView );
-  let min = this.tools.vectorAdapter.from( _.box.cornerLeftGet( boxView ) );
-  let max = this.tools.vectorAdapter.from( _.box.cornerRightGet( boxView ) );
+  let boxView = this.tools.box.adapterFrom( srcBox );
+  let dimBox = this.tools.box.dimGet( boxView );
+  let min = this.tools.vectorAdapter.from( this.tools.box.cornerLeftGet( boxView ) );
+  let max = this.tools.vectorAdapter.from( this.tools.box.cornerRightGet( boxView ) );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
   _.assert( dimCapsule === dimBox );
@@ -974,12 +974,12 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   if( this.boxIntersects( srcCapsuleView, boxView ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let center = _.segment.boxClosestPoint( srcSegment, boxView );
-  let sphere = _.sphere.make( dimBox );
-  _.sphere.fromCenterAndRadius( sphere, center, radius );
-  let point =_.sphere.boxClosestPoint( sphere, boxView );
+  let center = this.tools.segment.boxClosestPoint( srcSegment, boxView );
+  let sphere = this.tools.sphere.make( dimBox );
+  this.tools.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =this.tools.sphere.boxClosestPoint( sphere, boxView );
 
   let pointView = this.tools.vectorAdapter.from( point );
   for( let i = 0; i < pointView.length; i++ )
@@ -1023,10 +1023,10 @@ function boundingBoxGet( dstBox, srcCapsule )
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = _.box.makeNil( dimCapsule );
+  dstBox = this.tools.box.makeNil( dimCapsule );
 
-  _.assert( _.box.is( dstBox ) );
-  let dimB = _.box.dimGet( dstBox );
+  _.assert( this.tools.box.is( dstBox ) );
+  let dimB = this.tools.box.dimGet( dstBox );
 
   _.assert( dimCapsule === dimB );
 
@@ -1038,8 +1038,8 @@ function boundingBoxGet( dstBox, srcCapsule )
   this.tools.vectorAdapter.abs( size, this.tools.vectorAdapter.addVectors( size, this.tools.vectorAdapter.mulScalar( origin.clone(), - 1 ) ) ); // Get size
   this.tools.vectorAdapter.addScalar( size, 2*radius )  // Add radius
 
-  let boxView = _.box.adapterFrom( dstBox );
-  let box = _.box.adapterFrom( _.box.fromCenterAndSize( null, center, size ) );
+  let boxView = this.tools.box.adapterFrom( dstBox );
+  let box = this.tools.box.adapterFrom( this.tools.box.fromCenterAndSize( null, center, size ) );
 
   for( let b = 0; b < boxView.length; b++ )
   {
@@ -1088,8 +1088,8 @@ function capsuleContains( srcCapsule, tstCapsule )
   _.assert( dimSrc === dimTst );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let bottomSphere = _.sphere.fromCenterAndRadius( null, origin, radius );
-  let topSphere = _.sphere.fromCenterAndRadius( null, end, radius );
+  let bottomSphere = this.tools.sphere.fromCenterAndRadius( null, origin, radius );
+  let topSphere = this.tools.sphere.fromCenterAndRadius( null, end, radius );
 
   if( !this.sphereContains( srcCapsuleView, bottomSphere ) )
   return false;
@@ -1148,10 +1148,10 @@ function capsuleIntersects( srcCapsule, tstCapsule )
 
   _.assert( srcDim === tstDim );
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
-  let tstSegment = _.segment.fromPair( [ tstOrigin, tstEnd ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
+  let tstSegment = this.tools.segment.fromPair( [ tstOrigin, tstEnd ] );
 
-  let distance = _.segment.segmentDistance( srcSegment, tstSegment );
+  let distance = this.tools.segment.segmentDistance( srcSegment, tstSegment );
 
   if( distance <= radius + tstRadius )
   { return true; }
@@ -1212,10 +1212,10 @@ function capsuleDistance( srcCapsule, tstCapsule )
   if( this.capsuleIntersects( srcCapsuleView, tstCapsuleView ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
-  let tstSegment = _.segment.fromPair( [ tstOrigin, tstEnd ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
+  let tstSegment = this.tools.segment.fromPair( [ tstOrigin, tstEnd ] );
 
-  let distance = _.segment.segmentDistance( srcSegment, tstSegment );
+  let distance = this.tools.segment.segmentDistance( srcSegment, tstSegment );
 
   return distance - ( radius + tstRadius );
 }
@@ -1281,13 +1281,13 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   if( this.capsuleIntersects( srcCapsuleView, tstCapsuleView ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
-  let tstSegment = _.segment.fromPair( [ tstOrigin, tstEnd ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
+  let tstSegment = this.tools.segment.fromPair( [ tstOrigin, tstEnd ] );
 
-  let center = _.segment.segmentClosestPoint( srcSegment, tstSegment );
-  let sphere = _.sphere.make( srcDim );
-  _.sphere.fromCenterAndRadius( sphere, center, radius );
-  let point =_.sphere.segmentClosestPoint( sphere, tstSegment );
+  let center = this.tools.segment.segmentClosestPoint( srcSegment, tstSegment );
+  let sphere = this.tools.sphere.make( srcDim );
+  this.tools.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =this.tools.sphere.segmentClosestPoint( sphere, tstSegment );
 
   let pointView = this.tools.vectorAdapter.from( point );
   for( let i = 0; i < pointView.length; i++ )
@@ -1352,7 +1352,7 @@ function convexPolygonIntersects( srcCapsule , polygon )
   _.assert( _.convexPolygon.is( polygon ) );
   let capsuleView = this.adapterFrom( srcCapsule );
 
-  let gotBool = _.convexPolygon.capsuleIntersects( polygon, capsuleView );
+  let gotBool = this.tools.convexPolygon.capsuleIntersects( polygon, capsuleView );
 
   return gotBool;
 }
@@ -1365,7 +1365,7 @@ function convexPolygonDistance( srcCapsule , polygon )
   _.assert( _.convexPolygon.is( polygon ) );
   let capsuleView = this.adapterFrom( srcCapsule );
 
-  let gotDist = _.convexPolygon.capsuleDistance( polygon, capsuleView );
+  let gotDist = this.tools.convexPolygon.capsuleDistance( polygon, capsuleView );
 
   return gotDist;
 }
@@ -1419,11 +1419,11 @@ function convexPolygonClosestPoint( capsule, polygon, dstPoint )
   _.assert( dimB === dstPoint.length );
   _.assert( dimP[ 0 ] === dimB );
 
-  if( _.convexPolygon.capsuleIntersects( polygon, capsuleView ) )
+  if( this.tools.convexPolygon.capsuleIntersects( polygon, capsuleView ) )
   return 0
   else
   {
-    let polygonPoint = _.convexPolygon.capsuleClosestPoint( polygon, capsuleView );
+    let polygonPoint = this.tools.convexPolygon.capsuleClosestPoint( polygon, capsuleView );
 
     let capsulePoint = this.tools.vectorAdapter.from( this.pointClosestPoint( capsuleView, polygonPoint ) );
 
@@ -1477,7 +1477,7 @@ function frustumContains( capsule, frustum )
   let dims = _.Matrix.DimsOf( frustum );
   _.assert( dim = dims[ 0 ], 'Frustum and capsule must have same dim');
 
-  let fpoints = _.frustum.cornersGet( frustum );
+  let fpoints = this.tools.frustum.cornersGet( frustum );
   let dimPoints = _.Matrix.DimsOf( fpoints );
   _.assert( _.matrixIs( fpoints ) );
 
@@ -1546,9 +1546,9 @@ function frustumIntersects( srcCapsule, srcFrustum )
 
   _.assert( dimCapsule === rows - 1 );
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.frustumDistance( srcSegment, srcFrustum );
+  let distance = this.tools.segment.frustumDistance( srcSegment, srcFrustum );
 
   if( distance <= radius + this.tools.accuracy )
   return true;
@@ -1612,9 +1612,9 @@ function frustumDistance( srcCapsule, srcFrustum )
   if( this.frustumIntersects( srcCapsuleView, srcFrustum ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.frustumDistance( srcSegment, srcFrustum )
+  let distance = this.tools.segment.frustumDistance( srcSegment, srcFrustum )
 
   return distance - radius;
 }
@@ -1682,12 +1682,12 @@ function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
   if( this.frustumIntersects( srcCapsuleView, srcFrustum ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let center = _.segment.frustumClosestPoint( srcSegment, srcFrustum );
-  let sphere = _.sphere.make( dimCapsule );
-  _.sphere.fromCenterAndRadius( sphere, center, radius );
-  let pointView =_.sphere.frustumClosestPoint( sphere, srcFrustum );
+  let center = this.tools.segment.frustumClosestPoint( srcSegment, srcFrustum );
+  let sphere = this.tools.sphere.make( dimCapsule );
+  this.tools.sphere.fromCenterAndRadius( sphere, center, radius );
+  let pointView =this.tools.sphere.frustumClosestPoint( sphere, srcFrustum );
 
   pointView = this.tools.vectorAdapter.from( pointView );
   for( let i = 0; i < pointView.length; i++ )
@@ -1731,10 +1731,10 @@ function lineIntersects( srcCapsule, srcLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let srcLineView = _.line.adapterFrom( srcLine );
-  let lineOrigin = _.line.originGet( srcLineView );
-  let lineDirection = _.line.directionGet( srcLineView );
-  let dimLine  = _.line.dimGet( srcLineView );
+  let srcLineView = this.tools.line.adapterFrom( srcLine );
+  let lineOrigin = this.tools.line.originGet( srcLineView );
+  let lineDirection = this.tools.line.directionGet( srcLineView );
+  let dimLine  = this.tools.line.dimGet( srcLineView );
 
   if( srcCapsule === null )
   srcCapsule = this.make( dimLine );
@@ -1748,9 +1748,9 @@ function lineIntersects( srcCapsule, srcLine )
 
   _.assert( dimCapsule === dimLine );
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.lineDistance( srcSegment, srcLineView );
+  let distance = this.tools.segment.lineDistance( srcSegment, srcLineView );
 
   if( distance <= radius )
   { return true; }
@@ -1798,19 +1798,19 @@ function lineDistance( srcCapsule, srcLine )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let srcLineView = _.line.adapterFrom( srcLine );
-  let lineOrigin = _.line.originGet( srcLineView );
-  let lineDirection = _.line.directionGet( srcLineView );
-  let lineDim  = _.line.dimGet( srcLineView );
+  let srcLineView = this.tools.line.adapterFrom( srcLine );
+  let lineOrigin = this.tools.line.originGet( srcLineView );
+  let lineDirection = this.tools.line.directionGet( srcLineView );
+  let lineDim  = this.tools.line.dimGet( srcLineView );
 
   _.assert( dimCapsule === lineDim );
 
   if( this.lineIntersects( srcCapsuleView, srcLineView ) === true )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.lineDistance( srcSegment, srcLineView );
+  let distance = this.tools.segment.lineDistance( srcSegment, srcLineView );
 
   return distance - radius;
 }
@@ -1860,10 +1860,10 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let srcLineView = _.line.adapterFrom( srcLine );
-  let lineOrigin = _.line.originGet( srcLineView );
-  let tstDir = _.line.directionGet( srcLineView );
-  let lineDim = _.line.dimGet( srcLineView );
+  let srcLineView = this.tools.line.adapterFrom( srcLine );
+  let lineOrigin = this.tools.line.originGet( srcLineView );
+  let tstDir = this.tools.line.directionGet( srcLineView );
+  let lineDim = this.tools.line.dimGet( srcLineView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
   _.assert( dimCapsule === lineDim );
@@ -1871,12 +1871,12 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   if( this.lineIntersects( srcCapsuleView, srcLineView ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let center = _.segment.lineClosestPoint( srcSegment, srcLineView );
-  let sphere = _.sphere.make( lineDim );
-  _.sphere.fromCenterAndRadius( sphere, center, radius );
-  let point =_.sphere.lineClosestPoint( sphere, srcLineView );
+  let center = this.tools.segment.lineClosestPoint( srcSegment, srcLineView );
+  let sphere = this.tools.sphere.make( lineDim );
+  this.tools.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =this.tools.sphere.lineClosestPoint( sphere, srcLineView );
 
   let pointView = this.tools.vectorAdapter.from( point );
   for( let i = 0; i < pointView.length; i++ )
@@ -1926,16 +1926,16 @@ function planeIntersects( srcCapsule, srcPlane )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let planeView = _.plane.adapterFrom( srcPlane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let dimPlane = _.plane.dimGet( planeView );
+  let planeView = this.tools.plane.adapterFrom( srcPlane );
+  let normal = this.tools.plane.normalGet( planeView );
+  let bias = this.tools.plane.biasGet( planeView );
+  let dimPlane = this.tools.plane.dimGet( planeView );
 
   _.assert( dimCapsule === dimPlane );
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.planeDistance( srcSegment, planeView );
+  let distance = this.tools.segment.planeDistance( srcSegment, planeView );
 
   if( distance <= radius )
   { return true; }
@@ -1982,19 +1982,19 @@ function planeDistance( srcCapsule, srcPlane )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let planeView = _.plane.adapterFrom( srcPlane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let dimPlane = _.plane.dimGet( planeView );
+  let planeView = this.tools.plane.adapterFrom( srcPlane );
+  let normal = this.tools.plane.normalGet( planeView );
+  let bias = this.tools.plane.biasGet( planeView );
+  let dimPlane = this.tools.plane.dimGet( planeView );
 
   _.assert( dimCapsule === dimPlane );
 
   if( this.planeIntersects( srcCapsuleView, planeView ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.planeDistance( srcSegment, planeView );
+  let distance = this.tools.segment.planeDistance( srcSegment, planeView );
 
   return distance - radius;
 }
@@ -2045,10 +2045,10 @@ function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let planeView = _.plane.adapterFrom( srcPlane );
-  let normal = _.plane.normalGet( planeView );
-  let bias = _.plane.biasGet( planeView );
-  let dimPlane = _.plane.dimGet( planeView );
+  let planeView = this.tools.plane.adapterFrom( srcPlane );
+  let normal = this.tools.plane.normalGet( planeView );
+  let bias = this.tools.plane.biasGet( planeView );
+  let dimPlane = this.tools.plane.dimGet( planeView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -2056,12 +2056,12 @@ function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
   if( this.planeIntersects( srcCapsuleView, planeView ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let center = _.segment.planeClosestPoint( srcSegment, planeView );
-  let sphere = _.sphere.make( dimPlane );
-  _.sphere.fromCenterAndRadius( sphere, center, radius );
-  let point =_.sphere.planeClosestPoint( sphere, planeView );
+  let center = this.tools.segment.planeClosestPoint( srcSegment, planeView );
+  let sphere = this.tools.sphere.make( dimPlane );
+  this.tools.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =this.tools.sphere.planeClosestPoint( sphere, planeView );
 
   let pointView = this.tools.vectorAdapter.from( point );
   for( let i = 0; i < pointView.length; i++ )
@@ -2106,10 +2106,10 @@ function rayIntersects( srcCapsule, srcRay )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let srcRayView = _.ray.adapterFrom( srcRay );
-  let rayOrigin = _.ray.originGet( srcRayView );
-  let rayDirection = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView );
+  let srcRayView = this.tools.ray.adapterFrom( srcRay );
+  let rayOrigin = this.tools.ray.originGet( srcRayView );
+  let rayDirection = this.tools.ray.directionGet( srcRayView );
+  let dimRay  = this.tools.ray.dimGet( srcRayView );
 
   if( srcCapsule === null )
   srcCapsule = this.make( srcRay.length / 2 );
@@ -2123,8 +2123,8 @@ function rayIntersects( srcCapsule, srcRay )
 
   _.assert( dimCapsule === dimRay );
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
-  let distance = _.segment.rayDistance( srcSegment, srcRayView );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
+  let distance = this.tools.segment.rayDistance( srcSegment, srcRayView );
 
   if( distance <= radius )
   { return true; }
@@ -2171,19 +2171,19 @@ function rayDistance( srcCapsule, srcRay )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let srcRayView = _.ray.adapterFrom( srcRay );
-  let rayOrigin = _.ray.originGet( srcRayView );
-  let rayDirection = _.ray.directionGet( srcRayView );
-  let dimRay  = _.ray.dimGet( srcRayView );
+  let srcRayView = this.tools.ray.adapterFrom( srcRay );
+  let rayOrigin = this.tools.ray.originGet( srcRayView );
+  let rayDirection = this.tools.ray.directionGet( srcRayView );
+  let dimRay  = this.tools.ray.dimGet( srcRayView );
 
   _.assert( dimCapsule === dimRay );
 
   if( this.rayIntersects( srcCapsuleView, srcRayView ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.rayDistance( srcSegment, srcRayView );
+  let distance = this.tools.segment.rayDistance( srcSegment, srcRayView );
 
   return distance - radius;
 }
@@ -2233,10 +2233,10 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let srcRayView = _.ray.adapterFrom( srcRay );
-  let rayOrigin = _.ray.originGet( srcRayView );
-  let tstDir = _.ray.directionGet( srcRayView );
-  let dimRay = _.ray.dimGet( srcRayView );
+  let srcRayView = this.tools.ray.adapterFrom( srcRay );
+  let rayOrigin = this.tools.ray.originGet( srcRayView );
+  let tstDir = this.tools.ray.directionGet( srcRayView );
+  let dimRay = this.tools.ray.dimGet( srcRayView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -2245,12 +2245,12 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
   if( this.rayIntersects( srcCapsuleView, srcRayView ) )
   return 0;
 
-  let srcSegment = _.segment.fromPair( [ origin, end ] );
+  let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
-  let center = _.segment.rayClosestPoint( srcSegment, srcRayView );
-  let sphere = _.sphere.make( dimRay );
-  _.sphere.fromCenterAndRadius( sphere, center, radius );
-  let point =_.sphere.rayClosestPoint( sphere, srcRayView );
+  let center = this.tools.segment.rayClosestPoint( srcSegment, srcRayView );
+  let sphere = this.tools.sphere.make( dimRay );
+  this.tools.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =this.tools.sphere.rayClosestPoint( sphere, srcRayView );
 
   let pointView = this.tools.vectorAdapter.from( point );
   for( let i = 0; i < pointView.length; i++ )
@@ -2290,10 +2290,10 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
 function segmentContains( srcCapsule , tstSegment )
 {
 
-  let segmentView = _.segment.adapterFrom( tstSegment );
-  let origin = _.segment.originGet( segmentView );
-  let end = _.segment.endPointGet( segmentView );
-  let dimS = _.segment.dimGet( segmentView );
+  let segmentView = this.tools.segment.adapterFrom( tstSegment );
+  let origin = this.tools.segment.originGet( segmentView );
+  let end = this.tools.segment.endPointGet( segmentView );
+  let dimS = this.tools.segment.dimGet( segmentView );
 
   let capsuleView = this.adapterFrom( srcCapsule );
   let dimC = this.dimGet( capsuleView );
@@ -2343,8 +2343,8 @@ function segmentIntersects( srcCapsule, srcSegment )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let srcSegmentView = _.segment.adapterFrom( srcSegment );
-  let dimSegment  = _.segment.dimGet( srcSegmentView );
+  let srcSegmentView = this.tools.segment.adapterFrom( srcSegment );
+  let dimSegment  = this.tools.segment.dimGet( srcSegmentView );
 
   if( srcCapsule === null )
   srcCapsule = this.make( srcSegment.length / 2 );
@@ -2358,9 +2358,9 @@ function segmentIntersects( srcCapsule, srcSegment )
 
   _.assert( dimCapsule === dimSegment );
 
-  let srcSegmentCapsule = _.segment.fromPair( [ origin, end ] );
+  let srcSegmentCapsule = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.segmentDistance( srcSegmentCapsule, srcSegmentView );
+  let distance = this.tools.segment.segmentDistance( srcSegmentCapsule, srcSegmentView );
 
   if( distance <= radius )
   { return true; }
@@ -2407,17 +2407,17 @@ function segmentDistance( srcCapsule, srcSegment )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let srcSegmentView = _.segment.adapterFrom( srcSegment );
-  let dimSegment  = _.segment.dimGet( srcSegmentView );
+  let srcSegmentView = this.tools.segment.adapterFrom( srcSegment );
+  let dimSegment  = this.tools.segment.dimGet( srcSegmentView );
 
   _.assert( dimCapsule === dimSegment );
 
   if( this.segmentIntersects( srcCapsuleView, srcSegmentView ) )
   return 0;
 
-  let srcSegmentCapsule = _.segment.fromPair( [ origin, end ] );
+  let srcSegmentCapsule = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.segmentDistance( srcSegmentCapsule, srcSegmentView );
+  let distance = this.tools.segment.segmentDistance( srcSegmentCapsule, srcSegmentView );
 
   return distance - radius;
 }
@@ -2467,8 +2467,8 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let srcSegmentView = _.segment.adapterFrom( srcSegment );
-  let dimSegment = _.segment.dimGet( srcSegmentView );
+  let srcSegmentView = this.tools.segment.adapterFrom( srcSegment );
+  let dimSegment = this.tools.segment.dimGet( srcSegmentView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -2477,12 +2477,12 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
   if( this.segmentIntersects( srcCapsuleView, srcSegmentView ) )
   return 0;
 
-  let srcSegmentCapsule = _.segment.fromPair( [ origin, end ] );
+  let srcSegmentCapsule = this.tools.segment.fromPair( [ origin, end ] );
 
-  let center = _.segment.segmentClosestPoint( srcSegmentCapsule, srcSegmentView );
-  let sphere = _.sphere.make( dimSegment );
-  _.sphere.fromCenterAndRadius( sphere, center, radius );
-  let point =_.sphere.segmentClosestPoint( sphere, srcSegmentView );
+  let center = this.tools.segment.segmentClosestPoint( srcSegmentCapsule, srcSegmentView );
+  let sphere = this.tools.sphere.make( dimSegment );
+  this.tools.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =this.tools.sphere.segmentClosestPoint( sphere, srcSegmentView );
 
   let pointView = this.tools.vectorAdapter.from( point );
   for( let i = 0; i < pointView.length; i++ )
@@ -2521,10 +2521,10 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
 
 function sphereContains( srcCapsule , tstSphere )
 {
-  let tstSphereView = _.sphere.adapterFrom( tstSphere );
-  let center = _.sphere.centerGet( tstSphereView );
-  let radius = _.sphere.radiusGet( tstSphereView );
-  let dimS = _.sphere.dimGet( tstSphereView );
+  let tstSphereView = this.tools.sphere.adapterFrom( tstSphere );
+  let center = this.tools.sphere.centerGet( tstSphereView );
+  let radius = this.tools.sphere.radiusGet( tstSphereView );
+  let dimS = this.tools.sphere.dimGet( tstSphereView );
 
   let capsuleView = this.adapterFrom( srcCapsule );
   let dimC = this.dimGet( capsuleView );
@@ -2585,8 +2585,8 @@ function sphereIntersects( srcCapsule, srcSphere )
   if( srcCapsule === null )
   srcCapsule = this.make( srcSphere.length - 1 );
 
-  let sphereView = _.sphere.adapterFrom( srcSphere );
-  let dimSphere = _.sphere.dimGet( sphereView );
+  let sphereView = this.tools.sphere.adapterFrom( srcSphere );
+  let dimSphere = this.tools.sphere.dimGet( sphereView );
 
   let srcCapsuleView = this.adapterFrom( srcCapsule );
   let origin = this.originGet( srcCapsuleView );
@@ -2597,9 +2597,9 @@ function sphereIntersects( srcCapsule, srcSphere )
 
   _.assert( dimCapsule === dimSphere );
 
-  let srcSegmentCapsule = _.segment.fromPair( [ origin, end ] );
+  let srcSegmentCapsule = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.sphereDistance( srcSegmentCapsule, sphereView );
+  let distance = this.tools.segment.sphereDistance( srcSegmentCapsule, sphereView );
 
   if( distance <= radius )
   { return true; }
@@ -2648,17 +2648,17 @@ function sphereDistance( srcCapsule, srcSphere )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let sphereView = _.sphere.adapterFrom( srcSphere );
-  let dimSphere = _.sphere.dimGet( sphereView );
+  let sphereView = this.tools.sphere.adapterFrom( srcSphere );
+  let dimSphere = this.tools.sphere.dimGet( sphereView );
 
   _.assert( dimCapsule === dimSphere );
 
   if( this.sphereIntersects( srcCapsuleView, sphereView ) )
   return 0;
 
-  let srcSegmentCapsule = _.segment.fromPair( [ origin, end ] );
+  let srcSegmentCapsule = this.tools.segment.fromPair( [ origin, end ] );
 
-  let distance = _.segment.sphereDistance( srcSegmentCapsule, sphereView );
+  let distance = this.tools.segment.sphereDistance( srcSegmentCapsule, sphereView );
 
   return distance - radius;
 }
@@ -2710,8 +2710,8 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let sphereView = _.sphere.adapterFrom( srcSphere );
-  let dimSphere = _.sphere.dimGet( sphereView );
+  let sphereView = this.tools.sphere.adapterFrom( srcSphere );
+  let dimSphere = this.tools.sphere.dimGet( sphereView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
@@ -2720,12 +2720,12 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
   if( this.sphereIntersects( srcCapsuleView, sphereView ) )
   return 0;
 
-  let srcSegmentCapsule = _.segment.fromPair( [ origin, end ] );
+  let srcSegmentCapsule = this.tools.segment.fromPair( [ origin, end ] );
 
-  let center = _.segment.sphereClosestPoint( srcSegmentCapsule, sphereView );
-  let sphere = _.sphere.make( dimSphere );
-  _.sphere.fromCenterAndRadius( sphere, center, radius );
-  let point =_.sphere.sphereClosestPoint( sphere, sphereView );
+  let center = this.tools.segment.sphereClosestPoint( srcSegmentCapsule, sphereView );
+  let sphere = this.tools.sphere.make( dimSphere );
+  this.tools.sphere.fromCenterAndRadius( sphere, center, radius );
+  let point =this.tools.sphere.sphereClosestPoint( sphere, sphereView );
 
   let pointView = this.tools.vectorAdapter.from( point );
   for( let i = 0; i < pointView.length; i++ )
@@ -2769,13 +2769,13 @@ function boundingSphereGet( dstSphere, srcCapsule )
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
   if( dstSphere === null || dstSphere === undefined )
-  dstSphere = _.sphere.makeZero( dimCapsule );
+  dstSphere = this.tools.sphere.makeZero( dimCapsule );
 
   _.assert( _.sphere.is( dstSphere ) );
-  let dstSphereView = _.sphere.adapterFrom( dstSphere );
-  let center = _.sphere.centerGet( dstSphereView );
-  let radiusSphere = _.sphere.radiusGet( dstSphereView );
-  let dimSphere = _.sphere.dimGet( dstSphereView );
+  let dstSphereView = this.tools.sphere.adapterFrom( dstSphere );
+  let center = this.tools.sphere.centerGet( dstSphereView );
+  let radiusSphere = this.tools.sphere.radiusGet( dstSphereView );
+  let dimSphere = this.tools.sphere.dimGet( dstSphereView );
 
   _.assert( dimCapsule === dimSphere );
 
@@ -2786,7 +2786,7 @@ function boundingSphereGet( dstSphere, srcCapsule )
   }
 
   // Radius of the sphere
-  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, end )  + radiusCapsule );
+  this.tools.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, end )  + radiusCapsule );
 
   return dstSphere;
 }
