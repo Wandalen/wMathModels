@@ -801,16 +801,20 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   let end1Origin2 = 0;
   for( let i = 0; i < origin1.length; i++ )
   {
-    if( origin1.eGet( i ) === origin2.eGet( i ) )
+    // if( origin1.eGet( i ) === origin2.eGet( i ) )
+    if( this.tools.avector.isEquivalent( origin1.eGet( i ), origin2.eGet( i ) ) )
     identOrigin = identOrigin + 1;
 
-    if( origin1.eGet( i ) === end2.eGet( i ) )
+    // if( origin1.eGet( i ) === end2.eGet( i ) )
+    if( this.tools.avector.isEquivalent( origin1.eGet( i ), end2.eGet( i ) ) )
     origin1End2 = origin1End2 + 1;
 
-    if( end1.eGet( i ) === origin2.eGet( i ) )
+    // if( end1.eGet( i ) === origin2.eGet( i ) )
+    if( this.tools.avector.isEquivalent( end1.eGet( i ), origin2.eGet( i ) ) )
     end1Origin2 = end1Origin2 + 1;
 
-    if( end1.eGet( i ) === end2.eGet( i ) )
+    // if( end1.eGet( i ) === end2.eGet( i ) )
+    if( this.tools.avector.isEquivalent( end1.eGet( i ), end2.eGet( i ) ) )
     identEnd = identEnd + 1;
   }
 
