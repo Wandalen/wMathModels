@@ -334,7 +334,7 @@ function is( test )
 
   var gotBool = _.convexPolygon.is( polygon );
 
-  var expected = false;
+  var expected = true;
   test.equivalent( gotBool, expected );
 
   test.case = 'Pentagone 2D'; //
@@ -360,9 +360,9 @@ function is( test )
 
   var gotBool = _.convexPolygon.is( polygon );
 
-  var expected = false;
+  var expected = true;
   test.equivalent( gotBool, expected );
-
+  
   test.case = 'Wrong dim and vertices'; //
 
   var polygon = _.Matrix.make( [ 1, 2 ] ).copy
@@ -372,7 +372,7 @@ function is( test )
 
   var gotBool = _.convexPolygon.is( polygon );
 
-  var expected = false;
+  var expected = true;
   test.equivalent( gotBool, expected );
 
   test.case = 'Three points are always coplanar'; //
@@ -414,23 +414,18 @@ function is( test )
 
   var gotBool = _.convexPolygon.is( polygon );
 
-  var expected = false;
+  var expected = true;
   test.equivalent( gotBool, expected );
-
-  /* */
-
-  if( !Config.debug )
-  return;
-
-  var polygon = _.Matrix.make( [ 3, 3 ] );
-  test.shouldThrowErrorSync( () => _.convexPolygon.is( ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.is( polygon, polygon ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.is( null ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.is( NaN ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.is( undefined ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.is( 'polygon' ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.is( [ 3 ] ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.is( 3 ));
+  
+  //
+  
+  test.is( !_.convexPolygon.is( ) );
+  test.is( !_.convexPolygon.is( null ) );
+  test.is( !_.convexPolygon.is( NaN ) );
+  test.is( !_.convexPolygon.is( undefined ) );
+  test.is( !_.convexPolygon.is( 'polygon' ) );
+  test.is( !_.convexPolygon.is( [ 3 ] ) );
+  test.is( !_.convexPolygon.is( 3 ) );
 
 }
 
