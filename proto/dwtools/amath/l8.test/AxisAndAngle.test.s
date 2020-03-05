@@ -149,22 +149,22 @@ function is( test )
 
   test.case = 'vector'; /* */
 
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0 ]) ) );
 
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
-  test.is( _.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0 ]), 0 ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0 ]), null ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.is( _.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0 ]), 0 ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0 ]), null ) );
 
-  test.is( _.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), 0 ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), null ) );
+  test.is( _.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), 0 ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), null ) );
 
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
-  test.is( !_.axisAndAngle.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
+  test.is( !_.axisAndAngle.is( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not axisAndAngle'; /* */
 
@@ -202,22 +202,22 @@ function like( test )
 
   test.case = 'vector'; /* */
 
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0 ]) ) );
 
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
-  test.is( _.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0 ]), 0 ) );
-  test.is( _.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0 ]), null ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.is( _.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0 ]), 0 ) );
+  test.is( _.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0 ]), null ) );
 
-  test.is( _.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), 0 ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), null ) );
+  test.is( _.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), 0 ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong( [ 0, 0, 0, 0 ] ), null ) );
 
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
-  test.is( !_.axisAndAngle.isWithAngle( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 1, 2, 3, 0, 1, 2 ]) ) );
+  test.is( !_.axisAndAngle.isWithAngle( _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not axisAndAngle'; /* */
 
@@ -277,7 +277,7 @@ function make( test )
 
   var src = undefined;
   var got = _.axisAndAngle.make( src );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -285,7 +285,7 @@ function make( test )
 
   var src = null;
   var got = _.axisAndAngle.make( src );
-  var expected = [ 0, 0, 0, 0, ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0, ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -293,7 +293,7 @@ function make( test )
 
   var src = [ 0, 1, 2, 5, ];
   var got = _.axisAndAngle.make( src );
-  var expected = [ 0, 1, 2, 5 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -301,23 +301,23 @@ function make( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.make( src, 5 );
-  var expected = [ 0, 1, 2, 5 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
   var got = _.axisAndAngle.make( src );
-  var expected = [ 0, 1, 2, 5 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'src vector'; /* */
 
-  var src = _.vectorAdapter.fromLong([ 0, 1, 2 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2 ]);
   var got = _.axisAndAngle.make( src, 5 );
-  var expected = [ 0, 1, 2, 5 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 5 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -343,7 +343,7 @@ function makeZero( test )
   test.case = 'trivial'; /* */
 
   var got = _.axisAndAngle.makeZero();
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
 
   if( !Config.debug )
@@ -371,7 +371,7 @@ function from( test )
 
   var src = null;
   var got = _.axisAndAngle.from( src );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -379,7 +379,7 @@ function from( test )
 
   var src = null;
   var got = _.axisAndAngle.from( src, null );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -387,7 +387,7 @@ function from( test )
 
   var src = null;
   var got = _.axisAndAngle.from( src, 3 );
-  var expected = [ 0, 0, 0, 3 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 3 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -395,7 +395,7 @@ function from( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.from( src, null );
-  var expected = [ 0, 1, 2, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -403,7 +403,7 @@ function from( test )
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.axisAndAngle.from( src );
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
   test.is( got === src );
 
@@ -411,23 +411,23 @@ function from( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.from( src, 3 );
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
   test.case = 'from vector'; /* */
 
-  var src = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   var got = _.axisAndAngle.from( src );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got === src );
 
   test.case = 'from vector and angle'; /* */
 
-  var src = _.vectorAdapter.from([ 0, 1, 2 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2 ]);
   var got = _.axisAndAngle.from( src, 3 );
-  var expected = [ 0, 1, 2, 3 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -456,7 +456,7 @@ function adapterFrom( test )
 
   var src = null;
   var got = _.axisAndAngle.adapterFrom( src );
-  var expected = _.vectorAdapter.from([ 0, 0, 0, 0 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 0, 0, 0 ]);
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -464,7 +464,7 @@ function adapterFrom( test )
 
   var src = null;
   var got = _.axisAndAngle.adapterFrom( src, null );
-  var expected = _.vectorAdapter.from([ 0, 0, 0, 0 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 0, 0, 0 ]);
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -472,7 +472,7 @@ function adapterFrom( test )
 
   var src = null;
   var got = _.axisAndAngle.adapterFrom( src, 3 );
-  var expected = _.vectorAdapter.from([ 0, 0, 0, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 0, 0, 3 ]);
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -480,7 +480,7 @@ function adapterFrom( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.adapterFrom( src, null );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 0 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 0 ]);
   test.identical( got, expected );
   test.is( got !== src );
   test.is( got._vectorBuffer !== src );
@@ -490,7 +490,7 @@ function adapterFrom( test )
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.axisAndAngle.adapterFrom( src );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got !== src );
   test.is( got._vectorBuffer === src );
@@ -500,7 +500,7 @@ function adapterFrom( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.adapterFrom( src, 3 );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got !== src );
   test.is( got._vectorBuffer !== src );
@@ -508,17 +508,17 @@ function adapterFrom( test )
 
   test.case = 'adapterFrom vector'; /* */
 
-  var src = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   var got = _.axisAndAngle.adapterFrom( src );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got === src );
 
   test.case = 'adapterFrom vector and angle'; /* */
 
-  var src = _.vectorAdapter.from([ 0, 1, 2 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2 ]);
   var got = _.axisAndAngle.adapterFrom( src, 3 );
-  var expected = _.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
   test.identical( got, expected );
   test.is( got !== src );
   test.is( got._vectorBuffer !== src );
@@ -535,8 +535,8 @@ function adapterFrom( test )
   test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( [ 1, 2, 3 ] ) );
   test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( [ 1, 2, 3, 4, 5 ] ) );
 
-  test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( _.vectorAdapter.from([ 1, 2, 3 ]) ) );
-  test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( _.vectorAdapter.from([ 1, 2, 3, 4, 5 ]) ) );
+  test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( _.axisAndAngle.tools.vectorAdapter.from([ 1, 2, 3 ]) ) );
+  test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( _.axisAndAngle.tools.vectorAdapter.from([ 1, 2, 3, 4, 5 ]) ) );
 
   test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( 'abcd' ) );
   test.shouldThrowErrorSync( () => _.axisAndAngle.adapterFrom( {} ) );
@@ -552,7 +552,7 @@ function zero( test )
 
   var src = undefined;
   var got = _.axisAndAngle.zero( src );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -560,7 +560,7 @@ function zero( test )
 
   var src = null;
   var got = _.axisAndAngle.zero( src );
-  var expected = [ 0, 0, 0, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -568,15 +568,15 @@ function zero( test )
 
   var dst = [ 0, 1, 2, 5 ];
   var got = _.axisAndAngle.zero( dst );
-  var expected = [ 0, 1, 2, 0 ];
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 0 ] );
   test.identical( got, expected );
   test.is( got === dst );
 
   test.case = 'dst vector'; /* */
 
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
+  var dst = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
   var got = _.axisAndAngle.zero( dst );
-  var expected = _.vectorAdapter.fromLong([ 0, 1, 2, 0 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2, 0 ]);
   test.identical( got, expected );
   test.is( got === dst );
 

@@ -112,8 +112,8 @@ function isPolygon( polygon )
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
       let pointThree = polygon.colVectorGet( i + 2 );
-      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      normal = _.plane.normalGet( plane );
+      plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = this.tools.plane.normalGet( plane );
       i = i + 1;
     }
 
@@ -121,7 +121,7 @@ function isPolygon( polygon )
     {
       let vertex = polygon.colVectorGet( i );
 
-      if( !_.plane.pointContains( plane, vertex ) )
+      if( !this.tools.plane.pointContains( plane, vertex ) )
       return false;
     }
   }
@@ -189,8 +189,8 @@ function isValid( polygon )
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
       let pointThree = polygon.colVectorGet( i + 2 );
-      let plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      normal = _.plane.normalGet( plane );
+      let plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = this.tools.plane.normalGet( plane );
       i = i + 1;
     }
   }
@@ -275,8 +275,8 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   {
     if( arguments.length === 3 )
     {
-      let plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      var normal = _.plane.normalGet( plane );
+      let plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      var normal = this.tools.plane.normalGet( plane );
     }
 
     let normalView = this.tools.vectorAdapter.from( normal );
@@ -366,12 +366,12 @@ function pointContains( polygon, point )
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
       let pointThree = polygon.colVectorGet( i + 2 );
-      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      normal = _.plane.normalGet( plane );
+      plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = this.tools.plane.normalGet( plane );
       i = i + 1;
     }
 
-    if( !_.plane.pointContains( plane, pointView ) )
+    if( !this.tools.plane.pointContains( plane, pointView ) )
     return false;
   }
 
@@ -408,7 +408,7 @@ function pointContains( polygon, point )
 
   debugger;
 
-  if( this.tools.vectorAdapter.allLessEqual( angles, Math.PI ) || this.tools.vectorAdapter.allGreaterEqual( angles, Math.PI ) )
+  if( this.tools.vectorAdapter.allLessAprox( angles, Math.PI ) || this.tools.vectorAdapter.allGreaterAprox( angles, Math.PI ) )
   return true;
 
   return false;
@@ -465,12 +465,12 @@ function pointDistance( polygon, point )
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
       let pointThree = polygon.colVectorGet( i + 2 );
-      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      normal = _.plane.normalGet( plane );
+      plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = this.tools.plane.normalGet( plane );
       i = i + 1;
     }
 
-    let proy = this.tools.vectorAdapter.from( _.plane.pointCoplanarGet( plane, pointView ) );
+    let proy = this.tools.vectorAdapter.from( this.tools.plane.pointCoplanarGet( plane, pointView ) );
 
     if( this.pointContains( polygon, proy ) )
     return this.tools.vectorAdapter.distance( pointView, proy );
@@ -485,8 +485,8 @@ function pointDistance( polygon, point )
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
 
-    let segment = _.segment.fromPair( [ vertex, nextVertex ] );
-    let d = _.segment.pointDistance( segment, pointView );
+    let segment = this.tools.segment.fromPair( [ vertex, nextVertex ] );
+    let d = this.tools.segment.pointDistance( segment, pointView );
 
     if( d < distance )
     distance = d;
@@ -556,12 +556,12 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
       let pointThree = polygon.colVectorGet( i + 2 );
-      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      normal = _.plane.normalGet( plane );
+      plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = this.tools.plane.normalGet( plane );
       i = i + 1;
     }
 
-    var proy = this.tools.vectorAdapter.from( _.plane.pointCoplanarGet( plane, pointView ) );
+    var proy = this.tools.vectorAdapter.from( this.tools.plane.pointCoplanarGet( plane, pointView ) );
 
     if( this.pointContains( polygon, proy ) )
     {
@@ -580,13 +580,13 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
 
-    let segment = _.segment.fromPair( [ vertex, nextVertex ] );
-    let d = _.segment.pointDistance( segment, pointView );
+    let segment = this.tools.segment.fromPair( [ vertex, nextVertex ] );
+    let d = this.tools.segment.pointDistance( segment, pointView );
 
     if( d < distance )
     {
       distance = d;
-      point = _.segment.pointClosestPoint( segment, pointView );
+      point = this.tools.segment.pointClosestPoint( segment, pointView );
     }
   }
 
@@ -625,17 +625,17 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
 function boxIntersects( polygon, box )
 {
 
-  let boxView = _.box.adapterFrom( box );
-  let dimB = _.box.dimGet( boxView );
-  let minB = _.box.cornerLeftGet( boxView );
-  let maxB = _.box.cornerRightGet( boxView );
+  let boxView = this.tools.box.adapterFrom( box );
+  let dimB = this.tools.box.dimGet( boxView );
+  let minB = this.tools.box.cornerLeftGet( boxView );
+  let maxB = this.tools.box.cornerRightGet( boxView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
 
   let dims = _.Matrix.DimsOf( polygon );
 
-  let boxCorners = _.box.cornersGet( boxView );
+  let boxCorners = this.tools.box.cornersGet( boxView );
   let dimCorners = _.Matrix.DimsOf( boxCorners );
 
   for( let b = 0; b < dimCorners[ 1 ]; b++ )
@@ -652,7 +652,7 @@ function boxIntersects( polygon, box )
   {
     let point = polygon.colVectorGet( i );
 
-    if( _.box.pointContains( box, point ) === true )
+    if( this.tools.box.pointContains( box, point ) === true )
     {
       return true;
     }
@@ -665,9 +665,9 @@ function boxIntersects( polygon, box )
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
 
-    let segment = _.segment.fromPair( [ vertex, nextVertex ] );
+    let segment = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
-    if( _.segment.boxIntersects( segment, boxView ) )
+    if( this.tools.segment.boxIntersects( segment, boxView ) )
     {
       return true;
     }
@@ -680,7 +680,7 @@ function boxIntersects( polygon, box )
     for( let b = 1; b < dimCorners[ 1 ]; b++ )
     {
       let corner = boxCorners.colVectorGet( b );
-      let segment = _.segment.fromPair( [ corner0, corner ] );
+      let segment = this.tools.segment.fromPair( [ corner0, corner ] );
       if( this.segmentIntersects( polygon, segment ) === true )
       return true;
     }
@@ -715,7 +715,7 @@ function boxIntersects( polygon, box )
 
 function boxDistance( polygon, box )
 {
-  let boxView = _.box.adapterFrom( box );
+  let boxView = this.tools.box.adapterFrom( box );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -725,7 +725,7 @@ function boxDistance( polygon, box )
 
   let closestPoint = this.boxClosestPoint( polygon, boxView );
 
-  let distance = _.box.pointDistance( boxView, closestPoint );
+  let distance = this.tools.box.pointDistance( boxView, closestPoint );
 
   return distance;
 }
@@ -757,10 +757,10 @@ function boxDistance( polygon, box )
 
 function boxClosestPoint( polygon, box, dstPoint )
 {
-  let boxView = _.box.adapterFrom( box );
-  let dimB = _.box.dimGet( boxView );
-  let minB = _.box.cornerLeftGet( boxView );
-  let maxB = _.box.cornerRightGet( boxView );
+  let boxView = this.tools.box.adapterFrom( box );
+  let dimB = this.tools.box.dimGet( boxView );
+  let minB = this.tools.box.cornerLeftGet( boxView );
+  let maxB = this.tools.box.cornerRightGet( boxView );
   let dims = _.Matrix.DimsOf( polygon );
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
@@ -789,7 +789,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   for ( let j = 0 ; j < cols ; j++ )
   {
     let newVertex = polygon.colVectorGet( j );
-    let d = _.box.pointDistance( boxView, newVertex );
+    let d = this.tools.box.pointDistance( boxView, newVertex );
 
     if( d < dist )
     {
@@ -799,7 +799,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   }
 
   /* box corners */
-  let c = _.box.cornersGet( boxView );
+  let c = this.tools.box.cornersGet( boxView );
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
@@ -858,13 +858,13 @@ function boundingBoxGet( polygon, dstBox  )
   let cols = dims[ 1 ];
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = _.box.makeNil( rows );
+  dstBox = this.tools.box.makeNil( rows );
 
   _.assert( _.box.is( dstBox ) );
-  let boxView = _.box.adapterFrom( dstBox );
-  let minB = _.box.cornerLeftGet( boxView );
-  let maxB = _.box.cornerRightGet( boxView );
-  let dimB = _.box.dimGet( boxView );
+  let boxView = this.tools.box.adapterFrom( dstBox );
+  let minB = this.tools.box.cornerLeftGet( boxView );
+  let maxB = this.tools.box.cornerRightGet( boxView );
+  let dimB = this.tools.box.dimGet( boxView );
 
   _.assert( rows === dimB );
 
@@ -929,16 +929,16 @@ function capsuleIntersects( polygon, capsule )
   _.assert( _.capsule.is( capsule ), 'capsuleIntersects ecxpects Capsule' );
 
   let capsuleView = this.tools.vectorAdapter.from( capsule );
-  let dimC = _.capsule.dimGet( capsuleView );
-  let originC = _.capsule.originGet( capsuleView );
-  let endC = _.capsule.endPointGet( capsuleView );
-  let radiusC = _.capsule.radiusGet( capsuleView );
+  let dimC = this.tools.capsule.dimGet( capsuleView );
+  let originC = this.tools.capsule.originGet( capsuleView );
+  let endC = this.tools.capsule.endPointGet( capsuleView );
+  let radiusC = this.tools.capsule.radiusGet( capsuleView );
   debugger;
 
   let dims = _.Matrix.DimsOf( polygon );
   _.assert( dimC === dims[ 0 ], 'Capsule and polygon must have the same dimension' );
 
-  let segment = _.segment.fromPair( [ originC, endC ] );
+  let segment = this.tools.segment.fromPair( [ originC, endC ] );
 
   let distance = this.segmentDistance( polygon, segment );
 
@@ -981,10 +981,10 @@ function capsuleDistance( polygon, capsule )
   _.assert( _.capsule.is( capsule ), 'capsuleIntersects ecxpects Capsule' );
 
   let capsuleView = this.tools.vectorAdapter.from( capsule );
-  let dimC = _.capsule.dimGet( capsuleView );
-  let originC = _.capsule.originGet( capsuleView );
-  let endC = _.capsule.endPointGet( capsuleView );
-  let radiusC = _.capsule.radiusGet( capsuleView );
+  let dimC = this.tools.capsule.dimGet( capsuleView );
+  let originC = this.tools.capsule.originGet( capsuleView );
+  let endC = this.tools.capsule.endPointGet( capsuleView );
+  let radiusC = this.tools.capsule.radiusGet( capsuleView );
   debugger;
 
   let dims = _.Matrix.DimsOf( polygon );
@@ -993,7 +993,7 @@ function capsuleDistance( polygon, capsule )
   if( this.capsuleIntersects( polygon, capsuleView ) )
   return 0;
 
-  let segment = _.segment.fromPair( [ originC, endC ] );
+  let segment = this.tools.segment.fromPair( [ originC, endC ] );
 
   let distanceS = this.segmentDistance( polygon, segment );
   let distanceC = distanceS - radiusC;
@@ -1034,10 +1034,10 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   _.assert( _.capsule.is( capsule ), 'capsuleIntersects ecxpects Capsule' );
 
   let capsuleView = this.tools.vectorAdapter.from( capsule );
-  let dimC = _.capsule.dimGet( capsuleView );
-  let originC = _.capsule.originGet( capsuleView );
-  let endC = _.capsule.endPointGet( capsuleView );
-  let radiusC = _.capsule.radiusGet( capsuleView );
+  let dimC = this.tools.capsule.dimGet( capsuleView );
+  let originC = this.tools.capsule.originGet( capsuleView );
+  let endC = this.tools.capsule.endPointGet( capsuleView );
+  let radiusC = this.tools.capsule.radiusGet( capsuleView );
   debugger;
 
   let dims = _.Matrix.DimsOf( polygon );
@@ -1056,7 +1056,7 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   return 0;
 
   let point = this.tools.vectorAdapter.from( this.tools.longMake( dimC ) );
-  let segment = _.segment.fromPair( [ originC, endC ] );
+  let segment = this.tools.segment.fromPair( [ originC, endC ] );
 
   point = this.segmentClosestPoint( polygon, segment, point );
 
@@ -1115,7 +1115,7 @@ function frustumIntersects( polygon, frustum )
   _.assert( dimsP[ 0 ] === dimsF[ 0 ] - 1, 'Polygon and frustum must have the same dimension' );
 
   // Frustum corners
-  let points = _.frustum.cornersGet( frustum );
+  let points = this.tools.frustum.cornersGet( frustum );
   let dimsFP = _.Matrix.DimsOf( points );
   for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
   {
@@ -1130,7 +1130,7 @@ function frustumIntersects( polygon, frustum )
   for( let i = 0 ; i < dimsP[ 1 ].length ; i += 1 )
   {
     let point = polygon.colVectorGet( i );
-    let c = _.frustum.pointContains( frustum, point );
+    let c = this.tools.frustum.pointContains( frustum, point );
     if( c === true )
     return true;
   }
@@ -1143,9 +1143,9 @@ function frustumIntersects( polygon, frustum )
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
 
-    let segment = _.segment.fromPair( [ vertex, nextVertex ] );
+    let segment = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
-    if( _.segment.frustumIntersects( segment, frustum ) )
+    if( this.tools.segment.frustumIntersects( segment, frustum ) )
     {
       return true;
     }
@@ -1158,7 +1158,7 @@ function frustumIntersects( polygon, frustum )
     for( let b = 1; b < dimsFP[ 1 ]; b++ )
     {
       let corner = points.colVectorGet( b );
-      let segment = _.segment.fromPair( [ corner0, corner ] );
+      let segment = this.tools.segment.fromPair( [ corner0, corner ] );
       if( this.segmentIntersects( polygon, segment ) === true )
       return true;
     }
@@ -1214,7 +1214,7 @@ function frustumDistance( polygon, frustum )
 
   let closestPoint = this.frustumClosestPoint( polygon, frustum );
 
-  let distance = _.frustum.pointDistance( frustum, closestPoint );
+  let distance = this.tools.frustum.pointDistance( frustum, closestPoint );
 
   return distance;
 }
@@ -1284,7 +1284,7 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   let finalPoint = this.tools.longMake( dimsP[ 0 ] );
 
   //Frustum corners
-  let fPoints = _.frustum.cornersGet( frustum );
+  let fPoints = this.tools.frustum.cornersGet( frustum );
   let dimsFP = _.Matrix.DimsOf( fPoints );
 
   for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
@@ -1304,7 +1304,7 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   for( let i = 0 ; i < dimsP[ 1 ] ; i += 1 )
   {
     let point = polygon.colVectorGet( i );
-    let d = _.frustum.pointDistance( frustum, point );
+    let d = this.tools.frustum.pointDistance( frustum, point );
     if( d < distance )
     {
       let finalPoint = this.tools.vectorAdapter.from( point );
@@ -1349,9 +1349,9 @@ function lineIntersects( polygon, line )
 {
 
   let lineView = this.tools.vectorAdapter.from( line );
-  let lOrigin = _.line.originGet( lineView );
-  let lDir = _.line.directionGet( lineView );
-  let lDim  = _.line.dimGet( lineView );
+  let lOrigin = this.tools.line.originGet( lineView );
+  let lDir = this.tools.line.directionGet( lineView );
+  let lDim  = this.tools.line.dimGet( lineView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -1371,9 +1371,9 @@ function lineIntersects( polygon, line )
 
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
-    let segmentP = _.segment.fromPair( [ vertex, nextVertex ] );
+    let segmentP = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
-    if( _.segment.lineIntersects( segmentP, lineView ) )
+    if( this.tools.segment.lineIntersects( segmentP, lineView ) )
     {
       logger.log( segmentP )
       return true;
@@ -1391,20 +1391,20 @@ function lineIntersects( polygon, line )
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
       let pointThree = polygon.colVectorGet( i + 2 );
-      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      normal = _.plane.normalGet( plane );
+      plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = this.tools.plane.normalGet( plane );
       i = i + 1;
     }
 
-    if( _.line.planeIntersects( lineView, plane ) )
+    if( this.tools.line.planeIntersects( lineView, plane ) )
     {
-      let copOrigin = _.plane.pointCoplanarGet( plane, lOrigin );
-      let copEnd = _.plane.pointCoplanarGet( plane, _.line.lineAt( lineView, 1 ) );
-      let copLine = _.line.fromPair( [ copOrigin, copEnd ] );
+      let copOrigin = this.tools.plane.pointCoplanarGet( plane, lOrigin );
+      let copEnd = this.tools.plane.pointCoplanarGet( plane, this.tools.line.lineAt( lineView, 1 ) );
+      let copLine = this.tools.line.fromPair( [ copOrigin, copEnd ] );
       debugger;
-      if( _.line.lineIntersects( lineView, copLine ) )
+      if( this.tools.line.lineIntersects( lineView, copLine ) )
       {
-        let intPoint = _.line.lineIntersectionPoint( lineView, copLine );
+        let intPoint = this.tools.line.lineIntersectionPoint( lineView, copLine );
 
         if( this.pointContains( polygon, intPoint ) )
         return true;
@@ -1444,9 +1444,9 @@ function lineDistance( polygon, line )
 {
 
   let lineView = this.tools.vectorAdapter.from( line );
-  let lOrigin = _.line.originGet( lineView );
-  let lDir = _.line.directionGet( lineView );
-  let lDim  = _.line.dimGet( lineView );
+  let lOrigin = this.tools.line.originGet( lineView );
+  let lDir = this.tools.line.directionGet( lineView );
+  let lDim  = this.tools.line.dimGet( lineView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -1459,7 +1459,7 @@ function lineDistance( polygon, line )
 
   let closestPoint = this.lineClosestPoint( polygon, lineView );
 
-  let distance = _.line.pointDistance( lineView, closestPoint );
+  let distance = this.tools.line.pointDistance( lineView, closestPoint );
 
   return distance;
 }
@@ -1492,9 +1492,9 @@ function lineDistance( polygon, line )
 function lineClosestPoint( polygon, line, dstPoint )
 {
   let lineView = this.tools.vectorAdapter.from( line );
-  let lOrigin = _.line.originGet( lineView );
-  let lEnd = _.line.directionGet( lineView );
-  let lDim  = _.line.dimGet( lineView );
+  let lOrigin = this.tools.line.originGet( lineView );
+  let lEnd = this.tools.line.directionGet( lineView );
+  let lDim  = this.tools.line.dimGet( lineView );
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
@@ -1530,7 +1530,7 @@ function lineClosestPoint( polygon, line, dstPoint )
   for ( let j = 0 ; j < dims[ 1 ] ; j++ )
   {
     let newVertex = polygon.colVectorGet( j );
-    let d = _.line.pointDistance( lineView, newVertex );
+    let d = this.tools.line.pointDistance( lineView, newVertex );
 
     if( d < dist )
     {
@@ -1575,8 +1575,8 @@ function lineClosestPoint( polygon, line, dstPoint )
 function planeIntersects( polygon, plane )
 {
 
-  let planeView = _.plane.adapterFrom( plane );
-  let dimP = _.plane.dimGet( planeView );
+  let planeView = this.tools.plane.adapterFrom( plane );
+  let dimP = this.tools.plane.dimGet( planeView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -1586,7 +1586,7 @@ function planeIntersects( polygon, plane )
 
   let bool = false;
 
-  let distance = _.plane.pointDistance( plane, polygon.colVectorGet( 0 ) );
+  let distance = this.tools.plane.pointDistance( plane, polygon.colVectorGet( 0 ) );
   if( distance === 0 )
   {
     bool = true;
@@ -1597,7 +1597,7 @@ function planeIntersects( polygon, plane )
     for( let j = 1 ; j < dims[ 1 ]; j++ )
     {
       let vertex = polygon.colVectorGet( j );
-      distance = _.plane.pointDistance( plane, vertex );
+      distance = this.tools.plane.pointDistance( plane, vertex );
       if( distance === 0 )
       {
         bool = true;
@@ -1644,8 +1644,8 @@ function planeIntersects( polygon, plane )
 function planeDistance( polygon, plane )
 {
 
-  let planeView = _.plane.adapterFrom( plane );
-  let dimP = _.plane.dimGet( planeView );
+  let planeView = this.tools.plane.adapterFrom( plane );
+  let dimP = this.tools.plane.dimGet( planeView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -1658,7 +1658,7 @@ function planeDistance( polygon, plane )
 
   let closestPoint = this.planeClosestPoint( polygon, planeView );
 
-  let distance = Math.abs( _.plane.pointDistance( planeView, closestPoint ) );
+  let distance = Math.abs( this.tools.plane.pointDistance( planeView, closestPoint ) );
 
   return distance;
 }
@@ -1691,8 +1691,8 @@ function planeDistance( polygon, plane )
 function planeClosestPoint( polygon, plane, dstPoint )
 {
 
-  let planeView = _.plane.adapterFrom( plane );
-  let dimP = _.plane.dimGet( planeView );
+  let planeView = this.tools.plane.adapterFrom( plane );
+  let dimP = this.tools.plane.dimGet( planeView );
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
@@ -1720,7 +1720,7 @@ function planeClosestPoint( polygon, plane, dstPoint )
   for ( let j = 0 ; j < dims[ 1 ] ; j++ )
   {
     let newVertex = polygon.colVectorGet( j );
-    let d = Math.abs( _.plane.pointDistance( planeView, newVertex ) );
+    let d = Math.abs( this.tools.plane.pointDistance( planeView, newVertex ) );
 
     if( d < dist )
     {
@@ -1766,8 +1766,8 @@ function rayIntersects( polygon, ray )
 {
 
   let rayView = this.tools.vectorAdapter.from( ray );
-  let sOrigin = _.ray.originGet( rayView );
-  let sDim  = _.ray.dimGet( rayView );
+  let sOrigin = this.tools.ray.originGet( rayView );
+  let sDim  = this.tools.ray.dimGet( rayView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -1785,9 +1785,9 @@ function rayIntersects( polygon, ray )
 
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
-    let segmentP = _.segment.fromPair( [ vertex, nextVertex ] );
+    let segmentP = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
-    if( _.segment.rayIntersects( segmentP, rayView ) )
+    if( this.tools.segment.rayIntersects( segmentP, rayView ) )
     {
       return true;
     }
@@ -1803,20 +1803,20 @@ function rayIntersects( polygon, ray )
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
       let pointThree = polygon.colVectorGet( i + 2 );
-      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      normal = _.plane.normalGet( plane );
+      plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = this.tools.plane.normalGet( plane );
       i = i + 1;
     }
 
-    if( _.ray.planeIntersects( rayView, plane ) )
+    if( this.tools.ray.planeIntersects( rayView, plane ) )
     {
-      let copOrigin = _.plane.pointCoplanarGet( plane, sOrigin );
-      let copEnd = _.plane.pointCoplanarGet( plane, _.ray.rayAt( rayView, 1 ) );
-      let copLine = _.line.fromPair( [ copOrigin, copEnd ] );
+      let copOrigin = this.tools.plane.pointCoplanarGet( plane, sOrigin );
+      let copEnd = this.tools.plane.pointCoplanarGet( plane, this.tools.ray.rayAt( rayView, 1 ) );
+      let copLine = this.tools.line.fromPair( [ copOrigin, copEnd ] );
       debugger;
-      if( _.ray.lineIntersects( rayView, copLine ) )
+      if( this.tools.ray.lineIntersects( rayView, copLine ) )
       {
-        let intPoint = _.line.lineIntersectionPoint( rayView, copLine );
+        let intPoint = this.tools.line.lineIntersectionPoint( rayView, copLine );
 
         if( this.pointContains( polygon, intPoint ) )
         return true;
@@ -1856,8 +1856,8 @@ function rayDistance( polygon, ray )
 {
 
   let rayView = this.tools.vectorAdapter.from( ray );
-  let sOrigin = _.ray.originGet( rayView );
-  let sDim  = _.ray.dimGet( rayView );
+  let sOrigin = this.tools.ray.originGet( rayView );
+  let sDim  = this.tools.ray.dimGet( rayView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -1870,7 +1870,7 @@ function rayDistance( polygon, ray )
 
   let closestPoint = this.rayClosestPoint( polygon, rayView );
 
-  let distance = _.ray.pointDistance( rayView, closestPoint );
+  let distance = this.tools.ray.pointDistance( rayView, closestPoint );
 
   return distance;
 }
@@ -1903,8 +1903,8 @@ function rayDistance( polygon, ray )
 function rayClosestPoint( polygon, ray, dstPoint )
 {
   let rayView = this.tools.vectorAdapter.from( ray );
-  let sOrigin = _.ray.originGet( rayView );
-  let sDim  = _.ray.dimGet( rayView );
+  let sOrigin = this.tools.ray.originGet( rayView );
+  let sDim  = this.tools.ray.dimGet( rayView );
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
@@ -1941,7 +1941,7 @@ function rayClosestPoint( polygon, ray, dstPoint )
   for ( let j = 0 ; j < dims[ 1 ] ; j++ )
   {
     let newVertex = polygon.colVectorGet( j );
-    let d = _.ray.pointDistance( rayView, newVertex );
+    let d = this.tools.ray.pointDistance( rayView, newVertex );
 
     if( d < dist )
     {
@@ -1988,9 +1988,9 @@ function segmentContains( polygon, segment )
 {
 
   let segmentView = this.tools.vectorAdapter.from( segment );
-  let sOrigin = _.segment.originGet( segmentView );
-  let sEnd = _.segment.endPointGet( segmentView );
-  let sDim  = _.segment.dimGet( segmentView );
+  let sOrigin = this.tools.segment.originGet( segmentView );
+  let sEnd = this.tools.segment.endPointGet( segmentView );
+  let sDim  = this.tools.segment.dimGet( segmentView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -2036,9 +2036,9 @@ function segmentIntersects( polygon, segment )
 {
 
   let segmentView = this.tools.vectorAdapter.from( segment );
-  let sOrigin = _.segment.originGet( segmentView );
-  let sEnd = _.segment.endPointGet( segmentView );
-  let sDim  = _.segment.dimGet( segmentView );
+  let sOrigin = this.tools.segment.originGet( segmentView );
+  let sEnd = this.tools.segment.endPointGet( segmentView );
+  let sDim  = this.tools.segment.dimGet( segmentView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -2059,9 +2059,9 @@ function segmentIntersects( polygon, segment )
 
     let vertex = polygon.colVectorGet( i );
     let nextVertex = polygon.colVectorGet( j );
-    let segmentP = _.segment.fromPair( [ vertex, nextVertex ] );
+    let segmentP = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
-    if( _.segment.segmentIntersects( segmentP, segmentView ) )
+    if( this.tools.segment.segmentIntersects( segmentP, segmentView ) )
     {
       return true;
     }
@@ -2078,20 +2078,20 @@ function segmentIntersects( polygon, segment )
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
       let pointThree = polygon.colVectorGet( i + 2 );
-      plane = _.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      normal = _.plane.normalGet( plane );
+      plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
+      normal = this.tools.plane.normalGet( plane );
       i = i + 1;
     }
 
-    if( _.segment.planeIntersects( segmentView, plane ) )
+    if( this.tools.segment.planeIntersects( segmentView, plane ) )
     {
-      let copOrigin = _.plane.pointCoplanarGet( plane, sOrigin );
-      let copEnd = _.plane.pointCoplanarGet( plane, sEnd );
-      let copSegment = _.segment.fromPair( [ copOrigin, copEnd ] );
+      let copOrigin = this.tools.plane.pointCoplanarGet( plane, sOrigin );
+      let copEnd = this.tools.plane.pointCoplanarGet( plane, sEnd );
+      let copSegment = this.tools.segment.fromPair( [ copOrigin, copEnd ] );
       debugger;
-      if( _.segment.segmentIntersects( segmentView, copSegment ) )
+      if( this.tools.segment.segmentIntersects( segmentView, copSegment ) )
       {
-        let intPoint = _.segment.segmentIntersectionPoint( segmentView, copSegment );
+        let intPoint = this.tools.segment.segmentIntersectionPoint( segmentView, copSegment );
 
         if( this.pointContains( polygon, intPoint ) )
         return true;
@@ -2131,9 +2131,9 @@ function segmentDistance( polygon, segment )
 {
 
   let segmentView = this.tools.vectorAdapter.from( segment );
-  let sOrigin = _.segment.originGet( segmentView );
-  let sEnd = _.segment.endPointGet( segmentView );
-  let sDim  = _.segment.dimGet( segmentView );
+  let sOrigin = this.tools.segment.originGet( segmentView );
+  let sEnd = this.tools.segment.endPointGet( segmentView );
+  let sDim  = this.tools.segment.dimGet( segmentView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -2146,7 +2146,7 @@ function segmentDistance( polygon, segment )
 
   let closestPoint = this.segmentClosestPoint( polygon, segmentView );
 
-  let distance = _.segment.pointDistance( segmentView, closestPoint );
+  let distance = this.tools.segment.pointDistance( segmentView, closestPoint );
 
   return distance;
 }
@@ -2179,9 +2179,9 @@ function segmentDistance( polygon, segment )
 function segmentClosestPoint( polygon, segment, dstPoint )
 {
   let segmentView = this.tools.vectorAdapter.from( segment );
-  let sOrigin = _.segment.originGet( segmentView );
-  let sEnd = _.segment.endPointGet( segmentView );
-  let sDim  = _.segment.dimGet( segmentView );
+  let sOrigin = this.tools.segment.originGet( segmentView );
+  let sEnd = this.tools.segment.endPointGet( segmentView );
+  let sDim  = this.tools.segment.dimGet( segmentView );
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
@@ -2225,7 +2225,7 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   for ( let j = 0 ; j < dims[ 1 ] ; j++ )
   {
     let newVertex = polygon.colVectorGet( j );
-    let d = _.segment.pointDistance( segmentView, newVertex );
+    let d = this.tools.segment.pointDistance( segmentView, newVertex );
 
     if( d < dist )
     {
@@ -2270,10 +2270,10 @@ function segmentClosestPoint( polygon, segment, dstPoint )
 function sphereIntersects( polygon, sphere )
 {
 
-  let sphereView = _.sphere.adapterFrom( sphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dimS = _.sphere.dimGet( sphereView );
+  let sphereView = this.tools.sphere.adapterFrom( sphere );
+  let center = this.tools.sphere.centerGet( sphereView );
+  let radius = this.tools.sphere.radiusGet( sphereView );
+  let dimS = this.tools.sphere.dimGet( sphereView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -2317,10 +2317,10 @@ function sphereIntersects( polygon, sphere )
 function sphereDistance( polygon, sphere )
 {
 
-  let sphereView = _.sphere.adapterFrom( sphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dimS = _.sphere.dimGet( sphereView );
+  let sphereView = this.tools.sphere.adapterFrom( sphere );
+  let center = this.tools.sphere.centerGet( sphereView );
+  let radius = this.tools.sphere.radiusGet( sphereView );
+  let dimS = this.tools.sphere.dimGet( sphereView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -2365,10 +2365,10 @@ function sphereDistance( polygon, sphere )
 function sphereClosestPoint( polygon, sphere, dstPoint )
 {
 
-  let sphereView = _.sphere.adapterFrom( sphere );
-  let center = _.sphere.centerGet( sphereView );
-  let radius = _.sphere.radiusGet( sphereView );
-  let dimS = _.sphere.dimGet( sphereView );
+  let sphereView = this.tools.sphere.adapterFrom( sphere );
+  let center = this.tools.sphere.centerGet( sphereView );
+  let radius = this.tools.sphere.radiusGet( sphereView );
+  let dimS = this.tools.sphere.dimGet( sphereView );
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
@@ -2436,13 +2436,13 @@ function boundingSphereGet( polygon, dstSphere )
   let cols = dims[ 1 ];
 
   if( dstSphere === null || dstSphere === undefined )
-  dstSphere = _.sphere.makeZero( rows );
+  dstSphere = this.tools.sphere.makeZero( rows );
 
   _.assert( _.sphere.is( dstSphere ) );
-  let dstSphereView = _.sphere.adapterFrom( dstSphere );
-  let center = _.sphere.centerGet( dstSphereView );
-  let radiusSphere = _.sphere.radiusGet( dstSphereView );
-  let dimSphere = _.sphere.dimGet( dstSphereView );
+  let dstSphereView = this.tools.sphere.adapterFrom( dstSphere );
+  let center = this.tools.sphere.centerGet( dstSphereView );
+  let radiusSphere = this.tools.sphere.radiusGet( dstSphereView );
+  let dimSphere = this.tools.sphere.dimGet( dstSphereView );
 
   _.assert( rows === dimSphere, 'Polygon and sphere must have the same dimension' );
 
@@ -2474,7 +2474,7 @@ function boundingSphereGet( polygon, dstSphere )
   }
 
   // Radius of the sphere
-  _.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, max ) );
+  this.tools.sphere.radiusSet( dstSphereView, this.tools.vectorAdapter.distance( center, max ) );
 
   return dstSphere;
 }

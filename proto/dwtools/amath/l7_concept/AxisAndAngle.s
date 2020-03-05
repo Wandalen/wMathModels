@@ -346,8 +346,8 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
   _.assert( srcMatrix.hasShape([ 3, 3 ]) );
 
 
-  let quat = _.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
-  axisAndAngle = _.quat.toAxisAndAngle( quat, axisAndAngle );
+  let quat = this.tools.quat.fromMatrixRotation( [ 0, 0, 0, 0 ], srcMatrix );
+  axisAndAngle = this.tools.quat.toAxisAndAngle( quat, axisAndAngle );
 
   return axisAndAngle;
 
@@ -387,8 +387,8 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
   _.assert( _.Matrix.Is( dstMatrix ) );
   _.assert( dstMatrix.hasShape([ 3, 3 ]) );
 
-  let quat = _.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axisAndAngle );
-  dstMatrix = _.quat.toMatrix( quat, dstMatrix );
+  let quat = this.tools.quat.fromAxisAndAngle( [ 0, 0, 0, 0 ], axisAndAngle );
+  dstMatrix = this.tools.quat.toMatrix( quat, dstMatrix );
 
   return dstMatrix;
 
