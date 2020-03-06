@@ -449,8 +449,8 @@ function fromBox( sphere, box )
   //  _.assert( dim === this.dimGet(  sphere) );
 
   center.copy( min );
-  this.tools.vectorAdapter.addVectors( center, max );
-  this.tools.vectorAdapter.divScalar( center, 2 );
+  this.tools.vectorAdapter.add( center, max );
+  this.tools.vectorAdapter.div( center, 2 );
 
   /* radius based on 2 major dimensions */
 
@@ -815,7 +815,7 @@ function project( sphere, project )
   _.assert( dim === projVector.length );
   let scalRadius = projectView.eGet( 1 );
 
-  let newCenter = this.tools.vectorAdapter.addVectors( center.clone(), projVector );
+  let newCenter = this.tools.vectorAdapter.add( center.clone(), projVector );
   let newRadius = scalRadius * radius;
 
   debugger;
@@ -876,7 +876,7 @@ function getProjectionFactors( srcSphere, projSphere )
   let project = this.tools.longMake( 2 );
   let projectView = this.tools.vectorAdapter.from( project );
 
-  let translation = this.tools.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
+  let translation = this.tools.vectorAdapter.sub( projCenter.clone(), srcCenter );
   projectView.eSet( 0, translation.toLong() );
 
   let scalRadius;
@@ -1031,10 +1031,10 @@ function pointClosestPoint( sphere, srcPoint, dstPoint )
   let distanseSqr = this.vectorAdapter.distanceSqr( srcPointv , center );
   if( distanseSqr > radius * radius )
   {
-    this.tools.vectorAdapter.subVectors( dstPointv, center );
+    this.tools.vectorAdapter.sub( dstPointv, center );
     this.tools.vectorAdapter.normalize( dstPointv );
-    this.tools.vectorAdapter.mulScalar( dstPointv, radius );
-    this.tools.vectorAdapter.addVectors( dstPointv, center );
+    this.tools.vectorAdapter.mul( dstPointv, radius );
+    this.tools.vectorAdapter.add( dstPointv, center );
   }
 
   return dstPoint;
@@ -2830,7 +2830,7 @@ let Extension = /* qqq : normalize order */
   centerGet,
   radiusGet,
   radiusSet,
-  
+
   project,
   getProjectionFactors,
 

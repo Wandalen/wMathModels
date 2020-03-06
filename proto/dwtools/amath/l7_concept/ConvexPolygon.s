@@ -267,8 +267,8 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   let pointOneView = this.tools.vectorAdapter.from( pointOne );
   let pointTwoView = this.tools.vectorAdapter.from( pointTwo );
   let pointThreeView = this.tools.vectorAdapter.from( pointThree );
-  let vectorOne = this.tools.vectorAdapter.subVectors( pointOneView.clone(), pointTwoView );
-  let vectorTwo = this.tools.vectorAdapter.subVectors( pointThreeView.clone(), pointTwoView );
+  let vectorOne = this.tools.vectorAdapter.sub( pointOneView.clone(), pointTwoView );
+  let vectorTwo = this.tools.vectorAdapter.sub( pointThreeView.clone(), pointTwoView );
   let accuracy = 1e-7; /*eps*/
 
   if( pointOne.length === 3 )
