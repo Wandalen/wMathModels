@@ -7394,7 +7394,7 @@ function sphereClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 0, 0, 4 ] );
 
   var gotClosestPoint = _.segment.sphereClosestPoint( segment, sphere );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'sphere closer to origin'; /* */
 
