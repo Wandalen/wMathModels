@@ -2360,6 +2360,17 @@ function segmentIntersectionPointAccurate( test )
 function pointContains( test )
 {
 
+  test.case = 'basic';
+
+  var segment = _.vectorAdapter.fromLong( [ 0,0,0,7 ] );
+  var point = _.vectorAdapter.fromLong( [ 0,4 ] );
+  debugger;
+  var exp = true;
+  debugger;
+  var got = _.segment.pointContains( segment, point );
+  test.identical( got, exp );
+  debugger;
+
   test.case = 'Segment and Point remain unchanged'; /* */
 
   var segment = [  - 1, - 1 , 1, 1 ];
