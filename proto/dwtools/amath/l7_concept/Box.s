@@ -1319,8 +1319,8 @@ function pointExpand( dstBox , point )
   _.assert( dim === pointView.length );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  this.tools.vectorAdapter.minVectors( min , pointView );
-  this.tools.vectorAdapter.maxVectors( max , pointView );
+  this.tools.vectorAdapter.min( min , pointView );
+  this.tools.vectorAdapter.max( max , pointView );
 
   return dstBox;
 }
