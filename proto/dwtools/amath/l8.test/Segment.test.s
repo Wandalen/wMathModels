@@ -3205,7 +3205,7 @@ function boxClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 1.7692307692307692, 8.846153846153847 ] );
 
   var gotPoint = _.segment.boxClosestPoint( segment, box );
-  test.identical( gotPoint, expected );
+  test.equivalent( gotPoint, expected );
 
   /* */
 
@@ -3457,7 +3457,7 @@ function capsuleClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 1.5769230769230769, 7.884615384615384 ] );
 
   var gotPoint = _.segment.capsuleClosestPoint( segment, capsule );
-  test.identical( gotPoint, expected );
+  test.equivalent( gotPoint, expected );
 
   /* */
 
@@ -4525,7 +4525,7 @@ function lineIntersectionPoint( test )
   var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotIntersectionPoint = _.segment.lineIntersectionPoint( srcSegment, tstLine );
-  test.identical( gotIntersectionPoint, expected );
+  test.equivalent( gotIntersectionPoint, expected );
 
   test.case = 'srcSegment is a point not in line'; /* */
 
@@ -4895,7 +4895,7 @@ function lineDistance( test )
   var expected =  Math.sqrt( 168 / 9 );
 
   var gotDistance = _.segment.lineDistance( srcSegment, tstLine );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   test.case = 'tstLine is a point'; /* */
 
@@ -5058,7 +5058,7 @@ function lineClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 3, 0, 0 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'srcSegment is a point'; /* */
 
@@ -5094,7 +5094,7 @@ function lineClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotClosestPoint = _.segment.lineClosestPoint( srcSegment, tstLine );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Segment and line don´t intersect 2D - parallel'; /* */
 
@@ -6325,7 +6325,7 @@ function rayDistance( test )
   var expected =  Math.sqrt( 168 / 9 );
 
   var gotDistance = _.segment.rayDistance( srcSegment, tstRay );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   test.case = 'tstRay is a point'; /* */
 
@@ -6379,7 +6379,7 @@ function rayDistance( test )
   var expected = 3;
 
   var gotDistance = _.segment.rayDistance( srcSegment, tstRay );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   test.case = 'Segment and ray are perpendicular and intersect'; /* */
 
@@ -6487,7 +6487,7 @@ function rayClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 3, 0, 0 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'srcSegment is a point'; /* */
 
@@ -6523,7 +6523,7 @@ function rayClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 0, 4, 2, 1 ] );
 
   var gotClosestPoint = _.segment.rayClosestPoint( srcSegment, tstRay );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Segment and ray don´t intersect 2D - parallel'; /* */
 
