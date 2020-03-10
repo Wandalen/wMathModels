@@ -207,8 +207,8 @@ function fromPoints( plane, a, b, c )
   b = this.tools.vectorAdapter.from( b );
   c = this.tools.vectorAdapter.from( c );
 
-  let n1 = this.tools.vectorAdapter.subVectors( a.clone() , b );
-  let n2 = this.tools.vectorAdapter.subVectors( c.clone() , b );
+  let n1 = this.tools.vectorAdapter.sub( a.clone() , b );
+  let n2 = this.tools.vectorAdapter.sub( c.clone() , b );
   normal = this.tools.vectorAdapter.cross( n1, n2 );
   debugger;
   normal.normalize();
@@ -385,7 +385,7 @@ function pointCoplanarGet( plane , point, dstPoint )
   debugger;
   //throw _.err( 'not tested' );
 
-  let movement = this.tools.vectorAdapter.mulScalar( normal, lambda );
+  let movement = this.tools.vectorAdapter.mul( normal, lambda );
 
   pointVector = this.tools.vectorAdapter.add( pointVector ,  movement  );
 
@@ -1371,7 +1371,7 @@ function planeDistance( srcPlane, tstPlane )
   return 0;
 
   let factor = srcNormal.eGet( 0 ) / tstNormal.eGet( 0 );
-  dstPlaneView.mulScalar( factor )
+  dstPlaneView.mul( factor )
 
   let a2 =  srcNormal.eGet( 0 ) * srcNormal.eGet( 0 );
   let b2 =  srcNormal.eGet( 1 ) * srcNormal.eGet( 1 );
@@ -2148,7 +2148,7 @@ function normalize( plane )
   //throw _.err( 'not tested' );
 
   let scaler = 1.0 / normal.mag();
-  normal.mulScalar( scaler );
+  normal.mul( scaler );
   this.biasSet( planeView, bias*scaler );
 
   return plane;
@@ -2188,7 +2188,7 @@ function negate( plane )
   debugger;
   // throw _.err( 'not tested' );
 
-  this.tools.vectorAdapter.mulScalar( normal, -1 );
+  this.tools.vectorAdapter.mul( normal, -1 );
   this.biasSet( planeView, -bias );
 
   return plane;
@@ -2241,11 +2241,11 @@ function threeIntersectionPoint( planeone , planetwo , planethree )
     let cross31 = this.tools.vectorAdapter.cross( normalThree.clone(), normalOne );
     let cross12 = this.tools.vectorAdapter.cross( normalOne.clone(), normalTwo );
 
-    let Mcross23 = this.tools.vectorAdapter.mulScalar( cross23, - 1.0*biasOne );
-    let Mcross31 = this.tools.vectorAdapter.mulScalar( cross31, - 1.0*biasTwo );
-    let Mcross12 = this.tools.vectorAdapter.mulScalar( cross12, - 1.0*biasThree );
+    let Mcross23 = this.tools.vectorAdapter.mul( cross23, - 1.0*biasOne );
+    let Mcross31 = this.tools.vectorAdapter.mul( cross31, - 1.0*biasTwo );
+    let Mcross12 = this.tools.vectorAdapter.mul( cross12, - 1.0*biasThree );
 
-    point = this.tools.vectorAdapter.mulScalar( this.tools.vectorAdapter.addVectors( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
+    point = this.tools.vectorAdapter.mul( this.tools.vectorAdapter.add( Mcross23, Mcross31, Mcross12 ) , 1.0 / Ispoint);
 
     return point;
   }

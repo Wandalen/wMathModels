@@ -399,7 +399,7 @@ function getFactor( srcLine, srcPoint )
   let accuracy = this.tools.accuracy*10; /* xxx */
 
   _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
-  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( srcPointView, origin ) );
+  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( srcPointView, origin ) );
 
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -608,13 +608,13 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   let origin1 = this.originGet( srcLine1View );
   let origin2 = this.originGet( srcLine2View );
 
-  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( origin2.clone(), origin1 ) );
+  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( origin2.clone(), origin1 ) );
 
   let direction1 = this.directionGet( srcLine1View );
   let direction2 = this.directionGet( srcLine2View );
   let directions = _.Matrix.make( [ srcLine1.length / 2 , 2 ] );
   directions.colVectorGet( 0 ).copy( direction1 );
-  directions.colVectorGet( 1 ).copy( direction2.clone().mulScalar( - 1 ) );
+  directions.colVectorGet( 1 ).copy( direction2.clone().mul( - 1 ) );
 
   // Same origin
   let identOrigin = 0;
@@ -910,7 +910,7 @@ function lineIntersectionPointAccurate( srcLine1, srcLine2 )
   if( closestPoints === 0)
   return 0;
 
-  return this.tools.avector.mulScalar( this.tools.avector.add( null, closestPoints[ 0 ], closestPoints[ 1 ] ), 0.5 );
+  return this.tools.avector.mul( this.tools.avector.add( null, closestPoints[ 0 ], closestPoints[ 1 ] ), 0.5 );
 
 }
 
@@ -966,7 +966,7 @@ function pointContains( srcLine, srcPoint )
   let srcPointView = this.tools.vectorAdapter.from( srcPoint.slice() );
 
   _.assert( dimension === srcPoint.length, 'The line and the point must have the same dimension' );
-  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( srcPointView, origin ) );
+  let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( srcPointView, origin ) );
   logger.log( direction )
   let factor;
   if( direction.eGet( 0 ) === 0 )
@@ -1120,7 +1120,7 @@ function pointDistance( srcLine, srcPoint )
   {
     let projection = this.pointClosestPoint( srcLineView, srcPointView );
 
-    let dPoints = this.tools.vectorAdapter.from( this.tools.avector.subVectors( srcPointView, projection ) );
+    let dPoints = this.tools.vectorAdapter.from( this.tools.avector.sub( srcPointView, projection ) );
     debugger;
     let mod = this.tools.vectorAdapter.dot( dPoints, dPoints );
     mod = Math.sqrt( mod );
@@ -1194,7 +1194,7 @@ function pointClosestPoint( srcLine, srcPoint, dstPoint )
   }
   else
   {
-    let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( srcPointView, origin ) );
+    let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( srcPointView, origin ) );
     let dot = this.tools.vectorAdapter.dot( direction, direction );
     let factor = this.tools.vectorAdapter.dot( direction , dOrigin ) / dot ;
     if( dot === 0 )
@@ -2046,7 +2046,7 @@ function lineClosestPoint( srcLine, tstLine, dstPoint )
       let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
       let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( tstOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       pointView = this.lineAt( srcLineView, factor );
@@ -2460,7 +2460,7 @@ function rayIntersectionPoint( srcLine, srcRay, dstPoint )
       let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
       let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( rayOrigin.slice(), srcOrigin ) );
+      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( rayOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       pointView = this.lineAt( srcLineView, factor );
@@ -2661,7 +2661,7 @@ function rayClosestPoint( srcLine, srcRay, dstPoint )
     let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
     let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
     let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
-    let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( rayOrigin.slice(), srcOrigin ) );
+    let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( rayOrigin.slice(), srcOrigin ) );
     let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
     pointView = this.lineAt( srcLineView, factor );
@@ -2768,7 +2768,7 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
       let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
       let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( tstOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       pointView = this.lineAt( srcLineView, factor );
@@ -2785,7 +2785,7 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
     //   let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
     //   let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
     //   let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
-    //   let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+    //   let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( tstOrigin.slice(), srcOrigin ) );
     //   let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
     //
     //   pointView = this.lineAt( srcLineView, factor );
@@ -2943,7 +2943,7 @@ function segmentClosestPoint( srcLine, tstSegment, dstPoint )
       let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
       let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
       let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
-      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+      let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( tstOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
 
       pointView = this.lineAt( srcLineView, factor );
@@ -2953,7 +2953,7 @@ function segmentClosestPoint( srcLine, tstSegment, dstPoint )
     // let srcMod = this.tools.vectorAdapter.dot( srcDir, srcDir );
     // let tstMod = this.tools.vectorAdapter.dot( tstDir, tstDir );
     // let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
-    // let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.subVectors( tstOrigin.slice(), srcOrigin ) );
+    // let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( tstOrigin.slice(), srcOrigin ) );
     // let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
     //
     // pointView = this.lineAt( srcLineView, factor );

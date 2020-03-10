@@ -386,8 +386,8 @@ function expand( capsule, expand )
 
   debugger;
 
-  this.tools.vectorAdapter.subAssigning( min, expandSegment );
-  this.tools.vectorAdapter.addAssigning( max, expandSegment );
+  this.tools.vectorAdapter.sub( min, expandSegment );
+  this.tools.vectorAdapter.add( max, expandSegment );
 
   this.radiusSet( capsuleView, radius + expandRadius );
 
@@ -444,12 +444,12 @@ function project( capsule, project )
   let capsuleSegment = this.tools.segment.fromPair( [ origin, end ] );
   let center = this.tools.vectorAdapter.from( this.tools.segment.centerGet( capsuleSegment ) );
 
-  let segTop = this.tools.vectorAdapter.mulScalar( this.tools.vectorAdapter.subVectors( end.clone(), center ), scalLength );
-  let segSub = this.tools.vectorAdapter.mulScalar( this.tools.vectorAdapter.subVectors( origin.clone(), center ), scalLength );
+  let segTop = this.tools.vectorAdapter.mul( this.tools.vectorAdapter.sub( end.clone(), center ), scalLength );
+  let segSub = this.tools.vectorAdapter.mul( this.tools.vectorAdapter.sub( origin.clone(), center ), scalLength );
 
-  let newCenter = this.tools.vectorAdapter.addVectors( center.clone(), projVector );
-  let newOrigin = this.tools.vectorAdapter.addVectors( newCenter.clone(), segSub );
-  let newEnd = this.tools.vectorAdapter.addVectors( newCenter.clone(), segTop );
+  let newCenter = this.tools.vectorAdapter.add( center.clone(), projVector );
+  let newOrigin = this.tools.vectorAdapter.add( newCenter.clone(), segSub );
+  let newEnd = this.tools.vectorAdapter.add( newCenter.clone(), segTop );
   let newRadius = scalRadius * radius;
 
   debugger;
@@ -515,21 +515,21 @@ function getProjectionFactors( srcCapsule, projCapsule )
 
   let srcCapsuleSegment = this.tools.segment.fromPair( [ srcOrigin, srcEnd ] );
   let srcCenter = this.tools.vectorAdapter.from( this.tools.segment.centerGet( srcCapsuleSegment ) );
-  let srcDir = this.tools.vectorAdapter.subVectors( srcEnd.clone(), srcOrigin );
+  let srcDir = this.tools.vectorAdapter.sub( srcEnd.clone(), srcOrigin );
 
   let projCapsuleSegment = this.tools.segment.fromPair( [ projOrigin, projEnd ] );
   let projCenter = this.tools.vectorAdapter.from( this.tools.segment.centerGet( projCapsuleSegment ) );
-  let projDir = this.tools.vectorAdapter.subVectors( projEnd.clone(), projOrigin );
+  let projDir = this.tools.vectorAdapter.sub( projEnd.clone(), projOrigin );
 
   debugger;
   if( !this.tools.segment.segmentParallel( srcCapsuleSegment, projCapsuleSegment, 1e-7 )  )
   return 0;
 
-  let translation = this.tools.vectorAdapter.subVectors( projCenter.clone(), srcCenter );
+  let translation = this.tools.vectorAdapter.sub( projCenter.clone(), srcCenter );
   projectView.eSet( 0, translation.toLong() );
 
-  let srcTop = this.tools.vectorAdapter.subVectors( srcEnd.clone(), srcCenter );
-  let projTop = this.tools.vectorAdapter.subVectors( projEnd.clone(), projCenter );
+  let srcTop = this.tools.vectorAdapter.sub( srcEnd.clone(), srcCenter );
+  let projTop = this.tools.vectorAdapter.sub( projEnd.clone(), projCenter );
   debugger;
 
   let srcTopMag = this.tools.vectorAdapter.mag( srcTop);
@@ -1011,6 +1011,7 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule
   * @memberof module:Tools/math/Concepts.wTools.capsule
   */
+
 function boundingBoxGet( dstBox, srcCapsule )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -1031,12 +1032,13 @@ function boundingBoxGet( dstBox, srcCapsule )
   _.assert( dimCapsule === dimB );
 
   let center = origin.clone();
-  this.tools.vectorAdapter.addVectors( center, end );
-  this.tools.vectorAdapter.mulScalar( center, 0.5 );
+  this.tools.vectorAdapter.add( center, end );
+  this.tools.vectorAdapter.mul( center, 0.5 );
 
   let size = end.clone();
-  this.tools.vectorAdapter.abs( size, this.tools.vectorAdapter.addVectors( size, this.tools.vectorAdapter.mulScalar( origin.clone(), - 1 ) ) ); // Get size
-  this.tools.vectorAdapter.addScalar( size, 2*radius )  // Add radius
+  this.tools.vectorAdapter.abs( size, this.tools.vectorAdapter.add( size, this.tools.vectorAdapter.mul( origin.clone(), - 1 ) ) ); // Get size
+  // this.tools.vectorAdapter.addScalar( size, 2*radius )  // Add radius
+  this.tools.vectorAdapter.add( size, 2*radius )  // Add radius
 
   let boxView = this.tools.box.adapterFrom( dstBox );
   let box = this.tools.box.adapterFrom( this.tools.box.fromCenterAndSize( null, center, size ) );

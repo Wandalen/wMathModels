@@ -277,9 +277,9 @@ function centeredOfSize( box, size )
   let max = this.cornerRightGet( boxView );
 
   size = _.numbersSlice( size );
-  size = this.tools.avector.mulScalar( size, 0.5 );
+  size = this.tools.avector.mul( size, 0.5 );
   this.tools.vectorAdapter.assign( max, size );
-  size = this.tools.avector.mulScalar( size, -1 );
+  size = this.tools.avector.mul( size, -1 );
   this.tools.vectorAdapter.assign( min, size );
 
   return box;
@@ -457,9 +457,9 @@ function fromCenterAndSize( box, center, size )
   debugger;
   //throw _.err( 'not tested' );
 
-  size_ = this.tools.vectorAdapter.mulScalar( size_.clone() , 0.5 );
-  this.tools.vectorAdapter.subAssigning( min.copy( center_ ) , size_ );
-  this.tools.vectorAdapter.addAssigning( max.copy( center_ ) , size_ );
+  size_ = this.tools.vectorAdapter.mul( size_.clone() , 0.5 );
+  this.tools.vectorAdapter.sub( min.copy( center_ ) , size_ );
+  this.tools.vectorAdapter.add( max.copy( center_ ) , size_ );
 
   return box;
 }
@@ -557,8 +557,10 @@ function fromCube( box, size )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.numberIs( size ) );
 
-  this.tools.vectorAdapter.assignScalar( min, -size/2 );
-  this.tools.vectorAdapter.assignScalar( max, +size/2 );
+  this.tools.vectorAdapter.assign( min, -size/2 );
+  this.tools.vectorAdapter.assign( max, +size/2 );
+  // this.tools.vectorAdapter.assignScalar( min, -size/2 );
+  // this.tools.vectorAdapter.assignScalar( max, +size/2 );
 
   return box;
 }
@@ -817,7 +819,7 @@ function centerGet( box , dst )
   // debugger;
   // throw _.err( 'not tested' );
 
-  this.tools.vectorAdapter.addAssigning( dstv.copy( min ), max ).mulScalar( 0.5 );
+  this.tools.vectorAdapter.add( dstv.copy( min ), max ).mul( 0.5 );
 
   // debugger;
   return dst;
@@ -862,7 +864,7 @@ function sizeGet( box , dst )
 
   _.assert( dim === dst.length );
 
-  this.tools.vectorAdapter.subVectors( dstv.copy( max ), min );
+  this.tools.vectorAdapter.sub( dstv.copy( max ), min );
 
   return dst;
 }
@@ -978,8 +980,8 @@ function expand( box , expand )
   debugger;
   //throw _.err( 'not tested' );
 
-  this.tools.vectorAdapter.subAssigning( min , expand );
-  this.tools.vectorAdapter.addAssigning( max , expand );
+  this.tools.vectorAdapter.sub( min , expand );
+  this.tools.vectorAdapter.add( max , expand );
 
   return box;
 }
@@ -1034,7 +1036,7 @@ function project( box, project )
   _.assert( dim === projVector.length );
 
   debugger;
-  let newCenter = this.tools.vectorAdapter.addVectors( center, projVector );
+  let newCenter = this.tools.vectorAdapter.add( center, projVector );
 
   debugger;
   let newSizes = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( dim ) );
@@ -1094,7 +1096,7 @@ function getProjectionFactors( srcBox, projBox )
   let project = this.tools.longMake/* _.array.makeArrayOfLength */( srcDim + 1 );
   let projectView = this.tools.vectorAdapter.from( project );
 
-  let translation = this.tools.vectorAdapter.subVectors( projCenter, srcCenter );
+  let translation = this.tools.vectorAdapter.sub( projCenter, srcCenter );
 
   projectView.eSet( 0, translation.toLong() );
 
@@ -1374,7 +1376,7 @@ function pointRelative( box , point, dstPoint )
   debugger;
   // throw _.err( 'not tested' );
 
-  this.tools.vectorAdapter.divAssigning( this.tools.vectorAdapter.subAssigning( dstPointView , min ) , this.tools.vectorAdapter.subAssigning( max.clone() , min ) );
+  this.tools.vectorAdapter.div( this.tools.vectorAdapter.sub( dstPointView , min ) , this.tools.vectorAdapter.sub( max.clone() , min ) );
 
   return dstPoint;
 }
@@ -3270,6 +3272,7 @@ function matrixHomogenousApply( box , matrix )
   * @throws { Error } An Error if ( dstBox ) is not box
   * @memberof module:Tools/math/Concepts.wTools.box
   */
+
 function translate( box, offset )
 {
 
@@ -3277,7 +3280,8 @@ function translate( box, offset )
   let boxView = this.adapterFrom( box );
   _.assert( _.numberIs( offset ) );
 
-  boxView.addScalar( offset );
+  boxView.add( offset );
+  // boxView.addScalar( offset );
 
   return box;
 }
@@ -3351,10 +3355,10 @@ function translate( box, offset )
 //   if( distanseSqr > radius * radius )
 //   {
 //
-//     this.tools.vectorAdapter.subVectors( pointVector, center );
+//     this.tools.vectorAdapter.sub( pointVector, center );
 //     this.tools.vectorAdapter.normalize( pointVector );
 //     this.tools.vectorAdapter.mulScalar( pointVector, radius );
-//     this.tools.vectorAdapter.addVectors( pointVector, center );
+//     this.tools.vectorAdapter.add( pointVector, center );
 //
 //   }
 //
