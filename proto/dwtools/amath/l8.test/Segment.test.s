@@ -7002,7 +7002,7 @@ function segmentClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 0.8, 0.4 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Segments are perpendicular and intersect'; /* */
 
@@ -7020,7 +7020,7 @@ function segmentClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 3, 7, 1 ] );
 
   var gotClosestPoint = _.segment.segmentClosestPoint( src1Segment, src2Segment );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.case = 'Segments are parallel to x'; /* */
 
