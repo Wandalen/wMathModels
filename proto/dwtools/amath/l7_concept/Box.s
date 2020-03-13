@@ -1700,8 +1700,8 @@ function boxExpand( dstBox , srcBox )
 
   _.assert( dim1 === dim2 );
 
-  this.tools.vectorAdapter.minVectors( min1 , min2 );
-  this.tools.vectorAdapter.maxVectors( max1 , max2 );
+  this.tools.vectorAdapter.min( min1 , min2 );
+  this.tools.vectorAdapter.max( max1 , max2 );
 
   return dstBox;
 }
