@@ -361,7 +361,8 @@ function pointContains( polygon, point )
   {
     let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] + 1 ) );
     let i = 0;
-    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    debugger
+    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -559,7 +560,7 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
   {
     let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) );
     let i = 0;
-    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -2081,7 +2082,7 @@ function segmentIntersects( polygon, segment )
     let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.vectorAdapter.fromNumber( 0,dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
