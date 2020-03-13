@@ -385,9 +385,8 @@ function expand( capsule, expand )
   }
 
   debugger;
-
-  this.tools.vectorAdapter.sub( min, expandSegment );
-  this.tools.vectorAdapter.add( max, expandSegment );
+  this.tools.vectorAdapter.sub( min, this.tools.vectorAdapter.from( expandSegment ) );
+  this.tools.vectorAdapter.add( max, this.tools.vectorAdapter.from( expandSegment ) );
 
   this.radiusSet( capsuleView, radius + expandRadius );
 
@@ -534,7 +533,7 @@ function getProjectionFactors( srcCapsule, projCapsule )
 
   let srcTopMag = this.tools.vectorAdapter.mag( srcTop);
   let projTopMag = this.tools.vectorAdapter.mag( projTop);
-
+  //aaa vova: replace strict comparison?
   let scalLength;
   if( srcTopMag === 0 )
   {
@@ -613,7 +612,8 @@ function pointContains( srcCapsule, srcPoint )
   let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
 
   let distance = this.tools.segment.pointDistance( srcSegment, srcPointView );
-  if( distance <= radius )
+  // if( distance <= radius )
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   {
     return true;
   }
@@ -856,7 +856,8 @@ function boxIntersects( srcCapsule, srcBox )
 
   let distance = this.tools.segment.boxDistance( srcSegment, boxView );
 
-  if( distance <= radius )
+  // if( distance <= radius )
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   { return true; }
 
   return false;
@@ -1155,7 +1156,8 @@ function capsuleIntersects( srcCapsule, tstCapsule )
 
   let distance = this.tools.segment.segmentDistance( srcSegment, tstSegment );
 
-  if( distance <= radius + tstRadius )
+  // if( distance <= radius + tstRadius )
+  if( this.tools.avector.isLessEqualAprox( distance, radius + tstRadius ) )
   { return true; }
 
   return false;
@@ -1552,7 +1554,7 @@ function frustumIntersects( srcCapsule, srcFrustum )
 
   let distance = this.tools.segment.frustumDistance( srcSegment, srcFrustum );
 
-  if( distance <= radius + this.tools.accuracy )
+  if( distance <= radius + this.tools.accuracy )//aaa vova: replace with isLessEqualAprox( distance, radius )?
   return true;
 
   return false;
@@ -1754,7 +1756,8 @@ function lineIntersects( srcCapsule, srcLine )
 
   let distance = this.tools.segment.lineDistance( srcSegment, srcLineView );
 
-  if( distance <= radius )
+  // if( distance <= radius )
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   { return true; }
 
   return false;
@@ -1939,7 +1942,8 @@ function planeIntersects( srcCapsule, srcPlane )
 
   let distance = this.tools.segment.planeDistance( srcSegment, planeView );
 
-  if( distance <= radius )
+  // if( distance <= radius )
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   { return true; }
 
   return false;
@@ -2128,7 +2132,8 @@ function rayIntersects( srcCapsule, srcRay )
   let srcSegment = this.tools.segment.fromPair( [ origin, end ] );
   let distance = this.tools.segment.rayDistance( srcSegment, srcRayView );
 
-  if( distance <= radius )
+  // if( distance <= radius )
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   { return true; }
 
   return false;
@@ -2364,7 +2369,8 @@ function segmentIntersects( srcCapsule, srcSegment )
 
   let distance = this.tools.segment.segmentDistance( srcSegmentCapsule, srcSegmentView );
 
-  if( distance <= radius )
+  // if( distance <= radius )
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   { return true; }
 
   return false;
@@ -2603,7 +2609,8 @@ function sphereIntersects( srcCapsule, srcSphere )
 
   let distance = this.tools.segment.sphereDistance( srcSegmentCapsule, sphereView );
 
-  if( distance <= radius )
+  // if( distance <= radius )
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   { return true; }
 
   return false;

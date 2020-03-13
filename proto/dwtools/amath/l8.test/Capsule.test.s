@@ -2578,7 +2578,7 @@ function boxClosestPoint( test )
   var expected = _.capsule.tools.longMake( [ 0, 0, - 0.1 ] );
 
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
-  test.identical( gotPoint, expected );
+  test.equivalent( gotPoint, expected );
 
   test.case = 'box corner closer to end'; /* */
 
