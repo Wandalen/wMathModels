@@ -497,6 +497,14 @@ function pointDistance( polygon, point )
 
 //
 
+function pointDistanceSqr( polygon, point )
+{
+  let result = this.pointDistance( polygon, point );
+  return this.tools.math.sqr( result );
+}
+
+//
+
 /**
   * Returns the closest point in a polygon to a point. Returns the coordinates of the closest point.
   * Polygon and point remain unchanged.
@@ -2496,6 +2504,7 @@ let Extension = /* qqq xxx : normalize order */
 
   pointContains : pointContains,
   pointDistance : pointDistance,
+  pointDistanceSqr : pointDistanceSqr,
   pointClosestPoint : pointClosestPoint,
 
   boxIntersects : boxIntersects,
