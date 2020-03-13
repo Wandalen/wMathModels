@@ -1161,6 +1161,7 @@ segmentIntersectionPointAccurate.shaderChunk =
   * @throws { Error } An Error if ( pair ) is not array of points.
   * @memberof module:Tools/math/Concepts.wTools.segment
   */
+
 function fromPair( pair )
 {
     _.assert( arguments.length === 1, 'Expects single argument' );
@@ -1348,6 +1349,8 @@ function pointDistance( srcSegment, srcPoint )
   }
 }
 
+//
+
 /**
   * Get the closest point between a point and a segment. Returs the calculated point. srcPoint and segment stay untouched.
   *
@@ -1371,6 +1374,7 @@ function pointDistance( srcSegment, srcPoint )
   * @throws { Error } An Error if ( srcPoint ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.segment
   */
+
 function pointClosestPoint( srcSegment, srcPoint, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
