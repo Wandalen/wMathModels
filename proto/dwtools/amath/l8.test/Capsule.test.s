@@ -4384,7 +4384,7 @@ function frustumClosestPoint( test )
   var expected = _.capsule.tools.longMake( [ 1.0340799088295498, 0.06815981765909972, 0.16475182677614472 ] );
 
   var gotClosestPoint = _.capsule.frustumClosestPoint( capsule, srcFrustum );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.description = 'Destination point is vector'; //
 
