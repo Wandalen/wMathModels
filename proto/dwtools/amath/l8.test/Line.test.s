@@ -2260,8 +2260,8 @@ function pointDistance( test )
 //
 
 function pointDistanceCentered( test )
-{ 
-  
+{
+
   test.case = 'Line and Point remain unchanged'; /* */
 
   var line = [ 1, 1 ];
@@ -2276,7 +2276,7 @@ function pointDistanceCentered( test )
 
   var oldPoint = [ 0, 1 ];
   test.identical( point, oldPoint );
-  
+
   test.case = 'Null line Distance empty point'; /* */
 
   var line = null;
@@ -2285,9 +2285,9 @@ function pointDistanceCentered( test )
 
   var gotDistance = _.line.pointDistanceCentered( line, point );
   test.identical( gotDistance, expected );
-  
+
   test.open( '2d' )
-  
+
   test.case = 'Point line Distance same Point'; /* */
 
   var line = [ 0, 0 ];
@@ -2296,43 +2296,43 @@ function pointDistanceCentered( test )
 
   var gotDistance = _.line.pointDistanceCentered( line, point );
   test.identical( gotDistance, expected );
-  
+
   test.case = 'Point line Distance other Point'; /* */
 
   var line = [ 1,1 ];
   var point = [ 0, 1 ];
   var expected = Math.sqrt( 2 ) / 2;
-  
+
   var gotDistance = _.line.pointDistanceCentered( line, point );
   test.equivalent( gotDistance, expected );
-  
+
   test.case = 'Point close to origin'; /* */
-  
+
   var line = [ 2,3 ];
   var point = [ 0, 1 ];
   var expected = 2 * ( Math.sqrt( 13 ) / 13 );
-  
+
   var gotDistance = _.line.pointDistanceCentered( line, point );
   test.equivalent( gotDistance, expected );
-  
+
   test.case = 'Point close to end'; /* */
-  
+
   var line = [ -1,2 ];
   var point = [ 1, 3 ];
   var expected = -Math.sqrt( 5 )
-  
+
   var gotDistance = _.line.pointDistanceCentered( line, point );
   test.equivalent( gotDistance, expected );
-  
+
   test.case = 'Point on line'; /* */
-  
+
   var line = [ 2,2 ];
   var point = [ 1, 1 ];
   var expected = 0
-  
+
   var gotDistance = _.line.pointDistanceCentered( line, point );
   test.equivalent( gotDistance, expected );
-  
+
   test.close( '2d' )
 }
 
@@ -4231,7 +4231,7 @@ function lineDistance( test )
   var expected = 4.320493798938574;
 
   var gotDistance = _.line.lineDistance( src1Line, src2Line );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   test.case = 'Lines are the same'; /* */
 
@@ -6185,9 +6185,9 @@ function segmentIntersectionPoint( test )
 
   var gotIntersectionPoint = _.line.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
-  
+
   test.case = ''; /* */
-  
+
   var srcLine = [ 3, 7, 0, 0, 0, 0.5 ]
   var tstSegment  = [ 3, 7, 1, 3, 7, 7 ]
   var got = _.line.segmentIntersectionPoint( srcLine, tstSegment )
@@ -6261,10 +6261,10 @@ function segmentIntersectionFactors( test )
   var srcLine = [ 3, 7, 4.5, 0, 0, 7 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
   var expected = _.line.tools.vectorAdapter.from( [ -0.5, 0 ] );
-  
+
   var gotIntersectionFactors = _.line.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
-  
+
 
   test.case = 'srcLine is a point - not contained'; /* */
 
