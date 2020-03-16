@@ -446,7 +446,7 @@ function getFactor( srcSegment, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
     {
       return false;
     }
@@ -461,7 +461,7 @@ function getFactor( srcSegment, srcPoint )
   }
 
   // Factor can not be negative
-  if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
+  if(  factor <= 0 - this.tools.accuracySqr || factor >= 1 + this.tools.accuracySqr )
   return false;
 
   let newPoint = this.segmentAt( srcSegmentView, factor );
@@ -474,7 +474,7 @@ function getFactor( srcSegment, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
       {
         return false;
       }
@@ -486,14 +486,14 @@ function getFactor( srcSegment, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && newFactor !== 0 && factor !== 0 )
+      if( Math.abs( newFactor - factor ) > this.tools.accuracySqr && newFactor !== 0 && factor !== 0 )
       {
         return false;
       }
       factor = newFactor;
 
       // Factor can not be negative
-      if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
+      if(  factor <= 0 - this.tools.accuracySqr || factor >= 1 + this.tools.accuracySqr )
       return false;
 
     }
@@ -540,7 +540,7 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
   _.assert( src1Segment.length === src2Segment.length );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;;
+  accuracySqr = this.tools.accuracySqr;;
 
   let direction1 = this.directionGet( src1Segment );
   let direction2 = this.directionGet( src2Segment );
@@ -893,8 +893,8 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 
 
 
-    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
-    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
+    let result0 = result.eGet( 0 ) >= 0 - this.tools.accuracySqr && result.eGet( 0 ) <= 1 + this.tools.accuracySqr;
+    let result1 = result.eGet( 1 ) >= 0 - this.tools.accuracySqr && result.eGet( 1 ) <= 1 + this.tools.accuracySqr;
 
     if( result0 && result1 && contained === 1 )
     return result;
@@ -991,8 +991,8 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
         equal = equal + 1;
       }
     }
-    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
-    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
+    let result0 = result.eGet( 0 ) >= 0 - this.tools.accuracySqr && result.eGet( 0 ) <= 1 + this.tools.accuracySqr;
+    let result1 = result.eGet( 1 ) >= 0 - this.tools.accuracySqr && result.eGet( 1 ) <= 1 + this.tools.accuracySqr;
     logger.log( 'RES', equal,  dOrigin.length, result0, result1 )
     if( equal === dOrigin.length && result0 && result1 )
     return result;
@@ -1229,7 +1229,7 @@ function pointContains( srcSegment, srcPoint )
 
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
     {
       return false;
     }
@@ -1244,7 +1244,7 @@ function pointContains( srcSegment, srcPoint )
   }
 
   // Factor can not be negative or superior to one
-  if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
+  if(  factor <= 0 - this.tools.accuracySqr || factor >= 1 + this.tools.accuracySqr )
   return false;
 
   let newPoint = this.segmentAt( srcSegmentView, factor );
@@ -1257,8 +1257,8 @@ function pointContains( srcSegment, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      // if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
-      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), _.accuracySqr ) )
+      // if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
+      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), this.tools.accuracySqr ) )
       {
         return false;
       }
@@ -1271,15 +1271,15 @@ function pointContains( srcSegment, srcPoint )
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
 
-      // if( Math.abs( newFactor - factor ) > _.accuracySqr && direction.eGet( i - 1 ) !== 0 )
-      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), _.accuracySqr ) && !_.numbersAreEquivalent( direction.eGet( i - 1 ), 0 ) )
+      // if( Math.abs( newFactor - factor ) > this.tools.accuracySqr && direction.eGet( i - 1 ) !== 0 )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), this.tools.accuracySqr ) && !_.numbersAreEquivalent( direction.eGet( i - 1 ), 0 ) )
       {
         return false;
       }
       factor = newFactor;
 
       // Factor can not be negative or superior to one
-      if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
+      if(  factor <= 0 - this.tools.accuracySqr || factor >= 1 + this.tools.accuracySqr )
       return false;
     }
 
