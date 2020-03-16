@@ -292,7 +292,7 @@ function pointContains( plane , point )
   let planeView = this.adapterFrom( plane );
   let pointVector = this.tools.vectorAdapter.from( point );
 
-  if( Math.abs( this.pointDistance( plane, pointVector ) ) < 1E-7 )
+  if( Math.abs( this.pointDistance( plane, pointVector ) ) < /* 1E-7 */this.tools.accuracy )
   return true;
   else
   return false;
