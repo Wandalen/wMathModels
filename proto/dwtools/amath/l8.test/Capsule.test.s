@@ -3240,7 +3240,7 @@ function capsuleClosestPoint( test )
   var expected = _.capsule.tools.longMake( [ 0.13416407864998736, 0.2683281572999747 ] );
 
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
-  test.identical( gotBool,  expected );
+  test.equivalent( gotBool,  expected );
 
   test.case = 'dstPoint is vector'; /* */
 
