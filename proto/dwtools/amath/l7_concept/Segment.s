@@ -906,7 +906,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcSegment1.length === srcSegment2.length,'The two segments must have the same dimension' );
+  _.assert( srcSegment1.length === srcSegment2.length, 'The two segments must have the same dimension' );
   let srcSegment1View = this.adapterFrom( srcSegment1.slice() );
   let srcSegment2View = this.adapterFrom( srcSegment2.slice() );
   let origin1 = this.originGet( srcSegment1View );
@@ -993,7 +993,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
     }
     let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
     let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
-    logger.log( 'RES', equal,  dOrigin.length,result0, result1 )
+    logger.log( 'RES', equal,  dOrigin.length, result0, result1 )
     if( equal === dOrigin.length && result0 && result1 )
     return result;
   }
@@ -2258,7 +2258,7 @@ function lineIntersectionFactors( srcSegment, srcLine )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcLine.length === srcSegment.length,'The line and the segment must have the same dimension' );
+  _.assert( srcLine.length === srcSegment.length, 'The line and the segment must have the same dimension' );
 
   let srcLineView = this.tools.line.adapterFrom( srcLine.slice() );
   let srcSegmentView = this.tools.line.adapterFrom( srcSegment.slice() );
@@ -2536,7 +2536,7 @@ function planeIntersects( srcSegment, srcPlane )
   {
     let originDotNormal = this.tools.vectorAdapter.dot( origin, normal );
     let factor = - ( originDotNormal + bias ) / dirDotNormal;
-    
+
     let isLessEqualAprox = this.tools.avector.isLessEqualAprox;
     let isGreaterEqualAprox = this.tools.avector.isGreaterEqualAprox;
     // if( factor >= 0 && factor <= 1 )
@@ -2920,7 +2920,7 @@ function rayIntersectionFactors( srcSegment, srcRay )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcSegment.length === srcRay.length,'The segment and the ray must have the same dimension' );
+  _.assert( srcSegment.length === srcRay.length, 'The segment and the ray must have the same dimension' );
 
   let srcSegmentView = this.adapterFrom( srcSegment.slice() );
   let origin = this.originGet( srcSegmentView );
@@ -3133,7 +3133,7 @@ function rayClosestPoint( srcSegment, srcRay, dstPoint )
       {
         let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
         // if( factor < 0 )
-        if( this.tools.avector.isLessAprox( factor,0 ) )
+        if( this.tools.avector.isLessAprox( factor, 0 ) )
         {
           pointView = srcOrigin;
         }
@@ -3249,12 +3249,12 @@ function segmentDistance( srcSegment, tstSegment )
     let isLessEqualAprox = this.tools.avector.isLessEqualAprox;
 
     // if( d1 <= d2 && d1 <= d3 )
-    if( isLessEqualAprox( d1,d2 ) && isLessEqualAprox( d1,d3 ) )
+    if( isLessEqualAprox( d1, d2 ) && isLessEqualAprox( d1, d3 ) )
     {
       distance = d1;
     }
     // else if( d2 <= d3 )
-    else if( isLessEqualAprox( d2,d3 ) )
+    else if( isLessEqualAprox( d2, d3 ) )
     {
       distance = d2;
     }
@@ -3361,7 +3361,7 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
       let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
       let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( tstOrigin.slice(), srcOrigin ) );
       let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
-            
+
       if( factor >= 0 && factor <= 1 )
       {
         pointView = this.segmentAt( srcSegmentView, factor );

@@ -1954,7 +1954,7 @@ function lineIntersectionFactors( srcRay, srcLine )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcLine.length === srcRay.length,'The line and the ray must have the same dimension' );
+  _.assert( srcLine.length === srcRay.length, 'The line and the ray must have the same dimension' );
 
   let srcLineView = this.tools.line.adapterFrom( srcLine.slice() );
   let srcRayView = this.tools.line.adapterFrom( srcRay.slice() );
