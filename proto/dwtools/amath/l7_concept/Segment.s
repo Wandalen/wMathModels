@@ -1272,7 +1272,7 @@ function pointContains( srcSegment, srcPoint )
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
 
       // if( Math.abs( newFactor - factor ) > this.tools.accuracySqr && direction.eGet( i - 1 ) !== 0 )
-      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), this.tools.accuracySqr ) && !_.numbersAreEquivalent( direction.eGet( i - 1 ), 0 ) )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), this.tools.accuracySqr ) && !this.tools.numbersAreEquivalent( direction.eGet( i - 1 ), 0 ) )
       {
         return false;
       }

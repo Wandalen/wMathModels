@@ -502,7 +502,7 @@ function fromVectors( dst, src1, src2 )
 
   dot += Math.sqrt( this.tools.avector.magSqr( src1 ) * this.tools.avector.magSqr( src2 ) );
 
-  if( _.numbersAreEquivalent( dot, 0 ) )
+  if( this.tools.numbersAreEquivalent( dot, 0 ) )
   {
 
     dot = 0;
@@ -573,7 +573,7 @@ function fromNormalizedVectors( dst, src1, src2 )
   let dst3 = dstv.review([ 0, 2 ]);
   let dot = this.tools.avector.dot( src1, src2 ) + 1;
 
-  if( _.numbersAreEquivalent( dot, 0 ) )
+  if( this.tools.numbersAreEquivalent( dot, 0 ) )
   {
 
     dot = 0;
