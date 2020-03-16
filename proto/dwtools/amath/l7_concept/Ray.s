@@ -421,7 +421,7 @@ function getFactor( srcRay, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
     {
       return false;
     }
@@ -436,7 +436,7 @@ function getFactor( srcRay, srcPoint )
   }
 
   // Factor can not be negative nor bigger than one
-  if(  factor <= 0 - _.accuracySqr )
+  if(  factor <= 0 - this.tools.accuracySqr )
   return false;
 
   for( var i = 1; i < dOrigin.length; i++ )
@@ -444,7 +444,7 @@ function getFactor( srcRay, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
       {
         return false;
       }
@@ -513,7 +513,7 @@ function rayParallel3D( src1Ray, src2Ray, accuracySqr )
   _.assert( arguments.length === 2 || arguments.length === 3 );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;;
+  accuracySqr = this.tools.accuracySqr;;
 
   let direction1 = this.directionGet( src1Ray );
   let direction2 = this.directionGet( src2Ray );
@@ -542,7 +542,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   _.assert( src1Ray.length === src2Ray.length );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;;
+  accuracySqr = this.tools.accuracySqr;;
 
   let direction1 = this.directionGet( src1Ray );
   let direction2 = this.directionGet( src2Ray );
@@ -738,8 +738,8 @@ function rayIntersectionFactors( r1, r2 )
       contained = 1;
     }
 
-    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr;
-    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr;
+    let result0 = result.eGet( 0 ) >= 0 - this.tools.accuracySqr;
+    let result1 = result.eGet( 1 ) >= 0 - this.tools.accuracySqr;
 
     if( result0 && result1 && contained === 1 )
     return result;
@@ -794,7 +794,7 @@ function rayIntersectionFactors( r1, r2 )
     }
   }
   // Factors can not be negative
-  if(  result.eGet( 0 ) <= 0 - _.accuracySqr || result.eGet( 1 ) <= 0 - _.accuracySqr )
+  if(  result.eGet( 0 ) <= 0 - this.tools.accuracySqr || result.eGet( 1 ) <= 0 - this.tools.accuracySqr )
   return 0;
 
   return result;
