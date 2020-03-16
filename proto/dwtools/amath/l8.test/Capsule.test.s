@@ -5594,7 +5594,7 @@ function rayDistance( test )
   var expected =  Math.sqrt( 168 / 9 );
 
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   test.case = 'tstRay is a point'; /* */
 
@@ -5612,7 +5612,7 @@ function rayDistance( test )
   var expected =  Math.sqrt( 168 / 9 ) - 2;
 
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   test.case = 'Capsule and ray are the same'; /* */
 
@@ -5657,7 +5657,7 @@ function rayDistance( test )
   var expected = 2;
 
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   test.case = 'Capsule and ray are perpendicular and intersect'; /* */
 
