@@ -488,7 +488,7 @@ function lineParallel3D( src1Line, src2Line, accuracySqr )
   _.assert( arguments.length === 2 || arguments.length === 3 );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;;
+  accuracySqr = this.tools.accuracySqr;;
 
   let direction1 = this.directionGet( src1Line );
   let direction2 = this.directionGet( src2Line );
@@ -515,7 +515,7 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   _.assert( src1Line.length === src2Line.length );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;
+  accuracySqr = this.tools.accuracySqr;
 
   let direction1 = this.directionGet( src1Line ).clone().normalize();
   let direction2 = this.directionGet( src2Line ).clone().normalize();
@@ -971,7 +971,7 @@ function pointContains( srcLine, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
     {
       return false;
     }
@@ -992,7 +992,7 @@ function pointContains( srcLine, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     { logger.log(i,'is zero')
-      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
       {
         return false;
       }
@@ -1005,7 +1005,7 @@ function pointContains( srcLine, srcPoint )
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
       logger.log(i,'newF', newFactor, direction.eGet( i - 1 ))
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && direction.eGet( i ) !== 0 )
+      if( Math.abs( newFactor - factor ) > this.tools.accuracySqr && direction.eGet( i ) !== 0 )
       {
         return false;
       }
@@ -1141,10 +1141,10 @@ function pointDistanceCentered( srcLineCentered, srcPointCentered )
   let srcLineView = this.adapterFrom( srcLineCentered );
   let dimension  = srcLineView.length;
   let srcPointView = this.tools.vectorAdapter.from( srcPointCentered.slice() );
-  
+
   _.assert( dimension === 2, 'not implemented' );
   _.assert( dimension === srcPointCentered.length, 'The line and the point must have the same dimension' );
-  
+
   let srcLineFromCentered = [ 0, 0, srcLineView.eGet( 0 ), srcLineView.eGet( 1 ) ];
   if( this.pointContains( srcLineFromCentered, srcPointView ) )
   return 0;
