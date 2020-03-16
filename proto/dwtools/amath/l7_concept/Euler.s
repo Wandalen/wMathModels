@@ -2613,6 +2613,8 @@ function isGimbalLock( srcEuler )
   let oy = srcEulerView.eGet( 4 );
   let oz = srcEulerView.eGet( 5 );
 
+  /* aaa vova: replace  <=,>= checks? */
+
   let lim;
   if( ox === 0 && oy === 1 && oz === 2 )
   {
