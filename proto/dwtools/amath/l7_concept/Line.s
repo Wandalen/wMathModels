@@ -3045,7 +3045,8 @@ function sphereIntersects( srcLine, srcSphere )
 
   let distance = this.pointDistance( srcLineView, center );
 
-  if( distance <= radius)
+  // if( distance <= radius)
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   return true;
 
   return false;
