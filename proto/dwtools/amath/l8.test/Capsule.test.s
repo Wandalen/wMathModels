@@ -5325,7 +5325,7 @@ function planeClosestPoint( test )
   var expected = _.capsule.tools.longMake( [ - 0.4, 0, 0 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
-  test.identical( gotPoint, expected );
+  test.equivalent( gotPoint, expected );
 
   test.case = 'plane parallel to capsule'; /* */
 
