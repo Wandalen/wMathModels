@@ -1229,7 +1229,7 @@ function capsuleClosestPoint( test )
   var expected = _.plane.tools.longMake( [ -1, 1, 0 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
-  test.identical( gotPoint, expected );
+  test.equivalent( gotPoint, expected );
 
   test.case = 'Intersection z'; /* */
 
@@ -3396,7 +3396,7 @@ function boundingSphereGet( test )
   var expected = _.plane.tools.longMake( [ 0, 0, - 1, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
-  test.identical( expected, gotSphere );
+  test.equivalent( expected, gotSphere );
   test.is( dstSphere === gotSphere );
 
   var oldSrcPlane = [ 0, 0, 3, 3 ];
@@ -3445,7 +3445,7 @@ function boundingSphereGet( test )
   var expected = _.plane.tools.longMake( [ 1 / 3, 1 / 3, 1 / 3, Infinity ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
-  test.identical( gotSphere, expected );
+  test.equivalent( gotSphere, expected );
 
   test.case = 'dstSphere vector'; /* */
 
@@ -3490,7 +3490,7 @@ function boundingSphereGet( test )
   var expected = _.plane.tools.longMake( [ -0.26666666666666666, 0, -0.26666666666666666, -0.53333333333333333, -0.8, Infinity  ] );
 
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
-  test.identical( gotSphere, expected );
+  test.equivalent( gotSphere, expected );
 
   /* */
 
@@ -3659,7 +3659,7 @@ function normalize( test )
   var expected = _.plane.tools.longMake( [ 4/Math.sqrt( 48 ), 0 , 0, 4/Math.sqrt( 48 ), 0, 4/Math.sqrt( 48 ), 8/Math.sqrt( 48 ) ] );
 
   var normalized = _.plane.normalize( plane );
-  test.identical( expected, normalized );
+  test.equivalent( expected, normalized );
 
   test.case = 'NaN result'; /* */
 
@@ -3914,7 +3914,7 @@ function threeIntersectionPoint( test )
   expected = _.vectorAdapter.from( expected );
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
-  test.identical( expected, interPoint );
+  test.equivalent( expected, interPoint );
 
   test.case = 'Trivial'; /* */
 
