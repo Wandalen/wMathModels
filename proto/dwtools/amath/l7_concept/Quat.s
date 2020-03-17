@@ -470,7 +470,8 @@ function toAxisAndAngle( quat, axisAndAngle )
 
   let w = quatView.eGet( 3 );
 
-  if( abs( w-1 ) < this.tools.accuracySqr )
+  // if( abs( w-1 ) < this.tools.accuracySqr )
+  if( this.tools.avector.isLessAprox( abs( w-1 ), this.tools.accuracySqr ) )
   {
     axisAndAnglev.assign( 0 );
     axisAndAnglev.eSet( 3, 0 );
