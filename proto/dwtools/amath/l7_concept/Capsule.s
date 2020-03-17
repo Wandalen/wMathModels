@@ -533,7 +533,7 @@ function getProjectionFactors( srcCapsule, projCapsule )
 
   let srcTopMag = this.tools.vectorAdapter.mag( srcTop);
   let projTopMag = this.tools.vectorAdapter.mag( projTop);
-  //aaa vova: replace strict comparison?
+
   let scalLength;
   if( srcTopMag === 0 )
   {
@@ -1554,7 +1554,8 @@ function frustumIntersects( srcCapsule, srcFrustum )
 
   let distance = this.tools.segment.frustumDistance( srcSegment, srcFrustum );
 
-  if( distance <= radius + this.tools.accuracy )//aaa vova: replace with isLessEqualAprox( distance, radius )?
+  // if( distance <= radius + this.tools.accuracy )
+  if( this.tools.avector.isLessEqualAprox( distance, radius + this.tools.accuracy ) )
   return true;
 
   return false;
