@@ -3755,7 +3755,7 @@ function frustumDistance( test )
   var expected = Math.sqrt( 2 );
 
   var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
-  test.identical( gotBool, expected );
+  test.equivalent( gotBool, expected );
 
   /* */
 
