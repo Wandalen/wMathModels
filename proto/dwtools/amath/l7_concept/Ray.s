@@ -421,7 +421,8 @@ function getFactor( srcRay, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
+    // if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
+    if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( 0 ) ), this.tools.accuracySqr ) )
     {
       return false;
     }
@@ -436,7 +437,8 @@ function getFactor( srcRay, srcPoint )
   }
 
   // Factor can not be negative nor bigger than one
-  if(  factor <= 0 - this.tools.accuracySqr )
+  // if(  factor <= 0 - this.tools.accuracySqr )
+  if(  this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracySqr ) )
   return false;
 
   for( var i = 1; i < dOrigin.length; i++ )
@@ -444,7 +446,8 @@ function getFactor( srcRay, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
+      // if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
+      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), this.tools.accuracySqr ) )
       {
         return false;
       }
@@ -457,13 +460,15 @@ function getFactor( srcRay, srcPoint )
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
 
-      if( Math.abs( newFactor - factor ) > this.tools.accuracy && newFactor !== 0 && factor !== 0 )
+      // if( Math.abs( newFactor - factor ) > this.tools.accuracy && newFactor !== 0 && factor !== 0 )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), this.tools.accuracy ) && newFactor !== 0 && factor !== 0 )
       {
         return false;
       }
       factor = newFactor;
       // Factor can not be negative
-      if(  factor <= 0 - this.tools.accuracy )
+      // if(  factor <= 0 - this.tools.accuracy )
+      if(  this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracy ) )
       return false;
     }
   }
@@ -519,7 +524,9 @@ function rayParallel3D( src1Ray, src2Ray, accuracySqr )
   let direction2 = this.directionGet( src2Ray );
 
   debugger;
-  return this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 )) <= accuracySqr;
+  // return this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 )) <= accuracySqr;
+  let result = this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 ));
+  return this.tools.avector.isLessEqualAprox( result, accuracySqr );
 
 }
 
@@ -576,7 +583,8 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   {
     if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
     {
-      if( direction1.eGet( i ) !== direction2.eGet( i ) )
+      // if( direction1.eGet( i ) !== direction2.eGet( i ) )
+      if( !this.tools.numbersAreEquivalent( direction1.eGet( i ), direction2.eGet( i ) ) )
       {
         return false;
       }
@@ -587,7 +595,8 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
 
       if( proportion !== undefined )
       {
-        if( Math.abs( proportion - newProportion ) > accuracySqr)
+        // if( Math.abs( proportion - newProportion ) > accuracySqr)
+        if( this.tools.avector.isGreaterAprox( Math.abs( proportion - newProportion ), accuracySqr ) )
         return false
       }
 
@@ -738,8 +747,10 @@ function rayIntersectionFactors( r1, r2 )
       contained = 1;
     }
 
-    let result0 = result.eGet( 0 ) >= 0 - this.tools.accuracySqr;
-    let result1 = result.eGet( 1 ) >= 0 - this.tools.accuracySqr;
+    // let result0 = result.eGet( 0 ) >= 0 - this.tools.accuracySqr;
+    let result0 = this.tools.avector.isGreaterEqualAprox( result.eGet( 0 ), 0 - this.tools.accuracySqr );
+    // let result1 = result.eGet( 1 ) >= 0 - this.tools.accuracySqr;
+    let result1 = this.tools.avector.isGreaterEqualAprox( result.eGet( 1 ), 0 - this.tools.accuracySqr );
 
     if( result0 && result1 && contained === 1 )
     return result;
@@ -992,7 +1003,8 @@ function pointContains( srcRay, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracy )
+    // if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracy )
+    if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( 0 ) ), this.tools.accuracy ) )
     {
       return false;
     }
@@ -1007,7 +1019,8 @@ function pointContains( srcRay, srcPoint )
   }
 
   // Factor can not be negative
-  if(  factor <= 0 - this.tools.accuracy )
+  // if(  factor <= 0 - this.tools.accuracy )
+  if( this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracy ) )
   return false;
 
   let newPoint = this.rayAt( srcRayView, factor );
@@ -1020,7 +1033,8 @@ function pointContains( srcRay, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracy )
+      // if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracy )
+      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), this.tools.accuracy ) )
       {
         return false;
       }
@@ -1032,13 +1046,16 @@ function pointContains( srcRay, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > this.tools.accuracy && factor !== 0 && direction.eGet( i - 1 ) !== 0  )
+      // if( Math.abs( newFactor - factor ) > this.tools.accuracy && factor !== 0 && direction.eGet( i - 1 ) !== 0  )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), this.tools.accuracy ) && factor !== 0 && direction.eGet( i - 1 ) !== 0  )
       {
         return false;
       }
       factor = newFactor;
 
-      if(  factor <= 0 - this.tools.accuracy )
+      // if(  factor <= 0 - this.tools.accuracy )
+      if( this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracy ) )
+
       return false;
     }
 
