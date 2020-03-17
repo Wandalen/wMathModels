@@ -404,7 +404,8 @@ function getFactor( srcLine, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > accuracy )
+    // if( Math.abs( dOrigin.eGet( 0 ) ) > accuracy )
+    if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( 0 ) ), accuracy ) )
     {
       return false;
     }
@@ -423,7 +424,8 @@ function getFactor( srcLine, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > accuracy )
+      // if( Math.abs( dOrigin.eGet( i ) ) > accuracy )
+      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), accuracy ) )
       {
         return false;
       }
@@ -435,7 +437,8 @@ function getFactor( srcLine, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > accuracy && newFactor !== 0 && factor !== 0 )
+      // if( Math.abs( newFactor - factor ) > accuracy && newFactor !== 0 && factor !== 0 )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), accuracy ) && newFactor !== 0 && factor !== 0 )
       {
         return false;
       }
@@ -493,7 +496,9 @@ function lineParallel3D( src1Line, src2Line, accuracySqr )
   let direction1 = this.directionGet( src1Line );
   let direction2 = this.directionGet( src2Line );
   debugger;
-  return this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 )) <= accuracySqr;
+  // return this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 )) <= accuracySqr;
+  let result = this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 ));
+  return this.tools.avector.isLessEqualAprox( result, accuracySqr );
 }
 
 //
@@ -549,7 +554,8 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   {
     if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
     {
-      if( Math.abs( direction1.eGet( i ) - direction2.eGet( i ) ) > accuracySqr )
+      // if( Math.abs( direction1.eGet( i ) - direction2.eGet( i ) ) > accuracySqr )
+      if( this.tools.avector.isGreaterAprox( Math.abs( direction1.eGet( i ) - direction2.eGet( i ) ), accuracySqr ) )
       {
         return false;
       }
@@ -560,7 +566,8 @@ function lineParallel( src1Line, src2Line, accuracySqr )
 
       if( proportion !== undefined )
       {
-        if( Math.abs( proportion - newProportion ) > accuracySqr )
+        // if( Math.abs( proportion - newProportion ) > accuracySqr )
+        if( this.tools.avector.isGreaterAprox( Math.abs( proportion - newProportion ), accuracySqr ) )
         return false
       }
 
