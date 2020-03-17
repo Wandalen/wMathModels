@@ -3658,7 +3658,7 @@ function convexPolygonClosestPoint( test )
   var expected = _.segment.tools.longMake( [ 2, -1 ] );
 
   var gotPoint = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
-  test.identical( expected, gotPoint );
+  test.equivalent( expected, gotPoint );
 
   test.case = 'dstPoint Arsegment'; /* */
 
