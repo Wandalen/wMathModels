@@ -211,6 +211,7 @@ fromPair.shaderChunk =
     dstRay[ 1 ] = pair[ 1 ] - pair[ 0 ];
   }
 `
+fromPair.shaderChunkName = 'ray_fromPair'
 
 //
 
@@ -812,6 +813,31 @@ function rayIntersectionFactors( r1, r2 )
 }
 */
 
+rayIntersectionFactors.shaderChunk =
+`
+  vec2 ray_rayIntersectionFactors( vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  {
+
+    vec2 dorigin = r2[ 0 ] - r1[ 0 ];
+
+    vec2 y;
+    y[ 0 ] = + dorigin[ 0 ];
+    y[ 1 ] = - dorigin[ 1 ];
+
+    mat2 m;
+    m[ 0 ][ 0 ] = + r1[ 1 ][ 0 ];
+    m[ 1 ][ 0 ] = - r1[ 1 ][ 1 ];
+    m[ 0 ][ 1 ] = - r2[ 1 ][ 0 ];
+    m[ 1 ][ 1 ] = + r2[ 1 ][ 1 ];
+
+    vec2 x = d2linearEquationSolve( m, y );
+    return x;
+
+  }
+`
+rayIntersectionFactors.shaderChunkName = 'ray_rayIntersectionFactors'
+
+
 //
 
 /**
@@ -849,7 +875,7 @@ function rayIntersectionPoints( r1, r2 )
 
 rayIntersectionPoints.shaderChunk =
 `
-  void rayIntersectionPoints( out vec2 result[ 2 ], vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  void ray_rayIntersectionPoints( out vec2 result[ 2 ], vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
     vec2 factors = rayIntersectionFactors( r1, r2 );
@@ -858,6 +884,7 @@ rayIntersectionPoints.shaderChunk =
 
   }
 `
+rayIntersectionPoints.shaderChunkName = 'ray_rayIntersectionPoints'
 
 //
 
@@ -897,7 +924,7 @@ function rayIntersectionPoint( r1, r2 )
 
 rayIntersectionPoint.shaderChunk =
 `
-  vec2 rayIntersectionPoint( vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  vec2 ray_rayIntersectionPoint( vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
     vec2 factors = rayIntersectionFactors( r1, r2 );
@@ -905,6 +932,9 @@ rayIntersectionPoint.shaderChunk =
 
   }
 `
+rayIntersectionPoint.shaderChunkName = `ray_rayIntersectionPoint`
+
+
 
 //
 
@@ -946,7 +976,7 @@ function rayIntersectionPointAccurate( r1, r2 )
 
 rayIntersectionPointAccurate.shaderChunk =
 `
-  vec2 rayIntersectionPointAccurate( vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  vec2 ray_rayIntersectionPointAccurate( vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
     vec2 closestPoints[ 2 ];
@@ -955,6 +985,8 @@ rayIntersectionPointAccurate.shaderChunk =
 
   }
 `
+rayIntersectionPointAccurate.shaderChunkName = 'ray_rayIntersectionPointAccurate'
+
 //
 
 /**
@@ -3062,7 +3094,36 @@ function boundingSphereGet( dstSphere, srcRay )
   return dstSphere;
 }
 
+//
 
+function injectChunks( routines )
+{
+
+  _global_.w4d = _global_.w4d || Object.create( null );
+  let Chunks = w4d.Chunks = w4d.Chunks || Object.create( null );
+
+  for( let r in routines )
+  {
+    let routine = routines[ r ];
+
+    if( !_.routineIs( routine ) )
+    continue;
+
+    if( !routine.shaderChunk )
+    continue;
+
+    _.assert( _.strIs( routine.shaderChunk ) );
+
+    let shaderChunk = '';
+    shaderChunk += '\n' + routine.shaderChunk + '\n';
+
+    let chunkName = routine.shaderChunkName || r;
+
+    Chunks[ chunkName ] = shaderChunk;
+
+  }
+
+}
 
 // --
 // extension
@@ -3152,5 +3213,6 @@ let Extension = /* qqq : normalize order */
 }
 
 _.mapExtend( Self, Extension );
+injectChunks( Extension )
 
 })();
