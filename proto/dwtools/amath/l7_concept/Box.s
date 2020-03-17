@@ -1319,8 +1319,8 @@ function pointExpand( dstBox , point )
   _.assert( dim === pointView.length );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  this.tools.vectorAdapter.minVectors( min , pointView );
-  this.tools.vectorAdapter.maxVectors( max , pointView );
+  this.tools.vectorAdapter.min( min , pointView );
+  this.tools.vectorAdapter.max( max , pointView );
 
   return dstBox;
 }
@@ -1700,8 +1700,8 @@ function boxExpand( dstBox , srcBox )
 
   _.assert( dim1 === dim2 );
 
-  this.tools.vectorAdapter.minVectors( min1 , min2 );
-  this.tools.vectorAdapter.maxVectors( max1 , max2 );
+  this.tools.vectorAdapter.min( min1 , min2 );
+  this.tools.vectorAdapter.max( max1 , max2 );
 
   return dstBox;
 }
@@ -3225,7 +3225,7 @@ function boundingSphereGet( dstSphere, srcBox )
   */
 function matrixHomogenousApply( box , matrix )
 {
-
+  let self = this;
   let boxView = this.adapterFrom( box );
   let dim = this.dimGet( boxView );
   let min = this.cornerLeftGet( boxView );
@@ -3245,7 +3245,7 @@ function matrixHomogenousApply( box , matrix )
     for( let i = 0 ; i < dim ; i++ )
     point[ i ] = sample[ i ] ? max.eGet( i ) : min.eGet( i );
     matrix.matrixHomogenousApply( point );
-    this.pointExpand( box2, point );
+    self.pointExpand( box2, point );
 
   });
 

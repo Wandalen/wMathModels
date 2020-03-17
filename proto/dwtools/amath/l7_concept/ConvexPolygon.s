@@ -107,7 +107,7 @@ function isPolygon( polygon )
     let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -215,7 +215,7 @@ function isValid( polygon )
       angles.eSet( i - zeros, this.angleThreePoints( pointOne, pointTwo, pointThree, normal ) );
     }
 
-    if( angles.eGet( i - zeros ) === 0 || angles.eGet( i - zeros ) === 2*Math.PI )
+    if( angles.eGet( i - zeros ) === 0 || angles.eGet( i - zeros ) === 2*Math.PI ) //aaa vova: checks should be strict?
     {
       angles._vectorBuffer.splice( i - zeros, 1 ); /* xxx qqq : cant use *._vectorBuffer.splice! */
       zeros= zeros + 1;
@@ -361,7 +361,8 @@ function pointContains( polygon, point )
   {
     let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] + 1 ) );
     let i = 0;
-    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    debugger
+    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -396,7 +397,7 @@ function pointContains( polygon, point )
       angles.eSet( i - zeros, this.angleThreePoints(  vertex, pointView, nextVertex, normal ) );
     }
 
-    if( angles.eGet( i - zeros ) === 0 || angles.eGet( i - zeros ) === 2*Math.PI )
+    if( angles.eGet( i - zeros ) === 0 || angles.eGet( i - zeros ) === 2*Math.PI )// aaa vova:checks should be strict?
     {
       angles._vectorBuffer.splice( i - zeros, 1 );
       zeros= zeros + 1;
@@ -460,7 +461,7 @@ function pointDistance( polygon, point )
   {
     let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] ) );
     let i = 0;
-    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -493,6 +494,14 @@ function pointDistance( polygon, point )
   }
 
   return distance;
+}
+
+//
+
+function pointDistanceSqr( polygon, point )
+{
+  let result = this.pointDistance( polygon, point );
+  return this.tools.math.sqr( result );
 }
 
 //
@@ -551,7 +560,7 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
   {
     let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) );
     let i = 0;
-    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allIdentical( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -1605,7 +1614,7 @@ function planeIntersects( polygon, plane )
       else
       {
         let newSide = distance/ Math.abs( distance );
-        if( side === - newSide )
+        if( side === - newSide )//aaa vova: this.tools.numbersAreEquivalent?
         {
           bool = true;
         }
@@ -2073,7 +2082,7 @@ function segmentIntersects( polygon, segment )
     let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colVectorGet( i );
       let pointTwo = polygon.colVectorGet( i + 1 );
@@ -2283,7 +2292,8 @@ function sphereIntersects( polygon, sphere )
 
   let distance = this.pointDistance( polygon, center );
 
-  if( distance <= radius )
+  // if( distance <= radius )
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   return true;
 
   return false;
@@ -2488,50 +2498,51 @@ function boundingSphereGet( polygon, dstSphere )
 let Extension = /* qqq xxx : normalize order */
 {
 
-  make : make,
-  isPolygon : isPolygon,
-  is : is,
-  isValid : isValid,
-  angleThreePoints : angleThreePoints,
+  make,
+  isPolygon,
+  is,
+  isValid,
+  angleThreePoints,
 
-  pointContains : pointContains,
-  pointDistance : pointDistance,
-  pointClosestPoint : pointClosestPoint,
+  pointContains,
+  pointDistance,
+  pointDistanceSqr,
+  pointClosestPoint,
 
-  boxIntersects : boxIntersects,
-  boxDistance : boxDistance,
-  boxClosestPoint : boxClosestPoint,
-  boundingBoxGet : boundingBoxGet,
+  boxIntersects,
+  boxDistance,
+  boxClosestPoint,
+  boundingBoxGet,
 
-  capsuleIntersects : capsuleIntersects,
-  capsuleDistance : capsuleDistance,
-  capsuleClosestPoint : capsuleClosestPoint,
+  capsuleIntersects,
+  capsuleDistance,
+  capsuleClosestPoint,
 
-  frustumIntersects : frustumIntersects,
-  frustumDistance : frustumDistance,
-  frustumClosestPoint : frustumClosestPoint,
+  frustumIntersects,
+  frustumDistance,
+  frustumClosestPoint,
 
-  lineIntersects : lineIntersects,
-  lineDistance : lineDistance,
-  lineClosestPoint : lineClosestPoint,
+  lineIntersects,
+  lineDistance,
+  lineClosestPoint,
 
-  planeIntersects : planeIntersects,
-  planeDistance : planeDistance,
-  planeClosestPoint : planeClosestPoint,
+  planeIntersects,
+  planeDistance,
+  planeClosestPoint,
 
-  rayIntersects : rayIntersects,
-  rayDistance : rayDistance,
-  rayClosestPoint : rayClosestPoint,
+  rayIntersects,
+  rayDistance,
+  rayClosestPoint,
 
-  segmentContains : segmentContains,
-  segmentIntersects : segmentIntersects,
-  segmentDistance : segmentDistance,
-  segmentClosestPoint : segmentClosestPoint,
+  segmentContains,
+  segmentIntersects,
+  segmentDistance,
+  segmentClosestPoint,
 
-  sphereIntersects : sphereIntersects,
-  sphereDistance : sphereDistance,
-  sphereClosestPoint : sphereClosestPoint,
-  boundingSphereGet : boundingSphereGet,
+  sphereIntersects,
+  sphereDistance,
+  sphereClosestPoint,
+  boundingSphereGet,
 
   // ref
 

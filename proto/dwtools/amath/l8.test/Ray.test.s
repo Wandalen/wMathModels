@@ -3583,7 +3583,7 @@ function frustumDistance( test )
   var expected = 0.2821417381318113;
 
   var gotDistance = _.ray.frustumDistance( ray, srcFrustum );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   /* */
 

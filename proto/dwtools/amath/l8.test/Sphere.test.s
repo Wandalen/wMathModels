@@ -3896,7 +3896,7 @@ function convexPolygonClosestPoint( test )
   var expected = _.sphere.tools.longMake( [ 3.5, 3.5 ] );
 
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
-  test.identical( expected, gotPoint );
+  test.equivalent( expected, gotPoint );
 
   test.case = 'dstPoint Array'; /* */
 

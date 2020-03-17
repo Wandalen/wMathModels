@@ -1667,7 +1667,7 @@ function planeIntersects( frustum, plane )
     if( j > 0 )
     {
       let newSide = distance/ Math.abs( distance );
-      if( side === - newSide )
+      if( side === - newSide )//aaa vova: numberAreEquivalent?
       {
         return true;
       }

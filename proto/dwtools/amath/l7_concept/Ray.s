@@ -211,6 +211,7 @@ fromPair.shaderChunk =
     dstRay[ 1 ] = pair[ 1 ] - pair[ 0 ];
   }
 `
+fromPair.shaderChunkName = 'ray_fromPair'
 
 //
 
@@ -421,7 +422,8 @@ function getFactor( srcRay, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    // if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
+    if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( 0 ) ), this.tools.accuracySqr ) )
     {
       return false;
     }
@@ -436,7 +438,8 @@ function getFactor( srcRay, srcPoint )
   }
 
   // Factor can not be negative nor bigger than one
-  if(  factor <= 0 - _.accuracySqr )
+  // if(  factor <= 0 - this.tools.accuracySqr )
+  if(  this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracySqr ) )
   return false;
 
   for( var i = 1; i < dOrigin.length; i++ )
@@ -444,7 +447,8 @@ function getFactor( srcRay, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      // if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
+      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), this.tools.accuracySqr ) )
       {
         return false;
       }
@@ -457,13 +461,15 @@ function getFactor( srcRay, srcPoint )
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
 
-      if( Math.abs( newFactor - factor ) > this.tools.accuracy && newFactor !== 0 && factor !== 0 )
+      // if( Math.abs( newFactor - factor ) > this.tools.accuracy && newFactor !== 0 && factor !== 0 )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), this.tools.accuracy ) && newFactor !== 0 && factor !== 0 )
       {
         return false;
       }
       factor = newFactor;
       // Factor can not be negative
-      if(  factor <= 0 - this.tools.accuracy )
+      // if(  factor <= 0 - this.tools.accuracy )
+      if(  this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracy ) )
       return false;
     }
   }
@@ -513,13 +519,15 @@ function rayParallel3D( src1Ray, src2Ray, accuracySqr )
   _.assert( arguments.length === 2 || arguments.length === 3 );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;;
+  accuracySqr = this.tools.accuracySqr;;
 
   let direction1 = this.directionGet( src1Ray );
   let direction2 = this.directionGet( src2Ray );
 
   debugger;
-  return this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 )) <= accuracySqr;
+  // return this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 )) <= accuracySqr;
+  let result = this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 ));
+  return this.tools.avector.isLessEqualAprox( result, accuracySqr );
 
 }
 
@@ -542,7 +550,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   _.assert( src1Ray.length === src2Ray.length );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;;
+  accuracySqr = this.tools.accuracySqr;;
 
   let direction1 = this.directionGet( src1Ray );
   let direction2 = this.directionGet( src2Ray );
@@ -576,7 +584,8 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   {
     if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
     {
-      if( direction1.eGet( i ) !== direction2.eGet( i ) )
+      // if( direction1.eGet( i ) !== direction2.eGet( i ) )
+      if( !this.tools.numbersAreEquivalent( direction1.eGet( i ), direction2.eGet( i ) ) )
       {
         return false;
       }
@@ -587,7 +596,8 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
 
       if( proportion !== undefined )
       {
-        if( Math.abs( proportion - newProportion ) > accuracySqr)
+        // if( Math.abs( proportion - newProportion ) > accuracySqr)
+        if( this.tools.avector.isGreaterAprox( Math.abs( proportion - newProportion ), accuracySqr ) )
         return false
       }
 
@@ -738,8 +748,10 @@ function rayIntersectionFactors( r1, r2 )
       contained = 1;
     }
 
-    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr;
-    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr;
+    // let result0 = result.eGet( 0 ) >= 0 - this.tools.accuracySqr;
+    let result0 = this.tools.avector.isGreaterEqualAprox( result.eGet( 0 ), 0 - this.tools.accuracySqr );
+    // let result1 = result.eGet( 1 ) >= 0 - this.tools.accuracySqr;
+    let result1 = this.tools.avector.isGreaterEqualAprox( result.eGet( 1 ), 0 - this.tools.accuracySqr );
 
     if( result0 && result1 && contained === 1 )
     return result;
@@ -794,12 +806,37 @@ function rayIntersectionFactors( r1, r2 )
     }
   }
   // Factors can not be negative
-  if(  result.eGet( 0 ) <= 0 - _.accuracySqr || result.eGet( 1 ) <= 0 - _.accuracySqr )
+  if(  result.eGet( 0 ) <= 0 - this.tools.accuracySqr || result.eGet( 1 ) <= 0 - this.tools.accuracySqr )
   return 0;
 
   return result;
 }
 */
+
+rayIntersectionFactors.shaderChunk =
+`
+  vec2 ray_rayIntersectionFactors( vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  {
+
+    vec2 dorigin = r2[ 0 ] - r1[ 0 ];
+
+    vec2 y;
+    y[ 0 ] = + dorigin[ 0 ];
+    y[ 1 ] = - dorigin[ 1 ];
+
+    mat2 m;
+    m[ 0 ][ 0 ] = + r1[ 1 ][ 0 ];
+    m[ 1 ][ 0 ] = - r1[ 1 ][ 1 ];
+    m[ 0 ][ 1 ] = - r2[ 1 ][ 0 ];
+    m[ 1 ][ 1 ] = + r2[ 1 ][ 1 ];
+
+    vec2 x = d2linearEquationSolve( m, y );
+    return x;
+
+  }
+`
+rayIntersectionFactors.shaderChunkName = 'ray_rayIntersectionFactors'
+
 
 //
 
@@ -838,7 +875,7 @@ function rayIntersectionPoints( r1, r2 )
 
 rayIntersectionPoints.shaderChunk =
 `
-  void rayIntersectionPoints( out vec2 result[ 2 ], vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  void ray_rayIntersectionPoints( out vec2 result[ 2 ], vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
     vec2 factors = rayIntersectionFactors( r1, r2 );
@@ -847,6 +884,7 @@ rayIntersectionPoints.shaderChunk =
 
   }
 `
+rayIntersectionPoints.shaderChunkName = 'ray_rayIntersectionPoints'
 
 //
 
@@ -886,7 +924,7 @@ function rayIntersectionPoint( r1, r2 )
 
 rayIntersectionPoint.shaderChunk =
 `
-  vec2 rayIntersectionPoint( vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  vec2 ray_rayIntersectionPoint( vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
     vec2 factors = rayIntersectionFactors( r1, r2 );
@@ -894,6 +932,9 @@ rayIntersectionPoint.shaderChunk =
 
   }
 `
+rayIntersectionPoint.shaderChunkName = `ray_rayIntersectionPoint`
+
+
 
 //
 
@@ -935,7 +976,7 @@ function rayIntersectionPointAccurate( r1, r2 )
 
 rayIntersectionPointAccurate.shaderChunk =
 `
-  vec2 rayIntersectionPointAccurate( vec2 r1[ 2 ], vec2 r2[ 2 ] )
+  vec2 ray_rayIntersectionPointAccurate( vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
     vec2 closestPoints[ 2 ];
@@ -944,6 +985,8 @@ rayIntersectionPointAccurate.shaderChunk =
 
   }
 `
+rayIntersectionPointAccurate.shaderChunkName = 'ray_rayIntersectionPointAccurate'
+
 //
 
 /**
@@ -992,7 +1035,8 @@ function pointContains( srcRay, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracy )
+    // if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracy )
+    if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( 0 ) ), this.tools.accuracy ) )
     {
       return false;
     }
@@ -1007,7 +1051,8 @@ function pointContains( srcRay, srcPoint )
   }
 
   // Factor can not be negative
-  if(  factor <= 0 - this.tools.accuracy )
+  // if(  factor <= 0 - this.tools.accuracy )
+  if( this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracy ) )
   return false;
 
   let newPoint = this.rayAt( srcRayView, factor );
@@ -1020,7 +1065,8 @@ function pointContains( srcRay, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracy )
+      // if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracy )
+      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), this.tools.accuracy ) )
       {
         return false;
       }
@@ -1032,13 +1078,16 @@ function pointContains( srcRay, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > this.tools.accuracy && factor !== 0 && direction.eGet( i - 1 ) !== 0  )
+      // if( Math.abs( newFactor - factor ) > this.tools.accuracy && factor !== 0 && direction.eGet( i - 1 ) !== 0  )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), this.tools.accuracy ) && factor !== 0 && direction.eGet( i - 1 ) !== 0  )
       {
         return false;
       }
       factor = newFactor;
 
-      if(  factor <= 0 - this.tools.accuracy )
+      // if(  factor <= 0 - this.tools.accuracy )
+      if( this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracy ) )
+
       return false;
     }
 
@@ -1954,7 +2003,7 @@ function lineIntersectionFactors( srcRay, srcLine )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcLine.length === srcRay.length,'The line and the ray must have the same dimension' );
+  _.assert( srcLine.length === srcRay.length, 'The line and the ray must have the same dimension' );
 
   let srcLineView = this.tools.line.adapterFrom( srcLine.slice() );
   let srcRayView = this.tools.line.adapterFrom( srcRay.slice() );
@@ -3045,7 +3094,36 @@ function boundingSphereGet( dstSphere, srcRay )
   return dstSphere;
 }
 
+//
 
+function injectChunks( routines )
+{
+
+  _global_.w4d = _global_.w4d || Object.create( null );
+  let Chunks = w4d.Chunks = w4d.Chunks || Object.create( null );
+
+  for( let r in routines )
+  {
+    let routine = routines[ r ];
+
+    if( !_.routineIs( routine ) )
+    continue;
+
+    if( !routine.shaderChunk )
+    continue;
+
+    _.assert( _.strIs( routine.shaderChunk ) );
+
+    let shaderChunk = '';
+    shaderChunk += '\n' + routine.shaderChunk + '\n';
+
+    let chunkName = routine.shaderChunkName || r;
+
+    Chunks[ chunkName ] = shaderChunk;
+
+  }
+
+}
 
 // --
 // extension
@@ -3135,5 +3213,6 @@ let Extension = /* qqq : normalize order */
 }
 
 _.mapExtend( Self, Extension );
+injectChunks( Extension )
 
 })();
