@@ -929,7 +929,9 @@ function pointContains( sphere, point )
   debugger;
   //throw _.err( 'not tested' );
 
-  return ( this.tools.vectorAdapter.distanceSqr( this.tools.vectorAdapter.from( point ) , center ) <= ( radius * radius ) + this.tools.accuracy ); /* xxx */
+  // return ( this.tools.vectorAdapter.distanceSqr( this.tools.vectorAdapter.from( point ) , center ) <= ( radius * radius ) + this.tools.accuracy ); /* xxx */
+  let distanceSqr = this.tools.vectorAdapter.distanceSqr( this.tools.vectorAdapter.from( point ) , center );
+  return this.tools.avector.isLessEqualAprox( distanceSqr, ( radius * radius ) + this.tools.accuracy );
 }
 
 //
