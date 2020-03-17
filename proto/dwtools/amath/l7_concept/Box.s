@@ -3225,7 +3225,7 @@ function boundingSphereGet( dstSphere, srcBox )
   */
 function matrixHomogenousApply( box , matrix )
 {
-
+  let self = this;
   let boxView = this.adapterFrom( box );
   let dim = this.dimGet( boxView );
   let min = this.cornerLeftGet( boxView );
@@ -3245,7 +3245,7 @@ function matrixHomogenousApply( box , matrix )
     for( let i = 0 ; i < dim ; i++ )
     point[ i ] = sample[ i ] ? max.eGet( i ) : min.eGet( i );
     matrix.matrixHomogenousApply( point );
-    this.pointExpand( box2, point );
+    self.pointExpand( box2, point );
 
   });
 
