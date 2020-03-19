@@ -1286,7 +1286,7 @@ function fromQuat2( dstEuler, srcQuat )
   let dstEulerView = this.adapterFrom( dstEuler );
   let srcQuatVector = this.tools.quat.adapterFrom( srcQuat );
   let accuracy =  this.tools.accuracy;
-  let accuracySqr = _.accuracySqr;
+  let accuracySqr = this.tools.accuracySqr;
 
   let x = srcQuatVector.eGet( 0 ); let x2 = x*x;
   let y = srcQuatVector.eGet( 1 ); let y2 = y*y;
@@ -2598,7 +2598,7 @@ function isGimbalLock( srcEuler )
   srcEuler = this.from( srcEuler );
   let srcEulerView = this.tools.vectorAdapter.fromLong( srcEuler );
   let accuracy =  this.tools.accuracy;
-  let accuracySqr = _.accuracySqr;
+  let accuracySqr = this.tools.accuracySqr;
 
   let srcQuatVector = this.tools.vectorAdapter.fromLong( this.toQuat2( srcEuler, null ) );
   let x = srcQuatVector.eGet( 0 ); let x2 = x*x;

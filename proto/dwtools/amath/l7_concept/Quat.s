@@ -460,7 +460,7 @@ function fromAxisAndAngle( dst, axisAndAngle, angle )
 function toAxisAndAngle( quat, axisAndAngle )
 {
 
-  _.assert( _.accuracySqr > 0 );
+  _.assert( this.tools.accuracySqr > 0 );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
   quat = this.from( quat );
@@ -470,7 +470,8 @@ function toAxisAndAngle( quat, axisAndAngle )
 
   let w = quatView.eGet( 3 );
 
-  if( abs( w-1 ) < _.accuracySqr )
+  // if( abs( w-1 ) < this.tools.accuracySqr )
+  if( this.tools.avector.isLessAprox( abs( w-1 ), this.tools.accuracySqr ) )
   {
     axisAndAnglev.assign( 0 );
     axisAndAnglev.eSet( 3, 0 );
@@ -502,7 +503,7 @@ function fromVectors( dst, src1, src2 )
 
   dot += Math.sqrt( this.tools.avector.magSqr( src1 ) * this.tools.avector.magSqr( src2 ) );
 
-  if( _.numbersAreEquivalent( dot, 0 ) )
+  if( this.tools.numbersAreEquivalent( dot, 0 ) )
   {
 
     dot = 0;
@@ -573,7 +574,7 @@ function fromNormalizedVectors( dst, src1, src2 )
   let dst3 = dstv.review([ 0, 2 ]);
   let dot = this.tools.avector.dot( src1, src2 ) + 1;
 
-  if( _.numbersAreEquivalent( dot, 0 ) )
+  if( this.tools.numbersAreEquivalent( dot, 0 ) )
   {
 
     dot = 0;

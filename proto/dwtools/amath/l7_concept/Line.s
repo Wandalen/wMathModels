@@ -404,7 +404,8 @@ function getFactor( srcLine, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > accuracy )
+    // if( Math.abs( dOrigin.eGet( 0 ) ) > accuracy )
+    if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( 0 ) ), accuracy ) )
     {
       return false;
     }
@@ -423,7 +424,8 @@ function getFactor( srcLine, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > accuracy )
+      // if( Math.abs( dOrigin.eGet( i ) ) > accuracy )
+      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), accuracy ) )
       {
         return false;
       }
@@ -435,7 +437,8 @@ function getFactor( srcLine, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > accuracy && newFactor !== 0 && factor !== 0 )
+      // if( Math.abs( newFactor - factor ) > accuracy && newFactor !== 0 && factor !== 0 )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), accuracy ) && newFactor !== 0 && factor !== 0 )
       {
         return false;
       }
@@ -488,12 +491,14 @@ function lineParallel3D( src1Line, src2Line, accuracySqr )
   _.assert( arguments.length === 2 || arguments.length === 3 );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;;
+  accuracySqr = this.tools.accuracySqr;;
 
   let direction1 = this.directionGet( src1Line );
   let direction2 = this.directionGet( src2Line );
   debugger;
-  return this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 )) <= accuracySqr;
+  // return this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 )) <= accuracySqr;
+  let result = this.tools.avector.magSqr( this.tools.avector.cross( null, direction1, direction2 ));
+  return this.tools.avector.isLessEqualAprox( result, accuracySqr );
 }
 
 //
@@ -515,7 +520,7 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   _.assert( src1Line.length === src2Line.length );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;
+  accuracySqr = this.tools.accuracySqr;
 
   let direction1 = this.directionGet( src1Line ).clone().normalize();
   let direction2 = this.directionGet( src2Line ).clone().normalize();
@@ -549,7 +554,8 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   {
     if( direction1.eGet( i ) === 0 || direction2.eGet( i ) === 0 )
     {
-      if( Math.abs( direction1.eGet( i ) - direction2.eGet( i ) ) > accuracySqr )
+      // if( Math.abs( direction1.eGet( i ) - direction2.eGet( i ) ) > accuracySqr )
+      if( this.tools.avector.isGreaterAprox( Math.abs( direction1.eGet( i ) - direction2.eGet( i ) ), accuracySqr ) )
       {
         return false;
       }
@@ -560,7 +566,8 @@ function lineParallel( src1Line, src2Line, accuracySqr )
 
       if( proportion !== undefined )
       {
-        if( Math.abs( proportion - newProportion ) > accuracySqr )
+        // if( Math.abs( proportion - newProportion ) > accuracySqr )
+        if( this.tools.avector.isGreaterAprox( Math.abs( proportion - newProportion ), accuracySqr ) )
         return false
       }
 
@@ -971,7 +978,7 @@ function pointContains( srcLine, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
     {
       return false;
     }
@@ -992,7 +999,7 @@ function pointContains( srcLine, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     { logger.log(i,'is zero')
-      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
       {
         return false;
       }
@@ -1005,7 +1012,7 @@ function pointContains( srcLine, srcPoint )
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
       logger.log(i,'newF', newFactor, direction.eGet( i - 1 ))
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && direction.eGet( i ) !== 0 )
+      if( Math.abs( newFactor - factor ) > this.tools.accuracySqr && direction.eGet( i ) !== 0 )
       {
         return false;
       }
@@ -1127,6 +1134,32 @@ function pointDistance( srcLine, srcPoint )
 
     return mod;
   }
+}
+
+//
+
+function pointDistanceCentered( srcLineCentered, srcPointCentered )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  if( srcLineCentered === null )
+  srcLineCentered = this.make( srcPointCentered.length / 2 );
+
+  let srcLineView = this.adapterFrom( srcLineCentered );
+  let dimension  = srcLineView.length;
+  let srcPointView = this.tools.vectorAdapter.from( srcPointCentered.slice() );
+
+  _.assert( dimension === 2, 'not implemented' );
+  _.assert( dimension === srcPointCentered.length, 'The line and the point must have the same dimension' );
+
+  let srcLineFromCentered = [ 0, 0, srcLineView.eGet( 0 ), srcLineView.eGet( 1 ) ];
+  if( this.pointContains( srcLineFromCentered, srcPointView ) )
+  return 0;
+
+  let srcLineP = this.tools.vectorAdapter.fromLong( [ -srcLineView.eGet( 1 ), +srcLineView.eGet( 0 ) ]);
+  let distance = this.tools.vectorAdapter.dot( srcLineP, srcPointView );
+  distance = distance / this.tools.vectorAdapter.mag( srcLineView );
+  return distance;
 }
 
 /**
@@ -3242,6 +3275,7 @@ let Extension = /* qqq : normalize order */
 
   pointContains,
   pointDistance,
+  pointDistanceCentered,
   pointClosestPoint,
 
   boxIntersects,

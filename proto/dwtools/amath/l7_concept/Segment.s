@@ -446,7 +446,8 @@ function getFactor( srcSegment, srcPoint )
   let factor;
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    // if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
+    if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( 0 ) ), this.tools.accuracySqr ) )
     {
       return false;
     }
@@ -461,7 +462,8 @@ function getFactor( srcSegment, srcPoint )
   }
 
   // Factor can not be negative
-  if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
+  // if(  factor <= 0 - this.tools.accuracySqr || factor >= 1 + this.tools.accuracySqr )
+  if(  this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracySqr ) || this.tools.avector.isGreaterEqualAprox( factor, 1 + this.tools.accuracySqr ) )
   return false;
 
   let newPoint = this.segmentAt( srcSegmentView, factor );
@@ -474,7 +476,8 @@ function getFactor( srcSegment, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      // if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
+      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), this.tools.accuracySqr ) )
       {
         return false;
       }
@@ -486,14 +489,16 @@ function getFactor( srcSegment, srcPoint )
     else
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && newFactor !== 0 && factor !== 0 )
+      // if( Math.abs( newFactor - factor ) > this.tools.accuracySqr && newFactor !== 0 && factor !== 0 )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), this.tools.accuracySqr ) && newFactor !== 0 && factor !== 0 )
       {
         return false;
       }
       factor = newFactor;
 
       // Factor can not be negative
-      if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
+      // if(  factor <= 0 - this.tools.accuracySqr || factor >= 1 + this.tools.accuracySqr )
+      if(  this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracySqr ) || this.tools.avector.isGreaterEqualAprox( factor, 1 + this.tools.accuracySqr ) )
       return false;
 
     }
@@ -540,7 +545,7 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
   _.assert( src1Segment.length === src2Segment.length );
 
   if( arguments.length === 2 || accuracySqr === undefined || accuracySqr === null )
-  accuracySqr = _.accuracySqr;;
+  accuracySqr = this.tools.accuracySqr;;
 
   let direction1 = this.directionGet( src1Segment );
   let direction2 = this.directionGet( src2Segment );
@@ -585,7 +590,8 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
 
       if( proportion !== undefined )
       {
-        if( Math.abs( proportion - newProportion ) > accuracySqr)
+        // if( Math.abs( proportion - newProportion ) > accuracySqr)
+        if( this.tools.avector.isGreaterAprox( Math.abs( proportion - newProportion ), accuracySqr ) )
         return false
       }
 
@@ -801,16 +807,20 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   let end1Origin2 = 0;
   for( let i = 0; i < origin1.length; i++ )
   {
-    if( origin1.eGet( i ) === origin2.eGet( i ) )
+    // if( origin1.eGet( i ) === origin2.eGet( i ) )
+    if( this.tools.avector.isEquivalent( origin1.eGet( i ), origin2.eGet( i ) ) )
     identOrigin = identOrigin + 1;
 
-    if( origin1.eGet( i ) === end2.eGet( i ) )
+    // if( origin1.eGet( i ) === end2.eGet( i ) )
+    if( this.tools.avector.isEquivalent( origin1.eGet( i ), end2.eGet( i ) ) )
     origin1End2 = origin1End2 + 1;
 
-    if( end1.eGet( i ) === origin2.eGet( i ) )
+    // if( end1.eGet( i ) === origin2.eGet( i ) )
+    if( this.tools.avector.isEquivalent( end1.eGet( i ), origin2.eGet( i ) ) )
     end1Origin2 = end1Origin2 + 1;
 
-    if( end1.eGet( i ) === end2.eGet( i ) )
+    // if( end1.eGet( i ) === end2.eGet( i ) )
+    if( this.tools.avector.isEquivalent( end1.eGet( i ), end2.eGet( i ) ) )
     identEnd = identEnd + 1;
   }
 
@@ -887,10 +897,14 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
       contained = 1;
     }
 
+    let isGreaterEqualAprox = this.tools.avector.isGreaterEqualAprox;
+    let isLessEqualAprox = this.tools.avector.isLessEqualAprox;
 
 
-    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
-    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
+    // let result0 = result.eGet( 0 ) >= 0 - this.tools.accuracySqr && result.eGet( 0 ) <= 1 + this.tools.accuracySqr;
+    let result0 = isGreaterEqualAprox( result.eGet( 0 ), 0 - this.tools.accuracySqr ) && isLessEqualAprox( result.eGet( 0 ), 1 + this.tools.accuracySqr );
+    // let result1 = result.eGet( 1 ) >= 0 - this.tools.accuracySqr && result.eGet( 1 ) <= 1 + this.tools.accuracySqr;
+    let result1 = isGreaterEqualAprox( result.eGet( 1 ), 0 - this.tools.accuracySqr ) && isLessEqualAprox( result.eGet( 1 ), 1 + this.tools.accuracySqr );
 
     if( result0 && result1 && contained === 1 )
     return result;
@@ -902,7 +916,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 function segmentIntersectionFactors( srcSegment1, srcSegment2 )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcSegment1.length === srcSegment2.length,'The two segments must have the same dimension' );
+  _.assert( srcSegment1.length === srcSegment2.length, 'The two segments must have the same dimension' );
   let srcSegment1View = this.adapterFrom( srcSegment1.slice() );
   let srcSegment2View = this.adapterFrom( srcSegment2.slice() );
   let origin1 = this.originGet( srcSegment1View );
@@ -987,9 +1001,9 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
         equal = equal + 1;
       }
     }
-    let result0 = result.eGet( 0 ) >= 0 - _.accuracySqr && result.eGet( 0 ) <= 1 + _.accuracySqr;
-    let result1 = result.eGet( 1 ) >= 0 - _.accuracySqr && result.eGet( 1 ) <= 1 + _.accuracySqr;
-    logger.log( 'RES', equal,  dOrigin.length,result0, result1 )
+    let result0 = result.eGet( 0 ) >= 0 - this.tools.accuracySqr && result.eGet( 0 ) <= 1 + this.tools.accuracySqr;
+    let result1 = result.eGet( 1 ) >= 0 - this.tools.accuracySqr && result.eGet( 1 ) <= 1 + this.tools.accuracySqr;
+    logger.log( 'RES', equal,  dOrigin.length, result0, result1 )
     if( equal === dOrigin.length && result0 && result1 )
     return result;
   }
@@ -1225,7 +1239,8 @@ function pointContains( srcSegment, srcPoint )
 
   if( direction.eGet( 0 ) === 0 )
   {
-    if( Math.abs( dOrigin.eGet( 0 ) ) > _.accuracySqr )
+    // if( Math.abs( dOrigin.eGet( 0 ) ) > this.tools.accuracySqr )
+    if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( 0 ) ), this.tools.accuracySqr ) )
     {
       return false;
     }
@@ -1240,7 +1255,8 @@ function pointContains( srcSegment, srcPoint )
   }
 
   // Factor can not be negative or superior to one
-  if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
+  // if(  factor <= 0 - this.tools.accuracySqr || factor >= 1 + this.tools.accuracySqr )
+  if(  this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracySqr ) || this.tools.avector.isGreaterEqualAprox( factor, 1 + this.tools.accuracySqr ) )
   return false;
 
   let newPoint = this.segmentAt( srcSegmentView, factor );
@@ -1253,7 +1269,8 @@ function pointContains( srcSegment, srcPoint )
     let newFactor;
     if( direction.eGet( i ) === 0 )
     {
-      if( Math.abs( dOrigin.eGet( i ) ) > _.accuracySqr )
+      // if( Math.abs( dOrigin.eGet( i ) ) > this.tools.accuracySqr )
+      if( this.tools.avector.isGreaterAprox( Math.abs( dOrigin.eGet( i ) ), this.tools.accuracySqr ) )
       {
         return false;
       }
@@ -1266,14 +1283,17 @@ function pointContains( srcSegment, srcPoint )
     {
       newFactor = dOrigin.eGet( i ) / direction.eGet( i );
 
-      if( Math.abs( newFactor - factor ) > _.accuracySqr && direction.eGet( i - 1 ) !== 0 )
+      // if( Math.abs( newFactor - factor ) > this.tools.accuracySqr && direction.eGet( i - 1 ) !== 0 )
+      if( this.tools.avector.isGreaterAprox( Math.abs( newFactor - factor ), this.tools.accuracySqr ) )
+      if( !this.tools.numbersAreEquivalent( direction.eGet( i - 1 ), 0 ) )
       {
         return false;
       }
       factor = newFactor;
 
       // Factor can not be negative or superior to one
-      if(  factor <= 0 - _.accuracySqr || factor >= 1 + _.accuracySqr )
+      // if(  factor <= 0 - this.tools.accuracySqr || factor >= 1 + this.tools.accuracySqr )
+      if(  this.tools.avector.isLessEqualAprox( factor, 0 - this.tools.accuracySqr ) || this.tools.avector.isGreaterEqualAprox( factor, 1 + this.tools.accuracySqr ) )
       return false;
     }
 
@@ -2153,7 +2173,10 @@ function lineIntersects( srcSegment, srcLine )
 
   let factors = this.tools.line.lineIntersectionFactors( lineSegment, srcLineView );
 
-  if( factors === 0 || factors.eGet( 0 ) < 0 - this.tools.accuracy || factors.eGet( 0 ) > 1 - this.tools.accuracy )
+  let isLessAprox = this.tools.avector.isLessAprox;
+  let isGreaterAprox = this.tools.avector.isGreaterAprox;
+  // if( factors === 0 || factors.eGet( 0 ) < 0 - this.tools.accuracy || factors.eGet( 0 ) > 1 - this.tools.accuracy )
+  if( factors === 0 || isLessAprox( factors.eGet( 0 ), 0 - this.tools.accuracy ) || isGreaterAprox( factors.eGet( 0 ), 1 - this.tools.accuracy ) )
   return false;
 
   return true;
@@ -2249,7 +2272,7 @@ function lineIntersectionFactors( srcSegment, srcLine )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcLine.length === srcSegment.length,'The line and the segment must have the same dimension' );
+  _.assert( srcLine.length === srcSegment.length, 'The line and the segment must have the same dimension' );
 
   let srcLineView = this.tools.line.adapterFrom( srcLine.slice() );
   let srcSegmentView = this.tools.line.adapterFrom( srcSegment.slice() );
@@ -2324,7 +2347,8 @@ function lineDistance( srcSegment, srcLine )
     let lineIsPoint = 0;
     for( let i = 0; i < lineDim; i++ )
     {
-      if( lineDirection.eGet( i ) === 0 )
+      // if( lineDirection.eGet( i ) === 0 )
+      if( this.tools.numbersAreEquivalent( lineDirection.eGet( i ), 0 ) )
       lineIsPoint = lineIsPoint + 1;
     }
 
@@ -2406,10 +2430,12 @@ function lineClosestPoint( srcSegment, srcLine, dstPoint )
   let linePoint = 0;
   for( let i = 0; i < srcOrigin.length; i++ )
   {
-    if( srcOrigin.eGet( i ) === lineOrigin.eGet( i ) )
+    // if( srcOrigin.eGet( i ) === lineOrigin.eGet( i ) )
+    if( this.tools.numbersAreEquivalent( srcOrigin.eGet( i ), lineOrigin.eGet( i ) ) )
     identOrigin = identOrigin + 1;
 
-    if( tstDir.eGet( i ) === 0 )
+    // if( tstDir.eGet( i ) === 0 )
+    if( this.tools.numbersAreEquivalent( tstDir.eGet( i ), 0 ) )
     linePoint = linePoint + 1;
   }
   if( identOrigin === srcOrigin.length )
@@ -2435,18 +2461,21 @@ function lineClosestPoint( srcSegment, srcLine, dstPoint )
       let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
       let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( lineOrigin.slice(), srcOrigin ) );
 
-      if( tstMod*srcMod - mod*mod === 0 )
+      // if( tstMod*srcMod - mod*mod === 0 )
+      if( this.tools.numbersAreEquivalent( tstMod*srcMod - mod*mod, 0 ) )
       {
           pointView = srcOrigin;
       }
       else
       {
         let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
-        if( factor < 0 )
+        // if( factor < 0 )
+        if( this.tools.avector.isLessAprox( factor, 0 ) )
         {
           pointView = srcOrigin;
         }
-        else if( factor > 1 )
+        // else if( factor > 1 )
+        else if( this.tools.avector.isGreaterAprox( factor, 1 ) )
         {
           pointView = srcEnd;
         }
@@ -2516,12 +2545,16 @@ function planeIntersects( srcSegment, srcPlane )
 
   let dirDotNormal = this.tools.vectorAdapter.dot( direction, normal );
 
-  if( dirDotNormal !== 0 )
+  // if( dirDotNormal !== 0 )
+  if( this.tools.avector.isNotEquivalent( dirDotNormal, 0 ) )
   {
     let originDotNormal = this.tools.vectorAdapter.dot( origin, normal );
     let factor = - ( originDotNormal + bias ) / dirDotNormal;
 
-    if( factor >= 0 && factor <= 1 )
+    let isLessEqualAprox = this.tools.avector.isLessEqualAprox;
+    let isGreaterEqualAprox = this.tools.avector.isGreaterEqualAprox;
+    // if( factor >= 0 && factor <= 1 )
+    if( isGreaterEqualAprox( factor, 0 ) && isLessEqualAprox( factor, 1 ) )
     {
       return true;
     }
@@ -2640,7 +2673,8 @@ function planeDistance( srcSegment, srcPlane )
   let d1 = Math.abs( this.tools.plane.pointDistance( planeView, origin ) );
   let d2 = Math.abs( this.tools.plane.pointDistance( planeView, end ) );
 
-  if( d1 < d2 )
+  // if( d1 < d2 )
+  if( this.tools.avector.isLessAprox( d1, d2 ) )
   {
     return d1;
   }
@@ -2711,7 +2745,8 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
   let d1 = Math.abs( this.tools.plane.pointDistance( planeView, origin ) ) ;
   let d2 = Math.abs( this.tools.plane.pointDistance( planeView, end ) );
 
-  if( d1 <= d2 )
+  // if( d1 <= d2 )
+  if( this.tools.avector.isLessEqualAprox( d1, d2 ) )
   {
     point = this.tools.vectorAdapter.from( origin );
   }
@@ -2899,7 +2934,7 @@ function rayIntersectionFactors( srcSegment, srcRay )
 {
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  _.assert( srcSegment.length === srcRay.length,'The segment and the ray must have the same dimension' );
+  _.assert( srcSegment.length === srcRay.length, 'The segment and the ray must have the same dimension' );
 
   let srcSegmentView = this.adapterFrom( srcSegment.slice() );
   let origin = this.originGet( srcSegmentView );
@@ -2978,10 +3013,12 @@ function rayDistance( srcSegment, srcRay )
     let rayIsPoint = 0;
     for( let i = 0; i < rayDim; i++ )
     {
-      if( srcDirection.eGet( i ) === 0 )
+      // if( srcDirection.eGet( i ) === 0 )
+      if( this.tools.numbersAreEquivalent( srcDirection.eGet( i ), 0 ) )
       segIsPoint = segIsPoint + 1;
 
-      if( rayDirection.eGet( i ) === 0 )
+      // if( rayDirection.eGet( i ) === 0 )
+      if( this.tools.numbersAreEquivalent( rayDirection.eGet( i ), 0 ) )
       rayIsPoint = rayIsPoint + 1;
     }
     if( segIsPoint === rayDim )
@@ -3070,10 +3107,12 @@ function rayClosestPoint( srcSegment, srcRay, dstPoint )
   let rayPoint = 0;
   for( let i = 0; i < srcOrigin.length; i++ )
   {
-    if( srcOrigin.eGet( i ) === rayOrigin.eGet( i ) )
+    // if( srcOrigin.eGet( i ) === rayOrigin.eGet( i ) )
+    if( this.tools.numbersAreEquivalent( srcOrigin.eGet( i ), rayOrigin.eGet( i ) ) )
     identOrigin = identOrigin + 1;
 
-    if( tstDir.eGet( i ) === 0 )
+    // if( tstDir.eGet( i ) === 0 )
+    if( this.tools.numbersAreEquivalent( tstDir.eGet( i ), 0 ) )
     rayPoint = rayPoint + 1;
   }
   if( identOrigin === srcOrigin.length )
@@ -3099,18 +3138,21 @@ function rayClosestPoint( srcSegment, srcRay, dstPoint )
       let mod = this.tools.vectorAdapter.dot( srcDir, tstDir );
       let dOrigin = this.tools.vectorAdapter.from( this.tools.avector.sub( rayOrigin.slice(), srcOrigin ) );
 
-      if( tstMod*srcMod - mod*mod === 0 )
+      // if( tstMod*srcMod - mod*mod === 0 )
+      if( this.tools.numbersAreEquivalent( tstMod*srcMod - mod*mod, 0 ) )
       {
           pointView = srcOrigin;
       }
       else
       {
         let factor = ( - mod*this.tools.vectorAdapter.dot( tstDir, dOrigin ) + tstMod*this.tools.vectorAdapter.dot( srcDir, dOrigin ))/( tstMod*srcMod - mod*mod );
-        if( factor < 0 )
+        // if( factor < 0 )
+        if( this.tools.avector.isLessAprox( factor, 0 ) )
         {
           pointView = srcOrigin;
         }
-        else if( factor > 1 )
+        // else if( factor > 1 )
+        else if( this.tools.avector.isGreaterAprox( factor, 1 ) )
         {
           pointView = srcEnd;
         }
@@ -3218,12 +3260,15 @@ function segmentDistance( srcSegment, tstSegment )
     let d1 = this.pointDistance( srcSegmentView, tstOrigin );
     let d2 = this.pointDistance( tstSegmentView, srcOrigin );
     let d3 = this.tools.avector.distance( srcOrigin, tstOrigin );
+    let isLessEqualAprox = this.tools.avector.isLessEqualAprox;
 
-    if( d1 <= d2 && d1 <= d3 )
+    // if( d1 <= d2 && d1 <= d3 )
+    if( isLessEqualAprox( d1, d2 ) && isLessEqualAprox( d1, d3 ) )
     {
       distance = d1;
     }
-    else if( d2 <= d3 )
+    // else if( d2 <= d3 )
+    else if( isLessEqualAprox( d2, d3 ) )
     {
       distance = d2;
     }
@@ -3529,7 +3574,8 @@ function sphereIntersects( srcSegment, srcSphere )
 
   let distance = this.pointDistance( srcSegmentView, center );
 
-  if( distance <= radius)
+  // if( distance <= radius)
+  if( this.tools.avector.isLessEqualAprox( distance, radius ) )
   return true;
 
   return false;
