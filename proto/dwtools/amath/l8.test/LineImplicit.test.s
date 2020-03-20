@@ -1002,7 +1002,19 @@ function eqWithPoints( test )
   test.identical( got, expected );
 
   var srcPoint1 = [ 1,1 ];
+  var srcPoint2 = [ 0,0 ];
+  var expected = _.lineImplicit.tools.vectorAdapter.from( [ -1, 0, 0 ] );
+  var got = _.lineImplicit.eqWithPoints( srcPoint1, srcPoint2 );
+  test.identical( got, expected );
+
+  var srcPoint1 = [ 1,1 ];
   var srcPoint2 = [ 3,3 ];
+  var expected = _.lineImplicit.tools.vectorAdapter.from( [ -2, 2, 0 ] );
+  var got = _.lineImplicit.eqWithPoints( srcPoint1, srcPoint2 );
+  test.identical( got, expected );
+
+  var srcPoint1 = [ -1,-1 ];
+  var srcPoint2 = [ 1,1 ];
   var expected = _.lineImplicit.tools.vectorAdapter.from( [ -2, 2, 0 ] );
   var got = _.lineImplicit.eqWithPoints( srcPoint1, srcPoint2 );
   test.identical( got, expected );
