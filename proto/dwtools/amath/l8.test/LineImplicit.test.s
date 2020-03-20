@@ -1070,6 +1070,43 @@ function lineIntersection( test ) //qqq:cover with tests
   test.shouldThrowErrorSync( () => _.lineImplicit.lineIntersection( [ 1 ], [ 1, 1 ] ) );
 }
 
+//
+
+function pointDistance( test ) //qqq:cover with tests
+{
+  var srcLine = [ 0,0,0 ];
+  var point = [ 0,0 ];
+  var expected = 0;
+  var got = _.lineImplicit.pointDistance( srcLine, point );
+  test.identical( got, expected );
+
+  var srcLine = [ 0,0,0 ];
+  var point = [ 1,1 ];
+  var expected = 1;
+  var got = _.lineImplicit.pointDistance( srcLine, point );
+  test.identical( got, expected );
+
+  var srcLine = [ -1,3,-3 ];//0,1, 3,2
+  var point = [ 3,2 ];
+  var expected = 0;
+  var got = _.lineImplicit.pointDistance( srcLine, point );
+  test.identical( got, expected );
+
+  var srcLine = [ -1,3,-3 ];//0,1, 3,2
+  var point = [ 0,1 ];
+  var expected = 0;
+  var got = _.lineImplicit.pointDistance( srcLine, point );
+  test.identical( got, expected );
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'wrong number of arguments'
+  test.shouldThrowErrorSync( () => _.lineImplicit.pointDistance( [] ) );
+  test.case = 'wrong number of elements in src array'
+  test.shouldThrowErrorSync( () => _.lineImplicit.pointDistance( [ 1,1 ], [ 1, 1 ] ) );
+}
+
 // --
 // define class
 // --
@@ -1104,7 +1141,9 @@ var Self =
     eqWithPoints,
     eqWithPointAndTangent,
 
-    lineIntersection
+    lineIntersection,
+
+    pointDistance
   }
 
 }

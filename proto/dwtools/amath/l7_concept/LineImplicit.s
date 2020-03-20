@@ -273,6 +273,35 @@ lineIntersection.shaderChunk =
 `
 lineIntersection.shaderChunkName = 'lineImplicit_lineIntersection'
 
+//
+
+function pointDistance( lineImplicit, point )
+{
+  _.assert( arguments.length === 2 );
+
+  if( lineImplicit === null )
+  lineImplicit = this.make( point.length );
+
+  _.assert( this.is( lineImplicit ) );
+  _.assert( lineImplicit.length === 3, 'not implemented' );
+  _.assert( point.length === 2, 'not implemented' );
+
+  let lineView = this.adapterFrom( lineImplicit.slice() );
+  let pointView = this.tools.vectorAdapter.from( point );
+
+  let n = this.tools.vectorAdapter.from( [ lineView.eGet( 0 ), lineView.eGet( 1 ) ] );
+  let d = Math.sqrt( lineView.eGet( 0 )*lineView.eGet( 0 ) + lineView.eGet( 1 )*lineView.eGet( 1 ));
+
+  let result = ( lineView.eGet( 2 ) + this.tools.vectorAdapter.dot( n, pointView ) ) / d;
+
+  // let n = [ lineGeneralEq[ 0 ], lineGeneralEq[ 1 ] ];
+  // let d = _sqrt( lineGeneralEq[ 0 ]*lineGeneralEq[ 0 ] + lineGeneralEq[ 1 ]*lineGeneralEq[ 1 ] );
+
+  // let result = ( lineGeneralEq[ 2 ] + _.avector.dot( n, point ) ) / d;
+
+  return result;
+}
+
 // --
 // chunks injection
 // --
@@ -329,6 +358,8 @@ let Extension = /* qqq : normalize order */
   eqWithPointAndTangent,
 
   lineIntersection,
+
+  pointDistance,
 
   // ref
 
