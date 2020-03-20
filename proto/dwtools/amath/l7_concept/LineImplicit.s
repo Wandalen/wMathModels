@@ -161,6 +161,8 @@ function eqWithPoints( srcPoint1, srcPoint2 )
 
   let result = this.tools.vectorAdapter.make( 3 );
 
+  //(𝑦𝐴−𝑦𝐵)𝑥 − (𝑥𝐴−𝑥𝐵)𝑦 + 𝑥𝐴𝑦𝐵 − 𝑥𝐵𝑦𝐴 = 0
+
   result.eSet( 0, srcPoint1View.eGet( 1 ) - srcPoint2View.eGet( 1 ) )
   result.eSet( 1, srcPoint2View.eGet( 0 ) - srcPoint1View.eGet( 0 ) )
   result.eSet( 2, srcPoint2View.eGet( 1 ) * srcPoint1View.eGet( 0 ) - srcPoint2View.eGet( 0 ) * srcPoint1View.eGet( 1 ) )
@@ -182,6 +184,94 @@ eqWithPoints.shaderChunk =
   }
 `
 eqWithPoints.shaderChunkName = 'lineImplicit_eqWithPoints';
+
+//
+
+function eqWithPointAndTangent( srcPoint, tangent )
+{
+  _.assert( arguments.length === 2 );
+  _.assert( srcPoint.length === tangent.length );
+  _.assert( srcPoint.length === 2 );
+
+  let srcPointView = this.tools.vectorAdapter.from( srcPoint );
+  let tangentView = this.tools.vectorAdapter.from( tangent );
+
+  let result = this.tools.vectorAdapter.make( 3 );
+
+  result.eSet( 0, - tangentView.eGet( 1 ) );
+  result.eSet( 1, + tangentView.eGet( 0 ) );
+  result.eSet( 2, ( srcPointView.eGet( 1 ) + tangentView.eGet( 1 ) ) * srcPointView.eGet( 0 ) );
+  result.eSet( 2, result.eGet( 2 ) - ( srcPointView.eGet( 0 ) + tangentView.eGet( 0 ) ) * srcPointView.eGet( 1 ) )
+
+  // result[ 0 ] = - tangent[ 1 ];
+  // result[ 1 ] = + tangent[ 0 ];
+  // result[ 2 ] = ( point[ 1 ]+tangent[ 1 ] ) * point[ 0 ] - ( point[ 0 ]+tangent[ 0 ] ) * point[ 1 ];
+
+  return result;
+}
+
+eqWithPointAndTangent.shaderChunk =
+`
+  vec3 lineImplicit_eqWithPointAndTangent( vec2 point, vec2 tangent )
+  {
+    vec3 result;
+
+    result[ 0 ] = - tangent[ 1 ];
+    result[ 1 ] = + tangent[ 0 ];
+    result[ 2 ] = ( point[ 1 ]+tangent[ 1 ] ) * point[ 0 ] - ( point[ 0 ]+tangent[ 0 ] ) * point[ 1 ];
+
+    return result;
+  }
+`
+eqWithPointAndTangent.shaderChunkName = 'lineImplicit_eqWithPointAndTangent';
+
+//
+
+function lineIntersection( lineImplicit1, lineImplicit2 )
+{
+  _.assert( arguments.length === 2 );
+  _.assert( this.is( lineImplicit1 ) );
+  _.assert( this.is( lineImplicit2 ) );
+  _.assert( lineImplicit1.length === lineImplicit1.length );
+  _.assert( lineImplicit1.length === 3, 'not implemented' );
+
+  let line1View = this.adapterFrom( lineImplicit1.slice() );
+  let line2View = this.adapterFrom( lineImplicit2.slice() );
+
+  let result = this.tools.vectorAdapter.make( lineImplicit1.length - 1 );
+
+  let d = line1View.eGet( 0 )*line2View.eGet( 1 ) - line1View.eGet( 1 )*line2View.eGet( 0 );
+  let x = line1View.eGet( 1 )*line2View.eGet( 2 ) - line1View.eGet( 2 )*line2View.eGet( 1 );
+  let y = line1View.eGet( 2 )*line2View.eGet( 0 ) - line1View.eGet( 0 )*line2View.eGet( 2 );
+
+  // let d = lineGeneralEq1[ 0 ]*lineGeneralEq2[ 1 ] - lineGeneralEq1[ 1 ]*lineGeneralEq2[ 0 ];
+  // let x = lineGeneralEq1[ 1 ]*lineGeneralEq2[ 2 ] - lineGeneralEq1[ 2 ]*lineGeneralEq2[ 1 ];
+  // let y = lineGeneralEq1[ 2 ]*lineGeneralEq2[ 0 ] - lineGeneralEq1[ 0 ]*lineGeneralEq2[ 2 ];
+
+  result.eSet( 0, x / d );
+  result.eSet( 1, y / d );
+
+  return result;
+}
+
+lineIntersection.shaderChunk =
+
+`
+  vec2 lineImplicit_lineIntersection( vec3 lineGeneralEq1, vec3 lineGeneralEq2 )
+  {
+    vec2 result;
+
+    float d = lineGeneralEq1[ 0 ]*lineGeneralEq2[ 1 ] - lineGeneralEq1[ 1 ]*lineGeneralEq2[ 0 ];
+    float x = lineGeneralEq1[ 1 ]*lineGeneralEq2[ 2 ] - lineGeneralEq1[ 2 ]*lineGeneralEq2[ 1 ];
+    float y = lineGeneralEq1[ 2 ]*lineGeneralEq2[ 0 ] - lineGeneralEq1[ 0 ]*lineGeneralEq2[ 2 ];
+
+    result[ 0 ] = x / d;
+    result[ 1 ] = y / d;
+
+    return result;
+  }
+`
+lineIntersection.shaderChunkName = 'lineImplicit_lineIntersection'
 
 // --
 // chunks injection
@@ -236,6 +326,9 @@ let Extension = /* qqq : normalize order */
   is,
 
   eqWithPoints,
+  eqWithPointAndTangent,
+
+  lineIntersection,
 
   // ref
 

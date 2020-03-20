@@ -1016,7 +1016,59 @@ function eqWithPoints( test )
   test.shouldThrowErrorSync( () => _.lineImplicit.eqWithPoints( [ 1 ], [ 1, 1 ] ) );
 }
 
+//
 
+function eqWithPointAndTangent( test ) //qqq:cover with tests
+{
+  var srcPoint = [ 0,0 ];
+  var srcTangent = [ 0,0 ];
+  var expected = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var got = _.lineImplicit.eqWithPointAndTangent( srcPoint, srcTangent );
+  test.identical( got, expected );
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'wrong number of arguments'
+  test.shouldThrowErrorSync( () => _.lineImplicit.eqWithPointAndTangent( [] ) );
+  test.case = 'wrong number of elements in src array'
+  test.shouldThrowErrorSync( () => _.lineImplicit.eqWithPointAndTangent( [ 1 ], [ 1, 1 ] ) );
+}
+
+//
+
+function lineIntersection( test ) //qqq:cover with tests
+{
+  var srcLine1 = [ 0,0,0 ];
+  var srcLine2 = [ 0,0,0 ];
+  var expected = _.lineImplicit.tools.vectorAdapter.from( [ NaN, NaN ] );
+  var got = _.lineImplicit.lineIntersection( srcLine1, srcLine2 );
+  test.identical( got, expected );
+
+  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+
+  var src1Line = [ 0, 1, 0 ]; //0, 0, 1, 0
+  var src2Line = [ 0, 1, -1 ];//0, 1, 1, 1
+  var expected = _.lineImplicit.tools.vectorAdapter.from( [ NaN, NaN ] );
+  var got = _.lineImplicit.lineIntersection( src1Line, src2Line );
+  test.identical( got, expected );
+
+  test.case = 'Lines intersect in origin'; /* */
+
+  var src1Line = [ 7, -2, -7 ]; //3, 7, 1, 0
+  var src2Line = [ 6, -2, 2 ];//3, 7, 0, 1
+  var expected = _.lineImplicit.tools.vectorAdapter.from( [ 9, 28 ] );
+  var got = _.lineImplicit.lineIntersection( src1Line, src2Line );
+  test.identical( got, expected );
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'wrong number of arguments'
+  test.shouldThrowErrorSync( () => _.lineImplicit.lineIntersection( [] ) );
+  test.case = 'wrong number of elements in src array'
+  test.shouldThrowErrorSync( () => _.lineImplicit.lineIntersection( [ 1 ], [ 1, 1 ] ) );
+}
 
 // --
 // define class
@@ -1050,6 +1102,9 @@ var Self =
     // getFactor,
 
     eqWithPoints,
+    eqWithPointAndTangent,
+
+    lineIntersection
   }
 
 }
