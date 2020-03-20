@@ -25,6 +25,7 @@ if( typeof module !== 'undefined' )
   require( '../l7_concept/ConvexPolygon.s' );
   require( '../l7_concept/Frustum.s' );
   require( '../l7_concept/Line.s' );
+  require( '../l7_concept/LineImplicit.s' );
   require( '../l7_concept/Plane.s' );
   require( '../l7_concept/Ray.s' );
   require( '../l7_concept/Segment.s' );
