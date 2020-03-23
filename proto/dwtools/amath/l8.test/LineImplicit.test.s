@@ -496,25 +496,25 @@ function is( test )
 
 function dimGet( test )
 {
-  test.case = 'srcLine 1D - array'; /* */
+  // test.case = 'srcLine 1D - array'; /* */
 
-  var srcLine = [ 0, 1 ];
-  var gotDim = _.lineImplicit.dimGet( srcLine );
-  var expected = 1;
-  test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  // var srcLine = [ 0, 1 ];
+  // var gotDim = _.lineImplicit.dimGet( srcLine );
+  // var expected = 1;
+  // test.identical( gotDim, expected );
+  // test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 1D - vector'; /* */
+  // test.case = 'srcLine 1D - vector'; /* */
 
-  var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
-  var gotDim = _.lineImplicit.dimGet( srcLine );
-  var expected = 1;
-  test.identical( gotDim, expected );
-  test.is( gotDim !== srcLine );
+  // var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
+  // var gotDim = _.lineImplicit.dimGet( srcLine );
+  // var expected = 1;
+  // test.identical( gotDim, expected );
+  // test.is( gotDim !== srcLine );
 
   test.case = 'srcLine 2D - array'; /* */
 
-  var srcLine = [ 0, 1, 2, 3 ];
+  var srcLine = [ 0, 1, 2 ];
   var gotDim = _.lineImplicit.dimGet( srcLine );
   var expected = 2;
   test.identical( gotDim, expected );
@@ -522,7 +522,7 @@ function dimGet( test )
 
   test.case = 'srcLine 2D - vector'; /* */
 
-  var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
+  var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2 ] );
   var gotDim = _.lineImplicit.dimGet( srcLine );
   var expected = 2;
   test.identical( gotDim, expected );
@@ -530,7 +530,7 @@ function dimGet( test )
 
   test.case = 'srcLine 3D - array'; /* */
 
-  var srcLine = [ 0, 1, 2, 3, 4, 5 ];
+  var srcLine = [ 0, 1, 2, 3 ];
   var gotDim = _.lineImplicit.dimGet( srcLine );
   var expected = 3;
   test.identical( gotDim, expected );
@@ -538,7 +538,7 @@ function dimGet( test )
 
   test.case = 'srcLine 3D - vector'; /* */
 
-  var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
+  var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotDim = _.lineImplicit.dimGet( srcLine );
   var expected = 3;
   test.identical( gotDim, expected );
@@ -549,7 +549,7 @@ function dimGet( test )
   if( !Config.debug )
   return;
   test.shouldThrowErrorSync( () => _.lineImplicit.dimGet( ) );
-  test.shouldThrowErrorSync( () => _.lineImplicit.dimGet( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.lineImplicit.dimGet( [ 0, 0 ] ) );
   test.shouldThrowErrorSync( () => _.lineImplicit.dimGet( [ 0, 0 ], [ 1, 1 ] ) );
   test.shouldThrowErrorSync( () => _.lineImplicit.dimGet( 'line' ) );
   test.shouldThrowErrorSync( () => _.lineImplicit.dimGet( 0 ) );
@@ -1142,7 +1142,7 @@ var Self =
     fromPair,
 
     is,
-    // dimGet,
+    dimGet,
     // originGet,
     // directionGet,
 
