@@ -22,6 +22,7 @@ if( typeof module !== 'undefined' )
 
   require( '../l7_concept/Box.s' );
   require( '../l7_concept/Capsule.s' );
+  require( '../l7_concept/ConcavePolygon.s' );
   require( '../l7_concept/ConvexPolygon.s' );
   require( '../l7_concept/Frustum.s' );
   require( '../l7_concept/Line.s' );
