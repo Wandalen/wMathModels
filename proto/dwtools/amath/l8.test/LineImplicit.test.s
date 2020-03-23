@@ -299,8 +299,8 @@ function from( test )
 {
   test.case = 'Same instance returned - array'; /* */
 
-  var srcLine = [ 0, 0, 2, 2 ];
-  var expected = _.lineImplicit.tools.longMake( [ 0, 0, 2, 2 ] );
+  var srcLine = [ 0, 0, 2 ];
+  var expected = _.lineImplicit.tools.longMake( [ 0, 0, 2 ] );
 
   var gotLine = _.lineImplicit.from( srcLine );
   test.identical( gotLine, expected );
@@ -308,8 +308,8 @@ function from( test )
 
   test.case = 'Different instance returned - vector -> array'; /* */
 
-  var srcLine = _.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
-  var expected = _.lineImplicit.tools.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
+  var srcLine = _.vectorAdapter.fromLong( [ 0, 0, 2] );
+  var expected = _.lineImplicit.tools.vectorAdapter.fromLong( [ 0, 0, 2] );
 
   var gotLine = _.lineImplicit.from( srcLine );
   test.identical( gotLine, expected );
@@ -327,7 +327,7 @@ function from( test )
   test.case = 'Different instance returned - null -> array'; /* */
 
   var srcLine = null;
-  var expected = _.lineImplicit.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
+  var expected = _.lineImplicit.tools.longMake( [ 0, 0, 0 ] );
 
   var gotLine = _.lineImplicit.from( srcLine );
   test.identical( gotLine, expected );
@@ -338,7 +338,6 @@ function from( test )
   return;
 
   test.shouldThrowErrorSync( () => _.lineImplicit.from( ));
-  test.shouldThrowErrorSync( () => _.lineImplicit.from( [ 0, 0, 0, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.lineImplicit.from( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.lineImplicit.from( 'line' ));
   test.shouldThrowErrorSync( () => _.lineImplicit.from( NaN ));
@@ -1138,7 +1137,7 @@ var Self =
     zero,
     nil,
 
-    // from,
+    from,
     // adapterFrom,
     // fromPair,
 
