@@ -85,18 +85,18 @@ function nil( line )
 {
 
   _.assert( arguments.length === 0 || arguments.length === 1 );
+  //qqq
+  // if( this.is( line ) )
+  // {
+  //   let lineView = this.adapterFrom( line );
+  //   let min = this.originGet( lineView );
+  //   let max = this.directionGet( lineView );
 
-  if( this.is( line ) )
-  {
-    let lineView = this.adapterFrom( line );
-    let min = this.originGet( lineView );
-    let max = this.directionGet( lineView );
+  //   this.tools.vectorAdapter.assign( min, +Infinity );
+  //   this.tools.vectorAdapter.assign( max, -Infinity );
 
-    this.tools.vectorAdapter.assign( min, +Infinity );
-    this.tools.vectorAdapter.assign( max, -Infinity );
-
-    return line;
-  }
+  //   return line;
+  // }
 
   return this.makeNil( line );
 }
@@ -147,6 +147,34 @@ function is( line )
   _.assert( arguments.length === 1, 'Expects single argument' );
   return ( _.longIs( line ) || _.vectorAdapterIs( line ) ) && ( line.length === 3 );
 }
+
+//
+
+/**
+  * Get line dimension. Returns the dimension of the line. Line stays untouched.
+  *
+  * @param { Vector } line - The source line.
+  *
+  * @example
+  * // returns 2
+  * _.dimGet( [ 0, 0, 2, 2 ] );
+  *
+  * @example
+  * // returns 1
+  * _.dimGet( [ 0, 1 ] );
+  *
+  * @returns { Number } Returns the dimension of the line.
+  * @function dimGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( line ) is not line.
+  * @memberof module:Tools/math/Concepts.wTools.lineImplicit
+  */
+ function dimGet( line )
+ {
+   _.assert( arguments.length === 1, 'Expects single argument' );
+   _.assert( this.is( line ) );
+   return line.length - 1;
+ }
 
 //
 
@@ -353,6 +381,8 @@ let Extension = /* qqq : normalize order */
   adapterFrom,
 
   is,
+
+  dimGet,
 
   eqWithPoints,
   eqWithPointAndTangent,
