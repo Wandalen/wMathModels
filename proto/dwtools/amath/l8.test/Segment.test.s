@@ -2531,6 +2531,152 @@ function pointContains( test )
 
 //
 
+function pointDistanceSqr( test )
+{
+
+  test.case = 'Segment and Point remain unchanged'; /* */
+
+  var segment = [  - 1, - 1 , 1, 1 ];
+  var point = [ 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  var oldSegment = [  - 1, - 1 , 1, 1 ];
+  test.identical( segment, oldSegment );
+
+  var oldPoint = [ 0, 0 ];
+  test.identical( point, oldPoint );
+
+  test.case = 'Null segment Distance empty point'; /* */
+
+  var segment = null;
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Point segment Distance same Point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 0, 0, 0 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Point segment Distance other Point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 0 ];
+  var point = [ 3, 4, 0 ];
+  var expected = 25;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment contains point'; /* */
+
+  var segment = [ 0, 0, 0, 2, 2, 2 ];
+  var point = [  1, 1, 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment under point'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 1, 4 ];
+  var expected = 5;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var segment = [ 0, 0, 0, 0, 0, 2 ];
+  var point = [ 0, 0, -2 ];
+  var expected = 4;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment ( normalized to 1 ) Distance point'; /* */
+
+  var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
+  var point = [ 0.500, 0.500, 0.000 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment ( normalized to 1 ) doesn´t contain point'; /* */
+
+  var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
+  var point = [ 0.050, 0.500, - 0.303 ];
+  var expected = 0.3230126741967126;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Segment of four dimensions distance '; /* */
+
+  var segment = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
+  var point = [ 0, 0, 0 , 4 ];
+  var expected = 12;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment of 7 dimensions distance'; /* */
+
+  var segment = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
+  var point = [ 2, 2, 2, 2, 2, 2, 2 ];
+  var expected = 25;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment of 1 dimension contains point'; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ 1 ];
+  var expected = 0;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+
+  test.case = 'Segment of 1 dimension distance'; /* */
+
+  var segment = [ 0, 2 ];
+  var point = [ - 3 ];
+  var expected = 9;
+
+  var gotDistance = _.segment.pointDistanceSqr( segment, point );
+  test.identical( gotDistance, expected );
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( [ 0, 0, 0 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( 'segment', [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( [ 1, 1, 2, 2 ], 'segment') );
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( 0 ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( undefined, [ 1, 1, 2, 2 ] ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( [ 1, 1, 2, 2 ], null ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( [ 1, 1, 2, 2 ], undefined ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( [ 1, 1, 2, 2 ], - 2 ) );
+  test.shouldThrowErrorSync( () => _.segment.pointDistanceSqr( [ 1, 1, 2, 2 ], [ 1, 2, 3, 4 ] ) );
+
+}
+
+
+//
+
 function pointDistance( test )
 {
 
@@ -7097,6 +7243,21 @@ function segmentClosestPoint( test )
 
 //
 
+function relativeSegmentOrigin( test )
+{
+
+}
+
+//
+
+function relativeSegment( test )
+{
+
+}
+
+
+//
+
 function sphereIntersects( test )
 {
 
@@ -7650,6 +7811,7 @@ var Self =
     segmentIntersectionPointAccurate,
 
     pointContains,
+    pointDistanceSqr,
     pointDistance,
     pointClosestPoint,
 
@@ -7686,6 +7848,9 @@ var Self =
     segmentIntersects,
     segmentDistance,
     segmentClosestPoint,
+
+    relativeSegmentOrigin,
+    relativeSegment,
 
     sphereIntersects,
     sphereDistance,

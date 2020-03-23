@@ -1329,7 +1329,7 @@ function pointContains( srcSegment, srcPoint )
   * @throws { Error } An Error if ( srcPoint ) is not point.
   * @memberof module:Tools/math/Concepts.wTools.segment
   */
-function pointDistance( srcSegment, srcPoint )
+function pointDistanceSqr( srcSegment, srcPoint )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -1356,11 +1356,24 @@ function pointDistance( srcSegment, srcPoint )
     let dPoints = this.tools.vectorAdapter.from( this.tools.avector.sub( srcPointView, projection ) );
     debugger;
     let mod = this.tools.vectorAdapter.dot( dPoints, dPoints );
-    mod = Math.sqrt( mod );
+    // mod = Math.sqrt( mod );
 
     return mod;
 
   }
+}
+
+//
+
+function pointDistance( srcSegment, srcPoint )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  let distance = this.pointDistanceSqr( srcSegment, srcPoint );
+
+  if( distance === 0 )
+  return distance;
+
+  return Math.sqrt( distance );
 }
 
 //
@@ -3823,6 +3836,7 @@ let Extension = /* qqq : normalize order */
 
   fromPair,
   pointContains,
+  pointDistanceSqr,
   pointDistance,
   pointClosestPoint,
 
