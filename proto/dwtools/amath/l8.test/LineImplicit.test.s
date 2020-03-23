@@ -457,24 +457,24 @@ function is( test )
   test.case = 'array'; /* */
 
   test.is( _.lineImplicit.is( [] ) );
-  test.is( _.lineImplicit.is([ 0, 0 ]) );
+  test.is( _.lineImplicit.is([ 0, 0, 0 ]) );
   test.is( _.lineImplicit.is([ 1, 2, 3, 4 ]) );
   test.is( _.lineImplicit.is([ 0, 0, 0, 0, 0, 0 ]) );
 
   test.case = 'vector'; /* */
 
   test.is( _.lineImplicit.is( _.vectorAdapter.fromLong([]) ) );
-  test.is( _.lineImplicit.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
+  test.is( _.lineImplicit.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
   test.is( _.lineImplicit.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
   test.is( _.lineImplicit.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
   test.case = 'not line'; /* */
 
   test.is( !_.lineImplicit.is([ 0 ]) );
-  test.is( !_.lineImplicit.is([ 0, 0, 0 ]) );
+  test.is( !_.lineImplicit.is([ 0, 0 ]) );
 
   test.is( !_.lineImplicit.is( _.vectorAdapter.fromLong([ 0 ]) ) );
-  test.is( !_.lineImplicit.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
+  test.is( !_.lineImplicit.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
 
   test.is( !_.lineImplicit.is( 'abc' ) );
   test.is( !_.lineImplicit.is( { origin : [ 0, 0, 0 ], direction : [ 1, 1, 1 ] } ) );
@@ -1141,7 +1141,7 @@ var Self =
     adapterFrom,
     fromPair,
 
-    // is,
+    is,
     // dimGet,
     // originGet,
     // directionGet,

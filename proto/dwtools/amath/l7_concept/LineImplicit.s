@@ -173,7 +173,7 @@ function adapterFrom( line )
 function is( line )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return ( _.longIs( line ) || _.vectorAdapterIs( line ) && ( line.length >= 0 ) && ( line.length === 3 ) );
+  return ( _.longIs( line ) || _.vectorAdapterIs( line ) ) && ( !line.length || line.length >= 3 );
 }
 
 //
