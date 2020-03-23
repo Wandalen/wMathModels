@@ -362,7 +362,7 @@ function is( test )
 
   var expected = true;
   test.equivalent( gotBool, expected );
-  
+
   test.case = 'Wrong dim and vertices'; //
 
   var polygon = _.Matrix.make( [ 1, 2 ] ).copy
@@ -416,9 +416,9 @@ function is( test )
 
   var expected = true;
   test.equivalent( gotBool, expected );
-  
+
   //
-  
+
   test.is( !_.convexPolygon.is( ) );
   test.is( !_.convexPolygon.is( null ) );
   test.is( !_.convexPolygon.is( NaN ) );
@@ -1295,6 +1295,305 @@ function pointDistance( test )
 
   var polygon = _.Matrix.make( [ 1, 2 ] );
   test.shouldThrowErrorSync( () => _.convexPolygon.pointDistance( polygon, [ 1 ] ));
+}
+
+//
+
+function pointDistanceSqr( test )
+{
+
+  test.case = 'Source polygon and point remain unchanged'; //
+
+  var polygon = _.convexPolygon.make( 3, 3 );
+  var point = [ 1, 2, 3 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+
+  var expected = 14;
+  test.identical( gotDist, expected );
+
+  var oldPolygon = _.convexPolygon.make( 3, 3 );
+  test.equivalent( oldPolygon, polygon );
+
+  var oldPoint = [ 1, 2, 3 ];
+  test.equivalent( oldPoint, point );
+
+  test.case = 'Triangle'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 3 ).copy
+  ([
+    1, 0, 0,
+    0, 0, 1
+  ]);
+  var point = [ 0.5, 0.5 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  var polygon = _.convexPolygon.make( 2, 3 ).copy
+  ([
+    1, 0, 0,
+    0, 0, 1
+  ]);
+  var point = [ 0.5, 2.5 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 1.5*1.5 + 0.25;
+  test.equivalent( gotDist, expected );
+
+  test.description = '3D';
+  var polygon = _.convexPolygon.make( 3, 3 ).copy
+  ([
+    1, 4, 2,
+    3, 4, 1,
+    2, 2, 2
+  ]);
+  var point = [ 1.5, 3, 2 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  var polygon = _.convexPolygon.make( 3, 3 ).copy
+  ([
+    -1, 0, 0,
+    0, 0, -1,
+    0, 0, 0
+  ]);
+  var point = [ -0.5, -0.5, 2 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 4;
+  test.equivalent( gotDist, expected );
+
+  test.case = 'Square'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    3, 3, 4, 4,
+    3, 4, 4, 3
+  ]);
+  var point = [ 3.1, 3.9 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    3, 3, 4, 4,
+    3, 4, 4, 3
+  ]);
+  var point = [ 3.1, 4.1 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = _.math.sqr( 0.1 );
+  test.equivalent( gotDist, expected );
+
+  test.description = '3D';
+  var polygon = _.convexPolygon.make( 3, 4 ).copy
+  ([
+    1, 0, 0, 1,
+    0, 0, 1, 1,
+    2, 2, 2, 2
+  ]);
+  var point = [ 0, 0.5, 2 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  var polygon = _.convexPolygon.make( 3, 4 ).copy
+  ([
+    1, 0, 0, 1,
+    0, 0, 1, 1,
+    0, 0, 0, 0
+  ]);
+  var point = [ 0.5, 0.5, 2 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 4;
+  test.equivalent( gotDist, expected );
+
+  test.case = 'Pentagone 2D'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 5 ).copy
+  ([
+    1, 0, 0, 1, 2,
+    0, 0, 1, 1, 1
+  ]);
+  var point = [ 0, 0 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  var polygon = _.convexPolygon.make( 2, 5 ).copy
+  ([
+    1, 0, 0, 1, 2,
+    0, 0, 1, 1, 1
+  ]);
+  var point = [ - 0.1, 0.1 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = _.math.sqr( 0.1 );;
+  test.equivalent( gotDist, expected );
+
+  test.description = '3D';
+  var polygon = _.convexPolygon.make( 3, 5 ).copy
+  ([
+    1, 0, 0, 1, 2,
+    0, 0, 1, 1, 1,
+    2, 2, 2, 2, 2
+  ]);
+  var point = [ 0, 0.5, 2 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  var polygon = _.convexPolygon.make( 3, 5 ).copy
+  ([
+    1, 0, 0, 1, 2,
+    0, 0, 1, 1, 1,
+    0, 0, 0, 0, 0
+  ]);
+  var point = [ 0.5, 0.5, 2 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 4;
+  test.equivalent( gotDist, expected );
+
+  test.case = 'Many vertices'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 10 ).copy
+  ([
+    1,   0,  -1, -2, -2.1, -2,  -1,   0,   1, 2,
+    0.1, 0, 0.1,  1,  1.5,  2, 2.5, 2.6, 2.5, 1
+  ]);
+  var pointT = [ 0, 0.1 ];
+  var pointF = [ 0, - 0.1 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, pointT );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, pointF );
+  var expected = _.math.sqr( 0.1 );;
+  test.equivalent( gotDist, expected );
+
+  test.description = '3D';
+  var polygon = _.convexPolygon.make( 3, 10 ).copy
+  ([
+    1,   0,  -1, -2, -2.1, -2,  -1,   0,   1, 2,
+    0.1, 0, 0.1,  1,  1.5,  2, 2.5, 2.6, 2.5, 1,
+    4,   4,   4,  4,    4,  4,   4,   4,   4, 4
+  ]);
+  var pointT = [ 0, 0.1, 4 ];
+  var pointF = [ 0, 0.1, 2 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, pointT );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, pointF );
+  var expected = 4;
+  test.equivalent( gotDist, expected );
+
+  test.case = 'Point in vertex'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, -2,
+    0.1, 0, 0.1,  1
+  ]);
+  var point = [ -1, 0.1 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  test.case = 'Point close to vertex'; //
+
+  test.description = '2D';
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, -2,
+    0.1, 0, 0.1,  1
+  ]);
+  var point = [ -1, 0 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = _.math.sqr( 0.09950372048903948 );
+  test.equivalent( gotDist, expected );
+
+  test.case = 'Point in edge'; //
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, 0,
+    0, 0,  1,  2
+  ]);
+  var point = [ 0.5, 0 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, point );
+  var expected = 0;
+  test.equivalent( gotDist, expected );
+
+  test.case = 'Point in edge line but outside polygon'; //
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, -2,
+    0.1, 0, 0.1,  1
+  ]);
+  var pointOne = [ -2, 0 ];
+  var pointTwo = [  2, 0 ];
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, pointOne );
+  var expected = _.math.sqr( 0.7432941467979041 );
+  test.equivalent( gotDist, expected );
+
+  var gotDist = _.convexPolygon.pointDistanceSqr( polygon, pointTwo );
+  var expected = 1.01
+  test.equivalent( gotDist, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1,   0,  -1, -2,
+    0.1, 0, 0.1,  1
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( polygon ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( polygon, [ 1, 0 ], [ 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( polygon, [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( null, [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( NaN, [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( undefined, [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( 'polygon', [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( [ 3 ], [ 1, 0, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( 3, [ 1, 0, 0 ] ));
+
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    1, 0, 0, 0.1,
+    0, 0, 1, 0.1
+  ]);
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( polygon, [ 1, 0 ] ));
+
+  var polygon = _.Matrix.make( [ 1, 2 ] );
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( polygon, [ 1 ] ));
 }
 
 //
@@ -7899,48 +8198,49 @@ var Self =
   tests :
   {
 
-    make : make,
-    isPolygon : isPolygon,
-    is : is,
-    angleThreePoints : angleThreePoints,
+    make,
+    isPolygon,
+    is,
+    angleThreePoints,
 
-    pointContains : pointContains,
-    pointDistance : pointDistance,
-    pointClosestPoint : pointClosestPoint,
+    pointContains,
+    pointDistance,
+    pointDistanceSqr,
+    pointClosestPoint,
 
-    boxIntersects : boxIntersects,
-    boxDistance : boxDistance,
-    boxClosestPoint : boxClosestPoint,
-    boundingBoxGet : boundingBoxGet,
+    boxIntersects,
+    boxDistance,
+    boxClosestPoint,
+    boundingBoxGet,
 
-    capsuleIntersects : capsuleIntersects,
-    capsuleDistance : capsuleDistance,
-    capsuleClosestPoint : capsuleClosestPoint,
+    capsuleIntersects,
+    capsuleDistance,
+    capsuleClosestPoint,
 
-    frustumIntersects : frustumIntersects,
-    frustumDistance : frustumDistance,
-    frustumClosestPoint : frustumClosestPoint,
+    frustumIntersects,
+    frustumDistance,
+    frustumClosestPoint,
 
-    lineIntersects : lineIntersects,
-    lineDistance : lineDistance,
-    lineClosestPoint : lineClosestPoint,
+    lineIntersects,
+    lineDistance,
+    lineClosestPoint,
 
-    planeIntersects : planeIntersects,
-    planeDistance : planeDistance,
-    planeClosestPoint : planeClosestPoint,
+    planeIntersects,
+    planeDistance,
+    planeClosestPoint,
 
-    rayIntersects : rayIntersects,
-    rayDistance : rayDistance,
-    rayClosestPoint : rayClosestPoint,
+    rayIntersects,
+    rayDistance,
+    rayClosestPoint,
 
-    segmentIntersects : segmentIntersects,
-    segmentDistance : segmentDistance,
-    segmentClosestPoint : segmentClosestPoint,
+    segmentIntersects,
+    segmentDistance,
+    segmentClosestPoint,
 
-    sphereIntersects : sphereIntersects,
-    sphereDistance : sphereDistance,
-    sphereClosestPoint : sphereClosestPoint,
-    boundingSphereGet : boundingSphereGet,
+    sphereIntersects,
+    sphereDistance,
+    sphereClosestPoint,
+    boundingSphereGet,
 
   }
 
