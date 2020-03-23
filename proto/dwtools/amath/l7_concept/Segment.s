@@ -3526,6 +3526,36 @@ function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
 
 //
 
+function relativeSegmentOrigin( segmentCentered, pointCentered )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let srcSegmentCenteredView = this.adapterFrom( segmentCentered );
+  let srcPointCenteredView = this.tools.vectorAdapter.from( pointCentered.slice() );
+
+  return this.tools.vectorAdapter.dot( srcPointCenteredView, srcSegmentCenteredView ) / this.tools.avector.dot( srcSegmentCenteredView, srcSegmentCenteredView );
+  // return _dot( pointCentered, segmentCentered ) / _dot( segmentCentered, segmentCentered );
+}
+
+//
+
+function relativeSegment( segmentPoints, point )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  let segmentCentered = this.tools.avector.sub( null, segmentPoints[ 1 ], segmentPoints[ 0 ] );
+  let pointCentered = this.tools.avector.sub( null, point, segmentPoints[ 0 ] );
+
+  return this.relativeSegmentOrigin( segmentCentered, pointCentered )
+
+  // let segmentCentered = avector.sub( segmentPoints[ 1 ].slice(), segmentPoints[ 0 ] );
+  // let pointCentered = avector.sub( point.slice(), segmentPoints[ 0 ] );
+
+  // return relativeSegmentOrigin( segmentCentered, pointCentered );
+}
+
+//
+
 /**
   * Check if a segment and a sphere intersect. Returns true if they intersect and false if not.
   * The sphere and the segment remain unchanged.
@@ -3833,6 +3863,9 @@ let Extension = /* qqq : normalize order */
   segmentIntersects,
   segmentDistance,
   segmentClosestPoint,
+
+  relativeSegmentOrigin,
+  relativeSegment,
 
   sphereIntersects,
   sphereDistance,
