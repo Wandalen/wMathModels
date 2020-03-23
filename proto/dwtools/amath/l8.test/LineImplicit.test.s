@@ -350,8 +350,8 @@ function adapterFrom( test )
 {
   test.case = 'Same instance returned - vector'; /* */
 
-  var srcLine = [ 0, 0, 2, 2 ];
-  var expected = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
+  var srcLine = [ 0, 0, 2 ];
+  var expected = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 2 ] );
 
   var gotLine = _.lineImplicit.adapterFrom( srcLine );
   test.identical( gotLine, expected );
@@ -359,8 +359,8 @@ function adapterFrom( test )
 
   test.case = 'Different instance returned - vector -> vector'; /* */
 
-  var srcLine = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
-  var expected = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
+  var srcLine = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 2 ] );
+  var expected = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 2 ] );
 
   var gotLine = _.lineImplicit.adapterFrom( srcLine );
   test.identical( gotLine, expected );
@@ -381,7 +381,6 @@ function adapterFrom( test )
   return;
 
   test.shouldThrowErrorSync( () => _.lineImplicit.adapterFrom( ));
-  test.shouldThrowErrorSync( () => _.lineImplicit.adapterFrom( [ 0, 0, 0, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.lineImplicit.adapterFrom( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.lineImplicit.adapterFrom( 'line' ));
   test.shouldThrowErrorSync( () => _.lineImplicit.adapterFrom( NaN ));
@@ -1138,7 +1137,7 @@ var Self =
     nil,
 
     from,
-    // adapterFrom,
+    adapterFrom,
     // fromPair,
 
     // is,
