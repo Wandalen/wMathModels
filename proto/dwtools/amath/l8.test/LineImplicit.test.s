@@ -394,43 +394,44 @@ function fromPair( test )
 {
   test.case = 'Pair stay unchanged'; /* */
 
-  var pair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
-  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, 1, 2, 0, 1, 2 ] );
+  var pair = [ [ 0, 1 ], [ 0, 2 ] ];
+  var expected = _.lineImplicit.tools.vectorAdapter.make( [ -1, 0, 0 ] );
 
   var gotLine = _.lineImplicit.fromPair( pair );
   test.identical( gotLine, expected );
 
-  var oldPair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
+  var oldPair = [ [ 0, 1 ], [ 0, 2 ] ];
   test.identical( pair, oldPair );
 
   test.case = 'Line starts in origin'; /* */
 
-  var pair = [ [ 0, 0, 0 ], [ 0, 1, 2 ] ];
-  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, 0, 0, 0, 1, 2 ] );
+  var pair = [ [ 0, 0 ], [ 0, 1 ] ];
+  var expected = _.lineImplicit.tools.vectorAdapter.make( [ -1, 0, 0 ] );
 
   var gotLine = _.lineImplicit.fromPair( pair );
   test.identical( gotLine, expected );
 
   test.case = 'Line is point'; /* */
 
-  var pair = [ [ 0, 1, 2 ], [ 0, 1, 2 ] ];
-  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, 1, 2, 0, 0, 0 ] );
+  var pair = [ [ 0, 1 ], [ 0, 1 ] ];
+  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, 0, 0 ] );
 
   var gotLine = _.lineImplicit.fromPair( pair );
   test.identical( gotLine, expected );
 
-  test.case = 'Line of 1 dimension'; /* */
+  //qqq
+  // test.case = 'Line of 1 dimension'; /* */
 
-  var pair = [ [ 3 ], [ 4 ] ];
-  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 3, 1 ] );
+  // var pair = [ [ 3 ], [ 4 ] ];
+  // var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, 1, 0 ] );
 
-  var gotLine = _.lineImplicit.fromPair( pair );
-  test.identical( gotLine, expected );
+  // var gotLine = _.lineImplicit.fromPair( pair );
+  // test.identical( gotLine, expected );
 
-  test.case = 'Line goes up in y and down in z'; /* */
+  test.case = 'Line goes up in y and down in x'; /* */
 
-  var pair = [ [ 0, 1, 2 ], [ 0, 3, 1 ] ];
-  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, 1, 2, 0, 2, -1 ] );
+  var pair = [ [ 0, 2 ], [ -2, 2 ] ];
+  var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, -2, 4 ] );
 
   var gotLine = _.lineImplicit.fromPair( pair );
   test.identical( gotLine, expected );
@@ -1138,7 +1139,7 @@ var Self =
 
     from,
     adapterFrom,
-    // fromPair,
+    fromPair,
 
     // is,
     // dimGet,

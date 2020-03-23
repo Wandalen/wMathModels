@@ -129,6 +129,34 @@ function adapterFrom( line )
 //
 
 /**
+  * Returns implicit representation of a line based on two points.
+  * The pair of points stays untouched.
+  *
+  * @param { Array } pair - The source points.
+  *
+  * @example
+  * // returns   this.tools.vectorAdapter.from( [ 1, 2, 1, 2 ] )
+  * _.fromPair( [ 1, 2 ], [ 3, 4 ] );
+  *
+  * @returns { Vector } Returns the line containing the two points.
+  * @function fromPair
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( pair ) is not array.
+  * @memberof module:Tools/math/Concepts.wTools.lineImplicit
+  */
+
+ function fromPair( pair )
+ {
+   _.assert( arguments.length === 1, 'Expects single argument' );
+   _.assert( pair.length === 2, 'Expects two points' );
+   _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
+
+   return this.eqWithPoints( pair[ 0 ], pair[ 1 ] );
+ }
+
+//
+
+/**
   * Check if input is a line. Returns true if it is a line and false if not.
   *
   * @param { Vector } line - Source line.
@@ -379,6 +407,8 @@ let Extension = /* qqq : normalize order */
 
   from,
   adapterFrom,
+
+  fromPair,
 
   is,
 
