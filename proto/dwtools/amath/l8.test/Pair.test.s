@@ -140,6 +140,36 @@ function fromRay( test )
 
 //
 
+function pairAt( test )
+{
+  var src = [ 1, 1, 5, 5 ]
+  var got = _.pair.pairAt( src, 0.25 );
+  var expected = _.pair.tools.vectorAdapter.fromLong( [ 2, 2 ] );
+  test.identical( got, expected );
+  test.is( got !== src );
+
+  var src = [ 1, 1, 5, 5 ]
+  var got = _.pair.pairAt( src, 0.5 );
+  var expected = _.pair.tools.vectorAdapter.fromLong( [ 3, 3 ] );
+  test.identical( got, expected );
+  test.is( got !== src );
+
+  var src = [ 1, 1, 5, 5 ]
+  var got = _.pair.pairAt( src, 0 );
+  var expected = _.pair.tools.vectorAdapter.fromLong( [ 1, 1 ] );
+  test.identical( got, expected );
+  test.is( got !== src );
+
+  var src = [ 1, 1, 5, 5 ]
+  var got = _.pair.pairAt( src, 1 );
+  var expected = _.pair.tools.vectorAdapter.fromLong( [ 5, 5 ] );
+  test.identical( got, expected );
+  test.is( got !== src );
+
+}
+
+//
+
 // --
 // declare
 // --
@@ -160,6 +190,8 @@ var Self =
     from,
 
     fromRay,
+
+    pairAt,
   }
 
 }

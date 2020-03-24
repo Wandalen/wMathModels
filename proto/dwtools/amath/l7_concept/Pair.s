@@ -131,7 +131,69 @@ function fromRay( dstPair, srcRay )
 }
 
 
+//
 
+function pairAt( pair, factor )
+{
+  _.assert( arguments.length === 2 );
+  _.assert( this.is( pair ) );
+
+  let d = this.dimGet( pair );
+
+  let pair1View = this.tools.vectorAdapter.fromLongLrange( pair, 0, d );
+  let pair2View = this.tools.vectorAdapter.fromLongLrange( pair, d, d );
+
+  let a = this.tools.vectorAdapter.mul( null, pair1View, 1-factor );
+  let b = this.tools.vectorAdapter.mul( null, pair2View, factor );
+
+  let result = this.tools.vectorAdapter.add( a, b );
+
+  return result;
+}
+
+pairAt.shaderChunk =
+`
+  vec2 pairAt( vec2 pair[ 2 ], float factor )
+  {
+
+    vec2 a = pair[ 0 ] * ( 1.0-factor );
+    vec2 b = pair[ 1 ] * factor;
+    vec2 result = a + b;
+
+    return result;
+  }
+`
+
+//
+
+function injectChunks( routines )
+{
+
+  _global_.w4d = _global_.w4d || Object.create( null );
+  let Chunks = w4d.Chunks = w4d.Chunks || Object.create( null );
+
+  for( let r in routines )
+  {
+    let routine = routines[ r ];
+
+    if( !_.routineIs( routine ) )
+    continue;
+
+    if( !routine.shaderChunk )
+    continue;
+
+    _.assert( _.strIs( routine.shaderChunk ) );
+
+    let shaderChunk = '';
+    shaderChunk += '\n' + routine.shaderChunk + '\n';
+
+    let chunkName = routine.shaderChunkName || r;
+
+    Chunks[ chunkName ] = shaderChunk;
+
+  }
+
+}
 
 // --
 // declare
@@ -150,11 +212,14 @@ let Extension = /* qqq xxx : normalize order */
 
   fromRay,
 
+  pairAt,
+
   // ref
 
   tools : _,
 }
 
 _.mapExtend( Self, Extension );
+injectChunks( Extension );
 
 })();
