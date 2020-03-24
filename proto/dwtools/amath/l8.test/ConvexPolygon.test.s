@@ -1934,6 +1934,27 @@ function pointClosestPoint( test )
 
 //
 
+function isClockwise( test )
+{
+  test.case = '2d clockwise'
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    5, 2, 2, 5,
+    5, 5, 1, 1
+  ])
+  test.is( _.convexPolygon.isClockwise( polygon ) );
+
+  test.case = '2d counter clockwise'
+  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  ([
+    5, 2, 2, 5,
+    1, 1, 5, 5,
+  ])
+  test.is( !_.convexPolygon.isClockwise( polygon ) );
+}
+
+//
+
 function boxIntersects( test )
 {
 
@@ -8207,6 +8228,8 @@ var Self =
     pointDistance,
     pointDistanceSqr,
     pointClosestPoint,
+
+    isClockwise,
 
     boxIntersects,
     boxDistance,

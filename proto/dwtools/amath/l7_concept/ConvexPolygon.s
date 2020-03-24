@@ -608,6 +608,35 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
 
 //
 
+function isClockwise( polygon )
+{
+  let result = 0;
+
+  _.assert( this.is( polygon ) );
+  _.assert( arguments.length === 1, 'Expects single argument' );
+
+  let dims = _.Matrix.DimsOf( polygon );
+  let l = dims[ 1 ];
+  for( let p = l-1 ; p >= 0 ; p-- )
+  {
+    let p2 = p + 1;
+    if( p2 === l )
+    p2 = 0;
+
+    let vertex = polygon.colVectorGet( p );
+    let nextVertex = polygon.colVectorGet( p2 );
+
+    result += ( vertex.eGet( 0 ) - nextVertex.eGet( 0 ) ) * ( vertex.eGet( 1 ) + nextVertex.eGet( 1 ) );
+    // result += ( polygon[ p*2+0 ] - polygon[ p2*2+0 ] ) * ( polygon[ p*2+1 ] + polygon[ p2*2+1 ] );
+  }
+
+  _.assert( _.numberIsFinite( result ) );
+
+  return result > 0;
+}
+
+//
+
 /**
   * Check if a convex polygon and a box intersect. Returns true if they intersect.
   * Convex polygon and box remain unchanged.
@@ -2508,6 +2537,8 @@ let Extension = /* qqq xxx : normalize order */
   pointDistance,
   pointDistanceSqr,
   pointClosestPoint,
+
+  isClockwise,
 
   boxIntersects,
   boxDistance,
