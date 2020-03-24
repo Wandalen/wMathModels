@@ -40,7 +40,7 @@ function make( test )
   var dim = 2;
   var gotPair = _.pair.make( dim );
 
-  var expected = _.pair.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
+  var expected = _.pair.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( gotPair, expected );
 
   /* */
@@ -74,15 +74,15 @@ function from( test )
 {
   test.case = 'Same instance returned - array'; /* */
 
-  var srcPair = [ [ 0, 0, 1 ], [ 1, 2, 0 ] ];
-  var expected = _.pair.tools.longMake( [ [ 0, 0, 1 ], [ 1, 2, 0 ] ] );
+  var srcPair = [ 0, 0, 1 , 1, 2, 0 ];
+  var expected = _.pair.tools.longMake( [ 0, 0, 1, 1, 2, 0 ] );
 
   var gotPair = _.pair.from( srcPair );
   test.identical( gotPair, expected );
   test.is( srcPair === gotPair );
 
   var srcPair = null;
-  var expected = _.pair.tools.longMake( [ [ 0, 0 ], [ 0, 0 ] ] );
+  var expected = _.pair.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var gotPair = _.pair.from( srcPair );
   test.identical( gotPair, expected );
@@ -106,11 +106,12 @@ function from( test )
 function is( test )
 {
 
-  test.is( _.pair.is( [ [ 0, 0 ], [ 0, 0 ] ] ) );
+  test.is( _.pair.is( [ 0, 0, 0, 0 ] ) );
+  test.is( _.pair.is( [ 0, 0, 1, 1, 2, 0 ] ) );
 
   //
 
-  test.is( !_.pair.is( [ 0, 0, 1, 1, 2, 0 ] ) );
+  test.is( !_.pair.is( [ 0, 0, 1, 1, 2, 0, 0 ] ) );
   test.is( !_.pair.is( null ) );
   test.is( !_.pair.is( NaN ) );
   test.is( !_.pair.is( undefined ) );
@@ -124,15 +125,15 @@ function is( test )
 
 function fromRay( test )
 {
-  var src = [ [ 0,0 ], [ 1,1 ] ]
+  var src = [ 0, 0, 1, 1 ]
   var got = _.pair.fromRay( src );
-  var expected = _.pair.tools.longMake([ [ 0,0 ], [ 1,1 ] ] );
+  var expected = _.pair.tools.longMake( [ 0,0, 1,1 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
-  var src = [ [ 1,1 ], [ 1,1 ] ]
+  var src = [ 1, 1, 1, 1 ]
   var got = _.pair.fromRay( src );
-  var expected = _.pair.tools.longMake([ [ 1,1 ], [ 2,2 ] ] );
+  var expected = _.pair.tools.longMake([ 1, 1, 2, 2 ] );
   test.identical( got, expected );
   test.is( got !== src );
 }

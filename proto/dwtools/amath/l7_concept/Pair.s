@@ -30,7 +30,7 @@ function makeZero( dim )
   dim = 2;
   _.assert( dim >= 0 );
   _.assert( arguments.length === 0 || arguments.length === 1 );
-  let result = [ _.dup( 0, dim ), _.dup( 0, dim ) ];
+  let result = _.dup( 0, dim * 2 )
   return result;
 }
 
@@ -70,7 +70,7 @@ function from( pair )
 function is( pair )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return ( _.longIs( pair ) || _.vectorAdapterIs( pair ) ) && ( pair.length === 2 ) && ( pair[ 0 ].length === pair[ 1 ].length );
+  return ( _.longIs( pair ) || _.vectorAdapterIs( pair ) ) && ( pair.length % 2 === 0 ) && ( pair.length >= 4 );
 }
 
 //
@@ -82,7 +82,7 @@ function is( pair )
   *
   * @example
   * // returns 2
-  * _.dimGet( [ [ 0, 0 ], [ 0, 0 ] ] );
+  * _.dimGet( [ 0, 0, 0, 0 ] );
   *
   * @returns { Number } Returns the dimension of the pair.
   * @function dimGet
@@ -95,14 +95,14 @@ function dimGet( pair )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( this.is( pair ) );
-  return pair[ 0 ].length;
+  return pair.length / 2;
 }
 
 //
 
 function fromRay( dstPair, srcRay )
 {
-  _.assert( arguments.length >= 1 );
+  _.assert( arguments.length === 1 || arguments.length === 2 );
 
   if( arguments.length === 1 )
   {
@@ -111,16 +111,21 @@ function fromRay( dstPair, srcRay )
   }
 
   if( dstPair === null )
-  dstPair = this.make( srcRay[ 0 ].length )
+  dstPair = this.make( srcRay.length / 2 )
 
   _.assert( this.is( dstPair ) );
-  _.assert( srcRay.length === 2 );
-  _.assert( srcRay[ 0 ].length === srcRay[ 1 ].length );
+  _.assert( srcRay.length === dstPair.length );
 
-  let srcRayView = this.tools.vectorAdapter.from( srcRay );
+  let d = this.dimGet( dstPair );
 
-  dstPair[ 0 ] = srcRayView.eGet( 0 )
-  dstPair[ 1 ] = this.tools.avector.add( null, srcRayView.eGet( 1 ), srcRayView.eGet( 0 ) );
+  let srcRayP1View = this.tools.vectorAdapter.fromLongLrange( srcRay, 0, d );
+  let srcRayP2View = this.tools.vectorAdapter.fromLongLrange( srcRay, d, d );
+
+  let dstPair1View = this.tools.vectorAdapter.fromLongLrange( dstPair, 0, d );
+  let dstPair2View = this.tools.vectorAdapter.fromLongLrange( dstPair, d, d );
+
+  dstPair1View.assign( srcRayP1View );
+  dstPair2View.assign( this.tools.vectorAdapter.add( null, srcRayP1View, srcRayP2View ) );
 
   return dstPair;
 }
