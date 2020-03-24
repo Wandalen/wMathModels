@@ -170,6 +170,29 @@ function pairAt( test )
 
 //
 
+function pairPairParallel( test )
+{
+  test.case = '2d parallel'
+  var pair1 = _.pair.fromRay( [ 0, 0, 1, 1 ] );
+  var pair2 = _.pair.fromRay( [ 3, 7, - 2, - 2 ] );
+  var expected = true;
+
+  var got = _.pair.pairPairParallel( pair1, pair2 );
+  test.identical( got, expected )
+
+  test.case = '2d not parallel'
+
+  var pair1 = _.pair.fromRay( [ 3, 7, 1, - 1 ] );
+  var pair2 = _.pair.fromRay( [ 3, 7, 7, 7 ]);
+  var expected = false;
+
+  var got = _.pair.pairPairParallel( pair1, pair2 );
+  test.identical( got, expected )
+
+}
+
+//
+
 // --
 // declare
 // --
@@ -192,6 +215,8 @@ var Self =
     fromRay,
 
     pairAt,
+
+    pairPairParallel
   }
 
 }
