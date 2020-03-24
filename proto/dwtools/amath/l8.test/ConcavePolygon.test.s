@@ -454,7 +454,7 @@ function isClockwise( test )
   test.case = 'concave counter clockwise'
 
   var polygon =
-  _.convexPolygon.make( 2, 4 ).copy
+  _.concavePolygon.make( 2, 4 ).copy
   ([
     6.84, 1.26, 2.32, 5.46,
     0.64, 1.54, 4.71, 4.93,
@@ -462,12 +462,13 @@ function isClockwise( test )
   test.is( !_.concavePolygon.isClockwise( polygon ) );
 
   test.case = 'concave clockwise'
-  var polygon = _.convexPolygon.make( 2, 4 ).copy
+  var polygon = _.concavePolygon.make( 2, 4 ).copy
   ([
     5.46,2.32,1.26,6.84,
     4.93,4.71,1.54,0.64
   ])
   test.is( _.concavePolygon.isClockwise( polygon ) );
+
 }
 
 // --
