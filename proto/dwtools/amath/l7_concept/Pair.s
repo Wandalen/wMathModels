@@ -199,7 +199,7 @@ function pairIntersectionFactors( pair1, pair2 )
 
 pairIntersectionFactors.shaderChunk =
 `
-  vec2 pairPairParallel( vec2 p1[ 2 ], vec2 p2[ 2 ] )
+  vec2 pairPairIntersectionFactors( vec2 p1[ 2 ], vec2 p2[ 2 ] )
   {
 
     vec2 r1[ 2 ], r2[ 2 ];
