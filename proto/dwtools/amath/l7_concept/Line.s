@@ -3240,6 +3240,40 @@ function boundingSphereGet( dstSphere, srcLine )
   return dstSphere;
 }
 
+//
+
+function pointsToPointSide( segmentPoints, point )
+{
+  _.assert( point.length === 2, 'not implemented' );
+  _.assert( segmentPoints.length === 4, 'not implemented' );
+
+  let segmentPointsView = this.tools.vectorAdapter.from( segmentPoints );
+  let pointView = this.tools.vectorAdapter.from( point );
+
+  /*
+    d=(x−x1)(y2−y1)−(y−y1)(x2−x1)
+    d === 0 point is on the line, otherwise on the side of the line
+  */
+
+  let point0x = pointView.eGet( 0 ) - segmentPointsView.eGet( 0 );
+  let point0y = pointView.eGet( 1 ) - segmentPointsView.eGet( 1 )
+
+  let point1x = segmentPointsView.eGet( 2 ) - segmentPointsView.eGet( 0 );
+  let point1y = segmentPointsView.eGet( 3 ) - segmentPointsView.eGet( 1 );
+
+  let result = point0x * point1y - point0y * point1x;
+
+  return result;
+/*
+  let point0 = [ point[ 0 ] - segmentPoints[ 0 ][ 0 ], point[ 1 ] - segmentPoints[ 0 ][ 1 ] ];
+  let point1 = [ segmentPoints[ 1 ][ 0 ] - segmentPoints[ 0 ][ 0 ], segmentPoints[ 1 ][ 1 ] - segmentPoints[ 0 ][ 1 ] ];
+
+  let result = point0[ 0 ] * point1[ 1 ] - point0[ 1 ] * point1[ 0 ];
+
+  return result;
+*/
+}
+
 // --
 // extension
 // --
@@ -3324,6 +3358,8 @@ let Extension = /* qqq : normalize order */
   segmentIntersectionFactors,
   segmentDistance,  /* Same as _.segment.rayDistance */
   segmentClosestPoint,
+
+  pointsToPointSide,
 
   // ref
 

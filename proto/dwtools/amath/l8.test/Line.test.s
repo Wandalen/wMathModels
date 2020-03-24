@@ -7076,8 +7076,73 @@ function boundingSphereGet( test )
 
 }
 
+//
+
+function pointsToPointSide( test )
+{
+  test.case = 'point on the line'
+
+  var srcLine = [ 0, 0, 1, 1 ];
+  var srcPoint = [ 0, 0 ];
+  var expected = 0;
+
+  var gotSide = _.line.pointsToPointSide( srcLine, srcPoint );
+  test.identical( gotSide, expected )
+
+  var srcLine = [ 0, 0, 1, 1 ];
+  var srcPoint = [ 2, 2 ];
+  var expected = 0;
+
+  var gotSide = _.line.pointsToPointSide( srcLine, srcPoint );
+  test.identical( gotSide, expected )
+
+  var srcLine = [ 0, 0, 1, 1 ];
+  var srcPoint = [ -1, -1 ];
+  var expected = 0;
+
+  var gotSide = _.line.pointsToPointSide( srcLine, srcPoint );
+  test.identical( gotSide, expected )
 
 
+  var srcLine = [ 0, 0, 1, 1 ];
+  var srcPoint = [ 0.5, 0.5 ];
+  var expected = 0;
+
+  var gotSide = _.line.pointsToPointSide( srcLine, srcPoint );
+  test.identical( gotSide, expected )
+
+  test.case = 'point on the left side'
+
+  var srcLine = [ 0, 0, 1, 1 ];
+  var srcPoint = [ 0.5, 1 ];
+  var expected = -0.5;
+
+  var gotSide = _.line.pointsToPointSide( srcLine, srcPoint );
+  test.identical( gotSide, expected )
+
+  var srcLine = [ 0, 0, 1, 1 ];
+  var srcPoint = [ 0.5, 2 ];
+  var expected = -1.5;
+
+  var gotSide = _.line.pointsToPointSide( srcLine, srcPoint );
+  test.identical( gotSide, expected )
+
+  test.case = 'point on the right side'
+
+  var srcLine = [ 0, 0, 1, 1 ];
+  var srcPoint = [ 0.5, 0 ];
+  var expected = 0.5;
+
+  var gotSide = _.line.pointsToPointSide( srcLine, srcPoint );
+  test.identical( gotSide, expected )
+
+  var srcLine = [ 0, 0, 1, 1 ];
+  var srcPoint = [ 0.5, -1 ];
+  var expected = 1.5;
+
+  var gotSide = _.line.pointsToPointSide( srcLine, srcPoint );
+  test.identical( gotSide, expected )
+}
 
 // --
 // define class
@@ -7159,6 +7224,8 @@ var Self =
     sphereDistance,
     sphereClosestPoint,
     boundingSphereGet,
+
+    pointsToPointSide,
 
   }
 
