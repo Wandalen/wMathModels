@@ -261,6 +261,7 @@ let Extension = /* qqq xxx : normalize order */
   pairAt,
 
   pairPairParallel,
+  pairIntersectionFactors,
 
   // ref
 
