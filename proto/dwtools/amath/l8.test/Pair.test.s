@@ -276,6 +276,48 @@ function pairIntersectionPoint( test )
 
 //
 
+function pairIntersectionPointAccurate( test )
+{
+  test.case = 'Parellel'; /* */
+
+  var pair1 = _.pair.fromRay( [ 0, 0, 1, 1 ] );
+  var pair2 = _.pair.fromRay( [ 3, 7, 1, 1 ] );
+  var expected = 0
+
+  var got = _.pair.pairIntersectionPointAccurate( pair1, pair2 );
+  test.identical( got, expected )
+
+  test.case = 'Same'; /* */
+
+  var pair1 = _.pair.fromRay( [ 0, 0, 1, 1 ] );
+  var pair2 = _.pair.fromRay( [ 0, 0, 1, 1 ] );
+  var expected = _.pair.tools.longMake( [ 0, 0 ] );
+
+  var got = _.pair.pairIntersectionPointAccurate( pair1, pair2 );
+  test.identical( got, expected )
+
+  test.case = 'Rays intersect in their origin'; /* */
+
+  var pair1 = _.pair.fromRay( [ 3, 7, 1, 0 ] );
+  var pair2 = _.pair.fromRay( [ 3, 7, 0, 1 ] );
+  var expected = _.pair.tools.longMake( [ 3, 7 ] );
+
+  var got = _.pair.pairIntersectionPointAccurate( pair1, pair2 );
+  test.identical( got, expected )
+
+  test.case = 'Rays intersect'; /* */
+
+  var pair1 = _.pair.fromRay( [ 0, 0, 1, 0 ] );
+  var pair2 = _.pair.fromRay( [ -2, -6, 1, 2 ] );
+  var expected = _.pair.tools.longMake( [ 1, 0 ] );
+
+  var got = _.pair.pairIntersectionPointAccurate( pair1, pair2 );
+  test.identical( got, expected )
+
+}
+
+//
+
 // --
 // declare
 // --
@@ -301,7 +343,8 @@ var Self =
 
     pairPairParallel,
     pairIntersectionFactors,
-    pairIntersectionPoint
+    pairIntersectionPoint,
+    pairIntersectionPointAccurate
   }
 
 }
