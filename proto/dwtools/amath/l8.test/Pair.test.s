@@ -193,6 +193,47 @@ function pairPairParallel( test )
 
 //
 
+function pairIntersectionFactors( test )
+{
+  test.case = 'Rays don´t intersect'; /* */
+
+  var pair1 = _.pair.fromRay( [ 0, 0, 1, 1 ] );
+  var pair2 = _.pair.fromRay( [ 3, 0, 2, -1 ] );
+  var expected = 0;
+
+  var got = _.pair.pairIntersectionFactors( pair1, pair2 );
+  test.identical( got, expected )
+
+  test.case = 'Rays intersect in their origin'; /* */
+
+  var pair1 = _.pair.fromRay( [ 3, 7, 1, 0 ] );
+  var pair2 = _.pair.fromRay( [ 3, 7, 0, 1  ] );
+  var expected = _.pair.tools.vectorAdapter.from( [ 0, 0 ] );
+
+  var got = _.pair.pairIntersectionFactors( pair1, pair2 );
+  test.identical( got, expected )
+
+  test.case = 'Rays intersect '; /* */
+
+  var pair1 = _.pair.fromRay( [ 0, 0, 1, 0 ] );
+  var pair2 = _.pair.fromRay( [ -2, -6, 1, 2 ] );
+  var expected = _.pair.tools.vectorAdapter.from( [ 1, 3 ] );
+
+  var got = _.pair.pairIntersectionFactors( pair1, pair2 );
+  test.identical( got, expected )
+
+  test.case = 'Rays are perpendicular '; /* */
+
+  var pair1 = _.pair.fromRay( [ -3, 0, 1, 0 ] );
+  var pair2 = _.pair.fromRay( [ 0, -2, 0, 1 ] );
+  var expected = _.pair.tools.vectorAdapter.from( [ 3, 2 ] );
+
+  var got = _.pair.pairIntersectionFactors( pair1, pair2 );
+  test.identical( got, expected )
+}
+
+//
+
 // --
 // declare
 // --
@@ -216,7 +257,8 @@ var Self =
 
     pairAt,
 
-    pairPairParallel
+    pairPairParallel,
+    pairIntersectionFactors
   }
 
 }

@@ -189,6 +189,29 @@ pairPairParallel.shaderChunk =
 
 //
 
+function pairIntersectionFactors( pair1, pair2 )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  let ray1 = this.tools.ray.fromPair( pair1 );
+  let ray2 = this.tools.ray.fromPair( pair2 );
+  return this.tools.ray.rayIntersectionFactors( ray1, ray2 );
+}
+
+pairIntersectionFactors.shaderChunk =
+`
+  vec2 pairPairParallel( vec2 p1[ 2 ], vec2 p2[ 2 ] )
+  {
+
+    vec2 r1[ 2 ], r2[ 2 ];
+    ray_fromPair( r1, p1 );
+    ray_fromPair( r2, p2 );
+
+    return ray_rayIntersectionFactors( r1, r2 );
+  }
+`
+
+//
+
 function injectChunks( routines )
 {
 
