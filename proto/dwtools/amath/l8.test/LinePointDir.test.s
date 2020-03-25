@@ -2259,127 +2259,6 @@ function pointDistance( test )
 
 //
 
-function pointDistanceCentered2D( test )
-{
-
-  test.case = 'Line and Point remain unchanged'; /* */
-
-  var line = [ 1, 1 ];
-  var point = [ 0, 1 ];
-  var expected = Math.sqrt( 2 ) / 2;
-
-  var gotDistance = _.linePointDir.pointDistanceCentered2D( line, point );
-  test.equivalent( gotDistance, expected );
-
-  var oldLine = [ 1, 1 ];
-  test.identical( line, oldLine );
-
-  var oldPoint = [ 0, 1 ];
-  test.identical( point, oldPoint );
-
-  test.case = 'Null line Distance empty point'; /* */
-
-  var line = null;
-  var point = [ 0, 0 ];
-  var expected = 0;
-
-  var gotDistance = _.linePointDir.pointDistanceCentered2D( line, point );
-  test.identical( gotDistance, expected );
-
-  test.open( '2d' )
-
-  test.case = 'Point line Distance same Point'; /* */
-
-  var line = [ 0, 0 ];
-  var point = [ 0, 0 ];
-  var expected = 0;
-
-  var gotDistance = _.linePointDir.pointDistanceCentered2D( line, point );
-  test.identical( gotDistance, expected );
-
-  test.case = 'Point line Distance other Point'; /* */
-
-  var line = [ 1,1 ];
-  var point = [ 0, 1 ];
-  var expected = Math.sqrt( 2 ) / 2;
-
-  var gotDistance = _.linePointDir.pointDistanceCentered2D( line, point );
-  test.equivalent( gotDistance, expected );
-
-  test.case = 'Point close to origin'; /* */
-
-  var line = [ 2,3 ];
-  var point = [ 0, 1 ];
-  var expected = 2 * ( Math.sqrt( 13 ) / 13 );
-
-  var gotDistance = _.linePointDir.pointDistanceCentered2D( line, point );
-  test.equivalent( gotDistance, expected );
-
-  test.case = 'Point close to end'; /* */
-
-  var line = [ -1,2 ];
-  var point = [ 1, 3 ];
-  var expected = -Math.sqrt( 5 )
-
-  var gotDistance = _.linePointDir.pointDistanceCentered2D( line, point );
-  test.equivalent( gotDistance, expected );
-
-  test.case = 'Point on line'; /* */
-
-  var line = [ 2,2 ];
-  var point = [ 1, 1 ];
-  var expected = 0
-
-  var gotDistance = _.linePointDir.pointDistanceCentered2D( line, point );
-  test.equivalent( gotDistance, expected );
-
-  test.close( '2d' )
-}
-
-//
-
-function pointDistanceCentered3DSqr( test )//qqq vova: extend
-{
-  test.case = 'Point on line'; /* */
-
-  var line = [ 2, 2, 2 ];
-  var point = [ 1, 1, 1 ];
-  var expected = 0
-
-  var gotDistance = _.linePointDir.pointDistanceCentered3DSqr( line, point );
-  test.equivalent( gotDistance, expected );
-
-  test.case = 'Point closer to origin'; /* */
-
-  var line = [ 0, 0, 2 ];
-  var point = [ 0, -2, 0 ];
-  var expected = 4;
-
-  var gotDistance = _.linePointDir.pointDistanceCentered3DSqr( line, point );
-  test.equivalent( gotDistance, expected );
-
-  test.case = 'Point closer to end'; /* */
-
-  var line = [ 0, 0, 2 ];
-  var point = [ 0, 1, 2 ];
-  var expected = 1;
-
-  var gotDistance = _.linePointDir.pointDistanceCentered3DSqr( line, point );
-  test.equivalent( gotDistance, expected );
-
-  test.case = 'Point with negative factor'; /* */
-
-  var line = [ 0, 0, 2 ];
-  var point = [ 0, 0, 4 ];
-  var expected = 0;
-
-  var gotDistance = _.linePointDir.pointDistanceCentered3DSqr( line, point );
-  test.equivalent( gotDistance, expected );
-
-}
-
-//
-
 function pointClosestPoint( test )
 {
 
@@ -7227,8 +7106,6 @@ var Self =
 
     pointContains,
     pointDistance,
-    pointDistanceCentered2D,
-    pointDistanceCentered3DSqr,
     pointClosestPoint,
 
     boxIntersects,

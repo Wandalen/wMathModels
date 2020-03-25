@@ -1,0 +1,240 @@
+(function _LinePointCentered_s_(){
+
+'use strict';
+
+let _ = _global_.wTools;
+// let this.tools.avector = this.tools.avector;
+// let vector = this.tools.vectorAdapter;
+let Self = _.linePointCentered = _.linePointCentered || Object.create( _.avector );
+
+// --
+// routines
+// --
+
+function make( dim )
+{
+  _.assert( arguments.length === 0 || arguments.length === 1 );
+  let result = this.makeZero( dim );
+  if( this.is( dim ) )
+  this.tools.avector.assign( result, dim );
+  return result;
+}
+
+//
+
+function makeZero( dim )
+{
+  if( this.is( dim ) )
+  dim = this.dimGet( dim );
+  if( dim === undefined || dim === null )
+  dim = 2;
+  _.assert( dim >= 0 );
+  _.assert( arguments.length === 0 || arguments.length === 1 );
+  let result = _.dup( 0, dim * 2 )
+  return result;
+}
+
+//
+
+function from( pair )
+{
+
+  _.assert( this.is( pair ) || pair === null );
+  _.assert( arguments.length === 1, 'Expects single argument' );
+
+  if( pair === null )
+  return this.make();
+
+  return pair;
+}
+
+//
+
+function adapterFrom( line )
+{
+  if( !this.is( line ) )
+  debugger;
+  _.assert( this.is( line ) );
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  return this.tools.vectorAdapter.from( line );
+}
+
+//
+
+/**
+  * Check if input is a pair. Returns true if it is a pair and false if not.
+  *
+  * @param { Vector } pair - Source pair.
+  *
+  * @example
+  * // returns true;
+  * _.pair.is( [ [ 0, 0 ], [ 1, 1 ]  ] );
+  * // returns false;
+  * _.pair.is( [ 0,0 ] );
+  *
+  * @returns { Boolean } Returns true if the input is pair.
+  * @function is
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @memberof module:Tools/math/Concepts.wTools.pair
+  */
+
+function is( pair )
+{
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  return ( _.longIs( pair ) || _.vectorAdapterIs( pair ) ) && ( pair.length % 2 === 0 ) && ( pair.length >= 2 );
+}
+
+//
+
+/**
+  * Get pair dimension. Returns the dimension of the pair. Pair stays untouched.
+  *
+  * @param { Vector } pair - The source pair.
+  *
+  * @example
+  * // returns 2
+  * _.dimGet( [ 0, 0, 0, 0 ] );
+  *
+  * @returns { Number } Returns the dimension of the pair.
+  * @function dimGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( pair ) is not pair.
+  * @memberof module:Tools/math/Concepts.wTools.pair
+  */
+
+function dimGet( pair )
+{
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( this.is( pair ) );
+  return pair.length / 2;
+}
+
+//
+
+function pointDistanceCentered2D( srcLineCentered, srcPointCentered )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+
+  if( srcLineCentered === null )
+  srcLineCentered = this.make( srcPointCentered.length / 2 );
+
+  let srcLineView = this.adapterFrom( srcLineCentered );
+  let dimension  = srcLineView.length;
+  let srcPointView = this.tools.vectorAdapter.from( srcPointCentered.slice() );
+
+  _.assert( dimension === 2, 'not implemented' );
+  _.assert( dimension === srcPointCentered.length, 'The line and the point must have the same dimension' );
+
+  let srcLineFromCentered = [ 0, 0, srcLineView.eGet( 0 ), srcLineView.eGet( 1 ) ];
+  if( this.linePointDir.pointContains( srcLineFromCentered, srcPointView ) )
+  return 0;
+
+  let srcLineP = this.tools.vectorAdapter.fromLong( [ -srcLineView.eGet( 1 ), +srcLineView.eGet( 0 ) ]);
+  let distance = this.tools.vectorAdapter.dot( srcLineP, srcPointView );
+  distance = distance / this.tools.vectorAdapter.mag( srcLineView );
+  return distance;
+}
+
+//
+
+function pointDistanceCentered3DSqr( lineCentered, pointCentered )
+{
+  _.assert( arguments.length === 2 );
+
+  let pointCenteredView = this.tools.vectorAdapter.from( pointCentered );
+  let lineCenteredView = this.tools.vectorAdapter.from( lineCentered );
+
+  let cross = this.tools.vectorAdapter.cross( null, pointCenteredView, lineCenteredView );
+
+  let pointCenteredDot = this.tools.vectorAdapter.dot( cross, cross );
+  let lineCenteredDot = this.tools.vectorAdapter.dot( lineCenteredView, lineCenteredView );
+
+  return  pointCenteredDot / lineCenteredDot;
+
+  /*
+
+  throw _.err( 'not tested' );
+
+  //p.slice().sub( p.slice().mul( p.dot( b ) ) );
+  p.cross( b );
+
+  return p.lengthSq() / b.lengthSq();
+
+  */
+}
+
+//
+
+function pointDistance3DSqr( linePoints, point )
+{
+  _.assert( arguments.length === 2 );
+
+  let lineOrigin = this.originGet( linePoints );
+  let lineDirection = this.directionGet( linePoints );
+
+  let lineCentered = this.tools.vectorAdapter.sub( null, lineDirection, lineOrigin );
+  let pointCentered = this.tools.vectorAdapter.sub( null, point, lineOrigin );
+
+  return this.pointDistanceCentered3dSqr( lineCentered, pointCentered );
+}
+
+//
+
+function injectChunks( routines )
+{
+
+  _global_.w4d = _global_.w4d || Object.create( null );
+  let Chunks = w4d.Chunks = w4d.Chunks || Object.create( null );
+
+  for( let r in routines )
+  {
+    let routine = routines[ r ];
+
+    if( !_.routineIs( routine ) )
+    continue;
+
+    if( !routine.shaderChunk )
+    continue;
+
+    _.assert( _.strIs( routine.shaderChunk ) );
+
+    let shaderChunk = '';
+    shaderChunk += '\n' + routine.shaderChunk + '\n';
+
+    let chunkName = routine.shaderChunkName || r;
+
+    Chunks[ chunkName ] = shaderChunk;
+
+  }
+
+}
+
+// --
+// declare
+// --
+
+
+let Extension = /* qqq xxx : normalize order */
+{
+  make,
+  makeZero,
+
+  from,
+  adapterFrom,
+
+  is,
+  dimGet,
+
+  pointDistanceCentered2D,
+  pointDistanceCentered3DSqr,
+  pointDistance3DSqr,
+
+  // ref
+
+  tools : _,
+}
+
+_.mapExtend( Self, Extension );
+injectChunks( Extension );
+
+})();

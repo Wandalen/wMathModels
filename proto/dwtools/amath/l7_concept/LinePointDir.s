@@ -1138,73 +1138,6 @@ function pointDistance( srcLine, srcPoint )
 
 //
 
-function pointDistanceCentered2d( srcLineCentered, srcPointCentered )
-{
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-
-  if( srcLineCentered === null )
-  srcLineCentered = this.make( srcPointCentered.length / 2 );
-
-  let srcLineView = this.adapterFrom( srcLineCentered );
-  let dimension  = srcLineView.length;
-  let srcPointView = this.tools.vectorAdapter.from( srcPointCentered.slice() );
-
-  _.assert( dimension === 2, 'not implemented' );
-  _.assert( dimension === srcPointCentered.length, 'The line and the point must have the same dimension' );
-
-  let srcLineFromCentered = [ 0, 0, srcLineView.eGet( 0 ), srcLineView.eGet( 1 ) ];
-  if( this.pointContains( srcLineFromCentered, srcPointView ) )
-  return 0;
-
-  let srcLineP = this.tools.vectorAdapter.fromLong( [ -srcLineView.eGet( 1 ), +srcLineView.eGet( 0 ) ]);
-  let distance = this.tools.vectorAdapter.dot( srcLineP, srcPointView );
-  distance = distance / this.tools.vectorAdapter.mag( srcLineView );
-  return distance;
-}
-
-//
-
-function pointDistanceCentered3dSqr( lineCentered, pointCentered )
-{
-  _.assert( arguments.length === 2 );
-
-  let pointCenteredView = this.tools.vectorAdapter.from( pointCentered );
-  let lineCenteredView = this.tools.vectorAdapter.from( lineCentered );
-
-  let cross = this.tools.vectorAdapter.cross( null, pointCenteredView, lineCenteredView );
-
-  let pointCenteredDot = this.tools.vectorAdapter.dot( cross, cross );
-  let lineCenteredDot = this.tools.vectorAdapter.dot( lineCenteredView, lineCenteredView );
-
-  return  pointCenteredDot / lineCenteredDot;
-
-  /*
-
-  throw _.err( 'not tested' );
-
-  //p.slice().sub( p.slice().mul( p.dot( b ) ) );
-  p.cross( b );
-
-  return p.lengthSq() / b.lengthSq();
-
-  */
-}
-
-//
-
-function pointDistance3dSqr( linePoints, point )
-{
-  _.assert( arguments.length === 2 );
-
-  let lineOrigin = this.originGet( linePoints );
-  let lineDirection = this.directionGet( linePoints );
-
-  let lineCentered = this.tools.vectorAdapter.sub( null, lineDirection, lineOrigin );
-  let pointCentered = this.tools.vectorAdapter.sub( null, point, lineOrigin );
-
-  return this.pointDistanceCentered3dSqr( lineCentered, pointCentered );
-}
-
 /**
   * Get the closest point between a point and a line. Returs the calculated point. srcPoint and line stay untouched.
   *
@@ -3352,9 +3285,6 @@ let Extension = /* qqq : normalize order */
 
   pointContains,
   pointDistance,
-  pointDistanceCentered2d,
-  pointDistanceCentered3dSqr,
-  pointDistance3dSqr,
   pointClosestPoint,
 
   boxIntersects,
