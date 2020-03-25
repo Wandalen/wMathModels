@@ -29,7 +29,6 @@ if( typeof module !== 'undefined' )
   require( '../l7_concept/LineImplicit.s' );
   require( '../l7_concept/Pair.s' );
   require( '../l7_concept/Plane.s' );
-  require( '../l7_concept/Polygon.s' );
   require( '../l7_concept/Ray.s' );
   require( '../l7_concept/Segment.s' );
   require( '../l7_concept/Sphere.s' );
