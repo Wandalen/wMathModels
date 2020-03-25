@@ -137,6 +137,29 @@ function pointDistanceCentered2D( srcLineCentered, srcPointCentered )
 
 //
 
+function pointDistance2D( linePoints, point )
+{
+  _.assert( arguments.length === 2 );
+
+  let linePointsView = this.tools.vectorAdapter.from( linePoints );
+  let pointView = this.tools.vectorAdapter.from( point );
+
+  let linePoint1 = linePointsView.review([ 0, 1 ]);
+  let linePoint2 = linePointsView.review([ 2, 3 ]);
+
+  let lineCentered = this.tools.vectorAdapter.sub( null, linePoint2, linePoint1 );
+  let pointCentered = this.tools.vectorAdapter.sub( null, pointView, linePoint1 );
+
+  return this.pointDistanceCentered2D( lineCentered, pointCentered );
+
+  /* let lineCentered = avector.sub( linePoints[ 1 ].slice(), linePoints[ 0 ] );
+  let pointCentered = avector.sub( point.slice(), linePoints[ 0 ] );
+
+  return d2LinePointDistanceCentered( lineCentered, pointCentered ); */
+}
+
+//
+
 function pointDistanceCentered3DSqr( lineCentered, pointCentered )
 {
   _.assert( arguments.length === 2 );
@@ -169,11 +192,14 @@ function pointDistance3DSqr( linePoints, point )
 {
   _.assert( arguments.length === 2 );
 
-  let lineOrigin = this.originGet( linePoints );
-  let lineDirection = this.directionGet( linePoints );
+  let linePointsView = this.tools.vectorAdapter.from( linePoints );
+  let pointView = this.tools.vectorAdapter.from( point );
 
-  let lineCentered = this.tools.vectorAdapter.sub( null, lineDirection, lineOrigin );
-  let pointCentered = this.tools.vectorAdapter.sub( null, point, lineOrigin );
+  let linePoint1 = linePointsView.review([ 0, 2 ]);
+  let linePoint2 = linePointsView.review([ 3, 5 ]);
+
+  let lineCentered = this.tools.vectorAdapter.sub( null, linePoint2, linePoint1 );
+  let pointCentered = this.tools.vectorAdapter.sub( null, pointView, linePoint1 );
 
   return this.pointDistanceCentered3dSqr( lineCentered, pointCentered );
 }
@@ -226,6 +252,7 @@ let Extension = /* qqq xxx : normalize order */
   dimGet,
 
   pointDistanceCentered2D,
+  pointDistance2D,
   pointDistanceCentered3DSqr,
   pointDistance3DSqr,
 
