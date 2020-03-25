@@ -49,13 +49,7 @@ represents one of the plygon´s vertices.
 
 function make( dim, vertices )
 {
-  _.assert( arguments.length === 2, 'concavePolygon.make expects exactly 2 arguments' );
-  _.assert( _.numberIs( dim ) && dim > 1 && dim < 4, 'dim must be a number ( 2 or 3 )' );
-  _.assert( _.numberIs( vertices ) && vertices > 2, 'vertices must be a number superior to two' );
-
-  let dst = _.Matrix.makeZero([ dim, vertices ]);
-
-  return dst;
+  return this.tools.convexPolygon.make( dim, vertices );
 }
 
 //
@@ -93,46 +87,14 @@ function make( dim, vertices )
   */
 function isPolygon( polygon )
 {
-  _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.matrixIs( polygon ) );
-
-  let dims = _.Matrix.DimsOf( polygon );
-
-  if(  dims[ 0 ] < 2 || dims[ 0 ] > 3 || dims[ 1 ] < 3 )
-  return false;
-  else if( dims[ 0 ] === 3 && dims[ 1 ] > 3 )
-  {
-    let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) );
-    let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] + 1 ) );
-    let i = 0;
-
-    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
-    {
-      let pointOne = polygon.colVectorGet( i );
-      let pointTwo = polygon.colVectorGet( i + 1 );
-      let pointThree = polygon.colVectorGet( i + 2 );
-      plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
-      normal = this.tools.plane.normalGet( plane );
-      i = i + 1;
-    }
-
-    for( let i = 0 ; i < dims[ 1 ]; i += 1 )
-    {
-      let vertex = polygon.colVectorGet( i );
-
-      if( !this.tools.plane.pointContains( plane, vertex ) )
-      return false;
-    }
-  }
-
-  return true;
+  return this.tools.convexPolygon.isPolygon( polygon );
 }
 
 //
 
 function is( polygon )
 {
-  return _.matrixIs( polygon );
+  return this.tools.convexPolygon.is( polygon );
 }
 
 //
@@ -277,29 +239,7 @@ function pointDistance( polygon, point )
 
 function isClockwise( polygon )
 {
-  let result = 0;
-
-  _.assert( this.is( polygon ) );
-  _.assert( arguments.length === 1, 'Expects single argument' );
-
-  let dims = _.Matrix.DimsOf( polygon );
-  let l = dims[ 1 ];
-  for( let p = l-1 ; p >= 0 ; p-- )
-  {
-    let p2 = p + 1;
-    if( p2 === l )
-    p2 = 0;
-
-    let vertex = polygon.colVectorGet( p );
-    let nextVertex = polygon.colVectorGet( p2 );
-
-    result += ( vertex.eGet( 0 ) - nextVertex.eGet( 0 ) ) * ( vertex.eGet( 1 ) + nextVertex.eGet( 1 ) );
-    // result += ( polygon[ p*2+0 ] - polygon[ p2*2+0 ] ) * ( polygon[ p*2+1 ] + polygon[ p2*2+1 ] );
-  }
-
-  _.assert( _.numberIsFinite( result ) );
-
-  return result > 0;
+  return this.tools.convexPolygon.isClockwise( polygon );
 }
 
 
