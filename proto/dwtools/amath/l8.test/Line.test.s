@@ -2338,6 +2338,48 @@ function pointDistanceCentered( test )
 
 //
 
+function pointDistanceOriginSqr( test )//qqq vova: extend
+{
+  test.case = 'Point on line'; /* */
+
+  var line = [ 2, 2, 2 ];
+  var point = [ 1, 1, 1 ];
+  var expected = 0
+
+  var gotDistance = _.line.pointDistanceOriginSqr( line, point );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Point closer to origin'; /* */
+
+  var line = [ 0, 0, 2 ];
+  var point = [ 0, -2, 0 ];
+  var expected = 4;
+
+  var gotDistance = _.line.pointDistanceOriginSqr( line, point );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Point closer to end'; /* */
+
+  var line = [ 0, 0, 2 ];
+  var point = [ 0, 1, 2 ];
+  var expected = 1;
+
+  var gotDistance = _.line.pointDistanceOriginSqr( line, point );
+  test.equivalent( gotDistance, expected );
+
+  test.case = 'Point with negative factor'; /* */
+
+  var line = [ 0, 0, 2 ];
+  var point = [ 0, 0, 4 ];
+  var expected = 0;
+
+  var gotDistance = _.line.pointDistanceOriginSqr( line, point );
+  test.equivalent( gotDistance, expected );
+
+}
+
+//
+
 function pointClosestPoint( test )
 {
 
@@ -7186,6 +7228,7 @@ var Self =
     pointContains,
     pointDistance,
     pointDistanceCentered,
+    pointDistanceOriginSqr,
     pointClosestPoint,
 
     boxIntersects,

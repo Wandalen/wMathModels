@@ -1162,6 +1162,47 @@ function pointDistanceCentered( srcLineCentered, srcPointCentered )
   return distance;
 }
 
+function pointDistanceOriginSqr( lineCentered, pointCentered )
+{
+  _.assert( arguments.length === 2 );
+
+  let pointCenteredView = this.tools.vectorAdapter.from( pointCentered );
+  let lineCenteredView = this.tools.vectorAdapter.from( lineCentered );
+
+  let cross = this.tools.vectorAdapter.cross( null, pointCenteredView, lineCenteredView );
+
+  let pointCenteredDot = this.tools.vectorAdapter.dot( cross, cross );
+  let lineCenteredDot = this.tools.vectorAdapter.dot( lineCenteredView, lineCenteredView );
+
+  return  pointCenteredDot / lineCenteredDot;
+
+  /*
+
+  throw _.err( 'not tested' );
+
+  //p.slice().sub( p.slice().mul( p.dot( b ) ) );
+  p.cross( b );
+
+  return p.lengthSq() / b.lengthSq();
+
+  */
+}
+
+//
+
+function pointDistanceSqr( linePoints, point )
+{
+  _.assert( arguments.length === 2 );
+
+  let lineOrigin = this.originGet( linePoints );
+  let lineDirection = this.directionGet( linePoints );
+
+  let lineCentered = this.tools.vectorAdapter.sub( null, lineDirection, lineOrigin );
+  let pointCentered = this.tools.vectorAdapter.sub( null, point, lineOrigin );
+
+  return this.pointDistanceOriginSqr( lineCentered, pointCentered );
+}
+
 /**
   * Get the closest point between a point and a line. Returs the calculated point. srcPoint and line stay untouched.
   *
@@ -3310,6 +3351,7 @@ let Extension = /* qqq : normalize order */
   pointContains,
   pointDistance,
   pointDistanceCentered,
+  pointDistanceOriginSqr,
   pointClosestPoint,
 
   boxIntersects,
