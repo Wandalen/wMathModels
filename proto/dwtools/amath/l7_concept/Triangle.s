@@ -68,7 +68,7 @@ function from( triangle )
 function is( triangle )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return ( _.longIs( triangle ) || _.vectorAdapterIs( triangle ) ) && ( triangle.length === 6 );
+  return ( _.longIs( triangle ) || _.vectorAdapterIs( triangle ) ) && ( triangle.length % 3 === 0 );
 }
 
 //
@@ -119,6 +119,51 @@ function pointContains( tri, point )
   return true;
 }
 
+//
+
+/* function distanceToTri( tri, pos ) {
+
+    let p0 = pos.slice();
+    let p1 = tri[ 1 ].slice();
+    let p2 = tri[ 2 ].slice();
+
+    p0.sub( tri[ 0 ] );
+    p1.sub( tri[ 0 ] );
+    p2.sub( tri[ 0 ] );
+
+    p1.cross( p2 ).normalize();
+    let result = Math.abs( p1.dot( p0 ) );
+    return result;
+
+} */
+
+function pointDistance( tri, point )
+{
+  _.assert( arguments.length === 2 );
+  _.assert( this.is( tri ) );
+
+  let triView = this.vectorAdapter.from( tri );
+  let pointView = this.vectorAdapter.from( point );
+  let d = this.dimGet( tri );
+
+  _.assert( d === 3, 'implemented only for 3D' );
+  _.assert( d === pointView.length );
+
+  let tri0Point = triView.review([ 0, d - 1 ]);
+  let tri1Point = triView.review([ tri0Point.length, 2 * d - 1 ]);
+  let tri2Point = triView.review([ tri1Point.offset + tri1Point.length, triView.length - 1 ]);
+
+  let p0 = this.tools.vectorAdapter.sub( null, pointView, tri0Point );
+  let p1 = this.tools.vectorAdapter.sub( null, tri1Point, tri0Point );
+  let p2 = this.tools.vectorAdapter.sub( null, tri2Point, tri0Point );
+
+  let cross = this.tools.vectorAdapter.cross( null, p1, p2 ).normalize();
+
+  let result = Math.abs( this.tools.vectorAdapter.dot( cross, p0 ) );
+  return result;
+
+}
+
 // --
 // declare
 // --
@@ -135,6 +180,7 @@ let Extension = /* qqq xxx : normalize order */
   dimGet,
 
   pointContains,
+  pointDistance,
 
   // ref
 
