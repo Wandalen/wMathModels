@@ -180,31 +180,40 @@ module:
           - ../proto/dwtools/amath/l7_concept/AxisAndAngle.s
           - ../proto/dwtools/amath/l7_concept/Box.s
           - ../proto/dwtools/amath/l7_concept/Capsule.s
+          - ../proto/dwtools/amath/l7_concept/ConcavePolygon.s
           - ../proto/dwtools/amath/l7_concept/ConvexPolygon.s
           - ../proto/dwtools/amath/l7_concept/Euler.s
           - ../proto/dwtools/amath/l7_concept/Frustum.s
           - ../proto/dwtools/amath/l7_concept/Line.s
+          - ../proto/dwtools/amath/l7_concept/LineImplicit.s
+          - ../proto/dwtools/amath/l7_concept/Pair.s
           - ../proto/dwtools/amath/l7_concept/Plane.s
+          - ../proto/dwtools/amath/l7_concept/Polygon.s
           - ../proto/dwtools/amath/l7_concept/Quat.s
           - ../proto/dwtools/amath/l7_concept/Ray.s
           - ../proto/dwtools/amath/l7_concept/Segment.s
           - ../proto/dwtools/amath/l7_concept/Sphere.s
+          - ../proto/dwtools/amath/l7_concept/Triangle.s
           - ../proto/dwtools/amath/l8
           - ../proto/dwtools/amath/l8/Concepts.s
           - ../proto/dwtools/amath/l8.test
           - ../proto/dwtools/amath/l8.test/AxisAndAngle.test.s
           - ../proto/dwtools/amath/l8.test/Box.test.s
           - ../proto/dwtools/amath/l8.test/Capsule.test.s
+          - ../proto/dwtools/amath/l8.test/ConcavePolygon.test.s
           - ../proto/dwtools/amath/l8.test/ConvexPolygon.test.s
           - ../proto/dwtools/amath/l8.test/Euler.test.s
           - ../proto/dwtools/amath/l8.test/Experiment.experiment.s
           - ../proto/dwtools/amath/l8.test/Frustum.test.s
           - ../proto/dwtools/amath/l8.test/Line.test.s
+          - ../proto/dwtools/amath/l8.test/LineImplicit.test.s
+          - ../proto/dwtools/amath/l8.test/Pair.test.s
           - ../proto/dwtools/amath/l8.test/Plane.test.s
           - ../proto/dwtools/amath/l8.test/Quat.test.s
           - ../proto/dwtools/amath/l8.test/Ray.test.s
           - ../proto/dwtools/amath/l8.test/Segment.test.s
           - ../proto/dwtools/amath/l8.test/Sphere.test.s
+          - ../proto/dwtools/amath/l8.test/Triangle.test.s
           - ../proto/dwtools/amid
           - ../proto/dwtools/atop
     submodule:
