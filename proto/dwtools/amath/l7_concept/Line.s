@@ -453,7 +453,7 @@ function getFactor( srcLine, srcPoint )
 
 /**
   * Check if two lines are parallel. Returns true if they are parallel and false if not.
-  * Lines and accuracySqr stay untouched. Only for 3D.
+  * Lines and accuracySqr stay untouched. Only for 3d.
   *
   * @param { Vector } src1Line - The first source line.
   * @param { Vector } src2Line - The second source line.
@@ -475,7 +475,7 @@ function getFactor( srcLine, srcPoint )
   * @throws { Error } An Error if ( accuracySqr ) is not number.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
-function lineParallel3D( src1Line, src2Line, accuracySqr )
+function lineParallel3d( src1Line, src2Line, accuracySqr )
 {
   // _.assert( src1Line.length === 3 );
   // _.assert( src2Line.length === 3 );
@@ -1138,7 +1138,7 @@ function pointDistance( srcLine, srcPoint )
 
 //
 
-function pointDistanceCentered2D( srcLineCentered, srcPointCentered )
+function pointDistanceCentered2d( srcLineCentered, srcPointCentered )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -1162,7 +1162,9 @@ function pointDistanceCentered2D( srcLineCentered, srcPointCentered )
   return distance;
 }
 
-function pointDistanceCentered3DSqr( lineCentered, pointCentered )
+//
+
+function pointDistanceCentered3dSqr( lineCentered, pointCentered )
 {
   _.assert( arguments.length === 2 );
 
@@ -1190,7 +1192,7 @@ function pointDistanceCentered3DSqr( lineCentered, pointCentered )
 
 //
 
-function pointDistance3DSqr( linePoints, point )
+function pointDistance3dSqr( linePoints, point )
 {
   _.assert( arguments.length === 2 );
 
@@ -1200,7 +1202,7 @@ function pointDistance3DSqr( linePoints, point )
   let lineCentered = this.tools.vectorAdapter.sub( null, lineDirection, lineOrigin );
   let pointCentered = this.tools.vectorAdapter.sub( null, point, lineOrigin );
 
-  return this.pointDistanceCentered3DSqr( lineCentered, pointCentered );
+  return this.pointDistanceCentered3dSqr( lineCentered, pointCentered );
 }
 
 /**
@@ -1293,7 +1295,7 @@ function pointClosestPoint( srcLine, srcPoint, dstPoint )
 
 /**
   * Check if a line and a box intersect. Returns true if they intersect and false if not.
-  * The box and the line remain unchanged. Only for 1D to 3D
+  * The box and the line remain unchanged. Only for 1D to 3d
   *
   * @param { Array } srcLine - Source line.
   * @param { Array } srcBox - Source box.
@@ -1356,7 +1358,7 @@ function boxIntersects( srcLine, srcBox )
 
 /**
   * Get the distance between a line and a box. Returns the calculated distance.
-  * The box and the line remain unchanged. Only for 1D to 3D
+  * The box and the line remain unchanged. Only for 1D to 3d
   *
   * @param { Array } srcLine - Source line.
   * @param { Array } srcBox - Source box.
@@ -1407,7 +1409,7 @@ function boxDistance( srcLine, srcBox )
 
 /**
   * Get the closest point in a line to a box. Returns the calculated point.
-  * The box and the line remain unchanged. Only for 1D to 3D
+  * The box and the line remain unchanged. Only for 1D to 3d
   *
   * @param { Array } srcLine - Source line.
   * @param { Array } srcBox - Source box.
@@ -3341,7 +3343,7 @@ let Extension = /* qqq : normalize order */
   lineAt,
   getFactor,
 
-  lineParallel3D,
+  lineParallel3d,
   lineParallel,
   lineIntersectionFactors,
   lineIntersectionPoints,
@@ -3350,9 +3352,9 @@ let Extension = /* qqq : normalize order */
 
   pointContains,
   pointDistance,
-  pointDistanceCentered2D,
-  pointDistanceCentered3DSqr,
-  pointDistance3DSqr,
+  pointDistanceCentered2d,
+  pointDistanceCentered3dSqr,
+  pointDistance3dSqr,
   pointClosestPoint,
 
   boxIntersects,

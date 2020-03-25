@@ -130,7 +130,6 @@ function fromRay( dstPair, srcRay )
   return dstPair;
 }
 
-
 //
 
 function pairAt( pair, factor )
