@@ -1,11 +1,11 @@
-(function _Pair_s_(){
+(function _LinePoints_s_(){
 
 'use strict';
 
 let _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-let Self = _.pair = _.pair || Object.create( _.avector );
+let Self = _.linePoints = _.linePoints || Object.create( _.avector );
 
 // --
 // routines
