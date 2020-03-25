@@ -154,14 +154,14 @@ function pointContains( polygon, point )
     let p2 = [ polygon[ (p-1)*2+0 ], polygon[ (p-1)*2+1 ] ];
     let p3 = [ polygon[ (p+0)*2+0 ], polygon[ (p+0)*2+1 ] ];
 
-    let side = this.tools.line.pointsToPointSide( [ p1, p2 ], point );
+    let side = this.tools.linePointDir.pointsToPointSide( [ p1, p2 ], point );
     if( side === 0 )
     {
       let r = this.tools.segment.relativeSegment( [ p1, p2 ], point );
       return 0 <= r && r <= 1 ? p : 0;
     }
 
-    let cside1 = this.tools.line.pointsToPointSide( [ p2, p3 ], point );
+    let cside1 = this.tools.linePointDir.pointsToPointSide( [ p2, p3 ], point );
     if( side*cside1 < 0 )
     continue;
     else if( cside1 === 0 )
@@ -170,7 +170,7 @@ function pointContains( polygon, point )
       return 0 <= r && r <= 1 ? p : 0;
     }
 
-    let cside2 = this.tools.line.pointsToPointSide( [ p3, p1 ], point );
+    let cside2 = this.tools.linePointDir.pointsToPointSide( [ p3, p1 ], point );
     if( side*cside2 < 0 )
     continue;
     else if( cside2 === 0 )

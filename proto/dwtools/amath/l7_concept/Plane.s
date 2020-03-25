@@ -1070,19 +1070,19 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
 function lineContains( srcPlane, tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = this.tools.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.linePointDir.adapterFrom( tstLine );
   let planeView = this.adapterFrom( srcPlane );
 
-  let dimL = this.tools.line.dimGet( tstLineView );
+  let dimL = this.tools.linePointDir.dimGet( tstLineView );
   let dimP = this.dimGet( planeView );
   _.assert( dimL === dimP, 'Plane and line must have the same dimension' );
 
-  let origin = this.tools.line.originGet( tstLineView );
+  let origin = this.tools.linePointDir.originGet( tstLineView );
 
   if( !this.pointContains( planeView, origin ) )
   return false;
 
-  let secondPoint = this.tools.line.lineAt( tstLineView, 1 );
+  let secondPoint = this.tools.linePointDir.lineAt( tstLineView, 1 );
 
   if( !this.pointContains( planeView, secondPoint ) )
   return false;
@@ -1117,10 +1117,10 @@ function lineContains( srcPlane, tstLine )
 function lineIntersects( srcPlane , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = this.tools.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.linePointDir.adapterFrom( tstLine );
   let planeView = this.adapterFrom( srcPlane );
 
-  let gotBool = this.tools.line.planeIntersects( tstLineView, planeView );
+  let gotBool = this.tools.linePointDir.planeIntersects( tstLineView, planeView );
 
   return gotBool;
 }
@@ -1162,10 +1162,10 @@ function lineIntersectionPoint( plane, line, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let lineView = this.tools.line.adapterFrom( line );
-  let origin = this.tools.line.originGet( lineView );
-  let direction = this.tools.line.directionGet( lineView );
-  let dimLine  = this.tools.line.dimGet( lineView );
+  let lineView = this.tools.linePointDir.adapterFrom( line );
+  let origin = this.tools.linePointDir.originGet( lineView );
+  let direction = this.tools.linePointDir.directionGet( lineView );
+  let dimLine  = this.tools.linePointDir.dimGet( lineView );
 
   // throw _.err( 'not tested' );
 
@@ -1176,11 +1176,11 @@ function lineIntersectionPoint( plane, line, dstPoint )
   _.assert( dimP === dimLine );
 
   // xxx
-  if( !this.tools.line.planeIntersects( lineView, planeView ) )
+  if( !this.tools.linePointDir.planeIntersects( lineView, planeView ) )
   return 0; /* xxx */
   else
   {
-    let linePoint =  this.tools.vectorAdapter.from( this.tools.line.planeIntersectionPoint( lineView, planeView ) );
+    let linePoint =  this.tools.vectorAdapter.from( this.tools.linePointDir.planeIntersectionPoint( lineView, planeView ) );
 
     for( let i = 0; i < dimP; i++ )
     {
@@ -1195,7 +1195,7 @@ function lineIntersectionPoint( plane, line, dstPoint )
   // if( t < 0 || t > 1 )
   // return false;
   //
-  // return _.line.at( [ lineView.eGet( 0 ), direction ] , t );
+  // return _.linePointDir.at( [ lineView.eGet( 0 ), direction ] , t );
 }
 
 //
@@ -1203,10 +1203,10 @@ function lineIntersectionPoint( plane, line, dstPoint )
 function lineDistance( srcPlane , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = this.tools.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.linePointDir.adapterFrom( tstLine );
   let planeView = this.adapterFrom( srcPlane );
 
-  let gotDist = this.tools.line.planeDistance( tstLineView, planeView );
+  let gotDist = this.tools.linePointDir.planeDistance( tstLineView, planeView );
 
   return gotDist;
 }
@@ -1254,21 +1254,21 @@ function lineClosestPoint( plane, line, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let lineView = this.tools.line.adapterFrom( line );
-  let origin = this.tools.line.originGet( lineView );
-  let direction = this.tools.line.directionGet( lineView );
-  let dimLine  = this.tools.line.dimGet( lineView );
+  let lineView = this.tools.linePointDir.adapterFrom( line );
+  let origin = this.tools.linePointDir.originGet( lineView );
+  let direction = this.tools.linePointDir.directionGet( lineView );
+  let dimLine  = this.tools.linePointDir.dimGet( lineView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimP === dstPoint.length );
   _.assert( dimP === dimLine );
 
-  if( this.tools.line.planeIntersects( lineView, planeView ) )
+  if( this.tools.linePointDir.planeIntersects( lineView, planeView ) )
   return 0
   else
   {
-    let linePoint = this.tools.line.planeClosestPoint( line, planeView );
+    let linePoint = this.tools.linePointDir.planeClosestPoint( line, planeView );
 
     let planePoint = this.tools.vectorAdapter.from( this.pointCoplanarGet( planeView, linePoint ) );
 
@@ -1496,7 +1496,7 @@ function rayIntersectionPoint( plane, ray, dstPoint )
   return 0
   else
   {
-    let rayPoint = this.tools.line.planeIntersectionPoint( rayView, planeView );
+    let rayPoint = this.tools.linePointDir.planeIntersectionPoint( rayView, planeView );
 
     let planePoint = this.tools.vectorAdapter.from( this.pointCoplanarGet( planeView, rayPoint ) );
 
@@ -1734,8 +1734,8 @@ function segmentIntersectionPoint( plane, segment, dstPoint )
   return 0
   else
   {
-    let lineSegment = this.tools.line.fromPair( [ origin, end ] );
-    let segmentPoint = this.tools.line.planeIntersectionPoint( lineSegment, planeView );
+    let lineSegment = this.tools.linePointDir.fromPair( [ origin, end ] );
+    let segmentPoint = this.tools.linePointDir.planeIntersectionPoint( lineSegment, planeView );
 
     let planePoint = this.tools.vectorAdapter.from( this.pointCoplanarGet( planeView, segmentPoint ) );
 

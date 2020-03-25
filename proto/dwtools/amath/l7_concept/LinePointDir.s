@@ -1,11 +1,11 @@
-(function _Line_s_(){
+(function _LinePointDir_s_(){
 
 'use strict';
 
 let _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-let Self = _.line = _.line || Object.create( _.avector );
+let Self = _.linePointDir = _.linePointDir || Object.create( _.avector );
 
 /**
  * @description

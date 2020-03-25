@@ -2312,10 +2312,10 @@ function frustumExpand( dstBox, srcFrustum )
 function lineIntersects( srcBox , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = this.tools.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.linePointDir.adapterFrom( tstLine );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotBool = this.tools.line.boxIntersects( tstLineView, boxView );
+  let gotBool = this.tools.linePointDir.boxIntersects( tstLineView, boxView );
   return gotBool;
 }
 
@@ -2324,10 +2324,10 @@ function lineIntersects( srcBox , tstLine )
 function lineDistance( srcBox , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = this.tools.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.linePointDir.adapterFrom( tstLine );
   let boxView = this.adapterFrom( srcBox );
 
-  let gotDist = this.tools.line.boxDistance( tstLineView, boxView );
+  let gotDist = this.tools.linePointDir.boxDistance( tstLineView, boxView );
 
   return gotDist;
 }
@@ -2374,21 +2374,21 @@ function lineClosestPoint( box, line, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let lineView = this.tools.line.adapterFrom( line );
-  let origin = this.tools.line.originGet( lineView );
-  let direction = this.tools.line.directionGet( lineView );
-  let dimLine  = this.tools.line.dimGet( lineView );
+  let lineView = this.tools.linePointDir.adapterFrom( line );
+  let origin = this.tools.linePointDir.originGet( lineView );
+  let direction = this.tools.linePointDir.directionGet( lineView );
+  let dimLine  = this.tools.linePointDir.dimGet( lineView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimB === dstPoint.length );
   _.assert( dimB === dimLine );
 
-  if( this.tools.line.boxIntersects( lineView, boxView ) )
+  if( this.tools.linePointDir.boxIntersects( lineView, boxView ) )
   return 0
   else
   {
-    let linePoint = this.tools.line.boxClosestPoint( line, boxView );
+    let linePoint = this.tools.linePointDir.boxClosestPoint( line, boxView );
 
     let boxPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( boxView, linePoint ) );
 
@@ -3490,8 +3490,8 @@ let Extension = /* qqq : normalize order */
   pointExpand,
   pointRelative,
 
-  lineIntersects, /* Same as _.line.boxIntersects */
-  lineDistance, /* Same as _.line.boxDistance */
+  lineIntersects, /* Same as _.linePointDir.boxIntersects */
+  lineDistance, /* Same as _.linePointDir.boxDistance */
   lineClosestPoint,
 
   planeIntersects, /* qqq : implement me - Same as _.plane.boxIntersects */

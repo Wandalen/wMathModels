@@ -1736,10 +1736,10 @@ function lineIntersects( srcCapsule, srcLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  let srcLineView = this.tools.line.adapterFrom( srcLine );
-  let lineOrigin = this.tools.line.originGet( srcLineView );
-  let lineDirection = this.tools.line.directionGet( srcLineView );
-  let dimLine  = this.tools.line.dimGet( srcLineView );
+  let srcLineView = this.tools.linePointDir.adapterFrom( srcLine );
+  let lineOrigin = this.tools.linePointDir.originGet( srcLineView );
+  let lineDirection = this.tools.linePointDir.directionGet( srcLineView );
+  let dimLine  = this.tools.linePointDir.dimGet( srcLineView );
 
   if( srcCapsule === null )
   srcCapsule = this.make( dimLine );
@@ -1804,10 +1804,10 @@ function lineDistance( srcCapsule, srcLine )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let srcLineView = this.tools.line.adapterFrom( srcLine );
-  let lineOrigin = this.tools.line.originGet( srcLineView );
-  let lineDirection = this.tools.line.directionGet( srcLineView );
-  let lineDim  = this.tools.line.dimGet( srcLineView );
+  let srcLineView = this.tools.linePointDir.adapterFrom( srcLine );
+  let lineOrigin = this.tools.linePointDir.originGet( srcLineView );
+  let lineDirection = this.tools.linePointDir.directionGet( srcLineView );
+  let lineDim  = this.tools.linePointDir.dimGet( srcLineView );
 
   _.assert( dimCapsule === lineDim );
 
@@ -1866,10 +1866,10 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   _.assert( radius >= 0 );
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
-  let srcLineView = this.tools.line.adapterFrom( srcLine );
-  let lineOrigin = this.tools.line.originGet( srcLineView );
-  let tstDir = this.tools.line.directionGet( srcLineView );
-  let lineDim = this.tools.line.dimGet( srcLineView );
+  let srcLineView = this.tools.linePointDir.adapterFrom( srcLine );
+  let lineOrigin = this.tools.linePointDir.originGet( srcLineView );
+  let tstDir = this.tools.linePointDir.directionGet( srcLineView );
+  let lineDim = this.tools.linePointDir.dimGet( srcLineView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
   _.assert( dimCapsule === lineDim );

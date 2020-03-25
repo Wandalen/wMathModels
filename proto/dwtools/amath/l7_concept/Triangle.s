@@ -106,13 +106,13 @@ function pointContains( tri, point )
 
   let triView = this.vectorAdapter.from( tri );
 
-  let s1 = this.tools.line.pointsToPointSide( [ triView.eGet( 0 ), triView.eGet( 1 ) , triView.eGet( 2 ), triView.eGet( 3 ) ], point );
+  let s1 = this.tools.linePointDir.pointsToPointSide( [ triView.eGet( 0 ), triView.eGet( 1 ) , triView.eGet( 2 ), triView.eGet( 3 ) ], point );
 
-  let s2 = this.tools.line.pointsToPointSide( [ triView.eGet( 2 ), triView.eGet( 3 ), triView.eGet( 4 ), triView.eGet( 5 ) ], point );
+  let s2 = this.tools.linePointDir.pointsToPointSide( [ triView.eGet( 2 ), triView.eGet( 3 ), triView.eGet( 4 ), triView.eGet( 5 ) ], point );
   if( s1*s2 < 0 )
   return false;
 
-  let s3 = this.tools.line.pointsToPointSide( [ triView.eGet( 4 ), triView.eGet( 5 ), triView.eGet( 0 ), triView.eGet( 1 ) ], point );
+  let s3 = this.tools.linePointDir.pointsToPointSide( [ triView.eGet( 4 ), triView.eGet( 5 ), triView.eGet( 0 ), triView.eGet( 1 ) ], point );
   if( s1*s3 < 0 )
   return false;
 

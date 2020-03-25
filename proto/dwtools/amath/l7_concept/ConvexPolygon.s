@@ -1463,9 +1463,9 @@ function lineIntersects( polygon, line )
 {
 
   let lineView = this.tools.vectorAdapter.from( line );
-  let lOrigin = this.tools.line.originGet( lineView );
-  let lDir = this.tools.line.directionGet( lineView );
-  let lDim  = this.tools.line.dimGet( lineView );
+  let lOrigin = this.tools.linePointDir.originGet( lineView );
+  let lDir = this.tools.linePointDir.directionGet( lineView );
+  let lDim  = this.tools.linePointDir.dimGet( lineView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -1510,15 +1510,15 @@ function lineIntersects( polygon, line )
       i = i + 1;
     }
 
-    if( this.tools.line.planeIntersects( lineView, plane ) )
+    if( this.tools.linePointDir.planeIntersects( lineView, plane ) )
     {
       let copOrigin = this.tools.plane.pointCoplanarGet( plane, lOrigin );
-      let copEnd = this.tools.plane.pointCoplanarGet( plane, this.tools.line.lineAt( lineView, 1 ) );
-      let copLine = this.tools.line.fromPair( [ copOrigin, copEnd ] );
+      let copEnd = this.tools.plane.pointCoplanarGet( plane, this.tools.linePointDir.lineAt( lineView, 1 ) );
+      let copLine = this.tools.linePointDir.fromPair( [ copOrigin, copEnd ] );
       debugger;
-      if( this.tools.line.lineIntersects( lineView, copLine ) )
+      if( this.tools.linePointDir.lineIntersects( lineView, copLine ) )
       {
-        let intPoint = this.tools.line.lineIntersectionPoint( lineView, copLine );
+        let intPoint = this.tools.linePointDir.lineIntersectionPoint( lineView, copLine );
 
         if( this.pointContains( polygon, intPoint ) )
         return true;
@@ -1558,9 +1558,9 @@ function lineDistance( polygon, line )
 {
 
   let lineView = this.tools.vectorAdapter.from( line );
-  let lOrigin = this.tools.line.originGet( lineView );
-  let lDir = this.tools.line.directionGet( lineView );
-  let lDim  = this.tools.line.dimGet( lineView );
+  let lOrigin = this.tools.linePointDir.originGet( lineView );
+  let lDir = this.tools.linePointDir.directionGet( lineView );
+  let lDim  = this.tools.linePointDir.dimGet( lineView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( polygon ), 'polygon must be a convex polygon' );
   debugger;
@@ -1573,7 +1573,7 @@ function lineDistance( polygon, line )
 
   let closestPoint = this.lineClosestPoint( polygon, lineView );
 
-  let distance = this.tools.line.pointDistance( lineView, closestPoint );
+  let distance = this.tools.linePointDir.pointDistance( lineView, closestPoint );
 
   return distance;
 }
@@ -1606,9 +1606,9 @@ function lineDistance( polygon, line )
 function lineClosestPoint( polygon, line, dstPoint )
 {
   let lineView = this.tools.vectorAdapter.from( line );
-  let lOrigin = this.tools.line.originGet( lineView );
-  let lEnd = this.tools.line.directionGet( lineView );
-  let lDim  = this.tools.line.dimGet( lineView );
+  let lOrigin = this.tools.linePointDir.originGet( lineView );
+  let lEnd = this.tools.linePointDir.directionGet( lineView );
+  let lDim  = this.tools.linePointDir.dimGet( lineView );
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
   _.assert( this.is( polygon ), 'Polygon must be a convex polygon' );
   debugger;
@@ -1644,7 +1644,7 @@ function lineClosestPoint( polygon, line, dstPoint )
   for ( let j = 0 ; j < dims[ 1 ] ; j++ )
   {
     let newVertex = polygon.colVectorGet( j );
-    let d = this.tools.line.pointDistance( lineView, newVertex );
+    let d = this.tools.linePointDir.pointDistance( lineView, newVertex );
 
     if( d < dist )
     {
@@ -1926,11 +1926,11 @@ function rayIntersects( polygon, ray )
     {
       let copOrigin = this.tools.plane.pointCoplanarGet( plane, sOrigin );
       let copEnd = this.tools.plane.pointCoplanarGet( plane, this.tools.ray.rayAt( rayView, 1 ) );
-      let copLine = this.tools.line.fromPair( [ copOrigin, copEnd ] );
+      let copLine = this.tools.linePointDir.fromPair( [ copOrigin, copEnd ] );
       debugger;
       if( this.tools.ray.lineIntersects( rayView, copLine ) )
       {
-        let intPoint = this.tools.line.lineIntersectionPoint( rayView, copLine );
+        let intPoint = this.tools.linePointDir.lineIntersectionPoint( rayView, copLine );
 
         if( this.pointContains( polygon, intPoint ) )
         return true;

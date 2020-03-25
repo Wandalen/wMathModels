@@ -1952,9 +1952,9 @@ function lineIntersects( srcSphere, tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = this.adapterFrom( srcSphere );
-  let tstLineView = this.tools.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.linePointDir.adapterFrom( tstLine );
 
-  let gotBool = this.tools.line.sphereIntersects( tstLineView, srcSphereView );
+  let gotBool = this.tools.linePointDir.sphereIntersects( tstLineView, srcSphereView );
 
   return gotBool;
 }
@@ -1965,9 +1965,9 @@ function lineDistance( srcSphere , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   let srcSphereView = this.adapterFrom( srcSphere );
-  let tstLineView = this.tools.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.linePointDir.adapterFrom( tstLine );
 
-  let gotDist = this.tools.line.sphereDistance( tstLineView, srcSphereView );
+  let gotDist = this.tools.linePointDir.sphereDistance( tstLineView, srcSphereView );
 
   return gotDist;
 }
@@ -2003,10 +2003,10 @@ function lineClosestPoint( sphere, line, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
 
-  let lineView = this.tools.line.adapterFrom( line );
-  let origin = this.tools.line.originGet( lineView );
-  let direction = this.tools.line.directionGet( lineView );
-  let dimLine  = this.tools.line.dimGet( lineView );
+  let lineView = this.tools.linePointDir.adapterFrom( line );
+  let origin = this.tools.linePointDir.originGet( lineView );
+  let direction = this.tools.linePointDir.directionGet( lineView );
+  let dimLine  = this.tools.linePointDir.dimGet( lineView );
 
   let srcSphereView = this.adapterFrom( sphere );
   let dimSphere = this.dimGet( srcSphereView );
@@ -2023,11 +2023,11 @@ function lineClosestPoint( sphere, line, dstPoint )
   _.assert( dimSphere === dstPoint.length );
   _.assert( dimSphere === dimLine );
 
-  if( this.tools.line.sphereIntersects( lineView, srcSphereView ) )
+  if( this.tools.linePointDir.sphereIntersects( lineView, srcSphereView ) )
   return 0
   else
   {
-    let linePoint = this.tools.line.sphereClosestPoint( line, srcSphereView );
+    let linePoint = this.tools.linePointDir.sphereClosestPoint( line, srcSphereView );
 
     let spherePoint = this.tools.vectorAdapter.from( this.pointClosestPoint( srcSphereView, linePoint ) );
 
@@ -2864,8 +2864,8 @@ let Extension = /* qqq : normalize order */
   frustumClosestPoint, /* qqq : implement me */
   frustumExpand, /* qqq : implement me */
 
-  lineIntersects, /* Same as _.line.sphereIntersects */
-  lineDistance,  /* Same as _.line.sphereDistance */
+  lineIntersects, /* Same as _.linePointDir.sphereIntersects */
+  lineDistance,  /* Same as _.linePointDir.sphereDistance */
   lineClosestPoint,
 
   planeIntersects, /* qqq : implement me - Same as _.plane.sphereIntersects */
