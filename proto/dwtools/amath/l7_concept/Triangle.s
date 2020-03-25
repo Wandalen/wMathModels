@@ -73,6 +73,30 @@ function is( triangle )
 
 //
 
+/**
+  * Get triangle dimension. Returns the dimension of the triangle. Triangle stays untouched.
+  *
+  * @param { Vector } triangle - The source triangle.
+  *
+  * @example
+  * // returns 2
+  * _.dimGet( [ 0, 0, 2, 2, 0, 0 ] );
+  *
+  * @returns { Number } Returns the dimension of the triangle.
+  * @function dimGet
+  * @throws { Error } An Error if ( arguments.length ) is different than one.
+  * @throws { Error } An Error if ( triangle ) is not triangle.
+  * @memberof module:Tools/math/Concepts.wTools.triangle
+  */
+function dimGet( triangle )
+{
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( this.is( triangle ) );
+  return triangle.length / 3;
+}
+
+//
+
 function pointContains( tri, point )
 {
   _.assert( this.is( tri ) );
@@ -94,32 +118,6 @@ function pointContains( tri, point )
 
   return true;
 }
-
-//
-
-/**
-  * Get triangle dimension. Returns the dimension of the triangle. Triangle stays untouched.
-  *
-  * @param { Vector } triangle - The source triangle.
-  *
-  * @example
-  * // returns 2
-  * _.dimGet( [ 0, 0, 2, 2, 0, 0 ] );
-  *
-  * @returns { Number } Returns the dimension of the triangle.
-  * @function dimGet
-  * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @throws { Error } An Error if ( triangle ) is not triangle.
-  * @memberof module:Tools/math/Concepts.wTools.triangle
-  */
- function dimGet( triangle )
- {
-   _.assert( arguments.length === 1, 'Expects single argument' );
-   _.assert( this.is( triangle ) );
-   return triangle.length / 3;
- }
-
-
 
 // --
 // declare
