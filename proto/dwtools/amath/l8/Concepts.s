@@ -22,13 +22,18 @@ if( typeof module !== 'undefined' )
 
   require( '../l7_concept/Box.s' );
   require( '../l7_concept/Capsule.s' );
+  require( '../l7_concept/ConcavePolygon.s' );
   require( '../l7_concept/ConvexPolygon.s' );
   require( '../l7_concept/Frustum.s' );
   require( '../l7_concept/Line.s' );
+  require( '../l7_concept/LineImplicit.s' );
+  require( '../l7_concept/Pair.s' );
   require( '../l7_concept/Plane.s' );
+  require( '../l7_concept/Polygon.s' );
   require( '../l7_concept/Ray.s' );
   require( '../l7_concept/Segment.s' );
   require( '../l7_concept/Sphere.s' );
+  require( '../l7_concept/Triangle.s' );
 
   require( '../l7_concept/AxisAndAngle.s' );
   require( '../l7_concept/Quat.s' );

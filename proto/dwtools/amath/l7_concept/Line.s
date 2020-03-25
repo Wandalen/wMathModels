@@ -1138,7 +1138,7 @@ function pointDistance( srcLine, srcPoint )
 
 //
 
-function pointDistanceCentered( srcLineCentered, srcPointCentered )
+function pointDistanceCentered2D( srcLineCentered, srcPointCentered )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -1160,6 +1160,47 @@ function pointDistanceCentered( srcLineCentered, srcPointCentered )
   let distance = this.tools.vectorAdapter.dot( srcLineP, srcPointView );
   distance = distance / this.tools.vectorAdapter.mag( srcLineView );
   return distance;
+}
+
+function pointDistanceCentered3DSqr( lineCentered, pointCentered )
+{
+  _.assert( arguments.length === 2 );
+
+  let pointCenteredView = this.tools.vectorAdapter.from( pointCentered );
+  let lineCenteredView = this.tools.vectorAdapter.from( lineCentered );
+
+  let cross = this.tools.vectorAdapter.cross( null, pointCenteredView, lineCenteredView );
+
+  let pointCenteredDot = this.tools.vectorAdapter.dot( cross, cross );
+  let lineCenteredDot = this.tools.vectorAdapter.dot( lineCenteredView, lineCenteredView );
+
+  return  pointCenteredDot / lineCenteredDot;
+
+  /*
+
+  throw _.err( 'not tested' );
+
+  //p.slice().sub( p.slice().mul( p.dot( b ) ) );
+  p.cross( b );
+
+  return p.lengthSq() / b.lengthSq();
+
+  */
+}
+
+//
+
+function pointDistance3DSqr( linePoints, point )
+{
+  _.assert( arguments.length === 2 );
+
+  let lineOrigin = this.originGet( linePoints );
+  let lineDirection = this.directionGet( linePoints );
+
+  let lineCentered = this.tools.vectorAdapter.sub( null, lineDirection, lineOrigin );
+  let pointCentered = this.tools.vectorAdapter.sub( null, point, lineOrigin );
+
+  return this.pointDistanceCentered3DSqr( lineCentered, pointCentered );
 }
 
 /**
@@ -3240,6 +3281,40 @@ function boundingSphereGet( dstSphere, srcLine )
   return dstSphere;
 }
 
+//
+
+function pointsToPointSide( segmentPoints, point )
+{
+  _.assert( point.length === 2, 'not implemented' );
+  _.assert( segmentPoints.length === 4, 'not implemented' );
+
+  let segmentPointsView = this.tools.vectorAdapter.from( segmentPoints );
+  let pointView = this.tools.vectorAdapter.from( point );
+
+  /*
+    d=(x−x1)(y2−y1)−(y−y1)(x2−x1)
+    d === 0 point is on the line, otherwise on the side of the line
+  */
+
+  let point0x = pointView.eGet( 0 ) - segmentPointsView.eGet( 0 );
+  let point0y = pointView.eGet( 1 ) - segmentPointsView.eGet( 1 )
+
+  let point1x = segmentPointsView.eGet( 2 ) - segmentPointsView.eGet( 0 );
+  let point1y = segmentPointsView.eGet( 3 ) - segmentPointsView.eGet( 1 );
+
+  let result = point0x * point1y - point0y * point1x;
+
+  return result;
+/*
+  let point0 = [ point[ 0 ] - segmentPoints[ 0 ][ 0 ], point[ 1 ] - segmentPoints[ 0 ][ 1 ] ];
+  let point1 = [ segmentPoints[ 1 ][ 0 ] - segmentPoints[ 0 ][ 0 ], segmentPoints[ 1 ][ 1 ] - segmentPoints[ 0 ][ 1 ] ];
+
+  let result = point0[ 0 ] * point1[ 1 ] - point0[ 1 ] * point1[ 0 ];
+
+  return result;
+*/
+}
+
 // --
 // extension
 // --
@@ -3275,7 +3350,9 @@ let Extension = /* qqq : normalize order */
 
   pointContains,
   pointDistance,
-  pointDistanceCentered,
+  pointDistanceCentered2D,
+  pointDistanceCentered3DSqr,
+  pointDistance3DSqr,
   pointClosestPoint,
 
   boxIntersects,
@@ -3324,6 +3401,8 @@ let Extension = /* qqq : normalize order */
   segmentIntersectionFactors,
   segmentDistance,  /* Same as _.segment.rayDistance */
   segmentClosestPoint,
+
+  pointsToPointSide,
 
   // ref
 
