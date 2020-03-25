@@ -1138,7 +1138,7 @@ function pointDistance( srcLine, srcPoint )
 
 //
 
-function pointDistanceCentered( srcLineCentered, srcPointCentered )
+function pointDistanceCentered2D( srcLineCentered, srcPointCentered )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
@@ -1162,7 +1162,7 @@ function pointDistanceCentered( srcLineCentered, srcPointCentered )
   return distance;
 }
 
-function pointDistanceOriginSqr( lineCentered, pointCentered )
+function pointDistanceCentered3DSqr( lineCentered, pointCentered )
 {
   _.assert( arguments.length === 2 );
 
@@ -1190,7 +1190,7 @@ function pointDistanceOriginSqr( lineCentered, pointCentered )
 
 //
 
-function pointDistanceSqr( linePoints, point )
+function pointDistance3DSqr( linePoints, point )
 {
   _.assert( arguments.length === 2 );
 
@@ -1200,7 +1200,7 @@ function pointDistanceSqr( linePoints, point )
   let lineCentered = this.tools.vectorAdapter.sub( null, lineDirection, lineOrigin );
   let pointCentered = this.tools.vectorAdapter.sub( null, point, lineOrigin );
 
-  return this.pointDistanceOriginSqr( lineCentered, pointCentered );
+  return this.pointDistanceCentered3DSqr( lineCentered, pointCentered );
 }
 
 /**
@@ -3350,8 +3350,9 @@ let Extension = /* qqq : normalize order */
 
   pointContains,
   pointDistance,
-  pointDistanceCentered,
-  pointDistanceOriginSqr,
+  pointDistanceCentered2D,
+  pointDistanceCentered3DSqr,
+  pointDistance3DSqr,
   pointClosestPoint,
 
   boxIntersects,
