@@ -1541,9 +1541,9 @@ function lineIntersects( srcFrustum , tstLine )
 
   let dims = _.Matrix.DimsOf( srcFrustum ) ;
 
-  let tstLineView = this.tools.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.linePointDir.adapterFrom( tstLine );
 
-  let gotBool = this.tools.line.frustumIntersects( tstLineView, srcFrustum );
+  let gotBool = this.tools.linePointDir.frustumIntersects( tstLineView, srcFrustum );
 
   return gotBool;
 }
@@ -1553,9 +1553,9 @@ function lineIntersects( srcFrustum , tstLine )
 function lineDistance( srcFrustum , tstLine )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let tstLineView = this.tools.line.adapterFrom( tstLine );
+  let tstLineView = this.tools.linePointDir.adapterFrom( tstLine );
 
-  let gotDist = this.tools.line.frustumDistance( tstLineView, srcFrustum );
+  let gotDist = this.tools.linePointDir.frustumDistance( tstLineView, srcFrustum );
 
   return gotDist;
 }
@@ -1603,19 +1603,19 @@ function lineClosestPoint( frustum, line, dstPoint )
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );
 
-  let lineView = this.tools.line.adapterFrom( line );
-  let dimLine  = this.tools.line.dimGet( lineView );
+  let lineView = this.tools.linePointDir.adapterFrom( line );
+  let dimLine  = this.tools.linePointDir.dimGet( lineView );
 
   let dstPointView = this.tools.vectorAdapter.from( dstPoint );
 
   _.assert( dimF[ 0 ] - 1 === dstPoint.length );
   _.assert( dimF[ 0 ] - 1 === dimLine );
 
-  if( this.tools.line.frustumIntersects( lineView, frustum ) )
+  if( this.tools.linePointDir.frustumIntersects( lineView, frustum ) )
   return 0
   else
   {
-    let linePoint = this.tools.line.frustumClosestPoint( lineView, frustum );
+    let linePoint = this.tools.linePointDir.frustumClosestPoint( lineView, frustum );
 
     let frustumPoint = this.tools.vectorAdapter.from( this.pointClosestPoint( frustum, linePoint ) );
 
@@ -2370,8 +2370,8 @@ let Extension = /* qqq : normalize order */
   frustumDistance, /* qqq : implement me */
   frustumClosestPoint, /* qqq : implement me */
 
-  lineIntersects,  /* Same as _.line.frustumIntersects */
-  lineDistance,  /* Same as _.line.frustumDistance */
+  lineIntersects,  /* Same as _.linePointDir.frustumIntersects */
+  lineDistance,  /* Same as _.linePointDir.frustumDistance */
   lineClosestPoint,
 
   planeIntersects, /* qqq : implement me */

@@ -452,6 +452,17 @@ function fromPair( test )
 
 //
 
+function toLinePoints( test )
+{
+  var ray = [ 1, 1, 2, 2 ];
+  var expected =  _.linePoints.tools.longMake( [ 1, 1, 3, 3 ] );
+
+  var gotPoints = _.ray.toLinePoints( ray );
+  test.identical( gotPoints, expected );
+}
+
+//
+
 function is( test )
 {
   debugger;
@@ -6466,6 +6477,7 @@ var Self =
     from,
     adapterFrom,
     fromPair,
+    toLinePoints,
 
     is,
     dimGet,

@@ -1,11 +1,11 @@
-(function _Line_s_(){
+(function _LinePointDir_s_(){
 
 'use strict';
 
 let _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-let Self = _.line = _.line || Object.create( _.avector );
+let Self = _.linePointDir = _.linePointDir || Object.create( _.avector );
 
 /**
  * @description
@@ -153,24 +153,23 @@ function adapterFrom( line )
   *
   * @example
   * // returns   this.tools.vectorAdapter.from( [ 1, 2, 1, 2 ] )
-  * _.fromPair( [ 1, 2 ], [ 3, 4 ] );
+  * _.fromPoints( [ 1, 2 ], [ 3, 4 ] );
   *
   * @returns { Vector } Returns the line containing the two points.
-  * @function fromPair
+  * @function fromPoints
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( pair ) is not array.
   * @memberof module:Tools/math/Concepts.wTools.line
   */
 
-function fromPair( pair )
+function fromPoints( point1, point2 )
 {
-  _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( pair.length === 2, 'Expects two points' );
-  _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
+  _.assert( arguments.length === 2, 'Expects single argument' );
+  _.assert( point1.length === point2.length, 'Expects two points' );
 
-  let result = this.tools.vectorAdapter.make( pair[ 0 ].length * 2 );
-  let pair0 = this.tools.vectorAdapter.from( pair[ 0 ] );
-  let pair1 = this.tools.vectorAdapter.from( pair[ 1 ] );
+  let result = this.tools.vectorAdapter.make( point1.length * 2 );
+  let pair0 = this.tools.vectorAdapter.from( point1 );
+  let pair1 = this.tools.vectorAdapter.from( point2 );
 
   for( let i = 0; i < pair0.length ; i++ )
   {
@@ -181,20 +180,34 @@ function fromPair( pair )
   return result;
 }
 
-fromPair.shaderChunk =
+fromPoints.shaderChunk =
 `
-  void line_fromPair( out vec2 dstLine[ 2 ], vec2 pair[ 2 ] )
+  void line_fromPoints( out vec2 dstLine[ 2 ], vec2 pair[ 2 ] )
   {
     dstLine[ 0 ] = pair[ 0 ];
     dstLine[ 1 ] = pair[ 1 ] - pair[ 0 ];
   }
 
-  void line_fromPair( out vec3 dstLine[ 2 ], vec3 pair[ 2 ] )
+  void line_fromPoints( out vec3 dstLine[ 2 ], vec3 pair[ 2 ] )
   {
     dstLine[ 0 ] = pair[ 0 ];
     dstLine[ 1 ] = pair[ 1 ] - pair[ 0 ];
   }
 `
+
+//
+
+function fromPoints2( points )
+{
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  debugger
+  _.assert( this.tools.linePoints.is( points ) );
+
+  let point1 = this.tools.linePoints.firstPointGet( points );
+  let point2 = this.tools.linePoints.secondPointGet( points );
+
+  return this.fromPoints( point1, point2 );
+}
 
 //
 
@@ -1067,7 +1080,7 @@ function pointContains( srcLine, srcPoint )
     }
   }
 
-  let lineTwo = this.fromPair( [ origin, srcPointView ]  );
+  let lineTwo = this.fromPoints( origin, srcPointView );
 
   if( this.lineParallel( srcLineView, lineTwo, 1e-7 ) === false )
   {
@@ -1137,73 +1150,6 @@ function pointDistance( srcLine, srcPoint )
 }
 
 //
-
-function pointDistanceCentered2d( srcLineCentered, srcPointCentered )
-{
-  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-
-  if( srcLineCentered === null )
-  srcLineCentered = this.make( srcPointCentered.length / 2 );
-
-  let srcLineView = this.adapterFrom( srcLineCentered );
-  let dimension  = srcLineView.length;
-  let srcPointView = this.tools.vectorAdapter.from( srcPointCentered.slice() );
-
-  _.assert( dimension === 2, 'not implemented' );
-  _.assert( dimension === srcPointCentered.length, 'The line and the point must have the same dimension' );
-
-  let srcLineFromCentered = [ 0, 0, srcLineView.eGet( 0 ), srcLineView.eGet( 1 ) ];
-  if( this.pointContains( srcLineFromCentered, srcPointView ) )
-  return 0;
-
-  let srcLineP = this.tools.vectorAdapter.fromLong( [ -srcLineView.eGet( 1 ), +srcLineView.eGet( 0 ) ]);
-  let distance = this.tools.vectorAdapter.dot( srcLineP, srcPointView );
-  distance = distance / this.tools.vectorAdapter.mag( srcLineView );
-  return distance;
-}
-
-//
-
-function pointDistanceCentered3dSqr( lineCentered, pointCentered )
-{
-  _.assert( arguments.length === 2 );
-
-  let pointCenteredView = this.tools.vectorAdapter.from( pointCentered );
-  let lineCenteredView = this.tools.vectorAdapter.from( lineCentered );
-
-  let cross = this.tools.vectorAdapter.cross( null, pointCenteredView, lineCenteredView );
-
-  let pointCenteredDot = this.tools.vectorAdapter.dot( cross, cross );
-  let lineCenteredDot = this.tools.vectorAdapter.dot( lineCenteredView, lineCenteredView );
-
-  return  pointCenteredDot / lineCenteredDot;
-
-  /*
-
-  throw _.err( 'not tested' );
-
-  //p.slice().sub( p.slice().mul( p.dot( b ) ) );
-  p.cross( b );
-
-  return p.lengthSq() / b.lengthSq();
-
-  */
-}
-
-//
-
-function pointDistance3dSqr( linePoints, point )
-{
-  _.assert( arguments.length === 2 );
-
-  let lineOrigin = this.originGet( linePoints );
-  let lineDirection = this.directionGet( linePoints );
-
-  let lineCentered = this.tools.vectorAdapter.sub( null, lineDirection, lineOrigin );
-  let pointCentered = this.tools.vectorAdapter.sub( null, point, lineOrigin );
-
-  return this.pointDistanceCentered3dSqr( lineCentered, pointCentered );
-}
 
 /**
   * Get the closest point between a point and a line. Returs the calculated point. srcPoint and line stay untouched.
@@ -2274,7 +2220,7 @@ function planeIntersectionPoint( srcLine, srcPlane, dstPoint )
 
   let secondPoint = this.lineAt( srcLineView, 1 );
   let secondCopPoint = this.tools.plane.pointCoplanarGet( planeView, secondPoint );
-  let copLine = this.fromPair( [ copOrigin, secondCopPoint ] );
+  let copLine = this.fromPoints( copOrigin, secondCopPoint );
 
   let point = this.tools.vectorAdapter.from( this.lineIntersectionPoint( srcLineView, copLine ) );
 
@@ -2851,7 +2797,7 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
     }
 
     // // Parallel line and segment
-    // let lineSegment = this.fromPair( [ tstOrigin, tstEnd ] );
+    // let lineSegment = this.fromPoints( [ tstOrigin, tstEnd ] );
     // if( this.lineParallel( srcLineView, lineSegment ) )
     // {
     //   pointView = this.pointClosestPoint( srcLineView, tstOrigin );
@@ -2923,7 +2869,7 @@ function segmentIntersectionFactors( srcLine, srcSegment )
   // if( !intersection )
   // return 0;
   //
-  // let segmentLine = this.fromPair( [ segmentOrigin, segmentEnd ] );
+  // let segmentLine = this.fromPoints( [ segmentOrigin, segmentEnd ] );
   //
   // return this.lineIntersectionFactors( srcLineView, segmentLine );
 }
@@ -3000,7 +2946,7 @@ function segmentClosestPoint( srcLine, tstSegment, dstPoint )
 
 
   // Parallel line and segment
-  let lineSegment = this.fromPair( [ tstOrigin, tstEnd ] );
+  let lineSegment = this.fromPoints( tstOrigin, tstEnd );
   if( this.lineParallel( srcLineView, lineSegment ) )
   {
     pointView = this.pointClosestPoint( srcLineView, tstOrigin );
@@ -3009,7 +2955,7 @@ function segmentClosestPoint( srcLine, tstSegment, dstPoint )
   {
 
     // Parallel line and segment
-    let lineSegment = this.fromPair( [ tstOrigin, tstEnd ] );
+    let lineSegment = this.fromPoints( tstOrigin, tstEnd );
     if( this.lineParallel( srcLineView, lineSegment ) )
     {
       pointView = this.pointClosestPoint( srcLineView, tstOrigin );
@@ -3333,7 +3279,8 @@ let Extension = /* qqq : normalize order */
 
   from,
   adapterFrom,
-  fromPair, // fromPoints,
+  fromPoints, // fromPoints,
+  fromPoints2,
 
   is,
   dimGet,
@@ -3352,9 +3299,6 @@ let Extension = /* qqq : normalize order */
 
   pointContains,
   pointDistance,
-  pointDistanceCentered2d,
-  pointDistanceCentered3dSqr,
-  pointDistance3dSqr,
   pointClosestPoint,
 
   boxIntersects,
