@@ -458,6 +458,58 @@ function fromPoints( test )
 
 //
 
+function fromPoints2( test )
+{
+  test.case = 'Pair stay unchanged'; /* */
+
+  var points = [ 0, 1, 2, 0, 2, 4 ]
+  var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 1, 2, 0, 1, 2 ] );
+
+  var gotLine = _.linePointDir.fromPoints2( points );
+  test.identical( gotLine, expected );
+
+  var oldPoints = [ 0, 1, 2, 0, 2, 4 ]
+  test.identical( points, oldPoints );
+
+  test.case = 'Line starts in origin'; /* */
+
+  var points = [ 0, 0, 0, 0, 1, 2 ]
+  var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 0, 0, 0, 1, 2 ] );
+
+  var gotLine = _.linePointDir.fromPoints2( points );
+  test.identical( gotLine, expected );
+
+  test.case = 'Line is point'; /* */
+
+  var points = [ 0, 1, 2, 0, 1, 2 ]
+  var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 1, 2, 0, 0, 0 ] );
+
+  var gotLine = _.linePointDir.fromPoints2( points );
+  test.identical( gotLine, expected );
+
+  test.case = 'Line goes up in y and down in z'; /* */
+
+  var points = [ 0, 1, 2, 0, 3, 1 ]
+  var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 1, 2, 0, 2, -1 ] );
+
+  var gotLine = _.linePointDir.fromPoints2( points );
+  test.identical( gotLine, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( null ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( [ 3, 4 ] ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( [ 2, 4 ], [ 3, 6, 2 ] ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( [ [ 2, 4 ], [ 3, 6 ], [ 3, 6 ] ] ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( undefined ));
+
+}
+
+//
+
 function is( test )
 {
   debugger;
@@ -7093,6 +7145,7 @@ var Self =
     from,
     adapterFrom,
     fromPoints,
+    fromPoints2,
 
     is,
     dimGet,

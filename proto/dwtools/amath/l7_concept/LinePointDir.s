@@ -197,6 +197,20 @@ fromPoints.shaderChunk =
 
 //
 
+function fromPoints2( points )
+{
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  debugger
+  _.assert( this.tools.linePoints.is( points ) );
+
+  let point1 = this.tools.linePoints.firstPointGet( points );
+  let point2 = this.tools.linePoints.secondPointGet( points );
+
+  return this.fromPoints( point1, point2 );
+}
+
+//
+
 /**
   * Check if input is a line. Returns true if it is a line and false if not.
   *
@@ -3266,6 +3280,7 @@ let Extension = /* qqq : normalize order */
   from,
   adapterFrom,
   fromPoints, // fromPoints,
+  fromPoints2,
 
   is,
   dimGet,
