@@ -392,61 +392,67 @@ function adapterFrom( test )
 
 //
 
-function fromPair( test )
+function fromPoints( test )
 {
   test.case = 'Pair stay unchanged'; /* */
 
-  var pair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
+  var point1 = [ 0, 1, 2 ]
+  var point2 = [ 0, 2, 4 ]
   var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 1, 2, 0, 1, 2 ] );
 
-  var gotLine = _.linePointDir.fromPair( pair );
+  var gotLine = _.linePointDir.fromPoints( point1, point2 );
   test.identical( gotLine, expected );
 
-  var oldPair = [ [ 0, 1, 2 ], [ 0, 2, 4 ] ];
-  test.identical( pair, oldPair );
+  var oldPoin1 = [ 0, 1, 2 ]
+  var oldPoin2 = [ 0, 2, 4 ]
+  test.identical( point1, oldPoin1 );
+  test.identical( point2, oldPoin2 );
 
   test.case = 'Line starts in origin'; /* */
 
-  var pair = [ [ 0, 0, 0 ], [ 0, 1, 2 ] ];
+  var point1 = [ 0, 0, 0 ]
+  var point2 = [ 0, 1, 2 ]
   var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 0, 0, 0, 1, 2 ] );
 
-  var gotLine = _.linePointDir.fromPair( pair );
+  var gotLine = _.linePointDir.fromPoints( point1, point2 );
   test.identical( gotLine, expected );
 
   test.case = 'Line is point'; /* */
 
-  var pair = [ [ 0, 1, 2 ], [ 0, 1, 2 ] ];
+  var point1 = [ 0, 1, 2 ]
+  var point2 = [ 0, 1, 2 ]
   var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 1, 2, 0, 0, 0 ] );
 
-  var gotLine = _.linePointDir.fromPair( pair );
+  var gotLine = _.linePointDir.fromPoints( point1, point2 );
   test.identical( gotLine, expected );
 
   test.case = 'Line of 1 dimension'; /* */
 
-  var pair = [ [ 3 ], [ 4 ] ];
+  var point1 = [ 3 ]
+  var point2 = [ 4 ]
   var expected = _.linePointDir.tools.vectorAdapter.make( [ 3, 1 ] );
 
-  var gotLine = _.linePointDir.fromPair( pair );
+  var gotLine = _.linePointDir.fromPoints( point1, point2 );
   test.identical( gotLine, expected );
 
   test.case = 'Line goes up in y and down in z'; /* */
 
-  var pair = [ [ 0, 1, 2 ], [ 0, 3, 1 ] ];
+  var point1 = [ 0, 1, 2 ]
+  var point2 = [ 0, 3, 1 ]
   var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 1, 2, 0, 2, -1 ] );
 
-  var gotLine = _.linePointDir.fromPair( pair );
+  var gotLine = _.linePointDir.fromPoints( point1, point2 );
   test.identical( gotLine, expected );
 
   /* */
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.linePointDir.fromPair( ));
-  test.shouldThrowErrorSync( () => _.linePointDir.fromPair( null ));
-  test.shouldThrowErrorSync( () => _.linePointDir.fromPair( [ 2, 4 ], [ 3, 6 ] ));
-  test.shouldThrowErrorSync( () => _.linePointDir.fromPair( [ 2, 4 ], [ 3, 6, 2 ] ));
-  test.shouldThrowErrorSync( () => _.linePointDir.fromPair( [ [ 2, 4 ], [ 3, 6 ], [ 3, 6 ] ] ));
-  test.shouldThrowErrorSync( () => _.linePointDir.fromPair( undefined ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( null ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( [ 2, 4 ], [ 3, 6, 2 ] ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( [ [ 2, 4 ], [ 3, 6 ], [ 3, 6 ] ] ));
+  test.shouldThrowErrorSync( () => _.linePointDir.fromPoints( undefined ));
 
 }
 
@@ -7086,7 +7092,7 @@ var Self =
 
     from,
     adapterFrom,
-    fromPair,
+    fromPoints,
 
     is,
     dimGet,

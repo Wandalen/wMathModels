@@ -1734,7 +1734,7 @@ function segmentIntersectionPoint( plane, segment, dstPoint )
   return 0
   else
   {
-    let lineSegment = this.tools.linePointDir.fromPair( [ origin, end ] );
+    let lineSegment = this.tools.linePointDir.fromPoints( origin, end );
     let segmentPoint = this.tools.linePointDir.planeIntersectionPoint( lineSegment, planeView );
 
     let planePoint = this.tools.vectorAdapter.from( this.pointCoplanarGet( planeView, segmentPoint ) );

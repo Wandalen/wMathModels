@@ -1514,7 +1514,7 @@ function lineIntersects( polygon, line )
     {
       let copOrigin = this.tools.plane.pointCoplanarGet( plane, lOrigin );
       let copEnd = this.tools.plane.pointCoplanarGet( plane, this.tools.linePointDir.lineAt( lineView, 1 ) );
-      let copLine = this.tools.linePointDir.fromPair( [ copOrigin, copEnd ] );
+      let copLine = this.tools.linePointDir.fromPoints( copOrigin, copEnd );
       debugger;
       if( this.tools.linePointDir.lineIntersects( lineView, copLine ) )
       {
@@ -1926,7 +1926,7 @@ function rayIntersects( polygon, ray )
     {
       let copOrigin = this.tools.plane.pointCoplanarGet( plane, sOrigin );
       let copEnd = this.tools.plane.pointCoplanarGet( plane, this.tools.ray.rayAt( rayView, 1 ) );
-      let copLine = this.tools.linePointDir.fromPair( [ copOrigin, copEnd ] );
+      let copLine = this.tools.linePointDir.fromPoints( copOrigin, copEnd );
       debugger;
       if( this.tools.ray.lineIntersects( rayView, copLine ) )
       {

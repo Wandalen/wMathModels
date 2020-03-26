@@ -2175,7 +2175,7 @@ function lineIntersects( srcSegment, srcLine )
 
   if( this.pointContains( srcSegmentView, lineOrigin ) )
   return true;
-  let lineSegment = this.tools.linePointDir.fromPair( [ segmentOrigin, segmentEnd ] );
+  let lineSegment = this.tools.linePointDir.fromPoints( segmentOrigin, segmentEnd );
   if( this.tools.linePointDir.lineParallel( lineSegment, srcLineView ) )
   {
     if( this.tools.linePointDir.pointContains( srcLineView, segmentOrigin ) )
@@ -2297,7 +2297,7 @@ function lineIntersectionFactors( srcSegment, srcLine )
   if( !intersection )
   return 0;
 
-  let segmentLine = this.tools.linePointDir.fromPair( [ origin, end ] );
+  let segmentLine = this.tools.linePointDir.fromPoints( origin, end );
 
   return this.tools.linePointDir.lineIntersectionFactors( srcLineView, segmentLine );
 }
@@ -2353,7 +2353,7 @@ function lineDistance( srcSegment, srcLine )
   return 0;
 
   // Parallel segment/line
-  let lineSegment = this.tools.linePointDir.fromPair( [ srcOrigin, srcEnd ] );
+  let lineSegment = this.tools.linePointDir.fromPoints( srcOrigin, srcEnd );
   if( this.tools.linePointDir.lineParallel( lineSegment, srcLineView ) )
   {
     // Line is point
@@ -2461,7 +2461,7 @@ function lineClosestPoint( srcSegment, srcLine, dstPoint )
   }
   else
   {
-    let lineSegment = this.tools.linePointDir.fromPair( [ srcOrigin, srcEnd ] );
+    let lineSegment = this.tools.linePointDir.fromPoints( srcOrigin, srcEnd );
     // Parallel segments
     if( this.tools.linePointDir.lineParallel( lineSegment, srcLineView ) )
     {
@@ -2824,7 +2824,7 @@ function rayIntersects( srcSegment, srcRay )
 
   _.assert( dimSegment === dimRay );
 
-  let lineSegment = this.tools.linePointDir.fromPair( [ segmentOrigin, segmentEnd ] );
+  let lineSegment = this.tools.linePointDir.fromPoints( segmentOrigin, segmentEnd );
   if( this.tools.linePointDir.lineParallel( lineSegment, srcRayView ) )
   {
     let rayContainsSegment = this.tools.ray.pointContains( srcRayView, segmentOrigin ) || this.tools.ray.pointContains( srcRayView, segmentEnd );
@@ -2959,7 +2959,7 @@ function rayIntersectionFactors( srcSegment, srcRay )
   if( !intersection )
   return 0;
 
-  let segmentLine = this.tools.linePointDir.fromPair( [ origin, end ] );
+  let segmentLine = this.tools.linePointDir.fromPoints( origin, end );
 
   return this.tools.linePointDir.lineIntersectionFactors( srcRayView, segmentLine  );
 
@@ -3018,7 +3018,7 @@ function rayDistance( srcSegment, srcRay )
   }
 
   // Parallel segment/ray
-  let lineSegment = this.tools.linePointDir.fromPair( [ srcOrigin, srcEnd ] );
+  let lineSegment = this.tools.linePointDir.fromPoints( srcOrigin, srcEnd );
   if( this.tools.linePointDir.lineParallel( lineSegment, srcRayView ) )
   {
     // Segment or ray is point

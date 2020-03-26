@@ -2707,7 +2707,7 @@ function segmentIntersectionPoint( srcRay, srcSegment, dstPoint )
   else
   {
     // Parallel ray and segment
-    let lineSegment = this.tools.linePointDir.fromPair( [ tstOrigin, tstEnd ] );
+    let lineSegment = this.tools.linePointDir.fromPoints( tstOrigin, tstEnd );
     if( this.tools.linePointDir.lineParallel( srcRayView, lineSegment ) )
     {
       pointView = this.pointClosestPoint( srcRayView, tstOrigin );
@@ -2857,7 +2857,7 @@ function segmentClosestPoint( srcRay, tstSegment, dstPoint )
   else
   {
     // Parallel ray and segment
-    let lineSegment = this.tools.linePointDir.fromPair( [ tstOrigin, tstEnd ] );
+    let lineSegment = this.tools.linePointDir.fromPoints( tstOrigin, tstEnd );
     if( this.rayParallel( srcRayView, lineSegment ) )
     {
       pointView = this.pointClosestPoint( srcRayView, tstOrigin );
