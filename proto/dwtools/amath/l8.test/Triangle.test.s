@@ -154,6 +154,66 @@ function pointContains( test )
 
 //
 
+function pointDistance( test )//qqq vova: extend
+{
+  test.open( 'triangle contains point' )
+
+  var triangle = [ 0, 0, 0, 1, 1, 0, 2, 0, 0 ];
+  var point = [ 0, 0, 0 ]
+  var expected = 0;
+
+  var gotDistance = _.triangle.pointDistance( triangle, point );
+  test.identical( gotDistance, expected );
+
+  //
+
+  var triangle = [ 0, 0, 0, 1, 1, 0, 2, 0, 0 ];
+  var point = [ 1, 0, 0 ]
+  var expected = 0;
+
+  var gotDistance = _.triangle.pointDistance( triangle, point );
+  test.identical( gotDistance, expected );
+
+  //
+
+  var triangle = [ 0, 0, 0, 1, 1, 0, 2, 0, 0 ];
+  var point = [ 2, 0, 0 ]
+  var expected = 0;
+
+  var gotDistance = _.triangle.pointDistance( triangle, point );
+  test.identical( gotDistance, expected );
+
+  //
+
+  var triangle = [ 0, 0, 0, 1, 1, 0, 2, 0, 0 ];
+  var point = [ 1, 1, 0 ]
+  var expected = 0;
+
+  var gotDistance = _.triangle.pointDistance( triangle, point );
+  test.identical( gotDistance, expected );
+
+  //
+
+  var triangle = [ 0, 0, 0, 1, 1, 0, 2, 0, 0 ];
+  var point = [ 1, 0.5, 0  ]
+  var expected = 0;
+
+  var gotDistance = _.triangle.pointDistance( triangle, point );
+  test.identical( gotDistance, expected );
+
+  test.close( 'triangle contains point' )
+
+  var triangle = [ 0, 0, 0, 1, 1, 0, 2, 0, 0 ];
+  var point = [ 1, 1, 1  ]
+  var expected = 1;
+
+  var gotDistance = _.triangle.pointDistance( triangle, point );
+  test.identical( gotDistance, expected );
+
+}
+
+//
+
 // --
 // declare
 // --
@@ -174,6 +234,7 @@ var Self =
     from,
 
     pointContains,
+    pointDistance,
   }
 
 }

@@ -1,11 +1,11 @@
-(function _Pair_s_(){
+(function _LinePoints_s_(){
 
 'use strict';
 
 let _ = _global_.wTools;
 // let this.tools.avector = this.tools.avector;
 // let vector = this.tools.vectorAdapter;
-let Self = _.pair = _.pair || Object.create( _.avector );
+let Self = _.linePoints = _.linePoints || Object.create( _.avector );
 
 // --
 // routines
@@ -46,6 +46,15 @@ function from( pair )
   return this.make();
 
   return pair;
+}
+
+//
+
+function adapterFrom( points )
+{
+  _.assert( this.is( points ) );
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  return this.tools.vectorAdapter.from( points );
 }
 
 //
@@ -100,34 +109,20 @@ function dimGet( pair )
 
 //
 
-function fromRay( dstPair, srcRay )
+function firstPointGet( points )
 {
-  _.assert( arguments.length === 1 || arguments.length === 2 );
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  let pointsView = this.adapterFrom( points );
+  return pointsView.review([ 0, points.length / 2 - 1 ]);
+}
 
-  if( arguments.length === 1 )
-  {
-    srcRay = arguments[ 0 ];
-    dstPair = null;
-  }
+//
 
-  if( dstPair === null )
-  dstPair = this.make( srcRay.length / 2 )
-
-  _.assert( this.is( dstPair ) );
-  _.assert( srcRay.length === dstPair.length );
-
-  let d = this.dimGet( dstPair );
-
-  let srcRayP1View = this.tools.vectorAdapter.fromLongLrange( srcRay, 0, d );
-  let srcRayP2View = this.tools.vectorAdapter.fromLongLrange( srcRay, d, d );
-
-  let dstPair1View = this.tools.vectorAdapter.fromLongLrange( dstPair, 0, d );
-  let dstPair2View = this.tools.vectorAdapter.fromLongLrange( dstPair, d, d );
-
-  dstPair1View.assign( srcRayP1View );
-  dstPair2View.assign( this.tools.vectorAdapter.add( null, srcRayP1View, srcRayP2View ) );
-
-  return dstPair;
+function secondPointGet( points )
+{
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  let pointsView = this.adapterFrom( points );
+  return pointsView.review([ points.length / 2, points.length - 1 ]);
 }
 
 //
@@ -299,11 +294,13 @@ let Extension = /* qqq xxx : normalize order */
   makeZero,
 
   from,
+  adapterFrom,
 
   is,
   dimGet,
 
-  fromRay,
+  firstPointGet,
+  secondPointGet,
 
   pairAt,
 
