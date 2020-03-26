@@ -215,6 +215,39 @@ fromPair.shaderChunkName = 'ray_fromPair'
 
 //
 
+function toLinePoints( dstPoints, srcRay )
+{
+  _.assert( arguments.length === 1 || arguments.length === 2 );
+
+  if( arguments.length === 1 )
+  {
+    srcRay = arguments[ 0 ];
+    dstPoints = null;
+  }
+
+  _.assert( this.is( srcRay ) );
+
+  let d = this.dimGet( srcRay );
+
+  if( dstPoints === null )
+  dstPoints = this.tools.linePoints.make( d )
+
+  _.assert( srcRay.length === dstPoints.length );
+
+  let srcRayP1 = this.originGet( srcRay );
+  let srcRayP2 = this.directionGet( srcRay );
+
+  let dstPoint1 = this.tools.linePoints.firstPointGet( dstPoints );
+  let dstPoint2 = this.tools.linePoints.secondPointGet( dstPoints );
+
+  dstPoint1.assign( srcRayP1 );
+  dstPoint2.assign( this.tools.vectorAdapter.add( null, srcRayP1, srcRayP2 ) );
+
+  return dstPoints;
+}
+
+//
+
 /**
   * Check if input is a ray. Returns true if it is a ray and false if not.
   *
@@ -3142,6 +3175,7 @@ let Extension = /* qqq : normalize order */
   from,
   adapterFrom,
   fromPair, // fromPoints,
+  toLinePoints,
 
   is,
   dimGet,
