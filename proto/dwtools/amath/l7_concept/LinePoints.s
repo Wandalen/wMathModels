@@ -204,6 +204,8 @@ pairIntersectionFactors.shaderChunk =
   }
 `
 
+pairIntersectionFactors.shaderChunkName = 'pairPairIntersectionFactors'
+
 //
 
 
@@ -227,6 +229,7 @@ pairIntersectionPoint.shaderChunk =
     return ray_rayIntersectionPoint( r1, r2 );
   }
 `
+pairIntersectionPoint.shaderChunkName = 'pairPairIntersectionPoint'
 
 //
 
@@ -251,6 +254,9 @@ pairIntersectionPointAccurate.shaderChunk =
     return ray_rayIntersectionPointAccurate( r1, r2 );
   }
 `
+
+pairIntersectionPointAccurate.shaderChunkName = 'pairPairIntersectionPointAccurate'
+
 
 //
 
