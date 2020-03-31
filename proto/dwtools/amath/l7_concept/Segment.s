@@ -322,7 +322,7 @@ function directionGet( segment )
   * @throws { Error } An Error if ( arguments.length ) is different than one or two.
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( dst ) is not point.
-  * @memberof wTools.segment
+  * @memberof module:Tools/math/Concepts.wTools.segment
   */
 function centerGet( segment, dst )
 {
@@ -628,7 +628,7 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( project ) is not an array.
-  * @memberof wTools.segment
+  * @memberof module:Tools/math/Concepts.wTools.segment
   */
 function project( segment, project )
 {
@@ -693,7 +693,7 @@ function project( segment, project )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( projSegment ) is not segment.
-  * @memberof wTools.segment
+  * @memberof module:Tools/math/Concepts.wTools.segment
   */
 function getProjectionFactors( srcSegment, projSegment )
 {
@@ -1765,7 +1765,7 @@ function capsuleDistance( srcSegment , tstCapsule )
   * @throws { Error } An Error if ( segment ) is not segment
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.segment
+  * @memberof module:Tools/math/Concepts.wTools.segment
   */
 function capsuleClosestPoint( segment, capsule, dstPoint )
 {
@@ -2216,7 +2216,7 @@ function lineIntersects( srcSegment, srcLine )
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( line ) is not line.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.segment
+  * @memberof module:Tools/math/Concepts.wTools.segment
   */
 
 function lineIntersectionPoint( segment, line, dstPoint )
@@ -2279,7 +2279,7 @@ function lineIntersectionPoint( segment, line, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcLine ) is not line.
-  * @memberof wTools.segment
+  * @memberof module:Tools/math/Concepts.wTools.segment
   */
 function lineIntersectionFactors( srcSegment, srcLine )
 {
@@ -2596,7 +2596,7 @@ function planeIntersects( srcSegment, srcPlane )
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.segment
+  * @memberof module:Tools/math/Concepts.wTools.segment
   */
 
 function planeIntersectionPoint( segment, plane, dstPoint )
@@ -2880,7 +2880,7 @@ function rayIntersects( srcSegment, srcRay )
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( ray ) is not ray.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.segment
+  * @memberof module:Tools/math/Concepts.wTools.segment
   */
 
 function rayIntersectionPoint( segment, ray, dstPoint )
@@ -2941,7 +2941,7 @@ function rayIntersectionPoint( segment, ray, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @memberof wTools.segment
+  * @memberof module:Tools/math/Concepts.wTools.segment
   */
 function rayIntersectionFactors( srcSegment, srcRay )
 {

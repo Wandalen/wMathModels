@@ -7,6 +7,19 @@ let _ = _global_.wTools;
 // let vector = this.tools.vectorAdapter;
 let Self = _.linePoints = _.linePoints || Object.create( _.avector );
 
+/**
+ * @description
+ * A line defined by two points.
+ *
+ * For the following functions, lines must have the shape [ X1, Y1, Z1, X2, Y2, Z2 ],
+ * where the dimension equals the long's length divided by two.
+ *
+ * @namespace "wTools.linePoints"
+ * @memberof module:Tools/math/Concepts
+ */
+
+/*
+
 // --
 // routines
 // --
@@ -60,51 +73,51 @@ function adapterFrom( points )
 //
 
 /**
-  * Check if input is a pair. Returns true if it is a pair and false if not.
+  * Check if input is a line by two points. Returns true if it is a line and false if not.
   *
-  * @param { Vector } pair - Source pair.
+  * @param { Vector } line - Source line points.
   *
   * @example
   * // returns true;
-  * _.pair.is( [ [ 0, 0 ], [ 1, 1 ]  ] );
+  * _.linePoints.is( [ 0, 0, 1, 1 ] );
   * // returns false;
-  * _.pair.is( [ 0,0 ] );
+  * _.linePoints.is( [ 0,0 ] );
   *
-  * @returns { Boolean } Returns true if the input is pair.
+  * @returns { Boolean } Returns true if the input is line by two points.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.pair
-  */
+  * @memberof module:Tools/math/Concepts.wTools.linePoints
+*/
 
-function is( pair )
+function is( linePoints )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return ( _.longIs( pair ) || _.vectorAdapterIs( pair ) ) && ( pair.length % 2 === 0 ) && ( pair.length >= 4 );
+  return ( _.longIs( linePoints ) || _.vectorAdapterIs( linePoints ) ) && ( linePoints.length % 2 === 0 ) && ( linePoints.length >= 4 );
 }
 
 //
 
 /**
-  * Get pair dimension. Returns the dimension of the pair. Pair stays untouched.
+  * Get line dimension. Returns the dimension of the line. Line stays untouched.
   *
-  * @param { Vector } pair - The source pair.
+  * @param { Vector } linePoints - The source points.
   *
   * @example
   * // returns 2
-  * _.dimGet( [ 0, 0, 0, 0 ] );
+  * _.linePoints.dimGet( [ 0, 0, 0, 0 ] );
   *
-  * @returns { Number } Returns the dimension of the pair.
+  * @returns { Number } Returns the dimension of the line.
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @throws { Error } An Error if ( pair ) is not pair.
-  * @memberof module:Tools/math/Concepts.wTools.pair
+  * @throws { Error } An Error if ( linePoints ) is not a line.
+  * @memberof module:Tools/math/Concepts.wTools.linePoints
   */
 
-function dimGet( pair )
+function dimGet( linePoints )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( this.is( pair ) );
-  return pair.length / 2;
+  _.assert( this.is( linePoints ) );
+  return linePoints.length / 2;
 }
 
 //
@@ -204,6 +217,8 @@ pairIntersectionFactors.shaderChunk =
   }
 `
 
+pairIntersectionFactors.shaderChunkName = 'pairPairIntersectionFactors'
+
 //
 
 
@@ -227,6 +242,7 @@ pairIntersectionPoint.shaderChunk =
     return ray_rayIntersectionPoint( r1, r2 );
   }
 `
+pairIntersectionPoint.shaderChunkName = 'pairPairIntersectionPoint'
 
 //
 
@@ -251,6 +267,9 @@ pairIntersectionPointAccurate.shaderChunk =
     return ray_rayIntersectionPointAccurate( r1, r2 );
   }
 `
+
+pairIntersectionPointAccurate.shaderChunkName = 'pairPairIntersectionPointAccurate'
+
 
 //
 

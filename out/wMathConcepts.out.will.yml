@@ -12,10 +12,9 @@ consistency:
     hash: abc2a5d28ca616b8a808fad2636adbb9
     size: 5236
 module:
-  wMathConcepts.out:
+  ../:
     about:
       name: wMathConcepts
-      org: noorg
       description: >-
         Collection of functions to operate such geometrical concepts as Sphere,
         Box, Plane, Frustum, Ray, Axis and Angle, Euler's Angles, Quaternion and
@@ -55,54 +54,45 @@ module:
       module.willfiles:
         criterion:
           predefined: 1
-        path: wMathConcepts.out.will.yml
-      module.common:
-        criterion:
-          predefined: 1
-        path: wMathConcepts.out
+        path:
+          - .im.will.yml
+          - .ex.will.yml
       module.original.willfiles:
         criterion:
           predefined: 1
         path:
-          - ../.ex.will.yml
-          - ../.im.will.yml
-      module.peer.willfiles:
+          - .im.will.yml
+          - .ex.will.yml
+      module.common:
         criterion:
           predefined: 1
-        path:
-          - ../.ex.will.yml
-          - ../.im.will.yml
-      module.peer.in:
+        path: ./
+      local:
         criterion:
           predefined: 1
-        path: ..
-      download:
+      remote:
         criterion:
           predefined: 1
-      repository:
-        path: 'git+https:///github.com/Wandalen/wMathConcepts.git'
-      origins:
-        path:
-          - 'git+https:///github.com/Wandalen/wMathConcepts.git'
-          - 'npm:///wmathconcepts'
-      bugtracker:
-        path: 'https:///github.com/Wandalen/wMathConcepts/issues'
       in:
+        criterion:
+          predefined: 0
         path: .
       out:
-        path: .
+        criterion:
+          predefined: 0
+        path: out
       temp:
         path:
           - 'path::out'
-          - ../package-lock.json
-          - ../package.json
-          - ../node_modules
+          - package-lock.json
+          - package.json
+          - node_modules
       proto:
-        path: ../proto
+        path: ./proto
       export:
         path: '{path::proto}/**'
       doc:
-        path: ../doc
+        path: ./doc
       out.raw.debug:
         criterion:
           debug: debug
@@ -130,11 +120,11 @@ module:
       entry.proto.no.tests:
         criterion:
           tests: no.tests
-        path: ../proto/dwtools/amath/l8/Concepts.s
+        path: proto/dwtools/amath/l8/Concepts.s
       entry.proto.only.tests:
         criterion:
           tests: only.tests
-        path: ../proto/**/*.test.s
+        path: proto/**/*.test.s
       entry.out.raw.debug.debug:
         criterion:
           debug: debug
@@ -159,64 +149,67 @@ module:
           raw: compiled
           content: prime
         path: '{path::out.*=}/source/Index.s'
+      repository:
+        path: 'git+https:///github.com/Wandalen/wMathConcepts.git'
+      origins:
+        path:
+          - 'git+https:///github.com/Wandalen/wMathConcepts.git'
+          - 'npm:///wmathconcepts'
+      bugtracker:
+        path: 'https:///github.com/Wandalen/wMathConcepts/issues'
       exported.dir.proto.export:
         criterion:
-          generated: 1
           content: proto
           export: 1
-        path: ../proto
+        path: ./proto
       exported.files.proto.export:
         criterion:
-          generated: 1
           content: proto
           export: 1
         path:
-          - ../proto
-          - ../proto/dwtools
-          - ../proto/dwtools/Tools.s
-          - ../proto/dwtools/abase
-          - ../proto/dwtools/amath
-          - ../proto/dwtools/amath/l7_concept
-          - ../proto/dwtools/amath/l7_concept/AxisAndAngle.s
-          - ../proto/dwtools/amath/l7_concept/Box.s
-          - ../proto/dwtools/amath/l7_concept/Capsule.s
-          - ../proto/dwtools/amath/l7_concept/ConcavePolygon.s
-          - ../proto/dwtools/amath/l7_concept/ConvexPolygon.s
-          - ../proto/dwtools/amath/l7_concept/Euler.s
-          - ../proto/dwtools/amath/l7_concept/Frustum.s
-          - ../proto/dwtools/amath/l7_concept/LineImplicit.s
-          - ../proto/dwtools/amath/l7_concept/LinePointCentered.s
-          - ../proto/dwtools/amath/l7_concept/LinePointDir.s
-          - ../proto/dwtools/amath/l7_concept/LinePoints.s
-          - ../proto/dwtools/amath/l7_concept/Plane.s
-          - ../proto/dwtools/amath/l7_concept/Quat.s
-          - ../proto/dwtools/amath/l7_concept/Ray.s
-          - ../proto/dwtools/amath/l7_concept/Segment.s
-          - ../proto/dwtools/amath/l7_concept/Sphere.s
-          - ../proto/dwtools/amath/l7_concept/Triangle.s
-          - ../proto/dwtools/amath/l8
-          - ../proto/dwtools/amath/l8/Concepts.s
-          - ../proto/dwtools/amath/l8.test
-          - ../proto/dwtools/amath/l8.test/AxisAndAngle.test.s
-          - ../proto/dwtools/amath/l8.test/Box.test.s
-          - ../proto/dwtools/amath/l8.test/Capsule.test.s
-          - ../proto/dwtools/amath/l8.test/ConcavePolygon.test.s
-          - ../proto/dwtools/amath/l8.test/ConvexPolygon.test.s
-          - ../proto/dwtools/amath/l8.test/Euler.test.s
-          - ../proto/dwtools/amath/l8.test/Experiment.experiment.s
-          - ../proto/dwtools/amath/l8.test/Frustum.test.s
-          - ../proto/dwtools/amath/l8.test/LineImplicit.test.s
-          - ../proto/dwtools/amath/l8.test/LinePointCentered.test.s
-          - ../proto/dwtools/amath/l8.test/LinePointDir.test.s
-          - ../proto/dwtools/amath/l8.test/LinePoints.test.s
-          - ../proto/dwtools/amath/l8.test/Plane.test.s
-          - ../proto/dwtools/amath/l8.test/Quat.test.s
-          - ../proto/dwtools/amath/l8.test/Ray.test.s
-          - ../proto/dwtools/amath/l8.test/Segment.test.s
-          - ../proto/dwtools/amath/l8.test/Sphere.test.s
-          - ../proto/dwtools/amath/l8.test/Triangle.test.s
-          - ../proto/dwtools/amid
-          - ../proto/dwtools/atop
+          - proto
+          - proto/dwtools
+          - proto/dwtools/Tools.s
+          - proto/dwtools/amath
+          - proto/dwtools/amath/l7_concept
+          - proto/dwtools/amath/l7_concept/AxisAndAngle.s
+          - proto/dwtools/amath/l7_concept/Box.s
+          - proto/dwtools/amath/l7_concept/Capsule.s
+          - proto/dwtools/amath/l7_concept/ConcavePolygon.s
+          - proto/dwtools/amath/l7_concept/ConvexPolygon.s
+          - proto/dwtools/amath/l7_concept/Euler.s
+          - proto/dwtools/amath/l7_concept/Frustum.s
+          - proto/dwtools/amath/l7_concept/LineImplicit.s
+          - proto/dwtools/amath/l7_concept/LinePointCentered.s
+          - proto/dwtools/amath/l7_concept/LinePointDir.s
+          - proto/dwtools/amath/l7_concept/LinePoints.s
+          - proto/dwtools/amath/l7_concept/Plane.s
+          - proto/dwtools/amath/l7_concept/Quat.s
+          - proto/dwtools/amath/l7_concept/Ray.s
+          - proto/dwtools/amath/l7_concept/Segment.s
+          - proto/dwtools/amath/l7_concept/Sphere.s
+          - proto/dwtools/amath/l7_concept/Triangle.s
+          - proto/dwtools/amath/l8
+          - proto/dwtools/amath/l8/Concepts.s
+          - proto/dwtools/amath/l8.test
+          - proto/dwtools/amath/l8.test/AxisAndAngle.test.s
+          - proto/dwtools/amath/l8.test/Box.test.s
+          - proto/dwtools/amath/l8.test/Capsule.test.s
+          - proto/dwtools/amath/l8.test/ConcavePolygon.test.s
+          - proto/dwtools/amath/l8.test/ConvexPolygon.test.s
+          - proto/dwtools/amath/l8.test/Euler.test.s
+          - proto/dwtools/amath/l8.test/Experiment.experiment.s
+          - proto/dwtools/amath/l8.test/Frustum.test.s
+          - proto/dwtools/amath/l8.test/LineImplicit.test.s
+          - proto/dwtools/amath/l8.test/LinePointCentered.test.s
+          - proto/dwtools/amath/l8.test/LinePointDir.test.s
+          - proto/dwtools/amath/l8.test/LinePoints.test.s
+          - proto/dwtools/amath/l8.test/Plane.test.s
+          - proto/dwtools/amath/l8.test/Quat.test.s
+          - proto/dwtools/amath/l8.test/Ray.test.s
+          - proto/dwtools/amath/l8.test/Segment.test.s
+          - proto/dwtools/amath/l8.test/Sphere.test.s
+          - proto/dwtools/amath/l8.test/Triangle.test.s
     submodule:
       wTools:
         path: 'npm:///wTools'
@@ -239,7 +232,7 @@ module:
         autoExporting: 0
         enabled: 0
       wmathconcepts:
-        path: 'hd://..'
+        path: 'hd://.'
         autoExporting: 0
         enabled: 0
         criterion:
@@ -255,9 +248,6 @@ module:
         src:
           filePath:
             'path::proto': '{path::out.*=1}/source'
-          prefixPath: ''
-        dst:
-          prefixPath: ''
         mandatory: 1
         criterion:
           tests: no.tests
@@ -270,9 +260,6 @@ module:
         src:
           filePath:
             'path::proto': '{path::out.*=1}/source'
-          prefixPath: ''
-        dst:
-          prefixPath: ''
         mandatory: 1
         criterion:
           tests: no.tests
@@ -285,9 +272,6 @@ module:
         src:
           filePath:
             'path::proto': '{path::out.*=1}/source'
-          prefixPath: ''
-        dst:
-          prefixPath: ''
         mandatory: 1
         criterion:
           tests: no.tests
@@ -300,9 +284,6 @@ module:
         src:
           filePath:
             'path::proto': '{path::out.*=1}/source'
-          prefixPath: ''
-        dst:
-          prefixPath: ''
         mandatory: 1
         criterion:
           tests: no.tests
@@ -315,9 +296,6 @@ module:
         src:
           filePath:
             'path::proto': '{path::out.raw.release}'
-          prefixPath: ''
-        dst:
-          prefixPath: ''
         mandatory: 1
         criterion:
           raw: raw
@@ -328,12 +306,9 @@ module:
       transpile.proto.no.tests.compiled.debug:
         src:
           filePath:
-            '**.test*': false
-            '**.test/**': false
+            '**.test*': 0
+            '**.test/**': 0
             'path::proto': '{path::out.*=1}/Main.s'
-          prefixPath: ''
-        dst:
-          prefixPath: ''
         mandatory: 1
         criterion:
           tests: no.tests
@@ -345,12 +320,9 @@ module:
       transpile.proto.no.tests.compiled.release:
         src:
           filePath:
-            '**.test*': false
-            '**.test/**': false
+            '**.test*': 0
+            '**.test/**': 0
             'path::proto': '{path::out.*=1}/Main.s'
-          prefixPath: ''
-        dst:
-          prefixPath: ''
         mandatory: 1
         criterion:
           tests: no.tests
@@ -362,11 +334,8 @@ module:
       transpile.proto.only.tests.compiled.debug:
         src:
           filePath:
-            '**.test*': true
+            '**.test*': 1
             'path::proto': '{path::out.*=1}/Tests.test.s'
-          prefixPath: ''
-        dst:
-          prefixPath: ''
         mandatory: 1
         criterion:
           tests: only.tests
@@ -378,11 +347,8 @@ module:
       transpile.proto.only.tests.compiled.release:
         src:
           filePath:
-            '**.test*': true
+            '**.test*': 1
             'path::proto': '{path::out.*=1}/Tests.test.s'
-          prefixPath: ''
-        dst:
-          prefixPath: ''
         mandatory: 1
         criterion:
           tests: only.tests
@@ -395,10 +361,9 @@ module:
         src:
           filePath:
             '**': ''
-          prefixPath: ../proto
+          prefixPath: proto
         mandatory: 1
         criterion:
-          generated: 1
           content: proto
           export: 1
       exported.files.proto.export:
@@ -407,41 +372,12 @@ module:
             'path::exported.files.proto.export': ''
           basePath: .
           prefixPath: 'path::exported.dir.proto.export'
-          recursive: 0
         recursive: 0
         mandatory: 1
         criterion:
-          generated: 1
           content: proto
           export: 1
     step:
-      proto.export:
-        opts:
-          export: 'path::export'
-          tar: 0
-        criterion:
-          content: proto
-        inherit:
-          - module.export
-      doc.export:
-        opts:
-          export: 'path::doc'
-          tar: 0
-        criterion:
-          content: doc
-        inherit:
-          - module.export
-      npm.export:
-        opts:
-          export: out.npm
-          tar: 0
-        criterion:
-          content: npm
-        inherit:
-          - module.export
-      npm.publish:
-        opts:
-          shell: npm publish
       npm.generate.debug.raw:
         opts:
           entryPath: 'path::entry.out.*=1'
@@ -785,29 +721,33 @@ module:
           - files.reflect
     build:
       proto.export:
-        steps:
-          - 'step::proto.export'
+        opts:
+          export: 'path::export'
+          tar: 0
         criterion:
           content: proto
-          export: 1
+        inherit:
+          - module.export
       doc.export:
-        steps:
-          - 'step::doc.export'
+        opts:
+          export: 'path::doc'
+          tar: 0
         criterion:
           content: doc
-          export: 1
+        inherit:
+          - module.export
       npm.export:
-        steps:
-          - 'step::npm.publish'
+        opts:
+          export: out.npm
+          tar: 0
         criterion:
           content: npm
-          export: 1
-      export:
-        steps:
-          - 'build::proto.export'
-        criterion:
-          default: 1
-          export: 1
+        inherit:
+          - module.export
+      npm.publish:
+        opts:
+          shell: npm publish
+    build:
       debug:
         steps:
           - 'step::clean.out*=2'
@@ -857,12 +797,33 @@ module:
           - 'build::raw.release'
           - 'build::release'
           - 'build::npm'
+      proto.export:
+        steps:
+          - 'step::proto.export'
+        criterion:
+          content: proto
+          export: 1
+      doc.export:
+        steps:
+          - 'step::doc.export'
+        criterion:
+          content: doc
+          export: 1
+      npm.export:
+        steps:
+          - 'step::npm.publish'
+        criterion:
+          content: npm
+          export: 1
+      export:
+        steps:
+          - 'build::proto.export'
+        criterion:
+          default: 1
+          export: 1
     exported:
       proto.export:
         version: 0.5.0
-        recursive: 0
-        withIntegrated: 2
-        tar: 0
         exportedReflector: 'reflector::exported.proto.export'
         exportedFilesReflector: 'reflector::exported.files.proto.export'
         exportedDirPath: 'path::exported.dir.proto.export'

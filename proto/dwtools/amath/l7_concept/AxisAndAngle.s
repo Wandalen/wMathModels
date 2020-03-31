@@ -19,21 +19,17 @@ _.assert( !this );
 _.assert( _.objectIs( _.avector ) );
 
 /**
+ * An AxisAndAngle element represents a rotation around a direction vector of a certain magnitude.
+
+  For the following functions, Axis Angles must have the shape [ dir1, dir2, dir3, angle ],
+  where dir1, dir2 and dir3 are the coordinates of the axis of the rotations,
+  and angle corresponds to the rotation magnitude.
+
  * @namespace "wTools.axisAndAngle"
  * @memberof module:Tools/math/Concepts
  */
 
 let Self = _.axisAndAngle = _.axisAndAngle || Object.create( _.avector );
-
-/*
-
-  An AxisAndAngle element represents a rotation around a direction vector of a certain magnitude.
-
-  For the following functions, Axis Angles must have the shape [ dir1, dir2, dir3, angle ],
-where dir1, dir2 and dir3 are the coordinates of the axis of the rotations,
-and angle corresponds to the rotation magnitude.
-
-*/
 
 // --
 //

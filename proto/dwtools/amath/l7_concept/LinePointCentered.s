@@ -7,6 +7,13 @@ let _ = _global_.wTools;
 // let vector = this.tools.vectorAdapter;
 let Self = _.linePointCentered = _.linePointCentered || Object.create( _.avector );
 
+/**
+ * Is a line alligned relative to the origin of coordinate system.
+ * For the following functions, line should have shape [ X, Y, Z ]
+ * @namespace "wTools.linePointCentered"
+ * @memberof module:Tools/math/Concepts
+*/
+
 // --
 // routines
 // --
@@ -62,20 +69,18 @@ function adapterFrom( line )
 //
 
 /**
-  * Check if input is a pair. Returns true if it is a pair and false if not.
+  * Check if input is a centered line. Returns true if it is a centered line and false if not.
   *
-  * @param { Vector } pair - Source pair.
+  * @param { Vector } pair - Source line.
   *
   * @example
   * // returns true;
-  * _.pair.is( [ [ 0, 0 ], [ 1, 1 ]  ] );
-  * // returns false;
-  * _.pair.is( [ 0,0 ] );
+  * _.linePointCentered.is( [ 1,1 ] );
   *
-  * @returns { Boolean } Returns true if the input is pair.
+  * @returns { Boolean } Returns true if the input is a centered line.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.pair
+  * @memberof module:Tools/math/Concepts.wTools.linePointCentered
   */
 
 function is( pair )
@@ -87,19 +92,19 @@ function is( pair )
 //
 
 /**
-  * Get pair dimension. Returns the dimension of the pair. Pair stays untouched.
+  * Returns the dimension of the centered line. Line stays untouched.
   *
-  * @param { Vector } pair - The source pair.
+  * @param { Vector } pair - The source line.
   *
   * @example
   * // returns 2
-  * _.dimGet( [ 0, 0, 0, 0 ] );
+  * _.linePointCentered.dimGet( [ 1, 1 ] );
   *
-  * @returns { Number } Returns the dimension of the pair.
+  * @returns { Number } Returns the dimension of the centered line.
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @throws { Error } An Error if ( pair ) is not pair.
-  * @memberof module:Tools/math/Concepts.wTools.pair
+  * @throws { Error } An Error if ( pair ) is not centered line.
+  * @memberof module:Tools/math/Concepts.wTools.linePointCentered
   */
 
 function dimGet( pair )
