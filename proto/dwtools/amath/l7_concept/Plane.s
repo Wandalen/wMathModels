@@ -8,25 +8,15 @@ let _ = _global_.wTools;
 let Self = _.plane = _.plane || Object.create( _.avector );
 
 /**
- * @description
- * A plane is a flat surface represented by an equation of the type:
- *   Ax + By + Cz = D ( for 3D, where x, y and z represent the 3 axes )
+ * A plane is a flat surface represented by an equation Ax + By + Cz = D,
+ * where x, y and z represent the 3 axes( for 3D ).
  *
- * For the following functions, planes must have the shape [ A, B, ... , D ],
+ * For the following functions, planes must have the shape `[ A, B, ... , D ]`,
  * where the dimension equals the long's length minus one.
+ *
  * @namespace "wTools.plane"
  * @memberof module:Tools/math/Concepts
  */
-
-/*
-
-  A plane is a flat surface represented by an equation of the type:
-    Ax + By + Cz = D ( for 3D, where x, y and z represent the 3 axes )
-
-  For the following functions, planes must have the shape [ A, B, ... , D ],
-  where the dimension equals the long's length minus one.
-
-*/
 
 // --
 //

@@ -24,7 +24,7 @@ let Self = _.frustum = _.frustum || Object.create( _.avector );
  * wrong results.
  *
  * The frustum representation of the box [ 0, 0, 0, 1, 1, 1 ] would be:
- * <code>
+ * ```
  * var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
  * ([
  *   0,   0,   0,   0,  -1,   1,
@@ -32,7 +32,7 @@ let Self = _.frustum = _.frustum || Object.create( _.avector );
  *   0,   0,  -1,   1,   0,   0,
  *   -1,  0,   0,  -1,   0,  -1
  * ]);
- * </code>
+ * ```
  * Where all director vectors point outwards the frustum.
  *
  * Frustum planes convention : right, left, bottom, top, far, near;
