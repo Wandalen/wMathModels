@@ -9,8 +9,9 @@ let Self = _.lineImplicit = _.lineImplicit || Object.create( _.avector );
 
 /**
  * @description
- * For the following functions, implicit lines must have the shape [ A,B,C ],
- *
+ * A implicit line is a straight line defined by a linear equation whose general form is Ax + By + C = 0,
+ * where A, B are not both 0.
+ * For the following functions, implicit line must be represented by shape [ A,B,C ]
  * @namespace "wTools.lineImplicit"
  * @memberof module:Tools/math/Concepts
 */
@@ -136,7 +137,7 @@ function adapterFrom( line )
   *
   * @example
   * // returns   this.tools.vectorAdapter.from( [ 1, 2, 1, 2 ] )
-  * _.fromPair( [ 1, 2 ], [ 3, 4 ] );
+  * _.lineImplicit.fromPair( [ 1, 2 ], [ 3, 4 ] );
   *
   * @returns { Vector } Returns the line containing the two points.
   * @function fromPair
@@ -157,15 +158,15 @@ function adapterFrom( line )
 //
 
 /**
-  * Check if input is a line. Returns true if it is a line and false if not.
+  * Check if input is a implicit representation of a straight line. Returns true or false.
   *
   * @param { Vector } line - Source line.
   *
   * @example
   * // returns true;
-  * _.is( [ 0, 0, 1, 1 ] );
+  * _.lineImplicit.is( [ 1,1,0 ] );
   *
-  * @returns { Boolean } Returns true if the input is line.
+  * @returns { Boolean } Returns true if the input is a implicit representation of a straight line.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @memberof module:Tools/math/Concepts.wTools.lineImplicit
@@ -185,11 +186,7 @@ function is( line )
   *
   * @example
   * // returns 2
-  * _.dimGet( [ 0, 0, 2, 2 ] );
-  *
-  * @example
-  * // returns 1
-  * _.dimGet( [ 0, 1 ] );
+  * _.dimGet( [ 1, 1, 0 ] );
   *
   * @returns { Number } Returns the dimension of the line.
   * @function dimGet

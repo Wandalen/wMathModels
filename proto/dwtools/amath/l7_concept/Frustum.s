@@ -14,26 +14,27 @@ let Self = _.frustum = _.frustum || Object.create( _.avector );
  * In the following methods, frustums will be defined by a space where each column
  * represents one of the frustum planes.
  *
-
-    Frustums are defined in a very special way, and therefore planes must be included following
-    an order:
-    Frustum planes convention : [ right, left, bottom, top, far, near ];
-    Frustum planes must have director vectors pointing outside frustum!!!;
-
-    If this convention is not followed when creating a frustum, routines may return
-    wrong results.
-
-    @Example: The frustum representation of the box [ 0, 0, 0, 1, 1, 1 ] would be:
-    var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
-    ([
-      0,   0,   0,   0,  -1,   1,
-      1,  -1,   0,   0,   0,   0,
-      0,   0,  -1,   1,   0,   0,
-      -1,  0,   0,  -1,   0,  -1
-    ]);
-
-    Where all director vectors point outwards the frustum.
-
+ *
+ * Frustums are defined in a very special way, and therefore planes must be included following
+ * an order:
+ * Frustum planes convention : [ right, left, bottom, top, far, near ];
+ * Frustum planes must have director vectors pointing outside frustum!!!;
+ *
+ * If this convention is not followed when creating a frustum, routines may return
+ * wrong results.
+ *
+ * The frustum representation of the box [ 0, 0, 0, 1, 1, 1 ] would be:
+ * <code>
+ * var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+ * ([
+ *   0,   0,   0,   0,  -1,   1,
+ *   1,  -1,   0,   0,   0,   0,
+ *   0,   0,  -1,   1,   0,   0,
+ *   -1,  0,   0,  -1,   0,  -1
+ * ]);
+ * </code>
+ * Where all director vectors point outwards the frustum.
+ *
  * Frustum planes convention : right, left, bottom, top, far, near;
  * Frustum planes must have director vectors pointing outside frustum;
  * @namespace "wTools.frustum"
@@ -958,7 +959,7 @@ function boundingBoxGet( dstBox, srcFrustum )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function capsuleContains( frustum , capsule )
@@ -1120,7 +1121,7 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( polygon ) is not convex polygon.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function convexPolygonContains( frustum , polygon )
@@ -1203,7 +1204,7 @@ function convexPolygonDistance( srcFrustum , polygon )
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 function convexPolygonClosestPoint( frustum, polygon, dstPoint )
 {
@@ -1920,7 +1921,7 @@ function rayClosestPoint( frustum, ray, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof wTools.frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 
 function segmentContains( frustum, segment )
@@ -2260,7 +2261,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
-  * @memberof wTools.Frustum
+  * @memberof module:Tools/math/Concepts.wTools.frustum
   */
 function boundingSphereGet( dstSphere, srcFrustum )
 {

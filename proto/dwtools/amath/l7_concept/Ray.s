@@ -1689,7 +1689,7 @@ function convexPolygonDistance( srcRay , polygon )
   * @throws { Error } An Error if ( ray ) is not ray
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.ray
+  * @memberof module:Tools/math/Concepts.wTools.ray
   */
 function convexPolygonClosestPoint( ray, polygon, dstPoint )
 {
@@ -1967,7 +1967,7 @@ function lineIntersects( srcRay , tstLine )
   * @throws { Error } An Error if ( ray ) is not ray.
   * @throws { Error } An Error if ( line ) is not line.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.ray
+  * @memberof module:Tools/math/Concepts.wTools.ray
   */
 
 function lineIntersectionPoint( ray, line, dstPoint )
@@ -2030,7 +2030,7 @@ function lineIntersectionPoint( ray, line, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcLine ) is not line.
-  * @memberof wTools.ray
+  * @memberof module:Tools/math/Concepts.wTools.ray
   */
 function lineIntersectionFactors( srcRay, srcLine )
 {
@@ -2244,7 +2244,7 @@ function planeIntersects( srcRay, srcPlane )
   * @throws { Error } An Error if ( ray ) is not ray.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.ray
+  * @memberof module:Tools/math/Concepts.wTools.ray
   */
 
 function planeIntersectionPoint( ray, plane, dstPoint )
@@ -2661,7 +2661,7 @@ function segmentIntersects( srcRay , tstSegment )
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
-  * @memberof wTools.ray
+  * @memberof module:Tools/math/Concepts.wTools.ray
   */
 function segmentIntersectionPoint( srcRay, srcSegment, dstPoint )
 {
@@ -2756,7 +2756,7 @@ function segmentIntersectionPoint( srcRay, srcSegment, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
-  * @memberof wTools.ray
+  * @memberof module:Tools/math/Concepts.wTools.ray
   */
 function segmentIntersectionFactors( srcRay, srcSegment )
 {

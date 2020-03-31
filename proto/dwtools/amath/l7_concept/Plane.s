@@ -781,7 +781,7 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
-  * @memberof wTools.plane
+  * @memberof module:Tools/math/Concepts.wTools.plane
   */
 function convexPolygonContains( plane, polygon )
 {
@@ -858,7 +858,7 @@ function convexPolygonDistance( srcPlane , polygon )
   * @throws { Error } An Error if ( plane ) is not plane
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.plane
+  * @memberof module:Tools/math/Concepts.wTools.plane
   */
 function convexPolygonClosestPoint( plane, polygon, dstPoint )
 {
@@ -1065,7 +1065,7 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
-  * @memberof wTools.plane
+  * @memberof module:Tools/math/Concepts.wTools.plane
 */
 function lineContains( srcPlane, tstLine )
 {
@@ -1405,7 +1405,7 @@ function planeDistance( srcPlane, tstPlane )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( ray ) is not ray.
-  * @memberof wTools.plane
+  * @memberof module:Tools/math/Concepts.wTools.plane
 */
 
 function rayContains( srcPlane, tstRay )
@@ -1466,7 +1466,7 @@ function rayIntersects( srcPlane , tstRay )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( ray ) is not ray.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.plane
+  * @memberof module:Tools/math/Concepts.wTools.plane
   */
 
 function rayIntersectionPoint( plane, ray, dstPoint )
@@ -1612,7 +1612,7 @@ function rayClosestPoint( plane, ray, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof wTools.plane
+  * @memberof module:Tools/math/Concepts.wTools.plane
 */
 function segmentContains( srcPlane, tstSegment )
 {
@@ -1704,7 +1704,7 @@ function segmentIntersects( plane , segment )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.plane
+  * @memberof module:Tools/math/Concepts.wTools.plane
   */
 
 function segmentIntersectionPoint( plane, segment, dstPoint )

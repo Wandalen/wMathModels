@@ -7,15 +7,17 @@ let _ = _global_.wTools;
 // let vector = this.tools.vectorAdapter;
 let Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
 
-/*
 
+/**
+ * @description
   A concave polygon is a simple polygon where all interior angles are greater
   than 180 degrees. Therefore, it is a plane figure ( 2D ), closed and defined by a set of
   A concave polygon is the opposite of a convex polygon.
   In the following methods, concave polygons will be defined by a space where each column
-represents one of the plygon´s vertices.
-
-*/
+  represents one of the plygon´s vertices.
+ * @namespace "wTools.concavePolygon"
+ * @memberof module:Tools/math/Concepts
+ */
 
 // --
 // routines
@@ -44,7 +46,7 @@ represents one of the plygon´s vertices.
   * @returns { Array } Returns the array of the created box.
   * @function make
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof wTools.concavePolygon
+  * @memberof module:Tools/math/Concepts.wTools.concavePolygon
   */
 
 function make( dim, vertices )
@@ -83,7 +85,7 @@ function make( dim, vertices )
   * @returns { Boolean } Returns true if polygon is a polygon and false if not.
   * @function isPolygon
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof wTools.concavePolygon
+  * @memberof module:Tools/math/Concepts.wTools.concavePolygon
   */
 function isPolygon( polygon )
 {
@@ -170,7 +172,7 @@ function pointContains( polygon, point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not concave polygon.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.concavePolygon
+  * @memberof module:Tools/math/Concepts.wTools.concavePolygon
   */
 
 //
@@ -225,7 +227,7 @@ function pointDistanceSqr( polygon, point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not concave polygon.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof wTools.concavePolygon
+  * @memberof module:Tools/math/Concepts.wTools.concavePolygon
   */
 
 function pointDistance( polygon, point )
