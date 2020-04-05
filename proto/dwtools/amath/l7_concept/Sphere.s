@@ -793,7 +793,7 @@ function radiusSet( sphere, radius )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( project ) is not an array.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function project( sphere, project )
 {
@@ -852,7 +852,7 @@ function project( sphere, project )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( projSphere ) is not sphere.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function getProjectionFactors( srcSphere, projSphere )
 {
@@ -1442,7 +1442,7 @@ function boundingBoxGet( dstBox, srcSphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 
@@ -1587,7 +1587,7 @@ function capsuleClosestPoint( sphere, capsule, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( sphere ) is not sphere
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function convexPolygonContains( sphere, polygon )
 {
@@ -1665,7 +1665,7 @@ function convexPolygonDistance( srcSphere , polygon )
   * @throws { Error } An Error if ( sphere ) is not sphere
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 function convexPolygonClosestPoint( sphere, polygon, dstPoint )
 {
@@ -2351,7 +2351,7 @@ function rayClosestPoint( sphere, ray, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment
   * @throws { Error } An Error if ( tstSphere ) is not sphere
-  * @memberof wTools.sphere
+  * @memberof module:Tools/math/Concepts.wTools.sphere
   */
 
 function segmentContains( srcSphere, tstSegment )

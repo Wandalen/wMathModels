@@ -7,6 +7,15 @@ let _ = _global_.wTools;
 // let vector = this.tools.vectorAdapter;
 let Self = _.triangle = _.triangle || Object.create( _.avector );
 
+/**
+ * @description
+ * A triangle is a polygon with three edges and three vertices.
+ *
+ * For the following functions, triangle must have the shape [ x1,y1,z1, x2,y2,z2, x3,y3,z3 ].
+ * @namespace "wTools.triangle"
+ * @memberof module:Tools/math/Concepts
+ */
+
 // --
 // routines
 // --
@@ -57,7 +66,7 @@ function from( triangle )
   *
   * @example
   * // returns true;
-  * _.is( [ 0, 0, 1, 1, 0, 0 ] );
+  * _.triangle.is( [ 0, 0, 1, 1, 0, 0 ] );
   *
   * @returns { Boolean } Returns true if the input is triangle.
   * @function is
