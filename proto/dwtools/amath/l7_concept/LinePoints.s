@@ -18,8 +18,6 @@ let Self = _.linePoints = _.linePoints || Object.create( _.avector );
  * @memberof module:Tools/math/Concepts
  */
 
-/*
-
 // --
 // routines
 // --
