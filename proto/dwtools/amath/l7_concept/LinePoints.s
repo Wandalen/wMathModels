@@ -86,7 +86,7 @@ function adapterFrom( points )
   * @returns { Boolean } Returns true if the input is line by two points.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.linePoints
+  @memberof namespace:wTools.linePoints
 */
 
 function is( linePoints )
@@ -110,7 +110,7 @@ function is( linePoints )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( linePoints ) is not a line.
-  * @memberof module:Tools/math/Concepts.wTools.linePoints
+  @memberof namespace:wTools.linePoints
   */
 
 function dimGet( linePoints )

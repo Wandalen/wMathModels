@@ -167,7 +167,7 @@ function adapterFrom( segment )
   * @returns { Boolean } Returns true if the input is segment.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function is( segment )
 {
@@ -194,7 +194,7 @@ function is( segment )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function dimGet( segment )
 {
@@ -223,7 +223,7 @@ function dimGet( segment )
   * @function originGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function originGet( segment )
 {
@@ -252,7 +252,7 @@ function originGet( segment )
   * @function endPointGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 
 function endPointGet( segment )
@@ -282,7 +282,7 @@ function endPointGet( segment )
   * @function directionGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function directionGet( segment )
 {
@@ -322,7 +322,7 @@ function directionGet( segment )
   * @throws { Error } An Error if ( arguments.length ) is different than one or two.
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( dst ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function centerGet( segment, dst )
 {
@@ -367,7 +367,7 @@ function centerGet( segment, dst )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( factor ) is not number.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function segmentAt( srcSegment, factor )
 {
@@ -424,7 +424,7 @@ segmentAt.shaderChunk =
 * @throws { Error } An Error if ( arguments.length ) is different than two.
 * @throws { Error } An Error if ( srcSegment ) is not segment.
 * @throws { Error } An Error if ( srcPoint ) is not point.
-* @memberof module:Tools/math/Concepts.wTools.segment
+* @memberof namespace:wTools.segment
 */
 function getFactor( srcSegment, srcPoint )
 {
@@ -535,7 +535,7 @@ function getFactor( srcSegment, srcPoint )
   * @throws { Error } An Error if ( src1Segment ) is not segment.
   * @throws { Error } An Error if ( src2Segment ) is not segment.
   * @throws { Error } An Error if ( accuracySqr ) is not number.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function segmentParallel( src1Segment, src2Segment, accuracySqr )
 {
@@ -628,7 +628,7 @@ function segmentParallel( src1Segment, src2Segment, accuracySqr )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( project ) is not an array.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function project( segment, project )
 {
@@ -693,7 +693,7 @@ function project( segment, project )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( projSegment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function getProjectionFactors( srcSegment, projSegment )
 {
@@ -773,7 +773,7 @@ function getProjectionFactors( srcSegment, projSegment )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Segment ) is not segment.
   * @throws { Error } An Error if ( src2Segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 
 function segmentIntersectionFactors( srcSegment1, srcSegment2 )
@@ -1033,7 +1033,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Segment ) is not segment.
   * @throws { Error } An Error if ( src2Segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function segmentIntersectionPoints( srcSegment1, srcSegment2 )
 {
@@ -1080,7 +1080,7 @@ segmentIntersectionPoints.shaderChunk =
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Segment ) is not segment.
   * @throws { Error } An Error if ( src2Segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function segmentIntersectionPoint( srcSegment1, srcSegment2 )
 {
@@ -1127,7 +1127,7 @@ segmentIntersectionPoint.shaderChunk =
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Segment ) is not segment.
   * @throws { Error } An Error if ( src2Segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function segmentIntersectionPointAccurate( srcSegment1, srcSegment2 )
 {
@@ -1169,7 +1169,7 @@ segmentIntersectionPointAccurate.shaderChunk =
   * @function fromPair
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( pair ) is not array of points.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 
 function fromPair( pair )
@@ -1215,7 +1215,7 @@ function fromPair( pair )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function pointContains( srcSegment, srcPoint )
 {
@@ -1327,7 +1327,7 @@ function pointContains( srcSegment, srcPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function pointDistanceSqr( srcSegment, srcPoint )
 {
@@ -1399,7 +1399,7 @@ function pointDistance( srcSegment, srcPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 
 function pointClosestPoint( srcSegment, srcPoint, dstPoint )
@@ -1493,7 +1493,7 @@ function pointClosestPoint( srcSegment, srcPoint, dstPoint )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the segment and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function boxIntersects( srcSegment, srcBox )
 {
@@ -1557,7 +1557,7 @@ function boxIntersects( srcSegment, srcBox )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the segment and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function boxDistance( srcSegment, srcBox )
 {
@@ -1608,7 +1608,7 @@ function boxDistance( srcSegment, srcBox )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the segment and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function boxClosestPoint( srcSegment, srcBox, dstPoint )
 {
@@ -1685,7 +1685,7 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcSegment ) is not segment
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function boundingBoxGet( dstBox, srcSegment )
 {
@@ -1765,7 +1765,7 @@ function capsuleDistance( srcSegment , tstCapsule )
   * @throws { Error } An Error if ( segment ) is not segment
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function capsuleClosestPoint( segment, capsule, dstPoint )
 {
@@ -1858,7 +1858,7 @@ function convexPolygonDistance( srcSegment , polygon )
   * @throws { Error } An Error if ( segment ) is not segment
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function convexPolygonClosestPoint( segment, polygon, dstPoint )
 {
@@ -1933,7 +1933,7 @@ function convexPolygonClosestPoint( segment, polygon, dstPoint )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the segment and frustum don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function frustumIntersects( srcSegment, srcFrustum )
 {
@@ -2004,7 +2004,7 @@ function frustumIntersects( srcSegment, srcFrustum )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the segment and frustum don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function frustumDistance( srcSegment, srcFrustum )
 {
@@ -2063,7 +2063,7 @@ function frustumDistance( srcSegment, srcFrustum )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the segment and frustum don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
 {
@@ -2149,7 +2149,7 @@ function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the segment and line don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function lineIntersects( srcSegment, srcLine )
 {
@@ -2216,7 +2216,7 @@ function lineIntersects( srcSegment, srcLine )
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( line ) is not line.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 
 function lineIntersectionPoint( segment, line, dstPoint )
@@ -2279,7 +2279,7 @@ function lineIntersectionPoint( segment, line, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcLine ) is not line.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function lineIntersectionFactors( srcSegment, srcLine )
 {
@@ -2325,7 +2325,7 @@ function lineIntersectionFactors( srcSegment, srcLine )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the segment and line don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function lineDistance( srcSegment, srcLine )
 {
@@ -2407,7 +2407,7 @@ function lineDistance( srcSegment, srcLine )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the segment and line don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function lineClosestPoint( srcSegment, srcLine, dstPoint )
 {
@@ -2532,7 +2532,7 @@ function lineClosestPoint( srcSegment, srcLine, dstPoint )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the segment and plane don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function planeIntersects( srcSegment, srcPlane )
 {
@@ -2596,7 +2596,7 @@ function planeIntersects( srcSegment, srcPlane )
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 
 function planeIntersectionPoint( segment, plane, dstPoint )
@@ -2658,7 +2658,7 @@ function planeIntersectionPoint( segment, plane, dstPoint )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the segment and plane don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function planeDistance( srcSegment, srcPlane )
 {
@@ -2721,7 +2721,7 @@ function planeDistance( srcSegment, srcPlane )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the segment and plane don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function planeClosestPoint( srcSegment, srcPlane, dstPoint )
 {
@@ -2803,7 +2803,7 @@ function planeClosestPoint( srcSegment, srcPlane, dstPoint )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the segment and ray don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function rayIntersects( srcSegment, srcRay )
 {
@@ -2880,7 +2880,7 @@ function rayIntersects( srcSegment, srcRay )
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( ray ) is not ray.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 
 function rayIntersectionPoint( segment, ray, dstPoint )
@@ -2941,7 +2941,7 @@ function rayIntersectionPoint( segment, ray, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcRay ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function rayIntersectionFactors( srcSegment, srcRay )
 {
@@ -2988,7 +2988,7 @@ function rayIntersectionFactors( srcSegment, srcRay )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the segment and ray don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function rayDistance( srcSegment, srcRay )
 {
@@ -3084,7 +3084,7 @@ function rayDistance( srcSegment, srcRay )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the segment and ray don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function rayClosestPoint( srcSegment, srcRay, dstPoint )
 {
@@ -3208,7 +3208,7 @@ function rayClosestPoint( srcSegment, srcRay, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Segment ) is not segment.
   * @throws { Error } An Error if ( src2Segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function segmentIntersects( srcSegment1, srcSegment2 )
 {
@@ -3242,7 +3242,7 @@ function segmentIntersects( srcSegment1, srcSegment2 )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( tstSegment ) is not segment.
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the segments don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function segmentDistance( srcSegment, tstSegment )
 {
@@ -3324,7 +3324,7 @@ function segmentDistance( srcSegment, tstSegment )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( tstSegment ) is not segment.
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the segments don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 
 function segmentClosestPoint( srcSegment, tstSegment, dstPoint )
@@ -3590,7 +3590,7 @@ function relativeSegment( segmentPoints, point )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the segment and sphere don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function sphereIntersects( srcSegment, srcSphere )
 {
@@ -3648,7 +3648,7 @@ function sphereIntersects( srcSegment, srcSphere )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the segment and sphere don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function sphereDistance( srcSegment, srcSphere )
 {
@@ -3700,7 +3700,7 @@ function sphereDistance( srcSegment, srcSphere )
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the segment and sphere don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
 {
@@ -3762,7 +3762,7 @@ function sphereClosestPoint( srcSegment, srcSphere, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcSegment ) is not segment
-  * @memberof module:Tools/math/Concepts.wTools.segment
+  * @memberof namespace:wTools.segment
   */
 function boundingSphereGet( dstSphere, srcSegment )
 {

@@ -171,7 +171,7 @@ function adapterFrom( ray )
   * @function fromPair
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( pair ) is not array.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function fromPair( pair )
 {
@@ -260,7 +260,7 @@ function toLinePoints( dstPoints, srcRay )
   * @returns { Boolean } Returns true if the input is ray.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function is( ray )
 {
@@ -287,7 +287,7 @@ function is( ray )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function dimGet( ray )
 {
@@ -316,7 +316,7 @@ function dimGet( ray )
   * @function originGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function originGet( ray )
 {
@@ -345,7 +345,7 @@ function originGet( ray )
   * @function directionGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function directionGet( ray )
 {
@@ -376,7 +376,7 @@ function directionGet( ray )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( factor ) is not number.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function rayAt( srcRay, factor )
 {
@@ -431,7 +431,7 @@ rayAt.shaderChunk =
 * @throws { Error } An Error if ( arguments.length ) is different than two.
 * @throws { Error } An Error if ( srcRay ) is not ray.
 * @throws { Error } An Error if ( srcPoint ) is not point.
-* @memberof module:Tools/math/Concepts.wTools.ray
+* @memberof namespace:wTools.ray
 */
 function getFactor( srcRay, srcPoint )
 {
@@ -534,7 +534,7 @@ function getFactor( srcRay, srcPoint )
   * @throws { Error } An Error if ( src1Ray ) is not ray.
   * @throws { Error } An Error if ( src2Ray ) is not ray.
   * @throws { Error } An Error if ( accuracySqr ) is not number.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function rayParallel3D( src1Ray, src2Ray, accuracySqr )
 {
@@ -663,7 +663,7 @@ function rayParallel( src1Ray, src2Ray, accuracySqr )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Ray ) is not ray.
   * @throws { Error } An Error if ( src2Ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function rayIntersectionFactors( r1, r2 )
 {
@@ -893,7 +893,7 @@ rayIntersectionFactors.shaderChunkName = 'ray_rayIntersectionFactors'
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Ray ) is not ray.
   * @throws { Error } An Error if ( src2Ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function rayIntersectionPoints( r1, r2 )
 {
@@ -941,7 +941,7 @@ rayIntersectionPoints.shaderChunkName = 'ray_rayIntersectionPoints'
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Ray ) is not ray.
   * @throws { Error } An Error if ( src2Ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function rayIntersectionPoint( r1, r2 )
 {
@@ -991,7 +991,7 @@ rayIntersectionPoint.shaderChunkName = `ray_rayIntersectionPoint`
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Ray ) is not ray.
   * @throws { Error } An Error if ( src2Ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function rayIntersectionPointAccurate( r1, r2 )
 {
@@ -1043,7 +1043,7 @@ rayIntersectionPointAccurate.shaderChunkName = 'ray_rayIntersectionPointAccurate
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function pointContains( srcRay, srcPoint )
 {
@@ -1154,7 +1154,7 @@ function pointContains( srcRay, srcPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function pointDistance( srcRay, srcPoint )
 {
@@ -1212,7 +1212,7 @@ function pointDistance( srcRay, srcPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function pointClosestPoint( srcRay, srcPoint, dstPoint )
 {
@@ -1305,7 +1305,7 @@ function pointClosestPoint( srcRay, srcPoint, dstPoint )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the ray and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function boxIntersects( srcRay, srcBox )
 {
@@ -1368,7 +1368,7 @@ function boxIntersects( srcRay, srcBox )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the ray and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function boxDistance( srcRay, srcBox )
 {
@@ -1419,7 +1419,7 @@ function boxDistance( srcRay, srcBox )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the ray and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function boxClosestPoint( srcRay, srcBox, dstPoint )
 {
@@ -1496,7 +1496,7 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcRay ) is not ray
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function boundingBoxGet( dstBox, srcRay )
 {
@@ -1596,7 +1596,7 @@ function capsuleDistance( srcRay , tstCapsule )
   * @throws { Error } An Error if ( ray ) is not ray
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function capsuleClosestPoint( ray, capsule, dstPoint )
 {
@@ -1689,7 +1689,7 @@ function convexPolygonDistance( srcRay , polygon )
   * @throws { Error } An Error if ( ray ) is not ray
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function convexPolygonClosestPoint( ray, polygon, dstPoint )
 {
@@ -1760,7 +1760,7 @@ function convexPolygonClosestPoint( ray, polygon, dstPoint )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function frustumIntersects( srcRay, srcFrustum )
 {
@@ -1824,7 +1824,7 @@ function frustumIntersects( srcRay, srcFrustum )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function frustumDistance( srcRay, srcFrustum )
 {
@@ -1875,7 +1875,7 @@ function frustumDistance( srcRay, srcFrustum )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the ray and frustum don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
 {
@@ -1967,7 +1967,7 @@ function lineIntersects( srcRay , tstLine )
   * @throws { Error } An Error if ( ray ) is not ray.
   * @throws { Error } An Error if ( line ) is not line.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 
 function lineIntersectionPoint( ray, line, dstPoint )
@@ -2030,7 +2030,7 @@ function lineIntersectionPoint( ray, line, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcLine ) is not line.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function lineIntersectionFactors( srcRay, srcLine )
 {
@@ -2085,7 +2085,7 @@ function lineDistance( srcRay , tstLine )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( tstLine ) is not line.
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the ray and line don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function lineClosestPoint( srcRay, tstLine, dstPoint )
 {
@@ -2182,7 +2182,7 @@ function lineClosestPoint( srcRay, tstLine, dstPoint )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function planeIntersects( srcRay, srcPlane )
 {
@@ -2244,7 +2244,7 @@ function planeIntersects( srcRay, srcPlane )
   * @throws { Error } An Error if ( ray ) is not ray.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 
 function planeIntersectionPoint( ray, plane, dstPoint )
@@ -2306,7 +2306,7 @@ function planeIntersectionPoint( ray, plane, dstPoint )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function planeDistance( srcRay, srcPlane )
 {
@@ -2357,7 +2357,7 @@ function planeDistance( srcRay, srcPlane )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the ray and plane don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function planeClosestPoint( srcRay, srcPlane, dstPoint )
 {
@@ -2421,7 +2421,7 @@ function planeClosestPoint( srcRay, srcPlane, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( src1Ray ) is not ray.
   * @throws { Error } An Error if ( src2Ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function rayIntersects( srcRay1, srcRay2 )
 {
@@ -2455,7 +2455,7 @@ function rayIntersects( srcRay1, srcRay2 )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( tstRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the rays don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function rayDistance( srcRay, tstRay )
 {
@@ -2542,7 +2542,7 @@ function rayDistance( srcRay, tstRay )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( tstRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the rays don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function rayClosestPoint( srcRay, tstRay, dstPoint )
 {
@@ -2661,7 +2661,7 @@ function segmentIntersects( srcRay , tstSegment )
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function segmentIntersectionPoint( srcRay, srcSegment, dstPoint )
 {
@@ -2756,7 +2756,7 @@ function segmentIntersectionPoint( srcRay, srcSegment, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function segmentIntersectionFactors( srcRay, srcSegment )
 {
@@ -2814,7 +2814,7 @@ function segmentDistance( srcRay , tstSegment )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( tstSegment ) is not segment.
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the ray and segment don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function segmentClosestPoint( srcRay, tstSegment, dstPoint )
 {
@@ -2913,7 +2913,7 @@ function segmentClosestPoint( srcRay, tstSegment, dstPoint )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function sphereIntersects( srcRay, srcSphere )
 {
@@ -2970,7 +2970,7 @@ function sphereIntersects( srcRay, srcSphere )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function sphereDistance( srcRay, srcSphere )
 {
@@ -3022,7 +3022,7 @@ function sphereDistance( srcRay, srcSphere )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the ray and sphere don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function sphereClosestPoint( srcRay, srcSphere, dstPoint )
 {
@@ -3084,7 +3084,7 @@ function sphereClosestPoint( srcRay, srcSphere, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcRay ) is not ray
-  * @memberof module:Tools/math/Concepts.wTools.ray
+  * @memberof namespace:wTools.ray
   */
 function boundingSphereGet( dstSphere, srcRay )
 {

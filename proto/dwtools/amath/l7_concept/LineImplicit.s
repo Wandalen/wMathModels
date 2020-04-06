@@ -143,7 +143,7 @@ function adapterFrom( line )
   * @function fromPair
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( pair ) is not array.
-  * @memberof module:Tools/math/Concepts.wTools.lineImplicit
+  * @memberof namespace:wTools.lineImplicit
   */
 
  function fromPair( pair )
@@ -169,7 +169,7 @@ function adapterFrom( line )
   * @returns { Boolean } Returns true if the input is a implicit representation of a straight line.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.lineImplicit
+  * @memberof namespace:wTools.lineImplicit
   */
 function is( line )
 {
@@ -192,7 +192,7 @@ function is( line )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( line ) is not line.
-  * @memberof module:Tools/math/Concepts.wTools.lineImplicit
+  * @memberof namespace:wTools.lineImplicit
   */
  function dimGet( line )
  {

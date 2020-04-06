@@ -71,7 +71,7 @@ function from( triangle )
   * @returns { Boolean } Returns true if the input is triangle.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.triangle
+  * @memberof namespace:wTools.triangle
   */
 
 function is( triangle )
@@ -95,7 +95,7 @@ function is( triangle )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( triangle ) is not triangle.
-  * @memberof module:Tools/math/Concepts.wTools.triangle
+  * @memberof namespace:wTools.triangle
   */
 function dimGet( triangle )
 {

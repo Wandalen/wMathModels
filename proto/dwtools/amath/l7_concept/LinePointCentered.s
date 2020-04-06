@@ -80,7 +80,7 @@ function adapterFrom( line )
   * @returns { Boolean } Returns true if the input is a centered line.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.linePointCentered
+  * @memberof namespace:wTools.linePointCentered
   */
 
 function is( pair )
@@ -104,7 +104,7 @@ function is( pair )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( pair ) is not centered line.
-  * @memberof module:Tools/math/Concepts.wTools.linePointCentered
+  * @memberof namespace:wTools.linePointCentered
   */
 
 function dimGet( pair )

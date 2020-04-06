@@ -1270,7 +1270,7 @@ let Order =
   * @throws { Error } An Error if( arguments.length ) is different than two.
   * @throws { Error } An Error if( srcQuat ) is not quat.
   * @throws { Error } An Error if( dstEuler ) is not euler ( or null/undefined ).
-  * @memberof module:Tools/math/Concepts.wTools.euler
+  * @memberof namespace:wTools.euler
   */
 
 function fromQuat2( dstEuler, srcQuat )
@@ -1627,7 +1627,7 @@ function fromQuat2( dstEuler, srcQuat )
   * @function toQuat2
   * @throws { Error } An Error if( arguments.length ) is different than one.
   * @throws { Error } An Error if( srcEuler ) is not euler.
-  * @memberof module:Tools/math/Concepts.wTools.euler
+  * @memberof namespace:wTools.euler
   */
 
 function toQuat2( srcEuler, dstQuat )
@@ -1798,7 +1798,7 @@ function toQuat2( srcEuler, dstQuat )
   * @throws { Error } An Error if( arguments.length ) is different than two.
   * @throws { Error } An Error if( dstEuler ) is not euler.
   * @throws { Error } An Error if( srcMatrix ) is not matrix.
-  * @memberof module:Tools/math/Concepts.wTools.euler
+  * @memberof namespace:wTools.euler
   */
 
 function fromMatrix2( dstEuler, srcMatrix )
@@ -2236,7 +2236,7 @@ function fromMatrix3( dstEuler, srcMatrix )
   * @function toMatrix2
   * @throws { Error } An Error if( arguments.length ) is different than one.
   * @throws { Error } An Error if( srcEuler ) is not euler.
-  * @memberof module:Tools/math/Concepts.wTools.euler
+  * @memberof namespace:wTools.euler
   */
 
 /* qqq : make similar to other converters */
@@ -2452,7 +2452,7 @@ function toMatrix2( srcEuler, dstMatrix )
   * @throws { Error } An Error if( arguments.length ) is different than two or three.
   * @throws { Error } An Error if( dstEuler ) is not euler.
   * @throws { Error } An Error if( axis ) is not axis or axis and angle.
-  * @memberof module:Tools/math/Concepts.wTools.euler
+  * @memberof namespace:wTools.euler
   */
 
 function fromAxisAndAngle2( dstEuler, axis, angle )
@@ -2497,7 +2497,7 @@ function fromAxisAndAngle2( dstEuler, axis, angle )
   * @throws { Error } An Error if( arguments.length ) is different than two.
   * @throws { Error } An Error if( euler ) is not euler.
   * @throws { Error } An Error if( axisAndAngle ) is not axis and angle.
-  * @memberof module:Tools/math/Concepts.wTools.euler
+  * @memberof namespace:wTools.euler
   */
 
 function toAxisAndAngle2( euler, axisAndAngle )
@@ -2537,7 +2537,7 @@ function toAxisAndAngle2( euler, axisAndAngle )
   * @throws { Error } An Error if( arguments.length ) is different than two.
   * @throws { Error } An Error if( dstEuler ) is not euler.
   * @throws { Error } An Error if( representation ) is not an euler angle representation.
-  * @memberof module:Tools/math/Concepts.wTools.euler
+  * @memberof namespace:wTools.euler
   */
 
 function represent( dstEuler, representation )
@@ -2586,7 +2586,7 @@ function represent( dstEuler, representation )
   * @function isGimbalLock
   * @throws { Error } An Error if( arguments.length ) is different than one.
   * @throws { Error } An Error if( srcEuler ) is not an Euler angle.
-  * @memberof module:Tools/math/Concepts.wTools.euler
+  * @memberof namespace:wTools.euler
   */
 
 function isGimbalLock( srcEuler )
