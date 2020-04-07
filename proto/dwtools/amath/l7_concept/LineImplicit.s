@@ -13,7 +13,7 @@ let Self = _.lineImplicit = _.lineImplicit || Object.create( _.avector );
  * where A, B are not both 0.
  * For the following functions, implicit line must be represented by shape [ A,B,C ]
  * @namespace "wTools.lineImplicit"
- * @memberof module:Tools/math/Concepts
+  * @module Tools/math/Concepts
 */
 
 // --
@@ -143,7 +143,8 @@ function adapterFrom( line )
   * @function fromPair
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( pair ) is not array.
-  * @memberof module:Tools/math/Concepts.wTools.lineImplicit
+  * @namespace wTools.lineImplicit
+  * @module Tools/math/Concepts
   */
 
  function fromPair( pair )
@@ -169,7 +170,8 @@ function adapterFrom( line )
   * @returns { Boolean } Returns true if the input is a implicit representation of a straight line.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.lineImplicit
+  * @namespace wTools.lineImplicit
+  * @module Tools/math/Concepts
   */
 function is( line )
 {
@@ -192,7 +194,8 @@ function is( line )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( line ) is not line.
-  * @memberof module:Tools/math/Concepts.wTools.lineImplicit
+  * @namespace wTools.lineImplicit
+  * @module Tools/math/Concepts
   */
  function dimGet( line )
  {

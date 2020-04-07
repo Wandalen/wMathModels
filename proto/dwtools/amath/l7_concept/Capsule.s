@@ -18,7 +18,7 @@ let Self = _.capsule = _.capsule || Object.create( _.avector );
  * EndX, endY and endZ are the coordinates of the center of the top circle of the cylinder. Finally, radius is
  * the radius of the cylinder circles and therefore the radius of the capsule hemispherical ends.
  * @namespace "wTools.capsule"
- * @memberof module:Tools/math/Concepts
+  * @module Tools/math/Concepts
  */
 
 /*
@@ -159,7 +159,8 @@ function adapterFrom( capsule )
   * @returns { Boolean } Returns true if the input is capsule.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 
 function is( capsule )
@@ -191,7 +192,8 @@ function is( capsule )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function dimGet( capsule )
 {
@@ -220,7 +222,8 @@ function dimGet( capsule )
   * @function originGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function originGet( capsule )
 {
@@ -249,7 +252,8 @@ function originGet( capsule )
   * @function endPointGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function endPointGet( capsule )
 {
@@ -278,7 +282,8 @@ function endPointGet( capsule )
   * @function radiusGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 
 function radiusGet( capsule )
@@ -311,7 +316,8 @@ function radiusGet( capsule )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( capsule ) is not capsule.
   * @throws { Error } An Error if ( radius ) is not number.
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 
 function radiusSet( capsule, radius )
@@ -350,7 +356,8 @@ function radiusSet( capsule, radius )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( capsule ) is not capsule.
   * @throws { Error } An Error if ( expand ) is not an array.
-  * @memberof wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function expand( capsule, expand )
 {
@@ -416,7 +423,8 @@ function expand( capsule, expand )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( capsule ) is not capsule.
   * @throws { Error } An Error if ( project ) is not an array.
-  * @memberof wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function project( capsule, project )
 {
@@ -486,7 +494,8 @@ function project( capsule, project )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( projCapsule ) is not capsule.
-  * @memberof wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function getProjectionFactors( srcCapsule, projCapsule )
 {
@@ -590,7 +599,8 @@ function getProjectionFactors( srcCapsule, projCapsule )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function pointContains( srcCapsule, srcPoint )
 {
@@ -645,7 +655,8 @@ function pointContains( srcCapsule, srcPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function pointDistance( srcCapsule, srcPoint )
 {
@@ -698,7 +709,8 @@ function pointDistance( srcCapsule, srcPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
 {
@@ -774,7 +786,8 @@ function pointClosestPoint( srcCapsule, srcPoint, dstPoint )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the capsule and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function boxContains( srcCapsule, srcBox )
 {
@@ -831,7 +844,8 @@ function boxContains( srcCapsule, srcBox )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the capsule and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function boxIntersects( srcCapsule, srcBox )
 {
@@ -887,7 +901,8 @@ function boxIntersects( srcCapsule, srcBox )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the capsule and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function boxDistance( srcCapsule, srcBox )
 {
@@ -942,7 +957,8 @@ function boxDistance( srcCapsule, srcBox )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the capsule and box don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function boxClosestPoint( srcCapsule, srcBox, dstPoint )
 {
@@ -1010,7 +1026,8 @@ function boxClosestPoint( srcCapsule, srcBox, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcCapsule ) is not capsule
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 
 function boundingBoxGet( dstBox, srcCapsule )
@@ -1075,7 +1092,8 @@ function boundingBoxGet( dstBox, srcCapsule )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( tstCapsule ) is not capsule.
   * @throws { Error } An Error if ( dim ) is different than capsule.dimGet (the capsules don´t have the same dimension).
-  * @memberof wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function capsuleContains( srcCapsule, tstCapsule )
 {
@@ -1126,7 +1144,8 @@ function capsuleContains( srcCapsule, tstCapsule )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( tstCapsule ) is not capsule.
   * @throws { Error } An Error if ( dim ) is different than capsule.dimGet (the capsules don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function capsuleIntersects( srcCapsule, tstCapsule )
 {
@@ -1187,7 +1206,8 @@ function capsuleIntersects( srcCapsule, tstCapsule )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( tstCapsule ) is not capsule.
   * @throws { Error } An Error if ( dim ) is different than capsule.dimGet (the capsules don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function capsuleDistance( srcCapsule, tstCapsule )
 {
@@ -1248,7 +1268,8 @@ function capsuleDistance( srcCapsule, tstCapsule )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( tstCapsule ) is not capsule.
   * @throws { Error } An Error if ( dim ) is different than capsule.dimGet (the capsules don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
 {
@@ -1324,7 +1345,8 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( capsule ) is not capsule.
   * @throws { Error } An Error if ( convexPolygon ) is not convexPolygon.
-  * @memberof wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 
 
@@ -1400,7 +1422,8 @@ function convexPolygonDistance( srcCapsule , polygon )
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function convexPolygonClosestPoint( capsule, polygon, dstPoint )
 {
@@ -1470,7 +1493,8 @@ function convexPolygonClosestPoint( capsule, polygon, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( frustum ) is not frustum
-  * @memberof wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function frustumContains( capsule, frustum )
 {
@@ -1527,7 +1551,8 @@ function frustumContains( capsule, frustum )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the capsule and frustum don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function frustumIntersects( srcCapsule, srcFrustum )
 {
@@ -1591,7 +1616,8 @@ function frustumIntersects( srcCapsule, srcFrustum )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the capsule and frustum don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function frustumDistance( srcCapsule, srcFrustum )
 {
@@ -1654,7 +1680,8 @@ function frustumDistance( srcCapsule, srcFrustum )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the capsule and frustum don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
 {
@@ -1730,7 +1757,8 @@ function frustumClosestPoint( srcCapsule, srcFrustum, dstPoint )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the capsule and line don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function lineIntersects( srcCapsule, srcLine )
 {
@@ -1788,7 +1816,8 @@ function lineIntersects( srcCapsule, srcLine )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the capsule and line don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function lineDistance( srcCapsule, srcLine )
 {
@@ -1844,7 +1873,8 @@ function lineDistance( srcCapsule, srcLine )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the capsule and line don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function lineClosestPoint( srcCapsule, srcLine, dstPoint )
 {
@@ -1916,7 +1946,8 @@ function lineClosestPoint( srcCapsule, srcLine, dstPoint )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the capsule and plane don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function planeIntersects( srcCapsule, srcPlane )
 {
@@ -1973,7 +2004,8 @@ function planeIntersects( srcCapsule, srcPlane )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the capsule and plane don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function planeDistance( srcCapsule, srcPlane )
 {
@@ -2030,7 +2062,8 @@ function planeDistance( srcCapsule, srcPlane )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the capsule and plane don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
 {
@@ -2107,7 +2140,8 @@ function planeClosestPoint( srcCapsule, srcPlane, dstPoint )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the capsule and ray don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function rayIntersects( srcCapsule, srcRay )
 {
@@ -2163,7 +2197,8 @@ function rayIntersects( srcCapsule, srcRay )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the capsule and ray don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function rayDistance( srcCapsule, srcRay )
 {
@@ -2219,7 +2254,8 @@ function rayDistance( srcCapsule, srcRay )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the capsule and ray don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function rayClosestPoint( srcCapsule, srcRay, dstPoint )
 {
@@ -2292,7 +2328,8 @@ function rayClosestPoint( srcCapsule, srcRay, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcCapsule ) is not capsule
   * @throws { Error } An Error if ( tstSegment ) is not segment
-  * @memberof wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 
 function segmentContains( srcCapsule , tstSegment )
@@ -2345,7 +2382,8 @@ function segmentContains( srcCapsule , tstSegment )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the capsule and segment don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function segmentIntersects( srcCapsule, srcSegment )
 {
@@ -2400,7 +2438,8 @@ function segmentIntersects( srcCapsule, srcSegment )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the capsule and segment don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function segmentDistance( srcCapsule, srcSegment )
 {
@@ -2454,7 +2493,8 @@ function segmentDistance( srcCapsule, srcSegment )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the capsule and segment don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
 {
@@ -2525,7 +2565,8 @@ function segmentClosestPoint( srcCapsule, srcSegment, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcCapsule ) is not capsule
   * @throws { Error } An Error if ( tstSphere ) is not sphere
-  * @memberof wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 
 function sphereContains( srcCapsule , tstSphere )
@@ -2584,7 +2625,8 @@ function sphereContains( srcCapsule , tstSphere )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the capsule and sphere don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function sphereIntersects( srcCapsule, srcSphere )
 {
@@ -2641,7 +2683,8 @@ function sphereIntersects( srcCapsule, srcSphere )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the capsule and sphere don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function sphereDistance( srcCapsule, srcSphere )
 {
@@ -2697,7 +2740,8 @@ function sphereDistance( srcCapsule, srcSphere )
   * @throws { Error } An Error if ( srcCapsule ) is not capsule.
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the capsule and sphere don´t have the same dimension).
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
 {
@@ -2765,7 +2809,8 @@ function sphereClosestPoint( srcCapsule, srcSphere, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcCapsule ) is not capsule
-  * @memberof module:Tools/math/Concepts.wTools.capsule
+  * @namespace wTools.capsule
+  * @module Tools/math/Concepts
   */
 function boundingSphereGet( dstSphere, srcCapsule )
 {
