@@ -1,6 +1,8 @@
 
 if( typeof module !== 'undefined' )
-var _ = require( '..' );
+var _ = require( 'wmathconcepts' );
 
 var _ = wTools;
-debugger
+var got = _.box.make();
+
+console.log( '3D Box created',got );
