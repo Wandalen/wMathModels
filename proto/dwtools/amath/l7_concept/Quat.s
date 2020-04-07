@@ -25,7 +25,7 @@ let Self = _.quat = _.quat || Object.create( _.avector );
  * where dir1, dir2 and dir3 are the coordinates of the rotation vector
  * and scalar related with the rotation magnitude.
  * @namespace "wTools.quat"
- * @memberof module:Tools/math/Concepts
+ * @module Tools/math/Concepts
  */
 
 /*

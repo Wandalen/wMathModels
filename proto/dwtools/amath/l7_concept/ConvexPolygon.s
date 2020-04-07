@@ -16,7 +16,7 @@ let Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
   In the following methods, convex polygons will be defined by a space where each column
   represents one of the plygon´s vertices.
  * @namespace "wTools.convexPolygon"
- * @memberof module:Tools/math/Concepts
+  * @module Tools/math/Concepts
  */
 
 /*
@@ -52,7 +52,8 @@ let Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
   * @returns { Array } Returns the array of the created box.
   * @function make
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function make( dim, vertices )
@@ -97,7 +98,8 @@ function make( dim, vertices )
   * @returns { Boolean } Returns true if polygon is a polygon and false if not.
   * @function isPolygon
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 function isPolygon( polygon )
 {
@@ -174,7 +176,8 @@ function is( polygon )
   * @returns { Boolean } Returns true if polygon is a convex polygon and false if not.
   * @function isValid
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function isValid( polygon )
@@ -261,7 +264,8 @@ function isValid( polygon )
   * @returns { Number } Returns the angle formed by the three points in radians.
   * @function angleThreePoints
   * @throws { Error } An Error if ( arguments.length ) is different than four.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 function angleThreePoints( pointOne, pointTwo, pointThree, normal )
 {
@@ -350,7 +354,8 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( point ) is not a point.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 function pointContains( polygon, point )
 {
@@ -522,7 +527,8 @@ function pointContains2D( polygon, point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not convex polygon.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 function pointDistance( polygon, point )
 {
@@ -610,7 +616,8 @@ function pointDistanceSqr( polygon, point )
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function pointClosestPoint( polygon , srcPoint, dstPoint )
@@ -740,7 +747,8 @@ function isClockwise( polygon )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function boxIntersects( polygon, box )
@@ -831,7 +839,8 @@ function boxIntersects( polygon, box )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not polygon.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function boxDistance( polygon, box )
@@ -873,7 +882,8 @@ function boxDistance( polygon, box )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function boxClosestPoint( polygon, box, dstPoint )
@@ -967,7 +977,8 @@ function boxClosestPoint( polygon, box, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( polygon ) is not a convex polygon
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 function boundingBoxGet( polygon, dstBox  )
 {
@@ -1040,7 +1051,8 @@ function boundingBoxGet( polygon, dstBox  )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function capsuleIntersects( polygon, capsule )
@@ -1092,7 +1104,8 @@ function capsuleIntersects( polygon, capsule )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function capsuleDistance( polygon, capsule )
@@ -1145,7 +1158,8 @@ function capsuleDistance( polygon, capsule )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function capsuleClosestPoint( polygon, capsule, dstPoint )
@@ -1220,7 +1234,8 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not convex polygon.
   * @throws { Error } An Error if ( frustum ) is not frustum.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function frustumIntersects( polygon, frustum )
@@ -1319,7 +1334,8 @@ function frustumIntersects( polygon, frustum )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( frustum ) is not frustum.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function frustumDistance( polygon, frustum )
@@ -1373,7 +1389,8 @@ function frustumDistance( polygon, frustum )
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( frustum ) is not frustum.
   * @throws { Error } An Error if ( dstPoint ) is not point.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function frustumClosestPoint( polygon, frustum, dstPoint )
@@ -1463,7 +1480,8 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( line ) is not line.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function lineIntersects( polygon, line )
@@ -1558,7 +1576,8 @@ function lineIntersects( polygon, line )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( line ) is not line.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function lineDistance( polygon, line )
@@ -1607,7 +1626,8 @@ function lineDistance( polygon, line )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( line ) is not line.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function lineClosestPoint( polygon, line, dstPoint )
@@ -1690,7 +1710,8 @@ function lineClosestPoint( polygon, line, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function planeIntersects( polygon, plane )
@@ -1759,7 +1780,8 @@ function planeIntersects( polygon, plane )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function planeDistance( polygon, plane )
@@ -1806,7 +1828,8 @@ function planeDistance( polygon, plane )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( plane ) is not plane.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function planeClosestPoint( polygon, plane, dstPoint )
@@ -1880,7 +1903,8 @@ function planeClosestPoint( polygon, plane, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function rayIntersects( polygon, ray )
@@ -1970,7 +1994,8 @@ function rayIntersects( polygon, ray )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function rayDistance( polygon, ray )
@@ -2018,7 +2043,8 @@ function rayDistance( polygon, ray )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( ray ) is not ray.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function rayClosestPoint( polygon, ray, dstPoint )
@@ -2102,7 +2128,8 @@ function rayClosestPoint( polygon, ray, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function segmentContains( polygon, segment )
@@ -2150,7 +2177,8 @@ function segmentContains( polygon, segment )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function segmentIntersects( polygon, segment )
@@ -2245,7 +2273,8 @@ function segmentIntersects( polygon, segment )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function segmentDistance( polygon, segment )
@@ -2294,7 +2323,8 @@ function segmentDistance( polygon, segment )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( segment ) is not segment.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function segmentClosestPoint( polygon, segment, dstPoint )
@@ -2385,7 +2415,8 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function sphereIntersects( polygon, sphere )
@@ -2433,7 +2464,8 @@ function sphereIntersects( polygon, sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function sphereDistance( polygon, sphere )
@@ -2481,7 +2513,8 @@ function sphereDistance( polygon, sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not a convex polygon.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 
 function sphereClosestPoint( polygon, sphere, dstPoint )
@@ -2546,7 +2579,8 @@ function sphereClosestPoint( polygon, sphere, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( polygon ) is not convex polygon
-  * @memberof module:Tools/math/Concepts.wTools.convexPolygon
+  * @namespace wTools.convexPolygon
+  * @module Tools/math/Concepts
   */
 function boundingSphereGet( polygon, dstSphere )
 {
