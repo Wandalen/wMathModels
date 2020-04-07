@@ -6,67 +6,55 @@
 
 ### Creating figures
 
-Семпл демонструє як створити інстанс фігури типу "сфера" використовуючи розмірність фігури визначену за замовчуванням.
+Створення фігури із розмірністю визначеною за замовчуванням
 
 ```js
 let sphere = _.sphere.make();
 console.log( 'Sphere : ', sphere );
-/* log : Sphere : [0, 0, 0, 0] */
+/* log : Sphere : [ 0, 0, 0, 0 ] */
 ```
 
-У семлі створюється інстанс фігури типу "сфера" із довільною розмірністю.
+Створення фігури із довільною розмірністю.
 
 ```js
 let sphere = _.sphere.make( 2 );
 console.log( 'Sphere : ', sphere );
-/* log : Sphere : [0, 0, 0] */
+/* log : Sphere : [ 0, 0, 0 ] */
 ```
 
 ### Keep flat, keep simple
 
 "Плоский" формат представлення фігури означає те, що дані фігури зберігаються у одновимірному контейнері: масив, вектор, вектор адаптер.
 
-Приклад створення фігури "linePointDir"
+Наступні приклади відносяться до двовимірної фігури типу "linePointDir" із даними: ```[ 2, 2, 4, 4 ]```
 
-```js
-let line = _.linePointDir.from( [ 2,2,4,4 ] );
-console.log( 'Line: ', line );
-/* log : Line : [2, 2, 4, 4] */
-```
-
-Зображення фігури "LinePointDir" у двовимірному просторі:
+Візуалізація фігури:
 
 <img src="../../img/LinePointDir.png" width="400" height="400" />
 
-Як читати дані фігури "LinePointDir" записаної у вигляді одновимірного масиву
+Створення фігури на основі даних:
 
-Дані двовимірної фігури "LinePointDir" в памяті процесу:
+```js
+let line = _.linePointDir.from( [ 2, 2, 4, 4 ] );
+console.log( 'Line: ', line );
+/* log : Line : [ 2, 2, 4, 4 ] */
+```
+
+Розміщення даних фігури в памяті процесу:
 
 <img src="../../img/LinePointDirMemory2D.png" />
 
-Згідно з рисунком фігура складається із двох елементів: початкової точки та вектора напрямку.
-
-Кожен із елементів фігури записується у вигляді двох значень. Кількість значень відповідає розмірності фігури, що в даному випадку дорівнює 2.
-
-Форму фігури LinePointDir для двовимірного простору можна записати так:
-
-```[ originX, originY, directionX, directionY ]```
-
-Дані N-вимірної фігури "LinePointDir" в памяті процесу:
-
-<img src="../../img/LinePointDirMemoryND.png" />
-
-Як отримати дані про фігуру, на прикладі фігури "linePointDir" у 2D:
+Приклад отримання даних фігури:
 
 ```js
 //Отримання початкової точки лінії
-let line = _.linePointDir.from( [ 2,2,4,4 ] );
+let line = _.linePointDir.from( [ 2, 2, 4, 4 ] );
 let origin = _.linePointDir.originGet( line );
 console.log( 'Origin: ', origin.toStr() );
 /* log : Origin : "2.000 2.000" */
 
 //Отримання вектору напрямку
-let line = _.linePointDir.from( [ 2,2,4,4 ] );
+let line = _.linePointDir.from( [ 2, 2, 4, 4 ] );
 let direction = _.linePointDir.directionGet( line );
 console.log( 'Direction: ', direction.toStr() );
 /* log : Origin : "4.000 4.000" */
@@ -75,9 +63,9 @@ console.log( 'Direction: ', direction.toStr() );
 
 ### Isomorphic
 
-Кожна рутина має однакову поведінку не залежно від типу фігури, для якої вона виконується.
+Поведінка рутин залишається незмінною при зміні типу фігури.
 
-Наприклад, рутина _.*.pointContains завжди виконує лише перевірку чи фігура містить точку.
+Наприклад, рутина ```pointContains``` завжди виконує лише перевірку чи фігура містить точку.
 
 ```js
 
@@ -113,7 +101,7 @@ console.log( 'Polygon contains point: ', contains );
 
 ```js
 
-var plane = [ 1, 0 , 0, 1 ];
+var plane = [ 1, 0, 0, 1 ];
 
 var box = [ 0, 0, 0, 1, 1, 1 ];
 var got = _.plane.boxIntersects( plane, box );
@@ -127,10 +115,10 @@ console.log( 'Plane intersects with capsule: ', got )
 
 var frustum = _.Matrix.make( [ 4, 6 ] ).copy
 ([
-  0,   0,   0,   0, - 1,   1,
-  1, - 1,   0,   0,   0,   0,
-  0,   0,   1, - 1,   0,   0,
-  - 1,   0, - 1,   0,   0, - 1
+  0,   0,   0,   0,  -1,   1,
+  1,  -1,   0,   0,   0,   0,
+  0,   0,   1,  -1,   0,   0,
+ -1,   0,  -1,   0,   0,  -1
 ]);
 var got = _.plane.frustumIntersects( plane, frustum );
 console.log( 'Plane intersects with frustum: ', got )
@@ -176,7 +164,7 @@ var pointA = [ 3, 1, 3 ];
 var pointB = [ 3, 8, 3 ];
 var box = _.box.fromPoints( null, [ pointA, pointB ] );
 console.log( 'Box: ', box );
-/* log : Box: [3, 1, 3, 3, 8, 3] */
+/* log : Box: [ 3, 1, 3, 3, 8, 3 ] */
 
 ```
 
