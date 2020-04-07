@@ -16,7 +16,7 @@ let Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
   In the following methods, concave polygons will be defined by a space where each column
   represents one of the plygon´s vertices.
  * @namespace "wTools.concavePolygon"
- * @memberof module:Tools/math/Concepts
+ * @module Tools/math/Concepts
  */
 
 // --
@@ -46,7 +46,7 @@ let Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
   * @returns { Array } Returns the array of the created box.
   * @function make
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof namespace:wTools.concavePolygon
+  * @namespace wTools.concavePolygon
   */
 
 function make( dim, vertices )
@@ -85,7 +85,7 @@ function make( dim, vertices )
   * @returns { Boolean } Returns true if polygon is a polygon and false if not.
   * @function isPolygon
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof namespace:wTools.concavePolygon
+  * @namespace wTools.concavePolygon
   */
 function isPolygon( polygon )
 {
@@ -172,7 +172,7 @@ function pointContains( polygon, point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not concave polygon.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof namespace:wTools.concavePolygon
+  * @namespace wTools.concavePolygon
   */
 
 //
@@ -227,7 +227,7 @@ function pointDistanceSqr( polygon, point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( polygon ) is not concave polygon.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof namespace:wTools.concavePolygon
+  * @namespace wTools.concavePolygon
   */
 
 function pointDistance( polygon, point )

@@ -13,7 +13,7 @@ let Self = _.triangle = _.triangle || Object.create( _.avector );
  *
  * For the following functions, triangle must have the shape [ x1,y1,z1, x2,y2,z2, x3,y3,z3 ].
  * @namespace "wTools.triangle"
- * @memberof module:Tools/math/Concepts
+ * @module Tools/math/Concepts
  */
 
 // --
@@ -71,7 +71,7 @@ function from( triangle )
   * @returns { Boolean } Returns true if the input is triangle.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof namespace:wTools.triangle
+  * @namespace wTools.triangle
   */
 
 function is( triangle )
@@ -95,7 +95,7 @@ function is( triangle )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( triangle ) is not triangle.
-  * @memberof namespace:wTools.triangle
+  * @namespace wTools.triangle
   */
 function dimGet( triangle )
 {

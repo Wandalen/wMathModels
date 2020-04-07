@@ -17,7 +17,7 @@ let Self = _.box = _.box || Object.create( _.avector );
  * Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box,
  * and maxX, maxY, maxZ the coordinates of the front, top right corner.
  * @namespace "wTools.box"
- * @memberof module:Tools/math/Concepts
+ * @module Tools/math/Concepts
  */
 
 /*
@@ -74,7 +74,7 @@ and maxX, maxY, maxZ the coordinates of the front, top right corner.
   * @returns { Array } Returns the array of the created box.
   * @function make
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function make( dim )
@@ -106,7 +106,7 @@ function make( dim )
   *
   * @function makeZero
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function makeZero( dim )
@@ -141,7 +141,7 @@ function makeZero( dim )
   *
   * @function makeNil
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function makeNil( dim )
 {
@@ -179,7 +179,7 @@ function makeNil( dim )
   *
   * @function zero
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function zero( box )
 {
@@ -212,7 +212,7 @@ function zero( box )
   *
   * @function nil
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function nil( box )
@@ -259,7 +259,7 @@ function nil( box )
   * @returns { Array } Returns the created box.
   * @function centeredOfSize
   * @throws { Error } An Error if ( arguments.length ) is different than one or two.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function centeredOfSize( box, size )
 {
@@ -302,7 +302,7 @@ function centeredOfSize( box, size )
   *
   * @function from
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function from( box )
 {
@@ -347,7 +347,7 @@ function from( box )
   * @returns { Vector } Returns the vector of the box.
   * @function adapterFrom
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function adapterFrom( box )
 {
@@ -378,7 +378,7 @@ function adapterFrom( box )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not array.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function fromPoints( box, points )
@@ -432,7 +432,7 @@ function fromPoints( box, points )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( center ) is not point.
   * @throws { Error } An Error if ( size ) is not array.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function fromCenterAndSize( box, center, size )
 {
@@ -488,7 +488,7 @@ function fromCenterAndSize( box, center, size )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( sphere ) is not sphere.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function fromSphere( box, sphere )
 {
@@ -539,7 +539,7 @@ function fromSphere( box, sphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( size ) is not a number.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function fromCube( box, size )
 {
@@ -579,7 +579,7 @@ function fromCube( box, size )
   * @returns { Boolean } Returns true if the input is box.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function is( box )
 {
@@ -602,7 +602,7 @@ function is( box )
   * @returns { Boolean } Returns true if the input is an empty box.
   * @function isEmpty
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function isEmpty( box )
 {
@@ -637,7 +637,7 @@ function isEmpty( box )
   * @returns { Boolean } Returns true if the input is a zero box.
   * @function isZero
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function isZero( box )
 {
@@ -670,7 +670,7 @@ function isZero( box )
   * @returns { Boolean } Returns true if the input is a nil box.
   * @function isNil
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function isNil( box )
 {
@@ -708,7 +708,7 @@ function isNil( box )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function dimGet( box )
 {
@@ -737,7 +737,7 @@ function dimGet( box )
   * @function cornerLeftGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function cornerLeftGet( box )
@@ -767,7 +767,7 @@ function cornerLeftGet( box )
   * @function cornerRightGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function cornerRightGet( box )
@@ -798,7 +798,7 @@ function cornerRightGet( box )
   * @throws { Error } An Error if ( arguments.length ) is different than one or two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( dst ) is not point.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function centerGet( box , dst )
 {
@@ -847,7 +847,7 @@ function centerGet( box , dst )
   * @throws { Error } An Error if ( arguments.length ) is different than one or two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function sizeGet( box , dst )
 {
@@ -889,7 +889,7 @@ function sizeGet( box , dst )
   * @function cornersGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( box ) is not box.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function cornersGet( box )
 {
@@ -957,7 +957,7 @@ function cornersGet( box )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( expand ) is not an array.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function expand( box , expand )
 {
@@ -1013,7 +1013,7 @@ function expand( box , expand )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( project ) is not an array.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function project( box, project )
 {
@@ -1072,7 +1072,7 @@ function project( box, project )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( projBox ) is not box.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function getProjectionFactors( srcBox, projBox )
 {
@@ -1147,7 +1147,7 @@ function getProjectionFactors( srcBox, projBox )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function pointContains( box , point )
 {
@@ -1196,7 +1196,7 @@ function pointContains( box , point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( point ) is not point
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function pointDistance( box , point )
 {
@@ -1239,7 +1239,7 @@ function pointDistance( box , point )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function pointClosestPoint( box , point, dstPoint )
 {
@@ -1300,7 +1300,7 @@ function pointClosestPoint( box , point, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function pointExpand( dstBox , point )
 {
@@ -1348,7 +1348,7 @@ function pointExpand( dstBox , point )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function pointRelative( box , point, dstPoint )
 {
@@ -1403,7 +1403,7 @@ function pointRelative( box , point, dstPoint )
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function boxContains( box , box2 )
 {
@@ -1446,7 +1446,7 @@ function boxContains( box , box2 )
   * @function boxIntersects
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function boxIntersects( srcBox , tstBox )
 {
@@ -1511,7 +1511,7 @@ function boxIntersects( srcBox , tstBox )
   * @function boxDistance
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function boxDistance( srcBox , tstBox )
 {
@@ -1586,7 +1586,7 @@ function boxDistance( srcBox , tstBox )
   * @function boxClosestPoint
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function boxClosestPoint( srcBox , tstBox, dstPoint )
@@ -1681,7 +1681,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function boxExpand( dstBox , srcBox )
 {
@@ -1728,7 +1728,7 @@ function boxExpand( dstBox , srcBox )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( capsule ) is not capsule.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 
@@ -1811,7 +1811,7 @@ function capsuleDistance( srcBox , tstCapsule )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function capsuleClosestPoint( box, capsule, dstPoint )
 {
@@ -1876,7 +1876,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( convexPolygon ) is not convexPolygon.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 
@@ -1955,7 +1955,7 @@ function convexPolygonDistance( srcBox , polygon )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function convexPolygonClosestPoint( box, polygon, dstPoint )
 {
@@ -2025,7 +2025,7 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( frustum ) is not frustum
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function frustumContains( box, frustum )
 {
@@ -2083,7 +2083,7 @@ function frustumContains( box, frustum )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( frustum ) is not frustum
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function frustumIntersects( box, frustum )
 {
@@ -2124,7 +2124,7 @@ function frustumIntersects( box, frustum )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( frustum ) is not frustum
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function frustumDistance( box, frustum )
 {
@@ -2193,7 +2193,7 @@ function frustumDistance( box, frustum )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function frustumClosestPoint( box, frustum, dstPoint )
 {
@@ -2278,7 +2278,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function frustumExpand( dstBox, srcFrustum )
@@ -2357,7 +2357,7 @@ function lineDistance( srcBox , tstLine )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( line ) is not line
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function lineClosestPoint( box, line, dstPoint )
 {
@@ -2453,7 +2453,7 @@ function rayDistance( srcBox , tstRay )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( ray ) is not ray
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function rayClosestPoint( box, ray, dstPoint )
 {
@@ -2521,7 +2521,7 @@ function rayClosestPoint( box, ray, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstPlane ) is not plane
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function planeIntersects( srcBox , tstPlane )
@@ -2558,7 +2558,7 @@ function planeIntersects( srcBox , tstPlane )
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function planeDistance( srcBox, plane )
 {
@@ -2622,7 +2622,7 @@ function planeDistance( srcBox, plane )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function planeClosestPoint( srcBox, plane, dstPoint )
@@ -2702,7 +2702,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function planeExpand( dstBox, srcPlane )
@@ -2759,7 +2759,7 @@ function planeExpand( dstBox, srcPlane )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstSegment ) is not segment
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function segmentContains( srcBox , tstSegment )
@@ -2835,7 +2835,7 @@ function segmentDistance( srcBox , tstSegment )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( segment ) is not segment
   * @throws { Error } An Error if ( dstPoint ) is not point
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function segmentClosestPoint( box, segment, dstPoint )
 {
@@ -2903,7 +2903,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstSphere ) is not sphere
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function sphereContains( srcBox , tstSphere )
@@ -2962,7 +2962,7 @@ function sphereContains( srcBox , tstSphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstSphere ) is not sphere
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function sphereIntersects( srcBox , tstSphere )
 {
@@ -2998,7 +2998,7 @@ function sphereIntersects( srcBox , tstSphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstSphere ) is not sphere
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function sphereDistance( srcBox , tstSphere )
 {
@@ -3047,7 +3047,7 @@ function sphereDistance( srcBox , tstSphere )
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( tstSphere ) is not sphere.
   * @throws { Error } An Error if ( dstPoint ) is not point.
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 {
@@ -3106,7 +3106,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcSphere ) is not sphere
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function sphereExpand( dstBox , srcSphere )
 {
@@ -3163,7 +3163,7 @@ function sphereExpand( dstBox , srcSphere )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcBox ) is not box
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function boundingSphereGet( dstSphere, srcBox )
 {
@@ -3221,7 +3221,7 @@ function boundingSphereGet( dstSphere, srcBox )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( matrix ) is not space
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 function matrixHomogenousApply( box , matrix )
 {
@@ -3270,7 +3270,7 @@ function matrixHomogenousApply( box , matrix )
   * @function translate
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
-  * @memberof namespace:wTools.box
+  * @namespace wTools.box
   */
 
 function translate( box, offset )

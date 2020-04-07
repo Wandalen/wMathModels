@@ -15,7 +15,7 @@ let Self = _.linePoints = _.linePoints || Object.create( _.avector );
  * where the dimension equals the long's length divided by two.
  *
  * @namespace "wTools.linePoints"
- * @memberof module:Tools/math/Concepts
+ * @module Tools/math/Concepts
  */
 
 // --
@@ -84,7 +84,7 @@ function adapterFrom( points )
   * @returns { Boolean } Returns true if the input is line by two points.
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
-  @memberof namespace:wTools.linePoints
+  @namespace wTools.linePoints
 */
 
 function is( linePoints )
@@ -108,7 +108,7 @@ function is( linePoints )
   * @function dimGet
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( linePoints ) is not a line.
-  @memberof namespace:wTools.linePoints
+  @namespace wTools.linePoints
   */
 
 function dimGet( linePoints )
