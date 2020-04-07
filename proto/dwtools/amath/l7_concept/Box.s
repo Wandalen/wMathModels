@@ -17,7 +17,7 @@ let Self = _.box = _.box || Object.create( _.avector );
  * Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box,
  * and maxX, maxY, maxZ the coordinates of the front, top right corner.
  * @namespace "wTools.box"
- * @module Tools/math/Concepts
+  * @module Tools/math/Concepts
  */
 
 /*
@@ -75,6 +75,7 @@ and maxX, maxY, maxZ the coordinates of the front, top right corner.
   * @function make
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.box
+   * @module Tools/math/Concepts
   */
 
 function make( dim )
@@ -107,6 +108,7 @@ function make( dim )
   * @function makeZero
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.box
+   * @module Tools/math/Concepts
   */
 
 function makeZero( dim )
@@ -142,6 +144,7 @@ function makeZero( dim )
   * @function makeNil
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function makeNil( dim )
 {
@@ -180,6 +183,7 @@ function makeNil( dim )
   * @function zero
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function zero( box )
 {
@@ -213,6 +217,7 @@ function zero( box )
   * @function nil
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function nil( box )
@@ -260,6 +265,7 @@ function nil( box )
   * @function centeredOfSize
   * @throws { Error } An Error if ( arguments.length ) is different than one or two.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function centeredOfSize( box, size )
 {
@@ -303,6 +309,7 @@ function centeredOfSize( box, size )
   * @function from
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function from( box )
 {
@@ -348,6 +355,7 @@ function from( box )
   * @function adapterFrom
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function adapterFrom( box )
 {
@@ -379,6 +387,7 @@ function adapterFrom( box )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not array.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function fromPoints( box, points )
@@ -433,6 +442,7 @@ function fromPoints( box, points )
   * @throws { Error } An Error if ( center ) is not point.
   * @throws { Error } An Error if ( size ) is not array.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function fromCenterAndSize( box, center, size )
 {
@@ -489,6 +499,7 @@ function fromCenterAndSize( box, center, size )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function fromSphere( box, sphere )
 {
@@ -540,6 +551,7 @@ function fromSphere( box, sphere )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( size ) is not a number.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function fromCube( box, size )
 {
@@ -580,6 +592,7 @@ function fromCube( box, size )
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function is( box )
 {
@@ -603,6 +616,7 @@ function is( box )
   * @function isEmpty
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function isEmpty( box )
 {
@@ -638,6 +652,7 @@ function isEmpty( box )
   * @function isZero
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function isZero( box )
 {
@@ -671,6 +686,7 @@ function isZero( box )
   * @function isNil
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function isNil( box )
 {
@@ -709,6 +725,7 @@ function isNil( box )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( box ) is not box.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function dimGet( box )
 {
@@ -738,6 +755,7 @@ function dimGet( box )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( box ) is not box.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function cornerLeftGet( box )
@@ -768,6 +786,7 @@ function cornerLeftGet( box )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( box ) is not box.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function cornerRightGet( box )
@@ -799,6 +818,7 @@ function cornerRightGet( box )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( dst ) is not point.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function centerGet( box , dst )
 {
@@ -848,6 +868,7 @@ function centerGet( box , dst )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function sizeGet( box , dst )
 {
@@ -890,6 +911,7 @@ function sizeGet( box , dst )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( box ) is not box.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function cornersGet( box )
 {
@@ -958,6 +980,7 @@ function cornersGet( box )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( expand ) is not an array.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function expand( box , expand )
 {
@@ -1014,6 +1037,7 @@ function expand( box , expand )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( project ) is not an array.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function project( box, project )
 {
@@ -1073,6 +1097,7 @@ function project( box, project )
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( projBox ) is not box.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function getProjectionFactors( srcBox, projBox )
 {
@@ -1148,6 +1173,7 @@ function getProjectionFactors( srcBox, projBox )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function pointContains( box , point )
 {
@@ -1197,6 +1223,7 @@ function pointContains( box , point )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( point ) is not point
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function pointDistance( box , point )
 {
@@ -1240,6 +1267,7 @@ function pointDistance( box , point )
   * @throws { Error } An Error if ( point ) is not point.
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function pointClosestPoint( box , point, dstPoint )
 {
@@ -1301,6 +1329,7 @@ function pointClosestPoint( box , point, dstPoint )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function pointExpand( dstBox , point )
 {
@@ -1349,6 +1378,7 @@ function pointExpand( dstBox , point )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( point ) is not point.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function pointRelative( box , point, dstPoint )
 {
@@ -1404,6 +1434,7 @@ function pointRelative( box , point, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function boxContains( box , box2 )
 {
@@ -1447,6 +1478,7 @@ function boxContains( box , box2 )
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function boxIntersects( srcBox , tstBox )
 {
@@ -1512,6 +1544,7 @@ function boxIntersects( srcBox , tstBox )
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function boxDistance( srcBox , tstBox )
 {
@@ -1587,6 +1620,7 @@ function boxDistance( srcBox , tstBox )
   * @throws { Error } An Error if ( dim ) is different than dimGet(box) (the two boxes have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function boxClosestPoint( srcBox , tstBox, dstPoint )
@@ -1682,6 +1716,7 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) or ( srcBox ) is not box
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function boxExpand( dstBox , srcBox )
 {
@@ -1729,6 +1764,7 @@ function boxExpand( dstBox , srcBox )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( capsule ) is not capsule.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 
@@ -1812,6 +1848,7 @@ function capsuleDistance( srcBox , tstCapsule )
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function capsuleClosestPoint( box, capsule, dstPoint )
 {
@@ -1877,6 +1914,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   * @throws { Error } An Error if ( box ) is not box.
   * @throws { Error } An Error if ( convexPolygon ) is not convexPolygon.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 
@@ -1956,6 +1994,7 @@ function convexPolygonDistance( srcBox , polygon )
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function convexPolygonClosestPoint( box, polygon, dstPoint )
 {
@@ -2026,6 +2065,7 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function frustumContains( box, frustum )
 {
@@ -2084,6 +2124,7 @@ function frustumContains( box, frustum )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function frustumIntersects( box, frustum )
 {
@@ -2125,6 +2166,7 @@ function frustumIntersects( box, frustum )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function frustumDistance( box, frustum )
 {
@@ -2194,6 +2236,7 @@ function frustumDistance( box, frustum )
   * @throws { Error } An Error if ( frustum ) is not frustum
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function frustumClosestPoint( box, frustum, dstPoint )
 {
@@ -2279,6 +2322,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcFrustum ) is not frustum
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function frustumExpand( dstBox, srcFrustum )
@@ -2358,6 +2402,7 @@ function lineDistance( srcBox , tstLine )
   * @throws { Error } An Error if ( line ) is not line
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function lineClosestPoint( box, line, dstPoint )
 {
@@ -2454,6 +2499,7 @@ function rayDistance( srcBox , tstRay )
   * @throws { Error } An Error if ( ray ) is not ray
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function rayClosestPoint( box, ray, dstPoint )
 {
@@ -2522,6 +2568,7 @@ function rayClosestPoint( box, ray, dstPoint )
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstPlane ) is not plane
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function planeIntersects( srcBox , tstPlane )
@@ -2559,6 +2606,7 @@ function planeIntersects( srcBox , tstPlane )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function planeDistance( srcBox, plane )
 {
@@ -2623,6 +2671,7 @@ function planeDistance( srcBox, plane )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( dstPoint ) is not dstPoint.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function planeClosestPoint( srcBox, plane, dstPoint )
@@ -2703,6 +2752,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
   * @throws { Error } An Error if ( dstBox ) is not box.
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function planeExpand( dstBox, srcPlane )
@@ -2760,6 +2810,7 @@ function planeExpand( dstBox, srcPlane )
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstSegment ) is not segment
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function segmentContains( srcBox , tstSegment )
@@ -2836,6 +2887,7 @@ function segmentDistance( srcBox , tstSegment )
   * @throws { Error } An Error if ( segment ) is not segment
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function segmentClosestPoint( box, segment, dstPoint )
 {
@@ -2904,6 +2956,7 @@ function segmentClosestPoint( box, segment, dstPoint )
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstSphere ) is not sphere
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function sphereContains( srcBox , tstSphere )
@@ -2963,6 +3016,7 @@ function sphereContains( srcBox , tstSphere )
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstSphere ) is not sphere
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function sphereIntersects( srcBox , tstSphere )
 {
@@ -2999,6 +3053,7 @@ function sphereIntersects( srcBox , tstSphere )
   * @throws { Error } An Error if ( srcBox ) is not box
   * @throws { Error } An Error if ( tstSphere ) is not sphere
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function sphereDistance( srcBox , tstSphere )
 {
@@ -3048,6 +3103,7 @@ function sphereDistance( srcBox , tstSphere )
   * @throws { Error } An Error if ( tstSphere ) is not sphere.
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function sphereClosestPoint( srcBox , tstSphere, dstPoint )
 {
@@ -3107,6 +3163,7 @@ function sphereClosestPoint( srcBox , tstSphere, dstPoint )
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcSphere ) is not sphere
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function sphereExpand( dstBox , srcSphere )
 {
@@ -3164,6 +3221,7 @@ function sphereExpand( dstBox , srcSphere )
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcBox ) is not box
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function boundingSphereGet( dstSphere, srcBox )
 {
@@ -3222,6 +3280,7 @@ function boundingSphereGet( dstSphere, srcBox )
   * @throws { Error } An Error if ( box ) is not box
   * @throws { Error } An Error if ( matrix ) is not space
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 function matrixHomogenousApply( box , matrix )
 {
@@ -3271,6 +3330,7 @@ function matrixHomogenousApply( box , matrix )
   * @throws { Error } An Error if ( arguments.length ) is different than two.
   * @throws { Error } An Error if ( dstBox ) is not box
   * @namespace wTools.box
+  * @module Tools/math/Concepts
   */
 
 function translate( box, offset )

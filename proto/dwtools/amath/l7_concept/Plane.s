@@ -15,7 +15,7 @@ let Self = _.plane = _.plane || Object.create( _.avector );
  * where the dimension equals the long's length minus one.
  *
  * @namespace "wTools.plane"
- * @module Tools/math/Concepts
+  * @module Tools/math/Concepts
  */
 
 // --
@@ -78,6 +78,7 @@ function is( plane )
   * @throws { Error } An Error if ( normal ) is not array.
   * @throws { Error } An Error if ( bias ) is not number.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function from( plane )
 {
@@ -132,6 +133,7 @@ function from( plane )
   * @throws { Error } An Error if ( anormal ) is not array.
   * @throws { Error } An Error if ( apoint ) is not a point.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function fromNormalAndPoint( plane, anormal, apoint )
 {
@@ -178,6 +180,7 @@ function fromNormalAndPoint( plane, anormal, apoint )
   * @throws { Error } An Error if ( b ) is not a point.
   * @throws { Error } An Error if ( c ) is not a point.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function fromPoints( plane, a, b, c )
 {
@@ -273,6 +276,7 @@ function biasSet( plane, bias )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not a vector.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 
 function pointContains( plane , point )
@@ -308,6 +312,7 @@ function pointContains( plane , point )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( point ) is not a vector.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function pointDistance( plane , point )
 {
@@ -350,6 +355,7 @@ function pointDistance( plane , point )
   * @throws { Error } An Error if ( point ) is not point.
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 
 function pointCoplanarGet( plane , point, dstPoint )
@@ -432,6 +438,7 @@ function pointCoplanarGet( plane , point, dstPoint )
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function boxIntersects( plane , srcBox )
 {
@@ -505,6 +512,7 @@ function boxIntersects( plane , srcBox )
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function boxDistance( plane , srcBox )
 {
@@ -540,6 +548,7 @@ function boxDistance( plane , srcBox )
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the plane and box don´t have the same dimension).
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function boxClosestPoint( srcPlane , srcBox, dstPoint )
 {
@@ -599,6 +608,7 @@ function boxClosestPoint( srcPlane , srcBox, dstPoint )
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcPlane ) is not plane
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function boundingBoxGet( dstBox, srcPlane )
 {
@@ -707,6 +717,7 @@ function capsuleDistance( srcPlane , tstCapsule )
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function capsuleClosestPoint( plane, capsule, dstPoint )
 {
@@ -772,6 +783,7 @@ function capsuleClosestPoint( plane, capsule, dstPoint )
   * @throws { Error } An Error if ( plane ) is not plane
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function convexPolygonContains( plane, polygon )
 {
@@ -849,6 +861,7 @@ function convexPolygonDistance( srcPlane , polygon )
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function convexPolygonClosestPoint( plane, polygon, dstPoint )
 {
@@ -916,6 +929,7 @@ function convexPolygonClosestPoint( plane, polygon, dstPoint )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the plane and frustum don´t have the same dimension).
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function frustumIntersects( srcPlane, srcFrustum )
 {
@@ -955,6 +969,7 @@ function frustumIntersects( srcPlane, srcFrustum )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the plane and frustum don´t have the same dimension).
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function frustumDistance( srcPlane , srcFrustum )
 {
@@ -995,6 +1010,7 @@ function frustumDistance( srcPlane , srcFrustum )
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the plane and frustum don´t have the same dimension).
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
 {
@@ -1056,6 +1072,7 @@ function frustumClosestPoint( srcPlane , srcFrustum, dstPoint )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
 */
 function lineContains( srcPlane, tstLine )
 {
@@ -1103,6 +1120,7 @@ function lineContains( srcPlane, tstLine )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( line ) is not line.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
 */
 function lineIntersects( srcPlane , tstLine )
 {
@@ -1137,6 +1155,7 @@ function lineIntersects( srcPlane , tstLine )
   * @throws { Error } An Error if ( line ) is not line.
   * @throws { Error } An Error if ( point ) is not point.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 
 function lineIntersectionPoint( plane, line, dstPoint )
@@ -1230,6 +1249,7 @@ function lineDistance( srcPlane , tstLine )
   * @throws { Error } An Error if ( line ) is not line
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function lineClosestPoint( plane, line, dstPoint )
 {
@@ -1291,6 +1311,7 @@ function lineClosestPoint( plane, line, dstPoint )
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( tstPlane ) is not plane.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function planeIntersects( srcPlane, tstPlane )
 {
@@ -1341,6 +1362,7 @@ function planeIntersects( srcPlane, tstPlane )
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( tstPlane ) is not plane.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function planeDistance( srcPlane, tstPlane )
 {
@@ -1396,6 +1418,7 @@ function planeDistance( srcPlane, tstPlane )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( ray ) is not ray.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
 */
 
 function rayContains( srcPlane, tstRay )
@@ -1457,6 +1480,7 @@ function rayIntersects( srcPlane , tstRay )
   * @throws { Error } An Error if ( ray ) is not ray.
   * @throws { Error } An Error if ( point ) is not point.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 
 function rayIntersectionPoint( plane, ray, dstPoint )
@@ -1539,6 +1563,7 @@ function rayDistance( srcPlane , tstRay )
   * @throws { Error } An Error if ( ray ) is not ray
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function rayClosestPoint( plane, ray, dstPoint )
 {
@@ -1603,6 +1628,7 @@ function rayClosestPoint( plane, ray, dstPoint )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( segment ) is not segment.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
 */
 function segmentContains( srcPlane, tstSegment )
 {
@@ -1650,6 +1676,7 @@ function segmentContains( srcPlane, tstSegment )
 * @throws { Error } An Error if ( plane ) is not plane.
 * @throws { Error } An Error if ( segment ) is not segment.
 * @namespace wTools.plane
+  * @module Tools/math/Concepts
 */
 function segmentIntersects( plane , segment )
 {
@@ -1695,6 +1722,7 @@ function segmentIntersects( plane , segment )
   * @throws { Error } An Error if ( segment ) is not segment.
   * @throws { Error } An Error if ( point ) is not point.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 
 function segmentIntersectionPoint( plane, segment, dstPoint )
@@ -1780,6 +1808,7 @@ function segmentDistance( srcPlane , tstSegment )
   * @throws { Error } An Error if ( segment ) is not segment
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function segmentClosestPoint( plane, segment, dstPoint )
 {
@@ -1843,6 +1872,7 @@ function segmentClosestPoint( plane, segment, dstPoint )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function sphereIntersects( plane , sphere )
 {
@@ -1883,6 +1913,7 @@ function sphereIntersects( plane , sphere )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function sphereDistance( plane , sphere )
 {
@@ -1930,6 +1961,7 @@ function sphereDistance( plane , sphere )
   * @throws { Error } An Error if ( sphere ) is not sphere.
   * @throws { Error } An Error if ( dstPoint ) is not point.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function sphereClosestPoint( plane , sphere, dstPoint )
 {
@@ -1985,6 +2017,7 @@ function sphereClosestPoint( plane , sphere, dstPoint )
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcPlane ) is not plane
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 function boundingSphereGet( dstSphere, srcPlane )
 {
@@ -2085,6 +2118,7 @@ function matrixHomogenousApply( plane , matrix )
   * @throws { Error } An Error if ( plane ) is not plane.
   * @throws { Error } An Error if ( offset ) is not point.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 
 function translate( plane , offset )
@@ -2125,6 +2159,7 @@ function translate( plane , offset )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 
 function normalize( plane )
@@ -2166,6 +2201,7 @@ function normalize( plane )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 
 function negate( plane )
@@ -2205,6 +2241,7 @@ function negate( plane )
   * @throws { Error } An Error if ( arguments.length ) is different than three.
   * @throws { Error } An Error if ( plane ) is not plane.
   * @namespace wTools.plane
+  * @module Tools/math/Concepts
   */
 
 function threeIntersectionPoint( planeone , planetwo , planethree )

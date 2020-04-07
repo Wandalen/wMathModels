@@ -11,7 +11,7 @@ let Self = _.linePointCentered = _.linePointCentered || Object.create( _.avector
  * Is a line alligned relative to the origin of coordinate system.
  * For the following functions, line should have shape [ X, Y, Z ]
  * @namespace "wTools.linePointCentered"
- * @module Tools/math/Concepts
+  * @module Tools/math/Concepts
 */
 
 // --
@@ -81,6 +81,7 @@ function adapterFrom( line )
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @namespace wTools.linePointCentered
+  * @module Tools/math/Concepts
   */
 
 function is( pair )
@@ -105,6 +106,7 @@ function is( pair )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( pair ) is not centered line.
   * @namespace wTools.linePointCentered
+  * @module Tools/math/Concepts
   */
 
 function dimGet( pair )

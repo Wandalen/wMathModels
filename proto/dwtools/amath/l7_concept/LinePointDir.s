@@ -17,7 +17,7 @@ let Self = _.linePointDir = _.linePointDir || Object.create( _.avector );
  *
  * Finally lines extend also in the direction ( - dirX, - dirY, - dirZ ).
  * @namespace "wTools.linePointDir"
- * @module Tools/math/Concepts
+  * @module Tools/math/Concepts
  */
 
 /*
@@ -160,6 +160,7 @@ function adapterFrom( line )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( pair ) is not array.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 
 function fromPoints( point1, point2 )
@@ -224,6 +225,7 @@ function fromPoints2( points )
   * @function is
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function is( line )
 {
@@ -251,6 +253,7 @@ function is( line )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( line ) is not line.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function dimGet( line )
 {
@@ -280,6 +283,7 @@ function dimGet( line )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( line ) is not line.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 
 function originGet( line )
@@ -310,6 +314,7 @@ function originGet( line )
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @throws { Error } An Error if ( line ) is not line.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 
 function directionGet( line )
@@ -342,6 +347,7 @@ function directionGet( line )
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( factor ) is not number.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function lineAt( srcLine, factor )
 {
@@ -395,6 +401,7 @@ lineAt.shaderChunk =
 * @throws { Error } An Error if ( srcLine ) is not line.
 * @throws { Error } An Error if ( srcPoint ) is not point.
 * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
 */
 
 function getFactor( srcLine, srcPoint )
@@ -487,6 +494,7 @@ function getFactor( srcLine, srcPoint )
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @throws { Error } An Error if ( accuracySqr ) is not number.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function lineParallel3d( src1Line, src2Line, accuracySqr )
 {
@@ -614,6 +622,7 @@ function lineParallel( src1Line, src2Line, accuracySqr )
   * @throws { Error } An Error if ( src1Line ) is not line.
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 
 function lineIntersectionFactors( srcLine1, srcLine2 )
@@ -826,6 +835,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   * @throws { Error } An Error if ( src1Line ) is not line.
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function lineIntersectionPoints( srcLine1, srcLine2 )
 {
@@ -873,6 +883,7 @@ lineIntersectionPoints.shaderChunk =
   * @throws { Error } An Error if ( src1Line ) is not line.
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function lineIntersectionPoint( srcLine1, srcLine2 )
 {
@@ -920,6 +931,7 @@ lineIntersectionPoint.shaderChunk =
   * @throws { Error } An Error if ( src1Line ) is not line.
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function lineIntersectionPointAccurate( srcLine1, srcLine2 )
 {
@@ -970,6 +982,7 @@ lineIntersectionPointAccurate.shaderChunk =
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( srcPoint ) is not point.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function pointContains( srcLine, srcPoint )
 {
@@ -1116,6 +1129,7 @@ function pointContains( srcLine, srcPoint )
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( srcPoint ) is not point.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function pointDistance( srcLine, srcPoint )
 {
@@ -1173,6 +1187,7 @@ function pointDistance( srcLine, srcPoint )
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( srcPoint ) is not point.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 
 function pointClosestPoint( srcLine, srcPoint, dstPoint )
@@ -1261,6 +1276,7 @@ function pointClosestPoint( srcLine, srcPoint, dstPoint )
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the line and box don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function boxIntersects( srcLine, srcBox )
 {
@@ -1324,6 +1340,7 @@ function boxIntersects( srcLine, srcBox )
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the line and box don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function boxDistance( srcLine, srcBox )
 {
@@ -1375,6 +1392,7 @@ function boxDistance( srcLine, srcBox )
   * @throws { Error } An Error if ( srcBox ) is not box.
   * @throws { Error } An Error if ( dim ) is different than box.dimGet (the line and box don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 
 function boxClosestPoint( srcLine, srcBox, dstPoint )
@@ -1453,6 +1471,7 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
   * @throws { Error } An Error if ( dstBox ) is not box
   * @throws { Error } An Error if ( srcLine ) is not line
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function boundingBoxGet( dstBox, srcLine )
 {
@@ -1544,6 +1563,7 @@ function capsuleDistance( srcLine, tstCapsule )
   * @throws { Error } An Error if ( capsule ) is not capsule
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function capsuleClosestPoint( line, capsule, dstPoint )
 {
@@ -1637,6 +1657,7 @@ function convexPolygonDistance( srcLine , polygon )
   * @throws { Error } An Error if ( polygon ) is not convexPolygon
   * @throws { Error } An Error if ( dstPoint ) is not point
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function convexPolygonClosestPoint( line, polygon, dstPoint )
 {
@@ -1708,6 +1729,7 @@ function convexPolygonClosestPoint( line, polygon, dstPoint )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the line and frustum don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 
 function frustumIntersects( srcLine, srcFrustum )
@@ -1773,6 +1795,7 @@ function frustumIntersects( srcLine, srcFrustum )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the line and frustum don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function frustumDistance( srcLine, srcFrustum )
 {
@@ -1824,6 +1847,7 @@ function frustumDistance( srcLine, srcFrustum )
   * @throws { Error } An Error if ( srcFrustum ) is not frustum.
   * @throws { Error } An Error if ( dim ) is different than frustum.dimGet (the line and frustum don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
 {
@@ -1905,6 +1929,7 @@ function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
   * @throws { Error } An Error if ( src1Line ) is not line.
   * @throws { Error } An Error if ( src2Line ) is not line.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function lineIntersects( srcLine1, srcLine2 )
 {
@@ -1939,6 +1964,7 @@ function lineIntersects( srcLine1, srcLine2 )
   * @throws { Error } An Error if ( tstLine ) is not line.
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function lineDistance( srcLine, tstLine )
 {
@@ -2018,6 +2044,7 @@ function lineDistance( srcLine, tstLine )
   * @throws { Error } An Error if ( tstLine ) is not line.
   * @throws { Error } An Error if ( dim ) is different than line.dimGet (the lines don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function lineClosestPoint( srcLine, tstLine, dstPoint )
 {
@@ -2108,6 +2135,7 @@ function lineClosestPoint( srcLine, tstLine, dstPoint )
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function planeIntersects( srcLine, srcPlane )
 {
@@ -2176,6 +2204,7 @@ function planeIntersects( srcLine, srcPlane )
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function planeIntersectionPoint( srcLine, srcPlane, dstPoint )
 {
@@ -2256,6 +2285,7 @@ function planeIntersectionPoint( srcLine, srcPlane, dstPoint )
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function planeDistance( srcLine, srcPlane )
 {
@@ -2307,6 +2337,7 @@ function planeDistance( srcLine, srcPlane )
   * @throws { Error } An Error if ( srcPlane ) is not plane.
   * @throws { Error } An Error if ( dim ) is different than plane.dimGet (the line and plane don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function planeClosestPoint( srcLine, srcPlane, dstPoint )
 {
@@ -2376,6 +2407,7 @@ function planeClosestPoint( srcLine, srcPlane, dstPoint )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function rayIntersects( srcLine, srcRay )
 {
@@ -2429,6 +2461,7 @@ function rayIntersects( srcLine, srcRay )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function rayIntersectionPoint( srcLine, srcRay, dstPoint )
 {
@@ -2521,6 +2554,7 @@ function rayIntersectionPoint( srcLine, srcRay, dstPoint )
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function rayIntersectionFactors( srcLine, srcRay )
 {
@@ -2563,6 +2597,7 @@ function rayIntersectionFactors( srcLine, srcRay )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function rayDistance( srcLine, srcRay )
 {
@@ -2641,6 +2676,7 @@ function rayDistance( srcLine, srcRay )
   * @throws { Error } An Error if ( srcRay ) is not ray.
   * @throws { Error } An Error if ( dim ) is different than ray.dimGet (the line and ray don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function rayClosestPoint( srcLine, srcRay, dstPoint )
 {
@@ -2736,6 +2772,7 @@ function segmentIntersects( srcLine , tstSegment )
   * @throws { Error } An Error if ( tstSegment ) is not segment.
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the line and segment don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
 {
@@ -2847,6 +2884,7 @@ function segmentIntersectionPoint( srcLine, tstSegment, dstPoint )
   * @throws { Error } An Error if ( srcLine ) is not line.
   * @throws { Error } An Error if ( srcSegment ) is not segment.
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function segmentIntersectionFactors( srcLine, srcSegment )
 {
@@ -2911,6 +2949,7 @@ function segmentDistance( srcLine , tstSegment )
   * @throws { Error } An Error if ( tstSegment ) is not segment.
   * @throws { Error } An Error if ( dim ) is different than segment.dimGet (the line and segment don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function segmentClosestPoint( srcLine, tstSegment, dstPoint )
 {
@@ -3015,6 +3054,7 @@ function segmentClosestPoint( srcLine, tstSegment, dstPoint )
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function sphereIntersects( srcLine, srcSphere )
 {
@@ -3072,6 +3112,7 @@ function sphereIntersects( srcLine, srcSphere )
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function sphereDistance( srcLine, srcSphere )
 {
@@ -3124,6 +3165,7 @@ function sphereDistance( srcLine, srcSphere )
   * @throws { Error } An Error if ( srcSphere ) is not sphere.
   * @throws { Error } An Error if ( dim ) is different than sphere.dimGet (the line and sphere don´t have the same dimension).
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 function sphereClosestPoint( srcLine, srcSphere, dstPoint )
 {
@@ -3186,6 +3228,7 @@ function sphereClosestPoint( srcLine, srcSphere, dstPoint )
   * @throws { Error } An Error if ( dstSphere ) is not sphere
   * @throws { Error } An Error if ( srcLine ) is not line
   * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
   */
 
 function boundingSphereGet( dstSphere, srcLine )

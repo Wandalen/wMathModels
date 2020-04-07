@@ -41,6 +41,7 @@ let Self = _.axisAndAngle = _.axisAndAngle || Object.create( _.avector );
  * @param {Array} angle
  * @function is
  * @namespace wTools.axisAndAngle
+ * @module Tools/math/Concepts
  */
 
 function is( axisAndAngle, angle )
@@ -61,6 +62,7 @@ function is( axisAndAngle, angle )
  * @param {Array} angle
  * @function isWithAngle
  * @namespace wTools.axisAndAngle
+ * @module Tools/math/Concepts
  */
 
 function isWithAngle( axisAndAngle, angle )
@@ -93,6 +95,7 @@ function isWithAngle( axisAndAngle, angle )
  * @param {Array} angle
  * @function isZero
  * @namespace wTools.axisAndAngle
+ * @module Tools/math/Concepts
  */
 
 function isZero( axisAndAngle, angle )
@@ -121,6 +124,7 @@ function isZero( axisAndAngle, angle )
  * @param {Array} angle
  * @function make
  * @namespace wTools.axisAndAngle
+ * @module Tools/math/Concepts
  */
 
 function make( axisAndAngle, angle )
@@ -156,6 +160,7 @@ function make( axisAndAngle, angle )
  * @descriptionNeeded
  * @function makeZero
  * @namespace wTools.axisAndAngle
+ * @module Tools/math/Concepts
  */
 
 function makeZero()
@@ -174,6 +179,7 @@ function makeZero()
  * @param {Array} angle
  * @function from
  * @namespace wTools.axisAndAngle
+ * @module Tools/math/Concepts
  */
 
 function from( axisAndAngle, angle )
@@ -288,6 +294,7 @@ function adapterFrom( axisAndAngle, angle )
  * @param {Array} angle
  * @function zero
  * @namespace wTools.axisAndAngle
+ * @module Tools/math/Concepts
  */
 
 function zero( axisAndAngle, angle )
@@ -331,6 +338,7 @@ function zero( axisAndAngle, angle )
   * @throws { Error } An Error if( srcMatrix ) is not a rotation matrix.
   * @throws { Error } An Error if( axisAndAngle ) is not axis and angle.
   * @namespace wTools.axisAndAngle
+  * @module Tools/math/Concepts
   */
 
 function fromMatrixRotation( axisAndAngle, srcMatrix )
@@ -373,6 +381,7 @@ function fromMatrixRotation( axisAndAngle, srcMatrix )
   * @throws { Error } An Error if( dstMatrix ) is not matrix.
   * @throws { Error } An Error if( axisAndAngle ) is not axis and angle.
   * @namespace wTools.axisAndAngle
+ * @module Tools/math/Concepts
   */
 
 function toMatrixRotation( axisAndAngle, dstMatrix )

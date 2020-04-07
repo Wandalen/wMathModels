@@ -16,7 +16,7 @@ let Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
   In the following methods, concave polygons will be defined by a space where each column
   represents one of the plygon´s vertices.
  * @namespace "wTools.concavePolygon"
- * @module Tools/math/Concepts
+  * @module Tools/math/Concepts
  */
 
 // --
@@ -47,6 +47,7 @@ let Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
   * @function make
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.concavePolygon
+  * @module Tools/math/Concepts
   */
 
 function make( dim, vertices )
@@ -86,6 +87,7 @@ function make( dim, vertices )
   * @function isPolygon
   * @throws { Error } An Error if ( arguments.length ) is different than one.
   * @namespace wTools.concavePolygon
+  * @module Tools/math/Concepts
   */
 function isPolygon( polygon )
 {
@@ -173,6 +175,7 @@ function pointContains( polygon, point )
   * @throws { Error } An Error if ( polygon ) is not concave polygon.
   * @throws { Error } An Error if ( point ) is not point.
   * @namespace wTools.concavePolygon
+  * @module Tools/math/Concepts
   */
 
 //
@@ -228,6 +231,7 @@ function pointDistanceSqr( polygon, point )
   * @throws { Error } An Error if ( polygon ) is not concave polygon.
   * @throws { Error } An Error if ( point ) is not point.
   * @namespace wTools.concavePolygon
+  * @module Tools/math/Concepts
   */
 
 function pointDistance( polygon, point )
