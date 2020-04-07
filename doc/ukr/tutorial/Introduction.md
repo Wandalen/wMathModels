@@ -231,11 +231,3 @@ console.log( 'Intersection point:', point );
 
 
 [Back to content](../README.md#Tutorials)
-
-
-
-
-
-
-
-
