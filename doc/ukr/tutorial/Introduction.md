@@ -2,7 +2,7 @@
 
 Стаття описує основні особливості модуля та принципи його використання.
 
-<!-- ### Why?(later) -->
+### Why?
 
 ### Creating figures
 
@@ -17,47 +17,43 @@ console.log( 'Sphere : ', sphere );
 Створення фігури із довільною розмірністю.
 
 ```js
-let sphere = _.sphere.make( 2 );
+let sphere = _.sphere.make( 3 );
 console.log( 'Sphere : ', sphere );
-/* log : Sphere : [ 0, 0, 0 ] */
+/* log : Sphere : [ 0, 0, 0, 0 ] */
 ```
 
 ### Keep flat, keep simple
 
 "Плоский" формат представлення фігури означає те, що дані фігури зберігаються у одновимірному контейнері: масив, вектор, вектор адаптер.
 
-Наступні приклади відносяться до двовимірної фігури типу `linePointDir` із даними: ```[ 2, 2, 4, 4 ]```
+Наступні приклади відносяться до двовимірної фігури типу `linePointDir` із даними: ```[ 1, 2, 3, 4 ]```
 
-Візуалізація фігури:
+Візуалізація фігури та розміщення даних фігури в памяті процесу:
 
-<img src="../../img/LinePointDir.png" width="400" height="400" />
+<img src="../../img/LinePointDir.png" />
 
 Створення фігури на основі даних:
 
 ```js
-let line = _.linePointDir.from( [ 2, 2, 4, 4 ] );
+let line = _.linePointDir.from( [ 1, 2, 3, 4 ] );
 console.log( 'Line: ', line );
-/* log : Line : [ 2, 2, 4, 4 ] */
+/* log : Line : [ 1, 2, 3, 4 ] */
 ```
-
-Розміщення даних фігури в памяті процесу:
-
-<img src="../../img/LinePointDirMemory2D.png" />
 
 Приклад отримання даних фігури:
 
 ```js
 //Отримання початкової точки лінії
-let line = _.linePointDir.from( [ 2, 2, 4, 4 ] );
+let line = _.linePointDir.from( [ 1, 2, 3, 4 ] );
 let origin = _.linePointDir.originGet( line );
 console.log( 'Origin: ', origin.toStr() );
-/* log : Origin : "2.000 2.000" */
+/* log : Origin : "1.000 2.000" */
 
 //Отримання вектору напрямку
-let line = _.linePointDir.from( [ 2, 2, 4, 4 ] );
+let line = _.linePointDir.from( [ 1, 2, 3, 4 ] );
 let direction = _.linePointDir.directionGet( line );
 console.log( 'Direction: ', direction.toStr() );
-/* log : Origin : "4.000 4.000" */
+/* log : Origin : "3.000 4.000" */
 
 ```
 
@@ -68,19 +64,23 @@ console.log( 'Direction: ', direction.toStr() );
 Наприклад, рутина ```pointContains``` завжди виконує лише перевірку чи фігура містить точку.
 
 ```js
-
 var point = [ 0, 1 ];
-
 var plane = [ 0, 1, 1 ];
 var contains = _.plane.pointContains( plane, point );
 console.log( 'Plane contains point: ', contains );
 /* log : Plane contains point: false */
+```
 
+```js
+var point = [ 0, 1 ];
 var line = [ 0, 0, 0, 2 ];
 var contains = _.linePointDir.pointContains( line, point );
 console.log( 'Line contains point: ', contains );
 /* log : Line contains point: true */
+```
 
+```js
+var point = [ 0, 1 ];
 var polygon = _.convexPolygon.make( 2, 3 ).copy
 ([
   1, 0, 0,
@@ -89,7 +89,6 @@ var polygon = _.convexPolygon.make( 2, 3 ).copy
 var contains = _.convexPolygon.pointContains( polygon, point );
 console.log( 'Polygon contains point: ', contains );
 /* log : Polygon contains point: true */
-
 ```
 
 ### Intuivtive
@@ -100,19 +99,23 @@ console.log( 'Polygon contains point: ', contains );
 "plane" із іншими фігурами.
 
 ```js
-
 var plane = [ 1, 0, 0, 1 ];
-
 var box = [ 0, 0, 0, 1, 1, 1 ];
 var got = _.plane.boxIntersects( plane, box );
 console.log( 'Plane intersects with box: ', got )
 /* log : Plane intersects with box:  */
+```
 
+```js
+var plane = [ 1, 0, 0, 1 ];
 var capsule = [ - 1, 2, 3, -1, 2, 3, 0  ]
 var got = _.plane.capsuleIntersects( plane, capsule );
 console.log( 'Plane intersects with capsule: ', got )
 /* log : Plane intersects with capsule: true */
+```
 
+```js
+var plane = [ 1, 0, 0, 1 ];
 var frustum = _.Matrix.make( [ 4, 6 ] ).copy
 ([
   0,   0,   0,   0,  -1,   1,
@@ -123,34 +126,48 @@ var frustum = _.Matrix.make( [ 4, 6 ] ).copy
 var got = _.plane.frustumIntersects( plane, frustum );
 console.log( 'Plane intersects with frustum: ', got )
 /* log : Plane intersects with frustum: false */
+```
 
+```js
+var plane = [ 1, 0, 0, 1 ];
 var got = _.plane.planeIntersects( plane, plane );
 console.log( 'Plane intersects with plane: ', got )
 /* log : Plane intersects with plane: true */
+```
 
+```js
+var plane = [ 1, 0, 0, 1 ];
 var line = [ 1, 0, 1, 1, 1, 1 ]
 var got = _.plane.lineIntersects( plane, line );
 console.log( 'Plane intersects with line: ', got )
 /* log : Plane intersects with line: true */
+```
 
+```js
+var plane = [ 1, 0, 0, 1 ];
 var segment = [ -2, -2, -2, 2, 2, 2 ]
 var got = _.plane.segmentIntersects( plane, segment );
 console.log( 'Plane intersects with segment: ', got )
 /* log : Plane intersects with segment: true */
+```
 
+```js
+var plane = [ 1, 0, 0, 1 ];
 var sphere = [ 2, 0, 0, 1 ]
 var got = _.plane.sphereIntersects( plane, sphere );
 console.log( 'Plane intersects with sphere: ', got )
 /* log : Plane intersects with sphere: false */
+```
 
+```js
+var plane = [ 1, 0, 0, 1 ];
 var ray = [ 0, 0, 0, 1, 1, 1  ]
 var got = _.plane.rayIntersects( plane, ray );
 console.log( 'Plane intersects with ray: ', got )
 /* log : Plane intersects with ray: false */
-
 ```
 
-<!-- ### Figures overview( later ) -->
+### Figures overview
 
   <!-- -- One sentence per figure + image -->
 
@@ -173,25 +190,27 @@ console.log( 'Box: ', box );
 Одна рутина може виконувати операції для фігур різної розмірності( якщо такий випадок є реалізованим )
 
 ```js
-
 var sphere2d = [ 1, 1, 5 ];
 var point2d = [ 2, 2 ];
 var got = _.sphere.pointContains( sphere2d, point2d );
 console.log( 'Sphere contains point: ', got )
 /* log : Sphere contains point: true */
+```
 
+```js
 var sphere3d = [ 2, 2, 2, 5 ];
 var point3d = [ 3, 3, 3 ];
 var got = _.sphere.pointContains( sphere3d, point3d );
 console.log( 'Sphere contains point: ', got )
 /* log : Sphere contains point: true */
+```
 
+```js
 var sphere4d = [ 3, 3, 3, 3, 5 ];
 var point4d = [ 4, 4, 4, 4 ];
 var box = _.sphere.pointContains( sphere4d, point4d );
 console.log( 'Sphere contains point: ', got )
 /* log : Sphere contains point: true */
-
 ```
 
 ### Alternative figures
@@ -214,6 +233,46 @@ console.log( 'Intersection point:', point );
 /* log : Intersection point: */
 
 ```
+
+Приклад передтворення між "Quat" та "Euler":
+
+```js
+var quat1 = [ 0.46990785942494523, 0.3649976887426158, 0.32407387953254757, 0.7354858336283155 ];
+console.log( 'Quat1: ', quat1 );
+
+// Quat1:  [
+//   0.46990785942494523,
+//   0.3649976887426158,
+//   0.32407387953254757,
+//   0.7354858336283155
+// ]
+
+var euler = _.euler.fromQuat2( null, quat1 );
+console.log( 'Euler: ', euler );
+
+// Euler:  [
+//   0.9999999999999999,
+//   0.9999999999999998,
+//   0.25000000000000017,
+//   0,
+//   1,
+//   2
+// ]
+
+var quat2 = _.euler.toQuat2( euler, null );
+console.log( 'Quat2: ', quat2 );
+
+// Quat2:  [
+//   0.4699078594249453,
+//   0.3649976887426157,
+//   0.3240738795325475,
+//   0.7354858336283155
+// ]
+
+
+
+```
+
 
 ### Summary
 
