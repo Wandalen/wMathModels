@@ -2203,7 +2203,7 @@ function cornersGet( test )
   test.case = 'Source box remains unchanged'; /* */
 
   var srcBox = [ 0, 0, 1, 1 ];
-  var expected =  _.Matrix.make( [ 2, 4 ] ).copy
+  var expected =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0, 1, 0, 1,
     0, 0, 1, 1
@@ -2218,7 +2218,7 @@ function cornersGet( test )
   test.case = 'One dimension box'; /* */
 
   var box = [ 0, 0 ];
-  var expected =  _.Matrix.make( [ 1, 2 ] ).copy
+  var expected =  _.Matrix.Make( [ 1, 2 ] ).copy
   ([
     0, 0
   ]);
@@ -2229,7 +2229,7 @@ function cornersGet( test )
   test.case = 'Two dimension box'; /* */
 
   var box = [ 0, 1, 1, 2 ];
-  var expected = _.Matrix.make( [ 2, 4 ] ).copy
+  var expected = _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0, 1, 0, 1,
     1, 1, 2, 2
@@ -2241,7 +2241,7 @@ function cornersGet( test )
   test.case = 'Three dimension box'; /* */
 
   var box = [ 0, - 1, - 2, 1, 1, 2 ];
-  var expected = _.Matrix.make( [ 3, 8 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
     0,  1, 0, 0, 0, 1, 1, 1,
     -1, -1, 1, -1, 1, -1, 1, 1,
@@ -2254,7 +2254,7 @@ function cornersGet( test )
   test.case = 'Unity box'; /* */
 
   var box = [ 0, 0, 0, 1, 1, 1 ];
-  var expected = _.Matrix.make( [ 3, 8 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
     0, 1, 0, 0, 0, 1, 1, 1,
     0, 0, 1, 0, 1, 0, 1, 1,
@@ -5106,7 +5106,7 @@ function convexPolygonContains( test )
   test.case = 'Source box and polygon remain unchanged'; /* */
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5120,7 +5120,7 @@ function convexPolygonContains( test )
   var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
   test.identical( srcBox, oldSrcBox );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5131,7 +5131,7 @@ function convexPolygonContains( test )
   test.case = 'Box and polygon intersect'; /* */
 
   var srcBox = [ 0, 0, 0, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5145,7 +5145,7 @@ function convexPolygonContains( test )
   test.case = 'Box contains polygon'; /* */
 
   var srcBox = [ -2, -2, -2, 2, 2, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -1, -1, - 1,  -1,
     1,   0, - 1,   0,
@@ -5159,7 +5159,7 @@ function convexPolygonContains( test )
   test.case = 'Polygon touches box sides'; /* */
 
   var srcBox = [ -2, -2, -2, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -1,  -1,  -1,  -1,
     1,   0, - 1,   0,
@@ -5173,7 +5173,7 @@ function convexPolygonContains( test )
   test.case = 'Polygon in box side'; /* */
 
   var srcBox = [ -2, -1, -1, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -5187,7 +5187,7 @@ function convexPolygonContains( test )
   test.case = 'Polygon and box don´t intersect'; /* */
 
   var srcBox = [ 0, 0.5, 0.5, 1, 2, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     3,   3,   3,   3,
     1,   0, - 1,   0,
@@ -5201,7 +5201,7 @@ function convexPolygonContains( test )
   test.case = 'Polygon and box just touching'; /* */
 
   var srcBox = [ 0, 0.5, 0.5, 1, 2, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,     0,  0,   0,
     0.5, 0.5,  0,   0,
@@ -5215,7 +5215,7 @@ function convexPolygonContains( test )
   test.case = '2D contained'; /* */
 
   var srcBox = [ 0, 2, 4, 4 ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0, 0.5,  2,  3,
     2,   3,  4,  3
@@ -5228,7 +5228,7 @@ function convexPolygonContains( test )
   test.case = '2D not contained'; /* */
 
   var srcBox = [ 0, 2, 4, 4 ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   1,   3,   0,
     0,   0,   3,   1
@@ -5244,7 +5244,7 @@ function convexPolygonContains( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5274,7 +5274,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Source box and polygon remain unchanged'; /* */
 
   var srcBox = [ - 1, - 1, -1, 0, 0, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5288,7 +5288,7 @@ function convexPolygonClosestPoint( test )
   var oldSrcBox = [ - 1, - 1, -1, 0, 0, 2 ];
   test.identical( srcBox, oldSrcBox );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5299,7 +5299,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Box and polygon intersect'; /* */
 
   var srcBox = [ - 1, - 1, -1, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5313,7 +5313,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon vertex in box corner'; /* */
 
   var srcBox = [ -2, 1, 0, -1, 2, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -5327,7 +5327,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon vertex next to box corner'; /* */
 
   var srcBox = [ 3, 0, 0, 4, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -5341,7 +5341,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon edge in box corner'; /* */
 
   var srcBox = [ 0, 0.5, 0.5, 1, 2, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5355,7 +5355,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon edge next to box corner'; /* */
 
   var srcBox = [ 0, 1, 1, 4, 2, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5369,7 +5369,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon vertex next to box edge'; /* */
 
   var srcBox = [ - 3, 2, 0, - 1, 3, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -5383,7 +5383,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon edge next to box edge'; /* */
 
   var srcBox = [ 1, 1, - 1, 2, 2, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -5397,7 +5397,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon vertex next to box side'; /* */
 
   var srcBox = [ - 1, -1, 2, 1, 1, 3 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5411,7 +5411,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon edge next to box side'; /* */
 
   var srcBox = [ 0, 2, -1, 1, 3, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   1,   1,   0,
     0,   0,   1,   1,
@@ -5425,7 +5425,7 @@ function convexPolygonClosestPoint( test )
   test.case = '2D'; /* */
 
   var srcBox = [ 0, 2, 3, 3 ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   1,   1,   0,
     0,   0,   1,   1
@@ -5438,7 +5438,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Array'; /* */
 
   var srcBox = [ 3, 3, 3, 4, 4, 4 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5454,7 +5454,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Vector'; /* */
 
   var srcBox = [ -1, 2, 0, 2, 3, 4 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5472,7 +5472,7 @@ function convexPolygonClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5501,7 +5501,7 @@ function frustumContains( test )
 {
   test.description = 'Frustum and box remain unchanged'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5516,7 +5516,7 @@ function frustumContains( test )
   test.identical( gotBool, expected );
   test.identical( box, oldBox );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5527,7 +5527,7 @@ function frustumContains( test )
 
   test.description = 'Box contains frustum'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5542,7 +5542,7 @@ function frustumContains( test )
 
   test.description = 'Box contains Zero frustum'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5558,7 +5558,7 @@ function frustumContains( test )
 
   test.description = 'Box contains frustum, touching sides'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5573,7 +5573,7 @@ function frustumContains( test )
 
   test.description = 'Frustum contains box'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5588,7 +5588,7 @@ function frustumContains( test )
 
   test.description = 'Frustum and box intersect'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5603,7 +5603,7 @@ function frustumContains( test )
 
   test.description = 'Frustum and box in different places'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5621,7 +5621,7 @@ function frustumContains( test )
   if( !Config.debug )
   return;
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5655,7 +5655,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and box remain unchanged'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5670,7 +5670,7 @@ function frustumDistance( test )
   test.equivalent( gotDistance, expected );
   test.identical( box, oldBox );
 
-  var oldF = _.Matrix.make( [ 4, 6 ] ).copy
+  var oldF = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5681,7 +5681,7 @@ function frustumDistance( test )
 
   test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 1, 1, 1 )'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5696,7 +5696,7 @@ function frustumDistance( test )
 
   test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 0, 0, 0 )'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5711,7 +5711,7 @@ function frustumDistance( test )
 
   test.description = 'Box and frustum intersect'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5726,7 +5726,7 @@ function frustumDistance( test )
 
   test.description = 'Point in inclined frustum side'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5741,7 +5741,7 @@ function frustumDistance( test )
 
   test.description = 'Diagonal frustum plane'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5756,7 +5756,7 @@ function frustumDistance( test )
 
   test.description = 'PointBox'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5771,7 +5771,7 @@ function frustumDistance( test )
 
   test.description = 'PointBox on side'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5810,7 +5810,7 @@ function frustumClosestPoint( test )
 {
   test.description = 'Frustum and box remain unchanged'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5825,7 +5825,7 @@ function frustumClosestPoint( test )
   test.equivalent( gotPoint, expected );
   test.identical( box, oldBox );
 
-  var oldFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5836,7 +5836,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 1, 1, 1 )'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5851,7 +5851,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustrum as box ( 0, 0, 0, 1, 1, 1 ) - corner ( 0, 0, 0 )'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5866,7 +5866,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Box and frustum intersect'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5881,7 +5881,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Point in inclined frustum side'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5896,7 +5896,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Diagonal frustum plane'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5911,7 +5911,7 @@ function frustumClosestPoint( test )
 
   test.description = 'PointBox'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5926,7 +5926,7 @@ function frustumClosestPoint( test )
 
   test.description = 'PointBox on side'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5966,7 +5966,7 @@ function frustumExpand( test )
 
   test.description = 'Frustum remains unchanged'; //
 
-  var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5979,7 +5979,7 @@ function frustumExpand( test )
   var gotBox = _.box.frustumExpand( box, srcFrustum );
   test.equivalent( gotBox, expected );
 
-  var oldFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -5990,7 +5990,7 @@ function frustumExpand( test )
 
   test.description = 'Frustum Expands box'; //
 
-  var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -6005,7 +6005,7 @@ function frustumExpand( test )
 
   test.description = 'Frustrum expands only one side of box'; //
 
-  var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -6020,7 +6020,7 @@ function frustumExpand( test )
 
   test.description = 'Box outside frustum'; //
 
-  var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -6035,7 +6035,7 @@ function frustumExpand( test )
 
   test.description = 'Box outside frustum opposite side'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -6050,7 +6050,7 @@ function frustumExpand( test )
 
   test.description = 'Box and frustum intersect'; //
 
-  var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -6065,7 +6065,7 @@ function frustumExpand( test )
 
   test.description = 'Point in inclined frustum side'; //
 
-  var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -6080,7 +6080,7 @@ function frustumExpand( test )
 
   test.description = 'Diagonal frustum plane'; //
 
-  var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -6095,7 +6095,7 @@ function frustumExpand( test )
 
   test.description = 'PointBox'; //
 
-  var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
@@ -6110,7 +6110,7 @@ function frustumExpand( test )
 
   test.description = 'PointBox on side'; //
 
-  var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,

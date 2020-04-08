@@ -42,7 +42,7 @@ function make( test )
 
   var gotPolygon = _.concavePolygon.make( dim, vertices );
 
-  var expected = _.Matrix.make( [ 3, 8 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -63,7 +63,7 @@ function make( test )
 
   var gotPolygon = _.concavePolygon.make( dim, vertices );
 
-  var expected = _.Matrix.make( [ 2, 3 ] ).copy
+  var expected = _.Matrix.Make( [ 2, 3 ] ).copy
   ([
     0, 0, 0,
     0, 0, 0
@@ -77,7 +77,7 @@ function make( test )
 
   var gotPolygon = _.concavePolygon.make( dim, vertices );
 
-  var expected = _.Matrix.make( [ 3, 4 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0, 0, 0, 0,
     0, 0, 0, 0,
@@ -92,7 +92,7 @@ function make( test )
 
   var gotPolygon = _.concavePolygon.make( dim, vertices );
 
-  var expected = _.Matrix.make( [ 2, 5 ] ).copy
+  var expected = _.Matrix.Make( [ 2, 5 ] ).copy
   ([
     0, 0, 0, 0, 0,
     0, 0, 0, 0, 0
@@ -196,7 +196,7 @@ function isPolygon( test )
 
   test.case = 'Dim < 2'; //
 
-  var polygon = _.Matrix.make( [ 1, 5 ] ).copy
+  var polygon = _.Matrix.Make( [ 1, 5 ] ).copy
   ([
     1, 0, 0, 0, 2
   ]);
@@ -208,7 +208,7 @@ function isPolygon( test )
 
   test.case = 'Dim > 3'; //
 
-  var polygon = _.Matrix.make( [ 4, 5 ] ).copy
+  var polygon = _.Matrix.Make( [ 4, 5 ] ).copy
   ([
     1, 0, 0, 0, 2,
     1, 0, 0, 0, 2,
@@ -223,7 +223,7 @@ function isPolygon( test )
 
   test.case = 'Vertices < 3'; //
 
-  var polygon = _.Matrix.make( [ 2, 2 ] ).copy
+  var polygon = _.Matrix.Make( [ 2, 2 ] ).copy
   ([
     1, 0,
     0, 1
@@ -267,7 +267,7 @@ function isPolygon( test )
   if( !Config.debug )
   return;
 
-  var polygon = _.Matrix.make( [ 3, 3 ] );
+  var polygon = _.Matrix.Make( [ 3, 3 ] );
   test.shouldThrowErrorSync( () => _.concavePolygon.isPolygon( ));
   test.shouldThrowErrorSync( () => _.concavePolygon.isPolygon( polygon, polygon ));
   test.shouldThrowErrorSync( () => _.concavePolygon.isPolygon( null ));
@@ -365,7 +365,7 @@ function is( test )
 
   test.case = 'Wrong dim and vertices'; //
 
-  var polygon = _.Matrix.make( [ 1, 2 ] ).copy
+  var polygon = _.Matrix.Make( [ 1, 2 ] ).copy
   ([
     1, 0
   ]);

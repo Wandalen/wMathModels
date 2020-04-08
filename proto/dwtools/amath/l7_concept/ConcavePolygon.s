@@ -65,7 +65,7 @@ function make( dim, vertices )
   *
   * @example
   * // returns true;
-  * var polygon = _.Matrix.make([ 3, 5 ]).copy
+  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
   *   1, 0, -1, 0, 2,
   *   0, 0, 1, 2, 2,
@@ -75,7 +75,7 @@ function make( dim, vertices )
   *
   * @example
   * // returns false;
-  * var polygon = _.Matrix.make([ 3, 5 ]).copy
+  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
   *   1, 0, -1, 0, 2,
   *   0, 0, 1, 2, 2,
@@ -162,7 +162,7 @@ function pointContains( polygon, point )
   *
   * @example
   * // returns 1;
-  * let polygon = _.Matrix.make( [ 2, 3 ] ).copy
+  * let polygon = _.Matrix.Make( [ 2, 3 ] ).copy
   * ([
   *     0, 1, 0,
   *     1, 0, 0
@@ -218,7 +218,7 @@ function pointDistanceSqr( polygon, point )
   *
   * @example
   * // returns 1;
-  * let polygon = _.Matrix.make( [ 2, 3 ] ).copy
+  * let polygon = _.Matrix.Make( [ 2, 3 ] ).copy
   * ([
   *     0, 1, 0,
   *     1, 0, 0

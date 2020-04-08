@@ -3645,7 +3645,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Source segment and polygon remain unchanged'; /* */
 
   var srcSegment = [ - 1, - 1, -1, 1, 0, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3659,7 +3659,7 @@ function convexPolygonClosestPoint( test )
   var oldSrcSegment = [ - 1, - 1, -1, 1, 0, 1 ];
   test.identical( srcSegment, oldSrcSegment );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3670,7 +3670,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Segment and polygon intersect'; /* */
 
   var srcSegment = [ - 1, - 1, -1, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3684,7 +3684,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Segment cuts polygon vertex'; /* */
 
   var srcSegment = [ 0, 1, 0, -4, 1, 0 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3698,7 +3698,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Segment next to polygon vertex'; /* */
 
   var srcSegment = [ 0, 2, 0, -4, 2, 0 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3712,7 +3712,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Segment cuts polygon edge'; /* */
 
   var srcSegment = [ -1, 0, 0, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3726,7 +3726,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Segment next to polygon edge'; /* */
 
   var srcSegment = [ -1, 0, 0, 1, 2, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3740,7 +3740,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Segment cuts polygon'; /* */
 
   var srcSegment = [ - 3, -2, 0, - 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3754,7 +3754,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Segment next to polygon'; /* */
 
   var srcSegment = [ 3, 4, - 1, -3, -2, -1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -3768,7 +3768,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Segment doesn´t cut polygon with negative factor'; /* */
 
   var srcSegment = [ 2, 0, 0, 5, 0, 0 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -3782,7 +3782,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Segment doesn´t cut polygon with positive factor'; /* */
 
   var srcSegment = [ 5, 0, 0, 2, 0, 0 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -3796,7 +3796,7 @@ function convexPolygonClosestPoint( test )
   test.case = '2D'; /* */
 
   var srcSegment = [ 0, -3, 6, 3 ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   1,   1,   0,
     0,   0,   1,   1
@@ -3809,7 +3809,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Arsegment'; /* */
 
   var srcSegment = [ 3, 3, 3, -1, -1, -5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3825,7 +3825,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Vector'; /* */
 
   var srcSegment = [ -1, 2, -4, -1, 2, 4 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3843,7 +3843,7 @@ function convexPolygonClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3872,7 +3872,7 @@ function frustumIntersects( test )
 
   test.description = 'Segment and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3888,7 +3888,7 @@ function frustumIntersects( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3900,7 +3900,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3915,7 +3915,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment intersect on frustum corner'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3930,7 +3930,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum corner is segment origin'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3945,7 +3945,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment intersect on frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3960,7 +3960,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment not intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3975,7 +3975,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment almost intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3990,7 +3990,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment just touching'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4005,7 +4005,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and segment just intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4020,7 +4020,7 @@ function frustumIntersects( test )
 
   test.description = 'segment is null - intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4035,7 +4035,7 @@ function frustumIntersects( test )
 
   test.description = 'segment is null - no intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4053,7 +4053,7 @@ function frustumIntersects( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4087,7 +4087,7 @@ function frustumDistance( test )
 
   test.description = 'Segment and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4103,7 +4103,7 @@ function frustumDistance( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4114,7 +4114,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4129,7 +4129,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment intersect on frustum corner'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4144,7 +4144,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment intersect on frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4159,7 +4159,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment not intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4174,7 +4174,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and segment almost intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4189,7 +4189,7 @@ function frustumDistance( test )
 
   test.description = 'segment is null - intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4204,7 +4204,7 @@ function frustumDistance( test )
 
   test.description = 'segment is null - no intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4219,7 +4219,7 @@ function frustumDistance( test )
 
   test.description = 'segment closest to box side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4233,7 +4233,7 @@ function frustumDistance( test )
   test.equivalent( gotDistance, expected );
 
   test.description = 'Inclined segment closest to box side'; //
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4251,7 +4251,7 @@ function frustumDistance( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4285,7 +4285,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Segment and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4301,7 +4301,7 @@ function frustumClosestPoint( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4312,7 +4312,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4327,7 +4327,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment intersect on frustum corner'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4342,7 +4342,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment intersect on frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4357,7 +4357,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment not intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4372,7 +4372,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and segment almost intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4387,7 +4387,7 @@ function frustumClosestPoint( test )
 
   test.description = 'segment is null - intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4402,7 +4402,7 @@ function frustumClosestPoint( test )
 
   test.description = 'segment is null - no intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4417,7 +4417,7 @@ function frustumClosestPoint( test )
 
   test.description = 'segment closest to frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4432,7 +4432,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Inclined segment closest to frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4447,7 +4447,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Destination point is vector'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4466,7 +4466,7 @@ function frustumClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,

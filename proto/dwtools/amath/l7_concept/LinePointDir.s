@@ -641,7 +641,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
 
   let direction1 = this.directionGet( srcLine1View );
   let direction2 = this.directionGet( srcLine2View );
-  let directions = _.Matrix.make( [ srcLine1.length / 2 , 2 ] );
+  let directions = _.Matrix.Make( [ srcLine1.length / 2 , 2 ] );
   directions.colVectorGet( 0 ).copy( direction1 );
   directions.colVectorGet( 1 ).copy( direction2.clone().mul( - 1 ) );
 
@@ -681,10 +681,10 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   let j = 0;
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
-    let m = _.Matrix.make( [ 2, 2 ] );
+    let m = _.Matrix.Make( [ 2, 2 ] );
     m.rowSet( 0, directions.rowVectorGet( i ) );
     m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
-    let or = _.Matrix.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+    let or = _.Matrix.MakeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
     let o =
     {
       x : null,
@@ -765,11 +765,11 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
 
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
-    let m = _.Matrix.make( [ 2, 2 ] );
+    let m = _.Matrix.Make( [ 2, 2 ] );
     m.rowSet( 0, directions.rowVectorGet( i ) );
     m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
 
-    let or = _.Matrix.makeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
+    let or = _.Matrix.MakeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
 
     let o =
     {
@@ -1642,7 +1642,7 @@ function convexPolygonDistance( srcLine , polygon )
   *
   * @example
   * // returns [ 0, 2, 0 ]
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([
   *    0,   0,   0,   0,
   *    1,   0, - 1,   0,
@@ -1709,7 +1709,7 @@ function convexPolygonClosestPoint( line, polygon, dstPoint )
   *
   * @example
   * // returns true;
-  * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,

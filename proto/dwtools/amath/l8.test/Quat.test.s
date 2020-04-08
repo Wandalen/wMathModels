@@ -1054,9 +1054,9 @@ function fromMatrixRotationFast( test )
     {
 
       var q1 = _.quat.fromAxisAndAngle( null, axis, angle );
-      var m1 = _.Matrix.make([ 3, 3 ]).fromAxisAndAngle( axis, angle );
+      var m1 = _.Matrix.Make([ 3, 3 ]).fromAxisAndAngle( axis, angle );
       var q2 = _.quat[ r ]( null, m1 );
-      var m2 = _.Matrix.make([ 3, 3 ]).fromQuat( q1 );
+      var m2 = _.Matrix.Make([ 3, 3 ]).fromQuat( q1 );
       var q3 = _.quat[ r ]( null, m2 );
 
       // logger.log( 'q1', q1 );
@@ -1201,7 +1201,7 @@ function toMatrix( test )
   {
 
     var q1 = _.quat.fromAxisAndAngle( null, axis, angle );
-    var m1 = _.Matrix.make([ 3, 3 ]).fromAxisAndAngle( axis, angle );
+    var m1 = _.Matrix.Make([ 3, 3 ]).fromAxisAndAngle( axis, angle );
     var m2 = _.quat.toMatrix( q1, null );
 
     // logger.log( 'm1', m1 );
@@ -1254,7 +1254,7 @@ function eulerToQuatToMatrixToQuatFast( test )
   var accuracySqrt = Math.sqrt( test.accuracy );
   var euler = _.euler.make();
   var quat1 = _.quat.make();
-  var matrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var matrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
 
@@ -1310,7 +1310,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
   var accuracySqrt = Math.sqrt( test.accuracy );
   var euler = _.euler.make();
   var quat1 = _.quat.make();
-  var matrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var matrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
 

@@ -908,9 +908,9 @@ function fromMatrix( euler, mat ) /* xxx */
   euler = this.from( euler );
   let eulerView = this.tools.vectorAdapter.from( euler );
 
-  let s00 = mat.atomGet([ 0, 0 ]), s10 = mat.atomGet([ 1, 0 ]), s20 = mat.atomGet([ 2, 0 ]);
-  let s01 = mat.atomGet([ 0, 1 ]), s11 = mat.atomGet([ 1, 1 ]), s21 = mat.atomGet([ 2, 1 ]);
-  let s02 = mat.atomGet([ 0, 2 ]), s12 = mat.atomGet([ 1, 2 ]), s22 = mat.atomGet([ 2, 2 ]);
+  let s00 = mat.scalarGet([ 0, 0 ]), s10 = mat.scalarGet([ 1, 0 ]), s20 = mat.scalarGet([ 2, 0 ]);
+  let s01 = mat.scalarGet([ 0, 1 ]), s11 = mat.scalarGet([ 1, 1 ]), s21 = mat.scalarGet([ 2, 1 ]);
+  let s02 = mat.scalarGet([ 0, 2 ]), s12 = mat.scalarGet([ 1, 2 ]), s22 = mat.scalarGet([ 2, 2 ]);
 
   _.assert( _.Matrix.Is( mat ) );
   _.assert( mat.dims[ 0 ] >= 3 );
@@ -1005,7 +1005,7 @@ function toMatrix( euler, mat, premutating )
   // let half = 0.5-/*eps*/accuracy;
 
   if( mat === null || mat === undefined )
-  mat = _.Matrix.make([ 3, 3 ]);
+  mat = _.Matrix.Make([ 3, 3 ]);
 
   euler = this.from( euler );
   let eulerView = this.tools.vectorAdapter.from( euler );
@@ -1067,61 +1067,61 @@ function toMatrix( euler, mat, premutating )
   if( premutating )
   {
 
-    mat.atomSet( [ 0, 0 ], +cy_cz );
-    mat.atomSet( [ 1, 0 ], +cy_sz*sign );
-    mat.atomSet( [ 2, 0 ], -sy*sign );
+    mat.scalarSet( [ 0, 0 ], +cy_cz );
+    mat.scalarSet( [ 1, 0 ], +cy_sz*sign );
+    mat.scalarSet( [ 2, 0 ], -sy*sign );
 
-    mat.atomSet( [ 0, 1 ], +( +sx_sy*cz - cx_sz*sign ) );
-    mat.atomSet( [ 1, 1 ], +cx_cz + sx_sy*sz*sign );
-    mat.atomSet( [ 2, 1 ], +sx_cy*sign );
+    mat.scalarSet( [ 0, 1 ], +( +sx_sy*cz - cx_sz*sign ) );
+    mat.scalarSet( [ 1, 1 ], +cx_cz + sx_sy*sz*sign );
+    mat.scalarSet( [ 2, 1 ], +sx_cy*sign );
 
-    mat.atomSet( [ 0, 2 ], +sx_sz + cx_sy*cz*sign );
-    mat.atomSet( [ 1, 2 ], +( +cx_sy*sz - sx_cz*sign ) );
-    mat.atomSet( [ 2, 2 ], +cx_cy );
+    mat.scalarSet( [ 0, 2 ], +sx_sz + cx_sy*cz*sign );
+    mat.scalarSet( [ 1, 2 ], +( +cx_sy*sz - sx_cz*sign ) );
+    mat.scalarSet( [ 2, 2 ], +cx_cy );
 
   }
   else
   {
 
-    mat.atomSet( [ ox, ox ], +cy_cz );
-    mat.atomSet( [ oy, ox ], -cy_sz*sign );
-    mat.atomSet( [ oz, ox ], sy*sign );
+    mat.scalarSet( [ ox, ox ], +cy_cz );
+    mat.scalarSet( [ oy, ox ], -cy_sz*sign );
+    mat.scalarSet( [ oz, ox ], sy*sign );
 
-    mat.atomSet( [ ox, oy ], +( +sx_sy*cz + cx_sz*sign ) );
-    mat.atomSet( [ oy, oy ], +cx_cz - sx_sy*sz*sign );
-    mat.atomSet( [ oz, oy ], -sx_cy*sign );
+    mat.scalarSet( [ ox, oy ], +( +sx_sy*cz + cx_sz*sign ) );
+    mat.scalarSet( [ oy, oy ], +cx_cz - sx_sy*sz*sign );
+    mat.scalarSet( [ oz, oy ], -sx_cy*sign );
 
-    mat.atomSet( [ ox, oz ], +sx_sz - cx_sy*cz*sign );
-    mat.atomSet( [ oy, oz ], +( +cx_sy*sz + sx_cz*sign ) );
-    mat.atomSet( [ oz, oz ], +cx_cy );
+    mat.scalarSet( [ ox, oz ], +sx_sz - cx_sy*cz*sign );
+    mat.scalarSet( [ oy, oz ], +( +cx_sy*sz + sx_cz*sign ) );
+    mat.scalarSet( [ oz, oz ], +cx_cy );
 
     // /* */
     //
-    // mat.atomSet( [ 0, 0 ], +cy_cz );
-    // mat.atomSet( [ 1, 0 ], -cy_sz*sign );
-    // mat.atomSet( [ 2, 0 ], sy*sign );
+    // mat.scalarSet( [ 0, 0 ], +cy_cz );
+    // mat.scalarSet( [ 1, 0 ], -cy_sz*sign );
+    // mat.scalarSet( [ 2, 0 ], sy*sign );
     //
-    // mat.atomSet( [ 0, 1 ], +( +sx_sy*cz + cx_sz*sign ) );
-    // mat.atomSet( [ 1, 1 ], +cx_cz - sx_sy*sz*sign );
-    // mat.atomSet( [ 2, 1 ], -sx_cy*sign );
+    // mat.scalarSet( [ 0, 1 ], +( +sx_sy*cz + cx_sz*sign ) );
+    // mat.scalarSet( [ 1, 1 ], +cx_cz - sx_sy*sz*sign );
+    // mat.scalarSet( [ 2, 1 ], -sx_cy*sign );
     //
-    // mat.atomSet( [ 0, 2 ], +sx_sz - cx_sy*cz*sign );
-    // mat.atomSet( [ 1, 2 ], +( +cx_sy*sz + sx_cz*sign ) );
-    // mat.atomSet( [ 2, 2 ], +cx_cy );
+    // mat.scalarSet( [ 0, 2 ], +sx_sz - cx_sy*cz*sign );
+    // mat.scalarSet( [ 1, 2 ], +( +cx_sy*sz + sx_cz*sign ) );
+    // mat.scalarSet( [ 2, 2 ], +cx_cy );
 
   }
 
-  mat.atomSet( [ 0, 0 ], +cy_cz );
-  mat.atomSet( [ 1, 0 ], -cy_sz*sign );
-  mat.atomSet( [ 2, 0 ], sy*sign );
+  mat.scalarSet( [ 0, 0 ], +cy_cz );
+  mat.scalarSet( [ 1, 0 ], -cy_sz*sign );
+  mat.scalarSet( [ 2, 0 ], sy*sign );
 
-  mat.atomSet( [ 0, 1 ], +( +sx_sy*cz + cx_sz*sign ) );
-  mat.atomSet( [ 1, 1 ], +cx_cz - sx_sy*sz*sign );
-  mat.atomSet( [ 2, 1 ], -sx_cy*sign );
+  mat.scalarSet( [ 0, 1 ], +( +sx_sy*cz + cx_sz*sign ) );
+  mat.scalarSet( [ 1, 1 ], +cx_cz - sx_sy*sz*sign );
+  mat.scalarSet( [ 2, 1 ], -sx_cy*sign );
 
-  mat.atomSet( [ 0, 2 ], +sx_sz - cx_sy*cz*sign );
-  mat.atomSet( [ 1, 2 ], +( +cx_sy*sz + sx_cz*sign ) );
-  mat.atomSet( [ 2, 2 ], +cx_cy );
+  mat.scalarSet( [ 0, 2 ], +sx_sz - cx_sy*cz*sign );
+  mat.scalarSet( [ 1, 2 ], +( +cx_sy*sz + sx_cz*sign ) );
+  mat.scalarSet( [ 2, 2 ], +cx_cy );
 
   // debugger;
 
@@ -1168,17 +1168,17 @@ function toMatrix( euler, mat, premutating )
   //
   // /* */
   //
-  // mat.atomSet( [ 0, 0 ], m00 );
-  // mat.atomSet( [ 1, 0 ], m10 );
-  // mat.atomSet( [ 2, 0 ], m20 );
+  // mat.scalarSet( [ 0, 0 ], m00 );
+  // mat.scalarSet( [ 1, 0 ], m10 );
+  // mat.scalarSet( [ 2, 0 ], m20 );
   //
-  // mat.atomSet( [ 0, 1 ], m01 );
-  // mat.atomSet( [ 1, 1 ], m11 );
-  // mat.atomSet( [ 2, 1 ], m21 );
+  // mat.scalarSet( [ 0, 1 ], m01 );
+  // mat.scalarSet( [ 1, 1 ], m11 );
+  // mat.scalarSet( [ 2, 1 ], m21 );
   //
-  // mat.atomSet( [ 0, 2 ], m02 );
-  // mat.atomSet( [ 1, 2 ], m12 );
-  // mat.atomSet( [ 2, 2 ], m22 );
+  // mat.scalarSet( [ 0, 2 ], m02 );
+  // mat.scalarSet( [ 1, 2 ], m12 );
+  // mat.scalarSet( [ 2, 2 ], m22 );
 
 // rz*ry*rx
 //
@@ -1789,7 +1789,7 @@ function toQuat2( srcEuler, dstQuat )
   *
   * @example
   * // returns [ 0.5, 0.5, 0.5, 0, 1, 2 ]
-  *  srcMatrix  = _.Matrix.make( [ 3, 3 ] ).copy(
+  *  srcMatrix  = _.Matrix.Make( [ 3, 3 ] ).copy(
   *            [ 0.7701, -0.4207, 0.4794,
   *             0.6224, 0.6599, - 0.4207,
   *           - 0.1393, 0.6224, 0.7701 ] );
@@ -1825,27 +1825,27 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+    let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
     if( - 1 < m02 && m02 < 1 )
     {
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
       dstEulerView.eSet( 0, atan2( - m12, m22 ) );
       dstEulerView.eSet( 1, atan2( m02, sqrt( 1 - m02*m02 ) ) );
       dstEulerView.eSet( 2, atan2( - m01, m00 ) );
     }
     else if( m02 <= - 1 )
     {
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] ); let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] ); let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 0, - atan2( m10, m11 ) );
       dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
     }
     else if( m02 >= 1 )
     {
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] ); let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] ); let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 0, atan2( m10, m11 ) );
       dstEulerView.eSet( 1, pi/2 );
       dstEulerView.eSet( 2, 0 );
@@ -1854,29 +1854,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+    let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
     if( - 1 < m01 && m01 < 1 )
     {
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
       dstEulerView.eSet( 0, atan2( m21, m11 ) );
       dstEulerView.eSet( 2, atan2( m02, m00 ) );
       dstEulerView.eSet( 1, asin( - m01) );
     }
     else if( m01 >= 1 )
     {
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
       dstEulerView.eSet( 0, atan2( - m20, m22 ) );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 1, - pi/2 );
     }
     else if( m01 <= - 1 )
     {
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
       dstEulerView.eSet( 0, - atan2( - m20, m22 ) );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 1, pi/2 );
@@ -1885,29 +1885,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+    let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
     if( - 1 < m12 && m12 < 1 )
     {
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 1, asin( -m12 ) );
       dstEulerView.eSet( 0, atan2( m02, m22 ) );
       dstEulerView.eSet( 2, atan2( m10, m11 ) );
     }
     else if( m12 >= 1 )
     {
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
       dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 0, atan2( - m01, m00 ) );
       dstEulerView.eSet( 2, 0 );
     }
     else if( m12 <= - 1 )
     {
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
       dstEulerView.eSet( 1, pi/2);
       dstEulerView.eSet( 0, - atan2( - m01, m00 )  );
       dstEulerView.eSet( 2, 0 );
@@ -1916,29 +1916,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    let m10 = srcMatrix.atomGet( [ 1, 0 ] );
+    let m10 = srcMatrix.scalarGet( [ 1, 0 ] );
     if( - 1 < m10 && m10 < 1 )
     {
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
       dstEulerView.eSet( 2, atan2( - m12, m11 ) );
       dstEulerView.eSet( 0, atan2( - m20, m00 ) );
       dstEulerView.eSet( 1, asin( m10 ) );
     }
     else if( m10 <= - 1 )
     {
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 0, - atan2( m21, m22 ) );
       dstEulerView.eSet( 1, - pi/2 );
     }
     else if( m10 >= 1 )
     {
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 0, atan2( m21, m22 )  );
       dstEulerView.eSet( 1, pi/2 );
@@ -1947,29 +1947,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+    let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
     if( - 1 < m21 && m21 < 1 )
     {
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 1, asin( m21 ) );
       dstEulerView.eSet( 2, atan2( - m20, m22 ) );
       dstEulerView.eSet( 0, atan2( - m01, m11 ) );
     }
     else if( m21 <= - 1 )
     {
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
       dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 0, - atan2( m02, m00 ) );
     }
     else if( m21 >= 1 )
     {
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
       dstEulerView.eSet( 1, pi/2 );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 0, atan2( m02, m00 ) );
@@ -1978,29 +1978,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+    let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
     if( - 1 < m20 && m20 < 1 )
     {
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
       dstEulerView.eSet( 2, atan2( m21, m22 ) );
       dstEulerView.eSet( 1, asin( - m20 ) );
       dstEulerView.eSet( 0, atan2( m10, m00 ) );
     }
     else if( m20 <= - 1 )
     {
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 1, pi/2 );
       dstEulerView.eSet( 0, - atan2( - m12, m11 ) );
     }
     else if( m20 >= 1 )
     {
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 2, 0 );
       dstEulerView.eSet( 1, - pi/2 );
       dstEulerView.eSet( 0, atan2( - m12, m11 ) );
@@ -2009,29 +2009,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+    let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
     if( - 1 < m00 && m00 < 1 )
     {
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
       dstEulerView.eSet( 0, atan2( m10, - m20 ) );
       dstEulerView.eSet( 1, acos( m00 ) );
       dstEulerView.eSet( 2, atan2( m01, m02 ) );
     }
     else if( m00 <= - 1 )
     {
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 0, - atan2( - m12, m11 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( m00 >= 1 )
     {
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 0, atan2( - m12, m11 ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
@@ -2040,29 +2040,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+    let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
     if( - 1 < m00 && m00 < 1 )
     {
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
       dstEulerView.eSet( 0, atan2( m20, m10 ) );
       dstEulerView.eSet( 1, acos( m00 ) );
       dstEulerView.eSet( 2, atan2( m02, - m01 ) );
     }
     else if( m00 <= - 1 )
     {
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
       dstEulerView.eSet( 0, - atan2( m21, m22 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( m00 >= 1 )
     {
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
       dstEulerView.eSet( 0, atan2( m21, m22 ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
@@ -2071,29 +2071,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+    let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
     if( - 1 < m11 && m11 < 1 )
     {
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
       dstEulerView.eSet( 0, atan2( m01, m21 ) );
       dstEulerView.eSet( 1, acos( m11 ) );
       dstEulerView.eSet( 2, atan2( m10, - m12 ) );
     }
     else if( m11 <= - 1 )
     {
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
       dstEulerView.eSet( 0, - atan2( m02, m00 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( m11 >= 1 )
     {
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
       dstEulerView.eSet( 0, atan2( m02, m00 ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
@@ -2102,29 +2102,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+    let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
     if( - 1 < m11 && m11 < 1 )
     {
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] );
       dstEulerView.eSet( 0, atan2( m21, - m01 ) );
       dstEulerView.eSet( 1, acos( m11 ) );
       dstEulerView.eSet( 2, atan2( m12, m10 ) );
     }
     else if( m11 <= - 1 )
     {
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
       dstEulerView.eSet( 0, atan2( m20, m22 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( m11 >= 1 )
     {
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
+      let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
       dstEulerView.eSet( 0, atan2( - m20, m22 ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
@@ -2133,29 +2133,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+    let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
     if( - 1 < m22 && m22 < 1 )
     {
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
       dstEulerView.eSet( 0, atan2( m02, - m12 ) );
       dstEulerView.eSet( 1, acos( m22 ) );
       dstEulerView.eSet( 2, atan2( m20, m21 ) );
     }
     else if( m22 <= - 1 )
     {
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
       dstEulerView.eSet( 0, atan2( m01, m00 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
-      let m01 = srcMatrix.atomGet( [ 0, 1 ] );
-      let m00 = srcMatrix.atomGet( [ 0, 0 ] );
+      let m01 = srcMatrix.scalarGet( [ 0, 1 ] );
+      let m00 = srcMatrix.scalarGet( [ 0, 0 ] );
       dstEulerView.eSet( 0, - atan2( m01, m00 ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
@@ -2164,29 +2164,29 @@ function fromMatrix2( dstEuler, srcMatrix )
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    let m22 = srcMatrix.atomGet( [ 2, 2 ] );
+    let m22 = srcMatrix.scalarGet( [ 2, 2 ] );
     if( - 1 < m22 && m22 < 1 )
     {
-      let m12 = srcMatrix.atomGet( [ 1, 2 ] );
-      let m02 = srcMatrix.atomGet( [ 0, 2 ] );
-      let m21 = srcMatrix.atomGet( [ 2, 1 ] );
-      let m20 = srcMatrix.atomGet( [ 2, 0 ] );
+      let m12 = srcMatrix.scalarGet( [ 1, 2 ] );
+      let m02 = srcMatrix.scalarGet( [ 0, 2 ] );
+      let m21 = srcMatrix.scalarGet( [ 2, 1 ] );
+      let m20 = srcMatrix.scalarGet( [ 2, 0 ] );
       dstEulerView.eSet( 0, atan2( m12, m02 ) );
       dstEulerView.eSet( 1, acos( m22 ) );
       dstEulerView.eSet( 2, atan2( m21, - m20 ) );
     }
     else if( m22 <= - 1 )
     {
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 0, - atan2( m10, m11 ) );
       dstEulerView.eSet( 1, pi );
       dstEulerView.eSet( 2, 0 );
     }
     else if( m22 >= 1 )
     {
-      let m10 = srcMatrix.atomGet( [ 1, 0 ] );
-      let m11 = srcMatrix.atomGet( [ 1, 1 ] );
+      let m10 = srcMatrix.scalarGet( [ 1, 0 ] );
+      let m11 = srcMatrix.scalarGet( [ 1, 1 ] );
       dstEulerView.eSet( 0, atan2( m10, m11 ) );
       dstEulerView.eSet( 1, 0 );
       dstEulerView.eSet( 2, 0 );
@@ -2254,7 +2254,7 @@ function toMatrix2( srcEuler, dstMatrix )
 
   _.assert( _.Matrix.Is( dstMatrix ) || dstMatrix === null || dstMatrix === undefined );
   if( dstMatrix === null || dstMatrix === undefined )
-  dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
 
   _.assert( dstMatrix.dims[ 0 ] === 3 );
   _.assert( dstMatrix.dims[ 1 ] === 3 );
@@ -2276,158 +2276,158 @@ function toMatrix2( srcEuler, dstMatrix )
 
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], ce2*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ], - ce2*se3 );
-    dstMatrix.atomSet( [ 0, 2 ], se2 );
-    dstMatrix.atomSet( [ 1, 0 ], se1*se2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 1, 1 ], -se1*se2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ], -se1*ce2 );
-    dstMatrix.atomSet( [ 2, 0 ], -ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 2, 1 ], ce1*se2*se3+ se1*ce3 );
-    dstMatrix.atomSet( [ 2, 2 ], ce1*ce2 );
+    dstMatrix.scalarSet( [ 0, 0 ], ce2*ce3 );
+    dstMatrix.scalarSet( [ 0, 1 ], - ce2*se3 );
+    dstMatrix.scalarSet( [ 0, 2 ], se2 );
+    dstMatrix.scalarSet( [ 1, 0 ], se1*se2*ce3 + ce1*se3 );
+    dstMatrix.scalarSet( [ 1, 1 ], -se1*se2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 1, 2 ], -se1*ce2 );
+    dstMatrix.scalarSet( [ 2, 0 ], -ce1*se2*ce3 + se1*se3 );
+    dstMatrix.scalarSet( [ 2, 1 ], ce1*se2*se3+ se1*ce3 );
+    dstMatrix.scalarSet( [ 2, 2 ], ce1*ce2 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], ce2*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ], - se2 );
-    dstMatrix.atomSet( [ 0, 2 ], ce2*se3 );
-    dstMatrix.atomSet( [ 1, 0 ], ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2 );
-    dstMatrix.atomSet( [ 1, 2 ], ce1*se2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 2, 0 ], se1*se2*ce3 - ce1*se3 );
-    dstMatrix.atomSet( [ 2, 1 ], se1*ce2 );
-    dstMatrix.atomSet( [ 2, 2 ], se1*se2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 0, 0 ], ce2*ce3 );
+    dstMatrix.scalarSet( [ 0, 1 ], - se2 );
+    dstMatrix.scalarSet( [ 0, 2 ], ce2*se3 );
+    dstMatrix.scalarSet( [ 1, 0 ], ce1*se2*ce3 + se1*se3 );
+    dstMatrix.scalarSet( [ 1, 1 ], ce1*ce2 );
+    dstMatrix.scalarSet( [ 1, 2 ], ce1*se2*se3 - se1*ce3 );
+    dstMatrix.scalarSet( [ 2, 0 ], se1*se2*ce3 - ce1*se3 );
+    dstMatrix.scalarSet( [ 2, 1 ], se1*ce2 );
+    dstMatrix.scalarSet( [ 2, 2 ], se1*se2*se3 + ce1*ce3 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], se1*se2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ], se1*se2*ce3 - ce1*se3 );
-    dstMatrix.atomSet( [ 0, 2 ], se1*ce2 );
-    dstMatrix.atomSet( [ 1, 0 ], ce2*se3 );
-    dstMatrix.atomSet( [ 1, 1 ], ce2*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ], -se2 );
-    dstMatrix.atomSet( [ 2, 0 ], ce1*se2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 2, 1 ], ce1*se2*ce3+ se1*se3 );
-    dstMatrix.atomSet( [ 2, 2 ], ce1*ce2 );
+    dstMatrix.scalarSet( [ 0, 0 ], se1*se2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 0, 1 ], se1*se2*ce3 - ce1*se3 );
+    dstMatrix.scalarSet( [ 0, 2 ], se1*ce2 );
+    dstMatrix.scalarSet( [ 1, 0 ], ce2*se3 );
+    dstMatrix.scalarSet( [ 1, 1 ], ce2*ce3 );
+    dstMatrix.scalarSet( [ 1, 2 ], -se2 );
+    dstMatrix.scalarSet( [ 2, 0 ], ce1*se2*se3 - se1*ce3 );
+    dstMatrix.scalarSet( [ 2, 1 ], ce1*se2*ce3+ se1*se3 );
+    dstMatrix.scalarSet( [ 2, 2 ], ce1*ce2 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2 );
-    dstMatrix.atomSet( [ 0, 1 ], - ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 0, 2 ], ce1*se2*se3 + se1*ce3 );
-    dstMatrix.atomSet( [ 1, 0 ], se2 );
-    dstMatrix.atomSet( [ 1, 1 ], ce2*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ], - ce2*se3 );
-    dstMatrix.atomSet( [ 2, 0 ], - se1*ce2 );
-    dstMatrix.atomSet( [ 2, 1 ], se1*se2*ce3+ ce1*se3 );
-    dstMatrix.atomSet( [ 2, 2 ], - se1*se2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 0, 0 ], ce1*ce2 );
+    dstMatrix.scalarSet( [ 0, 1 ], - ce1*se2*ce3 + se1*se3 );
+    dstMatrix.scalarSet( [ 0, 2 ], ce1*se2*se3 + se1*ce3 );
+    dstMatrix.scalarSet( [ 1, 0 ], se2 );
+    dstMatrix.scalarSet( [ 1, 1 ], ce2*ce3 );
+    dstMatrix.scalarSet( [ 1, 2 ], - ce2*se3 );
+    dstMatrix.scalarSet( [ 2, 0 ], - se1*ce2 );
+    dstMatrix.scalarSet( [ 2, 1 ], se1*se2*ce3+ ce1*se3 );
+    dstMatrix.scalarSet( [ 2, 2 ], - se1*se2*se3 + ce1*ce3 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], - se1*se2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ], - se1*ce2 );
-    dstMatrix.atomSet( [ 0, 2 ], se1*se2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 1, 0 ], ce1*se2*se3 + se1*ce3 );
-    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2 );
-    dstMatrix.atomSet( [ 1, 2 ], - ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 2, 0 ], - ce2*se3 );
-    dstMatrix.atomSet( [ 2, 1 ], se2 );
-    dstMatrix.atomSet( [ 2, 2 ], ce2*ce3 );
+    dstMatrix.scalarSet( [ 0, 0 ], - se1*se2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 0, 1 ], - se1*ce2 );
+    dstMatrix.scalarSet( [ 0, 2 ], se1*se2*ce3 + ce1*se3 );
+    dstMatrix.scalarSet( [ 1, 0 ], ce1*se2*se3 + se1*ce3 );
+    dstMatrix.scalarSet( [ 1, 1 ], ce1*ce2 );
+    dstMatrix.scalarSet( [ 1, 2 ], - ce1*se2*ce3 + se1*se3 );
+    dstMatrix.scalarSet( [ 2, 0 ], - ce2*se3 );
+    dstMatrix.scalarSet( [ 2, 1 ], se2 );
+    dstMatrix.scalarSet( [ 2, 2 ], ce2*ce3 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2 );
-    dstMatrix.atomSet( [ 0, 1 ], ce1*se2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 0, 2 ], ce1*se2*ce3 + se1*se3 );
-    dstMatrix.atomSet( [ 1, 0 ], se1*ce2 );
-    dstMatrix.atomSet( [ 1, 1 ], se1*se2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ], se1*se2*ce3 - ce1*se3 );
-    dstMatrix.atomSet( [ 2, 0 ], - se2 );
-    dstMatrix.atomSet( [ 2, 1 ], ce2*se3 );
-    dstMatrix.atomSet( [ 2, 2 ], ce2*ce3 );
+    dstMatrix.scalarSet( [ 0, 0 ], ce1*ce2 );
+    dstMatrix.scalarSet( [ 0, 1 ], ce1*se2*se3 - se1*ce3 );
+    dstMatrix.scalarSet( [ 0, 2 ], ce1*se2*ce3 + se1*se3 );
+    dstMatrix.scalarSet( [ 1, 0 ], se1*ce2 );
+    dstMatrix.scalarSet( [ 1, 1 ], se1*se2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 1, 2 ], se1*se2*ce3 - ce1*se3 );
+    dstMatrix.scalarSet( [ 2, 0 ], - se2 );
+    dstMatrix.scalarSet( [ 2, 1 ], ce2*se3 );
+    dstMatrix.scalarSet( [ 2, 2 ], ce2*ce3 );
   }
 
   else if( ox === 0 && oy === 1 && oz === 0 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], ce2 );
-    dstMatrix.atomSet( [ 0, 1 ], se2*se3 );
-    dstMatrix.atomSet( [ 0, 2 ], se2*ce3 );
-    dstMatrix.atomSet( [ 1, 0 ], se1*se2 );
-    dstMatrix.atomSet( [ 1, 1 ], ce1*ce3 - se1*ce2*se3 );
-    dstMatrix.atomSet( [ 1, 2 ], - ce1*se3 - se1*ce2*ce3 );
-    dstMatrix.atomSet( [ 2, 0 ], - ce1*se2 );
-    dstMatrix.atomSet( [ 2, 1 ], se1*ce3 + ce1*ce2*se3  );
-    dstMatrix.atomSet( [ 2, 2 ], - se1*se3 + ce1*ce2*ce3 );
+    dstMatrix.scalarSet( [ 0, 0 ], ce2 );
+    dstMatrix.scalarSet( [ 0, 1 ], se2*se3 );
+    dstMatrix.scalarSet( [ 0, 2 ], se2*ce3 );
+    dstMatrix.scalarSet( [ 1, 0 ], se1*se2 );
+    dstMatrix.scalarSet( [ 1, 1 ], ce1*ce3 - se1*ce2*se3 );
+    dstMatrix.scalarSet( [ 1, 2 ], - ce1*se3 - se1*ce2*ce3 );
+    dstMatrix.scalarSet( [ 2, 0 ], - ce1*se2 );
+    dstMatrix.scalarSet( [ 2, 1 ], se1*ce3 + ce1*ce2*se3  );
+    dstMatrix.scalarSet( [ 2, 2 ], - se1*se3 + ce1*ce2*ce3 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 0 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], ce2 );
-    dstMatrix.atomSet( [ 0, 1 ], - se2*ce3 );
-    dstMatrix.atomSet( [ 0, 2 ], se2*se3 );
-    dstMatrix.atomSet( [ 1, 0 ], ce1*se2 );
-    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
-    dstMatrix.atomSet( [ 1, 2 ], - ce1*ce2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 2, 0 ], se1*se2 );
-    dstMatrix.atomSet( [ 2, 1 ], se1*ce2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 0, 0 ], ce2 );
+    dstMatrix.scalarSet( [ 0, 1 ], - se2*ce3 );
+    dstMatrix.scalarSet( [ 0, 2 ], se2*se3 );
+    dstMatrix.scalarSet( [ 1, 0 ], ce1*se2 );
+    dstMatrix.scalarSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.scalarSet( [ 1, 2 ], - ce1*ce2*se3 - se1*ce3 );
+    dstMatrix.scalarSet( [ 2, 0 ], se1*se2 );
+    dstMatrix.scalarSet( [ 2, 1 ], se1*ce2*ce3 + ce1*se3 );
+    dstMatrix.scalarSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 1 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ], se1*se2 );
-    dstMatrix.atomSet( [ 0, 2 ], se1*ce2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 1, 0 ], se2*se3 );
-    dstMatrix.atomSet( [ 1, 1 ], ce2 );
-    dstMatrix.atomSet( [ 1, 2 ], - se2*ce3 );
-    dstMatrix.atomSet( [ 2, 0 ], - ce1*ce2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 2, 1 ], ce1*se2 );
-    dstMatrix.atomSet( [ 2, 2 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.scalarSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 0, 1 ], se1*se2 );
+    dstMatrix.scalarSet( [ 0, 2 ], se1*ce2*ce3 + ce1*se3 );
+    dstMatrix.scalarSet( [ 1, 0 ], se2*se3 );
+    dstMatrix.scalarSet( [ 1, 1 ], ce2 );
+    dstMatrix.scalarSet( [ 1, 2 ], - se2*ce3 );
+    dstMatrix.scalarSet( [ 2, 0 ], - ce1*ce2*se3 - se1*ce3 );
+    dstMatrix.scalarSet( [ 2, 1 ], ce1*se2 );
+    dstMatrix.scalarSet( [ 2, 2 ], ce1*ce2*ce3 - se1*se3 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 1 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
-    dstMatrix.atomSet( [ 0, 1 ], - ce1*se2 );
-    dstMatrix.atomSet( [ 0, 2 ], ce1*ce2*se3 + se1*ce3 );
-    dstMatrix.atomSet( [ 1, 0 ], se2*ce3 );
-    dstMatrix.atomSet( [ 1, 1 ], ce2 );
-    dstMatrix.atomSet( [ 1, 2 ], se2*se3 );
-    dstMatrix.atomSet( [ 2, 0 ], - se1*ce2*ce3 - ce1*se3 );
-    dstMatrix.atomSet( [ 2, 1 ], se1*se2 );
-    dstMatrix.atomSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.scalarSet( [ 0, 1 ], - ce1*se2 );
+    dstMatrix.scalarSet( [ 0, 2 ], ce1*ce2*se3 + se1*ce3 );
+    dstMatrix.scalarSet( [ 1, 0 ], se2*ce3 );
+    dstMatrix.scalarSet( [ 1, 1 ], ce2 );
+    dstMatrix.scalarSet( [ 1, 2 ], se2*se3 );
+    dstMatrix.scalarSet( [ 2, 0 ], - se1*ce2*ce3 - ce1*se3 );
+    dstMatrix.scalarSet( [ 2, 1 ], se1*se2 );
+    dstMatrix.scalarSet( [ 2, 2 ], - se1*ce2*se3 + ce1*ce3 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 2 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 0, 1 ], - se1*ce2*ce3 - ce1*se3  );
-    dstMatrix.atomSet( [ 0, 2 ], se1*se2 );
-    dstMatrix.atomSet( [ 1, 0 ], ce1*ce2*se3 + se1*ce3 );
-    dstMatrix.atomSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
-    dstMatrix.atomSet( [ 1, 2 ], - ce1*se2 );
-    dstMatrix.atomSet( [ 2, 0 ], se2*se3 );
-    dstMatrix.atomSet( [ 2, 1 ], se2*ce3 );
-    dstMatrix.atomSet( [ 2, 2 ], ce2 );
+    dstMatrix.scalarSet( [ 0, 0 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 0, 1 ], - se1*ce2*ce3 - ce1*se3  );
+    dstMatrix.scalarSet( [ 0, 2 ], se1*se2 );
+    dstMatrix.scalarSet( [ 1, 0 ], ce1*ce2*se3 + se1*ce3 );
+    dstMatrix.scalarSet( [ 1, 1 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.scalarSet( [ 1, 2 ], - ce1*se2 );
+    dstMatrix.scalarSet( [ 2, 0 ], se2*se3 );
+    dstMatrix.scalarSet( [ 2, 1 ], se2*ce3 );
+    dstMatrix.scalarSet( [ 2, 2 ], ce2 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 2 )
   {
-    dstMatrix.atomSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
-    dstMatrix.atomSet( [ 0, 1 ], - ce1*ce2*se3 - se1*ce3 );
-    dstMatrix.atomSet( [ 0, 2 ], ce1*se2 );
-    dstMatrix.atomSet( [ 1, 0 ], se1*ce2*ce3 + ce1*se3 );
-    dstMatrix.atomSet( [ 1, 1 ], - se1*ce2*se3 + ce1*ce3 );
-    dstMatrix.atomSet( [ 1, 2 ], se1*se2 );
-    dstMatrix.atomSet( [ 2, 0 ], - se2*ce3 );
-    dstMatrix.atomSet( [ 2, 1 ], se2*se3 );
-    dstMatrix.atomSet( [ 2, 2 ], ce2 );
+    dstMatrix.scalarSet( [ 0, 0 ], ce1*ce2*ce3 - se1*se3 );
+    dstMatrix.scalarSet( [ 0, 1 ], - ce1*ce2*se3 - se1*ce3 );
+    dstMatrix.scalarSet( [ 0, 2 ], ce1*se2 );
+    dstMatrix.scalarSet( [ 1, 0 ], se1*ce2*ce3 + ce1*se3 );
+    dstMatrix.scalarSet( [ 1, 1 ], - se1*ce2*se3 + ce1*ce3 );
+    dstMatrix.scalarSet( [ 1, 2 ], se1*se2 );
+    dstMatrix.scalarSet( [ 2, 0 ], - se2*ce3 );
+    dstMatrix.scalarSet( [ 2, 1 ], se2*se3 );
+    dstMatrix.scalarSet( [ 2, 2 ], ce2 );
   }
   else
   {

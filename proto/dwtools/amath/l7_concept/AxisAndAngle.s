@@ -324,7 +324,7 @@ function zero( axisAndAngle, angle )
   *
   * @example
   * // returns [ 0.6520678, 0.38680106, 0.6520678, 0.92713394 ]
-  * let srcMatrix = _.Matrix.make([ 3, 3 ]).copy
+  * let srcMatrix = _.Matrix.Make([ 3, 3 ]).copy
   * ([
   *   0.7701511383, -0.4207354784, 0.479425549507,
   *   0.6224468350, 0.65995573997, - 0.420735478401,

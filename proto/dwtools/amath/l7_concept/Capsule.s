@@ -1333,7 +1333,7 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   *
   * @example
   * // returns true
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1408,7 +1408,7 @@ function convexPolygonDistance( srcCapsule , polygon )
   *
   * @example
   * // returns [ 1.5, 1.5, 1.5 ]
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([
   *    0,   0,   0,   0,
   *    1,   0, - 1,   0,
@@ -1475,7 +1475,7 @@ function convexPolygonClosestPoint( capsule, polygon, dstPoint )
   *
   * @example
   * // returns true
-  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -1532,7 +1532,7 @@ function frustumContains( capsule, frustum )
   *
   * @example
   * // returns true;
-  * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -1597,7 +1597,7 @@ function frustumIntersects( srcCapsule, srcFrustum )
   *
   * @example
   * // returns 0;
-  * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -1661,7 +1661,7 @@ function frustumDistance( srcCapsule, srcFrustum )
   *
   * @example
   * // returns 0;
-  * var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,

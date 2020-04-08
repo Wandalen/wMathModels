@@ -607,9 +607,9 @@ function fromMatrixRotation( dst, mat )
 
   dst = this.from( dst );
   let dstv = this.tools.vectorAdapter.from( dst );
-  let m00 = mat.atomGet([ 0, 0 ]), m01 = mat.atomGet([ 0, 1 ]), m02 = mat.atomGet([ 0, 2 ]);
-  let m10 = mat.atomGet([ 1, 0 ]), m11 = mat.atomGet([ 1, 1 ]), m12 = mat.atomGet([ 1, 2 ]);
-  let m20 = mat.atomGet([ 2, 0 ]), m21 = mat.atomGet([ 2, 1 ]), m22 = mat.atomGet([ 2, 2 ]);
+  let m00 = mat.scalarGet([ 0, 0 ]), m01 = mat.scalarGet([ 0, 1 ]), m02 = mat.scalarGet([ 0, 2 ]);
+  let m10 = mat.scalarGet([ 1, 0 ]), m11 = mat.scalarGet([ 1, 1 ]), m12 = mat.scalarGet([ 1, 2 ]);
+  let m20 = mat.scalarGet([ 2, 0 ]), m21 = mat.scalarGet([ 2, 1 ]), m22 = mat.scalarGet([ 2, 2 ]);
   let trace = m00 + m11 + m22;
 
   if( trace > 0 )
@@ -673,9 +673,9 @@ function fromMatrixRotation2( dst, mat )
   dst = this.from( dst );
   let dstv = this.tools.vectorAdapter.from( dst );
 
-  let m00 = mat.atomGet([ 0, 0 ]), m01 = mat.atomGet([ 0, 1 ]), m02 = mat.atomGet([ 0, 2 ]);
-  let m10 = mat.atomGet([ 1, 0 ]), m11 = mat.atomGet([ 1, 1 ]), m12 = mat.atomGet([ 1, 2 ]);
-  let m20 = mat.atomGet([ 2, 0 ]), m21 = mat.atomGet([ 2, 1 ]), m22 = mat.atomGet([ 2, 2 ]);
+  let m00 = mat.scalarGet([ 0, 0 ]), m01 = mat.scalarGet([ 0, 1 ]), m02 = mat.scalarGet([ 0, 2 ]);
+  let m10 = mat.scalarGet([ 1, 0 ]), m11 = mat.scalarGet([ 1, 1 ]), m12 = mat.scalarGet([ 1, 2 ]);
+  let m20 = mat.scalarGet([ 2, 0 ]), m21 = mat.scalarGet([ 2, 1 ]), m22 = mat.scalarGet([ 2, 2 ]);
 
   let x = Math.sqrt( Math.max( 0, 1 + m00 - m11 - m22 ) ) / 2;
   let y = Math.sqrt( Math.max( 0, 1 - m00 + m11 - m22 ) ) / 2;
@@ -712,9 +712,9 @@ function fromMatrixWithScale( dst, mat )
   dst = this.from( dst );
   let dstv = this.tools.vectorAdapter.from( dst );
   let m = mat.scaleGet().clone().abs().reduceToMean();
-  let m00 = mat.atomGet([ 0, 0 ]) / m, m01 = mat.atomGet([ 0, 1 ]) / m, m02 = mat.atomGet([ 0, 2 ]) / m;
-  let m10 = mat.atomGet([ 1, 0 ]) / m, m11 = mat.atomGet([ 1, 1 ]) / m, m12 = mat.atomGet([ 1, 2 ]) / m;
-  let m20 = mat.atomGet([ 2, 0 ]) / m, m21 = mat.atomGet([ 2, 1 ]) / m, m22 = mat.atomGet([ 2, 2 ]) / m;
+  let m00 = mat.scalarGet([ 0, 0 ]) / m, m01 = mat.scalarGet([ 0, 1 ]) / m, m02 = mat.scalarGet([ 0, 2 ]) / m;
+  let m10 = mat.scalarGet([ 1, 0 ]) / m, m11 = mat.scalarGet([ 1, 1 ]) / m, m12 = mat.scalarGet([ 1, 2 ]) / m;
+  let m20 = mat.scalarGet([ 2, 0 ]) / m, m21 = mat.scalarGet([ 2, 1 ]) / m, m22 = mat.scalarGet([ 2, 2 ]) / m;
   let trace = m00 + m11 + m22;
 
   if( trace > 0 )
@@ -799,7 +799,7 @@ function toMatrix( quat, mat )
 {
 
   if( mat === null || mat === undefined )
-  mat = _.Matrix.make([ 3, 3 ]);
+  mat = _.Matrix.Make([ 3, 3 ]);
 
   _.assert( arguments.length === 1 || arguments.length === 2 );
   _.assert( this.is( quat ) );

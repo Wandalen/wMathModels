@@ -25,7 +25,7 @@ let Self = _.frustum = _.frustum || Object.create( _.avector );
  *
  * The frustum representation of the box [ 0, 0, 0, 1, 1, 1 ] would be:
  * ```
- * var srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+ * var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
  * ([
  *   0,   0,   0,   0,  -1,   1,
  *   1,  -1,   0,   0,   0,   0,
@@ -49,7 +49,7 @@ function make()
 {
   _.assert( arguments.length === 0, 'Expects no arguments' );
 
-  let dst = _.Matrix.make([ 4, 6 ]);
+  let dst = _.Matrix.Make([ 4, 6 ]);
 
   return dst;
 }
@@ -70,50 +70,50 @@ function fromMatrixHomogenous( frustum , m )
 
   frustum.colVectorGet( 0 ).copy
   ([
-    m.atomGet([ 3, 0 ]) - m.atomGet([ 0, 0 ]),
-    m.atomGet([ 3, 1 ]) - m.atomGet([ 0, 1 ]),
-    m.atomGet([ 3, 2 ]) - m.atomGet([ 0, 2 ]),
-    m.atomGet([ 3, 3 ]) - m.atomGet([ 0, 3 ]),
+    m.scalarGet([ 3, 0 ]) - m.scalarGet([ 0, 0 ]),
+    m.scalarGet([ 3, 1 ]) - m.scalarGet([ 0, 1 ]),
+    m.scalarGet([ 3, 2 ]) - m.scalarGet([ 0, 2 ]),
+    m.scalarGet([ 3, 3 ]) - m.scalarGet([ 0, 3 ]),
   ]);
 
   frustum.colVectorGet( 1 ).copy
   ([
-    m.atomGet([ 3, 0 ]) + m.atomGet([ 0, 0 ]),
-    m.atomGet([ 3, 1 ]) + m.atomGet([ 0, 1 ]),
-    m.atomGet([ 3, 2 ]) + m.atomGet([ 0, 2 ]),
-    m.atomGet([ 3, 3 ]) + m.atomGet([ 0, 3 ]),
+    m.scalarGet([ 3, 0 ]) + m.scalarGet([ 0, 0 ]),
+    m.scalarGet([ 3, 1 ]) + m.scalarGet([ 0, 1 ]),
+    m.scalarGet([ 3, 2 ]) + m.scalarGet([ 0, 2 ]),
+    m.scalarGet([ 3, 3 ]) + m.scalarGet([ 0, 3 ]),
   ]);
 
   frustum.colVectorGet( 2 ).copy
   ([
-    m.atomGet([ 3, 0 ]) + m.atomGet([ 1, 0 ]),
-    m.atomGet([ 3, 1 ]) + m.atomGet([ 1, 1 ]),
-    m.atomGet([ 3, 2 ]) + m.atomGet([ 1, 2 ]),
-    m.atomGet([ 3, 3 ]) + m.atomGet([ 1, 3 ]),
+    m.scalarGet([ 3, 0 ]) + m.scalarGet([ 1, 0 ]),
+    m.scalarGet([ 3, 1 ]) + m.scalarGet([ 1, 1 ]),
+    m.scalarGet([ 3, 2 ]) + m.scalarGet([ 1, 2 ]),
+    m.scalarGet([ 3, 3 ]) + m.scalarGet([ 1, 3 ]),
   ]);
 
   frustum.colVectorGet( 3 ).copy
   ([
-    m.atomGet([ 3, 0 ]) - m.atomGet([ 1, 0 ]),
-    m.atomGet([ 3, 1 ]) - m.atomGet([ 1, 1 ]),
-    m.atomGet([ 3, 2 ]) - m.atomGet([ 1, 2 ]),
-    m.atomGet([ 3, 3 ]) - m.atomGet([ 1, 3 ]),
+    m.scalarGet([ 3, 0 ]) - m.scalarGet([ 1, 0 ]),
+    m.scalarGet([ 3, 1 ]) - m.scalarGet([ 1, 1 ]),
+    m.scalarGet([ 3, 2 ]) - m.scalarGet([ 1, 2 ]),
+    m.scalarGet([ 3, 3 ]) - m.scalarGet([ 1, 3 ]),
   ]);
 
   frustum.colVectorGet( 4 ).copy
   ([
-    m.atomGet([ 3, 0 ]) - m.atomGet([ 2, 0 ]),
-    m.atomGet([ 3, 1 ]) - m.atomGet([ 2, 1 ]),
-    m.atomGet([ 3, 2 ]) - m.atomGet([ 2, 2 ]),
-    m.atomGet([ 3, 3 ]) - m.atomGet([ 2, 3 ]),
+    m.scalarGet([ 3, 0 ]) - m.scalarGet([ 2, 0 ]),
+    m.scalarGet([ 3, 1 ]) - m.scalarGet([ 2, 1 ]),
+    m.scalarGet([ 3, 2 ]) - m.scalarGet([ 2, 2 ]),
+    m.scalarGet([ 3, 3 ]) - m.scalarGet([ 2, 3 ]),
   ]);
 
   frustum.colVectorGet( 5 ).copy
   ([
-    m.atomGet([ 3, 0 ]) + m.atomGet([ 2, 0 ]),
-    m.atomGet([ 3, 1 ]) + m.atomGet([ 2, 1 ]),
-    m.atomGet([ 3, 2 ]) + m.atomGet([ 2, 2 ]),
-    m.atomGet([ 3, 3 ]) + m.atomGet([ 2, 3 ]),
+    m.scalarGet([ 3, 0 ]) + m.scalarGet([ 2, 0 ]),
+    m.scalarGet([ 3, 1 ]) + m.scalarGet([ 2, 1 ]),
+    m.scalarGet([ 3, 2 ]) + m.scalarGet([ 2, 2 ]),
+    m.scalarGet([ 3, 3 ]) + m.scalarGet([ 2, 3 ]),
   ]);
 
   return frustum;
@@ -141,7 +141,7 @@ function is( frustum )
   *   1, 0, 1, 0, 1, 0, 1, 0,
   *   1, 1, 0, 0, 1, 1, 0, 0,
   * ];
-  * let srcfrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let srcfrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   * ([ 0, 0, 0, 0, - 1, 1,
   *   1, - 1, 0, 0, 0, 0,
   *   0, 0, 1, - 1, 0, 0,
@@ -168,7 +168,7 @@ function cornersGet( srcfrustum )
   let dims = _.Matrix.DimsOf( srcfrustum ) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
-  let pointsFru = _.Matrix.makeZero( [ rows - 1, cols + 2 ] );
+  let pointsFru = _.Matrix.MakeZero( [ rows - 1, cols + 2 ] );
 
   let right = this.tools.vectorAdapter.from(srcfrustum.colVectorGet( 0 ));
   let left = srcfrustum.colVectorGet( 1 );
@@ -184,7 +184,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 0 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 0 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 0 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 0 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 0 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 0 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( far, top, left );
@@ -194,7 +194,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 1 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 1 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 1 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 1 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 1 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 1 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( far, bottom, right );
@@ -204,7 +204,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 2 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 2 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 2 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 2 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 2 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 2 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( far, bottom, left );
@@ -214,7 +214,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 3 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 3 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 3 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 3 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 3 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 3 ], point.eGet( 2 ) );
   }
 
   point = this.tools.plane.threeIntersectionPoint( near, top, right );
@@ -224,7 +224,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 4 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 4 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 4 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 4 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 4 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 4 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( near, top, left );
@@ -234,7 +234,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 5 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 5 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 5 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 5 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 5 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 5 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( near, bottom, right );
@@ -244,7 +244,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 6 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 6 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 6 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 6 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 6 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 6 ], point.eGet( 2 ) );
   }
 
   point = this.tools.plane.threeIntersectionPoint( near, bottom, left );
@@ -254,7 +254,7 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.atomSet( [ 0, 7 ], point.eGet( 0 ) ); pointsFru.atomSet( [ 1, 7 ], point.eGet( 1 ) ); pointsFru.atomSet( [ 2, 7 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 7 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 7 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 7 ], point.eGet( 2 ) );
   }
   debugger;
 
@@ -315,7 +315,7 @@ function pointContains( frustum , point )
   *
   * @example
   * // returns 1;
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
@@ -396,7 +396,7 @@ function pointDistance( frustum, point )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -574,7 +574,7 @@ function boxContains( frustum, box )
 
   /* src corners */
 
-  let c = _.Matrix.makeZero( [ 3, 8 ] );
+  let c = _.Matrix.MakeZero( [ 3, 8 ] );
   c.colVectorGet( 0 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
   c.colVectorGet( 1 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
   c.colVectorGet( 2 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
@@ -728,7 +728,7 @@ function boxIntersects( frustum , box )
   *
   * @example
   * // returns 1;
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -767,7 +767,7 @@ function boxDistance( frustum, box )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -860,7 +860,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   *
   * @example
   * // returns [ 0, 0, 0, 1, 1, 1 ]
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -956,7 +956,7 @@ function boundingBoxGet( dstBox, srcFrustum )
   *
   * @example
   * // returns false;
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -1038,7 +1038,7 @@ function capsuleDistance( srcFrustum , tstCapsule )
   *
   * @example
   * // returns 0
-  * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
@@ -1112,14 +1112,14 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
   *
   * @example
   * // returns false;
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *    0,   0,   0,   0, - 1,   1,
   *    1, - 1,   0,   0,   0,   0,
   *    0,   0,   1, - 1,   0,   0,
   *    - 1,   0, - 1,   0,   0, - 1
   * ]);
-  * let polygon = _.Matrix.make( [ 3, 3 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 3 ] ).copy
   * ([
   *    0,   0, -1,
   *    0,  -1,  0,
@@ -1195,13 +1195,13 @@ function convexPolygonDistance( srcFrustum , polygon )
   *
   * @example
   * // returns [ 0, 0, 0 ]
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([
   *    -1,  -1, -1,  -1,
   *    1,   0, - 1,   0,
   *    0,   1,   0, - 1
   *  ]);
-  * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
@@ -1268,14 +1268,14 @@ function convexPolygonClosestPoint( frustum, polygon, dstPoint )
 *
 * @example
 * // returns true;
-* let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+* let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
 *  ([
 *     0,   0,   0,   0, - 1,   1,
 *     1, - 1,   0,   0,   0,   0,
 *     0,   0,   1, - 1,   0,   0,
 *   - 1,   0, - 1,   0,   0, - 1 ]
 *   );
-* let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+* let tstFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
 *   ([
 *    0,   0,   0,   0, - 1,   1,
 *    1, - 1,   0,   0,   0,   0,
@@ -1326,14 +1326,14 @@ return true;
   *
   * @example
   * // returns true;
-  * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
-  * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let tstFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *   ([
   *    0,   0,   0,   0, - 1,   1,
   *    1, - 1,   0,   0,   0,   0,
@@ -1395,14 +1395,14 @@ function frustumIntersects( srcFrustum , tstFrustum )
   *
   * @example
   * // returns 0;
-  * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
-  * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let tstFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *   ([
   *    0,   0,   0,   0, - 1,   1,
   *    1, - 1,   0,   0,   0,   0,
@@ -1466,14 +1466,14 @@ function frustumDistance( srcFrustum , tstFrustum )
   *
   * @example
   * // returns 0;
-  * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
   *   - 1,   0, - 1,   0,   0, - 1 ]
   *   );
-  * let tstFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let tstFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *   ([
   *    0,   0,   0,   0, - 1,   1,
   *    1, - 1,   0,   0,   0,   0,
@@ -1591,7 +1591,7 @@ function lineDistance( srcFrustum , tstLine )
   * @example
   * // returns [ 1, 0, 0 ]
   * let line = [ 2, 0, 0, 1, 0, 0 ]
-  * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
@@ -1710,7 +1710,7 @@ function planeIntersects( frustum, plane )
   *
   * @example
   * // returns 2;
-  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -1762,7 +1762,7 @@ function planeDistance( frustum, plane )
   *
   * @example
   * // returns [ 1, 1, 1 ];
-  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -1861,7 +1861,7 @@ function rayDistance( srcFrustum , tstRay )
   * @example
   * // returns [ 1, 0, 0 ]
   * let ray = [ 2, 0, 0, 1, 0, 0 ]
-  * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
@@ -1929,7 +1929,7 @@ function rayClosestPoint( frustum, ray, dstPoint )
   *
   * @example
   * // returns false;
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -2012,7 +2012,7 @@ function segmentDistance( srcFrustum , tstSegment )
   * @example
   * // returns [ 1, 0, 0 ]
   * let segment = [ 2, 0, 0, 1, 0, 0 ]
-  * let srcFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
@@ -2080,7 +2080,7 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   *
   * @example
   * // returns false;
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -2175,7 +2175,7 @@ function sphereIntersects( frustum , sphere )
   *
   * @example
   * // returns 1;
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -2215,7 +2215,7 @@ function sphereDistance( frustum, sphere )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,
@@ -2276,7 +2276,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   *
   * @example
   * // returns [ 0.5, 0.5, 0.5,  Math.sqrt( 0.75 ) ]
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy(
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
   *   [ 0,   0,   0,   0, - 1,   1,
   *     1, - 1,   0,   0,   0,   0,
   *     0,   0,   1, - 1,   0,   0,

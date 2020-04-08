@@ -3282,7 +3282,7 @@ function convexPolygonContains( test )
   test.case = 'Source capsule and polygon remain unchanged'; /* */
 
   var srcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3296,7 +3296,7 @@ function convexPolygonContains( test )
   var oldSrcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
   test.identical( srcCapsule, oldSrcCapsule );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3307,7 +3307,7 @@ function convexPolygonContains( test )
   test.case = 'Capsule and polygon intersect'; /* */
 
   var srcCapsule = [ -1, - 1, -1, 1, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     4,   0, - 4,   0,
@@ -3321,7 +3321,7 @@ function convexPolygonContains( test )
   test.case = 'Capsule and polygon don´t intersect'; /* */
 
   var srcCapsule = [ 0, 1, 0, 1, 2, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3335,7 +3335,7 @@ function convexPolygonContains( test )
   test.case = 'Capsule contains polygon'; /* */
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 4 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3349,7 +3349,7 @@ function convexPolygonContains( test )
   test.case = 'Capsule contains polygon touching sides'; /* */
 
   var srcCapsule = [ -1, 0, 0, 1, 0, 0, Math.sqrt( 2 ) ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3363,7 +3363,7 @@ function convexPolygonContains( test )
   test.case = '2D contained'; /* */
 
   var srcCapsule = [ 0, -2, 3, 3, 2 ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   1,   1,   0,
     0,   0,   1,   1
@@ -3376,7 +3376,7 @@ function convexPolygonContains( test )
   test.case = '2D not contained'; /* */
 
   var srcCapsule = [ 1, 2, 3, 3, 0.5 ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   1,   1,   0,
     0,   0,   1,   1
@@ -3391,7 +3391,7 @@ function convexPolygonContains( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3421,7 +3421,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Source capsule and polygon remain unchanged'; /* */
 
   var srcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3435,7 +3435,7 @@ function convexPolygonClosestPoint( test )
   var oldSrcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
   test.identical( srcCapsule, oldSrcCapsule );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3446,7 +3446,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Capsule and polygon intersect'; /* */
 
   var srcCapsule = [ - 1, - 1, -1, 1, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3460,7 +3460,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon vertex in capsule corner'; /* */
 
   var srcCapsule = [ -1, 1, 0, -1, 2, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3474,7 +3474,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon next to capsule corner'; /* */
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3488,7 +3488,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon in capsule corner'; /* */
 
   var srcCapsule = [ 1, 0, 0, 2, 0, 0, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3502,7 +3502,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon next to capsule side'; /* */
 
   var srcCapsule = [ 2, -1, -1, 2, 2, 2, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3516,7 +3516,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon vertex next to capsule corner'; /* */
 
   var srcCapsule = [ - 2, 2, 0, - 2, 3, 0, 0.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3530,7 +3530,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon edge next to capsule corner'; /* */
 
   var srcCapsule = [ 1, 1, 0, 2, 2, 0, 0 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -3544,7 +3544,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon vertex next to capsule side'; /* */
 
   var srcCapsule = [ - 1, 2, 0, 1, 2, 0, 0.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3558,7 +3558,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Polygon edge next to capsule side'; /* */
 
   var srcCapsule = [ -1, 3, 0, 2, 3, 0, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   1,   1,   0,
     0,   0,   1,   1,
@@ -3572,7 +3572,7 @@ function convexPolygonClosestPoint( test )
   test.case = '2D'; /* */
 
   var srcCapsule = [ 0, 2, 3, 3, 0.5 ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   1,   1,   0,
     0,   0,   1,   1
@@ -3585,7 +3585,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Array'; /* */
 
   var srcCapsule = [ 3, 3, 3, 4, 4, 4, Math.sqrt( 3 ) ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   0,   1,   1,
@@ -3601,7 +3601,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Vector'; /* */
 
   var srcCapsule = [ -1, 3, 0, 2, 3, 0, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3618,7 +3618,7 @@ function convexPolygonClosestPoint( test )
 
   // var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   // test.identical( gotBool, expected );
-  // var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  // var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   // ([
   //   1,   0, - 1,   0,
   //   0,   1,   0, - 1
@@ -3655,7 +3655,7 @@ function frustumContains( test )
 
   test.description = 'Frustum and capsule remain unchanged';
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3670,7 +3670,7 @@ function frustumContains( test )
   test.identical( gotBool, expected );
   test.identical( capsule, oldCapsule );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3681,7 +3681,7 @@ function frustumContains( test )
 
   test.description = 'Capsule contains frustum'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3696,7 +3696,7 @@ function frustumContains( test )
 
   test.description = 'Capsule contains Zero frustum'; //
 
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3712,7 +3712,7 @@ function frustumContains( test )
 
   test.description = 'Capsule contains frustum, touching sides'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3727,7 +3727,7 @@ function frustumContains( test )
 
   test.description = 'Frustum contains capsule'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3742,7 +3742,7 @@ function frustumContains( test )
 
   test.description = 'Frustum and capsule intersect'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3757,7 +3757,7 @@ function frustumContains( test )
 
   test.description = 'Frustum and capsule in different places'; //
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3775,7 +3775,7 @@ function frustumContains( test )
   if( !Config.debug )
   return;
 
-  var frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3809,7 +3809,7 @@ function frustumIntersects( test )
 
   test.description = 'Capsule and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3825,7 +3825,7 @@ function frustumIntersects( test )
   var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3837,7 +3837,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3852,7 +3852,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule intersect on frustum corner'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3867,7 +3867,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum corner is capsule origin'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3882,7 +3882,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule intersect on frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3897,7 +3897,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule not intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3912,7 +3912,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule almost intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3927,7 +3927,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule just touching'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3942,7 +3942,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and capsule just intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3957,7 +3957,7 @@ function frustumIntersects( test )
 
   test.description = 'capsule is null - intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3972,7 +3972,7 @@ function frustumIntersects( test )
 
   test.description = 'capsule is null - no intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3990,7 +3990,7 @@ function frustumIntersects( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4026,7 +4026,7 @@ function frustumDistance( test )
 
   test.description = 'Capsule and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4042,7 +4042,7 @@ function frustumDistance( test )
   var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4053,7 +4053,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4068,7 +4068,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule intersect on frustum corner'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4083,7 +4083,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule intersect on frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4098,7 +4098,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule not intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4113,7 +4113,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and capsule almost intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4128,7 +4128,7 @@ function frustumDistance( test )
 
   test.description = 'capsule is null - intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4143,7 +4143,7 @@ function frustumDistance( test )
 
   test.description = 'capsule is null - no intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4158,7 +4158,7 @@ function frustumDistance( test )
 
   test.description = 'capsule closest to box side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4172,7 +4172,7 @@ function frustumDistance( test )
   test.equivalent( gotDistance, expected );
 
   test.description = 'Inclined capsule closest to box side'; //
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4190,7 +4190,7 @@ function frustumDistance( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4226,7 +4226,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Capsule and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4242,7 +4242,7 @@ function frustumClosestPoint( test )
   var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4253,7 +4253,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4268,7 +4268,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule intersect on frustum corner'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4283,7 +4283,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule intersect on frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4298,7 +4298,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule not intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4313,7 +4313,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and capsule almost intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4328,7 +4328,7 @@ function frustumClosestPoint( test )
 
   test.description = 'capsule is null - intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4343,7 +4343,7 @@ function frustumClosestPoint( test )
 
   test.description = 'capsule is null - no intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4358,7 +4358,7 @@ function frustumClosestPoint( test )
 
   test.description = 'capsule closest to frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4373,7 +4373,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Inclined capsule closest to frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4388,7 +4388,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Destination point is vector'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4407,7 +4407,7 @@ function frustumClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,

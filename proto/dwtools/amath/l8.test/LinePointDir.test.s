@@ -3148,7 +3148,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Source line and polygon remain unchanged'; /* */
 
   var srcLine = [ - 1, - 1, -1, 1, 0, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3162,7 +3162,7 @@ function convexPolygonClosestPoint( test )
   var oldSrcLine = [ - 1, - 1, -1, 1, 0, 1 ];
   test.identical( srcLine, oldSrcLine );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3173,7 +3173,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Line and polygon intersect'; /* */
 
   var srcLine = [ - 1, - 1, -1, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3187,7 +3187,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Line cuts polygon vertex'; /* */
 
   var srcLine = [ 0, 1, 0, 1, 0, 0 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3201,7 +3201,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Line next to polygon vertex'; /* */
 
   var srcLine = [ 0, 2, 0, 1, 0, 0 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3215,7 +3215,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Line cuts polygon edge'; /* */
 
   var srcLine = [ -1, 0, 0, 1, 0.5, 0.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3229,7 +3229,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Line next to polygon edge'; /* */
 
   var srcLine = [ -1, 0, 0, 1, 1, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3243,7 +3243,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Line cuts polygon'; /* */
 
   var srcLine = [ - 3, 2, 0, - 1, 1.5, 0.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3257,7 +3257,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Line next to polygon'; /* */
 
   var srcLine = [ 3, 4, - 1, 1, 1, 0 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -3271,7 +3271,7 @@ function convexPolygonClosestPoint( test )
   test.case = '2D'; /* */
 
   var srcLine = [ 0, 3, 3, 3 ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   1,   1,   0,
     0,   0,   1,   1
@@ -3284,7 +3284,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Array'; /* */
 
   var srcLine = [ 3, 3, 3, 1, 1, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3300,7 +3300,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Vector'; /* */
 
   var srcLine = [ -1, 2, -4, 0, 0, -1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3318,7 +3318,7 @@ function convexPolygonClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3347,7 +3347,7 @@ function frustumIntersects( test )
 
   test.description = 'Line and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3363,7 +3363,7 @@ function frustumIntersects( test )
   var oldLine = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( line, oldLine );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3375,7 +3375,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and line intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3390,7 +3390,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and line intersect on frustum corner'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3405,7 +3405,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum corner is line origin'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3420,7 +3420,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and line intersect on frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3435,7 +3435,7 @@ function frustumIntersects( test )
 
   test.description = 'Negative factor'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3450,7 +3450,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and line not intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3465,7 +3465,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and line almost intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3480,7 +3480,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and line just touching'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3495,7 +3495,7 @@ function frustumIntersects( test )
 
   test.description = 'Frustum and line just intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3510,7 +3510,7 @@ function frustumIntersects( test )
 
   test.description = 'line is null - intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3525,7 +3525,7 @@ function frustumIntersects( test )
 
   test.description = 'line is null - no intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3543,7 +3543,7 @@ function frustumIntersects( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3577,7 +3577,7 @@ function frustumDistance( test )
 
   test.description = 'Line and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3593,7 +3593,7 @@ function frustumDistance( test )
   var oldLine = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( line, oldLine );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3604,7 +3604,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and line intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3619,7 +3619,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and line intersect on frustum corner'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3634,7 +3634,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and line intersect on frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3649,7 +3649,7 @@ function frustumDistance( test )
 
   test.description = 'Negative factor'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3664,7 +3664,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and line not intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3679,7 +3679,7 @@ function frustumDistance( test )
 
   test.description = 'Frustum and line almost intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3694,7 +3694,7 @@ function frustumDistance( test )
 
   test.description = 'line is null - intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3709,7 +3709,7 @@ function frustumDistance( test )
 
   test.description = 'line is null - no intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3724,7 +3724,7 @@ function frustumDistance( test )
 
   test.description = 'line closest to box side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3739,7 +3739,7 @@ function frustumDistance( test )
 
   test.description = 'Inclined line closest to box side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3757,7 +3757,7 @@ function frustumDistance( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3791,7 +3791,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Line and frustum remain unchanged'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3807,7 +3807,7 @@ function frustumClosestPoint( test )
   var oldLine = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( line, oldLine );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3818,7 +3818,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and line intersect'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3833,7 +3833,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and line intersect on frustum corner'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3848,7 +3848,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and line intersect on frustum side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3863,7 +3863,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Negative factor'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3878,7 +3878,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and line not intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3890,7 +3890,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum and line almost intersecting'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3905,7 +3905,7 @@ function frustumClosestPoint( test )
 
   test.description = 'line is null - intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3920,7 +3920,7 @@ function frustumClosestPoint( test )
 
   test.description = 'line is null - no intersection'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3935,7 +3935,7 @@ function frustumClosestPoint( test )
 
   test.description = 'line closest to box side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3950,7 +3950,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Inclined line closest to box side'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3965,7 +3965,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Destination point is vector'; //
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3984,7 +3984,7 @@ function frustumClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var srcFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,

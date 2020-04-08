@@ -602,7 +602,7 @@ function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatFast( test )
   var accuracySqrt = Math.sqrt( test.accuracy );
   var euler = _.euler.make();
   var quat1 = _.quat.make();
-  var matrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var matrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
   var axisAngle1 = _.axisAndAngle.makeZero();
@@ -662,7 +662,7 @@ function eulerToQuatToAxisAndAngleMatrixToAxisAndAngleToQuatSlow( test )
   var accuracySqrt = Math.sqrt( test.accuracy );
   var euler = _.euler.make();
   var quat1 = _.quat.make();
-  var matrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var matrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
   var axisAngle1 = _.axisAndAngle.makeZero();

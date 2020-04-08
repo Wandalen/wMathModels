@@ -62,7 +62,7 @@ function make( dim, vertices )
   _.assert( _.numberIs( dim ) && dim > 1 && dim < 4, 'dim must be a number ( 2 or 3 )' );
   _.assert( _.numberIs( vertices ) && vertices > 2, 'vertices must be a number superior to two' );
 
-  let dst = _.Matrix.makeZero([ dim, vertices ]);
+  let dst = _.Matrix.MakeZero([ dim, vertices ]);
 
   return dst;
 }
@@ -77,7 +77,7 @@ function make( dim, vertices )
   *
   * @example
   * // returns true;
-  * var polygon = _.Matrix.make([ 3, 5 ]).copy
+  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
   *   1, 0, -1, 0, 2,
   *   0, 0, 1, 2, 2,
@@ -87,7 +87,7 @@ function make( dim, vertices )
   *
   * @example
   * // returns false;
-  * var polygon = _.Matrix.make([ 3, 5 ]).copy
+  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
   *   1, 0, -1, 0, 2,
   *   0, 0, 1, 2, 2,
@@ -155,7 +155,7 @@ function is( polygon )
   *
   * @example
   * // returns true;
-  * var polygon = _.Matrix.make([ 3, 5 ]).copy
+  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
   *   1, 0, -1, 0, 2,
   *   0, 0, 1, 2, 2,
@@ -165,7 +165,7 @@ function is( polygon )
   *
   * @example
   * // returns false;
-  * var polygon = _.Matrix.make([ 3, 5 ]).copy
+  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
   *   1, 0, 1, 0, 2,
   *   0, 0, 1, 2, 2,
@@ -331,7 +331,7 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   *
   * @example
   * // returns true;
-  * var polygon = _.Matrix.make([ 3, 5 ]).copy
+  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
   *   1, 0, -1, 0, 2,
   *   0, 0, 1, 2, 2,
@@ -341,7 +341,7 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   *
   * @example
   * // returns false;
-  * var polygon = _.Matrix.make([ 3, 5 ]).copy
+  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
   *   1, 0, -1, 0, 2,
   *   0, 0, 1, 2, 2,
@@ -515,7 +515,7 @@ function pointContains2D( polygon, point )
   *
   * @example
   * // returns 1;
-  * let polygon = _.Matrix.make( [ 2, 3 ] ).copy
+  * let polygon = _.Matrix.Make( [ 2, 3 ] ).copy
   * ([
   *     0, 1, 0,
   *     1, 0, 0
@@ -605,7 +605,7 @@ function pointDistanceSqr( polygon, point )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -736,7 +736,7 @@ function isClockwise( polygon )
   *
   * @example
   * // returns false;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -828,7 +828,7 @@ function boxIntersects( polygon, box )
   *
   * @example
   * // returns 1;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -871,7 +871,7 @@ function boxDistance( polygon, box )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -963,7 +963,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   *
   * @example
   * // returns [ 0, -1, -1, 0, 1, 1 ]
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   * ([
   *    0,   0,   0,   0,
   *    1,   0, - 1,   0,
@@ -1040,7 +1040,7 @@ function boundingBoxGet( polygon, dstBox  )
   *
   * @example
   * // returns false;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1093,7 +1093,7 @@ function capsuleIntersects( polygon, capsule )
   *
   * @example
   * // returns Math.sqrt( 19 ) - 1;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1147,7 +1147,7 @@ function capsuleDistance( polygon, capsule )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1214,13 +1214,13 @@ function capsuleClosestPoint( polygon, capsule, dstPoint )
   *
   * @example
   * // returns true;
-  * let polygon = _.Matrix.make( [ 4, 6 ] ).copy
+  * let polygon = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     1,   0,   0,
   *     0,   0,   0,
   *     0,   0,   1
   *   ]);
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *   ([
   *    0,   0,   0,   0, - 1,   1,
   *    1, - 1,   0,   0,   0,   0,
@@ -1314,13 +1314,13 @@ function frustumIntersects( polygon, frustum )
   *
   * @example
   * // returns 0;
-  * let polygon = _.Matrix.make( [ 4, 6 ] ).copy
+  * let polygon = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     1,   0,   0,
   *     0,   0,   0,
   *     0,   0,   1
   *   ]);
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *   ([
   *    0,   0,   0,   0, - 1,   1,
   *    1, - 1,   0,   0,   0,   0,
@@ -1368,13 +1368,13 @@ function frustumDistance( polygon, frustum )
   *
   * @example
   * // returns [ 1, 1, 1 ];
-  * let polygon = _.Matrix.make( [ 4, 6 ] ).copy
+  * let polygon = _.Matrix.Make( [ 4, 6 ] ).copy
   *  ([
   *     2,   0,   0,
   *     0,   2,   0,
   *     0,   0,   2
   *   ]);
-  * let frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   *   ([
   *    0,   0,   0,   0, - 1,   1,
   *    1, - 1,   0,   0,   0,   0,
@@ -1469,7 +1469,7 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   *
   * @example
   * // returns true;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1565,7 +1565,7 @@ function lineIntersects( polygon, line )
   *
   * @example
   * // returns 0;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1615,7 +1615,7 @@ function lineDistance( polygon, line )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1699,7 +1699,7 @@ function lineClosestPoint( polygon, line, dstPoint )
   *
   * @example
   * // returns true;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1769,7 +1769,7 @@ function planeIntersects( polygon, plane )
   *
   * @example
   * // returns 0;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1817,7 +1817,7 @@ function planeDistance( polygon, plane )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1892,7 +1892,7 @@ function planeClosestPoint( polygon, plane, dstPoint )
   *
   * @example
   * // returns false;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1983,7 +1983,7 @@ function rayIntersects( polygon, ray )
   *
   * @example
   * // returns Math.sqrt( 19 );
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -2032,7 +2032,7 @@ function rayDistance( polygon, ray )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -2116,7 +2116,7 @@ function rayClosestPoint( polygon, ray, dstPoint )
   *
   * @example
   * // returns false;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy([
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy([
   *   0,   1,   1,   0,
   *   0,   1,   1,   0,
   *   0,   1,   3,   3
@@ -2166,7 +2166,7 @@ function segmentContains( polygon, segment )
   *
   * @example
   * // returns false;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -2262,7 +2262,7 @@ function segmentIntersects( polygon, segment )
   *
   * @example
   * // returns Math.sqrt( 19 );
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -2312,7 +2312,7 @@ function segmentDistance( polygon, segment )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -2404,7 +2404,7 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   *
   * @example
   * // returns false;
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -2453,7 +2453,7 @@ function sphereIntersects( polygon, sphere )
   *
   * @example
   * // returns Math.sqrt( 18 );
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -2502,7 +2502,7 @@ function sphereDistance( polygon, sphere )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -2565,7 +2565,7 @@ function sphereClosestPoint( polygon, sphere, dstPoint )
   *
   * @example
   * // returns [ 0, 0, 0, 1 ]
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([
   *    0,   0,   0,   0,
   *    1,   0, - 1,   0,

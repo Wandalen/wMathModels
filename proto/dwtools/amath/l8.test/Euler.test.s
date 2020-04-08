@@ -875,7 +875,7 @@ function toMatrix( test )
   logger.log( 'applied1', applied1 );
   logger.log( 'applied2', applied2 );
 
-  var m2 = _.Matrix.make([ 3, 3 ]).copy
+  var m2 = _.Matrix.Make([ 3, 3 ]).copy
   ([
       0.8503,  0.1754,  0.4962,
       0.2171,  0.7420, -0.6343,
@@ -1594,7 +1594,7 @@ function fromMatrix2( test )
 
   test.case = 'Matrix remains unchanged'; /* */
 
-  var srcMatrix = _.Matrix.make([ 3, 3 ]).copy
+  var srcMatrix = _.Matrix.Make([ 3, 3 ]).copy
   ([
     0.7701511383, -0.4207354784, 0.479425549507,
     0.6224468350, 0.65995573997, - 0.420735478401,
@@ -1608,7 +1608,7 @@ function fromMatrix2( test )
   test.equivalent( gotEuler, expected );
   test.is( gotEuler === dstEuler );
 
-  var oldMatrix = _.Matrix.make([ 3, 3 ]).copy
+  var oldMatrix = _.Matrix.Make([ 3, 3 ]).copy
   ([
     0.7701511383, -0.4207354784, 0.479425549507,
     0.6224468350, 0.65995573997, - 0.420735478401,
@@ -1618,7 +1618,7 @@ function fromMatrix2( test )
 
   test.case = 'Euler XYZ'; /* */
 
-  var srcMatrix = _.Matrix.make([ 3, 3 ]).copy
+  var srcMatrix = _.Matrix.Make([ 3, 3 ]).copy
   ([
     0.7701511383, -0.4207354784, 0.479425549507,
     0.6224468350, 0.65995573997, - 0.420735478401,
@@ -1633,7 +1633,7 @@ function fromMatrix2( test )
 
   test.case = 'Euler XZY'; /* */
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.7701511383, -0.479425549507, 0.4207354784,
     0.5990789532, 0.7701511383, - 0.21902415156,
@@ -1649,7 +1649,7 @@ function fromMatrix2( test )
 
   test.case = 'Euler YXZ'; /* */
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.6675710082, 0.095001988, 0.738460242,
     0.4207354784, 0.770151138, - 0.479425549,
@@ -1664,7 +1664,7 @@ function fromMatrix2( test )
 
   test.case = 'Euler YZX'; /* */
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.5235056281089, 0.286113649, 0.802546501,
     0.2474039644002, 0.8503006696, - 0.464521348,
@@ -1679,7 +1679,7 @@ function fromMatrix2( test )
 
   test.case = 'Euler ZXY'; /* */
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.7504922747, - 0.1336729228, 0.64721935987,
     0.607998669, 0.5235056281, - 0.5968915224,
@@ -1694,7 +1694,7 @@ function fromMatrix2( test )
 
   test.case = 'Euler ZYX'; /* */
 
-  var srcMatrix =  _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.4741598963737, - 0.6142724156, 0.6307470202,
     0.7384602427, 0.6675710082, 0.095001988,
@@ -1709,7 +1709,7 @@ function fromMatrix2( test )
 
   test.case = 'dstEuler = null'; /* */
 
-  var srcMatrix = _.Matrix.make([ 3, 3 ]).copy
+  var srcMatrix = _.Matrix.Make([ 3, 3 ]).copy
   ([
     0.7701511383, -0.4207354784, 0.479425549507,
     0.6224468350, 0.65995573997, - 0.420735478401,
@@ -1725,7 +1725,7 @@ function fromMatrix2( test )
 
   test.case = 'dstEuler = undefined'; /* */
 
-  var srcMatrix = _.Matrix.make([ 3, 3 ]).copy
+  var srcMatrix = _.Matrix.Make([ 3, 3 ]).copy
   ([
     0.7701511383, -0.4207354784, 0.479425549507,
     0.6224468350, 0.65995573997, - 0.420735478401,
@@ -1743,7 +1743,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 1, 0.5, 0.5, 0, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 0, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1755,7 +1755,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 1, 0.5, 0.25, 0, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 1, 0.5, 0.25, 0, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1767,7 +1767,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 1, 0.25, 0.25, 1, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 1, 0.25, 0.25, 1, 0, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1779,7 +1779,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 0.5, 0.25, - 0.25, 1, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.5, 0.25, - 0.25, 1, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1791,7 +1791,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 0.5, 0.75, - 0.25, 2, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.5, 0.75, - 0.25, 2, 0, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1803,7 +1803,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 0.25, 0.75, - 0.25, 2, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.25, 0.75, - 0.25, 2, 1, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1815,7 +1815,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 1, 1, 0.25, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 1, 1, 0.25, 0, 1, 0 ] ); ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1827,7 +1827,7 @@ function fromMatrix2( test )
 
   var srcEuler =  [ 1, 0.25, 0.5, 0, 2, 0 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 1, 0.25, 0.5, 0, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1839,7 +1839,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 1, 0.5, 0.5, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 1, 0, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1851,7 +1851,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 1, 0.25, 2, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 1, 0.25, 2, 1, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1863,7 +1863,7 @@ function fromMatrix2( test )
 
   var srcEuler = [ 0.25, 1, 1, 2, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = [ 0.25, 1, 1, 2, 0, 2 ] ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1875,7 +1875,7 @@ function fromMatrix2( test )
 
   var srcEuler =  [ 1, 0.5, 0.5, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 1, 0.5, 0.5, 2, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -1907,9 +1907,9 @@ function toMatrix2( test )
   test.case = 'Euler remains unchanged'; /**/
 
   var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var oldEuler = srcEuler.slice();
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.7701511383, -0.4207354784, 0.479425549507,
     0.6224468350, 0.65995573997, - 0.420735478401,
@@ -1924,8 +1924,8 @@ function toMatrix2( test )
   test.case = 'Euler XYZ'; /**/
 
   var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.7701511383, -0.4207354784, 0.479425549507,
     0.6224468350, 0.65995573997, - 0.420735478401,
@@ -1938,8 +1938,8 @@ function toMatrix2( test )
   test.case = 'Euler XZY'; /**/
 
   var srcEuler = [ 0.5, 0.5, 0.5, 0, 2, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.7701511383, -0.479425549507, 0.4207354784,
     0.5990789532, 0.7701511383, - 0.21902415156,
@@ -1952,8 +1952,8 @@ function toMatrix2( test )
   test.case = 'Euler YXZ'; /**/
 
   var srcEuler =  [ 1, 0.5, 0.5, 1, 0, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.6675710082, 0.095001988, 0.738460242,
     0.4207354784, 0.770151138, - 0.479425549,
@@ -1966,8 +1966,8 @@ function toMatrix2( test )
   test.case = 'Euler YZX'; /**/
 
   var srcEuler = [ 1, 0.25, 0.5, 1, 2, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.5235056281089, 0.286113649, 0.802546501,
     0.2474039644002, 0.8503006696, - 0.464521348,
@@ -1980,8 +1980,8 @@ function toMatrix2( test )
   test.case = 'Euler ZXY'; /**/
 
   var srcEuler = [ 0.25, 1, 0.5, 2, 0, 1 ] ;
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.7504922747, - 0.1336729228, 0.64721935987,
     0.607998669, 0.5235056281, - 0.5968915224,
@@ -1994,8 +1994,8 @@ function toMatrix2( test )
   test.case = 'Euler ZYX'; /**/
 
   var srcEuler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
-  var expected =  _.Matrix.make( [ 3, 3 ] ).copy
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
+  var expected =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.4741598963737, - 0.6142724156, 0.6307470202,
     0.7384602427, 0.6675710082, 0.095001988,
@@ -2009,7 +2009,7 @@ function toMatrix2( test )
 
   var srcEuler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
   var dstMatrix = null;
-  var expected =  _.Matrix.make( [ 3, 3 ] ).copy
+  var expected =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.4741598963737, - 0.6142724156, 0.6307470202,
     0.7384602427, 0.6675710082, 0.095001988,
@@ -2024,7 +2024,7 @@ function toMatrix2( test )
 
   var srcEuler =  [ 1, 0.5, 0.5, 2, 1, 0 ];
   var dstMatrix = undefined;
-  var expected =  _.Matrix.make( [ 3, 3 ] ).copy
+  var expected =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.4741598963737, - 0.6142724156, 0.6307470202,
     0.7384602427, 0.6675710082, 0.095001988,
@@ -2037,14 +2037,14 @@ function toMatrix2( test )
 
   test.case = 'Euler XYX - Matrix -> Euler -> Matrix'; /**/
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.877582550048, 0.229848861694, 0.42073550820,
     0.229848861694, 0.568439781665, - 0.789965629577,
     - 0.42073550820, 0.78996562957, 0.44602233171
   ]);
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
-  var expected =  _.Matrix.make( [ 3, 3 ] ).copy
+  var expected =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.877582550048, 0.229848861694, 0.42073550820,
     0.229848861694, 0.568439781665, - 0.789965629577,
@@ -2052,20 +2052,20 @@ function toMatrix2( test )
   ]);
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler XZX - Matrix -> Euler -> Matrix'; /**/
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.877582550048, - 0.42073550820, 0.229848861694,
     0.42073550820, 0.44602233171, - 0.789965629577,
     0.229848861694, 0.78996562957, 0.56843978166
   ]);
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.877582550048, - 0.42073550820, 0.229848861694,
     0.42073550820, 0.44602233171, - 0.789965629577,
@@ -2073,20 +2073,20 @@ function toMatrix2( test )
   ]);
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler YXY - Matrix -> Euler -> Matrix'; /**/
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.56843978166, 0.229848861694, 0.789965629577,
     0.229848861694, 0.877582550048, - 0.42073550820,
     - 0.789965629577, 0.42073550820, 0.44602233171
   ]);
   var dstEuler =  [ 0, 0, 0, 1, 0, 1 ];
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.56843978166, 0.229848861694, 0.789965629577,
     0.229848861694, 0.877582550048, - 0.42073550820,
@@ -2094,20 +2094,20 @@ function toMatrix2( test )
   ]);
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler YZY - Matrix -> Euler -> Matrix'; /**/
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.44602233171, - 0.42073550820, 0.789965629577,
     0.42073550820, 0.877582550048, 0.229848861694,
     - 0.789965629577, 0.229848861694, 0.56843978166
   ]);
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.44602233171, - 0.42073550820, 0.789965629577,
     0.42073550820, 0.877582550048, 0.229848861694,
@@ -2115,20 +2115,20 @@ function toMatrix2( test )
   ]);
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler ZXZ - Matrix -> Euler -> Matrix'; /**/
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.568439841270, - 0.78996562957, 0.22984884679,
     0.789965629577, 0.44602236151, - 0.4207354784,
     0.229848867931, 0.4207354784, 0.877582550048
   ]);
   var dstEuler = [ 0, 0, 0, 2, 0, 2 ] ;
-  var expected = _.Matrix.make( [ 3, 3 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.568439841270, - 0.78996562957, 0.22984884679,
     0.789965629577, 0.44602236151, - 0.4207354784,
@@ -2136,20 +2136,20 @@ function toMatrix2( test )
   ]);
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   test.case = 'Euler ZYZ - Matrix -> Euler -> Matrix'; /**/
 
-  var srcMatrix = _.Matrix.make( [ 3, 3 ] ).copy
+  var srcMatrix = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.44602233171, - 0.789965629577, 0.42073550820,
     0.789965629577, 0.56843978166, 0.229848861694,
     - 0.42073550820, 0.229848861694, 0.877582550048
   ]);
   var dstEuler =  [ 0, 0, 0, 2, 1, 2 ];
-  var expected =  _.Matrix.make( [ 3, 3 ] ).copy
+  var expected =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0.44602233171, - 0.789965629577, 0.42073550820,
     0.789965629577, 0.56843978166, 0.229848861694,
@@ -2157,13 +2157,13 @@ function toMatrix2( test )
   ]);
 
   var gotEuler = _.euler.fromMatrix2( dstEuler, srcMatrix );
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var gotMatrix = _.euler.toMatrix2( gotEuler, dstMatrix );
   test.equivalent( gotMatrix, expected );
 
   /* */
 
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
 
   if( !Config.debug )
   return;
@@ -2174,7 +2174,7 @@ function toMatrix2( test )
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ], dstMatrix, dstMatrix ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0.1, 0, 0, 1, 2, 0, 0 ], dstMatrix ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0.1, 0, 1, 1, 2, 3 ], dstMatrix ) );
-  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ], _.Matrix.makeZero( [ 4, 4 ] ) ) );
+  test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0, 1, 0, 1, 2 ], _.Matrix.MakeZero( [ 4, 4 ] ) ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( [ 0, 0.2, 0, 1, 2, 0 ], [ 0, 0.2, 0, 1, 2, 0 ] ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( NaN, dstMatrix ) );
   test.shouldThrowErrorSync( () => _.euler.toMatrix2( 'euler', dstMatrix ) );
@@ -2191,7 +2191,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, Math.PI/2, 0, 0, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ - 0.1, Math.PI/2, 0, 0, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2203,7 +2203,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, - Math.PI/2, 0, 0, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, - Math.PI/2, 0, 0, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2215,7 +2215,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, Math.PI/2, 0, 0, 2, 1 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, Math.PI/2, 0, 0, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2227,7 +2227,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, - Math.PI/2, 0, 0, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2239,7 +2239,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, Math.PI/2, 0, 1, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, Math.PI/2, 0, 1, 0, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2251,7 +2251,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ - 0.1, - Math.PI/2, 0, 1, 0, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2263,7 +2263,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, Math.PI/2, 0, 1, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ - 0.1, Math.PI/2, 0, 1, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2275,7 +2275,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ - 0.1, - Math.PI/2, 0, 1, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2287,7 +2287,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, Math.PI/2, 0, 2, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = [ - 0.1, Math.PI/2, 0, 2, 0, 1 ] ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2299,7 +2299,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ - 0.1, - Math.PI/2, 0, 2, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = [ - 0.1, - Math.PI/2, 0, 2, 0, 1 ] ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2311,7 +2311,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler =  [ - 0.1, Math.PI/2, 0, 2, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ - 0.1, Math.PI/2, 0, 2, 1, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2323,7 +2323,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler =  [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ - 0.1, - Math.PI/2, 0, 2, 1, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2335,7 +2335,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, 0, 0, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 0, 1, 0 ] ); ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2347,7 +2347,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, Math.PI, 0, 0, 1, 0 ];
   var dstEuler = [ 0, 0, 0, 0, 1, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 0, 1, 0 ] ); ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2359,7 +2359,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, 0, 0, 0, 2, 0 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 0, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2371,7 +2371,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, Math.PI, 0, 0, 2, 0 ] ;
   var dstEuler = [ 0, 0, 0, 0, 2, 0 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 0, 2, 0 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2383,7 +2383,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, 0, 0, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 1, 0, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2395,7 +2395,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, Math.PI, 0, 1, 0, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 0, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 1, 0, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2407,7 +2407,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, 0, 0, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 1, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2419,7 +2419,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.2, Math.PI, 0, 1, 2, 1 ];
   var dstEuler = [ 0, 0, 0, 1, 2, 1 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.2, Math.PI, 0, 1, 2, 1 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2431,7 +2431,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.2, 0, 0, 2, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = [ 0.2, 0, 0, 2, 0, 2 ] ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2443,7 +2443,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler = [ 0.1, Math.PI, 0, 2, 0, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 0, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = [ 0.1, Math.PI, 0, 2, 0, 2 ] ;
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2455,7 +2455,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, 0, 0, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, 0, 0, 2, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2467,7 +2467,7 @@ function eulerToRotationMatrixToEulerGimbalLock( test )
 
   var srcEuler =  [ 0.1, Math.PI, 0, 2, 1, 2 ];
   var dstEuler = [ 0, 0, 0, 2, 1, 2 ];
-  var dstMatrix = _.Matrix.makeZero( [ 3, 3 ] );
+  var dstMatrix = _.Matrix.MakeZero( [ 3, 3 ] );
   var expected = _.euler.tools.longMake( [ 0.1, Math.PI, 0, 2, 1, 2 ] );
 
   var gotMatrix = _.euler.toMatrix2( srcEuler, dstMatrix );
@@ -2602,7 +2602,7 @@ function eulerToQuatToMatrixToQuatSlow( test )
   var accuracySqr = test.accuracy*test.accuracy;
   var accuracySqrt = Math.sqrt( test.accuracy );
   var euler1 = _.euler.make();
-  var matrix1 = _.Matrix.makeZero( [ 3, 3 ] );
+  var matrix1 = _.Matrix.MakeZero( [ 3, 3 ] );
   var quat1 = _.quat.make();
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();
@@ -2663,7 +2663,7 @@ function eulerToQuatToMatrixToEulerSlow( test )
   var accuracySqrt = Math.sqrt( test.accuracy );
   var euler1 = _.euler.make();
   var euler2 = _.euler.make();
-  var matrix1 = _.Matrix.makeZero( [ 3, 3 ] );
+  var matrix1 = _.Matrix.MakeZero( [ 3, 3 ] );
   var quat1 = _.quat.make();
   var quat2 = _.quat.make();
   var quat2b = _.quat.make();

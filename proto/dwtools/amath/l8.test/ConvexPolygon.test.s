@@ -42,7 +42,7 @@ function make( test )
 
   var gotPolygon = _.convexPolygon.make( dim, vertices );
 
-  var expected = _.Matrix.make( [ 3, 8 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -63,7 +63,7 @@ function make( test )
 
   var gotPolygon = _.convexPolygon.make( dim, vertices );
 
-  var expected = _.Matrix.make( [ 2, 3 ] ).copy
+  var expected = _.Matrix.Make( [ 2, 3 ] ).copy
   ([
     0, 0, 0,
     0, 0, 0
@@ -77,7 +77,7 @@ function make( test )
 
   var gotPolygon = _.convexPolygon.make( dim, vertices );
 
-  var expected = _.Matrix.make( [ 3, 4 ] ).copy
+  var expected = _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0, 0, 0, 0,
     0, 0, 0, 0,
@@ -92,7 +92,7 @@ function make( test )
 
   var gotPolygon = _.convexPolygon.make( dim, vertices );
 
-  var expected = _.Matrix.make( [ 2, 5 ] ).copy
+  var expected = _.Matrix.Make( [ 2, 5 ] ).copy
   ([
     0, 0, 0, 0, 0,
     0, 0, 0, 0, 0
@@ -196,7 +196,7 @@ function isPolygon( test )
 
   test.case = 'Dim < 2'; //
 
-  var polygon = _.Matrix.make( [ 1, 5 ] ).copy
+  var polygon = _.Matrix.Make( [ 1, 5 ] ).copy
   ([
     1, 0, 0, 0, 2
   ]);
@@ -208,7 +208,7 @@ function isPolygon( test )
 
   test.case = 'Dim > 3'; //
 
-  var polygon = _.Matrix.make( [ 4, 5 ] ).copy
+  var polygon = _.Matrix.Make( [ 4, 5 ] ).copy
   ([
     1, 0, 0, 0, 2,
     1, 0, 0, 0, 2,
@@ -223,7 +223,7 @@ function isPolygon( test )
 
   test.case = 'Vertices < 3'; //
 
-  var polygon = _.Matrix.make( [ 2, 2 ] ).copy
+  var polygon = _.Matrix.Make( [ 2, 2 ] ).copy
   ([
     1, 0,
     0, 1
@@ -267,7 +267,7 @@ function isPolygon( test )
   if( !Config.debug )
   return;
 
-  var polygon = _.Matrix.make( [ 3, 3 ] );
+  var polygon = _.Matrix.Make( [ 3, 3 ] );
   test.shouldThrowErrorSync( () => _.convexPolygon.isPolygon( ));
   test.shouldThrowErrorSync( () => _.convexPolygon.isPolygon( polygon, polygon ));
   test.shouldThrowErrorSync( () => _.convexPolygon.isPolygon( null ));
@@ -365,7 +365,7 @@ function is( test )
 
   test.case = 'Wrong dim and vertices'; //
 
-  var polygon = _.Matrix.make( [ 1, 2 ] ).copy
+  var polygon = _.Matrix.Make( [ 1, 2 ] ).copy
   ([
     1, 0
   ]);
@@ -682,7 +682,7 @@ function angleThreePoints( test )
   if( !Config.debug )
   return;
 
-  var polygon = _.Matrix.make( [ 3, 3 ] );
+  var polygon = _.Matrix.Make( [ 3, 3 ] );
   test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( ));
   test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( [ 1, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( [ 1, 0, 0 ], [ 1, 0, 0 ] ));
@@ -994,7 +994,7 @@ function pointContains( test )
   // ]);
   // test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1, 0 ] ));
 
-  // var polygon = _.Matrix.make( [ 1, 2 ] );
+  // var polygon = _.Matrix.Make( [ 1, 2 ] );
   // test.shouldThrowErrorSync( () => _.convexPolygon.pointContains( polygon, [ 1 ] ));
 }
 
@@ -1293,7 +1293,7 @@ function pointDistance( test )
   ]);
   test.shouldThrowErrorSync( () => _.convexPolygon.pointDistance( polygon, [ 1, 0 ] ));
 
-  var polygon = _.Matrix.make( [ 1, 2 ] );
+  var polygon = _.Matrix.Make( [ 1, 2 ] );
   test.shouldThrowErrorSync( () => _.convexPolygon.pointDistance( polygon, [ 1 ] ));
 }
 
@@ -1592,7 +1592,7 @@ function pointDistanceSqr( test )
   ]);
   test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( polygon, [ 1, 0 ] ));
 
-  var polygon = _.Matrix.make( [ 1, 2 ] );
+  var polygon = _.Matrix.Make( [ 1, 2 ] );
   test.shouldThrowErrorSync( () => _.convexPolygon.pointDistanceSqr( polygon, [ 1 ] ));
 }
 
@@ -1928,7 +1928,7 @@ function pointClosestPoint( test )
   ]);
   test.shouldThrowErrorSync( () => _.convexPolygon.pointClosestPoint( polygon, [ 1, 0 ] ));
 
-  var polygon = _.Matrix.make( [ 1, 2 ] )
+  var polygon = _.Matrix.Make( [ 1, 2 ] )
   test.shouldThrowErrorSync( () => _.convexPolygon.pointClosestPoint( polygon, [ 1 ] ));
 }
 
@@ -1960,7 +1960,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -1975,7 +1975,7 @@ function boxIntersects( test )
   var oldBox = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( box, oldBox );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -1987,7 +1987,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2000,7 +2000,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box intersect, box bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2013,7 +2013,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box intersect, box smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2026,7 +2026,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2039,7 +2039,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2052,7 +2052,7 @@ function boxIntersects( test )
 
   test.description = 'polygon in box edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -2065,7 +2065,7 @@ function boxIntersects( test )
 
   test.description = 'polygon in box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -2080,7 +2080,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2094,7 +2094,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box intersect, box bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2108,7 +2108,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box intersect, box smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2122,7 +2122,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2136,7 +2136,7 @@ function boxIntersects( test )
 
   test.description = 'Polygon and box almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2150,7 +2150,7 @@ function boxIntersects( test )
 
   test.description = 'polygon in box side'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2164,7 +2164,7 @@ function boxIntersects( test )
 
   test.description = 'polygon in box edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -2178,7 +2178,7 @@ function boxIntersects( test )
 
   test.description = 'polygon in box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -2195,7 +2195,7 @@ function boxIntersects( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -2228,7 +2228,7 @@ function boxDistance( test )
 
   test.description = 'Polygon and box remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2243,7 +2243,7 @@ function boxDistance( test )
   var oldBox = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( box, oldBox );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2255,7 +2255,7 @@ function boxDistance( test )
 
   test.description = 'Polygon and box intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2268,7 +2268,7 @@ function boxDistance( test )
 
   test.description = 'Polygon and box not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2281,7 +2281,7 @@ function boxDistance( test )
 
   test.description = 'Polygon and box almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2294,7 +2294,7 @@ function boxDistance( test )
 
   test.description = 'polygon vertex next to box edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -2307,7 +2307,7 @@ function boxDistance( test )
 
   test.description = 'polygon edge next to box edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -2320,7 +2320,7 @@ function boxDistance( test )
 
   test.description = 'polygon vertex next to box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -2333,7 +2333,7 @@ function boxDistance( test )
 
   test.description = 'polygon edge next to box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2348,7 +2348,7 @@ function boxDistance( test )
 
   test.description = 'Polygon and box intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2362,7 +2362,7 @@ function boxDistance( test )
 
   test.description = 'Polygon and box not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2376,7 +2376,7 @@ function boxDistance( test )
 
   test.description = 'Polygon and box almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2390,7 +2390,7 @@ function boxDistance( test )
 
   test.description = 'polygon vertex next to box side'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -2404,7 +2404,7 @@ function boxDistance( test )
 
   test.description = 'polygon edge next to box side'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     1,   1,   0,
    -1,   1,   0,
@@ -2418,7 +2418,7 @@ function boxDistance( test )
 
   test.description = 'polygon vertex next to box edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -2432,7 +2432,7 @@ function boxDistance( test )
 
   test.description = 'polygon edge next to box edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -2446,7 +2446,7 @@ function boxDistance( test )
 
   test.description = 'polygon vertex next to box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 5 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 5 ] ).copy
   ([
     2,   3,   4,   3,   2,
     2,   3,   4,   4,   3,
@@ -2460,7 +2460,7 @@ function boxDistance( test )
 
   test.description = 'polygon vertex next to box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -2477,7 +2477,7 @@ function boxDistance( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -2511,7 +2511,7 @@ function boxClosestPoint( test )
 
   test.description = 'Polygon and box remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2526,7 +2526,7 @@ function boxClosestPoint( test )
   var oldBox = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( box, oldBox );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2538,7 +2538,7 @@ function boxClosestPoint( test )
 
   test.description = 'Polygon and box intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2551,7 +2551,7 @@ function boxClosestPoint( test )
 
   test.description = 'Polygon and box not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2564,7 +2564,7 @@ function boxClosestPoint( test )
 
   test.description = 'Polygon and box almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2577,7 +2577,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon vertex next to box edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -2590,7 +2590,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon edge next to box edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -2603,7 +2603,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon vertex next to box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -2616,7 +2616,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon edge next to box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2631,7 +2631,7 @@ function boxClosestPoint( test )
 
   test.description = 'Polygon and box intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2645,7 +2645,7 @@ function boxClosestPoint( test )
 
   test.description = 'Polygon and box not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2659,7 +2659,7 @@ function boxClosestPoint( test )
 
   test.description = 'Polygon and box almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2673,7 +2673,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon vertex next to box side'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -2687,7 +2687,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon edge next to box side'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     1,   1,   0,
    -1,   1,   0,
@@ -2701,7 +2701,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon vertex next to box edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -2715,7 +2715,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon edge next to box edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -2729,7 +2729,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon vertex next to box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 5 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 5 ] ).copy
   ([
     2,   3,   4,   3,   2,
     2,   3,   4,   4,   3,
@@ -2743,7 +2743,7 @@ function boxClosestPoint( test )
 
   test.description = 'polygon edge next to box vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -2760,7 +2760,7 @@ function boxClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -2793,7 +2793,7 @@ function boundingBoxGet( test )
 
   test.case = 'Source polygon remains unchanged'; /* */
 
-  var srcPolygon = _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,   1,   1,
       0,   0,   1,   1,
@@ -2806,7 +2806,7 @@ function boundingBoxGet( test )
   test.identical( expected, gotBox );
   test.is( dstBox === gotBox );
 
-  var oldSrcPolygon = _.Matrix.make( [ 3, 4 ] ).copy
+  var oldSrcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,   1,   1,
       0,   0,   1,   1,
@@ -2816,7 +2816,7 @@ function boundingBoxGet( test )
 
   test.case = 'Polygon inside box'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,   3,   3,
       0,   0,   2,   2,
@@ -2830,7 +2830,7 @@ function boundingBoxGet( test )
 
   test.case = 'Polygon outside Box'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       3,   3,   3,   3,
       5,   3,   3,   5,
@@ -2844,7 +2844,7 @@ function boundingBoxGet( test )
 
   test.case = 'Negative polygon values'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0, - 1, - 1,
       0,   0, - 1, - 1,
@@ -2858,7 +2858,7 @@ function boundingBoxGet( test )
 
   test.case = '2D'; //
 
-  var srcPolygon = _.Matrix.make( [ 2, 4 ] ).copy
+  var srcPolygon = _.Matrix.Make( [ 2, 4 ] ).copy
     ([
       3,   6,   -1,   1,
       -2,   0,   7,   1
@@ -2871,7 +2871,7 @@ function boundingBoxGet( test )
 
   test.case = 'dstBox vector'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,   2,   2,
       0,   2,   2,   0,
@@ -2885,7 +2885,7 @@ function boundingBoxGet( test )
 
   test.case = 'dstBox null'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,  -2,  -2,
       0,   0,  -2,  -2,
@@ -2899,7 +2899,7 @@ function boundingBoxGet( test )
 
   test.case = 'dstBox undefined'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 3 ] ).copy
     ([
       0,   0,   1,
       1,   1,   3,
@@ -2916,7 +2916,7 @@ function boundingBoxGet( test )
   if( !Config.debug )
   return;
 
-  var srcPolygon = _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0,  -1,   0,
@@ -2942,7 +2942,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2957,7 +2957,7 @@ function capsuleIntersects( test )
   var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -2969,7 +2969,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2982,7 +2982,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule intersect, capsule bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -2995,7 +2995,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule intersect, capsule smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3008,7 +3008,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3021,7 +3021,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3034,7 +3034,7 @@ function capsuleIntersects( test )
 
   test.description = 'capsule is polygon´s edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -3047,7 +3047,7 @@ function capsuleIntersects( test )
 
   test.description = 'polygon in capsule vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -3062,7 +3062,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3076,7 +3076,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule intersect, capsule bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3090,7 +3090,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule intersect, capsule smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3104,7 +3104,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3118,7 +3118,7 @@ function capsuleIntersects( test )
 
   test.description = 'Polygon and capsule almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3132,7 +3132,7 @@ function capsuleIntersects( test )
 
   test.description = 'polygon in capsule side'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     1,   3,   2,
     1,   1,   2,
@@ -3146,7 +3146,7 @@ function capsuleIntersects( test )
 
   test.description = 'polygon in capsule vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -3163,7 +3163,7 @@ function capsuleIntersects( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -3198,7 +3198,7 @@ function capsuleDistance( test )
 
   test.description = 'Polygon and capsule remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3213,7 +3213,7 @@ function capsuleDistance( test )
   var oldCapsule = [ 1, 1, 1, 3, 3, 3, 0.5 ];
   test.identical( capsule, oldCapsule );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3225,7 +3225,7 @@ function capsuleDistance( test )
 
   test.description = 'Polygon and capsule intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3238,7 +3238,7 @@ function capsuleDistance( test )
 
   test.description = 'Polygon and capsule not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3251,7 +3251,7 @@ function capsuleDistance( test )
 
   test.description = 'Polygon and capsule almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3264,7 +3264,7 @@ function capsuleDistance( test )
 
   test.description = 'polygon vertex next to capsule origin'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -3277,7 +3277,7 @@ function capsuleDistance( test )
 
   test.description = 'polygon edge next to capsule end'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -3290,7 +3290,7 @@ function capsuleDistance( test )
 
   test.description = 'polygon vertex next to capsule'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -3303,7 +3303,7 @@ function capsuleDistance( test )
 
   test.description = 'polygon edge next to capsule'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3318,7 +3318,7 @@ function capsuleDistance( test )
 
   test.description = 'Polygon and capsule intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3332,7 +3332,7 @@ function capsuleDistance( test )
 
   test.description = 'Polygon and capsule not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3346,7 +3346,7 @@ function capsuleDistance( test )
 
   test.description = 'Polygon and capsule almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3360,7 +3360,7 @@ function capsuleDistance( test )
 
   test.description = 'polygon vertex next to capsule'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -3374,7 +3374,7 @@ function capsuleDistance( test )
 
   test.description = 'polygon edge next to capsule origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -3388,7 +3388,7 @@ function capsuleDistance( test )
 
   test.description = 'polygon vertex next to capsule end'; //
 
-  var polygon =  _.Matrix.make( [ 3, 5 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 5 ] ).copy
   ([
     2,   3,   4,   3,   2,
     2,   3,   4,   4,   3,
@@ -3402,7 +3402,7 @@ function capsuleDistance( test )
 
   test.description = 'polygon edge next to capsule'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -3416,7 +3416,7 @@ function capsuleDistance( test )
 
   test.description = 'polygon vertex next to capsule'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -3433,7 +3433,7 @@ function capsuleDistance( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -3468,7 +3468,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'Polygon and capsule remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3483,7 +3483,7 @@ function capsuleClosestPoint( test )
   var oldCapsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3495,7 +3495,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'Polygon and capsule intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3508,7 +3508,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'Polygon and capsule not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3521,7 +3521,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'Polygon and capsule almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3534,7 +3534,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'polygon vertex next to capsule origin'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -3547,7 +3547,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'polygon edge next to capsule end'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -3560,7 +3560,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'polygon vertex next to capsule'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -3573,7 +3573,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'polygon edge next to capsule'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3588,7 +3588,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'Polygon and capsule intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3602,7 +3602,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'Polygon and capsule not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3616,7 +3616,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'Polygon and capsule almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3630,7 +3630,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'polygon vertex next to capsule origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -3644,7 +3644,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'polygon edge next to capsule end'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     1,   1,   0,
    -1,   1,   0,
@@ -3658,7 +3658,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'polygon vertex next to capsule'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -3672,7 +3672,7 @@ function capsuleClosestPoint( test )
 
   test.description = 'polygon edge next to capsule'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -3689,7 +3689,7 @@ function capsuleClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -3724,13 +3724,13 @@ function frustumIntersects( test )
 
   test.description = 'Polygon and frustum remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0,  -1,   0,
     0,   1,   0, - 1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3742,7 +3742,7 @@ function frustumIntersects( test )
   var gotBool = _.convexPolygon.frustumIntersects( polygon, frustum );
   test.identical( gotBool, expected );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0,  -1,   0,
@@ -3750,7 +3750,7 @@ function frustumIntersects( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  var oldFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3761,13 +3761,13 @@ function frustumIntersects( test )
 
   test.description = 'Polygon and frustum intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     0,   1,   2,   0,
     0,   1,   3,   2
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3781,13 +3781,13 @@ function frustumIntersects( test )
 
   test.description = 'Polygon and frustum don´t intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     0,   1,   2,   0,
     0,   1,   3,   2
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3801,13 +3801,13 @@ function frustumIntersects( test )
 
   test.description = 'Polygon and frustum almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3821,13 +3821,13 @@ function frustumIntersects( test )
 
   test.description = 'Polygon and frustum just touching'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3841,13 +3841,13 @@ function frustumIntersects( test )
 
   test.description = 'Polygon and frustum just intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3863,13 +3863,13 @@ function frustumIntersects( test )
 
   if( !Config.debug )
   return;
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3886,7 +3886,7 @@ function frustumIntersects( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( [], frustum ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon, [] ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon, _.frustum.make() ));
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
@@ -3902,13 +3902,13 @@ function frustumDistance( test )
 
   test.description = 'Polygon and frustum remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0,  -1,   0,
     0,   1,   0, - 1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3920,7 +3920,7 @@ function frustumDistance( test )
   var gotBool = _.convexPolygon.frustumDistance( polygon, frustum );
   test.identical( gotBool, expected );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0,  -1,   0,
@@ -3928,7 +3928,7 @@ function frustumDistance( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  var oldFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3939,13 +3939,13 @@ function frustumDistance( test )
 
   test.description = 'Polygon and frustum intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     0,   1,   2,   0,
     0,   1,   3,   2
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3959,13 +3959,13 @@ function frustumDistance( test )
 
   test.description = 'Polygon and frustum don´t intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     0,   1,   2,   0,
     0,   1,   3,   2
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3979,13 +3979,13 @@ function frustumDistance( test )
 
   test.description = 'Polygon and frustum almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -3999,13 +3999,13 @@ function frustumDistance( test )
 
   test.description = 'Polygon and frustum just touching'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4019,13 +4019,13 @@ function frustumDistance( test )
 
   test.description = 'Polygon and frustum just intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4039,13 +4039,13 @@ function frustumDistance( test )
 
   test.description = 'Polygon vertex next to frustum'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -0.9,   0,   0.9,   0,
     -0.8,   0,   0.8,   0,
     0.7,   1,   0.7,   0
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4059,13 +4059,13 @@ function frustumDistance( test )
 
   test.description = 'Polygon side next to frustum'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,    -2,  -1,
     0,   0,    -2,  -1,
     0,   3,     2,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4081,13 +4081,13 @@ function frustumDistance( test )
 
   if( !Config.debug )
   return;
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4104,7 +4104,7 @@ function frustumDistance( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( [], frustum ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon, [] ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon, _.frustum.make() ));
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
@@ -4120,13 +4120,13 @@ function frustumClosestPoint( test )
 
   test.description = 'Polygon and frustum remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0,  -1,   0,
     0,   1,   0, - 1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4138,7 +4138,7 @@ function frustumClosestPoint( test )
   var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum );
   test.identical( gotBool, expected );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0,  -1,   0,
@@ -4146,7 +4146,7 @@ function frustumClosestPoint( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  var oldFrustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4157,13 +4157,13 @@ function frustumClosestPoint( test )
 
   test.description = 'Polygon and frustum intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     0,   1,   2,   0,
     0,   1,   3,   2
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4177,13 +4177,13 @@ function frustumClosestPoint( test )
 
   test.description = 'Polygon and frustum don´t intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     0,   1,   2,   0,
     0,   1,   3,   2
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4197,13 +4197,13 @@ function frustumClosestPoint( test )
 
   test.description = 'Polygon and frustum almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4217,13 +4217,13 @@ function frustumClosestPoint( test )
 
   test.description = 'Polygon and frustum just touching'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4237,13 +4237,13 @@ function frustumClosestPoint( test )
 
   test.description = 'Polygon and frustum just intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4257,13 +4257,13 @@ function frustumClosestPoint( test )
 
   test.description = 'Polygon vertex next to frustum'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -0.9,   0,   0.9,   0,
     -0.8,   0,   0.8,   0,
     0.7,   1,   0.7,   0
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4277,13 +4277,13 @@ function frustumClosestPoint( test )
 
   test.description = 'Polygon side next to frustum'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,    -2,  -1,
     0,   0,    -2,  -1,
     0,   3,     2,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4297,13 +4297,13 @@ function frustumClosestPoint( test )
 
   test.description = 'dstPoint is vector'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   1,     1,   0,
     0,   0,     2,   4,
     4,   3,     4,   6
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4319,13 +4319,13 @@ function frustumClosestPoint( test )
 
   if( !Config.debug )
   return;
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
     0,   1,   1,   1
   ]);
-  var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+  var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
@@ -4342,7 +4342,7 @@ function frustumClosestPoint( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( [], frustum ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon, [] ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon, _.frustum.make() ));
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   2,   1,   0,
     0,   0,   1,   2,
@@ -4358,7 +4358,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4373,7 +4373,7 @@ function lineIntersects( test )
   var oldLine = [ 1, 1, 1, 1, 1, 1 ];
   test.identical( line, oldLine );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4385,7 +4385,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4398,7 +4398,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line intersect, positive factor'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4411,7 +4411,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line intersect, negative factor'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4424,7 +4424,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4437,7 +4437,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4450,7 +4450,7 @@ function lineIntersects( test )
 
   test.description = 'line is polygon´s edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -4463,7 +4463,7 @@ function lineIntersects( test )
 
   test.description = 'polygon in line vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -4478,7 +4478,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4492,7 +4492,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line intersect, positive factor'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4506,7 +4506,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line intersect, negative factor'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4520,7 +4520,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4534,7 +4534,7 @@ function lineIntersects( test )
 
   test.description = 'Polygon and line almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4548,7 +4548,7 @@ function lineIntersects( test )
 
   test.description = 'line in polygon edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4562,7 +4562,7 @@ function lineIntersects( test )
 
   test.description = 'line in polygon vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -4579,7 +4579,7 @@ function lineIntersects( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -4612,7 +4612,7 @@ function lineDistance( test )
 
   test.description = 'Polygon and line remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4627,7 +4627,7 @@ function lineDistance( test )
   var oldLine = [ 1, 1, 1, 0, 1, 0 ];
   test.identical( line, oldLine );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4639,7 +4639,7 @@ function lineDistance( test )
 
   test.description = 'Polygon and line intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4652,7 +4652,7 @@ function lineDistance( test )
 
   test.description = 'Polygon and line not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4665,7 +4665,7 @@ function lineDistance( test )
 
   test.description = 'Polygon and line almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4678,7 +4678,7 @@ function lineDistance( test )
 
   test.description = 'polygon vertex next to line origin'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -4694,7 +4694,7 @@ function lineDistance( test )
 
   test.description = 'polygon vertex next to line'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -4707,7 +4707,7 @@ function lineDistance( test )
 
   test.description = 'polygon edge next to line'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4722,7 +4722,7 @@ function lineDistance( test )
 
   test.description = 'Polygon and line intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4736,7 +4736,7 @@ function lineDistance( test )
 
   test.description = 'Polygon and line not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4750,7 +4750,7 @@ function lineDistance( test )
 
   test.description = 'Polygon and line almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4764,7 +4764,7 @@ function lineDistance( test )
 
   test.description = 'polygon vertex next to line origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -4778,7 +4778,7 @@ function lineDistance( test )
 
   test.description = 'polygon edge next to line origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -4792,7 +4792,7 @@ function lineDistance( test )
 
   test.description = 'polygon edge next to line'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -4806,7 +4806,7 @@ function lineDistance( test )
 
   test.description = 'polygon vertex next to line'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -4823,7 +4823,7 @@ function lineDistance( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -4856,7 +4856,7 @@ function lineClosestPoint( test )
 
   test.description = 'Polygon and line remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4871,7 +4871,7 @@ function lineClosestPoint( test )
   var oldLine = [ 1, 1, 1, 0, 1, 0 ];
   test.identical( line, oldLine );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4883,7 +4883,7 @@ function lineClosestPoint( test )
 
   test.description = 'Polygon and line intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4896,7 +4896,7 @@ function lineClosestPoint( test )
 
   test.description = 'Polygon and line not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4909,7 +4909,7 @@ function lineClosestPoint( test )
 
   test.description = 'Polygon and line almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4922,7 +4922,7 @@ function lineClosestPoint( test )
 
   test.description = 'polygon vertex next to line origin'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -4935,7 +4935,7 @@ function lineClosestPoint( test )
 
   test.description = 'polygon vertex next to line'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -4948,7 +4948,7 @@ function lineClosestPoint( test )
 
   test.description = 'polygon edge next to line'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -4963,7 +4963,7 @@ function lineClosestPoint( test )
 
   test.description = 'Polygon and line intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4977,7 +4977,7 @@ function lineClosestPoint( test )
 
   test.description = 'Polygon and line not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -4991,7 +4991,7 @@ function lineClosestPoint( test )
 
   test.description = 'Polygon and line almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5005,7 +5005,7 @@ function lineClosestPoint( test )
 
   test.description = 'polygon vertex next to line origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -5019,7 +5019,7 @@ function lineClosestPoint( test )
 
   test.description = 'polygon vertex next to line'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -5033,7 +5033,7 @@ function lineClosestPoint( test )
 
   test.description = 'polygon edge next to line'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -5050,7 +5050,7 @@ function lineClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -5083,7 +5083,7 @@ function planeIntersects( test )
 
   test.description = 'Polygon and plane remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5098,7 +5098,7 @@ function planeIntersects( test )
   var oldPlane = [ 1, 0, 0, 3 ];
   test.identical( plane, oldPlane );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5108,7 +5108,7 @@ function planeIntersects( test )
 
   test.description = 'Polygon and plane intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5122,7 +5122,7 @@ function planeIntersects( test )
 
   test.description = 'Polygon in plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5136,7 +5136,7 @@ function planeIntersects( test )
 
   test.description = 'Polygon and plane don´t intersect, parallel'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5150,7 +5150,7 @@ function planeIntersects( test )
 
   test.description = 'Polygon and plane don´t intersect, perpendicular'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5164,7 +5164,7 @@ function planeIntersects( test )
 
   test.description = 'Polygon and plane almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5178,7 +5178,7 @@ function planeIntersects( test )
 
   test.description = 'Polygon vertex in plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5192,7 +5192,7 @@ function planeIntersects( test )
 
   test.description = 'Polygon edge in plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5209,7 +5209,7 @@ function planeIntersects( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -5240,7 +5240,7 @@ function planeDistance( test )
 
   test.description = 'Polygon and plane remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5255,7 +5255,7 @@ function planeDistance( test )
   var oldPlane = [ 1, 0, 0, 3 ];
   test.identical( plane, oldPlane );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5265,7 +5265,7 @@ function planeDistance( test )
 
   test.description = 'Polygon and plane intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5279,7 +5279,7 @@ function planeDistance( test )
 
   test.description = 'Polygon in plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5293,7 +5293,7 @@ function planeDistance( test )
 
   test.description = 'Polygon and plane don´t intersect, parallel'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5307,7 +5307,7 @@ function planeDistance( test )
 
   test.description = 'Polygon and plane don´t intersect, perpendicular'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5321,7 +5321,7 @@ function planeDistance( test )
 
   test.description = 'Polygon and plane almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5335,7 +5335,7 @@ function planeDistance( test )
 
   test.description = 'Polygon vertex in plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5349,7 +5349,7 @@ function planeDistance( test )
 
   test.description = 'Polygon vertex next to the plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5363,7 +5363,7 @@ function planeDistance( test )
 
   test.description = 'Polygon edge in plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5377,7 +5377,7 @@ function planeDistance( test )
 
   test.description = 'Polygon edge next to the plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5394,7 +5394,7 @@ function planeDistance( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -5425,7 +5425,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon and plane remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5440,7 +5440,7 @@ function planeClosestPoint( test )
   var oldPlane = [ 1, 0, 0, 3 ];
   test.identical( plane, oldPlane );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5450,7 +5450,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon and plane intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5464,7 +5464,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon in plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5478,7 +5478,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon and plane don´t intersect, parallel'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5492,7 +5492,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon and plane don´t intersect, perpendicular'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5506,7 +5506,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon and plane almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5520,7 +5520,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon vertex in plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5534,7 +5534,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon vertex next to the plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5548,7 +5548,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon edge in plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5562,7 +5562,7 @@ function planeClosestPoint( test )
 
   test.description = 'Polygon edge next to the plane'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5579,7 +5579,7 @@ function planeClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -5610,7 +5610,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5625,7 +5625,7 @@ function rayIntersects( test )
   var oldRay = [ 1, 1, 1, 1, 1, 1 ];
   test.identical( ray, oldRay );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5637,7 +5637,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5650,7 +5650,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray intersect, positive factor'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5663,7 +5663,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray don´t intersect, negative factor'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5676,7 +5676,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5689,7 +5689,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5702,7 +5702,7 @@ function rayIntersects( test )
 
   test.description = 'ray is polygon´s edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -5715,7 +5715,7 @@ function rayIntersects( test )
 
   test.description = 'polygon in ray vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -5730,7 +5730,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5744,7 +5744,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray intersect, positive factor'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5758,7 +5758,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray don´t intersect, negative factor'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5772,7 +5772,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5786,7 +5786,7 @@ function rayIntersects( test )
 
   test.description = 'Polygon and ray almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5800,7 +5800,7 @@ function rayIntersects( test )
 
   test.description = 'ray in polygon edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5814,7 +5814,7 @@ function rayIntersects( test )
 
   test.description = 'ray in polygon vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -5831,7 +5831,7 @@ function rayIntersects( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -5864,7 +5864,7 @@ function rayDistance( test )
 
   test.description = 'Polygon and ray remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5879,7 +5879,7 @@ function rayDistance( test )
   var oldRay = [ 1, 1, 1, 0, 1, 0 ];
   test.identical( ray, oldRay );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5891,7 +5891,7 @@ function rayDistance( test )
 
   test.description = 'Polygon and ray intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5904,7 +5904,7 @@ function rayDistance( test )
 
   test.description = 'Polygon and ray not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5917,7 +5917,7 @@ function rayDistance( test )
 
   test.description = 'Polygon and ray almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5930,7 +5930,7 @@ function rayDistance( test )
 
   test.description = 'polygon vertex next to ray origin'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -5946,7 +5946,7 @@ function rayDistance( test )
 
   test.description = 'polygon vertex next to ray'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -5959,7 +5959,7 @@ function rayDistance( test )
 
   test.description = 'polygon edge next to ray'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -5974,7 +5974,7 @@ function rayDistance( test )
 
   test.description = 'Polygon and ray intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -5988,7 +5988,7 @@ function rayDistance( test )
 
   test.description = 'Polygon and ray not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6002,7 +6002,7 @@ function rayDistance( test )
 
   test.description = 'Polygon and ray almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6016,7 +6016,7 @@ function rayDistance( test )
 
   test.description = 'polygon vertex next to ray origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -6030,7 +6030,7 @@ function rayDistance( test )
 
   test.description = 'polygon edge next to ray origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -6044,7 +6044,7 @@ function rayDistance( test )
 
   test.description = 'polygon edge next to ray'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -6058,7 +6058,7 @@ function rayDistance( test )
 
   test.description = 'polygon vertex next to ray'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -6075,7 +6075,7 @@ function rayDistance( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -6108,7 +6108,7 @@ function rayClosestPoint( test )
 
   test.description = 'Polygon and ray remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6123,7 +6123,7 @@ function rayClosestPoint( test )
   var oldRay = [ 1, 1, 1, 0, 1, 0 ];
   test.identical( ray, oldRay );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6135,7 +6135,7 @@ function rayClosestPoint( test )
 
   test.description = 'Polygon and ray intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6148,7 +6148,7 @@ function rayClosestPoint( test )
 
   test.description = 'Polygon and ray not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6161,7 +6161,7 @@ function rayClosestPoint( test )
 
   test.description = 'Polygon and ray almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6174,7 +6174,7 @@ function rayClosestPoint( test )
 
   test.description = 'polygon vertex next to ray origin'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -6187,7 +6187,7 @@ function rayClosestPoint( test )
 
   test.description = 'polygon vertex next to ray'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -6200,7 +6200,7 @@ function rayClosestPoint( test )
 
   test.description = 'polygon edge next to ray'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6215,7 +6215,7 @@ function rayClosestPoint( test )
 
   test.description = 'Polygon and ray intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6229,7 +6229,7 @@ function rayClosestPoint( test )
 
   test.description = 'Polygon and ray not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6243,7 +6243,7 @@ function rayClosestPoint( test )
 
   test.description = 'Polygon and ray almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6257,7 +6257,7 @@ function rayClosestPoint( test )
 
   test.description = 'polygon vertex next to ray origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -6271,7 +6271,7 @@ function rayClosestPoint( test )
 
   test.description = 'polygon vertex next to ray'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -6285,7 +6285,7 @@ function rayClosestPoint( test )
 
   test.description = 'polygon edge next to ray'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -6302,7 +6302,7 @@ function rayClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -6335,7 +6335,7 @@ function segmentContains( test )
 
   test.description = 'Polygon and segment remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6350,7 +6350,7 @@ function segmentContains( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6362,7 +6362,7 @@ function segmentContains( test )
 
   test.description = 'Polygon away from segment'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6375,7 +6375,7 @@ function segmentContains( test )
 
   test.description = 'Polygon and segment intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6388,7 +6388,7 @@ function segmentContains( test )
 
   test.description = 'Polygon contains segment'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6401,7 +6401,7 @@ function segmentContains( test )
 
   test.description = 'Segment in polygon side'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6416,7 +6416,7 @@ function segmentContains( test )
 
   test.description = 'Polygon and segment intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6430,7 +6430,7 @@ function segmentContains( test )
 
   test.description = 'Polygon away from segment'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6444,7 +6444,7 @@ function segmentContains( test )
 
   test.description = 'Polygon contains segment'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6458,7 +6458,7 @@ function segmentContains( test )
 
   test.description = 'Segment is polygon side'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6475,7 +6475,7 @@ function segmentContains( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -6506,7 +6506,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6521,7 +6521,7 @@ function segmentIntersects( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6533,7 +6533,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6546,7 +6546,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment intersect, segment bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6559,7 +6559,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment intersect, segment smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6572,7 +6572,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6585,7 +6585,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6598,7 +6598,7 @@ function segmentIntersects( test )
 
   test.description = 'segment is polygon´s edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -6611,7 +6611,7 @@ function segmentIntersects( test )
 
   test.description = 'polygon in segment vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -6626,7 +6626,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6640,7 +6640,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment intersect, segment bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6654,7 +6654,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment intersect, segment smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6668,7 +6668,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6682,7 +6682,7 @@ function segmentIntersects( test )
 
   test.description = 'Polygon and segment almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6696,7 +6696,7 @@ function segmentIntersects( test )
 
   test.description = 'polygon in segment side'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6710,7 +6710,7 @@ function segmentIntersects( test )
 
   test.description = 'polygon in segment edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -6724,7 +6724,7 @@ function segmentIntersects( test )
 
   test.description = 'polygon in segment vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -6741,7 +6741,7 @@ function segmentIntersects( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -6774,7 +6774,7 @@ function segmentDistance( test )
 
   test.description = 'Polygon and segment remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6789,7 +6789,7 @@ function segmentDistance( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6801,7 +6801,7 @@ function segmentDistance( test )
 
   test.description = 'Polygon and segment intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6814,7 +6814,7 @@ function segmentDistance( test )
 
   test.description = 'Polygon and segment not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6827,7 +6827,7 @@ function segmentDistance( test )
 
   test.description = 'Polygon and segment almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6840,7 +6840,7 @@ function segmentDistance( test )
 
   test.description = 'polygon vertex next to segment origin'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -6853,7 +6853,7 @@ function segmentDistance( test )
 
   test.description = 'polygon edge next to segment end'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -6866,7 +6866,7 @@ function segmentDistance( test )
 
   test.description = 'polygon vertex next to segment'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -6879,7 +6879,7 @@ function segmentDistance( test )
 
   test.description = 'polygon edge next to segment'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -6894,7 +6894,7 @@ function segmentDistance( test )
 
   test.description = 'Polygon and segment intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6908,7 +6908,7 @@ function segmentDistance( test )
 
   test.description = 'Polygon and segment not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6922,7 +6922,7 @@ function segmentDistance( test )
 
   test.description = 'Polygon and segment almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -6936,7 +6936,7 @@ function segmentDistance( test )
 
   test.description = 'polygon vertex next to segment edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -6950,7 +6950,7 @@ function segmentDistance( test )
 
   test.description = 'polygon edge next to segment origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -6964,7 +6964,7 @@ function segmentDistance( test )
 
   test.description = 'polygon vertex next to segment end'; //
 
-  var polygon =  _.Matrix.make( [ 3, 5 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 5 ] ).copy
   ([
     2,   3,   4,   3,   2,
     2,   3,   4,   4,   3,
@@ -6978,7 +6978,7 @@ function segmentDistance( test )
 
   test.description = 'polygon edge next to segment'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -6992,7 +6992,7 @@ function segmentDistance( test )
 
   test.description = 'polygon vertex next to segment'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -7009,7 +7009,7 @@ function segmentDistance( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -7042,7 +7042,7 @@ function segmentClosestPoint( test )
 
   test.description = 'Polygon and segment remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7057,7 +7057,7 @@ function segmentClosestPoint( test )
   var oldSegment = [ 1, 1, 1, 3, 3, 3 ];
   test.identical( segment, oldSegment );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7069,7 +7069,7 @@ function segmentClosestPoint( test )
 
   test.description = 'Polygon and segment intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7082,7 +7082,7 @@ function segmentClosestPoint( test )
 
   test.description = 'Polygon and segment not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7095,7 +7095,7 @@ function segmentClosestPoint( test )
 
   test.description = 'Polygon and segment almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7108,7 +7108,7 @@ function segmentClosestPoint( test )
 
   test.description = 'polygon vertex next to segment origin'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -7121,7 +7121,7 @@ function segmentClosestPoint( test )
 
   test.description = 'polygon edge next to segment end'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -7134,7 +7134,7 @@ function segmentClosestPoint( test )
 
   test.description = 'polygon vertex next to segment'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   0,   1,   1,
     0,   1,   1,   0
@@ -7147,7 +7147,7 @@ function segmentClosestPoint( test )
 
   test.description = 'polygon edge next to segment'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7162,7 +7162,7 @@ function segmentClosestPoint( test )
 
   test.description = 'Polygon and segment intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7176,7 +7176,7 @@ function segmentClosestPoint( test )
 
   test.description = 'Polygon and segment not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7190,7 +7190,7 @@ function segmentClosestPoint( test )
 
   test.description = 'Polygon and segment almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7204,7 +7204,7 @@ function segmentClosestPoint( test )
 
   test.description = 'polygon vertex next to segment origin'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -7218,7 +7218,7 @@ function segmentClosestPoint( test )
 
   test.description = 'polygon edge next to segment end'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     1,   1,   0,
    -1,   1,   0,
@@ -7232,7 +7232,7 @@ function segmentClosestPoint( test )
 
   test.description = 'polygon vertex next to segment'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     2,   3,   3,   2,
     2,   3,   4,   3,
@@ -7246,7 +7246,7 @@ function segmentClosestPoint( test )
 
   test.description = 'polygon edge next to segment'; //
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   1,   1,
     0,   0,   1,
@@ -7263,7 +7263,7 @@ function segmentClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   0,   0,
     0,   3,   4,
@@ -7296,7 +7296,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7311,7 +7311,7 @@ function sphereIntersects( test )
   var oldSphere = [ 1, 1, 1, 3 ];
   test.identical( sphere, oldSphere );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7323,7 +7323,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7336,7 +7336,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7349,7 +7349,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7362,7 +7362,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7375,7 +7375,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7388,7 +7388,7 @@ function sphereIntersects( test )
 
   test.description = 'sphere in polygon´s edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -7401,7 +7401,7 @@ function sphereIntersects( test )
 
   test.description = 'sphere in polygon vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -7416,7 +7416,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7430,7 +7430,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7444,7 +7444,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7458,7 +7458,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7472,7 +7472,7 @@ function sphereIntersects( test )
 
   test.description = 'Polygon and sphere almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7486,7 +7486,7 @@ function sphereIntersects( test )
 
   test.description = 'sphere in polygon edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -7500,7 +7500,7 @@ function sphereIntersects( test )
 
   test.description = 'sphere in polygon vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -7517,7 +7517,7 @@ function sphereIntersects( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -7550,7 +7550,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7565,7 +7565,7 @@ function sphereDistance( test )
   var oldSphere = [ 1, 1, 1, 3 ];
   test.identical( sphere, oldSphere );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7577,7 +7577,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7590,7 +7590,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7603,7 +7603,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7616,7 +7616,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7629,7 +7629,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7642,7 +7642,7 @@ function sphereDistance( test )
 
   test.description = 'sphere next to polygon´s edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -7655,7 +7655,7 @@ function sphereDistance( test )
 
   test.description = 'sphere next to polygon vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -7670,7 +7670,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7684,7 +7684,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7698,7 +7698,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7712,7 +7712,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7726,7 +7726,7 @@ function sphereDistance( test )
 
   test.description = 'Polygon and sphere almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7740,7 +7740,7 @@ function sphereDistance( test )
 
   test.description = 'sphere next to polygon edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -7754,7 +7754,7 @@ function sphereDistance( test )
 
   test.description = 'sphere next to polygon vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -7771,7 +7771,7 @@ function sphereDistance( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -7804,7 +7804,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere remain unchanged'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7819,7 +7819,7 @@ function sphereClosestPoint( test )
   var oldSphere = [ 1, 1, 1, 3 ];
   test.identical( sphere, oldSphere );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7831,7 +7831,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere intersect'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7844,7 +7844,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7857,7 +7857,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7870,7 +7870,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7883,7 +7883,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -7896,7 +7896,7 @@ function sphereClosestPoint( test )
 
   test.description = 'sphere next to polygon´s edge'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -7909,7 +7909,7 @@ function sphereClosestPoint( test )
 
   test.description = 'sphere next to polygon vertex'; //
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   1,   2,   2,
     0,   1,   1,   0
@@ -7924,7 +7924,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere intersect'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7938,7 +7938,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere intersect, sphere bigger than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7952,7 +7952,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere intersect, sphere smaller than polygon'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7966,7 +7966,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere not intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7980,7 +7980,7 @@ function sphereClosestPoint( test )
 
   test.description = 'Polygon and sphere almost intersecting'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -7994,7 +7994,7 @@ function sphereClosestPoint( test )
 
   test.description = 'sphere next to polygon edge'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -8008,7 +8008,7 @@ function sphereClosestPoint( test )
 
   test.description = 'sphere next to polygon vertex'; //
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -8025,7 +8025,7 @@ function sphereClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   1,   2,   2,
     1,   1,   2,   2,
@@ -8058,7 +8058,7 @@ function boundingSphereGet( test )
 
   test.case = 'Source polygon remains unchanged'; /* */
 
-  var srcPolygon = _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,   1,   1,
       0,   0,   1,   1,
@@ -8071,7 +8071,7 @@ function boundingSphereGet( test )
   test.identical( expected, gotSphere );
   test.is( dstSphere === gotSphere );
 
-  var oldSrcPolygon = _.Matrix.make( [ 3, 4 ] ).copy
+  var oldSrcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,   1,   1,
       0,   0,   1,   1,
@@ -8081,7 +8081,7 @@ function boundingSphereGet( test )
 
   test.case = 'Polygon inside sphere'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,   3,   3,
       0,   0,   2,   2,
@@ -8095,7 +8095,7 @@ function boundingSphereGet( test )
 
   test.case = 'Polygon outside Sphere'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       3,   3,   3,   3,
       5,   3,   3,   5,
@@ -8109,7 +8109,7 @@ function boundingSphereGet( test )
 
   test.case = 'Negative polygon values'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0, - 1, - 1,
       0,   0, - 1, - 1,
@@ -8123,7 +8123,7 @@ function boundingSphereGet( test )
 
   test.case = '2D'; //
 
-  var srcPolygon = _.Matrix.make( [ 2, 4 ] ).copy
+  var srcPolygon = _.Matrix.Make( [ 2, 4 ] ).copy
     ([
       3,   6,   -1,   1,
       -2,   0,   7,   1
@@ -8136,7 +8136,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere vector'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,   2,   2,
       0,   2,   2,   0,
@@ -8150,7 +8150,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere null'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
       0,   0,  -2,  -2,
       0,   0,  -2,  -2,
@@ -8164,7 +8164,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere undefined'; /* */
 
-  var srcPolygon =  _.Matrix.make( [ 3, 3 ] ).copy
+  var srcPolygon =  _.Matrix.Make( [ 3, 3 ] ).copy
     ([
       0,   0,   1,
       1,   1,   3,
@@ -8181,7 +8181,7 @@ function boundingSphereGet( test )
   if( !Config.debug )
   return;
 
-  var srcPolygon = _.Matrix.make( [ 3, 4 ] ).copy
+  var srcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0,  -1,   0,

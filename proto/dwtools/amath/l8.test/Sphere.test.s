@@ -3599,7 +3599,7 @@ function convexPolygonContains( test )
   test.case = 'Source sphere and polygon remain unchanged'; /* */
 
   var srcSphere = [ - 1, - 1, -1, 3, ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3613,7 +3613,7 @@ function convexPolygonContains( test )
   var oldSrcSphere = [ - 1, - 1, -1, 3 ];
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3624,7 +3624,7 @@ function convexPolygonContains( test )
   test.case = 'Sphere and polygon intersect'; /* */
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3638,7 +3638,7 @@ function convexPolygonContains( test )
   test.case = 'Sphere cuts polygon vertex'; /* */
 
   var srcSphere = [ 0, 1, 0, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3652,7 +3652,7 @@ function convexPolygonContains( test )
   test.case = 'Sphere and polygon don´t intersect'; /* */
 
   var srcSphere = [ 0, 1, 0, 1.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3666,7 +3666,7 @@ function convexPolygonContains( test )
   test.case = 'Sphere contains polygon in origin'; /* */
 
   var srcSphere = [ 0, 0, 0, 3 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3680,7 +3680,7 @@ function convexPolygonContains( test )
   test.case = 'Sphere contains polygon'; /* */
 
   var srcSphere = [ -2, 0, 0, 1.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3694,7 +3694,7 @@ function convexPolygonContains( test )
   test.case = 'Sphere contains polygon - touching sides'; /* */
 
   var srcSphere = [ -2, 0, 0, 1 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3708,7 +3708,7 @@ function convexPolygonContains( test )
   test.case = '2D - Contained'; /* */
 
   var srcSphere = [ 4, 4, Math.sqrt( 2 ) ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     3,   5,   5,   3,
     3,   3,   5,   5
@@ -3721,7 +3721,7 @@ function convexPolygonContains( test )
   test.case = '2D - Not contained'; /* */
 
   var srcSphere = [ 4, 4, Math.sqrt( 2 )/2 ];
-  var polygon =  _.Matrix.make( [ 2, 3 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 3 ] ).copy
   ([
     2,   8,  2,
     2,   2,  8
@@ -3736,7 +3736,7 @@ function convexPolygonContains( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3765,7 +3765,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Source sphere and polygon remain unchanged'; /* */
 
   var srcSphere = [ - 1, - 1, -1, 3, ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3779,7 +3779,7 @@ function convexPolygonClosestPoint( test )
   var oldSrcSphere = [ - 1, - 1, -1, 3 ];
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldPolygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3790,7 +3790,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Sphere and polygon intersect'; /* */
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3804,7 +3804,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Sphere cuts polygon vertex'; /* */
 
   var srcSphere = [ 0, 1, 0, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3818,7 +3818,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Sphere next to polygon vertex'; /* */
 
   var srcSphere = [ 0, 1, 0, 1.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3832,7 +3832,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Sphere cuts polygon edge'; /* */
 
   var srcSphere = [ 0, 1, 1, Math.sqrt( 2 )/2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3846,7 +3846,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Sphere next to polygon edge'; /* */
 
   var srcSphere = [ 0, 2, 2, Math.sqrt( 2 ) ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3860,7 +3860,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Sphere cuts polygon'; /* */
 
   var srcSphere = [ - 3, 0, 0, 1.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
     1,   0, - 1,   0,
@@ -3874,7 +3874,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'Sphere next to polygon'; /* */
 
   var srcSphere = [ 0, 0, - 1, 0.5 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1,
@@ -3888,7 +3888,7 @@ function convexPolygonClosestPoint( test )
   test.case = '2D'; /* */
 
   var srcSphere = [ 4, 4, Math.sqrt( 2 )/2 ];
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     0,   1,   1,   0,
     0,   0,   1,   1
@@ -3901,7 +3901,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Array'; /* */
 
   var srcSphere = [ 3, 4, 4, Math.sqrt( 3 ) ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3917,7 +3917,7 @@ function convexPolygonClosestPoint( test )
   test.case = 'dstPoint Vector'; /* */
 
   var srcSphere = [ -1, -2, -4, 2 ];
-  var polygon =  _.Matrix.make( [ 3, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
     1,   0, - 1,   0,
@@ -3935,7 +3935,7 @@ function convexPolygonClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var polygon =  _.Matrix.make( [ 2, 4 ] ).copy
+  var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
     1,   0, - 1,   0,
     0,   1,   0, - 1
@@ -3962,7 +3962,7 @@ function frustumContains( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3978,7 +3978,7 @@ function frustumContains( test )
   var oldSrcSphere = srcSphere.slice();
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -3989,7 +3989,7 @@ function frustumContains( test )
 
   test.description = 'Sphere contains frustum'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4004,7 +4004,7 @@ function frustumContains( test )
 
   test.description = 'Sphere contains frustum - near corner'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4019,7 +4019,7 @@ function frustumContains( test )
 
   test.description = 'Sphere contains frustum - touching corner'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4034,7 +4034,7 @@ function frustumContains( test )
 
   test.description = 'Sphere doesn´t contains frustum - just outside corner'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4049,7 +4049,7 @@ function frustumContains( test )
 
   test.description = 'Sphere doesn´t contain frustum'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4064,7 +4064,7 @@ function frustumContains( test )
 
   test.description = 'Sphere doesn´t contain frustum - intersection'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4091,7 +4091,7 @@ function frustumContains( test )
   if( !Config.debug )
   return;
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4119,7 +4119,7 @@ function frustumDistance( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4135,7 +4135,7 @@ function frustumDistance( test )
   var oldSrcSphere = srcSphere.slice();
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4146,7 +4146,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere contains frustum'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4161,7 +4161,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere contains frustum - near corner'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4176,7 +4176,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere doesn´t contain frustum - just outside corner'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4191,7 +4191,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere doesn´t contain frustum'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4206,7 +4206,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere doesn´t contain frustum - intersection'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4221,7 +4221,7 @@ function frustumDistance( test )
 
   test.description = 'Sphere close to frustum side'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4248,7 +4248,7 @@ function frustumDistance( test )
   if( !Config.debug )
   return;
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4276,7 +4276,7 @@ function frustumClosestPoint( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4292,7 +4292,7 @@ function frustumClosestPoint( test )
   var oldSrcSphere = srcSphere.slice();
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4303,7 +4303,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Sphere contains frustum'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4318,7 +4318,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Intersection'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
   0, 0, 0, 0, - 1, 1,
   1, - 1, 0, 0, 0, 0,
@@ -4333,7 +4333,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Frustum contains sphere'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4348,7 +4348,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Closest point away in 1D'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4363,7 +4363,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Closest point away in 2D'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4378,7 +4378,7 @@ function frustumClosestPoint( test )
 
   test.description = 'Closest point away in 3D'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4405,7 +4405,7 @@ function frustumClosestPoint( test )
   if( !Config.debug )
   return;
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4433,7 +4433,7 @@ function frustumExpand( test )
 {
   test.description = 'Frustum and sphere remain unchanged'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4449,7 +4449,7 @@ function frustumExpand( test )
   var oldSrcSphere = srcSphere.slice();
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4460,7 +4460,7 @@ function frustumExpand( test )
 
   test.description = 'Sphere contains frustum'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4475,7 +4475,7 @@ function frustumExpand( test )
 
   test.description = 'Intersection'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
   0, 0, 0, 0, - 1, 1,
   1, - 1, 0, 0, 0, 0,
@@ -4490,7 +4490,7 @@ function frustumExpand( test )
 
   test.description = 'Frustum contains sphere'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4505,7 +4505,7 @@ function frustumExpand( test )
 
   test.description = 'Frustrum away in 1D'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4520,7 +4520,7 @@ function frustumExpand( test )
 
   test.description = 'Frustum away in 2D'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4535,7 +4535,7 @@ function frustumExpand( test )
 
   test.description = 'Closest point away in 3D'; //
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
@@ -4562,7 +4562,7 @@ function frustumExpand( test )
   if( !Config.debug )
   return;
 
-  var tstFrustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,

@@ -922,7 +922,7 @@ function cornersGet( box )
   let min = this.cornerLeftGet( boxView );
   let max = this.cornerRightGet( boxView );
 
-  let corners = _.Matrix.makeZero( [ dim, Math.pow( 2, dim ) ] );
+  let corners = _.Matrix.MakeZero( [ dim, Math.pow( 2, dim ) ] );
   let dims = _.Matrix.DimsOf( corners) ;
   let rows = dims[ 0 ];
   let cols = dims[ 1 ];
@@ -933,18 +933,18 @@ function cornersGet( box )
     {
       if( i < cols/2 )
       {
-        corners.atomSet( [ j, i ], min.eGet( j ) );
+        corners.scalarSet( [ j, i ], min.eGet( j ) );
         if( 0 < i && i < cols/2 )
         {
-          corners.atomSet( [ i - 1, i ], max.eGet( i - 1 ) );
+          corners.scalarSet( [ i - 1, i ], max.eGet( i - 1 ) );
         }
       }
       else if( i >= cols/2 )
       {
-        corners.atomSet( [ j, i ], max.eGet( j ) );
+        corners.scalarSet( [ j, i ], max.eGet( j ) );
         if( cols/2 <= i && i < cols - 1 )
         {
-          corners.atomSet( [ i - ( cols/2 ), i ], min.eGet( i - ( cols/2 ) ) );
+          corners.scalarSet( [ i - ( cols/2 ), i ], min.eGet( i - ( cols/2 ) ) );
         }
       }
 
@@ -1901,7 +1901,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   *
   * @example
   * // returns true
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([ 0,   1,   1,   0,
   *     0,   1,   1,   0,
   *     0,   1,   3,   3 ] );
@@ -1979,7 +1979,7 @@ function convexPolygonDistance( srcBox , polygon )
   *
   * @example
   * // returns [ 1.5, 1.5, 1.5 ]
-  * let polygon = _.Matrix.make( [ 3, 4 ] ).copy
+  * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   *  ([
   *    0,   0,   0,   0,
   *    1,   0, - 1,   0,
@@ -2046,7 +2046,7 @@ function convexPolygonClosestPoint( box, polygon, dstPoint )
   *
   * @example
   * // returns true
-  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -2105,7 +2105,7 @@ function frustumContains( box, frustum )
   *
   * @example
   * // returns true
-  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -2147,7 +2147,7 @@ function frustumIntersects( box, frustum )
   *
   * @example
   * // returns 0
-  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -2216,7 +2216,7 @@ function frustumDistance( box, frustum )
   *
   * @example
   * // returns 0
-  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -2303,7 +2303,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
   *
   * @example
   * // returns [ 0, 0, 0, 2, 2, 2 ]
-  * let frustum =  _.Matrix.make( [ 4, 6 ] ).copy
+  * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
   *   0,   0,   0,   0, - 1,   1,
   *   1, - 1,   0,   0,   0,   0,
@@ -3184,7 +3184,7 @@ function sphereExpand( dstBox , srcSphere )
 
   /* Sphere limits */
 
-  let c1 = _.Matrix.makeZero( [ 3, 6 ] );
+  let c1 = _.Matrix.MakeZero( [ 3, 6 ] );
   c1.colVectorGet( 0 ).copy( [ center.eGet( 0 ) + radius, center.eGet( 1 ), center.eGet( 2 ) ] );
   c1.colVectorGet( 1 ).copy( [ center.eGet( 0 ) - radius, center.eGet( 1 ), center.eGet( 2 ) ] );
   c1.colVectorGet( 2 ).copy( [ center.eGet( 0 ), center.eGet( 1 ) + radius, center.eGet( 2 ) ] );
@@ -3265,7 +3265,7 @@ function boundingSphereGet( dstSphere, srcBox )
   *
   * @example
   * // returns [ 0, 0, 0, 1, 1, 1 ]
-  * let matrix = _.Matrix.make( [ 4, 4 ] ).copy
+  * let matrix = _.Matrix.Make( [ 4, 4 ] ).copy
   *  ([
   *    0.5, 0, 0, 0,
   *    0, 0.5, 0, 0,
