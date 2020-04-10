@@ -468,7 +468,7 @@ function boxIntersects( plane , srcBox )
     let side = distance/ Math.abs( distance );
     for( let j = 1 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
-      let corner = c.colVectorGet( j );
+      let corner = c.colGet( j );
       distance = this.pointDistance( plane, corner );
       if( distance === 0 )
       {
@@ -798,7 +798,7 @@ function convexPolygonContains( plane, polygon )
 
   for( let i = 0; i < dimP[ 1 ]; i++ )
   {
-    let vertex = polygon.colVectorGet( i );
+    let vertex = polygon.colGet( i );
 
     if( !this.pointContains( planeView, vertex ) )
     return false;

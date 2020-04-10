@@ -1574,8 +1574,8 @@ function boxDistance( srcBox , tstBox )
   let distance = Infinity;
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let srcCorner = c.colVectorGet( j );
-    let tstCorner = c1.colVectorGet( j );
+    let srcCorner = c.colGet( j );
+    let tstCorner = c1.colGet( j );
     let dSrc = this.pointDistance( srcBox, tstCorner );
     let dTst = this.pointDistance( tstBox, srcCorner );
 
@@ -1666,8 +1666,8 @@ function boxClosestPoint( srcBox , tstBox, dstPoint )
     let point = this.tools.vectorAdapter.from( dstPointView.slice() );
     for( let j = 0 ; j < 8 ; j++ )
     {
-      let srcCorner = c.colVectorGet( j );
-      let tstCorner = c1.colVectorGet( j );
+      let srcCorner = c.colGet( j );
+      let tstCorner = c1.colGet( j );
       let dSrc = this.pointDistance( srcBox, tstCorner );
       let dTst = this.pointDistance( tstBox, srcCorner );
 
@@ -1933,7 +1933,7 @@ function convexPolygonContains( box, polygon )
 
   for( let i = 0; i < dimP[ 1 ]; i++ )
   {
-    let vertex = polygon.colVectorGet( i );
+    let vertex = polygon.colGet( i );
     if( !this.pointContains( boxView, vertex ) )
     return false;
   }
@@ -2084,7 +2084,7 @@ function frustumContains( box, frustum )
 
   for( let i = 0 ; i < dimsPoints[ 1 ] ; i += 1 )
   {
-    let point = fpoints.colVectorGet( i );
+    let point = fpoints.colGet( i );
 
     if( this.pointContains( box, point ) !== true )
     {
@@ -2192,7 +2192,7 @@ function frustumDistance( box, frustum )
   let distance = Infinity;
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     let proj = this.tools.frustum.pointClosestPoint( frustum, corner );
     let d = this.tools.avector.distance( corner, frustumPoint );
     if( d < distance )
@@ -2273,7 +2273,7 @@ function frustumClosestPoint( box, frustum, dstPoint )
     let point = [ 0, 0, 0 ];
     for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
-      let corner = c.colVectorGet( j );
+      let corner = c.colGet( j );
       let d = this.tools.avector.distance( corner, frustumPoint ); /* qqq : why slice??? */
       if( d < distance )
       {
@@ -2344,7 +2344,7 @@ function frustumExpand( dstBox, srcFrustum )
 
   for( let j = 0 ; j < 8 ; j++ )
   {
-    let newp = fpoints.colVectorGet( j );
+    let newp = fpoints.colGet( j );
     boxView = this.pointExpand( boxView, newp );
   }
 
@@ -2633,7 +2633,7 @@ function planeDistance( srcBox, plane )
     let d = 0;
     for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ]  ; j++ )
     {
-      let corner = c.colVectorGet( j );
+      let corner = c.colGet( j );
       d = Math.abs( this.tools.plane.pointDistance( plane, corner ) );
 
       if( d < distance )
@@ -2709,7 +2709,7 @@ function planeClosestPoint( srcBox, plane, dstPoint )
     let point = this.tools.longMake( dimB );
     for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
     {
-      let corner = c.colVectorGet( j );
+      let corner = c.colGet( j );
       d = Math.abs( this.tools.plane.pointDistance( plane, corner ) );
 
       if( d < distance )
@@ -3185,16 +3185,16 @@ function sphereExpand( dstBox , srcSphere )
   /* Sphere limits */
 
   let c1 = _.Matrix.MakeZero( [ 3, 6 ] );
-  c1.colVectorGet( 0 ).copy( [ center.eGet( 0 ) + radius, center.eGet( 1 ), center.eGet( 2 ) ] );
-  c1.colVectorGet( 1 ).copy( [ center.eGet( 0 ) - radius, center.eGet( 1 ), center.eGet( 2 ) ] );
-  c1.colVectorGet( 2 ).copy( [ center.eGet( 0 ), center.eGet( 1 ) + radius, center.eGet( 2 ) ] );
-  c1.colVectorGet( 3 ).copy( [ center.eGet( 0 ), center.eGet( 1 ) - radius, center.eGet( 2 ) ] );
-  c1.colVectorGet( 4 ).copy( [ center.eGet( 0 ), center.eGet( 1 ), center.eGet( 2 ) + radius ] );
-  c1.colVectorGet( 5 ).copy( [ center.eGet( 0 ), center.eGet( 1 ), center.eGet( 2 ) - radius ] );
+  c1.colGet( 0 ).copy( [ center.eGet( 0 ) + radius, center.eGet( 1 ), center.eGet( 2 ) ] );
+  c1.colGet( 1 ).copy( [ center.eGet( 0 ) - radius, center.eGet( 1 ), center.eGet( 2 ) ] );
+  c1.colGet( 2 ).copy( [ center.eGet( 0 ), center.eGet( 1 ) + radius, center.eGet( 2 ) ] );
+  c1.colGet( 3 ).copy( [ center.eGet( 0 ), center.eGet( 1 ) - radius, center.eGet( 2 ) ] );
+  c1.colGet( 4 ).copy( [ center.eGet( 0 ), center.eGet( 1 ), center.eGet( 2 ) + radius ] );
+  c1.colGet( 5 ).copy( [ center.eGet( 0 ), center.eGet( 1 ), center.eGet( 2 ) - radius ] );
 
   for( let j = 0 ; j < 6 ; j++ )
   {
-    let srcCorner = c1.colVectorGet( j );
+    let srcCorner = c1.colGet( j );
     _dstBox = this.pointExpand( _dstBox, srcCorner );
   }
 

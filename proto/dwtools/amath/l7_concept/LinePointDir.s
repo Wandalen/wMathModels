@@ -642,8 +642,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   let direction1 = this.directionGet( srcLine1View );
   let direction2 = this.directionGet( srcLine2View );
   let directions = _.Matrix.Make( [ srcLine1.length / 2 , 2 ] );
-  directions.colVectorGet( 0 ).copy( direction1 );
-  directions.colVectorGet( 1 ).copy( direction2.clone().mul( - 1 ) );
+  directions.colGet( 0 ).copy( direction1 );
+  directions.colGet( 1 ).copy( direction2.clone().mul( - 1 ) );
 
   // Same origin
   let identOrigin = 0;
@@ -682,8 +682,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
     let m = _.Matrix.Make( [ 2, 2 ] );
-    m.rowSet( 0, directions.rowVectorGet( i ) );
-    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+    m.rowSet( 0, directions.rowGet( i ) );
+    m.rowSet( 1, directions.rowGet( i + 1 ) );
     let or = _.Matrix.MakeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
     let o =
     {
@@ -701,8 +701,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
     }
     else
     {
-      let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
-      let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
+      let x1 = x.base.colGet( 0 ).eGet( 0 );
+      let x2 = x.base.colGet( 0 ).eGet( 1 );
       let samex1 = Math.abs( x1 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x1 - result.eGet( 1 ) ) < 1E-6 ;
       let samex2 = Math.abs( x2 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x2 - result.eGet( 1 ) ) < 1E-6 ;
       if( x1 !== 0 )
@@ -766,8 +766,8 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
     let m = _.Matrix.Make( [ 2, 2 ] );
-    m.rowSet( 0, directions.rowVectorGet( i ) );
-    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+    m.rowSet( 0, directions.rowGet( i ) );
+    m.rowSet( 1, directions.rowGet( i + 1 ) );
 
     let or = _.Matrix.MakeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
 
@@ -1305,7 +1305,7 @@ function boxIntersects( srcLine, srcBox )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     let projection = this.pointClosestPoint( srcLineView, corner );
 
     if( this.tools.box.pointContains( boxView, projection ) )
@@ -1433,7 +1433,7 @@ function boxClosestPoint( srcLine, srcBox, dstPoint )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     d = Math.abs( this.pointDistance( srcLineView, corner ) );
     if( d < distance )
     {
@@ -1760,7 +1760,7 @@ function frustumIntersects( srcLine, srcFrustum )
 
   for( let j = 0 ; j < cornersLength ; j++ )
   {
-    let corner = corners.colVectorGet( j );
+    let corner = corners.colGet( j );
     let projection = this.pointClosestPoint( srcLineView, corner );
 
     if( this.tools.frustum.pointContains( srcFrustum, projection ) )
@@ -1888,7 +1888,7 @@ function frustumClosestPoint( srcLine, srcFrustum, dstPoint )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( corners )[ 1 ] ; j++ )
   {
-    let corner = corners.colVectorGet( j );
+    let corner = corners.colGet( j );
     d = Math.abs( this.pointDistance( srcLineView, corner ) );
     if( d < distance )
     {

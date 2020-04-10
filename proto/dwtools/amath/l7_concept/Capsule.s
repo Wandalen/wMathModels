@@ -811,7 +811,7 @@ function boxContains( srcCapsule, srcBox )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
 
     if( !this.pointContains( srcCapsuleView, corner ) )
     return false;
@@ -1362,7 +1362,7 @@ function convexPolygonContains( capsule, polygon )
 
   for( let i = 0; i < dimP[ 1 ]; i++ )
   {
-    let vertex = polygon.colVectorGet( i );
+    let vertex = polygon.colGet( i );
     if( !this.pointContains( capsuleView, vertex ) )
     return false;
   }
@@ -1511,7 +1511,7 @@ function frustumContains( capsule, frustum )
 
   for( let i = 0 ; i < dimPoints[ 1 ] ; i += 1 )
   {
-    let point = fpoints.colVectorGet( i );
+    let point = fpoints.colGet( i );
 
     if( this.pointContains( capsule, point ) !== true )
     {

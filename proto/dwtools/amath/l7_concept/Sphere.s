@@ -1173,18 +1173,18 @@ function boxContains( sphere, box )
   /* src corners */
 
   let c = _.Matrix.MakeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colGet( 0 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colGet( 1 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colGet( 2 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
+  c.colGet( 3 ).copy( [ min.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colGet( 4 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colGet( 5 ).copy( [ min.eGet( 0 ), max.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colGet( 6 ).copy( [ max.eGet( 0 ), min.eGet( 1 ), max.eGet( 2 ) ] );
+  c.colGet( 7 ).copy( [ max.eGet( 0 ), max.eGet( 1 ), min.eGet( 2 ) ] );
 
   for( let j = 0 ; j < 8 ; j++ )
   {
-    let srcCorner = c.colVectorGet( j );
+    let srcCorner = c.colGet( j );
 
     if( this.pointContains( sphereView, srcCorner ) === false )
     {
@@ -1389,7 +1389,7 @@ function boxExpand( dstSphere, srcBox )
   let distance = radius;
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     let d = this.tools.avector.distance( corner, center );
     if( d > distance )
     {
@@ -1638,7 +1638,7 @@ function convexPolygonContains( sphere, polygon )
 
   for( let i = 0; i < dimP[ 1 ]; i++ )
   {
-    let vertex = polygon.colVectorGet( i );
+    let vertex = polygon.colGet( i );
 
     if( !this.pointContains( sphereView, vertex ) )
     return false;
@@ -1779,7 +1779,7 @@ function frustumContains( srcSphere, tstFrustum )
 
   for( let i = 0 ; i < points.length ; i += 1 )
   {
-    let point = points.colVectorGet( i );
+    let point = points.colGet( i );
     let c = this.pointContains( srcSphereView, point );
     if( c === false )
     return false;
@@ -1978,7 +1978,7 @@ function frustumExpand( dstSphere, srcFrustum )
 
   for( let i = 0 ; i < points.length ; i += 1 )
   {
-    let point = points.colVectorGet( i );
+    let point = points.colGet( i );
     if( this.pointContains( dstSphereView, point ) === false )
     this.pointExpand( dstSphereView, point )
 

@@ -711,8 +711,8 @@ function rayIntersectionFactors( r1, r2 )
   let direction1 = this.directionGet( r1View );
   let direction2 = this.directionGet( r2View );
   let directions = _.Matrix.Make( [ r1.length / 2 , 2 ] );
-  directions.colVectorGet( 0 ).copy( direction1 );
-  directions.colVectorGet( 1 ).copy( direction2.clone().mul( - 1 ) );
+  directions.colGet( 0 ).copy( direction1 );
+  directions.colGet( 1 ).copy( direction2.clone().mul( - 1 ) );
 
   // Same origin
   let identOrigin = 0;
@@ -751,8 +751,8 @@ function rayIntersectionFactors( r1, r2 )
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
     let m = _.Matrix.Make( [ 2, 2 ] );
-    m.rowSet( 0, directions.rowVectorGet( i ) );
-    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+    m.rowSet( 0, directions.rowGet( i ) );
+    m.rowSet( 1, directions.rowGet( i + 1 ) );
 
     let or = _.Matrix.MakeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
 
@@ -809,8 +809,8 @@ function rayIntersectionFactors( r1, r2 )
     }
     else
     {
-      let x1 = x.base.colVectorGet( 0 ).eGet( 0 );
-      let x2 = x.base.colVectorGet( 0 ).eGet( 1 );
+      let x1 = x.base.colGet( 0 ).eGet( 0 );
+      let x2 = x.base.colGet( 0 ).eGet( 1 );
 
       let samex1 = Math.abs( x1 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x1 - result.eGet( 1 ) ) < 1E-6 ;
       let samex2 = Math.abs( x2 - result.eGet( 0 ) ) < 1E-6 || Math.abs( x2 - result.eGet( 1 ) ) < 1E-6 ;
@@ -1350,7 +1350,7 @@ function boxIntersects( srcRay, srcBox )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     let projection = this.pointClosestPoint( srcRayView, corner );
 
     if( this.tools.box.pointContains( boxView, projection ) )
@@ -1477,7 +1477,7 @@ function boxClosestPoint( srcRay, srcBox, dstPoint )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     d = Math.abs( this.pointDistance( srcRayView, corner ) );
     if( d < distance )
     {
@@ -1812,7 +1812,7 @@ function frustumIntersects( srcRay, srcFrustum )
 
   for( let j = 0 ; j < cornersLength ; j++ )
   {
-    let corner = corners.colVectorGet( j );
+    let corner = corners.colGet( j );
     let projection = this.pointClosestPoint( srcRayView, corner );
 
     if( this.tools.frustum.pointContains( srcFrustum, projection ) )
@@ -1940,7 +1940,7 @@ function frustumClosestPoint( srcRay, srcFrustum, dstPoint )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( corners )[ 1 ] ; j++ )
   {
-    let corner = corners.colVectorGet( j );
+    let corner = corners.colGet( j );
     d = Math.abs( this.pointDistance( srcRayView, corner ) );
     if( d < distance )
     {

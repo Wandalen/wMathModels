@@ -809,8 +809,8 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   let direction2 = this.directionGet( srcSegment2View );
 
   let directions = _.Matrix.Make( [ srcSegment1.length / 2 , 2 ] );
-  directions.colVectorGet( 0 ).copy( direction1 );
-  directions.colVectorGet( 1 ).copy( direction2.clone().mul( - 1 ) );
+  directions.colGet( 0 ).copy( direction1 );
+  directions.colGet( 1 ).copy( direction2.clone().mul( - 1 ) );
 
   // Same origin
   let identOrigin = 0;
@@ -871,8 +871,8 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
     let m = _.Matrix.Make( [ 2, 2 ] );
-    m.rowSet( 0, directions.rowVectorGet( i ) );
-    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+    m.rowSet( 0, directions.rowGet( i ) );
+    m.rowSet( 1, directions.rowGet( i + 1 ) );
     let or = _.Matrix.MakeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
 
     let o =
@@ -939,8 +939,8 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   let direction1 = this.directionGet( srcSegment1View );
   let direction2 = this.directionGet( srcSegment2View );
   let directions = _.Matrix.Make( [ srcSegment1.length / 2 , 2 ] );
-  directions.colVectorGet( 0 ).copy( direction1 );
-  directions.colVectorGet( 1 ).copy( direction2.clone().mul( - 1 ) );
+  directions.colGet( 0 ).copy( direction1 );
+  directions.colGet( 1 ).copy( direction2.clone().mul( - 1 ) );
   // Same origin
   let identOrigin = 0;
   let identEnd = 0;
@@ -987,8 +987,8 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
   for( let i = 0; i < dOrigin.length - 1 ; i++ )
   {
     let m = _.Matrix.Make( [ 2, 2 ] );
-    m.rowSet( 0, directions.rowVectorGet( i ) );
-    m.rowSet( 1, directions.rowVectorGet( i + 1 ) );
+    m.rowSet( 0, directions.rowGet( i ) );
+    m.rowSet( 1, directions.rowGet( i + 1 ) );
     let or = _.Matrix.MakeCol( [ dOrigin.eGet( i ), dOrigin.eGet( i + 1 ) ] );
     let o =
     {
@@ -1543,7 +1543,7 @@ function boxIntersects( srcSegment, srcBox )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     let projection = this.pointClosestPoint( srcSegmentView, corner );
 
     if( this.tools.box.pointContains( boxView, projection ) )
@@ -1670,7 +1670,7 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     d = Math.abs( this.pointDistance( srcSegmentView, corner ) );
     if( d < distance )
     {
@@ -1989,7 +1989,7 @@ function frustumIntersects( srcSegment, srcFrustum )
 
   for( let j = 0 ; j < cornersLength ; j++ )
   {
-    let corner = corners.colVectorGet( j );
+    let corner = corners.colGet( j );
     let projection = this.pointClosestPoint( srcSegmentView, corner );
 
     if( this.tools.frustum.pointContains( srcFrustum, projection ) )
@@ -2132,7 +2132,7 @@ function frustumClosestPoint( srcSegment, srcFrustum, dstPoint )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( corners )[ 1 ] ; j++ )
   {
-    let corner = corners.colVectorGet( j );
+    let corner = corners.colGet( j );
     d = Math.abs( this.pointDistance( srcSegmentView, corner ) );
     if( d < distance )
     {

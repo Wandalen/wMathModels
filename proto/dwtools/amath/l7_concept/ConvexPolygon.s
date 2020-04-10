@@ -118,9 +118,9 @@ function isPolygon( polygon )
 
     while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
-      let pointOne = polygon.colVectorGet( i );
-      let pointTwo = polygon.colVectorGet( i + 1 );
-      let pointThree = polygon.colVectorGet( i + 2 );
+      let pointOne = polygon.colGet( i );
+      let pointTwo = polygon.colGet( i + 1 );
+      let pointThree = polygon.colGet( i + 2 );
       plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
       normal = this.tools.plane.normalGet( plane );
       i = i + 1;
@@ -128,7 +128,7 @@ function isPolygon( polygon )
 
     for( let i = 0 ; i < dims[ 1 ]; i += 1 )
     {
-      let vertex = polygon.colVectorGet( i );
+      let vertex = polygon.colGet( i );
 
       if( !this.tools.plane.pointContains( plane, vertex ) )
       return false;
@@ -196,9 +196,9 @@ function isValid( polygon )
     let i = 0;
     while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
-      let pointOne = polygon.colVectorGet( i );
-      let pointTwo = polygon.colVectorGet( i + 1 );
-      let pointThree = polygon.colVectorGet( i + 2 );
+      let pointOne = polygon.colGet( i );
+      let pointTwo = polygon.colGet( i + 1 );
+      let pointThree = polygon.colGet( i + 2 );
       let plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
       normal = this.tools.plane.normalGet( plane );
       i = i + 1;
@@ -212,9 +212,9 @@ function isValid( polygon )
     let h =  ( i - 1 >= 0 ) ? i - 1 : dims[ 1 ] - 1;
     let j =  ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
 
-    let pointOne = polygon.colVectorGet( h );
-    let pointTwo = polygon.colVectorGet( i );
-    let pointThree = polygon.colVectorGet( j );
+    let pointOne = polygon.colGet( h );
+    let pointTwo = polygon.colGet( i );
+    let pointThree = polygon.colGet( j );
 
     if( dims[ 0 ] === 2 )
     {
@@ -376,9 +376,9 @@ function pointContains( polygon, point )
     debugger
     while( this.tools.vectorAdapter.allIdentical( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
-      let pointOne = polygon.colVectorGet( i );
-      let pointTwo = polygon.colVectorGet( i + 1 );
-      let pointThree = polygon.colVectorGet( i + 2 );
+      let pointOne = polygon.colGet( i );
+      let pointTwo = polygon.colGet( i + 1 );
+      let pointThree = polygon.colGet( i + 2 );
       plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
       normal = this.tools.plane.normalGet( plane );
       i = i + 1;
@@ -394,8 +394,8 @@ function pointContains( polygon, point )
   {
     let j =  ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
 
-    let vertex = polygon.colVectorGet( i );
-    let nextVertex = polygon.colVectorGet( j );
+    let vertex = polygon.colGet( i );
+    let nextVertex = polygon.colGet( j );
 
     if( this.tools.vectorAdapter.allEquivalent( pointView, vertex ) )
     return true;
@@ -552,9 +552,9 @@ function pointDistance( polygon, point )
     let i = 0;
     while( this.tools.vectorAdapter.allIdentical( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
-      let pointOne = polygon.colVectorGet( i );
-      let pointTwo = polygon.colVectorGet( i + 1 );
-      let pointThree = polygon.colVectorGet( i + 2 );
+      let pointOne = polygon.colGet( i );
+      let pointTwo = polygon.colGet( i + 1 );
+      let pointThree = polygon.colGet( i + 2 );
       plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
       normal = this.tools.plane.normalGet( plane );
       i = i + 1;
@@ -572,8 +572,8 @@ function pointDistance( polygon, point )
   {
     let j =  ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
 
-    let vertex = polygon.colVectorGet( i );
-    let nextVertex = polygon.colVectorGet( j );
+    let vertex = polygon.colGet( i );
+    let nextVertex = polygon.colGet( j );
 
     let segment = this.tools.segment.fromPair( [ vertex, nextVertex ] );
     let d = this.tools.segment.pointDistance( segment, pointView );
@@ -652,9 +652,9 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
     let i = 0;
     while( this.tools.vectorAdapter.allIdentical( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
-      let pointOne = polygon.colVectorGet( i );
-      let pointTwo = polygon.colVectorGet( i + 1 );
-      let pointThree = polygon.colVectorGet( i + 2 );
+      let pointOne = polygon.colGet( i );
+      let pointTwo = polygon.colGet( i + 1 );
+      let pointThree = polygon.colGet( i + 2 );
       plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
       normal = this.tools.plane.normalGet( plane );
       i = i + 1;
@@ -676,8 +676,8 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
   {
     let j =  ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
 
-    let vertex = polygon.colVectorGet( i );
-    let nextVertex = polygon.colVectorGet( j );
+    let vertex = polygon.colGet( i );
+    let nextVertex = polygon.colGet( j );
 
     let segment = this.tools.segment.fromPair( [ vertex, nextVertex ] );
     let d = this.tools.segment.pointDistance( segment, pointView );
@@ -713,8 +713,8 @@ function isClockwise( polygon )
     if( p2 === l )
     p2 = 0;
 
-    let vertex = polygon.colVectorGet( p );
-    let nextVertex = polygon.colVectorGet( p2 );
+    let vertex = polygon.colGet( p );
+    let nextVertex = polygon.colGet( p2 );
 
     result += ( vertex.eGet( 0 ) - nextVertex.eGet( 0 ) ) * ( vertex.eGet( 1 ) + nextVertex.eGet( 1 ) );
     // result += ( polygon[ p*2+0 ] - polygon[ p2*2+0 ] ) * ( polygon[ p*2+1 ] + polygon[ p2*2+1 ] );
@@ -769,7 +769,7 @@ function boxIntersects( polygon, box )
 
   for( let b = 0; b < dimCorners[ 1 ]; b++ )
   {
-    let corner = boxCorners.colVectorGet( b );
+    let corner = boxCorners.colGet( b );
     if( this.pointContains( polygon, corner ) === true )
     {
       return true;
@@ -779,7 +779,7 @@ function boxIntersects( polygon, box )
 
   for( let i = 0 ; i < dims[ 1 ] ; i ++ )
   {
-    let point = polygon.colVectorGet( i );
+    let point = polygon.colGet( i );
 
     if( this.tools.box.pointContains( box, point ) === true )
     {
@@ -791,8 +791,8 @@ function boxIntersects( polygon, box )
   {
     let j = ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
 
-    let vertex = polygon.colVectorGet( i );
-    let nextVertex = polygon.colVectorGet( j );
+    let vertex = polygon.colGet( i );
+    let nextVertex = polygon.colGet( j );
 
     let segment = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
@@ -805,10 +805,10 @@ function boxIntersects( polygon, box )
   //3D case include segment - polygon intersection
   if( dims[ 0 ] > 2 )
   {
-    let corner0 = boxCorners.colVectorGet( 0 );
+    let corner0 = boxCorners.colGet( 0 );
     for( let b = 1; b < dimCorners[ 1 ]; b++ )
     {
-      let corner = boxCorners.colVectorGet( b );
+      let corner = boxCorners.colGet( b );
       let segment = this.tools.segment.fromPair( [ corner0, corner ] );
       if( this.segmentIntersects( polygon, segment ) === true )
       return true;
@@ -919,7 +919,7 @@ function boxClosestPoint( polygon, box, dstPoint )
   let dist = Infinity;
   for ( let j = 0 ; j < cols ; j++ )
   {
-    let newVertex = polygon.colVectorGet( j );
+    let newVertex = polygon.colGet( j );
     let d = this.tools.box.pointDistance( boxView, newVertex );
 
     if( d < dist )
@@ -934,7 +934,7 @@ function boxClosestPoint( polygon, box, dstPoint )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     let proj = this.pointClosestPoint( polygon, corner );
     let d = this.tools.avector.distance( corner, proj );
     if( d < dist )
@@ -1001,12 +1001,12 @@ function boundingBoxGet( polygon, dstBox  )
   _.assert( rows === dimB );
 
   // Polygon limits
-  let maxP = polygon.colVectorGet( 0 ).clone();
-  let minP = polygon.colVectorGet( 0 ).clone();
+  let maxP = polygon.colGet( 0 ).clone();
+  let minP = polygon.colGet( 0 ).clone();
 
   for( let j = 1 ; j < cols ; j++ )
   {
-    let newp = polygon.colVectorGet( j );
+    let newp = polygon.colGet( j );
     for( let i = 0; i < rows; i ++ )
     {
       if( newp.eGet( i ) < minP.eGet( i ) )
@@ -1255,7 +1255,7 @@ function frustumIntersects( polygon, frustum )
   let dimsFP = _.Matrix.DimsOf( points );
   for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
   {
-    let point = points.colVectorGet( i );
+    let point = points.colGet( i );
     let c = this.pointContains( polygon, point );
 
     if( c === true )
@@ -1265,7 +1265,7 @@ function frustumIntersects( polygon, frustum )
   // Polygon vertices
   for( let i = 0 ; i < dimsP[ 1 ].length ; i += 1 )
   {
-    let point = polygon.colVectorGet( i );
+    let point = polygon.colGet( i );
     let c = this.tools.frustum.pointContains( frustum, point );
     if( c === true )
     return true;
@@ -1276,8 +1276,8 @@ function frustumIntersects( polygon, frustum )
   {
     let j = ( i + 1 <= dimsP[ 1 ] - 1 ) ? i + 1 : 0;
 
-    let vertex = polygon.colVectorGet( i );
-    let nextVertex = polygon.colVectorGet( j );
+    let vertex = polygon.colGet( i );
+    let nextVertex = polygon.colGet( j );
 
     let segment = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
@@ -1290,10 +1290,10 @@ function frustumIntersects( polygon, frustum )
   //3D case include segment - polygon intersection
   if( dimsP[ 0 ] > 2 )
   {
-    let corner0 = points.colVectorGet( 0 );
+    let corner0 = points.colGet( 0 );
     for( let b = 1; b < dimsFP[ 1 ]; b++ )
     {
-      let corner = points.colVectorGet( b );
+      let corner = points.colGet( b );
       let segment = this.tools.segment.fromPair( [ corner0, corner ] );
       if( this.segmentIntersects( polygon, segment ) === true )
       return true;
@@ -1427,7 +1427,7 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
 
   for( let i = 0 ; i < dimsFP[ 1 ] ; i += 1 )
   {
-    let pointF = fPoints.colVectorGet( i );
+    let pointF = fPoints.colGet( i );
     let proj = this.pointClosestPoint( polygon, pointF );
     let d = this.tools.avector.distance( pointF, proj );
 
@@ -1441,7 +1441,7 @@ function frustumClosestPoint( polygon, frustum, dstPoint )
   //Polygon vertices
   for( let i = 0 ; i < dimsP[ 1 ] ; i += 1 )
   {
-    let point = polygon.colVectorGet( i );
+    let point = polygon.colGet( i );
     let d = this.tools.frustum.pointDistance( frustum, point );
     if( d < distance )
     {
@@ -1508,8 +1508,8 @@ function lineIntersects( polygon, line )
   {
     let j = ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
 
-    let vertex = polygon.colVectorGet( i );
-    let nextVertex = polygon.colVectorGet( j );
+    let vertex = polygon.colGet( i );
+    let nextVertex = polygon.colGet( j );
     let segmentP = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
     if( this.tools.segment.lineIntersects( segmentP, lineView ) )
@@ -1527,9 +1527,9 @@ function lineIntersects( polygon, line )
 
     while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
-      let pointOne = polygon.colVectorGet( i );
-      let pointTwo = polygon.colVectorGet( i + 1 );
-      let pointThree = polygon.colVectorGet( i + 2 );
+      let pointOne = polygon.colGet( i );
+      let pointTwo = polygon.colGet( i + 1 );
+      let pointThree = polygon.colGet( i + 2 );
       plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
       normal = this.tools.plane.normalGet( plane );
       i = i + 1;
@@ -1670,7 +1670,7 @@ function lineClosestPoint( polygon, line, dstPoint )
   /* polygon vertices */
   for ( let j = 0 ; j < dims[ 1 ] ; j++ )
   {
-    let newVertex = polygon.colVectorGet( j );
+    let newVertex = polygon.colGet( j );
     let d = this.tools.linePointDir.pointDistance( lineView, newVertex );
 
     if( d < dist )
@@ -1728,7 +1728,7 @@ function planeIntersects( polygon, plane )
 
   let bool = false;
 
-  let distance = this.tools.plane.pointDistance( plane, polygon.colVectorGet( 0 ) );
+  let distance = this.tools.plane.pointDistance( plane, polygon.colGet( 0 ) );
   if( distance === 0 )
   {
     bool = true;
@@ -1738,7 +1738,7 @@ function planeIntersects( polygon, plane )
     let side = distance/ Math.abs( distance );
     for( let j = 1 ; j < dims[ 1 ]; j++ )
     {
-      let vertex = polygon.colVectorGet( j );
+      let vertex = polygon.colGet( j );
       distance = this.tools.plane.pointDistance( plane, vertex );
       if( distance === 0 )
       {
@@ -1863,7 +1863,7 @@ function planeClosestPoint( polygon, plane, dstPoint )
   /* polygon vertices */
   for ( let j = 0 ; j < dims[ 1 ] ; j++ )
   {
-    let newVertex = polygon.colVectorGet( j );
+    let newVertex = polygon.colGet( j );
     let d = Math.abs( this.tools.plane.pointDistance( planeView, newVertex ) );
 
     if( d < dist )
@@ -1928,8 +1928,8 @@ function rayIntersects( polygon, ray )
   {
     let j = ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
 
-    let vertex = polygon.colVectorGet( i );
-    let nextVertex = polygon.colVectorGet( j );
+    let vertex = polygon.colGet( i );
+    let nextVertex = polygon.colGet( j );
     let segmentP = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
     if( this.tools.segment.rayIntersects( segmentP, rayView ) )
@@ -1945,9 +1945,9 @@ function rayIntersects( polygon, ray )
 
     while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
-      let pointOne = polygon.colVectorGet( i );
-      let pointTwo = polygon.colVectorGet( i + 1 );
-      let pointThree = polygon.colVectorGet( i + 2 );
+      let pointOne = polygon.colGet( i );
+      let pointTwo = polygon.colGet( i + 1 );
+      let pointThree = polygon.colGet( i + 2 );
       plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
       normal = this.tools.plane.normalGet( plane );
       i = i + 1;
@@ -2087,7 +2087,7 @@ function rayClosestPoint( polygon, ray, dstPoint )
   /* polygon vertices */
   for ( let j = 0 ; j < dims[ 1 ] ; j++ )
   {
-    let newVertex = polygon.colVectorGet( j );
+    let newVertex = polygon.colGet( j );
     let d = this.tools.ray.pointDistance( rayView, newVertex );
 
     if( d < dist )
@@ -2206,8 +2206,8 @@ function segmentIntersects( polygon, segment )
   {
     let j = ( i + 1 <= dims[ 1 ] - 1 ) ? i + 1 : 0;
 
-    let vertex = polygon.colVectorGet( i );
-    let nextVertex = polygon.colVectorGet( j );
+    let vertex = polygon.colGet( i );
+    let nextVertex = polygon.colGet( j );
     let segmentP = this.tools.segment.fromPair( [ vertex, nextVertex ] );
 
     if( this.tools.segment.segmentIntersects( segmentP, segmentView ) )
@@ -2224,9 +2224,9 @@ function segmentIntersects( polygon, segment )
 
     while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.vectorAdapter.fromNumber( 0, dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
-      let pointOne = polygon.colVectorGet( i );
-      let pointTwo = polygon.colVectorGet( i + 1 );
-      let pointThree = polygon.colVectorGet( i + 2 );
+      let pointOne = polygon.colGet( i );
+      let pointTwo = polygon.colGet( i + 1 );
+      let pointThree = polygon.colGet( i + 2 );
       plane = this.tools.plane.fromPoints( null, pointOne, pointTwo, pointThree );
       normal = this.tools.plane.normalGet( plane );
       i = i + 1;
@@ -2375,7 +2375,7 @@ function segmentClosestPoint( polygon, segment, dstPoint )
   /* polygon vertices */
   for ( let j = 0 ; j < dims[ 1 ] ; j++ )
   {
-    let newVertex = polygon.colVectorGet( j );
+    let newVertex = polygon.colGet( j );
     let d = this.tools.segment.pointDistance( segmentView, newVertex );
 
     if( d < dist )
@@ -2603,12 +2603,12 @@ function boundingSphereGet( polygon, dstSphere )
   _.assert( rows === dimSphere, 'Polygon and sphere must have the same dimension' );
 
   // Polygon limits
-  let max = polygon.colVectorGet( 0 ).clone();
-  let min = polygon.colVectorGet( 0 ).clone();
+  let max = polygon.colGet( 0 ).clone();
+  let min = polygon.colGet( 0 ).clone();
 
   for( let j = 1 ; j < cols ; j++ )
   {
-    let newp = polygon.colVectorGet( j );
+    let newp = polygon.colGet( j );
     for( let i = 0; i < rows; i++ )
     {
       if( newp.eGet( i ) < min.eGet( i ) )

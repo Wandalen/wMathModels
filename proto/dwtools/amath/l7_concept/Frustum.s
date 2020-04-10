@@ -68,7 +68,7 @@ function fromMatrixHomogenous( frustum , m )
   _.assert( _.matrixIs( m ) );
   _.assert( m.hasShape([ 4, 4 ]) );
 
-  frustum.colVectorGet( 0 ).copy
+  frustum.colGet( 0 ).copy
   ([
     m.scalarGet([ 3, 0 ]) - m.scalarGet([ 0, 0 ]),
     m.scalarGet([ 3, 1 ]) - m.scalarGet([ 0, 1 ]),
@@ -76,7 +76,7 @@ function fromMatrixHomogenous( frustum , m )
     m.scalarGet([ 3, 3 ]) - m.scalarGet([ 0, 3 ]),
   ]);
 
-  frustum.colVectorGet( 1 ).copy
+  frustum.colGet( 1 ).copy
   ([
     m.scalarGet([ 3, 0 ]) + m.scalarGet([ 0, 0 ]),
     m.scalarGet([ 3, 1 ]) + m.scalarGet([ 0, 1 ]),
@@ -84,7 +84,7 @@ function fromMatrixHomogenous( frustum , m )
     m.scalarGet([ 3, 3 ]) + m.scalarGet([ 0, 3 ]),
   ]);
 
-  frustum.colVectorGet( 2 ).copy
+  frustum.colGet( 2 ).copy
   ([
     m.scalarGet([ 3, 0 ]) + m.scalarGet([ 1, 0 ]),
     m.scalarGet([ 3, 1 ]) + m.scalarGet([ 1, 1 ]),
@@ -92,7 +92,7 @@ function fromMatrixHomogenous( frustum , m )
     m.scalarGet([ 3, 3 ]) + m.scalarGet([ 1, 3 ]),
   ]);
 
-  frustum.colVectorGet( 3 ).copy
+  frustum.colGet( 3 ).copy
   ([
     m.scalarGet([ 3, 0 ]) - m.scalarGet([ 1, 0 ]),
     m.scalarGet([ 3, 1 ]) - m.scalarGet([ 1, 1 ]),
@@ -100,7 +100,7 @@ function fromMatrixHomogenous( frustum , m )
     m.scalarGet([ 3, 3 ]) - m.scalarGet([ 1, 3 ]),
   ]);
 
-  frustum.colVectorGet( 4 ).copy
+  frustum.colGet( 4 ).copy
   ([
     m.scalarGet([ 3, 0 ]) - m.scalarGet([ 2, 0 ]),
     m.scalarGet([ 3, 1 ]) - m.scalarGet([ 2, 1 ]),
@@ -108,7 +108,7 @@ function fromMatrixHomogenous( frustum , m )
     m.scalarGet([ 3, 3 ]) - m.scalarGet([ 2, 3 ]),
   ]);
 
-  frustum.colVectorGet( 5 ).copy
+  frustum.colGet( 5 ).copy
   ([
     m.scalarGet([ 3, 0 ]) + m.scalarGet([ 2, 0 ]),
     m.scalarGet([ 3, 1 ]) + m.scalarGet([ 2, 1 ]),
@@ -170,12 +170,12 @@ function cornersGet( srcfrustum )
   let cols = dims[ 1 ];
   let pointsFru = _.Matrix.MakeZero( [ rows - 1, cols + 2 ] );
 
-  let right = this.tools.vectorAdapter.from(srcfrustum.colVectorGet( 0 ));
-  let left = srcfrustum.colVectorGet( 1 );
-  let top = srcfrustum.colVectorGet( 2 );
-  let bottom = srcfrustum.colVectorGet( 3 );
-  let far = srcfrustum.colVectorGet( 4 );
-  let near = srcfrustum.colVectorGet( 5 );
+  let right = this.tools.vectorAdapter.from(srcfrustum.colGet( 0 ));
+  let left = srcfrustum.colGet( 1 );
+  let top = srcfrustum.colGet( 2 );
+  let bottom = srcfrustum.colGet( 3 );
+  let far = srcfrustum.colGet( 4 );
+  let near = srcfrustum.colGet( 5 );
 
   let point = this.tools.plane.threeIntersectionPoint( far, top, right );
   if( ! _.vectorAdapterIs(point) )
@@ -294,7 +294,7 @@ function pointContains( frustum , point )
   for( let i = 0 ; i < 6 ; i += 1 )
   {
 
-    let plane = frustum.colVectorGet( i );
+    let plane = frustum.colGet( i );
 
     if( this.tools.plane.pointDistance( plane, point ) > 1E-12 )
     return false;
@@ -355,7 +355,7 @@ function pointDistance( frustum, point )
   let distancePlane = Infinity;
   for( let i = 0 ; i < 6 ; i ++ )
   {
-    let plane = frustum.colVectorGet( i );
+    let plane = frustum.colGet( i );
 
     let newDistPlane = Math.abs( this.tools.plane.pointDistance( plane, point ) );
     if( newDistPlane < distancePlane )
@@ -370,7 +370,7 @@ function pointDistance( frustum, point )
 
   for( let i = 0 ; i < 8 ; i++ )
   {
-    let corner = corners.colVectorGet( i );
+    let corner = corners.colGet( i );
     let newDistCorner = this.tools.avector.distance( point, corner );
     if( newDistCorner < distanceCorner )
     distanceCorner = newDistCorner;
@@ -445,12 +445,12 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
   _.assert( rows - 1 === srcPointView.length );
   _.assert( dstPointView.length === srcPointView.length );
 
-  let max = this.tools.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
-  let min = this.tools.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
+  let max = this.tools.vectorAdapter.from( fpoints.colGet( 0 ).slice() );
+  let min = this.tools.vectorAdapter.from( fpoints.colGet( 0 ).slice() );
 
   for( let j = 1 ; j < _.Matrix.DimsOf( fpoints )[ 1 ] ; j++ )
   {
-    let newp = fpoints.colVectorGet( j );
+    let newp = fpoints.colGet( j );
 
     if( newp.eGet( 0 ) < min.eGet( 0 ) )
     {
@@ -506,7 +506,7 @@ function pointClosestPoint( frustum , srcPoint, dstPoint )
 
     for( let i = 0 ; i < cols ; i++ )
     {
-      let plane = this.tools.vectorAdapter.from( frustum.colVectorGet( i ) );
+      let plane = this.tools.vectorAdapter.from( frustum.colGet( i ) );
 
       let p =  this.tools.plane.pointCoplanarGet( plane, dstPointView );
 
@@ -575,19 +575,19 @@ function boxContains( frustum, box )
   /* src corners */
 
   let c = _.Matrix.MakeZero( [ 3, 8 ] );
-  c.colVectorGet( 0 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 1 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 2 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
-  c.colVectorGet( 3 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 4 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 5 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 6 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
-  c.colVectorGet( 7 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 )] );
+  c.colGet( 0 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  c.colGet( 1 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  c.colGet( 2 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 ) ] );
+  c.colGet( 3 ).copy( [ srcMin.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colGet( 4 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colGet( 5 ).copy( [ srcMin.eGet( 0 ), srcMax.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colGet( 6 ).copy( [ srcMax.eGet( 0 ), srcMin.eGet( 1 ), srcMax.eGet( 2 ) ] );
+  c.colGet( 7 ).copy( [ srcMax.eGet( 0 ), srcMax.eGet( 1 ), srcMin.eGet( 2 )] );
 
   let distance = Infinity;
   for( let j = 0 ; j < 8 ; j++ )
   {
-    let srcCorner = c.colVectorGet( j );
+    let srcCorner = c.colGet( j );
     if( this.pointContains( frustum, srcCorner ) === false )
     {
       return false;
@@ -679,7 +679,7 @@ function boxIntersects( frustum , box )
 
   for( let i = 0 ; i < 6 ; i ++ )
   {
-    let point = fpoints.colVectorGet( i );
+    let point = fpoints.colGet( i );
 
     if( this.tools.box.pointContains( box, point ) === true )
     {
@@ -701,7 +701,7 @@ function boxIntersects( frustum , box )
 //
 //  for( let i = 0 ; i < 6 ; i += 1 )
 //  {
-//    let plane = frustum.colVectorGet( i );
+//    let plane = frustum.colGet( i );
 //
 //    p1 = _.box.cornerLeftGet( box );
 //    p2 = _.box.cornerRightGet( box );
@@ -816,7 +816,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   let dist = Infinity;
   for ( let j = 0 ; j < cols ; j++ )
   {
-    let newp = fpoints.colVectorGet( j );
+    let newp = fpoints.colGet( j );
     let d = this.tools.box.pointDistance( boxView, newp );
 
     if( d < dist )
@@ -831,7 +831,7 @@ function boxClosestPoint( frustum, box, dstPoint )
 
   for( let j = 0 ; j < _.Matrix.DimsOf( c )[ 1 ] ; j++ )
   {
-    let corner = c.colVectorGet( j );
+    let corner = c.colGet( j );
     let proj = this.pointClosestPoint( frustum, corner );
     let d = this.tools.avector.distance( corner, proj );
     if( d < dist )
@@ -900,14 +900,14 @@ function boundingBoxGet( dstBox, srcFrustum )
   _.assert( rows - 1 === dimB );
 
   // Frustum limits
-  let maxF = this.tools.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
-  let minF = this.tools.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
-  // let maxF = fpoints.colVectorGet( 0 ).clone();
-  // let minF = fpoints.colVectorGet( 0 ).clone();
+  let maxF = this.tools.vectorAdapter.from( fpoints.colGet( 0 ).slice() );
+  let minF = this.tools.vectorAdapter.from( fpoints.colGet( 0 ).slice() );
+  // let maxF = fpoints.colGet( 0 ).clone();
+  // let minF = fpoints.colGet( 0 ).clone();
 
   for( let j = 1 ; j < _.Matrix.DimsOf( fpoints )[ 1 ] ; j++ )
   {
-    let newp = fpoints.colVectorGet( j );
+    let newp = fpoints.colGet( j );
 
     if( newp.eGet( 0 ) < minF.eGet( 0 ) )
     {
@@ -1149,7 +1149,7 @@ function convexPolygonContains( frustum , polygon )
 
   for( let i = 0; i < dimsP[ 1 ]; i++ )
   {
-    let vertex = polygon.colVectorGet( i );
+    let vertex = polygon.colGet( i );
     if( !this.pointContains( frustum, vertex ) )
     return false;
   }
@@ -1305,7 +1305,7 @@ let points = this.cornersGet( tstFrustum );
 
 for( let i = 0 ; i < points.length ; i += 1 )
 {
-let point = points.colVectorGet( i );
+let point = points.colGet( i );
 let c = this.pointContains( srcFrustum, point );
 if( c !== true )
 return false;
@@ -1363,7 +1363,7 @@ function frustumIntersects( srcFrustum , tstFrustum )
 
   for( let i = 0 ; i < points.length ; i += 1 )
   {
-    let point = points.colVectorGet( i );
+    let point = points.colGet( i );
     let c = this.pointContains( tstFrustum, point );
     if( c === true )
     return true;
@@ -1374,7 +1374,7 @@ function frustumIntersects( srcFrustum , tstFrustum )
 
   for( let i = 0 ; i < points2.length ; i += 1 )
   {
-    let point = points2.colVectorGet( i );
+    let point = points2.colGet( i );
     let c = this.pointContains( srcFrustum, point );
     if( c === true )
     return true;
@@ -1436,7 +1436,7 @@ function frustumDistance( srcFrustum , tstFrustum )
   let points = this.cornersGet( srcFrustum );
   for( let i = 0 ; i < points.length ; i += 1 )
   {
-    let point = points.colVectorGet( i );
+    let point = points.colGet( i );
     let d = this.pointDistance( tstFrustum, point );
     if( d < distance )
     distance = d;
@@ -1445,7 +1445,7 @@ function frustumDistance( srcFrustum , tstFrustum )
   let points2 = this.cornersGet( tstFrustum );
   for( let i = 0 ; i < points2.length ; i += 1 )
   {
-    let point = points2.colVectorGet( i );
+    let point = points2.colGet( i );
     let d2 = this.pointDistance( srcFrustum, point );
     if( d2 < distance )
     distance = d2;
@@ -1521,7 +1521,7 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   let srcPoints = this.cornersGet( srcFrustum );
   for( let i = 0 ; i < srcPoints.length ; i += 1 )
   {
-    let point = srcPoints.colVectorGet( i );
+    let point = srcPoints.colGet( i );
     let d = this.pointDistance( tstFrustum, point );
     if( d < distance )
     {
@@ -1533,7 +1533,7 @@ function frustumClosestPoint( srcFrustum , tstFrustum, dstPoint )
   let tstPoints = this.cornersGet( tstFrustum );
   for( let i = 0 ; i < tstPoints.length ; i += 1 )
   {
-    let point = tstPoints.colVectorGet( i );
+    let point = tstPoints.colGet( i );
     let d2 = this.pointDistance( srcFrustum, point );
     if( d2 < distance )
     {
@@ -1679,7 +1679,7 @@ function planeIntersects( frustum, plane )
   let side;
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
-    let corner = corners.colVectorGet( j );
+    let corner = corners.colGet( j );
     let distance = this.tools.plane.pointDistance( planeView, corner );
     if( distance === 0 )
     return true;
@@ -1741,7 +1741,7 @@ function planeDistance( frustum, plane )
   let distance = Infinity;
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
-    let corner = corners.colVectorGet( j );
+    let corner = corners.colGet( j );
     let dist = Math.abs( this.tools.plane.pointDistance( planeView, corner ) );
     if( dist < distance )
     distance = dist;
@@ -1803,7 +1803,7 @@ function planeClosestPoint( frustum, plane, dstPoint )
   let point = this.tools.longMake( plane.length - 1 );
   for( let j = 0 ; j < 8 ; j = j + 1 )
   {
-    let corner = corners.colVectorGet( j );
+    let corner = corners.colGet( j );
     let dist = Math.abs( this.tools.plane.pointDistance( planeView, corner ) );
     if( dist < distance )
     {
@@ -2109,7 +2109,7 @@ function sphereContains( frustum , sphere )
 
   for( let i = 0 ; i < 6 ; i += 1 )
   {
-    let plane = frustum.colVectorGet( i );
+    let plane = frustum.colGet( i );
     if( this.tools.plane.pointDistance( plane, center ) > - radius + 1E-12 )
     return false;
   }
@@ -2316,14 +2316,14 @@ function boundingSphereGet( dstSphere, srcFrustum )
   _.assert( rows - 1 === dimSphere );
 
   // Frustum limits
-  let maxF = this.tools.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
-  let minF = this.tools.vectorAdapter.from( fpoints.colVectorGet( 0 ).slice() );
-  // let maxF = fpoints.colVectorGet( 0 ).clone();
-  // let minF = fpoints.colVectorGet( 0 ).clone();
+  let maxF = this.tools.vectorAdapter.from( fpoints.colGet( 0 ).slice() );
+  let minF = this.tools.vectorAdapter.from( fpoints.colGet( 0 ).slice() );
+  // let maxF = fpoints.colGet( 0 ).clone();
+  // let minF = fpoints.colGet( 0 ).clone();
 
   for( let j = 1 ; j < _.Matrix.DimsOf( fpoints )[ 1 ] ; j++ )
   {
-    let newp = fpoints.colVectorGet( j );
+    let newp = fpoints.colGet( j );
 
     if( newp.eGet( 0 ) < minF.eGet( 0 ) )
     {
