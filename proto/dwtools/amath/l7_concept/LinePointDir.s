@@ -16,7 +16,7 @@ let Self = _.linePointDir = _.linePointDir || Object.create( _.avector );
  * and dirX, dirY, dirZ the coordinates of the direction of the line.
  *
  * Finally lines extend also in the direction ( - dirX, - dirY, - dirZ ).
- * @namespace "wTools.linePointDir"
+ * @namespace wTools.linePointDir
   * @module Tools/math/Concepts
  */
 
@@ -975,7 +975,7 @@ lineIntersectionPointAccurate.shaderChunk =
   * // returns false
   * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
   *
-  * @returns { Boolen } Returns true if the point is inside the line, and false if the point is outside it.
+  * @returns { Boolean } Returns true if the point is inside the line, and false if the point is outside it.
   * @function pointContains
   * @throws { Error } An Error if ( dim ) is different than point.length (line and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -1122,7 +1122,7 @@ function pointContains( srcLine, srcPoint )
   * // returns 2
   * _.pointDistance( [ 0, 0, 0, 2 ], [ 2, 2 ] );
   *
-  * @returns { Boolen } Returns the distance between the point and the line.
+  * @returns { Boolean } Returns the distance between the point and the line.
   * @function pointDistance
   * @throws { Error } An Error if ( dim ) is different than point.length (line and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -1180,7 +1180,7 @@ function pointDistance( srcLine, srcPoint )
   * // returns [ 0, 2 ]
   * _.pointClosestPoint( [ 0, 0, 0, 2 ], [ 2, 2 ] );
   *
-  * @returns { Boolen } Returns the closest point in a line to a point.
+  * @returns { Boolean } Returns the closest point in a line to a point.
   * @function pointClosestPoint
   * @throws { Error } An Error if ( dim ) is different than point.length (line and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.

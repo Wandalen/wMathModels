@@ -15,7 +15,7 @@ let Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
 
   In the following methods, convex polygons will be defined by a space where each column
   represents one of the plygon´s vertices.
- * @namespace "wTools.convexPolygon"
+ * @namespace wTools.convexPolygon
   * @module Tools/math/Concepts
  */
 

@@ -25,7 +25,7 @@ _.assert( _.objectIs( _.avector ) );
   where dir1, dir2 and dir3 are the coordinates of the axis of the rotations,
   and angle corresponds to the rotation magnitude.
 
- * @namespace "wTools.axisAndAngle"
+ * @namespace wTools.axisAndAngle
  * @module Tools/math/Concepts
  */
 

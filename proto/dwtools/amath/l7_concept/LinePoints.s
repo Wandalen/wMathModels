@@ -14,7 +14,7 @@ let Self = _.linePoints = _.linePoints || Object.create( _.avector );
  * For the following functions, lines must have the shape [ X1, Y1, Z1, X2, Y2, Z2 ],
  * where the dimension equals the long's length divided by two.
  *
- * @namespace "wTools.linePoints"
+ * @namespace wTools.linePoints
   * @module Tools/math/Concepts
  */
 
