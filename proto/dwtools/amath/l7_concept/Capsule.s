@@ -17,7 +17,7 @@ let Self = _.capsule = _.capsule || Object.create( _.avector );
  * Moreover, startX, startY and startZ are the coordinates of the center of the bottom circle of the cylinder.
  * EndX, endY and endZ are the coordinates of the center of the top circle of the cylinder. Finally, radius is
  * the radius of the cylinder circles and therefore the radius of the capsule hemispherical ends.
- * @namespace "wTools.capsule"
+ * @namespace wTools.capsule
   * @module Tools/math/Concepts
  */
 
@@ -593,7 +593,7 @@ function getProjectionFactors( srcCapsule, projCapsule )
   * // returns false
   * _.pointContains( [ 0, 0, 2, 2, 1 ], [ - 1, 3 ] );
   *
-  * @returns { Boolen } Returns true if the point is inside the capsule, and false if the point is outside it.
+  * @returns { Boolean } Returns true if the point is inside the capsule, and false if the point is outside it.
   * @function pointContains
   * @throws { Error } An Error if ( dim ) is different than point.length (capsule and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -649,7 +649,7 @@ function pointContains( srcCapsule, srcPoint )
   * // returns 1
   * _.pointDistance( [ 0, 0, 0, 2, 1 ], [ 2, 2 ] );
   *
-  * @returns { Boolen } Returns the distance between the point and the capsule.
+  * @returns { Boolean } Returns the distance between the point and the capsule.
   * @function pointDistance
   * @throws { Error } An Error if ( dim ) is different than point.length (capsule and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -703,7 +703,7 @@ function pointDistance( srcCapsule, srcPoint )
   * // returns [ 1, 2 ]
   * _.pointClosestPoint( [ 0, 0, 0, 2, 1 ], [ 2, 2 ] );
   *
-  * @returns { Boolen } Returns the closest point in a capsule to a point.
+  * @returns { Boolean } Returns the closest point in a capsule to a point.
   * @function pointClosestPoint
   * @throws { Error } An Error if ( dim ) is different than point.length (capsule and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.
@@ -1339,7 +1339,7 @@ function capsuleClosestPoint( srcCapsule, tstCapsule, dstPoint )
   *     0,   1,   3,   3 ] );
   * _.convexPolygonContains( [ 0, 0, 0, 3, 3, 3, 1 ], polygon );
   *
-  * @returns { Boolen } Returns true if the convexPolygon is inside the capsule, and false if not.
+  * @returns { Boolean } Returns true if the convexPolygon is inside the capsule, and false if not.
   * @function convexPolygonContains
   * @throws { Error } An Error if ( dim ) is different than convexPolygon.length (Box and polygon don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.

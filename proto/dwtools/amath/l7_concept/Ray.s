@@ -16,7 +16,7 @@ let Self = _.ray = _.ray || Object.create( _.avector );
  *
  * Moreover, orX, orY and orZ, are the coordinates of the origin of the ray,
  * and dirX, dirY, dirZ the coordinates of the direction of the ray.
- * @namespace "wTools.ray"
+ * @namespace wTools.ray
   * @module Tools/math/Concepts
  */
 
@@ -1049,7 +1049,7 @@ rayIntersectionPointAccurate.shaderChunkName = 'ray_rayIntersectionPointAccurate
   * // returns false
   * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
   *
-  * @returns { Boolen } Returns true if the point is inside the ray, and false if the point is outside it.
+  * @returns { Boolean } Returns true if the point is inside the ray, and false if the point is outside it.
   * @function pointContains
   * @throws { Error } An Error if ( dim ) is different than point.length (ray and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -1161,7 +1161,7 @@ function pointContains( srcRay, srcPoint )
   * // returns 2
   * _.pointDistance( [ 0, 0, 0, 2 ], [ 2, 2 ] );
   *
-  * @returns { Boolen } Returns the distance between the point and the ray.
+  * @returns { Boolean } Returns the distance between the point and the ray.
   * @function pointDistance
   * @throws { Error } An Error if ( dim ) is different than point.length (ray and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -1220,7 +1220,7 @@ function pointDistance( srcRay, srcPoint )
   * // returns [ 0, 2 ]
   * _.pointClosestPoint( [ 0, 0, 0, 2 ], [ 2, 2 ] );
   *
-  * @returns { Boolen } Returns the closest point in a ray to a point.
+  * @returns { Boolean } Returns the closest point in a ray to a point.
   * @function pointClosestPoint
   * @throws { Error } An Error if ( dim ) is different than point.length (ray and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.

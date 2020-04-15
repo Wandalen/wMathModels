@@ -12,7 +12,7 @@ let Self = _.triangle = _.triangle || Object.create( _.avector );
  * A triangle is a polygon with three edges and three vertices.
  *
  * For the following functions, triangle must have the shape [ x1,y1,z1, x2,y2,z2, x3,y3,z3 ].
- * @namespace "wTools.triangle"
+ * @namespace wTools.triangle
   * @module Tools/math/Concepts
  */
 

@@ -10,7 +10,7 @@ let Self = _.linePointCentered = _.linePointCentered || Object.create( _.avector
 /**
  * Is a line alligned relative to the origin of coordinate system.
  * For the following functions, line should have shape [ X, Y, Z ]
- * @namespace "wTools.linePointCentered"
+ * @namespace wTools.linePointCentered
   * @module Tools/math/Concepts
 */
 

@@ -37,7 +37,7 @@ let Self = _.frustum = _.frustum || Object.create( _.avector );
  *
  * Frustum planes convention : right, left, bottom, top, far, near;
  * Frustum planes must have director vectors pointing outside frustum;
- * @namespace "wTools.frustum"
+ * @namespace wTools.frustum
   * @module Tools/math/Concepts
  */
 

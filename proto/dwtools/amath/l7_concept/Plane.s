@@ -14,7 +14,7 @@ let Self = _.plane = _.plane || Object.create( _.avector );
  * For the following functions, planes must have the shape `[ A, B, ... , D ]`,
  * where the dimension equals the long's length minus one.
  *
- * @namespace "wTools.plane"
+ * @namespace wTools.plane
   * @module Tools/math/Concepts
  */
 
