@@ -24,7 +24,7 @@ let Self = _.quat = _.quat || Object.create( _.avector );
  * For the following functions, quaternions must have the shape [ dir1, dir2, dir3, scalar ],
  * where dir1, dir2 and dir3 are the coordinates of the rotation vector
  * and scalar related with the rotation magnitude.
- * @namespace "wTools.quat"
+ * @namespace wTools.quat
  * @module Tools/math/Concepts
  */
 
@@ -814,6 +814,14 @@ function toMatrix( quat, mat )
 
 //
 
+function toEuler( quat, euler )
+{ 
+  _.assert( arguments.length === 2 );
+  return _.euler.fromQuat2( euler, quat );
+}
+
+//
+
 function is( quat )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
@@ -1087,6 +1095,7 @@ let Extension = /* qqq : normalize order */
   fromPlane,
 
   toMatrix,
+  toEuler,
 
   is,
   isUnit,

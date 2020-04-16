@@ -14,7 +14,7 @@ let Self = _.linePoints = _.linePoints || Object.create( _.avector );
  * For the following functions, lines must have the shape [ X1, Y1, Z1, X2, Y2, Z2 ],
  * where the dimension equals the long's length divided by two.
  *
- * @namespace "wTools.linePoints"
+ * @namespace wTools.linePoints
   * @module Tools/math/Concepts
  */
 
@@ -176,8 +176,8 @@ pairAt.shaderChunk =
 function pairPairParallel( pair1, pair2 )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let ray1 = this.tools.ray.fromPair( pair1 );
-  let ray2 = this.tools.ray.fromPair( pair2 );
+  let ray1 = this.tools.ray.fromPair2( pair1 );
+  let ray2 = this.tools.ray.fromPair2( pair2 );
   return this.tools.ray.rayParallel( ray1, ray2 );
 }
 
@@ -199,8 +199,8 @@ pairPairParallel.shaderChunk =
 function pairIntersectionFactors( pair1, pair2 )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let ray1 = this.tools.ray.fromPair( pair1 );
-  let ray2 = this.tools.ray.fromPair( pair2 );
+  let ray1 = this.tools.ray.fromPair2( pair1 );
+  let ray2 = this.tools.ray.fromPair2( pair2 );
   return this.tools.ray.rayIntersectionFactors( ray1, ray2 );
 }
 
@@ -225,8 +225,8 @@ pairIntersectionFactors.shaderChunkName = 'pairPairIntersectionFactors'
 function pairIntersectionPoint( pair1, pair2 )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let ray1 = this.tools.ray.fromPair( pair1 );
-  let ray2 = this.tools.ray.fromPair( pair2 );
+  let ray1 = this.tools.ray.fromPair2( pair1 );
+  let ray2 = this.tools.ray.fromPair2( pair2 );
   return this.tools.ray.rayIntersectionPoint( ray1, ray2 );
 }
 
@@ -250,8 +250,8 @@ pairIntersectionPoint.shaderChunkName = 'pairPairIntersectionPoint'
 function pairIntersectionPointAccurate( pair1, pair2 )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
-  let ray1 = this.tools.ray.fromPair( pair1 );
-  let ray2 = this.tools.ray.fromPair( pair2 );
+  let ray1 = this.tools.ray.fromPair2( pair1 );
+  let ray2 = this.tools.ray.fromPair2( pair2 );
   return this.tools.ray.rayIntersectionPointAccurate( ray1, ray2 );
 }
 

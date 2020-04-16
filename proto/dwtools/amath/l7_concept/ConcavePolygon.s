@@ -15,7 +15,7 @@ let Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
   A concave polygon is the opposite of a convex polygon.
   In the following methods, concave polygons will be defined by a space where each column
   represents one of the plygon´s vertices.
- * @namespace "wTools.concavePolygon"
+ * @namespace wTools.concavePolygon
   * @module Tools/math/Concepts
  */
 

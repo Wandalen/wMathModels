@@ -16,7 +16,7 @@ let Self = _.segment = _.segment || Object.create( _.avector );
  *
  * Moreover, startX, startY and startZ are the coordinates of the origin of the segment,
  * and endX, endY and endZ the coordinates of the end of the segment.
- * @namespace "wTools.segment"
+ * @namespace wTools.segment
   * @module Tools/math/Concepts
  */
 
@@ -884,7 +884,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
       pivoting : 1,
     }
 
-    let x = _.Matrix.solveGeneral( o );
+    let x = _.Matrix.SolveGeneral( o );
 
     result = this.tools.vectorAdapter.from( x.base );
 
@@ -998,7 +998,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
       kernel : null,
       pivoting : 1,
     }
-    let x = _.Matrix.solveGeneral( o );
+    let x = _.Matrix.SolveGeneral( o );
     result = this.tools.vectorAdapter.from( x.base );
     let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
     let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
@@ -1225,7 +1225,7 @@ function fromPair( pair )
   * // returns false
   * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
   *
-  * @returns { Boolen } Returns true if the point is inside the segment, and false if the point is outside it.
+  * @returns { Boolean } Returns true if the point is inside the segment, and false if the point is outside it.
   * @function pointContains
   * @throws { Error } An Error if ( dim ) is different than point.length (segment and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -1338,7 +1338,7 @@ function pointContains( srcSegment, srcPoint )
   * // returns 2
   * _.pointDistance( [ 0, 0, 0, 2 ], [ 2, 2 ] );
   *
-  * @returns { Boolen } Returns the distance between the point and the segment.
+  * @returns { Boolean } Returns the distance between the point and the segment.
   * @function pointDistance
   * @throws { Error } An Error if ( dim ) is different than point.length (segment and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -1411,7 +1411,7 @@ function pointDistance( srcSegment, srcPoint )
   * // returns [ 0, 2 ]
   * _.pointClosestPoint( [ 0, 0, 0, 2 ], [ 2, 2 ] );
   *
-  * @returns { Boolen } Returns the closest point in a segment to a point.
+  * @returns { Boolean } Returns the closest point in a segment to a point.
   * @function pointClosestPoint
   * @throws { Error } An Error if ( dim ) is different than point.length (segment and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two or three.

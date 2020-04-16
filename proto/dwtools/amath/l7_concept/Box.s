@@ -16,7 +16,7 @@ let Self = _.box = _.box || Object.create( _.avector );
  *
  * Moreover, minX, minY and minZ are the coordinates of the back, bottom left corner of the box,
  * and maxX, maxY, maxZ the coordinates of the front, top right corner.
- * @namespace "wTools.box"
+ * @namespace wTools.box
   * @module Tools/math/Concepts
  */
 
@@ -1166,7 +1166,7 @@ function getProjectionFactors( srcBox, projBox )
   * // returns false
   * _.pointContains( [ 0, 0, 2, 2 ], [ - 1, 3 ] );
   *
-  * @returns { Boolen } Returns true if the point is inside the box, and false if the point is outside it.
+  * @returns { Boolean } Returns true if the point is inside the box, and false if the point is outside it.
   * @function pointContains
   * @throws { Error } An Error if ( dim ) is different than point.length (Box and point have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -1757,7 +1757,7 @@ function boxExpand( dstBox , srcBox )
   * // returns false
   * _.capsuleContains( [ 0, 0, 2, 2 ], [ - 1, 3, 3, 3, 1 ] );
   *
-  * @returns { Boolen } Returns true if the capsule is inside the box, and false if the capsule is outside it.
+  * @returns { Boolean } Returns true if the capsule is inside the box, and false if the capsule is outside it.
   * @function capsuleContains
   * @throws { Error } An Error if ( dim ) is different than capsule.length (Box and capsule have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -1907,7 +1907,7 @@ function capsuleClosestPoint( box, capsule, dstPoint )
   *     0,   1,   3,   3 ] );
   * _.convexPolygonContains( [ 0, 0, 0, 3, 3, 3 ], polygon );
   *
-  * @returns { Boolen } Returns true if the convexPolygon is inside the box, and false if not.
+  * @returns { Boolean } Returns true if the convexPolygon is inside the box, and false if not.
   * @function convexPolygonContains
   * @throws { Error } An Error if ( dim ) is different than convexPolygon.length (Box and polygon don´t have the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.

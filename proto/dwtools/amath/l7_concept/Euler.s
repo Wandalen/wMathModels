@@ -26,7 +26,7 @@ _.assert( !this );
  * For the following functions, Euler Angles must have the shape [ angle1, angle2, angle3, axis1, axis2, axis3 ],
  * where angle1, angle2 and angle3 are the value of the rotations ( in radians )
  * and axis1, axis2, axis3 the corresponding axes of rotation.
- * @namespace "wTools.euler"
+ * @namespace wTools.euler
   * @module Tools/math/Concepts
  */
 
@@ -1609,6 +1609,12 @@ function fromQuat2( dstEuler, srcQuat )
 
 //
 
+function toQuat( srcEuler, dstQuat )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  return _.quat.fromEuler( dstQuat, srcEuler );
+}
+
 /**
   * Create the quaternion from a set of euler angles. Returns the created quaternion.
   * Euler angles stay untouched.
@@ -2854,6 +2860,7 @@ let Extension = /* qqq : normalize order */
 
   fromAxisAndAngle,
   fromQuat,
+  toQuat,
   fromMatrix,
   toMatrix,
 

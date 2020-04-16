@@ -16,7 +16,7 @@ let Self = _.sphere = _.sphere || Object.create( _.avector );
  *
  * Moreover, centerX, centerY, centerZ are the coordinates of the center of the sphere,
  * and radius is the radius pf the sphere.
- * @namespace "wTools.sphere"
+ * @namespace wTools.sphere
   * @module Tools/math/Concepts
  */
 
@@ -1468,7 +1468,7 @@ function boundingBoxGet( dstBox, srcSphere )
   * // returns false
   * _.capsuleContains( [ 0, 0, 2 ], [ - 1, 3, 3, 3, 1 ] );
   *
-  * @returns { Boolen } Returns true if the capsule is inside the sphere, and false if the capsule is outside it.
+  * @returns { Boolean } Returns true if the capsule is inside the sphere, and false if the capsule is outside it.
   * @function capsuleContains
   * @throws { Error } An Error if ( dim ) is different than capsule.length (Sphere and capsule have not the same dimension).
   * @throws { Error } An Error if ( arguments.length ) is different than two.

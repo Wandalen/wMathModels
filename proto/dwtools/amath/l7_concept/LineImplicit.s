@@ -12,7 +12,7 @@ let Self = _.lineImplicit = _.lineImplicit || Object.create( _.avector );
  * A implicit line is a straight line defined by a linear equation whose general form is Ax + By + C = 0,
  * where A, B are not both 0.
  * For the following functions, implicit line must be represented by shape [ A,B,C ]
- * @namespace "wTools.lineImplicit"
+ * @namespace wTools.lineImplicit
   * @module Tools/math/Concepts
 */
 
