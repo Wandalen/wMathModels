@@ -1,11 +1,11 @@
 # Figures overview
 
-Стаття виконує огляд доступних фігур та демонструює їх використання
+Огляд доступних фігур та демонструює їх використання.
 
 Перелік описаних фігур:
 
-[AxisAndAngle](./FiguresOverview.md#AxisAndAngle)<br>
-[Box](./FiguresOverview.md#Box)<br>
+[AxisAndAngle](./FiguresOverview.md#AxisAndAngle)
+[Box](./FiguresOverview.md#Box)
 [Capsule](./FiguresOverview.md#Capsule)<br>
 [ConcavePolygon](./FiguresOverview.md#ConcavePolygon)<br>
 [ConvexPolygon](./FiguresOverview.md#ConvexPolygon)<br>
@@ -29,11 +29,11 @@ let axisAndAngle = _.axisAndAngle.from([ 0, 1, 2, 3 ]);
 let matrix = _.Matrix.Make([ 3, 3 ]);
 _.axisAndAngle.toMatrixRotation( axisAndAngle, null )
 console.log( 'Rotation matrix from AngleAndAxis:', matrix.toStr() )
-/* log: 
+/* log:
 Rotation matrix from AngleAndAxis:
--8.950, -0.282, 0.141, 
-0.282, -6.960, 3.980, 
--0.141, 3.980, -0.990, 
+-8.950, -0.282, 0.141,
+0.282, -6.960, 3.980,
+-0.141, 3.980, -0.990,
 */
 
 ```
@@ -61,7 +61,7 @@ console.log( 'Distance from capsule to point:', got );
 ### ConcavePolygon
 
 ```js
-let polygon = 
+let polygon =
 [
   0,1,
   0,1
@@ -149,7 +149,7 @@ var factor = 0.25;
 var pair = _.linePoints.pairAt( ray,factor );
 console.log( 'Pair at factor 0.25:', pair.toStr() );
 /* log: Pair at factor 0.25: 2.000 2.000*/
- 
+
 ```
 
 ### Plane
