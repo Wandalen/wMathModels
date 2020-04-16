@@ -693,7 +693,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
       kernel : null,
       pivoting : 1,
     }
-    let x = _.Matrix.solveGeneral( o );
+    let x = _.Matrix.SolveGeneral( o );
     logger.log(' x: ', x.base)
     if( j === 0 )
     {
@@ -780,7 +780,7 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
       pivoting : 1,
     }
 
-    let x = _.Matrix.solveGeneral( o );
+    let x = _.Matrix.SolveGeneral( o );
 
     result = this.tools.vectorAdapter.from( x.base );
 

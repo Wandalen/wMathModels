@@ -216,6 +216,18 @@ fromPair.shaderChunkName = 'ray_fromPair'
 
 //
 
+function fromPair2( pair )
+{
+  _.assert( arguments.length === 1 );
+  
+  let pair0 = this.tools.linePoints.firstPointGet( pair );
+  let pair1 = this.tools.linePoints.secondPointGet( pair );
+  
+  return this.fromPair( [ pair0,pair1 ] );
+}
+
+//
+
 function toLinePoints( dstPoints, srcRay )
 {
   _.assert( arguments.length === 1 || arguments.length === 2 );
@@ -765,7 +777,7 @@ function rayIntersectionFactors( r1, r2 )
       pivoting : 1,
     }
 
-    let x = _.Matrix.solveGeneral( o );
+    let x = _.Matrix.SolveGeneral( o );
 
     result = this.tools.vectorAdapter.from( x.base );
 
@@ -3216,6 +3228,7 @@ let Extension = /* qqq : normalize order */
   from,
   adapterFrom,
   fromPair, // fromPoints,
+  fromPair2,
   toLinePoints,
 
   is,

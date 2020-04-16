@@ -814,6 +814,14 @@ function toMatrix( quat, mat )
 
 //
 
+function toEuler( quat, euler )
+{ 
+  _.assert( arguments.length === 2 );
+  return _.euler.fromQuat2( euler, quat );
+}
+
+//
+
 function is( quat )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
@@ -1087,6 +1095,7 @@ let Extension = /* qqq : normalize order */
   fromPlane,
 
   toMatrix,
+  toEuler,
 
   is,
   isUnit,
