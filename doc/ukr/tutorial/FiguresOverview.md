@@ -25,7 +25,7 @@
 ### AxisAndAngle
 
 ```js
-let axisAndAngle = _.axisAndAngle.from([ 0, 1, 2, 3 ]);
+let axisAndAngle = _.axisAndAngle.from([ 0, 0, 1, Math.PI/2 ]);
 let matrix = _.Matrix.Make([ 3, 3 ]);
 _.axisAndAngle.toMatrixRotation( axisAndAngle, null )
 console.log( 'Rotation matrix from AngleAndAxis:', matrix.toStr() )

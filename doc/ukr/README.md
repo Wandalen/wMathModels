@@ -1,13 +1,32 @@
-<!--
 ## Концепції
 
 <details>
-  <summary><a href="./concept/RoutineInput.md#Масив-аргументів">
-    Масив аргументів
+  <summary><a href="./concept/FiguresOverview.md#...">
+    LinePoints
   </a></summary>
-    Це сукупність параметрів рутини, котрі сформовано в псевдомасив <code>arguments</code>.
+    ....
 </details>
--->
+
+<details>
+  <summary><a href="./tutorial/FiguresOverview.md">
+    Огляд фігур
+  </a></summary>
+    Огляд доступних фігур та демонструює їх використання
+</details>
+
+<details>
+  <summary><a href="./tutorial/FiguresOverview.md">
+    Огляд фігур
+  </a></summary>
+    Огляд доступних фігур та демонструює їх використання
+</details>
+
+<details>
+  <summary><a href="./tutorial/FiguresOverview.md">
+    Огляд фігур
+  </a></summary>
+    Огляд доступних фігур та демонструює їх використання
+</details>
 
 
 ## Туторіали
@@ -17,11 +36,4 @@
     Введення
   </a></summary>
     Стаття описує основні особливості модуля та принципи його використання.
-</details>
-
-<details>
-  <summary><a href="./tutorial/FiguresOverview.md">
-    Огляд фігур
-  </a></summary>
-    Огляд доступних фігур та демонструює їх використання
 </details>

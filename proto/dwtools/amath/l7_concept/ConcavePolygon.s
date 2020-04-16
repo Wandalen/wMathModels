@@ -89,6 +89,7 @@ function make( dim, vertices )
   * @namespace wTools.concavePolygon
   * @module Tools/math/Concepts
   */
+
 function isPolygon( polygon )
 {
   return this.tools.convexPolygon.isPolygon( polygon );

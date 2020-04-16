@@ -3,8 +3,6 @@
 'use strict';
 
 let _ = _global_.wTools;
-// let this.tools.avector = this.tools.avector;
-// let vector = this.tools.vectorAdapter;
 let pi = Math.PI;
 let sin = Math.sin;
 let cos = Math.cos;

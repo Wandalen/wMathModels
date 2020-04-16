@@ -144,7 +144,7 @@ function fromRay( ray )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( this.tools.ray.is( ray ) );
-  
+
   return this.tools.ray.toLinePoints( ray );
 }
 
@@ -330,7 +330,7 @@ let Extension = /* qqq xxx : normalize order */
 
   firstPointGet,
   secondPointGet,
-  
+
   fromRay,
 
   pairAt,

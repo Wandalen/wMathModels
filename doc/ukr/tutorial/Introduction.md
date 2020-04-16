@@ -170,7 +170,7 @@ console.log( 'Plane intersects with ray: ', got )
 ### Figures overview
 
   <!-- -- One sentence per figure + image -->
-  
+
  [Повний огляд фігур](./FiguresOverview.md)
 
 ### Convention dst=null

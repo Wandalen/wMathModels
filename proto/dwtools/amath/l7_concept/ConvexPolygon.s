@@ -64,6 +64,13 @@ function make( dim, vertices )
 
   let dst = _.Matrix.MakeZero([ dim, vertices ]);
 
+/*
+[
+  1 2 3 4
+  1 2 3 4
+]
+*/
+
   return dst;
 }
 
@@ -530,6 +537,7 @@ function pointContains2D( polygon, point )
   * @namespace wTools.convexPolygon
   * @module Tools/math/Concepts
   */
+
 function pointDistance( polygon, point )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -565,7 +573,6 @@ function pointDistance( polygon, point )
     if( this.pointContains( polygon, proy ) )
     return this.tools.vectorAdapter.distance( pointView, proy );
   }
-
 
   let distance = Infinity;
   for( let i = 0 ; i < dims[ 1 ] ; i = i + 1 )

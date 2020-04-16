@@ -33,11 +33,10 @@ EndX, endY and endZ are the coordinates of the center of the top circle of the c
 the radius of the cylinder circles and therefore the radius of the capsule hemispherical ends.
 
 */
-// --
-//
-// --
-//
 
+// --
+//
+// --
 
 function make( dim )
 {
