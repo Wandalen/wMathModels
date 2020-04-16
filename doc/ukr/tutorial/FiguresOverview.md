@@ -4,8 +4,8 @@
 
 Перелік описаних фігур:
 
-[AxisAndAngle](./FiguresOverview.md#AxisAndAngle)
-[Box](./FiguresOverview.md#Box)
+[AxisAndAngle](./FiguresOverview.md#AxisAndAngle)<br>
+[Box](./FiguresOverview.md#Box)<br>
 [Capsule](./FiguresOverview.md#Capsule)<br>
 [ConcavePolygon](./FiguresOverview.md#ConcavePolygon)<br>
 [ConvexPolygon](./FiguresOverview.md#ConvexPolygon)<br>
