@@ -43,13 +43,13 @@ console.log( 'Line: ', line );
 Приклад отримання даних фігури:
 
 ```js
-//Отримання початкової точки лінії
+//How to get origin point
 let line = _.linePointDir.from( [ 1, 2, 3, 4 ] );
 let origin = _.linePointDir.originGet( line );
 console.log( 'Origin: ', origin.toStr() );
 /* log : Origin : "1.000 2.000" */
 
-//Отримання вектору напрямку
+//How to get direction vector
 let line = _.linePointDir.from( [ 1, 2, 3, 4 ] );
 let direction = _.linePointDir.directionGet( line );
 console.log( 'Direction: ', direction.toStr() );
@@ -170,6 +170,8 @@ console.log( 'Plane intersects with ray: ', got )
 ### Figures overview
 
   <!-- -- One sentence per figure + image -->
+  
+ [Повний огляд фігур](./FiguresOverview.md)
 
 ### Convention dst=null
 
