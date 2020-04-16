@@ -1609,6 +1609,12 @@ function fromQuat2( dstEuler, srcQuat )
 
 //
 
+function toQuat( srcEuler, dstQuat )
+{
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  return _.quat.fromEuler( dstQuat, srcEuler );
+}
+
 /**
   * Create the quaternion from a set of euler angles. Returns the created quaternion.
   * Euler angles stay untouched.
@@ -2854,6 +2860,7 @@ let Extension = /* qqq : normalize order */
 
   fromAxisAndAngle,
   fromQuat,
+  toQuat,
   fromMatrix,
   toMatrix,
 

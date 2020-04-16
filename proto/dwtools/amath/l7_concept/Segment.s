@@ -884,7 +884,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
       pivoting : 1,
     }
 
-    let x = _.Matrix.solveGeneral( o );
+    let x = _.Matrix.SolveGeneral( o );
 
     result = this.tools.vectorAdapter.from( x.base );
 
@@ -998,7 +998,7 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
       kernel : null,
       pivoting : 1,
     }
-    let x = _.Matrix.solveGeneral( o );
+    let x = _.Matrix.SolveGeneral( o );
     result = this.tools.vectorAdapter.from( x.base );
     let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
     let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );

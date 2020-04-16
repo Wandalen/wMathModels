@@ -223,54 +223,31 @@ console.log( 'Sphere contains point: ', got )
 var linePoints1 = _.linePoints.from( [ 1, 1, 3, 3 ] );
 var linePoints2 = _.linePoints.from( [ 2, 2, 3, 3 ] );
 var point = _.linePoints.pairIntersectionPoint( linePoints1, linePoints2 );
-console.log( 'Intersection point:', point );
-/* log : Intersection point: */
+console.log( 'Intersection point:', point.toString() );
+/* log : Intersection point: 2,2 */
 
 var linePointsDir1 = _.linePointDir.fromPoints2( linePoints1 );
 var linePointsDir2 = _.linePointDir.fromPoints2( linePoints2 );
 var point = _.linePointDir.lineIntersectionPoint( linePointsDir1, linePointsDir2 );
-console.log( 'Intersection point:', point );
-/* log : Intersection point: */
+console.log( 'Intersection point:', point.toString() );
+/* log : Intersection point: 2,2 */
 
 ```
 
 Приклад передтворення між "Quat" та "Euler":
 
 ```js
-var quat1 = [ 0.46990785942494523, 0.3649976887426158, 0.32407387953254757, 0.7354858336283155 ];
-console.log( 'Quat1: ', quat1 );
+var euler =  [ 1, 0, 0.5, 0, 1, 2 ] ;
+console.log( 'Euler:', _.toStr( euler, { precision : 2 } ) )
+/* log : Euler: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 
-// Quat1:  [
-//   0.46990785942494523,
-//   0.3649976887426158,
-//   0.32407387953254757,
-//   0.7354858336283155
-// ]
+var quat = _.euler.toQuat( euler, null );
+console.log( 'Quat from Euler:', _.toStr( quat, { precision : 2 } ) )
+/* log : Quat from Euler: [ 0.46, -0.12, 0.22, 0.85 ] */
 
-var euler = _.euler.fromQuat2( null, quat1 );
-console.log( 'Euler: ', euler );
-
-// Euler:  [
-//   0.9999999999999999,
-//   0.9999999999999998,
-//   0.25000000000000017,
-//   0,
-//   1,
-//   2
-// ]
-
-var quat2 = _.euler.toQuat2( euler, null );
-console.log( 'Quat2: ', quat2 );
-
-// Quat2:  [
-//   0.4699078594249453,
-//   0.3649976887426157,
-//   0.3240738795325475,
-//   0.7354858336283155
-// ]
-
-
-
+var euler2 = _.quat.toEuler( quat, null );
+console.log( 'Euler from Quat:', _.toStr( euler2, { precision : 2 } ) )
+/* log : Euler from Quat: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 ```
 
 
