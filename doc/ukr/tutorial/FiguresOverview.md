@@ -25,7 +25,17 @@
 ### AxisAndAngle
 
 ```js
-xxx
+let axisAndAngle = _.axisAndAngle.from([ 0, 1, 2, 3 ]);
+let matrix = _.Matrix.Make([ 3, 3 ]);
+_.axisAndAngle.toMatrixRotation( axisAndAngle, null )
+console.log( 'Rotation matrix from AngleAndAxis:', matrix.toStr() )
+/* log: 
+Rotation matrix from AngleAndAxis:
+-8.950, -0.282, 0.141, 
+0.282, -6.960, 3.980, 
+-0.141, 3.980, -0.990, 
+*/
+
 ```
 
 ### Box
@@ -79,7 +89,10 @@ console.log( 'Distance from convex polygon to point:', got );
 ### Euler
 
 ```js
-xxx
+var euler = [ 1, 0, 0.5, 0, 1, 2 ];
+var quat = _.euler.toQuat( euler, null );
+console.log( 'Quat from Euler:', _.toStr( quat, { precision : 2 } ) )
+/* log : Quat from Euler: [ 0.46, -0.12, 0.22, 0.85 ] */
 ```
 
 ### Frustum
@@ -131,7 +144,12 @@ console.log( 'Distance from line by point and direction to point:', got );
 ### LinePoints
 
 ```js
-xxx
+var ray = [ 1, 1, 5, 5 ];
+var factor = 0.25;
+var pair = _.linePoints.pairAt( ray,factor );
+console.log( 'Pair at factor 0.25:', pair.toStr() );
+/* log: Pair at factor 0.25: 2.000 2.000*/
+ 
 ```
 
 ### Plane
@@ -147,7 +165,10 @@ console.log( 'Distance from plane to point:', got );
 ### Quat
 
 ```js
-xxx
+var quat = [ 0.46, -0.12, 0.22, 0.85 ]
+var euler = _.quat.toEuler( quat, null )
+console.log( 'Quat from Euler:', _.toStr( euler, { precision : 2 } ) )
+/* log : Euler from Quat: [ 0.99, -0.0016, 0.51, 0.0, 1.0, 2.0 ] */
 ```
 
 ### Ray
