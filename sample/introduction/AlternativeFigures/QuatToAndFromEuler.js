@@ -3,34 +3,14 @@ var _ = require( '../../..' );
 
 var _ = wTools;
 
-var quat1 = [ 0.46990785942494523, 0.3649976887426158, 0.32407387953254757, 0.7354858336283155 ];
-console.log( 'Quat1: ', quat1 );
+var euler =  [ 1, 0, 0.5, 0, 1, 2 ] ;
+console.log( 'Euler:', _.toStr( euler, { precision : 2 } ) )
+/* log : Euler: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 
-// Quat1:  [
-//   0.46990785942494523,
-//   0.3649976887426158,
-//   0.32407387953254757,
-//   0.7354858336283155
-// ]
+var quat = _.euler.toQuat( euler, null );
+console.log( 'Quat from Euler:', _.toStr( quat, { precision : 2 } ) )
+/* log : Quat from Euler: [ 0.46, -0.12, 0.22, 0.85 ] */
 
-var euler = _.euler.fromQuat2( null, quat1 );
-console.log( 'Euler: ', euler );
-
-// Euler:  [
-//   0.9999999999999999,
-//   0.9999999999999998,
-//   0.25000000000000017,
-//   0,
-//   1,
-//   2
-// ]
-
-var quat2 = _.euler.toQuat2( euler, null );
-console.log( 'Quat2: ', quat2 );
-
-// Quat2:  [
-//   0.4699078594249453,
-//   0.3649976887426157,
-//   0.3240738795325475,
-//   0.7354858336283155
-// ]
+var euler2 = _.quat.toEuler( quat, null );
+console.log( 'Euler from Quat:', _.toStr( euler2, { precision : 2 } ) )
+/* log : Euler from Quat: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
