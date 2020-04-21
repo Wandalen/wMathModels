@@ -72,7 +72,9 @@ function make( test )
 
 function from( test )
 {
-  test.case = 'Same instance returned - array'; /* */
+  /* */
+
+  test.case = 'Same instance returned - array';
 
   var srcTriangle = [ 0, 0, 1, 1, 2, 0 ];
   var expected = _.triangle.tools.longMake( [ 0, 0, 1, 1, 2, 0 ] );
@@ -81,7 +83,9 @@ function from( test )
   test.identical( gotTriangle, expected );
   test.is( srcTriangle === gotTriangle );
 
-  test.case = 'Different instance returned - vector -> array'; /* */
+  /* */
+
+  test.case = 'Different instance returned - vector -> array';
 
   var srcTriangle = _.vectorAdapter.fromLong( [  0, 0, 1, 1, 2, 0 ] );
   var expected = _.triangle.tools.vectorAdapter.fromLong( [ 0, 0, 1, 1, 2, 0 ] );
@@ -90,7 +94,9 @@ function from( test )
   test.identical( gotTriangle, expected );
   test.is( srcTriangle === gotTriangle );
 
-  test.case = 'Different instance returned - null -> array'; /* */
+  /* */
+
+  test.case = 'Different instance returned - null -> array';
 
   var srcTriangle = null;
   var expected = _.triangle.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );

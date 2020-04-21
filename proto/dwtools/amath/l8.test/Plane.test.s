@@ -33,7 +33,9 @@ _.assert( _.routineIs( sqrt ) );
 function from( test )
 {
 
-  test.case = 'Src plane, normal and bias stay unchanged, dst plane changes'; /* */
+  /* */
+
+  test.case = 'Src plane, normal and bias stay unchanged, dst plane changes';
 
   var dstPlane = [ 0, 0 , 1, 2 ];
   var srcPlane = [ 0, 1, 2, 3 ];
@@ -52,7 +54,9 @@ function from( test )
   var oldBias = 3;
   test.identical( bias, oldBias );
 
-  test.case = 'null plane'; /* */
+  /* */
+
+  test.case = 'null plane';
 
   var dstPlane = null;
   var srcPlane = [ 0, 0, 0, 0 ];
@@ -61,7 +65,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
 
-  test.case = 'null plane fron normal and bias'; /* */
+  /* */
+
+  test.case = 'null plane fron normal and bias';
 
   var dstPlane = null;
   var normal = [ 0, 0, 0 ];
@@ -71,7 +77,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
 
-  test.case = 'NaN normal'; /* */
+  /* */
+
+  test.case = 'NaN normal';
 
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ NaN, NaN, NaN ];
@@ -81,7 +89,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
 
-  test.case = 'NaN bias'; /* */
+  /* */
+
+  test.case = 'NaN bias';
 
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ 0, 1, 0 ];
@@ -91,7 +101,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
 
-  test.case = 'Erase plane'; /* */
+  /* */
+
+  test.case = 'Erase plane';
 
   var dstPlane = [ 1, 1, 1, 1 ];
   var srcPlane = [ 0, 0, 0, 0 ];
@@ -100,7 +112,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
 
-  test.case = 'Erase plane form normal and bias'; /* */
+  /* */
+
+  test.case = 'Erase plane form normal and bias';
 
   var dstPlane = [ 1, 1, 1, 1 ];
   var normal = [ 0, 0, 0 ];
@@ -110,7 +124,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
 
-  test.case = 'Change plane'; /* */
+  /* */
+
+  test.case = 'Change plane';
 
   var dstPlane = [ 1, 0, 1, 2 ];
   var srcPlane = [ 0, 1, 0, 1 ];
@@ -119,7 +135,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
 
-  test.case = 'Change plane from normal and bias'; /* */
+  /* */
+
+  test.case = 'Change plane from normal and bias';
 
   var dstPlane = [ 1, 0, 1, 2 ];
   var normal = [ 1, 2, 1 ];
@@ -129,7 +147,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
 
-  test.case = 'Change plane 2D'; /* */
+  /* */
+
+  test.case = 'Change plane 2D';
 
   var dstPlane = [ 0, 0, 0 ];
   var srcPlane = [ 0, 1, 1 ];
@@ -138,7 +158,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
 
-  test.case = 'Change plane 2D'; /* */
+  /* */
+
+  test.case = 'Change plane 2D';
 
   var dstPlane = [ 0, 0, 0 ];
   var normal = [ 0, 1 ];
@@ -148,7 +170,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, normal, bias );
   test.identical( gotPlane, expected );
 
-  test.case = 'Change plane 4D'; /* */
+  /* */
+
+  test.case = 'Change plane 4D';
 
   var dstPlane = [ 0, 0, 0, 0, 0 ];
   var srcPlane = [ 0, 1, 1, 0, 1 ];
@@ -157,7 +181,9 @@ function from( test )
   var gotPlane = _.plane.from( dstPlane, srcPlane );
   test.identical( gotPlane, expected );
 
-  test.case = 'Change plane 4D'; /* */
+  /* */
+
+  test.case = 'Change plane 4D';
 
   var dstPlane = [ 0, 0, 0, 0, 0 ];
   var normal = [ 0, 1, 1, 0 ];
@@ -191,7 +217,9 @@ function from( test )
 function fromNormalAndPoint( test )
 {
 
-  test.case = 'Normal and point stay unchanged, dst plane changes'; /* */
+  /* */
+
+  test.case = 'Normal and point stay unchanged, dst plane changes';
 
   var dstPlane = [ 0, 0 , 1, 2 ];
   var normal = [ 0, 1, 0 ];
@@ -206,7 +234,9 @@ function fromNormalAndPoint( test )
   test.identical( normal, oldNormal );
   test.identical( point, oldPoint );
 
-  test.case = 'NaN plane from normal and point'; /* */
+  /* */
+
+  test.case = 'NaN plane from normal and point';
 
   var dstPlane = [ NaN, NaN, NaN, NaN ];
   var normal = [ 0, 0, 1 ];
@@ -216,7 +246,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
 
-  test.case = 'null plane from normal and point'; /* */
+  /* */
+
+  test.case = 'null plane from normal and point';
 
   var dstPlane = null;
   var normal = [ 0, 0, 1 ];
@@ -226,7 +258,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
 
-  test.case = 'NaN normal array'; /* */
+  /* */
+
+  test.case = 'NaN normal array';
 
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ NaN, NaN, NaN ];
@@ -236,7 +270,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
 
-  test.case = 'NaN normal'; /* */
+  /* */
+
+  test.case = 'NaN normal';
 
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = NaN ;
@@ -246,7 +282,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
 
-  test.case = 'NaN point'; /* */
+  /* */
+
+  test.case = 'NaN point';
 
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ 0, 1, 0 ];
@@ -256,7 +294,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
 
-  test.case = 'Erase plane'; /* */
+  /* */
+
+  test.case = 'Erase plane';
 
   var dstPlane = [ 1, 1, 1, 1 ];
   var normal = [ 0, 0, 0 ];
@@ -266,7 +306,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
 
-  test.case = 'Change plane'; /* */
+  /* */
+
+  test.case = 'Change plane';
 
   var dstPlane = [ 1, 0, 1, 2 ];
   var normal = [ 1, 2, 1 ];
@@ -276,7 +318,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
 
-  test.case = 'Change plane 2D'; /* */
+  /* */
+
+  test.case = 'Change plane 2D';
 
   var dstPlane = [ 0, 0, 0 ];
   var normal = [ 0, 1 ];
@@ -286,7 +330,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
 
-  test.case = 'Change plane 4D'; /* */
+  /* */
+
+  test.case = 'Change plane 4D';
 
   var dstPlane = [ 0, 0, 0, 0, 0 ];
   var normal = [ 0, 1, 1, 0 ];
@@ -296,7 +342,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
 
-  test.case = 'Negative numbers'; /* */
+  /* */
+
+  test.case = 'Negative numbers';
 
   var dstPlane = [ - 1, - 3, - 1 ];
   var normal = [ - 1, 0 ];
@@ -306,7 +354,9 @@ function fromNormalAndPoint( test )
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
 
-  test.case = 'Decimal numbers'; /* */
+  /* */
+
+  test.case = 'Decimal numbers';
 
   var dstPlane = [ 0.2, 0.3, - 0.1 ];
   var normal = [ 0.57, 0.57 ];
@@ -339,7 +389,9 @@ function fromNormalAndPoint( test )
 function fromPoints( test )
 {
 
-  test.case = 'Points stay unchanged, dst plane changes'; /* */
+  /* */
+
+  test.case = 'Points stay unchanged, dst plane changes';
 
   var dstPlane = [ 0, 0 , 1, 2 ];
   var a = [ 0, 1, 0 ];
@@ -357,7 +409,9 @@ function fromPoints( test )
   test.identical( b, oldB );
   test.identical( c, oldC );
 
-  test.case = 'NaN plane'; /* */
+  /* */
+
+  test.case = 'NaN plane';
 
   var dstPlane = [ NaN, NaN, NaN, NaN ];
   var a = [ 2, 1, 0 ];
@@ -368,7 +422,9 @@ function fromPoints( test )
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
 
-  test.case = 'null plane from normal and point'; /* */
+  /* */
+
+  test.case = 'null plane from normal and point';
 
   var dstPlane = null;
   var a = [ 0, 1, 0 ];
@@ -379,7 +435,9 @@ function fromPoints( test )
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
 
-  test.case = 'NaN point'; /* */
+  /* */
+
+  test.case = 'NaN point';
 
   var dstPlane = [ 0, 0, 0, 0 ];
   var a = [ NaN, NaN, NaN ];
@@ -390,7 +448,9 @@ function fromPoints( test )
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
 
-  test.case = 'Erase plane'; /* */
+  /* */
+
+  test.case = 'Erase plane';
 
   var dstPlane = [ 1, 1, 1, 1 ];
   var a = [ 0, 0, 0 ];
@@ -401,7 +461,9 @@ function fromPoints( test )
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
 
-  test.case = 'Change plane'; /* */
+  /* */
+
+  test.case = 'Change plane';
 
   var dstPlane = [ 1, 0, 1, 2 ];
   var a = [ 1, 3, 0 ];
@@ -412,7 +474,9 @@ function fromPoints( test )
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
 
-  test.case = 'Negative numbers'; /* */
+  /* */
+
+  test.case = 'Negative numbers';
 
   var dstPlane = [ - 1, - 3, - 1, 3 ];
   var a = [ 2, 0, 2 ];
@@ -423,7 +487,9 @@ function fromPoints( test )
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
 
-  test.case = 'Decimal numbers'; /* */
+  /* */
+
+  test.case = 'Decimal numbers';
 
   var dstPlane = [ 0.2, 0.3, - 0.1, 0 ];
   var a = [ 0, 0.2, 0.6 ];
@@ -434,7 +500,9 @@ function fromPoints( test )
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
 
-  test.case = 'Points in same direction - no plane'; /* */
+  /* */
+
+  test.case = 'Points in same direction - no plane';
 
   var dstPlane = [ 0.2, 0.3, - 0.1, 0 ];
   var a = [ 0, 0, 1 ];
@@ -474,7 +542,9 @@ function fromPoints( test )
 function pointContains( test )
 {
 
-  test.case = 'Point and plane stay unchanged'; /* */
+  /* */
+
+  test.case = 'Point and plane stay unchanged';
 
   var plane = [ 0, 0, 1, 2 ];
   var point = [ 0, 1, 0 ];
@@ -489,7 +559,9 @@ function pointContains( test )
   var oldPoint = [ 0, 1, 0 ];
   test.identical( point, oldPoint );
 
-  test.case = 'Trivial - Contained'; /* */
+  /* */
+
+  test.case = 'Trivial - Contained';
 
   var plane = [ 2, 1, 0, 0 ];
   var point = [ 6, 3, -4 ];
@@ -499,7 +571,9 @@ function pointContains( test )
   var distance = _.plane.pointContains( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'NaN plane'; /* */
+  /* */
+
+  test.case = 'NaN plane';
 
   var plane = [ NaN, NaN, NaN, NaN ];
   var point = [ 2, 1, 0 ];
@@ -509,7 +583,9 @@ function pointContains( test )
   var distance = _.plane.pointContains( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'NaN point'; /* */
+  /* */
+
+  test.case = 'NaN point';
 
   var plane = [ 0, 0, 0, 0 ];
   var point = [ NaN, NaN, NaN ];
@@ -519,7 +595,9 @@ function pointContains( test )
   var distance = _.plane.pointContains( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'Point under plane'; /* */
+  /* */
+
+  test.case = 'Point under plane';
 
   var plane = [ 0, 0, 1, 1 ];
   var point = [ 0, 0, - 2 ];
@@ -529,7 +607,9 @@ function pointContains( test )
   var distance = _.plane.pointContains( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'Point over plane'; /* */
+  /* */
+
+  test.case = 'Point over plane';
 
   var plane = [ 0, 0, 1, 1 ];
   var point = [ 0, 0, 2 ];
@@ -538,7 +618,9 @@ function pointContains( test )
   var distance = _.plane.pointContains( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'Contained - Decimal numbers'; /* */
+  /* */
+
+  test.case = 'Contained - Decimal numbers';
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.2, 0.6 ];
@@ -547,7 +629,9 @@ function pointContains( test )
   var distance = _.plane.pointContains( plane, point );
   test.equivalent( distance, expected );
 
-  test.case = 'Not Contained - Decimal numbers'; /* */
+  /* */
+
+  test.case = 'Not Contained - Decimal numbers';
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.1, 0.6 ];
@@ -556,7 +640,9 @@ function pointContains( test )
   var distance = _.plane.pointContains( plane, point );
   test.equivalent( distance, expected );
 
-  test.case = 'Points in plane'; /* */
+  /* */
+
+  test.case = 'Points in plane';
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var a = [ 0, 0, 1 ];
@@ -597,7 +683,9 @@ function pointContains( test )
 function pointDistance( test )
 {
 
-  test.case = 'Point and plane stay unchanged'; /* */
+  /* */
+
+  test.case = 'Point and plane stay unchanged';
 
   var plane = [ 0, 0 , 1, 2 ];
   var oldPlane = plane.slice();
@@ -612,7 +700,9 @@ function pointDistance( test )
   test.identical( plane, oldPlane );
   test.identical( point, oldPoint );
 
-  test.case = 'NaN plane'; /* */
+  /* */
+
+  test.case = 'NaN plane';
 
   var plane = [ NaN, NaN, NaN, NaN ];
   var point = [ 2, 1, 0 ];
@@ -622,7 +712,9 @@ function pointDistance( test )
   var distance = _.plane.pointDistance( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'NaN point'; /* */
+  /* */
+
+  test.case = 'NaN point';
 
   var plane = [ 0, 0, 0, 0 ];
   var point = [ NaN, NaN, NaN ];
@@ -632,7 +724,9 @@ function pointDistance( test )
   var distance = _.plane.pointDistance( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'Trivial'; /* */
+  /* */
+
+  test.case = 'Trivial';
 
   var plane = [ 0, 1, 0, 2 ];
   var point = [ 1, 1, 1 ];
@@ -642,7 +736,9 @@ function pointDistance( test )
   var distance = _.plane.pointDistance( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'Point under plane'; /* */
+  /* */
+
+  test.case = 'Point under plane';
 
   var plane = [ 0, 0, 1, 1 ];
   var point = [ 0, 0, - 2 ];
@@ -652,7 +748,9 @@ function pointDistance( test )
   var distance = _.plane.pointDistance( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'Point over plane'; /* */
+  /* */
+
+  test.case = 'Point over plane';
 
   var plane = [ 0, 0, 1, 1 ];
   var point = [ 0, 0, 2 ];
@@ -662,7 +760,9 @@ function pointDistance( test )
   var distance = _.plane.pointDistance( plane, point );
   test.identical( distance, expected );
 
-  test.case = 'Decimal numbers'; /* */
+  /* */
+
+  test.case = 'Decimal numbers';
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.2, 0.6 ];
@@ -672,7 +772,9 @@ function pointDistance( test )
   var distance = _.plane.pointDistance( plane, point );
   test.equivalent( distance, expected );
 
-  test.case = 'Decimal numbers'; /* */
+  /* */
+
+  test.case = 'Decimal numbers';
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var point = [ 0, 0.1, 0.6 ];
@@ -682,7 +784,9 @@ function pointDistance( test )
   var distance = _.plane.pointDistance( plane, point );
   test.equivalent( distance, expected );
 
-  test.case = 'Points in plane'; /* */
+  /* */
+
+  test.case = 'Points in plane';
 
   var plane = [ 0.2, 0.3, - 0.1, 0 ];
   var a = [ 0, 0, 1 ];
@@ -726,7 +830,9 @@ function pointDistance( test )
 function pointCoplanarGet( test )
 {
 
-  test.case = 'Plane and point remain unchanged'; /* */
+  /* */
+
+  test.case = 'Plane and point remain unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var point = [ 2, 0, 2 ];
@@ -741,7 +847,9 @@ function pointCoplanarGet( test )
   var oldPoint = [ 2, 0, 2 ];
   test.identical( point, oldPoint );
 
-  test.case = 'NaN array point'; /* */
+  /* */
+
+  test.case = 'NaN array point';
 
   var plane = [ 1, 0 , 0, 1 ];
   var point = [ NaN, NaN, NaN ];
@@ -750,7 +858,9 @@ function pointCoplanarGet( test )
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
 
-  test.case = 'Trivial'; /* */
+  /* */
+
+  test.case = 'Trivial';
 
   var plane = [ 1, 0 , 0, 1 ];
   var point = [ 1, 3, 2 ];
@@ -759,7 +869,9 @@ function pointCoplanarGet( test )
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
 
-  test.case = 'Trivial 2'; /* */
+  /* */
+
+  test.case = 'Trivial 2';
 
   var plane = [ 1, 0 , - 1, 0 ];
   var point = [ 2, 3, 2 ];
@@ -768,7 +880,9 @@ function pointCoplanarGet( test )
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
 
-  test.case = 'Proyection 3D'; /* */
+  /* */
+
+  test.case = 'Proyection 3D';
 
   var plane = [ 2, - 1 , 3, 1 ];
   var point = [ 4, 1, -3 ];
@@ -777,7 +891,9 @@ function pointCoplanarGet( test )
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.equivalent( expected, gotPoint );
 
-  test.case = 'Point in plane'; /* */
+  /* */
+
+  test.case = 'Point in plane';
 
   var plane = [ 1, 0 , 0, 1 ];
   var point = [ - 1, 2, 3 ];
@@ -786,7 +902,9 @@ function pointCoplanarGet( test )
   gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
 
-  test.case = 'Destination point is vector'; /* */
+  /* */
+
+  test.case = 'Destination point is vector';
 
   var plane = [ 1, 0 , 0, 1 ];
   var point = [ - 1, 2, 3 ];
@@ -820,7 +938,9 @@ function pointCoplanarGet( test )
 function boxIntersects( test )
 {
 
-  test.case = 'box and plane stay unchanged'; /* */
+  /* */
+
+  test.case = 'box and plane stay unchanged';
 
   var plane = [ 1, 0 , 0, 1 ];
   var oldPlane = plane.slice();
@@ -833,7 +953,9 @@ function boxIntersects( test )
   test.identical( plane, oldPlane );
   test.identical( box, oldbox );
 
-  test.case = 'No intersection'; /* */
+  /* */
+
+  test.case = 'No intersection';
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -843,7 +965,9 @@ function boxIntersects( test )
   test.identical( gotBool, expected );
 
 
-  test.case = 'No intersection diagonal plane'; /* */
+  /* */
+
+  test.case = 'No intersection diagonal plane';
 
   var plane = [ - 1, 1, 0, - 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -853,7 +977,9 @@ function boxIntersects( test )
   test.identical( gotBool, expected );
 
 
-  test.case = 'Intersection x'; /* */
+  /* */
+
+  test.case = 'Intersection x';
 
   var plane = [ 3, 0, 0, - 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
@@ -862,7 +988,9 @@ function boxIntersects( test )
   var gotBool = _.plane.boxIntersects( plane, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Intersection y'; /* */
+  /* */
+
+  test.case = 'Intersection y';
 
   var plane = [ 0, 2, 0, - 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
@@ -872,7 +1000,9 @@ function boxIntersects( test )
   test.identical( gotBool, expected );
 
 
-  test.case = 'Intersection z'; /* */
+  /* */
+
+  test.case = 'Intersection z';
 
   var plane = [ 0, 0, 1, - 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
@@ -882,7 +1012,9 @@ function boxIntersects( test )
   test.identical( gotBool, expected );
 
 
-  test.case = 'Intersection diagonal plane'; /* */
+  /* */
+
+  test.case = 'Intersection diagonal plane';
 
   var plane = [ 1, - 1, 0, 0 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -891,7 +1023,9 @@ function boxIntersects( test )
   var gotBool = _.plane.boxIntersects( plane, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Intersection one side of box in plane'; /* */
+  /* */
+
+  test.case = 'Intersection one side of box in plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var box = [ 0, - 2, 0, 1, 3, 3 ];
@@ -900,7 +1034,9 @@ function boxIntersects( test )
   var gotBool = _.plane.boxIntersects( plane, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Intersection one edge of box in plane'; /* */
+  /* */
+
+  test.case = 'Intersection one edge of box in plane';
 
   var plane = [ 1, - 1, 0, 0 ];
   var box = [ 1, 1, - 1, 2, 1, 0 ];
@@ -909,7 +1045,9 @@ function boxIntersects( test )
   var gotBool = _.plane.boxIntersects( plane, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Zero box no intersection'; /* */
+  /* */
+
+  test.case = 'Zero box no intersection';
 
   var plane = [ 0, - 2, 0, 2 ];
   var box = _.box.makeZero( 3 );
@@ -918,7 +1056,9 @@ function boxIntersects( test )
   var gotBool = _.plane.boxIntersects( plane, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Zero box intersection'; /* */
+  /* */
+
+  test.case = 'Zero box intersection';
 
   var plane = [ 4, - 2, 1, 0 ];
   var box = _.box.makeZero( 3 );
@@ -928,7 +1068,9 @@ function boxIntersects( test )
   test.identical( gotBool, expected );
 
 
-  test.case = 'Nil box'; /* */
+  /* */
+
+  test.case = 'Nil box';
 
   var plane = [ 0, - 2, 0, 2 ];
   var box = _.box.makeNil();
@@ -961,7 +1103,9 @@ function boxIntersects( test )
 function boxClosestPoint( test )
 {
 
-  test.case = 'box and plane stay unchanged'; /* */
+  /* */
+
+  test.case = 'box and plane stay unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -976,7 +1120,9 @@ function boxClosestPoint( test )
   var oldbox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( box, oldbox );
 
-  test.case = 'Trivial'; /* */
+  /* */
+
+  test.case = 'Trivial';
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var plane = [ 1, 0, 0, - 3 ];
@@ -985,7 +1131,9 @@ function boxClosestPoint( test )
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Diagonal plane'; /* */
+  /* */
+
+  test.case = 'Diagonal plane';
 
   var plane = [ - 1, 1, 0, - 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -994,7 +1142,9 @@ function boxClosestPoint( test )
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Intersection z'; /* */
+  /* */
+
+  test.case = 'Intersection z';
 
   var plane = [ 0, 0, 1, - 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
@@ -1003,7 +1153,9 @@ function boxClosestPoint( test )
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Intersection diagonal plane'; /* */
+  /* */
+
+  test.case = 'Intersection diagonal plane';
 
   var plane = [ 1, - 1, 0, 0 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -1012,7 +1164,9 @@ function boxClosestPoint( test )
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Intersection one side of box in plane'; /* */
+  /* */
+
+  test.case = 'Intersection one side of box in plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var box = [ 0, - 2, 0, 1, 3, 3 ];
@@ -1021,7 +1175,9 @@ function boxClosestPoint( test )
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Intersection one edge of box in plane'; /* */
+  /* */
+
+  test.case = 'Intersection one edge of box in plane';
 
   var plane = [ 1, - 1, 0, 0 ];
   var box = [ 1, 1, - 1, 2, 1, 0 ];
@@ -1030,7 +1186,9 @@ function boxClosestPoint( test )
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Zero box'; /* */
+  /* */
+
+  test.case = 'Zero box';
 
   var plane = [ 0, - 2, 0, 2 ];
   var box = _.box.makeZero( 3 );
@@ -1062,7 +1220,9 @@ function boxClosestPoint( test )
 function boundingBoxGet( test )
 {
 
-  test.case = 'Source plane remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane remains unchanged';
 
   var srcPlane = [ 1, 2, 3, 4 ];
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
@@ -1075,7 +1235,9 @@ function boundingBoxGet( test )
   var oldSrcPlane = [ 1, 2, 3, 4 ];
   test.identical( srcPlane, oldSrcPlane );
 
-  test.case = 'Zero plane'; /* */
+  /* */
+
+  test.case = 'Zero plane';
 
   var srcPlane = [ 0, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
@@ -1084,7 +1246,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
-  test.case = 'Plane perpendicular to x axis'; /* */
+  /* */
+
+  test.case = 'Plane perpendicular to x axis';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
@@ -1093,7 +1257,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
-  test.case = 'Plane perpendicular to x axis with bias'; /* */
+  /* */
+
+  test.case = 'Plane perpendicular to x axis with bias';
 
   var srcPlane = [ 3, 0, 0, - 6 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
@@ -1102,7 +1268,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
-  test.case = 'Plane perpendicular to y axis'; /* */
+  /* */
+
+  test.case = 'Plane perpendicular to y axis';
 
   var srcPlane = [ 0, - 3, 0, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
@@ -1111,7 +1279,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
-  test.case = 'Plane perpendicular to y axis with bias'; /* */
+  /* */
+
+  test.case = 'Plane perpendicular to y axis with bias';
 
   var srcPlane = [ 0, 3, 0, 12 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
@@ -1120,7 +1290,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
-  test.case = 'Plane perpendicular to z axis'; /* */
+  /* */
+
+  test.case = 'Plane perpendicular to z axis';
 
   var srcPlane = [ 0, 0, - 1, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
@@ -1129,7 +1301,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
-  test.case = 'Plane perpendicular to z axis with bias'; /* */
+  /* */
+
+  test.case = 'Plane perpendicular to z axis with bias';
 
   var srcPlane = [ 0, 0, 12, - 6 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
@@ -1138,7 +1312,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
-  test.case = 'srcPlane vector'; /* */
+  /* */
+
+  test.case = 'srcPlane vector';
 
   var srcPlane = _.vectorAdapter.from( [ - 8, - 5, 4.5, 4 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
@@ -1147,7 +1323,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox vector - 2D'; /* */
+  /* */
+
+  test.case = 'dstBox vector - 2D';
 
   var srcPlane = [ - 4, 0, 1 ];
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
@@ -1156,7 +1334,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox null'; /* */
+  /* */
+
+  test.case = 'dstBox null';
 
   var srcPlane = [ 2.2, 3.3, - 4.4 ];
   var dstBox = null;
@@ -1165,7 +1345,9 @@ function boundingBoxGet( test )
   var gotBox = _.plane.boundingBoxGet( dstBox, srcPlane );
   test.equivalent( gotBox, expected );
 
-  test.case = 'dstBox undefined'; /* */
+  /* */
+
+  test.case = 'dstBox undefined';
 
   var srcPlane = [ 0, - 5, - 3 ];
   var dstBox = undefined;
@@ -1198,7 +1380,9 @@ function boundingBoxGet( test )
 function capsuleClosestPoint( test )
 {
 
-  test.case = 'capsule and plane stay unchanged'; /* */
+  /* */
+
+  test.case = 'capsule and plane stay unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
@@ -1213,7 +1397,9 @@ function capsuleClosestPoint( test )
   var oldCapsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
   test.identical( capsule, oldCapsule );
 
-  test.case = 'Trivial'; /* */
+  /* */
+
+  test.case = 'Trivial';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
   var plane = [ 1, 0, 0, - 3 ];
@@ -1222,7 +1408,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'Diagonal plane'; /* */
+  /* */
+
+  test.case = 'Diagonal plane';
 
   var plane = [ - 1, 1, 0, - 2 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
@@ -1231,7 +1419,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.equivalent( gotPoint, expected );
 
-  test.case = 'Intersection z'; /* */
+  /* */
+
+  test.case = 'Intersection z';
 
   var plane = [ 0, 0, 1, - 2 ];
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
@@ -1240,7 +1430,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'Intersection diagonal plane'; /* */
+  /* */
+
+  test.case = 'Intersection diagonal plane';
 
   var plane = [ 1, - 1, 0, 0 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
@@ -1249,7 +1441,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'Intersection one side of capsule in plane'; /* */
+  /* */
+
+  test.case = 'Intersection one side of capsule in plane';
 
   var plane = [ 0, 2, 0, 0 ];
   var capsule = [ 0, - 2, 1, 0, - 2, 2, 2 ];
@@ -1258,7 +1452,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'Zero capsule'; /* */
+  /* */
+
+  test.case = 'Zero capsule';
 
   var plane = [ 0, - 2, 0, 2 ];
   var capsule = _.capsule.makeZero( 3 );
@@ -1292,7 +1488,9 @@ function capsuleClosestPoint( test )
 function convexPolygonContains( test )
 {
 
-  test.case = 'Source plane and polygon remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane and polygon remain unchanged';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1317,7 +1515,9 @@ function convexPolygonContains( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  test.case = 'Plane and polygon intersect'; /* */
+  /* */
+
+  test.case = 'Plane and polygon intersect';
 
   var srcPlane = [ 0, 1, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1331,7 +1531,9 @@ function convexPolygonContains( test )
   var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Polygon in plane'; /* */
+  /* */
+
+  test.case = 'Polygon in plane';
 
   var srcPlane = [ 1, 0, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1345,7 +1547,9 @@ function convexPolygonContains( test )
   var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Polygon in plane'; /* */
+  /* */
+
+  test.case = 'Polygon in plane';
 
   var srcPlane = [ 1, -2, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
@@ -1359,7 +1563,9 @@ function convexPolygonContains( test )
   var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Plane cuts polygon vertex'; /* */
+  /* */
+
+  test.case = 'Plane cuts polygon vertex';
 
   var srcPlane = [ 0, 0, -1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1373,7 +1579,9 @@ function convexPolygonContains( test )
   var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Plane and polygon don´t intersect'; /* */
+  /* */
+
+  test.case = 'Plane and polygon don´t intersect';
 
   var srcPlane = [ 0, 0, -1, 2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1387,7 +1595,9 @@ function convexPolygonContains( test )
   var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Plane cuts polygon'; /* */
+  /* */
+
+  test.case = 'Plane cuts polygon';
 
   var srcPlane = [ 1, -2, 1, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1433,7 +1643,9 @@ function convexPolygonContains( test )
 function convexPolygonClosestPoint( test )
 {
 
-  test.case = 'Source plane and polygon remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane and polygon remain unchanged';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1458,7 +1670,9 @@ function convexPolygonClosestPoint( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  test.case = 'Plane and polygon intersect'; /* */
+  /* */
+
+  test.case = 'Plane and polygon intersect';
 
   var srcPlane = [ 0, 1, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1472,7 +1686,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Polygon in plane'; /* */
+  /* */
+
+  test.case = 'Polygon in plane';
 
   var srcPlane = [ 1, 0, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1486,7 +1702,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Plane cuts polygon vertex'; /* */
+  /* */
+
+  test.case = 'Plane cuts polygon vertex';
 
   var srcPlane = [ 0, 0, -1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1500,7 +1718,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Plane next to polygon vertex'; /* */
+  /* */
+
+  test.case = 'Plane next to polygon vertex';
 
   var srcPlane = [ 0, 0, -1, 2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1514,7 +1734,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Plane cuts polygon edge'; /* */
+  /* */
+
+  test.case = 'Plane cuts polygon edge';
 
   var srcPlane = [ 0, 1, 1, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1528,7 +1750,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Plane next to polygon edge'; /* */
+  /* */
+
+  test.case = 'Plane next to polygon edge';
 
   var srcPlane = [ 0, 1, 1, -2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1542,7 +1766,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.equivalent( expected, gotPoint );
 
-  test.case = 'Plane cuts polygon'; /* */
+  /* */
+
+  test.case = 'Plane cuts polygon';
 
   var srcPlane = [ 1, -2, 1, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1556,7 +1782,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Plane next to polygon'; /* */
+  /* */
+
+  test.case = 'Plane next to polygon';
 
   var srcPlane = [ 0, 0, 2, -1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1570,7 +1798,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcPlane = [ 3, 0, 0, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1586,7 +1816,9 @@ function convexPolygonClosestPoint( test )
   test.equivalent( expected, gotPoint );
   test.is( dstPoint === gotPoint );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcPlane = [ 3, 0, 0, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1633,7 +1865,9 @@ function convexPolygonClosestPoint( test )
 
 function frustumClosestPoint( test )
 {
-  test.case = 'Plane and frustum remain unchanged'; /* */
+  /* */
+
+  test.case = 'Plane and frustum remain unchanged';
 
   var srcPlane = [ 1, 0, 0, 1 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
@@ -1660,7 +1894,9 @@ function frustumClosestPoint( test )
   ]);
   test.identical( srcFrustum, oldSrcFrustum );
 
-  test.case = 'srcFrustum and plane don´t intersect'; /* */
+  /* */
+
+  test.case = 'srcFrustum and plane don´t intersect';
 
   var srcPlane = [ 1, 0, 0, 1 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
@@ -1675,7 +1911,9 @@ function frustumClosestPoint( test )
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.identical( expected, gotPoint );
 
-  test.case = 'srcFrustum and Plane intersect'; /* */
+  /* */
+
+  test.case = 'srcFrustum and Plane intersect';
 
   var srcPlane = [ 2, 4, - 4, - 6 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
@@ -1690,7 +1928,9 @@ function frustumClosestPoint( test )
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.identical( expected, gotPoint );
 
-  test.case = 'Plane is frustum side'; /* */
+  /* */
+
+  test.case = 'Plane is frustum side';
 
   var srcPlane = [ 1, 0 , 0, -1 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
@@ -1705,7 +1945,9 @@ function frustumClosestPoint( test )
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.identical( expected, gotPoint );
 
-  test.case = 'srcFrustum corner opposite to plane'; /* */
+  /* */
+
+  test.case = 'srcFrustum corner opposite to plane';
 
   var srcPlane = [ 1, 1, 1, 3 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
@@ -1720,7 +1962,9 @@ function frustumClosestPoint( test )
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.equivalent( expected, gotPoint );
 
-  test.case = 'srcFrustum and srcPlane are parallel'; /* */
+  /* */
+
+  test.case = 'srcFrustum and srcPlane are parallel';
 
   var srcPlane = [ 1, 0, 0, 4 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
@@ -1735,7 +1979,9 @@ function frustumClosestPoint( test )
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.equivalent( expected, gotPoint );
 
-  test.case = 'dstPoint is vector'; /* */
+  /* */
+
+  test.case = 'dstPoint is vector';
 
   var srcPlane = [ 1, 0, 0, 4 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
@@ -1773,7 +2019,9 @@ function frustumClosestPoint( test )
 function lineContains( test )
 {
 
-  test.case = 'Plane and line remain unchanged'; /* */
+  /* */
+
+  test.case = 'Plane and line remain unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var line = [ 1, 0, 1, 1, 1, 1 ];
@@ -1788,7 +2036,9 @@ function lineContains( test )
   var oldLine = [ 1, 0, 1, 1, 1, 1 ];
   test.identical( line, oldLine );
 
-  test.case = 'Line and plane intersect'; /* */
+  /* */
+
+  test.case = 'Line and plane intersect';
 
   var plane = [ 1, 0, 0, 1 ];
   var line = [ - 2, - 2, - 2 , 2, 2, 2 ];
@@ -1797,7 +2047,9 @@ function lineContains( test )
   var gotBool = _.plane.lineContains( plane, line );
   test.identical( expected, gotBool );
 
-  test.case = 'Line and Plane intersect'; /* */
+  /* */
+
+  test.case = 'Line and Plane intersect';
 
   var plane = [ 1, 0, - 1, 0 ];
   var line = [ 2, 2, 1, 1, 1, 3 ];
@@ -1806,7 +2058,9 @@ function lineContains( test )
   var gotBool = _.plane.lineContains( plane, line );
   test.identical( expected, gotBool );
 
-  test.case = 'Line and Plane don´t intersect - parallel'; /* */
+  /* */
+
+  test.case = 'Line and Plane don´t intersect - parallel';
 
   var plane = [ 1, 0, - 1, 0 ];
   var line = [ 2, 2, 3, 0, 1, 0 ];
@@ -1815,7 +2069,9 @@ function lineContains( test )
   var gotBool = _.plane.lineContains( plane, line );
   test.identical( expected, gotBool );
 
-  test.case = 'Line in Plane'; /* */
+  /* */
+
+  test.case = 'Line in Plane';
 
   var plane = [ 1, 0, 0, 0 ];
   var line = [ 0, 2, 3, 0, 3, 4 ];
@@ -1824,7 +2080,9 @@ function lineContains( test )
   var gotBool = _.plane.lineContains( plane, line );
   test.equivalent( expected, gotBool );
 
-  test.case = 'Line in Plane'; /* */
+  /* */
+
+  test.case = 'Line in Plane';
 
   var plane = [ 1, -2, 0, 0 ];
   var line = [ 2, 1, 3, 4, 2, 4 ];
@@ -1833,7 +2091,9 @@ function lineContains( test )
   var gotBool = _.plane.lineContains( plane, line );
   test.equivalent( expected, gotBool );
 
-  test.case = 'Perpendicular line intersects'; /* */
+  /* */
+
+  test.case = 'Perpendicular line intersects';
 
   var plane = [ 1, 0, 0, 0 ];
   var line = [ 1, 2, 2, 1, 0, 0 ];
@@ -1866,7 +2126,9 @@ function lineContains( test )
 function lineIntersects( test )
 {
 
-  test.case = 'Plane and line remain unchanged'; /* */
+  /* */
+
+  test.case = 'Plane and line remain unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var line = [ 1, 0, 1, 1, 1, 1 ];
@@ -1881,7 +2143,9 @@ function lineIntersects( test )
   var oldLine = [ 1, 0, 1, 1, 1, 1 ];
   test.identical( line, oldLine );
 
-  test.case = 'Line and plane intersect'; /* */
+  /* */
+
+  test.case = 'Line and plane intersect';
 
   var plane = [ 1, 0, 0, 1 ];
   var line = [ - 2, - 2, - 2 , 2, 2, 2 ];
@@ -1890,7 +2154,9 @@ function lineIntersects( test )
   var interBool = _.plane.lineIntersects( plane, line );
   test.identical( expected, interBool );
 
-  test.case = 'Line and Plane intersect'; /* */
+  /* */
+
+  test.case = 'Line and Plane intersect';
 
   var plane = [ 1, 0, - 1, 0 ];
   var line = [ 2, 2, 1, 1, 1, 3 ];
@@ -1899,7 +2165,9 @@ function lineIntersects( test )
   var interBool = _.plane.lineIntersects( plane, line );
   test.identical( expected, interBool );
 
-  test.case = 'Line and Plane don´t intersect - parallel'; /* */
+  /* */
+
+  test.case = 'Line and Plane don´t intersect - parallel';
 
   var plane = [ 1, 0, - 1, 0 ];
   var line = [ 2, 2, 3, 0, 1, 0 ];
@@ -1908,7 +2176,9 @@ function lineIntersects( test )
   var interBool = _.plane.lineIntersects( plane, line );
   test.identical( expected, interBool );
 
-  test.case = 'Line and Plane don´t intersect - parallel opposite'; /* */
+  /* */
+
+  test.case = 'Line and Plane don´t intersect - parallel opposite';
 
   var plane = [ 1, 0, - 1, 0 ];
   var line = [ 2, 3, -3, 0, -1, 0 ];
@@ -1917,7 +2187,9 @@ function lineIntersects( test )
   var interBool = _.plane.lineIntersects( plane, line );
   test.identical( expected, interBool );
 
-  test.case = 'Line in Plane'; /* */
+  /* */
+
+  test.case = 'Line in Plane';
 
   var plane = [ 1, 0, 0, 0 ];
   var line = [ 0, 2, 3, 0, 3, 4 ];
@@ -1926,7 +2198,9 @@ function lineIntersects( test )
   var interBool = _.plane.lineIntersects( plane, line );
   test.equivalent( expected, interBool );
 
-  test.case = 'Perpendicular line intersects'; /* */
+  /* */
+
+  test.case = 'Perpendicular line intersects';
 
   var plane = [ 1, 0, 0, 0 ];
   var line = [ 1, 2, 2, 1, 0, 0 ];
@@ -1959,7 +2233,9 @@ function lineIntersects( test )
 function lineIntersectionPoint( test )
 {
 
-  test.case = 'Source plane and line remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane and line remain unchanged';
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -1974,7 +2250,9 @@ function lineIntersectionPoint( test )
   var oldtstLine = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstLine, oldtstLine );
 
-  test.case = 'Plane and line intersect'; /* */
+  /* */
+
+  test.case = 'Plane and line intersect';
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -1983,7 +2261,9 @@ function lineIntersectionPoint( test )
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Line origin is in plane'; /* */
+  /* */
+
+  test.case = 'Line origin is in plane';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstLine = [ 0, 0, 0, 1, 0, 0 ];
@@ -1992,7 +2272,9 @@ function lineIntersectionPoint( test )
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Line is in plane '; /* */
+  /* */
+
+  test.case = 'Line is in plane ';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstLine = [ 0, 0, 0, 0, 1, 0 ];
@@ -2001,7 +2283,9 @@ function lineIntersectionPoint( test )
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstLine = [ -3, -3, -3, -2, -2, -2 ];
@@ -2010,7 +2294,9 @@ function lineIntersectionPoint( test )
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Closest point is origin'; /* */
+  /* */
+
+  test.case = 'Closest point is origin';
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstLine = [ 5, 5, 2, 0, 1, 0 ];
@@ -2019,7 +2305,9 @@ function lineIntersectionPoint( test )
   var gotLine = _.plane.lineIntersectionPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcPlane = [ 1, 0, 0, -2 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
@@ -2052,7 +2340,9 @@ function lineIntersectionPoint( test )
 function lineClosestPoint( test )
 {
 
-  test.case = 'Source plane and line remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane and line remain unchanged';
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -2067,7 +2357,9 @@ function lineClosestPoint( test )
   var oldtstLine = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstLine, oldtstLine );
 
-  test.case = 'Plane and line intersect'; /* */
+  /* */
+
+  test.case = 'Plane and line intersect';
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -2076,7 +2368,9 @@ function lineClosestPoint( test )
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Line origin is in plane'; /* */
+  /* */
+
+  test.case = 'Line origin is in plane';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstLine = [ 0, 0, 0, 1, 0, 0 ];
@@ -2085,7 +2379,9 @@ function lineClosestPoint( test )
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Line is in plane '; /* */
+  /* */
+
+  test.case = 'Line is in plane ';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstLine = [ 0, 0, 0, 0, 1, 0 ];
@@ -2094,7 +2390,9 @@ function lineClosestPoint( test )
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstLine = [ -3, -3, -3, -2, -2, -2 ];
@@ -2103,7 +2401,9 @@ function lineClosestPoint( test )
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Closest point is origin'; /* */
+  /* */
+
+  test.case = 'Closest point is origin';
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstLine = [ 5, 5, 2, 0, 1, 0 ];
@@ -2112,7 +2412,9 @@ function lineClosestPoint( test )
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcPlane = [ 0, 0, 1, -1 ];
   var tstLine = [ 4, 4, 3, 1, 0, 0 ];
@@ -2123,7 +2425,9 @@ function lineClosestPoint( test )
   test.identical( expected, gotLine );
   test.is( dstPoint === gotLine );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcPlane = [ 0, 1, 0, -2 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
@@ -2155,7 +2459,9 @@ function lineClosestPoint( test )
 
 function planeIntersects( test )
 {
-  test.case = 'Planes remain unchanged'; /* */
+  /* */
+
+  test.case = 'Planes remain unchanged';
 
   var srcPlane = [ 1, 0, 0, 1 ];
   var tstPlane = [ 1, 1, 0, 1 ];
@@ -2170,7 +2476,9 @@ function planeIntersects( test )
   var oldtstPlane = [ 1, 1, 0, 1 ];
   test.identical( tstPlane, oldtstPlane );
 
-  test.case = 'tstPlane and plane intersect'; /* */
+  /* */
+
+  test.case = 'tstPlane and plane intersect';
 
   var srcPlane = [ 1, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 1, 0 ];
@@ -2179,7 +2487,9 @@ function planeIntersects( test )
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
   test.identical( expected, gotBool );
 
-  test.case = 'tstPlane and Plane don´t intersect'; /* */
+  /* */
+
+  test.case = 'tstPlane and Plane don´t intersect';
 
   var srcPlane = [ 1, 0 , - 1, 0 ];
   var tstPlane = [ 1, 0, -1, 2 ];
@@ -2188,7 +2498,9 @@ function planeIntersects( test )
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
   test.identical( expected, gotBool );
 
-  test.case = 'tstPlane and Plane don´t intersect'; /* */
+  /* */
+
+  test.case = 'tstPlane and Plane don´t intersect';
 
   var srcPlane = [ 1, 0 , - 1, 0 ];
   var tstPlane = [ 2, 0, -2, 1 ];
@@ -2197,7 +2509,9 @@ function planeIntersects( test )
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
   test.identical( expected, gotBool );
 
-  test.case = 'tstPlane and srcPlane are the same'; /* */
+  /* */
+
+  test.case = 'tstPlane and srcPlane are the same';
 
   var srcPlane = [ 1, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
@@ -2206,7 +2520,9 @@ function planeIntersects( test )
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
   test.equivalent( expected, gotBool );
 
-  test.case = 'tstPlane and srcPlane are the same'; /* */
+  /* */
+
+  test.case = 'tstPlane and srcPlane are the same';
 
   var srcPlane = [ 1, 0, 2, 1 ];
   var tstPlane = [ 2, 0, 4, 2 ];
@@ -2215,7 +2531,9 @@ function planeIntersects( test )
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
   test.equivalent( expected, gotBool );
 
-  test.case = 'tstPlane and srcPlane are parallel'; /* */
+  /* */
+
+  test.case = 'tstPlane and srcPlane are parallel';
 
   var srcPlane = [ 1, 0, 2, 1 ];
   var tstPlane = [ 2, 0, 4, 1 ];
@@ -2246,7 +2564,9 @@ function planeIntersects( test )
 
 function planeDistance( test )
 {
-  test.case = 'Planes remain unchanged'; /* */
+  /* */
+
+  test.case = 'Planes remain unchanged';
 
   var srcPlane = [ 1, 0, 0, 1 ];
   var tstPlane = [ 1, 1, 0, 1 ];
@@ -2261,7 +2581,9 @@ function planeDistance( test )
   var oldtstPlane = [ 1, 1, 0, 1 ];
   test.identical( tstPlane, oldtstPlane );
 
-  test.case = 'tstPlane and plane intersect'; /* */
+  /* */
+
+  test.case = 'tstPlane and plane intersect';
 
   var srcPlane = [ 1, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 1, 0 ];
@@ -2270,7 +2592,9 @@ function planeDistance( test )
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
   test.identical( expected, gotDist );
 
-  test.case = 'tstPlane and Plane don´t intersect'; /* */
+  /* */
+
+  test.case = 'tstPlane and Plane don´t intersect';
 
   var srcPlane = [ 2, 4, - 4, - 6 ];
   var tstPlane = [ 1, 2, - 2, 9 ];
@@ -2279,7 +2603,9 @@ function planeDistance( test )
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
   test.identical( expected, gotDist );
 
-  test.case = 'tstPlane and Plane don´t intersect'; /* */
+  /* */
+
+  test.case = 'tstPlane and Plane don´t intersect';
 
   var srcPlane = [ 1, 0 , - 1, 0 ];
   var tstPlane = [ 2, 0, -2, 1 ];
@@ -2288,7 +2614,9 @@ function planeDistance( test )
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
   test.identical( expected, gotDist );
 
-  test.case = 'tstPlane and srcPlane are the same'; /* */
+  /* */
+
+  test.case = 'tstPlane and srcPlane are the same';
 
   var srcPlane = [ 1, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
@@ -2297,7 +2625,9 @@ function planeDistance( test )
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
   test.equivalent( expected, gotDist );
 
-  test.case = 'tstPlane and srcPlane are the same'; /* */
+  /* */
+
+  test.case = 'tstPlane and srcPlane are the same';
 
   var srcPlane = [ 1, 0, 2, 1 ];
   var tstPlane = [ 2, 0, 4, 2 ];
@@ -2306,7 +2636,9 @@ function planeDistance( test )
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
   test.equivalent( expected, gotDist );
 
-  test.case = 'tstPlane and srcPlane are parallel'; /* */
+  /* */
+
+  test.case = 'tstPlane and srcPlane are parallel';
 
   var srcPlane = [ 1, 0, 2, 1 ];
   var tstPlane = [ 2, 0, 4, 1 ];
@@ -2315,7 +2647,9 @@ function planeDistance( test )
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
   test.equivalent( expected, gotDist );
 
-  test.case = 'tstPlane and srcPlane exchange - same result'; /* */
+  /* */
+
+  test.case = 'tstPlane and srcPlane exchange - same result';
 
   var srcPlane = [ 2, 0, 4, 1 ];
   var tstPlane = [ 1, 0, 2, 1 ];
@@ -2346,7 +2680,9 @@ function planeDistance( test )
 function rayContains( test )
 {
 
-  test.case = 'Plane and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Plane and ray remain unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var ray = [ 1, 0, 1, 1, 1, 1 ];
@@ -2361,7 +2697,9 @@ function rayContains( test )
   var oldRay = [ 1, 0, 1, 1, 1, 1 ];
   test.identical( ray, oldRay );
 
-  test.case = 'Ray and plane intersect'; /* */
+  /* */
+
+  test.case = 'Ray and plane intersect';
 
   var plane = [ 1, 0, 0, 1 ];
   var ray = [ - 2, - 2, - 2 , 2, 2, 2 ];
@@ -2370,7 +2708,9 @@ function rayContains( test )
   var gotBool = _.plane.rayContains( plane, ray );
   test.identical( expected, gotBool );
 
-  test.case = 'Ray and Plane intersect'; /* */
+  /* */
+
+  test.case = 'Ray and Plane intersect';
 
   var plane = [ 1, 0, - 1, 0 ];
   var ray = [ 2, 2, 1, 1, 1, 3 ];
@@ -2379,7 +2719,9 @@ function rayContains( test )
   var gotBool = _.plane.rayContains( plane, ray );
   test.identical( expected, gotBool );
 
-  test.case = 'Ray and Plane don´t intersect - parallel'; /* */
+  /* */
+
+  test.case = 'Ray and Plane don´t intersect - parallel';
 
   var plane = [ 1, 0, - 1, 0 ];
   var ray = [ 2, 2, 3, 0, 1, 0 ];
@@ -2388,7 +2730,9 @@ function rayContains( test )
   var gotBool = _.plane.rayContains( plane, ray );
   test.identical( expected, gotBool );
 
-  test.case = 'Ray in Plane'; /* */
+  /* */
+
+  test.case = 'Ray in Plane';
 
   var plane = [ 1, 0, 0, 0 ];
   var ray = [ 0, 2, 3, 0, 3, 4 ];
@@ -2397,7 +2741,9 @@ function rayContains( test )
   var gotBool = _.plane.rayContains( plane, ray );
   test.equivalent( expected, gotBool );
 
-  test.case = 'Ray in Plane'; /* */
+  /* */
+
+  test.case = 'Ray in Plane';
 
   var plane = [ 1, -2, 0, 0 ];
   var ray = [ 2, 1, 3, 4, 2, 4 ];
@@ -2406,7 +2752,9 @@ function rayContains( test )
   var gotBool = _.plane.rayContains( plane, ray );
   test.equivalent( expected, gotBool );
 
-  test.case = 'Perpendicular ray intersects'; /* */
+  /* */
+
+  test.case = 'Perpendicular ray intersects';
 
   var plane = [ 1, 0, 0, 0 ];
   var ray = [ 1, 2, 2, 1, 0, 0 ];
@@ -2439,7 +2787,9 @@ function rayContains( test )
 function rayIntersectionPoint( test )
 {
 
-  test.case = 'Source plane and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane and ray remain unchanged';
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -2454,7 +2804,9 @@ function rayIntersectionPoint( test )
   var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstRay, oldtstRay );
 
-  test.case = 'Plane and ray intersect'; /* */
+  /* */
+
+  test.case = 'Plane and ray intersect';
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -2463,7 +2815,9 @@ function rayIntersectionPoint( test )
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray origin is in plane'; /* */
+  /* */
+
+  test.case = 'Ray origin is in plane';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 0, 0 ];
@@ -2472,7 +2826,9 @@ function rayIntersectionPoint( test )
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray is in plane '; /* */
+  /* */
+
+  test.case = 'Ray is in plane ';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 0, 1, 0 ];
@@ -2481,7 +2837,9 @@ function rayIntersectionPoint( test )
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Positive factor - intersection'; /* */
+  /* */
+
+  test.case = 'Positive factor - intersection';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ -3, -3, -3, 2, 2, 2 ];
@@ -2490,7 +2848,9 @@ function rayIntersectionPoint( test )
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Negative factor - no intersection'; /* */
+  /* */
+
+  test.case = 'Negative factor - no intersection';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ -3, -3, -3, -2, -2, -2 ];
@@ -2499,7 +2859,9 @@ function rayIntersectionPoint( test )
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Closest point is origin'; /* */
+  /* */
+
+  test.case = 'Closest point is origin';
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstRay = [ 5, 5, 2, 0, 1, 0 ];
@@ -2508,7 +2870,9 @@ function rayIntersectionPoint( test )
   var gotRay = _.plane.rayIntersectionPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcPlane = [ 1, 0, 0, -2 ];
   var tstRay = [ 5, 5, 1, -1, 0, 0 ];
@@ -2541,7 +2905,9 @@ function rayIntersectionPoint( test )
 function rayClosestPoint( test )
 {
 
-  test.case = 'Source plane and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane and ray remain unchanged';
 
   var srcPlane = [ - 1, 0, 0, - 2 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -2556,7 +2922,9 @@ function rayClosestPoint( test )
   var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstRay, oldtstRay );
 
-  test.case = 'Plane and ray intersect'; /* */
+  /* */
+
+  test.case = 'Plane and ray intersect';
 
   var srcPlane = [ - 1, 0, 0, 2  ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -2565,7 +2933,9 @@ function rayClosestPoint( test )
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray origin is in the plane'; /* */
+  /* */
+
+  test.case = 'Ray origin is in the plane';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -2574,7 +2944,9 @@ function rayClosestPoint( test )
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray origin in plane pointing to the other side'; /* */
+  /* */
+
+  test.case = 'Ray origin in plane pointing to the other side';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, -1, -1, -1 ];
@@ -2583,7 +2955,9 @@ function rayClosestPoint( test )
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray origin is the closest point'; /* */
+  /* */
+
+  test.case = 'Ray origin is the closest point';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ -3, -3, -3, -2, -2, -2 ];
@@ -2592,7 +2966,9 @@ function rayClosestPoint( test )
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray and plane are parallel'; /* */
+  /* */
+
+  test.case = 'Ray and plane are parallel';
 
   var srcPlane = [ 0, - 1, 0, 4 ];
   var tstRay = [ 5, 5, 2, 1, 0, 1 ];
@@ -2601,7 +2977,9 @@ function rayClosestPoint( test )
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
@@ -2612,7 +2990,9 @@ function rayClosestPoint( test )
   test.identical( expected, gotRay );
   test.is( dstPoint === gotRay );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
@@ -2645,7 +3025,9 @@ function rayClosestPoint( test )
 function segmentContains( test )
 {
 
-  test.case = 'Plane and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Plane and segment remain unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var segment = [ 1, 0, 1, 1, 1, 1 ];
@@ -2660,7 +3042,9 @@ function segmentContains( test )
   var oldSegment = [ 1, 0, 1, 1, 1, 1 ];
   test.identical( segment, oldSegment );
 
-  test.case = 'Segment and plane intersect'; /* */
+  /* */
+
+  test.case = 'Segment and plane intersect';
 
   var plane = [ 1, 0, 0, 1 ];
   var segment = [ - 2, - 2, - 2 , 2, 2, 2 ];
@@ -2669,7 +3053,9 @@ function segmentContains( test )
   var gotBool = _.plane.segmentContains( plane, segment );
   test.identical( expected, gotBool );
 
-  test.case = 'Segment and Plane intersect'; /* */
+  /* */
+
+  test.case = 'Segment and Plane intersect';
 
   var plane = [ 1, 0, - 1, 0 ];
   var segment = [ 2, 2, 1, 0, 0, 3 ];
@@ -2678,7 +3064,9 @@ function segmentContains( test )
   var gotBool = _.plane.segmentContains( plane, segment );
   test.identical( expected, gotBool );
 
-  test.case = 'Segment and Plane don´t intersect - parallel'; /* */
+  /* */
+
+  test.case = 'Segment and Plane don´t intersect - parallel';
 
   var plane = [ 1, 0, - 1, 0 ];
   var segment = [ 2, 2, 3, 4, 4, 5 ];
@@ -2687,7 +3075,9 @@ function segmentContains( test )
   var gotBool = _.plane.segmentContains( plane, segment );
   test.identical( expected, gotBool );
 
-  test.case = 'Segment in Plane'; /* */
+  /* */
+
+  test.case = 'Segment in Plane';
 
   var plane = [ 1, 0, 0, 0 ];
   var segment = [ 0, 2, 3, 0, 3, 4 ];
@@ -2696,7 +3086,9 @@ function segmentContains( test )
   var gotBool = _.plane.segmentContains( plane, segment );
   test.equivalent( expected, gotBool );
 
-  test.case = 'Segment in Plane'; /* */
+  /* */
+
+  test.case = 'Segment in Plane';
 
   var plane = [ 1, -2, 0, 0 ];
   var segment = [ 2, 1, 3, 4, 2, 4 ];
@@ -2705,7 +3097,9 @@ function segmentContains( test )
   var gotBool = _.plane.segmentContains( plane, segment );
   test.equivalent( expected, gotBool );
 
-  test.case = 'Perpendicular segment intersects'; /* */
+  /* */
+
+  test.case = 'Perpendicular segment intersects';
 
   var plane = [ 1, 0, 0, 0 ];
   var segment = [ 1, 2, 2, 1, 0, 0 ];
@@ -2738,7 +3132,9 @@ function segmentContains( test )
 function segmentIntersects( test )
 {
 
-  test.case = 'Plane and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Plane and segment remain unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var segment = [ 1, 0, 1, 2, 1, 2 ];
@@ -2753,7 +3149,9 @@ function segmentIntersects( test )
   var oldSegment = [ 1, 0, 1, 2, 1, 2 ];
   test.identical( segment, oldSegment );
 
-  test.case = 'Segment and plane intersect'; /* */
+  /* */
+
+  test.case = 'Segment and plane intersect';
 
   var plane = [ 1, 0, 0, 1 ];
   var segment = [ - 2, - 2, - 2, 2, 2, 2 ];
@@ -2762,7 +3160,9 @@ function segmentIntersects( test )
   var interBool = _.plane.segmentIntersects( plane, segment );
   test.identical( expected, interBool );
 
-  test.case = 'Segment and Plane intersect'; /* */
+  /* */
+
+  test.case = 'Segment and Plane intersect';
 
   var plane = [ 1, 0, - 1, 0 ];
   var segment = [ 2, 2, 2, 3, 3, 3 ];
@@ -2771,7 +3171,9 @@ function segmentIntersects( test )
   var interBool = _.plane.segmentIntersects( plane, segment );
   test.identical( expected, interBool );
 
-  test.case = 'Segment and Plane don´t intersect'; /* */
+  /* */
+
+  test.case = 'Segment and Plane don´t intersect';
 
   var plane = [ 1, 0, - 1, 0 ];
   var segment = [ 2, 2, 3, 3, 3, 4 ];
@@ -2780,7 +3182,9 @@ function segmentIntersects( test )
   var interBool = _.plane.segmentIntersects( plane, segment );
   test.identical( expected, interBool );
 
-  test.case = 'Segment in Plane'; /* */
+  /* */
+
+  test.case = 'Segment in Plane';
 
   var plane = [ 1, 0, 0, 0 ];
   var segment = [ 0, 2, 3, 0, 5, 7 ];
@@ -2789,7 +3193,9 @@ function segmentIntersects( test )
   var interBool = _.plane.segmentIntersects( plane, segment );
   test.equivalent( expected, interBool );
 
-  test.case = 'Perpendicular segment intersects'; /* */
+  /* */
+
+  test.case = 'Perpendicular segment intersects';
 
   var plane = [ 1, 0, 0, 0 ];
   var segment = [ - 2, 2, 2, 2, 2, 2 ];
@@ -2798,7 +3204,9 @@ function segmentIntersects( test )
   var interBool = _.plane.segmentIntersects( plane, segment );
   test.identical( expected, interBool );
 
-  test.case = 'Perpendicular segment touches plane'; /* */
+  /* */
+
+  test.case = 'Perpendicular segment touches plane';
 
   var plane = [ 1, 0, 0, 0 ];
   var segment = [ - 2, 2, 2, 0, 2, 2 ];
@@ -2807,7 +3215,9 @@ function segmentIntersects( test )
   var interBool = _.plane.segmentIntersects( plane, segment );
   test.identical( expected, interBool );
 
-  test.case = 'Perpendicular doesn´t intersect'; /* */
+  /* */
+
+  test.case = 'Perpendicular doesn´t intersect';
 
   var plane = [ 1, 0, 0, 0 ];
   var segment = [ - 2, 2, 2, - 1, 2, 2 ];
@@ -2840,7 +3250,9 @@ function segmentIntersects( test )
 function segmentIntersectionPoint( test )
 {
 
-  test.case = 'Source plane and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane and segment remain unchanged';
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstSegment = [ 0, 0, 0, 4, 1, 1 ];
@@ -2855,7 +3267,9 @@ function segmentIntersectionPoint( test )
   var oldtstSegment = [ 0, 0, 0, 4, 1, 1 ];
   test.identical( tstSegment, oldtstSegment );
 
-  test.case = 'Plane and segment intersect'; /* */
+  /* */
+
+  test.case = 'Plane and segment intersect';
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -2864,7 +3278,9 @@ function segmentIntersectionPoint( test )
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment origin is in plane'; /* */
+  /* */
+
+  test.case = 'Segment origin is in plane';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 0, 0 ];
@@ -2873,7 +3289,9 @@ function segmentIntersectionPoint( test )
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment is in plane '; /* */
+  /* */
+
+  test.case = 'Segment is in plane ';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 0, 1, 0 ];
@@ -2882,7 +3300,9 @@ function segmentIntersectionPoint( test )
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Positive factor - no intersection'; /* */
+  /* */
+
+  test.case = 'Positive factor - no intersection';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
@@ -2891,7 +3311,9 @@ function segmentIntersectionPoint( test )
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Negative factor - no intersection'; /* */
+  /* */
+
+  test.case = 'Negative factor - no intersection';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ -2, -2, -2, -3, -3, -3 ];
@@ -2900,7 +3322,9 @@ function segmentIntersectionPoint( test )
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Closest point is origin'; /* */
+  /* */
+
+  test.case = 'Closest point is origin';
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstSegment = [ 5, 5, 2, 0, 1, 0 ];
@@ -2909,7 +3333,9 @@ function segmentIntersectionPoint( test )
   var gotSegment = _.plane.segmentIntersectionPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcPlane = [ 1, 0, 0, -2 ];
   var tstSegment = [ 5, 5, 1, -1, 5, 1 ];
@@ -2942,7 +3368,9 @@ function segmentIntersectionPoint( test )
 function segmentClosestPoint( test )
 {
 
-  test.case = 'Source plane and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane and segment remain unchanged';
 
   var srcPlane = [ - 1, 0, 0, 2 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -2957,7 +3385,9 @@ function segmentClosestPoint( test )
   var oldtstSegment = [ 0, 0, 0, 2, 2, 2 ];
   test.identical( tstSegment, oldtstSegment );
 
-  test.case = 'Plane and segment intersect'; /* */
+  /* */
+
+  test.case = 'Plane and segment intersect';
 
   var srcPlane = [ - 1, 0, 0, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -2966,7 +3396,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment origin is in plane'; /* */
+  /* */
+
+  test.case = 'Segment origin is in plane';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 0, 0 ];
@@ -2975,7 +3407,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment end is in plane'; /* */
+  /* */
+
+  test.case = 'Segment end is in plane';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ -3, -3, -3, 0, 0, 0 ];
@@ -2984,7 +3418,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment is in plane '; /* */
+  /* */
+
+  test.case = 'Segment is in plane ';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 0, 1, 0 ];
@@ -2993,7 +3429,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Negative factor - no intersection'; /* */
+  /* */
+
+  test.case = 'Negative factor - no intersection';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ 2, 2, 2, 3, 3, 3 ];
@@ -3002,7 +3440,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Positive factor - no intersection'; /* */
+  /* */
+
+  test.case = 'Positive factor - no intersection';
 
   var srcPlane = [ - 1, 0, 0, 0 ];
   var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
@@ -3011,7 +3451,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Closest point is origin'; /* */
+  /* */
+
+  test.case = 'Closest point is origin';
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstSegment = [ 5, 5, 2, 0, 1, 0 ];
@@ -3020,7 +3462,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Closest point is end'; /* */
+  /* */
+
+  test.case = 'Closest point is end';
 
   var srcPlane = [ 0, 0, -1, 3 ];
   var tstSegment = [ 0, 1, 0, 5, 5, 2 ];
@@ -3029,7 +3473,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcPlane = [ 0, 0, 1, -1 ];
   var tstSegment = [ 1, 0, 0, 4, 4, - 3 ];
@@ -3040,7 +3486,9 @@ function segmentClosestPoint( test )
   test.identical( expected, gotSegment );
   test.is( dstPoint === gotSegment );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcPlane = [ 0, 1, 0, -2 ];
   var tstSegment = [ 1, 0, 0, 5, - 5, 1 ];
@@ -3073,7 +3521,9 @@ function segmentClosestPoint( test )
 function sphereIntersects( test )
 {
 
-  test.case = 'Sphere and plane stay unchanged'; /* */
+  /* */
+
+  test.case = 'Sphere and plane stay unchanged';
 
   var plane = [ 1, 0 , 0, 1 ];
   var oldPlane = plane.slice();
@@ -3086,7 +3536,9 @@ function sphereIntersects( test )
   test.identical( plane, oldPlane );
   test.identical( sphere, oldSphere );
 
-  test.case = 'Trivial - no intersection'; /* */
+  /* */
+
+  test.case = 'Trivial - no intersection';
 
   var sphere = [ 2, 0, 0, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -3095,7 +3547,9 @@ function sphereIntersects( test )
   var gotBool = _.plane.sphereIntersects( plane, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Trivial - intersection'; /* */
+  /* */
+
+  test.case = 'Trivial - intersection';
 
   var plane = [ 0, 2, 0, - 2 ];
   var sphere = [ 1, 1, 1, 1 ];
@@ -3104,7 +3558,9 @@ function sphereIntersects( test )
   var gotBool = _.plane.sphereIntersects( plane, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Center in plane'; /* */
+  /* */
+
+  test.case = 'Center in plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, - 1, 0, 1 ];
@@ -3113,7 +3569,9 @@ function sphereIntersects( test )
   var gotBool = _.plane.sphereIntersects( plane, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Sphere cuts plane'; /* */
+  /* */
+
+  test.case = 'Sphere cuts plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, 0, 0, 1.5 ];
@@ -3122,7 +3580,9 @@ function sphereIntersects( test )
   var gotBool = _.plane.sphereIntersects( plane, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Sphere touches plane'; /* */
+  /* */
+
+  test.case = 'Sphere touches plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -3131,7 +3591,9 @@ function sphereIntersects( test )
   var gotBool = _.plane.sphereIntersects( plane, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Sphere under plane'; /* */
+  /* */
+
+  test.case = 'Sphere under plane';
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ - 1, - 1, - 1, 1 ];
@@ -3140,7 +3602,9 @@ function sphereIntersects( test )
   var gotBool = _.plane.sphereIntersects( plane, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Sphere over plane'; /* */
+  /* */
+
+  test.case = 'Sphere over plane';
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ 0, 3, 0, 1 ];
@@ -3149,7 +3613,9 @@ function sphereIntersects( test )
   var gotBool = _.plane.sphereIntersects( plane, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Zero sphere'; /* */
+  /* */
+
+  test.case = 'Zero sphere';
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = _.sphere.makeZero();
@@ -3158,7 +3624,9 @@ function sphereIntersects( test )
   var gotBool = _.plane.sphereIntersects( plane, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Nil sphere'; /* */
+  /* */
+
+  test.case = 'Nil sphere';
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = _.sphere.makeNil();
@@ -3191,7 +3659,9 @@ function sphereIntersects( test )
 function sphereDistance( test )
 {
 
-  test.case = 'Sphere and plane stay unchanged'; /* */
+  /* */
+
+  test.case = 'Sphere and plane stay unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var oldPlane = plane.slice();
@@ -3204,7 +3674,9 @@ function sphereDistance( test )
   test.identical( plane, oldPlane );
   test.identical( sphere, oldSphere );
 
-  test.case = 'Trivial'; /* */
+  /* */
+
+  test.case = 'Trivial';
 
   var sphere = [ 2, 0, 0, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -3213,7 +3685,9 @@ function sphereDistance( test )
   var distance = _.plane.sphereDistance( plane, sphere );
   test.identical( distance, expected );
 
-  test.case = 'Trivial 2'; /* */
+  /* */
+
+  test.case = 'Trivial 2';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 1, 1, 1, 1 ];
@@ -3222,7 +3696,9 @@ function sphereDistance( test )
   var distance = _.plane.sphereDistance( plane, sphere );
   test.identical( distance, expected );
 
-  test.case = 'Center in plane'; /* */
+  /* */
+
+  test.case = 'Center in plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, - 1, 0, 1 ];
@@ -3231,7 +3707,9 @@ function sphereDistance( test )
   var distance = _.plane.sphereDistance( plane, sphere );
   test.identical( distance, expected );
 
-  test.case = 'Sphere cuts plane'; /* */
+  /* */
+
+  test.case = 'Sphere cuts plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, 0, 0, 1.5 ];
@@ -3240,7 +3718,9 @@ function sphereDistance( test )
   var distance = _.plane.sphereDistance( plane, sphere );
   test.identical( distance, expected );
 
-  test.case = 'Sphere touches plane'; /* */
+  /* */
+
+  test.case = 'Sphere touches plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -3249,7 +3729,9 @@ function sphereDistance( test )
   var distance = _.plane.sphereDistance( plane, sphere );
   test.identical( distance, expected );
 
-  test.case = 'Sphere under plane'; /* */
+  /* */
+
+  test.case = 'Sphere under plane';
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ - 1, - 1, - 1, 1 ];
@@ -3258,7 +3740,9 @@ function sphereDistance( test )
   var distance = _.plane.sphereDistance( plane, sphere );
   test.identical( distance, expected );
 
-  test.case = 'Sphere over plane'; /* */
+  /* */
+
+  test.case = 'Sphere over plane';
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ 0, 3, 0, 1 ];
@@ -3289,7 +3773,9 @@ function sphereDistance( test )
 function sphereClosestPoint( test )
 {
 
-  test.case = 'Sphere and plane stay unchanged'; /* */
+  /* */
+
+  test.case = 'Sphere and plane stay unchanged';
 
   var plane = [ 1, 0, 0, 1 ];
   var sphere = [ 2, 0, 0, 1 ];
@@ -3304,7 +3790,9 @@ function sphereClosestPoint( test )
   var oldSphere = [ 2, 0, 0, 1 ];
   test.identical( sphere, oldSphere );
 
-  test.case = 'Trivial'; /* */
+  /* */
+
+  test.case = 'Trivial';
 
   var sphere = [ 2, 0, 0, 1 ];
   var plane = [ 1, 0, 0, 2 ];
@@ -3313,7 +3801,9 @@ function sphereClosestPoint( test )
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
 
-  test.case = 'Trivial 2'; /* */
+  /* */
+
+  test.case = 'Trivial 2';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 1, 1, 1, 1 ];
@@ -3322,7 +3812,9 @@ function sphereClosestPoint( test )
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
 
-  test.case = 'Center in plane'; /* */
+  /* */
+
+  test.case = 'Center in plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, - 1, 0, 1 ];
@@ -3331,7 +3823,9 @@ function sphereClosestPoint( test )
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
 
-  test.case = 'Sphere cuts plane'; /* */
+  /* */
+
+  test.case = 'Sphere cuts plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, 0, 0, 1.5 ];
@@ -3340,7 +3834,9 @@ function sphereClosestPoint( test )
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
 
-  test.case = 'Sphere touches plane'; /* */
+  /* */
+
+  test.case = 'Sphere touches plane';
 
   var plane = [ 0, 2, 0, 2 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -3349,7 +3845,9 @@ function sphereClosestPoint( test )
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
 
-  test.case = 'Sphere under plane'; /* */
+  /* */
+
+  test.case = 'Sphere under plane';
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ - 1, - 1, - 1, 1 ];
@@ -3358,7 +3856,9 @@ function sphereClosestPoint( test )
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( gotPoint, expected );
 
-  test.case = 'Sphere over plane'; /* */
+  /* */
+
+  test.case = 'Sphere over plane';
 
   var plane = [ 0, - 2, 0, 2 ];
   var sphere = [ 0, 3, 0, 1 ];
@@ -3389,7 +3889,9 @@ function sphereClosestPoint( test )
 function boundingSphereGet( test )
 {
 
-  test.case = 'Source plane remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source plane remains unchanged';
 
   var srcPlane = [ 0, 0, 3, 3 ];
   var dstSphere = [ 1, 1, 2, 1 ];
@@ -3402,7 +3904,9 @@ function boundingSphereGet( test )
   var oldSrcPlane = [ 0, 0, 3, 3 ];
   test.identical( srcPlane, oldSrcPlane );
 
-  test.case = 'Zero plane to zero sphere'; /* */
+  /* */
+
+  test.case = 'Zero plane to zero sphere';
 
   var srcPlane = [ 0, 0, 0, 0 ];
   var dstSphere = [ 0, 0, 0, 0 ];
@@ -3411,7 +3915,9 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
 
-  test.case = 'Zero plane and point Sphere'; /* */
+  /* */
+
+  test.case = 'Zero plane and point Sphere';
 
   var srcPlane = [ 0, 0, 0, 4 ];
   var dstSphere = [ 3, 3, 3, 0 ];
@@ -3420,7 +3926,9 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere and plane intersect'; /* */
+  /* */
+
+  test.case = 'Sphere and plane intersect';
 
   var srcPlane = [ 0, 0, 1, - 2 ];
   var dstSphere = [ 2, 2, 2, 1 ];
@@ -3429,7 +3937,9 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere and plane don´t intersect'; /* */
+  /* */
+
+  test.case = 'Sphere and plane don´t intersect';
 
   var srcPlane = [ 1, 0, 0, 1 ];
   var dstSphere = [ 5, 5, 5, 3 ];
@@ -3438,7 +3948,9 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
 
-  test.case = 'srcPlane vector'; /* */
+  /* */
+
+  test.case = 'srcPlane vector';
 
   var srcPlane = _.vectorAdapter.from( [- 1, - 1, - 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
@@ -3447,7 +3959,9 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.equivalent( gotSphere, expected );
 
-  test.case = 'dstSphere vector'; /* */
+  /* */
+
+  test.case = 'dstSphere vector';
 
   var srcPlane = [- 1, - 1, - 1, 3 ];
   var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
@@ -3456,7 +3970,9 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere null'; /* */
+  /* */
+
+  test.case = 'dstSphere null';
 
   var srcPlane = [- 1, 5, - 1, 0 ];
   var dstSphere = null;
@@ -3465,7 +3981,9 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere undefined'; /* */
+  /* */
+
+  test.case = 'dstSphere undefined';
 
   var srcPlane = [ - 1, - 3, - 5, 0 ];
   var dstSphere = undefined;
@@ -3474,7 +3992,9 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.identical( gotSphere, expected );
 
-  test.case = 'Very small normal'; /* */
+  /* */
+
+  test.case = 'Very small normal';
 
   var srcPlane = _.vectorAdapter.from( [ 1E-12, 1E-12, 1E-12, 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
@@ -3483,7 +4003,9 @@ function boundingSphereGet( test )
   var gotSphere = _.plane.boundingSphereGet( dstSphere, srcPlane );
   test.equivalent( gotSphere, expected );
 
-  test.case = 'Dimension = 5'; /* */
+  /* */
+
+  test.case = 'Dimension = 5';
 
   var srcPlane = [ 1, 0, 1, 2, 3, 4 ];
   var dstSphere = [ 0, 1, 0, 1, 2, 1 ];
@@ -3515,7 +4037,9 @@ function boundingSphereGet( test )
 function translate( test )
 {
 
-  test.case = 'Offset remains unchanged, plane changes'; /* */
+  /* */
+
+  test.case = 'Offset remains unchanged, plane changes';
 
   var plane = [ 1, 0 , 0, 1 ];
   var offset = [ 1, 0, 1 ];
@@ -3527,7 +4051,9 @@ function translate( test )
   test.identical( plane, newPlane );
   test.identical( offset, oldOffset );
 
-  test.case = 'No change (normal and offset are perpendicular)'; /* */
+  /* */
+
+  test.case = 'No change (normal and offset are perpendicular)';
 
   var plane = [ 1, 0 , 0, 1 ];
   var offset = [ 0, 2, 3 ];
@@ -3536,7 +4062,9 @@ function translate( test )
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
 
-  test.case = 'No change'; /* */
+  /* */
+
+  test.case = 'No change';
 
   var plane = [ 1, 0 , - 1, 0 ];
   var offset = [ 2, 2, 2 ];
@@ -3545,7 +4073,9 @@ function translate( test )
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
 
-  test.case = 'Trivial translation'; /* */
+  /* */
+
+  test.case = 'Trivial translation';
 
   var plane = [ 1, 0 , 0, 0 ];
   var offset = [ 3, 2, 3 ];
@@ -3554,7 +4084,9 @@ function translate( test )
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
 
-  test.case = 'Negative offset'; /* */
+  /* */
+
+  test.case = 'Negative offset';
 
   var plane = [ 1, 0 , 0, 0 ];
   var offset = [ - 3, - 2, - 3 ];
@@ -3563,7 +4095,9 @@ function translate( test )
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
 
-  test.case = 'More dimensions'; /* */
+  /* */
+
+  test.case = 'More dimensions';
 
   var plane = [ 1, 0 , 0, 2, 3, 4, 0 ];
   var offset = [ - 2, - 2, - 2, 2, 2, 2 ];
@@ -3572,7 +4106,9 @@ function translate( test )
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
 
-  test.case = 'NaN offset'; /* */
+  /* */
+
+  test.case = 'NaN offset';
 
   var plane = [ 1, 0 , 0, 0 ];
   var offset = [ NaN, NaN, NaN ];
@@ -3604,7 +4140,9 @@ function translate( test )
 function normalize( test )
 {
 
-  test.case = 'Plane changes'; /* */
+  /* */
+
+  test.case = 'Plane changes';
 
   var plane = [ 2, 0 , 0, 1 ];
   var expected = _.plane.tools.longMake( [ 1, 0, 0, 0.5 ] );
@@ -3613,7 +4151,9 @@ function normalize( test )
   test.identical( expected, newPlane );
   test.identical( plane, newPlane );
 
-  test.case = 'Trivial '; /* */
+  /* */
+
+  test.case = 'Trivial ';
 
   var plane = [ 2, 0 , 0, 4 ];
   var expected = _.plane.tools.longMake( [ 1, 0 , 0, 2 ] );
@@ -3621,7 +4161,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
-  test.case = 'Trivial'; /* */
+  /* */
+
+  test.case = 'Trivial';
 
   var plane = [ 2, 2 , 2, 4 ];
   var expected = _.plane.tools.longMake( [ 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 4/Math.sqrt( 12 ) ] );
@@ -3629,7 +4171,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
-  test.case = 'Already normalized 1D'; /* */
+  /* */
+
+  test.case = 'Already normalized 1D';
 
   var plane = [ 1, 0 , 0, 3 ];
   var expected = _.plane.tools.longMake( [ 1, 0 , 0, 3 ] );
@@ -3637,7 +4181,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.identical( expected, normalized );
 
-  test.case = 'Already normalized'; /* */
+  /* */
+
+  test.case = 'Already normalized';
 
   var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
   var expected = _.plane.tools.longMake( [1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ] );
@@ -3645,7 +4191,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
-  test.case = 'Negative coordinates'; /* */
+  /* */
+
+  test.case = 'Negative coordinates';
 
   var plane = [ - 3, - 6 , 0, 8 ];
   var expected = _.plane.tools.longMake( [ - 3/Math.sqrt( 45 ), - 6/Math.sqrt( 45 ) , 0, 8/Math.sqrt( 45 ) ] );
@@ -3653,7 +4201,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
-  test.case = 'More dimensions'; /* */
+  /* */
+
+  test.case = 'More dimensions';
 
   var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
   var expected = _.plane.tools.longMake( [ 4/Math.sqrt( 48 ), 0 , 0, 4/Math.sqrt( 48 ), 0, 4/Math.sqrt( 48 ), 8/Math.sqrt( 48 ) ] );
@@ -3661,7 +4211,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
-  test.case = 'NaN result'; /* */
+  /* */
+
+  test.case = 'NaN result';
 
   var plane = [ NaN, NaN, NaN, NaN ];
   var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
@@ -3669,7 +4221,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
-  test.case = 'Plane  [ 0 ]'; /* */
+  /* */
+
+  test.case = 'Plane  [ 0 ]';
 
   var plane = [ 0 ];
   var expected = _.plane.tools.longMake( [ NaN ] );
@@ -3677,7 +4231,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
-  test.case = 'Null coordinate'; /* */
+  /* */
+
+  test.case = 'Null coordinate';
 
   var plane = [ 1, null, 0, 0 ];
   var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
@@ -3685,7 +4241,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
-  test.case = 'NaN coordinates'; /* */
+  /* */
+
+  test.case = 'NaN coordinates';
 
   var plane = [ 1, NaN, 0, 0 ];
   var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
@@ -3693,7 +4251,9 @@ function normalize( test )
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
 
-  test.case = 'String coordinates'; /* */
+  /* */
+
+  test.case = 'String coordinates';
 
   var plane = [ 1, 'string', 0, 0 ];
   var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
@@ -3720,7 +4280,9 @@ function normalize( test )
 function negate( test )
 {
 
-  test.case = 'Zero'; /* */
+  /* */
+
+  test.case = 'Zero';
 
   var plane = [ 0, 0 , 0, 0 ];
   var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
@@ -3729,7 +4291,9 @@ function negate( test )
   test.equivalent( expected, newPlane );
   test.identical( plane, newPlane );
 
-  test.case = 'Plane changes'; /* */
+  /* */
+
+  test.case = 'Plane changes';
 
   var plane = [ 2, 0 , 0, 1 ];
   var expected = _.plane.tools.longMake( [ - 2, 0, 0, - 1 ] );
@@ -3738,7 +4302,9 @@ function negate( test )
   test.equivalent( expected, newPlane );
   test.identical( plane, newPlane );
 
-  test.case = 'Trivial '; /* */
+  /* */
+
+  test.case = 'Trivial ';
 
   var plane = [ 2, 0 , 0, 4 ];
   var expected = _.plane.tools.longMake( [ - 2, 0 , 0, - 4 ] );
@@ -3746,7 +4312,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'Trivial'; /* */
+  /* */
+
+  test.case = 'Trivial';
 
   var plane = [ 2, 2 , 2, 4 ];
   var expected = _.plane.tools.longMake( [ - 2, - 2, - 2, - 4 ] );
@@ -3754,7 +4322,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'Negate 1D'; /* */
+  /* */
+
+  test.case = 'Negate 1D';
 
   var plane = [ 1, 0 , 0, 3 ];
   var expected = _.plane.tools.longMake( [ - 1, 0 , 0, - 3 ] );
@@ -3762,7 +4332,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'Negate'; /* */
+  /* */
+
+  test.case = 'Negate';
 
   var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
   var expected = _.plane.tools.longMake( [ - 1/Math.sqrt( 2 ), - 1/Math.sqrt( 2 ), 0, - 2/Math.sqrt( 2 ) ] );
@@ -3770,7 +4342,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'Negative coordinates'; /* */
+  /* */
+
+  test.case = 'Negative coordinates';
 
   var plane = [ - 3, - 6 , 0, 8 ];
   var expected = _.plane.tools.longMake( [ 3, 6, 0, - 8 ] );
@@ -3778,7 +4352,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'More dimensions'; /* */
+  /* */
+
+  test.case = 'More dimensions';
 
   var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
   var expected = _.plane.tools.longMake( [  - 4, 0 , 0, - 4, 0, - 4, - 8 ] );
@@ -3786,7 +4362,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'NaN result'; /* */
+  /* */
+
+  test.case = 'NaN result';
 
   var plane = [ NaN, NaN, NaN, NaN ];
   var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
@@ -3794,7 +4372,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'Plane  [ 0 ]'; /* */
+  /* */
+
+  test.case = 'Plane  [ 0 ]';
 
   var plane = [ 0 ];
   var expected = _.plane.tools.longMake( [ 0 ] );
@@ -3802,7 +4382,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'Null coordinate'; /* */
+  /* */
+
+  test.case = 'Null coordinate';
 
   var plane = [ 1, null, 0, 0 ];
   var expected = _.plane.tools.longMake( [ - 1, 0, 0, 0 ] );
@@ -3810,7 +4392,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'NaN coordinates'; /* */
+  /* */
+
+  test.case = 'NaN coordinates';
 
   var plane = [ 1, NaN, 0, 0 ];
   var expected = _.plane.tools.longMake( [ - 1, NaN, 0, 0 ] );
@@ -3818,7 +4402,9 @@ function negate( test )
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
 
-  test.case = 'String coordinates'; /* */
+  /* */
+
+  test.case = 'String coordinates';
 
   var plane = [ 1, 'string', 0, 0 ];
   var expected = _.plane.tools.longMake( [ - 1, NaN, 0, 0 ] );
@@ -3846,7 +4432,9 @@ function negate( test )
 function threeIntersectionPoint( test )
 {
 
-  test.case = 'Planes remain unchanged'; /* */
+  /* */
+
+  test.case = 'Planes remain unchanged';
 
   var plane1 = [ 1, 0 , 0, 1 ];
   var oldPlane1 = plane1.slice();
@@ -3863,7 +4451,9 @@ function threeIntersectionPoint( test )
   test.identical( plane2, oldPlane2 );
   test.identical( plane3, oldPlane3 );
 
-  test.case = 'Parallel planes'; /* */
+  /* */
+
+  test.case = 'Parallel planes';
 
   var plane1 = [ 1, 0 , 0, 1 ];
   var plane2 = [ 2, 0 , 0, 4 ];
@@ -3873,7 +4463,9 @@ function threeIntersectionPoint( test )
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, interPoint );
 
-  test.case = '2 Parallel planes'; /* */
+  /* */
+
+  test.case = '2 Parallel planes';
 
   var plane1 = [ 1, 0 , 0, 1 ];
   var plane2 = [ 2, 0 , 0, 4 ];
@@ -3883,7 +4475,9 @@ function threeIntersectionPoint( test )
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.identical( expected, interPoint );
 
-  test.case = 'Perpendicular planes in origin'; /* */
+  /* */
+
+  test.case = 'Perpendicular planes in origin';
 
   var plane1 = [ 1, 0 , 0, 0 ];
   var plane2 = [ 0, 1 , 0, 0 ];
@@ -3894,7 +4488,9 @@ function threeIntersectionPoint( test )
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.equivalent( expected, interPoint );
   debugger;
-  test.case = 'Planes in origin'; /* */
+  /* */
+
+  test.case = 'Planes in origin';
 
   var plane1 = [ - 1, 1, 0, 0 ];
   var plane2 = [ 0, 1 , 0, 0 ];
@@ -3905,7 +4501,9 @@ function threeIntersectionPoint( test )
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.equivalent( expected, interPoint );
 
-  test.case = 'Perpendicular planes'; /* */
+  /* */
+
+  test.case = 'Perpendicular planes';
 
   var plane1 = [ 3, 0 , 0, 3 ];
   var plane2 = [ 0, - 4 , 0, 4 ];
@@ -3916,7 +4514,9 @@ function threeIntersectionPoint( test )
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
   test.equivalent( expected, interPoint );
 
-  test.case = 'Trivial'; /* */
+  /* */
+
+  test.case = 'Trivial';
 
   var plane1 = [ 2, 1, 2, 4 ];
   var plane2 = [ 1, 1 , 0, - 5 ];

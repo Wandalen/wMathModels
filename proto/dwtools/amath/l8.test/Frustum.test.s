@@ -1207,7 +1207,9 @@ function boxClosestPoint( test )
 function boundingBoxGet( test )
 {
 
-  test.case = 'Source frustum remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source frustum remains unchanged';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
@@ -1232,7 +1234,9 @@ function boundingBoxGet( test )
     ]);
   test.identical( srcFrustum, oldSrcFrustum );
 
-  test.case = 'Zero frustum to zero box'; /* */
+  /* */
+
+  test.case = 'Zero frustum to zero box';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
@@ -1247,7 +1251,9 @@ function boundingBoxGet( test )
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
 
-  test.case = 'Frustum inside box'; /* */
+  /* */
+
+  test.case = 'Frustum inside box';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
@@ -1262,7 +1268,9 @@ function boundingBoxGet( test )
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
 
-  test.case = 'Frustum outside Box'; /* */
+  /* */
+
+  test.case = 'Frustum outside Box';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
@@ -1277,7 +1285,9 @@ function boundingBoxGet( test )
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
 
-  test.case = 'Point frustum and point Box'; /* */
+  /* */
+
+  test.case = 'Point frustum and point Box';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
@@ -1292,7 +1302,9 @@ function boundingBoxGet( test )
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
 
-  test.case = 'Negative frustum values'; /* */
+  /* */
+
+  test.case = 'Negative frustum values';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
@@ -1322,7 +1334,9 @@ function boundingBoxGet( test )
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox vector'; /* */
+  /* */
+
+  test.case = 'dstBox vector';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -1337,7 +1351,9 @@ function boundingBoxGet( test )
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox null'; /* */
+  /* */
+
+  test.case = 'dstBox null';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -1352,7 +1368,9 @@ function boundingBoxGet( test )
   var gotBox = _.frustum.boundingBoxGet( dstBox, srcFrustum );
   test.equivalent( gotBox, expected );
 
-  test.case = 'dstBox undefined'; /* */
+  /* */
+
+  test.case = 'dstBox undefined';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3047,7 +3065,9 @@ function frustumClosestPoint( test )
 function lineClosestPoint( test )
 {
 
-  test.case = 'Source frustum and line remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source frustum and line remain unchanged';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3074,7 +3094,9 @@ function lineClosestPoint( test )
   var oldtstLine = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstLine, oldtstLine );
 
-  test.case = 'Frustum and line intersect'; /* */
+  /* */
+
+  test.case = 'Frustum and line intersect';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3089,7 +3111,9 @@ function lineClosestPoint( test )
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Line origin is frustum corner'; /* */
+  /* */
+
+  test.case = 'Line origin is frustum corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3104,7 +3128,9 @@ function lineClosestPoint( test )
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Line is frustum side'; /* */
+  /* */
+
+  test.case = 'Line is frustum side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3119,7 +3145,9 @@ function lineClosestPoint( test )
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Negative factor on corner'; /* */
+  /* */
+
+  test.case = 'Negative factor on corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3134,7 +3162,9 @@ function lineClosestPoint( test )
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Negative factor on side'; /* */
+  /* */
+
+  test.case = 'Negative factor on side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3149,7 +3179,9 @@ function lineClosestPoint( test )
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Closest point is corner'; /* */
+  /* */
+
+  test.case = 'Closest point is corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3164,7 +3196,9 @@ function lineClosestPoint( test )
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Closest point on side'; /* */
+  /* */
+
+  test.case = 'Closest point on side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3179,7 +3213,9 @@ function lineClosestPoint( test )
   var gotLine = _.frustum.lineClosestPoint( srcFrustum, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3196,7 +3232,9 @@ function lineClosestPoint( test )
   test.identical( expected, gotLine );
   test.is( dstPoint === gotLine );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3683,7 +3721,9 @@ function planeClosestPoint( test )
 function rayClosestPoint( test )
 {
 
-  test.case = 'Source frustum and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source frustum and ray remain unchanged';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3710,7 +3750,9 @@ function rayClosestPoint( test )
   var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstRay, oldtstRay );
 
-  test.case = 'Frustum and ray intersect'; /* */
+  /* */
+
+  test.case = 'Frustum and ray intersect';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3725,7 +3767,9 @@ function rayClosestPoint( test )
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray origin is frustum corner'; /* */
+  /* */
+
+  test.case = 'Ray origin is frustum corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3740,7 +3784,9 @@ function rayClosestPoint( test )
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray is frustum side'; /* */
+  /* */
+
+  test.case = 'Ray is frustum side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3755,7 +3801,9 @@ function rayClosestPoint( test )
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Frustum corner is the closest point'; /* */
+  /* */
+
+  test.case = 'Frustum corner is the closest point';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3770,7 +3818,9 @@ function rayClosestPoint( test )
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Closest point in frustum side'; /* */
+  /* */
+
+  test.case = 'Closest point in frustum side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3785,7 +3835,9 @@ function rayClosestPoint( test )
   var gotRay = _.frustum.rayClosestPoint( srcFrustum, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3802,7 +3854,9 @@ function rayClosestPoint( test )
   test.identical( expected, gotRay );
   test.is( dstPoint === gotRay );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3841,7 +3895,9 @@ function rayClosestPoint( test )
 function segmentContains( test )
 {
 
-  test.case = 'Source frustum and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source frustum and segment remain unchanged';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3868,7 +3924,9 @@ function segmentContains( test )
   var oldtstSegment = [ 0, 0, 0, 2, 2, 2 ];
   test.identical( tstSegment, oldtstSegment );
 
-  test.case = 'Frustum and segment don´t intersect'; /* */
+  /* */
+
+  test.case = 'Frustum and segment don´t intersect';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3883,7 +3941,9 @@ function segmentContains( test )
   var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = 'Frustum and segment intersect'; /* */
+  /* */
+
+  test.case = 'Frustum and segment intersect';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3898,7 +3958,9 @@ function segmentContains( test )
   var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = 'Segment origin is frustum corner'; /* */
+  /* */
+
+  test.case = 'Segment origin is frustum corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3913,7 +3975,9 @@ function segmentContains( test )
   var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = 'Frustum contains segment'; /* */
+  /* */
+
+  test.case = 'Frustum contains segment';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3928,7 +3992,9 @@ function segmentContains( test )
   var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = 'Segment is in frustum edge'; /* */
+  /* */
+
+  test.case = 'Segment is in frustum edge';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3943,7 +4009,9 @@ function segmentContains( test )
   var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = 'Segment is in frustum side'; /* */
+  /* */
+
+  test.case = 'Segment is in frustum side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -3958,7 +4026,9 @@ function segmentContains( test )
   var gotBool = _.frustum.segmentContains( srcFrustum, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = 'Segment from frustum corner to frustum corner'; /* */
+  /* */
+
+  test.case = 'Segment from frustum corner to frustum corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4007,7 +4077,9 @@ function segmentContains( test )
 function segmentClosestPoint( test )
 {
 
-  test.case = 'Source frustum and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source frustum and segment remain unchanged';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4034,7 +4106,9 @@ function segmentClosestPoint( test )
   var oldtstSegment = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstSegment, oldtstSegment );
 
-  test.case = 'Frustum and segment intersect'; /* */
+  /* */
+
+  test.case = 'Frustum and segment intersect';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4049,7 +4123,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment origin is frustum corner'; /* */
+  /* */
+
+  test.case = 'Segment origin is frustum corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4064,7 +4140,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment end is frustum corner'; /* */
+  /* */
+
+  test.case = 'Segment end is frustum corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4079,7 +4157,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment is frustum side'; /* */
+  /* */
+
+  test.case = 'Segment is frustum side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4094,7 +4174,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Negative factor on corner'; /* */
+  /* */
+
+  test.case = 'Negative factor on corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4109,7 +4191,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Positive factor on corner'; /* */
+  /* */
+
+  test.case = 'Positive factor on corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4124,7 +4208,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Negative factor on side'; /* */
+  /* */
+
+  test.case = 'Negative factor on side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4139,7 +4225,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Positive factor on side'; /* */
+  /* */
+
+  test.case = 'Positive factor on side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4154,7 +4242,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Closest point is corner'; /* */
+  /* */
+
+  test.case = 'Closest point is corner';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4169,7 +4259,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Closest point on side'; /* */
+  /* */
+
+  test.case = 'Closest point on side';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4184,7 +4276,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.frustum.segmentClosestPoint( srcFrustum, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4201,7 +4295,9 @@ function segmentClosestPoint( test )
   test.identical( expected, gotSegment );
   test.is( dstPoint === gotSegment );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4745,7 +4841,9 @@ function sphereClosestPoint( test )
 function boundingSphereGet( test )
 {
 
-  test.case = 'Source frustum remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source frustum remains unchanged';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4770,7 +4868,9 @@ function boundingSphereGet( test )
   ]);
   test.identical( srcFrustum, oldSrcFrustum );
 
-  test.case = 'Zero frustum to zero sphere'; /* */
+  /* */
+
+  test.case = 'Zero frustum to zero sphere';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4785,7 +4885,9 @@ function boundingSphereGet( test )
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere inside frustum - same center'; /* */
+  /* */
+
+  test.case = 'Sphere inside frustum - same center';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4800,7 +4902,9 @@ function boundingSphereGet( test )
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
 
-  test.case = 'Point frustum and point Sphere'; /* */
+  /* */
+
+  test.case = 'Point frustum and point Sphere';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4815,7 +4919,9 @@ function boundingSphereGet( test )
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
 
-  test.case = 'Frustum inside Sphere'; /* */
+  /* */
+
+  test.case = 'Frustum inside Sphere';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4830,7 +4936,9 @@ function boundingSphereGet( test )
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere outside frustum'; /* */
+  /* */
+
+  test.case = 'Sphere outside frustum';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4845,7 +4953,9 @@ function boundingSphereGet( test )
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere vector'; /* */
+  /* */
+
+  test.case = 'dstSphere vector';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4860,7 +4970,9 @@ function boundingSphereGet( test )
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere null'; /* */
+  /* */
+
+  test.case = 'dstSphere null';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4875,7 +4987,9 @@ function boundingSphereGet( test )
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere undefined'; /* */
+  /* */
+
+  test.case = 'dstSphere undefined';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
@@ -4890,7 +5004,9 @@ function boundingSphereGet( test )
   var gotSphere = _.frustum.boundingSphereGet( dstSphere, srcFrustum );
   test.identical( gotSphere, expected );
 
-  test.case = 'srcFrustum inversed'; /* */
+  /* */
+
+  test.case = 'srcFrustum inversed';
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([

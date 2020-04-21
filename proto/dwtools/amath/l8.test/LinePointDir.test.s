@@ -35,7 +35,9 @@ _.assert( _.routineIs( sqrt ) );
 
 function make( test )
 {
-  test.case = 'srcDim undefined'; /* */
+  /* */
+
+  test.case = 'srcDim undefined';
 
   var srcDim = undefined;
   var gotLine = _.linePointDir.make( srcDim );
@@ -43,7 +45,9 @@ function make( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim null'; /* */
+  /* */
+
+  test.case = 'srcDim null';
 
   var srcDim = null;
   var gotLine = _.linePointDir.make( srcDim );
@@ -51,7 +55,9 @@ function make( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim 2'; /* */
+  /* */
+
+  test.case = 'srcDim 2';
 
   var srcDim = 2;
   var gotLine = _.linePointDir.make( srcDim );
@@ -59,7 +65,9 @@ function make( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim array'; /* */
+  /* */
+
+  test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3 ];
   var gotLine = _.linePointDir.make( srcDim );
@@ -67,7 +75,9 @@ function make( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim vector'; /* */
+  /* */
+
+  test.case = 'srcDim vector';
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var gotLine = _.linePointDir.make( srcDim );
@@ -87,7 +97,9 @@ function make( test )
 
 function makeZero( test )
 {
-  test.case = 'srcDim undefined'; /* */
+  /* */
+
+  test.case = 'srcDim undefined';
 
   var srcDim = undefined;
   var gotLine = _.linePointDir.makeZero( srcDim );
@@ -95,7 +107,9 @@ function makeZero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim null'; /* */
+  /* */
+
+  test.case = 'srcDim null';
 
   var srcDim = null;
   var gotLine = _.linePointDir.makeZero( srcDim );
@@ -103,7 +117,9 @@ function makeZero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim 2'; /* */
+  /* */
+
+  test.case = 'srcDim 2';
 
   var srcDim = 2;
   var gotLine = _.linePointDir.makeZero( srcDim );
@@ -111,7 +127,9 @@ function makeZero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim array'; /* */
+  /* */
+
+  test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3 ];
   var gotLine = _.linePointDir.makeZero( srcDim );
@@ -119,7 +137,9 @@ function makeZero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim vector'; /* */
+  /* */
+
+  test.case = 'srcDim vector';
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var gotLine = _.linePointDir.makeZero( srcDim );
@@ -140,7 +160,9 @@ function makeZero( test )
 
 function makeNil( test )
 {
-  test.case = 'srcDim undefined'; /* */
+  /* */
+
+  test.case = 'srcDim undefined';
 
   var srcDim = undefined;
   var gotLine = _.linePointDir.makeNil( srcDim );
@@ -148,7 +170,9 @@ function makeNil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim null'; /* */
+  /* */
+
+  test.case = 'srcDim null';
 
   var srcDim = null;
   var gotLine = _.linePointDir.makeNil( srcDim );
@@ -156,7 +180,9 @@ function makeNil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim 2'; /* */
+  /* */
+
+  test.case = 'srcDim 2';
 
   var srcDim = 2;
   var gotLine = _.linePointDir.makeNil( srcDim );
@@ -164,7 +190,9 @@ function makeNil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim array'; /* */
+  /* */
+
+  test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3 ];
   var gotLine = _.linePointDir.makeNil( srcDim );
@@ -172,7 +200,9 @@ function makeNil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim vector'; /* */
+  /* */
+
+  test.case = 'srcDim vector';
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var gotLine = _.linePointDir.makeNil( srcDim );
@@ -192,7 +222,9 @@ function makeNil( test )
 
 function zero( test )
 {
-  test.case = 'srcLine undefined'; /* */
+  /* */
+
+  test.case = 'srcLine undefined';
 
   var srcLine = undefined;
   var gotLine = _.linePointDir.zero( srcLine );
@@ -200,7 +232,9 @@ function zero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine null'; /* */
+  /* */
+
+  test.case = 'srcLine null';
 
   var srcLine = null;
   var gotLine = _.linePointDir.zero( srcLine );
@@ -208,7 +242,9 @@ function zero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine 2'; /* */
+  /* */
+
+  test.case = 'srcLine 2';
 
   var srcLine = 2;
   var gotLine = _.linePointDir.zero( srcLine );
@@ -216,7 +252,9 @@ function zero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine array'; /* */
+  /* */
+
+  test.case = 'srcLine array';
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotLine = _.linePointDir.zero( srcLine );
@@ -224,7 +262,9 @@ function zero( test )
   test.identical( gotLine, expected );
   test.is( gotLine === srcLine );
 
-  test.case = 'srcLine vector'; /* */
+  /* */
+
+  test.case = 'srcLine vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotLine = _.linePointDir.zero( srcLine );
@@ -245,7 +285,9 @@ function zero( test )
 
 function nil( test )
 {
-  test.case = 'srcLine undefined'; /* */
+  /* */
+
+  test.case = 'srcLine undefined';
 
   var srcLine = undefined;
   var gotLine = _.linePointDir.nil( srcLine );
@@ -253,7 +295,9 @@ function nil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine null'; /* */
+  /* */
+
+  test.case = 'srcLine null';
 
   var srcLine = null;
   var gotLine = _.linePointDir.nil( srcLine );
@@ -261,7 +305,9 @@ function nil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine 2'; /* */
+  /* */
+
+  test.case = 'srcLine 2';
 
   var srcLine = 2;
   var gotLine = _.linePointDir.nil( srcLine );
@@ -269,7 +315,9 @@ function nil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine array'; /* */
+  /* */
+
+  test.case = 'srcLine array';
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotLine = _.linePointDir.nil( srcLine );
@@ -277,7 +325,9 @@ function nil( test )
   test.identical( gotLine, expected );
   test.is( gotLine === srcLine );
 
-  test.case = 'srcLine vector'; /* */
+  /* */
+
+  test.case = 'srcLine vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotLine = _.linePointDir.nil( srcLine );
@@ -297,7 +347,9 @@ function nil( test )
 
 function from( test )
 {
-  test.case = 'Same instance returned - array'; /* */
+  /* */
+
+  test.case = 'Same instance returned - array';
 
   var srcLine = [ 0, 0, 2, 2 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 2, 2 ] );
@@ -306,7 +358,9 @@ function from( test )
   test.identical( gotLine, expected );
   test.is( srcLine === gotLine );
 
-  test.case = 'Different instance returned - vector -> array'; /* */
+  /* */
+
+  test.case = 'Different instance returned - vector -> array';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
   var expected = _.linePointDir.tools.vectorAdapter.fromLong( [ 0, 0, 2, 2 ] );
@@ -315,7 +369,9 @@ function from( test )
   test.identical( gotLine, expected );
   test.is( srcLine === gotLine );
 
-  test.case = 'Same instance returned - empty array'; /* */
+  /* */
+
+  test.case = 'Same instance returned - empty array';
 
   var srcLine = [];
   var expected = _.linePointDir.tools.longMake( [] );
@@ -324,7 +380,9 @@ function from( test )
   test.identical( gotLine, expected );
   test.is( srcLine === gotLine );
 
-  test.case = 'Different instance returned - null -> array'; /* */
+  /* */
+
+  test.case = 'Different instance returned - null -> array';
 
   var srcLine = null;
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
@@ -349,7 +407,9 @@ function from( test )
 
 function adapterFrom( test )
 {
-  test.case = 'Same instance returned - vector'; /* */
+  /* */
+
+  test.case = 'Same instance returned - vector';
 
   var srcLine = [ 0, 0, 2, 2 ];
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
@@ -358,7 +418,9 @@ function adapterFrom( test )
   test.identical( gotLine, expected );
   test.is( srcLine !== gotLine );
 
-  test.case = 'Different instance returned - vector -> vector'; /* */
+  /* */
+
+  test.case = 'Different instance returned - vector -> vector';
 
   var srcLine = _.linePointDir.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0, 0, 2, 2 ] );
@@ -367,7 +429,9 @@ function adapterFrom( test )
   test.identical( gotLine, expected );
   test.is( srcLine === gotLine );
 
-  test.case = 'Same instance returned - empty vector'; /* */
+  /* */
+
+  test.case = 'Same instance returned - empty vector';
 
   var srcLine = [];
   var expected =  _.linePointDir.tools.vectorAdapter.from( [] );
@@ -394,7 +458,9 @@ function adapterFrom( test )
 
 function fromPoints( test )
 {
-  test.case = 'Pair stay unchanged'; /* */
+  /* */
+
+  test.case = 'Pair stay unchanged';
 
   var point1 = [ 0, 1, 2 ]
   var point2 = [ 0, 2, 4 ]
@@ -408,7 +474,9 @@ function fromPoints( test )
   test.identical( point1, oldPoin1 );
   test.identical( point2, oldPoin2 );
 
-  test.case = 'Line starts in origin'; /* */
+  /* */
+
+  test.case = 'Line starts in origin';
 
   var point1 = [ 0, 0, 0 ]
   var point2 = [ 0, 1, 2 ]
@@ -417,7 +485,9 @@ function fromPoints( test )
   var gotLine = _.linePointDir.fromPoints( point1, point2 );
   test.identical( gotLine, expected );
 
-  test.case = 'Line is point'; /* */
+  /* */
+
+  test.case = 'Line is point';
 
   var point1 = [ 0, 1, 2 ]
   var point2 = [ 0, 1, 2 ]
@@ -426,7 +496,9 @@ function fromPoints( test )
   var gotLine = _.linePointDir.fromPoints( point1, point2 );
   test.identical( gotLine, expected );
 
-  test.case = 'Line of 1 dimension'; /* */
+  /* */
+
+  test.case = 'Line of 1 dimension';
 
   var point1 = [ 3 ]
   var point2 = [ 4 ]
@@ -435,7 +507,9 @@ function fromPoints( test )
   var gotLine = _.linePointDir.fromPoints( point1, point2 );
   test.identical( gotLine, expected );
 
-  test.case = 'Line goes up in y and down in z'; /* */
+  /* */
+
+  test.case = 'Line goes up in y and down in z';
 
   var point1 = [ 0, 1, 2 ]
   var point2 = [ 0, 3, 1 ]
@@ -460,7 +534,9 @@ function fromPoints( test )
 
 function fromPoints2( test )
 {
-  test.case = 'Pair stay unchanged'; /* */
+  /* */
+
+  test.case = 'Pair stay unchanged';
 
   var points = [ 0, 1, 2, 0, 2, 4 ]
   var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 1, 2, 0, 1, 2 ] );
@@ -471,7 +547,9 @@ function fromPoints2( test )
   var oldPoints = [ 0, 1, 2, 0, 2, 4 ]
   test.identical( points, oldPoints );
 
-  test.case = 'Line starts in origin'; /* */
+  /* */
+
+  test.case = 'Line starts in origin';
 
   var points = [ 0, 0, 0, 0, 1, 2 ]
   var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 0, 0, 0, 1, 2 ] );
@@ -479,7 +557,9 @@ function fromPoints2( test )
   var gotLine = _.linePointDir.fromPoints2( points );
   test.identical( gotLine, expected );
 
-  test.case = 'Line is point'; /* */
+  /* */
+
+  test.case = 'Line is point';
 
   var points = [ 0, 1, 2, 0, 1, 2 ]
   var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 1, 2, 0, 0, 0 ] );
@@ -487,7 +567,9 @@ function fromPoints2( test )
   var gotLine = _.linePointDir.fromPoints2( points );
   test.identical( gotLine, expected );
 
-  test.case = 'Line goes up in y and down in z'; /* */
+  /* */
+
+  test.case = 'Line goes up in y and down in z';
 
   var points = [ 0, 1, 2, 0, 3, 1 ]
   var expected = _.linePointDir.tools.vectorAdapter.make( [ 0, 1, 2, 0, 2, -1 ] );
@@ -513,21 +595,27 @@ function fromPoints2( test )
 function is( test )
 {
   debugger;
-  test.case = 'array'; /* */
+  /* */
+
+  test.case = 'array';
 
   test.is( _.linePointDir.is( [] ) );
   test.is( _.linePointDir.is([ 0, 0 ]) );
   test.is( _.linePointDir.is([ 1, 2, 3, 4 ]) );
   test.is( _.linePointDir.is([ 0, 0, 0, 0, 0, 0 ]) );
 
-  test.case = 'vector'; /* */
+  /* */
+
+  test.case = 'vector';
 
   test.is( _.linePointDir.is( _.vectorAdapter.fromLong([]) ) );
   test.is( _.linePointDir.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
   test.is( _.linePointDir.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
   test.is( _.linePointDir.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
-  test.case = 'not line'; /* */
+  /* */
+
+  test.case = 'not line';
 
   test.is( !_.linePointDir.is([ 0 ]) );
   test.is( !_.linePointDir.is([ 0, 0, 0 ]) );
@@ -555,7 +643,9 @@ function is( test )
 
 function dimGet( test )
 {
-  test.case = 'srcLine 1D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 1D - array';
 
   var srcLine = [ 0, 1 ];
   var gotDim = _.linePointDir.dimGet( srcLine );
@@ -563,7 +653,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 1D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 1D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
   var gotDim = _.linePointDir.dimGet( srcLine );
@@ -571,7 +663,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 2D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 2D - array';
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotDim = _.linePointDir.dimGet( srcLine );
@@ -579,7 +673,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 2D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 2D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotDim = _.linePointDir.dimGet( srcLine );
@@ -587,7 +683,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 3D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 3D - array';
 
   var srcLine = [ 0, 1, 2, 3, 4, 5 ];
   var gotDim = _.linePointDir.dimGet( srcLine );
@@ -595,7 +693,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 3D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 3D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotDim = _.linePointDir.dimGet( srcLine );
@@ -621,7 +721,9 @@ function dimGet( test )
 
 function originGet( test )
 {
-  test.case = 'Source line remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source line remains unchanged';
 
   var srcLine = [ 0, 0, 1, 1 ];
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0, 0 ] );
@@ -632,7 +734,9 @@ function originGet( test )
   var oldSrcLine = [ 0, 0, 1, 1 ];
   test.equivalent( srcLine, oldSrcLine );
 
-  test.case = 'srcLine 1D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 1D - array';
 
   var srcLine = [ 0, 1 ];
   var gotOrigin = _.linePointDir.originGet( srcLine );
@@ -640,7 +744,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
-  test.case = 'srcLine 1D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 1D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
   var gotOrigin = _.linePointDir.originGet( srcLine );
@@ -648,7 +754,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
-  test.case = 'srcLine 2D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 2D - array';
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotOrigin = _.linePointDir.originGet( srcLine );
@@ -656,7 +764,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
-  test.case = 'srcLine 2D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 2D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotOrigin = _.linePointDir.originGet( srcLine );
@@ -664,7 +774,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
-  test.case = 'srcLine 3D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 3D - array';
 
   var srcLine = [ 0, 1, 2, 3, 4, 5 ];
   var gotOrigin = _.linePointDir.originGet( srcLine );
@@ -672,7 +784,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcLine );
 
-  test.case = 'srcLine 3D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 3D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotOrigin = _.linePointDir.originGet( srcLine );
@@ -698,7 +812,9 @@ function originGet( test )
 
 function directionGet( test )
 {
-  test.case = 'Source line remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source line remains unchanged';
 
   var srcLine = [ 0, 0, 1, 1 ];
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 1, 1 ] );
@@ -709,7 +825,9 @@ function directionGet( test )
   var oldSrcLine = [ 0, 0, 1, 1 ];
   test.equivalent( srcLine, oldSrcLine );
 
-  test.case = 'srcLine 1D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 1D - array';
 
   var srcLine = [ 0, 1 ];
   var gotDirection = _.linePointDir.directionGet( srcLine );
@@ -717,7 +835,9 @@ function directionGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
-  test.case = 'srcLine 1D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 1D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
   var gotDirection = _.linePointDir.directionGet( srcLine );
@@ -725,7 +845,9 @@ function directionGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
-  test.case = 'srcLine 2D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 2D - array';
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotDirection = _.linePointDir.directionGet( srcLine );
@@ -733,7 +855,9 @@ function directionGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
-  test.case = 'srcLine 2D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 2D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotDirection = _.linePointDir.directionGet( srcLine );
@@ -741,7 +865,9 @@ function directionGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
-  test.case = 'srcLine 3D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 3D - array';
 
   var srcLine = [ 0, 1, 2, 3, 4, 5 ];
   var gotDirection = _.linePointDir.directionGet( srcLine );
@@ -749,7 +875,9 @@ function directionGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcLine );
 
-  test.case = 'srcLine 3D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 3D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5 ] );
   var gotDirection = _.linePointDir.directionGet( srcLine );
@@ -775,7 +903,9 @@ function directionGet( test )
 
 function lineAt( test )
 {
-  test.case = 'Source line and factor remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and factor remain unchanged';
 
   var srcLine = [ 0, 0, 1, 1 ];
   var factor = 1;
@@ -790,7 +920,9 @@ function lineAt( test )
   var oldFactor = 1;
   test.equivalent( factor, oldFactor );
 
-  test.case = 'Factor = null, return origin'; /* */
+  /* */
+
+  test.case = 'Factor = null, return origin';
 
   var srcLine = [ 0, 0, 1, 1 ];
   var factor = 0;
@@ -799,7 +931,9 @@ function lineAt( test )
   var gotPoint = _.linePointDir.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
 
-  test.case = 'Factor = 0, return origin'; /* */
+  /* */
+
+  test.case = 'Factor = 0, return origin';
 
   var srcLine = [ 0, 0, 1, 1 ];
   var factor = 0;
@@ -808,7 +942,9 @@ function lineAt( test )
   var gotPoint = _.linePointDir.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
 
-  test.case = 'Factor = 1, return origin + direction'; /* */
+  /* */
+
+  test.case = 'Factor = 1, return origin + direction';
 
   var srcLine = [ 0, 1, 1, 1 ];
   var factor = 1;
@@ -817,7 +953,9 @@ function lineAt( test )
   var gotPoint = _.linePointDir.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
 
-  test.case = '3D line'; /* */
+  /* */
+
+  test.case = '3D line';
 
   var srcLine = [ 0, 1, 2, 1, 1, 1 ];
   var factor = 1;
@@ -826,7 +964,9 @@ function lineAt( test )
   var gotPoint = _.linePointDir.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
 
-  test.case = 'factor smaller than 1'; /* */
+  /* */
+
+  test.case = 'factor smaller than 1';
 
   var srcLine = [ 0, 1, 2, 2, 2, 2 ];
   var factor = 0.5;
@@ -835,7 +975,9 @@ function lineAt( test )
   var gotPoint = _.linePointDir.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
 
-  test.case = 'factor bigger than one'; /* */
+  /* */
+
+  test.case = 'factor bigger than one';
 
   var srcLine = [ 0, 1, 2, 1, 1, 1 ];
   var factor = 5;
@@ -844,7 +986,9 @@ function lineAt( test )
   var gotPoint = _.linePointDir.lineAt( srcLine, factor );
   test.identical( gotPoint, expected );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var srcLine = [ 0, 1, 2, 1, 1, 1 ];
   var factor = - 5;
@@ -875,7 +1019,9 @@ function lineAt( test )
 function getFactor( test )
 {
 
-  test.case = 'Line and Point remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and Point remain unchanged';
 
   var line = [  - 1, - 1 , 1, 1 ];
   var point = [ 0, 0 ];
@@ -890,7 +1036,9 @@ function getFactor( test )
   var oldPoint = [ 0, 0 ];
   test.identical( point, oldPoint );
 
-  test.case = 'Null line contains empty point'; /* */
+  /* */
+
+  test.case = 'Null line contains empty point';
 
   var line = null;
   var point = [ 0, 0, 0 ];
@@ -899,7 +1047,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Point line contains Point'; /* */
+  /* */
+
+  test.case = 'Point line contains Point';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -908,7 +1058,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Factor smaller than one'; /* */
+  /* */
+
+  test.case = 'Factor smaller than one';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
@@ -917,7 +1069,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Factor bigger than one'; /* */
+  /* */
+
+  test.case = 'Factor bigger than one';
 
   var line = [ 0, 0, 0, 1, 1, 1 ];
   var point = [  6, 6, 6 ];
@@ -926,7 +1080,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var line = [ 0, 0, 0, 1, 1, 1 ];
   var point = [  - 6, - 6, - 6 ];
@@ -936,7 +1092,9 @@ function getFactor( test )
   test.identical( gotFactor, expected );
 
 
-  test.case = 'Direction with different values'; /* */
+  /* */
+
+  test.case = 'Direction with different values';
 
   var line = [ 0, 0, 0, 1, 2, 3 ];
   var point = [  6, 12, 18 ];
@@ -945,7 +1103,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Direction with different values ( one of them 0 )'; /* */
+  /* */
+
+  test.case = 'Direction with different values ( one of them 0 )';
 
   var line = [ 0, 0, 0, 1, 2, 0 ];
   var point = [  6, 12, 0 ];
@@ -954,7 +1114,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Direction with different values ( one of them 0 )'; /* */
+  /* */
+
+  test.case = 'Direction with different values ( one of them 0 )';
 
   var line = [ 0, 0, 0, 0, 2, 3 ];
   var point = [  0, 12, 18 ];
@@ -963,7 +1125,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Direction with different values ( one of them 0 )'; /* */
+  /* */
+
+  test.case = 'Direction with different values ( one of them 0 )';
 
   var line = [ 0, 0, 0, 1, 2, 0 ];
   var point = [  6, 12, 18];
@@ -972,7 +1136,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Line under point'; /* */
+  /* */
+
+  test.case = 'Line under point';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 1, 1, 3 ];
@@ -981,7 +1147,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Line ( normalized to 1 )'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 )';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var point = [ 0.500, 0.500, 0.000 ];
@@ -990,7 +1158,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.equivalent( gotFactor, expected );
 
-  test.case = 'Line of four dimensions'; /* */
+  /* */
+
+  test.case = 'Line of four dimensions';
 
   var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0, 0 ];
@@ -999,7 +1169,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Line of 7 dimensions'; /* */
+  /* */
+
+  test.case = 'Line of 7 dimensions';
 
   var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
   var point = [ - 1, -1, -1, -1, -1, -1, -1 ];
@@ -1008,7 +1180,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Line of 1 dimension contains point'; /* */
+  /* */
+
+  test.case = 'Line of 1 dimension contains point';
 
   var line = [ 0, 2 ];
   var point = [ 1 ];
@@ -1017,7 +1191,9 @@ function getFactor( test )
   var gotFactor = _.linePointDir.getFactor( line, point );
   test.identical( gotFactor, expected );
 
-  test.case = 'Line of 1 dimension always contains point '; /* */
+  /* */
+
+  test.case = 'Line of 1 dimension always contains point ';
 
   var line = [ 0, 2 ];
   var point = [ - 3 ];
@@ -1047,7 +1223,9 @@ function getFactor( test )
 
 function lineParallel3D( test )
 {
-  test.case = 'Source lines and accuracySqr remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source lines and accuracySqr remain unchanged';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 0, 0, 0, 2, 2, 2 ];
@@ -1066,7 +1244,9 @@ function lineParallel3D( test )
   var oldAccuracySqr = 1E-10;
   test.equivalent( accuracySqr, oldAccuracySqr );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 0, 0, 0, 1, 1, 1 ];
@@ -1075,7 +1255,9 @@ function lineParallel3D( test )
   var isParallel = _.linePointDir.lineParallel3D( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 1, 1, 1 ];
@@ -1084,7 +1266,9 @@ function lineParallel3D( test )
   var isParallel = _.linePointDir.lineParallel3D( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - different direction )';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 7, 7, 7 ];
@@ -1093,7 +1277,9 @@ function lineParallel3D( test )
   var isParallel = _.linePointDir.lineParallel3D( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - opposite direction )';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, - 7, - 7, - 7 ];
@@ -1102,7 +1288,9 @@ function lineParallel3D( test )
   var isParallel = _.linePointDir.lineParallel3D( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( src1Line is a point )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( src1Line is a point )';
 
   var src1Line = [ 3, 7, 1, 0, 0, 0 ];
   var src2Line = [ 0, 0, 0, 1, 1, 1 ];
@@ -1111,7 +1299,9 @@ function lineParallel3D( test )
   var isParallel = _.linePointDir.lineParallel3D( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( src2Line is a point )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( src2Line is a point )';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 0, 0, 0 ];
@@ -1120,7 +1310,9 @@ function lineParallel3D( test )
   var isParallel = _.linePointDir.lineParallel3D( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are not parallel ( same origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are not parallel ( same origin - different direction )';
 
   var src1Line = [ 3, 7, 1, 1, - 1, 1 ];
   var src2Line = [ 3, 7, 1, 7, 7, 7 ];
@@ -1129,7 +1321,9 @@ function lineParallel3D( test )
   var isParallel = _.linePointDir.lineParallel3D( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are perpendicular'; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, 0, 0, 1 ];
@@ -1138,7 +1332,9 @@ function lineParallel3D( test )
   var isParallel = _.linePointDir.lineParallel3D( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel to x'; /* */
+  /* */
+
+  test.case = 'Lines are parallel to x';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, 1, 0, 0 ];
@@ -1147,7 +1343,9 @@ function lineParallel3D( test )
   var isParallel = _.linePointDir.lineParallel3D( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel but in a opposite direction'; /* */
+  /* */
+
+  test.case = 'Lines are parallel but in a opposite direction';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, - 1, 0, 0 ];
@@ -1179,7 +1377,9 @@ function lineParallel3D( test )
 
 function lineParallel( test )
 {
-  test.case = 'Source lines and accuracySqr remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source lines and accuracySqr remain unchanged';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 0, 0, 0, 2, 2, 2 ];
@@ -1198,7 +1398,9 @@ function lineParallel( test )
   var oldAccuracySqr = 1E-10;
   test.equivalent( accuracySqr, oldAccuracySqr );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 0, 0, 0, 1, 1, 1 ];
@@ -1207,7 +1409,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 1, 1, 1 ];
@@ -1216,7 +1420,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - different direction )';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 7, 7, 7 ];
@@ -1225,7 +1431,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - opposite direction )';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, - 7, - 7, - 7 ];
@@ -1234,7 +1442,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( src1Line is a point )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( src1Line is a point )';
 
   var src1Line = [ 3, 7, 1, 0, 0, 0 ];
   var src2Line = [ 0, 0, 0, 1, 1, 1 ];
@@ -1243,7 +1453,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( src2Line is a point )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( src2Line is a point )';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 0, 0, 0 ];
@@ -1252,7 +1464,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel ( src2Line is a point - 4D )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( src2Line is a point - 4D )';
 
   var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 1, 0, 0, 0, 0 ];
@@ -1261,7 +1475,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are not parallel ( same origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are not parallel ( same origin - different direction )';
 
   var src1Line = [ 3, 7, 1, 1, - 1, 1 ];
   var src2Line = [ 3, 7, 1, 7, 7, 7 ];
@@ -1270,7 +1486,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are perpendicular'; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, 0, 0, 1 ];
@@ -1279,7 +1497,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel to x'; /* */
+  /* */
+
+  test.case = 'Lines are parallel to x';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, 1, 0, 0 ];
@@ -1288,7 +1508,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel but in a opposite direction'; /* */
+  /* */
+
+  test.case = 'Lines are parallel but in a opposite direction';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, - 1, 0, 0 ];
@@ -1297,7 +1519,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel 2D'; /* */
+  /* */
+
+  test.case = 'Lines are parallel 2D';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, - 2, - 2 ];
@@ -1306,7 +1530,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are not parallel 2D'; /* */
+  /* */
+
+  test.case = 'Lines are not parallel 2D';
 
   var src1Line = [ 3, 7, 1, - 1 ];
   var src2Line = [ 3, 7, 7, 7 ];
@@ -1315,7 +1541,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel 4D'; /* */
+  /* */
+
+  test.case = 'Lines are parallel 4D';
 
   var src1Line = [ 0, 0, 1, 1, 0, 1, 2, 3 ];
   var src2Line = [ 3, 7, - 2, - 2, 0, 2, 4, 6 ];
@@ -1324,7 +1552,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are not parallel 4D'; /* */
+  /* */
+
+  test.case = 'Lines are not parallel 4D';
 
   var src1Line = [ 3, 7, 1, - 1, 3, 7, 1, - 1 ];
   var src2Line = [ 3, 7, 7, 7, 3, 7, 7, 7 ];
@@ -1333,7 +1563,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are parallel 6D'; /* */
+  /* */
+
+  test.case = 'Lines are parallel 6D';
 
   var src1Line = [ 0, 0, 1, 1, 1, 1, 0, 1, 2, 3, 4, 5 ];
   var src2Line = [ 3, 7, - 2, - 2, 0, 0, 0, 2, 4, 6, 8, 10 ];
@@ -1342,7 +1574,9 @@ function lineParallel( test )
   var isParallel = _.linePointDir.lineParallel( src1Line, src2Line );
   test.identical( isParallel, expected );
 
-  test.case = 'Lines are not parallel 6D'; /* */
+  /* */
+
+  test.case = 'Lines are not parallel 6D';
 
   var src1Line = [ 0, 0, 1, 1, 1, 1, 0, 1, 2, 3, 4, 5 ];
   var src2Line = [ 3, 7, - 2, - 2, 0, 0, 0, 2, 8, 6, 8, 10 ];
@@ -1373,7 +1607,9 @@ function lineParallel( test )
 
 function lineIntersectionFactors( test )
 {
-  test.case = 'Source lines remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source lines remain unchanged';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 2, 2 ];
@@ -1388,7 +1624,9 @@ function lineIntersectionFactors( test )
   var oldSrc2Line = [ 0, 0, 2, 2 ];
   test.equivalent( src2Line, oldSrc2Line );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 1, 1 ];
@@ -1397,7 +1635,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.identical( isIntersectionFactors, expected );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 1, 1 ];
@@ -1406,7 +1646,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.identical( isIntersectionFactors, expected );
 
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - different direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 7, 7 ];
@@ -1415,7 +1657,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.identical( isIntersectionFactors, expected );
 
-  test.case = 'Lines intersect with negative factor'; /* */
+  /* */
+
+  test.case = 'Lines intersect with negative factor';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 0, 2, -1 ];
@@ -1424,7 +1668,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
 
-  test.case = 'Lines intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Lines intersect in their origin';
 
   var src1Line = [ 3, 7, 1, 0 ];
   var src2Line = [ 3, 7, 0, 1 ];
@@ -1433,7 +1679,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
 
-  test.case = 'Lines intersect '; /* */
+  /* */
+
+  test.case = 'Lines intersect ';
 
   var src1Line = [ 0, 0, 1, 0 ];
   var src2Line = [ -2, -6, 1, 2 ];
@@ -1442,7 +1690,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
 
-  test.case = 'Lines are perpendicular '; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular ';
 
   var src1Line = [ -3, 0, 1, 0 ];
   var src2Line = [ 0, -2, 0, 1 ];
@@ -1451,7 +1701,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
 
-  test.case = 'Lines 3D intersection'; /* */
+  /* */
+
+  test.case = 'Lines 3D intersection';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 3, 3, 0, 1, 4 ];
@@ -1460,7 +1712,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
 
-  test.case = 'Lines 3D intersection negative factors'; /* */
+  /* */
+
+  test.case = 'Lines 3D intersection negative factors';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ - 3, - 3, - 3, 0, 1, 4 ];
@@ -1469,7 +1723,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
 
-  test.case = 'Lines 3D intersection 3rd coordinate 0'; /* */
+  /* */
+
+  test.case = 'Lines 3D intersection 3rd coordinate 0';
 
   var src1Line = [ 5, 5, 7, 0, 0, 1 ];
   var src2Line = [ 0, 0, 0, 4, 4, 4 ];
@@ -1479,7 +1735,9 @@ function lineIntersectionFactors( test )
   test.equivalent( isIntersectionFactors, expected );
 
 
-  test.case = 'Lines 3D intersection 3rd coordinate 0'; /* */
+  /* */
+
+  test.case = 'Lines 3D intersection 3rd coordinate 0';
 
   var src1Line = [ 0, 0, 0, 1, 1, 0 ];
   var src2Line = [ 3, 3, 0, 0, 1, 0 ];
@@ -1488,7 +1746,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
 
-  test.case = 'Lines 3D no intersection'; /* */
+  /* */
+
+  test.case = 'Lines 3D no intersection';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 3, 5, 0, 1, 4 ];
@@ -1497,7 +1757,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.identical( isIntersectionFactors, expected );
 
-  test.case = 'Lines 4D intersection'; /* */
+  /* */
+
+  test.case = 'Lines 4D intersection';
 
   var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Line = [ 3, 3, 3, 3, 0, 2, 1, 4 ];
@@ -1506,7 +1768,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.equivalent( isIntersectionFactors, expected );
 
-  test.case = 'Lines 4D no intersection'; /* */
+  /* */
+
+  test.case = 'Lines 4D no intersection';
 
   var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Line = [ 3, 3, 5, 3, 0, 0, 1, 4 ];
@@ -1515,7 +1779,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.identical( isIntersectionFactors, expected );
 
-  test.case = 'Lines 4D no intersection out of 3D intersection'; /* */
+  /* */
+
+  test.case = 'Lines 4D no intersection out of 3D intersection';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1, 1, -1 ];
   var src2Line = [ 3, 3, 3, 2, 0, 1, 4, 3 ];
@@ -1524,7 +1790,9 @@ function lineIntersectionFactors( test )
   var isIntersectionFactors = _.linePointDir.lineIntersectionFactors( src1Line, src2Line );
   test.identical( isIntersectionFactors, expected );
 
-  test.case = 'Lines 8D intersection'; /* */
+  /* */
+
+  test.case = 'Lines 8D intersection';
 
   var src1Line = [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1  ];
   var src2Line = [ 3, 3, 3, 3, 3, 3, 3, 3, 0, 2, 1, 4, 0, 2, 1, 4 ];
@@ -1555,7 +1823,9 @@ function lineIntersectionFactors( test )
 
 function lineIntersectionPoints( test )
 {
-  test.case = 'Source lines remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source lines remain unchanged';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 2, 2 ];
@@ -1570,7 +1840,9 @@ function lineIntersectionPoints( test )
   var oldSrc2Line = [ 0, 0, 2, 2 ];
   test.equivalent( src2Line, oldSrc2Line );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 1, 1 ];
@@ -1579,7 +1851,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 1, 1 ];
@@ -1588,7 +1862,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - different direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 7, 7 ];
@@ -1597,7 +1873,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines intersect with negative factor'; /* */
+  /* */
+
+  test.case = 'Lines intersect with negative factor';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 0, 2, -1 ];
@@ -1606,7 +1884,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Lines intersect in their origin';
 
   var src1Line = [ 3, 7, 1, 0 ];
   var src2Line = [ 3, 7, 0, 1 ];
@@ -1615,7 +1895,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines intersect '; /* */
+  /* */
+
+  test.case = 'Lines intersect ';
 
   var src1Line = [ 0, 0, 1, 0 ];
   var src2Line = [ -2, -6, 1, 2 ];
@@ -1624,7 +1906,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines are perpendicular '; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular ';
 
   var src1Line = [ -3, 0, 1, 0 ];
   var src2Line = [ 0, -2, 0, 1 ];
@@ -1633,7 +1917,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines don´t intersect 3D'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 3D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 0, 1, 2, 2, -1 ];
@@ -1642,7 +1928,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines intersect 3D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 3D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 3, 1, 4 ];
@@ -1651,7 +1939,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines 3D intersection 3rd coordinate 0'; /* */
+  /* */
+
+  test.case = 'Lines 3D intersection 3rd coordinate 0';
 
   var src1Line = [ 0, 0, 0, 1, 1, 0 ];
   var src2Line = [ 3, 3, 0, 0, 1, 0 ];
@@ -1660,7 +1950,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines don´t intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 4D';
 
   var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Line = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
@@ -1669,7 +1961,9 @@ function lineIntersectionPoints( test )
   var isIntersectionPoints = _.linePointDir.lineIntersectionPoints( src1Line, src2Line );
   test.identical( isIntersectionPoints, expected );
 
-  test.case = 'Lines intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 4D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
@@ -1700,7 +1994,9 @@ function lineIntersectionPoints( test )
 
 function lineIntersectionPoint( test )
 {
-  test.case = 'Source lines remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source lines remain unchanged';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 2, 2 ];
@@ -1715,7 +2011,9 @@ function lineIntersectionPoint( test )
   var oldSrc2Line = [ 0, 0, 2, 2 ];
   test.equivalent( src2Line, oldSrc2Line );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 1, 1 ];
@@ -1724,7 +2022,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 1, 1 ];
@@ -1733,7 +2033,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - different direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 7, 7 ];
@@ -1742,7 +2044,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect with negative factor'; /* */
+  /* */
+
+  test.case = 'Lines intersect with negative factor';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 0, 2, -1 ];
@@ -1751,7 +2055,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Lines intersect in their origin';
 
   var src1Line = [ 3, 7, 1, 0 ];
   var src2Line = [ 3, 7, 0, 1 ];
@@ -1760,7 +2066,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect '; /* */
+  /* */
+
+  test.case = 'Lines intersect ';
 
   var src1Line = [ 0, 0, 1, 0 ];
   var src2Line = [ -2, -6, 1, 2 ];
@@ -1769,7 +2077,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines are perpendicular '; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular ';
 
   var src1Line = [ -3, 0, 1, 0 ];
   var src2Line = [ 0, -2, 0, 1 ];
@@ -1778,7 +2088,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines don´t intersect 3D'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 3D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 0, 1, 2, 2, -1 ];
@@ -1787,7 +2099,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect 3D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 3D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 3, 1, 4 ];
@@ -1796,7 +2110,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines don´t intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 4D';
 
   var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Line = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
@@ -1805,7 +2121,9 @@ function lineIntersectionPoint( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPoint( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 4D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
@@ -1836,7 +2154,9 @@ function lineIntersectionPoint( test )
 
 function lineIntersectionPointAccurate( test )
 {
-  test.case = 'Source lines remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source lines remain unchanged';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 2, 2 ];
@@ -1851,7 +2171,9 @@ function lineIntersectionPointAccurate( test )
   var oldSrc2Line = [ 0, 0, 2, 2 ];
   test.equivalent( src2Line, oldSrc2Line );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 1, 1 ];
@@ -1860,7 +2182,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 1, 1 ];
@@ -1869,7 +2193,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - different direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 7, 7 ];
@@ -1878,7 +2204,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect with negative factor'; /* */
+  /* */
+
+  test.case = 'Lines intersect with negative factor';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 0, 2, -1 ];
@@ -1887,7 +2215,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Lines intersect in their origin';
 
   var src1Line = [ 3, 7, 1, 0 ];
   var src2Line = [ 3, 7, 0, 1 ];
@@ -1896,7 +2226,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect '; /* */
+  /* */
+
+  test.case = 'Lines intersect ';
 
   var src1Line = [ 0, 0, 1, 0 ];
   var src2Line = [ -2, -6, 1, 2 ];
@@ -1905,7 +2237,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines are perpendicular '; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular ';
 
   var src1Line = [ -3, 0, 1, 0 ];
   var src2Line = [ 0, -2, 0, 1 ];
@@ -1914,7 +2248,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines don´t intersect 3D'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 3D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 0, 1, 2, 2, -1 ];
@@ -1923,7 +2259,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect 3D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 3D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 3, 1, 4 ];
@@ -1932,7 +2270,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines don´t intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 4D';
 
   var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Line = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
@@ -1941,7 +2281,9 @@ function lineIntersectionPointAccurate( test )
   var isIntersectionPoint = _.linePointDir.lineIntersectionPointAccurate( src1Line, src2Line );
   test.identical( isIntersectionPoint, expected );
 
-  test.case = 'Lines intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 4D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
@@ -1974,7 +2316,9 @@ function lineIntersectionPointAccurate( test )
 function pointContains( test )
 {
 
-  test.case = 'Line and Point remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and Point remain unchanged';
 
   var line = [  - 1, - 1 , 1, 1 ];
   var point = [ 0, 0 ];
@@ -1989,7 +2333,9 @@ function pointContains( test )
   var oldPoint = [ 0, 0 ];
   test.identical( point, oldPoint );
 
-  test.case = 'Null line contains empty point'; /* */
+  /* */
+
+  test.case = 'Null line contains empty point';
 
   var line = null;
   var point = [ 0, 0, 0 ];
@@ -1998,7 +2344,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Point line contains Point'; /* */
+  /* */
+
+  test.case = 'Point line contains Point';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -2007,7 +2355,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line contains point'; /* */
+  /* */
+
+  test.case = 'Line contains point';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
@@ -2016,7 +2366,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line over point'; /* */
+  /* */
+
+  test.case = 'Line over point';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var point = [ 0, 1, 4 ];
@@ -2025,7 +2377,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Point closer to origin'; /* */
+  /* */
+
+  test.case = 'Point closer to origin';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var point = [ 0, -2 , 0 ];
@@ -2034,7 +2388,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Point contained with negative factor'; /* */
+  /* */
+
+  test.case = 'Point contained with negative factor';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var point = [ 0, 0, - 2 ];
@@ -2043,7 +2399,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Point not contained with negative factor'; /* */
+  /* */
+
+  test.case = 'Point not contained with negative factor';
 
   var line = [ 0, 0, 0, 1, 1, 1 ];
   var point = [ 0, 0, - 1 ];
@@ -2052,7 +2410,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) contains point'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) contains point';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var point = [ 0.500, 0.500, 0.000 ];
@@ -2061,7 +2421,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) doesn´t contain point'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain point';
 
   var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, - 0.303 ];
@@ -2070,7 +2432,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line of four dimensions contains point'; /* */
+  /* */
+
+  test.case = 'Line of four dimensions contains point';
 
   var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 0 ];
@@ -2079,7 +2443,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line of four dimensions doesn´t contain point'; /* */
+  /* */
+
+  test.case = 'Line of four dimensions doesn´t contain point';
 
   var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, - 2, 0 , 2 ];
@@ -2088,7 +2454,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line of 7Linemensions contains point'; /* */
+  /* */
+
+  test.case = 'Line of 7Linemensions contains point';
 
   var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
   var point = [ - 1, -1, -1, -1, -1, -1, -1 ];
@@ -2097,7 +2465,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line of 7 dimensions doesn´t contain point'; /* */
+  /* */
+
+  test.case = 'Line of 7 dimensions doesn´t contain point';
 
   var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 1, 1, 1, 1, 1, 1, 1 ];
   var point = [ 0, 4, 3.5, 0, 5, 2, 2 ];
@@ -2106,7 +2476,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line of 1 dimension contains point'; /* */
+  /* */
+
+  test.case = 'Line of 1 dimension contains point';
 
   var line = [ 0, 2 ];
   var point = [ 1 ];
@@ -2115,7 +2487,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Line of 1 dimension contains point with negative factor'; /* */
+  /* */
+
+  test.case = 'Line of 1 dimension contains point with negative factor';
 
   var line = [ 0, 2 ];
   var point = [ - 3 ];
@@ -2124,7 +2498,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Negative factor 2 dimensions'; /* */
+  /* */
+
+  test.case = 'Negative factor 2 dimensions';
 
   var line = [ 0, 0, 1, 1 ];
   var point = [ - 3, -3 ];
@@ -2133,7 +2509,9 @@ function pointContains( test )
   var gotBool = _.linePointDir.pointContains( line, point );
   test.identical( gotBool, expected );
 
-  test.case = 'Negative factor 3 dimensions'; /* */
+  /* */
+
+  test.case = 'Negative factor 3 dimensions';
 
   var line = [ 0, 0, 0, 1, 1, 2 ];
   var point = [ - 3, -3, -6 ];
@@ -2165,7 +2543,9 @@ function pointContains( test )
 function pointDistance( test )
 {
 
-  test.case = 'Line and Point remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and Point remain unchanged';
 
   var line = [  - 1, - 1 , 1, 1 ];
   var point = [ 0, 0 ];
@@ -2180,7 +2560,9 @@ function pointDistance( test )
   var oldPoint = [ 0, 0 ];
   test.identical( point, oldPoint );
 
-  test.case = 'Null line Distance empty point'; /* */
+  /* */
+
+  test.case = 'Null line Distance empty point';
 
   var line = null;
   var point = [ 0, 0, 0 ];
@@ -2189,7 +2571,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Point line Distance same Point'; /* */
+  /* */
+
+  test.case = 'Point line Distance same Point';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -2198,7 +2582,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Point line Distance other Point'; /* */
+  /* */
+
+  test.case = 'Point line Distance other Point';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 3, 4, 0 ];
@@ -2207,7 +2593,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line contains point'; /* */
+  /* */
+
+  test.case = 'Line contains point';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var point = [  1, 1, 1 ];
@@ -2216,7 +2604,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line contains point with negative factor'; /* */
+  /* */
+
+  test.case = 'Line contains point with negative factor';
 
   var line = [ 0, 0, 0, 2, 2, - 2 ];
   var point = [  - 1, - 1, 1 ];
@@ -2225,7 +2615,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line over point'; /* */
+  /* */
+
+  test.case = 'Line over point';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var point = [ 0, 1, 4 ];
@@ -2234,7 +2626,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Point closer to origin'; /* */
+  /* */
+
+  test.case = 'Point closer to origin';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var point = [ 0, -2, 0 ];
@@ -2243,7 +2637,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Point with negative factor'; /* */
+  /* */
+
+  test.case = 'Point with negative factor';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var point = [ 0, 0, -2 ];
@@ -2252,7 +2648,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line ( normalized to 1 ) Distance point'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) Distance point';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var point = [ 0.500, 0.500, 0.000 ];
@@ -2261,7 +2659,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line ( normalized to 1 ) doesn´t contain point'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain point';
 
   var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, - 0.303 ];
@@ -2270,7 +2670,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'Line of four dimensions distance '; /* */
+  /* */
+
+  test.case = 'Line of four dimensions distance ';
 
   var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 4 ];
@@ -2279,7 +2681,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line of 7 dimensions distance'; /* */
+  /* */
+
+  test.case = 'Line of 7 dimensions distance';
 
   var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
   var point = [ 2, 2, 2, 2, 2, 2, 2 ];
@@ -2288,7 +2692,9 @@ function pointDistance( test )
   var gotDistance = _.linePointDir.pointDistance( line, point );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line of 1 dimension contains point'; /* */
+  /* */
+
+  test.case = 'Line of 1 dimension contains point';
 
   var line = [ 0, 2 ];
   var point = [ 1 ];
@@ -2320,7 +2726,9 @@ function pointDistance( test )
 function pointClosestPoint( test )
 {
 
-  test.case = 'Line and Point remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and Point remain unchanged';
 
   var line = [  - 1, - 1 , 1, 1 ];
   var point = [ 0, 0 ];
@@ -2335,7 +2743,9 @@ function pointClosestPoint( test )
   var oldPoint = [ 0, 0 ];
   test.identical( point, oldPoint );
 
-  test.case = 'Null line - empty point'; /* */
+  /* */
+
+  test.case = 'Null line - empty point';
 
   var line = null;
   var point = [ 0, 0, 0 ];
@@ -2344,7 +2754,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Point line - same Point'; /* */
+  /* */
+
+  test.case = 'Point line - same Point';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -2353,7 +2765,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Point line - other Point'; /* */
+  /* */
+
+  test.case = 'Point line - other Point';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var point = [ 3, 4, 0 ];
@@ -2362,7 +2776,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line contains point'; /* */
+  /* */
+
+  test.case = 'Line contains point';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ 1, 1, 1 ];
@@ -2371,7 +2787,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line over point'; /* */
+  /* */
+
+  test.case = 'Line over point';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var point = [ 0, 1, 4 ];
@@ -2380,7 +2798,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Point with negative factor'; /* */
+  /* */
+
+  test.case = 'Point with negative factor';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var point = [ - 2, - 2, - 2 ];
@@ -2389,7 +2809,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line ( normalized to 1 ) Distance point'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) Distance point';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var point = [ 0.500, 0.500, 0.000 ];
@@ -2398,7 +2820,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line ( normalized to 1 ) doesn´t contain point'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain point';
 
   var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var point = [ 0.050, 0.500, - 0.303 ];
@@ -2407,7 +2831,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Line of four dimensions distance '; /* */
+  /* */
+
+  test.case = 'Line of four dimensions distance ';
 
   var line = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 4 ];
@@ -2416,7 +2842,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line of 7 dimensions distance'; /* */
+  /* */
+
+  test.case = 'Line of 7 dimensions distance';
 
   var line = [ - 2, - 2, - 2, - 2, - 2, - 2, - 2, 0, 0, 0, 0, 0, 0, 1 ];
   var point = [ 2, 2, 2, 2, 2, 2, 2 ];
@@ -2425,7 +2853,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line of 1 dimension contains point'; /* */
+  /* */
+
+  test.case = 'Line of 1 dimension contains point';
 
   var line = [ 0, 2 ];
   var point = [ 1 ];
@@ -2434,7 +2864,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line of 1 contains point with negative factor'; /* */
+  /* */
+
+  test.case = 'Line of 1 contains point with negative factor';
 
   var line = [ 0, 2 ];
   var point = [ - 3 ];
@@ -2465,7 +2897,9 @@ function pointClosestPoint( test )
 function boxIntersects( test )
 {
 
-  test.case = 'Line and box remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and box remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2480,7 +2914,9 @@ function boxIntersects( test )
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( box, oldBox );
 
-  test.case = 'Null line - empty box'; /* */
+  /* */
+
+  test.case = 'Null line - empty box';
 
   var line = null;
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2489,7 +2925,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box line - same box'; /* */
+  /* */
+
+  test.case = 'box line - same box';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2498,7 +2936,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point line - no intersection'; /* */
+  /* */
+
+  test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var box = [ 1, 2, 4, 3, 4, 0 ];
@@ -2507,7 +2947,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point line in box'; /* */
+  /* */
+
+  test.case = 'point line in box';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var box = [ 1, 2, 2, 3, 4, 4 ];
@@ -2516,7 +2958,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Line and box intersect'; /* */
+  /* */
+
+  test.case = 'Line and box intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2525,7 +2969,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Line over box'; /* */
+  /* */
+
+  test.case = 'Line over box';
 
   var line = [ 0, 0, 4, 0, 0, 2 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
@@ -2534,7 +2980,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box closer to origin'; /* */
+  /* */
+
+  test.case = 'box closer to origin';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ - 2, - 2, - 3, -1, -1, - 2 ];
@@ -2543,7 +2991,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box with negative factor'; /* */
+  /* */
+
+  test.case = 'box with negative factor';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
@@ -2552,7 +3002,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var box = [ 0.500, 0.123, 0, 0.734, 0.900, 0.837 ];
@@ -2561,7 +3013,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) doesn´t contain box'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain box';
 
   var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, - 0.303 ];
@@ -2570,7 +3024,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.equivalent( gotBool, expected );
 
-  test.case = '2D intersection'; /* */
+  /* */
+
+  test.case = '2D intersection';
 
   var line = [ 0, 0, 2, 2 ];
   var box = [ 1, 2, 3, 4 ];
@@ -2579,7 +3035,9 @@ function boxIntersects( test )
   var gotBool = _.linePointDir.boxIntersects( line, box );
   test.identical( gotBool, expected );
 
-  test.case = '2D no intersection'; /* */
+  /* */
+
+  test.case = '2D no intersection';
 
   var line = [ 0, 0, 2, -2 ];
   var box = [ 1, 2, 3, 4 ];
@@ -2610,7 +3068,9 @@ function boxIntersects( test )
 
 function boxDistance( test )
 {
-  test.case = 'Line and box remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and box remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2625,7 +3085,9 @@ function boxDistance( test )
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( box, oldBox );
 
-  test.case = 'Null line - empty box'; /* */
+  /* */
+
+  test.case = 'Null line - empty box';
 
   var line = null;
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2634,7 +3096,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box line - same box'; /* */
+  /* */
+
+  test.case = 'box line - same box';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2643,7 +3107,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point line'; /* */
+  /* */
+
+  test.case = 'point line';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var box = [ 1, 2, 4, 3, 4, 5 ];
@@ -2652,7 +3118,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point line in box'; /* */
+  /* */
+
+  test.case = 'point line in box';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var box = [ 1, 2, 2, 3, 4, 4 ];
@@ -2661,7 +3129,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Line and box intersect'; /* */
+  /* */
+
+  test.case = 'Line and box intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2670,7 +3140,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Line over box'; /* */
+  /* */
+
+  test.case = 'Line over box';
 
   var line = [ 0, 0, 4, 0, 0, 2 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
@@ -2679,7 +3151,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box corner is in line with negative factor'; /* */
+  /* */
+
+  test.case = 'box corner is in line with negative factor';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
@@ -2688,7 +3162,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box corner closer to origin'; /* */
+  /* */
+
+  test.case = 'box corner closer to origin';
 
   var line = [ 2, 2, 2, - 2, 2, 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2697,7 +3173,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.equivalent( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var box = [ 0.500, 0.123, 0, 0.734, 0.900, 0.837 ];
@@ -2706,7 +3184,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) doesn´t contain box'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain box';
 
   var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, 0.303 ];
@@ -2715,7 +3195,9 @@ function boxDistance( test )
   var gotBool = _.linePointDir.boxDistance( line, box );
   test.equivalent( gotBool, expected );
 
-  test.case = '2D'; /* */
+  /* */
+
+  test.case = '2D';
 
   var line = [ 2, 0, 2, 2 ];
   var box = [ 0, 0, 1, 1 ];
@@ -2745,7 +3227,9 @@ function boxDistance( test )
 
 function boxClosestPoint( test )
 {
-  test.case = 'Line and box remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and box remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2760,7 +3244,9 @@ function boxClosestPoint( test )
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( box, oldBox );
 
-  test.case = 'Null line - empty box'; /* */
+  /* */
+
+  test.case = 'Null line - empty box';
 
   var line = null;
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2769,7 +3255,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'box line - same box'; /* */
+  /* */
+
+  test.case = 'box line - same box';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2778,7 +3266,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'point line'; /* */
+  /* */
+
+  test.case = 'point line';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var box = [ 1, 2, 4, 3, 4, 0 ];
@@ -2787,7 +3277,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'point line in box'; /* */
+  /* */
+
+  test.case = 'point line in box';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var box = [ 1, 2, 2, 3, 4, 4 ];
@@ -2796,7 +3288,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Line and box intersect'; /* */
+  /* */
+
+  test.case = 'Line and box intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2805,7 +3299,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Line over box - negative factor'; /* */
+  /* */
+
+  test.case = 'Line over box - negative factor';
 
   var line = [ 0, 0, 4, 0, 0, 2 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
@@ -2814,7 +3310,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'box corner - negative factor'; /* */
+  /* */
+
+  test.case = 'box corner - negative factor';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
@@ -2823,7 +3321,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'box corner closer to origin'; /* */
+  /* */
+
+  test.case = 'box corner closer to origin';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ 0, - 2, 0, 1, -1, 1 ];
@@ -2832,7 +3332,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'box corner not close to origin'; /* */
+  /* */
+
+  test.case = 'box corner not close to origin';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var box = [ 6, 7, 8, 6, 9, 10 ];
@@ -2841,7 +3343,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var box = [ 0.500, 0.123, 0, 0.734, 0.900, 0.837 ];
@@ -2850,7 +3354,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Line ( normalized to 1 ) doesn´t contain box'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) doesn´t contain box';
 
   var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var box = [ 0.12322, 0.03232, 0, 0.050, 0.500, - 0.303 ];
@@ -2859,7 +3365,9 @@ function boxClosestPoint( test )
   var gotPoint = _.linePointDir.boxClosestPoint( line, box );
   test.equivalent( gotPoint, expected );
 
-  test.case = '2D'; /* */
+  /* */
+
+  test.case = '2D';
 
   var line = [ 0, 0, 2, 1 ];
   var box = [ 6, 7, 10, 8 ];
@@ -2890,7 +3398,9 @@ function boxClosestPoint( test )
 function boundingBoxGet( test )
 {
 
-  test.case = 'Source line remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source line remains unchanged';
 
   var srcLine = [ 0, 0, 0, 3, 3, 3 ];
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
@@ -2903,7 +3413,9 @@ function boundingBoxGet( test )
   var oldSrcLine = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcLine, oldSrcLine );
 
-  test.case = 'Empty'; /* */
+  /* */
+
+  test.case = 'Empty';
 
   var srcLine = [ ];
   var dstBox = [ ];
@@ -2912,7 +3424,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
 
-  test.case = 'Zero line to zero box'; /* */
+  /* */
+
+  test.case = 'Zero line to zero box';
 
   var srcLine = [ 0, 0, 0, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
@@ -2921,7 +3435,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
 
-  test.case = 'Line inside box'; /* */
+  /* */
+
+  test.case = 'Line inside box';
 
   var srcLine = [ 1, 1, 1, 4, 4, 4 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
@@ -2930,7 +3446,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
 
-  test.case = 'Line outside Box'; /* */
+  /* */
+
+  test.case = 'Line outside Box';
 
   var srcLine = [ - 1, - 1, - 1, 1, 2, 3 ];
   var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
@@ -2939,7 +3457,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
 
-  test.case = 'Point line and point Box'; /* */
+  /* */
+
+  test.case = 'Point line and point Box';
 
   var srcLine = [ 1, 2, 3, 0, 0, 0 ];
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
@@ -2948,7 +3468,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
 
-  test.case = 'Negative line direction'; /* */
+  /* */
+
+  test.case = 'Negative line direction';
 
   var srcLine = [ 1, 2, 3, - 3, - 2, - 1 ];
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
@@ -2957,7 +3479,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
 
-  test.case = 'Mixed directions'; /* */
+  /* */
+
+  test.case = 'Mixed directions';
 
   var srcLine = [ 1, 2, 3, - 1, 0, 1 ];
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
@@ -2966,7 +3490,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
 
-  test.case = 'srcLine vector'; /* */
+  /* */
+
+  test.case = 'srcLine vector';
 
   var srcLine = _.linePointDir.tools.vectorAdapter.from( [ - 8, - 5, 4.5, 4, 7, 16.5 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
@@ -2975,7 +3501,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox vector - 2D'; /* */
+  /* */
+
+  test.case = 'dstBox vector - 2D';
 
   var srcLine = [ - 1, 0, - 2, 3 ];
   var dstBox = _.linePointDir.tools.vectorAdapter.from( [ 1, 2, 3, 9 ] );
@@ -2984,7 +3512,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox null'; /* */
+  /* */
+
+  test.case = 'dstBox null';
 
   var srcLine = [ 2.2, 3.3, - 4.4, 0 ];
   var dstBox = null;
@@ -2993,7 +3523,9 @@ function boundingBoxGet( test )
   var gotBox = _.linePointDir.boundingBoxGet( dstBox, srcLine );
   test.equivalent( gotBox, expected );
 
-  test.case = 'dstBox undefined'; /* */
+  /* */
+
+  test.case = 'dstBox undefined';
 
   var srcLine = [ - 1, - 3, 0, 1 ];
   var dstBox = undefined;
@@ -3024,7 +3556,9 @@ function boundingBoxGet( test )
 
 function capsuleClosestPoint( test )
 {
-  test.case = 'Line and capsule remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and capsule remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -3039,7 +3573,9 @@ function capsuleClosestPoint( test )
   var oldCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
-  test.case = 'capsule line - same capsule'; /* */
+  /* */
+
+  test.case = 'capsule line - same capsule';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
@@ -3048,7 +3584,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.linePointDir.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'point line'; /* */
+  /* */
+
+  test.case = 'point line';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var capsule = [ 1, 2, 4, 3, 4, 0, 0.5 ];
@@ -3057,7 +3595,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.linePointDir.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'point line in capsule'; /* */
+  /* */
+
+  test.case = 'point line in capsule';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var capsule = [ 1, 2, 2, 3, 4, 4, 1 ];
@@ -3066,7 +3606,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.linePointDir.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'Line and capsule intersect'; /* */
+  /* */
+
+  test.case = 'Line and capsule intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
@@ -3075,7 +3617,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.linePointDir.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'Line over capsule - negative factor'; /* */
+  /* */
+
+  test.case = 'Line over capsule - negative factor';
 
   var line = [ 0, 0, 4, 0, 0, 2 ];
   var capsule = [ 0, 1, 1, 3, 7, 3, 0.2 ];
@@ -3084,7 +3628,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.linePointDir.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'capsule corner - negative factor'; /* */
+  /* */
+
+  test.case = 'capsule corner - negative factor';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ - 2, - 2, - 2, -1, -1, -1, 1 ];
@@ -3093,7 +3639,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.linePointDir.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = 'capsule corner closer to origin'; /* */
+  /* */
+
+  test.case = 'capsule corner closer to origin';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ 0, - 2, 0, 1, -1, 1, 0.2 ];
@@ -3102,7 +3650,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.linePointDir.capsuleClosestPoint( line, capsule );
   test.equivalent( gotPoint, expected );
 
-  test.case = 'capsule corner not close to origin'; /* */
+  /* */
+
+  test.case = 'capsule corner not close to origin';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var capsule = [ 6, 7, 8, 6, 9, 10, 1 ];
@@ -3111,7 +3661,9 @@ function capsuleClosestPoint( test )
   var gotPoint = _.linePointDir.capsuleClosestPoint( line, capsule );
   test.identical( gotPoint, expected );
 
-  test.case = '2D'; /* */
+  /* */
+
+  test.case = '2D';
 
   var line = [ 0, 0, 2, 1 ];
   var capsule = [ 6, 7, 10, 8, 0.1 ];
@@ -3145,7 +3697,9 @@ function capsuleClosestPoint( test )
 function convexPolygonClosestPoint( test )
 {
 
-  test.case = 'Source line and polygon remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and polygon remain unchanged';
 
   var srcLine = [ - 1, - 1, -1, 1, 0, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3170,7 +3724,9 @@ function convexPolygonClosestPoint( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  test.case = 'Line and polygon intersect'; /* */
+  /* */
+
+  test.case = 'Line and polygon intersect';
 
   var srcLine = [ - 1, - 1, -1, 1, 1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3184,7 +3740,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Line cuts polygon vertex'; /* */
+  /* */
+
+  test.case = 'Line cuts polygon vertex';
 
   var srcLine = [ 0, 1, 0, 1, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3198,7 +3756,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Line next to polygon vertex'; /* */
+  /* */
+
+  test.case = 'Line next to polygon vertex';
 
   var srcLine = [ 0, 2, 0, 1, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3212,7 +3772,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Line cuts polygon edge'; /* */
+  /* */
+
+  test.case = 'Line cuts polygon edge';
 
   var srcLine = [ -1, 0, 0, 1, 0.5, 0.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3226,7 +3788,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Line next to polygon edge'; /* */
+  /* */
+
+  test.case = 'Line next to polygon edge';
 
   var srcLine = [ -1, 0, 0, 1, 1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3240,7 +3804,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon );
   test.equivalent( expected, gotPoint );
 
-  test.case = 'Line cuts polygon'; /* */
+  /* */
+
+  test.case = 'Line cuts polygon';
 
   var srcLine = [ - 3, 2, 0, - 1, 1.5, 0.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3254,7 +3820,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Line next to polygon'; /* */
+  /* */
+
+  test.case = 'Line next to polygon';
 
   var srcLine = [ 3, 4, - 1, 1, 1, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3268,7 +3836,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = '2D'; /* */
+  /* */
+
+  test.case = '2D';
 
   var srcLine = [ 0, 3, 3, 3 ];
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
@@ -3281,7 +3851,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcLine = [ 3, 3, 3, 1, 1, 2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3297,7 +3869,9 @@ function convexPolygonClosestPoint( test )
   test.equivalent( expected, gotPoint );
   test.is( dstPoint === gotPoint );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcLine = [ -1, 2, -4, 0, 0, -1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -4015,7 +4589,9 @@ function frustumClosestPoint( test )
 
 function lineIntersects( test )
 {
-  test.case = 'Source lines remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source lines remain unchanged';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 2, 2 ];
@@ -4030,7 +4606,9 @@ function lineIntersects( test )
   var oldSrc2Line = [ 0, 0, 2, 2 ];
   test.equivalent( src2Line, oldSrc2Line );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 0, 0, 1, 1 ];
@@ -4039,7 +4617,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 1, 1 ];
@@ -4048,7 +4628,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - different direction )';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 7, 7, 7 ];
@@ -4057,7 +4639,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines intersect with negative factor'; /* */
+  /* */
+
+  test.case = 'Lines intersect with negative factor';
 
   var src1Line = [ 0, 0, 1, 1 ];
   var src2Line = [ 3, 0, 2, -1 ];
@@ -4066,7 +4650,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Lines intersect in their origin';
 
   var src1Line = [ 3, 7, 1, 0 ];
   var src2Line = [ 3, 7, 0, 1 ];
@@ -4075,7 +4661,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines intersect '; /* */
+  /* */
+
+  test.case = 'Lines intersect ';
 
   var src1Line = [ 0, 0, 1, 0 ];
   var src2Line = [ -2, -6, 1, 2 ];
@@ -4084,7 +4672,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines are perpendicular '; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular ';
 
   var src1Line = [ -3, 0, 1, 0 ];
   var src2Line = [ 0, -2, 0, 1 ];
@@ -4093,7 +4683,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines don´t intersect 3D'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 3D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 0, 1, 2, 2, -1 ];
@@ -4102,7 +4694,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines intersect 3D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 3D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 3, 1, 4 ];
@@ -4111,7 +4705,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines don´t intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 4D';
 
   var src1Line = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var src2Line = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
@@ -4120,7 +4716,9 @@ function lineIntersects( test )
   var isIntersection = _.linePointDir.lineIntersects( src1Line, src2Line );
   test.identical( isIntersection, expected );
 
-  test.case = 'Lines intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 4D';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
@@ -4152,7 +4750,9 @@ function lineIntersects( test )
 
 function lineDistance( test )
 {
-  test.case = 'Source lines remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source lines remain unchanged';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 0, 0, 0, 2, 2, 2 ];
@@ -4167,7 +4767,9 @@ function lineDistance( test )
   var oldSrc2Line = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( src2Line, oldSrc2Line );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 0, 0, 0, 1, 1, 1 ];
@@ -4176,7 +4778,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 0, 0, 0, 0, 1 ];
   var src2Line = [ 3, 7, 1, 0, 0, 1 ];
@@ -4185,7 +4789,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - different direction )';
 
   var src1Line = [ 0, 0, 0, 0, 0, 0.5 ];
   var src2Line = [ 3, 7, 1, 0, 0, 7 ];
@@ -4194,7 +4800,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - opposite direction )';
 
   var src1Line = [ 0, 0, 0, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, - 7, 0, 0 ];
@@ -4203,7 +4811,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'src1Line is a point'; /* */
+  /* */
+
+  test.case = 'src1Line is a point';
 
   var src1Line = [ 3, 7, 1, 0, 0, 0 ];
   var src2Line = [ 0, 0, 0, 1, 1, 1 ];
@@ -4212,7 +4822,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 4, 2, 1, 1, 1 ];
   var src2Line = [ 0, 4, 2, 1, 1, 1 ];
@@ -4221,7 +4833,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 4D';
 
   var src1Line = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var src2Line = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
@@ -4230,7 +4844,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines intersect with negative factor 3D'; /* */
+  /* */
+
+  test.case = 'Lines intersect with negative factor 3D';
 
   var src1Line = [ 0, 0, 0, 3, 2, 1 ];
   var src2Line = [ - 3, - 4, -4, 0, -1, -1.5 ];
@@ -4239,7 +4855,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines intersect with negative factor'; /* */
+  /* */
+
+  test.case = 'Lines intersect with negative factor';
 
   var src1Line = [ 0, 0, 2, 0 ];
   var src2Line = [ - 3, - 4, 0, 1 ];
@@ -4248,7 +4866,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines don´t intersect 2D'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 2D';
 
   var src1Line = [ 0, 0, 2, 0 ];
   var src2Line = [ - 3, - 4, 1, 0 ];
@@ -4257,7 +4877,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular and intersect';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, 0, 0, 1 ];
@@ -4266,7 +4888,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular and don´t intersect';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, -2, 1, 0, 0, 1 ];
@@ -4275,7 +4899,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines are parallel to x'; /* */
+  /* */
+
+  test.case = 'Lines are parallel to x';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 2, 1, 0, 0 ];
@@ -4284,7 +4910,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'Lines are parallel but in a opposite direction'; /* */
+  /* */
+
+  test.case = 'Lines are parallel but in a opposite direction';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
@@ -4293,7 +4921,9 @@ function lineDistance( test )
   var gotDistance = _.linePointDir.lineDistance( src1Line, src2Line );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcLine is null'; /* */
+  /* */
+
+  test.case = 'srcLine is null';
 
   var src1Line = null;
   var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
@@ -4323,7 +4953,9 @@ function lineDistance( test )
 
 function lineClosestPoint( test )
 {
-  test.case = 'Source lines remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source lines remain unchanged';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 0, 0, 0, 2, 2, 2 ];
@@ -4338,7 +4970,9 @@ function lineClosestPoint( test )
   var oldSrc2Line = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( src2Line, oldSrc2Line );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 0, 0, 0, 0, 1 ];
   var src2Line = [ 3, 7, 1, 0, 0, 1 ];
@@ -4347,7 +4981,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Lines are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - different direction )';
 
   var src1Line = [ 3, 7, 1, 0, 0, 7 ];
   var src2Line = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -4356,7 +4992,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Lines are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - opposite direction )';
 
   var src1Line = [ 0, 0, 0, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, - 7, 0, 0 ];
@@ -4365,7 +5003,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'src1Line is a point - in srcLine1'; /* */
+  /* */
+
+  test.case = 'src1Line is a point - in srcLine1';
 
   var src1Line = [ 3, 7, 1, 0, 0, 0 ];
   var src2Line = [ 0, 0, 0, 1, 1, 1 ];
@@ -4374,7 +5014,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'src1Line is a point - in srcLine2'; /* */
+  /* */
+
+  test.case = 'src1Line is a point - in srcLine2';
 
   var src1Line = [ 0, 0, 0, 1, 1, 1 ];
   var src2Line = [ 3, 7, 1, 0, 0, 0 ];
@@ -4383,7 +5025,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Lines are the same'; /* */
+  /* */
+
+  test.case = 'Lines are the same';
 
   var src1Line = [ 0, 4, 2, 1, 1, 1 ];
   var src2Line = [ 0, 4, 2, 1, 1, 1 ];
@@ -4392,7 +5036,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Lines intersect 4D'; /* */
+  /* */
+
+  test.case = 'Lines intersect 4D';
 
   var src1Line = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var src2Line = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
@@ -4401,7 +5047,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Lines don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Lines don´t intersect 2D - parallel';
 
   var src1Line = [ 0, 0, 2, 0 ];
   var src2Line = [ - 3, - 4, 1, 0 ];
@@ -4410,7 +5058,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Lines intersect with negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Lines intersect with negative factor 2D';
 
   var src1Line = [ 0, 0, 2, 0 ];
   var src2Line = [ - 3, - 4, 0, 1 ];
@@ -4419,7 +5069,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Lines are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular and intersect';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 1, 0, 0, 1 ];
@@ -4428,7 +5080,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Lines are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Lines are perpendicular and don´t intersect';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, -2, 1, 0, 0, 1 ];
@@ -4437,7 +5091,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Lines are parallel to x'; /* */
+  /* */
+
+  test.case = 'Lines are parallel to x';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 2, 1, 0, 0 ];
@@ -4446,7 +5102,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Lines are parallel but in a opposite direction'; /* */
+  /* */
+
+  test.case = 'Lines are parallel but in a opposite direction';
 
   var src1Line = [ 3, 7, 1, 1, 0, 0 ];
   var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
@@ -4455,7 +5113,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.linePointDir.lineClosestPoint( src1Line, src2Line );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcLine is null'; /* */
+  /* */
+
+  test.case = 'srcLine is null';
 
   var src1Line = null;
   var src2Line = [ 3, 7, 2, - 1, 0, 0 ];
@@ -4486,7 +5146,9 @@ function lineClosestPoint( test )
 function planeIntersects( test )
 {
 
-  test.case = 'Line and plane remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4501,7 +5163,9 @@ function planeIntersects( test )
   var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
-  test.case = 'Null line'; /* */
+  /* */
+
+  test.case = 'Null line';
 
   var line = null;
   var plane = [ 1, 0, 0, 1 ];
@@ -4510,7 +5174,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'point line - no intersection'; /* */
+  /* */
+
+  test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4519,7 +5185,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'point line in plane'; /* */
+  /* */
+
+  test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4528,7 +5196,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'Line and plane intersect'; /* */
+  /* */
+
+  test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4537,7 +5207,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
   var plane = [ 1, 0, 0, 3 ];
@@ -4546,7 +5218,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var plane = [ 0, 2, 0, - 2 ];
@@ -4555,7 +5229,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) no intersection';
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
   var plane = [ 3, 0, 0, 1 ];
@@ -4564,7 +5240,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.equivalent( gotBool, expected );
 
-  test.case = 'plane parallel to line'; /* */
+  /* */
+
+  test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0.5 ];
@@ -4573,7 +5251,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'plane parallel contains line'; /* */
+  /* */
+
+  test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0 ];
@@ -4582,7 +5262,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'plane perpendicular to line'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 0, 1, 0 ];
@@ -4591,7 +5273,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'plane parallel to line 4D'; /* */
+  /* */
+
+  test.case = 'plane parallel to line 4D';
 
   var line = [ 0, 2, 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0, 0 ];
@@ -4600,7 +5284,9 @@ function planeIntersects( test )
   var gotBool = _.linePointDir.planeIntersects( line, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'plane parallel to line 4D'; /* */
+  /* */
+
+  test.case = 'plane parallel to line 4D';
 
   var line = [ 0, 2, 0, 0, 1, 0, 1, 2 ];
   var plane = [ 0, 1, 0, 0, 0 ];
@@ -4610,7 +5296,9 @@ function planeIntersects( test )
   test.identical( gotBool, expected );
 
 
-  test.case = 'plane perpendicular to line'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 0, 0, 1, 0 ];
@@ -4642,7 +5330,9 @@ function planeIntersects( test )
 function planeIntersectionPoint( test )
 {
 
-  test.case = 'Line and plane remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1,  - 1, -1, 1, 0, 0 ];
   var plane = [ 1, 0, 0, - 1 ];
@@ -4657,7 +5347,9 @@ function planeIntersectionPoint( test )
   var oldPlane = [ 1, 0, 0, -1 ];
   test.identical( plane, oldPlane );
 
-  test.case = 'Null line'; /* */
+  /* */
+
+  test.case = 'Null line';
 
   var line = null;
   var plane = [ 1, 0, 0, 1 ];
@@ -4666,7 +5358,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'point line - no intersection'; /* */
+  /* */
+
+  test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4675,7 +5369,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'point line in plane'; /* */
+  /* */
+
+  test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4684,7 +5380,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'Line and plane intersect'; /* */
+  /* */
+
+  test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4693,7 +5391,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
   var plane = [ 1, 0, 0, 3 ];
@@ -4702,7 +5402,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'Positive factor'; /* */
+  /* */
+
+  test.case = 'Positive factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
   var plane = [ 1, 0, 0, - 3 ];
@@ -4711,7 +5413,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var plane = [ 0, 2, 0, - 2 ];
@@ -4720,7 +5424,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.equivalent( gotPoint,  expected );
 
-  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) no intersection';
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
   var plane = [ 3, 0, 0, 1 ];
@@ -4729,7 +5435,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.equivalent( gotPoint,  expected );
 
-  test.case = 'plane parallel to line'; /* */
+  /* */
+
+  test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0.5 ];
@@ -4738,7 +5446,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'plane parallel contains line'; /* */
+  /* */
+
+  test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0 ];
@@ -4747,7 +5457,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'plane contains line origin'; /* */
+  /* */
+
+  test.case = 'plane contains line origin';
 
   var line = [ 0, 0, 0, 0, 3, 2 ];
   var plane = [ 0, 1, 0, 0 ];
@@ -4756,7 +5468,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'plane perpendicular to line'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to line';
 
   var line = [ 3, 4, 4, 0, 0, 2 ];
   var plane = [ 0, 0, 1, 0 ];
@@ -4765,7 +5479,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'plane parallel to line 4D'; /* */
+  /* */
+
+  test.case = 'plane parallel to line 4D';
 
   var line = [ 0, 2, 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0, 0 ];
@@ -4774,7 +5490,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'plane perpendicular to line 4D'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to line 4D';
 
   var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
   var plane = [ 0, 0, 0, 3, 0 ];
@@ -4783,7 +5501,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.identical( gotPoint,  expected );
 
-  test.case = 'plane and line intersect 4D'; /* */
+  /* */
+
+  test.case = 'plane and line intersect 4D';
 
   var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 2, 3, 0 ];
@@ -4792,7 +5512,9 @@ function planeIntersectionPoint( test )
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
   test.equivalent( gotPoint,  expected );
 
-  test.case = 'dstPoint is vector'; /* */
+  /* */
+
+  test.case = 'dstPoint is vector';
 
   var line = [ 3, 4, 4, 0, 0, 2 ];
   var plane = [ 0, 0, 1, 0 ];
@@ -4826,7 +5548,9 @@ planeIntersectionPoint.accuracy = 1e-6;
 function planeDistance( test )
 {
 
-  test.case = 'Line and plane remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4841,7 +5565,9 @@ function planeDistance( test )
   var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
-  test.case = 'Null line - empty plane'; /* */
+  /* */
+
+  test.case = 'Null line - empty plane';
 
   var line = null;
   var plane = [ 1, 0, 0, 1 ];
@@ -4850,7 +5576,9 @@ function planeDistance( test )
   var gotDistance = _.linePointDir.planeDistance( line, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'point line - no intersection'; /* */
+  /* */
+
+  test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4859,7 +5587,9 @@ function planeDistance( test )
   var gotDistance = _.linePointDir.planeDistance( line, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'point line in plane'; /* */
+  /* */
+
+  test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4868,7 +5598,9 @@ function planeDistance( test )
   var gotDistance = _.linePointDir.planeDistance( line, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and plane intersect'; /* */
+  /* */
+
+  test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4877,7 +5609,9 @@ function planeDistance( test )
   var gotDistance = _.linePointDir.planeDistance( line, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
   var plane = [ 1, 0, 0, 3 ];
@@ -4886,7 +5620,9 @@ function planeDistance( test )
   var gotDistance = _.linePointDir.planeDistance( line, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var plane = [ 0, 2, 0, - 2 ];
@@ -4895,7 +5631,9 @@ function planeDistance( test )
   var gotDistance = _.linePointDir.planeDistance( line, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'plane parallel to line'; /* */
+  /* */
+
+  test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0.5 ];
@@ -4904,7 +5642,9 @@ function planeDistance( test )
   var gotDistance = _.linePointDir.planeDistance( line, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'plane parallel to line opposite side'; /* */
+  /* */
+
+  test.case = 'plane parallel to line opposite side';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, - 1, 0, 0.5 ];
@@ -4914,7 +5654,9 @@ function planeDistance( test )
   test.identical( gotDistance, expected );
 
 
-  test.case = 'plane parallel contains line'; /* */
+  /* */
+
+  test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0 ];
@@ -4923,7 +5665,9 @@ function planeDistance( test )
   var gotDistance = _.linePointDir.planeDistance( line, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'plane perpendicular to line'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 0, 1, 0 ];
@@ -4933,7 +5677,9 @@ function planeDistance( test )
   test.identical( gotDistance, expected );
 
 
-  test.case = 'plane parallel to line 4D'; /* */
+  /* */
+
+  test.case = 'plane parallel to line 4D';
 
   var line = [ 1, 2, 3, 4, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0, 0 ];
@@ -4942,7 +5688,9 @@ function planeDistance( test )
   var gotDistance = _.linePointDir.planeDistance( line, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'plane perpendicular to line 4D'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to line 4D';
 
   var line = [ 0, 0, 0, 0, 0, 0, 2, 0 ];
   var plane = [ 0, 0, 1, 0, 0 ];
@@ -4974,7 +5722,9 @@ function planeDistance( test )
 function planeClosestPoint( test )
 {
 
-  test.case = 'Line and plane remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4989,7 +5739,9 @@ function planeClosestPoint( test )
   var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
-  test.case = 'Null line - empty plane'; /* */
+  /* */
+
+  test.case = 'Null line - empty plane';
 
   var line = null;
   var plane = [ 1, 0, 0, 1 ];
@@ -4998,7 +5750,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'point line - no intersection'; /* */
+  /* */
+
+  test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5007,7 +5761,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'point line in plane'; /* */
+  /* */
+
+  test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5016,7 +5772,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'Line and plane intersect'; /* */
+  /* */
+
+  test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5025,7 +5783,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
   var plane = [ 1, 0, 0, 3 ];
@@ -5034,7 +5794,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var plane = [ 0, 2, 0, - 2 ];
@@ -5043,7 +5805,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'Line ( normalized to 1 ) parallel'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) parallel';
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
   var plane = [ 3, 0, 0, 1 ];
@@ -5052,7 +5816,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.equivalent( gotPoint, expected );
 
-  test.case = 'plane parallel to line'; /* */
+  /* */
+
+  test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0.5 ];
@@ -5061,7 +5827,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'plane parallel contains line'; /* */
+  /* */
+
+  test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0 ];
@@ -5070,7 +5838,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'plane perpendicular to line'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
   var plane = [ 0, 0, 1, 0 ];
@@ -5080,7 +5850,9 @@ function planeClosestPoint( test )
   test.identical( gotPoint, expected );
 
 
-  test.case = 'plane parallel to line 4D'; /* */
+  /* */
+
+  test.case = 'plane parallel to line 4D';
 
   var line = [ 1, 2, 3, 4, 0, 0, 0, 2 ];
   var plane = [ 0, 1, 0, 0, 0 ];
@@ -5089,7 +5861,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'plane perpendicular to line 4D'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to line 4D';
 
   var line = [ 0, 0, 0, 0, 0, 0, 2, 0 ];
   var plane = [ 0, 0, 1, 0, 0 ];
@@ -5098,7 +5872,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'dstPoint is array'; /* */
+  /* */
+
+  test.case = 'dstPoint is array';
 
   var line = [ 0, -6, 24, 0, 1, 0 ];
   var plane = [ 1, 0, 0, 3 ];
@@ -5108,7 +5884,9 @@ function planeClosestPoint( test )
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane, dstPoint );
   test.identical( gotPoint, expected );
 
-  test.case = 'dstPoint is vector'; /* */
+  /* */
+
+  test.case = 'dstPoint is vector';
 
   var line = [ 0, -6, 24, 0, 1, 0 ];
   var plane = [ 1, 0, 0, 3 ];
@@ -5140,7 +5918,9 @@ function planeClosestPoint( test )
 
 function rayIntersects( test )
 {
-  test.case = 'Source ray and line remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source ray and line remain unchanged';
 
   var srcLine = [ 0, 0, 1, 1 ];
   var srcRay = [ 0, 0, 2, 2 ];
@@ -5155,7 +5935,9 @@ function rayIntersects( test )
   var oldSrcRay = [ 0, 0, 2, 2 ];
   test.equivalent( srcRay, oldSrcRay );
 
-  test.case = 'Line and ray are the same'; /* */
+  /* */
+
+  test.case = 'Line and ray are the same';
 
   var srcLine = [ 0, 0, 1, 1 ];
   var srcRay = [ 0, 0, 1, 1 ];
@@ -5164,7 +5946,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - same direction )';
 
   var srcLine = [ 0, 0, 1, 1 ];
   var srcRay = [ 3, 7, 1, 1 ];
@@ -5173,7 +5957,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - different direction )';
 
   var srcLine = [ 0, 0, 1, 1 ];
   var srcRay = [ 3, 7, 7, 7 ];
@@ -5182,7 +5968,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray intersect with line´s negative factor'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect with line´s negative factor';
 
   var srcLine = [ 5, 5, 1, 1 ];
   var srcRay = [ 3, 0, 1, 2.5 ];
@@ -5191,7 +5979,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray don´t intersect with ray´s negative factor'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect with ray´s negative factor';
 
   var srcLine = [ 3, 0, 1, 2.5 ];
   var srcRay = [ 6, 6, 1, 1 ];
@@ -5200,7 +5990,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect in their origin';
 
   var srcLine = [ 3, 7, 1, 0 ];
   var srcRay = [ 3, 7, 0, 1 ];
@@ -5209,7 +6001,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray intersect '; /* */
+  /* */
+
+  test.case = 'Line and ray intersect ';
 
   var srcLine = [ 0, 0, 1, 0 ];
   var srcRay = [ -2, -6, 1, 2 ];
@@ -5218,7 +6012,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray are perpendicular '; /* */
+  /* */
+
+  test.case = 'Line and ray are perpendicular ';
 
   var srcLine = [ -3, 0, 1, 0 ];
   var srcRay = [ 0, -2, 0, 1 ];
@@ -5227,7 +6023,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray don´t intersect 3D'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect 3D';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var srcRay = [ 3, 0, 1, 2, 2, -1 ];
@@ -5236,7 +6034,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray intersect 3D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect 3D';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var srcRay = [ 3, 7, 1, 3, 1, 4 ];
@@ -5245,7 +6045,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray don´t intersect 4D'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect 4D';
 
   var srcLine = [ 0, 0, 0, 0, 1, 1, 1, 1 ];
   var srcRay = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
@@ -5254,7 +6056,9 @@ function rayIntersects( test )
   var isIntersection = _.linePointDir.rayIntersects( srcLine, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Line and ray intersect 4D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect 4D';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1, 1, 1 ];
   var srcRay = [ 3, 7, 1, 4, 3, 1, 4, 3 ];
@@ -5285,7 +6089,9 @@ function rayIntersects( test )
 
 function rayIntersectionPoint( test )
 {
-  test.case = 'Source line and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and ray remain unchanged';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
@@ -5300,7 +6106,9 @@ function rayIntersectionPoint( test )
   var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstRay, oldTstRay );
 
-  test.case = 'Line and ray are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - same direction )';
 
   var srcLine = [ 0, 0, 0, 0, 0, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5309,7 +6117,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - different direction )';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -5318,7 +6128,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray are parallel and intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel and intersect';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstRay = [ 3, 7, 7, 0, 0, 0.5 ];
@@ -5327,7 +6139,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'srcLine is a point not in ray'; /* */
+  /* */
+
+  test.case = 'srcLine is a point not in ray';
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -5336,7 +6150,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'srcLine is a point in ray'; /* */
+  /* */
+
+  test.case = 'srcLine is a point in ray';
 
   var srcLine = [ 3, 3, 3, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -5345,7 +6161,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'tstRay is a point not in line'; /* */
+  /* */
+
+  test.case = 'tstRay is a point not in line';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
@@ -5354,7 +6172,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.equivalent( gotIntersectionPoint, expected );
 
-  test.case = 'tstRay is a point in line'; /* */
+  /* */
+
+  test.case = 'tstRay is a point in line';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ -4, -4, -4, 0, 0, 0 ];
@@ -5363,7 +6183,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.equivalent( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray are the same'; /* */
+  /* */
+
+  test.case = 'Line and ray are the same';
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
@@ -5372,7 +6194,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray intersect 4D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect 4D';
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
@@ -5381,7 +6205,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect 2D - parallel';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
@@ -5390,7 +6216,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray intersect with line´s positive factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect with line´s positive factor 2D';
 
   var srcLine = [ 0, 0, -2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
@@ -5399,7 +6227,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect with line´s negative factor 2D';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
@@ -5408,7 +6238,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D';
 
   var srcLine = [ - 3, - 4, 0, 1 ];
   var tstRay = [ 0, 0, 2, 0 ];
@@ -5417,7 +6249,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are perpendicular and intersect';
 
   var srcLine = [ 5, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5426,7 +6260,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are perpendicular and don´t intersect';
 
   var srcLine = [ 0, 0, -3, 0, 0, 1 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
@@ -5435,7 +6271,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and ray are parallel to x'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel to x';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 2, 1, 0, 0 ];
@@ -5444,7 +6282,9 @@ function rayIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.rayIntersectionPoint( srcLine, tstRay );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'srcLine is null'; /* */
+  /* */
+
+  test.case = 'srcLine is null';
 
   var srcLine = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
@@ -5474,7 +6314,9 @@ function rayIntersectionPoint( test )
 
 function rayIntersectionFactors( test )
 {
-  test.case = 'Source line and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and ray remain unchanged';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
@@ -5489,7 +6331,9 @@ function rayIntersectionFactors( test )
   var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstRay, oldTstRay );
 
-  test.case = 'Line and ray are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - same direction )';
 
   var srcLine = [ 0, 0, 0, 0, 0, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5498,7 +6342,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - different direction )';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -5507,7 +6353,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray are parallel and intersect in the origin'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel and intersect in the origin';
 
   var srcLine = [ 3, 7, 1, 0, 0, -7 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0.5 ];
@@ -5516,7 +6364,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray are parallel and intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel and intersect';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstRay = [ 3, 7, 7, 0, 0, 0.5 ];
@@ -5525,7 +6375,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'srcLine is a point not in ray'; /* */
+  /* */
+
+  test.case = 'srcLine is a point not in ray';
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -5534,7 +6386,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'srcLine is a point in ray'; /* */
+  /* */
+
+  test.case = 'srcLine is a point in ray';
 
   var srcLine = [ 3, 3, 3, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -5543,7 +6397,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'tstRay is a point not in line'; /* */
+  /* */
+
+  test.case = 'tstRay is a point not in line';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
@@ -5552,7 +6408,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'tstRay is a point in line'; /* */
+  /* */
+
+  test.case = 'tstRay is a point in line';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ -4, -4, -4, 0, 0, 0 ];
@@ -5561,7 +6419,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray are the same'; /* */
+  /* */
+
+  test.case = 'Line and ray are the same';
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
@@ -5570,7 +6430,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray intersect 4D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect 4D';
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
@@ -5579,7 +6441,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect 2D - parallel';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
@@ -5588,7 +6452,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray intersect with line´s positive factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect with line´s positive factor 2D';
 
   var srcLine = [ 0, 0, -2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
@@ -5597,7 +6463,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect with line´s negative factor 2D';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
@@ -5606,7 +6474,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D';
 
   var srcLine = [ - 3, - 4, 0, 1 ];
   var tstRay = [ 0, 0, 2, 0 ];
@@ -5615,7 +6485,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are perpendicular and intersect';
 
   var srcLine = [ 5, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5624,7 +6496,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are perpendicular and don´t intersect';
 
   var srcLine = [ 0, 0, -3, 0, 0, 1 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
@@ -5633,7 +6507,9 @@ function rayIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.rayIntersectionFactors( srcLine, tstRay );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and ray are parallel to x'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel to x';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 2, 1, 0, 0 ];
@@ -5664,7 +6540,9 @@ function rayIntersectionFactors( test )
 
 function rayDistance( test )
 {
-  test.case = 'Source line and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and ray remain unchanged';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
@@ -5679,7 +6557,9 @@ function rayDistance( test )
   var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstRay, oldTstRay );
 
-  test.case = 'Line and ray are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - same direction )';
 
   var srcLine = [ 0, 0, 0, 0, 0, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5688,7 +6568,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - different direction )';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -5697,7 +6579,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - opposite direction )';
 
   var srcLine = [ 0, 0, 0, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
@@ -5706,7 +6590,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcLine is a point'; /* */
+  /* */
+
+  test.case = 'srcLine is a point';
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -5715,7 +6601,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'tstRay is a point'; /* */
+  /* */
+
+  test.case = 'tstRay is a point';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
@@ -5724,7 +6612,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray are the same'; /* */
+  /* */
+
+  test.case = 'Line and ray are the same';
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
@@ -5733,7 +6623,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray intersect 4D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect 4D';
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
@@ -5742,7 +6634,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect 2D - parallel';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
@@ -5751,7 +6645,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect with line´s negative factor 2D';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
@@ -5760,7 +6656,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D';
 
   var srcLine = [ - 3, - 4, 0, 1 ];
   var tstRay = [ 0, 0, 2, 0 ];
@@ -5769,7 +6667,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are perpendicular and intersect';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5778,7 +6678,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are perpendicular and don´t intersect';
 
   var srcLine = [ 0, 0, -3, 0, 0, 1 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
@@ -5787,7 +6689,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray are parallel to x axis'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel to x axis';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 2, 1, 0, 0 ];
@@ -5796,7 +6700,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and ray are parallel but in a opposite direction'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel but in a opposite direction';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
@@ -5805,7 +6711,9 @@ function rayDistance( test )
   var gotDistance = _.linePointDir.rayDistance( srcLine, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcLine is null'; /* */
+  /* */
+
+  test.case = 'srcLine is null';
 
   var srcLine = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
@@ -5835,7 +6743,9 @@ function rayDistance( test )
 
 function rayClosestPoint( test )
 {
-  test.case = 'Source line and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and ray remain unchanged';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
@@ -5850,7 +6760,9 @@ function rayClosestPoint( test )
   var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstRay, oldTstRay );
 
-  test.case = 'Line and ray are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - same direction )';
 
   var srcLine = [ 0, 0, 0, 0, 0, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5859,7 +6771,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - different direction )';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -5868,7 +6782,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel ( different origin - opposite direction )';
 
   var srcLine = [ 0, 0, 0, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
@@ -5877,7 +6793,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcLine is a point'; /* */
+  /* */
+
+  test.case = 'srcLine is a point';
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -5886,7 +6804,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'tstRay is a point'; /* */
+  /* */
+
+  test.case = 'tstRay is a point';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
@@ -5895,7 +6815,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Line and ray are the same'; /* */
+  /* */
+
+  test.case = 'Line and ray are the same';
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
@@ -5904,7 +6826,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray intersect 4D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect 4D';
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
@@ -5913,7 +6837,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect 2D - parallel';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
@@ -5922,7 +6848,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray intersect with line´s positive factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect with line´s positive factor 2D';
 
   var srcLine = [ 0, 0, -2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
@@ -5931,7 +6859,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray intersect with line´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray intersect with line´s negative factor 2D';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
@@ -5940,7 +6870,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and ray don´t intersect with ray´s negative factor 2D';
 
   var srcLine = [ - 3, - 4, 0, 1 ];
   var tstRay = [ 0, 0, 2, 0 ];
@@ -5949,7 +6881,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are perpendicular and intersect';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5958,7 +6892,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Line and ray are perpendicular and don´t intersect';
 
   var srcLine = [ 0, 0, -3, 0, 0, 1 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
@@ -5967,7 +6903,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray are parallel to x'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel to x';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 2, 1, 0, 0 ];
@@ -5976,7 +6914,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and ray are parallel but in a opposite direction'; /* */
+  /* */
+
+  test.case = 'Line and ray are parallel but in a opposite direction';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
@@ -5985,7 +6925,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.linePointDir.rayClosestPoint( srcLine, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcLine is null'; /* */
+  /* */
+
+  test.case = 'srcLine is null';
 
   var srcLine = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
@@ -6015,7 +6957,9 @@ function rayClosestPoint( test )
 
 function segmentIntersectionPoint( test )
 {
-  test.case = 'Source line and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and segment remain unchanged';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -6030,7 +6974,9 @@ function segmentIntersectionPoint( test )
   var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstSegment, oldTstSegment );
 
-  test.case = 'Line and segment are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel ( different origin - same direction )';
 
   var srcLine = [ 0, 0, 0, 0, 0, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 7 ];
@@ -6039,7 +6985,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and segment are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel ( different origin - different direction )';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstSegment = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -6048,7 +6996,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'srcLine is a point - not contained'; /* */
+  /* */
+
+  test.case = 'srcLine is a point - not contained';
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -6057,7 +7007,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'srcLine is a point - contained'; /* */
+  /* */
+
+  test.case = 'srcLine is a point - contained';
 
   var srcLine = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -6066,7 +7018,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'tstSegment is a point - not contained'; /* */
+  /* */
+
+  test.case = 'tstSegment is a point - not contained';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
@@ -6075,7 +7029,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.equivalent( gotIntersectionPoint, expected );
 
-  test.case = 'tstSegment is a point - contained'; /* */
+  /* */
+
+  test.case = 'tstSegment is a point - contained';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
@@ -6084,7 +7040,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.equivalent( gotIntersectionPoint, expected );
 
-  test.case = 'Line and segment are the same'; /* */
+  /* */
+
+  test.case = 'Line and segment are the same';
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
@@ -6093,7 +7051,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and segment intersect 4D'; /* */
+  /* */
+
+  test.case = 'Line and segment intersect 4D';
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
@@ -6102,7 +7062,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and segment don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Line and segment don´t intersect 2D - parallel';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, 3, -4 ];
@@ -6111,7 +7073,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and segment intersect with line´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and segment intersect with line´s negative factor 2D';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, -3, 1 ];
@@ -6120,7 +7084,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and segment don´t intersect with segment´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and segment don´t intersect with segment´s negative factor 2D';
 
   var srcLine = [ - 3, - 4, 0, 1 ];
   var tstSegment = [ 0, 0, 2, 0 ];
@@ -6129,7 +7095,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and segment are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Line and segment are perpendicular and intersect';
 
   var srcLine = [ 5, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
@@ -6138,7 +7106,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and segment are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Line and segment are perpendicular and don´t intersect';
 
   var srcLine = [ 0, 0, -3, 0, 0, 1 ];
   var tstSegment = [ 3, 2, 0, -3, 2, 0 ];
@@ -6147,7 +7117,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'Line and segment are parallel to x'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel to x';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 2, 9, 7, 2 ];
@@ -6156,7 +7128,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = 'srcLine is null'; /* */
+  /* */
+
+  test.case = 'srcLine is null';
 
   var srcLine = null;
   var tstSegment = [ 3, 7, 2, -3, 7, 2 ];
@@ -6165,7 +7139,9 @@ function segmentIntersectionPoint( test )
   var gotIntersectionPoint = _.linePointDir.segmentIntersectionPoint( srcLine, tstSegment );
   test.identical( gotIntersectionPoint, expected );
 
-  test.case = ''; /* */
+  /* */
+
+  test.case = '';
 
   var srcLine = [ 3, 7, 0, 0, 0, 0.5 ]
   var tstSegment  = [ 3, 7, 1, 3, 7, 7 ]
@@ -6193,7 +7169,9 @@ function segmentIntersectionPoint( test )
 
 function segmentIntersectionFactors( test )
 {
-  test.case = 'Source line and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and segment remain unchanged';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -6208,7 +7186,9 @@ function segmentIntersectionFactors( test )
   var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstSegment, oldTstSegment );
 
-  test.case = 'Line and segment are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel ( different origin - same direction )';
 
   var srcLine = [ 0, 0, 0, 0, 0, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 7 ];
@@ -6217,7 +7197,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel ( different origin - different direction )';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstSegment = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -6226,7 +7208,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment are parallel same origin'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel same origin';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
@@ -6235,7 +7219,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment are parallel different origin'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel different origin';
 
   var srcLine = [ 3, 7, 4.5, 0, 0, 7 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
@@ -6245,7 +7231,9 @@ function segmentIntersectionFactors( test )
   test.equivalent( gotIntersectionFactors, expected );
 
 
-  test.case = 'srcLine is a point - not contained'; /* */
+  /* */
+
+  test.case = 'srcLine is a point - not contained';
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -6254,7 +7242,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'srcLine is a point - contained'; /* */
+  /* */
+
+  test.case = 'srcLine is a point - contained';
 
   var srcLine = [ 0.5, 0.5, 0.5, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -6263,7 +7253,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'tstSegment is a point - not contained'; /* */
+  /* */
+
+  test.case = 'tstSegment is a point - not contained';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
@@ -6272,7 +7264,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'tstSegment is a point - contained'; /* */
+  /* */
+
+  test.case = 'tstSegment is a point - contained';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 7, 7, 7, 7, 7, 7 ];
@@ -6281,7 +7275,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment are the same'; /* */
+  /* */
+
+  test.case = 'Line and segment are the same';
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
@@ -6290,7 +7286,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment intersect 4D'; /* */
+  /* */
+
+  test.case = 'Line and segment intersect 4D';
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
@@ -6299,7 +7297,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Line and segment don´t intersect 2D - parallel';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, 3, -4 ];
@@ -6308,7 +7308,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment intersect with line´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and segment intersect with line´s negative factor 2D';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, -3, 1 ];
@@ -6317,7 +7319,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment don´t intersect with segment´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and segment don´t intersect with segment´s negative factor 2D';
 
   var srcLine = [ - 3, - 4, 0, 1 ];
   var tstSegment = [ 0, 0, 2, 0 ];
@@ -6326,7 +7330,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Line and segment are perpendicular and intersect';
 
   var srcLine = [ 5, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
@@ -6335,7 +7341,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.equivalent( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Line and segment are perpendicular and don´t intersect';
 
   var srcLine = [ 0, 0, -3, 0, 0, 1 ];
   var tstSegment = [ 3, 2, 0, -3, 2, 0 ];
@@ -6344,7 +7352,9 @@ function segmentIntersectionFactors( test )
   var gotIntersectionFactors = _.linePointDir.segmentIntersectionFactors( srcLine, tstSegment );
   test.identical( gotIntersectionFactors, expected );
 
-  test.case = 'Line and segment are parallel to x'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel to x';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 2, 9, 7, 2 ];
@@ -6375,7 +7385,9 @@ function segmentIntersectionFactors( test )
 
 function segmentClosestPoint( test )
 {
-  test.case = 'Source line and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and segment remain unchanged';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -6390,7 +7402,9 @@ function segmentClosestPoint( test )
   var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstSegment, oldTstSegment );
 
-  test.case = 'Line and segment are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel ( different origin - same direction )';
 
   var srcLine = [ 0, 0, 0, 0, 0, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 7 ];
@@ -6399,7 +7413,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel ( different origin - different direction )';
 
   var srcLine = [ 3, 7, 1, 0, 0, 7 ];
   var tstSegment = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -6408,7 +7424,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel ( different origin - opposite direction )';
 
   var srcLine = [ 0, 0, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, - 7, 7, 1 ];
@@ -6417,7 +7435,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcLine is a point'; /* */
+  /* */
+
+  test.case = 'srcLine is a point';
 
   var srcLine = [ 3, 7, 1, 0, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -6426,7 +7446,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'tstSegment is a point'; /* */
+  /* */
+
+  test.case = 'tstSegment is a point';
 
   var srcLine = [ 0, 0, 0, 1, 1, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
@@ -6435,7 +7457,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Line and segment are the same'; /* */
+  /* */
+
+  test.case = 'Line and segment are the same';
 
   var srcLine = [ 0, 4, 2, 1, 1, 1 ];
   var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
@@ -6444,7 +7468,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment intersect 4D'; /* */
+  /* */
+
+  test.case = 'Line and segment intersect 4D';
 
   var srcLine = [ 0, 0, 2, 1, 0, 1, 0, 0 ];
   var tstSegment = [ 3, 4, 2, 1, -3, 4, 2, 1 ];
@@ -6453,7 +7479,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Line and segment don´t intersect 2D - parallel';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, 3, -4 ];
@@ -6462,7 +7490,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment intersect with line´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and segment intersect with line´s negative factor 2D';
 
   var srcLine = [ 0, 0, 2, 0 ];
   var tstSegment = [ - 3, - 4, -3, 1 ];
@@ -6471,7 +7501,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment don´t intersect with segment´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Line and segment don´t intersect with segment´s negative factor 2D';
 
   var srcLine = [ - 3, - 4, 0, 1 ];
   var tstSegment = [ 0, 0, 2, 0 ];
@@ -6480,7 +7512,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Line and segment are perpendicular and intersect';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
@@ -6489,7 +7523,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Line and segment are perpendicular and don´t intersect';
 
   var srcLine = [ 0, 0, -3, 0, 0, 1 ];
   var tstSegment = [ 3, 2, 0, -3, 2, 0 ];
@@ -6498,7 +7534,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment are parallel to x'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel to x';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 2, 9, 7, 2 ];
@@ -6507,7 +7545,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and segment are parallel but in a opposite direction'; /* */
+  /* */
+
+  test.case = 'Line and segment are parallel but in a opposite direction';
 
   var srcLine = [ 3, 7, 1, 1, 0, 0 ];
   var tstSegment = [ 3, 7, 2, -3, 7, 2 ];
@@ -6516,7 +7556,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.linePointDir.segmentClosestPoint( srcLine, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcLine is null'; /* */
+  /* */
+
+  test.case = 'srcLine is null';
 
   var srcLine = null;
   var tstSegment = [ 3, 7, 2, -3, 7, 2 ];
@@ -6547,7 +7589,9 @@ function segmentClosestPoint( test )
 function sphereIntersects( test )
 {
 
-  test.case = 'Line and sphere remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and sphere remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6562,7 +7606,9 @@ function sphereIntersects( test )
   var oldSphere = [ 0, 0, 0, 1 ];
   test.identical( sphere, oldSphere );
 
-  test.case = 'Null line - empty sphere'; /* */
+  /* */
+
+  test.case = 'Null line - empty sphere';
 
   var line = null;
   var sphere = [ 0, 0, 0, 1 ];
@@ -6571,7 +7617,9 @@ function sphereIntersects( test )
   var gotBool = _.linePointDir.sphereIntersects( line, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'point line center of sphere'; /* */
+  /* */
+
+  test.case = 'point line center of sphere';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6580,7 +7628,9 @@ function sphereIntersects( test )
   var gotBool = _.linePointDir.sphereIntersects( line, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'point line - no intersection'; /* */
+  /* */
+
+  test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6589,7 +7639,9 @@ function sphereIntersects( test )
   var gotBool = _.linePointDir.sphereIntersects( line, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'point line in sphere'; /* */
+  /* */
+
+  test.case = 'point line in sphere';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6598,7 +7650,9 @@ function sphereIntersects( test )
   var gotBool = _.linePointDir.sphereIntersects( line, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Line and sphere intersect'; /* */
+  /* */
+
+  test.case = 'Line and sphere intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6607,7 +7661,9 @@ function sphereIntersects( test )
   var gotBool = _.linePointDir.sphereIntersects( line, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Line over sphere'; /* */
+  /* */
+
+  test.case = 'Line over sphere';
 
   var line = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 0, 0, 0, 3 ];
@@ -6616,7 +7672,9 @@ function sphereIntersects( test )
   var gotBool = _.linePointDir.sphereIntersects( line, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var sphere = [ - 2, - 2, - 2, 0.5 ];
@@ -6625,7 +7683,9 @@ function sphereIntersects( test )
   var gotBool = _.linePointDir.sphereIntersects( line, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'sphere closer to origin'; /* */
+  /* */
+
+  test.case = 'sphere closer to origin';
 
   var line = [ 1, 1, 1, 2, 2, 2 ];
   var sphere = [ 2, 1, 0, 0.1 ];
@@ -6634,7 +7694,9 @@ function sphereIntersects( test )
   var gotBool = _.linePointDir.sphereIntersects( line, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var sphere = [ 0, 2, 0, 2 ];
@@ -6643,7 +7705,9 @@ function sphereIntersects( test )
   var gotBool = _.linePointDir.sphereIntersects( line, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) no intersection';
 
   var line = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
   var sphere = [ 3, 3, 3, 1 ];
@@ -6675,7 +7739,9 @@ function sphereIntersects( test )
 function sphereDistance( test )
 {
 
-  test.case = 'Line and sphere remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and sphere remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6690,7 +7756,9 @@ function sphereDistance( test )
   var oldSphere = [ 0, 0, 0, 1 ];
   test.identical( sphere, oldSphere );
 
-  test.case = 'Null line - empty sphere'; /* */
+  /* */
+
+  test.case = 'Null line - empty sphere';
 
   var line = null;
   var sphere = [ 0, 0, 0, 1 ];
@@ -6699,7 +7767,9 @@ function sphereDistance( test )
   var gotDistance = _.linePointDir.sphereDistance( line, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'point line center of sphere'; /* */
+  /* */
+
+  test.case = 'point line center of sphere';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6708,7 +7778,9 @@ function sphereDistance( test )
   var gotDistance = _.linePointDir.sphereDistance( line, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'point line - no intersection'; /* */
+  /* */
+
+  test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6717,7 +7789,9 @@ function sphereDistance( test )
   var gotDistance = _.linePointDir.sphereDistance( line, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'point line in sphere'; /* */
+  /* */
+
+  test.case = 'point line in sphere';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6726,7 +7800,9 @@ function sphereDistance( test )
   var gotDistance = _.linePointDir.sphereDistance( line, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line and sphere intersect'; /* */
+  /* */
+
+  test.case = 'Line and sphere intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6735,7 +7811,9 @@ function sphereDistance( test )
   var gotDistance = _.linePointDir.sphereDistance( line, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line over sphere'; /* */
+  /* */
+
+  test.case = 'Line over sphere';
 
   var line = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 0, 0, 0, 3 ];
@@ -6744,7 +7822,9 @@ function sphereDistance( test )
   var gotDistance = _.linePointDir.sphereDistance( line, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var sphere = [ - 2, - 2, - 2, 0.5 ];
@@ -6753,7 +7833,9 @@ function sphereDistance( test )
   var gotDistance = _.linePointDir.sphereDistance( line, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var sphere = [ 0, 2, 0, 2 ];
@@ -6762,7 +7844,9 @@ function sphereDistance( test )
   var gotDistance = _.linePointDir.sphereDistance( line, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) no intersection';
 
   var line = [ 0, 0, 0, 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ) ];
   var sphere = [ 3, 0, 0, 1 ];
@@ -6794,7 +7878,9 @@ function sphereDistance( test )
 function sphereClosestPoint( test )
 {
 
-  test.case = 'Line and sphere remain unchanged'; /* */
+  /* */
+
+  test.case = 'Line and sphere remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6809,7 +7895,9 @@ function sphereClosestPoint( test )
   var oldSphere = [ 0, 0, 0, 1 ];
   test.identical( sphere, oldSphere );
 
-  test.case = 'Null line - empty sphere'; /* */
+  /* */
+
+  test.case = 'Null line - empty sphere';
 
   var line = null;
   var sphere = [ 0, 0, 0, 1 ];
@@ -6818,7 +7906,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'point line center of sphere'; /* */
+  /* */
+
+  test.case = 'point line center of sphere';
 
   var line = [ 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6827,7 +7917,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'point line - no intersection'; /* */
+  /* */
+
+  test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6836,7 +7928,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'point line in sphere'; /* */
+  /* */
+
+  test.case = 'point line in sphere';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6845,7 +7939,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line and sphere intersect'; /* */
+  /* */
+
+  test.case = 'Line and sphere intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6854,7 +7950,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line over sphere'; /* */
+  /* */
+
+  test.case = 'Line over sphere';
 
   var line = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 0, 0, 0, 3 ];
@@ -6863,7 +7961,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var line = [ 0, 0, 0, 2, 2, 2 ];
   var sphere = [ - 2, - 2, - 2, 0.5 ];
@@ -6872,7 +7972,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line ( normalized to 1 ) intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
   var sphere = [ 0, 2, 0, 2 ];
@@ -6881,7 +7983,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Line ( normalized to 1 ) no intersection'; /* */
+  /* */
+
+  test.case = 'Line ( normalized to 1 ) no intersection';
 
   var line = [ 0, 0, 0, 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ), 1 / Math.sqrt( 3 ) ];
   var sphere = [ 3, 0, 0, 1 ];
@@ -6890,7 +7994,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'dstPoint is vector'; /* */
+  /* */
+
+  test.case = 'dstPoint is vector';
 
   var line = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 0, 5, 0, 3 ];
@@ -6900,7 +8006,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.linePointDir.sphereClosestPoint( line, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'dstPoint is array'; /* */
+  /* */
+
+  test.case = 'dstPoint is array';
 
   var line = [ 0, -6, 4, 0, 1, 0 ];
   var sphere = [ 1, 5, 0, 3 ];
@@ -6933,7 +8041,9 @@ function sphereClosestPoint( test )
 function boundingSphereGet( test )
 {
 
-  test.case = 'Source line remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source line remains unchanged';
 
   var srcLine = [ 0, 0, 0, 3, 3, 3 ];
   var dstSphere = [ 1, 1, 2, 1 ];
@@ -6946,7 +8056,9 @@ function boundingSphereGet( test )
   var oldSrcLine = [ 0, 0, 0, 3, 3, 3 ];
   test.identical( srcLine, oldSrcLine );
 
-  test.case = 'Zero line to zero sphere'; /* */
+  /* */
+
+  test.case = 'Zero line to zero sphere';
 
   var srcLine = [ 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 0, 0, 0, 0 ];
@@ -6955,7 +8067,9 @@ function boundingSphereGet( test )
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'Point line and point Sphere'; /* */
+  /* */
+
+  test.case = 'Point line and point Sphere';
 
   var srcLine = [ 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 3, 3, 3, 0 ];
@@ -6964,7 +8078,9 @@ function boundingSphereGet( test )
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere and line intersect'; /* */
+  /* */
+
+  test.case = 'Sphere and line intersect';
 
   var srcLine = [ 0, 0, 0, 4, 4, 4 ];
   var dstSphere = [ 2, 2, 2, 1 ];
@@ -6973,7 +8089,9 @@ function boundingSphereGet( test )
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere and line intersect - negative dir'; /* */
+  /* */
+
+  test.case = 'Sphere and line intersect - negative dir';
 
   var srcLine = [ 0, 0, 0, - 1, - 1, - 1 ];
   var dstSphere = [ 0, 0, 0, 3 ];
@@ -6982,7 +8100,9 @@ function boundingSphereGet( test )
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere and line don´t intersect'; /* */
+  /* */
+
+  test.case = 'Sphere and line don´t intersect';
 
   var srcLine = [ 1, 2, 3, 5, 8, 9 ];
   var dstSphere = [ 5, 5, 5, 3 ];
@@ -6991,7 +8111,9 @@ function boundingSphereGet( test )
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'srcLine vector'; /* */
+  /* */
+
+  test.case = 'srcLine vector';
 
   var srcLine = _.linePointDir.tools.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
@@ -7000,7 +8122,9 @@ function boundingSphereGet( test )
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere vector'; /* */
+  /* */
+
+  test.case = 'dstSphere vector';
 
   var srcLine = [- 1, - 1, - 1, 3, 3, 1 ];
   var dstSphere = _.linePointDir.tools.vectorAdapter.from( [ 5, 5, 5, 3 ] );
@@ -7009,7 +8133,9 @@ function boundingSphereGet( test )
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere null'; /* */
+  /* */
+
+  test.case = 'dstSphere null';
 
   var srcLine = [- 1, 5, - 1, 0, 0, 0 ];
   var dstSphere = null;
@@ -7018,7 +8144,9 @@ function boundingSphereGet( test )
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere undefined'; /* */
+  /* */
+
+  test.case = 'dstSphere undefined';
 
   var srcLine = [ - 1, - 3, - 5, 1, 0, 0 ];
   var dstSphere = undefined;
@@ -7027,7 +8155,9 @@ function boundingSphereGet( test )
   var gotSphere = _.linePointDir.boundingSphereGet( dstSphere, srcLine );
   test.identical( gotSphere, expected );
 
-  test.case = 'Very small direction'; /* */
+  /* */
+
+  test.case = 'Very small direction';
 
   var srcLine = _.linePointDir.tools.vectorAdapter.from( [ 4, 4, 4, 1E-12, 1E-12, 1E-12 ] );
   var dstSphere = [ 5, 5, 5, 3 ];

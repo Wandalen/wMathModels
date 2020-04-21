@@ -188,7 +188,9 @@ eachAngle.defaults =
 function eachQuat( onQuat )
 {
 
-  // test.case = 'ordinary cases 1'; /* */
+  // /* */
+
+ test.case = 'ordinary cases 1';
 
   var begin = [ -0.6, -0.5, -0.345 ];
   var end = [ +0.5, +0.7, +0.345 ];
@@ -210,7 +212,9 @@ function eachQuat( onQuat )
 
   }
 
-  // test.case = 'ordinary cases 2'; /* */
+  // /* */
+
+ test.case = 'ordinary cases 2';
 
   var begin = [ -0.25, -0.7, -0.515 ];
   var end = [ +0.6, +0.3, +0.246 ];
@@ -241,7 +245,9 @@ function eachQuat( onQuat )
 function is( test )
 {
 
-  test.case = 'array'; /* */
+  /* */
+
+  test.case = 'array';
 
   test.is( !_.quat.is([ 0 ]) );
   test.is( !_.quat.is([ 0, 0 ]) );
@@ -249,7 +255,9 @@ function is( test )
   test.is( _.quat.is([ 0, 0, 0, 0 ]) );
   test.is( !_.quat.is([ 0, 0, 0, 0, 0 ]) );
 
-  test.case = 'vector'; /* */
+  /* */
+
+  test.case = 'vector';
 
   test.is( !_.quat.is( _.vectorAdapter.fromLong([ 0 ]) ) );
   test.is( !_.quat.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
@@ -257,7 +265,9 @@ function is( test )
   test.is( _.quat.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0 ]) ) );
   test.is( !_.quat.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0 ]) ) );
 
-  test.case = 'not quat'; /* */
+  /* */
+
+  test.case = 'not quat';
 
   test.is( !_.quat.is( [] ) );
   test.is( !_.quat.is( _.vectorAdapter.fromLong([]) ) );
@@ -272,11 +282,15 @@ function is( test )
 function isZero( test )
 {
 
-  test.case = 'zero'; /* */
+  /* */
+
+  test.case = 'zero';
 
   test.is( _.quat.isZero([ 0, 0, 0, 0 ]) );
 
-  test.case = 'not zero'; /* */
+  /* */
+
+  test.case = 'not zero';
 
   test.is( !_.quat.isZero([ 0, 0, 0, 1 ]) );
   test.is( !_.quat.isZero([ 0, 0, 0, 1.1 ]) );
@@ -305,11 +319,15 @@ function isZero( test )
 function isUnit( test )
 {
 
-  test.case = 'zero'; /* */
+  /* */
+
+  test.case = 'zero';
 
   test.is( _.quat.isUnit([ 0, 0, 0, 1 ]) );
 
-  test.case = 'not zero'; /* */
+  /* */
+
+  test.case = 'not zero';
 
   test.is( !_.quat.isUnit([ 0, 0, 0, 0 ]) );
   test.is( !_.quat.isUnit([ 0, 0, 0, 1.1 ]) );
@@ -338,7 +356,9 @@ function isUnit( test )
 function make( test )
 {
 
-  test.case = 'src undefined'; /* */
+  /* */
+
+  test.case = 'src undefined';
 
   var src = undefined;
   var got = _.quat.make( src );
@@ -346,7 +366,9 @@ function make( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src null'; /* */
+  /* */
+
+  test.case = 'src null';
 
   var src = null;
   var got = _.quat.make( src );
@@ -354,7 +376,9 @@ function make( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src array'; /* */
+  /* */
+
+  test.case = 'src array';
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.quat.make( src );
@@ -362,7 +386,9 @@ function make( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src vector'; /* */
+  /* */
+
+  test.case = 'src vector';
 
   var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.quat.make( src );
@@ -370,7 +396,9 @@ function make( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'bad arguments'; /* */
+  /* */
+
+  test.case = 'bad arguments';
 
   test.shouldThrowErrorSync( () => _.quat.make( 0 ) );
   test.shouldThrowErrorSync( () => _.quat.make( 4 ) );
@@ -384,7 +412,9 @@ function make( test )
 function makeZero( test )
 {
 
-  test.case = 'trivial'; /* */
+  /* */
+
+  test.case = 'trivial';
 
   var got = _.quat.makeZero();
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
@@ -393,7 +423,9 @@ function makeZero( test )
   if( !Config.debug )
   return;
 
-  test.case = 'bad arguments'; /* */
+  /* */
+
+  test.case = 'bad arguments';
 
   test.shouldThrowErrorSync( () => _.quat.makeZero( undefined ) );
   test.shouldThrowErrorSync( () => _.quat.makeZero( null ) );
@@ -409,7 +441,9 @@ function makeZero( test )
 function makeUnit( test )
 {
 
-  test.case = 'trivial'; /* */
+  /* */
+
+  test.case = 'trivial';
 
   var got = _.quat.makeUnit();
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
@@ -418,7 +452,9 @@ function makeUnit( test )
   if( !Config.debug )
   return;
 
-  test.case = 'bad arguments'; /* */
+  /* */
+
+  test.case = 'bad arguments';
 
   test.shouldThrowErrorSync( () => _.quat.makeUnit( undefined ) );
   test.shouldThrowErrorSync( () => _.quat.makeUnit( null ) );
@@ -434,7 +470,9 @@ function makeUnit( test )
 function zero( test )
 {
 
-  test.case = 'src undefined'; /* */
+  /* */
+
+  test.case = 'src undefined';
 
   var src = undefined;
   var got = _.quat.zero( src );
@@ -442,7 +480,9 @@ function zero( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src null'; /* */
+  /* */
+
+  test.case = 'src null';
 
   var src = null;
   var got = _.quat.zero( src );
@@ -450,7 +490,9 @@ function zero( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'dst array'; /* */
+  /* */
+
+  test.case = 'dst array';
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.quat.zero( dst );
@@ -458,7 +500,9 @@ function zero( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst vector'; /* */
+  /* */
+
+  test.case = 'dst vector';
 
   var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.quat.zero( dst );
@@ -466,7 +510,9 @@ function zero( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'bad arguments'; /* */
+  /* */
+
+  test.case = 'bad arguments';
 
   test.shouldThrowErrorSync( () => _.quat.zero( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.zero([ 0, 0, 0 ]) );
@@ -480,7 +526,9 @@ function zero( test )
 function unit( test )
 {
 
-  test.case = 'src undefined'; /* */
+  /* */
+
+  test.case = 'src undefined';
 
   var src = undefined;
   var got = _.quat.unit( src );
@@ -488,7 +536,9 @@ function unit( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src null'; /* */
+  /* */
+
+  test.case = 'src null';
 
   var src = null;
   var got = _.quat.unit( src );
@@ -496,7 +546,9 @@ function unit( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'dst array'; /* */
+  /* */
+
+  test.case = 'dst array';
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.quat.unit( dst );
@@ -504,7 +556,9 @@ function unit( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst vector'; /* */
+  /* */
+
+  test.case = 'dst vector';
 
   var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.quat.unit( dst );
@@ -512,7 +566,9 @@ function unit( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'bad arguments'; /* */
+  /* */
+
+  test.case = 'bad arguments';
 
   test.shouldThrowErrorSync( () => _.quat.unit( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.unit([ 0, 0, 0 ]) );
@@ -535,42 +591,54 @@ function fromEuler( test )
   //   logger.log( order, _.quat.fromEuler( null, euler ) );
   // }
 
-  test.case = 'trivial xyz'; /* */
+  /* */
+
+  test.case = 'trivial xyz';
 
   var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
   var euler1 = [ 0, 0, 0, 0, 1, 2 ];
 
   sampleTest();
 
-  test.case = 'trivial xzy'; /* */
+  /* */
+
+  test.case = 'trivial xzy';
 
   var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
   var euler1 = [ 0, 0, 0, 0, 2, 1 ];
 
   sampleTest();
 
-  test.case = 'trivial yxz'; /* */
+  /* */
+
+  test.case = 'trivial yxz';
 
   var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
   var euler1 = [ 0, 0, 0, 1, 0, 2 ];
 
   sampleTest();
 
-  test.case = 'trivial yzx'; /* */
+  /* */
+
+  test.case = 'trivial yzx';
 
   var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
   var euler1 = [ 0, 0, 0, 1, 2, 0 ];
 
   sampleTest();
 
-  test.case = 'trivial zxy'; /* */
+  /* */
+
+  test.case = 'trivial zxy';
 
   var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
   var euler1 = [ 0, 0, 0, 2, 0, 1 ];
 
   sampleTest();
 
-  test.case = 'trivial zyx'; /* */
+  /* */
+
+  test.case = 'trivial zyx';
 
   var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
   var euler1 = [ 0, 0, 0, 2, 1, 0 ];
@@ -632,7 +700,9 @@ function fromAxisAndAngle( test )
 
   _.assert( test.accuracy > 0 );
 
-  test.case = 'zero'; /* */
+  /* */
+
+  test.case = 'zero';
 
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 0 ], 0 );
@@ -644,7 +714,9 @@ function fromAxisAndAngle( test )
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 1 ], 0 );
   test.equivalent( got, expected );
 
-  test.case = 'near zero'; /* */
+  /* */
+
+  test.case = 'near zero';
 
   var angle = test.accuracy;
   var expected = _.quat.tools.longMake( [ 0.00000004999999873689376, 0, 0, 1 ] );
@@ -772,7 +844,9 @@ function fromAxisAndAngle( test )
 
   }
 
-  test.case = 'ordinary cases'; /* */
+  /* */
+
+  test.case = 'ordinary cases';
 
   eachQuat( function( quat1 )
   {
@@ -829,7 +903,9 @@ function fromVectors( test )
     var accuracy = test.accuracy*0.1;
     var h = _.math.sqrt( 2 ) / 2;
 
-    test.case = 'same avectors'; /* */
+    /* */
+
+    test.case = 'same avectors';
 
     var expected = _.quat.tools.longMake( [ 0, 0, 0, normalized ? 1 : 0 ] );
     var got = _.quat[ r ]( null, [ 0, 0, 0 ], [ 0, 0, 0 ] );

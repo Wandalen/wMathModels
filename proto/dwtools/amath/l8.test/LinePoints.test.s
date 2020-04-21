@@ -72,7 +72,9 @@ function make( test )
 
 function from( test )
 {
-  test.case = 'Same instance returned - array'; /* */
+  /* */
+
+  test.case = 'Same instance returned - array';
 
   var srcPair = [ 0, 0, 1 , 1, 2, 0 ];
   var expected = _.linePoints.tools.longMake( [ 0, 0, 1, 1, 2, 0 ] );
@@ -195,7 +197,9 @@ function pairPairParallel( test )
 
 function pairIntersectionFactors( test )
 {
-  test.case = 'Rays don´t intersect'; /* */
+  /* */
+
+  test.case = 'Rays don´t intersect';
 
   var pair1 = _.linePoints.fromRay( [ 0, 0, 1, 1 ] );
   var pair2 = _.linePoints.fromRay( [ 3, 0, 2, -1 ] );
@@ -204,7 +208,9 @@ function pairIntersectionFactors( test )
   var got = _.linePoints.pairIntersectionFactors( pair1, pair2 );
   test.identical( got, expected )
 
-  test.case = 'Rays intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Rays intersect in their origin';
 
   var pair1 = _.linePoints.fromRay( [ 3, 7, 1, 0 ] );
   var pair2 = _.linePoints.fromRay( [ 3, 7, 0, 1  ] );
@@ -213,7 +219,9 @@ function pairIntersectionFactors( test )
   var got = _.linePoints.pairIntersectionFactors( pair1, pair2 );
   test.identical( got, expected )
 
-  test.case = 'Rays intersect '; /* */
+  /* */
+
+  test.case = 'Rays intersect ';
 
   var pair1 = _.linePoints.fromRay( [ 0, 0, 1, 0 ] );
   var pair2 = _.linePoints.fromRay( [ -2, -6, 1, 2 ] );
@@ -222,7 +230,9 @@ function pairIntersectionFactors( test )
   var got = _.linePoints.pairIntersectionFactors( pair1, pair2 );
   test.identical( got, expected )
 
-  test.case = 'Rays are perpendicular '; /* */
+  /* */
+
+  test.case = 'Rays are perpendicular ';
 
   var pair1 = _.linePoints.fromRay( [ -3, 0, 1, 0 ] );
   var pair2 = _.linePoints.fromRay( [ 0, -2, 0, 1 ] );
@@ -236,7 +246,9 @@ function pairIntersectionFactors( test )
 
 function pairIntersectionPoint( test )
 {
-  test.case = 'Parellel'; /* */
+  /* */
+
+  test.case = 'Parellel';
 
   var pair1 = _.linePoints.fromRay( [ 0, 0, 1, 1 ] );
   var pair2 = _.linePoints.fromRay( [ 3, 7, 1, 1 ] );
@@ -245,7 +257,9 @@ function pairIntersectionPoint( test )
   var got = _.linePoints.pairIntersectionPoint( pair1, pair2 );
   test.identical( got, expected )
 
-  test.case = 'Same'; /* */
+  /* */
+
+  test.case = 'Same';
 
   var pair1 = _.linePoints.fromRay( [ 0, 0, 1, 1 ] );
   var pair2 = _.linePoints.fromRay( [ 0, 0, 1, 1 ] );
@@ -254,7 +268,9 @@ function pairIntersectionPoint( test )
   var got = _.linePoints.pairIntersectionPoint( pair1, pair2 );
   test.identical( got, expected )
 
-  test.case = 'Rays intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Rays intersect in their origin';
 
   var pair1 = _.linePoints.fromRay( [ 3, 7, 1, 0 ] );
   var pair2 = _.linePoints.fromRay( [ 3, 7, 0, 1 ] );
@@ -263,7 +279,9 @@ function pairIntersectionPoint( test )
   var got = _.linePoints.pairIntersectionPoint( pair1, pair2 );
   test.identical( got, expected )
 
-  test.case = 'Rays intersect'; /* */
+  /* */
+
+  test.case = 'Rays intersect';
 
   var pair1 = _.linePoints.fromRay( [ 0, 0, 1, 0 ] );
   var pair2 = _.linePoints.fromRay( [ -2, -6, 1, 2 ] );
@@ -278,7 +296,9 @@ function pairIntersectionPoint( test )
 
 function pairIntersectionPointAccurate( test )
 {
-  test.case = 'Parellel'; /* */
+  /* */
+
+  test.case = 'Parellel';
 
   var pair1 = _.linePoints.fromRay( [ 0, 0, 1, 1 ] );
   var pair2 = _.linePoints.fromRay( [ 3, 7, 1, 1 ] );
@@ -287,7 +307,9 @@ function pairIntersectionPointAccurate( test )
   var got = _.linePoints.pairIntersectionPointAccurate( pair1, pair2 );
   test.identical( got, expected )
 
-  test.case = 'Same'; /* */
+  /* */
+
+  test.case = 'Same';
 
   var pair1 = _.linePoints.fromRay( [ 0, 0, 1, 1 ] );
   var pair2 = _.linePoints.fromRay( [ 0, 0, 1, 1 ] );
@@ -296,7 +318,9 @@ function pairIntersectionPointAccurate( test )
   var got = _.linePoints.pairIntersectionPointAccurate( pair1, pair2 );
   test.identical( got, expected )
 
-  test.case = 'Rays intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Rays intersect in their origin';
 
   var pair1 = _.linePoints.fromRay( [ 3, 7, 1, 0 ] );
   var pair2 = _.linePoints.fromRay( [ 3, 7, 0, 1 ] );
@@ -305,7 +329,9 @@ function pairIntersectionPointAccurate( test )
   var got = _.linePoints.pairIntersectionPointAccurate( pair1, pair2 );
   test.identical( got, expected )
 
-  test.case = 'Rays intersect'; /* */
+  /* */
+
+  test.case = 'Rays intersect';
 
   var pair1 = _.linePoints.fromRay( [ 0, 0, 1, 0 ] );
   var pair2 = _.linePoints.fromRay( [ -2, -6, 1, 2 ] );

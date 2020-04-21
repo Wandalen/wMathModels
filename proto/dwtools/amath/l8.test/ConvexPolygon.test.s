@@ -2791,7 +2791,9 @@ function boxClosestPoint( test )
 function boundingBoxGet( test )
 {
 
-  test.case = 'Source polygon remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source polygon remains unchanged';
 
   var srcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -2814,7 +2816,9 @@ function boundingBoxGet( test )
     ]);
   test.identical( srcPolygon, oldSrcPolygon );
 
-  test.case = 'Polygon inside box'; /* */
+  /* */
+
+  test.case = 'Polygon inside box';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -2828,7 +2832,9 @@ function boundingBoxGet( test )
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
 
-  test.case = 'Polygon outside Box'; /* */
+  /* */
+
+  test.case = 'Polygon outside Box';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -2842,7 +2848,9 @@ function boundingBoxGet( test )
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
 
-  test.case = 'Negative polygon values'; /* */
+  /* */
+
+  test.case = 'Negative polygon values';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -2869,7 +2877,9 @@ function boundingBoxGet( test )
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox vector'; /* */
+  /* */
+
+  test.case = 'dstBox vector';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -2883,7 +2893,9 @@ function boundingBoxGet( test )
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox null'; /* */
+  /* */
+
+  test.case = 'dstBox null';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -2897,7 +2909,9 @@ function boundingBoxGet( test )
   var gotBox = _.convexPolygon.boundingBoxGet( srcPolygon, dstBox );
   test.equivalent( gotBox, expected );
 
-  test.case = 'dstBox undefined'; /* */
+  /* */
+
+  test.case = 'dstBox undefined';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 3 ] ).copy
     ([
@@ -8056,7 +8070,9 @@ function sphereClosestPoint( test )
 function boundingSphereGet( test )
 {
 
-  test.case = 'Source polygon remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source polygon remains unchanged';
 
   var srcPolygon = _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -8079,7 +8095,9 @@ function boundingSphereGet( test )
     ]);
   test.identical( srcPolygon, oldSrcPolygon );
 
-  test.case = 'Polygon inside sphere'; /* */
+  /* */
+
+  test.case = 'Polygon inside sphere';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -8093,7 +8111,9 @@ function boundingSphereGet( test )
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );
 
-  test.case = 'Polygon outside Sphere'; /* */
+  /* */
+
+  test.case = 'Polygon outside Sphere';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -8107,7 +8127,9 @@ function boundingSphereGet( test )
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );
 
-  test.case = 'Negative polygon values'; /* */
+  /* */
+
+  test.case = 'Negative polygon values';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -8134,7 +8156,9 @@ function boundingSphereGet( test )
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere vector'; /* */
+  /* */
+
+  test.case = 'dstSphere vector';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -8148,7 +8172,9 @@ function boundingSphereGet( test )
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere null'; /* */
+  /* */
+
+  test.case = 'dstSphere null';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
     ([
@@ -8162,7 +8188,9 @@ function boundingSphereGet( test )
   var gotSphere = _.convexPolygon.boundingSphereGet( srcPolygon, dstSphere );
   test.equivalent( gotSphere, expected );
 
-  test.case = 'dstSphere undefined'; /* */
+  /* */
+
+  test.case = 'dstSphere undefined';
 
   var srcPolygon =  _.Matrix.Make( [ 3, 3 ] ).copy
     ([

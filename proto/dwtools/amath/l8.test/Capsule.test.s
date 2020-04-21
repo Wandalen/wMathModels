@@ -33,13 +33,17 @@ _.assert( _.routineIs( sqrt ) );
 
 function make( test )
 {
-  test.case = 'Default'; /* */
+  /* */
+
+  test.case = 'Default';
 
   var gotCapsule = _.capsule.make();
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
 
-  test.case = 'srcDim undefined'; /* */
+  /* */
+
+  test.case = 'srcDim undefined';
 
   var srcDim = undefined;
   var gotCapsule = _.capsule.make( srcDim );
@@ -47,7 +51,9 @@ function make( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim null'; /* */
+  /* */
+
+  test.case = 'srcDim null';
 
   var srcDim = null;
   var gotCapsule = _.capsule.make( srcDim );
@@ -55,7 +61,9 @@ function make( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim 2'; /* */
+  /* */
+
+  test.case = 'srcDim 2';
 
   var srcDim = 2;
   var gotCapsule = _.capsule.make( srcDim );
@@ -63,7 +71,9 @@ function make( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim array'; /* */
+  /* */
+
+  test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3, 4 ];
   var gotCapsule = _.capsule.make( srcDim );
@@ -71,7 +81,9 @@ function make( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim vector'; /* */
+  /* */
+
+  test.case = 'srcDim vector';
 
   var srcDim = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.make( srcDim );
@@ -92,13 +104,17 @@ function make( test )
 
 function makeZero( test )
 {
-  test.case = 'Default'; /* */
+  /* */
+
+  test.case = 'Default';
 
   var gotCapsule = _.capsule.makeZero();
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
 
-  test.case = 'srcDim undefined'; /* */
+  /* */
+
+  test.case = 'srcDim undefined';
 
   var srcDim = undefined;
   var gotCapsule = _.capsule.makeZero( srcDim );
@@ -106,7 +122,9 @@ function makeZero( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim null'; /* */
+  /* */
+
+  test.case = 'srcDim null';
 
   var srcDim = null;
   var gotCapsule = _.capsule.makeZero( srcDim );
@@ -114,7 +132,9 @@ function makeZero( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim 2'; /* */
+  /* */
+
+  test.case = 'srcDim 2';
 
   var srcDim = 2;
   var gotCapsule = _.capsule.makeZero( srcDim );
@@ -122,7 +142,9 @@ function makeZero( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim array'; /* */
+  /* */
+
+  test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3, 4 ];
   var gotCapsule = _.capsule.makeZero( srcDim );
@@ -130,7 +152,9 @@ function makeZero( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim vector'; /* */
+  /* */
+
+  test.case = 'srcDim vector';
 
   var srcDim = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.makeZero( srcDim );
@@ -152,13 +176,17 @@ function makeZero( test )
 
 function makeNil( test )
 {
-  test.case = 'Default'; /* */
+  /* */
+
+  test.case = 'Default';
 
   var gotCapsule = _.capsule.makeNil();
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
 
-  test.case = 'srcDim undefined'; /* */
+  /* */
+
+  test.case = 'srcDim undefined';
 
   var srcDim = undefined;
   var gotCapsule = _.capsule.makeNil( srcDim );
@@ -166,7 +194,9 @@ function makeNil( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim null'; /* */
+  /* */
+
+  test.case = 'srcDim null';
 
   var srcDim = null;
   var gotCapsule = _.capsule.makeNil( srcDim );
@@ -174,7 +204,9 @@ function makeNil( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim 2'; /* */
+  /* */
+
+  test.case = 'srcDim 2';
 
   var srcDim = 2;
   var gotCapsule = _.capsule.makeNil( srcDim );
@@ -182,7 +214,9 @@ function makeNil( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim array'; /* */
+  /* */
+
+  test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3, 4 ];
   var gotCapsule = _.capsule.makeNil( srcDim );
@@ -190,7 +224,9 @@ function makeNil( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
 
-  test.case = 'srcDim vector'; /* */
+  /* */
+
+  test.case = 'srcDim vector';
 
   var srcDim = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.makeNil( srcDim );
@@ -211,13 +247,17 @@ function makeNil( test )
 
 function zero( test )
 {
-  test.case = 'Default'; /* */
+  /* */
+
+  test.case = 'Default';
 
   var gotCapsule = _.capsule.zero();
   var expected = _.capsule.tools.longMake( [ 0, 0, 0, 0, 0, 0, 0 ] );
   test.identical( gotCapsule, expected );
 
-  test.case = 'srcCapsule undefined'; /* */
+  /* */
+
+  test.case = 'srcCapsule undefined';
 
   var srcCapsule = undefined;
   var gotCapsule = _.capsule.zero( srcCapsule );
@@ -225,7 +265,9 @@ function zero( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcCapsule );
 
-  test.case = 'srcCapsule null'; /* */
+  /* */
+
+  test.case = 'srcCapsule null';
 
   var srcCapsule = null;
   var gotCapsule = _.capsule.zero( srcCapsule );
@@ -233,7 +275,9 @@ function zero( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcCapsule );
 
-  test.case = 'srcCapsule 2'; /* */
+  /* */
+
+  test.case = 'srcCapsule 2';
 
   var srcCapsule = 2;
   var gotCapsule = _.capsule.zero( srcCapsule );
@@ -241,7 +285,9 @@ function zero( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcCapsule );
 
-  test.case = 'srcCapsule array'; /* */
+  /* */
+
+  test.case = 'srcCapsule array';
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotCapsule = _.capsule.zero( srcCapsule );
@@ -249,7 +295,9 @@ function zero( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule === srcCapsule );
 
-  test.case = 'srcCapsule vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.zero( srcCapsule );
@@ -271,13 +319,17 @@ function zero( test )
 
 function nil( test )
 {
-  test.case = 'Default'; /* */
+  /* */
+
+  test.case = 'Default';
 
   var gotCapsule = _.capsule.nil();
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
 
-  test.case = 'srcCapsule undefined'; /* */
+  /* */
+
+  test.case = 'srcCapsule undefined';
 
   var srcCapsule = undefined;
   var gotCapsule = _.capsule.nil( srcCapsule );
@@ -285,7 +337,9 @@ function nil( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcCapsule );
 
-  test.case = 'srcCapsule null'; /* */
+  /* */
+
+  test.case = 'srcCapsule null';
 
   var srcCapsule = null;
   var gotCapsule = _.capsule.nil( srcCapsule );
@@ -293,7 +347,9 @@ function nil( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcCapsule );
 
-  test.case = 'srcCapsule 2'; /* */
+  /* */
+
+  test.case = 'srcCapsule 2';
 
   var srcCapsule = 2;
   var gotCapsule = _.capsule.nil( srcCapsule );
@@ -301,7 +357,9 @@ function nil( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcCapsule );
 
-  test.case = 'srcCapsule array'; /* */
+  /* */
+
+  test.case = 'srcCapsule array';
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotCapsule = _.capsule.nil( srcCapsule );
@@ -309,7 +367,9 @@ function nil( test )
   test.identical( gotCapsule, expected );
   test.is( gotCapsule === srcCapsule );
 
-  test.case = 'srcCapsule vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotCapsule = _.capsule.nil( srcCapsule );
@@ -330,7 +390,9 @@ function nil( test )
 
 function from( test )
 {
-  test.case = 'Same instance returned - array'; /* */
+  /* */
+
+  test.case = 'Same instance returned - array';
 
   var srcCapsule = [ 0, 0, 2, 2, 1 ];
   var expected = _.capsule.tools.longMake( [ 0, 0, 2, 2, 1 ] );
@@ -339,7 +401,9 @@ function from( test )
   test.identical( gotCapsule, expected );
   test.is( srcCapsule === gotCapsule );
 
-  test.case = 'Different instance returned - vector -> array'; /* */
+  /* */
+
+  test.case = 'Different instance returned - vector -> array';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 0, 2, 2, 1 ] );
   var expected = _.capsule.tools.vectorAdapter.fromLong( [ 0, 0, 2, 2, 1 ] );
@@ -366,7 +430,9 @@ function from( test )
 
 function adapterFrom( test )
 {
-  test.case = 'Same instance returned - vector'; /* */
+  /* */
+
+  test.case = 'Same instance returned - vector';
 
   var srcCapsule = [ 0, 0, 2, 2, 1 ];
   var expected = _.capsule.tools.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
@@ -375,7 +441,9 @@ function adapterFrom( test )
   test.identical( gotCapsule, expected );
   test.is( srcCapsule !== gotCapsule );
 
-  test.case = 'Different instance returned - vector -> vector'; /* */
+  /* */
+
+  test.case = 'Different instance returned - vector -> vector';
 
   var srcCapsule = _.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
   var expected = _.capsule.tools.vectorAdapter.from( [ 0, 0, 2, 2, 1 ] );
@@ -404,19 +472,25 @@ function adapterFrom( test )
 function is( test )
 {
   debugger;
-  test.case = 'array'; /* */
+  /* */
+
+  test.case = 'array';
 
   test.is( _.capsule.is([ 0, 0, 0 ]) );
   test.is( _.capsule.is([ 0, 1, 2, 3, 4 ]) );
   test.is( _.capsule.is([ 0, 0, 0, 0, 0, 0, 0 ]) );
 
-  test.case = 'vector'; /* */
+  /* */
+
+  test.case = 'vector';
 
   test.is( _.capsule.is( _.capsule.tools.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
   test.is( _.capsule.is( _.capsule.tools.vectorAdapter.fromLong([ 0, 1, 2, 3, 4 ]) ) );
   test.is( _.capsule.is( _.capsule.tools.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0, 0 ]) ) );
 
-  test.case = 'not capsule'; /* */
+  /* */
+
+  test.case = 'not capsule';
 
   test.is( !_.capsule.is( [] ) );
   test.is( !_.capsule.is([ 0, 0 ]) );
@@ -448,7 +522,9 @@ function is( test )
 
 function dimGet( test )
 {
-  test.case = 'srcCapsule 1D - array'; /* */
+  /* */
+
+  test.case = 'srcCapsule 1D - array';
 
   var srcCapsule = [ 0, 1, 1 ];
   var gotDim = _.capsule.dimGet( srcCapsule );
@@ -456,7 +532,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcCapsule );
 
-  test.case = 'srcCapsule 1D - vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule 1D - vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 1 ] );
   var gotDim = _.capsule.dimGet( srcCapsule );
@@ -464,7 +542,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcCapsule );
 
-  test.case = 'srcCapsule 2D - array'; /* */
+  /* */
+
+  test.case = 'srcCapsule 2D - array';
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotDim = _.capsule.dimGet( srcCapsule );
@@ -472,7 +552,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcCapsule );
 
-  test.case = 'srcCapsule 2D - vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule 2D - vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotDim = _.capsule.dimGet( srcCapsule );
@@ -480,7 +562,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcCapsule );
 
-  test.case = 'srcCapsule 3D - array'; /* */
+  /* */
+
+  test.case = 'srcCapsule 3D - array';
 
   var srcCapsule = [ 0, 1, 2, 3, 4, 5, 6 ];
   var gotDim = _.capsule.dimGet( srcCapsule );
@@ -488,7 +572,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcCapsule );
 
-  test.case = 'srcCapsule 3D - vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule 3D - vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5, 6 ] );
   var gotDim = _.capsule.dimGet( srcCapsule );
@@ -516,7 +602,9 @@ function dimGet( test )
 
 function originGet( test )
 {
-  test.case = 'Source capsule remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule remains unchanged';
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var expected = _.capsule.tools.vectorAdapter.from( [ 0, 0 ] );
@@ -527,7 +615,9 @@ function originGet( test )
   var oldSrcCapsule = [ 0, 0, 1, 1, 1 ];
   test.equivalent( srcCapsule, oldSrcCapsule );
 
-  test.case = 'srcCapsule 1D - array'; /* */
+  /* */
+
+  test.case = 'srcCapsule 1D - array';
 
   var srcCapsule = [ 0, 1, 2 ];
   var gotOrigin = _.capsule.originGet( srcCapsule );
@@ -535,7 +625,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
-  test.case = 'srcCapsule 1D - vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule 1D - vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 1 ] );
   var gotOrigin = _.capsule.originGet( srcCapsule );
@@ -543,7 +635,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
-  test.case = 'srcCapsule 2D - array'; /* */
+  /* */
+
+  test.case = 'srcCapsule 2D - array';
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotOrigin = _.capsule.originGet( srcCapsule );
@@ -551,7 +645,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
-  test.case = 'srcCapsule 2D - vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule 2D - vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotOrigin = _.capsule.originGet( srcCapsule );
@@ -559,7 +655,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
-  test.case = 'srcCapsule 3D - array'; /* */
+  /* */
+
+  test.case = 'srcCapsule 3D - array';
 
   var srcCapsule = [ 0, 1, 2, 3, 4, 5, 6 ];
   var gotOrigin = _.capsule.originGet( srcCapsule );
@@ -567,7 +665,9 @@ function originGet( test )
   test.identical( gotOrigin, expected );
   test.is( gotOrigin !== srcCapsule );
 
-  test.case = 'srcCapsule 3D - vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule 3D - vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5, 6 ] );
   var gotOrigin = _.capsule.originGet( srcCapsule );
@@ -594,7 +694,9 @@ function originGet( test )
 
 function endPointGet( test )
 {
-  test.case = 'Source capsule remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule remains unchanged';
 
   var srcCapsule = [ 0, 0, 1, 1, 2 ];
   var expected = _.capsule.tools.vectorAdapter.from( [ 1, 1 ] );
@@ -605,7 +707,9 @@ function endPointGet( test )
   var oldSrcCapsule = [ 0, 0, 1, 1, 2 ];
   test.equivalent( srcCapsule, oldSrcCapsule );
 
-  test.case = 'srcCapsule 1D - array'; /* */
+  /* */
+
+  test.case = 'srcCapsule 1D - array';
 
   var srcCapsule = [ 0, 1, 2 ];
   var gotDirection = _.capsule.endPointGet( srcCapsule );
@@ -613,7 +717,9 @@ function endPointGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
-  test.case = 'srcCapsule 1D - vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule 1D - vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2 ] );
   var gotDirection = _.capsule.endPointGet( srcCapsule );
@@ -621,7 +727,9 @@ function endPointGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
-  test.case = 'srcCapsule 2D - array'; /* */
+  /* */
+
+  test.case = 'srcCapsule 2D - array';
 
   var srcCapsule = [ 0, 1, 2, 3, 4 ];
   var gotDirection = _.capsule.endPointGet( srcCapsule );
@@ -629,7 +737,9 @@ function endPointGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
-  test.case = 'srcCapsule 2D - vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule 2D - vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
   var gotDirection = _.capsule.endPointGet( srcCapsule );
@@ -637,7 +747,9 @@ function endPointGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
-  test.case = 'srcCapsule 3D - array'; /* */
+  /* */
+
+  test.case = 'srcCapsule 3D - array';
 
   var srcCapsule = [ 0, 1, 2, 3, 4, 5, 6 ];
   var gotDirection = _.capsule.endPointGet( srcCapsule );
@@ -645,7 +757,9 @@ function endPointGet( test )
   test.identical( gotDirection, expected );
   test.is( gotDirection !== srcCapsule );
 
-  test.case = 'srcCapsule 3D - vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule 3D - vector';
 
   var srcCapsule = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4, 5, 6 ] );
   var gotDirection = _.capsule.endPointGet( srcCapsule );
@@ -673,7 +787,9 @@ function endPointGet( test )
 function radiusGet( test )
 {
 
-  test.case = 'Source capsule remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule remains unchanged';
 
   var srcCapsule = [ 0, 0, 1, 1, 2 ];
   var oldSrcCapsule = srcCapsule.slice();
@@ -684,7 +800,9 @@ function radiusGet( test )
   test.equivalent( srcCapsule, oldSrcCapsule );
   test.identical( gotRadius, expected );
 
-  test.case = 'One dimension capsule'; /* */
+  /* */
+
+  test.case = 'One dimension capsule';
 
   var capsule = [ 0, 1, 2 ];
   var expected =  2 ;
@@ -692,7 +810,9 @@ function radiusGet( test )
   var gotRadius = _.capsule.radiusGet( capsule );
   test.identical( gotRadius, expected );
 
-  test.case = 'Two dimension capsule'; /* */
+  /* */
+
+  test.case = 'Two dimension capsule';
 
   var capsule = [ 0, 0, 1, 1, 2 ];
   var expected = 2;
@@ -700,7 +820,9 @@ function radiusGet( test )
   var gotRadius = _.capsule.radiusGet( capsule );
   test.identical( gotRadius, expected );
 
-  test.case = 'Three dimension capsule'; /* */
+  /* */
+
+  test.case = 'Three dimension capsule';
 
   var capsule = [ 0, - 1, - 2, 2, 2, 2, 3 ];
   var expected = 3;
@@ -708,7 +830,9 @@ function radiusGet( test )
   var gotRadius = _.capsule.radiusGet( capsule );
   test.identical( gotRadius, expected );
 
-  test.case = 'Four dimension capsule'; /* */
+  /* */
+
+  test.case = 'Four dimension capsule';
 
   var capsule = [ 0, - 1, - 2, 2, 4, 4, 4, 4, 3 ];
   var expected =  3;
@@ -716,7 +840,9 @@ function radiusGet( test )
   var gotRadius = _.capsule.radiusGet( capsule );
   test.identical( gotRadius, expected );
 
-  test.case = 'NaN capsule'; /* */
+  /* */
+
+  test.case = 'NaN capsule';
 
   var capsule = [ NaN, NaN, 1 ];
   var expected = 1;
@@ -725,7 +851,9 @@ function radiusGet( test )
   test.identical( gotRadius, expected );
 
 
-  test.case = 'radiusGet+Set two dimensions'; /* */
+  /* */
+
+  test.case = 'radiusGet+Set two dimensions';
 
   var capsule = [ 0, 1, 2, 2, 1 ];
   var radiusOld = 1;
@@ -741,7 +869,9 @@ function radiusGet( test )
   var radiusSph = _.capsule.radiusGet( capsule );
   test.equivalent( radius, radiusSph );
 
-  test.case = 'radiusGet+Set three dimensions'; /* */
+  /* */
+
+  test.case = 'radiusGet+Set three dimensions';
 
   var capsule = [ 0, 0, 1, 1, 1, 2, 1 ];
   var radiusOld = 1;
@@ -778,7 +908,9 @@ function radiusGet( test )
 function radiusSet( test )
 {
 
-  test.case = 'Source radius remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source radius remains unchanged';
 
   var capsule = [ 0, 0, 1, 1, 0 ];
   var srcRadius = 2;
@@ -791,7 +923,9 @@ function radiusSet( test )
   var oldSrcRadius = 2;
   test.equivalent( srcRadius, oldSrcRadius );
 
-  test.case = 'One dimension capsule'; /* */
+  /* */
+
+  test.case = 'One dimension capsule';
 
   var capsule = [ 0, 1, 0 ];
   var radius = 2;
@@ -801,7 +935,9 @@ function radiusSet( test )
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Two dimension capsule'; /* */
+  /* */
+
+  test.case = 'Two dimension capsule';
 
   var capsule = [ 0, 0, 1, 1, 2 ];
   var radius = 3;
@@ -811,7 +947,9 @@ function radiusSet( test )
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Three dimension capsule'; /* */
+  /* */
+
+  test.case = 'Three dimension capsule';
 
   var capsule = [ 0, - 1, - 2, 1, 1, 1, 2 ];
   var radius = 4;
@@ -821,7 +959,9 @@ function radiusSet( test )
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Four dimension capsule'; /* */
+  /* */
+
+  test.case = 'Four dimension capsule';
 
   var capsule = [ 0, - 1, - 2, 2, 2, 2, 2, 2, 0 ];
   var radius = 5;
@@ -831,7 +971,9 @@ function radiusSet( test )
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
 
-  test.case = 'negative radius'; /* */
+  /* */
+
+  test.case = 'negative radius';
 
   var capsule = [ 1, 2, - 3 ];
   var radius = - 2;
@@ -841,7 +983,9 @@ function radiusSet( test )
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
 
-  test.case = 'NaN radius'; /* */
+  /* */
+
+  test.case = 'NaN radius';
 
   var capsule = [ 1, 2, 3 ];
   var radius = NaN;
@@ -851,7 +995,9 @@ function radiusSet( test )
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
 
-  test.case = 'NaN capsule'; /* */
+  /* */
+
+  test.case = 'NaN capsule';
 
   var capsule = [ NaN, NaN, 0 ];
   var radius = 2;
@@ -861,7 +1007,9 @@ function radiusSet( test )
   var gotCapsule = _.capsule.radiusSet( capsule, radius );
   test.identical( gotCapsule, expected );
 
-  test.case = 'radiusSet+Get one dimensions'; /* */
+  /* */
+
+  test.case = 'radiusSet+Get one dimensions';
 
   var capsule = [ 0, 2, 3 ];
   var radiusOld = 3;
@@ -878,7 +1026,9 @@ function radiusSet( test )
   var radiusSph = _.capsule.radiusGet( capsule );
   test.equivalent( radius, radiusSph );
 
-  test.case = 'radiusSet+Get two dimensions'; /* */
+  /* */
+
+  test.case = 'radiusSet+Get two dimensions';
 
   var capsule = [ 0, 0, 1, 1, 3 ];
   var radiusOld = 3;
@@ -917,7 +1067,9 @@ function radiusSet( test )
 function expand( test )
 {
 
-  test.case = 'Expansion array remains unchanged and Destination capsule changes'; /* */
+  /* */
+
+  test.case = 'Expansion array remains unchanged and Destination capsule changes';
 
   // var capsule = [  - 1, - 1 , 1, 1, 1 ];
   // var point = [ 0, 0 ];
@@ -938,7 +1090,9 @@ function expand( test )
   var oldCapsule = [ 0, 0, 1, 1, 2 ];
   test.is( oldCapsule !== gotCapsule );
 
-  test.case = 'Null capsule expanded'; /* */
+  /* */
+
+  test.case = 'Null capsule expanded';
 
   var capsule = null;
   var expand = [ 1, 2, 3, 1 ];
@@ -949,7 +1103,9 @@ function expand( test )
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Null capsule NOT expanded'; /* */
+  /* */
+
+  test.case = 'Null capsule NOT expanded';
 
   var capsule = null;
   var expand = [ 0, 0, 0, 0 ];
@@ -960,7 +1116,9 @@ function expand( test )
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
 
-  test.case = 'One side capsule expanded'; /* */
+  /* */
+
+  test.case = 'One side capsule expanded';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 1 ];
   var expand = [ 0, 0, 3, 0 ];
@@ -971,7 +1129,9 @@ function expand( test )
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule expanded'; /* */
+  /* */
+
+  test.case = 'Capsule expanded';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var expand = [ 1, 3, 1, 1 ];
@@ -980,7 +1140,9 @@ function expand( test )
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule expanded by value'; /* */
+  /* */
+
+  test.case = 'Capsule expanded by value';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
   var expand = 1;
@@ -991,7 +1153,9 @@ function expand( test )
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Same using array'; /* */
+  /* */
+
+  test.case = 'Same using array';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
   var expand = [ 1, 1, 1, 1 ];
@@ -1002,7 +1166,9 @@ function expand( test )
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule NOT expanded ( empty expand array )'; /* */
+  /* */
+
+  test.case = 'Capsule NOT expanded ( empty expand array )';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var expand = [  0, 0, 0, 0 ];
@@ -1013,7 +1179,9 @@ function expand( test )
   var gotCapsule = _.capsule.expand( capsule, expand );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule contracted by value'; /* */
+  /* */
+
+  test.case = 'Capsule contracted by value';
 
   var capsule = [ 0, 0, 0, 3, 3, 3, 4 ];
   var expand = - 1;
@@ -1024,7 +1192,9 @@ function expand( test )
 
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
-  test.case = 'Capsule contracted by array'; /* */
+  /* */
+
+  test.case = 'Capsule contracted by array';
 
   var capsule = [ 0, 0, 0, 3, 3, 3, 4 ];
   var expand = [ - 1, - 1, - 1, - 1 ];
@@ -1036,7 +1206,9 @@ function expand( test )
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
 
-  test.case = 'Capsule with decimal numbers expanded'; /* */
+  /* */
+
+  test.case = 'Capsule with decimal numbers expanded';
 
   var capsule = [ - 0.050, 0.002, -0.238, 0.194, 0.766, 0.766, 0.5 ];
   var expand = [ -0.100, 0, 0.100, 0.2 ];
@@ -1048,7 +1220,9 @@ function expand( test )
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
 
-  test.case = 'Null capsule of four dimensions expanded'; /* */
+  /* */
+
+  test.case = 'Null capsule of four dimensions expanded';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
   var expand = [ 1, 2, 3, 4, 5 ];
@@ -1060,7 +1234,9 @@ function expand( test )
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
 
-  test.case = 'Null capsule of 7 dimensions expanded'; /* */
+  /* */
+
+  test.case = 'Null capsule of 7 dimensions expanded';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ];
   var expand = [ 1, 2, 3 , 4, 5, 6, 7, 1 ];
@@ -1072,7 +1248,9 @@ function expand( test )
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
 
-  test.case = 'Capsule of 1 dimension expanded'; /* */
+  /* */
+
+  test.case = 'Capsule of 1 dimension expanded';
 
   var capsule = [ 0, 0, 0 ];
   var expand = 1;
@@ -1084,7 +1262,9 @@ function expand( test )
   // var gotBool = _.capsule.pointContains( capsule, point );
   // test.identical( gotBool, expected );
 
-  test.case = 'Null capsule expanded by value'; /* */
+  /* */
+
+  test.case = 'Null capsule expanded by value';
 
   var capsule = null;
   var expand =  4 ;
@@ -1098,55 +1278,73 @@ function expand( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.expand();
   });
 
-  test.case = 'Wrong type of argument'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( 'capsule', 'expand' );
   });
 
-  test.case = 'Too few arguments'; /* */
+  /* */
+
+  test.case = 'Too few arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.case = 'too many arguments'; /* */
+  /* */
+
+  test.case = 'too many arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 1 ], [ 1, 0, 1, 1 ] );
   });
 
-  test.case = 'empty arguments'; /* */
+  /* */
+
+  test.case = 'empty arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ ], [ ] );
   });
 
-  test.case = 'Wrong expand array dimension (capsule 3D vs array 4D)'; /* */
+  /* */
+
+  test.case = 'Wrong expand array dimension (capsule 3D vs array 4D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 0, 2, 1 ] );
   });
 
-  test.case = 'Wrong expand array dimension (capsule 3D vs array 2D)'; /* */
+  /* */
+
+  test.case = 'Wrong expand array dimension (capsule 3D vs array 2D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 1 ] );
   });
 
-  test.case = 'Wrong expand array dimension (capsule 2D vs array 1D)'; /* */
+  /* */
+
+  test.case = 'Wrong expand array dimension (capsule 2D vs array 1D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( [ 0, 0, 0, 0, 1 ], [ 0, 1 ] );
   });
 
-  test.case = 'Wrong expand array dimension (null capsule vs array 2D)'; /* */
+  /* */
+
+  test.case = 'Wrong expand array dimension (null capsule vs array 2D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.expand( null, [ 0, 1, 1 ] );
@@ -1159,7 +1357,9 @@ function expand( test )
 function project( test )
 {
 
-  test.case = 'Projection array remains unchanged and Destination capsule changes'; /* */
+  /* */
+
+  test.case = 'Projection array remains unchanged and Destination capsule changes';
 
   // var capsule = [  - 1, - 1 , 1, 1, 0 ];
   // var point = [ 0, 0 ];
@@ -1180,7 +1380,9 @@ function project( test )
   var oldCapsule = [ 0, 0, 1, 1, 1 ];
   test.is( oldCapsule !== gotCapsule );
 
-  test.case = 'Null capsule projected'; /* */
+  /* */
+
+  test.case = 'Null capsule projected';
 
   var capsule = null;
   var project = [ [ 1, 0, 0 ], 1, 2 ];
@@ -1191,7 +1393,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Null capsule NOT projected'; /* */
+  /* */
+
+  test.case = 'Null capsule NOT projected';
 
   var capsule = null;
   var project = [ [ 0, 0, 0 ], 0, 0 ];
@@ -1202,7 +1406,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule projected'; /* */
+  /* */
+
+  test.case = 'Capsule projected';
 
   var capsule = [ 0, 0, 0, 1, 0, 0, 2 ];
   var project = [ [ 0, 1, 0 ], 2, 3 ];
@@ -1213,7 +1419,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule expanded'; /* */
+  /* */
+
+  test.case = 'Capsule expanded';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 2, 2 ];
@@ -1224,7 +1432,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule contracted'; /* */
+  /* */
+
+  test.case = 'Capsule contracted';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 0.5, 0.5 ];
@@ -1235,7 +1445,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule translated'; /* */
+  /* */
+
+  test.case = 'Capsule translated';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var project = [ [ 1, 2, 3 ], 1, 1 ];
@@ -1246,7 +1458,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule reduced to a point'; /* */
+  /* */
+
+  test.case = 'Capsule reduced to a point';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0, 0 ];
@@ -1257,7 +1471,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule reduced to a sphere'; /* */
+  /* */
+
+  test.case = 'Capsule reduced to a sphere';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0, 1 ];
@@ -1268,7 +1484,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule NOT projected ( empty project array )'; /* */
+  /* */
+
+  test.case = 'Capsule NOT projected ( empty project array )';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 3 ];
   var project = [ [ 0, 0, 0 ], 1, 1 ];
@@ -1279,7 +1497,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule of four dimensions projected'; /* */
+  /* */
+
+  test.case = 'Capsule of four dimensions projected';
 
   var capsule = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 1 ];
   var project = [ [ 0, 0, 0, 0 ], 2, 4 ];
@@ -1288,7 +1508,9 @@ function project( test )
   var gotCapsule = _.capsule.project( capsule, project );
   test.identical( gotCapsule, expected );
 
-  test.case = 'Capsule of 1 dimension projected'; /* */
+  /* */
+
+  test.case = 'Capsule of 1 dimension projected';
 
   var capsule = [ 0, 1, 1 ];
   var project = [ [ 1 ], 2, 1 ];
@@ -1304,67 +1526,89 @@ function project( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project();
   });
 
-  test.case = 'Wrong type of argument'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( 'capsule', 'project' );
   });
 
-  test.case = 'Too few arguments'; /* */
+  /* */
+
+  test.case = 'Too few arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.case = 'too many arguments'; /* */
+  /* */
+
+  test.case = 'too many arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0 ], [ [ 0 ], 1, 0 ], [ [ 1 ], 0, 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (capsule 3D vs array 4D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (capsule 3D vs array 4D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 0, 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (capsule 3D vs array 2D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (capsule 3D vs array 2D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1 ], 1, 2 ] );
   });
 
-  test.case = 'Wrong project array dimension (capsule 2D vs array 1D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (capsule 2D vs array 1D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0 ], [ [ 0 ], 2, 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (null capsule vs array 2D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (null capsule vs array 2D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( null, [ [ 0, 1 ], 1, 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (project has less than 3 entries)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (project has less than 3 entries)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (project has more than 3 entries)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (project has more than 3 entries)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ 0, 0, 0, 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2, 3 ] );
   });
 
-  test.case = 'Empty arrays'; /* */
+  /* */
+
+  test.case = 'Empty arrays';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.project( [ ], [ [  ],  ] );
@@ -1377,7 +1621,9 @@ function project( test )
 function getProjectionFactors( test )
 {
 
-  test.case = 'Capsules remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsules remain unchanged';
 
   var dstCapsule = [ 0, 0, 1, 1, 1 ];
   var projCapsule = [ 0.5, 0.5, 2.5, 2.5, 2 ];
@@ -1392,7 +1638,9 @@ function getProjectionFactors( test )
   var oldProjCapsule = [ 0.5, 0.5, 2.5, 2.5, 2 ];
   test.identical( oldProjCapsule, projCapsule );
 
-  test.case = 'Capsule projected'; /* */
+  /* */
+
+  test.case = 'Capsule projected';
 
   var dstCapsule = [ 0, 0, 0, 1, 0, 0, 2 ];
   var projCapsule = [ -0.5, 1, 0, 1.5, 1, 0, 6 ];
@@ -1401,7 +1649,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Capsule expanded'; /* */
+  /* */
+
+  test.case = 'Capsule expanded';
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ -1, -1, -1, 3, 3, 3, 2 ];
@@ -1410,7 +1660,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Capsule contracted'; /* */
+  /* */
+
+  test.case = 'Capsule contracted';
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ];
@@ -1419,7 +1671,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Capsule translated'; /* */
+  /* */
+
+  test.case = 'Capsule translated';
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 1, 2, 3, 3, 4, 5, 1 ];
@@ -1428,7 +1682,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Capsule reduced to point'; /* */
+  /* */
+
+  test.case = 'Capsule reduced to point';
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 2, 3, 4, 2, 3, 4, 0 ];
@@ -1437,7 +1693,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Capsule reduced to a sphere'; /* */
+  /* */
+
+  test.case = 'Capsule reduced to a sphere';
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var projCapsule = [ 2, 3, 4, 2, 3, 4, 1 ];
@@ -1446,7 +1704,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Capsule NOT projected ( empty project array )'; /* */
+  /* */
+
+  test.case = 'Capsule NOT projected ( empty project array )';
 
   var dstCapsule = [ 0, 0, 0, 2, 2, 2, 3 ];
   var projCapsule = [ 0, 0, 0, 2, 2, 2, 3 ];
@@ -1455,7 +1715,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Null capsule of four dimensions projected'; /* */
+  /* */
+
+  test.case = 'Null capsule of four dimensions projected';
 
   var dstCapsule = [ -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 1 ];
   var projCapsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 4 ];
@@ -1464,7 +1726,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Capsule of 1 dimension projected'; /* */
+  /* */
+
+  test.case = 'Capsule of 1 dimension projected';
 
   var dstCapsule = [ 0, 1, 1 ];
   var projCapsule = [ 0.5, 2.5, 1 ];
@@ -1473,7 +1737,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Point to capsule'; /* */
+  /* */
+
+  test.case = 'Point to capsule';
 
   var dstCapsule = [ 3, 4, 3, 4, 0 ];
   var projCapsule = [ 5, 5, 7, 8, 0 ];
@@ -1482,7 +1748,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere to capsule'; /* */
+  /* */
+
+  test.case = 'Sphere to capsule';
 
   var dstCapsule = [ 3, 4, 3, 4, 1 ];
   var projCapsule = [ 5, 5, 7, 8, 1 ];
@@ -1491,7 +1759,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Segment to capsule'; /* */
+  /* */
+
+  test.case = 'Segment to capsule';
 
   var dstCapsule = [ 3, 4, 3, 5, 0 ];
   var projCapsule = [ 5, 5, 7, 8, 1 ];
@@ -1500,7 +1770,9 @@ function getProjectionFactors( test )
   var gotFactors = _.capsule.getProjectionFactors( dstCapsule, projCapsule );
   test.identical( gotFactors, expected );
 
-  test.case = 'Capsules not parallel'; /* */
+  /* */
+
+  test.case = 'Capsules not parallel';
 
   var dstCapsule = [ 3, 4, 3, 5, 1 ];
   var projCapsule = [ 5, 5, 7, 5, 1 ];
@@ -1511,7 +1783,9 @@ function getProjectionFactors( test )
 
   // Test cases including _.capsule.project()
 
-  test.case = 'Two equal capsules'; /* */
+  /* */
+
+  test.case = 'Two equal capsules';
 
   var dstCapsule = [ 0, 0, 1, 1, 1 ];
   var projCapsule = [ 0, 0, 1, 1, 1 ];
@@ -1523,7 +1797,9 @@ function getProjectionFactors( test )
   var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
   test.identical( gotCapsule, projCapsule );
 
-  test.case = 'Two equal point capsules'; /* */
+  /* */
+
+  test.case = 'Two equal point capsules';
 
   var dstCapsule = [ 3, 4, 3, 4, 0 ];
   var projCapsule = [ 3, 4, 3, 4, 0 ];
@@ -1535,7 +1811,9 @@ function getProjectionFactors( test )
   var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
   test.identical( gotCapsule, projCapsule );
 
-  test.case = 'Point to point'; /* */
+  /* */
+
+  test.case = 'Point to point';
 
   var dstCapsule = [ 3, 4, 3, 4, 0 ];
   var projCapsule = [ 5, 5, 5, 5, 0 ];
@@ -1547,7 +1825,9 @@ function getProjectionFactors( test )
   var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
   test.identical( gotCapsule, projCapsule );
 
-  test.case = 'Capsule to point'; /* */
+  /* */
+
+  test.case = 'Capsule to point';
 
   var dstCapsule = [ 3, 4, 6, 7, 1 ];
   var projCapsule = [ 5, 5, 5, 5, 0 ];
@@ -1559,7 +1839,9 @@ function getProjectionFactors( test )
   var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
   test.identical( gotCapsule, projCapsule );
 
-  test.case = 'Capsule translated'; /* */
+  /* */
+
+  test.case = 'Capsule translated';
 
   var dstCapsule = [ 3, 4, 6, 7, 2 ];
   var projCapsule = [ -1, 8, 2, 11, 2 ];
@@ -1571,7 +1853,9 @@ function getProjectionFactors( test )
   var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
   test.identical( gotCapsule, projCapsule );
 
-  test.case = 'Capsule contracted'; /* */
+  /* */
+
+  test.case = 'Capsule contracted';
 
   var dstCapsule = [ 0, 0, 4, 4, 2 ];
   var projCapsule = [ 1, 1, 3, 3, 1 ];
@@ -1583,7 +1867,9 @@ function getProjectionFactors( test )
   var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
   test.identical( gotCapsule, projCapsule );
 
-  test.case = 'Capsule expanded'; /* */
+  /* */
+
+  test.case = 'Capsule expanded';
 
   var dstCapsule = [ 0, 0, 4, 4, 1 ];
   var projCapsule = [ -1, -1, 5, 5, 3/2 ];
@@ -1595,7 +1881,9 @@ function getProjectionFactors( test )
   var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
   test.equivalent( gotCapsule, projCapsule );
 
-  test.case = 'Capsule expanded on length and contracted on radius'; /* */
+  /* */
+
+  test.case = 'Capsule expanded on length and contracted on radius';
 
   var dstCapsule = [ 0, 0, 4, 4, 4 ];
   var projCapsule = [ -1, -1, 5, 5, 1 ];
@@ -1607,7 +1895,9 @@ function getProjectionFactors( test )
   var gotCapsule = _.capsule.project( dstCapsule, gotFactors );
   test.equivalent( gotCapsule, projCapsule );
 
-  test.case = 'Capsule projected'; /* */
+  /* */
+
+  test.case = 'Capsule projected';
 
   var dstCapsule = [ 0, 0, 4, 4, 2 ];
   var projCapsule = [ -7, -3, 9, 13, 4 ];
@@ -1624,73 +1914,97 @@ function getProjectionFactors( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors();
   });
 
-  test.case = 'Wrong type of argument - string'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - string';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( 'capsule', 'projCapsule' );
   });
 
-  test.case = 'Wrong type of argument - null'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - null';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( null, [ 0, 1, 2, 3, 1 ] );
   });
 
-  test.case = 'Wrong type of argument - null'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - null';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 1, 2, 3, 1 ], null );
   });
 
-  test.case = 'Wrong type of argument - undefined'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - undefined';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( undefined, [ 0, 1, 2, 3, 1 ] );
   });
 
-  test.case = 'Wrong type of argument - undefined'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - undefined';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 1, 2, 3, 1 ], undefined );
   });
 
-  test.case = 'Empty arguments'; /* */
+  /* */
+
+  test.case = 'Empty arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [], [] );
   });
 
-  test.case = 'Too few arguments'; /* */
+  /* */
+
+  test.case = 'Too few arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.case = 'too many arguments'; /* */
+  /* */
+
+  test.case = 'too many arguments';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (capsule 3D vs capsule 4D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (capsule 3D vs capsule 4D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 1 ], [ 1, 1, 1, 1, 0, 1, 0, 2, 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (capsule 3D vs capsule 2D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (capsule 3D vs capsule 2D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 1 ], [ 0, 1, 2, 3, 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (capsule 2D vs capsule 1D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (capsule 2D vs capsule 1D)';
   test.shouldThrowErrorSync( function()
   {
     _.capsule.getProjectionFactors( [ 0, 0, 0, 0, 1 ], [ 0, 2, 1 ] );
@@ -1703,7 +2017,9 @@ function getProjectionFactors( test )
 function pointContains( test )
 {
 
-  test.case = 'Capsule and Point remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and Point remain unchanged';
 
   var capsule = [  - 1,  - 1 , 1, 1, 1 ];
   var point = [ 0, 0 ];
@@ -1718,7 +2034,9 @@ function pointContains( test )
   var oldPoint = [ 0, 0 ];
   test.identical( point, oldPoint );
 
-  test.case = 'Null capsule contains point'; /* */
+  /* */
+
+  test.case = 'Null capsule contains point';
 
   var capsule = null;
   var point = [ 0, 0, 0 ];
@@ -1727,7 +2045,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Point capsule contains Point'; /* */
+  /* */
+
+  test.case = 'Point capsule contains Point';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -1736,7 +2056,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule capsule contains point'; /* */
+  /* */
+
+  test.case = 'Capsule capsule contains point';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
   var point = [  1, 1, 1 ];
@@ -1745,7 +2067,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule capsule doesn´t contain point'; /* */
+  /* */
+
+  test.case = 'Capsule capsule doesn´t contain point';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0 ];
   var point = [  1, 1, 1.1 ];
@@ -1754,7 +2078,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Sphere capsule contains point'; /* */
+  /* */
+
+  test.case = 'Sphere capsule contains point';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 1 ];
   var point = [  1, 0, 0 ];
@@ -1763,7 +2089,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Sphere capsule doesn´t contain point'; /* */
+  /* */
+
+  test.case = 'Sphere capsule doesn´t contain point';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 1 ];
   var point = [  1, 1, 0 ];
@@ -1773,7 +2101,9 @@ function pointContains( test )
   test.identical( gotBool,  expected );
 
 
-  test.case = 'Capsule under point'; /* */
+  /* */
+
+  test.case = 'Capsule under point';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var point = [ 0, 1, 4 ];
@@ -1782,7 +2112,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Point closer to origin'; /* */
+  /* */
+
+  test.case = 'Point closer to origin';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var point = [ 0, 0, -2 ];
@@ -1791,7 +2123,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule of four dimensions contains point'; /* */
+  /* */
+
+  test.case = 'Capsule of four dimensions contains point';
 
   var capsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0, 1 ];
@@ -1800,7 +2134,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule of four dimensions doesn´t contain point'; /* */
+  /* */
+
+  test.case = 'Capsule of four dimensions doesn´t contain point';
 
   var capsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 1 ];
   var point = [ 0, 0, 0 , 2 ];
@@ -1809,7 +2145,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule of 1 dimension contains point'; /* */
+  /* */
+
+  test.case = 'Capsule of 1 dimension contains point';
 
   var capsule = [ 0, 2, 1 ];
   var point = [ 1 ];
@@ -1818,7 +2156,9 @@ function pointContains( test )
   var gotBool = _.capsule.pointContains( capsule, point );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule of 1 dimension desn´t contain point '; /* */
+  /* */
+
+  test.case = 'Capsule of 1 dimension desn´t contain point ';
 
   var capsule = [ 0, 2, 1 ];
   var point = [ - 3 ];
@@ -1851,7 +2191,9 @@ function pointContains( test )
 function pointDistance( test )
 {
 
-  test.case = 'Capsule and Point remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and Point remain unchanged';
 
   var capsule = [  - 1,  - 1 , 1, 1, 0 ];
   var point = [ 0, 0 ];
@@ -1866,7 +2208,9 @@ function pointDistance( test )
   var oldPoint = [ 0, 0 ];
   test.identical( point, oldPoint );
 
-  test.case = 'Null capsule Distance empty point'; /* */
+  /* */
+
+  test.case = 'Null capsule Distance empty point';
 
   var capsule = null;
   var point = [ 0, 0, 0 ];
@@ -1875,7 +2219,9 @@ function pointDistance( test )
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Point capsule Distance same Point'; /* */
+  /* */
+
+  test.case = 'Point capsule Distance same Point';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -1884,7 +2230,9 @@ function pointDistance( test )
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Point capsule Distance other Point'; /* */
+  /* */
+
+  test.case = 'Point capsule Distance other Point';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var point = [ 3, 4, 0 ];
@@ -1893,7 +2241,9 @@ function pointDistance( test )
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Capsule contains point in the middle'; /* */
+  /* */
+
+  test.case = 'Capsule contains point in the middle';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var point = [  1, 1, 1 ];
@@ -1902,7 +2252,9 @@ function pointDistance( test )
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Capsule contains point'; /* */
+  /* */
+
+  test.case = 'Capsule contains point';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var point = [  1, 1, 1.5 ];
@@ -1911,7 +2263,9 @@ function pointDistance( test )
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Capsule under point'; /* */
+  /* */
+
+  test.case = 'Capsule under point';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var point = [ 0, 1, 4 ];
@@ -1920,7 +2274,9 @@ function pointDistance( test )
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Point closer to origin'; /* */
+  /* */
+
+  test.case = 'Point closer to origin';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var point = [ 0, 0, - 2 ];
@@ -1929,7 +2285,9 @@ function pointDistance( test )
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Capsule of four dimensions distance '; /* */
+  /* */
+
+  test.case = 'Capsule of four dimensions distance ';
 
   var capsule = [ - 1, - 1, - 1, - 1, 1, 1, 1, 1, 2 ];
   var point = [ 0, 0, 0 , 4 ];
@@ -1938,7 +2296,9 @@ function pointDistance( test )
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Capsule of 1 dimension contains point'; /* */
+  /* */
+
+  test.case = 'Capsule of 1 dimension contains point';
 
   var capsule = [ 0, 2, 1 ];
   var point = [ 1 ];
@@ -1947,7 +2307,9 @@ function pointDistance( test )
   var gotDistance = _.capsule.pointDistance( capsule, point );
   test.identical( gotDistance,  expected );
 
-  test.case = 'Capsule of 1 dimension distance'; /* */
+  /* */
+
+  test.case = 'Capsule of 1 dimension distance';
 
   var capsule = [ 0, 2, 2 ];
   var point = [ - 3 ];
@@ -1979,7 +2341,9 @@ function pointDistance( test )
 function pointClosestPoint( test )
 {
 
-  test.case = 'Capsule and Point remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and Point remain unchanged';
 
   var capsule = [  - 1, - 1 , 1, 1, 1 ];
   var point = [ 0, 0 ];
@@ -1994,7 +2358,9 @@ function pointClosestPoint( test )
   var oldPoint = [ 0, 0 ];
   test.identical( point, oldPoint );
 
-  test.case = 'Null capsule - empty point'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty point';
 
   var capsule = null;
   var point = [ 0, 0, 0 ];
@@ -2003,7 +2369,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Point capsule - same Point'; /* */
+  /* */
+
+  test.case = 'Point capsule - same Point';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var point = [ 0, 0, 0 ];
@@ -2012,7 +2380,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Point capsule - other Point'; /* */
+  /* */
+
+  test.case = 'Point capsule - other Point';
 
   var capsule = [ 1, 2, 3, 0, 0, 0, 0 ];
   var point = [ 3, 4, 5 ];
@@ -2021,7 +2391,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule contains point in the middle'; /* */
+  /* */
+
+  test.case = 'Capsule contains point in the middle';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var point = [ 1, 1, 1 ];
@@ -2030,7 +2402,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule contains point'; /* */
+  /* */
+
+  test.case = 'Capsule contains point';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var point = [ 1.2, 0.9, 1.3 ];
@@ -2039,7 +2413,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule under point'; /* */
+  /* */
+
+  test.case = 'Capsule under point';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var point = [ 0, 0, 4 ];
@@ -2048,7 +2424,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Point closer to origin'; /* */
+  /* */
+
+  test.case = 'Point closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var point = [ - 2, - 2, - 2 ];
@@ -2057,7 +2435,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule of four dimensions distance '; /* */
+  /* */
+
+  test.case = 'Capsule of four dimensions distance ';
 
   var capsule = [ - 1, - 1, - 1, - 1, 3, 3, 3, 3, 1 ];
   var point = [ 0, 0, 0, 2 ];
@@ -2066,7 +2446,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule of 1 dimension contains point'; /* */
+  /* */
+
+  test.case = 'Capsule of 1 dimension contains point';
 
   var capsule = [ 0, 2, 1 ];
   var point = [ 1 ];
@@ -2075,7 +2457,9 @@ function pointClosestPoint( test )
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule of 1 dimension distance'; /* */
+  /* */
+
+  test.case = 'Capsule of 1 dimension distance';
 
   var capsule = [ 0, 2, 1 ];
   var point = [ - 3 ];
@@ -2107,7 +2491,9 @@ function pointClosestPoint( test )
 function boxContains( test )
 {
 
-  test.case = 'Capsule and box remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and box remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2122,7 +2508,9 @@ function boxContains( test )
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( box, oldBox );
 
-  test.case = 'Null capsule - empty box'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty box';
 
   var capsule = null;
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2131,7 +2519,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - same box'; /* */
+  /* */
+
+  test.case = 'point capsule - same box';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2140,7 +2530,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 2, 0.5 ];
   var box = [ 1, 2, 4, 3, 4, 0 ];
@@ -2149,7 +2541,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule in box'; /* */
+  /* */
+
+  test.case = 'point capsule in box';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var box = [ 1, 2, 2, 3, 4, 4 ];
@@ -2158,7 +2552,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule contains box'; /* */
+  /* */
+
+  test.case = 'Capsule contains box';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2167,7 +2563,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule and box intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and box intersect';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var box = [ 0, 0, 2, 4, 4, 5 ];
@@ -2176,7 +2574,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule over box'; /* */
+  /* */
+
+  test.case = 'Capsule over box';
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
@@ -2185,7 +2585,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box closer to origin'; /* */
+  /* */
+
+  test.case = 'box closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
@@ -2194,7 +2596,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = '2D intersection'; /* */
+  /* */
+
+  test.case = '2D intersection';
 
   var capsule = [ 0, 0, 2, 2, 1 ];
   var box = [ 1, 2, 3, 4 ];
@@ -2203,7 +2607,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = '2D no intersection'; /* */
+  /* */
+
+  test.case = '2D no intersection';
 
   var capsule = [ 0, 0, 2, -2, 1 ];
   var box = [ 1, 2, 3, 4 ];
@@ -2212,7 +2618,9 @@ function boxContains( test )
   var gotBool = _.capsule.boxContains( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = '2D contained'; /* */
+  /* */
+
+  test.case = '2D contained';
 
   var capsule = [ 0, 0, 2, 2, 1 ];
   var box = [ 1, 1, 2, 2 ];
@@ -2245,7 +2653,9 @@ function boxContains( test )
 function boxIntersects( test )
 {
 
-  test.case = 'Capsule and box remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and box remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2260,7 +2670,9 @@ function boxIntersects( test )
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( box, oldBox );
 
-  test.case = 'Null capsule - empty box'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty box';
 
   var capsule = null;
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2269,7 +2681,9 @@ function boxIntersects( test )
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - same box'; /* */
+  /* */
+
+  test.case = 'point capsule - same box';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2278,7 +2692,9 @@ function boxIntersects( test )
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var box = [ 1, 2, 4, 3, 4, 0 ];
@@ -2287,7 +2703,9 @@ function boxIntersects( test )
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'sphere capsule in box'; /* */
+  /* */
+
+  test.case = 'sphere capsule in box';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0.1 ];
   var box = [ 1, 2, 2, 3, 4, 4 ];
@@ -2296,7 +2714,9 @@ function boxIntersects( test )
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule contains box'; /* */
+  /* */
+
+  test.case = 'Capsule contains box';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2305,7 +2725,9 @@ function boxIntersects( test )
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule and box intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and box intersect';
 
   var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
   var box = [ 0, 0, 1, 4, 4, 4 ];
@@ -2314,7 +2736,9 @@ function boxIntersects( test )
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule over box'; /* */
+  /* */
+
+  test.case = 'Capsule over box';
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
@@ -2323,7 +2747,9 @@ function boxIntersects( test )
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box closer to origin'; /* */
+  /* */
+
+  test.case = 'box closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
@@ -2332,7 +2758,9 @@ function boxIntersects( test )
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = '2D intersection'; /* */
+  /* */
+
+  test.case = '2D intersection';
 
   var capsule = [ 0, 0, 2, 2, 0.2 ];
   var box = [ 1, 2, 3, 4 ];
@@ -2341,7 +2769,9 @@ function boxIntersects( test )
   var gotBool = _.capsule.boxIntersects( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = '2D no intersection'; /* */
+  /* */
+
+  test.case = '2D no intersection';
 
   var capsule = [ 0, 0, 2, -2, 0.3 ];
   var box = [ 1, 2, 3, 4 ];
@@ -2374,7 +2804,9 @@ function boxIntersects( test )
 
 function boxDistance( test )
 {
-  test.case = 'Capsule and box remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and box remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2389,7 +2821,9 @@ function boxDistance( test )
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( box, oldBox );
 
-  test.case = 'Null capsule - empty box'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty box';
 
   var capsule = null;
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2398,7 +2832,9 @@ function boxDistance( test )
   var gotBool = _.capsule.boxDistance( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box capsule - same box'; /* */
+  /* */
+
+  test.case = 'box capsule - same box';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2407,7 +2843,9 @@ function boxDistance( test )
   var gotBool = _.capsule.boxDistance( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule'; /* */
+  /* */
+
+  test.case = 'point capsule';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var box = [ 1, 2, 4, 3, 4, 5 ];
@@ -2416,7 +2854,9 @@ function boxDistance( test )
   var gotBool = _.capsule.boxDistance( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'sphere capsule in box'; /* */
+  /* */
+
+  test.case = 'sphere capsule in box';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0.1 ];
   var box = [ 1, 2, 2, 3, 4, 4 ];
@@ -2425,7 +2865,9 @@ function boxDistance( test )
   var gotBool = _.capsule.boxDistance( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule and box intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and box intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2434,7 +2876,9 @@ function boxDistance( test )
   var gotBool = _.capsule.boxDistance( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule over box'; /* */
+  /* */
+
+  test.case = 'Capsule over box';
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 1 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
@@ -2443,7 +2887,9 @@ function boxDistance( test )
   var gotBool = _.capsule.boxDistance( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box corner closer to origin'; /* */
+  /* */
+
+  test.case = 'box corner closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
@@ -2452,7 +2898,9 @@ function boxDistance( test )
   var gotBool = _.capsule.boxDistance( capsule, box );
   test.identical( gotBool, expected );
 
-  test.case = 'box side closer to origin'; /* */
+  /* */
+
+  test.case = 'box side closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.2 ];
   var box = [ -1, -1, -1, 0.5, 0.5, - 0.3 ];
@@ -2461,7 +2909,9 @@ function boxDistance( test )
   var gotBool = _.capsule.boxDistance( capsule, box );
   test.equivalent( gotBool, expected );
 
-  test.case = '2D'; /* */
+  /* */
+
+  test.case = '2D';
 
   var capsule = [ 2, 2, 3, 3, 1 ];
   var box = [ 0, 0, 1, 1 ];
@@ -2493,7 +2943,9 @@ function boxDistance( test )
 
 function boxClosestPoint( test )
 {
-  test.case = 'Capsule and box remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and box remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2508,7 +2960,9 @@ function boxClosestPoint( test )
   var oldBox = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( box, oldBox );
 
-  test.case = 'Null capsule - empty box'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty box';
 
   var capsule = null;
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2517,7 +2971,9 @@ function boxClosestPoint( test )
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'box capsule - same box'; /* */
+  /* */
+
+  test.case = 'box capsule - same box';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2526,7 +2982,9 @@ function boxClosestPoint( test )
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'point capsule'; /* */
+  /* */
+
+  test.case = 'point capsule';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var box = [ 1, 2, 4, 3, 4, 0 ];
@@ -2535,7 +2993,9 @@ function boxClosestPoint( test )
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'sphere capsule in box'; /* */
+  /* */
+
+  test.case = 'sphere capsule in box';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0.1 ];
   var box = [ 1, 2, 2, 3, 4, 4 ];
@@ -2544,7 +3004,9 @@ function boxClosestPoint( test )
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Capsule and box intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and box intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2553,7 +3015,9 @@ function boxClosestPoint( test )
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'Capsule over box'; /* */
+  /* */
+
+  test.case = 'Capsule over box';
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var box = [ 0, 1, 1, 3, 7, 3 ];
@@ -2562,7 +3026,9 @@ function boxClosestPoint( test )
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'box corner closer to origin'; /* */
+  /* */
+
+  test.case = 'box corner closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var box = [ - 2, - 2, - 2, -1, -1, -1 ];
@@ -2571,7 +3037,9 @@ function boxClosestPoint( test )
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
 
-  test.case = 'box side closer to origin'; /* */
+  /* */
+
+  test.case = 'box side closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.1 ];
   var box = [ -1, -1, -1, 0.5, 0.5, - 0.3 ];
@@ -2580,7 +3048,9 @@ function boxClosestPoint( test )
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.equivalent( gotPoint, expected );
 
-  test.case = 'box corner closer to end'; /* */
+  /* */
+
+  test.case = 'box corner closer to end';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var box = [ 6, 6, 8, 6, 9, 10 ];
@@ -2589,7 +3059,9 @@ function boxClosestPoint( test )
   var gotPoint = _.capsule.boxClosestPoint( capsule, box );
   test.identical( gotPoint, expected );
 
-  test.case = '2D'; /* */
+  /* */
+
+  test.case = '2D';
 
   var capsule = [ 0, 0, 2, 10, 1 ];
   var box = [ 6, 7, 10, 8 ];
@@ -2622,7 +3094,9 @@ function boxClosestPoint( test )
 function boundingBoxGet( test )
 {
 
-  test.case = 'Source capsule remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule remains unchanged';
 
   var srcCapsule = [ 0, 0, 0, 3, 3, 3, 1 ];
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
@@ -2635,7 +3109,9 @@ function boundingBoxGet( test )
   var oldSrcCapsule = [ 0, 0, 0, 3, 3, 3, 1 ];
   test.identical( srcCapsule, oldSrcCapsule );
 
-  test.case = 'Zero capsule to zero box'; /* */
+  /* */
+
+  test.case = 'Zero capsule to zero box';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
@@ -2644,7 +3120,9 @@ function boundingBoxGet( test )
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
 
-  test.case = 'Capsule inside box'; /* */
+  /* */
+
+  test.case = 'Capsule inside box';
 
   var srcCapsule = [ 1, 1, 1, 4, 4, 4, 0.1 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
@@ -2653,7 +3131,9 @@ function boundingBoxGet( test )
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.equivalent( gotBox, expected );
 
-  test.case = 'Capsule outside Box'; /* */
+  /* */
+
+  test.case = 'Capsule outside Box';
 
   var srcCapsule = [ - 1, - 1, - 1, 1, 1, 1, 0.5 ];
   var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
@@ -2662,7 +3142,9 @@ function boundingBoxGet( test )
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
 
-  test.case = 'Point capsule and point Box'; /* */
+  /* */
+
+  test.case = 'Point capsule and point Box';
 
   var srcCapsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
@@ -2671,7 +3153,9 @@ function boundingBoxGet( test )
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
 
-  test.case = 'Sphere capsule'; /* */
+  /* */
+
+  test.case = 'Sphere capsule';
 
   var srcCapsule = [ 1, 2, 3, 1, 2, 3, 1 ];
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
@@ -2680,7 +3164,9 @@ function boundingBoxGet( test )
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
 
-  test.case = 'srcCapsule vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule vector';
 
   var srcCapsule = _.vectorAdapter.from( [ - 8, - 5, 4.5, 4, 7, 16.5, 2 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
@@ -2689,7 +3175,9 @@ function boundingBoxGet( test )
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox vector - 2D'; /* */
+  /* */
+
+  test.case = 'dstBox vector - 2D';
 
   var srcCapsule = [ - 1, 0, - 2, 3, 1 ];
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
@@ -2698,7 +3186,9 @@ function boundingBoxGet( test )
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox null'; /* */
+  /* */
+
+  test.case = 'dstBox null';
 
   var srcCapsule = [ 2.2, 3.3, - 4.4, 1, 0 ];
   var dstBox = null;
@@ -2707,7 +3197,9 @@ function boundingBoxGet( test )
   var gotBox = _.capsule.boundingBoxGet( dstBox, srcCapsule );
   test.equivalent( gotBox, expected );
 
-  test.case = 'dstBox undefined'; /* */
+  /* */
+
+  test.case = 'dstBox undefined';
 
   var srcCapsule = [ - 1, - 3, - 5, 0, 0.5 ];
   var dstBox = undefined;
@@ -2741,7 +3233,9 @@ function boundingBoxGet( test )
 function capsuleContains( test )
 {
 
-  test.case = 'Capsules remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsules remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -2756,7 +3250,9 @@ function capsuleContains( test )
   var oldTstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   test.identical( tstCapsule, oldTstCapsule );
 
-  test.case = 'point capsule - same capsule'; /* */
+  /* */
+
+  test.case = 'point capsule - same capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var tstCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
@@ -2765,7 +3261,9 @@ function capsuleContains( test )
   var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var tstCapsule = [ 1, 2, 4, 3, 4, 0, 0.5 ];
@@ -2774,7 +3272,9 @@ function capsuleContains( test )
   var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'sphere capsule in capsule'; /* */
+  /* */
+
+  test.case = 'sphere capsule in capsule';
 
   var capsule = [ 1, 2, 1, 1, 2, 3, 3 ];
   var tstCapsule = [ 1, 2, 2, 1, 2, 2, 1 ];
@@ -2783,7 +3283,9 @@ function capsuleContains( test )
   var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule contains capsule'; /* */
+  /* */
+
+  test.case = 'Capsule contains capsule';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -2792,7 +3294,9 @@ function capsuleContains( test )
   var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsules intersect'; /* */
+  /* */
+
+  test.case = 'Capsules intersect';
 
   var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
   var tstCapsule = [ 0, 0, 0, 0, 4, 0, 0.2 ];
@@ -2801,7 +3305,9 @@ function capsuleContains( test )
   var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule over capsule'; /* */
+  /* */
+
+  test.case = 'Capsule over capsule';
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var tstCapsule = [ 0, 1, 1, 3, 7, 3, 1 ];
@@ -2810,7 +3316,9 @@ function capsuleContains( test )
   var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'capsule closer to origin'; /* */
+  /* */
+
+  test.case = 'capsule closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
   var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
@@ -2819,7 +3327,9 @@ function capsuleContains( test )
   var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = '2D contained'; /* */
+  /* */
+
+  test.case = '2D contained';
 
   var capsule = [ 0, 0, 4, 4, 3 ];
   var tstCapsule = [ 1, 2, 3, 4, 1 ];
@@ -2828,7 +3338,9 @@ function capsuleContains( test )
   var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = '2D intersection'; /* */
+  /* */
+
+  test.case = '2D intersection';
 
   var capsule = [ 0, 0, 2, 2, 0.2 ];
   var tstCapsule = [ 1, 2, 3, 4, 1 ];
@@ -2837,7 +3349,9 @@ function capsuleContains( test )
   var gotBool = _.capsule.capsuleContains( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = '2D no intersection'; /* */
+  /* */
+
+  test.case = '2D no intersection';
 
   var capsule = [ 0, 0, 2, -2, 0.3 ];
   var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
@@ -2873,7 +3387,9 @@ function capsuleContains( test )
 function capsuleIntersects( test )
 {
 
-  test.case = 'Capsules remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsules remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -2888,7 +3404,9 @@ function capsuleIntersects( test )
   var oldTstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   test.identical( tstCapsule, oldTstCapsule );
 
-  test.case = 'Null capsule - empty capsule'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty capsule';
 
   var capsule = null;
   var tstCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
@@ -2897,7 +3415,9 @@ function capsuleIntersects( test )
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - same capsule'; /* */
+  /* */
+
+  test.case = 'point capsule - same capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var tstCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
@@ -2906,7 +3426,9 @@ function capsuleIntersects( test )
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var tstCapsule = [ 1, 2, 4, 3, 4, 0, 0.5 ];
@@ -2915,7 +3437,9 @@ function capsuleIntersects( test )
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'sphere capsule in capsule'; /* */
+  /* */
+
+  test.case = 'sphere capsule in capsule';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0.1 ];
   var tstCapsule = [ 1, 2, 2, 3, 4, 4, 2 ];
@@ -2924,7 +3448,9 @@ function capsuleIntersects( test )
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule contains capsule'; /* */
+  /* */
+
+  test.case = 'Capsule contains capsule';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -2933,7 +3459,9 @@ function capsuleIntersects( test )
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsules intersect'; /* */
+  /* */
+
+  test.case = 'Capsules intersect';
 
   var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
   var tstCapsule = [ 0, 0, 0, 0, 4, 0, 0.2 ];
@@ -2942,7 +3470,9 @@ function capsuleIntersects( test )
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule over capsule'; /* */
+  /* */
+
+  test.case = 'Capsule over capsule';
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var tstCapsule = [ 0, 1, 1, 3, 7, 3, 1 ];
@@ -2951,7 +3481,9 @@ function capsuleIntersects( test )
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'capsule closer to origin'; /* */
+  /* */
+
+  test.case = 'capsule closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
   var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
@@ -2960,7 +3492,9 @@ function capsuleIntersects( test )
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = '2D intersection'; /* */
+  /* */
+
+  test.case = '2D intersection';
 
   var capsule = [ 0, 0, 2, 2, 0.2 ];
   var tstCapsule = [ 1, 2, 3, 4, 1 ];
@@ -2969,7 +3503,9 @@ function capsuleIntersects( test )
   var gotBool = _.capsule.capsuleIntersects( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = '2D no intersection'; /* */
+  /* */
+
+  test.case = '2D no intersection';
 
   var capsule = [ 0, 0, 2, -2, 0.3 ];
   var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
@@ -3005,7 +3541,9 @@ function capsuleIntersects( test )
 function capsuleDistance( test )
 {
 
-  test.case = 'Capsules remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsules remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -3020,7 +3558,9 @@ function capsuleDistance( test )
   var oldTstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   test.identical( tstCapsule, oldTstCapsule );
 
-  test.case = 'Null capsule - empty capsule'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty capsule';
 
   var capsule = null;
   var tstCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
@@ -3029,7 +3569,9 @@ function capsuleDistance( test )
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - same capsule'; /* */
+  /* */
+
+  test.case = 'point capsule - same capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var tstCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
@@ -3038,7 +3580,9 @@ function capsuleDistance( test )
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var tstCapsule = [ 1, 2, 4, 3, 4, 0, 0.5 ];
@@ -3047,7 +3591,9 @@ function capsuleDistance( test )
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.equivalent( gotBool, expected );
 
-  test.case = 'sphere capsule in capsule'; /* */
+  /* */
+
+  test.case = 'sphere capsule in capsule';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0.1 ];
   var tstCapsule = [ 1, 2, 2, 3, 4, 4, 2 ];
@@ -3056,7 +3602,9 @@ function capsuleDistance( test )
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule contains capsule'; /* */
+  /* */
+
+  test.case = 'Capsule contains capsule';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -3065,7 +3613,9 @@ function capsuleDistance( test )
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsules intersect'; /* */
+  /* */
+
+  test.case = 'Capsules intersect';
 
   var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
   var tstCapsule = [ 0, 0, 0, 0, 4, 0, 0.2 ];
@@ -3074,7 +3624,9 @@ function capsuleDistance( test )
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule over capsule'; /* */
+  /* */
+
+  test.case = 'Capsule over capsule';
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var tstCapsule = [ 0, 1, 1, 3, 7, 3, 1 ];
@@ -3083,7 +3635,9 @@ function capsuleDistance( test )
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'capsule closer to origin'; /* */
+  /* */
+
+  test.case = 'capsule closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
   var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
@@ -3092,7 +3646,9 @@ function capsuleDistance( test )
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = '2D intersection'; /* */
+  /* */
+
+  test.case = '2D intersection';
 
   var capsule = [ 0, 0, 2, 2, 0.2 ];
   var tstCapsule = [ 1, 2, 3, 4, 1 ];
@@ -3101,7 +3657,9 @@ function capsuleDistance( test )
   var gotBool = _.capsule.capsuleDistance( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = '2D no intersection'; /* */
+  /* */
+
+  test.case = '2D no intersection';
 
   var capsule = [ 0, 0, 2, -2, 0.3 ];
   var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
@@ -3137,7 +3695,9 @@ function capsuleDistance( test )
 function capsuleClosestPoint( test )
 {
 
-  test.case = 'Capsules remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsules remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -3152,7 +3712,9 @@ function capsuleClosestPoint( test )
   var oldTstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   test.identical( tstCapsule, oldTstCapsule );
 
-  test.case = 'Null capsule - empty capsule'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty capsule';
 
   var capsule = null;
   var tstCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
@@ -3161,7 +3723,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - same capsule'; /* */
+  /* */
+
+  test.case = 'point capsule - same capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var tstCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
@@ -3170,7 +3734,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var tstCapsule = [ 1, 2, 4, 3, 4, 0, 0.5 ];
@@ -3179,7 +3745,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'sphere capsule in capsule'; /* */
+  /* */
+
+  test.case = 'sphere capsule in capsule';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0.1 ];
   var tstCapsule = [ 1, 2, 2, 3, 4, 4, 2 ];
@@ -3188,7 +3756,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule contains capsule'; /* */
+  /* */
+
+  test.case = 'Capsule contains capsule';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var tstCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
@@ -3197,7 +3767,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsules intersect'; /* */
+  /* */
+
+  test.case = 'Capsules intersect';
 
   var capsule = [ 0, 0, -2, 0, 0, 2, 1 ];
   var tstCapsule = [ 0, 0, 0, 0, 4, 0, 0.2 ];
@@ -3206,7 +3778,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule over capsule'; /* */
+  /* */
+
+  test.case = 'Capsule over capsule';
 
   var capsule = [ 0, 0, 4, 0, 0, 6, 0.5 ];
   var tstCapsule = [ 0, 1, 1, 3, 7, 3, 1 ];
@@ -3215,7 +3789,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = 'capsule closer to origin'; /* */
+  /* */
+
+  test.case = 'capsule closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.75 ];
   var tstCapsule = [ - 2, - 2, - 2, -1, -1, -1, 0.1 ];
@@ -3224,7 +3800,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = '2D intersection'; /* */
+  /* */
+
+  test.case = '2D intersection';
 
   var capsule = [ 0, 0, 2, 2, 0.2 ];
   var tstCapsule = [ 1, 2, 3, 4, 1 ];
@@ -3233,7 +3811,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.identical( gotBool,  expected );
 
-  test.case = '2D no intersection'; /* */
+  /* */
+
+  test.case = '2D no intersection';
 
   var capsule = [ 0, 0, 2, -2, 0.3 ];
   var tstCapsule = [ 1, 2, 3, 4, 0.2 ];
@@ -3242,7 +3822,9 @@ function capsuleClosestPoint( test )
   var gotBool = _.capsule.capsuleClosestPoint( capsule, tstCapsule );
   test.equivalent( gotBool,  expected );
 
-  test.case = 'dstPoint is vector'; /* */
+  /* */
+
+  test.case = 'dstPoint is vector';
 
   var capsule = [ 0, 0, 1, 0, 1 ];
   var tstCapsule = [ 0, 2, 1, 2, 0.5 ];
@@ -3279,7 +3861,9 @@ function capsuleClosestPoint( test )
 function convexPolygonContains( test )
 {
 
-  test.case = 'Source capsule and polygon remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule and polygon remain unchanged';
 
   var srcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3304,7 +3888,9 @@ function convexPolygonContains( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  test.case = 'Capsule and polygon intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and polygon intersect';
 
   var srcCapsule = [ -1, - 1, -1, 1, 1, 1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3318,7 +3904,9 @@ function convexPolygonContains( test )
   var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Capsule and polygon don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and polygon don´t intersect';
 
   var srcCapsule = [ 0, 1, 0, 1, 2, 1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3332,7 +3920,9 @@ function convexPolygonContains( test )
   var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Capsule contains polygon'; /* */
+  /* */
+
+  test.case = 'Capsule contains polygon';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 4 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3346,7 +3936,9 @@ function convexPolygonContains( test )
   var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Capsule contains polygon touching sides'; /* */
+  /* */
+
+  test.case = 'Capsule contains polygon touching sides';
 
   var srcCapsule = [ -1, 0, 0, 1, 0, 0, Math.sqrt( 2 ) ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3360,7 +3952,9 @@ function convexPolygonContains( test )
   var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = '2D contained'; /* */
+  /* */
+
+  test.case = '2D contained';
 
   var srcCapsule = [ 0, -2, 3, 3, 2 ];
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
@@ -3373,7 +3967,9 @@ function convexPolygonContains( test )
   var gotPoint = _.capsule.convexPolygonContains( srcCapsule, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = '2D not contained'; /* */
+  /* */
+
+  test.case = '2D not contained';
 
   var srcCapsule = [ 1, 2, 3, 3, 0.5 ];
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
@@ -3418,7 +4014,9 @@ function convexPolygonContains( test )
 function convexPolygonClosestPoint( test )
 {
 
-  test.case = 'Source capsule and polygon remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule and polygon remain unchanged';
 
   var srcCapsule = [ - 1, - 1, -1, 0, 0, 2, 0.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3443,7 +4041,9 @@ function convexPolygonClosestPoint( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  test.case = 'Capsule and polygon intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and polygon intersect';
 
   var srcCapsule = [ - 1, - 1, -1, 1, 1, 1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3457,7 +4057,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( gotPoint, expected );
 
-  test.case = 'Polygon vertex in capsule corner'; /* */
+  /* */
+
+  test.case = 'Polygon vertex in capsule corner';
 
   var srcCapsule = [ -1, 1, 0, -1, 2, 1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3471,7 +4073,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( gotPoint, expected );
 
-  test.case = 'Polygon next to capsule corner'; /* */
+  /* */
+
+  test.case = 'Polygon next to capsule corner';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3485,7 +4089,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( gotPoint, expected );
 
-  test.case = 'Polygon in capsule corner'; /* */
+  /* */
+
+  test.case = 'Polygon in capsule corner';
 
   var srcCapsule = [ 1, 0, 0, 2, 0, 0, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3499,7 +4105,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( gotPoint, expected );
 
-  test.case = 'Polygon next to capsule side'; /* */
+  /* */
+
+  test.case = 'Polygon next to capsule side';
 
   var srcCapsule = [ 2, -1, -1, 2, 2, 2, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3513,7 +4121,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.equivalent( gotPoint, expected );
 
-  test.case = 'Polygon vertex next to capsule corner'; /* */
+  /* */
+
+  test.case = 'Polygon vertex next to capsule corner';
 
   var srcCapsule = [ - 2, 2, 0, - 2, 3, 0, 0.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3527,7 +4137,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( gotPoint, expected );
 
-  test.case = 'Polygon edge next to capsule corner'; /* */
+  /* */
+
+  test.case = 'Polygon edge next to capsule corner';
 
   var srcCapsule = [ 1, 1, 0, 2, 2, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3541,7 +4153,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( gotPoint, expected );
 
-  test.case = 'Polygon vertex next to capsule side'; /* */
+  /* */
+
+  test.case = 'Polygon vertex next to capsule side';
 
   var srcCapsule = [ - 1, 2, 0, 1, 2, 0, 0.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3555,7 +4169,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( gotPoint, expected );
 
-  test.case = 'Polygon edge next to capsule side'; /* */
+  /* */
+
+  test.case = 'Polygon edge next to capsule side';
 
   var srcCapsule = [ -1, 3, 0, 2, 3, 0, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3569,7 +4185,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( gotPoint, expected );
 
-  test.case = '2D'; /* */
+  /* */
+
+  test.case = '2D';
 
   var srcCapsule = [ 0, 2, 3, 3, 0.5 ];
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
@@ -3582,7 +4200,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.capsule.convexPolygonClosestPoint( srcCapsule, polygon );
   test.identical( gotPoint, expected );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcCapsule = [ 3, 3, 3, 4, 4, 4, Math.sqrt( 3 ) ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3598,7 +4218,9 @@ function convexPolygonClosestPoint( test )
   test.equivalent( gotPoint, expected );
   test.is( dstPoint === gotPoint );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcCapsule = [ -1, 3, 0, 2, 3, 0, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -4440,7 +5062,9 @@ function frustumClosestPoint( test )
 
 function lineIntersects( test )
 {
-  test.case = 'Source line and capsule remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source line and capsule remain unchanged';
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var srcLine = [ 0, 0, 2, 2 ];
@@ -4455,7 +5079,9 @@ function lineIntersects( test )
   var oldSrcLine = [ 0, 0, 2, 2 ];
   test.equivalent( srcLine, oldSrcLine );
 
-  test.case = 'Capsule and line are the same'; /* */
+  /* */
+
+  test.case = 'Capsule and line are the same';
 
   var srcCapsule = [ 0, 0, 1, 1, 0 ];
   var srcLine = [ 0, 0, 1, 1 ];
@@ -4464,7 +5090,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel ( different origin - same direction )';
 
   var srcCapsule = [ 0, 0, 1, 1, 2 ];
   var srcLine = [ 3, 7, 1, 1 ];
@@ -4473,7 +5101,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel ( different origin - different direction )';
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var srcLine = [ 3, 7, 7, 7 ];
@@ -4482,7 +5112,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and line intersect';
 
   var srcCapsule = [ 5, 5, 1, 1, 0.2 ];
   var srcLine = [ 4, 0, -1, 1 ];
@@ -4491,7 +5123,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and line don´t intersect';
 
   var srcCapsule = [ 7, 6, 8, 6, 0.5 ];
   var srcLine = [ 6, 6, 1, 1 ];
@@ -4500,7 +5134,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Capsule and line intersect in their origin';
 
   var srcCapsule = [ 3, 7, 1, 0, 0.2 ];
   var srcLine = [ 3, 7, 0, 1 ];
@@ -4509,7 +5145,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line intersect '; /* */
+  /* */
+
+  test.case = 'Capsule and line intersect ';
 
   var srcCapsule = [ 0, 0, 1, 0, 1 ];
   var srcLine = [ -2, -6, 1, 2 ];
@@ -4518,7 +5156,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line are perpendicular '; /* */
+  /* */
+
+  test.case = 'Capsule and line are perpendicular ';
 
   var srcCapsule = [ -3, 0, 1, 0, 0.2 ];
   var srcLine = [ 0, -2, 0, 1 ];
@@ -4527,7 +5167,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line don´t intersect 3D'; /* */
+  /* */
+
+  test.case = 'Capsule and line don´t intersect 3D';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var srcLine = [ 3, 0, 1, 2, 2, -1 ];
@@ -4536,7 +5178,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line intersect 3D'; /* */
+  /* */
+
+  test.case = 'Capsule and line intersect 3D';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 3, 1 ];
   var srcLine = [ - 3, - 3, 2, 1, 1, 0 ];
@@ -4545,7 +5189,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line don´t intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and line don´t intersect 4D';
 
   var srcCapsule = [ 0, 0, 0, 0, 1, 1, 1, 1, 0.7 ];
   var srcLine = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
@@ -4554,7 +5200,9 @@ function lineIntersects( test )
   var isIntersection = _.capsule.lineIntersects( srcCapsule, srcLine );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and line intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and line intersect 4D';
 
   var srcCapsule = [ 0, 0, 0, 0, 4, 4, 4, 4, 0.3 ];
   var srcLine = [ 3, 2, 1, 0, 0, 1, 2, 3 ];
@@ -4587,7 +5235,9 @@ function lineIntersects( test )
 
 function lineDistance( test )
 {
-  test.case = 'Source capsule and line remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule and line remain unchanged';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var tstLine = [ 0, 0, 0, 2, 2, 2 ];
@@ -4602,7 +5252,9 @@ function lineDistance( test )
   var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstLine, oldTstLine );
 
-  test.case = 'Capsule and line are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel ( different origin - same direction )';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 1, 2 ];
   var tstLine = [ 3, 7, 1, 0, 0, 1 ];
@@ -4611,7 +5263,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel ( different origin - different direction )';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 7, 1 ];
   var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -4620,7 +5274,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel ( different origin - opposite direction )';
 
   var srcCapsule = [ 0, 0, 0, 9, 0, 0, 0.4 ];
   var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
@@ -4629,7 +5285,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcCapsule is a point'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a point';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -4638,7 +5296,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'srcCapsule is a sphere'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a sphere';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -4647,7 +5307,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'tstLine is a point'; /* */
+  /* */
+
+  test.case = 'tstLine is a point';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var tstLine = [ 3, 7, 1, 0, 0, 0 ];
@@ -4656,7 +5318,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line are the same'; /* */
+  /* */
+
+  test.case = 'Capsule and line are the same';
 
   var srcCapsule = [ 0, 4, 2, 5, 9, 7, 0 ];
   var tstLine = [ 0, 4, 2, 5, 9, 7 ];
@@ -4665,7 +5329,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and line intersect 4D';
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 0.2 ];
   var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
@@ -4674,7 +5340,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Capsule and line don´t intersect 2D - parallel';
 
   var srcCapsule = [ 0, 0, 2, 0, 2 ];
   var tstLine = [ - 3, - 4, 1, 0 ];
@@ -4683,7 +5351,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and line don´t intersect';
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
   var tstLine = [ - 3, - 4, 0, 1 ];
@@ -4692,7 +5362,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line intersect with line´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Capsule and line intersect with line´s negative factor 2D';
 
   var srcCapsule = [ - 3, - 4, -3, 3, 1 ];
   var tstLine = [ 0, 0, 2, 0 ];
@@ -4701,7 +5373,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and line are perpendicular and intersect';
 
   var srcCapsule = [ 3, 7, 1, 8, 7, 1, 0.2 ];
   var tstLine = [ 3, 7, 1, 0, 0, 1 ];
@@ -4710,7 +5384,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and line are perpendicular and don´t intersect';
 
   var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
   var tstLine = [ 3, 0, 0, 0, 1, 0 ];
@@ -4719,7 +5395,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line are parallel to x axis'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel to x axis';
 
   var srcCapsule = [ 3, 7, 1, 7, 7, 1, 0.25 ];
   var tstLine = [ 3, 7, 2, 1, 0, 0 ];
@@ -4728,7 +5406,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line are parallel but in a opposite direction'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel but in a opposite direction';
 
   var srcCapsule = [ 3, 7, 1, 9, 7, 1, 0.2 ];
   var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
@@ -4737,7 +5417,9 @@ function lineDistance( test )
   var gotDistance = _.capsule.lineDistance( srcCapsule, tstLine );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and line are parallel and intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel and intersect';
 
   var srcCapsule = [ 3, 7, 1, 9, 7, 1, 1.2 ];
   var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
@@ -4747,7 +5429,9 @@ function lineDistance( test )
   test.identical( gotDistance, expected );
 
 
-  test.case = 'srcCapsule is null'; /* */
+  /* */
+
+  test.case = 'srcCapsule is null';
 
   var srcCapsule = null;
   var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
@@ -4779,7 +5463,9 @@ function lineDistance( test )
 
 function lineClosestPoint( test )
 {
-  test.case = 'Source capsule and line remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule and line remain unchanged';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var tstLine = [ 0, 0, 0, 2, 2, 2 ];
@@ -4794,7 +5480,9 @@ function lineClosestPoint( test )
   var oldTstLine = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstLine, oldTstLine );
 
-  test.case = 'Capsule and line are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel ( different origin - same direction )';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
   var tstLine = [ 3, 7, 1, 0, 0, 1 ];
@@ -4803,7 +5491,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel ( different origin - different direction )';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 8, Math.sqrt( 2 ) ];
   var tstLine = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -4812,7 +5502,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel ( different origin - opposite direction )';
 
   var srcCapsule = [ 0, 0, 0, 10, 0, 0, 3 ];
   var tstLine = [ 3, 7, 1, - 7, 0, 0 ];
@@ -4821,7 +5513,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.equivalent( gotClosestPoint, expected, _.accuracySqrt );
 
-  test.case = 'srcCapsule is a point'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a point';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -4830,7 +5524,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'tstLine is a point'; /* */
+  /* */
+
+  test.case = 'tstLine is a point';
 
   var srcCapsule = [ 0, 0, 0, 9, 9, 9, 1 ];
   var tstLine = [ 3, 7, 1, 0, 0, 0 ];
@@ -4839,7 +5535,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line are the same'; /* */
+  /* */
+
+  test.case = 'Capsule and line are the same';
 
   var srcCapsule = [ 0, 4, 2, 3, 7, 5, 0 ];
   var tstLine = [ 0, 4, 2, 1, 1, 1 ];
@@ -4848,7 +5546,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and line intersect 4D';
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 1 ];
   var tstLine = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
@@ -4857,7 +5557,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Capsule and line don´t intersect 2D - parallel';
 
   var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
   var tstLine = [ - 3, - 4, 1, 0 ];
@@ -4866,7 +5568,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and line don´t intersect';
 
   var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
   var tstLine = [ - 3, - 4, 0, 1 ];
@@ -4875,7 +5579,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line intersect with line´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Capsule and line intersect with line´s negative factor 2D';
 
   var srcCapsule = [ - 3, - 4, -3, 4, 0.2 ];
   var tstLine = [ 0, 0, 2, 0 ];
@@ -4884,7 +5590,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line are perpendicular and intersect ( same origin )'; /* */
+  /* */
+
+  test.case = 'Capsule and line are perpendicular and intersect ( same origin )';
 
   var srcCapsule = [ 3, 7, 1, 8, 7, 1, 1 ];
   var tstLine = [ 3, 7, 1, 0, 0, 1 ];
@@ -4893,7 +5601,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and line are perpendicular and don´t intersect';
 
   var srcCapsule = [ 0, 0, -3, 0, 0, 1, 2 ];
   var tstLine = [ 3, 0, 0, 1, 1, 0 ];
@@ -4902,7 +5612,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line are parallel to x'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel to x';
 
   var srcCapsule = [ 3, 7, 1, 4, 7, 1, 0.5 ];
   var tstLine = [ 3, 7, 2, 4, 7, 2 ];
@@ -4911,7 +5623,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Capsule and line are parallel but in a opposite direction'; /* */
+  /* */
+
+  test.case = 'Capsule and line are parallel but in a opposite direction';
 
   var srcCapsule = [ 3, 7, 1, 4, 7, 1, 0.1 ];
   var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
@@ -4920,7 +5634,9 @@ function lineClosestPoint( test )
   var gotClosestPoint = _.capsule.lineClosestPoint( srcCapsule, tstLine );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'srcCapsule is null'; /* */
+  /* */
+
+  test.case = 'srcCapsule is null';
 
   var srcCapsule = null;
   var tstLine = [ 3, 7, 2, - 1, 0, 0 ];
@@ -4953,7 +5669,9 @@ function lineClosestPoint( test )
 function planeIntersects( test )
 {
 
-  test.case = 'Capsule and plane remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and plane remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4968,7 +5686,9 @@ function planeIntersects( test )
   var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
-  test.case = 'Null capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'Null capsule - no intersection';
 
   var capsule = null;
   var plane = [ 1, 0, 0, 1 ];
@@ -4977,7 +5697,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'Null capsule - Intersection'; /* */
+  /* */
+
+  test.case = 'Null capsule - Intersection';
 
   var capsule = null;
   var plane = [ 1, 0, -1, 0 ];
@@ -4986,7 +5708,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -4995,7 +5719,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule in plane'; /* */
+  /* */
+
+  test.case = 'point capsule in plane';
 
   var capsule = [ - 1, 2, 3, -1, 2, 3, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5004,7 +5730,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'sphere capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5013,7 +5741,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule intersection'; /* */
+  /* */
+
+  test.case = 'point capsule intersection';
 
   var capsule = [ - 1.1, 2, 3, -1.1, 2, 3, 2 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5022,7 +5752,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule and plane intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and plane intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5031,7 +5763,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule over plane'; /* */
+  /* */
+
+  test.case = 'Capsule over plane';
 
   var capsule = [ 0, -6, 4, 1, 1, 0, 0.5 ];
   var plane = [ 1, 0, 0, 3 ];
@@ -5040,7 +5774,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'plane closer to origin'; /* */
+  /* */
+
+  test.case = 'plane closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.4 ];
   var plane = [ 1, 0, 0, 0.5 ];
@@ -5049,7 +5785,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'plane parallel to capsule'; /* */
+  /* */
+
+  test.case = 'plane parallel to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.4 ];
   var plane = [ 0, 1, 0, 0.5 ];
@@ -5058,7 +5796,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'plane parallel contains capsule'; /* */
+  /* */
+
+  test.case = 'plane parallel contains capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var plane = [ 0, 1, 0, 0 ];
@@ -5067,7 +5807,9 @@ function planeIntersects( test )
   var gotBool = _.capsule.planeIntersects( capsule, plane );
   test.identical( gotBool, expected );
 
-  test.case = 'plane perpendicular to capsule'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var plane = [ 0, 0, 1, 0 ];
@@ -5101,7 +5843,9 @@ function planeIntersects( test )
 function planeDistance( test )
 {
 
-  test.case = 'Capsule and plane remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and plane remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5116,7 +5860,9 @@ function planeDistance( test )
   var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
-  test.case = 'Null capsule - empty plane'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty plane';
 
   var capsule = null;
   var plane = [ 1, 0, 0, 1 ];
@@ -5125,7 +5871,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5134,7 +5882,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'point capsule in plane'; /* */
+  /* */
+
+  test.case = 'point capsule in plane';
 
   var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5143,7 +5893,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'sphere capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5152,7 +5904,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'sphere capsule intersection'; /* */
+  /* */
+
+  test.case = 'sphere capsule intersection';
 
   var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5161,7 +5915,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and plane intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and plane intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5170,7 +5926,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule over plane'; /* */
+  /* */
+
+  test.case = 'Capsule over plane';
 
   var capsule = [ 0, -6, 4, 1, 1, 0, 1 ];
   var plane = [ 1, 0, 0, 3 ];
@@ -5179,7 +5937,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'plane closer to origin'; /* */
+  /* */
+
+  test.case = 'plane closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.1 ];
   var plane = [ 1, 0, 0, 0.5 ];
@@ -5188,7 +5948,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'plane parallel to capsule'; /* */
+  /* */
+
+  test.case = 'plane parallel to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.2 ];
   var plane = [ 0, 1, 0, 0.5 ];
@@ -5197,7 +5959,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'plane parallel contains capsule'; /* */
+  /* */
+
+  test.case = 'plane parallel contains capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.1 ];
   var plane = [ 0, 1, 0, 0 ];
@@ -5206,7 +5970,9 @@ function planeDistance( test )
   var gotDistance = _.capsule.planeDistance( capsule, plane );
   test.identical( gotDistance, expected );
 
-  test.case = 'plane perpendicular to capsule'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.1 ];
   var plane = [ 0, 0, 1, 0 ];
@@ -5240,7 +6006,9 @@ function planeDistance( test )
 function planeClosestPoint( test )
 {
 
-  test.case = 'Capsule and plane remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and plane remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5255,7 +6023,9 @@ function planeClosestPoint( test )
   var oldPlane = [ 1, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
-  test.case = 'Null capsule - empty plane'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty plane';
 
   var capsule = null;
   var plane = [ 1, 0, 0, 1 ];
@@ -5264,7 +6034,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5273,7 +6045,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'point capsule in plane'; /* */
+  /* */
+
+  test.case = 'point capsule in plane';
 
   var capsule = [ - 1, 2, 3, - 1, 2, 3, 0 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5282,7 +6056,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'sphere capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5291,7 +6067,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'sphere capsule intersection'; /* */
+  /* */
+
+  test.case = 'sphere capsule intersection';
 
   var capsule = [ - 1, 2, 3, - 1, 2, 3, 1 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5300,7 +6078,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'Capsule and plane intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and plane intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
   var plane = [ 1, 0, 0, 1 ];
@@ -5309,7 +6089,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'Capsule over plane'; /* */
+  /* */
+
+  test.case = 'Capsule over plane';
 
   var capsule = [ 0, -6, 4, 1, 1, 0, 2 ];
   var plane = [ 1, 0, 0, 3 ];
@@ -5318,7 +6100,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'plane closer to origin'; /* */
+  /* */
+
+  test.case = 'plane closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.4 ];
   var plane = [ 1, 0, 0, 0.5 ];
@@ -5327,7 +6111,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.equivalent( gotPoint, expected );
 
-  test.case = 'plane parallel to capsule'; /* */
+  /* */
+
+  test.case = 'plane parallel to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var plane = [ 0, 1, 0, 1.5 ];
@@ -5336,7 +6122,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'plane parallel contains capsule'; /* */
+  /* */
+
+  test.case = 'plane parallel contains capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var plane = [ 0, 1, 0, 0 ];
@@ -5345,7 +6133,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'plane perpendicular to capsule'; /* */
+  /* */
+
+  test.case = 'plane perpendicular to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
   var plane = [ 0, 0, 1, 0 ];
@@ -5354,7 +6144,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
   test.identical( gotPoint, expected );
 
-  test.case = 'dstPoint is array'; /* */
+  /* */
+
+  test.case = 'dstPoint is array';
 
   var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
@@ -5364,7 +6156,9 @@ function planeClosestPoint( test )
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane, dstPoint );
   test.identical( gotPoint, expected );
 
-  test.case = 'dstPoint is vector'; /* */
+  /* */
+
+  test.case = 'dstPoint is vector';
 
   var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
   var plane = [ 1, 0, 1, 3 ];
@@ -5398,7 +6192,9 @@ function planeClosestPoint( test )
 
 function rayIntersects( test )
 {
-  test.case = 'Source ray and capsule remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source ray and capsule remain unchanged';
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var srcRay = [ 0, 0, 2, 2 ];
@@ -5413,7 +6209,9 @@ function rayIntersects( test )
   var oldSrcRay = [ 0, 0, 2, 2 ];
   test.equivalent( srcRay, oldSrcRay );
 
-  test.case = 'Capsule and ray are the same'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are the same';
 
   var srcCapsule = [ 0, 0, 1, 1, 0 ];
   var srcRay = [ 0, 0, 1, 1 ];
@@ -5422,7 +6220,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel ( different origin - same direction )';
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var srcRay = [ 3, 7, 1, 1 ];
@@ -5431,7 +6231,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel ( different origin - different direction )';
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var srcRay = [ 3, 7, 7, 7 ];
@@ -5440,7 +6242,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and ray intersect';
 
   var srcCapsule = [ 5, 5, 1, 1, 1 ];
   var srcRay = [ 4, 0, -1, 1 ];
@@ -5449,7 +6253,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and ray don´t intersect';
 
   var srcCapsule = [ 7, 6, 8, 6, 0.5 ];
   var srcRay = [ 6, 6, 1, 1 ];
@@ -5458,7 +6264,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Capsule and ray intersect in their origin';
 
   var srcCapsule = [ 3, 7, 1, 0, 1 ];
   var srcRay = [ 3, 7, 0, 1 ];
@@ -5467,7 +6275,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray intersect '; /* */
+  /* */
+
+  test.case = 'Capsule and ray intersect ';
 
   var srcCapsule = [ 0, 0, 1, 0.5, 1 ];
   var srcRay = [ -2, -6, 1, 2 ];
@@ -5476,7 +6286,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray are perpendicular '; /* */
+  /* */
+
+  test.case = 'Capsule and ray are perpendicular ';
 
   var srcCapsule = [ -3, 0.1, 1, 0.1, 0.2 ];
   var srcRay = [ 0, -2, 0, 1 ];
@@ -5485,7 +6297,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray don´t intersect 3D'; /* */
+  /* */
+
+  test.case = 'Capsule and ray don´t intersect 3D';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
   var srcRay = [ 3, 0, 1, 2, 2, -1 ];
@@ -5494,7 +6308,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray intersect 3D'; /* */
+  /* */
+
+  test.case = 'Capsule and ray intersect 3D';
 
   var srcCapsule = [ 1, 0, 0, 1, 0, 3, 1 ];
   var srcRay = [ - 3, - 3, 2, 1, 1, 0 ];
@@ -5503,7 +6319,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray don´t intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and ray don´t intersect 4D';
 
   var srcCapsule = [ 0, 0, 0, 0, 1, 1, 1, 1, 1 ];
   var srcRay = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
@@ -5512,7 +6330,9 @@ function rayIntersects( test )
   var isIntersection = _.capsule.rayIntersects( srcCapsule, srcRay );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and ray intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and ray intersect 4D';
 
   var srcCapsule = [ 0, 0, 0, 0, 4, 4, 4, 4, 2 ];
   var srcRay = [ 3, 2, 1, 0, 0, 1, 2, 3 ];
@@ -5545,7 +6365,9 @@ function rayIntersects( test )
 
 function rayDistance( test )
 {
-  test.case = 'Source capsule and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule and ray remain unchanged';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
@@ -5560,7 +6382,9 @@ function rayDistance( test )
   var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstRay, oldTstRay );
 
-  test.case = 'Capsule and ray are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel ( different origin - same direction )';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5569,7 +6393,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'Capsule and ray are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel ( different origin - different direction )';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 7, 2 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -5578,7 +6404,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and ray are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel ( different origin - opposite direction )';
 
   var srcCapsule = [ 0, 0, 0, 9, 0, 0, 3 ];
   var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
@@ -5587,7 +6415,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcCapsule is a point'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a point';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -5596,7 +6426,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'tstRay is a point'; /* */
+  /* */
+
+  test.case = 'tstRay is a point';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
@@ -5605,7 +6437,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcCapsule is a sphere'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a sphere';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 2 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -5614,7 +6448,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'Capsule and ray are the same'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are the same';
 
   var srcCapsule = [ 0, 4, 2, 5, 4, 2, 0 ];
   var tstRay = [ 0, 4, 2, 1, 0, 0 ];
@@ -5623,7 +6459,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and ray intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and ray intersect 4D';
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 1 ];
   var tstRay = [ 3, 4, 2, 1, -1, 0, 0, 0 ];
@@ -5632,7 +6470,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and ray don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Capsule and ray don´t intersect 2D - parallel';
 
   var srcCapsule = [ 0, 0, 2, 0, 2 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
@@ -5641,7 +6481,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and ray don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and ray don´t intersect';
 
   var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
   var tstRay = [ - 3, - 4, 0, 1 ];
@@ -5650,7 +6492,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and ray don´t intersect with ray´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Capsule and ray don´t intersect with ray´s negative factor 2D';
 
   var srcCapsule = [ - 3, - 4, -3, 3, 1 ];
   var tstRay = [ 0, 0, 2, 0 ];
@@ -5659,7 +6503,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'Capsule and ray are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are perpendicular and intersect';
 
   var srcCapsule = [ 3, 8, 1, 8, 8, 1, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5668,7 +6514,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and ray are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are perpendicular and don´t intersect';
 
   var srcCapsule = [ 0, 0, -3, 0, 0, 1, 2 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
@@ -5677,7 +6525,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and ray are parallel to x axis'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel to x axis';
 
   var srcCapsule = [ 3, 7, 1, 7, 7, 1, 0.5 ];
   var tstRay = [ 3, 7, 2, 1, 0, 0 ];
@@ -5686,7 +6536,9 @@ function rayDistance( test )
   var gotDistance = _.capsule.rayDistance( srcCapsule, tstRay );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcCapsule is null'; /* */
+  /* */
+
+  test.case = 'srcCapsule is null';
 
   var srcCapsule = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
@@ -5718,7 +6570,9 @@ function rayDistance( test )
 
 function rayClosestPoint( test )
 {
-  test.case = 'Source capsule and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule and ray remain unchanged';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var tstRay = [ 0, 0, 0, 2, 2, 2 ];
@@ -5733,7 +6587,9 @@ function rayClosestPoint( test )
   var oldTstRay = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstRay, oldTstRay );
 
-  test.case = 'Capsule and ray are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel ( different origin - same direction )';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
   var tstRay = [ 3, 0, 1, 0, 0, 1 ];
@@ -5742,7 +6598,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel ( different origin - different direction )';
 
   var srcCapsule = [ 0, 7, 1, 0, 7, 8, 1 ];
   var tstRay = [ 0, 0, 0, 0, 0, 0.5 ];
@@ -5751,7 +6609,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel ( different origin - opposite direction )';
 
   var srcCapsule = [ 0, 0, 0, 10, 0, 0, 2 ];
   var tstRay = [ 3, 7, 1, - 7, 0, 0 ];
@@ -5760,7 +6620,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'srcCapsule is a point'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a point';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -5769,7 +6631,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcCapsule is a sphere'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a sphere';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
   var tstRay = [ 0, 0, 0, -1, 0, 0 ];
@@ -5778,7 +6642,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'tstRay is a point'; /* */
+  /* */
+
+  test.case = 'tstRay is a point';
 
   var srcCapsule = [ 0, 0, 0, 9, 9, 9, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 0 ];
@@ -5787,7 +6653,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray are the same'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are the same';
 
   var srcCapsule = [ 0, 4, 2, 3, 7, 5, 1 ];
   var tstRay = [ 0, 4, 2, 1, 1, 1 ];
@@ -5796,7 +6664,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and ray intersect 4D';
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 2 ];
   var tstRay = [ 3, 5, 2, 1, -1, 0, 0, 0 ];
@@ -5805,7 +6675,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Capsule and ray don´t intersect 2D - parallel';
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
   var tstRay = [ - 3, - 4, 1, 0 ];
@@ -5814,7 +6686,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray don´t intersect 2D'; /* */
+  /* */
+
+  test.case = 'Capsule and ray don´t intersect 2D';
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
   var tstRay = [ - 3, - 4, 0.5, 1 ];
@@ -5823,7 +6697,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray don´t intersect with ray´s negative factor 2D'; /* */
+  /* */
+
+  test.case = 'Capsule and ray don´t intersect with ray´s negative factor 2D';
 
   var srcCapsule = [ - 3, - 4, -3, 4, 1 ];
   var tstRay = [ 0, 0, 2, 1 ];
@@ -5832,7 +6708,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray are perpendicular and intersect ( same origin )'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are perpendicular and intersect ( same origin )';
 
   var srcCapsule = [ 3, 7, 1, 8, 7, 1, 1 ];
   var tstRay = [ 3, 7, 1, 0, 0, 1 ];
@@ -5841,7 +6719,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are perpendicular and don´t intersect';
 
   var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
   var tstRay = [ 3, 0, 0, 1, 1, 0 ];
@@ -5850,7 +6730,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and ray are parallel to x'; /* */
+  /* */
+
+  test.case = 'Capsule and ray are parallel to x';
 
   var srcCapsule = [ 3, 7, 1, 4, 7, 1, 1 ];
   var tstRay = [ 3, 7, 3, 1, 0, 0 ];
@@ -5859,7 +6741,9 @@ function rayClosestPoint( test )
   var gotClosestPoint = _.capsule.rayClosestPoint( srcCapsule, tstRay );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcCapsule is null'; /* */
+  /* */
+
+  test.case = 'srcCapsule is null';
 
   var srcCapsule = null;
   var tstRay = [ 3, 7, 2, - 1, 0, 0 ];
@@ -5892,7 +6776,9 @@ function rayClosestPoint( test )
 function segmentContains( test )
 {
 
-  test.case = 'Source capsule and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule and segment remain unchanged';
 
   var srcCapsule = [ - 1, - 1, -1, 0, 0, 2, 1 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -5907,7 +6793,9 @@ function segmentContains( test )
   var oldtstSegment = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstSegment, oldtstSegment );
 
-  test.case = 'Capsule and segment intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and segment intersect';
 
   var srcCapsule = [ - 1, - 1, -1, 1, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -5916,7 +6804,9 @@ function segmentContains( test )
   var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = 'Capsule contains segment'; /* */
+  /* */
+
+  test.case = 'Capsule contains segment';
 
   var srcCapsule = [ - 1, - 1, -1, 2, 2, 2, 1 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -5925,7 +6815,9 @@ function segmentContains( test )
   var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = 'Segment in capsule edge'; /* */
+  /* */
+
+  test.case = 'Segment in capsule edge';
 
   var srcCapsule = [ -1, -1, -1, 2, 2, 2, 1 ];
   var tstSegment = [ -1, 0, -1, 2, 3, 2 ];
@@ -5934,7 +6826,9 @@ function segmentContains( test )
   var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = 'Segment is in capsule edge'; /* */
+  /* */
+
+  test.case = 'Segment is in capsule edge';
 
   var srcCapsule = [ -1, -1, -1, 0, 0, 0, 0.1 ];
   var tstSegment = [ -1, 0, 0, 0, 0, 0 ];
@@ -5943,7 +6837,9 @@ function segmentContains( test )
   var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = '2D - not contained'; /* */
+  /* */
+
+  test.case = '2D - not contained';
 
   var srcCapsule = [ - 1, - 1, 0, 0, 1 ];
   var tstSegment = [ -3, -3, -2, -2 ];
@@ -5952,7 +6848,9 @@ function segmentContains( test )
   var gotBool = _.capsule.segmentContains( srcCapsule, tstSegment );
   test.identical( expected, gotBool );
 
-  test.case = '2D - contained'; /* */
+  /* */
+
+  test.case = '2D - contained';
 
   var srcCapsule = [ - 1, - 1, 3, 3, 1 ];
   var tstSegment = [ 0, 0, 2, 2 ];
@@ -5982,7 +6880,9 @@ function segmentContains( test )
 
 function segmentIntersects( test )
 {
-  test.case = 'Source segment and capsule remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source segment and capsule remain unchanged';
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var srcSegment = [ 0, 0, 2, 2 ];
@@ -5997,7 +6897,9 @@ function segmentIntersects( test )
   var oldSrcSegment = [ 0, 0, 2, 2 ];
   test.equivalent( srcSegment, oldSrcSegment );
 
-  test.case = 'Capsule and segment are the same'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are the same';
 
   var srcCapsule = [ 0, 0, 1, 1, 0 ];
   var srcSegment = [ 0, 0, 1, 1 ];
@@ -6006,7 +6908,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel ( different origin - same direction )';
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var srcSegment = [ 3, 7, 4, 8 ];
@@ -6015,7 +6919,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel ( different origin - different direction )';
 
   var srcCapsule = [ 0, 0, 1, 1, 1 ];
   var srcSegment = [ 3, 7, 2, 6 ];
@@ -6024,7 +6930,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and segment intersect';
 
   var srcCapsule = [ 5, 5, 1, 1, 1 ];
   var srcSegment = [ 4, 0, 1, 2 ];
@@ -6033,7 +6941,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment intersect '; /* */
+  /* */
+
+  test.case = 'Capsule and segment intersect ';
 
   var srcCapsule = [ 0, 0, 1, 0.5, 1 ];
   var srcSegment = [ -2, -6, 2, 2 ];
@@ -6042,7 +6952,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect';
 
   var srcCapsule = [ 7, 6, 8, 6, 0.5 ];
   var srcSegment = [ 6, 6, 8, 8 ];
@@ -6051,7 +6963,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment don´t intersect - segment negative factor'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect - segment negative factor';
 
   var srcCapsule = [ 1, 0, 2, 0, 0.5 ];
   var srcSegment = [ 3, 0, 4, 0 ];
@@ -6060,7 +6974,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment don´t intersect - segment factor > 1'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect - segment factor > 1';
 
   var srcCapsule = [ 1, 0, 2, 0, 0.5 ];
   var srcSegment = [ - 1, 0, 0, 0 ];
@@ -6069,7 +6985,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment intersect in their origin'; /* */
+  /* */
+
+  test.case = 'Capsule and segment intersect in their origin';
 
   var srcCapsule = [ 3, 7, 1, 0, 1 ];
   var srcSegment = [ 3, 7, 5, 5 ];
@@ -6078,7 +6996,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are perpendicular and intersect';
 
   var srcCapsule = [ -3, 0.1, 1, 0.1, 0.2 ];
   var srcSegment = [ 0, -2, 0, 1 ];
@@ -6087,7 +7007,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment don´t intersect 3D'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect 3D';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
   var srcSegment = [ 3, 0, 1, 2, 2, -1 ];
@@ -6096,7 +7018,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment intersect 3D'; /* */
+  /* */
+
+  test.case = 'Capsule and segment intersect 3D';
 
   var srcCapsule = [ 1, 0, 0, 1, 0, 3, 1 ];
   var srcSegment = [ - 3, - 3, 2, 1, 1, 2 ];
@@ -6105,7 +7029,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment don´t intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect 4D';
 
   var srcCapsule = [ 0, 0, 0, 0, 1, 1, 1, 1, 1 ];
   var srcSegment = [ 3, 0, 1, 4, 2, 2, 2, -1 ];
@@ -6114,7 +7040,9 @@ function segmentIntersects( test )
   var isIntersection = _.capsule.segmentIntersects( srcCapsule, srcSegment );
   test.identical( isIntersection, expected );
 
-  test.case = 'Capsule and segment intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and segment intersect 4D';
 
   var srcCapsule = [ 0, 0, 0, 0, 4, 4, 4, 4, 2 ];
   var srcSegment = [ 3, 2, 1, 0, 3, 5, 7, 9 ];
@@ -6147,7 +7075,9 @@ function segmentIntersects( test )
 
 function segmentDistance( test )
 {
-  test.case = 'Source capsule and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule and segment remain unchanged';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -6162,7 +7092,9 @@ function segmentDistance( test )
   var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstSegment, oldTstSegment );
 
-  test.case = 'Capsule and segment are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel ( different origin - same direction )';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
@@ -6171,7 +7103,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel ( different origin - different direction )';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 7, 2 ];
   var tstSegment = [ 0, 0, 0, 0, 0, 9 ];
@@ -6180,7 +7114,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel ( different origin - opposite direction )';
 
   var srcCapsule = [ 0, 0, 0, 9, 0, 0, 3 ];
   var tstSegment = [ 3, 7, 1, - 7, 7, 1 ];
@@ -6189,7 +7125,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcCapsule is a point'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a point';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
   var tstSegment = [ 0, 0, 0, 6, 6, 6 ];
@@ -6198,7 +7136,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'tstSegment is a point'; /* */
+  /* */
+
+  test.case = 'tstSegment is a point';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
@@ -6207,7 +7147,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcCapsule is a sphere'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a sphere';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 2 ];
   var tstSegment = [ 0, 0, 0, 7, 7, 7 ];
@@ -6216,7 +7158,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.equivalent( gotDistance, expected );
 
-  test.case = 'Capsule and segment are the same'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are the same';
 
   var srcCapsule = [ 0, 4, 2, 5, 4, 2, 0 ];
   var tstSegment = [ 0, 4, 2, 5, 4, 2 ];
@@ -6225,7 +7169,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and segment intersect 4D';
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 1 ];
   var tstSegment = [ 3, 4, 2, 1, - 7, 4, 2, 1 ];
@@ -6234,7 +7180,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect 2D - parallel';
 
   var srcCapsule = [ 0, 0, 2, 0, 2 ];
   var tstSegment = [ - 3, - 4, 5, - 4 ];
@@ -6243,7 +7191,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect';
 
   var srcCapsule = [ 0, 0, 2, 0, 0.5 ];
   var tstSegment = [ - 3, - 4, - 3, 4 ];
@@ -6252,7 +7202,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment don´t intersect with segment´s negative factor'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect with segment´s negative factor';
 
   var srcCapsule = [ 1, 1, 2, 2, 1 ];
   var tstSegment = [ 3, 3, 5, 5 ];
@@ -6261,7 +7213,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment don´t intersect with segment´s factor > 1'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect with segment´s factor > 1';
 
   var srcCapsule = [ 1, 1, 1, 2, 0.5 ];
   var tstSegment = [ 1, - 1, 1, 0 ];
@@ -6270,7 +7224,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment are perpendicular and intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are perpendicular and intersect';
 
   var srcCapsule = [ 3, 8, 1, 8, 8, 1, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
@@ -6279,7 +7235,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are perpendicular and don´t intersect';
 
   var srcCapsule = [ 0, 0, -3, 0, 0, 1, 2 ];
   var tstSegment = [ 3, 0, 0, 8, 5, 0 ];
@@ -6288,7 +7246,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and segment are parallel to x axis'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel to x axis';
 
   var srcCapsule = [ 3, 7, 1, 7, 7, 1, 0.5 ];
   var tstSegment = [ 3, 7, 2, 8, 7, 2 ];
@@ -6297,7 +7257,9 @@ function segmentDistance( test )
   var gotDistance = _.capsule.segmentDistance( srcCapsule, tstSegment );
   test.identical( gotDistance, expected );
 
-  test.case = 'srcCapsule is null'; /* */
+  /* */
+
+  test.case = 'srcCapsule is null';
 
   var srcCapsule = null;
   var tstSegment = [ 3, 7, 2, - 1, 7, 2 ];
@@ -6329,7 +7291,9 @@ function segmentDistance( test )
 
 function segmentClosestPoint( test )
 {
-  test.case = 'Source capsule and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule and segment remain unchanged';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -6344,7 +7308,9 @@ function segmentClosestPoint( test )
   var oldTstSegment = [ 0, 0, 0, 2, 2, 2 ];
   test.equivalent( tstSegment, oldTstSegment );
 
-  test.case = 'Capsule and segment are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel ( different origin - same direction )';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 1, 1 ];
   var tstSegment = [ 3, 0, 1, 3, 0, 9 ];
@@ -6353,7 +7319,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment are parallel ( different origin - different direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel ( different origin - different direction )';
 
   var srcCapsule = [ 0, 7, 1, 0, 7, 8, 1 ];
   var tstSegment = [ 0, 0, 0, 0, 0, 6 ];
@@ -6362,7 +7330,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment are parallel ( different origin - opposite direction )'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel ( different origin - opposite direction )';
 
   var srcCapsule = [ 0, 0, 0, 10, 0, 0, 2 ];
   var tstSegment = [ 3, 7, 1, - 7, 7, 1 ];
@@ -6371,7 +7341,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'srcCapsule is a point'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a point';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 0 ];
   var tstSegment = [ 0, 0, 0, 8, 8, 8 ];
@@ -6380,7 +7352,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcCapsule is a sphere'; /* */
+  /* */
+
+  test.case = 'srcCapsule is a sphere';
 
   var srcCapsule = [ 3, 7, 1, 3, 7, 1, 1 ];
   var tstSegment = [ 0, 0, 0, -1, 0, 0 ];
@@ -6389,7 +7363,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'tstSegment is a point'; /* */
+  /* */
+
+  test.case = 'tstSegment is a point';
 
   var srcCapsule = [ 0, 0, 0, 9, 9, 9, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 1 ];
@@ -6398,7 +7374,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment are the same'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are the same';
 
   var srcCapsule = [ 0, 4, 2, 3, 7, 5, 1 ];
   var tstSegment = [ 0, 4, 2, 3, 7, 5 ];
@@ -6407,7 +7385,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment intersect 4D'; /* */
+  /* */
+
+  test.case = 'Capsule and segment intersect 4D';
 
   var srcCapsule = [ 0, 0, 2, 1, 0, 9, 2, 1, 2 ];
   var tstSegment = [ 3, 5, 2, 1, -3, 5, 2, 1 ];
@@ -6416,7 +7396,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment don´t intersect 2D - parallel'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect 2D - parallel';
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
   var tstSegment = [ - 3, - 4, 1, - 4 ];
@@ -6425,7 +7407,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment don´t intersect 2D'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect 2D';
 
   var srcCapsule = [ 0, 0, 2, 0, 1 ];
   var tstSegment = [ - 3, - 4, 1, 4 ];
@@ -6434,7 +7418,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment don´t intersect with segment´s negative factor'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect with segment´s negative factor';
 
   var srcCapsule = [ - 3, - 4, -3, 4, 1 ];
   var tstSegment = [ 0, 0, 10, 5 ];
@@ -6443,7 +7429,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment don´t intersect with segment´s factor > 1'; /* */
+  /* */
+
+  test.case = 'Capsule and segment don´t intersect with segment´s factor > 1';
 
   var srcCapsule = [ - 3, 1, 4, 1, 1 ];
   var tstSegment = [ - 8, 1, - 5, 1 ];
@@ -6452,7 +7440,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment are perpendicular and intersect ( same origin )'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are perpendicular and intersect ( same origin )';
 
   var srcCapsule = [ 3, 7, 1, 8, 7, 1, 1 ];
   var tstSegment = [ 3, 7, 1, 3, 7, 8 ];
@@ -6461,7 +7451,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment are perpendicular and don´t intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are perpendicular and don´t intersect';
 
   var srcCapsule = [ 0, 0, -3, 0, 0, 1, 0.5 ];
   var tstSegment = [ 3, 0, 0, 5, 2, 0 ];
@@ -6470,7 +7462,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and segment are parallel to x'; /* */
+  /* */
+
+  test.case = 'Capsule and segment are parallel to x';
 
   var srcCapsule = [ 3, 7, 1, 4, 7, 1, 1 ];
   var tstSegment = [ 3, 7, 3, 8, 7, 3 ];
@@ -6479,7 +7473,9 @@ function segmentClosestPoint( test )
   var gotClosestPoint = _.capsule.segmentClosestPoint( srcCapsule, tstSegment );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'srcCapsule is null'; /* */
+  /* */
+
+  test.case = 'srcCapsule is null';
 
   var srcCapsule = null;
   var tstSegment = [ 3, 7, 2, - 3, 7, 2 ];
@@ -6512,7 +7508,9 @@ function segmentClosestPoint( test )
 function sphereContains( test )
 {
 
-  test.case = 'Capsule and sphere remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and sphere remain unchanged';
 
   var capsule = [  - 1,  - 1, -1, 1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6527,7 +7525,9 @@ function sphereContains( test )
   var oldSphere = [ 0, 0, 0, 1 ];
   test.identical( sphere, oldSphere );
 
-  test.case = 'Sphere contains point capsule'; /* */
+  /* */
+
+  test.case = 'Sphere contains point capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6536,7 +7536,9 @@ function sphereContains( test )
   var gotBool = _.capsule.sphereContains( capsule, sphere );
   test.identical( gotBool,  expected );
 
-  test.case = 'point capsule - not contained'; /* */
+  /* */
+
+  test.case = 'point capsule - not contained';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6545,7 +7547,9 @@ function sphereContains( test )
   var gotBool = _.capsule.sphereContains( capsule, sphere );
   test.identical( gotBool,  expected );
 
-  test.case = 'point sphere in capsule'; /* */
+  /* */
+
+  test.case = 'point sphere in capsule';
 
   var capsule = [ 1, 2, 1, 1, 2, 4, 2 ];
   var sphere = [ 2, 2, 2, 0 ];
@@ -6554,7 +7558,9 @@ function sphereContains( test )
   var gotBool = _.capsule.sphereContains( capsule, sphere );
   test.identical( gotBool,  expected );
 
-  test.case = 'sphere capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6563,7 +7569,9 @@ function sphereContains( test )
   var gotBool = _.capsule.sphereContains( capsule, sphere );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule in sphere'; /* */
+  /* */
+
+  test.case = 'Capsule in sphere';
 
   var capsule = [ 1, 2, 3, 2, 2, 3, 0.1 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6572,7 +7580,9 @@ function sphereContains( test )
   var gotBool = _.capsule.sphereContains( capsule, sphere );
   test.identical( gotBool,  expected );
 
-  test.case = 'Sphere in capsule'; /* */
+  /* */
+
+  test.case = 'Sphere in capsule';
 
   var capsule = [ 1, 2, 3, 2, 2, 3, 2 ];
   var sphere = [ 2, 2, 2, 0.2 ];
@@ -6581,7 +7591,9 @@ function sphereContains( test )
   var gotBool = _.capsule.sphereContains( capsule, sphere );
   test.identical( gotBool,  expected );
 
-  test.case = 'Capsule and sphere intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and sphere intersect';
 
   var capsule = [ -2, -2, -2, 3, 3, 3, 1 ];
   var sphere = [ 4, 4, 4, 1 ];
@@ -6615,7 +7627,9 @@ function sphereContains( test )
 function sphereIntersects( test )
 {
 
-  test.case = 'Capsule and sphere remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and sphere remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6630,7 +7644,9 @@ function sphereIntersects( test )
   var oldSphere = [ 0, 0, 0, 1 ];
   test.identical( sphere, oldSphere );
 
-  test.case = 'Null capsule - empty sphere'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty sphere';
 
   var capsule = null;
   var sphere = [ 0, 0, 0, 1 ];
@@ -6639,7 +7655,9 @@ function sphereIntersects( test )
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule center of sphere'; /* */
+  /* */
+
+  test.case = 'point capsule center of sphere';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6648,7 +7666,9 @@ function sphereIntersects( test )
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6657,7 +7677,9 @@ function sphereIntersects( test )
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'point capsule in sphere'; /* */
+  /* */
+
+  test.case = 'point capsule in sphere';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6666,7 +7688,9 @@ function sphereIntersects( test )
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'sphere capsule center of sphere'; /* */
+  /* */
+
+  test.case = 'sphere capsule center of sphere';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0.5 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6675,7 +7699,9 @@ function sphereIntersects( test )
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'sphere capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6684,7 +7710,9 @@ function sphereIntersects( test )
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'sphere capsule in sphere'; /* */
+  /* */
+
+  test.case = 'sphere capsule in sphere';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0.1 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6693,7 +7721,9 @@ function sphereIntersects( test )
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule and sphere intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and sphere intersect';
 
   var capsule = [ -2, -2, -2, 3, 3, 3, 1 ];
   var sphere = [ 4, 4, 4, 1 ];
@@ -6702,7 +7732,9 @@ function sphereIntersects( test )
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'Capsule over sphere'; /* */
+  /* */
+
+  test.case = 'Capsule over sphere';
 
   var capsule = [ 0, -6, 4, 0, 1, 4, 0.5 ];
   var sphere = [ 0, 0, 0, 3 ];
@@ -6711,7 +7743,9 @@ function sphereIntersects( test )
   var gotBool = _.capsule.sphereIntersects( capsule, sphere );
   test.identical( gotBool, expected );
 
-  test.case = 'sphere closer to origin'; /* */
+  /* */
+
+  test.case = 'sphere closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var sphere = [ - 2, - 2, - 2, 0.5 ];
@@ -6745,7 +7779,9 @@ function sphereIntersects( test )
 function sphereDistance( test )
 {
 
-  test.case = 'Capsule and sphere remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and sphere remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6760,7 +7796,9 @@ function sphereDistance( test )
   var oldSphere = [ 0, 0, 0, 1 ];
   test.identical( sphere, oldSphere );
 
-  test.case = 'Null capsule - empty sphere'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty sphere';
 
   var capsule = null;
   var sphere = [ 0, 0, 0, 1 ];
@@ -6769,7 +7807,9 @@ function sphereDistance( test )
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'point capsule center of sphere'; /* */
+  /* */
+
+  test.case = 'point capsule center of sphere';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6778,7 +7818,9 @@ function sphereDistance( test )
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6787,7 +7829,9 @@ function sphereDistance( test )
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'point capsule in sphere'; /* */
+  /* */
+
+  test.case = 'point capsule in sphere';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6796,7 +7840,9 @@ function sphereDistance( test )
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'point capsule center of sphere'; /* */
+  /* */
+
+  test.case = 'point capsule center of sphere';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0.5 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6805,7 +7851,9 @@ function sphereDistance( test )
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6814,7 +7862,9 @@ function sphereDistance( test )
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'point capsule in sphere'; /* */
+  /* */
+
+  test.case = 'point capsule in sphere';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0.1 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6823,7 +7873,9 @@ function sphereDistance( test )
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule and sphere intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and sphere intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6832,7 +7884,9 @@ function sphereDistance( test )
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'Capsule over sphere'; /* */
+  /* */
+
+  test.case = 'Capsule over sphere';
 
   var capsule = [ 0, -6, 4, 0, 1, 4, 0.5 ];
   var sphere = [ 0, 0, 0, 3 ];
@@ -6841,7 +7895,9 @@ function sphereDistance( test )
   var gotDistance = _.capsule.sphereDistance( capsule, sphere );
   test.identical( gotDistance, expected );
 
-  test.case = 'sphere closer to origin'; /* */
+  /* */
+
+  test.case = 'sphere closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5];
   var sphere = [ - 2, - 2, - 2, 0.5 ];
@@ -6875,7 +7931,9 @@ function sphereDistance( test )
 function sphereClosestPoint( test )
 {
 
-  test.case = 'Capsule and sphere remain unchanged'; /* */
+  /* */
+
+  test.case = 'Capsule and sphere remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6890,7 +7948,9 @@ function sphereClosestPoint( test )
   var oldSphere = [ 0, 0, 0, 1 ];
   test.identical( sphere, oldSphere );
 
-  test.case = 'Null capsule - empty sphere'; /* */
+  /* */
+
+  test.case = 'Null capsule - empty sphere';
 
   var capsule = null;
   var sphere = [ 0, 0, 0, 1 ];
@@ -6899,7 +7959,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'point capsule center of sphere'; /* */
+  /* */
+
+  test.case = 'point capsule center of sphere';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6908,7 +7970,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6917,7 +7981,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'point capsule in sphere'; /* */
+  /* */
+
+  test.case = 'point capsule in sphere';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6926,7 +7992,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'sphere capsule center of sphere'; /* */
+  /* */
+
+  test.case = 'sphere capsule center of sphere';
 
   var capsule = [ 0, 0, 0, 0, 0, 0, 0.5 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6935,7 +8003,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'point capsule - no intersection'; /* */
+  /* */
+
+  test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
   var sphere = [ 4, 3, 4, 1 ];
@@ -6944,7 +8014,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'sphere capsule in sphere'; /* */
+  /* */
+
+  test.case = 'sphere capsule in sphere';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0.1 ];
   var sphere = [ 2, 2, 2, 2 ];
@@ -6953,7 +8025,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule and sphere intersect'; /* */
+  /* */
+
+  test.case = 'Capsule and sphere intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
   var sphere = [ 0, 0, 0, 1 ];
@@ -6962,7 +8036,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Capsule over sphere'; /* */
+  /* */
+
+  test.case = 'Capsule over sphere';
 
   var capsule = [ 0, -6, 4, 0, 1, 4, 0.5 ];
   var sphere = [ 0, 0, 0, 3 ];
@@ -6971,7 +8047,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'sphere closer to origin'; /* */
+  /* */
+
+  test.case = 'sphere closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, Math.sqrt( 3 ) ];
   var sphere = [ - 2, - 2, - 2, 0.5 ];
@@ -6980,7 +8058,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere );
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'dstPoint is vector'; /* */
+  /* */
+
+  test.case = 'dstPoint is vector';
 
   var capsule = [ 0, -6, 4, 0, 1, 4, 1 ];
   var sphere = [ 0, 5, 0, 3 ];
@@ -6990,7 +8070,9 @@ function sphereClosestPoint( test )
   var gotClosestPoint = _.capsule.sphereClosestPoint( capsule, sphere, dstPoint );
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'dstPoint is array'; /* */
+  /* */
+
+  test.case = 'dstPoint is array';
 
   var capsule = [ 0, -6, 4, 0, 1, 4, 1 ];
   var sphere = [ 0, 5, 0, 3 ];
@@ -7025,7 +8107,9 @@ function sphereClosestPoint( test )
 function boundingSphereGet( test )
 {
 
-  test.case = 'Source capsule remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source capsule remains unchanged';
 
   var srcCapsule = [ 0, 0, 0, 3, 3, 3, 1 ];
   var dstSphere = [ 1, 1, 2, 1 ];
@@ -7038,7 +8122,9 @@ function boundingSphereGet( test )
   var oldSrcCapsule = [ 0, 0, 0, 3, 3, 3, 1 ];
   test.identical( srcCapsule, oldSrcCapsule );
 
-  test.case = 'Zero capsule to zero sphere'; /* */
+  /* */
+
+  test.case = 'Zero capsule to zero sphere';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 0, 0, 0, 0 ];
@@ -7047,7 +8133,9 @@ function boundingSphereGet( test )
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere inside capsule - same center'; /* */
+  /* */
+
+  test.case = 'Sphere inside capsule - same center';
 
   var srcCapsule = [ 0, 0, 0, 4, 4, 4, 0.2 ];
   var dstSphere = [ 2, 2, 2, 1 ];
@@ -7056,7 +8144,9 @@ function boundingSphereGet( test )
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
 
-  test.case = 'Point capsule and point Sphere'; /* */
+  /* */
+
+  test.case = 'Point capsule and point Sphere';
 
   var srcCapsule = [ 0, 0, 0, 0, 0, 0, 0 ];
   var dstSphere = [ 3, 3, 3, 0 ];
@@ -7065,7 +8155,9 @@ function boundingSphereGet( test )
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
 
-  test.case = 'Capsule inside Sphere'; /* */
+  /* */
+
+  test.case = 'Capsule inside Sphere';
 
   var srcCapsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
   var dstSphere = [ 0, 0, 0, 3 ];
@@ -7074,7 +8166,9 @@ function boundingSphereGet( test )
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere outside capsule'; /* */
+  /* */
+
+  test.case = 'Sphere outside capsule';
 
   var srcCapsule = [ 1, 2, 3, 5, 8, 9, 3 ];
   var dstSphere = [ 5, 5, 5, 3 ];
@@ -7083,7 +8177,9 @@ function boundingSphereGet( test )
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
 
-  test.case = 'srcCapsule vector'; /* */
+  /* */
+
+  test.case = 'srcCapsule vector';
 
   var srcCapsule = _.vectorAdapter.from( [- 1, - 1, - 1, 1, 1, 1, 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
@@ -7092,7 +8188,9 @@ function boundingSphereGet( test )
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere vector'; /* */
+  /* */
+
+  test.case = 'dstSphere vector';
 
   var srcCapsule = [- 1, - 1, - 1, 3, 3, 1, 0.5 ];
   var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
@@ -7101,7 +8199,9 @@ function boundingSphereGet( test )
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere null'; /* */
+  /* */
+
+  test.case = 'dstSphere null';
 
   var srcCapsule = [- 1, 5, - 1, 3, 7, 1, 1 ];
   var dstSphere = null;
@@ -7110,7 +8210,9 @@ function boundingSphereGet( test )
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
 
-  test.case = 'dstSphere undefined'; /* */
+  /* */
+
+  test.case = 'dstSphere undefined';
 
   var srcCapsule = [- 1, - 3, - 5, 1, 0, 0, 0 ];
   var dstSphere = undefined;
@@ -7119,7 +8221,9 @@ function boundingSphereGet( test )
   var gotSphere = _.capsule.boundingSphereGet( dstSphere, srcCapsule );
   test.identical( gotSphere, expected );
 
-  test.case = 'srcCapsule inversed'; /* */
+  /* */
+
+  test.case = 'srcCapsule inversed';
 
   var srcCapsule = _.vectorAdapter.from( [ 4, 4, 4, 2, 2, 2, 0.2 ] );
   var dstSphere = [ 5, 5, 5, 3 ];

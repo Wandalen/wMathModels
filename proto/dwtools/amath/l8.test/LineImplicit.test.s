@@ -35,7 +35,9 @@ _.assert( _.routineIs( sqrt ) );
 
 function make( test )
 {
-  test.case = 'srcDim undefined'; /* */
+  /* */
+
+  test.case = 'srcDim undefined';
 
   var srcDim = undefined;
   var gotLine = _.lineImplicit.make( srcDim );
@@ -43,7 +45,9 @@ function make( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim null'; /* */
+  /* */
+
+  test.case = 'srcDim null';
 
   var srcDim = null;
   var gotLine = _.lineImplicit.make( srcDim );
@@ -51,7 +55,9 @@ function make( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim 2'; /* */
+  /* */
+
+  test.case = 'srcDim 2';
 
   var srcDim = 2;
   var gotLine = _.lineImplicit.make( srcDim );
@@ -59,7 +65,9 @@ function make( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim array'; /* */
+  /* */
+
+  test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2 ];
   var gotLine = _.lineImplicit.make( srcDim );
@@ -67,7 +75,9 @@ function make( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim vector'; /* */
+  /* */
+
+  test.case = 'srcDim vector';
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2 ]);
   var gotLine = _.lineImplicit.make( srcDim );
@@ -87,7 +97,9 @@ function make( test )
 
 function makeZero( test )
 {
-  test.case = 'srcDim undefined'; /* */
+  /* */
+
+  test.case = 'srcDim undefined';
 
   var srcDim = undefined;
   var gotLine = _.lineImplicit.makeZero( srcDim );
@@ -95,7 +107,9 @@ function makeZero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim null'; /* */
+  /* */
+
+  test.case = 'srcDim null';
 
   var srcDim = null;
   var gotLine = _.lineImplicit.makeZero( srcDim );
@@ -103,7 +117,9 @@ function makeZero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim 2'; /* */
+  /* */
+
+  test.case = 'srcDim 2';
 
   var srcDim = 2;
   var gotLine = _.lineImplicit.makeZero( srcDim );
@@ -111,7 +127,9 @@ function makeZero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim array'; /* */
+  /* */
+
+  test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2 ];
   var gotLine = _.lineImplicit.makeZero( srcDim );
@@ -119,7 +137,9 @@ function makeZero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim vector'; /* */
+  /* */
+
+  test.case = 'srcDim vector';
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2 ]);
   var gotLine = _.lineImplicit.makeZero( srcDim );
@@ -140,7 +160,9 @@ function makeZero( test )
 
 function makeNil( test )
 {
-  test.case = 'srcDim undefined'; /* */
+  /* */
+
+  test.case = 'srcDim undefined';
 
   var srcDim = undefined;
   var gotLine = _.lineImplicit.makeNil( srcDim );
@@ -148,7 +170,9 @@ function makeNil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim null'; /* */
+  /* */
+
+  test.case = 'srcDim null';
 
   var srcDim = null;
   var gotLine = _.lineImplicit.makeNil( srcDim );
@@ -156,7 +180,9 @@ function makeNil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim 2'; /* */
+  /* */
+
+  test.case = 'srcDim 2';
 
   var srcDim = 2;
   var gotLine = _.lineImplicit.makeNil( srcDim );
@@ -164,7 +190,9 @@ function makeNil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim array'; /* */
+  /* */
+
+  test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2 ];
   var gotLine = _.lineImplicit.makeNil( srcDim );
@@ -172,7 +200,9 @@ function makeNil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
 
-  test.case = 'srcDim vector'; /* */
+  /* */
+
+  test.case = 'srcDim vector';
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2 ]);
   var gotLine = _.lineImplicit.makeNil( srcDim );
@@ -192,7 +222,9 @@ function makeNil( test )
 
 function zero( test )
 {
-  test.case = 'srcLine undefined'; /* */
+  /* */
+
+  test.case = 'srcLine undefined';
 
   var srcLine = undefined;
   var gotLine = _.lineImplicit.zero( srcLine );
@@ -200,7 +232,9 @@ function zero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine null'; /* */
+  /* */
+
+  test.case = 'srcLine null';
 
   var srcLine = null;
   var gotLine = _.lineImplicit.zero( srcLine );
@@ -208,7 +242,9 @@ function zero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine 2'; /* */
+  /* */
+
+  test.case = 'srcLine 2';
 
   var srcLine = 2;
   var gotLine = _.lineImplicit.zero( srcLine );
@@ -216,7 +252,9 @@ function zero( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine array'; /* */
+  /* */
+
+  test.case = 'srcLine array';
 
   var srcLine = [ 0, 1, 2 ];
   var gotLine = _.lineImplicit.zero( srcLine );
@@ -224,7 +262,9 @@ function zero( test )
   test.identical( gotLine, expected );
   test.is( gotLine === srcLine );
 
-  test.case = 'srcLine vector'; /* */
+  /* */
+
+  test.case = 'srcLine vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2 ] );
   var gotLine = _.lineImplicit.zero( srcLine );
@@ -245,7 +285,9 @@ function zero( test )
 
 function nil( test )
 {
-  test.case = 'srcLine undefined'; /* */
+  /* */
+
+  test.case = 'srcLine undefined';
 
   var srcLine = undefined;
   var gotLine = _.lineImplicit.nil( srcLine );
@@ -253,7 +295,9 @@ function nil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine null'; /* */
+  /* */
+
+  test.case = 'srcLine null';
 
   var srcLine = null;
   var gotLine = _.lineImplicit.nil( srcLine );
@@ -261,7 +305,9 @@ function nil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine 2'; /* */
+  /* */
+
+  test.case = 'srcLine 2';
 
   var srcLine = 2;
   var gotLine = _.lineImplicit.nil( srcLine );
@@ -269,7 +315,9 @@ function nil( test )
   test.identical( gotLine, expected );
   test.is( gotLine !== srcLine );
 
-  test.case = 'srcLine array'; /* */
+  /* */
+
+  test.case = 'srcLine array';
 
   var srcLine = [ 0, 1, 2 ];
   var gotLine = _.lineImplicit.nil( srcLine );
@@ -277,7 +325,9 @@ function nil( test )
   test.identical( gotLine, expected );
   test.is( gotLine != srcLine );
 
-  test.case = 'srcLine vector'; /* */
+  /* */
+
+  test.case = 'srcLine vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2 ] );
   var gotLine = _.lineImplicit.nil( srcLine );
@@ -297,7 +347,9 @@ function nil( test )
 
 function from( test )
 {
-  test.case = 'Same instance returned - array'; /* */
+  /* */
+
+  test.case = 'Same instance returned - array';
 
   var srcLine = [ 0, 0, 2 ];
   var expected = _.lineImplicit.tools.longMake( [ 0, 0, 2 ] );
@@ -306,7 +358,9 @@ function from( test )
   test.identical( gotLine, expected );
   test.is( srcLine === gotLine );
 
-  test.case = 'Different instance returned - vector -> array'; /* */
+  /* */
+
+  test.case = 'Different instance returned - vector -> array';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 0, 2] );
   var expected = _.lineImplicit.tools.vectorAdapter.fromLong( [ 0, 0, 2] );
@@ -315,7 +369,9 @@ function from( test )
   test.identical( gotLine, expected );
   test.is( srcLine === gotLine );
 
-  test.case = 'Same instance returned - empty array'; /* */
+  /* */
+
+  test.case = 'Same instance returned - empty array';
 
   var srcLine = [];
   var expected = _.lineImplicit.tools.longMake( [] );
@@ -324,7 +380,9 @@ function from( test )
   test.identical( gotLine, expected );
   test.is( srcLine === gotLine );
 
-  test.case = 'Different instance returned - null -> array'; /* */
+  /* */
+
+  test.case = 'Different instance returned - null -> array';
 
   var srcLine = null;
   var expected = _.lineImplicit.tools.longMake( [ 0, 0, 0 ] );
@@ -348,7 +406,9 @@ function from( test )
 
 function adapterFrom( test )
 {
-  test.case = 'Same instance returned - vector'; /* */
+  /* */
+
+  test.case = 'Same instance returned - vector';
 
   var srcLine = [ 0, 0, 2 ];
   var expected = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 2 ] );
@@ -357,7 +417,9 @@ function adapterFrom( test )
   test.identical( gotLine, expected );
   test.is( srcLine !== gotLine );
 
-  test.case = 'Different instance returned - vector -> vector'; /* */
+  /* */
+
+  test.case = 'Different instance returned - vector -> vector';
 
   var srcLine = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 2 ] );
   var expected = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 2 ] );
@@ -366,7 +428,9 @@ function adapterFrom( test )
   test.identical( gotLine, expected );
   test.is( srcLine === gotLine );
 
-  test.case = 'Same instance returned - empty vector'; /* */
+  /* */
+
+  test.case = 'Same instance returned - empty vector';
 
   var srcLine = [];
   var expected =  _.lineImplicit.tools.vectorAdapter.from( [] );
@@ -392,7 +456,9 @@ function adapterFrom( test )
 
 function fromPair( test )
 {
-  test.case = 'Pair stay unchanged'; /* */
+  /* */
+
+  test.case = 'Pair stay unchanged';
 
   var pair = [ [ 0, 1 ], [ 0, 2 ] ];
   var expected = _.lineImplicit.tools.vectorAdapter.make( [ -1, 0, 0 ] );
@@ -403,7 +469,9 @@ function fromPair( test )
   var oldPair = [ [ 0, 1 ], [ 0, 2 ] ];
   test.identical( pair, oldPair );
 
-  test.case = 'Line starts in origin'; /* */
+  /* */
+
+  test.case = 'Line starts in origin';
 
   var pair = [ [ 0, 0 ], [ 0, 1 ] ];
   var expected = _.lineImplicit.tools.vectorAdapter.make( [ -1, 0, 0 ] );
@@ -411,7 +479,9 @@ function fromPair( test )
   var gotLine = _.lineImplicit.fromPair( pair );
   test.identical( gotLine, expected );
 
-  test.case = 'Line is point'; /* */
+  /* */
+
+  test.case = 'Line is point';
 
   var pair = [ [ 0, 1 ], [ 0, 1 ] ];
   var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, 0, 0 ] );
@@ -420,7 +490,9 @@ function fromPair( test )
   test.identical( gotLine, expected );
 
   //qqq
-  // test.case = 'Line of 1 dimension'; /* */
+  // /* */
+
+ test.case = 'Line of 1 dimension';
 
   // var pair = [ [ 3 ], [ 4 ] ];
   // var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, 1, 0 ] );
@@ -428,7 +500,9 @@ function fromPair( test )
   // var gotLine = _.lineImplicit.fromPair( pair );
   // test.identical( gotLine, expected );
 
-  test.case = 'Line goes up in y and down in x'; /* */
+  /* */
+
+  test.case = 'Line goes up in y and down in x';
 
   var pair = [ [ 0, 2 ], [ -2, 2 ] ];
   var expected = _.lineImplicit.tools.vectorAdapter.make( [ 0, -2, 4 ] );
@@ -454,21 +528,27 @@ function fromPair( test )
 function is( test )
 {
   debugger;
-  test.case = 'array'; /* */
+  /* */
+
+  test.case = 'array';
 
   test.is( _.lineImplicit.is( [] ) );
   test.is( _.lineImplicit.is([ 0, 0, 0 ]) );
   test.is( _.lineImplicit.is([ 1, 2, 3, 4 ]) );
   test.is( _.lineImplicit.is([ 0, 0, 0, 0, 0, 0 ]) );
 
-  test.case = 'vector'; /* */
+  /* */
+
+  test.case = 'vector';
 
   test.is( _.lineImplicit.is( _.vectorAdapter.fromLong([]) ) );
   test.is( _.lineImplicit.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
   test.is( _.lineImplicit.is( _.vectorAdapter.fromLong([ 1, 2, 3, 4 ]) ) );
   test.is( _.lineImplicit.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0, 0, 0 ]) ) );
 
-  test.case = 'not line'; /* */
+  /* */
+
+  test.case = 'not line';
 
   test.is( !_.lineImplicit.is([ 0 ]) );
   test.is( !_.lineImplicit.is([ 0, 0 ]) );
@@ -496,7 +576,9 @@ function is( test )
 
 function dimGet( test )
 {
-  // test.case = 'srcLine 1D - array'; /* */
+  // /* */
+
+ test.case = 'srcLine 1D - array';
 
   // var srcLine = [ 0, 1 ];
   // var gotDim = _.lineImplicit.dimGet( srcLine );
@@ -504,7 +586,9 @@ function dimGet( test )
   // test.identical( gotDim, expected );
   // test.is( gotDim !== srcLine );
 
-  // test.case = 'srcLine 1D - vector'; /* */
+  // /* */
+
+ test.case = 'srcLine 1D - vector';
 
   // var srcLine = _.vectorAdapter.fromLong( [ 0, 1 ] );
   // var gotDim = _.lineImplicit.dimGet( srcLine );
@@ -512,7 +596,9 @@ function dimGet( test )
   // test.identical( gotDim, expected );
   // test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 2D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 2D - array';
 
   var srcLine = [ 0, 1, 2 ];
   var gotDim = _.lineImplicit.dimGet( srcLine );
@@ -520,7 +606,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 2D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 2D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2 ] );
   var gotDim = _.lineImplicit.dimGet( srcLine );
@@ -528,7 +616,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 3D - array'; /* */
+  /* */
+
+  test.case = 'srcLine 3D - array';
 
   var srcLine = [ 0, 1, 2, 3 ];
   var gotDim = _.lineImplicit.dimGet( srcLine );
@@ -536,7 +626,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.is( gotDim !== srcLine );
 
-  test.case = 'srcLine 3D - vector'; /* */
+  /* */
+
+  test.case = 'srcLine 3D - vector';
 
   var srcLine = _.vectorAdapter.fromLong( [ 0, 1, 2, 3 ] );
   var gotDim = _.lineImplicit.dimGet( srcLine );
@@ -630,7 +722,9 @@ function lineIntersection( test ) //qqq:cover with tests
   var got = _.lineImplicit.lineIntersection( srcLine1, srcLine2 );
   test.identical( got, expected );
 
-  test.case = 'Lines are parallel ( different origin - same direction )'; /* */
+  /* */
+
+  test.case = 'Lines are parallel ( different origin - same direction )';
 
   var src1Line = [ 0, 1, 0 ]; //0, 0, 1, 0
   var src2Line = [ 0, 1, -1 ];//0, 1, 1, 1
@@ -638,7 +732,9 @@ function lineIntersection( test ) //qqq:cover with tests
   var got = _.lineImplicit.lineIntersection( src1Line, src2Line );
   test.identical( got, expected );
 
-  test.case = 'Lines intersect in origin'; /* */
+  /* */
+
+  test.case = 'Lines intersect in origin';
 
   var src1Line = [ 7, -2, -7 ]; //3, 7, 1, 0
   var src2Line = [ 6, -2, 2 ];//3, 7, 0, 1

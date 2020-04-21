@@ -36,7 +36,9 @@ _.assert( _.routineIs( sqrt ) );
 function make( test )
 {
 
-  test.case = 'src undefined'; /* */
+  /* */
+
+  test.case = 'src undefined';
 
   var src = undefined;
   var got = _.sphere.make( src );
@@ -44,7 +46,9 @@ function make( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src null'; /* */
+  /* */
+
+  test.case = 'src null';
 
   var src = null;
   var got = _.sphere.make( src );
@@ -52,7 +56,9 @@ function make( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src 2'; /* */
+  /* */
+
+  test.case = 'src 2';
 
   var src = 2;
   var got = _.sphere.make( src );
@@ -60,7 +66,9 @@ function make( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src array'; /* */
+  /* */
+
+  test.case = 'src array';
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.sphere.make( src );
@@ -68,7 +76,9 @@ function make( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src vector'; /* */
+  /* */
+
+  test.case = 'src vector';
 
   var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.sphere.make( src );
@@ -83,7 +93,9 @@ function make( test )
 function makeZero( test )
 {
 
-  test.case = 'src undefined'; /* */
+  /* */
+
+  test.case = 'src undefined';
 
   var src = undefined;
   var got = _.sphere.makeZero( src );
@@ -91,7 +103,9 @@ function makeZero( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src null'; /* */
+  /* */
+
+  test.case = 'src null';
 
   var src = null;
   var got = _.sphere.makeZero( src );
@@ -99,7 +113,9 @@ function makeZero( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src 2'; /* */
+  /* */
+
+  test.case = 'src 2';
 
   var src = 2;
   var got = _.sphere.makeZero( src );
@@ -107,7 +123,9 @@ function makeZero( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src array'; /* */
+  /* */
+
+  test.case = 'src array';
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.sphere.makeZero( src );
@@ -115,7 +133,9 @@ function makeZero( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src vector'; /* */
+  /* */
+
+  test.case = 'src vector';
 
   var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.sphere.makeZero( src );
@@ -130,7 +150,9 @@ function makeZero( test )
 function makeNil( test )
 {
 
-  test.case = 'src undefined'; /* */
+  /* */
+
+  test.case = 'src undefined';
 
   var src = undefined;
   var got = _.sphere.makeNil( src );
@@ -138,7 +160,9 @@ function makeNil( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src null'; /* */
+  /* */
+
+  test.case = 'src null';
 
   var src = null;
   var got = _.sphere.makeNil( src );
@@ -146,7 +170,9 @@ function makeNil( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src 2'; /* */
+  /* */
+
+  test.case = 'src 2';
 
   var src = 2;
   var got = _.sphere.makeNil( src );
@@ -154,7 +180,9 @@ function makeNil( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src array'; /* */
+  /* */
+
+  test.case = 'src array';
 
   var src = [ 0, 1, 2, 3 ];
   var got = _.sphere.makeNil( src );
@@ -162,7 +190,9 @@ function makeNil( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src vector'; /* */
+  /* */
+
+  test.case = 'src vector';
 
   var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.sphere.makeNil( src );
@@ -177,7 +207,9 @@ function makeNil( test )
 function zero( test )
 {
 
-  test.case = 'src undefined'; /* */
+  /* */
+
+  test.case = 'src undefined';
 
   var src = undefined;
   var got = _.sphere.zero( src );
@@ -185,7 +217,9 @@ function zero( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src null'; /* */
+  /* */
+
+  test.case = 'src null';
 
   var src = null;
   var got = _.sphere.zero( src );
@@ -193,7 +227,9 @@ function zero( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src 2'; /* */
+  /* */
+
+  test.case = 'src 2';
 
   var src = 2;
   var got = _.sphere.zero( src );
@@ -201,7 +237,9 @@ function zero( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'dst array'; /* */
+  /* */
+
+  test.case = 'dst array';
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.sphere.zero( dst );
@@ -209,7 +247,9 @@ function zero( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst vector'; /* */
+  /* */
+
+  test.case = 'dst vector';
 
   var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.sphere.zero( dst );
@@ -217,7 +257,9 @@ function zero( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst array 2d'; /* */
+  /* */
+
+  test.case = 'dst array 2d';
 
   var dst = [ 0, 1, 5 ];
   var got = _.sphere.zero( dst );
@@ -232,7 +274,9 @@ function zero( test )
 function nil( test )
 {
 
-  test.case = 'src undefined'; /* */
+  /* */
+
+  test.case = 'src undefined';
 
   var src = undefined;
   var got = _.sphere.nil( src );
@@ -240,7 +284,9 @@ function nil( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src null'; /* */
+  /* */
+
+  test.case = 'src null';
 
   var src = null;
   var got = _.sphere.nil( src );
@@ -248,7 +294,9 @@ function nil( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src 2'; /* */
+  /* */
+
+  test.case = 'src 2';
 
   var src = 2;
   var got = _.sphere.nil( src );
@@ -256,7 +304,9 @@ function nil( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'dst array'; /* */
+  /* */
+
+  test.case = 'dst array';
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.sphere.nil( dst );
@@ -264,7 +314,9 @@ function nil( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst vector'; /* */
+  /* */
+
+  test.case = 'dst vector';
 
   var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.sphere.nil( dst );
@@ -272,7 +324,9 @@ function nil( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst array 2d'; /* */
+  /* */
+
+  test.case = 'dst array 2d';
 
   var dst = [ 0, 1, 5 ];
   var got = _.sphere.nil( dst );
@@ -286,7 +340,9 @@ function nil( test )
 
 function centeredOfRadius( test )
 {
-  test.case = 'src 2'; /* */
+  /* */
+
+  test.case = 'src 2';
 
   var src = 2;
   var got = _.sphere.centeredOfRadius(  null, src );
@@ -294,7 +350,9 @@ function centeredOfRadius( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'dst array'; /* */
+  /* */
+
+  test.case = 'dst array';
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.sphere.centeredOfRadius( dst, 0.5 );
@@ -302,7 +360,9 @@ function centeredOfRadius( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst vector'; /* */
+  /* */
+
+  test.case = 'dst vector';
 
   var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.sphere.centeredOfRadius( dst, 0.5 );
@@ -310,7 +370,9 @@ function centeredOfRadius( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst array 2d'; /* */
+  /* */
+
+  test.case = 'dst array 2d';
 
   var dst = [ 0, 1, 5 ];
   var got = _.sphere.centeredOfRadius( dst, 0.5 );
@@ -320,7 +382,9 @@ function centeredOfRadius( test )
 
   /* */
 
-  test.case = 'src undefined'; /* */
+  /* */
+
+  test.case = 'src undefined';
 
   var src = undefined;
   var got = _.sphere.centeredOfRadius( src, 2 );
@@ -328,7 +392,9 @@ function centeredOfRadius( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src null'; /* */
+  /* */
+
+  test.case = 'src null';
 
   var src = null;
   var got = _.sphere.centeredOfRadius( src, 2 );
@@ -336,7 +402,9 @@ function centeredOfRadius( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'src 2'; /* */
+  /* */
+
+  test.case = 'src 2';
 
   var src = 2;
   var got = _.sphere.centeredOfRadius( src, 2 );
@@ -344,7 +412,9 @@ function centeredOfRadius( test )
   test.identical( got, expected );
   test.is( got !== src );
 
-  test.case = 'dst array'; /* */
+  /* */
+
+  test.case = 'dst array';
 
   var dst = [ 0, 1, 2, 3 ];
   var got = _.sphere.centeredOfRadius( dst, 2 );
@@ -352,7 +422,9 @@ function centeredOfRadius( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst vector'; /* */
+  /* */
+
+  test.case = 'dst vector';
 
   var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
   var got = _.sphere.centeredOfRadius( dst, 2 );
@@ -360,7 +432,9 @@ function centeredOfRadius( test )
   test.identical( got, expected );
   test.is( got === dst );
 
-  test.case = 'dst array 2d'; /* */
+  /* */
+
+  test.case = 'dst array 2d';
 
   var dst = [ 0, 1, 5 ];
   var got = _.sphere.centeredOfRadius( dst, 2 );
@@ -375,7 +449,9 @@ function centeredOfRadius( test )
 function fromPoints( test )
 {
 
-  test.case = 'Points remain unchanged and Destination sphere changes'; /* */
+  /* */
+
+  test.case = 'Points remain unchanged and Destination sphere changes';
 
   var dstSphere = [ 0, 0, 0, 1 ];
   var points = [ [ 1, 1, 0 ], [ 0, 0, 0 ], [ 0, 0, 2 ] ];
@@ -388,7 +464,9 @@ function fromPoints( test )
   var oldpoints = [ [ 1, 1, 0 ], [ 0, 0, 0 ], [ 0, 0, 2 ] ];
   test.identical( points, oldpoints );
 
-  test.case = 'Create sphere of two dimensions'; /* */
+  /* */
+
+  test.case = 'Create sphere of two dimensions';
 
   var dstSphere = null;
   var points = [ [ 1, 0 ], [ 0, - 2 ], [ 0, 3 ], [ - 3, 4 ] ];
@@ -397,7 +475,9 @@ function fromPoints( test )
   var gotSphere = _.sphere.fromPoints( dstSphere, points );
   test.identical( gotSphere, expected );
 
-  test.case = 'Create sphere three dimensions'; /* */
+  /* */
+
+  test.case = 'Create sphere three dimensions';
 
   var dstSphere = null;
   var points = [ [ 1, 0, 0 ], [ 0, 2, 0 ], [ 0, 0, 3 ] ];
@@ -406,7 +486,9 @@ function fromPoints( test )
   var gotSphere = _.sphere.fromPoints( dstSphere, points );
   test.identical( gotSphere, expected );
 
-  test.case = 'Zero points - sphere not expanded'; /* */
+  /* */
+
+  test.case = 'Zero points - sphere not expanded';
 
   var dstSphere = null;
   var points= [ [ 0, 0, 0 ], [ 0, 0, 0 ] ];
@@ -415,7 +497,9 @@ function fromPoints( test )
   var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere expanded'; /* */
+  /* */
+
+  test.case = 'sphere expanded';
 
   var dstSphere = [ 0, 0, 0, 2 ];
   var points= [ [ - 1, 0, - 1 ], [ 0, 3, 0 ], [ 0, - 3, 0 ] ] ;
@@ -424,7 +508,9 @@ function fromPoints( test )
   var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere NOT expanded ( points inside sphere )'; /* */
+  /* */
+
+  test.case = 'sphere NOT expanded ( points inside sphere )';
 
   var dstSphere = [ 1, 1, 1, 2 ];
   var points= [ [ 0, 1, 1 ], [ 1, 0, 1 ], [ 1, 1, 0 ] ];
@@ -433,7 +519,9 @@ function fromPoints( test )
   var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere ( normalized to 1 ) expanded'; /* */
+  /* */
+
+  test.case = 'sphere ( normalized to 1 ) expanded';
 
   var dstSphere = [ 0, 0, 0, 0 ];
   var points= [ [ - 0.500, 0, 0 ], [ 0, 0.005, 0 ] ];
@@ -442,7 +530,9 @@ function fromPoints( test )
   var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
-  test.case = 'Null sphere of four dimensions expanded'; /* */
+  /* */
+
+  test.case = 'Null sphere of four dimensions expanded';
 
   var dstSphere = [ 0, 0, 0, 0, 0 ];
   var points= [ [ 0, 0, 0, 1 ], [ 0, 0, 3 , 4 ] ];
@@ -451,7 +541,9 @@ function fromPoints( test )
   var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
-  test.case = 'Null sphere of 7 dimensions expanded'; /* */
+  /* */
+
+  test.case = 'Null sphere of 7 dimensions expanded';
 
   var dstSphere = [  0, 0, 0, 0, 0, 0, 0, 1 ];
   var points= [ [ 0, 2, 0, 0, 0, 0, 0 ], [ 0, 0, 0 , 4, 0, 0, 0 ] ] ;
@@ -460,7 +552,9 @@ function fromPoints( test )
   var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere of 1 dimension expanded'; /* */
+  /* */
+
+  test.case = 'sphere of 1 dimension expanded';
 
   var dstSphere = [ 0, 0 ];
   var points= [ [ - 1 ], [ 0 ], [ 1 ] ];
@@ -470,7 +564,9 @@ function fromPoints( test )
   test.identical( gotSphere, expected );
 
 
-  test.case = 'sphere of 1 dimension not expanded - NaN'; /* */
+  /* */
+
+  test.case = 'sphere of 1 dimension not expanded - NaN';
 
   var dstSphere = [ NaN, NaN ];
   var points= [ [ NaN ], [ NaN ], [ NaN ] ];
@@ -479,7 +575,9 @@ function fromPoints( test )
   var gotSphere = _.sphere.fromPoints( dstSphere, points);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere of 1 dimension not expanded - NaN'; /* */
+  /* */
+
+  test.case = 'sphere of 1 dimension not expanded - NaN';
 
   var dstShere = [ NaN, NaN ];
   var points= [ [ 1 ], [ 2 ], [ 0 ] ];
@@ -489,7 +587,9 @@ function fromPoints( test )
   test.identical( gotSphere, expected );
 
 
-  test.case = 'sphere of 1 dimension not expanded - NaN'; /* */
+  /* */
+
+  test.case = 'sphere of 1 dimension not expanded - NaN';
 
   var dstSphere = [ 0, 1 ];
   var points= [ [ NaN ], [ NaN ], [ NaN ] ];
@@ -503,68 +603,90 @@ function fromPoints( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints();
   });
 
 
-  test.case = 'Wrong type of argument - none'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - none';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ ] , [ [ ], [ ] ] );
   });
 
-  test.case = 'Wrong type of argument - string'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - string';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( 'sphere', 'points' );
   });
 
-  test.case = 'Wrong type of argument - null'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - null';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( null, null );
   });
 
-  test.case = 'Wrong type of argument - number'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - number';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( null, 4 );
   });
 
-  test.case = 'Too few arguments'; /* */
+  /* */
+
+  test.case = 'Too few arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ] );
   });
 
-  test.case = 'Too few arguments - one point'; /* */
+  /* */
+
+  test.case = 'Too few arguments - one point';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ], [ 1, 1, 1 ]);
   });
 
-  test.case = 'too many arguments'; /* */
+  /* */
+
+  test.case = 'too many arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ], [ 1, 0 ] );
   });
 
-  test.case = 'Wrong points dimension (sphere 3D vs points 4D)'; /* */
+  /* */
+
+  test.case = 'Wrong points dimension (sphere 3D vs points 4D)';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0, 0 ], [ [ 0, 1, 0, 2 ], [ 0, 1, - 3, 4 ] ] );
   });
 
-  test.case = 'Wrong points dimension (sphere 3D vs points 2D)'; /* */
+  /* */
+
+  test.case = 'Wrong points dimension (sphere 3D vs points 2D)';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0, 0 ], [ [ 0, 1 ], [ 2, 1 ], [ 0, 3 ] ] );
   });
 
-  test.case = 'Wrong points dimension (sphere 2D vs points 1D)'; /* */
+  /* */
+
+  test.case = 'Wrong points dimension (sphere 2D vs points 1D)';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromPoints( [ 0, 0, 0 ], [ [ 1 ], [ 0 ] ] );
@@ -578,7 +700,9 @@ function fromBox( test )
 
   debugger;
 
-  test.case = 'trivial'; /* */
+  /* */
+
+  test.case = 'trivial';
 
   var expected = _.sphere.tools.longMake( [ 0.5, 0.5, 0.5, sqrt( 0.75 ) ] );
   var bsphere = [ 0, 0, 0, 0 ];
@@ -594,7 +718,9 @@ function fromBox( test )
   _.sphere.fromBox( bsphere, bbox );
   test.equivalent( bsphere, expected );
 
-  test.case = 'same sizes, different position'; /* */
+  /* */
+
+  test.case = 'same sizes, different position';
 
   var expected = _.sphere.tools.longMake( [ -2.5, 0.5, 5.5, sqrt( 0.75 ) ] );
   var bsphere = [ 0, 0, 0, 0 ];
@@ -610,7 +736,9 @@ function fromBox( test )
   _.sphere.fromBox( bsphere, bbox );
   test.equivalent( bsphere, expected );
 
-  test.case = 'different sizes, different position'; /* */
+  /* */
+
+  test.case = 'different sizes, different position';
 
   var expected = _.sphere.tools.longMake( [ -2, 0.5, 7, sqrt( 21 )/2 ] );
   var bsphere = [ 0, 0, 0, 0 ];
@@ -626,7 +754,9 @@ function fromBox( test )
   _.sphere.fromBox( bsphere, bbox )
   test.equivalent( bsphere, expected );
 
-  test.case = 'bad arguments'; /* */
+  /* */
+
+  test.case = 'bad arguments';
 
   if( !Config.debug )
   return;
@@ -666,7 +796,9 @@ function fromBox( test )
 function fromCenterAndRadius( test )
 {
 
-  test.case = 'Center and radius remain unchanged and Destination sphere changes'; /* */
+  /* */
+
+  test.case = 'Center and radius remain unchanged and Destination sphere changes';
 
   var dstSphere = [ 0, 0, 0, 1 ];
   var center = [ 0, 0, 2 ];
@@ -682,7 +814,9 @@ function fromCenterAndRadius( test )
   var oldradius = 3;
   test.identical( radius, oldradius );
 
-  test.case = 'Create sphere of one dimension'; /* */
+  /* */
+
+  test.case = 'Create sphere of one dimension';
 
   var dstSphere = null;
   var center = [ 0 ];
@@ -692,7 +826,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
-  test.case = 'Create sphere of two dimensions'; /* */
+  /* */
+
+  test.case = 'Create sphere of two dimensions';
 
   var dstSphere = null;
   var center = [ 0, 1 ];
@@ -702,7 +838,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'Create sphere three dimensions'; /* */
+  /* */
+
+  test.case = 'Create sphere three dimensions';
 
   var dstSphere = null;
   var center = [ 0, 0, 0 ];
@@ -712,7 +850,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere expanded - center moved'; /* */
+  /* */
+
+  test.case = 'sphere expanded - center moved';
 
   var dstSphere = [ 0, 0, 0, 2 ];
   var center = [ 0, - 5.5, 101 ];
@@ -722,7 +862,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere contracted'; /* */
+  /* */
+
+  test.case = 'sphere contracted';
 
   var dstSphere = [ 1, 1, 1, 2 ];
   var center = [ 1, 1, 1 ];
@@ -732,7 +874,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere ( normalized to 1 ) expanded'; /* */
+  /* */
+
+  test.case = 'sphere ( normalized to 1 ) expanded';
 
   var dstSphere = [ 0.2, - 0.1, 0.6, 0.2 ];
   var center = [ - 0.4, 0.1, 0.3 ];
@@ -742,7 +886,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
-  test.case = 'Zero sphere of four dimensions expanded'; /* */
+  /* */
+
+  test.case = 'Zero sphere of four dimensions expanded';
 
   var dstSphere = [ 0, 0, 0, 0, 0 ];
   var center = [ 0, 1, 2, 3 ];
@@ -752,7 +898,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
-  test.case = 'Null sphere of 7 dimensions expanded'; /* */
+  /* */
+
+  test.case = 'Null sphere of 7 dimensions expanded';
 
   var dstSphere = [  0, 0, 0, 0, 0, 0, 0, 1 ];
   var center = [  0, 3, 0, - 2, 0, 3, 0 ];
@@ -762,7 +910,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere of 1 dimension expanded'; /* */
+  /* */
+
+  test.case = 'sphere of 1 dimension expanded';
 
   var dstSphere = [ 0, 0 ];
   var center = [ 0 ];
@@ -772,7 +922,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
-  test.case = 'NaN sphere of 1 dimension expanded'; /* */
+  /* */
+
+  test.case = 'NaN sphere of 1 dimension expanded';
 
   var dstSphere = [ NaN, NaN ];
   var center = [ 0 ];
@@ -782,7 +934,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere of 1 dimension no center - center NaN'; /* */
+  /* */
+
+  test.case = 'sphere of 1 dimension no center - center NaN';
 
   var dstSphere = [ 0, 1 ];
   var center = [ NaN ];
@@ -792,7 +946,9 @@ function fromCenterAndRadius( test )
   var gotSphere = _.sphere.fromCenterAndRadius( dstSphere, center, radius);
   test.identical( gotSphere, expected );
 
-  test.case = 'sphere of 1 dimension not expanded - radius NaN'; /* */
+  /* */
+
+  test.case = 'sphere of 1 dimension not expanded - radius NaN';
 
   var dstSphere = [ 0, 1 ];
   var center = [ 0 ];
@@ -807,73 +963,97 @@ function fromCenterAndRadius( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius();
   });
 
-  test.case = 'Wrong type of argument - none'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - none';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ ] , [ ], [ ]  );
   });
 
-  test.case = 'Wrong type of argument - string'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - string';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( 'sphere', 'center', 'radius' );
   });
 
-  test.case = 'Wrong type of argument - number'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - number';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( 1, 2, 4 );
   });
 
-  test.case = 'Too few arguments'; /* */
+  /* */
+
+  test.case = 'Too few arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ] );
   });
 
-  test.case = 'Too few arguments - no radius'; /* */
+  /* */
+
+  test.case = 'Too few arguments - no radius';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1, 1, 1 ] );
   });
 
-  test.case = 'Too few arguments - no center'; /* */
+  /* */
+
+  test.case = 'Too few arguments - no center';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], 1 );
   });
 
-  test.case = 'too many arguments'; /* */
+  /* */
+
+  test.case = 'too many arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 0, 1 ], [ 2, 1 ], 3 );
   });
 
-  test.case = 'Wrong center dimension ( sphere 3D vs center 4D )'; /* */
+  /* */
+
+  test.case = 'Wrong center dimension ( sphere 3D vs center 4D )';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0, 0 ], [ 0, 1, 0, 2 ], 3 );
   });
 
-  test.case = 'Wrong center dimension ( sphere 3D vs center 2D )'; /* */
+  /* */
+
+  test.case = 'Wrong center dimension ( sphere 3D vs center 2D )';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0, 0 ], [ 2, 1 ], 2 );
   });
 
-  test.case = 'Wrong center dimension ( sphere 2D vs center 1D )'; /* */
+  /* */
+
+  test.case = 'Wrong center dimension ( sphere 2D vs center 1D )';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1 ], 1 );
   });
 
-  test.case = 'Wrong radius dimension'; /* */
+  /* */
+
+  test.case = 'Wrong radius dimension';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.fromCenterAndRadius( [ 0, 0, 0 ], [ 1, 1 ], [1, 0] );
@@ -896,21 +1076,27 @@ function is( test )
 
   console.log( s );
 
-  test.case = 'array'; /* */
+  /* */
+
+  test.case = 'array';
 
   test.is( _.sphere.is([ 0 ]) );
   test.is( _.sphere.is([ 0, 0 ]) );
   test.is( _.sphere.is([ 0, 0, 0 ]) );
   test.is( _.sphere.is([ 0, 0, 0, 0 ]) );
 
-  test.case = 'vector'; /* */
+  /* */
+
+  test.case = 'vector';
 
   test.is( _.sphere.is( _.vectorAdapter.fromLong([ 0 ]) ) );
   test.is( _.sphere.is( _.vectorAdapter.fromLong([ 0, 0 ]) ) );
   test.is( _.sphere.is( _.vectorAdapter.fromLong([ 0, 0, 0 ]) ) );
   test.is( _.sphere.is( _.vectorAdapter.fromLong([ 0, 0, 0, 0 ]) ) );
 
-  test.case = 'not sphere'; /* */
+  /* */
+
+  test.case = 'not sphere';
 
   test.is( !_.sphere.is( [] ) );
   test.is( !_.sphere.is( _.vectorAdapter.fromLong([]) ) );
@@ -927,7 +1113,9 @@ function isEmpty( test )
 
   debugger;
 
-  test.case = 'empty'; /* */
+  /* */
+
+  test.case = 'empty';
 
   test.is( _.sphere.isEmpty([ 0 ]) );
   test.is( _.sphere.isEmpty([ 0, 0 ]) );
@@ -953,7 +1141,9 @@ function isEmpty( test )
   test.is( _.sphere.isEmpty([ 0, 0.1, -Infinity ]) );
   test.is( _.sphere.isEmpty([ 0, 0, 0.1, -Infinity ]) );
 
-  test.case = 'not empty'; /* */
+  /* */
+
+  test.case = 'not empty';
 
   test.is( !_.sphere.isEmpty([ 1 ]) );
   test.is( !_.sphere.isEmpty([ 0, 1 ]) );
@@ -972,7 +1162,9 @@ function isEmpty( test )
 function isZero( test )
 {
 
-  test.case = 'zero'; /* */
+  /* */
+
+  test.case = 'zero';
 
   test.is( _.sphere.isZero([ 0 ]) );
   test.is( _.sphere.isZero([ 0, 0 ]) );
@@ -984,7 +1176,9 @@ function isZero( test )
   test.is( _.sphere.isZero([ 1, 0, 0 ]) );
   test.is( _.sphere.isZero([ 1, 0, 0, 0 ]) );
 
-  test.case = 'not zero'; /* */
+  /* */
+
+  test.case = 'not zero';
 
   test.is( !_.sphere.isZero([ 1 ]) );
   test.is( !_.sphere.isZero([ 0, 1 ]) );
@@ -1017,14 +1211,18 @@ function isZero( test )
 function isNil( test )
 {
 
-  test.case = 'nil'; /* */
+  /* */
+
+  test.case = 'nil';
 
   test.is( _.sphere.isNil([ -Infinity ]) );
   test.is( _.sphere.isNil([ 0, -Infinity ]) );
   test.is( _.sphere.isNil([ 0, 0, -Infinity ]) );
   test.is( _.sphere.isNil([ 0, 0, 0, -Infinity ]) );
 
-  test.case = 'not nil'; /* */
+  /* */
+
+  test.case = 'not nil';
 
   test.is( !_.sphere.isNil([ Infinity ]) );
   test.is( !_.sphere.isNil([ 0, Infinity ]) );
@@ -1042,7 +1240,9 @@ function isNil( test )
 function dimGet( test )
 {
 
-  test.case = 'Source sphere remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere remains unchanged';
 
   var srcSphere = [ 0, 0, 1, 1 ];
   var oldSrcSphere = srcSphere.slice();
@@ -1052,7 +1252,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
   test.identical( srcSphere, oldSrcSphere );
 
-  test.case = 'Nil sphere sphere'; /* */
+  /* */
+
+  test.case = 'Nil sphere sphere';
 
   var sphere = [ 1, 1, 1, -Infinity ];
   var expected = 3;
@@ -1060,7 +1262,9 @@ function dimGet( test )
   var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
-  test.case = 'Zero dimension sphere'; /* */
+  /* */
+
+  test.case = 'Zero dimension sphere';
 
   var sphere = [ 1 ];
   var expected = 0;
@@ -1068,7 +1272,9 @@ function dimGet( test )
   var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
-  test.case = 'One dimension sphere'; /* */
+  /* */
+
+  test.case = 'One dimension sphere';
 
   var sphere = [ 0, 0 ];
   var expected = 1;
@@ -1076,7 +1282,9 @@ function dimGet( test )
   var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
-  test.case = 'Two dimension sphere'; /* */
+  /* */
+
+  test.case = 'Two dimension sphere';
 
   var sphere = [ 0, - 1, 1.5 ];
   var expected = 2;
@@ -1084,7 +1292,9 @@ function dimGet( test )
   var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
-  test.case = 'Three dimension sphere'; /* */
+  /* */
+
+  test.case = 'Three dimension sphere';
 
   var sphere = [ - 1, 0, 1.2, 2 ];
   var expected = 3;
@@ -1092,7 +1302,9 @@ function dimGet( test )
   var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
-  test.case = 'Four dimension sphere'; /* */
+  /* */
+
+  test.case = 'Four dimension sphere';
 
   var sphere = [ - 1, - 2.2, 1, 2, 5.4 ];
   var expected = 4;
@@ -1100,7 +1312,9 @@ function dimGet( test )
   var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
-  test.case = 'Eight dimension sphere'; /* */
+  /* */
+
+  test.case = 'Eight dimension sphere';
 
   var sphere = [ - 1, - 2.2, - 3, 5, 0.1, 1, 2, 5.4, - 1.1 ];
   var expected = 8;
@@ -1109,7 +1323,9 @@ function dimGet( test )
   test.identical( gotDim, expected );
 
 
-  test.case = 'NaN'; /* */
+  /* */
+
+  test.case = 'NaN';
 
   var sphere = [ 'Hi', 'world' ];
   var expected = 1;
@@ -1117,7 +1333,9 @@ function dimGet( test )
   var gotDim = _.sphere.dimGet( sphere );
   test.identical( gotDim, expected );
 
-  test.case = 'NaN'; /* */
+  /* */
+
+  test.case = 'NaN';
 
   var sphere = [ 'Hi', 'world', null, null, NaN, NaN ];
   var expected = 5;
@@ -1130,37 +1348,49 @@ function dimGet( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet();
   });
 
-  test.case = 'Wrong Sphere dimension'; /* */
+  /* */
+
+  test.case = 'Wrong Sphere dimension';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( [] );
   });
 
-  test.case = 'Wrong type of argument'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( 'Hi' );
   });
 
-  test.case = 'Wrong type of argument'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( null );
   });
 
-  test.case = 'Wrong type of argument'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( 3 );
   });
 
-  test.case = 'To many arguments'; /* */
+  /* */
+
+  test.case = 'To many arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.dimGet( [ 0, 1 ], [ 0, 1 ] );
@@ -1173,7 +1403,9 @@ function dimGet( test )
 function centerGet( test )
 {
 
-  test.case = 'Source sphere remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere remains unchanged';
 
   var srcSphere = [ 0, 0, 1, 1 ];
   var oldSrcSphere = srcSphere.slice();
@@ -1185,7 +1417,9 @@ function centerGet( test )
   test.equivalent( srcSphere, oldSrcSphere );
   test.identical( gotCenter, expected );
 
-  test.case = 'Zero dimension sphere'; /* */
+  /* */
+
+  test.case = 'Zero dimension sphere';
 
   var sphere = [ 0 ];
   var expected = _.sphere.tools.longMake( [ ] );
@@ -1194,7 +1428,9 @@ function centerGet( test )
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
-  test.case = 'One dimension sphere'; /* */
+  /* */
+
+  test.case = 'One dimension sphere';
 
   var sphere = [ 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0 ] );
@@ -1203,7 +1439,9 @@ function centerGet( test )
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
-  test.case = 'Two dimension sphere'; /* */
+  /* */
+
+  test.case = 'Two dimension sphere';
 
   var sphere = [ 0, 0, 2 ];
   var expected = _.sphere.tools.longMake( [ 0, 0 ] );
@@ -1212,7 +1450,9 @@ function centerGet( test )
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
-  test.case = 'Three dimension sphere'; /* */
+  /* */
+
+  test.case = 'Three dimension sphere';
 
   var sphere = [ 0, - 1, - 2, 2 ];
   var expected = _.sphere.tools.longMake( [ 0, - 1, - 2 ] );
@@ -1221,7 +1461,9 @@ function centerGet( test )
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
-  test.case = 'Four dimension sphere'; /* */
+  /* */
+
+  test.case = 'Four dimension sphere';
 
   var sphere = [ 0, - 1, - 2, 2, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, - 1, - 2, 2 ] );
@@ -1230,7 +1472,9 @@ function centerGet( test )
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
-  test.case = 'Eight dimension sphere'; /* */
+  /* */
+
+  test.case = 'Eight dimension sphere';
 
   var sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, - 1 ];
   var expected = _.sphere.tools.longMake( [ 0, - 1, -2, 2, 0, 1, 2, 6 ] );
@@ -1239,7 +1483,9 @@ function centerGet( test )
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
-  test.case = 'normalized sphere'; /* */
+  /* */
+
+  test.case = 'normalized sphere';
 
   var sphere = [ 0.624, 0.376, 0.52 ];
   var expected = _.sphere.tools.longMake( [ 0.624, 0.376 ] );
@@ -1248,7 +1494,9 @@ function centerGet( test )
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
-  test.case = 'negative radius'; /* */
+  /* */
+
+  test.case = 'negative radius';
 
   var sphere = [ 1, 2, - 3 ];
   var expected = _.sphere.tools.longMake( [ 1, 2 ] );
@@ -1258,7 +1506,9 @@ function centerGet( test )
   test.identical( gotCenter, expected );
 
 
-  test.case = 'NaN radius'; /* */
+  /* */
+
+  test.case = 'NaN radius';
 
   var sphere = [ 1, 2, NaN ];
   var expected = _.sphere.tools.longMake( [ 1, 2 ] );
@@ -1267,7 +1517,9 @@ function centerGet( test )
   var gotCenter = _.sphere.centerGet( sphere );
   test.identical( gotCenter, expected );
 
-  test.case = 'NaN sphere'; /* */
+  /* */
+
+  test.case = 'NaN sphere';
 
   var sphere = [ NaN, NaN, NaN ];
   var expected = _.sphere.tools.longMake( [ NaN, NaN ] );
@@ -1281,37 +1533,49 @@ function centerGet( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet();
   });
 
-  test.case = 'Too many arguments'; /* */
+  /* */
+
+  test.case = 'Too many arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( [ 0, 0, 1, 1 ], [ 0, 0, 0, 0 ] );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( null );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( 'string' );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( 4 );
   });
 
-  test.case = 'Wrong sphere dimension'; /* */
+  /* */
+
+  test.case = 'Wrong sphere dimension';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.centerGet( [ ] );
@@ -1324,7 +1588,9 @@ function centerGet( test )
 function radiusGet( test )
 {
 
-  test.case = 'Source sphere remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere remains unchanged';
 
   var srcSphere = [ 0, 0, 1, 1 ];
   var oldSrcSphere = srcSphere.slice();
@@ -1336,7 +1602,9 @@ function radiusGet( test )
   test.equivalent( srcSphere, oldSrcSphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'Zero dimension sphere'; /* */
+  /* */
+
+  test.case = 'Zero dimension sphere';
 
   var sphere = [ 0 ];
   var expected = 0;
@@ -1344,7 +1612,9 @@ function radiusGet( test )
   var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'One dimension sphere'; /* */
+  /* */
+
+  test.case = 'One dimension sphere';
 
   var sphere = [ 0, 0 ];
   var expected =  0 ;
@@ -1352,7 +1622,9 @@ function radiusGet( test )
   var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'Two dimension sphere'; /* */
+  /* */
+
+  test.case = 'Two dimension sphere';
 
   var sphere = [ 0, 0, 2 ];
   var expected = 2;
@@ -1360,7 +1632,9 @@ function radiusGet( test )
   var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'Three dimension sphere'; /* */
+  /* */
+
+  test.case = 'Three dimension sphere';
 
   var sphere = [ 0, - 1, - 2, 2 ];
   var expected = 2;
@@ -1368,7 +1642,9 @@ function radiusGet( test )
   var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'Four dimension sphere'; /* */
+  /* */
+
+  test.case = 'Four dimension sphere';
 
   var sphere = [ 0, - 1, - 2, 2, 0 ];
   var expected =  0;
@@ -1376,7 +1652,9 @@ function radiusGet( test )
   var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'Eight dimension sphere'; /* */
+  /* */
+
+  test.case = 'Eight dimension sphere';
 
   var sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, 1 ];
   var expected = 1;
@@ -1384,7 +1662,9 @@ function radiusGet( test )
   var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'normalized sphere'; /* */
+  /* */
+
+  test.case = 'normalized sphere';
 
   var sphere = [ 0.624, 0.376, 0.52 ];
   var expected = 0.52;
@@ -1392,7 +1672,9 @@ function radiusGet( test )
   var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'negative radius'; /* */
+  /* */
+
+  test.case = 'negative radius';
 
   var sphere = [ 1, 2, - 3 ];
   var expected = -3;
@@ -1401,7 +1683,9 @@ function radiusGet( test )
   test.identical( gotRadius, expected );
 
 
-  test.case = 'NaN radius'; /* */
+  /* */
+
+  test.case = 'NaN radius';
 
   var sphere = [ 1, 2, NaN ];
   var expected = NaN;
@@ -1409,7 +1693,9 @@ function radiusGet( test )
   var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'NaN sphere'; /* */
+  /* */
+
+  test.case = 'NaN sphere';
 
   var sphere = [ NaN, NaN, NaN ];
   var expected = NaN;
@@ -1417,7 +1703,9 @@ function radiusGet( test )
   var gotRadius = _.sphere.radiusGet( sphere );
   test.identical( gotRadius, expected );
 
-  test.case = 'radiusGet+Set two dimensions'; /* */
+  /* */
+
+  test.case = 'radiusGet+Set two dimensions';
 
   var sphere = [ 0, 1, 1 ];
   var radiusOld = 1;
@@ -1433,7 +1721,9 @@ function radiusGet( test )
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radius, radiusSph );
 
-  test.case = 'radiusGet+Set three dimensions'; /* */
+  /* */
+
+  test.case = 'radiusGet+Set three dimensions';
 
   var sphere = [ 0, 0, 1, 1 ];
   var radiusOld = 1;
@@ -1449,7 +1739,9 @@ function radiusGet( test )
   var radiusSph = _.sphere.radiusGet( gotSphere );
   test.equivalent( radius, radiusSph );
 
-  test.case = 'NaN sphere'; /* */
+  /* */
+
+  test.case = 'NaN sphere';
 
   var sphere = [ NaN, NaN, NaN ];
   var expected = NaN;
@@ -1462,37 +1754,49 @@ function radiusGet( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet();
   });
 
-  test.case = 'Too many arguments'; /* */
+  /* */
+
+  test.case = 'Too many arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( [ 0, 0, 1, 1 ], [ 0, 0, 0, 0 ] );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( null );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( 'string' );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( 4 );
   });
 
-  test.case = 'Wrong sphere dimension'; /* */
+  /* */
+
+  test.case = 'Wrong sphere dimension';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusGet( [ ] );
@@ -1505,7 +1809,9 @@ function radiusGet( test )
 function radiusSet( test )
 {
 
-  test.case = 'Source radius remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source radius remains unchanged';
 
   var sphere = [ 0, 0, 1, 1 ];
   var srcRadius = 2;
@@ -1518,7 +1824,9 @@ function radiusSet( test )
   var oldSrcRadius = 2;
   test.equivalent( srcRadius, oldSrcRadius );
 
-  test.case = 'Zero dimension sphere'; /* */
+  /* */
+
+  test.case = 'Zero dimension sphere';
 
   var sphere = [ 0 ];
   var radius = 1;
@@ -1528,7 +1836,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'One dimension sphere'; /* */
+  /* */
+
+  test.case = 'One dimension sphere';
 
   var sphere = [ 0, 0 ];
   var radius = 2;
@@ -1538,7 +1848,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'Two dimension sphere'; /* */
+  /* */
+
+  test.case = 'Two dimension sphere';
 
   var sphere = [ 0, 0, 2 ];
   var radius = 3;
@@ -1548,7 +1860,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'Three dimension sphere'; /* */
+  /* */
+
+  test.case = 'Three dimension sphere';
 
   var sphere = [ 0, - 1, - 2, 2 ];
   var radius = 4;
@@ -1558,7 +1872,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'Four dimension sphere'; /* */
+  /* */
+
+  test.case = 'Four dimension sphere';
 
   var sphere = [ 0, - 1, - 2, 2, 0 ];
   var radius = 5;
@@ -1568,7 +1884,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'Eight dimension sphere'; /* */
+  /* */
+
+  test.case = 'Eight dimension sphere';
 
   var sphere = [  0, - 1, - 2, 2, 0, 1, 2, 6, 1 ];
   var radius = 2;
@@ -1578,7 +1896,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'normalized sphere'; /* */
+  /* */
+
+  test.case = 'normalized sphere';
 
   var sphere = [ 0.624, 0.376, 0.52 ];
   var radius = 0.777;
@@ -1588,7 +1908,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'negative radius'; /* */
+  /* */
+
+  test.case = 'negative radius';
 
   var sphere = [ 1, 2, - 3 ];
   var radius = - 2;
@@ -1598,7 +1920,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'NaN radius'; /* */
+  /* */
+
+  test.case = 'NaN radius';
 
   var sphere = [ 1, 2, 3 ];
   var radius = NaN;
@@ -1608,7 +1932,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'NaN sphere'; /* */
+  /* */
+
+  test.case = 'NaN sphere';
 
   var sphere = [ NaN, NaN, NaN ];
   var radius = 2;
@@ -1618,7 +1944,9 @@ function radiusSet( test )
   var gotSphere = _.sphere.radiusSet( sphere, radius );
   test.identical( gotSphere, expected );
 
-  test.case = 'radiusSet+Get two dimensions'; /* */
+  /* */
+
+  test.case = 'radiusSet+Get two dimensions';
 
   var sphere = [ 0, 2, 3 ];
   var radiusOld = 3;
@@ -1635,7 +1963,9 @@ function radiusSet( test )
   var radiusSph = _.sphere.radiusGet( sphere );
   test.equivalent( radius, radiusSph );
 
-  test.case = 'radiusSet+Get three dimensions'; /* */
+  /* */
+
+  test.case = 'radiusSet+Get three dimensions';
 
   var sphere = [ 0, 1, 1, 3 ];
   var radiusOld = 3;
@@ -1657,43 +1987,57 @@ function radiusSet( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet();
   });
 
-  test.case = 'Too many arguments'; /* */
+  /* */
+
+  test.case = 'Too many arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( [ 0, 0, 1, 1 ], 2, 3 );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( [ 0, 0, 1, 1 ], [ 0, 0, 0, 0 ] );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( null, null );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( 'string', 'Hi' );
   });
 
-  test.case = 'Wrong type of arguments'; /* */
+  /* */
+
+  test.case = 'Wrong type of arguments';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( 4, 3 );
   });
 
-  test.case = 'Wrong sphere dimension'; /* */
+  /* */
+
+  test.case = 'Wrong sphere dimension';
   test.shouldThrowErrorOfAnyKind( function()
   {
     _.sphere.radiusSet( [ ], 2 );
@@ -1706,7 +2050,9 @@ function radiusSet( test )
 function project( test )
 {
 
-  test.case = 'Projection array remains unchanged and Destination sphere changes'; /* */
+  /* */
+
+  test.case = 'Projection array remains unchanged and Destination sphere changes';
 
   var dstSphere = [ 0.5, 0.5, 1 ];
   var project = [ [ 1, 1 ], 2 ];
@@ -1722,7 +2068,9 @@ function project( test )
   var oldSphere = [ 0.5, 0.5, 1 ];
   test.is( oldSphere !== gotSphere );
 
-  test.case = 'Null sphere projected'; /* */
+  /* */
+
+  test.case = 'Null sphere projected';
 
   var sphere = null;
   var project = [ [ 1, 0, 0 ], 2 ];
@@ -1731,7 +2079,9 @@ function project( test )
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
 
-  test.case = 'Null sphere NOT projected'; /* */
+  /* */
+
+  test.case = 'Null sphere NOT projected';
 
   var sphere = null;
   var project = [ [ 0, 0, 0 ], 0 ];
@@ -1740,7 +2090,9 @@ function project( test )
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere projected'; /* */
+  /* */
+
+  test.case = 'Sphere projected';
 
   var sphere = [ 0.5, 0, 0, 2 ];
   var project = [ [ 0, 1, 0 ], 3 ];
@@ -1749,7 +2101,9 @@ function project( test )
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere expanded'; /* */
+  /* */
+
+  test.case = 'Sphere expanded';
 
   var sphere = [ 0, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 2 ];
@@ -1758,7 +2112,9 @@ function project( test )
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere contracted'; /* */
+  /* */
+
+  test.case = 'Sphere contracted';
 
   var sphere = [ 0, 2, 2, 1 ];
   var project = [ [ 0, 0, 0 ], 0.5 ];
@@ -1767,7 +2123,9 @@ function project( test )
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere translated'; /* */
+  /* */
+
+  test.case = 'Sphere translated';
 
   var sphere = [ 0, 2, 2, 1 ];
   var project = [ [ 1, 2, 3 ], 1 ];
@@ -1776,7 +2134,9 @@ function project( test )
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere reduced to a point'; /* */
+  /* */
+
+  test.case = 'Sphere reduced to a point';
 
   var sphere = [ 0, 2, 2, 2 ];
   var project = [ [ 1, 2, 3 ], 0 ];
@@ -1785,7 +2145,9 @@ function project( test )
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere NOT projected ( empty project array )'; /* */
+  /* */
+
+  test.case = 'Sphere NOT projected ( empty project array )';
 
   var sphere = [ 0, 2, 2, 3 ];
   var project = [ [ 0, 0, 0 ], 1 ];
@@ -1794,7 +2156,9 @@ function project( test )
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere of four dimensions projected'; /* */
+  /* */
+
+  test.case = 'Sphere of four dimensions projected';
 
   var sphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
   var project = [ [ 0, 0, 0, 0 ], 4 ];
@@ -1803,7 +2167,9 @@ function project( test )
   var gotSphere = _.sphere.project( sphere, project );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere of 1 dimension projected'; /* */
+  /* */
+
+  test.case = 'Sphere of 1 dimension projected';
 
   var sphere = [ 0, 1 ];
   var project = [ [ 1 ], 2 ];
@@ -1817,67 +2183,89 @@ function project( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project();
   });
 
-  test.case = 'Wrong type of argument'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( 'sphere', 'project' );
   });
 
-  test.case = 'Too few arguments'; /* */
+  /* */
+
+  test.case = 'Too few arguments';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ] );
   });
 
-  test.case = 'too many arguments'; /* */
+  /* */
+
+  test.case = 'too many arguments';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0 ], [ [ 0, 0 ], 1 ], [ [ 1, 1 ], 0 ] );
   });
 
-  test.case = 'Wrong project array dimension (sphere 3D vs array 4D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (sphere 3D vs array 4D)';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 1, 1, 1, 1 ], 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (sphere 3D vs array 2D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (sphere 3D vs array 2D)';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1 ], 2 ] );
   });
 
-  test.case = 'Wrong project array dimension (sphere 2D vs array 1D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (sphere 2D vs array 1D)';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0 ], [ [ 0 ], 2 ] );
   });
 
-  test.case = 'Wrong project array dimension (null sphere vs array 2D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (null sphere vs array 2D)';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( null, [ [ 0, 1 ], 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (project has less than 2 entries)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (project has less than 2 entries)';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ] ] );
   });
 
-  test.case = 'Wrong project array dimension (project has more than 2 entries)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (project has more than 2 entries)';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ 0, 0, 0, 0 ], [ [ 0, 1, 0 ], 1, 2 ] );
   });
 
-  test.case = 'Empty arrays'; /* */
+  /* */
+
+  test.case = 'Empty arrays';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.project( [ ], [ [  ],  ] );
@@ -1890,7 +2278,9 @@ function project( test )
 function getProjectionFactors( test )
 {
 
-  test.case = 'Spheres remain unchanged'; /* */
+  /* */
+
+  test.case = 'Spheres remain unchanged';
 
   var dstSphere = [ 0, 0, 1, 1 ];
   var projSphere = [ 0.5, 0.5, 1.5, 2 ];
@@ -1905,7 +2295,9 @@ function getProjectionFactors( test )
   var oldProjSphere = [ 0.5, 0.5, 1.5, 2 ];
   test.identical( oldProjSphere, projSphere );
 
-  test.case = 'Sphere projected'; /* */
+  /* */
+
+  test.case = 'Sphere projected';
 
   var dstSphere = [ 1, 0, 0, 2 ];
   var projSphere = [ -0.5, 1, 0, 6 ];
@@ -1914,7 +2306,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere expanded'; /* */
+  /* */
+
+  test.case = 'Sphere expanded';
 
   var dstSphere = [ 2, 2, 2, 1 ];
   var projSphere = [ 2, 2, 2, 2 ];
@@ -1923,7 +2317,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere contracted'; /* */
+  /* */
+
+  test.case = 'Sphere contracted';
 
   var dstSphere = [ 2, 2, 2, 1 ];
   var projSphere = [ 2, 2, 2, 0.5 ];
@@ -1932,7 +2328,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere translated'; /* */
+  /* */
+
+  test.case = 'Sphere translated';
 
   var dstSphere = [ 0, 2, 2, 1 ];
   var projSphere = [ 1, 4, 5, 1 ];
@@ -1941,7 +2339,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere reduced to point'; /* */
+  /* */
+
+  test.case = 'Sphere reduced to point';
 
   var dstSphere = [ 2, 2, 2, 1 ];
   var projSphere = [ 3, 4, 5, 0 ];
@@ -1950,7 +2350,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere reduced'; /* */
+  /* */
+
+  test.case = 'Sphere reduced';
 
   var dstSphere = [ 0, 0, 0, 4 ];
   var projSphere = [ 2, 3, 4, 1 ];
@@ -1959,7 +2361,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere NOT projected ( empty project array )'; /* */
+  /* */
+
+  test.case = 'Sphere NOT projected ( empty project array )';
 
   var dstSphere = [ 2, 2, 2, 3 ];
   var projSphere = [ 2, 2, 2, 3 ];
@@ -1968,7 +2372,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere of four dimensions projected'; /* */
+  /* */
+
+  test.case = 'Sphere of four dimensions projected';
 
   var dstSphere = [ -0.5, -0.5, 0.5, 0.5, 1 ];
   var projSphere = [ - 1, - 1, 1, 1, 4 ];
@@ -1977,7 +2383,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere of 1 dimension projected'; /* */
+  /* */
+
+  test.case = 'Sphere of 1 dimension projected';
 
   var dstSphere = [ 0, 1 ];
   var projSphere = [ 1, 1 ];
@@ -1986,7 +2394,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Point to point'; /* */
+  /* */
+
+  test.case = 'Point to point';
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 5, 5, 0 ];
@@ -1995,7 +2405,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Point to sphere'; /* */
+  /* */
+
+  test.case = 'Point to sphere';
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 5, 5, 7 ];
@@ -2004,7 +2416,9 @@ function getProjectionFactors( test )
   var gotFactors = _.sphere.getProjectionFactors( dstSphere, projSphere );
   test.identical( gotFactors, expected );
 
-  test.case = 'Sphere to sphere'; /* */
+  /* */
+
+  test.case = 'Sphere to sphere';
 
   var dstSphere = [ 3, 4, 3, 1 ];
   var projSphere = [ 5, 5, 7, 2 ];
@@ -2015,7 +2429,9 @@ function getProjectionFactors( test )
 
   // Test cases including _.sphere.project()
 
-  test.case = 'Two equal spheres'; /* */
+  /* */
+
+  test.case = 'Two equal spheres';
 
   var dstSphere = [ 0, 0, 1, 1, 1 ];
   var projSphere = [ 0, 0, 1, 1, 1 ];
@@ -2027,7 +2443,9 @@ function getProjectionFactors( test )
   var gotSphere = _.sphere.project( dstSphere, gotFactors );
   test.identical( gotSphere, projSphere );
 
-  test.case = 'Two equal point spheres'; /* */
+  /* */
+
+  test.case = 'Two equal point spheres';
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 3, 4, 0 ];
@@ -2039,7 +2457,9 @@ function getProjectionFactors( test )
   var gotSphere = _.sphere.project( dstSphere, gotFactors );
   test.identical( gotSphere, projSphere );
 
-  test.case = 'Point to point'; /* */
+  /* */
+
+  test.case = 'Point to point';
 
   var dstSphere = [ 3, 4, 0 ];
   var projSphere = [ 5, 5, 0 ];
@@ -2051,7 +2471,9 @@ function getProjectionFactors( test )
   var gotSphere = _.sphere.project( dstSphere, gotFactors );
   test.identical( gotSphere, projSphere );
 
-  test.case = 'Sphere to point'; /* */
+  /* */
+
+  test.case = 'Sphere to point';
 
   var dstSphere = [ 3, 4, 6, 1 ];
   var projSphere = [ 5, 5, 5, 0 ];
@@ -2063,7 +2485,9 @@ function getProjectionFactors( test )
   var gotSphere = _.sphere.project( dstSphere, gotFactors );
   test.identical( gotSphere, projSphere );
 
-  test.case = 'Sphere translated'; /* */
+  /* */
+
+  test.case = 'Sphere translated';
 
   var dstSphere = [ 3, 4, 6, 2 ];
   var projSphere = [ -1, 8, 2, 2 ];
@@ -2075,7 +2499,9 @@ function getProjectionFactors( test )
   var gotSphere = _.sphere.project( dstSphere, gotFactors );
   test.identical( gotSphere, projSphere );
 
-  test.case = 'Sphere contracted'; /* */
+  /* */
+
+  test.case = 'Sphere contracted';
 
   var dstSphere = [ 0, 0, 4, 2 ];
   var projSphere = [ 0, 0, 4, 1 ];
@@ -2087,7 +2513,9 @@ function getProjectionFactors( test )
   var gotSphere = _.sphere.project( dstSphere, gotFactors );
   test.identical( gotSphere, projSphere );
 
-  test.case = 'Sphere expanded'; /* */
+  /* */
+
+  test.case = 'Sphere expanded';
 
   var dstSphere = [ 0, 0, 4, 1 ];
   var projSphere = [ 0, 0, 4, 3/2 ];
@@ -2099,7 +2527,9 @@ function getProjectionFactors( test )
   var gotSphere = _.sphere.project( dstSphere, gotFactors );
   test.equivalent( gotSphere, projSphere );
 
-  test.case = 'Sphere projected'; /* */
+  /* */
+
+  test.case = 'Sphere projected';
 
   var dstSphere = [ 0, 0, 4, 2 ];
   var projSphere = [ -7, -3, 9, 4 ];
@@ -2116,73 +2546,97 @@ function getProjectionFactors( test )
   if( !Config.debug )
   return;
 
-  test.case = 'No arguments'; /* */
+  /* */
+
+  test.case = 'No arguments';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors();
   });
 
-  test.case = 'Wrong type of argument - string'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - string';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( 'sphere', 'projSphere' );
   });
 
-  test.case = 'Wrong type of argument - null'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - null';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( null, [ 0, 1, 2, 3, 1 ] );
   });
 
-  test.case = 'Wrong type of argument - null'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - null';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], null );
   });
 
-  test.case = 'Wrong type of argument - undefined'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - undefined';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( undefined, [ 0, 1, 2, 3, 1 ] );
   });
 
-  test.case = 'Wrong type of argument - undefined'; /* */
+  /* */
+
+  test.case = 'Wrong type of argument - undefined';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 1, 2, 3, 1 ], undefined );
   });
 
-  test.case = 'Empty arguments'; /* */
+  /* */
+
+  test.case = 'Empty arguments';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [], [] );
   });
 
-  test.case = 'Too few arguments'; /* */
+  /* */
+
+  test.case = 'Too few arguments';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0, 0, 0, 0, 0 ] );
   });
 
-  test.case = 'too many arguments'; /* */
+  /* */
+
+  test.case = 'too many arguments';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ] );
   });
 
-  test.case = 'Wrong project array dimension (sphere 3D vs sphere 4D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (sphere 3D vs sphere 4D)';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 1, 1, 1, 1, 0 ] );
   });
 
-  test.case = 'Wrong project array dimension (sphere 3D vs sphere 2D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (sphere 3D vs sphere 2D)';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0, 1 ], [ 0, 1, 2 ] );
   });
 
-  test.case = 'Wrong project array dimension (sphere 2D vs sphere 1D)'; /* */
+  /* */
+
+  test.case = 'Wrong project array dimension (sphere 2D vs sphere 1D)';
   test.shouldThrowErrorSync( function()
   {
     _.sphere.getProjectionFactors( [ 0, 0, 0 ], [ 0, 2 ] );
@@ -2672,7 +3126,9 @@ function pointExpand( test )
 
 function boxContains( test )
 {
-  test.case = 'Sphere and box remain unchanged'; /* */
+  /* */
+
+  test.case = 'Sphere and box remain unchanged';
 
   var sphere = [ 0, 0, 0, 1 ];
   var oldSphere = [ 0, 0, 0, 1 ];
@@ -2685,7 +3141,9 @@ function boxContains( test )
   test.identical( sphere, oldSphere );
   test.identical( box, oldBox );
 
-  test.case = 'Empty sphere contains empty box'; /* */
+  /* */
+
+  test.case = 'Empty sphere contains empty box';
 
   var sphere = [ 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2694,7 +3152,9 @@ function boxContains( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Sphere contains box'; /* */
+  /* */
+
+  test.case = 'Sphere contains box';
 
   var sphere = [ 0, 0, 0, 2 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
@@ -2703,7 +3163,9 @@ function boxContains( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Sphere inside box'; /* */
+  /* */
+
+  test.case = 'Sphere inside box';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
@@ -2712,7 +3174,9 @@ function boxContains( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Box inside sphere'; /* */
+  /* */
+
+  test.case = 'Box inside sphere';
 
   var sphere = [ 0, 0, 0, 6 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
@@ -2721,7 +3185,9 @@ function boxContains( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Just touching'; /* */
+  /* */
+
+  test.case = 'Just touching';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 1, 0, 0, 2, 1, 1 ];
@@ -2730,7 +3196,9 @@ function boxContains( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Not intersecting'; /* */
+  /* */
+
+  test.case = 'Not intersecting';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 2, 2, 2, 3, 3, 3 ];
@@ -2739,7 +3207,9 @@ function boxContains( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'One corner of the box in sphere'; /* */
+  /* */
+
+  test.case = 'One corner of the box in sphere';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
@@ -2806,7 +3276,9 @@ function boxContains( test )
 
 function boxIntersects( test )
 {
-  test.case = 'Sphere and box remain unchanged'; /* */
+  /* */
+
+  test.case = 'Sphere and box remain unchanged';
 
   var sphere = [ 0, 0, 0, 1 ];
   var oldSphere = [ 0, 0, 0, 1 ];
@@ -2819,7 +3291,9 @@ function boxIntersects( test )
   test.identical( sphere, oldSphere );
   test.identical( box, oldBox );
 
-  test.case = 'Intersection of empty sphere and box'; /* */
+  /* */
+
+  test.case = 'Intersection of empty sphere and box';
 
   var sphere = [ 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -2828,7 +3302,9 @@ function boxIntersects( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Trivial intersection'; /* */
+  /* */
+
+  test.case = 'Trivial intersection';
 
   var sphere = [ - 1, 2, 0, 2 ];
   var box = [ - 2, 0, 0, 0, 2, 1 ];
@@ -2837,7 +3313,9 @@ function boxIntersects( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Sphere inside box'; /* */
+  /* */
+
+  test.case = 'Sphere inside box';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
@@ -2846,7 +3324,9 @@ function boxIntersects( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Box inside sphere'; /* */
+  /* */
+
+  test.case = 'Box inside sphere';
 
   var sphere = [ 0, 0, 0, 6 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
@@ -2855,7 +3335,9 @@ function boxIntersects( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Just touching'; /* */
+  /* */
+
+  test.case = 'Just touching';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 1, 0, 0, 2, 1, 1 ];
@@ -2864,7 +3346,9 @@ function boxIntersects( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'Not intersecting'; /* */
+  /* */
+
+  test.case = 'Not intersecting';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 2, 2, 2, 3, 3, 3 ];
@@ -2873,7 +3357,9 @@ function boxIntersects( test )
 
   test.equivalent( gotBool, expected );
 
-  test.case = 'One corner of the box in sphere'; /* */
+  /* */
+
+  test.case = 'One corner of the box in sphere';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
@@ -3075,7 +3561,9 @@ function boxClosestPoint( test )
 
 function boxExpand( test )
 {
-  test.case = 'Sphere changes and box remains unchanged'; /* */
+  /* */
+
+  test.case = 'Sphere changes and box remains unchanged';
 
   var sphere = [ 0, 0, 0, 1 ];
   var oldSphere = [ 0, 0, 0, 1 ];
@@ -3088,7 +3576,9 @@ function boxExpand( test )
   test.identical( gotSphere, expected );
   test.identical( box, oldBox );
 
-  test.case = 'Expansion of empty sphere'; /* */
+  /* */
+
+  test.case = 'Expansion of empty sphere';
 
   var sphere = [ 0, 0, 0, 0 ];
   var box = [ 0, 0, 0, 0, 0, 1 ];
@@ -3098,7 +3588,9 @@ function boxExpand( test )
   test.is( gotSphere === sphere );
   test.identical( gotSphere, expected );
 
-  test.case = 'Trivial expansion'; /* */
+  /* */
+
+  test.case = 'Trivial expansion';
 
   var sphere = [ - 1, 0, 0, 2 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
@@ -3108,7 +3600,9 @@ function boxExpand( test )
   test.is( gotSphere === sphere );
   test.equivalent( gotSphere, expected );
 
-  test.case = 'Expansion - box is point'; /* */
+  /* */
+
+  test.case = 'Expansion - box is point';
 
   var sphere = [ - 1, 0, 0, 2 ];
   var box = [ 3, 0, 0, 3, 0, 0 ];
@@ -3118,7 +3612,9 @@ function boxExpand( test )
   test.is( gotSphere === sphere );
   test.identical( gotSphere, expected );
 
-  test.case = 'Sphere inside box'; /* */
+  /* */
+
+  test.case = 'Sphere inside box';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
@@ -3128,7 +3624,9 @@ function boxExpand( test )
   test.is( gotSphere === sphere );
   test.equivalent( gotSphere, expected );
 
-  test.case = 'Box inside sphere - no expansion'; /* */
+  /* */
+
+  test.case = 'Box inside sphere - no expansion';
 
   var sphere = [ 0, 0, 0, 6 ];
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
@@ -3138,7 +3636,9 @@ function boxExpand( test )
   test.is( gotSphere === sphere );
   test.identical( gotSphere, expected );
 
-  test.case = 'Zero Box - no expansion'; /* */
+  /* */
+
+  test.case = 'Zero Box - no expansion';
 
   var sphere = [ 0, 0, 0, 6 ];
   var box = [ 0, 0, 0, 0, 0, 0 ];
@@ -3148,7 +3648,9 @@ function boxExpand( test )
   test.is( gotSphere === sphere );
   test.identical( gotSphere, expected );
 
-  test.case = 'Just touching - expansion'; /* */
+  /* */
+
+  test.case = 'Just touching - expansion';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 1, 0, 0, 2, 1, 1 ];
@@ -3158,7 +3660,9 @@ function boxExpand( test )
   test.is( gotSphere === sphere );
   test.equivalent( gotSphere, expected );
 
-  test.case = 'Just touching - no expansion'; /* */
+  /* */
+
+  test.case = 'Just touching - no expansion';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 0, 0, 1 ];
@@ -3168,7 +3672,9 @@ function boxExpand( test )
   test.is( gotSphere === sphere );
   test.identical( gotSphere, expected );
 
-  test.case = 'One corner of the box in sphere'; /* */
+  /* */
+
+  test.case = 'One corner of the box in sphere';
 
   var sphere = [ 0, 0, 0, 1 ];
   var box = [ 0, 0, 0, 2, - 2, 2 ];
@@ -3222,7 +3728,9 @@ function boxExpand( test )
 function boundingBoxGet( test )
 {
 
-  test.case = 'Source sphere remains unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere remains unchanged';
 
   var srcSphere = [ 0, 0, 0, 3 ];
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
@@ -3235,7 +3743,9 @@ function boundingBoxGet( test )
   var oldSrcSphere = [ 0, 0, 0, 3 ];
   test.identical( srcSphere, oldSrcSphere );
 
-  test.case = 'Zero sphere to zero box'; /* */
+  /* */
+
+  test.case = 'Zero sphere to zero box';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
@@ -3244,7 +3754,9 @@ function boundingBoxGet( test )
   var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
-  test.case = 'Box inside sphere - same center'; /* */
+  /* */
+
+  test.case = 'Box inside sphere - same center';
 
   var srcSphere = [ 1, 1, 1, 4 ];
   var dstBox = [ 0, 0, 0, 2, 2, 2 ];
@@ -3253,7 +3765,9 @@ function boundingBoxGet( test )
   var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
-  test.case = 'Point sphere and point Box'; /* */
+  /* */
+
+  test.case = 'Point sphere and point Box';
 
   var srcSphere = [ 1, 2, 3, 0 ];
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
@@ -3262,7 +3776,9 @@ function boundingBoxGet( test )
   var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
-  test.case = 'Sphere inside Box'; /* */
+  /* */
+
+  test.case = 'Sphere inside Box';
 
   var srcSphere = [ - 1, - 1, - 1, 1 ];
   var dstBox = [ - 3, - 4, - 5, 5, 4, 3 ];
@@ -3271,7 +3787,9 @@ function boundingBoxGet( test )
   var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
-  test.case = 'Box outside sphere'; /* */
+  /* */
+
+  test.case = 'Box outside sphere';
 
   var srcSphere = [ 1, 2, 3, 2 ];
   var dstBox = [ 5, 5, 5, 6, 6, 6 ];
@@ -3280,7 +3798,9 @@ function boundingBoxGet( test )
   var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
-  test.case = 'srcSphere vector'; /* */
+  /* */
+
+  test.case = 'srcSphere vector';
 
   var srcSphere = _.vectorAdapter.from( [ - 2, 1, 10.5, 6 ] );
   var dstBox = [ 1, - 1, 5, 0, 3, 2 ];
@@ -3289,7 +3809,9 @@ function boundingBoxGet( test )
   var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox vector'; /* */
+  /* */
+
+  test.case = 'dstBox vector';
 
   var srcSphere = [ - 1, 0, - 2, 3 ];
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9, 8, 7 ] );
@@ -3298,7 +3820,9 @@ function boundingBoxGet( test )
   var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
   test.identical( gotBox, expected );
 
-  test.case = 'dstBox null'; /* */
+  /* */
+
+  test.case = 'dstBox null';
 
   var srcSphere = [ 2.2, 3.3, - 4.4, 1 ];
   var dstBox = null;
@@ -3307,7 +3831,9 @@ function boundingBoxGet( test )
   var gotBox = _.sphere.boundingBoxGet( dstBox, srcSphere );
   test.equivalent( gotBox, expected );
 
-  test.case = 'dstBox undefined'; /* */
+  /* */
+
+  test.case = 'dstBox undefined';
 
   var srcSphere = [ - 1, - 3, - 5, 0 ];
   var dstBox = undefined;
@@ -3596,7 +4122,9 @@ function capsuleClosestPoint( test )
 function convexPolygonContains( test )
 {
 
-  test.case = 'Source sphere and polygon remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere and polygon remain unchanged';
 
   var srcSphere = [ - 1, - 1, -1, 3, ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3621,7 +4149,9 @@ function convexPolygonContains( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  test.case = 'Sphere and polygon intersect'; /* */
+  /* */
+
+  test.case = 'Sphere and polygon intersect';
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3635,7 +4165,9 @@ function convexPolygonContains( test )
   var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Sphere cuts polygon vertex'; /* */
+  /* */
+
+  test.case = 'Sphere cuts polygon vertex';
 
   var srcSphere = [ 0, 1, 0, 2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3649,7 +4181,9 @@ function convexPolygonContains( test )
   var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Sphere and polygon don´t intersect'; /* */
+  /* */
+
+  test.case = 'Sphere and polygon don´t intersect';
 
   var srcSphere = [ 0, 1, 0, 1.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3663,7 +4197,9 @@ function convexPolygonContains( test )
   var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Sphere contains polygon in origin'; /* */
+  /* */
+
+  test.case = 'Sphere contains polygon in origin';
 
   var srcSphere = [ 0, 0, 0, 3 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3677,7 +4213,9 @@ function convexPolygonContains( test )
   var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Sphere contains polygon'; /* */
+  /* */
+
+  test.case = 'Sphere contains polygon';
 
   var srcSphere = [ -2, 0, 0, 1.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3691,7 +4229,9 @@ function convexPolygonContains( test )
   var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
   test.identical( expected, gotBool );
 
-  test.case = 'Sphere contains polygon - touching sides'; /* */
+  /* */
+
+  test.case = 'Sphere contains polygon - touching sides';
 
   var srcSphere = [ -2, 0, 0, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3705,7 +4245,9 @@ function convexPolygonContains( test )
   var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
   test.identical( expected, gotBool );
 
-  test.case = '2D - Contained'; /* */
+  /* */
+
+  test.case = '2D - Contained';
 
   var srcSphere = [ 4, 4, Math.sqrt( 2 ) ];
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
@@ -3718,7 +4260,9 @@ function convexPolygonContains( test )
   var gotBool = _.sphere.convexPolygonContains( srcSphere, polygon );
   test.identical( expected, gotBool );
 
-  test.case = '2D - Not contained'; /* */
+  /* */
+
+  test.case = '2D - Not contained';
 
   var srcSphere = [ 4, 4, Math.sqrt( 2 )/2 ];
   var polygon =  _.Matrix.Make( [ 2, 3 ] ).copy
@@ -3762,7 +4306,9 @@ function convexPolygonContains( test )
 function convexPolygonClosestPoint( test )
 {
 
-  test.case = 'Source sphere and polygon remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere and polygon remain unchanged';
 
   var srcSphere = [ - 1, - 1, -1, 3, ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3787,7 +4333,9 @@ function convexPolygonClosestPoint( test )
   ]);
   test.identical( polygon, oldPolygon );
 
-  test.case = 'Sphere and polygon intersect'; /* */
+  /* */
+
+  test.case = 'Sphere and polygon intersect';
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3801,7 +4349,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Sphere cuts polygon vertex'; /* */
+  /* */
+
+  test.case = 'Sphere cuts polygon vertex';
 
   var srcSphere = [ 0, 1, 0, 2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3815,7 +4365,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Sphere next to polygon vertex'; /* */
+  /* */
+
+  test.case = 'Sphere next to polygon vertex';
 
   var srcSphere = [ 0, 1, 0, 1.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3829,7 +4381,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Sphere cuts polygon edge'; /* */
+  /* */
+
+  test.case = 'Sphere cuts polygon edge';
 
   var srcSphere = [ 0, 1, 1, Math.sqrt( 2 )/2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3843,7 +4397,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Sphere next to polygon edge'; /* */
+  /* */
+
+  test.case = 'Sphere next to polygon edge';
 
   var srcSphere = [ 0, 2, 2, Math.sqrt( 2 ) ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3857,7 +4413,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.equivalent( expected, gotPoint );
 
-  test.case = 'Sphere cuts polygon'; /* */
+  /* */
+
+  test.case = 'Sphere cuts polygon';
 
   var srcSphere = [ - 3, 0, 0, 1.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3871,7 +4429,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = 'Sphere next to polygon'; /* */
+  /* */
+
+  test.case = 'Sphere next to polygon';
 
   var srcSphere = [ 0, 0, - 1, 0.5 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3885,7 +4445,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.identical( expected, gotPoint );
 
-  test.case = '2D'; /* */
+  /* */
+
+  test.case = '2D';
 
   var srcSphere = [ 4, 4, Math.sqrt( 2 )/2 ];
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
@@ -3898,7 +4460,9 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.sphere.convexPolygonClosestPoint( srcSphere, polygon );
   test.equivalent( expected, gotPoint );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcSphere = [ 3, 4, 4, Math.sqrt( 3 ) ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -3914,7 +4478,9 @@ function convexPolygonClosestPoint( test )
   test.equivalent( expected, gotPoint );
   test.is( dstPoint === gotPoint );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcSphere = [ -1, -2, -4, 2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -4589,7 +5155,9 @@ function frustumExpand( test )
 function lineClosestPoint( test )
 {
 
-  test.case = 'Source sphere and line remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere and line remain unchanged';
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -4604,7 +5172,9 @@ function lineClosestPoint( test )
   var oldTstLine = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstLine, oldTstLine );
 
-  test.case = 'sphere and line intersect'; /* */
+  /* */
+
+  test.case = 'sphere and line intersect';
 
   var srcSphere = [ - 1, - 1, -1, 3 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -4613,7 +5183,9 @@ function lineClosestPoint( test )
   var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Line origin touches sphere'; /* */
+  /* */
+
+  test.case = 'Line origin touches sphere';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstLine = [ -1, -1, 0, 0, 0, 1 ];
@@ -4622,7 +5194,9 @@ function lineClosestPoint( test )
   var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Negative factor'; /* */
+  /* */
+
+  test.case = 'Negative factor';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstLine = [ - 1, -1, 2, 0, 0, 1 ];
@@ -4631,7 +5205,9 @@ function lineClosestPoint( test )
   var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Line and sphere don´t intersect'; /* */
+  /* */
+
+  test.case = 'Line and sphere don´t intersect';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstLine = [ - 1, -1, 2, 0, 1, 0 ];
@@ -4640,7 +5216,9 @@ function lineClosestPoint( test )
   var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'Closest point in sphere side'; /* */
+  /* */
+
+  test.case = 'Closest point in sphere side';
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstLine = [ 5, 0, 0, 0, 1, 0 ];
@@ -4649,7 +5227,9 @@ function lineClosestPoint( test )
   var gotLine = _.sphere.lineClosestPoint( srcSphere, tstLine );
   test.identical( expected, gotLine );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstLine = [ 5, 0, 0, 0, 1, 0 ];
@@ -4660,7 +5240,9 @@ function lineClosestPoint( test )
   test.identical( expected, gotLine );
   test.is( dstPoint === gotLine );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstLine = [ 0, 0, 5, 1, 0, 0 ];
@@ -4692,7 +5274,9 @@ function lineClosestPoint( test )
 
 function planeClosestPoint( test )
 {
-  test.case = 'Source sphere and test plane remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere and test plane remain unchanged';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
@@ -4706,7 +5290,9 @@ function planeClosestPoint( test )
   var oldTstPlane = [ 1, 0, 0, 0 ];
   test.identical( tstPlane, oldTstPlane );
 
-  test.case = 'Empty sphere in plane'; /* */
+  /* */
+
+  test.case = 'Empty sphere in plane';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
@@ -4715,7 +5301,9 @@ function planeClosestPoint( test )
 
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Empty sphere not in plane'; /* */
+  /* */
+
+  test.case = 'Empty sphere not in plane';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 1 ];
@@ -4724,7 +5312,9 @@ function planeClosestPoint( test )
 
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Intersection'; /* */
+  /* */
+
+  test.case = 'Intersection';
 
   var srcSphere = [ 0, 0, 0, 2 ];
   var tstPlane = [ 1, 0, 0, 1 ];
@@ -4733,7 +5323,9 @@ function planeClosestPoint( test )
 
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Plane touches sphere'; /* */
+  /* */
+
+  test.case = 'Plane touches sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, 1 ];
@@ -4742,7 +5334,9 @@ function planeClosestPoint( test )
 
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Plane separate from sphere - plane under sphere'; /* */
+  /* */
+
+  test.case = 'Plane separate from sphere - plane under sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, 3 ];
@@ -4751,7 +5345,9 @@ function planeClosestPoint( test )
 
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Plane separate from sphere - plane over sphere'; /* */
+  /* */
+
+  test.case = 'Plane separate from sphere - plane over sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, - 3 ];
@@ -4760,7 +5356,9 @@ function planeClosestPoint( test )
 
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'DstPoint is array'; /* */
+  /* */
+
+  test.case = 'DstPoint is array';
 
   var srcSphere = [ 2, 2, 0, 1 ];
   var tstPlane = [ 1, 1, 0, 0 ];
@@ -4770,7 +5368,9 @@ function planeClosestPoint( test )
 
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'DstPoint is vector'; /* */
+  /* */
+
+  test.case = 'DstPoint is vector';
 
   var srcSphere = [ 2, 2, 2, 1 ];
   var tstPlane = [ 1, 1, 1, 0 ];
@@ -4804,7 +5404,9 @@ function planeClosestPoint( test )
 
 function planeExpand( test )
 {
-  test.case = 'Source sphere and test plane remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere and test plane remain unchanged';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
@@ -4818,7 +5420,9 @@ function planeExpand( test )
   var oldTstPlane = [ 1, 0, 0, 0 ];
   test.identical( tstPlane, oldTstPlane );
 
-  test.case = 'Empty sphere in plane - no expansion'; /* */
+  /* */
+
+  test.case = 'Empty sphere in plane - no expansion';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 0 ];
@@ -4827,7 +5431,9 @@ function planeExpand( test )
 
   test.identical( gotExpand, expected );
 
-  test.case = 'Empty sphere not in plane - expansion'; /* */
+  /* */
+
+  test.case = 'Empty sphere not in plane - expansion';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstPlane = [ 1, 0, 0, 1 ];
@@ -4836,7 +5442,9 @@ function planeExpand( test )
 
   test.identical( gotExpand, expected );
 
-  test.case = 'Intersection'; /* */
+  /* */
+
+  test.case = 'Intersection';
 
   var srcSphere = [ 0, 0, 0, 2 ];
   var tstPlane = [ 1, 0, 0, 1 ];
@@ -4845,7 +5453,9 @@ function planeExpand( test )
 
   test.identical( gotExpand, expected );
 
-  test.case = 'Plane touches sphere'; /* */
+  /* */
+
+  test.case = 'Plane touches sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, 1 ];
@@ -4854,7 +5464,9 @@ function planeExpand( test )
 
   test.identical( gotExpand, expected );
 
-  test.case = 'Plane separate from sphere - plane under sphere'; /* */
+  /* */
+
+  test.case = 'Plane separate from sphere - plane under sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, 3 ];
@@ -4863,7 +5475,9 @@ function planeExpand( test )
 
   test.equivalent( gotExpand, expected );
 
-  test.case = 'Plane separate from sphere - plane over sphere'; /* */
+  /* */
+
+  test.case = 'Plane separate from sphere - plane over sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstPlane = [ 1, 0, 0, - 3 ];
@@ -4872,7 +5486,9 @@ function planeExpand( test )
 
   test.equivalent( gotExpand, expected );
 
-  test.case = 'Expansion 2D'; /* */
+  /* */
+
+  test.case = 'Expansion 2D';
 
   var srcSphere = [ 2, 2, 0, 1 ];
   var tstPlane = [ 1, 1, 0, 0 ];
@@ -4881,7 +5497,9 @@ function planeExpand( test )
 
   test.equivalent( gotExpand, expected );
 
-  test.case = 'Expansion 3D'; /* */
+  /* */
+
+  test.case = 'Expansion 3D';
 
   var srcSphere = [ 2, 2, 2, 1 ];
   var tstPlane = [ 1, 1, 1, 0 ];
@@ -4915,7 +5533,9 @@ function planeExpand( test )
 function rayClosestPoint( test )
 {
 
-  test.case = 'Source sphere and ray remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere and ray remain unchanged';
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -4930,7 +5550,9 @@ function rayClosestPoint( test )
   var oldTstRay = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstRay, oldTstRay );
 
-  test.case = 'sphere and ray intersect'; /* */
+  /* */
+
+  test.case = 'sphere and ray intersect';
 
   var srcSphere = [ - 1, - 1, -1, 3 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -4939,7 +5561,9 @@ function rayClosestPoint( test )
   var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray origin touches sphere'; /* */
+  /* */
+
+  test.case = 'Ray origin touches sphere';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstRay = [ -1, -1, 0, 0, 0, 1 ];
@@ -4948,7 +5572,9 @@ function rayClosestPoint( test )
   var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Ray and sphere don´t intersect'; /* */
+  /* */
+
+  test.case = 'Ray and sphere don´t intersect';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstRay = [ - 1, -1, 2, 0, 0, 1 ];
@@ -4957,7 +5583,9 @@ function rayClosestPoint( test )
   var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'Closest point in sphere side'; /* */
+  /* */
+
+  test.case = 'Closest point in sphere side';
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstRay = [ 5, 0, 0, 0, 1, 0 ];
@@ -4966,7 +5594,9 @@ function rayClosestPoint( test )
   var gotRay = _.sphere.rayClosestPoint( srcSphere, tstRay );
   test.identical( expected, gotRay );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstRay = [ 5, 0, 0, 1, 0, 0 ];
@@ -4977,7 +5607,9 @@ function rayClosestPoint( test )
   test.identical( expected, gotRay );
   test.is( dstPoint === gotRay );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstRay = [ 0, 0, 5, 1, 0, 0 ];
@@ -5010,7 +5642,9 @@ function rayClosestPoint( test )
 function segmentContains( test )
 {
 
-  test.case = 'Source sphere and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere and segment remain unchanged';
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -5025,7 +5659,9 @@ function segmentContains( test )
   var oldTstSegment = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstSegment, oldTstSegment );
 
-  test.case = 'sphere and segment intersect'; /* */
+  /* */
+
+  test.case = 'sphere and segment intersect';
 
   var srcSphere = [ - 1, - 1, -1, 3 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -5034,7 +5670,9 @@ function segmentContains( test )
   var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment origin touches sphere'; /* */
+  /* */
+
+  test.case = 'Segment origin touches sphere';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstSegment = [ -1, -1, 0, 0, 0, 1 ];
@@ -5043,7 +5681,9 @@ function segmentContains( test )
   var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment and sphere don´t intersect'; /* */
+  /* */
+
+  test.case = 'Segment and sphere don´t intersect';
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
   var tstSegment = [ - 1, -1, 3, - 1, - 1, 2 ];
@@ -5052,7 +5692,9 @@ function segmentContains( test )
   var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Sphere contains segment'; /* */
+  /* */
+
+  test.case = 'Sphere contains segment';
 
   var srcSphere = [ 0, 0, 0, 2 ];
   var tstSegment = [ - 1, -1, -1, 1, 1, 1 ];
@@ -5061,7 +5703,9 @@ function segmentContains( test )
   var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Sphere contains segment - touching sides'; /* */
+  /* */
+
+  test.case = 'Sphere contains segment - touching sides';
 
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) ];
   var tstSegment = [ - 1, -1, -1, 1, 1, 1 ];
@@ -5070,7 +5714,9 @@ function segmentContains( test )
   var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = '2D - contained'; /* */
+  /* */
+
+  test.case = '2D - contained';
 
   var srcSphere = [ 3, 4, 8 ];
   var tstSegment = [ 3, 5, 2, 6 ];
@@ -5079,7 +5725,9 @@ function segmentContains( test )
   var gotSegment = _.sphere.segmentContains( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = '2D - Not contained'; /* */
+  /* */
+
+  test.case = '2D - Not contained';
 
   var srcSphere = [ 6, 7, Math.sqrt( 3 ) ];
   var tstSegment = [ - 1, -1, 6, 0 ];
@@ -5111,7 +5759,9 @@ function segmentContains( test )
 function segmentClosestPoint( test )
 {
 
-  test.case = 'Source sphere and segment remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source sphere and segment remain unchanged';
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -5126,7 +5776,9 @@ function segmentClosestPoint( test )
   var oldTstSegment = [ 0, 0, 0, 1, 1, 1 ];
   test.identical( tstSegment, oldTstSegment );
 
-  test.case = 'sphere and segment intersect'; /* */
+  /* */
+
+  test.case = 'sphere and segment intersect';
 
   var srcSphere = [ - 1, - 1, -1, 3 ];
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
@@ -5135,7 +5787,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment origin touches sphere'; /* */
+  /* */
+
+  test.case = 'Segment origin touches sphere';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstSegment = [ -1, -1, 0, 0, 0, 1 ];
@@ -5144,7 +5798,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment end touches sphere'; /* */
+  /* */
+
+  test.case = 'Segment end touches sphere';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstSegment = [ -7, -1, -1, -1, -1, 0 ];
@@ -5154,7 +5810,9 @@ function segmentClosestPoint( test )
   test.identical( expected, gotSegment );
 
 
-  test.case = 'Negative factor - no intersection'; /* */
+  /* */
+
+  test.case = 'Negative factor - no intersection';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstSegment = [ - 1, -1, 2, -1, -1, 5 ];
@@ -5164,7 +5822,9 @@ function segmentClosestPoint( test )
   test.identical( expected, gotSegment );
 
 
-  test.case = 'Positive factor - no intersection'; /* */
+  /* */
+
+  test.case = 'Positive factor - no intersection';
 
   var srcSphere = [ - 1, - 1, -1, 1 ];
   var tstSegment = [ - 1, -1, -5, -1, -1, -3 ];
@@ -5173,7 +5833,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Segment and sphere don´t intersect'; /* */
+  /* */
+
+  test.case = 'Segment and sphere don´t intersect';
 
   var srcSphere = [ - 1, - 1, -1, 2 ];
   var tstSegment = [ - 1, -1, 3, - 1, - 1, 2 ];
@@ -5182,7 +5844,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Closest point to segment side'; /* */
+  /* */
+
+  test.case = 'Closest point to segment side';
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstSegment = [ 5, 2, 0, -5, 2, 0 ];
@@ -5191,7 +5855,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
   test.identical( expected, gotSegment );
 
-  test.case = 'Closest point to sphere side'; /* */
+  /* */
+
+  test.case = 'Closest point to sphere side';
 
   var srcSphere = [ 0, 0, 0, 1 ];
   var tstSegment = [ 3, 0, 0, 0, 3, 0 ];
@@ -5200,7 +5866,9 @@ function segmentClosestPoint( test )
   var gotSegment = _.sphere.segmentClosestPoint( srcSphere, tstSegment );
   test.equivalent( expected, gotSegment );
 
-  test.case = 'dstPoint Array'; /* */
+  /* */
+
+  test.case = 'dstPoint Array';
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstSegment = [ 5, 0, 0, 6, 2, 0 ];
@@ -5211,7 +5879,9 @@ function segmentClosestPoint( test )
   test.identical( expected, gotSegment );
   test.is( dstPoint === gotSegment );
 
-  test.case = 'dstPoint Vector'; /* */
+  /* */
+
+  test.case = 'dstPoint Vector';
 
   var srcSphere = [ 0, 0, 0, 4 ];
   var tstSegment = [ 0, 0, 5, 1, 0, 7 ];
@@ -5243,7 +5913,9 @@ function segmentClosestPoint( test )
 
 function sphereContains( test )
 {
-  test.case = 'Source and test spheres remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source and test spheres remain unchanged';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstSphere = [ 0, 0, 0, 0 ];
@@ -5257,7 +5929,9 @@ function sphereContains( test )
   var oldTstSphere = [ 0, 0, 0, 0 ];
   test.identical( tstSphere, oldTstSphere );
 
-  test.case = 'Empty sphere contains empty sphere'; /* */
+  /* */
+
+  test.case = 'Empty sphere contains empty sphere';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstSphere = [ 0, 0, 0, 0 ];
@@ -5266,7 +5940,9 @@ function sphereContains( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Same spheres'; /* */
+  /* */
+
+  test.case = 'Same spheres';
 
   var srcSphere = [ 0, 1, 0, 2 ];
   var tstSphere = [ 0, 1, 0, 2 ];
@@ -5275,7 +5951,9 @@ function sphereContains( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Trivial intersection - not contained'; /* */
+  /* */
+
+  test.case = 'Trivial intersection - not contained';
 
   var srcSphere = [ - 1, 2, 0, 2 ];
   var tstSphere = [ 1, 3, 0, 2 ];
@@ -5284,7 +5962,9 @@ function sphereContains( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Different radius - src > tst'; /* */
+  /* */
+
+  test.case = 'Different radius - src > tst';
 
   var srcSphere = [ 1, 0, 0, 3 ];
   var tstSphere = [ 1, 0, 0, 2 ];
@@ -5293,7 +5973,9 @@ function sphereContains( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Different radius - tst > src'; /* */
+  /* */
+
+  test.case = 'Different radius - tst > src';
 
   var srcSphere = [ 1, 0, 0, 2 ];
   var tstSphere = [ 1, 0, 0, 3 ];
@@ -5302,7 +5984,9 @@ function sphereContains( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Just touching'; /* */
+  /* */
+
+  test.case = 'Just touching';
 
   var srcSphere = [ - 1, 0, 0, 1 ];
   var tstSphere = [ 1, 0, 0, 1 ];
@@ -5311,7 +5995,9 @@ function sphereContains( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Not intersecting'; /* */
+  /* */
+
+  test.case = 'Not intersecting';
 
   var srcSphere = [ - 1.5, 0, 0, 1 ];
   var tstSphere = [ 1.5, 0, 0, 1 ];
@@ -5320,7 +6006,9 @@ function sphereContains( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'One inside another different centers'; /* */
+  /* */
+
+  test.case = 'One inside another different centers';
 
   var srcSphere = [ 0, 0, 0, 3 ];
   var tstSphere = [ 1, 1, 1, 1 ];
@@ -5372,7 +6060,9 @@ function sphereContains( test )
 function sphereIntersects( test )
 {
 
-  test.case = 'Intersection of empty spheres'; /* */
+  /* */
+
+  test.case = 'Intersection of empty spheres';
 
   var sphere = [ 0, 0, 0, 0 ];
   var sphere2 = [ 0, 0, 0, 0 ];
@@ -5381,7 +6071,9 @@ function sphereIntersects( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Trivial intersection'; /* */
+  /* */
+
+  test.case = 'Trivial intersection';
 
   var sphere = [ - 1, 2, 0, 2 ];
   var sphere2 = [ 1, 3, 0, 2 ];
@@ -5390,7 +6082,9 @@ function sphereIntersects( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Different radius'; /* */
+  /* */
+
+  test.case = 'Different radius';
 
   var sphere = [ - 1, 0, 0, 3 ];
   var sphere2 = [ 1, 0, 0, 2 ];
@@ -5399,7 +6093,9 @@ function sphereIntersects( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Just touching'; /* */
+  /* */
+
+  test.case = 'Just touching';
 
   var sphere = [ - 1, 0, 0, 1 ];
   var sphere2 = [ 1, 0, 0, 1 ];
@@ -5408,7 +6104,9 @@ function sphereIntersects( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'Not intersecting'; /* */
+  /* */
+
+  test.case = 'Not intersecting';
 
   var sphere = [ - 1.5, 0, 0, 1 ];
   var sphere2 = [ 1.5, 0, 0, 1 ];
@@ -5417,7 +6115,9 @@ function sphereIntersects( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'One inside another'; /* */
+  /* */
+
+  test.case = 'One inside another';
 
   var sphere = [ 0, 0, 0, 3 ];
   var sphere2 = [ 0, 0, 0, 1 ];
@@ -5426,7 +6126,9 @@ function sphereIntersects( test )
 
   test.identical( gotBool, expected );
 
-  test.case = 'One inside another different centers'; /* */
+  /* */
+
+  test.case = 'One inside another different centers';
 
   var sphere = [ 0, 0, 0, 3 ];
   var sphere2 = [ 1, 1, 1, 3 ];
@@ -5482,7 +6184,9 @@ function sphereIntersects( test )
 
 function sphereDistance( test )
 {
-  test.case = 'Source and test spheres remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source and test spheres remain unchanged';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstSphere = [ 0, 0, 0, 0 ];
@@ -5496,7 +6200,9 @@ function sphereDistance( test )
   var oldTstSphere = [ 0, 0, 0, 0 ];
   test.identical( tstSphere, oldTstSphere );
 
-  test.case = 'Empty spheres'; /* */
+  /* */
+
+  test.case = 'Empty spheres';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstSphere = [ 0, 0, 0, 0 ];
@@ -5505,7 +6211,9 @@ function sphereDistance( test )
 
   test.identical( gotDistance, expected );
 
-  test.case = 'Same spheres'; /* */
+  /* */
+
+  test.case = 'Same spheres';
 
   var srcSphere = [ 0, 1, 0, 2 ];
   var tstSphere = [ 0, 1, 0, 2 ];
@@ -5514,7 +6222,9 @@ function sphereDistance( test )
 
   test.identical( gotDistance, expected );
 
-  test.case = 'Intersection'; /* */
+  /* */
+
+  test.case = 'Intersection';
 
   var srcSphere = [ - 1, 2, 0, 2 ];
   var tstSphere = [ 1, 3, 0, 2 ];
@@ -5523,7 +6233,9 @@ function sphereDistance( test )
 
   test.identical( gotDistance, expected );
 
-  test.case = 'Different centers 1D'; /* */
+  /* */
+
+  test.case = 'Different centers 1D';
 
   var srcSphere = [ 2, 0, 0, 1 ];
   var tstSphere = [ -2, 0, 0, 1 ];
@@ -5532,7 +6244,9 @@ function sphereDistance( test )
 
   test.identical( gotDistance, expected );
 
-  test.case = 'Different centers 2D'; /* */
+  /* */
+
+  test.case = 'Different centers 2D';
 
   var srcSphere = [ 2, 2, 0, 1 ];
   var tstSphere = [ -2, -2, 0, 1 ];
@@ -5541,7 +6255,9 @@ function sphereDistance( test )
 
   test.equivalent( gotDistance, expected );
 
-  test.case = 'Different centers 3D'; /* */
+  /* */
+
+  test.case = 'Different centers 3D';
 
   var srcSphere = [ 2, 2, 2, 1 ];
   var tstSphere = [ -2, -2, -2, 1 ];
@@ -5550,7 +6266,9 @@ function sphereDistance( test )
 
   test.equivalent( gotDistance, expected );
 
-  test.case = 'Different centers - different radius'; /* */
+  /* */
+
+  test.case = 'Different centers - different radius';
 
   var srcSphere = [ 2, 0, 0, 1 ];
   var tstSphere = [ -2, 0, 0, 2 ];
@@ -5583,7 +6301,9 @@ function sphereDistance( test )
 
 function sphereClosestPoint( test )
 {
-  test.case = 'Source and test spheres remain unchanged'; /* */
+  /* */
+
+  test.case = 'Source and test spheres remain unchanged';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstSphere = [ 0, 0, 0, 0 ];
@@ -5597,7 +6317,9 @@ function sphereClosestPoint( test )
   var oldTstSphere = [ 0, 0, 0, 0 ];
   test.identical( tstSphere, oldTstSphere );
 
-  test.case = 'Empty spheres'; /* */
+  /* */
+
+  test.case = 'Empty spheres';
 
   var srcSphere = [ 0, 0, 0, 0 ];
   var tstSphere = [ 0, 0, 0, 0 ];
@@ -5606,7 +6328,9 @@ function sphereClosestPoint( test )
 
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Same spheres'; /* */
+  /* */
+
+  test.case = 'Same spheres';
 
   var srcSphere = [ 0, 1, 0, 2 ];
   var tstSphere = [ 0, 1, 0, 2 ];
@@ -5615,7 +6339,9 @@ function sphereClosestPoint( test )
 
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Intersection'; /* */
+  /* */
+
+  test.case = 'Intersection';
 
   var srcSphere = [ - 1, 2, 0, 2 ];
   var tstSphere = [ 1, 3, 0, 2 ];
@@ -5624,7 +6350,9 @@ function sphereClosestPoint( test )
 
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Different centers 1D'; /* */
+  /* */
+
+  test.case = 'Different centers 1D';
 
   var srcSphere = [ 2, 0, 0, 1 ];
   var tstSphere = [ -2, 0, 0, 1 ];
@@ -5633,7 +6361,9 @@ function sphereClosestPoint( test )
 
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'Different centers 2D'; /* */
+  /* */
+
+  test.case = 'Different centers 2D';
 
   var srcSphere = [ 2, 2, 0, 1 ];
   var tstSphere = [ -2, -2, 0, 1 ];
@@ -5642,7 +6372,9 @@ function sphereClosestPoint( test )
 
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Different centers 3D'; /* */
+  /* */
+
+  test.case = 'Different centers 3D';
 
   var srcSphere = [ 2, 2, 2, 1 ];
   var tstSphere = [ -2, -2, -2, 1 ];
@@ -5651,7 +6383,9 @@ function sphereClosestPoint( test )
 
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'Different centers - different radius 1D'; /* */
+  /* */
+
+  test.case = 'Different centers - different radius 1D';
 
   var srcSphere = [ 2, 0, 0, 1 ];
   var tstSphere = [ -2, 0, 0, 2 ];
@@ -5660,7 +6394,9 @@ function sphereClosestPoint( test )
 
   test.identical( gotClosestPoint, expected );
 
-  test.case = 'DstPoint is array'; /* */
+  /* */
+
+  test.case = 'DstPoint is array';
 
   var srcSphere = [ 2, 2, 0, 1 ];
   var tstSphere = [ -2, -2, 0, 2 ];
@@ -5670,7 +6406,9 @@ function sphereClosestPoint( test )
 
   test.equivalent( gotClosestPoint, expected );
 
-  test.case = 'DstPoint is vector'; /* */
+  /* */
+
+  test.case = 'DstPoint is vector';
 
   var srcSphere = [ 2, 2, 2, 1 ];
   var tstSphere = [ -2, -2, -2, 1 ];
