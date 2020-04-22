@@ -933,7 +933,7 @@ rayIntersectionPoints.shaderChunk =
   void ray_rayIntersectionPoints( out vec2 result[ 2 ], vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
-    vec2 factors = rayIntersectionFactors( r1, r2 );
+    vec2 factors = ray_rayIntersectionFactors( r1, r2 );
     result[ 0 ] = rayAt( r1, factors[ 0 ] );
     result[ 1 ] = rayAt( r2, factors[ 1 ] );
 
@@ -983,7 +983,7 @@ rayIntersectionPoint.shaderChunk =
   vec2 ray_rayIntersectionPoint( vec2 r1[ 2 ], vec2 r2[ 2 ] )
   {
 
-    vec2 factors = rayIntersectionFactors( r1, r2 );
+    vec2 factors = ray_rayIntersectionFactors( r1, r2 );
     return rayAt( r1, factors[ 0 ] );
 
   }
@@ -1037,7 +1037,7 @@ rayIntersectionPointAccurate.shaderChunk =
   {
 
     vec2 closestPoints[ 2 ];
-    rayIntersectionPoints( closestPoints, r1, r2 );
+    ray_rayIntersectionPoints( closestPoints, r1, r2 );
     return ( closestPoints[ 0 ] + closestPoints[ 1 ] ) * 0.5;
 
   }
