@@ -723,6 +723,21 @@ function fromMatrix( test )
 
 function toMatrix( test )
 {
+  /* test from MathMatrix */
+
+  test.case = 'method fromEuler';
+  var matrix = _.Matrix.MakeSquare
+  ([
+    1, 2, 3,
+    0, 4, 5,
+    0, 0, 6,
+  ]);
+  var euler = [ 0.1, -0.1, 1, 2, 1, 0 ];
+  var src = matrix.fromEuler( euler );
+  var got = _.Matrix.From( src );
+  var exp = _.Matrix.Make([ 3, 3 ]).copy( src.buffer );
+  test.equivalent( got, exp );
+  test.is( got === src );
 
   // /* */
 
