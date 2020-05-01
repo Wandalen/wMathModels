@@ -732,13 +732,17 @@ function toMatrix( test )
     0, 4, 5,
     0, 0, 6,
   ]);
-  var euler = [ 0.1, -0.1, 1, 2, 1, 0 ];
+  var euler = [ 2.8633, -0.4275, 1.1461, 2, 1, 0 ];
   var src = matrix.fromEuler( euler );
   var got = _.Matrix.From( src );
-  var exp = _.Matrix.Make([ 3, 3 ]).copy( src.buffer );
-  test.equivalent( got, exp );
+  var exp = _.Matrix.Make([ 3, 3 ]).copy
+  ([
+    -0.875,   0.250,   0.415,
+     0.250,  -0.500,   0.829,
+     0.415,   0.829,   0.375,
+  ]);
+  test.equivalent( got.toStr(), exp.toStr() );
   test.is( got === src );
-
   // /* */
 
  test.case = 'special zyx';
