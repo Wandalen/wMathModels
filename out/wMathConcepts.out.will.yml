@@ -2,13 +2,10 @@ format: outwillfile-2.0
 root:
   - wMathConcepts.out
 consistency:
-  wMathConcepts.out.will.yml: &ref_0
-    hash: 9bd878bdd9c604796505e94ce9836572
-    size: 43578
-  ../.ex.will.yml: &ref_1
-    hash: 3a1883d0ea5e5020b36214c5eaca9164
-    size: 2647
-  ../.im.will.yml: &ref_2
+  ../.ex.will.yml: &ref_0
+    hash: 86660fa0301bbfcb58afa98b563c7b5b
+    size: 2648
+  ../.im.will.yml: &ref_1
     hash: abc2a5d28ca616b8a808fad2636adbb9
     size: 5236
 module:
@@ -32,11 +29,11 @@ module:
         problems and to get a more flexible program.
       enabled: 1
       version: 0.5.0
-      interpreters:
+      interpreters: &ref_2
         - njs >= 10.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords:
+      keywords: &ref_3
         - wTools
         - math
         - vector
@@ -44,11 +41,11 @@ module:
         - convolution
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors:
+      contributors: &ref_4
         - Kostiantyn Wandalen <wanalen@01.school>
         - Pablo Garcimartin <pablogarcimartinruiz@gmail.com>
       npm.name: wmathconcepts
-      npm.scripts:
+      npm.scripts: &ref_5
         test: wtest .run proto/**
         docgen: wdocgen .build proto
     path:
@@ -258,9 +255,6 @@ module:
           prefixPath: ''
         dst:
           prefixPath: ''
-        mandatory: 1
-        dstRewritingOnlyPreserving: 1
-        linking: hardLinkMaybe
         criterion:
           tests: no.tests
           debug: debug
@@ -275,9 +269,6 @@ module:
           prefixPath: ''
         dst:
           prefixPath: ''
-        mandatory: 1
-        dstRewritingOnlyPreserving: 1
-        linking: hardLinkMaybe
         criterion:
           tests: no.tests
           debug: release
@@ -292,9 +283,6 @@ module:
           prefixPath: ''
         dst:
           prefixPath: ''
-        mandatory: 1
-        dstRewritingOnlyPreserving: 1
-        linking: hardLinkMaybe
         criterion:
           tests: no.tests
           debug: debug
@@ -309,9 +297,6 @@ module:
           prefixPath: ''
         dst:
           prefixPath: ''
-        mandatory: 1
-        dstRewritingOnlyPreserving: 1
-        linking: hardLinkMaybe
         criterion:
           tests: no.tests
           debug: release
@@ -326,9 +311,6 @@ module:
           prefixPath: ''
         dst:
           prefixPath: ''
-        mandatory: 1
-        dstRewritingOnlyPreserving: 1
-        linking: hardLinkMaybe
         criterion:
           raw: raw
           debug: release
@@ -344,9 +326,6 @@ module:
           prefixPath: ''
         dst:
           prefixPath: ''
-        mandatory: 1
-        dstRewritingOnlyPreserving: 1
-        linking: hardLinkMaybe
         criterion:
           tests: no.tests
           raw: compiled
@@ -363,9 +342,6 @@ module:
           prefixPath: ''
         dst:
           prefixPath: ''
-        mandatory: 1
-        dstRewritingOnlyPreserving: 1
-        linking: hardLinkMaybe
         criterion:
           tests: no.tests
           raw: compiled
@@ -381,9 +357,6 @@ module:
           prefixPath: ''
         dst:
           prefixPath: ''
-        mandatory: 1
-        dstRewritingOnlyPreserving: 1
-        linking: hardLinkMaybe
         criterion:
           tests: only.tests
           raw: compiled
@@ -399,9 +372,6 @@ module:
           prefixPath: ''
         dst:
           prefixPath: ''
-        mandatory: 1
-        dstRewritingOnlyPreserving: 1
-        linking: hardLinkMaybe
         criterion:
           tests: only.tests
           raw: compiled
@@ -690,7 +660,7 @@ module:
           debug: release
       reflect.proto.debug.raw:
         opts:
-          reflector: 'reflector::reflect.proto*'
+          filePath: 'reflector::reflect.proto*'
         criterion:
           tests: no.tests
           debug: debug
@@ -700,7 +670,7 @@ module:
           - files.reflect
       reflect.proto.release.raw:
         opts:
-          reflector: 'reflector::reflect.proto*'
+          filePath: 'reflector::reflect.proto*'
         criterion:
           tests: no.tests
           debug: release
@@ -710,7 +680,7 @@ module:
           - files.reflect
       reflect.proto.debug.compiled:
         opts:
-          reflector: 'reflector::reflect.proto*'
+          filePath: 'reflector::reflect.proto*'
         criterion:
           tests: no.tests
           debug: debug
@@ -720,7 +690,7 @@ module:
           - files.reflect
       reflect.proto.release.compiled:
         opts:
-          reflector: 'reflector::reflect.proto*'
+          filePath: 'reflector::reflect.proto*'
         criterion:
           tests: no.tests
           debug: release
@@ -731,7 +701,7 @@ module:
       transpile.proto.raw:
         opts:
           entry: 'path::entry.proto.no.tests'
-          reflector: 'reflector::transpile.proto.raw*'
+          filePath: 'reflector::transpile.proto.raw*'
         criterion:
           raw: raw
           debug: release
@@ -741,7 +711,7 @@ module:
       transpile.proto.no.tests.compiled.debug:
         opts:
           entry: 'path::entry.proto.*=1'
-          reflector: 'reflector::transpile.proto.no.tests.compiled*'
+          filePath: 'reflector::transpile.proto.no.tests.compiled*'
         criterion:
           tests: no.tests
           raw: compiled
@@ -752,7 +722,7 @@ module:
       transpile.proto.no.tests.compiled.release:
         opts:
           entry: 'path::entry.proto.*=1'
-          reflector: 'reflector::transpile.proto.no.tests.compiled*'
+          filePath: 'reflector::transpile.proto.no.tests.compiled*'
         criterion:
           tests: no.tests
           raw: compiled
@@ -764,7 +734,7 @@ module:
         opts:
           entry: 'path::entry.proto.*=1'
           external.before: '{path::out.*=1}/Main.s'
-          reflector: 'reflector::transpile.proto.only.tests.compiled*'
+          filePath: 'reflector::transpile.proto.only.tests.compiled*'
         criterion:
           tests: only.tests
           raw: compiled
@@ -776,7 +746,7 @@ module:
         opts:
           entry: 'path::entry.proto.*=1'
           external.before: '{path::out.*=1}/Main.s'
-          reflector: 'reflector::transpile.proto.only.tests.compiled*'
+          filePath: 'reflector::transpile.proto.only.tests.compiled*'
         criterion:
           tests: only.tests
           raw: compiled
@@ -784,24 +754,6 @@ module:
           content: prime
         inherit:
           - files.transpile
-      exported.proto.export:
-        opts:
-          filePath: 'reflector::exported.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
-      exported.files.proto.export:
-        opts:
-          filePath: 'reflector::exported.files.proto.export*'
-        criterion:
-          generated: 1
-          content: proto
-          export: 1
-        inherit:
-          - files.reflect
     build:
       proto.export:
         steps:
@@ -890,9 +842,8 @@ module:
           content: proto
           export: 1
     consistency:
-      wMathConcepts.out.will.yml: *ref_0
-      ../.ex.will.yml: *ref_1
-      ../.im.will.yml: *ref_2
+      ../.ex.will.yml: *ref_0
+      ../.im.will.yml: *ref_1
   ../:
     about:
       name: wMathConcepts
@@ -913,25 +864,13 @@ module:
         problems and to get a more flexible program.
       enabled: 1
       version: 0.5.0
-      interpreters:
-        - njs >= 10.0.0
-        - chrome >= 60.0.0
-        - firefox >= 60.0.0
-      keywords:
-        - wTools
-        - math
-        - vector
-        - dot product
-        - convolution
+      interpreters: *ref_2
+      keywords: *ref_3
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors:
-        - Kostiantyn Wandalen <wanalen@01.school>
-        - Pablo Garcimartin <pablogarcimartinruiz@gmail.com>
+      contributors: *ref_4
       npm.name: wmathconcepts
-      npm.scripts:
-        test: wtest .run proto/**
-        docgen: wdocgen .build proto
+      npm.scripts: *ref_5
     path:
       module.willfiles:
         criterion:
@@ -1605,9 +1544,8 @@ module:
           - 'build::npm'
     consistency:
       ../.ex.will.yml:
-        hash: 3a1883d0ea5e5020b36214c5eaca9164
-        size: 2647
+        hash: 86660fa0301bbfcb58afa98b563c7b5b
+        size: 2648
       ../.im.will.yml:
         hash: abc2a5d28ca616b8a808fad2636adbb9
         size: 5236
-      wMathConcepts.out.will.yml: *ref_0
