@@ -132,6 +132,31 @@ function pointContains( tri, point )
 
 //
 
+function pointDistance( tri, point )
+{
+  _.assert( arguments.length === 2 );
+  _.assert( this.is( tri ) );
+
+  let triView = this.vectorAdapter.from( tri );
+  let d = this.dimGet( tri );
+
+  _.assert( d === point.length );
+
+  let tri0Point = triView.review([ 0, d - 1 ]);
+  let tri1Point = triView.review([ tri0Point.length, 2 * d - 1 ]);
+  let tri2Point = triView.review([ tri1Point.offset + tri1Point.length, triView.length - 1 ]);
+
+  let polygon = this.tools.convexPolygon.make( d, 3 );
+
+  polygon.colGet( 0 ).copy( tri0Point )
+  polygon.colGet( 1 ).copy( tri1Point )
+  polygon.colGet( 2 ).copy( tri2Point )
+
+  return this.tools.convexPolygon.pointDistance( polygon, point );
+}
+
+//
+
 /* function distanceToTri( tri, pos ) {
 
     let p0 = pos.slice();
@@ -148,7 +173,7 @@ function pointContains( tri, point )
 
 } */
 
-function pointDistance( tri, point )
+function pointDistance3D( tri, point )
 {
   _.assert( arguments.length === 2 );
   _.assert( this.is( tri ) );
@@ -192,6 +217,7 @@ let Extension = /* qqq xxx : normalize order */
 
   pointContains,
   pointDistance,
+  pointDistance3D,
 
   // ref
 
