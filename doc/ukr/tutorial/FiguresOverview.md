@@ -2,28 +2,6 @@
 
 Огляд доступних фігур та демонструює їх використання.
 
-Перелік описаних фігур:
-
-[AxisAndAngle](./FiguresOverview.md#AxisAndAngle)<br>
-[Box](./FiguresOverview.md#Box)<br>
-[Capsule](./FiguresOverview.md#Capsule)<br>
-[ConcavePolygon](./FiguresOverview.md#ConcavePolygon)<br>
-[ConvexPolygon](./FiguresOverview.md#ConvexPolygon)<br>
-[Euler](./FiguresOverview.md#Euler)<br>
-[Frustum](./FiguresOverview.md#Frustum)<br>
-[LineImplicit](./FiguresOverview.md#LineImplicit)<br>
-[LinePointCentered](./FiguresOverview.md#LinePointCentered)<br>
-[LinePointDir](./FiguresOverview.md#LinePointDir)<br>
-[LinePoints](./FiguresOverview.md#LinePoints)<br>
-[Plane](./FiguresOverview.md#Plane)<br>
-[Quat](./FiguresOverview.md#Quat)<br>
-[Ray](./FiguresOverview.md#Ray)<br>
-[Segment](./FiguresOverview.md#Segment)<br>
-[Sphere](./FiguresOverview.md#Sphere)<br>
-[Triangle](./FiguresOverview.md#Triangle)<br>
-
-
-
 ### Box
 
 ```js
@@ -71,8 +49,6 @@ let got = _.concavePolygon.pointDistance( polygon, point );
 console.log( 'Distance from concave polygon to point:', got );
 /* log: Distance from concave polygon to point: 1 */
 ```
-
-
 
 ### Frustum
 
