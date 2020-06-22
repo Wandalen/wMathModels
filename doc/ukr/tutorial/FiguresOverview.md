@@ -22,78 +22,57 @@
 [Sphere](./FiguresOverview.md#Sphere)<br>
 [Triangle](./FiguresOverview.md#Triangle)<br>
 
-### AxisAndAngle
 
-```js
-let axisAndAngle = _.axisAndAngle.from([ 0, 0, 1, Math.PI/2 ]);
-let matrix = _.Matrix.Make([ 3, 3 ]);
-_.axisAndAngle.toMatrixRotation( axisAndAngle, null )
-console.log( 'Rotation matrix from AngleAndAxis:', matrix.toStr() )
-/* log:
-Rotation matrix from AngleAndAxis:
--8.950, -0.282, 0.141,
-0.282, -6.960, 3.980,
--0.141, 3.980, -0.990,
-*/
-
-```
 
 ### Box
 
 ```js
-let box = [ 0, 0, 0, 2, 2, 2 ];
-let point = [ 1, 1, 3 ];
+let box = [ 0, 0, 2, 2 ];
+let point = [ 3, 3 ];
 let got = _.box.pointDistance( box, point );
-console.log( 'Distance from box to point:', got );
-/* log: Distance from box to point: 1 */
+console.log( 'Distance from box to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from box to point: 1.4 */
 ```
 
 ### Capsule
 
 ```js
-var capsule = [ 0, 0, 0, 0, 0, 0, 0 ];
-var point = [ 3, 4, 0 ];
+var capsule = [ 2, 1, 2, 4, 1 ];
+var point = [ 4, 4 ];
 let got = _.capsule.pointDistance( capsule, point );
 console.log( 'Distance from capsule to point:', got );
-/* log: Distance from capsule to point: 5 */
-```
-
-### ConcavePolygon
-
-```js
-let polygon =
-[
-  0,1,
-  0,1
-]
-let point = [ 0.5,0 ]
-let got = _.concavePolygon.pointDistance( polygon, point );
-console.log( 'Distance from concave polygon to point:', got );
-/* log: Distance from concave polygon to point: 0 */
+/* log: Distance from capsule to point: 1 */
 ```
 
 ### ConvexPolygon
 
 ```js
-var polygon = _.convexPolygon.make( 2, 3 ).copy
+var polygon = _.convexPolygon.make( 2, 4 ).copy
 ([
-  1, 0, 0,
-  0, 0, 1
+  1, 2, 4, 5,
+  1, 5, 5, 1
 ]);
-var point = [ 0, 1 ];
+var point = [ 3, 6 ];
 let got = _.convexPolygon.pointDistance( polygon, point );
 console.log( 'Distance from convex polygon to point:', got );
-/* log: Distance from convex polygon to point: 0*/
+/* log: Distance from convex polygon to point: 1*/
 ```
 
-### Euler
+### ConcavePolygon
 
 ```js
-var euler = [ 1, 0, 0.5, 0, 1, 2 ];
-var quat = _.euler.toQuat( euler, null );
-console.log( 'Quat from Euler:', _.toStr( quat, { precision : 2 } ) )
-/* log : Quat from Euler: [ 0.46, -0.12, 0.22, 0.85 ] */
+let polygon = _.concavePolygon.make( 2, 5 ).copy
+([
+  2, 1, 3, 5, 4,
+  1, 5, 3, 5, 1
+]);
+let point = [ 3, 4 ]
+let got = _.concavePolygon.pointDistance( polygon, point );
+console.log( 'Distance from concave polygon to point:', got );
+/* log: Distance from concave polygon to point: 1 */
 ```
+
+
 
 ### Frustum
 
@@ -105,20 +84,10 @@ var frustum = _.Matrix.make( [ 4, 6 ] ).copy
   0,   0,   1,  -1,   0,   0,
  -1,   0,  -1,   0,   0,  -1
 ]);
-let point = [ 1,1,2 ]
+let point = [ 1, 1, 2 ]
 let got = _.frustum.pointDistance( frustum, point );
 console.log( 'Distance from frustum to point:', got );
 /* log: Distance from frustum to point: 1 */
-```
-
-### LineImplicit
-
-```js
-var line = [ -1,3,-3 ];
-var point = [ 3,2 ];
-let got = _.lineImplicit.pointDistance( line, point );
-console.log( 'Distance from straight to point:', got );
-/* log: Distance from straight to point: 0*/
 ```
 
 ### LinePointCentered
@@ -155,58 +124,84 @@ console.log( 'Pair at factor 0.25:', pair.toStr() );
 ### Plane
 
 ```js
-var point = [ 0, 1 ];
-var plane = [ 0, 1, 1 ];
+var line = [ -4, 4, 0 ]; // -2,-2, 2, 2
+var point = [ 3, 2 ];
+let got = _.plane.pointDistance( line, point );
+console.log( 'Distance from straight to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from straight to point: -0.71*/
+```
+
+```js
+var point = [ 4, 1, -3 ];
+var plane = [ 2, -1, 3, 1 ];
 let got = _.plane.pointDistance( plane, point );
-console.log( 'Distance from plane to point:', got );
-/* log: Distance from plane to point: 2 */
+console.log( 'Distance from 3D plane to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from 3D plane to point: -0.27 */
+```
+
+### AxisAndAngle
+
+```js
+let axisAndAngle = [ 1, 0, 0, Math.PI / 4 ];
+let euler = _.euler.fromAxisAndAngle2( euler, axisAndAngle );
+console.log( 'AxisAndAngle to Euler:', _.toStr( euler, { precision : 2 } ) )
+/* log: AxisAndAngle to Euler: [ 0.79, 0.0, -0.0, 0.0, 1.0, 2.0 ] */
+```
+
+### Euler
+
+```js
+var euler = [ Math.PI/4, 0, 0, 0, 1, 2 ];
+var quat = _.euler.toQuat( euler, null );
+console.log( 'Quat from Euler:', _.toStr( quat, { precision : 2 } ) )
+/* log : Quat from Euler: [ 0.38, 0.0, 0.0, 0.92 ] */
 ```
 
 ### Quat
 
 ```js
-var quat = [ 0.46, -0.12, 0.22, 0.85 ]
+var quat = [ 0.38, 0.0, 0.0, 0.92 ]
 var euler = _.quat.toEuler( quat, null )
 console.log( 'Quat from Euler:', _.toStr( euler, { precision : 2 } ) )
-/* log : Euler from Quat: [ 0.99, -0.0016, 0.51, 0.0, 1.0, 2.0 ] */
+/* log : Euler from Quat: [ 0.78, 0.0, -0.0, 0.0, 1.0, 2.0 ] */
 ```
 
 ### Ray
 
 ```js
-var ray = [ 0, 0, 0, 1, 1, 1 ]
-let point = [ 1, 2, 1 ];
+var ray = [ 0, 0, 2, 2, ]
+let point = [ 2, 3 ];
 let got = _.ray.pointDistance( ray, point );
 console.log( 'Distance from ray to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from ray to point: 0.82 */
+/* log: Distance from ray to point: 0.71 */
 ```
 
 ### Segment
 
 ```js
-var segment = [ -2, -2, -2, 2, 2, 2 ]
-let point = [ 3, 3, 3 ]
+var segment = [ -2, -2, 2, 2 ]
+let point = [ 3, 3 ]
 let got = _.segment.pointDistance( segment, point );
 console.log( 'Distance from segment to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from segment to point: 1.7 */
+/* log: Distance from segment to point: 1.4 */
 ```
 
 ### Sphere
 
 ```js
-var sphere = [ 0, 0, 0, 1 ];
-var point = [ 3, 4, 0 ];
-let got = _.figure.pointDistance( sphere, point );
-console.log( 'Distance from sphere to point:', got );
-/* log: Distance from sphere to point: 4 */
+var sphere = [ 0, 0, 1 ];
+var point = [ 1, 1 ];
+let got = _.sphere.pointDistance( sphere, point );
+console.log( 'Distance from sphere to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from sphere to point: 0.41 */
 ```
 
 ### Triangle
 
 ```js
-var triangle = [ 0, 0, 0, 1, 1, 0, 2, 0, 0 ];
-var point = [ 1, 1, 1 ]
+var triangle = [ 0, 0, 2, 3, 4, 0 ];
+var point = [ 4, 2 ]
 let got = _.triangle.pointDistance( triangle, point );
-console.log( 'Distance from triangle to point:', got );
-/* log: Distance from triangle to point: 1 */
+console.log( 'Distance from triangle to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from triangle to point: 1.1 */
 ```
