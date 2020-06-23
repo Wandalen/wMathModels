@@ -9,20 +9,33 @@
 Створення фігури із розмірністю визначеною за замовчуванням
 
 ```js
-let sphere = _.sphere.make();
-console.log( 'Sphere : ', sphere );
+let sphere1 = _.sphere.make();
+console.log( 'Sphere : ', sphere1 );
 /* log : Sphere : [ 0, 0, 0, 0 ] */
 ```
+
+Сфера `sphere1` створена із використання розмірності визначеної за замовчуванням.
+З виводу видно, що кількість елементів в контейнері сфефи `sphere1` відповідає розмірності `3`.
+
 
 Створення фігури із довільною розмірністю.
 
 ```js
-let sphere = _.sphere.make( 3 );
-console.log( 'Sphere : ', sphere );
-/* log : Sphere : [ 0, 0, 0, 0 ] */
+let sphere1 = _.sphere.make( 2 );
+console.log( 'Sphere : ', sphere1 );
+/* log : Sphere : [ 0, 0, 0 ] */
 ```
 
+Сфера `sphere1` створена із розмірністю `2`.
+З виводу видно, що кількість елементів в контейнері сфефи `sphere1` відповідає розмірності `2`.
+
 ### Make
+
+Рутина `make` дозволяє створити нову фігуру.
+Фігуру можна створити на основі розмірності або вже існуючої фігури цього ж типу.
+Якщо передано існуючу фігуру, то нова фігура буде її копією.
+
+Cтворення фігури `box` із розмірністю визначеною за замовчуванням.
 
 ```js
 let box = _.box.make();
@@ -40,6 +53,8 @@ console.log( 'Box : ', box );
 /* log : Box : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
+Cтворення фігури `box` із явно визначеною розмірністю.
+
 ```js
 let dim = 2;
 let box = _.box.make( dim );
@@ -48,6 +63,8 @@ console.log( 'Box type :', _.strType( box ) );
 console.log( 'Box : ', box );
 /* log : Box : [ 0, 0, 0, 0 ] */
 ```
+
+Cтворення копії вже існуючої фігури тиру `box`.
 
 ```js
 let srcBox = [ 0, 1, 2, 3 ];
@@ -62,6 +79,11 @@ console.log( 'Box : ', box );
 
 ### From
 
+Рутина `from` перевіряє вхідні дані на відповідність концепції фігури.
+Рутина створює нову фігуру лише за необхідності.
+
+Приклад явного створення нової фігури типу `box`.
+
 ```js
 let box = _.box.from( null );
 console.log( 'Box type :', _.strType( box ) );
@@ -69,6 +91,8 @@ console.log( 'Box type :', _.strType( box ) );
 console.log( 'Box : ', box );
 /* log : Box : [ 0, 0, 0, 0, 0, 0 ] */
 ```
+
+Приклад передавання готової фігури у вигляді вектор адаптера
 
 ```js
 let srcBox = _.vad.fromLong([ 0, 1, 2, 3 ]);
@@ -80,6 +104,8 @@ console.log( 'Box type :', _.strType( box ) );
 console.log( 'Box : ', box.toStr() );
 /* log : Box : VectorAdapter.x4.Array :: 0.000 1.000 2.000 3.000 */
 ```
+
+Приклад передавання готової фігури у вигляді вектора
 
 ```js
 let srcBox = _.vector.make([ 0, 1, 2, 3 ]);
@@ -94,16 +120,22 @@ console.log( 'Box : ', box );
 
 ### Make vs From
 
+Рутина `from` на відміну від `make` створює нову фігуру лише за явної необхідності.
+Рутина `make` завжди створює нову фігуру.
+
+Приклад створення нової фігури типу `box` обома рутинами
+
 ```js
-let dim = 2;
-
-let box1 = _.box.make( dim );
+let box1 = _.box.make( null );
 console.log( 'Box1 : ', box1 );
-/* log : Box1 : [ 0, 0, 0, 0 ] */
+/* log : Box1 : [ 0, 0, 0, 0, 0, 0 ] */
 
-let box2 = _.box.from( dim );
-/* Error, expects box or null */
+let box2 = _.box.from( null );
+console.log( 'Box2 : ', box2 );
+/* log : Box1 : [ 0, 0, 0, 0, 0, 0 ] */
 ```
+
+Приклад відмінності в обробці рутинами вже існуючої фігури
 
 ```js
 let srcBox = [ 0, 1, 2, 3 ];
