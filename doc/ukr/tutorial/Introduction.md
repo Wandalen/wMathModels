@@ -4,7 +4,7 @@
 
 ### Why?
 
-### Creating figures
+### Creating models
 
 Створення фігури із розмірністю визначеною за замовчуванням
 
@@ -363,7 +363,7 @@ console.log( 'Distance from 3D plane to point:', _.toStr( got, { precision : 2 }
 /* log: Distance from 3D plane to point: -0.27 */
 ```
 
-### Alternative figures
+### Alternative models
 
 Фігура може бути перетворена із однієї концептуальної форми в іншу.
 
