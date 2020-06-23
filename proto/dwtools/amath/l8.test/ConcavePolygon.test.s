@@ -101,6 +101,22 @@ function make( test )
 
   /* */
 
+  test.case = 'from vector';
+
+  var dim = 2;
+  var vertices =
+  [
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0
+  ]
+
+  var gotPolygon = _.concavePolygon.make( dim, vertices );
+
+  var expected = _.Matrix.Make( [ 2, 5 ] ).copy( vertices );
+  test.equivalent( gotPolygon, expected );
+
+  /* */
+
   if( !Config.debug )
   return;
 
