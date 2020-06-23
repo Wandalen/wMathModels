@@ -183,23 +183,26 @@ function pointContains( polygon, point )
 
 function pointDistanceSqr( polygon, point )
 {
-  _.assert( arguments.length === 2 );
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( this.is( polygon ), 'polygon must be a concave polygon' );
 
   let p = 0;
-  let pl = polygon.length / 2;
+  let pointView = this.tools.vectorAdapter.from( point );
+  let dims = _.Matrix.DimsOf( polygon );
+  let pl = polygon.dims[ 1 ];
 
-  _.assert( pl === 2, 'not implemented' );
+  _.assert( dims[ 0 ] === pointView.length, 'Polygon and point must have same dimension' )
 
-  let p1 = [ polygon[ (pl-1)*2+0 ], polygon[ (pl-1)*2+1 ] ]
-  let p2 = [ polygon[ (p+0)*2+0  ], polygon[ (p+0)*2+1 ]  ]
+  let p1 = polygon.colGet( pl - 1 );
+  let p2 = polygon.colGet( p );
   let segment = this.tools.segment.fromPair( [ p1, p2 ] );
 
   let distance = this.tools.segment.pointDistanceSqr( segment, point );
 
   for( p = 1 ; p < pl ; p++ )
   {
-    let p1 = [ polygon[ (p-1)*2+0 ], polygon[ (p-1)*2+1 ] ]
-    let p2 = [ polygon[ (p+0)*2+0 ], polygon[ (p+0)*2+1 ] ]
+    let p1 = polygon.colGet( p - 1 );
+    let p2 = polygon.colGet( p );
     let segment = this.tools.segment.fromPair( [ p1, p2 ] );
     let d = this.tools.segment.pointDistanceSqr( segment, point );
     if( d < distance ) distance = d;

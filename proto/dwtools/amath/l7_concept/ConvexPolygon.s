@@ -60,9 +60,20 @@ function make( dim, vertices )
 {
   _.assert( arguments.length === 2, 'convexPolygon.make expects exactly 2 arguments' );
   _.assert( _.numberIs( dim ) && dim > 1 && dim < 4, 'dim must be a number ( 2 or 3 )' );
-  _.assert( _.numberIs( vertices ) && vertices > 2, 'vertices must be a number superior to two' );
+  _.assert( _.longIs( vertices ) || _.numberIs( vertices ), 'vertices must be a vector or a number' );
 
-  let dst = _.Matrix.MakeZero([ dim, vertices ]);
+  let dst;
+  let numberOfVertices = vertices;
+  let verticesIsLong = _.longIs( vertices );
+
+  if( verticesIsLong )
+  numberOfVertices = vertices.length / dim;
+
+  _.assert( numberOfVertices > 2, 'vertices must be a number superior to two' );
+  dst = _.Matrix.MakeZero([ dim, numberOfVertices ]);
+
+  if( verticesIsLong )
+  dst.copy( vertices );
 
 /*
 [

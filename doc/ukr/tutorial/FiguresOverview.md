@@ -25,12 +25,13 @@ console.log( 'Distance from capsule to point:', got );
 ### ConvexPolygon
 
 ```js
-var polygon = _.convexPolygon.make( 2, 4 ).copy
-([
+let vertices =
+[
   1, 2, 4, 5,
   1, 5, 5, 1
-]);
-var point = [ 3, 6 ];
+]
+let polygon = _.convexPolygon.make( 2, vertices );
+let point = [ 3, 6 ];
 let got = _.convexPolygon.pointDistance( polygon, point );
 console.log( 'Distance from convex polygon to point:', got );
 /* log: Distance from convex polygon to point: 1*/
@@ -39,21 +40,22 @@ console.log( 'Distance from convex polygon to point:', got );
 ### ConcavePolygon
 
 ```js
-let polygon = _.concavePolygon.make( 2, 5 ).copy
-([
+let vertices =
+[
   2, 1, 3, 5, 4,
   1, 5, 3, 5, 1
-]);
+]
+let polygon = _.concavePolygon.make( 2, vertices );
 let point = [ 3, 4 ]
 let got = _.concavePolygon.pointDistance( polygon, point );
-console.log( 'Distance from concave polygon to point:', got );
-/* log: Distance from concave polygon to point: 1 */
+console.log( 'Distance from concave polygon to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from concave polygon to point: 0.71 */
 ```
 
 ### Frustum
 
 ```js
-var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
 ([
   0,   0,   0,   0,  -1,   1,
   1,  -1,   0,   0,   0,   0,
@@ -145,7 +147,7 @@ console.log( 'Quat from Euler:', _.toStr( euler, { precision : 2 } ) )
 ### Ray
 
 ```js
-var ray = [ 0, 0, 2, 2, ]
+var ray = [ 0, 0, 2, 2 ]
 let point = [ 2, 3 ];
 let got = _.ray.pointDistance( ray, point );
 console.log( 'Distance from ray to point:', _.toStr( got, { precision : 2 } ) );

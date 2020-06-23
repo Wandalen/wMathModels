@@ -22,6 +22,106 @@ console.log( 'Sphere : ', sphere );
 /* log : Sphere : [ 0, 0, 0, 0 ] */
 ```
 
+### Make
+
+```js
+let box = _.box.make();
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 0, 0, 0, 0, 0 ] */
+```
+
+```js
+let box = _.box.make( null );
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 0, 0, 0, 0, 0 ] */
+```
+
+```js
+let dim = 2;
+let box = _.box.make( dim );
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 0, 0, 0 ] */
+```
+
+```js
+let srcBox = [ 0, 1, 2, 3 ];
+let box = _.box.make( srcBox );
+console.log( 'srcBox === box :', srcBox === box )
+/* log : srcBox === box : false */
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 1, 2, 3 ] */
+```
+
+### From
+
+```js
+let box = _.box.from( null );
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 0, 0, 0, 0, 0 ] */
+```
+
+```js
+let srcBox = _.vad.fromLong([ 0, 1, 2, 3 ]);
+let box = _.box.from( srcBox );
+console.log( 'srcBox === box :', srcBox === box )
+/* log : srcBox === box : true */
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : VectorAdapterFromLong */
+console.log( 'Box : ', box.toStr() );
+/* log : Box : VectorAdapter.x4.Array :: 0.000 1.000 2.000 3.000 */
+```
+
+```js
+let srcBox = _.vector.make([ 0, 1, 2, 3 ]);
+let box = _.box.from( srcBox );
+console.log( 'srcBox === box :', srcBox === box )
+/* log : srcBox === box : true */
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : F32x */
+console.log( 'Box : ', box );
+/* log : Box : Float32Array(4) [ 0, 1, 2, 3 ] */
+```
+
+### Make vs From
+
+```js
+let dim = 2;
+
+let box1 = _.box.make( dim );
+console.log( 'Box1 : ', box1 );
+/* log : Box1 : [ 0, 0, 0, 0 ] */
+
+let box2 = _.box.from( dim );
+/* Error, expects box or null */
+```
+
+```js
+let srcBox = [ 0, 1, 2, 3 ];
+
+let box1 = _.box.make( srcBox );
+console.log( 'srcBox === box1 :', srcBox === box1 )
+/* log : srcBox === box1 : false */
+console.log( 'Box1 : ', box1 );
+/* log : Box1 : [ 0, 1, 2, 3 ] */
+
+let box2 = _.box.from( srcBox );
+console.log( 'srcBox === box2 :', srcBox === box2 )
+/* log : srcBox === box2 : true */
+console.log( 'Box2 : ', box2 );
+/* log : Box2 : [ 0, 1, 2, 3 ] */
+
+```
+
 ### Keep flat, keep simple
 
 "Плоский" формат представлення фігури означає те, що дані фігури зберігаються у одновимірному контейнері: масив, вектор, вектор адаптер.
@@ -64,11 +164,11 @@ console.log( 'Direction: ', direction.toStr() );
 Наприклад, рутина ```pointContains``` завжди виконує лише перевірку чи фігура містить точку.
 
 ```js
-var point = [ 0, 1 ];
-var plane = [ 0, 1, 1 ];
+var point = [ 0, 1, 2 ];
+var plane = [ 1, 2, -1, 0 ];
 var contains = _.plane.pointContains( plane, point );
 console.log( 'Plane contains point: ', contains );
-/* log : Plane contains point: false */
+/* log : Plane contains point: true */
 ```
 
 ```js
@@ -81,11 +181,12 @@ console.log( 'Line contains point: ', contains );
 
 ```js
 var point = [ 0, 1 ];
-var polygon = _.convexPolygon.make( 2, 3 ).copy
-([
+var vertices =
+[
   1, 0, 0,
   0, 0, 1
-]);
+];
+var polygon = _.convexPolygon.make( 2, vertices );
 var contains = _.convexPolygon.pointContains( polygon, point );
 console.log( 'Polygon contains point: ', contains );
 /* log : Polygon contains point: true */
@@ -99,11 +200,11 @@ console.log( 'Polygon contains point: ', contains );
 "plane" із іншими фігурами.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
-var box = [ 0, 0, 0, 1, 1, 1 ];
+var plane = [ 0, 2, 0, -2 ];
+var box = [ 0, 0, 0, 2, 2, 2 ];
 var got = _.plane.boxIntersects( plane, box );
 console.log( 'Plane intersects with box: ', got )
-/* log : Plane intersects with box:  */
+/* log : Plane intersects with box: true */
 ```
 
 ```js
@@ -115,8 +216,8 @@ console.log( 'Plane intersects with capsule: ', got )
 ```
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
-var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+var plane = [ 1, 0, 0, -0.4 ];
+var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
 ([
   0,   0,   0,   0,  -1,   1,
   1,  -1,   0,   0,   0,   0,
@@ -125,7 +226,7 @@ var frustum = _.Matrix.make( [ 4, 6 ] ).copy
 ]);
 var got = _.plane.frustumIntersects( plane, frustum );
 console.log( 'Plane intersects with frustum: ', got )
-/* log : Plane intersects with frustum: false */
+/* log : Plane intersects with frustum: true */
 ```
 
 ```js
@@ -152,20 +253,21 @@ console.log( 'Plane intersects with segment: ', got )
 ```
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
-var sphere = [ 2, 0, 0, 1 ]
+var plane = [ 0, 2, 0, 2 ];
+var sphere = [ 0, 0, 0, 1.5 ];
 var got = _.plane.sphereIntersects( plane, sphere );
 console.log( 'Plane intersects with sphere: ', got )
-/* log : Plane intersects with sphere: false */
+/* log : Plane intersects with sphere: true */
 ```
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
-var ray = [ 0, 0, 0, 1, 1, 1  ]
+var plane = [ - 1, 0, 0, 1 ];
+var ray = [ 0, 0, 0, 1, 1, 1 ];
 var got = _.plane.rayIntersects( plane, ray );
 console.log( 'Plane intersects with ray: ', got )
-/* log : Plane intersects with ray: false */
+/* log : Plane intersects with ray: true */
 ```
+
 
 ### Figures overview
 
@@ -179,13 +281,16 @@ console.log( 'Plane intersects with ray: ', got )
 
 ```js
 
-var pointA = [ 3, 1, 3 ];
-var pointB = [ 3, 8, 3 ];
-var box = _.box.fromPoints( null, [ pointA, pointB ] );
+var Point1 = [ 3, 1 ];
+var Point2 = [ 0, 8 ];
+var box1 = _.box.fromPoints( null, [ Point1, Point2 ] );
 console.log( 'Box: ', box );
-/* log : Box: [ 3, 1, 3, 3, 8, 3 ] */
+/* log : Box: [ 0, 1, 3, 8 ] */
 
 ```
+
+Бокс `box1` створюється із точок `Point1` та `Point2`. З виводу видно, що `box1` містить точки
+`Point1` та `Point2`.
 
 ### Higher dimension
 
@@ -213,6 +318,22 @@ var point4d = [ 4, 4, 4, 4 ];
 var box = _.sphere.pointContains( sphere4d, point4d );
 console.log( 'Sphere contains point: ', got )
 /* log : Sphere contains point: true */
+```
+
+```js
+var line = [ -4, 4, 0 ]; // -2,-2, 2, 2
+var point = [ 3, 2 ];
+let got = _.plane.pointDistance( line, point );
+console.log( 'Distance from straight to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from straight to point: -0.71*/
+```
+
+```js
+var point = [ 4, 1, -3 ];
+var plane = [ 2, -1, 3, 1 ];
+let got = _.plane.pointDistance( plane, point );
+console.log( 'Distance from 3D plane to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from 3D plane to point: -0.27 */
 ```
 
 ### Alternative figures
