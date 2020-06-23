@@ -108,7 +108,7 @@ console.log( 'Box : ', box.toStr() );
 Приклад передавання готової фігури у вигляді вектора
 
 ```js
-let srcBox = _.vector.make([ 0, 1, 2, 3 ]);
+let srcBox = new F32x([ 0, 1, 2, 3 ]);
 let box = _.box.from( srcBox );
 console.log( 'srcBox === box :', srcBox === box )
 /* log : srcBox === box : true */
