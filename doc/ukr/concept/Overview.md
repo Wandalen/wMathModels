@@ -1,6 +1,7 @@
-# Models overview
+# Математична модель
 
-Огляд доступних фігур та демонструює їх використання.
+Формальний опис системи за допомогою математичних концепцій та мови.
+<!-- Formal description of a system using mathematical concepts and language. -->
 
 ### Box
 

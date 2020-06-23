@@ -4,110 +4,94 @@
 
 ### Why?
 
-### Creating models
+### Математична модель
 
-Створення моделі із розмірністю визначеною за замовчуванням
+Формальний опис системи за допомогою математичних концепцій та мови.
 
-```js
-let sphere1 = _.sphere.make();
-console.log( 'Sphere :', sphere1 );
-/* log: Sphere : [ 0, 0, 0, 0 ] */
-```
+### Making an instance
 
-Сфера `sphere1` створеється із використанням розмірності визначеної за замовчуванням.
-З виводу видно, що кількість елементів в контейнері сфефи `sphere1` відповідає розмірності `3`.
+Кожна модель має визначену пару рутин `make` та `from`  для створення її екземаляра. При спробі створити екземпляр без аргументів буде створено екземпляр із параметрами за замовчуванням. Також кожна модель визначає рутину `is` котра дає відповідь на питання: "чи дана сутність є екземпляром даної моделі".
 
+### Routine make
 
-Створення моделі із довільною розмірністю.
+Рутина `make` дозволяє створити екземпляр моделі. Новий екземпляр можливо створити на основі розмірності або іншого екземпляра. Якщо в якості аргумента використано екземпляр існуюючої моделі, то новий екземпляр буде копією оригінального екземпляра.
 
-```js
-let sphere1 = _.sphere.make( 2 );
-console.log( 'Sphere :', sphere1 );
-/* log: Sphere : [ 0, 0, 0 ] */
-```
-
-Сфера `sphere1` створеється із розмірністю `2`.
-З виводу видно, що кількість елементів в контейнері сфефи `sphere1` відповідає розмірності `2`.
-
-### Make
-
-Рутина `make` дозволяє створити нову моделейу.
-моделейу можна створити на основі розмірності або вже існуючої моделі цього ж типу.
-Якщо передано існуючу моделейу, то нова модель буде її копією.
-
-Cтворення моделі `box` із розмірністю визначеною за замовчуванням.
+Cтворення екземпляра моделі `box` із розмірністю визначеною за замовчуванням:
 
 ```js
 let box1 = _.box.make();
-console.log( 'Box type :', _.strType( box1 ) );
-/* log: Box type : Array */
-console.log( 'Box :', box1 );
-/* log: Box : [ 0, 0, 0, 0, 0, 0 ] */
+console.log( 'Type :', _.strType( box1 ) );
+/* log : Type : Array */
+console.log( box1 );
+/* log : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
-Бокс `box1` створюється із використанням розмірності визначеної за замовчуванням.
-З виводу видно, що кількість елементів в контейнері боксу `box1` відповідає розмірності `3`.
+Бокс `box1` знаходиться в `3D` просторі. 3 перших скаляри вектора `box1` описують одну крайню точку тоді як 3 останніх скаляри описують іншу крайню точку. Це є параметрами моделі бокс за замовучанням.
 
-```js
-let box1 = _.box.make( null );
-console.log( 'Box type :', _.strType( box1 ) );
-/* log: Box type : Array */
-console.log( 'Box :', box1 );
-/* log: Box : [ 0, 0, 0, 0, 0, 0 ] */
-```
+Кожна модель реалізує рутину `make` та визначає аргументи за замовчуванням для того щоб можливо було створити екземпляр викликом без аргументів.
 
-Бокс `box1` створюється із використанням аргумента `null`.
-Такий виклик рівноцінний виклику без аргументів.
-З виводу видно, що кількість елементів в контейнері боксу `box1` відповідає розмірності `3`.
-
-Cтворення моделі `box` із заданою розмірністю.
+Викликавши рутину `make` із скаляром можливо задати розмірність.
 
 ```js
 let dim = 2;
 let box1 = _.box.make( dim );
-console.log( 'Box type :', _.strType( box1 ) );
-/* log: Box type : Array */
-console.log( 'Box :', box1 );
-/* log: Box : [ 0, 0, 0, 0 ] */
+console.log( 'Type :', _.strType( box1 ) );
+/* log : Type : Array */
+console.log( box1 );
+/* log : [ 0, 0, 0, 0 ] */
 ```
 
-Бокс `box1` створюється із розмірністю `2`.
-З виводу видно, що кількість елементів в контейнері боксу `box1` відповідає розмірності `2`.
+Бокс `box1` створюється в 2D просторі на відміну від попереднього приклада вектора має лише 4 скаляри, по 2 на кожну вершину.
 
-Cтворення копії вже існуючої моделі тиру `box`.
+Для створення за зразком передайте в рутину `make` зразок.
 
 ```js
 let srcBox = [ 0, 1, 2, 3 ];
 let box1 = _.box.make( srcBox );
 console.log( 'srcBox === box1 :', srcBox === box1 )
-/* log: srcBox === box : false */
-console.log( 'Box type :', _.strType( box1 ) );
-/* log: Box type : Array */
-console.log( 'Box :', box1 );
-/* log: Box : [ 0, 1, 2, 3 ] */
+/* log : srcBox === box : false */
+console.log( 'Type :', _.strType( box1 ) );
+/* log : Type : Array */
+console.log( box1 );
+/* log : [ 0, 1, 2, 3 ] */
 ```
 
-Cтворюється бокс `box1` на основі розмірності та даних боксу `srcBox`.
-З виводу видно, що було створено копію боксу `srcBox`.
+Розмірність та всі дані `box1` такі ж як в `srcBox`.
 
-### From
-
-Рутина `from` перевіряє вхідні дані на відповідність концепції моделі.
-Рутина створює нову моделейу лише за необхідності.
-
-Приклад явного створення нової моделі типу `box`.
+Створення за зразком за замовчуванням:
 
 ```js
-let box1 = _.box.from( null );
-console.log( 'Box type :', _.strType( box1 ) );
-/* log: Box type : Array */
-console.log( 'Box :', box1 );
-/* log: Box : [ 0, 0, 0, 0, 0, 0 ] */
+let box1 = _.box.make( null );
+console.log( 'Type :', _.strType( box1 ) );
+/* log : Type : Array */
+console.log( box1 );
+/* log : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
-Бокс `box1` створюється із використанням аргумента `null`.
-Такий виклик рівноцінний виклику `make` без аргументів.
-З виводу видно, що кількість елементів в контейнері боксу `box1` відповідає розмірності `3`.
+Семантика така ж як в прикладі із викликом без аргументів. Прагматика дещо інша: в якості зразка використовується уявнй екземпляр із даними за замовчуванням.
+
+### Routine from
+
+Альтернативним способом створити екземпляр метематичної моделі є рутину `from`.
+Рутина `from` так само, як і `make` конструює новий екземпляр, але на відмінно від рутини `make` ще робить додаткову перевірку. Рутина `from` створює новий екземпляр лише якщо аргументом виклику є не екземпляр даної моделі. Якщо ж на вхід рутини `from` передається екземпляр даної моделі тоді він же повертається без жодних змін.
+
+Створимо екземпляр моделі бокс вручну і передамо її на вхід рутини `from`:
+
+```js
+let srcBox = new F32x([ 0, 1, 2, 3 ]);
+let box = _.box.from( srcBox );
+console.log( 'srcBox === box :', srcBox === box );
+/* log : srcBox === box : true */
+console.log( 'Type :', _.strType( box ) );
+/* log : Type : F32x */
+console.log( box );
+/* log : Float32Array(4) [ 0, 1, 2, 3 ] */
+```
+
+<!-- ... xxx ... -->
+
+Контейнер у вигляді вектора `srcBox` перевіряється на відповідність моделі типу `box`.
+З виводу видно, що перевірка була успішною і вектор `srcBox` було повернено рутиною у вигляді результату.
 
 Приклад передавання готової моделі у вигляді вектор адаптера
 
@@ -115,31 +99,29 @@ console.log( 'Box :', box1 );
 let srcBox = _.vad.fromLong([ 0, 1, 2, 3 ]);
 let box = _.box.from( srcBox );
 console.log( 'srcBox === box :', srcBox === box )
-/* log: srcBox === box : true */
-console.log( 'Box type :', _.strType( box ) );
-/* log: Box type : VectorAdapterFromLong */
-console.log( 'Box :', box.toStr() );
-/* log: Box : VectorAdapter.x4.Array :: 0.000 1.000 2.000 3.000 */
+/* log : srcBox === box : true */
+console.log( 'Type :', _.strType( box ) );
+/* log : Type : VectorAdapterFromLong */
+console.log( box.toStr() );
+/* log : VectorAdapter.x4.Array :: 0.000 1.000 2.000 3.000 */
 ```
 
 Контейнер у вигляді вектор адаптера `srcBox` перевіряється на відповідність моделі типу `box`.
 З виводу видно, що перевірка була успішною і вектор адаптер `srcBox` було повернено рутиною у вигляді результату.
 
-Приклад передавання готової моделі у вигляді вектора
+Приклад явного створення нової моделі типу `box`.
 
 ```js
-let srcBox = new F32x([ 0, 1, 2, 3 ]);
-let box = _.box.from( srcBox );
-console.log( 'srcBox === box :', srcBox === box )
-/* log: srcBox === box : true */
-console.log( 'Box type :', _.strType( box ) );
-/* log: Box type : F32x */
-console.log( 'Box :', box );
-/* log: Box : Float32Array(4) [ 0, 1, 2, 3 ] */
+let box1 = _.box.from( null );
+console.log( 'Type :', _.strType( box1 ) );
+/* log : Type : Array */
+console.log( box1 );
+/* log : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
-Контейнер у вигляді вектора `srcBox` перевіряється на відповідність моделі типу `box`.
-З виводу видно, що перевірка була успішною і вектор `srcBox` було повернено рутиною у вигляді результату.
+Бокс `box1` створюється із використанням аргумента `null`.
+Такий виклик рівноцінний виклику `make` без аргументів.
+З виводу видно, що кількість елементів в контейнері боксу `box1` відповідає розмірності `3`.
 
 ### Make vs From
 
@@ -151,11 +133,11 @@ console.log( 'Box :', box );
 ```js
 let box1 = _.box.make( null );
 console.log( 'Box1 :', box1 );
-/* log: Box1 : [ 0, 0, 0, 0, 0, 0 ] */
+/* log : Box1 : [ 0, 0, 0, 0, 0, 0 ] */
 
 let box2 = _.box.from( null );
 console.log( 'Box2 :', box2 );
-/* log: Box1 : [ 0, 0, 0, 0, 0, 0 ] */
+/* log : Box1 : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
 Два виклики створюють нову модель типу `box` із розмірністю визначеною за замовчуванням, що випливає із виводу.
@@ -167,20 +149,20 @@ let srcBox = [ 0, 1, 2, 3 ];
 
 let box1 = _.box.make( srcBox );
 console.log( 'srcBox === box1 :', srcBox === box1 )
-/* log: srcBox === box1 : false */
+/* log : srcBox === box1 : false */
 console.log( 'Box1 :', box1 );
-/* log: Box1 : [ 0, 1, 2, 3 ] */
+/* log : Box1 : [ 0, 1, 2, 3 ] */
 
 let box2 = _.box.from( srcBox );
 console.log( 'srcBox === box2 :', srcBox === box2 )
-/* log: srcBox === box2 : true */
+/* log : srcBox === box2 : true */
 console.log( 'Box2 :', box2 );
-/* log: Box2 : [ 0, 1, 2, 3 ] */
+/* log : Box2 : [ 0, 1, 2, 3 ] */
 
 ```
 
-Викликом рутини `make` створюється нова модель основі даних боксу `srcBox`. Із виводу можна зробити висновок, що результатом є копія моделі `srcBox`.
-Виклик рутини `from` повертає оригінальну модель боксу `srcBox`. Із виводу можна зробити висновок, що результат не є копією моделі `srcBox`.
+Викликом рутини `make` створюється нова модель основі даних боксу `srcBox`. Із виводу можливо зробити висновок, що результатом є копія моделі `srcBox`.
+Виклик рутини `from` повертає оригінальну модель боксу `srcBox`. Із виводу можливо зробити висновок, що результат не є копією моделі `srcBox`.
 
 ### Keep flat, keep simple
 
@@ -197,7 +179,7 @@ console.log( 'Box2 :', box2 );
 ```js
 let line1 = _.linePointDir.make( [ 1, 2, 3, 4 ] );
 console.log( 'Line:', line1 );
-/* log: Line : [ 1, 2, 3, 4 ] */
+/* log : Line : [ 1, 2, 3, 4 ] */
 ```
 
 В змінну `line1` повертається нова модель типу `linePointDir` створена на основі координат початкової точки `1,2`
@@ -212,12 +194,12 @@ let line = [ 1, 2, 3, 4 ];
 //How to get origin point
 let origin = _.linePointDir.originGet( line );
 console.log( 'Origin:', origin.toStr() );
-/* log: Origin : "1.000 2.000" */
+/* log : Origin : "1.000 2.000" */
 
 //How to get direction vector
 let direction = _.linePointDir.directionGet( line );
 console.log( 'Direction:', direction.toStr() );
-/* log: Origin : "3.000 4.000" */
+/* log : Origin : "3.000 4.000" */
 
 ```
 
@@ -236,7 +218,7 @@ var point1 = [ 0, 1, 2 ];
 var plane1 = [ 1, 2, -1, 0 ];
 var contains = _.plane.pointContains( plane1, point1 );
 console.log( 'Plane contains point:', contains );
-/* log: Plane contains point: true */
+/* log : Plane contains point: true */
 ```
 
 В змінну `contains` повертається `true` так, як точка `point1` знаходиться в середині площини `plane1`
@@ -246,7 +228,7 @@ var point1 = [ 0, 1 ];
 var line1 = [ 0, 0, 0, 2 ];
 var contains = _.linePointDir.pointContains( line1, point1 );
 console.log( 'Line contains point:', contains );
-/* log: Line contains point: true */
+/* log : Line contains point: true */
 ```
 
 В змінну `contains` повертається `true` так, як точка `point1` знаходиться на лінії `line1`
@@ -262,7 +244,7 @@ var vertices =
 var polygon1 = _.convexPolygon.make( vertices, 2 );
 var contains = _.convexPolygon.pointContains( polygon1, point1 );
 console.log( 'Polygon contains point:', contains );
-/* log: Polygon contains point: true */
+/* log : Polygon contains point: true */
 ```
 
 Створюється опуклий полігон `polygon1` із розміністю `2` на основі координат вершин із вектору `vertices`.
@@ -281,7 +263,7 @@ var plane1 = [ 0, 2, 0, -2 ];
 var box1 = [ 0, 0, 0, 2, 2, 2 ];
 var got = _.plane.boxIntersects( plane1, box1 );
 console.log( 'Plane intersects with box:', got )
-/* log: Plane intersects with box: true */
+/* log : Plane intersects with box: true */
 ```
 
 В змінну `got` повертається `true` так, як площина `plane1` перетинає бокс `box1`.
@@ -292,7 +274,7 @@ var plane1 = [ 1, 0, 0, 1 ];
 var capsule1 = [ - 1, 2, 3, -1, 2, 3, 0  ]
 var got = _.plane.capsuleIntersects( plane1, capsule1 );
 console.log( 'Plane intersects with capsule:', got )
-/* log: Plane intersects with capsule: true */
+/* log : Plane intersects with capsule: true */
 ```
 
 В змінну `got` повертається `true` так, як площина `plane1` перетинає капсулу `capsule1`.
@@ -308,10 +290,10 @@ var frustum1 = _.frustum.make().copy
  -1,   0,  -1,   0,   0,  -1
 ]);
 console.log( 'Frustum type:', _.strType( frustum1 ) );
-/* log: Frustum type: wMatrix */
+/* log : Frustum type: wMatrix */
 var got = _.plane.frustumIntersects( plane1, frustum1 );
 console.log( 'Plane intersects with frustum:', got )
-/* log: Plane intersects with frustum: true */
+/* log : Plane intersects with frustum: true */
 ```
 
 Створюється піраміда огляду `frustum1` на основі координат її шести вершин.
@@ -323,7 +305,7 @@ console.log( 'Plane intersects with frustum:', got )
 var plane1 = [ 1, 0, 0, 1 ];
 var got = _.plane.planeIntersects( plane1, plane1 );
 console.log( 'Plane intersects with plane:', got )
-/* log: Plane intersects with plane: true */
+/* log : Plane intersects with plane: true */
 ```
 
 В змінну `got` повертається `true` так, як площина `plane1` перетинає сама себе.
@@ -334,7 +316,7 @@ var plane1 = [ 1, 0, 0, 1 ];
 var line1 = [ 1, 0, 1, 1, 1, 1 ]
 var got = _.plane.lineIntersects( plane1, line1 );
 console.log( 'Plane intersects with line:', got )
-/* log: Plane intersects with line: true */
+/* log : Plane intersects with line: true */
 ```
 
 В змінну `got` повертається `true` так, як площина `plane1` перетинається лінією `line1`.
@@ -344,7 +326,7 @@ var plane1 = [ 1, 0, 0, 1 ];
 var segment1 = [ -2, -2, -2, 2, 2, 2 ]
 var got = _.plane.segmentIntersects( plane1, segment1 );
 console.log( 'Plane intersects with segment:', got )
-/* log: Plane intersects with segment: true */
+/* log : Plane intersects with segment: true */
 ```
 
 В змінну `got` повертається `true` так, як площина `plane1` перетинається із відрізком `segment1`.
@@ -355,7 +337,7 @@ var plane1 = [ 0, 2, 0, 2 ];
 var sphere1 = [ 0, 0, 0, 1.5 ];
 var got = _.plane.sphereIntersects( plane1, sphere1 );
 console.log( 'Plane intersects with sphere:', got )
-/* log: Plane intersects with sphere: true */
+/* log : Plane intersects with sphere: true */
 
 ```
 
@@ -366,7 +348,7 @@ var plane1 = [ - 1, 0, 0, 1 ];
 var ray1 = [ 0, 0, 0, 1, 1, 1 ];
 var got = _.plane.rayIntersects( plane1, ray1 );
 console.log( 'Plane intersects with ray:', got )
-/* log: Plane intersects with ray: true */
+/* log : Plane intersects with ray: true */
 ```
 
 В змінну `got` повертається `true` так, як площина `plane1` перетинається із променем `ray1`.
@@ -382,7 +364,7 @@ var Point1 = [ 3, 1 ];
 var Point2 = [ 0, 8 ];
 var box1 = _.box.fromPoints( null, [ Point1, Point2 ] );
 console.log( 'Box:', box1 );
-/* log: Box: [ 0, 1, 3, 8 ] */
+/* log : Box: [ 0, 1, 3, 8 ] */
 
 ```
 
@@ -398,7 +380,7 @@ var Point2 = [ 0, 8 ];
 var dstBox = _.vad.make( 4 );
 _.box.fromPoints( dstBox, [ Point1, Point2 ] );
 console.log( 'Box:', dstBox.toStr() );
-/* log: Box: VectorAdapter.x4.F32x :: 0.000 0.000 3.000 8.000 */
+/* log : Box: VectorAdapter.x4.F32x :: 0.000 0.000 3.000 8.000 */
 
 ```
 
@@ -415,7 +397,7 @@ var sphere2d = [ 1, 1, 5 ];
 var point2d = [ 2, 2 ];
 var got = _.sphere.pointContains( sphere2d, point2d );
 console.log( 'Sphere contains point:', got )
-/* log: Sphere contains point: true */
+/* log : Sphere contains point: true */
 ```
 
 В змінну `got` повертається `true` так, як точка `point2d` знаходиться в середині сфери `sphere2d`.
@@ -426,7 +408,7 @@ var sphere3d = [ 2, 2, 2, 5 ];
 var point3d = [ 3, 3, 3 ];
 var got = _.sphere.pointContains( sphere3d, point3d );
 console.log( 'Sphere contains point:', got )
-/* log: Sphere contains point: true */
+/* log : Sphere contains point: true */
 ```
 
 В змінну `got` повертається `true` так, як точка `point3d` знаходиться в середині сфери `sphere3d`.
@@ -437,7 +419,7 @@ var sphere4d = [ 3, 3, 3, 3, 5 ];
 var point4d = [ 4, 4, 4, 4 ];
 var box = _.sphere.pointContains( sphere4d, point4d );
 console.log( 'Sphere contains point:', got )
-/* log: Sphere contains point: true */
+/* log : Sphere contains point: true */
 
 ```
 
@@ -451,7 +433,7 @@ var line1 = [ -4, 4, 0 ];
 var point1 = [ 3, 2 ];
 let got = _.plane.pointDistance( line1, point1 );
 console.log( 'Distance from straight to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from straight to point: -0.71*/
+/* log : Distance from straight to point: -0.71*/
 ```
 
 В змінну `got` повертається відстань між точкою `point1` та лінією `line1`, яка відповідає значенню `-0.71`.
@@ -463,7 +445,7 @@ var point1 = [ 4, 1, -3 ];
 var plane1 = [ 2, -1, 3, 1 ];
 let got = _.plane.pointDistance( plane1, point1 );
 console.log( 'Distance from 3D plane to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from 3D plane to point: -0.27 */
+/* log : Distance from 3D plane to point: -0.27 */
 ```
 
 В змінну `got` повертається відстань між площиною `plane1` та точкою `point1`, яка відповідає значенню `-0.27`.
@@ -480,13 +462,13 @@ var linePoints1 = _.linePoints.from( [ 1, 1, 3, 3 ] );
 var linePoints2 = _.linePoints.from( [ 2, 2, 3, 3 ] );
 var point1 = _.linePoints.pairIntersectionPoint( linePoints1, linePoints2 );
 console.log( 'Intersection point:', point1.toString() );
-/* log: Intersection point: 2,2 */
+/* log : Intersection point: 2,2 */
 
 var linePointsDir1 = _.linePointDir.fromPoints2( linePoints1 );
 var linePointsDir2 = _.linePointDir.fromPoints2( linePoints2 );
 var point2 = _.linePointDir.lineIntersectionPoint( linePointsDir1, linePointsDir2 );
 console.log( 'Intersection point:', point2.toString() );
-/* log: Intersection point: 2,2 */
+/* log : Intersection point: 2,2 */
 
 ```
 
@@ -501,15 +483,15 @@ console.log( 'Intersection point:', point2.toString() );
 ```js
 var euler1 =  [ 1, 0, 0.5, 0, 1, 2 ] ;
 console.log( 'Euler:', _.toStr( euler1, { precision : 2 } ) )
-/* log: Euler: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
+/* log : Euler: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 
 var quat1 = _.euler.toQuat( euler1, null );
 console.log( 'Quat from Euler:', _.toStr( quat1, { precision : 2 } ) )
-/* log: Quat from Euler: [ 0.46, -0.12, 0.22, 0.85 ] */
+/* log : Quat from Euler: [ 0.46, -0.12, 0.22, 0.85 ] */
 
 var euler2 = _.quat.toEuler( quat1, null );
 console.log( 'Euler from Quat:', _.toStr( euler2, { precision : 2 } ) )
-/* log: Euler from Quat: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
+/* log : Euler from Quat: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 ```
 
 Створюється контейнер із даними про кути Еулера `euler1`.
