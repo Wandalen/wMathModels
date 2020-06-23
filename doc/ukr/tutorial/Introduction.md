@@ -279,13 +279,16 @@ console.log( 'Plane intersects with ray: ', got )
 
 ```js
 
-var Point1 = [ 3, 1, 3 ];
-var Point2 = [ 3, 8, 3 ];
-var box = _.box.fromPoints( null, [ Point1, Point2 ] );
+var Point1 = [ 3, 1 ];
+var Point2 = [ 0, 8 ];
+var box1 = _.box.fromPoints( null, [ Point1, Point2 ] );
 console.log( 'Box: ', box );
-/* log : Box: [ 3, 1, 3, 3, 8, 3 ] */
+/* log : Box: [ 0, 1, 3, 8 ] */
 
 ```
+
+Бокс `box1` створюється із точок `Point1` та `Point2`. З виводу видно, що `box1` містить точки
+`Point1` та `Point2`.
 
 ### Higher dimension
 
