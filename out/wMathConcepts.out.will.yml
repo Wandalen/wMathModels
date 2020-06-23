@@ -1,8 +1,8 @@
 format: outwillfile-2.0
 root:
-  - wMathConcepts.out
+  - wMathModels.out
 consistency:
-  wMathConcepts.out.will.yml: &ref_0
+  wMathModels.out.will.yml: &ref_0
     hash: 776c5c23a958d33a3d1841a29e73b883
     size: 42471
   ../.ex.will.yml: &ref_1
@@ -12,15 +12,15 @@ consistency:
     hash: abc2a5d28ca616b8a808fad2636adbb9
     size: 5236
 module:
-  wMathConcepts.out:
+  wMathModels.out:
     about:
-      name: wMathConcepts
+      name: wMathModels
       org: noorg
       description: >-
         Collection of functions to operate such geometrical concepts as Sphere,
         Box, Plane, Frustum, Ray, Axis and Angle, Euler's Angles, Quaternion and
-        other. Why MathConcepts? Three reasons. All functions of the module are
-        purely functional. MathConcepts heavily relies on another great concept
+        other. Why MathModels? Three reasons. All functions of the module are
+        purely functional. MathModels heavily relies on another great concept
         MathVector what makes the module less sensible to data formats of
         operational objects. The module provides functions for conversions from
         one to another conceptual form, for example from Quaternion to Euler's
@@ -47,7 +47,7 @@ module:
       contributors:
         - Kostiantyn Wandalen <wanalen@01.school>
         - Pablo Garcimartin <pablogarcimartinruiz@gmail.com>
-      npm.name: wmathconcepts
+      npm.name: wmathmodels
       npm.scripts:
         test: wtest .run proto/**
         docgen: wdocgen .build proto
@@ -55,11 +55,11 @@ module:
       module.willfiles:
         criterion:
           predefined: 1
-        path: wMathConcepts.out.will.yml
+        path: wMathModels.out.will.yml
       module.common:
         criterion:
           predefined: 1
-        path: wMathConcepts.out
+        path: wMathModels.out
       module.original.willfiles:
         criterion:
           predefined: 1
@@ -80,13 +80,13 @@ module:
         criterion:
           predefined: 1
       repository:
-        path: 'git+https:///github.com/Wandalen/wMathConcepts.git'
+        path: 'git+https:///github.com/Wandalen/wMathModels.git'
       origins:
         path:
-          - 'git+https:///github.com/Wandalen/wMathConcepts.git'
-          - 'npm:///wmathconcepts'
+          - 'git+https:///github.com/Wandalen/wMathModels.git'
+          - 'npm:///wmathmodels'
       bugtracker:
-        path: 'https:///github.com/Wandalen/wMathConcepts/issues'
+        path: 'https:///github.com/Wandalen/wMathModels/issues'
       in:
         path: .
       out:
@@ -238,7 +238,7 @@ module:
         path: 'npm:///wentitybasic'
         autoExporting: 0
         enabled: 0
-      wmathconcepts:
+      wmathmodels:
         path: 'hd://..'
         autoExporting: 0
         enabled: 0
@@ -863,18 +863,18 @@ module:
           content: proto
           export: 1
     consistency:
-      wMathConcepts.out.will.yml: *ref_0
+      wMathModels.out.will.yml: *ref_0
       ../.ex.will.yml: *ref_1
       ../.im.will.yml: *ref_2
   ../:
     about:
-      name: wMathConcepts
+      name: wMathModels
       org: noorg
       description: >-
         Collection of functions to operate such geometrical concepts as Sphere,
         Box, Plane, Frustum, Ray, Axis and Angle, Euler's Angles, Quaternion and
-        other. Why MathConcepts? Three reasons. All functions of the module are
-        purely functional. MathConcepts heavily relies on another great concept
+        other. Why MathModels? Three reasons. All functions of the module are
+        purely functional. MathModels heavily relies on another great concept
         MathVector what makes the module less sensible to data formats of
         operational objects. The module provides functions for conversions from
         one to another conceptual form, for example from Quaternion to Euler's
@@ -901,7 +901,7 @@ module:
       contributors:
         - Kostiantyn Wandalen <wanalen@01.school>
         - Pablo Garcimartin <pablogarcimartinruiz@gmail.com>
-      npm.name: wmathconcepts
+      npm.name: wmathmodels
       npm.scripts:
         test: wtest .run proto/**
         docgen: wdocgen .build proto
@@ -921,7 +921,7 @@ module:
       module.peer.willfiles:
         criterion:
           predefined: 1
-        path: out/wMathConcepts.out.will.yml
+        path: out/wMathModels.out.will.yml
       module.peer.in:
         criterion:
           predefined: 1
@@ -934,13 +934,13 @@ module:
         criterion:
           predefined: 1
       repository:
-        path: 'git+https:///github.com/Wandalen/wMathConcepts.git'
+        path: 'git+https:///github.com/Wandalen/wMathModels.git'
       origins:
         path:
-          - 'git+https:///github.com/Wandalen/wMathConcepts.git'
-          - 'npm:///wmathconcepts'
+          - 'git+https:///github.com/Wandalen/wMathModels.git'
+          - 'npm:///wmathmodels'
       bugtracker:
-        path: 'https:///github.com/Wandalen/wMathConcepts/issues'
+        path: 'https:///github.com/Wandalen/wMathModels/issues'
       in:
         path: .
       out:
@@ -1034,7 +1034,7 @@ module:
         path: 'npm:///wentitybasic'
         autoExporting: 0
         enabled: 0
-      wmathconcepts:
+      wmathmodels:
         path: 'hd://.'
         autoExporting: 0
         enabled: 0
@@ -1583,6 +1583,6 @@ module:
       ../.im.will.yml:
         hash: abc2a5d28ca616b8a808fad2636adbb9
         size: 5236
-      wMathConcepts.out.will.yml:
+      wMathModels.out.will.yml:
         hash: 776c5c23a958d33a3d1841a29e73b883
         size: 42471

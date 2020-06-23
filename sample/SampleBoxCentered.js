@@ -1,6 +1,6 @@
 
 if( typeof module !== 'undefined' )
-require( 'wmathconcepts' );
+require( 'wmathmodels' );
 
 let _ = wTools;
 

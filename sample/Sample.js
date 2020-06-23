@@ -1,6 +1,6 @@
 
 if( typeof module !== 'undefined' )
-var _ = require( 'wmathconcepts' );
+var _ = require( 'wmathmodels' );
 
 var _ = wTools;
 var got = _.box.make();

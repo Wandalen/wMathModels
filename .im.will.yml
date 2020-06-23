@@ -16,7 +16,7 @@ submodule :
   wEntityBasic :
     path : npm:///wentitybasic
     enabled : 0 # submodule
-  wmathconcepts :
+  wmathmodels :
     path : hd://.
     enabled : 0 # submodule
     criterion :
