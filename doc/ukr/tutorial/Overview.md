@@ -1,4 +1,4 @@
-# Figures overview
+# Models overview
 
 Огляд доступних фігур та демонструює їх використання.
 

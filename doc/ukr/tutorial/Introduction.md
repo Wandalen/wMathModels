@@ -268,13 +268,6 @@ console.log( 'Plane intersects with ray: ', got )
 /* log : Plane intersects with ray: true */
 ```
 
-
-### Figures overview
-
-  <!-- -- One sentence per figure + image -->
-
- [Повний огляд фігур](./FiguresOverview.md)
-
 ### Convention dst=null
 
 Рутини, які очікують dst контейнер першим аргументом, можуть створювати новий інстанс фігури, для цього необхідно передати null в якості dst аргумента.
@@ -373,8 +366,10 @@ console.log( 'Euler from Quat:', _.toStr( euler2, { precision : 2 } ) )
 /* log : Euler from Quat: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 ```
 
+### Models overview
+
+Повний перелік математичних моделей доступних в цьому модулі [тут.](./Overview.md)
 
 ### Summary
-
 
 [Back to content](../README.md#Tutorials)
