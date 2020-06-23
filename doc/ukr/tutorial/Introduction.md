@@ -181,11 +181,12 @@ console.log( 'Line contains point: ', contains );
 
 ```js
 var point = [ 0, 1 ];
-var polygon = _.convexPolygon.make( 2, 3 ).copy
-([
+var vertices =
+[
   1, 0, 0,
   0, 0, 1
-]);
+];
+var polygon = _.convexPolygon.make( 2, vertices );
 var contains = _.convexPolygon.pointContains( polygon, point );
 console.log( 'Polygon contains point: ', contains );
 /* log : Polygon contains point: true */
