@@ -12,6 +12,16 @@ console.log( 'Distance from box to point:', _.toStr( got, { precision : 2 } ) );
 /* log: Distance from box to point: 1.4 */
 ```
 
+### Segment
+
+```js
+var segment = [ -2, -2, 2, 2 ]
+let point = [ 3, 3 ]
+let got = _.segment.pointDistance( segment, point );
+console.log( 'Distance from segment to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from segment to point: 1.4 */
+```
+
 ### Capsule
 
 ```js
@@ -20,6 +30,16 @@ var point = [ 4, 4 ];
 let got = _.capsule.pointDistance( capsule, point );
 console.log( 'Distance from capsule to point:', got );
 /* log: Distance from capsule to point: 1 */
+```
+
+### Triangle
+
+```js
+var triangle = [ 0, 0, 2, 3, 4, 0 ];
+var point = [ 4, 2 ]
+let got = _.triangle.pointDistance( triangle, point );
+console.log( 'Distance from triangle to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from triangle to point: 1.1 */
 ```
 
 ### ConvexPolygon
@@ -154,16 +174,6 @@ console.log( 'Distance from ray to point:', _.toStr( got, { precision : 2 } ) );
 /* log: Distance from ray to point: 0.71 */
 ```
 
-### Segment
-
-```js
-var segment = [ -2, -2, 2, 2 ]
-let point = [ 3, 3 ]
-let got = _.segment.pointDistance( segment, point );
-console.log( 'Distance from segment to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from segment to point: 1.4 */
-```
-
 ### Sphere
 
 ```js
@@ -172,14 +182,4 @@ var point = [ 1, 1 ];
 let got = _.sphere.pointDistance( sphere, point );
 console.log( 'Distance from sphere to point:', _.toStr( got, { precision : 2 } ) );
 /* log: Distance from sphere to point: 0.41 */
-```
-
-### Triangle
-
-```js
-var triangle = [ 0, 0, 2, 3, 4, 0 ];
-var point = [ 4, 2 ]
-let got = _.triangle.pointDistance( triangle, point );
-console.log( 'Distance from triangle to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from triangle to point: 1.1 */
 ```
