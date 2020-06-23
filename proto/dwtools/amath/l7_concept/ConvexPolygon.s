@@ -43,7 +43,7 @@ let Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
   *   0, 0, 0, 0, 0, 0, 0, 0,
   *   0, 0, 0, 0, 0, 0, 0, 0,
   * ];
-  * _.make( 3, 8 );
+  * _.make( 8, 3 );
   *
   * @example
   * // returns [ 0, 0, 1, 1 ];
@@ -56,7 +56,7 @@ let Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
   * @module Tools/math/Concepts
   */
 
-function make( dim, vertices )
+function make( vertices, dim )
 {
   _.assert( arguments.length === 2, 'convexPolygon.make expects exactly 2 arguments' );
   _.assert( _.numberIs( dim ) && dim > 1 && dim < 4, 'dim must be a number ( 2 or 3 )' );

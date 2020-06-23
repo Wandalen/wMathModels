@@ -37,7 +37,7 @@ let Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
   *   0, 0, 0, 0, 0, 0, 0, 0,
   *   0, 0, 0, 0, 0, 0, 0, 0,
   * ];
-  * _.make( 3, 8 );
+  * _.make( 8, 3 );
   *
   * @example
   * // returns [ 0, 0, 1, 1 ];
@@ -50,9 +50,9 @@ let Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
   * @module Tools/math/Concepts
   */
 
-function make( dim, vertices )
+function make( vertices, dim )
 {
-  return this.tools.convexPolygon.make( dim, vertices );
+  return this.tools.convexPolygon.make( vertices, dim );
 }
 
 //
