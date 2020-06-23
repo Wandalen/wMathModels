@@ -14,7 +14,7 @@ console.log( 'Sphere :', sphere1 );
 /* log: Sphere : [ 0, 0, 0, 0 ] */
 ```
 
-Сфера `sphere1` створена із використання розмірності визначеної за замовчуванням.
+Сфера `sphere1` створеється із використанням розмірності визначеної за замовчуванням.
 З виводу видно, що кількість елементів в контейнері сфефи `sphere1` відповідає розмірності `3`.
 
 
@@ -26,7 +26,7 @@ console.log( 'Sphere :', sphere1 );
 /* log: Sphere : [ 0, 0, 0 ] */
 ```
 
-Сфера `sphere1` створена із розмірністю `2`.
+Сфера `sphere1` створеється із розмірністю `2`.
 З виводу видно, що кількість елементів в контейнері сфефи `sphere1` відповідає розмірності `2`.
 
 ### Make
@@ -38,44 +38,57 @@ console.log( 'Sphere :', sphere1 );
 Cтворення фігури `box` із розмірністю визначеною за замовчуванням.
 
 ```js
-let box = _.box.make();
-console.log( 'Box type :', _.strType( box ) );
+let box1 = _.box.make();
+console.log( 'Box type :', _.strType( box1 ) );
 /* log: Box type : Array */
-console.log( 'Box :', box );
+console.log( 'Box :', box1 );
 /* log: Box : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
+Бокс `box1` створюється із використанням розмірності визначеної за замовчуванням.
+З виводу видно, що кількість елементів в контейнері боксу `box1` відповідає розмірності `3`.
+
 ```js
-let box = _.box.make( null );
-console.log( 'Box type :', _.strType( box ) );
+let box1 = _.box.make( null );
+console.log( 'Box type :', _.strType( box1 ) );
 /* log: Box type : Array */
-console.log( 'Box :', box );
+console.log( 'Box :', box1 );
 /* log: Box : [ 0, 0, 0, 0, 0, 0 ] */
 ```
+
+Бокс `box1` створюється із використанням аргумента `null`.
+Такий виклик рівноцінний виклику без аргументів.
+З виводу видно, що кількість елементів в контейнері боксу `box1` відповідає розмірності `3`.
 
 Cтворення фігури `box` із заданою розмірністю.
 
 ```js
 let dim = 2;
-let box = _.box.make( dim );
-console.log( 'Box type :', _.strType( box ) );
+let box1 = _.box.make( dim );
+console.log( 'Box type :', _.strType( box1 ) );
 /* log: Box type : Array */
-console.log( 'Box :', box );
+console.log( 'Box :', box1 );
 /* log: Box : [ 0, 0, 0, 0 ] */
 ```
+
+Бокс `box1` створюється із розмірністю `2`.
+З виводу видно, що кількість елементів в контейнері боксу `box1` відповідає розмірності `2`.
 
 Cтворення копії вже існуючої фігури тиру `box`.
 
 ```js
 let srcBox = [ 0, 1, 2, 3 ];
-let box = _.box.make( srcBox );
-console.log( 'srcBox === box :', srcBox === box )
+let box1 = _.box.make( srcBox );
+console.log( 'srcBox === box1 :', srcBox === box1 )
 /* log: srcBox === box : false */
-console.log( 'Box type :', _.strType( box ) );
+console.log( 'Box type :', _.strType( box1 ) );
 /* log: Box type : Array */
-console.log( 'Box :', box );
+console.log( 'Box :', box1 );
 /* log: Box : [ 0, 1, 2, 3 ] */
 ```
+
+Cтворюється бокс `box1` на основі розмірності та даних боксу `srcBox`.
+З виводу видно, що було створено копію боксу `srcBox`.
 
 ### From
 
@@ -85,12 +98,16 @@ console.log( 'Box :', box );
 Приклад явного створення нової фігури типу `box`.
 
 ```js
-let box = _.box.from( null );
-console.log( 'Box type :', _.strType( box ) );
+let box1 = _.box.from( null );
+console.log( 'Box type :', _.strType( box1 ) );
 /* log: Box type : Array */
-console.log( 'Box :', box );
+console.log( 'Box :', box1 );
 /* log: Box : [ 0, 0, 0, 0, 0, 0 ] */
 ```
+
+Бокс `box1` створюється із використанням аргумента `null`.
+Такий виклик рівноцінний виклику `make` без аргументів.
+З виводу видно, що кількість елементів в контейнері боксу `box1` відповідає розмірності `3`.
 
 Приклад передавання готової фігури у вигляді вектор адаптера
 
@@ -105,6 +122,9 @@ console.log( 'Box :', box.toStr() );
 /* log: Box : VectorAdapter.x4.Array :: 0.000 1.000 2.000 3.000 */
 ```
 
+Контейнер у вигляді вектор адаптера `srcBox` перевіряється на відповідність моделі типу `box`.
+З виводу видно, що перевірка була успішною і вектор адаптер `srcBox` було повернено рутиною у вигляді результату.
+
 Приклад передавання готової фігури у вигляді вектора
 
 ```js
@@ -117,6 +137,9 @@ console.log( 'Box type :', _.strType( box ) );
 console.log( 'Box :', box );
 /* log: Box : Float32Array(4) [ 0, 1, 2, 3 ] */
 ```
+
+Контейнер у вигляді вектора `srcBox` перевіряється на відповідність моделі типу `box`.
+З виводу видно, що перевірка була успішною і вектор `srcBox` було повернено рутиною у вигляді результату.
 
 ### Make vs From
 
@@ -134,6 +157,8 @@ let box2 = _.box.from( null );
 console.log( 'Box2 :', box2 );
 /* log: Box1 : [ 0, 0, 0, 0, 0, 0 ] */
 ```
+
+Два виклики створюють нову модель типу `box` із розмірністю визначеною за замовчуванням, що випливає із виводу.
 
 Приклад відмінності в обробці рутинами вже існуючої фігури
 
@@ -153,6 +178,9 @@ console.log( 'Box2 :', box2 );
 /* log: Box2 : [ 0, 1, 2, 3 ] */
 
 ```
+
+Викликом рутини `make` створюється нова модель основі даних боксу `srcBox`. Із виводу можна зробити висновок, що результатом є копія моделі `srcBox`.
+Виклик рутини `from` повертає оригінальну модель боксу `srcBox`. Із виводу можна зробити висновок, що результат не є копією моделі `srcBox`.
 
 ### Keep flat, keep simple
 
