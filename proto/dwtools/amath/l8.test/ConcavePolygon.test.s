@@ -40,7 +40,7 @@ function make( test )
   var dim = 3;
   var vertices = 8;
 
-  var gotPolygon = _.concavePolygon.make( dim, vertices );
+  var gotPolygon = _.concavePolygon.make( vertices, dim );
 
   var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
@@ -61,7 +61,7 @@ function make( test )
   var dim = 2;
   var vertices = 3;
 
-  var gotPolygon = _.concavePolygon.make( dim, vertices );
+  var gotPolygon = _.concavePolygon.make( vertices, dim );
 
   var expected = _.Matrix.Make( [ 2, 3 ] ).copy
   ([
@@ -75,7 +75,7 @@ function make( test )
   var dim = 3;
   var vertices = 4;
 
-  var gotPolygon = _.concavePolygon.make( dim, vertices );
+  var gotPolygon = _.concavePolygon.make( vertices, dim );
 
   var expected = _.Matrix.Make( [ 3, 4 ] ).copy
   ([
@@ -90,7 +90,7 @@ function make( test )
   var dim = 2;
   var vertices = 5;
 
-  var gotPolygon = _.concavePolygon.make( dim, vertices );
+  var gotPolygon = _.concavePolygon.make( vertices, dim );
 
   var expected = _.Matrix.Make( [ 2, 5 ] ).copy
   ([
@@ -110,7 +110,7 @@ function make( test )
     0, 0, 0, 0, 0
   ]
 
-  var gotPolygon = _.concavePolygon.make( dim, vertices );
+  var gotPolygon = _.concavePolygon.make( vertices, dim );
 
   var expected = _.Matrix.Make( [ 2, 5 ] ).copy( vertices );
   test.equivalent( gotPolygon, expected );
@@ -122,19 +122,19 @@ function make( test )
 
   test.shouldThrowErrorSync( () => _.concavePolygon.make( ));
   test.shouldThrowErrorSync( () => _.concavePolygon.make( dim ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( dim, vertices, vertices ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( null, vertices ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( NaN, vertices ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( undefined, vertices ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( 'dim', vertices ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( [ 3 ], vertices ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( dim, null ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( dim, NaN ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( dim, undefined ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( dim, 'vertices' ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( dim, [ 3 ] ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( 1, 3 ));
-  test.shouldThrowErrorSync( () => _.concavePolygon.make( 4, 3 ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( vertices, dim, vertices ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( vertices, null ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( vertices, NaN ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( vertices, undefined ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( vertices, 'dim' ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( vertices, [ 3 ] ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( null, dim ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( NaN, dim ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( undefined, dim ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( 'vertices', dim ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( [ 3 ], dim ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( 3, 1 ));
+  test.shouldThrowErrorSync( () => _.concavePolygon.make( 3, 4 ));
   test.shouldThrowErrorSync( () => _.concavePolygon.make( 2, 2 ));
 
 }
@@ -158,7 +158,7 @@ function isPolygon( test )
 
   test.case = 'Triangle 2D'; //
 
-  var polygon = _.concavePolygon.make( 2, 3 ).copy
+  var polygon = _.concavePolygon.make( 3, 2 ).copy
   ([
     1, 0, 0,
     0, 0, 1
@@ -171,7 +171,7 @@ function isPolygon( test )
 
   test.case = 'Square 3D'; //
 
-  var polygon = _.concavePolygon.make( 3, 4 ).copy
+  var polygon = _.concavePolygon.make( 4, 3 ).copy
   ([
     1, 1, 0, 0,
     0, 1, 1, 0,
@@ -185,7 +185,7 @@ function isPolygon( test )
 
   test.case = '4 points in 3D not coplanar'; //
 
-  var polygon = _.concavePolygon.make( 3, 4 ).copy
+  var polygon = _.concavePolygon.make( 4, 3 ).copy
   ([
     1, 1, 0, 0,
     0, 1, 1, 0,
@@ -199,7 +199,7 @@ function isPolygon( test )
 
   test.case = 'Pentagone 2D'; //
 
-  var polygon = _.concavePolygon.make( 2, 5 ).copy
+  var polygon = _.concavePolygon.make( 5, 2 ).copy
   ([
     1, 0, 0, 0, 2,
     0, 0, 1, 2, 0
@@ -266,7 +266,7 @@ function isPolygon( test )
 
   test.case = 'Four coplanar points'; //
 
-  var polygon = _.concavePolygon.make( 3, 4 ).copy
+  var polygon = _.concavePolygon.make( 4, 3 ).copy
   ([
     0,   0,   0,   2,
     1, - 1,   -2,   0,
@@ -314,7 +314,7 @@ function is( test )
 
   test.case = 'Triangle 2D'; //
 
-  var polygon = _.concavePolygon.make( 2, 3 ).copy
+  var polygon = _.concavePolygon.make( 3, 2 ).copy
   ([
     1, 0, 0,
     0, 0, 1
@@ -327,7 +327,7 @@ function is( test )
 
   test.case = 'Square 3D'; //
 
-  var polygon = _.concavePolygon.make( 3, 4 ).copy
+  var polygon = _.concavePolygon.make( 4, 3 ).copy
   ([
     1, 1, 0, 0,
     0, 1, 1, 0,
@@ -341,7 +341,7 @@ function is( test )
 
   test.case = '4 points in 3D forming concave polygon'; //
 
-  var polygon = _.concavePolygon.make( 3, 4 ).copy
+  var polygon = _.concavePolygon.make( 4, 3 ).copy
   ([
     1, 1, 0.9, 0,
     0, 1, 0.1, 0,
@@ -355,7 +355,7 @@ function is( test )
 
   test.case = 'Pentagone 2D'; //
 
-  var polygon = _.concavePolygon.make( 2, 5 ).copy
+  var polygon = _.concavePolygon.make( 5, 2 ).copy
   ([
     1, 0, 0, 0, 2,
     0, 0, 1, 2, 0
@@ -368,7 +368,7 @@ function is( test )
 
   test.case = 'Concave pentagone 2D'; //
 
-  var polygon = _.concavePolygon.make( 2, 5 ).copy
+  var polygon = _.concavePolygon.make( 5, 2 ).copy
   ([
     1, 0, 0, 2, 0,
     0, 0, 1, 0, 2
@@ -407,7 +407,7 @@ function is( test )
 
   test.case = 'Four points convex'; //
 
-  var polygon = _.concavePolygon.make( 3, 4 ).copy
+  var polygon = _.concavePolygon.make( 4, 3 ).copy
   ([
     0,   0,   0,   2,
     1, - 1,   -2,   0,
@@ -421,7 +421,7 @@ function is( test )
 
   test.case = 'Four points concave'; //
 
-  var polygon = _.concavePolygon.make( 3, 4 ).copy
+  var polygon = _.concavePolygon.make( 4, 3 ).copy
   ([
     0,   1,   0,   2,
     1, - 1,   -2,   0,
@@ -470,7 +470,7 @@ function isClockwise( test )
   test.case = 'concave counter clockwise'
 
   var polygon =
-  _.concavePolygon.make( 2, 4 ).copy
+  _.concavePolygon.make( 4, 2 ).copy
   ([
     6.84, 1.26, 2.32, 5.46,
     0.64, 1.54, 4.71, 4.93,
@@ -478,7 +478,7 @@ function isClockwise( test )
   test.is( !_.concavePolygon.isClockwise( polygon ) );
 
   test.case = 'concave clockwise'
-  var polygon = _.concavePolygon.make( 2, 4 ).copy
+  var polygon = _.concavePolygon.make( 4, 2 ).copy
   ([
     5.46,2.32,1.26,6.84,
     4.93,4.71,1.54,0.64
