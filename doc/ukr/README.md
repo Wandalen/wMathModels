@@ -15,14 +15,14 @@
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#AxisAndAngle">
-  AxisAndAngle
+  <summary><a href="./tutorial/Overview.md#Box">
+  Box
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Box">
-  Box
+  <summary><a href="./tutorial/Overview.md#Segment">
+  Segment
   </a></summary>
 </details>
 
@@ -33,8 +33,8 @@
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#ConcavePolygon">
-  ConcavePolygon
+  <summary><a href="./tutorial/Overview.md#Triangle">
+  Triangle
   </a></summary>
 </details>
 
@@ -45,20 +45,14 @@
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Euler">
-  Euler
+  <summary><a href="./tutorial/Overview.md#ConcavePolygon">
+  ConcavePolygon
   </a></summary>
 </details>
 
 <details>
   <summary><a href="./tutorial/Overview.md#Frustum">
   Frustum
-  </a></summary>
-</details>
-
-<details>
-  <summary><a href="./tutorial/Overview.md#LineImplicit">
-  LineImplicit
   </a></summary>
 </details>
 
@@ -82,7 +76,25 @@
 
 <details>
   <summary><a href="./tutorial/Overview.md#Plane">
+  LineImplicit
+  </a></summary>
+</details>
+
+<details>
+  <summary><a href="./tutorial/Overview.md#Plane">
   Plane
+  </a></summary>
+</details>
+
+<details>
+  <summary><a href="./tutorial/Overview.md#AxisAndAngle">
+  AxisAndAngle
+  </a></summary>
+</details>
+
+<details>
+  <summary><a href="./tutorial/Overview.md#Euler">
+  Euler
   </a></summary>
 </details>
 
@@ -99,24 +111,10 @@
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Segment">
-  Segment
-  </a></summary>
-</details>
-
-<details>
   <summary><a href="./tutorial/Overview.md#Sphere">
   Sphere
   </a></summary>
 </details>
-
-<details>
-  <summary><a href="./tutorial/Overview.md#Triangle">
-  Triangle
-  </a></summary>
-</details>
-
-
 
 ## Туторіали
 
