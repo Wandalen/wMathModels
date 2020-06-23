@@ -46,8 +46,8 @@ let polygon = _.concavePolygon.make( 2, 5 ).copy
 ]);
 let point = [ 3, 4 ]
 let got = _.concavePolygon.pointDistance( polygon, point );
-console.log( 'Distance from concave polygon to point:', got );
-/* log: Distance from concave polygon to point: 1 */
+console.log( 'Distance from concave polygon to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from concave polygon to point: 0.71 */
 ```
 
 ### Frustum
