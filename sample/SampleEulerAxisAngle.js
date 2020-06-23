@@ -1,5 +1,5 @@
 if( typeof module !== 'undefined' )
-require( 'wmathconcepts' );
+require( 'wmathmodels' );
 var _ = wTools;
 
 debugger;
