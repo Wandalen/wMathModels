@@ -22,6 +22,106 @@ console.log( 'Sphere : ', sphere );
 /* log : Sphere : [ 0, 0, 0, 0 ] */
 ```
 
+### Make
+
+```js
+let box = _.box.make();
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 0, 0, 0, 0, 0 ] */
+```
+
+```js
+let box = _.box.make( null );
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 0, 0, 0, 0, 0 ] */
+```
+
+```js
+let dim = 2;
+let box = _.box.make( dim );
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 0, 0, 0 ] */
+```
+
+```js
+let srcBox = [ 0, 1, 2, 3 ];
+let box = _.box.make( srcBox );
+console.log( 'srcBox === box :', srcBox === box )
+/* log : srcBox === box : false */
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 1, 2, 3 ] */
+```
+
+### From
+
+```js
+let box = _.box.from( null );
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : Array */
+console.log( 'Box : ', box );
+/* log : Box : [ 0, 0, 0, 0, 0, 0 ] */
+```
+
+```js
+let srcBox = _.vad.fromLong([ 0, 1, 2, 3 ]);
+let box = _.box.from( srcBox );
+console.log( 'srcBox === box :', srcBox === box )
+/* log : srcBox === box : true */
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : VectorAdapterFromLong */
+console.log( 'Box : ', box.toStr() );
+/* log : Box : VectorAdapter.x4.Array :: 0.000 1.000 2.000 3.000 */
+```
+
+```js
+let srcBox = _.vector.make([ 0, 1, 2, 3 ]);
+let box = _.box.from( srcBox );
+console.log( 'srcBox === box :', srcBox === box )
+/* log : srcBox === box : true */
+console.log( 'Box type :', _.strType( box ) );
+/* log : Box type : F32x */
+console.log( 'Box : ', box );
+/* log : Box : Float32Array(4) [ 0, 1, 2, 3 ] */
+```
+
+### Make vs From
+
+```js
+let dim = 2;
+
+let box1 = _.box.make( dim );
+console.log( 'Box1 : ', box1 );
+/* log : Box1 : [ 0, 0, 0, 0 ] */
+
+let box2 = _.box.from( dim );
+/* Error, expects box or null */
+```
+
+```js
+let srcBox = [ 0, 1, 2, 3 ];
+
+let box1 = _.box.make( srcBox );
+console.log( 'srcBox === box1 :', srcBox === box1 )
+/* log : srcBox === box1 : false */
+console.log( 'Box1 : ', box1 );
+/* log : Box1 : [ 0, 1, 2, 3 ] */
+
+let box2 = _.box.from( srcBox );
+console.log( 'srcBox === box2 :', srcBox === box2 )
+/* log : srcBox === box2 : true */
+console.log( 'Box2 : ', box2 );
+/* log : Box2 : [ 0, 1, 2, 3 ] */
+
+```
+
 ### Keep flat, keep simple
 
 "Плоский" формат представлення фігури означає те, що дані фігури зберігаються у одновимірному контейнері: масив, вектор, вектор адаптер.
@@ -179,9 +279,9 @@ console.log( 'Plane intersects with ray: ', got )
 
 ```js
 
-var pointA = [ 3, 1, 3 ];
-var pointB = [ 3, 8, 3 ];
-var box = _.box.fromPoints( null, [ pointA, pointB ] );
+var Point1 = [ 3, 1, 3 ];
+var Point2 = [ 3, 8, 3 ];
+var box = _.box.fromPoints( null, [ Point1, Point2 ] );
 console.log( 'Box: ', box );
 /* log : Box: [ 3, 1, 3, 3, 8, 3 ] */
 
@@ -213,6 +313,22 @@ var point4d = [ 4, 4, 4, 4 ];
 var box = _.sphere.pointContains( sphere4d, point4d );
 console.log( 'Sphere contains point: ', got )
 /* log : Sphere contains point: true */
+```
+
+```js
+var line = [ -4, 4, 0 ]; // -2,-2, 2, 2
+var point = [ 3, 2 ];
+let got = _.plane.pointDistance( line, point );
+console.log( 'Distance from straight to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from straight to point: -0.71*/
+```
+
+```js
+var point = [ 4, 1, -3 ];
+var plane = [ 2, -1, 3, 1 ];
+let got = _.plane.pointDistance( plane, point );
+console.log( 'Distance from 3D plane to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from 3D plane to point: -0.27 */
 ```
 
 ### Alternative figures
