@@ -145,7 +145,7 @@ console.log( 'Quat from Euler:', _.toStr( euler, { precision : 2 } ) )
 ### Ray
 
 ```js
-var ray = [ 0, 0, 2, 2, ]
+var ray = [ 0, 0, 2, 2 ]
 let point = [ 2, 3 ];
 let got = _.ray.pointDistance( ray, point );
 console.log( 'Distance from ray to point:', _.toStr( got, { precision : 2 } ) );
