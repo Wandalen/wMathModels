@@ -32,6 +32,74 @@ console.log( 'Distance from capsule to point:', got );
 /* log: Distance from capsule to point: 1 */
 ```
 
+### Sphere
+
+```js
+var sphere = [ 0, 0, 1 ];
+var point = [ 1, 1 ];
+let got = _.sphere.pointDistance( sphere, point );
+console.log( 'Distance from sphere to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from sphere to point: 0.41 */
+```
+
+### Ray
+
+```js
+var ray = [ 0, 0, 2, 2 ]
+let point = [ 2, 3 ];
+let got = _.ray.pointDistance( ray, point );
+console.log( 'Distance from ray to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from ray to point: 0.71 */
+```
+
+### LinePointDir
+
+```js
+let line = [ 1, 2, 3, 4 ]
+let point = [ 2, 2 ]
+let got = _.linePointDir.pointDistance( line, point );
+console.log( 'Distance from line by point and direction to point:', got );
+/* log: Distance from line by point and direction to point: 0.8 */
+```
+
+### LinePoints
+
+```js
+var ray = [ 1, 1, 5, 5 ];
+var factor = 0.25;
+var pair = _.linePoints.pairAt( ray,factor );
+console.log( 'Pair at factor 0.25:', pair.toStr() );
+/* log: Pair at factor 0.25: 2.000 2.000*/
+```
+
+### LinePointCentered
+
+```js
+var line = [ 2,2 ];
+var point = [ 3,4 ];
+let got = _.linePointCentered.pointDistanceCentered2D( line, point );
+console.log( 'Distance from centered line to point:', _.toStr( got, { precision : 2 } ) )
+/* log: Distance from centered line to point: 0.71 */
+```
+
+### Plane ( implicit )
+
+```js
+var line = [ -4, 4, 0 ]; // -2,-2, 2, 2
+var point = [ 3, 2 ];
+let got = _.plane.pointDistance( line, point );
+console.log( 'Distance from straight to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from straight to point: -0.71*/
+```
+
+```js
+var point = [ 4, 1, -3 ];
+var plane = [ 2, -1, 3, 1 ];
+let got = _.plane.pointDistance( plane, point );
+console.log( 'Distance from 3D plane to point:', _.toStr( got, { precision : 2 } ) );
+/* log: Distance from 3D plane to point: -0.27 */
+```
+
 ### Triangle
 
 ```js
@@ -88,55 +156,6 @@ console.log( 'Distance from frustum to point:', got );
 /* log: Distance from frustum to point: 1 */
 ```
 
-### LinePointCentered
-
-```js
-var line = [ 2,2 ];
-var point = [ 3,4 ];
-let got = _.linePointCentered.pointDistanceCentered2D( line, point );
-console.log( 'Distance from centered line to point:', _.toStr( got, { precision : 2 } ) )
-/* log: Distance from centered line to point: 0.71 */
-```
-
-### LinePointDir
-
-```js
-let line = [ 1, 2, 3, 4 ]
-let point = [ 2, 2 ]
-let got = _.linePointDir.pointDistance( line, point );
-console.log( 'Distance from line by point and direction to point:', got );
-/* log: Distance from line by point and direction to point: 0.8 */
-```
-
-### LinePoints
-
-```js
-var ray = [ 1, 1, 5, 5 ];
-var factor = 0.25;
-var pair = _.linePoints.pairAt( ray,factor );
-console.log( 'Pair at factor 0.25:', pair.toStr() );
-/* log: Pair at factor 0.25: 2.000 2.000*/
-
-```
-
-### Plane
-
-```js
-var line = [ -4, 4, 0 ]; // -2,-2, 2, 2
-var point = [ 3, 2 ];
-let got = _.plane.pointDistance( line, point );
-console.log( 'Distance from straight to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from straight to point: -0.71*/
-```
-
-```js
-var point = [ 4, 1, -3 ];
-var plane = [ 2, -1, 3, 1 ];
-let got = _.plane.pointDistance( plane, point );
-console.log( 'Distance from 3D plane to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from 3D plane to point: -0.27 */
-```
-
 ### AxisAndAngle
 
 ```js
@@ -162,24 +181,4 @@ var quat = [ 0.38, 0.0, 0.0, 0.92 ]
 var euler = _.quat.toEuler( quat, null )
 console.log( 'Quat from Euler:', _.toStr( euler, { precision : 2 } ) )
 /* log : Euler from Quat: [ 0.78, 0.0, -0.0, 0.0, 1.0, 2.0 ] */
-```
-
-### Ray
-
-```js
-var ray = [ 0, 0, 2, 2 ]
-let point = [ 2, 3 ];
-let got = _.ray.pointDistance( ray, point );
-console.log( 'Distance from ray to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from ray to point: 0.71 */
-```
-
-### Sphere
-
-```js
-var sphere = [ 0, 0, 1 ];
-var point = [ 1, 1 ];
-let got = _.sphere.pointDistance( sphere, point );
-console.log( 'Distance from sphere to point:', _.toStr( got, { precision : 2 } ) );
-/* log: Distance from sphere to point: 0.41 */
 ```
