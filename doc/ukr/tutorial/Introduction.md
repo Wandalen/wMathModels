@@ -164,11 +164,11 @@ console.log( 'Direction: ', direction.toStr() );
 Наприклад, рутина ```pointContains``` завжди виконує лише перевірку чи фігура містить точку.
 
 ```js
-var point = [ 0, 1 ];
-var plane = [ 0, 1, 1 ];
+var point = [ 0, 1, 2 ];
+var plane = [ 1, 2, -1, 0 ];
 var contains = _.plane.pointContains( plane, point );
 console.log( 'Plane contains point: ', contains );
-/* log : Plane contains point: false */
+/* log : Plane contains point: true */
 ```
 
 ```js
@@ -216,7 +216,7 @@ console.log( 'Plane intersects with capsule: ', got )
 ```
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 0, 0, -0.4 ];
 var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
 ([
   0,   0,   0,   0,  -1,   1,
@@ -226,7 +226,7 @@ var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
 ]);
 var got = _.plane.frustumIntersects( plane, frustum );
 console.log( 'Plane intersects with frustum: ', got )
-/* log : Plane intersects with frustum: false */
+/* log : Plane intersects with frustum: true */
 ```
 
 ```js
