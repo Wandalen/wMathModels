@@ -53,7 +53,7 @@ console.log( 'Box :', box );
 /* log: Box : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
-Cтворення фігури `box` із явно визначеною розмірністю.
+Cтворення фігури `box` із заданою розмірністю.
 
 ```js
 let dim = 2;
@@ -311,13 +311,24 @@ console.log( 'Plane intersects with ray:', got )
 var Point1 = [ 3, 1 ];
 var Point2 = [ 0, 8 ];
 var box1 = _.box.fromPoints( null, [ Point1, Point2 ] );
-console.log( 'Box:', box );
+console.log( 'Box:', box1 );
 /* log: Box: [ 0, 1, 3, 8 ] */
 
 ```
 
 Бокс `box1` створюється із точок `Point1` та `Point2`. З виводу видно, що `box1` містить точки
 `Point1` та `Point2`.
+
+```js
+
+var Point1 = [ 3, 1 ];
+var Point2 = [ 0, 8 ];
+var dstBox = _.vad.make( 4 );
+_.box.fromPoints( dstBox, [ Point1, Point2 ] );
+console.log( 'Box:', dstBox.toStr() );
+/* log: Box: VectorAdapter.x4.F32x :: 0.000 0.000 3.000 8.000 */
+
+```
 
 ### Higher dimension
 
