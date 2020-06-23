@@ -75,7 +75,7 @@ console.log( 'Distance from concave polygon to point:', _.toStr( got, { precisio
 ### Frustum
 
 ```js
-var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
+var frustum = _.frustum.make().copy
 ([
   0,   0,   0,   0,  -1,   1,
   1,  -1,   0,   0,   0,   0,

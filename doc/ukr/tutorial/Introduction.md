@@ -249,7 +249,7 @@ console.log( 'Plane intersects with capsule: ', got )
 
 ```js
 var plane = [ 1, 0, 0, -0.4 ];
-var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
+var frustum = _.frustum.make().copy
 ([
   0,   0,   0,   0,  -1,   1,
   1,  -1,   0,   0,   0,   0,
