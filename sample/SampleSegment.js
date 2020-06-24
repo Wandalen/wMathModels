@@ -1,10 +1,10 @@
 if( typeof module !== 'undefined' )
-require( 'wmathconcepts' );
+require( 'wmathmodels' );
 
 let _ = wTools;
 
 let srcSegment = [ 3, 0, -1, 4, 0, 0 ];
-var polygon =  _.Space.make( [ 3, 4 ] ).copy
+var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
 ([
   0,   0,   0,   0,
   1,   0, - 1,   0,
@@ -12,9 +12,9 @@ var polygon =  _.Space.make( [ 3, 4 ] ).copy
 ]);
 
 result = _.segment.convexPolygonIntersects( srcSegment, polygon );
-logger.log( result );
+console.log( result );
 result = _.segment.convexPolygonDistance( srcSegment, polygon );
-logger.log( result );
+console.log( result );
 result = _.segment.convexPolygonClosestPoint( srcSegment, polygon );
-logger.log( result );
+console.log( result );
 debugger;

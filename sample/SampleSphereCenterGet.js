@@ -1,13 +1,13 @@
 if( typeof module !== 'undefined' )
-require( 'wmathconcepts' );
+require( 'wmathmodels' );
 
 var _ = wTools;
 
 var sphere = [ 0, 0, 3 ];
 var Oldsphere = [ 0, 0, 3 ];
 var dst = [ 1, 2 ];
-var vdst = _.vector.from( dst );
-var vsphere = _.vector.from( sphere );
+var vdst = _.vectorAdapter.from( dst );
+var vsphere = _.vectorAdapter.from( sphere );
 
 // console.log('Array: ',sphere,' - Vector: ', vsphere );
 debugger;
@@ -23,15 +23,15 @@ console.log('center: ', vsphere );
 var sphere = [ 0, 0, 3 ];
 var Oldsphere = [ 0, 0, 3 ];
 var dst = [ 1, 2 ];
-var vdst = _.vector.from( dst );
-var vsphere = _.vector.from( sphere );
+var vdst = _.vectorAdapter.from( dst );
+var vsphere = _.vectorAdapter.from( sphere );
 
 console.log('POINT');
 console.log('Array');
-var asphered = _.sphere.centerGet( sphere, dst );
+var asphered = _.sphere.centerGet( sphere );
 console.log('center', asphered,' - dst: ', dst);
 console.log('Vector');
-var vsphered = _.sphere.centerGet( vsphere, vdst );
+var vsphered = _.sphere.centerGet( vsphere );
 console.log('center ', vsphered,' - vdst: ', vdst);
 
 debugger;
