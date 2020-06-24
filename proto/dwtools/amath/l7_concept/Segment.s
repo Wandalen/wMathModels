@@ -881,12 +881,14 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
       m : m,
       y : or,
       kernel : null,
-      pivoting : 1,
+      permutating : 1,
+      // pivoting : 1,
     }
 
     let x = _.Matrix.SolveGeneral( o );
 
-    result = this.tools.vectorAdapter.from( x.base );
+    result = _.Matrix.ConvertToClass( _.VectorAdapter, x.ox ); /* Dmytro : not sure that needs to use x.ox, it also can be x.x */
+    // result = this.tools.vectorAdapter.from( x.base );
 
     let point1 = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( dOrigin.length ) );
     let point2 = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( dOrigin.length ) );
