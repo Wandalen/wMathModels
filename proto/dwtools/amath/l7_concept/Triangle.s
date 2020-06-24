@@ -146,7 +146,7 @@ function pointDistance( tri, point )
   let tri1Point = triView.review([ tri0Point.length, 2 * d - 1 ]);
   let tri2Point = triView.review([ tri1Point.offset + tri1Point.length, triView.length - 1 ]);
 
-  let polygon = this.tools.convexPolygon.make( d, 3 );
+  let polygon = this.tools.convexPolygon.make( 3, d );
 
   polygon.colGet( 0 ).copy( tri0Point )
   polygon.colGet( 1 ).copy( tri1Point )

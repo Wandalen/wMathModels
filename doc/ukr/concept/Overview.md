@@ -166,12 +166,10 @@ console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precisio
 
 ```js
 var triangle = [ 2, 1, 9, 2, 5, 6 ];
-var point = [ 2, 5 ]
+var point = [ 4, 5 ]
 var distance = _.triangle.pointDistance( triangle, point );
-console.log( `Distance from triangle to point : ${ _.toStr( distance, { precision : 2 } ) } )` );
-/* log : Distance from triangle to point : 1.1 */
-console.log( `Type of triangle : ${ _.strType( triangle ) }` );
-/* log : Type of triangle : VectorAdapterFromLong */
+console.log( 'Distance from triangle to point:', _.toStr( distance, { precision : 2 } ) );
+/* log: Distance from triangle to point: 0.34 */
 ```
 
 ![Triangle.png](../../img/Triangle.png)
@@ -180,7 +178,7 @@ console.log( `Type of triangle : ${ _.strType( triangle ) }` );
 
 ### ConvexPolygon
 
-Математична модель опулого полігону. Має вигляд матриці координат вершин полігона.
+Математична модель випуклого полігону. Має вигляд матриці координат вершин полігона.
 
 ```js
 var vertices =
