@@ -170,6 +170,8 @@ var point = [ 2, 5 ]
 var distance = _.triangle.pointDistance( triangle, point );
 console.log( `Distance from triangle to point : ${ _.toStr( distance, { precision : 2 } ) } )` );
 /* log : Distance from triangle to point : 1.1 */
+console.log( `Type of triangle : ${ _.strType( triangle ) }` );
+/* log : Type of triangle : VectorAdapterFromLong */
 ```
 
 ![Triangle.png](../../img/Triangle.png)
@@ -191,6 +193,8 @@ var point = [ 3, 6 ];
 var distance = _.convexPolygon.pointDistance( polygon, point );
 console.log( `Distance from convex polygon to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from convex polygon to point : 1.7 */
+console.log( `Type of polygon : ${ _.strType( polygon ) }` );
+/* log : Type of polygon : wMatrix */
 ```
 
 ![ConvexPolygon.png](../../img/ConvexPolygon.png)
@@ -212,6 +216,8 @@ var point = [ 3, 6 ]
 var distance = _.concavePolygon.pointDistance( polygon, point );
 console.log( `Distance from concave polygon to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from concave polygon to point : 1.7 */
+console.log( `Type of polygon : ${ _.strType( polygon ) }` );
+/* log : Type of polygon : wMatrix */
 ```
 
 ![ConcavePolygon.png](../../img/ConcavePolygon.png)
@@ -234,6 +240,8 @@ var point = [ 1, 1, 2 ]
 var distance = _.frustum.pointDistance( frustum, point );
 console.log( `Distance from frustum to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from frustum to point : 1.0 */
+console.log( `Type of frustum : ${ _.strType( frustum ) }` );
+/* log : Type of frustum : wMatrix */
 ```
 
 ![Frustum.png](../../img/Frustum.png)

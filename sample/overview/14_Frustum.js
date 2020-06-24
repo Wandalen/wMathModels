@@ -16,3 +16,5 @@ var point = [ 1, 1, 2 ]
 var distance = _.frustum.pointDistance( frustum, point );
 console.log( `Distance from frustum to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from frustum to point : 1.0 */
+console.log( `Type of frustum : ${ _.strType( frustum ) }` );
+/* log : Type of frustum : wMatrix */
