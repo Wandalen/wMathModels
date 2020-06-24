@@ -26,7 +26,7 @@ var segment = [ 2, 1, 9, 4 ];
 var point = [ 3, 5 ];
 var distance = _.segment.pointDistance( segment, point );
 console.log( 'Distance from segment to point:', _.toStr( distance, { precision : 2 } ) );
-/* log: Distance from segment to point: 1.4 */
+/* log: Distance from segment to point: 3.3 */
 ```
 
 Приведений відрізок має координати `point1` ( 2; 1 ) і `point2` ( 9; 4 ). Якщо додати третю коодинату, сегмент буде побудовано в просторових координатах.
@@ -39,8 +39,8 @@ console.log( 'Distance from segment to point:', _.toStr( distance, { precision :
 var capsule = [ 2, 1, 9, 4, 0.5 ];
 var point = [ 3, 5 ];
 var distance = _.capsule.pointDistance( capsule, point );
-console.log( 'Distance from capsule to point:', distance );
-/* log: Distance from capsule to point: 1 */
+console.log( 'Distance from capsule to point:', _.toStr( distance, { precision : 2 } ) );
+/* log: Distance from capsule to point: 2.8 */
 ```
 
 Капсула має товщину та заокруглення з радіусом рівному половині товщини. Приведений рисунок показує капсулу, що має радіус `radius` рівним `0.5`.
@@ -54,7 +54,7 @@ var sphere = [ 2, 1, 3 ];
 var point = [ 5, 6 ];
 var distance = _.sphere.pointDistance( sphere, point );
 console.log( 'Distance from sphere to point:', _.toStr( distance, { precision : 2 } ) );
-/* log: Distance from sphere to point: 0.41 */
+/* log: Distance from sphere to point: 2.8 */
 ```
 
 При використанні двомірних координат сфера вироджується до круга. На рисунку зображено круг з центром `center` ( 2; 1 ) та радіусом `radius` рівним `3`.
@@ -68,7 +68,7 @@ var ray = [ 2, 1, 6, 3 ];
 var point = [ 2, 3 ];
 var distance = _.ray.pointDistance( ray, point );
 console.log( 'Distance from ray to point:', _.toStr( distance, { precision : 2 } ) );
-/* log: Distance from ray to point: 0.71 */
+/* log: Distance from ray to point: 1.8 */
 ```
 
 Промінь зображений на рисунку має координати точок `point1` ( 2; 1 ) і `point2` ( 6; 3 ). Перша точка позначає його початок, а друга дозволяє побудувати напрям променя.
@@ -81,8 +81,8 @@ console.log( 'Distance from ray to point:', _.toStr( distance, { precision : 2 }
 var line = [ 2, 1, 2, 1 ];
 var point = [ 2, 2 ];
 var distance = _.linePointDir.pointDistance( line, point );
-console.log( 'Distance from line by point and direction to point:', distance );
-/* log: Distance from line by point and direction to point: 0.8 */
+console.log( 'Distance from line by point and direction to point:', _.toStr( distance, { precision : 2 } ) );
+/* log: Distance from line by point and direction to point: 0.89 */
 ```
 
 Лінія побудована з допомогою `linePointDir` використовує першу точку `origin` ( 2; 1 ), як точку відліку, координати наступної точки `dirPoint` ( 4; 2 ) вираховуються шляхом складання відповідних координат в векторі.
@@ -96,7 +96,7 @@ var ray = [ 2, 1, 4, 2 ];
 var factor = 0.25;
 var pair = _.linePoints.pairAt( ray,factor );
 console.log( 'Pair at factor 0.25 : ', pair.toStr() );
-/* log: Pair at factor 0.25: 2.000 2.000*/
+/* log: Pair at factor 0.25: 2.500 1.250 */
 ```
 
 Для побудови лінії за двома точками використовується неймспейс `linePoints`. На рисунку зображено лінію що проходить через точки `point1` ( 2; 1 ) і `point2` ( 4; 2 ).
@@ -110,7 +110,7 @@ var line = [ 4, 2 ];
 var point = [ 3, 4 ];
 var distance = _.linePointCentered.pointDistanceCentered2D( line, point );
 console.log( 'Distance from centered line to point:', _.toStr( distance, { precision : 2 } ) );
-/* log: Distance from centered line to point: 0.71 */
+/* log: Distance from centered line to point: 2.2 */
 ```
 
 Для побудови лінії котра проходить через початок координат простіше викоритовувати рутини неймспейса `linePointCentered`. На рисунку лінія задана лише координатою однієї точки `point` ( 4; 2 ).
@@ -145,17 +145,17 @@ console.log( 'Distance from 3D plane to point:', _.toStr( distance, { precision 
 
 ```js
 var triangle = [ 2, 1, 9, 2, 5, 6 ];
-var point = [ 4, 2 ]
+var point = [ 4, 5 ]
 var distance = _.triangle.pointDistance( triangle, point );
 console.log( 'Distance from triangle to point:', _.toStr( distance, { precision : 2 } ) );
-/* log: Distance from triangle to point: 1.1 */
+/* log: Distance from triangle to point: 0.34 */
 ```
 
 На рисунку зображено трикутник з точками `point1` ( 2; 1 ), `point2` ( 9; 2 ) i `point3` ( 5; 6 ).
 
 ### ConvexPolygon
 
-Оперує представленням опулого полігону в вигляді матриці координат.
+Оперує представленням опуклого полігону в вигляді матриці координат.
 
 ```js
 var vertices =
@@ -166,8 +166,8 @@ var vertices =
 var polygon = _.convexPolygon.make( vertices, 2 );
 var point = [ 3, 6 ];
 var distance = _.convexPolygon.pointDistance( polygon, point );
-console.log( 'Distance from convex polygon to point:', distance );
-/* log: Distance from convex polygon to point: 1*/
+console.log( 'Distance from convex polygon to point:', _.toStr( distance, { precision : 2 } ) );
+/* log: Distance from convex polygon to point: 1.7 */
 ```
 
 Зображений полігон є випуклим бо жоден з кутів утворених вершинами `point1` ( 2; 1 ), `point2` ( 6; -1 ), `point3` ( 9, 2 ) і `point4` ( 5; 6 ) не більше ніж 180 градусів.
@@ -217,7 +217,7 @@ console.log( 'Distance from frustum to point:', distance );
 
 ```js
 var axisAndAngle = [ 1, 0, 0, Math.PI / 4 ];
-var euler = _.euler.fromAxisAndAngle2( euler, axisAndAngle );
+var euler = _.euler.fromAxisAndAngle2( null, axisAndAngle );
 console.log( 'AxisAndAngle to Euler:', _.toStr( euler, { precision : 2 } ) )
 /* log: AxisAndAngle to Euler: [ 0.79, 0.0, -0.0, 0.0, 1.0, 2.0 ] */
 ```
