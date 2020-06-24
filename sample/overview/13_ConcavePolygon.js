@@ -1,0 +1,17 @@
+if( typeof module !== 'undefined' )
+require( 'wmathmodels' );
+
+var _ = wTools;
+
+/* */
+
+var vertices =
+[
+  2,  6,  9,  5,
+  1,  3,  2,  6
+]
+var polygon = _.concavePolygon.make( vertices, 2 );
+var point = [ 3, 6 ]
+var distance = _.concavePolygon.pointDistance( polygon, point );
+console.log( `Distance from concave polygon to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+/* log : Distance from concave polygon to point : 1.7 */
