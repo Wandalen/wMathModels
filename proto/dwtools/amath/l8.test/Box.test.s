@@ -159,7 +159,7 @@ function makeZero( test )
 
 //
 
-function makeNil( test )
+function makeSingular( test )
 {
 
   /* */
@@ -167,7 +167,7 @@ function makeNil( test )
   test.case = 'src undefined';
 
   var src = undefined;
-  var got = _.box.makeNil( src );
+  var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -177,7 +177,7 @@ function makeNil( test )
   test.case = 'src null';
 
   var src = null;
-  var got = _.box.makeNil( src );
+  var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, +Infinity, -Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -187,7 +187,7 @@ function makeNil( test )
   test.case = 'src 2';
 
   var src = 2;
-  var got = _.box.makeNil( src );
+  var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -197,7 +197,7 @@ function makeNil( test )
   test.case = 'src array';
 
   var src = [ 0, 1, 2, 3 ];
-  var got = _.box.makeNil( src );
+  var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -207,7 +207,7 @@ function makeNil( test )
   test.case = 'src vector';
 
   var src = _.box.tools.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
-  var got = _.box.makeNil( src );
+  var got = _.box.makeSingular( src );
   var expected = _.box.tools.longMake( [ +Infinity, +Infinity, -Infinity, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -8893,7 +8893,7 @@ var Self =
 
     make,
     makeZero,
-    makeNil,
+    makeSingular,
 
     zero,
     nil,

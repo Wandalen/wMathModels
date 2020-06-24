@@ -61,7 +61,7 @@ function makeZero( dim )
 
 //
 
-function makeNil( dim )
+function makeSingular( dim )
 {
   if( this.is( dim ) )
   dim = this.dimGet( dim );
@@ -115,7 +115,7 @@ function nil( line )
     return line;
   }
 
-  return this.makeNil( line );
+  return this.makeSingular( line );
 }
 
 //
@@ -1485,7 +1485,7 @@ function boundingBoxGet( dstBox, srcLine )
   let dimLine  = this.dimGet( srcLineView )
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( dimLine );
+  dstBox = this.tools.box.makeSingular( dimLine );
 
   _.assert( _.box.is( dstBox ) );
   let boxView = this.tools.box.adapterFrom( dstBox );
@@ -3317,7 +3317,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,

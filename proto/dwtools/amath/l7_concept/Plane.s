@@ -620,7 +620,7 @@ function boundingBoxGet( dstBox, srcPlane )
   let dimPlane  = this.dimGet( srcPlaneView )
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( dimPlane );
+  dstBox = this.tools.box.makeSingular( dimPlane );
 
   _.assert( _.box.is( dstBox ) );
   let boxView = this.tools.box.adapterFrom( dstBox );

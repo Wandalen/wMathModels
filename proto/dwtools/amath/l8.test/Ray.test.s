@@ -158,14 +158,14 @@ function makeZero( test )
 
 //
 
-function makeNil( test )
+function makeSingular( test )
 {
   /* */
 
   test.case = 'srcDim undefined';
 
   var srcDim = undefined;
-  var gotRay = _.ray.makeNil( srcDim );
+  var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
   test.is( gotRay !== srcDim );
@@ -175,7 +175,7 @@ function makeNil( test )
   test.case = 'srcDim null';
 
   var srcDim = null;
-  var gotRay = _.ray.makeNil( srcDim );
+  var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
   test.is( gotRay !== srcDim );
@@ -185,7 +185,7 @@ function makeNil( test )
   test.case = 'srcDim 2';
 
   var srcDim = 2;
-  var gotRay = _.ray.makeNil( srcDim );
+  var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
   test.is( gotRay !== srcDim );
@@ -195,7 +195,7 @@ function makeNil( test )
   test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3 ];
-  var gotRay = _.ray.makeNil( srcDim );
+  var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
   test.is( gotRay !== srcDim );
@@ -205,7 +205,7 @@ function makeNil( test )
   test.case = 'srcDim vector';
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
-  var gotRay = _.ray.makeNil( srcDim );
+  var gotRay = _.ray.makeSingular( srcDim );
   var expected = _.ray.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotRay, expected );
   test.is( gotRay !== srcDim );
@@ -214,8 +214,8 @@ function makeNil( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.ray.makeNil( [ 0, 0 ], [ 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.ray.makeNil( 'ray' ));
+  test.shouldThrowErrorSync( () => _.ray.makeSingular( [ 0, 0 ], [ 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.ray.makeSingular( 'ray' ));
 }
 
 //
@@ -7489,7 +7489,7 @@ var Self =
   {
     make,
     makeZero,
-    makeNil,
+    makeSingular,
 
     zero,
     nil,

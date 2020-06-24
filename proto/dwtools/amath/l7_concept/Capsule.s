@@ -63,7 +63,7 @@ function makeZero( dim )
 
 //
 
-function makeNil( dim )
+function makeSingular( dim )
 {
   if( _.longIs( dim ) || _.vectorAdapterIs( dim ) )
   dim = this.dimGet( dim );
@@ -119,7 +119,7 @@ function nil( capsule )
     return capsule;
   }
 
-  return this.makeNil( capsule );
+  return this.makeSingular( capsule );
 }
 
 //
@@ -1041,7 +1041,7 @@ function boundingBoxGet( dstBox, srcCapsule )
   let dimCapsule  = this.dimGet( srcCapsuleView );
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( dimCapsule );
+  dstBox = this.tools.box.makeSingular( dimCapsule );
 
   _.assert( this.tools.box.is( dstBox ) );
   let dimB = this.tools.box.dimGet( dstBox );
@@ -2857,7 +2857,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,

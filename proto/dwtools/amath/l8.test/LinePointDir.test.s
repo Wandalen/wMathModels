@@ -158,14 +158,14 @@ function makeZero( test )
 
 //
 
-function makeNil( test )
+function makeSingular( test )
 {
   /* */
 
   test.case = 'srcDim undefined';
 
   var srcDim = undefined;
-  var gotLine = _.linePointDir.makeNil( srcDim );
+  var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
@@ -175,7 +175,7 @@ function makeNil( test )
   test.case = 'srcDim null';
 
   var srcDim = null;
-  var gotLine = _.linePointDir.makeNil( srcDim );
+  var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
@@ -185,7 +185,7 @@ function makeNil( test )
   test.case = 'srcDim 2';
 
   var srcDim = 2;
-  var gotLine = _.linePointDir.makeNil( srcDim );
+  var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
@@ -195,7 +195,7 @@ function makeNil( test )
   test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3 ];
-  var gotLine = _.linePointDir.makeNil( srcDim );
+  var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
@@ -205,7 +205,7 @@ function makeNil( test )
   test.case = 'srcDim vector';
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
-  var gotLine = _.linePointDir.makeNil( srcDim );
+  var gotLine = _.linePointDir.makeSingular( srcDim );
   var expected = _.linePointDir.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotLine, expected );
   test.is( gotLine !== srcDim );
@@ -214,8 +214,8 @@ function makeNil( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.linePointDir.makeNil( [ 0, 0 ], [ 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.linePointDir.makeNil( 'line' ));
+  test.shouldThrowErrorSync( () => _.linePointDir.makeSingular( [ 0, 0 ], [ 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.linePointDir.makeSingular( 'line' ));
 }
 
 //
@@ -8267,7 +8267,7 @@ var Self =
   {
     make,
     makeZero,
-    makeNil,
+    makeSingular,
 
     zero,
     nil,

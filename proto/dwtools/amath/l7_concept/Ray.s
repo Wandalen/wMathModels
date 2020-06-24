@@ -61,7 +61,7 @@ function makeZero( dim )
 
 //
 
-function makeNil( dim )
+function makeSingular( dim )
 {
   if( this.is( dim ) )
   dim = this.dimGet( dim );
@@ -117,7 +117,7 @@ function nil( ray )
     return ray;
   }
 
-  return this.makeNil( ray );
+  return this.makeSingular( ray );
 }
 
 //
@@ -1541,7 +1541,7 @@ function boundingBoxGet( dstBox, srcRay )
   let dimRay  = this.dimGet( srcRayView )
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( dimRay );
+  dstBox = this.tools.box.makeSingular( dimRay );
 
   _.assert( _.box.is( dstBox ) );
   let boxView = this.tools.box.adapterFrom( dstBox );
@@ -3222,7 +3222,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,

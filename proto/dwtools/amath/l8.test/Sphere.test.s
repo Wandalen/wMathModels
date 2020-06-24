@@ -147,7 +147,7 @@ function makeZero( test )
 
 //
 
-function makeNil( test )
+function makeSingular( test )
 {
 
   /* */
@@ -155,7 +155,7 @@ function makeNil( test )
   test.case = 'src undefined';
 
   var src = undefined;
-  var got = _.sphere.makeNil( src );
+  var got = _.sphere.makeSingular( src );
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -165,7 +165,7 @@ function makeNil( test )
   test.case = 'src null';
 
   var src = null;
-  var got = _.sphere.makeNil( src );
+  var got = _.sphere.makeSingular( src );
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -175,7 +175,7 @@ function makeNil( test )
   test.case = 'src 2';
 
   var src = 2;
-  var got = _.sphere.makeNil( src );
+  var got = _.sphere.makeSingular( src );
   var expected = _.sphere.tools.longMake( [ 0, 0, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -185,7 +185,7 @@ function makeNil( test )
   test.case = 'src array';
 
   var src = [ 0, 1, 2, 3 ];
-  var got = _.sphere.makeNil( src );
+  var got = _.sphere.makeSingular( src );
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -195,7 +195,7 @@ function makeNil( test )
   test.case = 'src vector';
 
   var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
-  var got = _.sphere.makeNil( src );
+  var got = _.sphere.makeSingular( src );
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, -Infinity ] );
   test.identical( got, expected );
   test.is( got !== src );
@@ -3220,7 +3220,7 @@ function boxContains( test )
 
   test.case = 'Sphere is nil';
 
-  var sphere = _.sphere.makeNil();
+  var sphere = _.sphere.makeSingular();
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = true;
   var gotBool = _.sphere.boxContains( sphere, box );
@@ -3230,7 +3230,7 @@ function boxContains( test )
   test.case = 'box is nil';
 
   var sphere = [ 0, 0, 0, 2 ];
-  var box = _.box.makeNil();
+  var box = _.box.makeSingular();
   var expected = false;
   var gotBool = _.sphere.boxContains( sphere, box );
 
@@ -3370,7 +3370,7 @@ function boxIntersects( test )
 
   test.case = 'Sphere is nil';
 
-  var sphere = _.sphere.makeNil();
+  var sphere = _.sphere.makeSingular();
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = true;
   var gotBool = _.sphere.boxIntersects( sphere, box );
@@ -3380,7 +3380,7 @@ function boxIntersects( test )
   test.case = 'box is nil';
 
   var sphere = [ 0, 0, 0, 2 ];
-  var box = _.box.makeNil();
+  var box = _.box.makeSingular();
   var expected = false;
   var gotBool = _.sphere.boxIntersects( sphere, box );
 
@@ -3686,7 +3686,7 @@ function boxExpand( test )
 
   test.case = 'Sphere is nil';
 
-  var sphere = _.sphere.makeNil();
+  var sphere = _.sphere.makeSingular();
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected =  _.sphere.tools.longMake( [ 0, 0, 0, 3.4641016151 ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
@@ -3697,7 +3697,7 @@ function boxExpand( test )
   test.case = 'box is nil';
 
   var sphere = [ 0, 0, 0, 2 ];
-  var box = _.box.makeNil();
+  var box = _.box.makeSingular();
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, Infinity ] );
   var gotSphere = _.sphere.boxExpand( sphere, box );
 
@@ -6019,7 +6019,7 @@ function sphereContains( test )
 
   test.case = 'src is nil';
 
-  var srcSphere = _.sphere.makeNil();
+  var srcSphere = _.sphere.makeSingular();
   var tstSphere = [ 0, 0, 0, 2 ];
   var expected = false;
   var gotBool = _.sphere.sphereContains( srcSphere, tstSphere );
@@ -6029,7 +6029,7 @@ function sphereContains( test )
   test.case = 'tst is nil';
 
   var srcSphere = [ 0, 0, 0, 2 ];
-  var tstSphere = _.sphere.makeNil();
+  var tstSphere = _.sphere.makeSingular();
   var expected = true;
   var gotBool = _.sphere.sphereContains( srcSphere, tstSphere );
 
@@ -6139,7 +6139,7 @@ function sphereIntersects( test )
 
   test.case = 'dst is nil';
 
-  var sphere = _.sphere.makeNil();
+  var sphere = _.sphere.makeSingular();
   var sphere2 = [ 0, 0, 0, 2 ];
   var expected = true;
   var gotBool = _.sphere.sphereIntersects( sphere, sphere2 );
@@ -6148,7 +6148,7 @@ function sphereIntersects( test )
 
   test.case = 'src is nil';
 
-  var sphere = _.sphere.makeNil();
+  var sphere = _.sphere.makeSingular();
   var sphere2 = [ 0, 0, 0, 2 ];
   var expected = true;
   var gotBool = _.sphere.sphereIntersects( sphere, sphere2 );
@@ -6157,8 +6157,8 @@ function sphereIntersects( test )
 
   test.case = 'dst and src are nil';
 
-  var sphere = _.sphere.makeNil();
-  var sphere2 = _.sphere.makeNil();
+  var sphere = _.sphere.makeSingular();
+  var sphere2 = _.sphere.makeSingular();
   var expected = true;
   var gotBool = _.sphere.sphereIntersects( sphere, sphere2 );
 
@@ -6566,7 +6566,7 @@ function sphereExpand( test )
 
   test.case = 'dst is nil';
 
-  var s1 = _.sphere.makeNil();
+  var s1 = _.sphere.makeSingular();
   var s2 = [ 0, 0, 0, 2 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var got = _.sphere.sphereExpand( s1, s2 );
@@ -6577,7 +6577,7 @@ function sphereExpand( test )
   test.case = 'src is nil';
 
   var s1 = [ 0, 0, 0, 2 ];
-  var s2 = _.sphere.makeNil();
+  var s2 = _.sphere.makeSingular();
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var got = _.sphere.sphereExpand( s1, s2 );
 
@@ -6586,8 +6586,8 @@ function sphereExpand( test )
 
   test.case = 'dst and src are nil';
 
-  var s1 = _.sphere.makeNil();
-  var s2 = _.sphere.makeNil();
+  var s1 = _.sphere.makeSingular();
+  var s2 = _.sphere.makeSingular();
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, -Infinity ] );
   var got = _.sphere.sphereExpand( s1, s2 );
 
@@ -6626,7 +6626,7 @@ var Self =
 
     make,
     makeZero,
-    makeNil,
+    makeSingular,
 
     zero,
     nil,

@@ -1008,7 +1008,7 @@ function boundingBoxGet( polygon, dstBox  )
   let cols = dims[ 1 ];
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( rows );
+  dstBox = this.tools.box.makeSingular( rows );
 
   _.assert( _.box.is( dstBox ) );
   let boxView = this.tools.box.adapterFrom( dstBox );

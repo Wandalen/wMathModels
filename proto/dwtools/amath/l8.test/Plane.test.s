@@ -1073,7 +1073,7 @@ function boxIntersects( test )
   test.case = 'Nil box';
 
   var plane = [ 0, - 2, 0, 2 ];
-  var box = _.box.makeNil();
+  var box = _.box.makeSingular();
   var expected = false;
 
   var gotBool = _.plane.boxIntersects( plane, box );
@@ -3629,7 +3629,7 @@ function sphereIntersects( test )
   test.case = 'Nil sphere';
 
   var plane = [ 0, - 2, 0, 2 ];
-  var sphere = _.sphere.makeNil();
+  var sphere = _.sphere.makeSingular();
   var expected = false;
 
   var gotBool = _.plane.sphereIntersects( plane, sphere );

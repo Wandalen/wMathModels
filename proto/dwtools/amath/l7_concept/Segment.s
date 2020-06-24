@@ -61,7 +61,7 @@ function makeZero( dim )
 
 //
 
-function makeNil( dim )
+function makeSingular( dim )
 {
   if( this.is( dim ) )
   dim = this.dimGet( dim );
@@ -115,7 +115,7 @@ function nil( segment )
     return segment;
   }
 
-  return this.makeNil( segment );
+  return this.makeSingular( segment );
 }
 
 //
@@ -1722,7 +1722,7 @@ function boundingBoxGet( dstBox, srcSegment )
   let dimSegment  = this.dimGet( srcSegmentView )
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( dimSegment );
+  dstBox = this.tools.box.makeSingular( dimSegment );
 
   _.assert( _.box.is( dstBox ) );
   let dimB = this.tools.box.dimGet( dstBox );
@@ -3857,7 +3857,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,
