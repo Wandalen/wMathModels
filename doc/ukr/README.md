@@ -8,110 +8,110 @@
 </details> -->
 
 <details>
-  <summary><a href="./tutorial/Overview.md">
-    Огляд фігур
+  <summary><a href="./concept/Overview.md">
+    Математична моделі
   </a></summary>
-    Огляд доступних фігур та демонструює їх використання
+    Формальний опис системи за допомогою математичних концепцій та мови.
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Box">
+  <summary><a href="./concept/Overview.md#Box">
   Box
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Segment">
+  <summary><a href="./concept/Overview.md#Segment">
   Segment
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Capsule">
+  <summary><a href="./concept/Overview.md#Capsule">
   Capsule
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Triangle">
+  <summary><a href="./concept/Overview.md#Triangle">
   Triangle
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#ConvexPolygon">
+  <summary><a href="./concept/Overview.md#ConvexPolygon">
   ConvexPolygon
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#ConcavePolygon">
+  <summary><a href="./concept/Overview.md#ConcavePolygon">
   ConcavePolygon
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Frustum">
+  <summary><a href="./concept/Overview.md#Frustum">
   Frustum
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#LinePointCentered">
+  <summary><a href="./concept/Overview.md#LinePointCentered">
   LinePointCentered
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#LinePointDir">
+  <summary><a href="./concept/Overview.md#LinePointDir">
   LinePointDir
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#LinePoints">
+  <summary><a href="./concept/Overview.md#LinePoints">
   LinePoints
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Plane">
+  <summary><a href="./concept/Overview.md#Plane">
   LineImplicit
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Plane">
+  <summary><a href="./concept/Overview.md#Plane">
   Plane
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#AxisAndAngle">
+  <summary><a href="./concept/Overview.md#AxisAndAngle">
   AxisAndAngle
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Euler">
+  <summary><a href="./concept/Overview.md#Euler">
   Euler
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Quat">
+  <summary><a href="./concept/Overview.md#Quat">
   Quat
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Ray">
+  <summary><a href="./concept/Overview.md#Ray">
   Ray
   </a></summary>
 </details>
 
 <details>
-  <summary><a href="./tutorial/Overview.md#Sphere">
+  <summary><a href="./concept/Overview.md#Sphere">
   Sphere
   </a></summary>
 </details>
