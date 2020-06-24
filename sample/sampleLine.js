@@ -1,20 +1,20 @@
-
 if( typeof module !== 'undefined' )
-require( 'wmathconcepts' );
+require( 'wmathmodels' );
 
-let _ = wTools;
+var _ = wTools;
 
 var srcLine = [ -5, 2, -5, 1, 0, 1 ];
-var polygon =  _.Space.make( [ 3, 4 ] ).copy
+var polygon =  _.Matrix.Make([ 3, 4 ]).copy
 ([
   0,   0,   0,   0,
   1,   0, - 1,   0,
   0,   1,   0, - 1
 ]);
 
-result = _.line.convexPolygonIntersects( srcLine, polygon );
-logger.log( result );
-result = _.line.convexPolygonDistance( srcLine, polygon );
-logger.log( result );
-result = _.line.convexPolygonClosestPoint( srcLine, polygon );
-logger.log( result );
+debugger;
+var result = _.linePointDir.convexPolygonIntersects( srcLine, polygon );
+console.log( result );
+result = _.linePointDir.convexPolygonDistance( srcLine, polygon );
+console.log( result );
+result = _.linePointDir.convexPolygonClosestPoint( srcLine, polygon );
+console.log( result );

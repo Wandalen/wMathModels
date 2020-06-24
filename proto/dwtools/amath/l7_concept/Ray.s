@@ -219,10 +219,10 @@ fromPair.shaderChunkName = 'ray_fromPair'
 function fromPair2( pair )
 {
   _.assert( arguments.length === 1 );
-  
+
   let pair0 = this.tools.linePoints.firstPointGet( pair );
   let pair1 = this.tools.linePoints.secondPointGet( pair );
-  
+
   return this.fromPair( [ pair0,pair1 ] );
 }
 
@@ -774,12 +774,14 @@ function rayIntersectionFactors( r1, r2 )
       m,
       y : or,
       kernel : null,
-      pivoting : 1,
+      permutating : 1,
+      // pivoting : 1,
     }
 
     let x = _.Matrix.SolveGeneral( o );
 
-    result = this.tools.vectorAdapter.from( x.base );
+    result = _.Matrix.ConvertToClass( _.VectorAdapter, x.ox ); /* Dmytro : not sure that needs to use x.ox, it also can be x.x */
+    // result = this.tools.vectorAdapter.from( x.base );
 
     let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
     let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );

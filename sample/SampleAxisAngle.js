@@ -1,10 +1,11 @@
 if( typeof module !== 'undefined' )
 require( 'wmathmodels' );
+
 var _ = wTools;
 
 debugger;
 
-var srcMatrix = _.Space.make([ 3, 3 ]).copy
+var srcMatrix = _.Matrix.Make([ 3, 3 ]).copy
 ([
   0.7701511383, -0.4207354784, 0.479425549507,
   0.6224468350, 0.65995573997, - 0.420735478401,
@@ -14,7 +15,7 @@ var srcMatrix = _.Space.make([ 3, 3 ]).copy
 var axisAndAngle = [ 0, 0, 0, 0 ];
 aa = _.axisAndAngle.fromMatrixRotation( axisAndAngle, srcMatrix );
 logger.log('aa: ', aa)
-m = _.axisAndAngle.toMatrixRotation( axisAndAngle, _.Space.makeZero( [ 3, 3 ] ) );
+m = _.axisAndAngle.toMatrixRotation( axisAndAngle, _.Matrix.MakeZero( [ 3, 3 ] ) );
 logger.log('m: ', m)
 
 

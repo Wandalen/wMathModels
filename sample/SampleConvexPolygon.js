@@ -4,7 +4,7 @@ require( 'wmathmodels' );
 var _ = wTools;
 
 
-var polygon =  _.Space.make( [ 3, 4 ] ).copy
+var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
 ([
   0,   0,   0,   0,
   1,   0, - 1,   0,
@@ -16,7 +16,7 @@ var gotInt = _.convexPolygon.sphereIntersects( polygon, sphere );
 var gotDist = _.convexPolygon.sphereDistance( polygon, sphere );
 var gotCP = _.convexPolygon.sphereClosestPoint( polygon, sphere );
 
-logger.log('Intersection', gotInt)
-logger.log('Dist', gotDist)
-logger.log('CP', gotCP)
-logger.log('CP', _.sphere.pointClosestPoint( sphere, gotCP ) )
+console.log('Intersection', gotInt)
+console.log('Dist', gotDist)
+console.log('CP', gotCP)
+console.log('CP', _.sphere.pointClosestPoint( sphere, gotCP ) )
