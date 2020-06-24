@@ -80,9 +80,9 @@ console.log( box );
 ```js
 var srcBox = new F32x([ 0, 1, 2, 3 ]);
 var box = _.box.from( srcBox );
-console.log( 'srcBox === box :', srcBox === box );
+console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : true */
-console.log( 'Type :', _.strType( box ) );
+console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : F32x */
 console.log( box );
 /* log : Float32Array(4) [ 0, 1, 2, 3 ] */
@@ -96,13 +96,13 @@ console.log( box );
 Приклад передавання готової моделі у вигляді вектор адаптера
 
 ```js
-var srcBox = _.vad.fromLong([ 0, 1, 2, 3 ]);
+var srcBox = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
 var box = _.box.from( srcBox );
-console.log( 'srcBox === box :', srcBox === box )
+console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : true */
-console.log( 'Type :', _.strType( box ) );
+console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : VectorAdapterFromLong */
-console.log( box.toStr() );
+console.log( box );
 /* log : VectorAdapter.x4.Array :: 0.000 1.000 2.000 3.000 */
 ```
 
@@ -112,10 +112,10 @@ console.log( box.toStr() );
 Приклад явного створення нової моделі типу `box`.
 
 ```js
-var box1 = _.box.from( null );
-console.log( 'Type :', _.strType( box1 ) );
+var box = _.box.from( null );
+console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : Array */
-console.log( box1 );
+console.log( box );
 /* log : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
@@ -126,18 +126,19 @@ console.log( box1 );
 ### Make vs From
 
 Рутина `from` на відміну від `make` створює новий екземпляр моделі лише за явної необхідності.
+
 Рутина `make` завжди створює новий екземпляр моделі.
 
 Приклад створення нового екземпляру моделі типу `box` обома рутинами
 
 ```js
 var box1 = _.box.make( null );
-console.log( 'Box1 :', box1 );
+console.log( `Box1 : ${ box1 }` );
 /* log : Box1 : [ 0, 0, 0, 0, 0, 0 ] */
 
 var box2 = _.box.from( null );
-console.log( 'Box2 :', box2 );
-/* log : Box1 : [ 0, 0, 0, 0, 0, 0 ] */
+console.log( `Box2 : ${ box2 }` );
+/* log : Box2 : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
 Два виклики створюють новий екземпляр моделі типу `box` із розмірністю визначеною за замовчуванням, що випливає із виводу.
@@ -148,46 +149,44 @@ console.log( 'Box2 :', box2 );
 var srcBox = [ 0, 1, 2, 3 ];
 
 var box1 = _.box.make( srcBox );
-console.log( 'srcBox === box1 :', srcBox === box1 )
+console.log( `srcBox === box1 : ${ srcBox === box1 }` );
 /* log : srcBox === box1 : false */
-console.log( 'Box1 :', box1 );
+console.log( `Box1 : ${ box1 }` );
 /* log : Box1 : [ 0, 1, 2, 3 ] */
 
 var box2 = _.box.from( srcBox );
-console.log( 'srcBox === box2 :', srcBox === box2 )
+console.log( `srcBox === box2 : ${ srcBox === box2 }` );
 /* log : srcBox === box2 : true */
-console.log( 'Box2 :', box2 );
+console.log( `Box2 : ${ box2 }` );
 /* log : Box2 : [ 0, 1, 2, 3 ] */
 
 ```
 
 Викликом рутини `make` створюється новий екземпляр моделі на основі даних боксу `srcBox`. Із виводу можливо зробити висновок, що результатом є копія моделі `srcBox`.
+
 Виклик рутини `from` повертає оригінальний екземпляр моделі боксу `srcBox`. Із виводу можна зробити висновок, що було повернуто оринінальний екземпляр моделі `srcBox`.
 
 ### Uncoupling data and functionality
 
-Екземпляри всіх математичних моделей реалізованих в даному модулі містять дані в форматі матирці або вектора, а увесь функціонал привязаний до неймспейсу даної математичної моделі.
+Екземпляри всіх математичних моделей реалізованих в даному модулі містять дані в форматі матриці або вектора, а увесь функціонал прив'язаний до неймспейсу даної математичної моделі.
 
-"Плоский" формат представлення моделі означає те, що дані моделі зберігаються у одновимірному контейнері: масив, вектор, вектор адаптер.
+"Плоский" формат представлення моделі означає те, що дані моделі зберігаються у одновимірному контейнері: масиві, векторі, вектор адаптері.
 
-Наступні приклади відносяться до двовимірної моделі типу `linePointDir` із даними: ```[ 1, 2, 3, 4 ]```
+Наступні приклади відносяться до двовимірної моделі типу `linePointDir` із даними: `[ 1, 2, 3, 4 ]`
 
 Візуалізація моделі та розміщення даних моделі в памяті процесу:
 
-<img src="../../img/LinePointDir.png" />
+![LinePointDir](../../img/LinePointDir.png)
 
 Створення моделі типу `linePointDir` на основі даних:
 
 ```js
-var line1 = _.linePointDir.make( [ 1, 2, 3, 4 ] );
-console.log( 'Line:', line1 );
+var line = _.linePointDir.make([ 1, 2, 3, 4 ]);
+console.log( `Line : ${ line }` );
 /* log : Line : [ 1, 2, 3, 4 ] */
 ```
 
-В змінну `line1`
- `linePointDir` створена на основі координат початкової точки `1,2`
-та вектору напрямку `3,4`.
-
+Змінна `line` створена на основі координат початкової точки `1,2` та вектору напрямку `3,4`.
 
 Приклад отримання даних моделі:
 
@@ -196,261 +195,254 @@ var line = [ 1, 2, 3, 4 ];
 
 //How to get origin point
 var origin = _.linePointDir.originGet( line );
-console.log( 'Origin:', origin.toStr() );
-/* log : Origin : "1.000 2.000" */
+console.log( `Origin : ${ origin }` );
+/* log : Origin : VectorAdapter.x2.Array :: 1.000 2.000 */
 
 //How to get direction vector
 var direction = _.linePointDir.directionGet( line );
-console.log( 'Direction:', direction.toStr() );
-/* log : Origin : "3.000 4.000" */
-
+console.log( `Direction : ${ direction }` );
+/* log : Direction : VectorAdapter.x2.Array :: 3.000 4.000 */
 ```
 
 В змінну `origin` повертається вектор адаптер із значеннями `1.000,2.000`, що відповідають координатам початкової точки.
-В змінну `direction` повертається вектор адаптер із значеннями `3.000,4.000`, які є вектором напрямку.`
+
+В змінну `direction` повертається вектор адаптер із значеннями `3.000,4.000`, які є вектором напрямку.
 
 ### Isomorphic
 
 Поведінка рутин залишається незмінною при зміні типу моделі.
 
-Наприклад, рутина ```pointContains``` завжди виконує лише перевірку чи екземпляр моделі містить точку.
+Наприклад, рутина `pointContains` завжди виконує лише перевірку чи екземпляр моделі містить точку.
 
 ```js
-var point1 = [ 0, 1, 2 ];
-var plane1 = [ 1, 2, -1, 0 ];
-var contains = _.plane.pointContains( plane1, point1 );
-console.log( 'Plane contains point:', contains );
+var point = [ 0, 1, 2 ];
+var plane = [ 1, 2, -1, 0 ];
+var contains = _.plane.pointContains( plane, point );
+console.log( `Plane contains point : ${ contains }` );
 /* log : Plane contains point: true */
 ```
 
-В змінну `contains` повертається `true` так, як точка `point1` знаходиться в середині площини `plane1`
+В змінну `contains` повертається `true` так, як точка `point` знаходиться на площині `plane`.
 
 ```js
-var point1 = [ 0, 1 ];
-var line1 = [ 0, 0, 0, 2 ];
-var contains = _.linePointDir.pointContains( line1, point1 );
-console.log( 'Line contains point:', contains );
+var point = [ 0, 1 ];
+var line = [ 0, 0, 0, 2 ];
+var contains = _.linePointDir.pointContains( line, point );
+console.log( `Line contains point : ${ contains }` );
 /* log : Line contains point: true */
 ```
 
-В змінну `contains` повертається `true` так, як точка `point1` знаходиться на лінії `line1`
+В змінну `contains` повертається `true` так, як точка `point` знаходиться на лінії `line`.
 
 
 ```js
-var point1 = [ 0, 1 ];
+var point = [ 0, 1 ];
 var vertices =
 [
   1, 0, 0,
   0, 0, 1
 ];
-var polygon1 = _.convexPolygon.make( vertices, 2 );
-var contains = _.convexPolygon.pointContains( polygon1, point1 );
-console.log( 'Polygon contains point:', contains );
+var polygon = _.convexPolygon.make( vertices, 2 );
+var contains = _.convexPolygon.pointContains( polygon, point );
+console.log( `Polygon contains point : ${ contains }` );
 /* log : Polygon contains point: true */
 ```
 
-Створюється опуклий полігон `polygon1` із розміністю `2` на основі координат вершин із вектору `vertices`.
-В змінну `contains` повертається `true` так, як точка `point1` та третя вершина полігону `polygon1` мають однакові координати.
+Створюється опуклий полігон `polygon` із розміністю `2` на основі координат вершин із вектору `vertices`.
+В змінну `contains` повертається `true` так, як точка `point` та третя вершина полігону `polygon1` мають однакові координати.
 
 
-### Intuivtive
+### Intuitive
 
-Рутини маю інтуїтивні назви. Вміння користуватись однією рутиною дозволяє використовути інші рутини однієї категорії змінюючи лише префікс та другий вхідний аргумент( екземпляр моделі )
+Рутини маю інтуiтивні назви. Вміння користуватись однією рутиною дозволяє використовути інші рутини однієї категорії змінюючи лише префікс та другий вхідний аргумент ( екземпляр моделі ).
 
-Приклад використання групи рутин `*Intersects` для перевірки перетину екземпляра моделі типу
-`plane` із екземплярами інших моделей.
+Приклад використання групи рутин `*Intersects` для перевірки перетину екземпляра моделі типу `plane` із екземплярами інших моделей.
 
 ```js
-var plane1 = [ 0, 2, 0, -2 ];
-var box1 = [ 0, 0, 0, 2, 2, 2 ];
-var got = _.plane.boxIntersects( plane1, box1 );
-console.log( 'Plane intersects with box:', got )
+var plane = [ 0, 2, 0, -2 ];
+var box = [ 0, 0, 0, 2, 2, 2 ];
+var intersected = _.plane.boxIntersects( plane, box );
+console.log( `Plane intersects with box : ${ intersected }` );
 /* log : Plane intersects with box: true */
 ```
 
-В змінну `got` повертається `true` так, як площина `plane1` перетинає бокс `box1`.
+В змінну `intersected` повертається `true` так, як площина `plane` перетинає бокс `box`.
 
 
 ```js
-var plane1 = [ 1, 0, 0, 1 ];
-var capsule1 = [ - 1, 2, 3, -1, 2, 3, 0  ]
-var got = _.plane.capsuleIntersects( plane1, capsule1 );
-console.log( 'Plane intersects with capsule:', got )
+var plane = [ 1, 0, 0, 1 ];
+var capsule = [ - 1, 2, 3, -1, 2, 3, 0  ];
+var intersected = _.plane.capsuleIntersects( plane, capsule );
+console.log( `Plane intersects with capsule : ${ intersected }` );
 /* log : Plane intersects with capsule: true */
 ```
 
-В змінну `got` повертається `true` так, як площина `plane1` перетинає капсулу `capsule1`.
+В змінну `intersected` повертається `true` так, як площина `plane` перетинає капсулу `capsule`.
 
 
 ```js
-var plane1 = [ 1, 0, 0, -0.4 ];
-var frustum1 = _.frustum.make().copy
+var plane = [ 1, 0, 0, -0.4 ];
+var frustum = _.frustum.make().copy
 ([
   0,   0,   0,   0,  -1,   1,
   1,  -1,   0,   0,   0,   0,
   0,   0,   1,  -1,   0,   0,
  -1,   0,  -1,   0,   0,  -1
 ]);
-console.log( 'Frustum type:', _.strType( frustum1 ) );
-/* log : Frustum type: wMatrix */
-var got = _.plane.frustumIntersects( plane1, frustum1 );
-console.log( 'Plane intersects with frustum:', got )
-/* log : Plane intersects with frustum: true */
+console.log( `Frustum type : ${ _.strType( frustum ) }` );
+/* log : Frustum type : wMatrix */
+var intersected = _.plane.frustumIntersects( plane, frustum );
+console.log( `Plane intersects with frustum : ${ intersected }` );
+/* log : Plane intersects with frustum : true */
 ```
 
-Створюється екземпляр `frustum1` моделі типу `frustum` на основі координат її шести вершин.
+Створюється екземпляр `frustum` моделі типу `frustum` на основі координат її шести вершин.
 Із виводу зрозуміло, що контейнером для даних екземпляра моделі є матриця.
-В змінну `got` повертається `true` так, як площина `plane1` перетинає піраміду `frustum1`.
+В змінну `intersected` повертається `true` так, як площина `plane` перетинає піраміду `frustum`.
 
 
 ```js
-var plane1 = [ 1, 0, 0, 1 ];
-var got = _.plane.planeIntersects( plane1, plane1 );
-console.log( 'Plane intersects with plane:', got )
-/* log : Plane intersects with plane: true */
+var plane = [ 1, 0, 0, 1 ];
+var intersected = _.plane.planeIntersects( plane, plane );
+console.log( `Plane intersects with plane : ${ intersected }` );
+/* log : Plane intersects with plane : true */
 ```
 
-В змінну `got` повертається `true` так, як площина `plane1` перетинає сама себе.
+В змінну `intersected` повертається `true` так, як площина `plane` перетинає сама себе.
 
 
 ```js
-var plane1 = [ 1, 0, 0, 1 ];
-var line1 = [ 1, 0, 1, 1, 1, 1 ]
-var got = _.plane.lineIntersects( plane1, line1 );
-console.log( 'Plane intersects with line:', got )
-/* log : Plane intersects with line: true */
+var plane = [ 1, 0, 0, 1 ];
+var line = [ 1, 0, 1, 1, 1, 1 ];
+var intersected = _.plane.lineIntersects( plane, line );
+console.log( `Plane intersects with line : ${ intersected }` );
+/* log : Plane intersects with line : true */
 ```
 
-В змінну `got` повертається `true` так, як площина `plane1` перетинається лінією `line1`.
+В змінну `intersected` повертається `true` так, як площина `plane` перетинається лінією `line`.
 
 ```js
-var plane1 = [ 1, 0, 0, 1 ];
-var segment1 = [ -2, -2, -2, 2, 2, 2 ]
-var got = _.plane.segmentIntersects( plane1, segment1 );
-console.log( 'Plane intersects with segment:', got )
-/* log : Plane intersects with segment: true */
+var plane = [ 1, 0, 0, 1 ];
+var segment = [ -2, -2, -2, 2, 2, 2 ];
+var intersected = _.plane.segmentIntersects( plane, segment );
+console.log( `Plane intersects with segment : ${ intersected }` );
+/* log : Plane intersects with segment : true */
 ```
 
-В змінну `got` повертається `true` так, як площина `plane1` перетинається із відрізком `segment1`.
+В змінну `intersected` повертається `true` так, як площина `plane` перетинається із відрізком `segment`.
 
 
 ```js
-var plane1 = [ 0, 2, 0, 2 ];
-var sphere1 = [ 0, 0, 0, 1.5 ];
-var got = _.plane.sphereIntersects( plane1, sphere1 );
-console.log( 'Plane intersects with sphere:', got )
-/* log : Plane intersects with sphere: true */
+var plane = [ 0, 2, 0, 2 ];
+var sphere = [ 0, 0, 0, 1.5 ];
+var intersected = _.plane.sphereIntersects( plane, sphere );
+console.log( `Plane intersects with sphere : ${ intersected }` );
+/* log : Plane intersects with sphere : true */
 
 ```
 
-В змінну `got` повертається `true` так, як площина `plane1` перетинається із сферою `sphere1`.
+В змінну `intersected` повертається `true` так, як площина `plane` перетинається із сферою `sphere`.
 
 ```js
-var plane1 = [ - 1, 0, 0, 1 ];
-var ray1 = [ 0, 0, 0, 1, 1, 1 ];
-var got = _.plane.rayIntersects( plane1, ray1 );
-console.log( 'Plane intersects with ray:', got )
+var plane = [ - 1, 0, 0, 1 ];
+var ray = [ 0, 0, 0, 1, 1, 1 ];
+var intersected = _.plane.rayIntersects( plane, ray );
+console.log( `Plane intersects with ray : ${ intersected }` );
 /* log : Plane intersects with ray: true */
 ```
 
-В змінну `got` повертається `true` так, як площина `plane1` перетинається із променем `ray1`.
+В змінну `intersected` повертається `true` так, як площина `plane` перетинається із променем `ray`.
 
 
 ### Convention dst=null
 
-Рутини, які очікують dst контейнер першим аргументом, можуть створювати новий інстанс моделі, для цього необхідно передати null в якості dst аргумента.
+Рутини, які очікують `dst` контейнер першим аргументом, можуть створювати новий інстанс моделі, для цього необхідно передати `null` в якості `dst` аргумента.
 
 ```js
-
-var Point1 = [ 3, 1 ];
-var Point2 = [ 0, 8 ];
-var box1 = _.box.fromPoints( null, [ Point1, Point2 ] );
-console.log( 'Box:', box1 );
-/* log : Box: [ 0, 1, 3, 8 ] */
-
+var point1 = [ 3, 1 ];
+var point2 = [ 0, 8 ];
+var box = _.box.fromPoints( null, [ point1, point2 ] );
+console.log( `Box : ${ box }` );
+/* log : Box : [ 0, 1, 3, 8 ] */
 ```
 
-Екземпляр `box1` моделі типу `box` створюється із точок `Point1` та `Point2`. З виводу видно, що `box1` містить точки
-`Point1` та `Point2`.
+Екземпляр `box` моделі типу `box` створюється із точок `point1` та `point2`. З виводу видно, що `box` містить точки
+`point1` та `point2`.
 
-Приклад використання існуючого dst контейнера для створення екземпляра моделі типу `box`
+Приклад використання існуючого `dst` контейнера для створення екземпляра моделі типу `box`
 
 ```js
-
-var Point1 = [ 3, 1 ];
-var Point2 = [ 0, 8 ];
-var dstBox = _.vad.make( 4 );
-_.box.fromPoints( dstBox, [ Point1, Point2 ] );
-console.log( 'Box:', dstBox.toStr() );
-/* log : Box: VectorAdapter.x4.F32x :: 0.000 0.000 3.000 8.000 */
-
+var point1 = [ 3, 1 ];
+var point2 = [ 0, 8 ];
+var dstBox = _.vectorAdapter.make( 4 );
+_.box.fromPoints( dstBox, [ point1, point2 ] );
+console.log( `Box : ${ dstBox }` );
+/* log : Box : VectorAdapter.x4.F32x :: 0.000 0.000 3.000 8.000 */
 ```
 
 Створюється вектор адаптер `dstBox` для даних екземпляра моделі типу `box` довжиною в чотири елементи.
-Створюється екземпляр моделі типу `box` із точок `Point1` та `Point2`, дані точок записуються в кінцевий контейнер `dstBox`.
-З виводу видно, що бокс `dstBox` містить координати точок `Point1` та `Point2`.
+Створюється екземпляр моделі типу `box` із точок `point1` та `point2`, дані точок записуються в кінцевий контейнер `dstBox`.
+З виводу видно, що бокс `dstBox` містить координати точок `point1` та `point2`.
 
 ### Higher dimension
 
-Одна рутина може виконувати операції для екземплярів моделей різної розмірності( якщо такий випадок є реалізований )
+Одна рутина може виконувати операції для екземплярів моделей різної розмірності ( якщо такий випадок реалізований )
 
 ```js
 var sphere2d = [ 1, 1, 5 ];
 var point2d = [ 2, 2 ];
-var got = _.sphere.pointContains( sphere2d, point2d );
-console.log( 'Sphere contains point:', got )
-/* log : Sphere contains point: true */
+var contains = _.sphere.pointContains( sphere2d, point2d );
+console.log( `Sphere contains point : ${ contains }` );
+/* log : Sphere contains point : true */
 ```
 
-В змінну `got` повертається `true` так, як точка `point2d` знаходиться в середині сфери `sphere2d`.
+В змінну `contains` повертається `true` так, як точка `point2d` знаходиться в середині сфери `sphere2d`.
 
 
 ```js
 var sphere3d = [ 2, 2, 2, 5 ];
 var point3d = [ 3, 3, 3 ];
-var got = _.sphere.pointContains( sphere3d, point3d );
-console.log( 'Sphere contains point:', got )
-/* log : Sphere contains point: true */
+var contains = _.sphere.pointContains( sphere3d, point3d );
+console.log( `Sphere contains point : ${ contains }` );
+/* log : Sphere contains point : true */
 ```
 
-В змінну `got` повертається `true` так, як точка `point3d` знаходиться в середині сфери `sphere3d`.
+В змінну `contains` повертається `true` так, як точка `point3d` знаходиться в середині сфери `sphere3d`.
 
 
 ```js
 var sphere4d = [ 3, 3, 3, 3, 5 ];
 var point4d = [ 4, 4, 4, 4 ];
-var box = _.sphere.pointContains( sphere4d, point4d );
-console.log( 'Sphere contains point:', got )
+var contains = _.sphere.pointContains( sphere4d, point4d );
+console.log( `Sphere contains point : ${ contains }` );
 /* log : Sphere contains point: true */
-
 ```
 
-В змінну `got` повертається `true` так, як точка `point4d` знаходиться в середині сфери `sphere4d`.
-
+В змінну `contains` повертається `true` так, як точка `point4d` знаходиться в середині сфери `sphere4d`.
 
 Приклад визначення відстані між точкою та лінією представленою у вигляді даних неявної функції
 
 ```js
-var line1 = [ -4, 4, 0 ];
-var point1 = [ 3, 2 ];
-var got = _.plane.pointDistance( line1, point1 );
-console.log( 'Distance from straight to point:', _.toStr( got, { precision : 2 } ) );
+var point = [ 3, 2 ];
+var line = [ -4, 4, 0 ];
+var distance = _.plane.pointDistance( line, point );
+console.log( `Distance from straight to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from straight to point: -0.71*/
 ```
 
-В змінну `got` повертається відстань між точкою `point1` та лінією `line1`, яка відповідає значенню `-0.71`.
+В змінну `distance` повертається відстань між точкою `point` та лінією `line`, яка відповідає значенню `-0.71`.
 
 Приклад визначення відстані між точкою та площиною
 
 ```js
-var point1 = [ 4, 1, -3 ];
-var plane1 = [ 2, -1, 3, 1 ];
-var got = _.plane.pointDistance( plane1, point1 );
-console.log( 'Distance from 3D plane to point:', _.toStr( got, { precision : 2 } ) );
-/* log : Distance from 3D plane to point: -0.27 */
+var point = [ 4, 1, -3 ];
+var plane = [ 2, -1, 3, 1 ];
+var distance = _.plane.pointDistance( plane, point );
+console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+/* log : Distance from 3D plane to point : -0.27 */
 ```
 
-В змінну `got` повертається відстань між площиною `plane1` та точкою `point1`, яка відповідає значенню `-0.27`.
+В змінну `distance` повертається відстань між площиною `plane` та точкою `point`, яка відповідає значенню `-0.27`.
 
 
 ### Alternative models
