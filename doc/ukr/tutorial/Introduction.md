@@ -19,67 +19,67 @@
 Cтворення екземпляра моделі `box` із розмірністю визначеною за замовчуванням:
 
 ```js
-let box1 = _.box.make();
-console.log( 'Type :', _.strType( box1 ) );
+var box = _.box.make();
+console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : Array */
-console.log( box1 );
+console.log( box );
 /* log : [ 0, 0, 0, 0, 0, 0 ] */
 ```
 
-Бокс `box1` знаходиться в `3D` просторі. 3 перших скаляри вектора `box1` описують одну крайню точку тоді як 3 останніх скаляри описують іншу крайню точку. Це є параметрами моделі бокс за замовучанням.
+Бокс `box` знаходиться в `3D` просторі. 3 перших скаляри вектора `box` описують одну крайню точку тоді як 3 останніх скаляри описують іншу крайню точку. Це є параметрами моделі бокс за замовучанням.
 
 Кожна модель реалізує рутину `make` та визначає аргументи за замовчуванням для того щоб можливо було створити екземпляр викликом без аргументів.
 
 Викликавши рутину `make` із скаляром можливо задати розмірність.
 
 ```js
-let dim = 2;
-let box1 = _.box.make( dim );
-console.log( 'Type :', _.strType( box1 ) );
+var dim = 2;
+var box = _.box.make( dim );
+console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : Array */
-console.log( box1 );
+console.log( box );
 /* log : [ 0, 0, 0, 0 ] */
 ```
 
-Бокс `box1` створюється в 2D просторі на відміну від попереднього приклада вектора має лише 4 скаляри, по 2 на кожну вершину.
+Бокс `box` створюється в 2D просторі на відміну від попереднього приклада, вектор має лише 4 скаляри - по 2 на кожну вершину.
 
 Для створення за зразком передайте в рутину `make` зразок.
 
 ```js
-let srcBox = [ 0, 1, 2, 3 ];
-let box1 = _.box.make( srcBox );
-console.log( 'srcBox === box1 :', srcBox === box1 )
+var srcBox = [ 0, 1, 2, 3 ];
+var box = _.box.make( srcBox );
+console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : false */
-console.log( 'Type :', _.strType( box1 ) );
+console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : Array */
-console.log( box1 );
+console.log( box );
 /* log : [ 0, 1, 2, 3 ] */
 ```
 
-Розмірність та всі дані `box1` такі ж як в `srcBox`.
+Розмірність та всі дані `box` такі ж як в `srcBox`.
 
 Створення за зразком за замовчуванням:
 
 ```js
-let box1 = _.box.make( null );
-console.log( 'Type :', _.strType( box1 ) );
+var box = _.box.make( null );
+console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : Array */
-console.log( box1 );
-/* log : [ 0, 0, 0, 0, 0, 0 ] */
+console.log( box );
+/* log : [ 0, 1, 2, 3 ] */
 ```
 
-Семантика така ж як в прикладі із викликом без аргументів. Прагматика дещо інша: в якості зразка використовується уявнй екземпляр із даними за замовчуванням.
+Семантика така ж як в прикладі із викликом без аргументів. Прагматика дещо інша: в якості зразка використовується уявний екземпляр із даними за замовчуванням.
 
 ### Routine from
 
-Альтернативним способом створити екземпляр метематичної моделі є рутину `from`.
-Рутина `from` так само, як і `make` конструює новий екземпляр, але на відмінно від рутини `make` ще робить додаткову перевірку. Рутина `from` створює новий екземпляр лише якщо аргументом виклику є не екземпляр даної моделі. Якщо ж на вхід рутини `from` передається екземпляр даної моделі тоді він же повертається без жодних змін.
+Альтернативним способом створити екземпляр метематичної моделі є використання рутини `from`.
+Рутина `from` так само, як і `make` конструює новий екземпляр, але на відміну від рутини `make` ще робить додаткову перевірку. Рутина `from` створює новий екземпляр лише якщо аргументом виклику є не екземпляр даної моделі. Якщо ж на вхід рутини `from` передається екземпляр даної моделі тоді він же повертається без жодних змін.
 
 Створимо екземпляр моделі бокс вручну і передамо її на вхід рутини `from`:
 
 ```js
-let srcBox = new F32x([ 0, 1, 2, 3 ]);
-let box = _.box.from( srcBox );
+var srcBox = new F32x([ 0, 1, 2, 3 ]);
+var box = _.box.from( srcBox );
 console.log( 'srcBox === box :', srcBox === box );
 /* log : srcBox === box : true */
 console.log( 'Type :', _.strType( box ) );
@@ -96,8 +96,8 @@ console.log( box );
 Приклад передавання готової моделі у вигляді вектор адаптера
 
 ```js
-let srcBox = _.vad.fromLong([ 0, 1, 2, 3 ]);
-let box = _.box.from( srcBox );
+var srcBox = _.vad.fromLong([ 0, 1, 2, 3 ]);
+var box = _.box.from( srcBox );
 console.log( 'srcBox === box :', srcBox === box )
 /* log : srcBox === box : true */
 console.log( 'Type :', _.strType( box ) );
@@ -112,7 +112,7 @@ console.log( box.toStr() );
 Приклад явного створення нової моделі типу `box`.
 
 ```js
-let box1 = _.box.from( null );
+var box1 = _.box.from( null );
 console.log( 'Type :', _.strType( box1 ) );
 /* log : Type : Array */
 console.log( box1 );
@@ -131,11 +131,11 @@ console.log( box1 );
 Приклад створення нової моделі типу `box` обома рутинами
 
 ```js
-let box1 = _.box.make( null );
+var box1 = _.box.make( null );
 console.log( 'Box1 :', box1 );
 /* log : Box1 : [ 0, 0, 0, 0, 0, 0 ] */
 
-let box2 = _.box.from( null );
+var box2 = _.box.from( null );
 console.log( 'Box2 :', box2 );
 /* log : Box1 : [ 0, 0, 0, 0, 0, 0 ] */
 ```
@@ -145,15 +145,15 @@ console.log( 'Box2 :', box2 );
 Приклад відмінності в обробці рутинами вже існуючої моделі
 
 ```js
-let srcBox = [ 0, 1, 2, 3 ];
+var srcBox = [ 0, 1, 2, 3 ];
 
-let box1 = _.box.make( srcBox );
+var box1 = _.box.make( srcBox );
 console.log( 'srcBox === box1 :', srcBox === box1 )
 /* log : srcBox === box1 : false */
 console.log( 'Box1 :', box1 );
 /* log : Box1 : [ 0, 1, 2, 3 ] */
 
-let box2 = _.box.from( srcBox );
+var box2 = _.box.from( srcBox );
 console.log( 'srcBox === box2 :', srcBox === box2 )
 /* log : srcBox === box2 : true */
 console.log( 'Box2 :', box2 );
@@ -179,7 +179,7 @@ console.log( 'Box2 :', box2 );
 Створення моделі типу `linePointDir` на основі даних:
 
 ```js
-let line1 = _.linePointDir.make( [ 1, 2, 3, 4 ] );
+var line1 = _.linePointDir.make( [ 1, 2, 3, 4 ] );
 console.log( 'Line:', line1 );
 /* log : Line : [ 1, 2, 3, 4 ] */
 ```
@@ -192,15 +192,15 @@ console.log( 'Line:', line1 );
 Приклад отримання даних моделі:
 
 ```js
-let line = [ 1, 2, 3, 4 ];
+var line = [ 1, 2, 3, 4 ];
 
 //How to get origin point
-let origin = _.linePointDir.originGet( line );
+var origin = _.linePointDir.originGet( line );
 console.log( 'Origin:', origin.toStr() );
 /* log : Origin : "1.000 2.000" */
 
 //How to get direction vector
-let direction = _.linePointDir.directionGet( line );
+var direction = _.linePointDir.directionGet( line );
 console.log( 'Direction:', direction.toStr() );
 /* log : Origin : "3.000 4.000" */
 
@@ -433,7 +433,7 @@ console.log( 'Sphere contains point:', got )
 ```js
 var line1 = [ -4, 4, 0 ];
 var point1 = [ 3, 2 ];
-let got = _.plane.pointDistance( line1, point1 );
+var got = _.plane.pointDistance( line1, point1 );
 console.log( 'Distance from straight to point:', _.toStr( got, { precision : 2 } ) );
 /* log : Distance from straight to point: -0.71*/
 ```
@@ -445,7 +445,7 @@ console.log( 'Distance from straight to point:', _.toStr( got, { precision : 2 }
 ```js
 var point1 = [ 4, 1, -3 ];
 var plane1 = [ 2, -1, 3, 1 ];
-let got = _.plane.pointDistance( plane1, point1 );
+var got = _.plane.pointDistance( plane1, point1 );
 console.log( 'Distance from 3D plane to point:', _.toStr( got, { precision : 2 } ) );
 /* log : Distance from 3D plane to point: -0.27 */
 ```
