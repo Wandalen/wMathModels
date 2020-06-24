@@ -476,21 +476,21 @@ console.log( `Intersection point : ${ point2 }` );
 
 ```js
 var euler1 =  [ 1, 0, 0.5, 0, 1, 2 ] ;
-console.log( 'Euler:', _.toStr( euler1, { precision : 2 } ) )
-/* log : Euler: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
+console.log( `Euler : ${ _.toStr( euler1, { precision : 2 } ) }` );
+/* log : Euler : [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 
-var quat1 = _.euler.toQuat( euler1, null );
-console.log( 'Quat from Euler:', _.toStr( quat1, { precision : 2 } ) )
-/* log : Quat from Euler: [ 0.46, -0.12, 0.22, 0.85 ] */
+var quat = _.euler.toQuat( euler1, null );
+console.log( `Quat from Euler : ${ _.toStr( quat, { precision : 2 } ) }` );
+/* log : Quat from Euler : [ 0.46, -0.12, 0.22, 0.85 ] */
 
-var euler2 = _.quat.toEuler( quat1, null );
-console.log( 'Euler from Quat:', _.toStr( euler2, { precision : 2 } ) )
-/* log : Euler from Quat: [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
+var euler2 = _.quat.toEuler( quat, null );
+console.log( `Euler from Quat : ${ _.toStr( euler2, { precision : 2 } ) }` );
+/* log : Euler from Quat : [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 ```
 
 Створюється контейнер із даними про кути Еулера `euler1`.
-В змінну `quat1` записується кватерніон, який є результатом перетворення із кутів Еулера `euler1`
-В змінну `euler2` записується значення кутів Еулера, які є результатом перетворення кватерніону `quat1` в кути Еулера.
+В змінну `quat` записується кватерніон, який є результатом перетворення із кутів Еулера `euler1`
+В змінну `euler2` записується значення кутів Еулера, які є результатом перетворення кватерніону `quat` в кути Еулера.
 Вивід підтверджує, що перетворенням між кутами Еулера та кватерніоном відбулось успішно.
 
 ### Models overview
