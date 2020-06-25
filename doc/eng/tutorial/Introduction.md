@@ -396,3 +396,32 @@ console.log( `Plane intersects with ray : ${ intersected }` );
 `true` is returned to the variable `intersected`, because the plane `plane` is crossing with a ray `ray`.
 
 ### Convention dst=null
+
+The routines which expect `dst` container as a first argument, are able to create a new instance of a model instead of rewriting the existing one. `dst` is the argument in which the writing is made if any writting is performed. `dst` is the first argument. `null` as the first argument instructs to create a new container to write the result.
+
+```js
+var point1 = [ 3, 1 ];
+var point2 = [ 0, 8 ];
+var box = _.box.fromPoints( null, [ point1, point2 ] );
+console.log( `Box : ${ box }` );
+/* log : Box : [ 0, 1, 3, 8 ] */
+```
+
+An instance `box` of the model `box` is created from the points `point1` and `point2`. From the output, it's clear that `box` contains `point1` and `point2`.
+
+Alternatively, a container to write the result can be created manually and passed as a first argument.
+
+```js
+var point1 = [ 3, 1 ];
+var point2 = [ 0, 8 ];
+var dstBox = _.box.makeSingular( 2 );
+console.log( `Box : ${dstBox}` );
+/* log : Box : Infinity,Infinity,-Infinity,-Infinity */
+_.box.fromPoints( dstBox, [ point1, point2 ] );
+console.log( `Box : ${dstBox}` );
+/* log : Box : 0,1,3,8 */
+```
+
+The vector `dstBox`, which will be the container to the data of the instance of the model `box` is created. `_.box.makeSingular` fills `dstBox` with infinities. Based on points `point1` and `point2` the extreme points of boxing are calculated. As a result the left bottom point has value `( 0, 1 )` and right top `( 3, 8 )`.
+
+### Naming pattern
