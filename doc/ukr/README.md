@@ -8,8 +8,8 @@
 </details> -->
 
 <details>
-  <summary><a href="./concept/Overview.md">
-    Математична моделі
+  <summary><a href="./concept/Overview.md#математична-модель">
+    Математична модель
   </a></summary>
     Формальний опис системи за допомогою математичних концепцій та мови.
 </details>
