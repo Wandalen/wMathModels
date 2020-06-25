@@ -295,9 +295,9 @@ console.log( `Quat from Euler : ${ _.toStr( quat, { precision : 2 } ) }` );
 Обертання об'єкта за допомогою кватерніона. Один із можливих способів задати обертання. Кватерніон це розширення концепції комплексних чисел в 3D простір. Задається 4-ма числами в яких закодована вісь обертання на поворот. Довжина валідного кватерніона завжди 1. На відміну від кутів еулера, кватерніон не страждає від проблеми [гімбал лока](https://en.wikipedia.org/wiki/Gimbal_lock).
 
 ```js
-var quat = [ 0.38, 0.0, 0.0, 0.92 ]
-var euler = _.quat.toEuler( quat, null )
-console.log( `Quat from Euler : ${ _.toStr( euler, { precision : 2 } ) }` )
+var quat = [ 0.38, 0.0, 0.0, 0.92 ];
+var euler = _.quat.toEuler( quat, null );
+console.log( `Quat from Euler : ${ _.toStr( euler, { precision : 2 } ) }` );
 /* log : Euler from Quat : [ 0.78, 0.0, -0.0, 0.0, 1.0, 2.0 ] */
 ```
 
