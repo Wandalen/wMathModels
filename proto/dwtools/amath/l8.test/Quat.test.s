@@ -190,7 +190,7 @@ function eachQuat( onQuat )
 
   // /* */
 
- test.case = 'ordinary cases 1';
+ // test.case = 'ordinary cases 1';
 
   var begin = [ -0.6, -0.5, -0.345 ];
   var end = [ +0.5, +0.7, +0.345 ];
@@ -214,7 +214,7 @@ function eachQuat( onQuat )
 
   // /* */
 
- test.case = 'ordinary cases 2';
+ // test.case = 'ordinary cases 2';
 
   var begin = [ -0.25, -0.7, -0.515 ];
   var end = [ +0.6, +0.3, +0.246 ];
@@ -1498,6 +1498,7 @@ var Self =
   context :
   {
     eachAngle,
+    eachQuat,
   },
 
   tests :

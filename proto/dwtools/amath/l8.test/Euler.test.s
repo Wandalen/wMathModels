@@ -735,7 +735,7 @@ function toMatrix( test )
   var euler = [ 2.8633, -0.4275, 1.1461, 2, 1, 0 ];
   var src = matrix.fromEuler( euler );
   var got = _.Matrix.From( src );
-  var exp = _.Matrix.Make([ 3, 3 ]).copy
+  var exp = _.Matrix.MakeSquare
   ([
     -0.875,   0.250,   0.415,
      0.250,  -0.500,   0.829,
