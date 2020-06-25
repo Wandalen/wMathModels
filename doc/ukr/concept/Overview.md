@@ -236,13 +236,23 @@ console.log( `Type of polygon : ${ _.strType( polygon ) }` );
 
 Математична модель фрустума - обрізаної піраміди. Модель обрізаної піраміди часто застосовується в 3D графіці для видимої частини простору видимої перспективною камерою. Модель задається 6-мома гранями <!-- faces  -->. Кожна грань, в свою чергу, задана неявним рівнянням площини. Екземпляр моделі зберігає свої параметри в матриці розмірності 4x6. Рівняння площини зберігаються в колонках такої матриці.
 
+<!-- // aaa : compute from matrix of perspective projection | Dmytro : done -->
 ```js
 var frustum = _.frustum.make();
-// qqq : compute from matrix of perspective projection
-var point = [ 1, 1, 2 ]
+var matrix = _.Matrix.FormPerspective( 90, [ 20, 70 ], [ 10, 50 ] );
+_.frustum.fromMatrixHomogenous( frustum, matrix );
+console.log( `Frustum from perspective matrix : \n${ frustum }` );
+var point = [ 1, 1, 2 ];
+/* log :
+Matrix.F32x.4x6 ::
+  -1.000 1.000  0.000  0.000  0.000  0.000
+  0.000  0.000  0.286  -0.286 0.000  0.000
+  -1.000 -1.000 -1.000 -1.000 0.500  -2.500
+  0.000  0.000  0.000  0.000  25.000 -25.000
+*/
 var distance = _.frustum.pointDistance( frustum, point );
 console.log( `Distance from frustum to point : ${ _.toStr( distance, { precision : 2 } ) }` );
-/* log : Distance from frustum to point : 1.0 */
+/* log : Distance from frustum to point : 37 */
 console.log( `Type of frustum : ${ _.strType( frustum ) }` );
 /* log : Type of frustum : wMatrix */
 ```
