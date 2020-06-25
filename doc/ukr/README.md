@@ -18,7 +18,7 @@
   <summary><a href="./concept/Overview.md#box">
     Box
   </a></summary>
-    Математична модель n-ортотопа, або інакше гіпер-прямокутника або бокса.
+    Математична модель n-ортотопа, або інакше гіперпрямокутника або бокса.
 </details>
 
 <details>
@@ -39,7 +39,7 @@
   <summary><a href="./concept/Overview.md#sphere">
     Sphere
   </a></summary>
-    Математична модель гіпер-сфери.
+    Математична модель гіперсфери.
 </details>
 
 <details>
@@ -74,7 +74,7 @@
   <summary><a href="./concept/Overview.md#plane--implicit-">
     Plane ( implicit )
   </a></summary>
-    Математична модель гіпер-площини заданої неявним рівнянням.
+    Математична модель гіперплощини заданої неявним рівнянням.
 </details>
 
 <details>
