@@ -5,8 +5,8 @@ var _ = wTools;
 
 /* */
 
-var ray = [ 2, 1, 4, 2 ];
-var factor = 0.25;
-var pair = _.linePoints.pairAt( ray,factor );
-console.log( `Pair at factor 0.25 : ${ pair }` );
-/* log : Pair at factor 0.25 : 2.500 1.250 */
+var line = [ 2, 1, 4, 2 ];
+var point = [ 2, 3 ];
+var distance = _.linePoints.pointDistance( line, point );
+console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+/* log : Distance from line to point : 1.7 */
