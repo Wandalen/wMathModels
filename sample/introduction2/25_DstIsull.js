@@ -10,4 +10,3 @@ var point2 = [ 0, 8 ];
 var box = _.box.fromPoints( null, [ point1, point2 ] );
 console.log( `Box : ${ box }` );
 /* log : Box : [ 0, 1, 3, 8 ] */
-

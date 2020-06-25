@@ -5,8 +5,8 @@ var _ = wTools;
 
 /* */
 
-var linePoints1 = _.linePoints.from( [ 1, 1, 3, 3 ] );
-var linePoints2 = _.linePoints.from( [ 2, 2, 3, 3 ] );
+var linePoints1 = _.linePoints.from([ 1, 1, 3, 3 ]);
+var linePoints2 = _.linePoints.from([ 2, 2, 3, 3 ]);
 var point1 = _.linePoints.pairIntersectionPoint( linePoints1, linePoints2 );
 console.log( `Intersection point : ${ point1 }` );
 /* log : Intersection point : [ 2, 2 ] */
