@@ -20,8 +20,8 @@ console.log( `Should contains if has counterclock-wise order : ${ contains }` );
 
 var vertices =
 [
-  2, 9,  6,  5,
-  1, 2, -1,  6,
+  2, 5, 9,  6,
+  1, 6, 2, -1,
 ]
 var polygon = _.convexPolygon.make( vertices, 2 );
 var point = [ 6, 4 ];
