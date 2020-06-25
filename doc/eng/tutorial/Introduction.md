@@ -4,17 +4,17 @@ The article describes the main features of the module and the principles of its 
 
 ### Mathematical model
 
-Formal description of the system using mathematical concepts and language.
+A formal description of the system using mathematical concepts and language.
 
 ### Making an instance
 
-Every model has a certain pair of routines `make` and `from` for creation an instance of it. Creation an instance without arguments creates an instance with default parameters. In addition, each model defines routine `is` which answers the question: "is this essence an instance of this model".
+Every model has a certain pair of routines `make` and `from` for creating an instance of it. Creation an instance without arguments creates an instance with default parameters. Also, each model defines routine `is` which answers the question: "is this essence an instance of this model".
 
 ### Routine make
 
-The routine `make` allows to create an instance of a model. New instance can be created based on a given dimensionality or another instance. If an instance of a model is used as an argument, the new instance will be a copy of the original instance.
+The routine `make` allows us to create an instance of a model. A new instance can be created based on a given dimensionality or another instance. If an instance of a model is used as an argument, the new instance will be a copy of the original instance.
 
-Creation of an instance of the model `box` with dimesions by default:
+Creation of an instance of the model `box` with dimensions by default:
 
 ```js
 var box = _.box.make();
@@ -26,11 +26,11 @@ console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
 ```
 
-Box `box` is in `3D` space. The first three scalars describe one extreme point, while the last three scalars describe another extreme point. Those are model's default parameters.
+Box `box` is in `3D` space. The first three scalars describe one extreme point, while the last three scalars describe another extreme point. Those are the model's default parameters.
 
 Every model implements routine `make` and defines default arguments so that an instance can be created through a call without arguments.
 
-Invocation of the routine `make` with a scalar creates box with a given dimensionality.
+The invocation of the routine `make` with a scalar creates a box with a given dimensionality.
 
 ```js
 var dim = 2;
@@ -43,7 +43,7 @@ console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
 ```
 
-Box `box` is created in 2D space, unlike the previous example, vector has only 4 scalars - 2 for each vertix.
+Box `box` is created in 2D space, unlike the previous example, the vector has only 4 scalars - 2 for each vertex.
 
 To create with a sample pass the sample as the argument to the routine `make`.
 
@@ -78,7 +78,7 @@ console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
 ```
 
-The semantics is the same as in the example with call without arguments. The pragmatics is different: an imaginary instance with default parameters is used as a sample.
+The semantics is the same as in the example with a call without arguments. The pragmatics is different: an imaginary instance with default parameters is used as a sample.
 
 ### Routine from
 
@@ -99,7 +99,7 @@ console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
 ```
 
-The routine `_.box.from()` first of all checks whether `srcBox` is an instance of the model `box`. And `srcBox` is an instance of the model `box` so it is returned without any changes from the routine `_.box.from()`.
+The routine `_.box.from()` first of all, checks whether `srcBox` is an instance of the model `box`. And `srcBox` is an instance of the model `box` so it is returned without any changes from the routine `_.box.from()`.
 
 Alternatively the routine `from()` takes a vector adapter.
 
@@ -132,7 +132,7 @@ The routine `_.box.from()` creates a new instance of the box model with default 
 
 ### Make vs from
 
-Two alternative ways `make()` and `from()` for creation of instances of mathematical models have similarities and differences.
+Two alternative ways `make()` and `from()` for the creation of instances of mathematical models have similarities and differences.
 
 ```js
 var box1 = _.box.make( null );
@@ -169,7 +169,7 @@ Both calls `make()` and `from()` return an instance of the model box with parame
 
 ### Uncoupling data and functionality
 
-Data of instances of all mathematical models are stored in the **vector** ( of any form ) or **matrix**. The container for the model box, quaternion, straight line and many others is a **vector**.
+Data of instances of all mathematical models are stored in the **vector** ( of any form ) or **matrix**. The container for the model box, quaternion, straight line, and many others is a **vector**.
 
 A vector might have the following forms:
 
@@ -177,18 +177,18 @@ A vector might have the following forms:
 - typed array ( BufferTyped )
 - vector adapter ( VectorAdapter )
 
-Vector adapter is a kind of link that defines how to interpret data as the vector.
+A vector adapter is a kind of link that defines how to interpret data as the vector.
 
-The container for the model polygon and frustum is a **matrix**. A matrix is capable of transfering multidimensional information, which is a need for models like polygon.
+The container for the model polygon and frustum is a **matrix**. A matrix is capable of transferring multidimensional information, which is a need for models like a polygon.
 
 A **zero-copy principle** can be implemented both through the matrix and through the vector adapter.
 
 Uncoupling of the data and functionality:
 
- - makes it possible to avoid useless copying of data .
+ - makes it possible to avoid useless copying of data.
  - simplifies the use of the module.
  - standardizes the interface.
- - algorithms of all models are not tied to the form, the format or the type of the data.
+ - algorithms of all models are not tied to the form, the format, or the type of the data.
  - makes the system more extendable
 
 Algorithms and data are uncoupled. Algorithms are implemented on the abstract interface of the vector adapter or matrix.
@@ -204,11 +204,11 @@ console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : true */
 ```
 
-Please note that `box` is an ordinary vector and not some object. This is a direct manifestation of the **uncoupling of the data and functionality principle**
+Please note that `box` is an ordinary vector and not some kind of object. This is a direct manifestation of the **uncoupling of the data and functionality principle**
 
 ### Namespaces logistics
 
-All model's algorithms are called through namespace models, for example for box it is `_.box.*`, for quaternion it is `_.quat.*`, while an instance of the model is a **vector** or a **matrix**, and not an instance of some other additional class. All mathematical model's algorithms are called functionally, for example:
+All model's algorithms are called through namespace models, for example for the box it is `_.box.*`, for quaternion, it is `_.quat.*`, while an instance of the model is a **vector** or a **matrix**, and not an instance of some other additional class. All mathematical model's algorithms are called functionally, for example:
 
 ```js
 var distance = _.plane.pointDistance( plane, point );
@@ -218,7 +218,7 @@ Here a `plane` is a vector, which is interpreted as an implicit plane equation, 
 
 ### Components of models
 
-All mathematical models in this module ( vector as well as matrix ) consist of atomic parts, on the lowest level those are scalars, which are often grouped into larger groups.
+All mathematical models in this module (a vector as well as a matrix ) consist of atomic parts, on the lowest level those are scalars, which are often grouped into larger groups.
 
 ```js
 var box = new F32x([ 2, 1, 9, 5 ]);
@@ -230,9 +230,9 @@ console.log( `cornerRight : ${ cornerRight }` );
 /* log : cornerRight : VectorAdapter.x2.F32x :: 9.000 5.000 */
 ```
 
-An instance of the model `box` is created manually. Routine `_.box.cornerLeftGet( box )` creates vector adapter for the left bottom point of the box and then output it to the log.
+An instance of the model `box` is created manually. Routine `_.box.cornerLeftGet( box )` creates a vector adapter for the left bottom point of the box and then output it to the log.
 
-Routines for the access to the components of the instances of the models return not a copy of the data but vector adapter. Vector adapter is a kind of link to the data and it doesn't have this data.
+Routines for access to the components of the instances of the models return not a copy of the data but a vector adapter. A vector adapter is a kind of link to the data and it doesn't have this data.
 
 ```js
 var box = new F32x([ 2, 1, 9, 5 ]);
@@ -244,9 +244,9 @@ console.log( `box : ${ box }` );
 /* log : box : 3,4,9,5 */
 ```
 
-Vector adapter `cornerLeft` is used to change the value of the first vertix of the box.
+A vector adapter `cornerLeft` is used to change the value of the first vertex of the box.
 
-Routines for the access to the components of the models take vectors in any form, including vector adapters.
+Routines for access to the components of the models take vectors in any form, including vector adapters.
 
 ```js
 var box = _.vad.from([ 2, 1, 9, 5 ]);
@@ -264,7 +264,7 @@ The output is similar to the first example.
 
 The behavior is unchanged when the type of the model changes.
 
-For example, algorithm for checking that the point is on the surface or inside is implemented by the routine `pointContains`. All models for which it's possible to implement such an algorithm have this routine with this name.
+For example, an algorithm for checking that the point is on the surface or inside is implemented by the routine `pointContains`. All models for which it's possible to implement such an algorithm have this routine with this name.
 
 ```js
 var point = [ 0, 1, 2 ];
@@ -303,9 +303,9 @@ A convex polygon `polygon` is created in 2D based on the coordinates of the vert
 
 ### Intuitive
 
-The routines have intuitive names. Knowledge of one routine helps to guess about other routines. The search in the module and its research can be made by combining prefixes/suffixes
+The routines have intuitive names. Knowledge of one routine helps to guess about other routines. The search in the module and its research can be made by combining prefixes/suffixes.
 
-An example of using a group of routines `*Intersects` to check the cross section of the model instance `plane` with instances of other models.
+An example of using a group of routines `*Intersects` to check the cross-section of the model instance `plane` with instances of other models.
 
 ```js
 var plane = [ 0, 2, 0, -2 ];
@@ -397,7 +397,7 @@ console.log( `Plane intersects with ray : ${ intersected }` );
 
 ### Convention dst=null
 
-The routines which expect `dst` container as a first argument, are able to create a new instance of a model instead of rewriting the existing one. `dst` is the argument in which the writing is made if any writting is performed. `dst` is the first argument. `null` as the first argument instructs to create a new container to write the result.
+The routines which expect `dst` container as a first argument, can create a new instance of a model instead of rewriting the existing one. `dst` is the argument in which the writing is made if any writing is performed. `dst` is the first argument. `null` as the first argument instructs to create a new container to write the result.
 
 ```js
 var point1 = [ 3, 1 ];
@@ -422,7 +422,7 @@ console.log( `Box : ${dstBox}` );
 /* log : Box : 0,1,3,8 */
 ```
 
-The vector `dstBox`, which will be the container to the data of the instance of the model `box` is created. `_.box.makeSingular` fills `dstBox` with infinities. Based on points `point1` and `point2` the extreme points of boxing are calculated. As a result the left bottom point has value `( 0, 1 )` and right top `( 3, 8 )`.
+The vector `dstBox`, which will be the container to the data of the instance of the model `box` is created. `_.box.makeSingular` fills `dstBox` with infinities. Based on points `point1` and `point2` the extreme points of boxing are calculated. As a result, the left bottom point has value `( 0, 1 )` and right top `( 3, 8 )`.
 
 ### Naming pattern
 
@@ -448,7 +448,7 @@ console.log( `Sphere contains point : ${ contains }` );
 /* log : Sphere contains point : true */
 ```
 
-In 2D case sphere is a circle. The same as in 3D case describes a center and a radius, which requires 3 scalars.
+In the 2D case, a sphere is a circle. The same as in the 3D case describes a center and a radius, which requires 3 scalars.
 
 ```js
 var sphere3d = [ 2, 2, 2, 5 ];
@@ -458,7 +458,7 @@ console.log( `Sphere contains point : ${ contains }` );
 /* log : Sphere contains point : true */
 ```
 
-In 3D case a sphere is described by 4 scalars.
+In the 3D case, a sphere is described by 4 scalars.
 
 ```js
 var sphere4d = [ 3, 3, 3, 3, 5 ];
@@ -468,7 +468,7 @@ console.log( `Sphere contains point : ${ contains }` );
 /* log : Sphere contains point : true */
 ```
 
-3-sphere or glome is sphere in 4D space. To describe a glom 5 scalars is enough.
+3-sphere or glome is a sphere in 4D space. To describe a glom 5 scalars is enough.
 
 Another good example is determining the distance between a point and a line.
 
@@ -496,9 +496,9 @@ The distance from the point `point` to the plane `plane` is returned in a variab
 
 An instance of a model can be converted from one conceptual form to another, alternative.
 
-Rotations can be set by quaternion, Euler's angles, axis and angle or matrix. Straight line can be set by implicit equation, two points, point and a relative direction, etc. For each conception can be found several mathematical models. Module implements some of these alternatives and provides tools for convertion an instance of one model into an insatnce of another model.
+Rotations can be set by a quaternion, Euler's angles, axis, and angle, or matrix. The straight line can be set by an implicit equation, two points, point, and a relative direction, etc. For each conception can be found several mathematical models. The module implements some of these alternatives and provides tools for converting an instance of one model into an instance of another model.
 
-Model `linePoints` describes a straight line with two points, and a model `linePointDir` describes a straight line with a point and a relative direction. An example of convertion an instance of the model `linePoints` into an instance of the model `linePointDir` and calculation of the point of intersection of the lines set by this or that model.
+Model `linePoints` describes a straight line with two points, and a model `linePointDir` describes a straight line with a point and a relative direction. An example of conversion an instance of the model `linePoints` into an instance of the model `linePointDir` and calculation of the point of intersection of the lines set by this or that model.
 
 ```js
 var linePoints1 = _.linePoints.from([ 1, 1, 3, 3 ]);
@@ -515,7 +515,7 @@ console.log( `Intersection point : ${ point2 }` );
 
 ```
 
-Two lines are created with 2 points `linePoints1` and `linePoints2` based on the coordinates given as vectors. The routine `_.linePoints.pairIntersectionPoint` calculates the coordinates of intersection and writes it into the variable `point1`. Then convertion into model `linePointDir` is performed. `linePointsDir1` and `linePointsDir2` are examples of the model `linePointDir`. `linePointsDir1` and `linePointsDir2` are created based on `linePoints1` and `linePoints2`. Similarly for the model with a point and a relative direction the routine  `_.linePointDir.pairIntersectionPoint` calculates the coordinates of intersection and writes it into the variable `point2`. The points `point1` and `point2` have the same value `( 2,2 )` despite the fact that they have been calculated with different mathematical models.
+Two lines are created with 2 points `linePoints1` and `linePoints2` based on the coordinates given as vectors. The routine `_.linePoints.pairIntersectionPoint` calculates the coordinates of intersection and writes it into the variable `point1`. Then conversion into model `linePointDir` is performed. `linePointsDir1` and `linePointsDir2` are examples of the model `linePointDir`. `linePointsDir1` and `linePointsDir2` are created based on `linePoints1` and `linePoints2`. Similarly for the model with a point and a relative direction, the routine  `_.linePointDir.pairIntersectionPoint` calculates the coordinates of intersection and writes it into the variable `point2`. The points `point1` and `point2` have the same value `( 2,2 )` even though they have been calculated with different mathematical models.
 
 More about the model `linePoints` can be read [here.](../concept/Overview.md#LinePoints).
 More about the model `linePointDir` can be read [here.](../concept/Overview.md#LinePointDir).
@@ -536,7 +536,7 @@ console.log( `Euler from Quat : ${ _.toStr( euler2, { precision : 2 } ) }` );
 /* log : Euler from Quat : [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
 ```
 
-The vector `euler1` which is a container for an instance of the Euler's angles mathematical model is created. Quaternion is written into the variable `quat` which is the result of converting from Euler's angles `euler1`. The value of the Euler's angles is written into the variable `euler2` which is the result of converting the quaternion `quat`. From the output it's clear that the transformation which is described by the Euler's angles at the beginning of the example is preserved.
+The vector `euler1` which is a container for an instance of the Euler's angles mathematical model is created. Quaternion is written into the variable `quat` which is the result of converting from Euler's angles `euler1`. The value of the Euler's angles is written into the variable `euler2` which is the result of converting the quaternion `quat`. From the output, it's clear that the transformation which is described by Euler's angles at the beginning of the example is preserved.
 
 ### Models overview
 
@@ -545,11 +545,11 @@ The complete list of mathematical models available in this module [here](../conc
 ### Summary
 
 - Every mathematical model implements such routines as `make`, `from`, `is`.
-- The data of the instance of every model is stored in a vector or in a matrix.
-- Algorithm and data are uncoupled.
-- There is a pattern to name model's routines.
+- The data of the instance of every model is stored in a vector or a matrix.
+- An algorithm and data are uncoupled.
+- There is a pattern to name the model's routines.
 - Most models are implemented for all dimensions, not only 2D or 3D
-- If `null` is passed as an argument to the routine which performs writing the result into some container, than a new container will be created and returned.
-- Some conceptions are implemented by alternative models, so rotation can be described by axis and angle, Euler's angles or quaternion.
+- If `null` is passed as an argument to the routine which performs writing the result into some container than a new container will be created and returned.
+- Some conceptions are implemented by alternative models, so rotation can be described by axis and angle, Euler's angles, or quaternion.
 
 [Back to content](../README.md#Tutorials)
