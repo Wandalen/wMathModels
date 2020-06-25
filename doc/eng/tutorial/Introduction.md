@@ -43,7 +43,7 @@ console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
 /* log : _.box.is( box ) : true */
 ```
 
-Box `box` is created in 2D space, unlike the previous example, vector has only 4 scalars - 2 for each apex.
+Box `box` is created in 2D space, unlike the previous example, vector has only 4 scalars - 2 for each vertix.
 
 To create with a sample pass the sample as the argument to the routine `make`.
 
@@ -204,7 +204,7 @@ console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : true */
 ```
 
-Pay attention that `box` is an ordinary vector and not some object. This is a direct manifestation of the **uncoupling of the data and functionality principle**
+Please note that `box` is an ordinary vector and not some object. This is a direct manifestation of the **uncoupling of the data and functionality principle**
 
 ### Namespaces logistics
 
@@ -244,7 +244,7 @@ console.log( `box : ${ box }` );
 /* log : box : 3,4,9,5 */
 ```
 
-Vector adapter `cornerLeft` is used to change the value of the first apex of the box.
+Vector adapter `cornerLeft` is used to change the value of the first vertix of the box.
 
 Routines for the access to the components of the models take vectors in any form, including vector adapters.
 
@@ -425,3 +425,131 @@ console.log( `Box : ${dstBox}` );
 The vector `dstBox`, which will be the container to the data of the instance of the model `box` is created. `_.box.makeSingular` fills `dstBox` with infinities. Based on points `point1` and `point2` the extreme points of boxing are calculated. As a result the left bottom point has value `( 0, 1 )` and right top `( 3, 8 )`.
 
 ### Naming pattern
+
+Please note the pattern by which the routines obtain their names.
+
+```js
+intersected = _.plane.sphereIntersects( plane, sphere );
+intersected = _.plane.boxIntersects( plane, box )
+euler = _.euler.fromAxisAndAngle( axisAndAngle );
+```
+
+The name of the namespace + the name of the routine repeat the sequence of expected arguments. And vice versa it can be guessed from the namespace + the name of the routine what arguments it expects.
+
+### Higher dimension
+
+The same interface hides the implementation of algorithms for different dimensions: 2D, 3D, 4D...
+
+```js
+var sphere2d = [ 1, 1, 5 ];
+var point2d = [ 2, 2 ];
+var contains = _.sphere.pointContains( sphere2d, point2d );
+console.log( `Sphere contains point : ${ contains }` );
+/* log : Sphere contains point : true */
+```
+
+In 2D case sphere is a circle. The same as in 3D case describes a center and a radius, which requires 3 scalars.
+
+```js
+var sphere3d = [ 2, 2, 2, 5 ];
+var point3d = [ 3, 3, 3 ];
+var contains = _.sphere.pointContains( sphere3d, point3d );
+console.log( `Sphere contains point : ${ contains }` );
+/* log : Sphere contains point : true */
+```
+
+In 3D case a sphere is described by 4 scalars.
+
+```js
+var sphere4d = [ 3, 3, 3, 3, 5 ];
+var point4d = [ 4, 4, 4, 4 ];
+var contains = _.sphere.pointContains( sphere4d, point4d );
+console.log( `Sphere contains point : ${ contains }` );
+/* log : Sphere contains point : true */
+```
+
+3-sphere or glome is sphere in 4D space. To describe a glom 5 scalars is enough.
+
+Another good example is determining the distance between a point and a line.
+
+```js
+var point = [ 3, 2 ];
+var line = [ -4, 4, 0 ];
+var distance = _.plane.pointDistance( line, point );
+console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+/* log : Distance from line to point : -0.71*/
+```
+
+The distance from the point `point` to the line `line` is returned in a variable `distance` which is `-0.71`. Space 2D.
+
+```js
+var point = [ 4, 1, -3 ];
+var plane = [ 2, -1, 3, 1 ];
+var distance = _.plane.pointDistance( plane, point );
+console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+/* log : Distance from 3D plane to point : -0.27 */
+```
+
+The distance from the point `point` to the plane `plane` is returned in a variable `distance` which is `-0.27`. Space 3D.
+
+### Alternative models
+
+An instance of a model can be converted from one conceptual form to another, alternative.
+
+Rotations can be set by quaternion, Euler's angles, axis and angle or matrix. Straight line can be set by implicit equation, two points, point and a relative direction, etc. For each conception can be found several mathematical models. Module implements some of these alternatives and provides tools for convertion an instance of one model into an insatnce of another model.
+
+Model `linePoints` describes a straight line with two points, and a model `linePointDir` describes a straight line with a point and a relative direction. An example of convertion an instance of the model `linePoints` into an instance of the model `linePointDir` and calculation of the point of intersection of the lines set by this or that model.
+
+```js
+var linePoints1 = _.linePoints.from([ 1, 1, 3, 3 ]);
+var linePoints2 = _.linePoints.from([ 2, 2, 3, 3 ]);
+var point1 = _.linePoints.pairIntersectionPoint( linePoints1, linePoints2 );
+console.log( `Intersection point : ${ point1 }` );
+/* log : Intersection point : [ 2, 2 ] */
+
+var linePointsDir1 = _.linePointDir.fromPoints2( linePoints1 );
+var linePointsDir2 = _.linePointDir.fromPoints2( linePoints2 );
+var point2 = _.linePointDir.lineIntersectionPoint( linePointsDir1, linePointsDir2 );
+console.log( `Intersection point : ${ point2 }` );
+/* log : Intersection point: [ 2, 2 ] */
+
+```
+
+Two lines are created with 2 points `linePoints1` and `linePoints2` based on the coordinates given as vectors. The routine `_.linePoints.pairIntersectionPoint` calculates the coordinates of intersection and writes it into the variable `point1`. Then convertion into model `linePointDir` is performed. `linePointsDir1` and `linePointsDir2` are examples of the model `linePointDir`. `linePointsDir1` and `linePointsDir2` are created based on `linePoints1` and `linePoints2`. Similarly for the model with a point and a relative direction the routine  `_.linePointDir.pairIntersectionPoint` calculates the coordinates of intersection and writes it into the variable `point2`. The points `point1` and `point2` have the same value `( 2,2 )` despite the fact that they have been calculated with different mathematical models.
+
+More about the model `linePoints` can be read [here.](../concept/Overview.md#LinePoints).
+More about the model `linePointDir` can be read [here.](../concept/Overview.md#LinePointDir).
+
+An example of converting Euler's angles into quaternions and back:
+
+```js
+var euler1 =  [ 1, 0, 0.5, 0, 1, 2 ] ;
+console.log( `Euler : ${ _.toStr( euler1, { precision : 2 } ) }` );
+/* log : Euler : [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
+
+var quat = _.euler.toQuat( euler1, null );
+console.log( `Quat from Euler : ${ _.toStr( quat, { precision : 2 } ) }` );
+/* log : Quat from Euler : [ 0.46, -0.12, 0.22, 0.85 ] */
+
+var euler2 = _.quat.toEuler( quat, null );
+console.log( `Euler from Quat : ${ _.toStr( euler2, { precision : 2 } ) }` );
+/* log : Euler from Quat : [ 1.0, 0.0, 0.50, 0.0, 1.0, 2.0 ] */
+```
+
+The vector `euler1` which is a container for an instance of the Euler's angles mathematical model is created. Quaternion is written into the variable `quat` which is the result of converting from Euler's angles `euler1`. The value of the Euler's angles is written into the variable `euler2` which is the result of converting the quaternion `quat`. From the output it's clear that the transformation which is described by the Euler's angles at the beginning of the example is preserved.
+
+### Models overview
+
+The complete list of mathematical models available in this module [here](../concept/Overview.md).
+
+### Summary
+
+- Every mathematical model implements such routines as `make`, `from`, `is`.
+- The data of the instance of every model is stored in a vector or in a matrix.
+- Algorithm and data are uncoupled.
+- There is a pattern to name model's routines.
+- Most models are implemented for all dimensions, not only 2D or 3D
+- If `null` is passed as an argument to the routine which performs writing the result into some container, than a new container will be created and returned.
+- Some conceptions are implemented by alternative models, so rotation can be described by axis and angle, Euler's angles or quaternion.
+
+[Back to content](../README.md#Tutorials)
