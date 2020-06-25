@@ -324,6 +324,7 @@ var intersected = _.plane.capsuleIntersects( plane, capsule );
 console.log( `Plane intersects with capsule : ${ intersected }` );
 /* log : Plane intersects with capsule: true */
 ```
+
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинає капсулу `capsule`.
 
 ```js
@@ -353,7 +354,6 @@ console.log( `Plane intersects with plane : ${ intersected }` );
 
 В змінну `intersected` повертається `true`, оскільки як площина `plane` перетинає сама себе.
 
-
 ```js
 var plane = [ 1, 0, 0, 1 ];
 var line = [ 1, 0, 1, 1, 1, 1 ];
@@ -373,7 +373,6 @@ console.log( `Plane intersects with segment : ${ intersected }` );
 ```
 
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинається із відрізком `segment`.
-
 
 ```js
 var plane = [ 0, 2, 0, 2 ];

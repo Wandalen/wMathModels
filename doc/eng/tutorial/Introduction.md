@@ -207,3 +207,192 @@ console.log( `srcBox === box : ${ srcBox === box }` );
 Pay attention that `box` is an ordinary vector and not some object. This is a direct manifestation of the **uncoupling of the data and functionality principle**
 
 ### Namespaces logistics
+
+All model's algorithms are called through namespace models, for example for box it is `_.box.*`, for quaternion it is `_.quat.*`, while an instance of the model is a **vector** or a **matrix**, and not an instance of some other additional class. All mathematical model's algorithms are called functionally, for example:
+
+```js
+var distance = _.plane.pointDistance( plane, point );
+```
+
+Here a `plane` is a vector, which is interpreted as an implicit plane equation, `point` is a vector, which is interpreted as a point and `distance` is a returned scalar.
+
+### Components of models
+
+All mathematical models in this module ( vector as well as matrix ) consist of atomic parts, on the lowest level those are scalars, which are often grouped into larger groups.
+
+```js
+var box = new F32x([ 2, 1, 9, 5 ]);
+var cornerLeft = _.box.cornerLeftGet( box );
+var cornerRight = _.box.cornerRightGet( box );
+console.log( `cornerLeft : ${ cornerLeft }` );
+/* log : cornerLeft : VectorAdapter.x2.F32x :: 2.000 1.000 */
+console.log( `cornerRight : ${ cornerRight }` );
+/* log : cornerRight : VectorAdapter.x2.F32x :: 9.000 5.000 */
+```
+
+An instance of the model `box` is created manually. Routine `_.box.cornerLeftGet( box )` creates vector adapter for the left bottom point of the box and then output it to the log.
+
+Routines for the access to the components of the instances of the models return not a copy of the data but vector adapter. Vector adapter is a kind of link to the data and it doesn't have this data.
+
+```js
+var box = new F32x([ 2, 1, 9, 5 ]);
+var cornerLeft = _.box.cornerLeftGet( box );
+console.log( `cornerLeft : ${ cornerLeft }` );
+/* log : cornerLeft : VectorAdapter.x2.F32x :: 2.000 1.000 */
+cornerLeft.assign([ 3, 4 ]);
+console.log( `box : ${ box }` );
+/* log : box : 3,4,9,5 */
+```
+
+Vector adapter `cornerLeft` is used to change the value of the first apex of the box.
+
+Routines for the access to the components of the models take vectors in any form, including vector adapters.
+
+```js
+var box = _.vad.from([ 2, 1, 9, 5 ]);
+var cornerLeft = _.box.cornerLeftGet( box );
+var cornerRight = _.box.cornerRightGet( box );
+console.log( `cornerLeft : ${ cornerLeft }` );
+/* log : cornerLeft : VectorAdapter.x2.Array :: 2.000 1.000 */
+console.log( `cornerRight : ${ cornerRight }` );
+/* log : cornerRight : VectorAdapter.x2.Array :: 9.000 5.000 */
+```
+
+The output is similar to the first example.
+
+### Isomorphic
+
+The behavior is unchanged when the type of the model changes.
+
+For example, algorithm for checking that the point is on the surface or inside is implemented by the routine `pointContains`. All models for which it's possible to implement such an algorithm have this routine with this name.
+
+```js
+var point = [ 0, 1, 2 ];
+var plane = [ 1, 2, -1, 0 ];
+var contains = _.plane.pointContains( plane, point );
+console.log( `Plane contains point : ${ contains }` );
+/* log : Plane contains point : true */
+```
+
+`true` is returned to the variable `contains`, because the point `point` is on the surface `plane`.
+
+```js
+var point = [ 0, 1 ];
+var line = [ 0, 0, 0, 2 ];
+var contains = _.linePointDir.pointContains( line, point );
+console.log( `Line contains point : ${ contains }` );
+/* log : Line contains point : true */
+```
+
+`true` is returned to the variable `contains`, because the point `point` is on the line `line`.
+
+```js
+var point = [ 0, 1 ];
+var vertices =
+[
+  1, 0, 0,
+  0, 0, 1
+];
+var polygon = _.convexPolygon.make( vertices, 2 );
+var contains = _.convexPolygon.pointContains( polygon, point );
+console.log( `Polygon contains point : ${ contains }` );
+/* log : Polygon contains point : true */
+```
+
+A convex polygon `polygon` is created in 2D based on the coordinates of the vertices from the vector `vertices`. `true` is returned to the variable `contains`, because the point `point` and the third vertex of the polygon `polygon` have the same coordinates.
+
+### Intuitive
+
+The routines have intuitive names. Knowledge of one routine helps to guess about other routines. The search in the module and its research can be made by combining prefixes/suffixes
+
+An example of using a group of routines `*Intersects` to check the cross section of the model instance `plane` with instances of other models.
+
+```js
+var plane = [ 0, 2, 0, -2 ];
+var box = [ 0, 0, 0, 2, 2, 2 ];
+var intersected = _.plane.boxIntersects( plane, box );
+console.log( `Plane intersects with box : ${ intersected }` );
+/* log : Plane intersects with box : true */
+```
+
+`true` is returned to the variable `intersected`, because the plane `plane` crosses the box `box`.
+
+```js
+var plane = [ 1, 0, 0, 1 ];
+var capsule = [ - 1, 2, 3, -1, 2, 3, 0  ];
+var intersected = _.plane.capsuleIntersects( plane, capsule );
+console.log( `Plane intersects with capsule : ${ intersected }` );
+/* log : Plane intersects with capsule: true */
+```
+
+`true` is returned to the variable `intersected`, because the plane `plane` crosses the capsule `capsule`.
+
+```js
+var plane = [ 1, 0, 0, -0.4 ];
+var frustum = _.frustum.make().copy
+([
+  0,   0,   0,   0,  -1,   1,
+  1,  -1,   0,   0,   0,   0,
+  0,   0,   1,  -1,   0,   0,
+ -1,   0,  -1,   0,   0,  -1
+]);
+var intersected = _.plane.frustumIntersects( plane, frustum );
+console.log( `Plane intersects with frustum : ${ intersected }` );
+/* log : Plane intersects with frustum : true */
+```
+
+An instance `frustum` of the model `frustum` is created by defining spaces of 6 faces.
+From the output, it is clear that the container for the data for the instance of the model is a matrix.
+`true` is returned to the variable `intersected`, because the plane `plane` crosses the truncated pyramid `frustum`.
+
+```js
+var plane = [ 1, 0, 0, 1 ];
+var intersected = _.plane.planeIntersects( plane, plane );
+console.log( `Plane intersects with plane : ${ intersected }` );
+/* log : Plane intersects with plane : true */
+```
+
+`true` is returned to the variable `intersected`, because the plane `plane` crosses itself.
+
+```js
+var plane = [ 1, 0, 0, 1 ];
+var line = [ 1, 0, 1, 1, 1, 1 ];
+var intersected = _.plane.lineIntersects( plane, line );
+console.log( `Plane intersects with line : ${ intersected }` );
+/* log : Plane intersects with line : true */
+```
+
+`true` is returned to the variable `intersected`, because the plane `plane` is crossed by the line `line`.
+
+```js
+var plane = [ 1, 0, 0, 1 ];
+var segment = [ -2, -2, -2, 2, 2, 2 ];
+var intersected = _.plane.segmentIntersects( plane, segment );
+console.log( `Plane intersects with segment : ${ intersected }` );
+/* log : Plane intersects with segment : true */
+```
+
+`true` is returned to the variable `intersected`, because the plane `plane` is crossing with a segment `segment`.
+
+```js
+var plane = [ 0, 2, 0, 2 ];
+var sphere = [ 0, 0, 0, 1.5 ];
+var intersected = _.plane.sphereIntersects( plane, sphere );
+console.log( `Plane intersects with sphere : ${ intersected }` );
+/* log : Plane intersects with sphere : true */
+
+```
+
+`true` is returned to the variable `intersected`, because the plane `plane` is crossing with a sphere `sphere`.
+
+```js
+var plane = [ - 1, 0, 0, 1 ];
+var ray = [ 0, 0, 0, 1, 1, 1 ];
+var intersected = _.plane.rayIntersects( plane, ray );
+console.log( `Plane intersects with ray : ${ intersected }` );
+/* log : Plane intersects with ray: true */
+```
+
+`true` is returned to the variable `intersected`, because the plane `plane` is crossing with a ray `ray`.
+
+### Convention dst=null
