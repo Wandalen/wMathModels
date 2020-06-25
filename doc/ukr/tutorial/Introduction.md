@@ -1,8 +1,6 @@
-# Introduction
+# Введення
 
 Стаття описує основні особливості модуля та принципи його використання.
-
-### Why?
 
 ### Математична модель
 
@@ -24,6 +22,8 @@ console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : Array */
 console.log( box );
 /* log : [ 0, 0, 0, 0, 0, 0 ] */
+console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
+/* log : _.box.is( box ) : true */
 ```
 
 Бокс `box` знаходиться в `3D` просторі. Три перших скаляри вектора `box` описують одну крайню точку, тоді як три останніх скаляри описують іншу крайню точку. Це є параметрами моделі бокс за замовчуванням.
@@ -35,10 +35,12 @@ console.log( box );
 ```js
 var dim = 2;
 var box = _.box.make( dim );
-console.log( `Type : ${ _.strType( box ) }` );
-/* log : Type : Array */
 console.log( box );
 /* log : [ 0, 0, 0, 0 ] */
+console.log( `Type : ${ _.strType( box ) }` );
+/* log : Type : Array */
+console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
+/* log : _.box.is( box ) : true */
 ```
 
 Бокс `box` створюється в 2D просторі на відміну від попереднього приклада, вектор має лише 4 скаляри - по 2 на кожну вершину.
@@ -48,12 +50,14 @@ console.log( box );
 ```js
 var srcBox = [ 2, 1, 9, 5 ];
 var box = _.box.make( srcBox );
+console.log( box );
+/* log : [ 2, 1, 9, 5 ] */
 console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : false */
 console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : Array */
-console.log( box );
-/* log : [ 2, 1, 9, 5 ] */
+console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
+/* log : _.box.is( box ) : true */
 ```
 
 Розмірність та всі дані `box` такі ж як в `srcBox`.
@@ -66,15 +70,15 @@ console.log( box );
 
 ```js
 var box = _.box.make( null );
-console.log( `Type : ${ _.strType( box ) }` );
-/* log : Type : Array */
 console.log( box );
 /* log : [ 0, 0, 0, 0 ] */
+console.log( `Type : ${ _.strType( box ) }` );
+/* log : Type : Array */
+console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
+/* log : _.box.is( box ) : true */
 ```
 
 Семантика така ж як в прикладі із викликом без аргументів. Прагматика дещо інша: як зразок використовується уявний екземпляр із даними за замовчуванням.
-
-<!-- xxx : add _.box.is -->
 
 ### Routine from
 
@@ -85,12 +89,14 @@ console.log( box );
 ```js
 var srcBox = new F32x([ 2, 1, 9, 5 ]);
 var box = _.box.from( srcBox );
+console.log( box );
+/* log : Float32Array(4) [ 2, 1, 9, 5 ] */
 console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : true */
 console.log( `Type : ${ _.strType( box ) }` );
 /* log : Type : F32x */
-console.log( box );
-/* log : Float32Array(4) [ 2, 1, 9, 5 ] */
+console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
+/* log : _.box.is( box ) : true */
 ```
 
 Рутина `_.box.from()` в першу чергу перевіряє чи `srcBox` є екземпляром моделі `box`. І `srcBox` є екземпляром моделі `box` тому не вносячи жодних змін він же і повертається із рутини `_.box.from()`.
@@ -100,10 +106,12 @@ console.log( box );
 ```js
 var srcBox = _.vad.fromLong([ 2, 1, 9, 5 ]);
 var box = _.box.from( srcBox );
-console.log( `srcBox === box : ${ srcBox === box }` );
-/* log : srcBox === box : true */
 console.log( box );
 /* log : VectorAdapter.x4.Array :: 2.000 1.000 9.000 5.000 */
+console.log( `srcBox === box : ${ srcBox === box }` );
+/* log : srcBox === box : true */
+console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
+/* log : _.box.is( box ) : true */
 ```
 
 Так само як в попередньому прикладі рутина `_.box.from()` повертає `srcBox` без жодних змін.
@@ -112,10 +120,12 @@ console.log( box );
 
 ```js
 var box = _.box.from( null );
-console.log( `Type : ${ _.strType( box ) }` );
-/* log : Type : Array */
 console.log( box );
 /* log : [ 0, 0, 0, 0, 0, 0 ] */
+console.log( `Type : ${ _.strType( box ) }` );
+/* log : Type : Array */
+console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
+/* log : _.box.is( box ) : true */
 ```
 
 Рутина `_.box.from()` створить новий екземпляр моделі бокс із параметрами за замовчуванням.
@@ -132,6 +142,7 @@ console.log( `Box1 : ${ box1 }` );
 var box2 = _.box.from( null );
 console.log( `Box2 : ${ box2 }` );
 /* log : Box2 : [ 0, 0, 0, 0, 0, 0 ] */
+
 ```
 
 Обидва виклики створюють новий екземпляр моделі `box` із розмірністю визначеною за замовчуванням. Семантика та прагматика однакова.
@@ -186,12 +197,12 @@ console.log( 'src2 === box2 :', src2 === box2 );
 ```js
 var srcBox = new F32x([ 2, 1, 9, 5 ]);
 var box = _.box.from( srcBox );
-console.log( `srcBox === box : ${ srcBox === box }` );
-/* log : srcBox === box : true */
-console.log( `Type : ${ _.strType( box ) }` );
-/* log : Type : F32x */
 console.log( box );
 /* log : Float32Array(4) [ 2, 1, 9, 5 ] */
+console.log( `Type : ${ _.strType( box ) }` );
+/* log : Type : F32x */
+console.log( `srcBox === box : ${ srcBox === box }` );
+/* log : srcBox === box : true */
 ```
 
 Зверніть увагу, що `box` є звичайним вектором, а не якимось об'єктом. Це і є прямим проявом **принципу розчіплення даних та функціоналу**.
@@ -531,8 +542,16 @@ console.log( `Euler from Quat : ${ _.toStr( euler2, { precision : 2 } ) }` );
 
 ### Models overview
 
-Повний перелік математичних моделей доступних в цьому модулі [тут.](../concept/Overview.md).
+Повний перелік математичних моделей доступних в цьому модулі [тут](../concept/Overview.md).
 
 ### Summary
+
+- Кожна математична модель реалізовує такі рутини як `make`, `from`, `is`.
+- Дані екземплярів всіх моделей зберігаються в векторах або матрицях.
+- Алгоритми та дані розчіплені <!-- uncoupled -->.
+- Існує патерн за яким іменуються рутини моделей.
+- Більшість моделей реалізовані для всіх розмірностей, не лише для 2D чи 3D .
+- Якщо передати `null` в якості аргумента в рутину, яка здійснює запис результата в якийсь контейнер тоді буде створено і повернено новий контейнер.
+- Деякі концепції реалізуються альтернативними моделями, так обертання може бути описано віссю та кутом обретання, кутами еулера чи кватерніоном.
 
 [Back to content](../README.md#Tutorials)
