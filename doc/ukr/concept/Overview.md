@@ -28,11 +28,11 @@ console.log( `Distance from box to point : ${ _.toStr( got, { precision : 2 } ) 
 Екземпляр моделі зберігається в будь-якій формі вектора.
 
 ```js
-var segment = [ 2, 1, 9, 4 ];
+var segment = [ 9, 1, 2, 4 ];
 var point = [ 3, 5 ];
 var distance = _.segment.pointDistance( segment, point );
 console.log( `Distance from segment to point : ${ _.toStr( distance, { precision : 2 } ) }` );
-/* log : Distance from segment to point : 3.3 */
+/* log : Distance from segment to point : 1.3 */
 ```
 
 ![Segment](../../img/Segment.png)
@@ -46,11 +46,11 @@ console.log( `Distance from segment to point : ${ _.toStr( distance, { precision
 Касула це відрізок, котрий має товщину. Капсула як і сегмент описується двома точки що позначають початок і кінець, а також має товщину та заокруглення на кінцях. Екземпляр моделі зберігається в будь-якій формі вектора.
 
 ```js
-var capsule = [ 2, 1, 9, 4, 0.5 ];
+var capsule = [ 9, 1, 2, 4, 0.5 ];
 var point = [ 3, 5 ];
 var distance = _.capsule.pointDistance( capsule, point );
 console.log( `Distance from capsule to point : ${ _.toStr( distance, { precision : 2 } ) }` );
-/* log : Distance from capsule to point : 2.8 */
+/* log : Distance from capsule to point : 0.81 */
 ```
 
 ![Capsule](../../img/Capsule.png)
