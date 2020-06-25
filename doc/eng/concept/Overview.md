@@ -1,10 +1,10 @@
 # Mathematical model
 
-Formal description of a system using mathematical concepts and language.
+A formal description of a system using mathematical concepts and language.
 
 ### Box
 
-Mathematical model of n-orthotope, also called a hyperrectangle or a box.
+The mathematical model of n-orthotope, also called a hyperrectangle or a box.
 
 An instance of the model is stored in any vector form.
 
@@ -18,11 +18,11 @@ console.log( `Distance from box to point : ${ _.toStr( got, { precision : 2 } ) 
 
 ![Box](../../img/Box.png)
 
-In 2D, the box looks like a rectangle. The bottom left and top right points of this rectangle are used to describe this mathematical model. To describe a box in 2D case, 4 scalars are enough.
+In a 2D, the box looks like a rectangle. The bottom left and top right points of this rectangle are used to describe this A  model. To describe a box in a 2D case, 4 scalars are enough.
 
 ### Segment
 
-Mathematical model of the segment.
+The mathematical model of the segment.
 
 An instance of the model is stored in any vector form.
 
@@ -36,13 +36,13 @@ console.log( `Distance from segment to point : ${ _.toStr( distance, { precision
 
 ![Segment](../../img/Segment.png)
 
-Defined by two points: the beginning of `( 2, 1 )` and the end of the segment `( 9, 4 )`. 4 scalars are enough to describe a segment in 2D.
+Defined by two points: the beginning of `( 2, 1 )` and the end of the segment `( 9, 4 )`. 4 scalars are enough to describe a segment in a 2D.
 
 ### Capsule
 
-Mathematical model of the capsule.
+The mathematical model of the capsule.
 
-A capsule is a segment that have a thickness. The capsule as well as the segment is described by two points denoting the beginning and the end, and also has thickness and rounding at the ends. An instance of the model is stored in any vector form.
+A capsule is a segment that has a thickness. The capsule, as well as the segment, is described by two points denoting the beginning and the end, and also has a thickness and rounding at the ends. An instance of the model is stored in any vector form.
 
 ```js
 var capsule = [ 2, 1, 9, 4, 0.5 ];
@@ -54,13 +54,13 @@ console.log( `Distance from capsule to point : ${ _.toStr( distance, { precision
 
 ![Capsule](../../img/Capsule.png)
 
-The capsule in the example starts at the point `( 2, 1 )`, ends at the point `( 9, 4 )` and has a radius of `0.5`. 5 scalars are enough to describe a capsule in 2D.
+The capsule in the example starts at the point `( 2, 1 )`, ends at the point `( 9, 4 )` and has a radius of `0.5`. 5 scalars are enough to describe a capsule in a 2D.
 
 ### Sphere
 
-Mathematical model of the hypersphere.
+The mathematical model of the hypersphere.
 
-In 2D it's a circle, in 3D it's a normal sphere, in 4D it's a glom. It is described by center and radius. An instance of the model is stored in any vector form.
+In a 2D it's a circle, in 3D it's a normal sphere, in 4D it's a glom. It is described by the center and radius. An instance of the model is stored in any vector form.
 
 ```js
 var sphere = [ 2, 1, 3 ];
@@ -72,15 +72,15 @@ console.log( `Distance from sphere to point : ${ _.toStr( distance, { precision 
 
 ![Sphere](../../img/Sphere.png)
 
-In 2D, the sphere turns into a circle.
+In a 2D, the sphere turns into a circle.
 
-The center of the circle from the example is at the point `( 2, 1 )` and its radius is `3`. 3 scalars are enough to describe a sphere in 2D.
+The center of the circle from the example is at the point `( 2, 1 )` and its radius is `3`. 3 scalars are enough to describe a sphere in a 2D.
 
 ### Ray
 
-Mathematical model of the ray.
+The mathematical model of the ray.
 
-The first point marks the beginning of the ray, the second - sets the direction. An instance of the model is stored in any vector form.
+The first point marks the beginning of the ray, the second sets the direction. An instance of the model is stored in any vector form.
 
 ```js
 var ray = [ 2, 1, 6, 3 ];
@@ -92,11 +92,11 @@ console.log( `Distance from ray to point : ${ _.toStr( distance, { precision : 2
 
 ![Ray](../../img/Ray.png)
 
-The ray `ray` from the example begins at the point `( 2, 1 )` and goes to infinity through the point `( 6, 3 )`. 4 scalars are enough to describe the ray in 2D.
+The ray `ray` from the example begins at the point `( 2, 1 )` and goes to infinity through the point `( 6, 3 )`. 4 scalars are enough to describe the ray in a 2D.
 
 ### LinePoints
 
-Mathematical model of a line from two points.
+The mathematical model of a line from two points.
 
 Describes a line with two points through which it passes. An instance of the model is stored in any vector form.
 
@@ -110,13 +110,13 @@ console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 
 
 ![LinePoints](../../img/LinePoints.png)
 
-The first two scalars of the `line` vector are the first point, the other two are the second point. A line is constructed through these two points. 4 scalars are enough to describe a line in 2D.
+The first two scalars of the `line` vector are the first point, the other two are the second point. A line is constructed through these two points. 4 scalars are enough to describe a line in a 2D.
 
 ### LinePointDir
 
-Mathematical model of a line from a point and a relative direction.
+The mathematical model of a line from a point and a relative direction.
 
-The second point is set relatively to the first. An instance of the model is stored in any vector form.
+The second point is set relative to the first. An instance of the model is stored in any vector form.
 
 ```js
 var line = [ 2, 1, 2, 1 ];
@@ -128,31 +128,31 @@ console.log( `Distance from line by point and direction to point : ${ _.toStr( d
 
 ![LinePointDir](../../img/LinePointDir1.png)
 
-The first two scalars of the `line` vector are the first point, the other two describe the second point. However, in the case of the `lineDir` model, the coordinates of the second point are given relative to the coordinates of the first. A line is constructed through these two points. 4 scalars are enough to describe a line in 2D.
+The first two scalars of the `line` vector are the first point, the other two describe the second point. However, in the case of the `lineDir` model, the coordinates of the second point are given relative to the coordinates of the first. A line is constructed through these two points. 4 scalars are enough to describe a line in a 2D.
 
 ### LinePointCentered
 
-Mathematical model of a line that passes through the origin and a given point.
+The mathematical model of a line that passes through the origin and a given point.
 
 An instance of the model is stored in any vector form.
 
 ```js
 var line = [ 4, 2 ];
 var point = [ 2, 3 ];
-var distance = _.linePointCentered.pointDistanceCentered2D( line, point );
+var distance = _.linePointCentered.pointDistanceCentere ad2D( line, point );
 console.log( `Distance from centered line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from centered line to point : 1.8 */
 ```
 
 ![LinePointCentered](../../img/LinePointCentered.png)
 
-The two scalars of the vector `line` are the point through which the line passes. The second point is always the origin. A line is constructed through these two points. To describe a line passing through the origin in 2D, 2 scalars are enough.
+The two scalars of the vector `line` are the point through which the line passes. The second point is always the origin. A line is constructed through these two points. To describe a line passing through the origin in a 2D, 2 scalars are enough.
 
 ### Plane ( implicit )
 
-Mathematical model of a hyper-plane given by an implicit equation.
+The mathematical model of a hyper-plane given by an implicit equation.
 
-This mathematical model will always divide the space in which it exists into two halves. In 2D it will be a line satisfying the equation `w + a * x + b * y = 0`, in 3D it will be a plane satisfying the equation `w + a * x + b * y + c * z = 0`. An instance of the model is stored in any vector form.
+This mathematical model will always divide the space in which it exists into two halves. In a 2D it will be a line satisfying the equation `w + a * x + b * y = 0`, in 3D it will be a plane satisfying the equation `w + a * x + b * y + c * z = 0`. An instance of the model is stored in any vector form.
 
 ```js
 var line = [ -2, -1, 2 ];
@@ -180,7 +180,7 @@ As in the case of a straight line, the plane `plane` satisfies the equation `-2 
 
 ### Triangle
 
-Mathematical model of a triangle.
+The mathematical model of a triangle.
 
 It is defined by three vertices. An instance of the model is stored in any vector form.
 
@@ -196,13 +196,13 @@ console.log( `Type of triangle : ${ _.strType( triangle ) }` );
 
 ![Triangle](../../img/Triangle.png)
 
-The vertices of the triangle `triangle` go consecutively by 2 scalars to the vertex. 6 scalars are enough to describe a triangle in 2D.
+The vertices of the triangle `triangle` go consecutively by 2 scalars to the vertex. 6 scalars are enough to describe a triangle in a 2D.
 
 ### ConvexPolygon
 
-Mathematical model of a convex polygon.
+The mathematical model of a convex polygon.
 
-Convex polygon is a simple polygon ( not self-intersecting ) in which no line segment between two points on the boundary ever goes outside the polygon. In a convex polygon, all interior angles are less than or equal to 180 degrees. In this model of the polygon, it is set by enumerating its vertices counterclockwise. A matrix is used as a container for the data of the convex polygon model instance.
+A convex polygon is a simple polygon ( not self-intersecting ) in which no line segment between two points on the boundary ever goes outside the polygon. In a convex polygon, all interior angles are less than or equal to 180 degrees. In this model of the polygon, it is set by enumerating its vertices counterclockwise. A matrix is used as a container for the data of the convex polygon model instance.
 
 ```js
 var vertices =
@@ -221,15 +221,15 @@ console.log( `Type of polygon : ${ _.strType( polygon ) }` );
 
 ![ConvexPolygon](../../img/ConvexPolygon.png)
 
-In the matrix `polygon` in the columns are stored vertices of the polygon. The number of rows of the matrix `polygon` is equal to the dimension of the mathematical model` 2`, and the number of columns is equal to the number of vertices of the polygon `4`. The 4 vertices of the polygon are connected in series by faces and a convex polygon is formed. In the general case, the polygon can have any number of vertices in space of any dimension. 8 scalars are enough to describe a convex polygon with 4 vertices in 2D.
+In the matrix `polygon` in the columns are stored vertices of the polygon. The number of rows of the matrix `polygon` is equal to the dimension of the mathematical model` 2`, and the number of columns is equal to the number of vertices of the polygon `4`. The 4 vertices of the polygon are connected in series by faces and a convex polygon is formed. In the general case, the polygon can have any number of vertices in space of any dimension. 8 scalars are enough to describe a convex polygon with 4 vertices in a 2D.
 
 <!-- xxx qqq : послідовність вершин полігона по годинникові чи проти? Dmytro : в математиці повороти і обходи робляться проти годинникової стрілки - це позитивний напрям -->
 
 ### ConcavePolygon
 
-Mathematical model of a concave polygon.
+The mathematical model of a concave polygon.
 
-A concave polygon in which the segments between two vertices at the boundary of the polygon can extend beyond the polygon. In a concave polygon, the internal angles can be greater than 180 degrees. A concave polygon is a more complex mathematical model than a convex one, because a concave one can always be divided into a set of convex ones. In this model of the polygon, it is given by enumerating its vertices counterclockwise. A matrix is used as a container for the data of the concave polygon model instance.
+A concave polygon in which the segments between two vertices at the boundary of the polygon can extend beyond the polygon. In a concave polygon, the internal angles can be greater than 180 degrees. A concave polygon is a more complex mathematical model than a convex one because a concave one can always be divided into a set of convex ones. In this model of the polygon, it is given by enumerating its vertices counterclockwise. A matrix is used as a container for the data of the concave polygon model instance.
 
 ```js
 var vertices =
@@ -248,11 +248,11 @@ console.log( `Type of polygon : ${ _.strType( polygon ) }` );
 
 ![ConcavePolygon](../../img/ConcavePolygon.png)
 
-In the matrix `polygon` in the columns are stored vertices of the polygon. The number of rows of the matrix `polygon` is equal to the dimension of the mathematical model` 2`, and the number of columns is equal to the number of vertices of the polygon `4`. The 4 vertices of the polygon are connected in series by faces and a polygon is formed. In the general case, the polygon can have any number of vertices in space of any dimension. 8 scalars are enough to describe a convex polygon with 4 vertices in 2D.
+In the matrix `polygon` in the columns are stored vertices of the polygon. The number of rows of the matrix `polygon` is equal to the dimension of the mathematical model` 2`, and the number of columns is equal to the number of vertices of the polygon `4`. The 4 vertices of the polygon are connected in series by faces and a polygon is formed. In the general case, the polygon can have any number of vertices in space of any dimension. 8 scalars are enough to describe a convex polygon with 4 vertices in a 2D.
 
 ### Frustum
 
-Mathematical model of frustum - a truncated pyramid.
+The mathematical model of frustum - a truncated pyramid.
 
 The truncated pyramid model is often used in 3D graphics for the visible part of the space visible to the prospective camera. The model is set by 6 faces. Each face is set by an implicit plane equation. The model instance stores its parameters in a 4x6 dimensional matrix. The plane equations are stored in the columns of such a matrix.
 
