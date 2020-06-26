@@ -4167,10 +4167,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1, 1, 1, 3, 3, 3 ];
   var expected = 0;
@@ -4183,10 +4184,11 @@ function frustumDistance( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4194,10 +4196,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
@@ -4209,10 +4212,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 2, 2, 0, - 1, -1, 1 ];
   var expected = 0;
@@ -4224,10 +4228,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ -1, -1, 0, 0.5, 0.5, 0 ];
   var expected = 0;
@@ -4239,10 +4244,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 4, 4, 4, 5, 5, 5 ];
   var expected = 0;
@@ -4254,10 +4260,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 4, 4, 4, 1, 1, 0 ];
   var expected = 3;
@@ -4269,10 +4276,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1.1, 1.1, 1.1, 5, 5, 0 ];
   var expected = 0.1;
@@ -4284,10 +4292,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = null;
   var expected = 0;
@@ -4299,10 +4308,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = null;
   var expected = Math.sqrt( 0.75 );
@@ -4314,10 +4324,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = [ - 2, 0.3, 0, 1, 0, 0 ];
   var expected = Math.sqrt( 0.29 );
@@ -4329,16 +4340,17 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = [ -2, 0.3, 0, 1, 0, 0.1 ];
   var expected = 0.2821417381318113;
 
   var gotDistance = _.linePointDir.frustumDistance( line, srcFrustum );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   /* */
 
@@ -4347,10 +4359,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
 
   test.shouldThrowErrorSync( () => _.linePointDir.frustumDistance( ));
