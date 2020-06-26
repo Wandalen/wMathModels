@@ -101,11 +101,11 @@ The mathematical model of a line from two points.
 Describes a line with two points through which it passes. An instance of the model is stored in any vector form.
 
 ```js
-var line = [ 2, 1, 2, 1 ];
+var line = [ 2, 1, 4, 2 ];
 var point = [ 2, 3 ];
-var distance = _.linePointDir.pointDistance( line, point );
-console.log( `Distance from line by point and direction to point : ${ _.toStr( distance, { precision : 2 } ) }` );
-/* log : Distance from line by point and direction to point : 1.8 */
+var distance = _.linePoints.pointDistance( line, point );
+console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
+/* log : Distance from line to point : 1.8 */
 ```
 
 ![LinePoints](../../img/LinePoints.png)
