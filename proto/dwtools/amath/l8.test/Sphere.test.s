@@ -4530,11 +4530,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 3, 3, 2 ];
 
   var expected = false;
@@ -4546,22 +4546,22 @@ function frustumContains( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   test.identical( tstFrustum, oldFrustum );
 
   test.description = 'Sphere contains frustum'; //
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 2 ];
 
   var expected = true;
@@ -4572,11 +4572,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
 
   var expected = true;
@@ -4587,11 +4587,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + test.accuracy ];
 
   var expected = true;
@@ -4602,11 +4602,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
 
   var expected = false;
@@ -4617,11 +4617,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 5, 5, 5, 1 ];
 
   var expected = false;
@@ -4632,11 +4632,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 2, 2, 2, 2 ];
 
   var expected = false;
@@ -4659,11 +4659,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
 
   test.shouldThrowErrorSync( () => _.sphere.frustumContains( ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', 'frustum' ) );
