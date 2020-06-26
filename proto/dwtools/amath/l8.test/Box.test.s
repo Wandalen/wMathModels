@@ -4345,7 +4345,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = _.box.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4356,7 +4356,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 2 ];
   var point = [ 3 ];
-  var expected = _.box.tools.longMake( [ 2 ] );
+  var expected = [ 2 ];
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4367,7 +4367,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = _.box.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
