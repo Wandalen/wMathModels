@@ -1647,7 +1647,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'Source plane and polygon remain unchanged';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1659,7 +1659,7 @@ function convexPolygonClosestPoint( test )
   var gotPoint = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
   test.identical( expected, gotPoint );
 
-  var oldSrcPlane = [ - 1, 0, 0, 0 ];
+  var oldSrcPlane = [ 0, -1, 0, 0 ];
   test.identical( srcPlane, oldSrcPlane );
 
   var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1674,7 +1674,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'Plane and polygon intersect';
 
-  var srcPlane = [ 0, 1, 0, 0 ];
+  var srcPlane = [ 0, 0, 1, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1690,7 +1690,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'Polygon in plane';
 
-  var srcPlane = [ 1, 0, 0, 0 ];
+  var srcPlane = [ 0, 1, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1706,7 +1706,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'Plane cuts polygon vertex';
 
-  var srcPlane = [ 0, 0, -1, 1 ];
+  var srcPlane = [ 1, 0, 0, -1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
@@ -1722,7 +1722,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'Plane next to polygon vertex';
 
-  var srcPlane = [ 0, 0, -1, 2 ];
+  var srcPlane = [ 2, 0, 0, -1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
@@ -1738,7 +1738,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'Plane cuts polygon edge';
 
-  var srcPlane = [ 0, 1, 1, 0 ];
+  var srcPlane = [ 0, 0, 1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1754,7 +1754,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'Plane next to polygon edge';
 
-  var srcPlane = [ 0, 1, 1, -2 ];
+  var srcPlane = [ -2, 0, 1, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1770,7 +1770,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'Plane cuts polygon';
 
-  var srcPlane = [ 1, -2, 1, 0 ];
+  var srcPlane = [ 0, 1, -2, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
@@ -1786,7 +1786,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'Plane next to polygon';
 
-  var srcPlane = [ 0, 0, 2, -1 ];
+  var srcPlane = [ -1, 0, 0, 2 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     1,   0, - 1,   0,
@@ -1802,7 +1802,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'dstPoint Array';
 
-  var srcPlane = [ 3, 0, 0, 1 ];
+  var srcPlane = [ 1, 3, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1820,7 +1820,7 @@ function convexPolygonClosestPoint( test )
 
   test.case = 'dstPoint Vector';
 
-  var srcPlane = [ 3, 0, 0, 1 ];
+  var srcPlane = [ 1, 3, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1869,20 +1869,20 @@ function frustumClosestPoint( test )
 
   test.case = 'Plane and frustum remain unchanged';
 
-  var srcPlane = [ 1, 0, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
-    0, 0, 0, 0, - 1, 1,
-    1, - 1, 0, 0, 0, 0,
-    0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+     0,  0,  0,  0, -1,  1,
+     1, -1,  0,  0,  0,  0,
+     0,  0,  1, -1,  0,  0,
+    -1,  0, -1,  0,  0, -1
   ]);
   var expected = _.plane.tools.longMake( [ -1, 1, 1 ] );
 
   var gotPoint = _.plane.frustumClosestPoint( srcPlane, srcFrustum );
   test.identical( expected, gotPoint );
 
-  var oldSrcPlane = [ 1, 0, 0, 1 ];
+  var oldSrcPlane = [ 1, 1, 0, 0 ];
   test.identical( srcPlane, oldSrcPlane );
 
   var oldSrcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
@@ -1898,7 +1898,7 @@ function frustumClosestPoint( test )
 
   test.case = 'srcFrustum and plane don´t intersect';
 
-  var srcPlane = [ 1, 0, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
@@ -1915,7 +1915,7 @@ function frustumClosestPoint( test )
 
   test.case = 'srcFrustum and Plane intersect';
 
-  var srcPlane = [ 2, 4, - 4, - 6 ];
+  var srcPlane = [ - 6, 2, 4, - 4 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
@@ -1932,7 +1932,7 @@ function frustumClosestPoint( test )
 
   test.case = 'Plane is frustum side';
 
-  var srcPlane = [ 1, 0 , 0, -1 ];
+  var srcPlane = [ -1, 1, 0 , 0 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
@@ -1949,7 +1949,7 @@ function frustumClosestPoint( test )
 
   test.case = 'srcFrustum corner opposite to plane';
 
-  var srcPlane = [ 1, 1, 1, 3 ];
+  var srcPlane = [ 3, 1, 1, 1 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
@@ -1966,7 +1966,7 @@ function frustumClosestPoint( test )
 
   test.case = 'srcFrustum and srcPlane are parallel';
 
-  var srcPlane = [ 1, 0, 0, 4 ];
+  var srcPlane = [ 4, 1, 0, 0 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
@@ -1983,7 +1983,7 @@ function frustumClosestPoint( test )
 
   test.case = 'dstPoint is vector';
 
-  var srcPlane = [ 1, 0, 0, 4 ];
+  var srcPlane = [ 4, 1, 0, 0 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
     0, 0, 0, 0, - 1, 1,
