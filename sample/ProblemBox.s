@@ -4,9 +4,9 @@ require( 'wmathmodels' );
 var _ = wTools;
 
 var bbox = _.box.make();
-var bboxView = _.vectorAdapter.from( bbox );
+var bboxView = _.vad.from( bbox );
 var point = [ 3,3,3 ];
-var pointView = _.vectorAdapter.from( point );
+var pointView = _.vad.from( point );
 
 debugger;
 _.box.pointExpand( bbox, pointView );

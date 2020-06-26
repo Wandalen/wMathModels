@@ -5,7 +5,7 @@ var _ = wTools;
 
 /* */
 
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var intersected = _.plane.planeIntersects( plane, plane );
 console.log( `Plane intersects with plane : ${ intersected }` );
 /* log : Plane intersects with plane : true */
