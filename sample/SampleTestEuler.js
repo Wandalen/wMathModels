@@ -26,8 +26,8 @@ var F = 0;
 //   var result = _.euler.toQuat2( euler2 );
 //
 //   var positiveResult = result.slice();
-//   var negativeResult = _.avector.mul( _.vectorAdapter.toArray( result ), -1 );
-//   var expected = _.vectorAdapter.toArray( expected );
+//   var negativeResult = _.avector.mul( _.vad.toArray( result ), -1 );
+//   var expected = _.vad.toArray( expected );
 //   var eq1 = _.entityEquivalent( positiveResult, expected, { accuracy : accuracy } );
 //   var eq2 = _.entityEquivalent( negativeResult, expected, { accuracy : accuracy } );
 //
@@ -35,8 +35,8 @@ var F = 0;
 //   { T = T+1; }
 //   else
 //   {
-//     result = _.vectorAdapter.toArray( result );
-//     expected = _.vectorAdapter.toArray( expected );
+//     result = _.vad.toArray( result );
+//     expected = _.vad.toArray( expected );
 //     console.log( 'euler: ', euler[ 0 ],euler[ 1 ],euler[ 2 ], euler[ 3 ],euler[ 4 ],euler[ 5 ] );
 //     console.log( 'q1: ', expected[ 0 ], expected[ 1 ], expected[ 2 ], expected[ 3 ] );
 //     console.log( 'q2: ', result[ 0 ], result[ 1 ], result[ 2 ], result[ 3 ] );
