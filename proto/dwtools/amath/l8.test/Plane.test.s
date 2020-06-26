@@ -3663,7 +3663,7 @@ function sphereDistance( test )
 
   test.case = 'Sphere and plane stay unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var oldPlane = plane.slice();
   var sphere = [ 2, 0, 0, 1 ];
   var oldSphere = sphere.slice();
@@ -3679,7 +3679,7 @@ function sphereDistance( test )
   test.case = 'Trivial';
 
   var sphere = [ 2, 0, 0, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 2;
 
   var distance = _.plane.sphereDistance( plane, sphere );
@@ -3689,7 +3689,7 @@ function sphereDistance( test )
 
   test.case = 'Trivial 2';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 1, 1, 1, 1 ];
   var expected = 1;
 
@@ -3700,7 +3700,7 @@ function sphereDistance( test )
 
   test.case = 'Center in plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 0, - 1, 0, 1 ];
   var expected = 0;
 
@@ -3711,7 +3711,7 @@ function sphereDistance( test )
 
   test.case = 'Sphere cuts plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 0, 0, 0, 1.5 ];
   var expected = 0;
 
@@ -3722,7 +3722,7 @@ function sphereDistance( test )
 
   test.case = 'Sphere touches plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
   var expected = 0;
 
@@ -3733,7 +3733,7 @@ function sphereDistance( test )
 
   test.case = 'Sphere under plane';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var sphere = [ - 1, - 1, - 1, 1 ];
   var expected = 1;
 
@@ -3744,7 +3744,7 @@ function sphereDistance( test )
 
   test.case = 'Sphere over plane';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var sphere = [ 0, 3, 0, 1 ];
   var expected = 1;
 
