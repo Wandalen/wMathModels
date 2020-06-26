@@ -1985,8 +1985,8 @@ function cornerRightGet( test )
   test.case = 'One dimension box';
 
   var box = [ 0, 1 ];
-  var expected = _.box.tools.longMake( [ 1 ] );
-  expected = _.box.tools.vectorAdapter.from(expected);
+  var expected = [ 1 ];
+  var expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
