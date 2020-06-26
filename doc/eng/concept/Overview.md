@@ -27,11 +27,11 @@ The mathematical model of the segment.
 An instance of the model is stored in any vector form.
 
 ```js
-var segment = [ 2, 1, 9, 4 ];
+var segment = [ 9, 1, 2, 4 ];
 var point = [ 3, 5 ];
 var distance = _.segment.pointDistance( segment, point );
 console.log( `Distance from segment to point : ${ _.toStr( distance, { precision : 2 } ) }` );
-/* log : Distance from segment to point : 3.3 */
+/* log : Distance from segment to point : 1.3 */
 ```
 
 ![Segment](../../img/Segment.png)
@@ -45,11 +45,11 @@ The mathematical model of the capsule.
 A capsule is a segment that has a thickness. The capsule, as well as the segment, is described by two points denoting the beginning and the end, and also has a thickness and rounding at the ends. An instance of the model is stored in any vector form.
 
 ```js
-var capsule = [ 2, 1, 9, 4, 0.5 ];
+var capsule = [ 9, 1, 2, 4, 0.5 ];
 var point = [ 3, 5 ];
 var distance = _.capsule.pointDistance( capsule, point );
 console.log( `Distance from capsule to point : ${ _.toStr( distance, { precision : 2 } ) }` );
-/* log : Distance from capsule to point : 2.8 */
+/* log : Distance from capsule to point : 0.81 */
 ```
 
 ![Capsule](../../img/Capsule.png)
@@ -105,7 +105,7 @@ var line = [ 2, 1, 4, 2 ];
 var point = [ 2, 3 ];
 var distance = _.linePoints.pointDistance( line, point );
 console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
-/* log : Distance from line to point : 1.7 */
+/* log : Distance from line to point : 1.8 */
 ```
 
 ![LinePoints](../../img/LinePoints.png)

@@ -7,7 +7,9 @@ var _ = wTools;
 
 var dim = 2;
 var box = _.box.make( dim );
-console.log( `Type : ${ _.strType( box ) }` );
-/* log : Type : Array */
 console.log( box );
 /* log : [ 0, 0, 0, 0 ] */
+console.log( `Type : ${ _.strType( box ) }` );
+/* log : Type : Array */
+console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
+/* log : _.box.is( box ) : true */

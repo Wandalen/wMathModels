@@ -5,11 +5,11 @@ var _ = wTools;
 
 /* */
 
-var srcBox = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+var srcBox = _.vad.fromLong([ 2, 1, 9, 5 ]);
 var box = _.box.from( srcBox );
+console.log( box );
+/* log : VectorAdapter.x4.Array :: 2.000 1.000 9.000 5.000 */
 console.log( `srcBox === box : ${ srcBox === box }` );
 /* log : srcBox === box : true */
-console.log( `Type : ${ _.strType( box ) }` );
-/* log : Type : VectorAdapterFromLong */
-console.log( box );
-/* log : VectorAdapter.x4.Array :: 0.000 1.000 2.000 3.000 */
+console.log( `_.box.is( box ) : ${ _.box.is( box ) }` );
+/* log : _.box.is( box ) : true */

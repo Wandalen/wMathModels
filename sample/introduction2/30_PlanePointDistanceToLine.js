@@ -5,8 +5,8 @@ var _ = wTools;
 
 /* */
 
-var line = [ 2, 1, 4, 2 ];
-var point = [ 2, 3 ];
-var distance = _.linePoints.pointDistance( line, point );
+var point = [ 3, 2 ];
+var line = [ -4, 4, 0 ];
+var distance = _.plane.pointDistance( line, point );
 console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 2 } ) }` );
-/* log : Distance from line to point : 1.7 */
+/* log : Distance from line to point : -0.71*/

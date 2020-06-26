@@ -276,7 +276,7 @@ function pointDistanceCentered3DSqr( test )//qqq vova: extend
 var Self =
 {
 
-  name : 'Tools/Math/LinePoints',
+  name : 'Tools/Math/LinePointCentered',
   silencing : 1,
   enabled : 1,
   // verbosity : 7,
