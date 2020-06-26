@@ -231,7 +231,8 @@ function normalGet( plane )
 {
   let planeView = this.adapterFrom( plane );
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return planeView.review([ 0, planeView.length - 2 ]);
+  // return planeView.review([ 0, planeView.length - 2 ]);
+  return planeView.review([ 1, planeView.length - 1 ]);
 }
 
 //
@@ -240,7 +241,8 @@ function biasGet( plane )
 {
   let planeView = this.adapterFrom( plane );
   _.assert( arguments.length === 1, 'Expects single argument' );
-  return planeView.eGet( planeView.length-1 );
+  // return planeView.eGet( planeView.length-1 );
+  return planeView.eGet( 0 );
 }
 
 //

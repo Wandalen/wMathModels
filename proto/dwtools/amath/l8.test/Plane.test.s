@@ -400,11 +400,11 @@ function fromPoints( test )
   var oldB = b.slice();
   var c = [ 0, 2, 0 ];
   var oldC = c.slice();
-  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c );
   test.identical( gotPlane, dstPlane );
-  test.equivalent( expected, dstPlane );
+  test.equivalent( dstPlane, expected );
   test.identical( a, oldA );
   test.identical( b, oldB );
   test.identical( c, oldC );
@@ -417,7 +417,7 @@ function fromPoints( test )
   var a = [ 2, 1, 0 ];
   var b = [ 2, 3, 4 ];
   var c = [ 2, 2, 0 ];
-  var expected = _.plane.tools.longMake( [ 1, 0, 0, - 2 ] );
+  var expected = _.plane.tools.longMake( [ -2, 1, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
@@ -430,7 +430,7 @@ function fromPoints( test )
   var a = [ 0, 1, 0 ];
   var b = [ 0, 3, 4 ];
   var c = [ 0, 2, 0 ];
-  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
@@ -469,7 +469,7 @@ function fromPoints( test )
   var a = [ 1, 3, 0 ];
   var b = [ 1, 3, 4 ];
   var c = [ 1, 2, 0 ];
-  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 1 ] );
+  var expected = _.plane.tools.longMake( [ 1, -1, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
@@ -482,7 +482,7 @@ function fromPoints( test )
   var a = [ 2, 0, 2 ];
   var b = [ 2, - 2, - 2 ];
   var c = [ 2, 2, 0 ];
-  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 2 ] );
+  var expected = _.plane.tools.longMake( [ 2, -1, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
@@ -495,7 +495,7 @@ function fromPoints( test )
   var a = [ 0, 0.2, 0.6 ];
   var b = [ 0, 0, 4.2 ];
   var c = [ 0, 0.3, 0 ];
-  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, 0 ] );
 
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.equivalent( gotPlane, expected );
