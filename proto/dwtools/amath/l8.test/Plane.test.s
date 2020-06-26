@@ -834,14 +834,14 @@ function pointCoplanarGet( test )
 
   test.case = 'Plane and point remain unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var point = [ 2, 0, 2 ];
   var expected = _.plane.tools.longMake( [ - 1, 0, 2 ] );
 
   var gotPoint = _.plane.pointCoplanarGet( plane, point );
   test.identical( expected, gotPoint );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldPoint = [ 2, 0, 2 ];
@@ -851,7 +851,7 @@ function pointCoplanarGet( test )
 
   test.case = 'NaN array point';
 
-  var plane = [ 1, 0 , 0, 1 ];
+  var plane = [ 1, 1, 0 , 0 ];
   var point = [ NaN, NaN, NaN ];
   var expected = _.plane.tools.longMake( [ NaN, NaN, NaN ] );
 
@@ -862,7 +862,7 @@ function pointCoplanarGet( test )
 
   test.case = 'Trivial';
 
-  var plane = [ 1, 0 , 0, 1 ];
+  var plane = [ 1, 1, 0 , 0 ];
   var point = [ 1, 3, 2 ];
   var expected = _.plane.tools.longMake( [ - 1, 3, 2 ] );
 
@@ -873,7 +873,7 @@ function pointCoplanarGet( test )
 
   test.case = 'Trivial 2';
 
-  var plane = [ 1, 0 , - 1, 0 ];
+  var plane = [ 0, 1, 0 , - 1 ];
   var point = [ 2, 3, 2 ];
   var expected = _.plane.tools.longMake( [ 2, 3, 2 ] );
 
@@ -884,7 +884,7 @@ function pointCoplanarGet( test )
 
   test.case = 'Proyection 3D';
 
-  var plane = [ 2, - 1 , 3, 1 ];
+  var plane = [ 1, 2, - 1 , 3 ];
   var point = [ 4, 1, -3 ];
   var expected = _.plane.tools.longMake( [ 29/7, 13/14, -39/14  ] );
 
@@ -895,7 +895,7 @@ function pointCoplanarGet( test )
 
   test.case = 'Point in plane';
 
-  var plane = [ 1, 0 , 0, 1 ];
+  var plane = [ 1, 1, 0 , 0 ];
   var point = [ - 1, 2, 3 ];
   var expected = _.plane.tools.longMake( [ - 1, 2, 3 ] );
 
@@ -906,7 +906,7 @@ function pointCoplanarGet( test )
 
   test.case = 'Destination point is vector';
 
-  var plane = [ 1, 0 , 0, 1 ];
+  var plane = [ 1, 1, 0 , 0 ];
   var point = [ - 1, 2, 3 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.plane.tools.vectorAdapter.from( [ - 1, 2, 3 ] );
