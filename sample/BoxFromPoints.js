@@ -18,7 +18,7 @@ console.log( 'dim :', dim );
 
 if( box === null )
 //var dimp = points[0].length;
-box = _.box.makeNil(dim);
+box = _.box.makeSingular(dim);
 
 console.log( 'box centered :', box );
 

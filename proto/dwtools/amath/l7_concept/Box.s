@@ -135,18 +135,19 @@ function makeZero( dim )
   *
   * @example
   * // returns [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ];
-  * _.makeNil( 3 );
+  * _.makeSingular( 3 );
   *
   * @example
   * // returns [ Infinity, Infinity, - Infinity, - Infinity ];
-  * _.makeNil( [ 1, 1, 2, 2] );
+  * _.makeSingular( [ 1, 1, 2, 2] );
   *
-  * @function makeNil
+  * @function makeSingular
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.box
   * @module Tools/math/Concepts
   */
-function makeNil( dim )
+
+function makeSingular( dim )
 {
   if( this.is( dim ) )
   dim = this.dimGet( dim );
@@ -237,7 +238,7 @@ function nil( box )
     return box;
   }
 
-  return this.makeNil( box );
+  return this.makeSingular( box );
 }
 
 //
@@ -399,7 +400,7 @@ function fromPoints( box, points )
   let dimp = points[0].length;
 
   if( box === null )
-  box = this.makeNil( dimp );
+  box = this.makeSingular( dimp );
 
   let boxView = this.adapterFrom( box );
   let min = this.cornerLeftGet( boxView );
@@ -512,7 +513,7 @@ function fromSphere( box, sphere )
   let radius = this.tools.sphere.radiusGet( sphereView );
 
   if( box === null )
-  box = this.makeNil( dim1 );
+  box = this.makeSingular( dim1 );
 
   let boxView = this.adapterFrom( box );
   let dim2 = this.dimGet( boxView );
@@ -1335,7 +1336,7 @@ function pointExpand( dstBox , point )
 {
 
   if( dstBox === null )
-  dstBox = this.makeNil();
+  dstBox = this.makeSingular();
 
   _.assert( _.longIs( point ) || _.vectorAdapterIs( point ) );
 
@@ -3498,7 +3499,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,

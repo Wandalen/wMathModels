@@ -5,7 +5,7 @@ var _ = wTools;
 
 var sphere = [ 0, 2, 2, 2, 2, 2, 4 ];
 var Oldsphere = [ 0, 2, 2, 2, 2, 2, 4 ];
-var vsphere = _.vector.from(sphere);
+var vsphere = _.vectorAdapter.from(sphere);
 var radius = 3;
 
 debugger;

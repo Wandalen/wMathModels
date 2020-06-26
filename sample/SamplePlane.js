@@ -4,7 +4,7 @@ require( 'wmathmodels' );
 let _ = wTools;
 
 let srcPlane = [ 0, 0, 1, 0 ];
-var polygon =  _.Space.make( [ 3, 4 ] ).copy
+var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
 ([
   0,   0,   0,   0,
   1,   0, - 1,   0,
@@ -12,9 +12,9 @@ var polygon =  _.Space.make( [ 3, 4 ] ).copy
 ]);
 
 result = _.plane.convexPolygonIntersects( srcPlane, polygon );
-logger.log( result );
+console.log( result );
 result = _.plane.convexPolygonDistance( srcPlane, polygon );
-logger.log( result );
+console.log( result );
 result = _.plane.convexPolygonClosestPoint( srcPlane, polygon );
-logger.log( result );
+console.log( result );
 debugger;

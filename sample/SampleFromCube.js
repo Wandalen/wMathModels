@@ -5,8 +5,8 @@ var _ = wTools;
 
 var box = [ 0, 0, 0, 0, 0, 0 ];
 var Oldbox =  [ 0, 0, 0, 0, 0, 0 ];
-var vbox = _.vector.from(box);
-var cube = [ 2 ] ;
+var vbox = _.vectorAdapter.from(box);
+var cube = 2 ;
 
 debugger;
 

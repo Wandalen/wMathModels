@@ -396,7 +396,6 @@ function toMatrixRotation( axisAndAngle, dstMatrix )
   dstMatrix = this.tools.quat.toMatrix( quat, dstMatrix );
 
   return dstMatrix;
-
 }
 
 // --

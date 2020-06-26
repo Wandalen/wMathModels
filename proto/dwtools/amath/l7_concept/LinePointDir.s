@@ -61,7 +61,7 @@ function makeZero( dim )
 
 //
 
-function makeNil( dim )
+function makeSingular( dim )
 {
   if( this.is( dim ) )
   dim = this.dimGet( dim );
@@ -115,7 +115,7 @@ function nil( line )
     return line;
   }
 
-  return this.makeNil( line );
+  return this.makeSingular( line );
 }
 
 //
@@ -777,12 +777,14 @@ function lineIntersectionFactors( srcLine1, srcLine2 )
       m : m,
       y : or,
       kernel : null,
-      pivoting : 1,
+      permutating : 1,
+      // pivoting : 1,
     }
 
     let x = _.Matrix.SolveGeneral( o );
 
-    result = this.tools.vectorAdapter.from( x.base );
+    result = _.Matrix.ConvertToClass( _.VectorAdapter, x.ox ); /* Dmytro : not sure that needs to use x.ox, it also can be x.x */
+    // result = this.tools.vectorAdapter.from( x.base );
 
     let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
     let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
@@ -1483,7 +1485,7 @@ function boundingBoxGet( dstBox, srcLine )
   let dimLine  = this.dimGet( srcLineView )
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( dimLine );
+  dstBox = this.tools.box.makeSingular( dimLine );
 
   _.assert( _.box.is( dstBox ) );
   let boxView = this.tools.box.adapterFrom( dstBox );
@@ -3315,7 +3317,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,

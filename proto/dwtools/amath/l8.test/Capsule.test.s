@@ -174,13 +174,13 @@ function makeZero( test )
 
 //
 
-function makeNil( test )
+function makeSingular( test )
 {
   /* */
 
   test.case = 'Default';
 
-  var gotCapsule = _.capsule.makeNil();
+  var gotCapsule = _.capsule.makeSingular();
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
 
@@ -189,7 +189,7 @@ function makeNil( test )
   test.case = 'srcDim undefined';
 
   var srcDim = undefined;
-  var gotCapsule = _.capsule.makeNil( srcDim );
+  var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
@@ -199,7 +199,7 @@ function makeNil( test )
   test.case = 'srcDim null';
 
   var srcDim = null;
-  var gotCapsule = _.capsule.makeNil( srcDim );
+  var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
@@ -209,7 +209,7 @@ function makeNil( test )
   test.case = 'srcDim 2';
 
   var srcDim = 2;
-  var gotCapsule = _.capsule.makeNil( srcDim );
+  var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
@@ -219,7 +219,7 @@ function makeNil( test )
   test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3, 4 ];
-  var gotCapsule = _.capsule.makeNil( srcDim );
+  var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
@@ -229,7 +229,7 @@ function makeNil( test )
   test.case = 'srcDim vector';
 
   var srcDim = _.capsule.tools.vectorAdapter.fromLong( [ 0, 1, 2, 3, 4 ] );
-  var gotCapsule = _.capsule.makeNil( srcDim );
+  var gotCapsule = _.capsule.makeSingular( srcDim );
   var expected = _.capsule.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotCapsule, expected );
   test.is( gotCapsule !== srcDim );
@@ -238,9 +238,9 @@ function makeNil( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.capsule.makeNil( [ 0, 0, 0 ], [ 1, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.capsule.makeNil( [ 0, 0, 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.capsule.makeNil( 'capsule' ));
+  test.shouldThrowErrorSync( () => _.capsule.makeSingular( [ 0, 0, 0 ], [ 1, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.makeSingular( [ 0, 0, 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.capsule.makeSingular( 'capsule' ));
 }
 
 //
@@ -8272,7 +8272,7 @@ var Self =
 
     make,
     makeZero,
-    makeNil,
+    makeSingular,
 
     zero,
     nil,

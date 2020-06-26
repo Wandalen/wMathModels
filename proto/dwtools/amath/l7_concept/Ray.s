@@ -61,7 +61,7 @@ function makeZero( dim )
 
 //
 
-function makeNil( dim )
+function makeSingular( dim )
 {
   if( this.is( dim ) )
   dim = this.dimGet( dim );
@@ -117,7 +117,7 @@ function nil( ray )
     return ray;
   }
 
-  return this.makeNil( ray );
+  return this.makeSingular( ray );
 }
 
 //
@@ -219,10 +219,10 @@ fromPair.shaderChunkName = 'ray_fromPair'
 function fromPair2( pair )
 {
   _.assert( arguments.length === 1 );
-  
+
   let pair0 = this.tools.linePoints.firstPointGet( pair );
   let pair1 = this.tools.linePoints.secondPointGet( pair );
-  
+
   return this.fromPair( [ pair0,pair1 ] );
 }
 
@@ -774,12 +774,14 @@ function rayIntersectionFactors( r1, r2 )
       m,
       y : or,
       kernel : null,
-      pivoting : 1,
+      permutating : 1,
+      // pivoting : 1,
     }
 
     let x = _.Matrix.SolveGeneral( o );
 
-    result = this.tools.vectorAdapter.from( x.base );
+    result = _.Matrix.ConvertToClass( _.VectorAdapter, x.ox ); /* Dmytro : not sure that needs to use x.ox, it also can be x.x */
+    // result = this.tools.vectorAdapter.from( x.base );
 
     let point1 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
     let point2 = this.tools.vectorAdapter.from( this.tools.longMake( dOrigin.length ) );
@@ -1539,7 +1541,7 @@ function boundingBoxGet( dstBox, srcRay )
   let dimRay  = this.dimGet( srcRayView )
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( dimRay );
+  dstBox = this.tools.box.makeSingular( dimRay );
 
   _.assert( _.box.is( dstBox ) );
   let boxView = this.tools.box.adapterFrom( dstBox );
@@ -3220,7 +3222,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,

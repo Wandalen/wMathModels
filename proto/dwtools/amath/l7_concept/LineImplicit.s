@@ -45,7 +45,7 @@ function makeZero( dim )
 
 //
 
-function makeNil( dim )
+function makeSingular( dim )
 {
   if( this.is( dim ) )
   dim = this.dimGet( dim );
@@ -99,7 +99,7 @@ function nil( line )
   //   return line;
   // }
 
-  return this.makeNil( line );
+  return this.makeSingular( line );
 }
 
 //
@@ -400,7 +400,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,

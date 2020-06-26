@@ -312,6 +312,43 @@ function injectChunks( routines )
 
 }
 
+//
+
+/**
+  * Routine pointDistance() gets the distance between a point and a line. Returns the calculated distance. Point and line stay untouched.
+  *
+  * @param { Array } srcLine - The source line.
+  * @param { Array } srcPoint - The source point.
+  *
+  * @example
+  * // returns 0
+  * _.pointDistance( [ 0, 0, 0, 2 ], [ 0, 0 ] );
+  *
+  * @example
+  * // returns 1.
+  * _.pointDistance( [ 0, 0, 0, 2 ], [ 2, 0 ] );
+  *
+  * @returns { Number } - Returns the distance between the point and the line.
+  * @function pointDistance
+  * @throws { Error } An Error if ( dim ) is different than point.length (line and point have not the same dimension).
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcLine ) is not line.
+  * @throws { Error } An Error if ( srcPoint ) is not point.
+  * @namespace wTools.linePointDir
+  * @module Tools/math/Concepts
+  */
+
+function pointDistance( srcLine, srcPoint ) /* Dmytro : it's very bad implementation, but very simple and faster, needs to rewrite */
+{
+  if( srcLine === null )
+  srcLine = this.make( srcPoint.length );
+  else
+  srcLine = this.make( srcLine );
+  srcLine = _.linePointDir.make( srcLine );
+
+  return _.linePointDir.pointDistance( srcLine, srcPoint );
+}
+
 // --
 // declare
 // --
@@ -339,6 +376,8 @@ let Extension = /* qqq xxx : normalize order */
   pairIntersectionFactors,
   pairIntersectionPoint,
   pairIntersectionPointAccurate,
+
+  pointDistance,
 
   // ref
 

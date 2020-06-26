@@ -889,7 +889,7 @@ function boundingBoxGet( dstBox, srcFrustum )
   _.assert( fpoints.hasShape( [ 3, 8 ] ) );
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( rows - 1 );
+  dstBox = this.tools.box.makeSingular( rows - 1 );
 
   _.assert( _.box.is( dstBox ) );
   let boxView = this.tools.box.adapterFrom( dstBox );

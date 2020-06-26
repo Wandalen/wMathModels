@@ -15,7 +15,7 @@ var got = _.plane.capsuleIntersects( plane, capsule );
 console.log( 'Plane intersects with capsule: ', got )
 /* log : Plane intersects with capsule: true */
 
-var frustum = _.Matrix.make( [ 4, 6 ] ).copy
+var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
 ([
   0,   0,   0,   0,  -1,   1,
   1,  -1,   0,   0,   0,   0,

@@ -158,14 +158,14 @@ function makeZero( test )
 
 //
 
-function makeNil( test )
+function makeSingular( test )
 {
   /* */
 
   test.case = 'srcDim undefined';
 
   var srcDim = undefined;
-  var gotSegment = _.segment.makeNil( srcDim );
+  var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
   test.is( gotSegment !== srcDim );
@@ -175,7 +175,7 @@ function makeNil( test )
   test.case = 'srcDim null';
 
   var srcDim = null;
-  var gotSegment = _.segment.makeNil( srcDim );
+  var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, Infinity, - Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
   test.is( gotSegment !== srcDim );
@@ -185,7 +185,7 @@ function makeNil( test )
   test.case = 'srcDim 2';
 
   var srcDim = 2;
-  var gotSegment = _.segment.makeNil( srcDim );
+  var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
   test.is( gotSegment !== srcDim );
@@ -195,7 +195,7 @@ function makeNil( test )
   test.case = 'srcDim array';
 
   var srcDim = [ 0, 1, 2, 3 ];
-  var gotSegment = _.segment.makeNil( srcDim );
+  var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
   test.is( gotSegment !== srcDim );
@@ -205,7 +205,7 @@ function makeNil( test )
   test.case = 'srcDim vector';
 
   var srcDim = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
-  var gotSegment = _.segment.makeNil( srcDim );
+  var gotSegment = _.segment.makeSingular( srcDim );
   var expected = _.segment.tools.longMake( [ Infinity, Infinity, - Infinity, - Infinity ] );
   test.identical( gotSegment, expected );
   test.is( gotSegment !== srcDim );
@@ -214,8 +214,8 @@ function makeNil( test )
 
   if( !Config.debug )
   return;
-  test.shouldThrowErrorSync( () => _.segment.makeNil( [ 0, 0 ], [ 1, 1 ] ));
-  test.shouldThrowErrorSync( () => _.segment.makeNil( 'segment' ));
+  test.shouldThrowErrorSync( () => _.segment.makeSingular( [ 0, 0 ], [ 1, 1 ] ));
+  test.shouldThrowErrorSync( () => _.segment.makeSingular( 'segment' ));
 }
 
 //
@@ -9064,7 +9064,7 @@ var Self =
   {
     make,
     makeZero,
-    makeNil,
+    makeSingular,
 
     zero,
     nil,

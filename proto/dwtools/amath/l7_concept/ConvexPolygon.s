@@ -1008,7 +1008,7 @@ function boundingBoxGet( polygon, dstBox  )
   let cols = dims[ 1 ];
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( rows );
+  dstBox = this.tools.box.makeSingular( rows );
 
   _.assert( _.box.is( dstBox ) );
   let boxView = this.tools.box.adapterFrom( dstBox );
@@ -1543,7 +1543,9 @@ function lineIntersects( polygon, line )
     let plane = this.tools.vectorAdapter.from( this.tools.longMakeZeroed( dims[ 0 ] + 1 ) );
     let i = 0;
 
-    while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
+    debugger;
+    while( vectorsEquivalent.call( this, normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) ) /* Dmytro : uses local routine. In other side, the first and the second arguments of the routine are the same new instances */
+    // while( this.tools.vectorAdapter.allEquivalent( normal, this.tools.longMakeZeroed( dims[ 0 ] ) ) && ( i <= dims[ 1 ] - 3 ) )
     {
       let pointOne = polygon.colGet( i );
       let pointTwo = polygon.colGet( i + 1 );
@@ -1570,6 +1572,18 @@ function lineIntersects( polygon, line )
   }
 
   return false;
+
+  /* */
+
+  function vectorsEquivalent( src1, src2 )
+  {
+
+    for( let i = 0 ; i < src2.length ; i++ )
+    if( src1.eGet( i ) - src2[ i ] >= this.tools.accuracy )
+    return false;
+
+    return true;
+  }
 }
 
 //

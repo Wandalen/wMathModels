@@ -1,5 +1,5 @@
 if( typeof module !== 'undefined' )
-require( 'wmathconcepts' );
+require( 'wmathmodels' );
 
 var _ = wTools;
 
@@ -8,7 +8,7 @@ var point = [ 0, 1, 3 ];
 
 debugger;
 
-var clamped = _.box.pointClamp( box, point.slice() );
+var clamped = _.box.pointClosestPoint( box, point.slice() );
 
 console.log(clamped,' vs ',point);
 

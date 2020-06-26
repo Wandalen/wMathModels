@@ -115,20 +115,20 @@ function makeZero( dim )
   *
   * @example
   * // returns [ 0, 0, 0, - Infinity ];
-  * _.makeNil( 3 );
+  * _.makeSingular( 3 );
   *
   * @example
   * // returns [ 0, 0, 0, - Infinity ];
-  * _.makeNil( [ 0, 2, 0, 1 ] );
+  * _.makeSingular( [ 0, 2, 0, 1 ] );
   *
   * @returns { Array } Returns the array of the created sphere.
-  * @function makeNil
+  * @function makeSingular
   * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
   * @namespace wTools.sphere
   * @module Tools/math/Concepts
   */
 
-function makeNil( dim )
+function makeSingular( dim )
 {
   _.assert( arguments.length === 0 || arguments.length === 1 );
   let result = this.makeZero( dim );
@@ -198,7 +198,7 @@ function zero( sphere )
 function nil( sphere )
 {
   if( !this.is( sphere ) )
-  return this.makeNil( sphere );
+  return this.makeSingular( sphere );
 
   let sphereView = this.adapterFrom( sphere );
   for( let i = 0 ; i < sphereView.length-1 ; i++ )
@@ -1434,7 +1434,7 @@ function boundingBoxGet( dstBox, srcSphere )
   let dimS = this.dimGet( sphereView );
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( dimS );
+  dstBox = this.tools.box.makeSingular( dimS );
 
   _.assert( _.box.is( dstBox ) );
   let dimB = this.tools.box.dimGet( dstBox );
@@ -2863,7 +2863,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,

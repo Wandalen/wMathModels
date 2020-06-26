@@ -10,7 +10,7 @@
 ### Functions:
   - `make( dim )`: Returns a ray of dimension dim ( default dim = 3 ).
   - `makeZero( dim )`: Returns a ray of dimension dim ( default dim = 3 ) full of zeros.
-  - `makeNil( dim )`: Returns a nil ray of dimension dim ( default dim = 3 ).
+  - `makeSingular( dim )`: Returns a nil ray of dimension dim ( default dim = 3 ).
   - `zero( ray )`: Transforms the input ray to a zero ray.
   - `nil( ray )`: Transforms the input ray to a nil ray.
 

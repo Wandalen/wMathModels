@@ -61,7 +61,7 @@ function makeZero( dim )
 
 //
 
-function makeNil( dim )
+function makeSingular( dim )
 {
   if( this.is( dim ) )
   dim = this.dimGet( dim );
@@ -115,7 +115,7 @@ function nil( segment )
     return segment;
   }
 
-  return this.makeNil( segment );
+  return this.makeSingular( segment );
 }
 
 //
@@ -881,12 +881,14 @@ function segmentIntersectionFactors( srcSegment1, srcSegment2 )
       m : m,
       y : or,
       kernel : null,
-      pivoting : 1,
+      permutating : 1,
+      // pivoting : 1,
     }
 
     let x = _.Matrix.SolveGeneral( o );
 
-    result = this.tools.vectorAdapter.from( x.base );
+    result = _.Matrix.ConvertToClass( _.VectorAdapter, x.ox ); /* Dmytro : not sure that needs to use x.ox, it also can be x.x */
+    // result = this.tools.vectorAdapter.from( x.base );
 
     let point1 = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( dOrigin.length ) );
     let point2 = this.tools.vectorAdapter.from( this.tools.longMake/* _.array.makeArrayOfLength */( dOrigin.length ) );
@@ -1720,7 +1722,7 @@ function boundingBoxGet( dstBox, srcSegment )
   let dimSegment  = this.dimGet( srcSegmentView )
 
   if( dstBox === null || dstBox === undefined )
-  dstBox = this.tools.box.makeNil( dimSegment );
+  dstBox = this.tools.box.makeSingular( dimSegment );
 
   _.assert( _.box.is( dstBox ) );
   let dimB = this.tools.box.dimGet( dstBox );
@@ -3855,7 +3857,7 @@ let Extension = /* qqq : normalize order */
 
   make,
   makeZero,
-  makeNil,
+  makeSingular,
 
   zero,
   nil,
