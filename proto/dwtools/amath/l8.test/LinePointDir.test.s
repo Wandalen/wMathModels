@@ -5376,7 +5376,7 @@ function planeIntersectionPoint( test )
   test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1,  - 1, -1, 1, 0, 0 ];
-  var plane = [ 1, 0, 0, - 1 ];
+  var plane = [ - 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, -1, -1 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5385,7 +5385,7 @@ function planeIntersectionPoint( test )
   var oldLine = [  - 1, - 1, -1, 1, 0, 0 ];
   test.identical( line, oldLine );
 
-  var oldPlane = [ 1, 0, 0, -1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5393,7 +5393,7 @@ function planeIntersectionPoint( test )
   test.case = 'Null line';
 
   var line = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5404,7 +5404,7 @@ function planeIntersectionPoint( test )
   test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5415,7 +5415,7 @@ function planeIntersectionPoint( test )
   test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ -1, 2, 3 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5426,7 +5426,7 @@ function planeIntersectionPoint( test )
   test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5437,7 +5437,7 @@ function planeIntersectionPoint( test )
   test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ - 3, -9, 4 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5448,7 +5448,7 @@ function planeIntersectionPoint( test )
   test.case = 'Positive factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, - 3 ];
+  var plane = [ - 3, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 3, -3, 4 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5459,7 +5459,7 @@ function planeIntersectionPoint( test )
   test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, 1, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5470,7 +5470,7 @@ function planeIntersectionPoint( test )
   test.case = 'Line ( normalized to 1 ) no intersection';
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5481,7 +5481,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5492,7 +5492,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5503,7 +5503,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane contains line origin';
 
   var line = [ 0, 0, 0, 0, 3, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5514,7 +5514,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane perpendicular to line';
 
   var line = [ 3, 4, 4, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = _.linePointDir.tools.longMake( [ 3, 4, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5525,7 +5525,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel to line 4D';
 
   var line = [ 0, 2, 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5536,7 +5536,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane perpendicular to line 4D';
 
   var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 0, 3, 0 ];
+  var plane = [ 0, 0, 0, 0, 3 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 1, 2, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5547,7 +5547,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane and line intersect 4D';
 
   var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 2, 3, 0 ];
+  var plane = [ 0, 0, 1, 2, 3 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 1, 2, - ( 1 + 2/3 ) ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5558,7 +5558,7 @@ function planeIntersectionPoint( test )
   test.case = 'dstPoint is vector';
 
   var line = [ 3, 4, 4, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 3, 4, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane, _.linePointDir.tools.vectorAdapter.from( [ 0, 0, 0 ] ) );
