@@ -5119,13 +5119,13 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
   test.identical( gotBool, expected );
 
-  var oldPlane = [ 1, 0, 0, 3 ];
+  var oldPlane = [ 3, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -5144,7 +5144,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, -1, 2, 0 ];
+  var plane = [ 0, 0, -1, 2 ];
   var expected = true;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5158,7 +5158,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5172,7 +5172,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5186,7 +5186,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 0, -2 ];
+  var plane = [ -2, 0, 1, 0 ];
   var expected = false;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5200,7 +5200,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0.1 ];
+  var plane = [ 0.1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5214,7 +5214,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1 ];
+  var plane = [ -1, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5228,7 +5228,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1 ];
+  var plane = [ -1, 0, 1, 1 ];
   var expected = true;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
