@@ -7694,7 +7694,7 @@ function planeExpand( test )
   test.case = 'Source plane remains unchanged';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ -1, 0, 0, 3, 3, 3 ] );
 
@@ -7708,7 +7708,7 @@ function planeExpand( test )
   test.case = 'Plane and box intersect - no expansion';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 1 ];
+  var srcPlane = [ - 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ 0, 0, 0, 3, 3, 3 ] );
 
@@ -7720,7 +7720,7 @@ function planeExpand( test )
   test.case = 'Box expanded by min';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 1, 3 ];
+  var srcPlane = [ 3, 1, 1, 1 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ -1, -1, -1, 3, 3, 3 ] );
 
@@ -7732,7 +7732,7 @@ function planeExpand( test )
   test.case = 'Box expanded by max';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 1, - 12 ];
+  var srcPlane = [ - 12, 1, 1, 1 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 4, 4 ] );
 
@@ -7744,7 +7744,7 @@ function planeExpand( test )
   test.case = 'Box expanded on two sides - by min';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 0, 8 ];
+  var srcPlane = [ 8, 1, 1, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ -4, -4, 0, 3, 3, 3 ] );
 
@@ -7756,7 +7756,7 @@ function planeExpand( test )
   test.case = 'Box expanded on two sides - by max';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 0, - 8 ];
+  var srcPlane = [ - 8, 1, 1, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 4, 3 ] );
 
@@ -7768,7 +7768,7 @@ function planeExpand( test )
   test.case = 'Box expanded on one side by min';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, 3 ];
+  var srcPlane = [ 3, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ -3, 0, 0, 3, 3, 3 ] );
 
@@ -7780,7 +7780,7 @@ function planeExpand( test )
   test.case = 'Box expanded on one side by max';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 4 ];
+  var srcPlane = [ - 4, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 3, 3 ] );
 
@@ -7792,7 +7792,7 @@ function planeExpand( test )
   test.case = 'dstBox is vector';
 
   var dstBox = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 0, 3, 3, 3 ] );
-  var srcPlane = [ 1, 1, 0, - 8 ];
+  var srcPlane = [ - 8, 1, 1, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 0, 4, 4, 3 ] );
 
@@ -7816,7 +7816,7 @@ function planeExpand( test )
   test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1, 2, 1 ], null ) );
   test.shouldThrowErrorSync( () => _.box.planeExpand( NaN, [ 1, 0, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1 ], [ 1, 0, 0 ] ) );
 
 }
 
