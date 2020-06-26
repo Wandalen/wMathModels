@@ -5768,7 +5768,7 @@ function planeClosestPoint( test )
   test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5777,7 +5777,7 @@ function planeClosestPoint( test )
   var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
   test.identical( line, oldLine );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5785,7 +5785,7 @@ function planeClosestPoint( test )
   test.case = 'Null line - empty plane';
 
   var line = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5796,7 +5796,7 @@ function planeClosestPoint( test )
   test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5807,7 +5807,7 @@ function planeClosestPoint( test )
   test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5818,7 +5818,7 @@ function planeClosestPoint( test )
   test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5829,7 +5829,7 @@ function planeClosestPoint( test )
   test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5840,7 +5840,7 @@ function planeClosestPoint( test )
   test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5851,7 +5851,7 @@ function planeClosestPoint( test )
   test.case = 'Line ( normalized to 1 ) parallel';
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5862,7 +5862,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5873,7 +5873,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5884,7 +5884,7 @@ function planeClosestPoint( test )
   test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5896,7 +5896,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel to line 4D';
 
   var line = [ 1, 2, 3, 4, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, 2, 3, 4 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5907,7 +5907,7 @@ function planeClosestPoint( test )
   test.case = 'plane perpendicular to line 4D';
 
   var line = [ 0, 0, 0, 0, 0, 0, 2, 0 ];
-  var plane = [ 0, 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5918,7 +5918,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is array';
 
   var line = [ 0, -6, 24, 0, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, -6, 24 ] );
 
@@ -5930,7 +5930,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is vector';
 
   var line = [ 0, -6, 24, 0, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var dstPoint = _.linePointDir.tools.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0, -6, 24 ] );
 
