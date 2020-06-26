@@ -5674,7 +5674,7 @@ function planeIntersects( test )
   test.case = 'Capsule and plane remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5683,7 +5683,7 @@ function planeIntersects( test )
   var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5691,7 +5691,7 @@ function planeIntersects( test )
   test.case = 'Null capsule - no intersection';
 
   var capsule = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5702,7 +5702,7 @@ function planeIntersects( test )
   test.case = 'Null capsule - Intersection';
 
   var capsule = null;
-  var plane = [ 1, 0, -1, 0 ];
+  var plane = [ 0, 1, 0, -1 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5713,7 +5713,7 @@ function planeIntersects( test )
   test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5724,7 +5724,7 @@ function planeIntersects( test )
   test.case = 'point capsule in plane';
 
   var capsule = [ - 1, 2, 3, -1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5735,7 +5735,7 @@ function planeIntersects( test )
   test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5746,7 +5746,7 @@ function planeIntersects( test )
   test.case = 'point capsule intersection';
 
   var capsule = [ - 1.1, 2, 3, -1.1, 2, 3, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5757,7 +5757,7 @@ function planeIntersects( test )
   test.case = 'Capsule and plane intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5768,7 +5768,7 @@ function planeIntersects( test )
   test.case = 'Capsule over plane';
 
   var capsule = [ 0, -6, 4, 1, 1, 0, 0.5 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5779,7 +5779,7 @@ function planeIntersects( test )
   test.case = 'plane closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.4 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5790,7 +5790,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.4 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5801,7 +5801,7 @@ function planeIntersects( test )
   test.case = 'plane parallel contains capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5812,7 +5812,7 @@ function planeIntersects( test )
   test.case = 'plane perpendicular to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
