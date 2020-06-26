@@ -3525,7 +3525,7 @@ function sphereIntersects( test )
 
   test.case = 'Sphere and plane stay unchanged';
 
-  var plane = [ 1, 0 , 0, 1 ];
+  var plane = [ 1, 1, 0 , 0 ];
   var oldPlane = plane.slice();
   var sphere = [ 2, 0, 0, 1 ];
   var oldSphere = sphere.slice();
@@ -3541,7 +3541,7 @@ function sphereIntersects( test )
   test.case = 'Trivial - no intersection';
 
   var sphere = [ 2, 0, 0, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.plane.sphereIntersects( plane, sphere );
@@ -3551,7 +3551,7 @@ function sphereIntersects( test )
 
   test.case = 'Trivial - intersection';
 
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var sphere = [ 1, 1, 1, 1 ];
   var expected = true;
 
@@ -3562,7 +3562,7 @@ function sphereIntersects( test )
 
   test.case = 'Center in plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 0, - 1, 0, 1 ];
   var expected = true;
 
@@ -3573,7 +3573,7 @@ function sphereIntersects( test )
 
   test.case = 'Sphere cuts plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 0, 0, 0, 1.5 ];
   var expected = true;
 
@@ -3584,7 +3584,7 @@ function sphereIntersects( test )
 
   test.case = 'Sphere touches plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
   var expected = true;
 
@@ -3595,7 +3595,7 @@ function sphereIntersects( test )
 
   test.case = 'Sphere under plane';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var sphere = [ - 1, - 1, - 1, 1 ];
   var expected = false;
 
@@ -3606,7 +3606,7 @@ function sphereIntersects( test )
 
   test.case = 'Sphere over plane';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var sphere = [ 0, 3, 0, 1 ];
   var expected = false;
 
@@ -3617,7 +3617,7 @@ function sphereIntersects( test )
 
   test.case = 'Zero sphere';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var sphere = _.sphere.makeZero();
   var expected = false;
 
@@ -3628,7 +3628,7 @@ function sphereIntersects( test )
 
   test.case = 'Nil sphere';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var sphere = _.sphere.makeSingular();
   var expected = false;
 
