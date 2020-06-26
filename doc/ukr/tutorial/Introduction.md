@@ -177,13 +177,12 @@ console.log( 'src2 === box2 :', src2 === box2 );
 - вектор адаптер ( VectorAdapter )
 
 Вектор адаптер є свого роду посиланням, що визначає як саме інтерпретувати дані в вектор.
-<!-- Vector adapter is a kind of link that defines how to interpret data as the vector. -->
 
 Контейнером для моделі полігон та фрустум ( frustum ) є **матриця**. Матриця здатна переносити багатовимірну інформацію, що є необхідністю для таких моделей, як полігон.
 
 Як через матрицю так і через вектор адаптер можливо реалізувати **zero-copy принцип**.
 
-Розділення даних та функціоналу:
+Розчіплення даних та функціоналу:
 
  - дає можливість уникнути марного копіювання даних
  - спрощує використання модуля
@@ -324,6 +323,7 @@ var intersected = _.plane.capsuleIntersects( plane, capsule );
 console.log( `Plane intersects with capsule : ${ intersected }` );
 /* log : Plane intersects with capsule: true */
 ```
+
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинає капсулу `capsule`.
 
 ```js
@@ -353,7 +353,6 @@ console.log( `Plane intersects with plane : ${ intersected }` );
 
 В змінну `intersected` повертається `true`, оскільки як площина `plane` перетинає сама себе.
 
-
 ```js
 var plane = [ 1, 0, 0, 1 ];
 var line = [ 1, 0, 1, 1, 1, 1 ];
@@ -373,7 +372,6 @@ console.log( `Plane intersects with segment : ${ intersected }` );
 ```
 
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинається із відрізком `segment`.
-
 
 ```js
 var plane = [ 0, 2, 0, 2 ];

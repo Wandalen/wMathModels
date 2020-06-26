@@ -1,4 +1,4 @@
-## Концепції
+## Conceptions
 
 <!-- <details>
   <summary><a href="./concept/Overview.md#...">
@@ -8,129 +8,129 @@
 </details> -->
 
 <details>
-  <summary><a href="./concept/Overview.md#математична-модель">
-    Математична модель
+  <summary><a href="./concept/Overview.md#mathematicalmodel">
+    Mathematical model
   </a></summary>
-    Формальний опис системи за допомогою математичних концепцій та мови.
+    A formal description of a system using mathematical concepts and language.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#box">
     Box
   </a></summary>
-    Математична модель n-ортотопа, або інакше гіперпрямокутника або бокса.
+    The mathematical model of n-orthotope, also called a hyperrectangle or a box.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#segment">
     Segment
   </a></summary>
-    Математична модель відрізка.
+    The mathematical model of the segment.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#capsule">
     Capsule
   </a></summary>
-    Математична модель капсули.
+    The mathematical model of the capsule.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#sphere">
     Sphere
   </a></summary>
-    Математична модель гіперсфери.
+    The mathematical model of the hypersphere.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#ray">
     Ray
   </a></summary>
-    Математична модель променя.
+    The mathematical model of the ray.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#linepoints">
     LinePoints
   </a></summary>
-    Математична модель прямої за двома точками.
+    The mathematical model of a line from two points.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#linepointdir">
     LinePointDir
   </a></summary>
-    Математична модель прямої за точкою та відносним напрямком.
+    The mathematical model of a line from a point and a relative direction.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#linepointcentered">
     LinePointCentered
   </a></summary>
-    Математична модель прямої, котра проходить через початок координат і задану точку.
+    The mathematical model of a line that passes through the origin and a given point.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#plane--implicit-">
     Plane ( implicit )
   </a></summary>
-    Математична модель гіперплощини заданої неявним рівнянням.
+    The mathematical model of a hyper-plane given by an implicit equation.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#triangle">
     Triangle
   </a></summary>
-    Математична модель трикутника.
+    The mathematical model of a triangle.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#convexpolygon">
     ConvexPolygon
   </a></summary>
-    Математична модель випуклого полігона.
+    The mathematical model of a convex polygon.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#concavepolygon">
     ConcavePolygon
   </a></summary>
-    Математична модель впуклого полігона.
+    The mathematical model of a concave polygon.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#frustum">
     Frustum
   </a></summary>
-    Математична модель фрустума - обрізаної піраміди.
+    The mathematical model of frustum - a truncated pyramid.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#axisandangle">
     AxisAndAngle
   </a></summary>
-    Обертання об'єкта за віссю обертання і кутом повороту.
+    Rotation of the object around the axis and the angle.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#euler">
     Euler
   </a></summary>
-    Обертання об'єкта за кутами Ейлера.
+    Rotation of the object by Euler's angles.
 </details>
 
 <details>
   <summary><a href="./concept/Overview.md#quat">
     Quat
   </a></summary>
-    Обертання об'єкта за допомогою кватерніона.
+    Rotation of an object using a quaternion.
 </details>
 
-## Туторіали
+## Tutorials
 
 <details>
   <summary><a href="./tutorial/Introduction.md">
-    Введення
+    Introduction
   </a></summary>
-    Стаття описує основні особливості модуля та принципи його використання.
+    The article describes the main features of the module and the principles of its use.
 </details>
