@@ -1224,7 +1224,7 @@ function boundingBoxGet( test )
 
   test.case = 'Source plane remains unchanged';
 
-  var srcPlane = [ 1, 2, 3, 4 ];
+  var srcPlane = [ 4, 1, 2, 3 ];
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
   var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, - Infinity, Infinity, Infinity, Infinity ] );
 
@@ -1232,7 +1232,7 @@ function boundingBoxGet( test )
   test.identical( expected, gotBox );
   test.is( dstBox === gotBox );
 
-  var oldSrcPlane = [ 1, 2, 3, 4 ];
+  var oldSrcPlane = [ 4, 1, 2, 3 ];
   test.identical( srcPlane, oldSrcPlane );
 
   /* */
@@ -1250,7 +1250,7 @@ function boundingBoxGet( test )
 
   test.case = 'Plane perpendicular to x axis';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
   var expected = _.plane.tools.longMake( [ 0, - Infinity, - Infinity, 0, Infinity, Infinity ] );
 
@@ -1261,7 +1261,7 @@ function boundingBoxGet( test )
 
   test.case = 'Plane perpendicular to x axis with bias';
 
-  var srcPlane = [ 3, 0, 0, - 6 ];
+  var srcPlane = [ - 6, 3, 0, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
   var expected = _.plane.tools.longMake( [ 2, - Infinity, - Infinity, 2, Infinity, Infinity ] );
 
@@ -1272,7 +1272,7 @@ function boundingBoxGet( test )
 
   test.case = 'Plane perpendicular to y axis';
 
-  var srcPlane = [ 0, - 3, 0, 0 ];
+  var srcPlane = [ 0, 0, - 3, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
   var expected = _.plane.tools.longMake( [  - Infinity, 0, - Infinity, Infinity, 0, Infinity ] );
 
@@ -1283,7 +1283,7 @@ function boundingBoxGet( test )
 
   test.case = 'Plane perpendicular to y axis with bias';
 
-  var srcPlane = [ 0, 3, 0, 12 ];
+  var srcPlane = [ 12, 0, 3, 0 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
   var expected = _.plane.tools.longMake( [  - Infinity, - 4, - Infinity, Infinity, - 4, Infinity ] );
 
@@ -1294,7 +1294,7 @@ function boundingBoxGet( test )
 
   test.case = 'Plane perpendicular to z axis';
 
-  var srcPlane = [ 0, 0, - 1, 0 ];
+  var srcPlane = [ 0, 0, 0, - 1 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
   var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, 0, Infinity, Infinity, 0 ] );
 
@@ -1305,7 +1305,7 @@ function boundingBoxGet( test )
 
   test.case = 'Plane perpendicular to z axis with bias';
 
-  var srcPlane = [ 0, 0, 12, - 6 ];
+  var srcPlane = [ - 6, 0, 0, 12 ];
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
   var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, 0.5, Infinity, Infinity, 0.5 ] );
 
@@ -1327,7 +1327,7 @@ function boundingBoxGet( test )
 
   test.case = 'dstBox vector - 2D';
 
-  var srcPlane = [ - 4, 0, 1 ];
+  var srcPlane = [ 1, - 4, 0 ];
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9 ] );
   var expected = _.plane.tools.vectorAdapter.from( [ 0.25, - Infinity, 0.25, Infinity ] );
 
@@ -1338,7 +1338,7 @@ function boundingBoxGet( test )
 
   test.case = 'dstBox null';
 
-  var srcPlane = [ 2.2, 3.3, - 4.4 ];
+  var srcPlane = [ - 4.4, 2.2, 3.3 ];
   var dstBox = null;
   var expected = _.plane.tools.longMake( [ - Infinity, - Infinity, Infinity, Infinity ] );
 
@@ -1349,7 +1349,7 @@ function boundingBoxGet( test )
 
   test.case = 'dstBox undefined';
 
-  var srcPlane = [ 0, - 5, - 3 ];
+  var srcPlane = [ - 3, 0, - 5 ];
   var dstBox = undefined;
   var expected = _.plane.tools.longMake( [  - Infinity, - 3 / 5, Infinity, - 3 / 5 ] );
 
