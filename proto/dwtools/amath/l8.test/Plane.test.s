@@ -3136,14 +3136,14 @@ function segmentIntersects( test )
 
   test.case = 'Plane and segment remain unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var segment = [ 1, 0, 1, 2, 1, 2 ];
   var expected = false;
 
   var interBool = _.plane.segmentIntersects( plane, segment );
   test.identical( expected, interBool );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldSegment = [ 1, 0, 1, 2, 1, 2 ];
@@ -3153,7 +3153,7 @@ function segmentIntersects( test )
 
   test.case = 'Segment and plane intersect';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var segment = [ - 2, - 2, - 2, 2, 2, 2 ];
   var expected = true;
 
@@ -3164,7 +3164,7 @@ function segmentIntersects( test )
 
   test.case = 'Segment and Plane intersect';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var segment = [ 2, 2, 2, 3, 3, 3 ];
   var expected = true;
 
@@ -3175,7 +3175,7 @@ function segmentIntersects( test )
 
   test.case = 'Segment and Plane don´t intersect';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var segment = [ 2, 2, 3, 3, 3, 4 ];
   var expected = false;
 
@@ -3186,7 +3186,7 @@ function segmentIntersects( test )
 
   test.case = 'Segment in Plane';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var segment = [ 0, 2, 3, 0, 5, 7 ];
   var expected = true;
 
@@ -3197,7 +3197,7 @@ function segmentIntersects( test )
 
   test.case = 'Perpendicular segment intersects';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var segment = [ - 2, 2, 2, 2, 2, 2 ];
   var expected = true;
 
@@ -3208,7 +3208,7 @@ function segmentIntersects( test )
 
   test.case = 'Perpendicular segment touches plane';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var segment = [ - 2, 2, 2, 0, 2, 2 ];
   var expected = true;
 
@@ -3219,7 +3219,7 @@ function segmentIntersects( test )
 
   test.case = 'Perpendicular doesn´t intersect';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var segment = [ - 2, 2, 2, - 1, 2, 2 ];
   var expected = false;
 
