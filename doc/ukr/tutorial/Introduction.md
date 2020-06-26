@@ -267,7 +267,7 @@ console.log( `cornerRight : ${ cornerRight }` );
 
 ```js
 var point = [ 0, 1, 2 ];
-var plane = [ 1, 2, -1, 0 ];
+var plane = [ 0, 1, 2, -1 ];
 var contains = _.plane.pointContains( plane, point );
 console.log( `Plane contains point : ${ contains }` );
 /* log : Plane contains point : true */
@@ -307,7 +307,7 @@ console.log( `Polygon contains point : ${ contains }` );
 Приклад використання групи рутин `*Intersects` для перевірки перетину екземпляра моделі `plane` з екземплярами інших моделей.
 
 ```js
-var plane = [ 0, 2, 0, -2 ];
+var plane = [ -2, 0, 2, 0 ];
 var box = [ 0, 0, 0, 2, 2, 2 ];
 var intersected = _.plane.boxIntersects( plane, box );
 console.log( `Plane intersects with box : ${ intersected }` );
@@ -317,7 +317,7 @@ console.log( `Plane intersects with box : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинає бокс `box`.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var capsule = [ - 1, 2, 3, -1, 2, 3, 0  ];
 var intersected = _.plane.capsuleIntersects( plane, capsule );
 console.log( `Plane intersects with capsule : ${ intersected }` );
@@ -345,7 +345,7 @@ console.log( `Plane intersects with frustum : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки як площина `plane` перетинає зрізану піраміду `frustum`.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var intersected = _.plane.planeIntersects( plane, plane );
 console.log( `Plane intersects with plane : ${ intersected }` );
 /* log : Plane intersects with plane : true */
@@ -354,7 +354,7 @@ console.log( `Plane intersects with plane : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки як площина `plane` перетинає сама себе.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var line = [ 1, 0, 1, 1, 1, 1 ];
 var intersected = _.plane.lineIntersects( plane, line );
 console.log( `Plane intersects with line : ${ intersected }` );
@@ -364,7 +364,7 @@ console.log( `Plane intersects with line : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинається лінією `line`.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var segment = [ -2, -2, -2, 2, 2, 2 ];
 var intersected = _.plane.segmentIntersects( plane, segment );
 console.log( `Plane intersects with segment : ${ intersected }` );
@@ -374,7 +374,7 @@ console.log( `Plane intersects with segment : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинається із відрізком `segment`.
 
 ```js
-var plane = [ 0, 2, 0, 2 ];
+var plane = [ 2, 0, 2, 0 ];
 var sphere = [ 0, 0, 0, 1.5 ];
 var intersected = _.plane.sphereIntersects( plane, sphere );
 console.log( `Plane intersects with sphere : ${ intersected }` );
@@ -385,7 +385,7 @@ console.log( `Plane intersects with sphere : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинається зі сферою `sphere`.
 
 ```js
-var plane = [ - 1, 0, 0, 1 ];
+var plane = [ 1, - 1, 0, 0 ];
 var ray = [ 0, 0, 0, 1, 1, 1 ];
 var intersected = _.plane.rayIntersects( plane, ray );
 console.log( `Plane intersects with ray : ${ intersected }` );
@@ -483,7 +483,7 @@ console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 
 
 ```js
 var point = [ 4, 1, -3 ];
-var plane = [ 2, -1, 3, 1 ];
+var plane = [ 1, 2, -1, 3 ];
 var distance = _.plane.pointDistance( plane, point );
 console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from 3D plane to point : -0.27 */

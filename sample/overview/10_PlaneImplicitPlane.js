@@ -5,7 +5,7 @@ var _ = wTools;
 
 /* */
 
-var plane = [ -2, -1, 2, 0 ];
+var plane = [ -1, 2, 0, -2 ];
 var point = [ 2, 3, -3 ];
 var distance = _.plane.pointDistance( plane, point );
 console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
