@@ -1107,14 +1107,14 @@ function boxClosestPoint( test )
 
   test.case = 'box and plane stay unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = _.plane.tools.longMake( [ - 1, 0, 0 ] );
 
   var gotPoint = _.plane.boxClosestPoint( plane, box );
   test.identical( expected, gotPoint );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldbox = [ 0, 0, 0, 1, 1, 1 ];
@@ -1125,7 +1125,7 @@ function boxClosestPoint( test )
   test.case = 'Trivial';
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, - 3 ];
+  var plane = [ - 3, 1, 0, 0 ];
   var expected = _.plane.tools.longMake( [ 3, 0, 0 ] );
 
   var gotPoint = _.plane.boxClosestPoint( plane, box );
@@ -1135,7 +1135,7 @@ function boxClosestPoint( test )
 
   test.case = 'Diagonal plane';
 
-  var plane = [ - 1, 1, 0, - 2 ];
+  var plane = [ - 2, - 1, 1, 0 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = _.plane.tools.longMake( [ -0.5, 1.5, 0 ] );
 
@@ -1146,7 +1146,7 @@ function boxClosestPoint( test )
 
   test.case = 'Intersection z';
 
-  var plane = [ 0, 0, 1, - 2 ];
+  var plane = [ - 2, 0, 0, 1 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = 0;
 
@@ -1157,7 +1157,7 @@ function boxClosestPoint( test )
 
   test.case = 'Intersection diagonal plane';
 
-  var plane = [ 1, - 1, 0, 0 ];
+  var plane = [ 0, 1, - 1, 0 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
@@ -1168,7 +1168,7 @@ function boxClosestPoint( test )
 
   test.case = 'Intersection one side of box in plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var box = [ 0, - 2, 0, 1, 3, 3 ];
   var expected = 0;
 
@@ -1179,7 +1179,7 @@ function boxClosestPoint( test )
 
   test.case = 'Intersection one edge of box in plane';
 
-  var plane = [ 1, - 1, 0, 0 ];
+  var plane = [ 0, 1, - 1, 0 ];
   var box = [ 1, 1, - 1, 2, 1, 0 ];
   var expected = 0;
 
@@ -1190,7 +1190,7 @@ function boxClosestPoint( test )
 
   test.case = 'Zero box';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var box = _.box.makeZero( 3 );
   var expected = _.plane.tools.longMake( [ 0, 1, 0 ] );
 
