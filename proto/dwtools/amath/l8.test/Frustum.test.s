@@ -39,10 +39,10 @@ function cornersGet( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
@@ -56,10 +56,10 @@ function cornersGet( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( frustum, oldFrustum );
 
@@ -67,10 +67,10 @@ function cornersGet( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
@@ -86,10 +86,10 @@ function cornersGet( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 1, - 1, 1, 1, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 1, - 1, 1, 1, - 1
   ]);
   var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
@@ -105,10 +105,10 @@ function cornersGet( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, - 1, - 1, - 1, - 1, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, - 1, - 1, - 1, - 1, - 1
   ]);
   var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
@@ -124,10 +124,10 @@ function cornersGet( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
@@ -143,10 +143,10 @@ function cornersGet( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 2, 0,
     0, 2, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
@@ -162,10 +162,10 @@ function cornersGet( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 2, 0,
     0, 2, 1, - 1, 0, 0.5,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = _.Matrix.Make( [ 3, 8 ] ).copy
   ([
