@@ -2001,10 +2001,10 @@ function convexPolygonClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
@@ -2027,10 +2027,10 @@ function convexPolygonClosestPoint( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -2038,10 +2038,10 @@ function convexPolygonClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    -3, 0.5, 0.5,  -3, 0.5,  -3,
     0,   0,   0,   0,   -1,  1,
     1,  -1,   0,   0,   0,   0,
     0,   0,  -1,   1,   0,   0,
-    -3, 0.5, 0.5,  -3, 0.5,  -3
   ]);
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
@@ -2058,10 +2058,10 @@ function convexPolygonClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    -3,  0,   0,  -3,   0,  -3,
     0,   0,   0,   0,   -1,  1,
     1,  -1,   0,   0,   0,   0,
     0,   0,  -1,   1,   0,   0,
-    -3,  0,   0,  -3,   0,  -3
   ]);
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
@@ -2078,10 +2078,10 @@ function convexPolygonClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    -3,  1,   1,  -3,   1,  -3,
     0,   0,   0,   0,   -1,  1,
     1,  -1,   0,   0,   0,   0,
     0,   0,  -1,   1,   0,   0,
-    -3,  1,   1,  -3,   1,  -3
   ]);
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
@@ -2098,10 +2098,10 @@ function convexPolygonClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    -3,  1,   1,  -3,   1,  -3,
     0,   0,   0,   0,   -1,  1,
     1,  -1,   0,   0,   0,   0,
     0,   0,  -1,   1,   0,   0,
-    -3,  1,   1,  -3,   1,  -3
   ]);
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
@@ -2118,10 +2118,10 @@ function convexPolygonClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    -3,  0,   0,  -3,   0,  -3,
     0,   0,   0,   0,   -1,  1,
     1,  -1,   0,   0,   0,   0,
     0,   0,  -1,   1,   0,   0,
-    -3,  0,   0,  -3,   0,  -3
   ]);
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
@@ -2138,10 +2138,10 @@ function convexPolygonClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,   0, - 1,   0,   1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   2,   1, - 1,   0,   0,
-    - 3,   0, - 1,   0,   1, - 2
   ]);
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
