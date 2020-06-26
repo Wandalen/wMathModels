@@ -1213,10 +1213,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
+      - 1, 0, - 1, 0, 0, - 1,
       0, 0, 0, 0, - 1, 1,
       1, - 1, 0, 0, 0, 0,
       0, 0, 1, - 1, 0, 0,
-      - 1, 0, - 1, 0, 0, - 1
     ]);
   var dstBox = [ 1, 1, 1, 2, 2, 2 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0, 1, 1, 1 ] );
@@ -1227,10 +1227,10 @@ function boundingBoxGet( test )
 
   var oldSrcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
+      - 1, 0, - 1, 0, 0, - 1,
       0, 0, 0, 0, - 1, 1,
       1, - 1, 0, 0, 0, 0,
       0, 0, 1, - 1, 0, 0,
-      - 1, 0, - 1, 0, 0, - 1
     ]);
   test.identical( srcFrustum, oldSrcFrustum );
 
@@ -1240,10 +1240,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
+      0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, - 1, 1,
       1, - 1, 0, 0, 0, 0,
       0, 0, 1, - 1, 0, 0,
-      0, 0, 0, 0, 0, 0
     ]);
   var dstBox = [ 0, 0, 0, 1, 1, 1 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0, 0, 0, 0 ] );
@@ -1257,10 +1257,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
+      - 2, 1, - 1, 0, 2, - 3,
       0, 0, 0, 0, - 1, 1,
       1, - 1, 0, 0, 0, 0,
       0, 0, 1, - 1, 0, 0,
-      - 2, 1, - 1, 0, 2, - 3
     ]);
   var dstBox = [ 0, 0, 0, 5, 5, 5 ];
   var expected = _.frustum.tools.longMake( [ 2, 1, 0, 3, 2, 1 ] );
@@ -1274,10 +1274,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
+      - 3, 1, - 3, 1, 1, - 3,
       0, 0, 0, 0, - 1, 1,
       1, - 1, 0, 0, 0, 0,
       0, 0, 1, - 1, 0, 0,
-      - 3, 1, - 3, 1, 1, - 3
     ]);
   var dstBox = [ - 3, - 4, - 5, - 5, - 4, - 2 ];
   var expected = _.frustum.tools.longMake( [ 1, 1, 1, 3, 3, 3 ] );
@@ -1291,10 +1291,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
+      - 1, 1, - 1, 1, 1, - 1,
       0, 0, 0, 0, - 1, 1,
       1, - 1, 0, 0, 0, 0,
       0, 0, 1, - 1, 0, 0,
-      - 1, 1, - 1, 1, 1, - 1
     ]);
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
   var expected = _.frustum.tools.longMake( [ 1, 1, 1, 1, 1, 1 ] );
@@ -1308,10 +1308,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
     ([
+      1, - 2, 1, - 3, - 2, 1,
       0, 0, 0, 0, - 1, 1,
       1, - 1, 0, 0, 0, 0,
       0, 0, 1, - 1, 0, 0,
-      1, - 2, 1, - 3, - 2, 1
     ]);
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
   var expected = _.frustum.tools.longMake( [ - 2, - 2, - 3, - 1, - 1, - 1 ] );
@@ -1323,10 +1323,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
   ]);
   var dstBox = [ 3, 3, 3, 4, 4, 4 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0, 1, 3, 1 ] );
@@ -1340,10 +1340,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 2, 0, 1, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 2, 0, 1, - 1
   ]);
   var dstBox = _.vectorAdapter.from( [ 1, 2, 3, 9, 10, - 1 ] );
   var expected = _.frustum.tools.vectorAdapter.from( [ 1, 0, 0, 1, 4, 2 ] );
@@ -1357,10 +1357,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 3, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 3, - 1
   ]);
   var dstBox = null;
   var expected = _.frustum.tools.longMake( [ 1, 0, 0, 3, 3, 1 ] );
@@ -1374,10 +1374,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 1, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 1, - 1, 0, 0, - 1
   ]);
   var dstBox = undefined;
   var expected = _.frustum.tools.longMake( [ 0, 1, 0, 1, 3, 1 ] );
@@ -1392,10 +1392,10 @@ function boundingBoxGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 1, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 1, - 1, 0, 0, - 1
   ]);
   test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( ) );
   test.shouldThrowErrorSync( () => _.frustum.boundingBoxGet( [] ) );
