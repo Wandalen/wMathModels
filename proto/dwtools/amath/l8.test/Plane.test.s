@@ -2568,25 +2568,25 @@ function planeDistance( test )
 
   test.case = 'Planes remain unchanged';
 
-  var srcPlane = [ 1, 0, 0, 1 ];
-  var tstPlane = [ 1, 1, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
+  var tstPlane = [ 1, 1, 1, 0 ];
   var expected = 0;
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
   test.identical( expected, gotDist );
 
-  var oldSrcPlane = [ 1, 0, 0, 1 ];
+  var oldSrcPlane = [ 1, 1, 0, 0 ];
   test.identical( srcPlane, oldSrcPlane );
 
-  var oldtstPlane = [ 1, 1, 0, 1 ];
+  var oldtstPlane = [ 1, 1, 1, 0 ];
   test.identical( tstPlane, oldtstPlane );
 
   /* */
 
   test.case = 'tstPlane and plane intersect';
 
-  var srcPlane = [ 1, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 1, 0 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 1 ];
   var expected = 0;
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
@@ -2596,8 +2596,8 @@ function planeDistance( test )
 
   test.case = 'tstPlane and Plane don´t intersect';
 
-  var srcPlane = [ 2, 4, - 4, - 6 ];
-  var tstPlane = [ 1, 2, - 2, 9 ];
+  var srcPlane = [ - 6, 2, 4, - 4 ];
+  var tstPlane = [ 9, 1, 2, - 2 ];
   var expected = 4;
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
@@ -2607,8 +2607,8 @@ function planeDistance( test )
 
   test.case = 'tstPlane and Plane don´t intersect';
 
-  var srcPlane = [ 1, 0 , - 1, 0 ];
-  var tstPlane = [ 2, 0, -2, 1 ];
+  var srcPlane = [ 0, 1, 0 , - 1 ];
+  var tstPlane = [ 1, 2, 0, -2 ];
   var expected = 0.5 / Math.sqrt( 2 );
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
@@ -2618,8 +2618,8 @@ function planeDistance( test )
 
   test.case = 'tstPlane and srcPlane are the same';
 
-  var srcPlane = [ 1, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var srcPlane = [ 0, 1, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = 0;
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
@@ -2629,8 +2629,8 @@ function planeDistance( test )
 
   test.case = 'tstPlane and srcPlane are the same';
 
-  var srcPlane = [ 1, 0, 2, 1 ];
-  var tstPlane = [ 2, 0, 4, 2 ];
+  var srcPlane = [ 1, 1, 0, 2 ];
+  var tstPlane = [ 2, 2, 0, 4 ];
   var expected = 0;
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
@@ -2640,8 +2640,8 @@ function planeDistance( test )
 
   test.case = 'tstPlane and srcPlane are parallel';
 
-  var srcPlane = [ 1, 0, 2, 1 ];
-  var tstPlane = [ 2, 0, 4, 1 ];
+  var srcPlane = [ 1, 1, 0, 2 ];
+  var tstPlane = [ 1, 2, 0, 4 ];
   var expected = 0.5 / Math.sqrt( 5 );
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
@@ -2651,8 +2651,8 @@ function planeDistance( test )
 
   test.case = 'tstPlane and srcPlane exchange - same result';
 
-  var srcPlane = [ 2, 0, 4, 1 ];
-  var tstPlane = [ 1, 0, 2, 1 ];
+  var srcPlane = [ 1, 2, 0, 4 ];
+  var tstPlane = [ 1, 1, 0, 2 ];
   var expected = 0.5 / Math.sqrt( 5 );
 
   var gotDist = _.plane.planeDistance( srcPlane, tstPlane );
