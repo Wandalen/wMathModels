@@ -5001,11 +5001,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 0, 0, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 3, 0, 0, 3.3166247903554 ] );
@@ -5017,22 +5017,22 @@ function frustumExpand( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   test.identical( tstFrustum, oldFrustum );
 
   test.description = 'Sphere contains frustum'; //
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 2 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
@@ -5043,11 +5043,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+  - 1, 0, - 1, 0, 0, - 1,
   0, 0, 0, 0, - 1, 1,
   1, - 1, 0, 0, 0, 0,
   0, 0, 1, - 1, 0, 0,
-  - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 2, 2, 2, 2 ];
 
   var expected = _.sphere.tools.longMake( [ 2, 2, 2, Math.sqrt( 12 ) ] );
@@ -5058,11 +5058,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, Math.sqrt( 3 ) ] );
@@ -5073,11 +5073,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 5, 1, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 5, 1, Math.sqrt( 27 ) ] );
@@ -5088,11 +5088,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 3, 3, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 3, 3, Math.sqrt( 19 ) ] );
@@ -5103,11 +5103,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 3, 3, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 3, 3, 3, Math.sqrt( 27 ) ] );
@@ -5130,11 +5130,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
 
   test.shouldThrowErrorSync( () => _.sphere.frustumExpand( ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere', 'frustum' ) );
