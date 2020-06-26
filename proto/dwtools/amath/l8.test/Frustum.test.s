@@ -704,10 +704,10 @@ function boxContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var box = [ 1, 1, 1, 3, 3, 3 ];
   var expected = false;
@@ -720,10 +720,10 @@ function boxContains( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -731,10 +731,10 @@ function boxContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
@@ -746,10 +746,10 @@ function boxContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
   var expected = false;
@@ -761,10 +761,10 @@ function boxContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var box = [ - 2, - 2, - 2, 2, 2, 2 ];
   var expected = false;
@@ -776,10 +776,10 @@ function boxContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var box = [ 0.2, 0.2, 0.2, 0.4, 0.4, 0.4 ];
   var expected = true;
@@ -791,10 +791,10 @@ function boxContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var box = [ 4, 4, 4, 5, 5, 5 ];
   var expected = false;
@@ -806,10 +806,10 @@ function boxContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var box = [ 0, 0, 0, 0.6 , 0.6, 0.6 ];
   var expected = true;
@@ -821,10 +821,10 @@ function boxContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var box = [ 1, 1, 1, 5 , 5, 5 ];
   var expected = false;
@@ -836,10 +836,10 @@ function boxContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
 
   test.shouldThrowErrorSync( () => _.frustum.boxContains( ));
