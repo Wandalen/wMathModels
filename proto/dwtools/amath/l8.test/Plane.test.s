@@ -3893,7 +3893,7 @@ function boundingSphereGet( test )
 
   test.case = 'Source plane remains unchanged';
 
-  var srcPlane = [ 0, 0, 3, 3 ];
+  var srcPlane = [ 3, 0, 0, 3 ];
   var dstSphere = [ 1, 1, 2, 1 ];
   var expected = _.plane.tools.longMake( [ 0, 0, - 1, Infinity ] );
 
@@ -3901,7 +3901,7 @@ function boundingSphereGet( test )
   test.equivalent( expected, gotSphere );
   test.is( dstSphere === gotSphere );
 
-  var oldSrcPlane = [ 0, 0, 3, 3 ];
+  var oldSrcPlane = [ 3, 0, 0, 3 ];
   test.identical( srcPlane, oldSrcPlane );
 
   /* */
@@ -3919,7 +3919,7 @@ function boundingSphereGet( test )
 
   test.case = 'Zero plane and point Sphere';
 
-  var srcPlane = [ 0, 0, 0, 4 ];
+  var srcPlane = [ 4, 0, 0, 0 ];
   var dstSphere = [ 3, 3, 3, 0 ];
   var expected = _.plane.tools.longMake( [ 0, 0, 0, Infinity ] );
 
@@ -3930,7 +3930,7 @@ function boundingSphereGet( test )
 
   test.case = 'Sphere and plane intersect';
 
-  var srcPlane = [ 0, 0, 1, - 2 ];
+  var srcPlane = [ - 2, 0, 0, 1 ];
   var dstSphere = [ 2, 2, 2, 1 ];
   var expected = _.plane.tools.longMake( [ 0, 0, 2, Infinity ] );
 
@@ -3941,7 +3941,7 @@ function boundingSphereGet( test )
 
   test.case = 'Sphere and plane don´t intersect';
 
-  var srcPlane = [ 1, 0, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = _.plane.tools.longMake( [ - 1, 0, 0, Infinity ] );
 
@@ -3952,7 +3952,7 @@ function boundingSphereGet( test )
 
   test.case = 'srcPlane vector';
 
-  var srcPlane = _.vectorAdapter.from( [- 1, - 1, - 1, 1 ] );
+  var srcPlane = _.vectorAdapter.from( [ 1, -1, - 1, - 1 ] );
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = _.plane.tools.longMake( [ 1 / 3, 1 / 3, 1 / 3, Infinity ] );
 
@@ -3963,7 +3963,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere vector';
 
-  var srcPlane = [- 1, - 1, - 1, 3 ];
+  var srcPlane = [ 3, -1, -1, -1 ];
   var dstSphere = _.vectorAdapter.from( [ 5, 5, 5, 3 ] );
   var expected = _.plane.tools.vectorAdapter.from( [ 1, 1, 1, Infinity ] );
 
@@ -3974,7 +3974,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere null';
 
-  var srcPlane = [- 1, 5, - 1, 0 ];
+  var srcPlane = [ 0, -1, 5, -1 ];
   var dstSphere = null;
   var expected = _.plane.tools.longMake( [ 0, 0, 0, Infinity ] );
 
@@ -3985,7 +3985,7 @@ function boundingSphereGet( test )
 
   test.case = 'dstSphere undefined';
 
-  var srcPlane = [ - 1, - 3, - 5, 0 ];
+  var srcPlane = [ 0, - 1, - 3, - 5 ];
   var dstSphere = undefined;
   var expected = _.plane.tools.longMake( [ 0, 0, 0, Infinity ] );
 
@@ -4007,7 +4007,7 @@ function boundingSphereGet( test )
 
   test.case = 'Dimension = 5';
 
-  var srcPlane = [ 1, 0, 1, 2, 3, 4 ];
+  var srcPlane = [ 4, 1, 0, 1, 2, 3 ];
   var dstSphere = [ 0, 1, 0, 1, 2, 1 ];
   var expected = _.plane.tools.longMake( [ -0.26666666666666666, 0, -0.26666666666666666, -0.53333333333333333, -0.8, Infinity  ] );
 
