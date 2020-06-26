@@ -1820,8 +1820,7 @@ function cornerLeftGet( test )
   test.case = 'One dimension box';
 
   var box = [ 0, 1 ];
-  var expected = _.box.tools.longMake( [ 0 ] );
-  expected = _.box.tools.vectorAdapter.from(expected);
+  var expected = _.box.tools.vectorAdapter.from([ 0 ]);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
