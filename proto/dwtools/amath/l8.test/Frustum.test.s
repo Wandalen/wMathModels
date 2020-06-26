@@ -4927,10 +4927,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var dstSphere = [ 1, 1, 2, 1 ];
   var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
@@ -4941,10 +4942,11 @@ function boundingSphereGet( test )
 
   var oldSrcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldSrcFrustum );
 
@@ -4954,10 +4956,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    0, 0, 0, 0, 0, 0
+
   ]);
   var dstSphere = [ 0, 0, 0, 1 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0, 0 ] );
@@ -4971,10 +4974,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 4, 0, - 4, 0, 0, - 4,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 4, 0, - 4, 0, 0, - 4
+
   ]);
   var dstSphere = [ 2, 2, 2, 1 ];
   var expected = _.frustum.tools.longMake( [ 2, 2, 2, Math.sqrt( 12 ) ] );
@@ -4988,10 +4992,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 1, - 1, 1, 1, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 1, - 1, 1, 1, - 1
+
   ]);
   var dstSphere = [ 3, 3, 3, 0 ];
   var expected = _.frustum.tools.longMake( [ 1, 1, 1, 0 ] );
@@ -5005,10 +5010,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var dstSphere = [ 0, 0, 0, 3 ];
   var expected = _.frustum.tools.longMake( [ 0.5, 0.5, 0.5, Math.sqrt( 0.75 ) ] );
@@ -5022,10 +5028,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0, - 2, 0, 0, - 2,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 2, 0, - 2, 0, 0, - 2
+
   ]);
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = _.frustum.tools.longMake( [ 1, 1, 1, Math.sqrt( 3 ) ] );
@@ -5039,10 +5046,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    1, 3, 1, 1, 3, 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    1, 3, 1, 1, 3, 1
+
   ]);
   var dstSphere = _.frustum.tools.vectorAdapter.from( [ 5, 5, 5, 3 ] );
   var expected = _.frustum.tools.vectorAdapter.from( [ 1, 1, 0, 3 ] );
@@ -5056,10 +5064,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 5, 7, 1, 1, 3, 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 5, 7, 1, 1, 3, 1
+
   ]);
   var dstSphere = null;
   var expected = _.frustum.tools.longMake( [ 1, 6, 0, Math.sqrt( 6 ) ] );
@@ -5073,10 +5082,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    3, 0, 0, 5, 1, 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    3, 0, 0, 5, 1, 1
+
   ]);
   var dstSphere = undefined;
   var expected = _.frustum.tools.longMake( [ 0, - 1.5, 2.5, Math.sqrt( 9.5 ) ] );
@@ -5090,10 +5100,11 @@ function boundingSphereGet( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 4, - 2, 4, 4, - 2,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 2, 4, - 2, 4, 4, - 2
+
   ]);
   var dstSphere = [ 5, 5, 5, 3 ];
   var expected = _.frustum.tools.longMake( [ 3, 3, 3, Math.sqrt( 3 ) ] );
@@ -5107,10 +5118,11 @@ function boundingSphereGet( test )
   return;
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    1, 3, - 5, 7, 1, 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    1, 3, - 5, 7, 1, 1
+
   ]);
   test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( ) );
   test.shouldThrowErrorSync( () => _.frustum.boundingSphereGet( [] ) );
