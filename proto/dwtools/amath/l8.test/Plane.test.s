@@ -1492,7 +1492,7 @@ function convexPolygonContains( test )
 
   test.case = 'Source plane and polygon remain unchanged';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1504,7 +1504,7 @@ function convexPolygonContains( test )
   var gotBool = _.plane.convexPolygonContains( srcPlane, polygon );
   test.identical( expected, gotBool );
 
-  var oldSrcPlane = [ - 1, 0, 0, 0 ];
+  var oldSrcPlane = [ 0, -1, 0, 0 ];
   test.identical( srcPlane, oldSrcPlane );
 
   var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -1519,7 +1519,7 @@ function convexPolygonContains( test )
 
   test.case = 'Plane and polygon intersect';
 
-  var srcPlane = [ 0, 1, 0, 0 ];
+  var srcPlane = [ 0, 0, 1, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1535,7 +1535,7 @@ function convexPolygonContains( test )
 
   test.case = 'Polygon in plane';
 
-  var srcPlane = [ 1, 0, 0, 0 ];
+  var srcPlane = [ 0, 1, 0, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
@@ -1551,7 +1551,7 @@ function convexPolygonContains( test )
 
   test.case = 'Polygon in plane';
 
-  var srcPlane = [ 1, -2, 0, 0 ];
+  var srcPlane = [ 0, 1, -2, 0 ];
   var polygon =  _.Matrix.Make( [ 3, 3 ] ).copy
   ([
     0,   2,   4,
@@ -1567,7 +1567,7 @@ function convexPolygonContains( test )
 
   test.case = 'Plane cuts polygon vertex';
 
-  var srcPlane = [ 0, 0, -1, 1 ];
+  var srcPlane = [ 1, 0, 0, -1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
@@ -1583,7 +1583,7 @@ function convexPolygonContains( test )
 
   test.case = 'Plane and polygon don´t intersect';
 
-  var srcPlane = [ 0, 0, -1, 2 ];
+  var srcPlane = [ 2, 0, 0, -1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
@@ -1599,7 +1599,7 @@ function convexPolygonContains( test )
 
   test.case = 'Plane cuts polygon';
 
-  var srcPlane = [ 1, -2, 1, 0 ];
+  var srcPlane = [ 0, 1, -2, 1 ];
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     -2,  -2,  -2,  -2,
