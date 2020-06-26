@@ -167,7 +167,7 @@ console.log( `Distance from straight to point : ${ _.toStr( distance, { precisio
 The line `line` satisfies the equation `-2 - 1 * x + 2 * y = 0` passes through the points `( -2, 0 )` and `( 0, +1 )`, i.e intersects the axis `x` in `- 2` and the axis `y` in `+ 1`. To describe a line through an implicit equation, 3 scalars are enough.
 
 ```js
-var plane = [ -2, -1, 2, 0 ];
+var plane = [ 0, -2, -1, 2 ];
 var point = [ 2, 3, -3 ];
 var distance = _.plane.pointDistance( plane, point );
 console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );

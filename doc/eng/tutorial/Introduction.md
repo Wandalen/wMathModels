@@ -268,7 +268,7 @@ For example, an algorithm for checking that the point is on the boundary or insi
 
 ```js
 var point = [ 0, 1, 2 ];
-var plane = [ 1, 2, -1, 0 ];
+var plane = [ 0, 1, 2, -1 ];
 var contains = _.plane.pointContains( plane, point );
 console.log( `Plane contains point : ${ contains }` );
 /* log : Plane contains point : true */
@@ -308,7 +308,7 @@ The routines have intuitive names. Knowledge of one routine helps to guess about
 An example of using a group of routines `*Intersects` to check the cross-section of the model instance `plane` with instances of other models.
 
 ```js
-var plane = [ 0, 2, 0, -2 ];
+var plane = [ -2, 0, 2, 0 ];
 var box = [ 0, 0, 0, 2, 2, 2 ];
 var intersected = _.plane.boxIntersects( plane, box );
 console.log( `Plane intersects with box : ${ intersected }` );
@@ -318,7 +318,7 @@ console.log( `Plane intersects with box : ${ intersected }` );
 `true` is returned to the variable `intersected`, because the plane `plane` crosses the box `box`.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var capsule = [ - 1, 2, 3, -1, 2, 3, 0  ];
 var intersected = _.plane.capsuleIntersects( plane, capsule );
 console.log( `Plane intersects with capsule : ${ intersected }` );
@@ -328,13 +328,13 @@ console.log( `Plane intersects with capsule : ${ intersected }` );
 `true` is returned to the variable `intersected`, because the plane `plane` crosses the capsule `capsule`.
 
 ```js
-var plane = [ 1, 0, 0, -0.4 ];
+var plane = [ -0.4, 1, 0, 0 ];
 var frustum = _.frustum.make().copy
 ([
-  0,   0,   0,   0,  -1,   1,
-  1,  -1,   0,   0,   0,   0,
-  0,   0,   1,  -1,   0,   0,
- -1,   0,  -1,   0,   0,  -1
+  -1,   0,  -1,   0,   0,  -1,
+   0,   0,   0,   0,  -1,   1,
+   1,  -1,   0,   0,   0,   0,
+   0,   0,   1,  -1,   0,   0,
 ]);
 var intersected = _.plane.frustumIntersects( plane, frustum );
 console.log( `Plane intersects with frustum : ${ intersected }` );
@@ -344,7 +344,7 @@ console.log( `Plane intersects with frustum : ${ intersected }` );
 An instance `frustum` of the model frustum is created by defining spaces of 6 faces. From the output, it is clear that the container for the data for the instance of the model is a matrix. `true` is returned to the variable `intersected`, because the plane `plane` crosses the truncated pyramid `frustum`.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var intersected = _.plane.planeIntersects( plane, plane );
 console.log( `Plane intersects with plane : ${ intersected }` );
 /* log : Plane intersects with plane : true */
@@ -353,7 +353,7 @@ console.log( `Plane intersects with plane : ${ intersected }` );
 `true` is returned to the variable `intersected`, because the plane `plane` crosses itself.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var line = [ 1, 0, 1, 1, 1, 1 ];
 var intersected = _.plane.lineIntersects( plane, line );
 console.log( `Plane intersects with line : ${ intersected }` );
@@ -363,7 +363,7 @@ console.log( `Plane intersects with line : ${ intersected }` );
 `true` is returned to the variable `intersected`, because the plane `plane` is crossed by the line `line`.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var segment = [ -2, -2, -2, 2, 2, 2 ];
 var intersected = _.plane.segmentIntersects( plane, segment );
 console.log( `Plane intersects with segment : ${ intersected }` );
@@ -373,7 +373,7 @@ console.log( `Plane intersects with segment : ${ intersected }` );
 `true` is returned to the variable `intersected`, because the plane `plane` is crossing with a segment `segment`.
 
 ```js
-var plane = [ 0, 2, 0, 2 ];
+var plane = [ 2, 0, 2, 0 ];
 var sphere = [ 0, 0, 0, 1.5 ];
 var intersected = _.plane.sphereIntersects( plane, sphere );
 console.log( `Plane intersects with sphere : ${ intersected }` );
@@ -384,7 +384,7 @@ console.log( `Plane intersects with sphere : ${ intersected }` );
 `true` is returned to the variable `intersected`, because the plane `plane` is crossing with a sphere `sphere`.
 
 ```js
-var plane = [ - 1, 0, 0, 1 ];
+var plane = [ 1, - 1, 0, 0 ];
 var ray = [ 0, 0, 0, 1, 1, 1 ];
 var intersected = _.plane.rayIntersects( plane, ray );
 console.log( `Plane intersects with ray : ${ intersected }` );
@@ -482,7 +482,7 @@ The distance from the point `point` to the line `line` is returned in a variable
 
 ```js
 var point = [ 4, 1, -3 ];
-var plane = [ 2, -1, 3, 1 ];
+var plane = [ 1, 2, -1, 3 ];
 var distance = _.plane.pointDistance( plane, point );
 console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from 3D plane to point : -0.27 */
