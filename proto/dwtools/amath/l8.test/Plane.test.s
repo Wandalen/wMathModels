@@ -2684,14 +2684,14 @@ function rayContains( test )
 
   test.case = 'Plane and ray remain unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var ray = [ 1, 0, 1, 1, 1, 1 ];
   var expected = false;
 
   var gotBool = _.plane.rayContains( plane, ray );
   test.identical( expected, gotBool );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldRay = [ 1, 0, 1, 1, 1, 1 ];
@@ -2701,7 +2701,7 @@ function rayContains( test )
 
   test.case = 'Ray and plane intersect';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var ray = [ - 2, - 2, - 2 , 2, 2, 2 ];
   var expected = false;
 
@@ -2712,7 +2712,7 @@ function rayContains( test )
 
   test.case = 'Ray and Plane intersect';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var ray = [ 2, 2, 1, 1, 1, 3 ];
   var expected = false;
 
@@ -2723,7 +2723,7 @@ function rayContains( test )
 
   test.case = 'Ray and Plane don´t intersect - parallel';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var ray = [ 2, 2, 3, 0, 1, 0 ];
   var expected = false;
 
@@ -2734,7 +2734,7 @@ function rayContains( test )
 
   test.case = 'Ray in Plane';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var ray = [ 0, 2, 3, 0, 3, 4 ];
   var expected = true;
 
@@ -2745,7 +2745,7 @@ function rayContains( test )
 
   test.case = 'Ray in Plane';
 
-  var plane = [ 1, -2, 0, 0 ];
+  var plane = [ 0, 1, -2, 0 ];
   var ray = [ 2, 1, 3, 4, 2, 4 ];
   var expected = true;
 
@@ -2756,7 +2756,7 @@ function rayContains( test )
 
   test.case = 'Perpendicular ray intersects';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var ray = [ 1, 2, 2, 1, 0, 0 ];
   var expected = false;
 
