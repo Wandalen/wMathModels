@@ -546,14 +546,14 @@ function pointContains( test )
 
   test.case = 'Point and plane stay unchanged';
 
-  var plane = [ 0, 0, 1, 2 ];
+  var plane = [ 2, 0, 0, 1 ];
   var point = [ 0, 1, 0 ];
   var expected = false;
 
   var distance = _.plane.pointContains( plane, point );
   test.identical( expected, distance );
 
-  var oldPlane = [ 0, 0, 1, 2 ];;
+  var oldPlane = [ 2, 0, 0, 1 ];
   test.identical( plane, oldPlane );
 
   var oldPoint = [ 0, 1, 0 ];
@@ -563,7 +563,7 @@ function pointContains( test )
 
   test.case = 'Trivial - Contained';
 
-  var plane = [ 2, 1, 0, 0 ];
+  var plane = [ 0, 2, 1, 0 ];
   var point = [ 6, 3, -4 ];
   point = _.vectorAdapter.from( point );
   var expected = false;
@@ -599,7 +599,7 @@ function pointContains( test )
 
   test.case = 'Point under plane';
 
-  var plane = [ 0, 0, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
   var point = [ 0, 0, - 2 ];
   point = _.vectorAdapter.from( point );
   var expected = false;
@@ -611,7 +611,7 @@ function pointContains( test )
 
   test.case = 'Point over plane';
 
-  var plane = [ 0, 0, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
   var point = [ 0, 0, 2 ];
   var expected = false;
 
@@ -622,7 +622,7 @@ function pointContains( test )
 
   test.case = 'Contained - Decimal numbers';
 
-  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var plane = [ 0, 0.2, 0.3, - 0.1 ];
   var point = [ 0, 0.2, 0.6 ];
   var expected = true;
 
@@ -633,7 +633,7 @@ function pointContains( test )
 
   test.case = 'Not Contained - Decimal numbers';
 
-  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var plane = [ 0, 0.2, 0.3, - 0.1 ];
   var point = [ 0, 0.1, 0.6 ];
   var expected = false;
 
@@ -644,11 +644,11 @@ function pointContains( test )
 
   test.case = 'Points in plane';
 
-  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var plane = [ 0, 0.2, 0.3, - 0.1 ];
   var a = [ 0, 0, 1 ];
   var b = [ 0, 1, 0 ];
   var c = [ 0, 0, 3 ];
-  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 0 ] );
+  var expected = _.plane.tools.longMake( [ 0, -1, 0, 0 ] );
 
   var plane = _.plane.fromPoints( plane, a, b, c );
   test.equivalent( plane, expected );
