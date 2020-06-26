@@ -221,12 +221,12 @@ function fromNormalAndPoint( test )
 
   test.case = 'Normal and point stay unchanged, dst plane changes';
 
-  var dstPlane = [ 0, 0 , 1, 2 ];
+  var dstPlane = [ 2, 0, 0 , 1 ];
   var normal = [ 0, 1, 0 ];
   var oldNormal = normal.slice();
   var point = [ 0, 3, 4 ];
   var oldPoint = point.slice();
-  var expected = _.plane.tools.longMake( [ 0, 1, 0, - 3 ] );
+  var expected = _.plane.tools.longMake( [ -3, 0, 1, 0 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, dstPlane );
@@ -241,7 +241,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ NaN, NaN, NaN, NaN ];
   var normal = [ 0, 0, 1 ];
   var point = [ 0, 0, 2 ];
-  var expected = _.plane.tools.longMake( [ 0, 0, 1, - 2 ] );
+  var expected = _.plane.tools.longMake( [ -2, 0, 0, 1 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -253,7 +253,7 @@ function fromNormalAndPoint( test )
   var dstPlane = null;
   var normal = [ 0, 0, 1 ];
   var point = [ 0, 0, 2 ];
-  var expected = _.plane.tools.longMake( [ 0, 0, 1, - 2 ] );
+  var expected = _.plane.tools.longMake( [ -2, 0, 0, 1 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -289,7 +289,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 0, 0, 0, 0 ];
   var normal = [ 0, 1, 0 ];
   var point = [ NaN, NaN, NaN ];
-  var expected = _.plane.tools.longMake( [ 0, 1, 0, NaN ] );
+  var expected = _.plane.tools.longMake( [ NaN, 0, 1, 0 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -310,10 +310,10 @@ function fromNormalAndPoint( test )
 
   test.case = 'Change plane';
 
-  var dstPlane = [ 1, 0, 1, 2 ];
+  var dstPlane = [ 2, 1, 0, 1 ];
   var normal = [ 1, 2, 1 ];
   var point = [ 0, 3, 0 ];
-  var expected = _.plane.tools.longMake( [ 1, 2, 1, - 6 ] );
+  var expected = _.plane.tools.longMake( [ -6, 1, 2, 1 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -325,7 +325,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 0, 0, 0 ];
   var normal = [ 0, 1 ];
   var point = [ 1, 0 ];
-  var expected = _.plane.tools.longMake( [ 0, 1, 0 ] );
+  var expected = _.plane.tools.longMake( [ 0, 0, 1 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
@@ -337,7 +337,7 @@ function fromNormalAndPoint( test )
   var dstPlane = [ 0, 0, 0, 0, 0 ];
   var normal = [ 0, 1, 1, 0 ];
   var point = [ 0, 0, 0, 4 ];
-  var expected = _.plane.tools.longMake( [ 0, 1, 1, 0, 0 ] );
+  var expected = _.plane.tools.longMake( [ 0, 0, 1, 1, 0 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
@@ -346,10 +346,10 @@ function fromNormalAndPoint( test )
 
   test.case = 'Negative numbers';
 
-  var dstPlane = [ - 1, - 3, - 1 ];
+  var dstPlane = [ - 1, - 1, - 3 ];
   var normal = [ - 1, 0 ];
   var point = [ 4, - 4 ];
-  var expected = _.plane.tools.longMake( [ - 1, 0, 4 ] );
+  var expected = _.plane.tools.longMake( [ 4, -1, 0 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.identical( gotPlane, expected );
@@ -358,10 +358,10 @@ function fromNormalAndPoint( test )
 
   test.case = 'Decimal numbers';
 
-  var dstPlane = [ 0.2, 0.3, - 0.1 ];
+  var dstPlane = [ - 0.1, 0.2, 0.3 ];
   var normal = [ 0.57, 0.57 ];
   var point = [ 0, 0.500 ];
-  var expected = _.plane.tools.longMake( [ 0.57, 0.57, - 0.285 ] );
+  var expected = _.plane.tools.longMake( [ -0.285, 0.57, 0.57 ] );
 
   var gotPlane = _.plane.fromNormalAndPoint( dstPlane, normal, point );
   test.equivalent( gotPlane, expected );
@@ -419,7 +419,6 @@ function fromPoints( test )
   var c = [ 2, 2, 0 ];
   var expected = _.plane.tools.longMake( [ -2, 1, 0, 0 ] );
 
-  debugger;
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
 
