@@ -699,9 +699,9 @@ function eqWithPointAndTangent( test ) //qqq:cover with tests
 {
   var srcPoint = [ 0,0 ];
   var srcTangent = [ 0,0 ];
-  var expected = _.lineImplicit.tools.vectorAdapter.from( [ 0, 0, 0 ] );
+  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ 0, 0, 0 ]) );
   var got = _.lineImplicit.eqWithPointAndTangent( srcPoint, srcTangent );
-  test.identical( got, expected );
+  test.equivalent( got, expected );
 
   if( !Config.debug )
   return;
