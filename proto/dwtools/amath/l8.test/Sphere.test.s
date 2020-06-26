@@ -1433,7 +1433,7 @@ function centerGet( test )
   test.case = 'One dimension sphere';
 
   var sphere = [ 0, 0 ];
-  var expected = _.sphere.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
