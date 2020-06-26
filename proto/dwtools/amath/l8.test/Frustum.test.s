@@ -1773,10 +1773,10 @@ function convexPolygonContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var polygon = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
@@ -1799,10 +1799,10 @@ function convexPolygonContains( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -1810,10 +1810,10 @@ function convexPolygonContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var polygon = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
@@ -1830,10 +1830,10 @@ function convexPolygonContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   ([
@@ -1850,10 +1850,10 @@ function convexPolygonContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var polygon = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
@@ -1870,10 +1870,10 @@ function convexPolygonContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var polygon = _.Matrix.Make( [ 3, 4 ] ).copy
   ([
@@ -1890,10 +1890,10 @@ function convexPolygonContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var polygon = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
@@ -1910,10 +1910,10 @@ function convexPolygonContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var polygon = _.Matrix.Make( [ 3, 5 ] ).copy
   ([
@@ -1930,10 +1930,10 @@ function convexPolygonContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    -1, 0.5,  -1, 0.5, 0.5,  -1,
     0,    0,   0,   0,  -1,   1,
     1,   -1,   0,   0,   0,   0,
     0,    0,   1,  -1,   0,   0,
-    -1, 0.5,  -1, 0.5, 0.5,  -1
   ]);
   var polygon = _.Matrix.Make( [ 3, 5 ] ).copy
   ([
@@ -1953,10 +1953,10 @@ function convexPolygonContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var polygon = _.Matrix.Make( [ 3, 3 ] ).copy
   ([
