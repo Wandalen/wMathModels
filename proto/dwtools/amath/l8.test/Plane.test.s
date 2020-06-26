@@ -419,6 +419,7 @@ function fromPoints( test )
   var c = [ 2, 2, 0 ];
   var expected = _.plane.tools.longMake( [ -2, 1, 0, 0 ] );
 
+  debugger;
   var gotPlane = _.plane.fromPoints( dstPlane, a, b, c  );
   test.identical( gotPlane, expected );
 

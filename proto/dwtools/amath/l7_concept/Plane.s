@@ -256,8 +256,8 @@ function biasSet( plane, bias )
   debugger;
   //throw _.err( 'not tested' );
 
-  return planeView.eSet( planeView.length-1, bias );
-}
+  // return planeView.eSet( planeView.length-1, bias );
+  return planeView.eSet( 0, bias );}
 
 //
 
