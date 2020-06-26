@@ -496,7 +496,7 @@ The distance from the point `point` to the plane `plane` is returned in a variab
 
 An instance of a model can be converted from one conceptual form to another, alternative.
 
-Rotations can be set by a quaternion, Euler's angles, axis, and angle, or matrix. The straight line can be set by an implicit equation, two points, point, and a relative direction, etc. For each conception can be found several mathematical models. The module implements some of these alternatives and provides tools for converting an instance of one model into an instance of another model.
+Rotations can be set by a quaternion, Euler's angles, axis, and angle, or matrix. The straight line can be set by an implicit equation, two points, point, and a relative direction, etc. For each concept can be found several mathematical models. The module implements some of these alternatives and provides tools for converting an instance of one model into an instance of another model.
 
 Model `linePoints` describes a straight line with two points, and a model `linePointDir` describes a straight line with a point and a relative direction. An example of conversion an instance of the model `linePoints` into an instance of the model `linePointDir` and calculation of the point of intersection of the lines set by this or that model.
 
@@ -550,6 +550,6 @@ The complete list of mathematical models available in this module [here](../conc
 - There is a pattern to name the model's routines.
 - Most models are implemented for all dimensions, not only 2D or 3D
 - If `null` is passed as an argument to the routine which performs writing the result into some container than a new container will be created and returned.
-- Some conceptions are implemented by alternative models, so rotation can be described by axis and angle, Euler's angles, or quaternion.
+- Some conepts are implemented by alternative models, so rotation can be described by axis and angle, Euler's angles, or quaternion.
 
 [Back to content](../README.md#Tutorials)
