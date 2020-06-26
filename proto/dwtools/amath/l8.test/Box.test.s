@@ -4836,7 +4836,7 @@ function pointRelative( test )
 
   var box = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = _.box.tools.longMake( [ 0.5 ] );
+  var expected = [ 0.5 ];
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4847,7 +4847,7 @@ function pointRelative( test )
 
   var box = [ 0, 2 ];
   var point = [ 3 ];
-  var expected = _.box.tools.longMake( [ 1.5 ] );
+  var expected = [ 1.5 ];
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4858,7 +4858,7 @@ function pointRelative( test )
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = _.box.tools.longMake( [ - 1.5 ] );
+  var expected = [ - 1.5 ];
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
