@@ -6011,7 +6011,7 @@ function planeClosestPoint( test )
   test.case = 'Capsule and plane remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6020,7 +6020,7 @@ function planeClosestPoint( test )
   var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -6028,7 +6028,7 @@ function planeClosestPoint( test )
   test.case = 'Null capsule - empty plane';
 
   var capsule = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6039,7 +6039,7 @@ function planeClosestPoint( test )
   test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6050,7 +6050,7 @@ function planeClosestPoint( test )
   test.case = 'point capsule in plane';
 
   var capsule = [ - 1, 2, 3, - 1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6061,7 +6061,7 @@ function planeClosestPoint( test )
   test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ 0, 2, 3 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6072,7 +6072,7 @@ function planeClosestPoint( test )
   test.case = 'sphere capsule intersection';
 
   var capsule = [ - 1, 2, 3, - 1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6083,7 +6083,7 @@ function planeClosestPoint( test )
   test.case = 'Capsule and plane intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6094,7 +6094,7 @@ function planeClosestPoint( test )
   test.case = 'Capsule over plane';
 
   var capsule = [ 0, -6, 4, 1, 1, 0, 2 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ -2, -6, 4 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6105,7 +6105,7 @@ function planeClosestPoint( test )
   test.case = 'plane closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.4 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ - 0.4, 0, 0 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6116,7 +6116,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 1, 0, 1.5 ];
+  var plane = [ 1.5, 0, 1, 0 ];
   var expected = _.capsule.tools.longMake( [ 0, -1, 0 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6127,7 +6127,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel contains capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6138,7 +6138,7 @@ function planeClosestPoint( test )
   test.case = 'plane perpendicular to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6149,7 +6149,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is array';
 
   var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
+  var plane = [ 3, 1, 0, 1 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
 
@@ -6161,7 +6161,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is vector';
 
   var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
+  var plane = [ 3, 1, 0, 1 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.capsule.tools.vectorAdapter.from( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
 
