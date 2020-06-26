@@ -4391,10 +4391,11 @@ function sphereContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 3, 3, 3, 1 ];
   var expected = false;
@@ -4407,10 +4408,11 @@ function sphereContains( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4418,10 +4420,11 @@ function sphereContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 0.5, 0.5, 0.5, 0.4 ];
   var expected = true;
@@ -4433,10 +4436,11 @@ function sphereContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 0.5, 0.5, 0.5, 1 ];
   var expected = false;
@@ -4448,10 +4452,11 @@ function sphereContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 5, 5, 5, 2 ];
   var expected = false;
@@ -4463,10 +4468,11 @@ function sphereContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 1, 1, 1, 0.5 ];
   var expected = false;
@@ -4478,10 +4484,11 @@ function sphereContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 0.4, 0.3, 0.6, 0.1 ];
   var expected = true;
@@ -4493,10 +4500,11 @@ function sphereContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 0.5, 0.5, 0.5, 0.5 ];
   var expected = true;
@@ -4508,10 +4516,11 @@ function sphereContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = _.sphere.makeZero();
   var expected = true;
@@ -4536,10 +4545,11 @@ function sphereContains( test )
   var sphere = [ 0, 0, 1, 2];
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
 
   test.shouldThrowErrorSync( () => _.frustum.sphereContains( ));
