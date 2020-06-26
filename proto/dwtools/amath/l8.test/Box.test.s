@@ -2426,7 +2426,7 @@ function sizeGet( test )
 
   var box = [ 0, 0 ];
   var point = [ 0 ];
-  var expected = _.box.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var gotSize = _.box.sizeGet( box, point );
   test.identical( gotSize, expected );
