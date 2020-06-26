@@ -2407,17 +2407,17 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = true;
 
@@ -2426,19 +2426,19 @@ function frustumIntersects( test )
 
   var oldSrcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldSrcFrustum );
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( frustum, oldFrustum );
 
@@ -2446,10 +2446,10 @@ function frustumIntersects( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var expected = true;
 
@@ -2460,17 +2460,17 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 0.5, - 0.5, - 0.5, - 0.5, - 0.5, - 0.5,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 0.5, - 0.5, - 0.5, - 0.5, - 0.5, - 0.5
   ]);
   var expected = true;
 
@@ -2481,17 +2481,17 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 4, - 3, 4, 4, - 3,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 4, - 3, 4, 4, - 3
   ]);
   var expected = false;
 
@@ -2502,17 +2502,17 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1.1, - 2, 1.1, 1.1, - 2,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 2, 1.1, - 2, 1.1, 1.1, - 2
   ]);
   var expected = false;
 
@@ -2523,17 +2523,17 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2, 1, 1, - 2,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 2, 1, - 2, 1, 1, - 2
   ]);
   var expected = true;
 
@@ -2544,17 +2544,17 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 1, 0.9,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 2, 0.9, - 2, 0.9, 1, 0.9
   ]);
   var expected = true;
 
@@ -2565,10 +2565,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var frustum = _.frustum.make();
   var expected = true;
