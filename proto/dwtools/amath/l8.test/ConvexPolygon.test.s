@@ -5276,13 +5276,13 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 3;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
   test.identical( gotDist, expected );
 
-  var oldPlane = [ 1, 0, 0, 3 ];
+  var oldPlane = [ 3, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -5301,7 +5301,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, -1, 2, 0 ];
+  var plane = [ 0, 0, -1, 2 ];
   var expected = 0;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5315,7 +5315,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var expected = 0;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5329,7 +5329,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 1;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5343,7 +5343,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 0, -2 ];
+  var plane = [ -2, 0, 1, 0 ];
   var expected = 1;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5357,7 +5357,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0.1 ];
+  var plane = [ 0.1, 1, 0, 0 ];
   var expected = 0.1;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5371,7 +5371,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1 ];
+  var plane = [ -1, 0, 0, 1 ];
   var expected = 0;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5385,7 +5385,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1.2 ];
+  var plane = [ -1.2, 0, 0, 1 ];
   var expected = 0.2;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5399,7 +5399,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1 ];
+  var plane = [ -1, 0, 1, 1 ];
   var expected = 0;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5413,7 +5413,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1.1 ];
+  var plane = [ -1.1, 0, 1, 1 ];
   var expected = 0.1 * Math.sqrt( 2 ) / 2;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
