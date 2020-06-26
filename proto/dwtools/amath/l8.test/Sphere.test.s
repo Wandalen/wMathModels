@@ -5279,7 +5279,7 @@ function planeClosestPoint( test )
   test.case = 'Source sphere and test plane remain unchanged';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = 0;
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
   test.identical( gotClosestPoint, expected );
@@ -5287,7 +5287,7 @@ function planeClosestPoint( test )
   var oldSrcSphere = [ 0, 0, 0, 0 ];
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldTstPlane = [ 1, 0, 0, 0 ];
+  var oldTstPlane = [ 0, 1, 0, 0 ];
   test.identical( tstPlane, oldTstPlane );
 
   /* */
@@ -5295,7 +5295,7 @@ function planeClosestPoint( test )
   test.case = 'Empty sphere in plane';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = 0;
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5306,7 +5306,7 @@ function planeClosestPoint( test )
   test.case = 'Empty sphere not in plane';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5317,7 +5317,7 @@ function planeClosestPoint( test )
   test.case = 'Intersection';
 
   var srcSphere = [ 0, 0, 0, 2 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = 0;
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5328,7 +5328,7 @@ function planeClosestPoint( test )
   test.case = 'Plane touches sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = 0;
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5339,7 +5339,7 @@ function planeClosestPoint( test )
   test.case = 'Plane separate from sphere - plane under sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 3 ];
+  var tstPlane = [ 3, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ -1, 0, 0 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5350,7 +5350,7 @@ function planeClosestPoint( test )
   test.case = 'Plane separate from sphere - plane over sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, - 3 ];
+  var tstPlane = [ - 3, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 1, 0, 0 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5361,7 +5361,7 @@ function planeClosestPoint( test )
   test.case = 'DstPoint is array';
 
   var srcSphere = [ 2, 2, 0, 1 ];
-  var tstPlane = [ 1, 1, 0, 0 ];
+  var tstPlane = [ 0, 1, 1, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 1.2928932188134525, 1.2928932188134525, 0 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
@@ -5373,7 +5373,7 @@ function planeClosestPoint( test )
   test.case = 'DstPoint is vector';
 
   var srcSphere = [ 2, 2, 2, 1 ];
-  var tstPlane = [ 1, 1, 1, 0 ];
+  var tstPlane = [ 0, 1, 1, 1 ];
   var dstPoint = _.vectorAdapter.fromLong( [ 0, 0, 0 ] );
   var expected = _.sphere.tools.vectorAdapter.fromLong( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
