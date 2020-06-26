@@ -4436,11 +4436,11 @@ function threeIntersectionPoint( test )
 
   test.case = 'Planes remain unchanged';
 
-  var plane1 = [ 1, 0 , 0, 1 ];
+  var plane1 = [ 1, 1, 0 , 0 ];
   var oldPlane1 = plane1.slice();
-  var plane2 = [ 1, 1 , 0, 1 ];
+  var plane2 = [ 1, 1, 1 , 0 ];
   var oldPlane2 = plane2.slice();
-  var plane3 = [ 1, 0 , 1, 1 ];
+  var plane3 = [ 1, 1, 0 , 1 ];
   var oldPlane3 = plane3.slice();
   var expected = _.plane.tools.longMake( [ - 1, 0, 0 ] );
   expected = _.vectorAdapter.from( expected );
@@ -4455,9 +4455,9 @@ function threeIntersectionPoint( test )
 
   test.case = 'Parallel planes';
 
-  var plane1 = [ 1, 0 , 0, 1 ];
-  var plane2 = [ 2, 0 , 0, 4 ];
-  var plane3 = [ 3, 0 , 0, 7 ];
+  var plane1 = [ 1, 1, 0 , 0 ];
+  var plane2 = [ 4, 2, 0 , 0 ];
+  var plane3 = [ 7, 3, 0 , 0 ];
   var expected = NaN;
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
@@ -4467,9 +4467,9 @@ function threeIntersectionPoint( test )
 
   test.case = '2 Parallel planes';
 
-  var plane1 = [ 1, 0 , 0, 1 ];
-  var plane2 = [ 2, 0 , 0, 4 ];
-  var plane3 = [ 3, 1 , 4, 7 ];
+  var plane1 = [ 1, 1, 0 , 0 ];
+  var plane2 = [ 4, 2, 0 , 0 ];
+  var plane3 = [ 7, 3, 1 , 4 ];
   var expected = NaN;
 
   var interPoint = _.plane.threeIntersectionPoint( plane1, plane2, plane3 );
@@ -4479,9 +4479,9 @@ function threeIntersectionPoint( test )
 
   test.case = 'Perpendicular planes in origin';
 
-  var plane1 = [ 1, 0 , 0, 0 ];
-  var plane2 = [ 0, 1 , 0, 0 ];
-  var plane3 = [ 0, 0 , 1, 0 ];
+  var plane1 = [ 0, 1, 0 , 0 ];
+  var plane2 = [ 0, 0, 1 , 0 ];
+  var plane3 = [ 0, 0, 0 , 1 ];
   var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
   expected = _.vectorAdapter.from( expected );
 
@@ -4492,9 +4492,9 @@ function threeIntersectionPoint( test )
 
   test.case = 'Planes in origin';
 
-  var plane1 = [ - 1, 1, 0, 0 ];
-  var plane2 = [ 0, 1 , 0, 0 ];
-  var plane3 = [ 0, - 1, 6, 0 ];
+  var plane1 = [ 0, - 1, 1, 0 ];
+  var plane2 = [ 0, 0, 1 , 0 ];
+  var plane3 = [ 0, 0, - 1, 6 ];
   var expected = _.plane.tools.longMake( [ 0, 0, 0 ] );
   expected = _.vectorAdapter.from( expected );
 
@@ -4505,9 +4505,9 @@ function threeIntersectionPoint( test )
 
   test.case = 'Perpendicular planes';
 
-  var plane1 = [ 3, 0 , 0, 3 ];
-  var plane2 = [ 0, - 4 , 0, 4 ];
-  var plane3 = [ 0, 0 , 5, 5 ];
+  var plane1 = [ 3, 3, 0 , 0 ];
+  var plane2 = [ 4, 0, - 4 , 0 ];
+  var plane3 = [ 5, 0, 0 , 5 ];
   var expected = _.plane.tools.longMake( [ - 1, 1, - 1 ] );
   expected = _.vectorAdapter.from( expected );
 
@@ -4518,9 +4518,9 @@ function threeIntersectionPoint( test )
 
   test.case = 'Trivial';
 
-  var plane1 = [ 2, 1, 2, 4 ];
-  var plane2 = [ 1, 1 , 0, - 5 ];
-  var plane3 = [ 1, - 1 , 6, 0 ];
+  var plane1 = [ 4, 2, 1, 2 ];
+  var plane2 = [ - 5, 1, 1 , 0 ];
+  var plane3 = [ 0, 1, - 1 , 6 ];
   var expected = _.plane.tools.longMake( [ - 32, 37, 11.5 ] );
   expected = _.vectorAdapter.from( expected );
 
