@@ -2909,14 +2909,14 @@ function rayClosestPoint( test )
 
   test.case = 'Source plane and ray remain unchanged';
 
-  var srcPlane = [ - 1, 0, 0, - 2 ];
+  var srcPlane = [ - 2, - 1, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
   var expected = _.plane.tools.longMake( [ - 2, 0, 0 ] );
 
   var gotRay = _.plane.rayClosestPoint( srcPlane, tstRay );
   test.identical( expected, gotRay );
 
-  var oldSrcPlane = [ - 1, 0, 0, - 2 ];
+  var oldSrcPlane = [ -2, -1, 0, 0 ];
   test.identical( srcPlane, oldSrcPlane );
 
   var oldtstRay = [ 0, 0, 0, 1, 1, 1 ];
@@ -2926,7 +2926,7 @@ function rayClosestPoint( test )
 
   test.case = 'Plane and ray intersect';
 
-  var srcPlane = [ - 1, 0, 0, 2  ];
+  var srcPlane = [ 2 , - 1, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
@@ -2937,7 +2937,7 @@ function rayClosestPoint( test )
 
   test.case = 'Ray origin is in the plane';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstRay = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
@@ -2948,7 +2948,7 @@ function rayClosestPoint( test )
 
   test.case = 'Ray origin in plane pointing to the other side';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstRay = [ 0, 0, 0, -1, -1, -1 ];
   var expected = 0;
 
@@ -2959,7 +2959,7 @@ function rayClosestPoint( test )
 
   test.case = 'Ray origin is the closest point';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstRay = [ -3, -3, -3, -2, -2, -2 ];
   var expected = _.plane.tools.longMake( [ 0, -3, -3 ] );
 
@@ -2970,7 +2970,7 @@ function rayClosestPoint( test )
 
   test.case = 'Ray and plane are parallel';
 
-  var srcPlane = [ 0, - 1, 0, 4 ];
+  var srcPlane = [ 4, 0, - 1, 0 ];
   var tstRay = [ 5, 5, 2, 1, 0, 1 ];
   var expected = _.plane.tools.longMake( [ 5, 4, 2 ] );
 
@@ -2981,7 +2981,7 @@ function rayClosestPoint( test )
 
   test.case = 'dstPoint Array';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.plane.tools.longMake( [ 0, 5, 1 ] );
@@ -2994,7 +2994,7 @@ function rayClosestPoint( test )
 
   test.case = 'dstPoint Vector';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstRay = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.plane.tools.vectorAdapter.from( [ 0, 5, 1 ] );
