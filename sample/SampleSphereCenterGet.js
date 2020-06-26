@@ -6,8 +6,8 @@ var _ = wTools;
 var sphere = [ 0, 0, 3 ];
 var Oldsphere = [ 0, 0, 3 ];
 var dst = [ 1, 2 ];
-var vdst = _.vectorAdapter.from( dst );
-var vsphere = _.vectorAdapter.from( sphere );
+var vdst = _.vad.from( dst );
+var vsphere = _.vad.from( sphere );
 
 // console.log('Array: ',sphere,' - Vector: ', vsphere );
 debugger;
@@ -23,8 +23,8 @@ console.log('center: ', vsphere );
 var sphere = [ 0, 0, 3 ];
 var Oldsphere = [ 0, 0, 3 ];
 var dst = [ 1, 2 ];
-var vdst = _.vectorAdapter.from( dst );
-var vsphere = _.vectorAdapter.from( sphere );
+var vdst = _.vad.from( dst );
+var vsphere = _.vad.from( sphere );
 
 console.log('POINT');
 console.log('Array');

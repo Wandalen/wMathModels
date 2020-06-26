@@ -8,7 +8,7 @@
 
 ### Making an instance
 
-Кожна модель має визначену пару рутин `make` та `from` для створення її екземпляра. При спробі створити екземпляр без аргументів буде створено екземпляр із параметрами за замовчуванням. Також кожна модель визначає рутину `is` котра дає відповідь на питання: "чи дана сутність є екземпляром даної моделі".
+Кожна модель має визначену пару рутин `make` та `from` для створення її екземпляра. Виклик таких без аргументів створює екземпляр із параметрами за замовчуванням. Також кожна модель визначає рутину `is` котра дає відповідь на питання: "чи дана сутність є екземпляром даної моделі".
 
 ### Routine make
 
@@ -213,7 +213,7 @@ console.log( `srcBox === box : ${ srcBox === box }` );
 var distance = _.plane.pointDistance( plane, point );
 ```
 
-Тут `plane` є вектором, що інтерпретується, як неявне рівняння площини, `point` є вектором, що інтерпретується, як точка і повертається скаляр `distance`.
+Тут `plane` є вектором, що інтерпретується, як неявне рівняння площини, `point` є вектором, що інтерпретується, як точка і повертається скаляр `distance`. Нема жодного неявного побічного ефекту.
 
 ### Components of models
 
@@ -261,13 +261,13 @@ console.log( `cornerRight : ${ cornerRight }` );
 
 ### Isomorphic
 
-Поведінка рутин залишається незмінною при зміні типу моделі.
+Поведінка рутин залишається незмінною при зміні моделі.
 
-Наприклад, алгоритм перевірки того, що точка знаходиться на поверхні або всередині реалізований рутиною `pointContains`. Всі моделі для яких можливо реалізувати такий алгоритм мають таку рутину і вона називається саме так.
+Наприклад, алгоритм перевірки того, що точка знаходиться на межі або всередині реалізований рутиною `pointContains`. Всі моделі для яких можливо реалізувати такий алгоритм мають таку рутину і вона називається саме так.
 
 ```js
 var point = [ 0, 1, 2 ];
-var plane = [ 1, 2, -1, 0 ];
+var plane = [ 0, 1, 2, -1 ];
 var contains = _.plane.pointContains( plane, point );
 console.log( `Plane contains point : ${ contains }` );
 /* log : Plane contains point : true */
@@ -298,7 +298,7 @@ console.log( `Polygon contains point : ${ contains }` );
 /* log : Polygon contains point : true */
 ```
 
-Створюється опуклий полігон `polygon` у 2D на основі координат вершин із вектора `vertices`. В змінну `contains` повертається `true`, оскільки точка `point` та третя вершина полігону `polygon` мають однакові координати.
+Створюється опуклий полігон `polygon` у 2D на основі координат вершин із вектора `vertices`. В змінну `contains` повертається `true`, оскільки точка `point` лежить на межі полігона `polygon`.
 
 ### Intuitive
 
@@ -307,7 +307,7 @@ console.log( `Polygon contains point : ${ contains }` );
 Приклад використання групи рутин `*Intersects` для перевірки перетину екземпляра моделі `plane` з екземплярами інших моделей.
 
 ```js
-var plane = [ 0, 2, 0, -2 ];
+var plane = [ -2, 0, 2, 0 ];
 var box = [ 0, 0, 0, 2, 2, 2 ];
 var intersected = _.plane.boxIntersects( plane, box );
 console.log( `Plane intersects with box : ${ intersected }` );
@@ -317,7 +317,7 @@ console.log( `Plane intersects with box : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинає бокс `box`.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var capsule = [ - 1, 2, 3, -1, 2, 3, 0  ];
 var intersected = _.plane.capsuleIntersects( plane, capsule );
 console.log( `Plane intersects with capsule : ${ intersected }` );
@@ -327,25 +327,23 @@ console.log( `Plane intersects with capsule : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинає капсулу `capsule`.
 
 ```js
-var plane = [ 1, 0, 0, -0.4 ];
+var plane = [ -0.4, 1, 0, 0 ];
 var frustum = _.frustum.make().copy
 ([
-  0,   0,   0,   0,  -1,   1,
-  1,  -1,   0,   0,   0,   0,
-  0,   0,   1,  -1,   0,   0,
- -1,   0,  -1,   0,   0,  -1
+  -1,   0,  -1,   0,   0,  -1,
+   0,   0,   0,   0,  -1,   1,
+   1,  -1,   0,   0,   0,   0,
+   0,   0,   1,  -1,   0,   0,
 ]);
 var intersected = _.plane.frustumIntersects( plane, frustum );
 console.log( `Plane intersects with frustum : ${ intersected }` );
 /* log : Plane intersects with frustum : true */
 ```
 
-Створюється екземпляр `frustum` моделі `frustum` задаючи площини 6-ти граней.
-Із виводу зрозуміло, що контейнером для даних екземпляра моделі є матриця.
-В змінну `intersected` повертається `true`, оскільки як площина `plane` перетинає зрізану піраміду `frustum`.
+Створюється екземпляр `frustum` моделі frustum задаючи площини 6-ти граней. Із виводу зрозуміло, що контейнером для даних екземпляра моделі є матриця. В змінну `intersected` повертається `true`, оскільки як площина `plane` перетинає зрізану піраміду `frustum`.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var intersected = _.plane.planeIntersects( plane, plane );
 console.log( `Plane intersects with plane : ${ intersected }` );
 /* log : Plane intersects with plane : true */
@@ -354,7 +352,7 @@ console.log( `Plane intersects with plane : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки як площина `plane` перетинає сама себе.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var line = [ 1, 0, 1, 1, 1, 1 ];
 var intersected = _.plane.lineIntersects( plane, line );
 console.log( `Plane intersects with line : ${ intersected }` );
@@ -364,7 +362,7 @@ console.log( `Plane intersects with line : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинається лінією `line`.
 
 ```js
-var plane = [ 1, 0, 0, 1 ];
+var plane = [ 1, 1, 0, 0 ];
 var segment = [ -2, -2, -2, 2, 2, 2 ];
 var intersected = _.plane.segmentIntersects( plane, segment );
 console.log( `Plane intersects with segment : ${ intersected }` );
@@ -374,7 +372,7 @@ console.log( `Plane intersects with segment : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинається із відрізком `segment`.
 
 ```js
-var plane = [ 0, 2, 0, 2 ];
+var plane = [ 2, 0, 2, 0 ];
 var sphere = [ 0, 0, 0, 1.5 ];
 var intersected = _.plane.sphereIntersects( plane, sphere );
 console.log( `Plane intersects with sphere : ${ intersected }` );
@@ -385,7 +383,7 @@ console.log( `Plane intersects with sphere : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинається зі сферою `sphere`.
 
 ```js
-var plane = [ - 1, 0, 0, 1 ];
+var plane = [ 1, - 1, 0, 0 ];
 var ray = [ 0, 0, 0, 1, 1, 1 ];
 var intersected = _.plane.rayIntersects( plane, ray );
 console.log( `Plane intersects with ray : ${ intersected }` );
@@ -447,7 +445,7 @@ console.log( `Sphere contains point : ${ contains }` );
 /* log : Sphere contains point : true */
 ```
 
-У 2D випадку сфера це коло. Так само як в 3D випадку описується центр та радіус, на що потрібно 3 скаляри.
+У 2D випадку сфера це коло. У всіх розмірностях ця модель описується центром та радіусом. У 2D випадку для опису потрібно 3 скаляри.
 
 ```js
 var sphere3d = [ 2, 2, 2, 5 ];
@@ -483,7 +481,7 @@ console.log( `Distance from line to point : ${ _.toStr( distance, { precision : 
 
 ```js
 var point = [ 4, 1, -3 ];
-var plane = [ 2, -1, 3, 1 ];
+var plane = [ 1, 2, -1, 3 ];
 var distance = _.plane.pointDistance( plane, point );
 console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
 /* log : Distance from 3D plane to point : -0.27 */
@@ -514,7 +512,7 @@ console.log( `Intersection point : ${ point2 }` );
 
 ```
 
-Створюються дві лінії за двома точками `linePoints1` та `linePoints2` на основі координат переданих як вектори. Рутина `_.linePoints.pairIntersectionPoint` вираховує координати точки перетину і записує їх в змінну `point1`. Далі відбувається конвертування в модель `linePointDir`. `linePointsDir1` та `linePointsDir2` є екземплярами моделі `linePointDir`. `linePointsDir1` та `linePointsDir2` створені на основі `linePoints1` та `linePoints2`. Аналогічно для моделі за точкою та відносним напрямком рутина `_.linePointDir.pairIntersectionPoint` вираховує координати точки перетину і записує їх в змінну `point2`. Точки `point1` та `point2` мають одне й теж значення `( 2,2 )` попри те що були вирахувані різними математичними моделями.
+Створюються дві лінії `linePoints1` та `linePoints2` за двома точками. Рутина `_.linePoints.pairIntersectionPoint` вираховує координати точки перетину і записує їх в змінну `point1`. Далі відбувається конвертування в модель `linePointDir`. `linePointsDir1` та `linePointsDir2` є екземплярами моделі `linePointDir`. `linePointsDir1` та `linePointsDir2` створені на основі `linePoints1` та `linePoints2`. Аналогічно для моделі за точкою та відносним напрямком рутина `_.linePointDir.pairIntersectionPoint` вираховує координати точки перетину і записує їх в змінну `point2`. Точки `point1` та `point2` мають одне й теж значення `( 2, 2 )` попри те що були вирахувані різними математичними моделями.
 
 Більше про модель `linePoints` можна почитати [тут.](../concept/Overview.md#LinePoints).
 Більше про модель `linePointDir` можна почитати [тут.](../concept/Overview.md#LinePointDir).
