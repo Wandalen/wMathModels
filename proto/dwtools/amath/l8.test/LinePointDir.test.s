@@ -4571,10 +4571,10 @@ function frustumClosestPoint( test )
 
   ]);
   var line = [ -2, 0.3, 0, 1, 0, 0.1 ];
-  var expected = _.linePointDir.tools.longMake( [ 1.0198019801980198, 0.3, 0.301980198019802 ] );
+  var expected = _.linePointDir.tools.longMake( [ 1.0198020935058594, 0.3, 0.30198020935058595 ] );
 
   var gotClosestPoint = _.linePointDir.frustumClosestPoint( line, srcFrustum );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.description = 'Destination point is vector'; //
 
@@ -5192,7 +5192,7 @@ function planeIntersects( test )
   test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5201,7 +5201,7 @@ function planeIntersects( test )
   var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
   test.identical( line, oldLine );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5209,7 +5209,7 @@ function planeIntersects( test )
   test.case = 'Null line';
 
   var line = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5220,7 +5220,7 @@ function planeIntersects( test )
   test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5231,7 +5231,7 @@ function planeIntersects( test )
   test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5242,7 +5242,7 @@ function planeIntersects( test )
   test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5253,7 +5253,7 @@ function planeIntersects( test )
   test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5264,7 +5264,7 @@ function planeIntersects( test )
   test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5275,7 +5275,7 @@ function planeIntersects( test )
   test.case = 'Line ( normalized to 1 ) no intersection';
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5286,7 +5286,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5297,7 +5297,7 @@ function planeIntersects( test )
   test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5308,7 +5308,7 @@ function planeIntersects( test )
   test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5319,7 +5319,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to line 4D';
 
   var line = [ 0, 2, 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5330,7 +5330,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to line 4D';
 
   var line = [ 0, 2, 0, 0, 1, 0, 1, 2 ];
-  var plane = [ 0, 1, 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5342,7 +5342,7 @@ function planeIntersects( test )
   test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
