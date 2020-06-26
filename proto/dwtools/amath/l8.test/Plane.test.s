@@ -2130,14 +2130,14 @@ function lineIntersects( test )
 
   test.case = 'Plane and line remain unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var line = [ 1, 0, 1, 1, 1, 1 ];
   var expected = true;
 
   var interBool = _.plane.lineIntersects( plane, line );
   test.identical( expected, interBool );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldLine = [ 1, 0, 1, 1, 1, 1 ];
@@ -2147,7 +2147,7 @@ function lineIntersects( test )
 
   test.case = 'Line and plane intersect';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var line = [ - 2, - 2, - 2 , 2, 2, 2 ];
   var expected = true;
 
@@ -2158,7 +2158,7 @@ function lineIntersects( test )
 
   test.case = 'Line and Plane intersect';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var line = [ 2, 2, 1, 1, 1, 3 ];
   var expected = true;
 
@@ -2169,7 +2169,7 @@ function lineIntersects( test )
 
   test.case = 'Line and Plane don´t intersect - parallel';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var line = [ 2, 2, 3, 0, 1, 0 ];
   var expected = false;
 
@@ -2180,7 +2180,7 @@ function lineIntersects( test )
 
   test.case = 'Line and Plane don´t intersect - parallel opposite';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var line = [ 2, 3, -3, 0, -1, 0 ];
   var expected = false;
 
@@ -2191,7 +2191,7 @@ function lineIntersects( test )
 
   test.case = 'Line in Plane';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var line = [ 0, 2, 3, 0, 3, 4 ];
   var expected = true;
 
@@ -2202,7 +2202,7 @@ function lineIntersects( test )
 
   test.case = 'Perpendicular line intersects';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var line = [ 1, 2, 2, 1, 0, 0 ];
   var expected = true;
 
