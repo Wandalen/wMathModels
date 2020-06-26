@@ -3372,14 +3372,14 @@ function segmentClosestPoint( test )
 
   test.case = 'Source plane and segment remain unchanged';
 
-  var srcPlane = [ - 1, 0, 0, 2 ];
+  var srcPlane = [ 2, - 1, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var expected = 0;
 
   var gotSegment = _.plane.segmentClosestPoint( srcPlane, tstSegment );
   test.identical( expected, gotSegment );
 
-  var oldSrcPlane = [ - 1, 0, 0, 2 ];
+  var oldSrcPlane = [ 2, -1, 0, 0 ];
   test.identical( srcPlane, oldSrcPlane );
 
   var oldtstSegment = [ 0, 0, 0, 2, 2, 2 ];
@@ -3389,7 +3389,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Plane and segment intersect';
 
-  var srcPlane = [ - 1, 0, 0, 1 ];
+  var srcPlane = [ 1, - 1, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var expected = 0;
 
@@ -3400,7 +3400,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Segment origin is in plane';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 1, 0, 0 ];
   var expected = 0;
 
@@ -3411,7 +3411,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Segment end is in plane';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstSegment = [ -3, -3, -3, 0, 0, 0 ];
   var expected = 0;
 
@@ -3422,7 +3422,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Segment is in plane ';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstSegment = [ 0, 0, 0, 0, 1, 0 ];
   var expected = 0;
 
@@ -3433,7 +3433,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Negative factor - no intersection';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstSegment = [ 2, 2, 2, 3, 3, 3 ];
   var expected = _.plane.tools.longMake([ 0, 2, 2 ]);
 
@@ -3444,7 +3444,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Positive factor - no intersection';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstSegment = [ -3, -3, -3, -2, -2, -2 ];
   var expected = _.plane.tools.longMake([ 0, -2, -2 ]);
 
@@ -3455,7 +3455,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Closest point is origin';
 
-  var srcPlane = [ 0, 0, -1, 3 ];
+  var srcPlane = [ 3, 0, 0, -1 ];
   var tstSegment = [ 5, 5, 2, 0, 1, 0 ];
   var expected = _.plane.tools.longMake([ 5, 5, 3 ]);
 
@@ -3466,7 +3466,7 @@ function segmentClosestPoint( test )
 
   test.case = 'Closest point is end';
 
-  var srcPlane = [ 0, 0, -1, 3 ];
+  var srcPlane = [ 3, 0, 0, -1 ];
   var tstSegment = [ 0, 1, 0, 5, 5, 2 ];
   var expected = _.plane.tools.longMake([ 5, 5, 3 ]);
 
@@ -3477,7 +3477,7 @@ function segmentClosestPoint( test )
 
   test.case = 'dstPoint Array';
 
-  var srcPlane = [ 0, 0, 1, -1 ];
+  var srcPlane = [ -1, 0, 0, 1 ];
   var tstSegment = [ 1, 0, 0, 4, 4, - 3 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.plane.tools.longMake([ 1, 0, 1 ]);
@@ -3490,7 +3490,7 @@ function segmentClosestPoint( test )
 
   test.case = 'dstPoint Vector';
 
-  var srcPlane = [ 0, 1, 0, -2 ];
+  var srcPlane = [ -2, 0, 1, 0 ];
   var tstSegment = [ 1, 0, 0, 5, - 5, 1 ];
   var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.plane.tools.vectorAdapter.from( [ 1, 2, 0 ] );
