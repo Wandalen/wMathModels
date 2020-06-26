@@ -167,7 +167,7 @@ console.log( `Distance from straight to point : ${ _.toStr( distance, { precisio
 Пряма `line` задовольняє рівняння `-2 - 1*x + 2*y = 0` проходить через точки `( -2, 0 )` та `( 0, +1 )`, тобто перетинає вісь `x` в `-2` та вісь `y` в `+1`. Для опису прямої через неявне рівняння достатньо 3-х скалярів.
 
 ```js
-var plane = [ -1, 2, 0, -2 ];
+var plane = [ 0, -2, -1, 2 ];
 var point = [ 2, 3, -3 ];
 var distance = _.plane.pointDistance( plane, point );
 console.log( `Distance from 3D plane to point : ${ _.toStr( distance, { precision : 2 } ) }` );
