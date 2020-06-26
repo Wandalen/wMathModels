@@ -2023,14 +2023,14 @@ function lineContains( test )
 
   test.case = 'Plane and line remain unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var line = [ 1, 0, 1, 1, 1, 1 ];
   var expected = false;
 
   var gotBool = _.plane.lineContains( plane, line );
   test.identical( expected, gotBool );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldLine = [ 1, 0, 1, 1, 1, 1 ];
@@ -2040,7 +2040,7 @@ function lineContains( test )
 
   test.case = 'Line and plane intersect';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var line = [ - 2, - 2, - 2 , 2, 2, 2 ];
   var expected = false;
 
@@ -2051,7 +2051,7 @@ function lineContains( test )
 
   test.case = 'Line and Plane intersect';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var line = [ 2, 2, 1, 1, 1, 3 ];
   var expected = false;
 
@@ -2062,7 +2062,7 @@ function lineContains( test )
 
   test.case = 'Line and Plane don´t intersect - parallel';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var line = [ 2, 2, 3, 0, 1, 0 ];
   var expected = false;
 
@@ -2073,7 +2073,7 @@ function lineContains( test )
 
   test.case = 'Line in Plane';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var line = [ 0, 2, 3, 0, 3, 4 ];
   var expected = true;
 
@@ -2084,7 +2084,7 @@ function lineContains( test )
 
   test.case = 'Line in Plane';
 
-  var plane = [ 1, -2, 0, 0 ];
+  var plane = [ 0, 1, -2, 0 ];
   var line = [ 2, 1, 3, 4, 2, 4 ];
   var expected = true;
 
@@ -2095,7 +2095,7 @@ function lineContains( test )
 
   test.case = 'Perpendicular line intersects';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var line = [ 1, 2, 2, 1, 0, 0 ];
   var expected = false;
 
