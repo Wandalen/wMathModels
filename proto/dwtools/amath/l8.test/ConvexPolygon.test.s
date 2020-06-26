@@ -5461,13 +5461,13 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
   test.identical( gotPoint, expected );
 
-  var oldPlane = [ 1, 0, 0, 3 ];
+  var oldPlane = [ 3, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -5486,7 +5486,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, -1, 2, 0 ];
+  var plane = [ 0, 0, -1, 2 ];
   var expected = 0;
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5500,7 +5500,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5514,7 +5514,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5528,7 +5528,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 0, 2 ];
+  var plane = [ 2, 0, 1, 0 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, -1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5542,7 +5542,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0.1 ];
+  var plane = [ 0.1, 1, 0, 0 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5556,7 +5556,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1 ];
+  var plane = [ -1, 0, 0, 1 ];
   var expected = 0;
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5570,7 +5570,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1.2 ];
+  var plane = [ -1.2, 0, 0, 1 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 0, 1 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5584,7 +5584,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1 ];
+  var plane = [ -1, 0, 1, 1 ];
   var expected = 0;
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5598,7 +5598,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1.1 ];
+  var plane = [ -1.1, 0, 1, 1 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
