@@ -4844,11 +4844,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 0, 0, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 2, 0, 0 ] );
@@ -4860,22 +4860,22 @@ function frustumClosestPoint( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   test.identical( tstFrustum, oldFrustum );
 
   test.description = 'Sphere contains frustum'; //
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 2 ];
 
   var expected = 0
@@ -4886,11 +4886,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+  - 1, 0, - 1, 0, 0, - 1,
   0, 0, 0, 0, - 1, 1,
   1, - 1, 0, 0, 0, 0,
   0, 0, 1, - 1, 0, 0,
-  - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 2, 2, 2, 2 ];
 
   var expected = 0;
@@ -4901,11 +4901,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 1 ];
 
   var expected = 0;
@@ -4916,11 +4916,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 5, 1, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 4, 1 ] );
@@ -4931,11 +4931,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 3, 3, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 2.2928932188134525, 2.2928932188134525 ] );
@@ -4946,11 +4946,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 3, 3, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 2.4226497308103743, 2.4226497308103743, 2.4226497308103743 ] );
@@ -4973,11 +4973,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
 
   test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere', 'frustum' ) );
