@@ -718,7 +718,7 @@ function lineIntersection( test ) //qqq:cover with tests
 {
   var srcLine1 = [ 0,0,0 ];
   var srcLine2 = [ 0,0,0 ];
-  var expected = _.lineImplicit.tools.vectorAdapter.from( [ NaN, NaN ] );
+  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ NaN, NaN ]) );
   var got = _.lineImplicit.lineIntersection( srcLine1, srcLine2 );
   test.identical( got, expected );
 
@@ -728,7 +728,7 @@ function lineIntersection( test ) //qqq:cover with tests
 
   var src1Line = [ 0, 1, 0 ]; //0, 0, 1, 0
   var src2Line = [ 0, 1, -1 ];//0, 1, 1, 1
-  var expected = _.lineImplicit.tools.vectorAdapter.from( [ NaN, NaN ] );
+  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ NaN, NaN ]) );
   var got = _.lineImplicit.lineIntersection( src1Line, src2Line );
   test.identical( got, expected );
 
@@ -738,7 +738,7 @@ function lineIntersection( test ) //qqq:cover with tests
 
   var src1Line = [ 7, -2, -7 ]; //3, 7, 1, 0
   var src2Line = [ 6, -2, 2 ];//3, 7, 0, 1
-  var expected = _.lineImplicit.tools.vectorAdapter.from( [ 9, 28 ] );
+  var expected = _.lineImplicit.tools.vectorAdapter.from( new F32x([ 9, 28 ]) );
   var got = _.lineImplicit.lineIntersection( src1Line, src2Line );
   test.identical( got, expected );
 
