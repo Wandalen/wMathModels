@@ -2452,7 +2452,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 2, 1 ];
   var point = [ 1 ];
-  var expected = _.capsule.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2463,7 +2463,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 2, 1 ];
   var point = [ - 3 ];
-  var expected = _.capsule.tools.longMake( [ - 1 ] );
+  var expected = [ -1 ];
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
