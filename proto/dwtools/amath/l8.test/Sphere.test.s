@@ -5409,7 +5409,7 @@ function planeExpand( test )
   test.case = 'Source sphere and test plane remain unchanged';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
   test.identical( gotExpand, expected );
@@ -5417,7 +5417,7 @@ function planeExpand( test )
   var oldSrcSphere = [ 0, 0, 0, 0 ];
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldTstPlane = [ 1, 0, 0, 0 ];
+  var oldTstPlane = [ 0, 1, 0, 0 ];
   test.identical( tstPlane, oldTstPlane );
 
   /* */
@@ -5425,7 +5425,7 @@ function planeExpand( test )
   test.case = 'Empty sphere in plane - no expansion';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5436,7 +5436,7 @@ function planeExpand( test )
   test.case = 'Empty sphere not in plane - expansion';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5447,7 +5447,7 @@ function planeExpand( test )
   test.case = 'Intersection';
 
   var srcSphere = [ 0, 0, 0, 2 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5458,7 +5458,7 @@ function planeExpand( test )
   test.case = 'Plane touches sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5469,7 +5469,7 @@ function planeExpand( test )
   test.case = 'Plane separate from sphere - plane under sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 3 ];
+  var tstPlane = [ 3, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5480,7 +5480,7 @@ function planeExpand( test )
   test.case = 'Plane separate from sphere - plane over sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, - 3 ];
+  var tstPlane = [ - 3, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5491,7 +5491,7 @@ function planeExpand( test )
   test.case = 'Expansion 2D';
 
   var srcSphere = [ 2, 2, 0, 1 ];
-  var tstPlane = [ 1, 1, 0, 0 ];
+  var tstPlane = [ 0, 1, 1, 0 ];
   var expected = _.sphere.tools.longMake( [ 2, 2, 0, 2.8284271247461903 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5502,7 +5502,7 @@ function planeExpand( test )
   test.case = 'Expansion 3D';
 
   var srcSphere = [ 2, 2, 2, 1 ];
-  var tstPlane = [ 1, 1, 1, 0 ];
+  var tstPlane = [ 0, 1, 1, 1 ];
   var expected = _.sphere.tools.longMake( [ 2, 2, 2, 3.4641016151377544 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
