@@ -6202,7 +6202,7 @@ function planeIntersects( test )
   test.case = 'Segment and plane remain unchanged';
 
   var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6211,7 +6211,7 @@ function planeIntersects( test )
   var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
   test.identical( segment, oldSegment );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -6219,7 +6219,7 @@ function planeIntersects( test )
   test.case = 'Null segment - empty plane';
 
   var segment = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6230,7 +6230,7 @@ function planeIntersects( test )
   test.case = 'point segment - no intersection';
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6241,7 +6241,7 @@ function planeIntersects( test )
   test.case = 'point segment in plane';
 
   var segment = [ - 1, 2, 3, -1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6252,7 +6252,7 @@ function planeIntersects( test )
   test.case = 'Segment and plane intersect';
 
   var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6263,7 +6263,7 @@ function planeIntersects( test )
   test.case = 'Segment over plane';
 
   var segment = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6274,7 +6274,7 @@ function planeIntersects( test )
   test.case = 'plane closer to origin';
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6285,7 +6285,7 @@ function planeIntersects( test )
   test.case = 'Segment ( normalized to 1 ) intersection';
 
   var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 0.2 ];
+  var plane = [ - 0.2, 0, 2, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6296,7 +6296,7 @@ function planeIntersects( test )
   test.case = 'Segment ( normalized to 1 ) no intersection';
 
   var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6307,7 +6307,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6318,7 +6318,7 @@ function planeIntersects( test )
   test.case = 'plane parallel contains segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6329,7 +6329,7 @@ function planeIntersects( test )
   test.case = 'plane perpendicular to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
