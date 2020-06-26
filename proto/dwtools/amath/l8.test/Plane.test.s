@@ -4144,8 +4144,8 @@ function normalize( test )
 
   test.case = 'Plane changes';
 
-  var plane = [ 2, 0 , 0, 1 ];
-  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0.5 ] );
+  var plane = [ 1, 2, 0 , 0 ];
+  var expected = _.plane.tools.longMake( [ 0.5, 1, 0, 0 ] );
 
   var newPlane = _.plane.normalize( plane );
   test.identical( expected, newPlane );
@@ -4155,8 +4155,8 @@ function normalize( test )
 
   test.case = 'Trivial ';
 
-  var plane = [ 2, 0 , 0, 4 ];
-  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 2 ] );
+  var plane = [ 4, 2, 0 , 0 ];
+  var expected = _.plane.tools.longMake( [ 2, 1, 0 , 0 ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -4165,8 +4165,8 @@ function normalize( test )
 
   test.case = 'Trivial';
 
-  var plane = [ 2, 2 , 2, 4 ];
-  var expected = _.plane.tools.longMake( [ 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 4/Math.sqrt( 12 ) ] );
+  var plane = [ 4, 2, 2 , 2 ];
+  var expected = _.plane.tools.longMake( [ 4/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ), 2/Math.sqrt( 12 ) ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -4175,8 +4175,8 @@ function normalize( test )
 
   test.case = 'Already normalized 1D';
 
-  var plane = [ 1, 0 , 0, 3 ];
-  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 3 ] );
+  var plane = [ 3, 1, 0 , 0 ];
+  var expected = _.plane.tools.longMake( [ 3, 1, 0 , 0 ] );
 
   var normalized = _.plane.normalize( plane );
   test.identical( expected, normalized );
@@ -4185,8 +4185,8 @@ function normalize( test )
 
   test.case = 'Already normalized';
 
-  var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
-  var expected = _.plane.tools.longMake( [1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ] );
+  var plane = [ 2/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0 ];
+  var expected = _.plane.tools.longMake( [ 2/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0 ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -4195,8 +4195,8 @@ function normalize( test )
 
   test.case = 'Negative coordinates';
 
-  var plane = [ - 3, - 6 , 0, 8 ];
-  var expected = _.plane.tools.longMake( [ - 3/Math.sqrt( 45 ), - 6/Math.sqrt( 45 ) , 0, 8/Math.sqrt( 45 ) ] );
+  var plane = [ 8, - 3, - 6 , 0 ];
+  var expected = _.plane.tools.longMake( [ 8/Math.sqrt( 45 ), - 3/Math.sqrt( 45 ), - 6/Math.sqrt( 45 ) , 0 ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -4205,8 +4205,8 @@ function normalize( test )
 
   test.case = 'More dimensions';
 
-  var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
-  var expected = _.plane.tools.longMake( [ 4/Math.sqrt( 48 ), 0 , 0, 4/Math.sqrt( 48 ), 0, 4/Math.sqrt( 48 ), 8/Math.sqrt( 48 ) ] );
+  var plane = [ 8, 4, 0 , 0, 4, 0, 4 ];
+  var expected = _.plane.tools.longMake( [ 8/Math.sqrt( 48 ), 4/Math.sqrt( 48 ), 0 , 0, 4/Math.sqrt( 48 ), 0, 4/Math.sqrt( 48 ) ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -4235,8 +4235,8 @@ function normalize( test )
 
   test.case = 'Null coordinate';
 
-  var plane = [ 1, null, 0, 0 ];
-  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
+  var plane = [ 0, 1, null, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, 0 ] );
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -4245,7 +4245,7 @@ function normalize( test )
 
   test.case = 'NaN coordinates';
 
-  var plane = [ 1, NaN, 0, 0 ];
+  var plane = [ 0, 1, NaN, 0 ];
   var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
 
   var normalized = _.plane.normalize( plane );
@@ -4255,7 +4255,7 @@ function normalize( test )
 
   test.case = 'String coordinates';
 
-  var plane = [ 1, 'string', 0, 0 ];
+  var plane = [ 0, 1, 'string', 0 ];
   var expected = _.plane.tools.longMake( [ NaN, NaN, NaN, NaN ] );
 
   var normalized = _.plane.normalize( plane );
