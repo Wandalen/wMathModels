@@ -6363,7 +6363,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment and plane remain unchanged';
 
   var segment = [ - 4, - 4, - 4, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6372,7 +6372,7 @@ function planeIntersectionPoint( test )
   var oldSegment = [ - 4, - 4, - 4, 1, 1, 1 ];
   test.identical( segment, oldSegment );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -6380,7 +6380,7 @@ function planeIntersectionPoint( test )
   test.case = 'point segment - no intersection';
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6391,7 +6391,7 @@ function planeIntersectionPoint( test )
   test.case = 'point segment in plane';
 
   var segment = [ - 1, 2, 3, -1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ -1, 2, 3 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6402,7 +6402,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment and plane intersect';
 
   var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6413,7 +6413,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment over plane';
 
   var segment = [ 0, -6, 4, 6, 0, 4 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6424,7 +6424,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane closer to origin';
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6435,7 +6435,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment intersection';
 
   var segment = [ 0, 0, 0, 5, 5, 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var expected = _.segment.tools.longMake( [ 1, 1, 0 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6446,7 +6446,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment ( normalized to 1 ) no intersection';
 
   var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6457,7 +6457,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6468,7 +6468,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel contains segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6479,7 +6479,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane perpendicular to segment';
 
   var segment = [ 0, 0, -3, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6490,7 +6490,7 @@ function planeIntersectionPoint( test )
   test.case = 'dstPoint is arsegment';
 
   var segment = [ 0, 0, 2, 5, 0, -8 ];
-  var plane = [ 1, 0, 0, -3 ];
+  var plane = [ -3, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.segment.tools.longMake( [ 3, 0, -4 ] );
 
@@ -6502,7 +6502,7 @@ function planeIntersectionPoint( test )
   test.case = 'dstPoint is vector';
 
   var segment = [ 0, 0, 24, 6, 0, 30 ];
-  var plane = [ 1, 0, 0, -3 ];
+  var plane = [ -3, 1, 0, 0 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.segment.tools.vectorAdapter.from( [ 3, 0, 27 ] );
 
