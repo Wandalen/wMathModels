@@ -3579,26 +3579,28 @@ function planeClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 1, 0, 1, -1 ];
+  var plane = [ -1, 1, 0, 1 ];
   var expected = 0;
 
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
   test.equivalent( closestPoint, expected );
 
-  var oldPlane = [ 1, 0, 1, -1 ];
+  var oldPlane = [ -1, 1, 0, 1 ];
   test.identical( plane, oldPlane );
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -3606,12 +3608,13 @@ function planeClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 1, 1, 1, - 6 ];
+  var plane = [ - 6, 1, 1, 1 ];
   var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
 
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
@@ -3621,12 +3624,13 @@ function planeClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 1, 1, 1, 3 ];
+  var plane = [ 3, 1, 1, 1 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
 
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
@@ -3636,12 +3640,13 @@ function planeClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 1, 1, 1, - 2 ];
+  var plane = [ - 2, 1, 1, 1 ];
   var expected = 0;
 
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
@@ -3651,12 +3656,13 @@ function planeClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 0, -1, 2, - 5 ];
+  var plane = [ - 5, 0, -1, 2 ];
   var expected = _.frustum.tools.longMake( [ 0, 2, 1 ] );
 
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
@@ -3666,12 +3672,13 @@ function planeClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 0, 0, 2, - 1 ];
+  var plane = [ - 1, 0, 0, 2 ];
   var expected = 0;
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
   test.equivalent( closestPoint, expected );
@@ -3680,12 +3687,13 @@ function planeClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 1, 1, 1, - 3 ];
+  var plane = [ - 3, 1, 1, 1 ];
   var expected = 0;
 
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
@@ -3695,12 +3703,13 @@ function planeClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var expected = 0;
   var closestPoint = _.frustum.planeClosestPoint( srcFrustum, plane );
   test.equivalent( closestPoint, expected );
