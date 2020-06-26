@@ -3029,14 +3029,14 @@ function segmentContains( test )
 
   test.case = 'Plane and segment remain unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var segment = [ 1, 0, 1, 1, 1, 1 ];
   var expected = false;
 
   var gotBool = _.plane.segmentContains( plane, segment );
   test.identical( expected, gotBool );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldSegment = [ 1, 0, 1, 1, 1, 1 ];
@@ -3046,7 +3046,7 @@ function segmentContains( test )
 
   test.case = 'Segment and plane intersect';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var segment = [ - 2, - 2, - 2 , 2, 2, 2 ];
   var expected = false;
 
@@ -3057,7 +3057,7 @@ function segmentContains( test )
 
   test.case = 'Segment and Plane intersect';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var segment = [ 2, 2, 1, 0, 0, 3 ];
   var expected = false;
 
@@ -3068,7 +3068,7 @@ function segmentContains( test )
 
   test.case = 'Segment and Plane don´t intersect - parallel';
 
-  var plane = [ 1, 0, - 1, 0 ];
+  var plane = [ 0, 1, 0, - 1 ];
   var segment = [ 2, 2, 3, 4, 4, 5 ];
   var expected = false;
 
@@ -3079,7 +3079,7 @@ function segmentContains( test )
 
   test.case = 'Segment in Plane';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var segment = [ 0, 2, 3, 0, 3, 4 ];
   var expected = true;
 
@@ -3090,7 +3090,7 @@ function segmentContains( test )
 
   test.case = 'Segment in Plane';
 
-  var plane = [ 1, -2, 0, 0 ];
+  var plane = [ 0, 1, -2, 0 ];
   var segment = [ 2, 1, 3, 4, 2, 4 ];
   var expected = true;
 
@@ -3101,7 +3101,7 @@ function segmentContains( test )
 
   test.case = 'Perpendicular segment intersects';
 
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var segment = [ 1, 2, 2, 1, 0, 0 ];
   var expected = false;
 
