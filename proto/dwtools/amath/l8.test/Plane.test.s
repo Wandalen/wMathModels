@@ -1384,14 +1384,14 @@ function capsuleClosestPoint( test )
 
   test.case = 'capsule and plane stay unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
   var expected = _.plane.tools.longMake( [ - 1, 0, 0 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
   test.identical( expected, gotPoint );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldCapsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
@@ -1402,7 +1402,7 @@ function capsuleClosestPoint( test )
   test.case = 'Trivial';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
-  var plane = [ 1, 0, 0, - 3 ];
+  var plane = [ - 3, 1, 0, 0 ];
   var expected = _.plane.tools.longMake( [ 3, 2, 2 ] );
 
   var gotPoint = _.plane.capsuleClosestPoint( plane, capsule );
@@ -1412,7 +1412,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Diagonal plane';
 
-  var plane = [ - 1, 1, 0, - 2 ];
+  var plane = [ - 2, - 1, 1, 0 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.1 ];
   var expected = _.plane.tools.longMake( [ -1, 1, 0 ] );
 
@@ -1423,7 +1423,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Intersection z';
 
-  var plane = [ 0, 0, 1, - 2 ];
+  var plane = [ - 2, 0, 0, 1 ];
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.5 ];
   var expected = 0;
 
@@ -1434,7 +1434,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Intersection diagonal plane';
 
-  var plane = [ 1, - 1, 0, 0 ];
+  var plane = [ 0, 1, - 1, 0 ];
   var capsule = [ 0, 0, 0, 1, 1, 1, 0.5 ];
   var expected = 0;
 
@@ -1445,7 +1445,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Intersection one side of capsule in plane';
 
-  var plane = [ 0, 2, 0, 0 ];
+  var plane = [ 0, 0, 2, 0 ];
   var capsule = [ 0, - 2, 1, 0, - 2, 2, 2 ];
   var expected = 0;
 
@@ -1456,7 +1456,7 @@ function capsuleClosestPoint( test )
 
   test.case = 'Zero capsule';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var capsule = _.capsule.makeZero( 3 );
   var expected = _.plane.tools.longMake( [ 0, 1, 0 ] );
 
