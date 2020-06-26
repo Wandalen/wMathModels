@@ -4761,10 +4761,11 @@ function sphereClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 0.5, 0.5, 0.5, 0.5 ];
   var expected = 0;
@@ -4777,10 +4778,11 @@ function sphereClosestPoint( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4788,10 +4790,11 @@ function sphereClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 2.5, 2.5, 2.5, 0.5 ];
   var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
@@ -4803,10 +4806,11 @@ function sphereClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ -1, -1, -1, 0.5 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
@@ -4818,10 +4822,11 @@ function sphereClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ -1, -1, -1, 1.8 ];
   var expected = 0;
@@ -4833,10 +4838,11 @@ function sphereClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 0.5, 1.5, 1, 0.01 ];
   var expected = _.frustum.tools.longMake( [ 0.5, 1.6, 0.79999999 ] );
@@ -4848,10 +4854,11 @@ function sphereClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 0, 0, 2, 0.01 ];
   var expected = _.frustum.tools.longMake( [ 0, 0.4, 0.20000 ] );
@@ -4862,10 +4869,11 @@ function sphereClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ -2, -2, -2, 0 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
@@ -4877,10 +4885,11 @@ function sphereClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var sphere = [ 1.1, 0.5, 0.5, 0 ];
   var expected = _.frustum.tools.longMake( [ 1, 0.5, 0.5 ] );
