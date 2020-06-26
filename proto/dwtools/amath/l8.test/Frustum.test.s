@@ -1419,10 +1419,10 @@ function capsuleContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var capsule = [ 2, 2, 2, 3, 3, 3, 1 ];
   var expected = false;
@@ -1435,10 +1435,10 @@ function capsuleContains( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -1446,10 +1446,10 @@ function capsuleContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var capsule = [ 0.2, 0.2, 0.2, 0.5, 0.5, 0.5, 0.1 ];
   var expected = true;
@@ -1461,10 +1461,10 @@ function capsuleContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 2 ];
   var expected = false;
@@ -1476,10 +1476,10 @@ function capsuleContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var capsule = [ 3, 3, 3, 5, 5, 5, 2 ];
   var expected = false;
@@ -1491,10 +1491,10 @@ function capsuleContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var capsule = [ 0, 1, 1, 1, 1, 1, 0.5 ];
   var expected = false;
@@ -1506,10 +1506,10 @@ function capsuleContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var capsule = [ 0.1, 0.1, 0.1, 0.9, 0.9, 0.9, 0.1 ];
   var expected = true;
@@ -1521,10 +1521,10 @@ function capsuleContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var capsule = _.capsule.makeZero();
   var expected = true;
@@ -1536,10 +1536,10 @@ function capsuleContains( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    -1, 0.5,  -1, 0.5, 0.5,  -1,
     0,    0,   0,   0,  -1,   1,
     1,   -1,   0,   0,   0,   0,
     0,    0,   1,  -1,   0,   0,
-    -1, 0.5,  -1, 0.5, 0.5,  -1
   ]);
   var capsule = _.capsule.makeZero();
   var expected = false;
@@ -1555,10 +1555,10 @@ function capsuleContains( test )
   var capsule = [ 0, 0, 0, 2, 2, 2, 1 ];
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
 
   test.shouldThrowErrorSync( () => _.frustum.capsuleContains( ));
