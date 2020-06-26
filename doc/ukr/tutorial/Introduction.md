@@ -327,13 +327,13 @@ console.log( `Plane intersects with capsule : ${ intersected }` );
 В змінну `intersected` повертається `true`, оскільки площина `plane` перетинає капсулу `capsule`.
 
 ```js
-var plane = [ 1, 0, 0, -0.4 ];
+var plane = [ -0.4, 1, 0, 0 ];
 var frustum = _.frustum.make().copy
 ([
-  0,   0,   0,   0,  -1,   1,
-  1,  -1,   0,   0,   0,   0,
-  0,   0,   1,  -1,   0,   0,
- -1,   0,  -1,   0,   0,  -1
+  -1,   0,  -1,   0,   0,  -1,
+   0,   0,   0,   0,  -1,   1,
+   1,  -1,   0,   0,   0,   0,
+   0,   0,   1,  -1,   0,   0,
 ]);
 var intersected = _.plane.frustumIntersects( plane, frustum );
 console.log( `Plane intersects with frustum : ${ intersected }` );
