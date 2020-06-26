@@ -2859,7 +2859,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = _.linePointDir.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
 
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2870,7 +2870,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = _.linePointDir.tools.longMake( [ - 3 ] );
+  var expected = [ -3 ];
 
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
