@@ -4041,10 +4041,10 @@ function translate( test )
 
   test.case = 'Offset remains unchanged, plane changes';
 
-  var plane = [ 1, 0 , 0, 1 ];
+  var plane = [ 1, 1, 0 , 0 ];
   var offset = [ 1, 0, 1 ];
   var oldOffset = offset.slice();
-  var expected = _.plane.tools.longMake( [ 1, 0, 0, 0 ] );
+  var expected = _.plane.tools.longMake( [ 0, 1, 0, 0 ] );
 
   var newPlane = _.plane.translate( plane, offset );
   test.identical( expected, newPlane );
@@ -4055,9 +4055,9 @@ function translate( test )
 
   test.case = 'No change (normal and offset are perpendicular)';
 
-  var plane = [ 1, 0 , 0, 1 ];
+  var plane = [ 1, 1, 0 , 0 ];
   var offset = [ 0, 2, 3 ];
-  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 1 ] );
+  var expected = _.plane.tools.longMake( [ 1, 1, 0 , 0 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
@@ -4066,9 +4066,9 @@ function translate( test )
 
   test.case = 'No change';
 
-  var plane = [ 1, 0 , - 1, 0 ];
+  var plane = [ 0, 1, 0 , - 1 ];
   var offset = [ 2, 2, 2 ];
-  var expected = _.plane.tools.longMake( [ 1, 0 , - 1, 0 ] );
+  var expected = _.plane.tools.longMake( [ 0, 1, 0 , - 1 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
@@ -4077,9 +4077,9 @@ function translate( test )
 
   test.case = 'Trivial translation';
 
-  var plane = [ 1, 0 , 0, 0 ];
+  var plane = [ 0, 1, 0 , 0 ];
   var offset = [ 3, 2, 3 ];
-  var expected = _.plane.tools.longMake( [ 1, 0 , 0, - 3 ] );
+  var expected = _.plane.tools.longMake( [ - 3, 1, 0 , 0 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
@@ -4088,9 +4088,9 @@ function translate( test )
 
   test.case = 'Negative offset';
 
-  var plane = [ 1, 0 , 0, 0 ];
+  var plane = [ 0, 1, 0 , 0 ];
   var offset = [ - 3, - 2, - 3 ];
-  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 3 ] );
+  var expected = _.plane.tools.longMake( [ 3, 1, 0 , 0 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
@@ -4099,9 +4099,9 @@ function translate( test )
 
   test.case = 'More dimensions';
 
-  var plane = [ 1, 0 , 0, 2, 3, 4, 0 ];
+  var plane = [ 0, 1, 0 , 0, 2, 3, 4 ];
   var offset = [ - 2, - 2, - 2, 2, 2, 2 ];
-  var expected = _.plane.tools.longMake( [ 1, 0 , 0, 2, 3, 4, -16 ] );
+  var expected = _.plane.tools.longMake( [ -16, 1, 0 , 0, 2, 3, 4 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.identical( expected, gotOffset );
@@ -4110,9 +4110,9 @@ function translate( test )
 
   test.case = 'NaN offset';
 
-  var plane = [ 1, 0 , 0, 0 ];
+  var plane = [ 0, 1, 0 , 0 ];
   var offset = [ NaN, NaN, NaN ];
-  var expected = _.plane.tools.longMake( [ 1, 0 , 0, NaN ] );
+  var expected = _.plane.tools.longMake( [ NaN, 1, 0 , 0 ] );
 
   var gotOffset = _.plane.translate( plane, offset );
   test.equivalent( expected, gotOffset );
