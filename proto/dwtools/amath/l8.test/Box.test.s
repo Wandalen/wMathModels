@@ -2156,7 +2156,7 @@ function centerGet( test )
 
   var box = [ 0, 0 ];
   var point = [ 0 ];
-  var expected = _.box.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var gotCenter = _.box.centerGet( box, point );
   test.equivalent( gotCenter, expected );
