@@ -3928,10 +3928,11 @@ function segmentContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+
   ]);
   var tstSegment = [ 0, 0, 0, 2, 2, 2 ];
   var expected = false;
@@ -3941,10 +3942,11 @@ function segmentContains( test )
 
   var oldSrcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+
   ]);
   test.identical( srcFrustum, oldSrcFrustum );
 
@@ -3957,10 +3959,11 @@ function segmentContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+
   ]);
   var tstSegment = [ -1, -1, 0, -7, 5, -1 ];
   var expected = false;
@@ -3974,10 +3977,11 @@ function segmentContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+
   ]);
   var tstSegment = [ -1, -1, 0, 1, 1, 1 ];
   var expected = false;
@@ -3991,10 +3995,11 @@ function segmentContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+
   ]);
   var tstSegment = [ 1, 1, 1, 2, 2, 2 ];
   var expected = false;
@@ -4008,10 +4013,11 @@ function segmentContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,   0,   0, - 1,
     0,    0,   0,   0,   1, - 1,
     -1,   1,   0,   0,   0,   0,
     0,    0, - 1,   1,   0,   0,
-    - 1,  0, - 1,   0,   0, - 1
+
   ]);
   var tstSegment = [ -0.2, -0.9, -0.5, -0.2, -0.1, -0.2 ];
   var expected = true;
@@ -4025,10 +4031,11 @@ function segmentContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+
   ]);
   var tstSegment = [ 0, 0, 0, 1, 0, 0 ];
   var expected = true;
@@ -4042,10 +4049,11 @@ function segmentContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+
   ]);
   var tstSegment = [ 0, 0, 0, 1, 1, 0 ];
   var expected = true;
@@ -4059,10 +4067,11 @@ function segmentContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+
   ]);
   var tstSegment = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
@@ -4077,10 +4086,11 @@ function segmentContains( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
+
   ]);
   test.shouldThrowErrorSync( () => _.frustum.segmentContains( ) );
   test.shouldThrowErrorSync( () => _.frustum.segmentContains( [] ) );
