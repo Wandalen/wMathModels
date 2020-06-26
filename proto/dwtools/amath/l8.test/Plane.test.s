@@ -2344,14 +2344,14 @@ function lineClosestPoint( test )
 
   test.case = 'Source plane and line remain unchanged';
 
-  var srcPlane = [ - 1, 0, 0, 2 ];
+  var srcPlane = [ 2, - 1, 0, 0 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
   var gotLine = _.plane.lineClosestPoint( srcPlane, tstLine );
   test.identical( expected, gotLine );
 
-  var oldSrcPlane = [ - 1, 0, 0, 2 ];
+  var oldSrcPlane = [ 2, -1, 0, 0 ];
   test.identical( srcPlane, oldSrcPlane );
 
   var oldtstLine = [ 0, 0, 0, 1, 1, 1 ];
@@ -2361,7 +2361,7 @@ function lineClosestPoint( test )
 
   test.case = 'Plane and line intersect';
 
-  var srcPlane = [ - 1, 0, 0, 1 ];
+  var srcPlane = [ 1, - 1, 0, 0 ];
   var tstLine = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
 
@@ -2372,7 +2372,7 @@ function lineClosestPoint( test )
 
   test.case = 'Line origin is in plane';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstLine = [ 0, 0, 0, 1, 0, 0 ];
   var expected = 0;
 
@@ -2383,7 +2383,7 @@ function lineClosestPoint( test )
 
   test.case = 'Line is in plane ';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstLine = [ 0, 0, 0, 0, 1, 0 ];
   var expected = 0;
 
@@ -2394,7 +2394,7 @@ function lineClosestPoint( test )
 
   test.case = 'Negative factor';
 
-  var srcPlane = [ - 1, 0, 0, 0 ];
+  var srcPlane = [ 0, - 1, 0, 0 ];
   var tstLine = [ -3, -3, -3, -2, -2, -2 ];
   var expected = 0;
 
@@ -2405,7 +2405,7 @@ function lineClosestPoint( test )
 
   test.case = 'Closest point is origin';
 
-  var srcPlane = [ 0, 0, -1, 3 ];
+  var srcPlane = [ 3, 0, 0, -1 ];
   var tstLine = [ 5, 5, 2, 0, 1, 0 ];
   var expected = _.plane.tools.longMake( [ 5, 5, 3 ] );
 
@@ -2416,7 +2416,7 @@ function lineClosestPoint( test )
 
   test.case = 'dstPoint Array';
 
-  var srcPlane = [ 0, 0, 1, -1 ];
+  var srcPlane = [ -1, 0, 0, 1 ];
   var tstLine = [ 4, 4, 3, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.plane.tools.longMake( [ 4, 4, 1 ] );
@@ -2429,7 +2429,7 @@ function lineClosestPoint( test )
 
   test.case = 'dstPoint Vector';
 
-  var srcPlane = [ 0, 1, 0, -2 ];
+  var srcPlane = [ -2, 0, 1, 0 ];
   var tstLine = [ 5, 5, 1, 1, 0, 0 ];
   var dstPoint = _.plane.tools.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.plane.tools.vectorAdapter.from( [ 5, 2, 1 ] );
