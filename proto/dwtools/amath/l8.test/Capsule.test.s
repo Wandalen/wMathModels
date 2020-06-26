@@ -5848,7 +5848,7 @@ function planeDistance( test )
   test.case = 'Capsule and plane remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5857,7 +5857,7 @@ function planeDistance( test )
   var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5865,7 +5865,7 @@ function planeDistance( test )
   test.case = 'Null capsule - empty plane';
 
   var capsule = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 1;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5876,7 +5876,7 @@ function planeDistance( test )
   test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 2;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5887,7 +5887,7 @@ function planeDistance( test )
   test.case = 'point capsule in plane';
 
   var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5898,7 +5898,7 @@ function planeDistance( test )
   test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 1;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5909,7 +5909,7 @@ function planeDistance( test )
   test.case = 'sphere capsule intersection';
 
   var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5920,7 +5920,7 @@ function planeDistance( test )
   test.case = 'Capsule and plane intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5931,7 +5931,7 @@ function planeDistance( test )
   test.case = 'Capsule over plane';
 
   var capsule = [ 0, -6, 4, 1, 1, 0, 1 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 2;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5942,7 +5942,7 @@ function planeDistance( test )
   test.case = 'plane closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.1 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = 0.4;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5953,7 +5953,7 @@ function planeDistance( test )
   test.case = 'plane parallel to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = 0.3;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5964,7 +5964,7 @@ function planeDistance( test )
   test.case = 'plane parallel contains capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.1 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5975,7 +5975,7 @@ function planeDistance( test )
   test.case = 'plane perpendicular to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.1 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
