@@ -3777,14 +3777,14 @@ function sphereClosestPoint( test )
 
   test.case = 'Sphere and plane stay unchanged';
 
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var sphere = [ 2, 0, 0, 1 ];
   var expected = _.plane.tools.longMake( [ -1, 0, 0 ] );
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
   test.identical( expected, gotPoint );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldSphere = [ 2, 0, 0, 1 ];
@@ -3795,7 +3795,7 @@ function sphereClosestPoint( test )
   test.case = 'Trivial';
 
   var sphere = [ 2, 0, 0, 1 ];
-  var plane = [ 1, 0, 0, 2 ];
+  var plane = [ 2, 1, 0, 0 ];
   var expected = _.plane.tools.longMake( [ -2, 0, 0 ] );
 
   var gotPoint = _.plane.sphereClosestPoint( plane, sphere );
@@ -3805,7 +3805,7 @@ function sphereClosestPoint( test )
 
   test.case = 'Trivial 2';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 1, 1, 1, 1 ];
   var expected = _.plane.tools.longMake( [ 1, - 1, 1 ] );
 
@@ -3816,7 +3816,7 @@ function sphereClosestPoint( test )
 
   test.case = 'Center in plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 0, - 1, 0, 1 ];
   var expected = 0;
 
@@ -3827,7 +3827,7 @@ function sphereClosestPoint( test )
 
   test.case = 'Sphere cuts plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 0, 0, 0, 1.5 ];
   var expected = 0;
 
@@ -3838,7 +3838,7 @@ function sphereClosestPoint( test )
 
   test.case = 'Sphere touches plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var sphere = [ 0, 0, 0, 1 ];
   var expected = 0;
 
@@ -3849,7 +3849,7 @@ function sphereClosestPoint( test )
 
   test.case = 'Sphere under plane';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var sphere = [ - 1, - 1, - 1, 1 ];
   var expected = _.plane.tools.longMake( [ -1, 1, -1 ] );
 
@@ -3860,7 +3860,7 @@ function sphereClosestPoint( test )
 
   test.case = 'Sphere over plane';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var sphere = [ 0, 3, 0, 1 ];
   var expected = _.plane.tools.longMake( [ 0, 1, 0 ] );
 
