@@ -4158,10 +4158,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = 0;
 
@@ -4178,10 +4178,10 @@ function frustumClosestPoint( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( frustum, oldFrustum );
 
@@ -4195,10 +4195,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = 0;
 
@@ -4215,10 +4215,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,   4, - 3,   4,   4, - 3,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 3,   4, - 3,   4,   4, - 3
   ]);
   var expected = _.convexPolygon.tools.longMake( [ 0, 2, 3 ] );
 
@@ -4235,10 +4235,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1.1, - 2,   1.1,   1.1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1.1, - 2,   1.1,   1.1, - 2
   ]);
   var expected = _.convexPolygon.tools.longMake( [ 1, 1, 1 ] );
 
@@ -4255,10 +4255,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1, - 2,   1,   1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1, - 2,   1,   1, - 2
   ]);
   var expected = 0;
 
@@ -4275,10 +4275,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   var expected = 0;
 
@@ -4295,10 +4295,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = _.convexPolygon.tools.longMake( [ 0.9, 0.8, 0.7 ] );
 
@@ -4315,10 +4315,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = _.convexPolygon.tools.longMake( [ 0, 0, 2 ] );
 
@@ -4335,15 +4335,15 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = _.convexPolygon.tools.vectorAdapter.from( [ 1, 0.4, 3.2 ] );
 
   var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum, _.vectorAdapter.from( [ 0, 0, 0 ] ) );
-  test.identical( gotBool, expected );
+  test.equivalent( gotBool, expected );
 
   /* */
 
@@ -4357,10 +4357,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon ));
