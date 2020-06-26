@@ -1585,10 +1585,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5, 0.5 ];
   var expected = 0;
@@ -1601,10 +1601,10 @@ function capsuleClosestPoint( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -1612,10 +1612,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.5, 1.5, 1.5, 2.5, 2.5, 2.5, 0.1 ];
   var expected = _.frustum.tools.longMake( [ 1, 1, 1 ] );
@@ -1627,10 +1627,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ -1, -1, -1, -0.5, -0.5, -0.5, 0.2 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
@@ -1642,10 +1642,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ -1, -1, -1, 0.5, 0.5, 0.5, 0.1 ];
   var expected = 0;
@@ -1657,10 +1657,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ -1, -1, 1, 0.5, 1.5, 2, 0.3 ];
   var expected = _.frustum.tools.longMake( [ 0.42105263157894735, 1.3684210526315788, 0 ] );
@@ -1672,10 +1672,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ -2, -2, 2, 0, 0, 4, 0.05 ];
   var expected = _.frustum.tools.longMake( [ 0, 0.4, 0.20000 ] );
@@ -1687,10 +1687,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ -2, -2, -2, -2, -2, -2, 0 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
@@ -1702,10 +1702,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5, 0 ];
   var expected = _.frustum.tools.longMake( [ 1, 0.5, 0.5 ] );
@@ -1717,10 +1717,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 2, 1, - 1, 0, 0,
-    - 3, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ -2, -2, -2, -2, -2, -2, 0.4 ];
   var expected = _.frustum.tools.longMake( [ 0, 0, 0 ] );
@@ -1732,10 +1732,10 @@ function capsuleClosestPoint( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0,  0,  -1,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   -1,  1,   0,   0,
-    - 1,   0,  0,  -1,   0, - 1
   ]);
   var capsule = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5, 0.1 ];
   var expected = 0;
