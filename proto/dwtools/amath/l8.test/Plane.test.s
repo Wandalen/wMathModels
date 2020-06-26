@@ -942,7 +942,7 @@ function boxIntersects( test )
 
   test.case = 'box and plane stay unchanged';
 
-  var plane = [ 1, 0 , 0, 1 ];
+  var plane = [ 1, 1, 0 , 0 ];
   var oldPlane = plane.slice();
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var oldbox = box.slice();
@@ -958,7 +958,7 @@ function boxIntersects( test )
   test.case = 'No intersection';
 
   var box = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.plane.boxIntersects( plane, box );
@@ -969,7 +969,7 @@ function boxIntersects( test )
 
   test.case = 'No intersection diagonal plane';
 
-  var plane = [ - 1, 1, 0, - 2 ];
+  var plane = [ - 2, - 1, 1, 0 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = false;
 
@@ -981,7 +981,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection x';
 
-  var plane = [ 3, 0, 0, - 2 ];
+  var plane = [ - 2, 3, 0, 0 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = true;
 
@@ -992,7 +992,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection y';
 
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = true;
 
@@ -1004,7 +1004,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection z';
 
-  var plane = [ 0, 0, 1, - 2 ];
+  var plane = [ - 2, 0, 0, 1 ];
   var box = [ 0, 0, 0, 2, 2, 2 ];
   var expected = true;
 
@@ -1016,7 +1016,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection diagonal plane';
 
-  var plane = [ 1, - 1, 0, 0 ];
+  var plane = [ 0, 1, - 1, 0 ];
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
 
@@ -1027,7 +1027,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection one side of box in plane';
 
-  var plane = [ 0, 2, 0, 2 ];
+  var plane = [ 2, 0, 2, 0 ];
   var box = [ 0, - 2, 0, 1, 3, 3 ];
   var expected = true;
 
@@ -1038,7 +1038,7 @@ function boxIntersects( test )
 
   test.case = 'Intersection one edge of box in plane';
 
-  var plane = [ 1, - 1, 0, 0 ];
+  var plane = [ 0, 1, - 1, 0 ];
   var box = [ 1, 1, - 1, 2, 1, 0 ];
   var expected = true;
 
@@ -1049,7 +1049,7 @@ function boxIntersects( test )
 
   test.case = 'Zero box no intersection';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var box = _.box.makeZero( 3 );
   var expected = false;
 
@@ -1060,7 +1060,7 @@ function boxIntersects( test )
 
   test.case = 'Zero box intersection';
 
-  var plane = [ 4, - 2, 1, 0 ];
+  var plane = [ 0, 4, - 2, 1 ];
   var box = _.box.makeZero( 3 );
   var expected = true;
 
@@ -1072,7 +1072,7 @@ function boxIntersects( test )
 
   test.case = 'Nil box';
 
-  var plane = [ 0, - 2, 0, 2 ];
+  var plane = [ 2, 0, - 2, 0 ];
   var box = _.box.makeSingular();
   var expected = false;
 
@@ -4226,7 +4226,7 @@ function normalize( test )
   test.case = 'Plane  [ 0 ]';
 
   var plane = [ 0 ];
-  var expected = _.plane.tools.longMake( [ NaN ] );
+  var expected = [ NaN ];
 
   var normalized = _.plane.normalize( plane );
   test.equivalent( expected, normalized );
@@ -4377,7 +4377,7 @@ function negate( test )
   test.case = 'Plane  [ 0 ]';
 
   var plane = [ 0 ];
-  var expected = _.plane.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
