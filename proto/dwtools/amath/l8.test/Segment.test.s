@@ -3480,7 +3480,7 @@ function pointClosestPoint( test )
 
   var segment = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = _.segment.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
 
   var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
   test.identical( gotClosestPoint, expected );
@@ -3491,7 +3491,7 @@ function pointClosestPoint( test )
 
   var segment = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = _.segment.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
   test.identical( gotClosestPoint, expected );
