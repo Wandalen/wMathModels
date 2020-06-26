@@ -2701,7 +2701,7 @@ function pointClosestPoint( test )
 
   var ray = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = _.ray.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
 
   var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
   test.identical( gotClosestPoint, expected );
@@ -2712,7 +2712,7 @@ function pointClosestPoint( test )
 
   var ray = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = _.ray.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var gotClosestPoint = _.ray.pointClosestPoint( ray, point );
   test.identical( gotClosestPoint, expected );
