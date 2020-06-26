@@ -3416,12 +3416,13 @@ function planeDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 1, 0, 0, 2 ];
+  var plane = [ 2, 1, 0, 0 ];
   var expected = 2;
 
   var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
@@ -3429,25 +3430,27 @@ function planeDistance( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
-  var oldPlane = [ 1, 0, 0, 2 ];
+  var oldPlane = [ 2, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   test.description = 'Frustum and plane intersect'; //
 
-  var plane = [ 1, 0, 0, - 0.4 ];
+  var plane = [ - 0.4, 1, 0, 0 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var expected = 0;
 
@@ -3456,13 +3459,14 @@ function planeDistance( test )
 
   test.description = 'Plane cuts Frustum in diagonal'; //
 
-  var plane = [ 0.3, 0.3, 0.3, 0 ];
+  var plane = [ 0, 0.3, 0.3, 0.3 ];
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var expected = 0;
 
@@ -3473,12 +3477,13 @@ function planeDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
@@ -3488,12 +3493,13 @@ function planeDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 1, 1, 1, -3 ];
+  var plane = [ -3, 1, 1, 1 ];
   var expected = 0;
 
   var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
@@ -3503,12 +3509,13 @@ function planeDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 0 , 1, 0, - 1.1 ];
+  var plane = [ - 1.1, 0 , 1, 0 ];
   var expected = 0.1;
 
   var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
@@ -3518,12 +3525,13 @@ function planeDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 0, 1, 0, 4 ];
+  var plane = [ 4, 0, 1, 0 ];
   var expected = 4;
 
   var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
@@ -3533,12 +3541,13 @@ function planeDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
-  var plane = [ 1, 1, 1, - 6 ];
+  var plane = [ - 6, 1, 1, 1 ];
   var expected = Math.sqrt( 3 );
 
   var gotDistance = _.frustum.planeDistance( srcFrustum, plane );
