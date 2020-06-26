@@ -7402,7 +7402,7 @@ function planeDistance( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var oldSrcBox = srcBox.slice();
-  var srcPlane = [ 1, 0, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = 1;
 
@@ -7416,7 +7416,7 @@ function planeDistance( test )
   test.case = 'Plane as box side';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 3 ];
+  var srcPlane = [ - 3, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7427,7 +7427,7 @@ function planeDistance( test )
   test.case = 'Plane touching box corner';
 
   var srcBox = [ 0, 1, 2, 1, 1, 3 ];
-  var srcPlane = [ 1, -1, 0, 0 ];
+  var srcPlane = [ 0, 1, -1, 0 ];
   var expected = 0;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7438,7 +7438,7 @@ function planeDistance( test )
   test.case = 'Plane crossing box';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 1 ];
+  var srcPlane = [ - 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7449,7 +7449,7 @@ function planeDistance( test )
   test.case = 'Plane under box parallel to side';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, 3 ];
+  var srcPlane = [ 3, 1, 0, 0 ];
   var expected = 3;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7460,7 +7460,7 @@ function planeDistance( test )
   test.case = 'Plane over box';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 6 ];
+  var srcPlane = [ - 6, 1, 0, 0 ];
   var expected = 3;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7471,7 +7471,7 @@ function planeDistance( test )
   test.case = 'Plane close to box corner';
 
   var srcBox = [ 3, 0, 2, 4, 1, 2 ];
-  var srcPlane = [ 1, -1, 0, 0 ];
+  var srcPlane = [ 0, 1, -1, 0 ];
   var expected = Math.sqrt( 2 );
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7482,7 +7482,7 @@ function planeDistance( test )
   test.case = 'Zero box';
 
   var srcBox = [ 0, 0, 0, 0, 0, 0 ];
-  var srcPlane = [ 1, -1, 4, 3 ];
+  var srcPlane = [ 3, 1, -1, 4 ];
   var expected = Math.sqrt( 2 )/2;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7493,7 +7493,7 @@ function planeDistance( test )
   test.case = '2D';
 
   var srcBox = [ 0, 0, 0, 0 ];
-  var srcPlane = [ 1, -1, 3 ];
+  var srcPlane = [ 3, 1, -1 ];
   var expected = Math.sqrt( 4.5 );
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
