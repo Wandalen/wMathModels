@@ -6938,10 +6938,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
   var oldBox = box.slice();
@@ -6953,10 +6953,10 @@ function frustumClosestPoint( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   test.identical( frustum, oldFrustum );
 
@@ -6964,10 +6964,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
   var expected = _.box.tools.longMake( [ 2, 2, 2 ] );
@@ -6979,10 +6979,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
   var expected = _.box.tools.longMake( [ -0.5, -0.5, -0.5 ] );
@@ -6994,10 +6994,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
   var expected = 0;
@@ -7009,10 +7009,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
   var expected = _.box.tools.longMake( [ 0.5, 1.5, 1 ] );
@@ -7024,11 +7024,11 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ -2, -2, 2, 0, 0, 4 ];
   var expected = _.box.tools.longMake( [ 0, 0, 2 ] );
 
@@ -7039,10 +7039,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
   var expected = _.box.tools.longMake( [ -2, -2, -2 ] );
@@ -7054,10 +7054,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
   var expected = _.box.tools.longMake( [ 1.1, 0.5, 0.5 ] );
