@@ -2463,25 +2463,25 @@ function planeIntersects( test )
 
   test.case = 'Planes remain unchanged';
 
-  var srcPlane = [ 1, 0, 0, 1 ];
-  var tstPlane = [ 1, 1, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
+  var tstPlane = [ 1, 1, 1, 0 ];
   var expected = true;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
   test.identical( expected, gotBool );
 
-  var oldSrcPlane = [ 1, 0, 0, 1 ];
+  var oldSrcPlane = [ 1, 1, 0, 0 ];
   test.identical( srcPlane, oldSrcPlane );
 
-  var oldtstPlane = [ 1, 1, 0, 1 ];
+  var oldtstPlane = [ 1, 1, 1, 0 ];
   test.identical( tstPlane, oldtstPlane );
 
   /* */
 
   test.case = 'tstPlane and plane intersect';
 
-  var srcPlane = [ 1, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 1, 0 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 1 ];
   var expected = true;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
@@ -2491,8 +2491,8 @@ function planeIntersects( test )
 
   test.case = 'tstPlane and Plane don´t intersect';
 
-  var srcPlane = [ 1, 0 , - 1, 0 ];
-  var tstPlane = [ 1, 0, -1, 2 ];
+  var srcPlane = [ 0, 1, 0 , - 1 ];
+  var tstPlane = [ 2, 1, 0, -1 ];
   var expected = false;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
@@ -2502,8 +2502,8 @@ function planeIntersects( test )
 
   test.case = 'tstPlane and Plane don´t intersect';
 
-  var srcPlane = [ 1, 0 , - 1, 0 ];
-  var tstPlane = [ 2, 0, -2, 1 ];
+  var srcPlane = [ 0, 1, 0 , - 1 ];
+  var tstPlane = [ 1, 2, 0, -2 ];
   var expected = false;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
@@ -2513,8 +2513,8 @@ function planeIntersects( test )
 
   test.case = 'tstPlane and srcPlane are the same';
 
-  var srcPlane = [ 1, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var srcPlane = [ 0, 1, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
@@ -2524,8 +2524,8 @@ function planeIntersects( test )
 
   test.case = 'tstPlane and srcPlane are the same';
 
-  var srcPlane = [ 1, 0, 2, 1 ];
-  var tstPlane = [ 2, 0, 4, 2 ];
+  var srcPlane = [ 1, 1, 0, 2 ];
+  var tstPlane = [ 2, 2, 0, 4 ];
   var expected = true;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
@@ -2535,8 +2535,8 @@ function planeIntersects( test )
 
   test.case = 'tstPlane and srcPlane are parallel';
 
-  var srcPlane = [ 1, 0, 2, 1 ];
-  var tstPlane = [ 2, 0, 4, 1 ];
+  var srcPlane = [ 1, 1, 0, 2 ];
+  var tstPlane = [ 1, 2, 0, 4 ];
   var expected = false;
 
   var gotBool = _.plane.planeIntersects( srcPlane, tstPlane );
