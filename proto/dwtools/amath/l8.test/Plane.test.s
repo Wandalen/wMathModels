@@ -4284,7 +4284,7 @@ function negate( test )
 
   test.case = 'Zero';
 
-  var plane = [ 0, 0 , 0, 0 ];
+  var plane = [ 0, 0, 0 , 0 ];
   var expected = _.plane.tools.longMake( [ 0, 0, 0, 0 ] );
 
   var newPlane = _.plane.negate( plane );
@@ -4295,8 +4295,8 @@ function negate( test )
 
   test.case = 'Plane changes';
 
-  var plane = [ 2, 0 , 0, 1 ];
-  var expected = _.plane.tools.longMake( [ - 2, 0, 0, - 1 ] );
+  var plane = [ 1, 2, 0 , 0 ];
+  var expected = _.plane.tools.longMake( [ -1, -2, 0, 0 ] );
 
   var newPlane = _.plane.negate( plane );
   test.equivalent( expected, newPlane );
@@ -4306,8 +4306,8 @@ function negate( test )
 
   test.case = 'Trivial ';
 
-  var plane = [ 2, 0 , 0, 4 ];
-  var expected = _.plane.tools.longMake( [ - 2, 0 , 0, - 4 ] );
+  var plane = [ 4, 2, 0 , 0 ];
+  var expected = _.plane.tools.longMake( [ -4, -2, 0 , 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -4316,8 +4316,8 @@ function negate( test )
 
   test.case = 'Trivial';
 
-  var plane = [ 2, 2 , 2, 4 ];
-  var expected = _.plane.tools.longMake( [ - 2, - 2, - 2, - 4 ] );
+  var plane = [ 4, 2, 2 , 2 ];
+  var expected = _.plane.tools.longMake( [ -4, -2, -2, -2 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -4326,8 +4326,8 @@ function negate( test )
 
   test.case = 'Negate 1D';
 
-  var plane = [ 1, 0 , 0, 3 ];
-  var expected = _.plane.tools.longMake( [ - 1, 0 , 0, - 3 ] );
+  var plane = [ 3, 1, 0 , 0 ];
+  var expected = _.plane.tools.longMake( [ -3, -1, 0 , 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -4336,8 +4336,8 @@ function negate( test )
 
   test.case = 'Negate';
 
-  var plane = [ 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0, 2/Math.sqrt( 2 ) ];
-  var expected = _.plane.tools.longMake( [ - 1/Math.sqrt( 2 ), - 1/Math.sqrt( 2 ), 0, - 2/Math.sqrt( 2 ) ] );
+  var plane = [ 2/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 1/Math.sqrt( 2 ), 0 ];
+  var expected = _.plane.tools.longMake( [ -2/Math.sqrt( 2 ), -1/Math.sqrt( 2 ), -1/Math.sqrt( 2 ), 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -4346,8 +4346,8 @@ function negate( test )
 
   test.case = 'Negative coordinates';
 
-  var plane = [ - 3, - 6 , 0, 8 ];
-  var expected = _.plane.tools.longMake( [ 3, 6, 0, - 8 ] );
+  var plane = [ 8, - 3, - 6 , 0 ];
+  var expected = _.plane.tools.longMake( [ -8, 3, 6, 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -4356,8 +4356,8 @@ function negate( test )
 
   test.case = 'More dimensions';
 
-  var plane = [ 4, 0 , 0, 4, 0, 4, 8 ];
-  var expected = _.plane.tools.longMake( [  - 4, 0 , 0, - 4, 0, - 4, - 8 ] );
+  var plane = [ 8, 4, 0 , 0, 4, 0, 4 ];
+  var expected = _.plane.tools.longMake( [ -8, -4, 0 , 0, -4, 0, -4 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -4386,8 +4386,8 @@ function negate( test )
 
   test.case = 'Null coordinate';
 
-  var plane = [ 1, null, 0, 0 ];
-  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 0 ] );
+  var plane = [ 0, 1, null, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, -1, 0, 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -4396,8 +4396,8 @@ function negate( test )
 
   test.case = 'NaN coordinates';
 
-  var plane = [ 1, NaN, 0, 0 ];
-  var expected = _.plane.tools.longMake( [ - 1, NaN, 0, 0 ] );
+  var plane = [ 0, 1, NaN, 0 ];
+  var expected = _.plane.tools.longMake( [ 0, -1, NaN, 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
@@ -4406,8 +4406,8 @@ function negate( test )
 
   test.case = 'String coordinates';
 
-  var plane = [ 1, 'string', 0, 0 ];
-  var expected = _.plane.tools.longMake( [ - 1, NaN, 0, 0 ] );
+  var plane = [ 0, 1, 'string', 0 ];
+  var expected = _.plane.tools.longMake( [ 0, -1, NaN, 0 ] );
 
   var negated = _.plane.negate( plane );
   test.equivalent( expected, negated );
