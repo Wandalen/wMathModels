@@ -3940,10 +3940,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = 0;
 
@@ -3960,10 +3960,10 @@ function frustumDistance( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( frustum, oldFrustum );
 
@@ -3977,10 +3977,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = 0;
 
@@ -3997,10 +3997,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,   4, - 3,   4,   4, - 3,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 3,   4, - 3,   4,   4, - 3
   ]);
   var expected = Math.sqrt( 10 );
 
@@ -4017,10 +4017,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1.1, - 2,   1.1,   1.1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1.1, - 2,   1.1,   1.1, - 2
   ]);
   var expected = Math.sqrt( 0.03 );
 
@@ -4037,10 +4037,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1, - 2,   1,   1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1, - 2,   1,   1, - 2
   ]);
   var expected = 0;
 
@@ -4057,10 +4057,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   var expected = 0;
 
@@ -4077,10 +4077,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = Math.sqrt( 0.14 );
 
@@ -4097,10 +4097,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = Math.sqrt( 2 );
 
@@ -4119,10 +4119,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon ));
