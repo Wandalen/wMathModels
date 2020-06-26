@@ -687,7 +687,7 @@ function pointDistance( test )
 
   test.case = 'Point and plane stay unchanged';
 
-  var plane = [ 0, 0 , 1, 2 ];
+  var plane = [ 2, 0, 0 , 1 ];
   var oldPlane = plane.slice();
   var point = [ 0, 1, 0 ];
   var oldPoint = point.slice();
@@ -728,7 +728,7 @@ function pointDistance( test )
 
   test.case = 'Trivial';
 
-  var plane = [ 0, 1, 0, 2 ];
+  var plane = [ 2, 0, 1, 0 ];
   var point = [ 1, 1, 1 ];
   point = _.vectorAdapter.from( point );
   var expected = 3;
@@ -740,7 +740,7 @@ function pointDistance( test )
 
   test.case = 'Point under plane';
 
-  var plane = [ 0, 0, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
   var point = [ 0, 0, - 2 ];
   point = _.vectorAdapter.from( point );
   var expected = - 1;
@@ -752,7 +752,7 @@ function pointDistance( test )
 
   test.case = 'Point over plane';
 
-  var plane = [ 0, 0, 1, 1 ];
+  var plane = [ 1, 0, 0, 1 ];
   var point = [ 0, 0, 2 ];
   point = _.vectorAdapter.from( point );
   var expected = 3;
@@ -764,7 +764,7 @@ function pointDistance( test )
 
   test.case = 'Decimal numbers';
 
-  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var plane = [ 0, 0.2, 0.3, - 0.1 ];
   var point = [ 0, 0.2, 0.6 ];
   point = _.vectorAdapter.from( point );
   var expected = 0;
@@ -776,7 +776,7 @@ function pointDistance( test )
 
   test.case = 'Decimal numbers';
 
-  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var plane = [ 0, 0.2, 0.3, - 0.1 ];
   var point = [ 0, 0.1, 0.6 ];
   point = _.vectorAdapter.from( point );
   var expected = - 0.08017837257372731;
@@ -788,11 +788,11 @@ function pointDistance( test )
 
   test.case = 'Points in plane';
 
-  var plane = [ 0.2, 0.3, - 0.1, 0 ];
+  var plane = [ 0, 0.2, 0.3, - 0.1 ];
   var a = [ 0, 0, 1 ];
   var b = [ 0, 1, 0 ];
   var c = [ 0, 0, 3 ];
-  var expected = _.plane.tools.longMake( [ - 1, 0, 0, 0 ] );
+  var expected = _.plane.tools.longMake( [ 0, -1, 0, 0 ] );
 
   var plane = _.plane.fromPoints( plane, a, b, c );
   test.equivalent( plane, expected );
