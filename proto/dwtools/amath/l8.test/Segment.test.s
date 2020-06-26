@@ -902,7 +902,7 @@ function centerGet( test )
 
   var srcSegment = [ 0, 1 ];
   var gotCenter = _.segment.centerGet( srcSegment );
-  var expected = _.segment.tools.longMake( [ 0.5 ] );
+  var expected = [ 0.5 ];
   test.identical( gotCenter, expected );
   test.is( gotCenter !== srcSegment );
 
