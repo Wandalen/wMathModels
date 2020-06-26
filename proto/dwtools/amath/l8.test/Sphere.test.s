@@ -1830,7 +1830,7 @@ function radiusSet( test )
 
   var sphere = [ 0 ];
   var radius = 1;
-  var expected = _.sphere.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
