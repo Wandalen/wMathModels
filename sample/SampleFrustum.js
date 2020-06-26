@@ -5,10 +5,10 @@ var _ = wTools;
 
 var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
 ([
+  -3,  0,   0,  -3,   0,  -3,
   0,   0,   0,   0,   -1,  1,
   1,  -1,   0,   0,   0,   0,
   0,   0,  -1,   1,   0,   0,
-  -3,  0,   0,  -3,   0,  -3
 ]);
 var polygon = _.Matrix.Make( [ 3, 4 ] ).copy
 ([
