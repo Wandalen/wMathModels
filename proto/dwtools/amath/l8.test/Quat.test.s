@@ -362,7 +362,7 @@ function make( test )
 
   var src = undefined;
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -372,7 +372,7 @@ function make( test )
 
   var src = null;
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -380,9 +380,9 @@ function make( test )
 
   test.case = 'src array';
 
-  var src = [ 0, 1, 2, 3 ];
+  var src = [ 3, 0, 1, 2 ];
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 0, 1, 2, 3 ] );
+  var expected = _.quat.tools.longMake( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -390,20 +390,23 @@ function make( test )
 
   test.case = 'src vector';
 
-  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var src = _.vectorAdapter.fromLong([ 3, 0, 1, 2 ]);
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 0, 1, 2, 3 ] );
+  var expected = _.quat.tools.longMake( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
-  /* */
+  /* - */
+
+  if( !Config.debug )
+  return;
 
   test.case = 'bad arguments';
 
   test.shouldThrowErrorSync( () => _.quat.make( 0 ) );
   test.shouldThrowErrorSync( () => _.quat.make( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.make( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.make( [ 0, 0, 0, 1 ], 2 ) );
+  test.shouldThrowErrorSync( () => _.quat.make( [ 1, 0, 0, 0 ], 2 ) );
 
 }
 
