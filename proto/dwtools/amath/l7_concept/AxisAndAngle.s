@@ -110,10 +110,15 @@ function isZero( axisAndAngle, angle )
   return angle === 0;
 
   if( _.vectorAdapterIs( axisAndAngle ) )
-  return axisAndAngle.eGet( 3 ) === 0;
+  return axisAndAngle.eGet( 0 ) === 0;
   else if( _.arrayIs( axisAndAngle ) )
-  return axisAndAngle[ 3 ] === 0;
+  return axisAndAngle[ 0 ] === 0;
   else _.assert( 0 );
+  // if( _.vectorAdapterIs( axisAndAngle ) )
+  // return axisAndAngle.eGet( 3 ) === 0;
+  // else if( _.arrayIs( axisAndAngle ) )
+  // return axisAndAngle[ 3 ] === 0;
+  // else _.assert( 0 );
 }
 
 //
@@ -141,15 +146,22 @@ function make( axisAndAngle, angle )
 
   if( axisAndAnglev )
   {
-    resultv.eSet( 0, axisAndAnglev.eGet( 0 ) );
-    resultv.eSet( 1, axisAndAnglev.eGet( 1 ) );
-    resultv.eSet( 2, axisAndAnglev.eGet( 2 ) );
+    resultv.eSet( 1, axisAndAnglev.eGet( axisAndAnglev.length - 3 ) );
+    resultv.eSet( 2, axisAndAnglev.eGet( axisAndAnglev.length - 2 ) );
+    resultv.eSet( 3, axisAndAnglev.eGet( axisAndAnglev.length - 1 ) );
+    // resultv.eSet( 0, axisAndAnglev.eGet( 0 ) );
+    // resultv.eSet( 1, axisAndAnglev.eGet( 1 ) );
+    // resultv.eSet( 2, axisAndAnglev.eGet( 2 ) );
   }
 
   if( _.numberIs( angle ) )
-  resultv.eSet( 3, angle );
+  resultv.eSet( 0, angle );
   else if( axisAndAnglev )
-  resultv.eSet( 3, axisAndAnglev.eGet( 3 ) );
+  resultv.eSet( 0, axisAndAnglev.eGet( 0 ) );
+  // if( _.numberIs( angle ) )
+  // resultv.eSet( 3, angle );
+  // else if( axisAndAnglev )
+  // resultv.eSet( 3, axisAndAnglev.eGet( 3 ) );
 
   return result;
 }
@@ -196,13 +208,15 @@ function from( axisAndAngle, angle )
     if( axisAndAngle.length === 4 )
     {
       if( angle !== undefined && angle !== null )
-      axisAndAngle.eSet( 3, angle );
+      axisAndAngle.eSet( 0, angle );
+      // axisAndAngle.eSet( 3, angle );
       return axisAndAngle;
     }
     // debugger;
-    let result = axisAndAngle.growLong([ 0, 3 ]);
+    // let result = axisAndAngle.growLong([ 0, 3 ]);
+    let result = axisAndAngle.growLong([ -1, 2 ]);
     if( angle !== undefined && angle !== null )
-    result[ 3 ] = angle;
+    result[ 0 ] = angle;
     return result;
   }
   else
@@ -210,8 +224,10 @@ function from( axisAndAngle, angle )
     if( axisAndAngle.length === 3 )
     {
       // axisAndAngle = _.longResize( axisAndAngle, 0, 4 );
-      axisAndAngle = this.tools.longGrow( axisAndAngle, [ 0, 4 ] )
-      axisAndAngle[ 3 ] = angle === null ? 0 : angle;
+      axisAndAngle = this.tools.longGrow( axisAndAngle, [ -1, 3 ] ); /* Dmytro : need to explain some features of longGrow and longRelength */
+      // axisAndAngle = this.tools.longGrow( axisAndAngle, [ 0, 4 ] )
+      axisAndAngle[ 0 ] = angle === null ? 0 : angle;
+      // axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }
 
@@ -241,7 +257,7 @@ function adapterFrom( axisAndAngle, angle )
     }
     // debugger;
     // let result = axisAndAngle.resizedAdapter( 0, 4 );
-    let result = axisAndAngle.grow([ -1, 3 ]);
+    let result = axisAndAngle.grow([ -1, 2 ]);
     if( angle !== undefined && angle !== null )
     result.eSet( 0 , angle );
     // result.eSet( 3 , angle );
@@ -311,7 +327,8 @@ function zero( axisAndAngle, angle )
 
   let axisAndAnglev = this.tools.vectorAdapter.from( axisAndAngle );
 
-  axisAndAnglev.eSet( 3, 0 );
+  axisAndAnglev.eSet( 0, 0 );
+  // axisAndAnglev.eSet( 3, 0 );
 
   return axisAndAngle;
 }
