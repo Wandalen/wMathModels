@@ -197,8 +197,10 @@ function eachQuat( onQuat )
   for( var i = 0 ; i < 1000 ; i++ )
   {
 
+    debugger;
     var quat1 = _.avector.mix( null, begin, end, i/999 );
-    quat1[ 3 ] = sqrt( 1 - quat1[ 0 ]**2 - quat1[ 1 ]**2 - quat1[ 2 ]**2 );
+    quat1.unshift( sqrt( 1 - quat1[ 0 ]**2 - quat1[ 1 ]**2 - quat1[ 2 ]**2 ) );
+    // quat1[ 3 ] = sqrt( 1 - quat1[ 0 ]**2 - quat1[ 1 ]**2 - quat1[ 2 ]**2 );
 
     // var axisAndAngle = _.quat.toAxisAndAngle( quat1, null );
     // var quat2 = _.quat.fromAxisAndAngle( null, axisAndAngle );
@@ -664,14 +666,19 @@ function fromAxisAndAngle( test )
   /* */
 
   test.case = 'zero';
-
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 0 ], 0 );
   test.equivalent( got, expected );
+
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 1, 0, 0 ], 0 );
   test.equivalent( got, expected );
+
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 1, 0 ], 0 );
   test.equivalent( got, expected );
+
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 1 ], 0 );
   test.equivalent( got, expected );
 
@@ -680,13 +687,13 @@ function fromAxisAndAngle( test )
   test.case = 'near zero';
 
   var angle = test.accuracy;
-  var expected = _.quat.tools.longMake( [ 0.00000004999999873689376, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0.00000004999999873689376, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 1, 0, 0 ], angle );
   test.equivalent( got, expected );
-  var expected = _.quat.tools.longMake( [ 0, 0.00000004999999873689376, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0.00000004999999873689376, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 1, 0 ], angle );
   test.equivalent( got, expected );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0.00000004999999873689376, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0.00000004999999873689376 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 1 ], angle );
   test.equivalent( got, expected );
 
@@ -719,11 +726,11 @@ function fromAxisAndAngle( test )
     var quat = _.quat.fromAxisAndAngle( null, axis, angle );
     test.equivalent( quat, expected );
 
-    axis[ 3 ] = angle;
+    axis[ 0 ] = angle;
     var quat = _.quat.fromAxisAndAngle( null, _.vectorAdapter.from( axis ) );
     test.equivalent( quat, expected );
 
-    axis[ 3 ] = angle;
+    axis[ 0 ] = angle;
     var quat = _.quat.fromAxisAndAngle( null, axis );
     test.equivalent( quat, expected );
 
@@ -755,27 +762,27 @@ function fromAxisAndAngle( test )
   {
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.oc, sample.oc, sample.oc, sample.w ];
+    expected = [ sample.w, sample.oc, sample.oc, sample.oc ];
     axis = [ 0, 0, 0 ];
     caseTest();
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.tc, sample.oc, sample.oc, sample.w ];
+    expected = [ sample.w, sample.tc, sample.oc, sample.oc ];
     axis = [ 1, 0, 0 ];
     caseTest();
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.oc, sample.tc, sample.oc, sample.w ];
+    expected = [ sample.w, sample.oc, sample.tc, sample.oc ];
     axis = [ 0, 1, 0 ];
     caseTest();
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.oc, sample.oc, sample.tc, sample.w ];
+    expected = [ sample.w, sample.oc, sample.oc, sample.tc ];
     axis = [ 0, 0, 1 ];
     caseTest();
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.tc, sample.tc, sample.tc, sample.w ];
+    expected = [ sample.w, sample.tc, sample.tc, sample.tc ];
     axis = [ 1, 1, 1 ];
     caseTest();
 
@@ -811,21 +818,14 @@ function fromAxisAndAngle( test )
 
   eachQuat( function( quat1 )
   {
-
+    debugger;
     var axisAndAngle = _.quat.toAxisAndAngle( quat1, null );
     var quat2 = _.quat.fromAxisAndAngle( null, axisAndAngle );
-
     test.equivalent( quat1, quat2 );
-
-    // logger.log( 'quat1', quat1 );
-    // logger.log( 'quat2', quat2 );
-    // logger.log( 'axisAndAngle', axisAndAngle );
-
   });
 
-  /* throwing error */
+  /* - */
 
-  return;
   if( !Config.debug )
   return;
 
@@ -845,7 +845,7 @@ function fromAxisAndAngle( test )
 }
 
 fromAxisAndAngle.accuracy = [ _.accuracy * 1e+2, 1e-1 ];
-fromAxisAndAngle.timeOut = 10000;
+fromAxisAndAngle.timeOut = 20000;
 
 //
 
