@@ -323,7 +323,7 @@ function isUnit( test )
 
   test.case = 'zero';
 
-  test.is( _.quat.isUnit([ 0, 0, 0, 1 ]) );
+  test.is( _.quat.isUnit([ 1, 0, 0, 0 ]) );
 
   /* */
 
@@ -333,7 +333,7 @@ function isUnit( test )
   test.is( !_.quat.isUnit([ 0, 0, 0, 1.1 ]) );
   test.is( !_.quat.isUnit([ 0, 0, 0, Infinity ]) );
 
-  test.is( !_.quat.isUnit([ 1, 0, 0, 0 ]) );
+  test.is( !_.quat.isUnit([ 0, 0, 0, 1 ]) );
   test.is( !_.quat.isUnit([ 0, 1, 0, 0 ]) );
   test.is( !_.quat.isUnit([ 0, 0, 1, 0 ]) );
 
@@ -1216,7 +1216,7 @@ fromMatrixRotationFast.rapidity = -1;
 function toMatrix( test )
 {
 
-  test.case = 'trivial'; debugger;
+  test.case = 'trivial';
 
   var axis = null;
   var h = _.math.sqrt( 2 ) / 2;
