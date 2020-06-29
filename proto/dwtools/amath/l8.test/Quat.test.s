@@ -423,19 +423,18 @@ function makeZero( test )
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
 
+  /* */
+
   if( !Config.debug )
   return;
 
-  /* */
-
   test.case = 'bad arguments';
-
   test.shouldThrowErrorSync( () => _.quat.makeZero( undefined ) );
   test.shouldThrowErrorSync( () => _.quat.makeZero( null ) );
   test.shouldThrowErrorSync( () => _.quat.makeZero( 4 ) );
-  test.shouldThrowErrorSync( () => _.quat.makeZero([ 0, 0, 0, 1 ]) );
+  test.shouldThrowErrorSync( () => _.quat.makeZero([ 1, 0, 0, 0 ]) );
   test.shouldThrowErrorSync( () => _.quat.makeZero( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.makeZero( [ 0, 0, 0, 1 ], 2 ) );
+  test.shouldThrowErrorSync( () => _.quat.makeZero( [ 1, 0, 0, 0 ], 2 ) );
 
 }
 
@@ -443,22 +442,17 @@ function makeZero( test )
 
 function makeUnit( test )
 {
+  test.case = 'trivial';
+  var got = _.quat.makeUnit();
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  test.identical( got, expected );
 
   /* */
-
-  test.case = 'trivial';
-
-  var got = _.quat.makeUnit();
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
-  test.identical( got, expected );
 
   if( !Config.debug )
   return;
 
-  /* */
-
   test.case = 'bad arguments';
-
   test.shouldThrowErrorSync( () => _.quat.makeUnit( undefined ) );
   test.shouldThrowErrorSync( () => _.quat.makeUnit( null ) );
   test.shouldThrowErrorSync( () => _.quat.makeUnit( 4 ) );
