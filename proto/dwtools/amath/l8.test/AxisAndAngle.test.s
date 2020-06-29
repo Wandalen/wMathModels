@@ -642,9 +642,9 @@ function zero( test )
 
   test.case = 'dst array';
 
-  var dst = [ 0, 1, 2, 5 ];
+  var dst = [ 5, 0, 1, 2 ];
   var got = _.axisAndAngle.zero( dst );
-  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 0 ] );
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 1, 2 ] );
   test.identical( got, expected );
   test.is( got === dst );
 
@@ -652,9 +652,9 @@ function zero( test )
 
   test.case = 'dst vector';
 
-  var dst = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2, 5 ]);
+  var dst = _.axisAndAngle.tools.vectorAdapter.fromLong([ 5, 0, 1, 2 ]);
   var got = _.axisAndAngle.zero( dst );
-  var expected = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 1, 2, 0 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.fromLong([ 0, 0, 1, 2 ]);
   test.identical( got, expected );
   test.is( got === dst );
 
