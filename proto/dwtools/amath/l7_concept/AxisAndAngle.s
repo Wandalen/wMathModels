@@ -235,23 +235,26 @@ function adapterFrom( axisAndAngle, angle )
     if( axisAndAngle.length === 4 )
     {
       if( angle !== undefined && angle !== null )
-      axisAndAngle.eSet( 3 , angle );
+      axisAndAngle.eSet( 0 , angle );
+      // axisAndAngle.eSet( 3 , angle );
       return axisAndAngle;
     }
     // debugger;
     // let result = axisAndAngle.resizedAdapter( 0, 4 );
-    let result = axisAndAngle.grow([ 0, 3 ]);
+    let result = axisAndAngle.grow([ -1, 3 ]);
     if( angle !== undefined && angle !== null )
-    result.eSet( 3 , angle );
+    result.eSet( 0 , angle );
+    // result.eSet( 3 , angle );
     return result;
   }
   else
   {
     if( axisAndAngle.length === 3 )
     {
-      // debugger;
-      axisAndAngle = _.longGrow( axisAndAngle, [ 0, 4 ] );
-      axisAndAngle[ 3 ] = angle === null ? 0 : angle;
+      debugger;
+      axisAndAngle = _.longGrow( axisAndAngle, [ -1, 3 ] );
+      axisAndAngle[ 0 ] = angle === null ? 0 : angle;
+      // axisAndAngle[ 3 ] = angle === null ? 0 : angle;
     }
   }
 
