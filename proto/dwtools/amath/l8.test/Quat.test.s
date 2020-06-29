@@ -515,51 +515,49 @@ function unit( test )
   /* */
 
   test.case = 'src undefined';
-
   var src = undefined;
   var got = _.quat.unit( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
   /* */
 
   test.case = 'src null';
-
   var src = null;
   var got = _.quat.unit( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
   /* */
 
   test.case = 'dst array';
-
-  var dst = [ 0, 1, 2, 3 ];
+  var dst = [ 3, 0, 1, 2 ];
   var got = _.quat.unit( dst );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got === dst );
 
   /* */
 
   test.case = 'dst vector';
-
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var dst = _.vectorAdapter.fromLong([ 3, 0, 1, 2 ]);
   var got = _.quat.unit( dst );
-  var expected = _.quat.tools.vectorAdapter.fromLong([ 0, 0, 0, 1 ]);
+  var expected = _.quat.tools.vectorAdapter.fromLong([ 1, 0, 0, 0 ]);
   test.identical( got, expected );
   test.is( got === dst );
 
-  /* */
+  /* - */
+
+  if( !Config.debug )
+  return;
 
   test.case = 'bad arguments';
-
   test.shouldThrowErrorSync( () => _.quat.unit( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.unit([ 0, 0, 0 ]) );
   test.shouldThrowErrorSync( () => _.quat.unit( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.unit( [ 0, 0, 0, 1 ], 2 ) );
+  test.shouldThrowErrorSync( () => _.quat.unit( [ 1, 0, 0, 0 ], 2 ) );
 
 }
 
