@@ -262,7 +262,7 @@ The output is similar to the first example.
 
 ### Isomorphic
 
-The behavior is unchanged enven if model changes.
+The behavior is unchanged even if model changes.
 
 For example, an algorithm for checking that the point is on the boundary or inside is implemented by the routine `pointContains`. All models for which it's possible to implement such an algorithm have this routine with this name.
 
