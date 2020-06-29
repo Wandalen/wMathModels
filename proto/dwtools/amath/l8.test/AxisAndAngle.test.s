@@ -427,7 +427,7 @@ function from( test )
 
   var src = null;
   var got = _.axisAndAngle.from( src, 3 );
-  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 0, 3 ] );
+  var expected = _.axisAndAngle.tools.longMake( [ 3, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -437,7 +437,7 @@ function from( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.from( src, null );
-  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 0 ] );
+  var expected = _.axisAndAngle.tools.longMake( [ 0, 0, 1, 2 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -445,9 +445,9 @@ function from( test )
 
   test.case = 'from array';
 
-  var src = [ 0, 1, 2, 3 ];
+  var src = [ 3, 0, 1, 2 ];
   var got = _.axisAndAngle.from( src );
-  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
+  var expected = _.axisAndAngle.tools.longMake( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
   test.is( got === src );
 
@@ -457,7 +457,7 @@ function from( test )
 
   var src = [ 0, 1, 2 ];
   var got = _.axisAndAngle.from( src, 3 );
-  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
+  var expected = _.axisAndAngle.tools.longMake( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -465,9 +465,9 @@ function from( test )
 
   test.case = 'from vector';
 
-  var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var src = _.axisAndAngle.tools.vectorAdapter.from([ 3, 0, 1, 2 ]);
   var got = _.axisAndAngle.from( src );
-  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2, 3 ]);
+  var expected = _.axisAndAngle.tools.vectorAdapter.from([ 3, 0, 1, 2 ]);
   test.identical( got, expected );
   test.is( got === src );
 
@@ -476,8 +476,9 @@ function from( test )
   test.case = 'from vector and angle';
 
   var src = _.axisAndAngle.tools.vectorAdapter.from([ 0, 1, 2 ]);
+  debugger;
   var got = _.axisAndAngle.from( src, 3 );
-  var expected = _.axisAndAngle.tools.longMake( [ 0, 1, 2, 3 ] );
+  var expected = _.axisAndAngle.tools.longMake( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
