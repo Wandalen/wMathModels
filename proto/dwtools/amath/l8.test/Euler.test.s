@@ -676,7 +676,7 @@ function fromMatrix( test )
 
   test.case = 'trivial xyz';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var m1 = _.quat.toMatrix( quat1, null );
   var euler1 = _.euler.fromMatrix( [ 0, 0, 0, 0, 1, 2 ], m1 ); /* x */
   var euler2 = _.euler.fromQuat( [ 0, 0, 0, 0, 1, 2 ], quat1 ); /* x */

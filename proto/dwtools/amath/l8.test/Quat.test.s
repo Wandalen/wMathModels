@@ -1048,6 +1048,7 @@ function fromMatrixRotationFast( test )
     eachQuat( function( quat1 )
     {
 
+      debugger;
       var matrix = _.quat.toMatrix( quat1, null );
       var quat2 = _.quat.fromMatrixRotation( null, matrix );
 
@@ -1096,16 +1097,6 @@ function fromMatrixRotationFast( test )
       var m2 = _.Matrix.Make([ 3, 3 ]).fromQuat( q1 );
       var q3 = _.quat[ r ]( null, m2 );
 
-      // logger.log( 'q1', q1 );
-      // logger.log( 'q2', q2 );
-      // logger.log( 'q3', q3 );
-      // logger.log( 'm1', m1 );
-      // logger.log( 'm2', m2 );
-      //
-      // logger.log( 'q1', _.quat.applyTo( q1, [ 1, 1, 1 ] ) );
-      // logger.log( 'q2', _.quat.applyTo( q2, [ 1, 1, 1 ] ) );
-      // logger.log( 'q3', _.quat.applyTo( q3, [ 1, 1, 1 ] ) );
-
       var expected = _.quat.applyTo( q1, [ 1, 1, 1 ] );
 
       test.equivalent( _.quat.applyTo( q1, [ 1, 1, 1 ] ) , expected );
@@ -1114,9 +1105,6 @@ function fromMatrixRotationFast( test )
 
       test.equivalent( m1.matrixApplyTo([ 1, 1, 1 ]) , expected );
       test.equivalent( m2.matrixApplyTo([ 1, 1, 1 ]) , expected );
-
-      // test.equivalent( q3, q1 );
-      // test.equivalent( q2, q1 );
 
       test.equivalent( m2, m1 );
 
@@ -1169,7 +1157,6 @@ function fromMatrixRotationFast( test )
 }
 
 fromMatrixRotationFast.timeOut = 300000;
-// fromMatrixRotationFast.usingSourceCode = 0;
 fromMatrixRotationFast.rapidity = -1;
 
 //
