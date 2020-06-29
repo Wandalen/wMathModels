@@ -249,9 +249,9 @@ function isZero( test )
   test.case = 'zero';
 
   test.is( _.axisAndAngle.isZero([ 0, 0, 0, 0 ]) );
-  test.is( _.axisAndAngle.isZero([ 1, 0, 0, 0 ]) );
   test.is( _.axisAndAngle.isZero([ 0, 1, 0, 0 ]) );
   test.is( _.axisAndAngle.isZero([ 0, 0, 1, 0 ]) );
+  test.is( _.axisAndAngle.isZero([ 0, 0, 0, 1 ]) );
 
   test.is( _.axisAndAngle.isZero( [ 0, 0, 1 ], 0 ) );
 
@@ -259,13 +259,13 @@ function isZero( test )
 
   test.case = 'not zero';
 
-  test.is( !_.axisAndAngle.isZero([ 0, 0, 0, +0.1 ]) );
-  test.is( !_.axisAndAngle.isZero([ 1, 0, 0, +0.1 ]) );
-  test.is( !_.axisAndAngle.isZero([ 0, 1, 0, +0.1 ]) );
-  test.is( !_.axisAndAngle.isZero([ 0, 0, 1, +0.1 ]) );
-  test.is( !_.axisAndAngle.isZero([ 1, 0, 0, -0.1 ]) );
-  test.is( !_.axisAndAngle.isZero([ 0, 1, 0, -0.1 ]) );
-  test.is( !_.axisAndAngle.isZero([ 0, 0, 1, -0.1 ]) );
+  test.is( !_.axisAndAngle.isZero([ +0.1, 0, 0, 0 ]) );
+  test.is( !_.axisAndAngle.isZero([ +0.1, 1, 0, 0 ]) );
+  test.is( !_.axisAndAngle.isZero([ +0.1, 0, 1, 0 ]) );
+  test.is( !_.axisAndAngle.isZero([ +0.1, 0, 0, 1 ]) );
+  test.is( !_.axisAndAngle.isZero([ -0.1, 1, 0, 0 ]) );
+  test.is( !_.axisAndAngle.isZero([ -0.1, 0, 1, 0 ]) );
+  test.is( !_.axisAndAngle.isZero([ -0.1, 0, 0, 1 ]) );
 
   test.is( !_.axisAndAngle.isZero([ 0, 0, 0 ], +0.1 ) );
   test.is( !_.axisAndAngle.isZero([ 1, 0, 0 ], +0.1 ) );
@@ -279,8 +279,8 @@ function isZero( test )
   test.is( !_.axisAndAngle.isZero( null, 0 ) );
   test.is( !_.axisAndAngle.isZero( null, null ) );
 
-  test.is( !_.axisAndAngle.isZero( [ 0, 0, 1, 0 ], null ) );
-  test.is( !_.axisAndAngle.isZero( [ 0, 0, 1, 0 ], 0 ) );
+  test.is( !_.axisAndAngle.isZero( [ 0, 0, 0, 1 ], null ) );
+  test.is( !_.axisAndAngle.isZero( [ 0, 0, 0, 1 ], 0 ) );
 
 }
 
