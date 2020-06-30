@@ -1433,7 +1433,7 @@ function centerGet( test )
   test.case = 'One dimension sphere';
 
   var sphere = [ 0, 0 ];
-  var expected = _.sphere.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotCenter = _.sphere.centerGet( sphere );
@@ -1830,7 +1830,7 @@ function radiusSet( test )
 
   var sphere = [ 0 ];
   var radius = 1;
-  var expected = _.sphere.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
   expected = _.vectorAdapter.from(expected);
 
   var gotSphere = _.sphere.radiusSet( sphere, radius );
@@ -4530,11 +4530,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 3, 3, 2 ];
 
   var expected = false;
@@ -4546,22 +4546,22 @@ function frustumContains( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   test.identical( tstFrustum, oldFrustum );
 
   test.description = 'Sphere contains frustum'; //
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 2 ];
 
   var expected = true;
@@ -4572,11 +4572,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
 
   var expected = true;
@@ -4587,11 +4587,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + test.accuracy ];
 
   var expected = true;
@@ -4602,11 +4602,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
 
   var expected = false;
@@ -4617,11 +4617,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 5, 5, 5, 1 ];
 
   var expected = false;
@@ -4632,11 +4632,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 2, 2, 2, 2 ];
 
   var expected = false;
@@ -4659,11 +4659,11 @@ function frustumContains( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
 
   test.shouldThrowErrorSync( () => _.sphere.frustumContains( ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumContains( 'sphere', 'frustum' ) );
@@ -4687,11 +4687,11 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 3, 3, 2 ];
 
   var expected = 1.4641016151377544;
@@ -4703,22 +4703,22 @@ function frustumDistance( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   test.identical( tstFrustum, oldFrustum );
 
   test.description = 'Sphere contains frustum'; //
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 2 ];
 
   var expected = 0
@@ -4729,11 +4729,11 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) + 0.1 ];
 
   var expected = 0;
@@ -4744,11 +4744,11 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, Math.sqrt( 3 ) - test.accuracy ];
 
   var expected = 0;
@@ -4759,11 +4759,11 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 5, 5, 5, 1 ];
 
   var expected = 5.928203230275509;
@@ -4774,11 +4774,11 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 2, 2, 2, 2 ];
 
   var expected = 0;
@@ -4789,11 +4789,11 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 3, 0, 1 ];
 
   var expected = 1;
@@ -4816,11 +4816,11 @@ function frustumDistance( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
 
   test.shouldThrowErrorSync( () => _.sphere.frustumDistance( ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumDistance( 'sphere', 'frustum' ) );
@@ -4844,11 +4844,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 0, 0, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 2, 0, 0 ] );
@@ -4860,22 +4860,22 @@ function frustumClosestPoint( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   test.identical( tstFrustum, oldFrustum );
 
   test.description = 'Sphere contains frustum'; //
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 2 ];
 
   var expected = 0
@@ -4886,11 +4886,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+  - 1, 0, - 1, 0, 0, - 1,
   0, 0, 0, 0, - 1, 1,
   1, - 1, 0, 0, 0, 0,
   0, 0, 1, - 1, 0, 0,
-  - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 2, 2, 2, 2 ];
 
   var expected = 0;
@@ -4901,11 +4901,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 1 ];
 
   var expected = 0;
@@ -4916,11 +4916,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 5, 1, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 4, 1 ] );
@@ -4931,11 +4931,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 3, 3, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 2.2928932188134525, 2.2928932188134525 ] );
@@ -4946,11 +4946,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 3, 3, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 2.4226497308103743, 2.4226497308103743, 2.4226497308103743 ] );
@@ -4973,11 +4973,11 @@ function frustumClosestPoint( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
 
   test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumClosestPoint( 'sphere', 'frustum' ) );
@@ -5001,11 +5001,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 0, 0, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 3, 0, 0, 3.3166247903554 ] );
@@ -5017,22 +5017,22 @@ function frustumExpand( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   test.identical( tstFrustum, oldFrustum );
 
   test.description = 'Sphere contains frustum'; //
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 2 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
@@ -5043,11 +5043,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+  - 1, 0, - 1, 0, 0, - 1,
   0, 0, 0, 0, - 1, 1,
   1, - 1, 0, 0, 0, 0,
   0, 0, 1, - 1, 0, 0,
-  - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 2, 2, 2, 2 ];
 
   var expected = _.sphere.tools.longMake( [ 2, 2, 2, Math.sqrt( 12 ) ] );
@@ -5058,11 +5058,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 0, 0, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, Math.sqrt( 3 ) ] );
@@ -5073,11 +5073,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 5, 1, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 5, 1, Math.sqrt( 27 ) ] );
@@ -5088,11 +5088,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 0, 3, 3, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 0, 3, 3, Math.sqrt( 19 ) ] );
@@ -5103,11 +5103,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
   var srcSphere = [ 3, 3, 3, 1 ];
 
   var expected = _.sphere.tools.longMake( [ 3, 3, 3, Math.sqrt( 27 ) ] );
@@ -5130,11 +5130,11 @@ function frustumExpand( test )
 
   var tstFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1 ]
-  );
+  ]);
 
   test.shouldThrowErrorSync( () => _.sphere.frustumExpand( ) );
   test.shouldThrowErrorSync( () => _.sphere.frustumExpand( 'sphere', 'frustum' ) );
@@ -5279,7 +5279,7 @@ function planeClosestPoint( test )
   test.case = 'Source sphere and test plane remain unchanged';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = 0;
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
   test.identical( gotClosestPoint, expected );
@@ -5287,7 +5287,7 @@ function planeClosestPoint( test )
   var oldSrcSphere = [ 0, 0, 0, 0 ];
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldTstPlane = [ 1, 0, 0, 0 ];
+  var oldTstPlane = [ 0, 1, 0, 0 ];
   test.identical( tstPlane, oldTstPlane );
 
   /* */
@@ -5295,7 +5295,7 @@ function planeClosestPoint( test )
   test.case = 'Empty sphere in plane';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = 0;
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5306,7 +5306,7 @@ function planeClosestPoint( test )
   test.case = 'Empty sphere not in plane';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5317,7 +5317,7 @@ function planeClosestPoint( test )
   test.case = 'Intersection';
 
   var srcSphere = [ 0, 0, 0, 2 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = 0;
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5328,7 +5328,7 @@ function planeClosestPoint( test )
   test.case = 'Plane touches sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = 0;
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5339,7 +5339,7 @@ function planeClosestPoint( test )
   test.case = 'Plane separate from sphere - plane under sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 3 ];
+  var tstPlane = [ 3, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ -1, 0, 0 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5350,7 +5350,7 @@ function planeClosestPoint( test )
   test.case = 'Plane separate from sphere - plane over sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, - 3 ];
+  var tstPlane = [ - 3, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 1, 0, 0 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane );
 
@@ -5361,7 +5361,7 @@ function planeClosestPoint( test )
   test.case = 'DstPoint is array';
 
   var srcSphere = [ 2, 2, 0, 1 ];
-  var tstPlane = [ 1, 1, 0, 0 ];
+  var tstPlane = [ 0, 1, 1, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 1.2928932188134525, 1.2928932188134525, 0 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
@@ -5373,7 +5373,7 @@ function planeClosestPoint( test )
   test.case = 'DstPoint is vector';
 
   var srcSphere = [ 2, 2, 2, 1 ];
-  var tstPlane = [ 1, 1, 1, 0 ];
+  var tstPlane = [ 0, 1, 1, 1 ];
   var dstPoint = _.vectorAdapter.fromLong( [ 0, 0, 0 ] );
   var expected = _.sphere.tools.vectorAdapter.fromLong( [ 1.4226497308103743, 1.4226497308103743, 1.4226497308103743 ] );
   var gotClosestPoint = _.sphere.planeClosestPoint( srcSphere, tstPlane, dstPoint );
@@ -5409,7 +5409,7 @@ function planeExpand( test )
   test.case = 'Source sphere and test plane remain unchanged';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
   test.identical( gotExpand, expected );
@@ -5417,7 +5417,7 @@ function planeExpand( test )
   var oldSrcSphere = [ 0, 0, 0, 0 ];
   test.identical( srcSphere, oldSrcSphere );
 
-  var oldTstPlane = [ 1, 0, 0, 0 ];
+  var oldTstPlane = [ 0, 1, 0, 0 ];
   test.identical( tstPlane, oldTstPlane );
 
   /* */
@@ -5425,7 +5425,7 @@ function planeExpand( test )
   test.case = 'Empty sphere in plane - no expansion';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 0 ];
+  var tstPlane = [ 0, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 0 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5436,7 +5436,7 @@ function planeExpand( test )
   test.case = 'Empty sphere not in plane - expansion';
 
   var srcSphere = [ 0, 0, 0, 0 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5447,7 +5447,7 @@ function planeExpand( test )
   test.case = 'Intersection';
 
   var srcSphere = [ 0, 0, 0, 2 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 2 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5458,7 +5458,7 @@ function planeExpand( test )
   test.case = 'Plane touches sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 1 ];
+  var tstPlane = [ 1, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 1 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5469,7 +5469,7 @@ function planeExpand( test )
   test.case = 'Plane separate from sphere - plane under sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, 3 ];
+  var tstPlane = [ 3, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5480,7 +5480,7 @@ function planeExpand( test )
   test.case = 'Plane separate from sphere - plane over sphere';
 
   var srcSphere = [ 0, 0, 0, 1 ];
-  var tstPlane = [ 1, 0, 0, - 3 ];
+  var tstPlane = [ - 3, 1, 0, 0 ];
   var expected = _.sphere.tools.longMake( [ 0, 0, 0, 3 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5491,7 +5491,7 @@ function planeExpand( test )
   test.case = 'Expansion 2D';
 
   var srcSphere = [ 2, 2, 0, 1 ];
-  var tstPlane = [ 1, 1, 0, 0 ];
+  var tstPlane = [ 0, 1, 1, 0 ];
   var expected = _.sphere.tools.longMake( [ 2, 2, 0, 2.8284271247461903 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 
@@ -5502,7 +5502,7 @@ function planeExpand( test )
   test.case = 'Expansion 3D';
 
   var srcSphere = [ 2, 2, 2, 1 ];
-  var tstPlane = [ 1, 1, 1, 0 ];
+  var tstPlane = [ 0, 1, 1, 1 ];
   var expected = _.sphere.tools.longMake( [ 2, 2, 2, 3.4641016151377544 ] );
   var gotExpand = _.sphere.planeExpand( srcSphere, tstPlane );
 

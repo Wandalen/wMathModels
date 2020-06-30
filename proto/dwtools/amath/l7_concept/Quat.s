@@ -67,7 +67,8 @@ function makeUnit()
 {
   _.assert( arguments.length === 0, 'Expects no arguments' );
   let result = _.dup( 0, 4 );
-  result[ 3 ] = 1;
+  result[ 0 ] = 1;
+  // result[ 3 ] = 1;
   return result;
 }
 
@@ -101,7 +102,8 @@ function unit( quat )
   {
     let quatView = this.adapterFrom( quat );
     quatView.assign( 0 );
-    quatView.eSet( 3, 1 );
+    quatView.eSet( 0, 1 );
+    // quatView.eSet( 3, 1 );
     return quat;
   }
 
@@ -122,7 +124,7 @@ function from( quat )
   if( _.vectorAdapterIs( quat ) )
   {
     debugger;
-    xxx
+    // xxx
     quat.toLong();
     // throw _.err( 'not implemented' );
     // return quat.slice();
@@ -236,18 +238,22 @@ function fromEuler( dst, euler, v )
 
   if( !axisTwice )
   {
-    dstv.eSet( ox, cs1 - sc1*wsign );
-    dstv.eSet( oy, cs2 + sc2*wsign );
-    dstv.eSet( oz, cs3 - sc3*wsign );
-    dstv.eSet( 3,  c   +   s*wsign );
+    // dstv.eSet( ox, cs1 - sc1*wsign );
+    // dstv.eSet( oy, cs2 + sc2*wsign );
+    // dstv.eSet( oz, cs3 - sc3*wsign );
+    // dstv.eSet( 3,  c   +   s*wsign );
+    dstv.eSet( ox + 1, cs1 - sc1*wsign );
+    dstv.eSet( oy + 1, cs2 + sc2*wsign );
+    dstv.eSet( oz + 1, cs3 - sc3*wsign );
+    dstv.eSet( 0,  c   +   s*wsign );
   }
   else if( ox === 0 && oy === 1 ) /* xyx */
   {
 
-    dstv.eSet( 0, s1*c2*c3 + c1*c2*s3 );
-    dstv.eSet( 1, c1*s2*c3 + s1*s2*s3 );
-    dstv.eSet( 2, s1*s2*c3 - c1*s2*s3 );
-    dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    dstv.eSet( 1, s1*c2*c3 + c1*c2*s3 );
+    dstv.eSet( 2, c1*s2*c3 + s1*s2*s3 );
+    dstv.eSet( 3, s1*s2*c3 - c1*s2*s3 );
+    dstv.eSet( 0, c1*c2*c3 - s1*c2*s3 );
 
     // dstv.eSet( 0, 1 + 3 );
     // dstv.eSet( 1, 2 + 4 );
@@ -266,10 +272,14 @@ function fromEuler( dst, euler, v )
   else if( ox === 0 && oy === 2 ) /* xzx */
   {
 
-    dstv.eSet( 0, s1*c2*c3 + c1*c2*s3 );
-    dstv.eSet( 1, c1*s2*s3 - s1*s2*c3 );
-    dstv.eSet( 2, c1*s2*c3 + s1*s2*s3 );
-    dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    // dstv.eSet( 0, s1*c2*c3 + c1*c2*s3 );
+    // dstv.eSet( 1, c1*s2*s3 - s1*s2*c3 );
+    // dstv.eSet( 2, c1*s2*c3 + s1*s2*s3 );
+    // dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    dstv.eSet( 1, s1*c2*c3 + c1*c2*s3 );
+    dstv.eSet( 2, c1*s2*s3 - s1*s2*c3 );
+    dstv.eSet( 3, c1*s2*c3 + s1*s2*s3 );
+    dstv.eSet( 0, c1*c2*c3 - s1*c2*s3 );
 
     // dstv.eSet( 0, 1 + 3 );
     // dstv.eSet( 1, 5 - 7 );
@@ -283,10 +293,14 @@ function fromEuler( dst, euler, v )
   else if( ox === 1 && oy === 0 ) /* yxy */
   {
 
-    dstv.eSet( 0, c1*s2*c3 + s1*s2*s3 );
-    dstv.eSet( 1, s1*c2*c3 + c1*c2*s3 );
-    dstv.eSet( 2, c1*s2*s3 - s1*s2*c3 );
-    dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    // dstv.eSet( 0, c1*s2*c3 + s1*s2*s3 );
+    // dstv.eSet( 1, s1*c2*c3 + c1*c2*s3 );
+    // dstv.eSet( 2, c1*s2*s3 - s1*s2*c3 );
+    // dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    dstv.eSet( 1, c1*s2*c3 + s1*s2*s3 );
+    dstv.eSet( 2, s1*c2*c3 + c1*c2*s3 );
+    dstv.eSet( 3, c1*s2*s3 - s1*s2*c3 );
+    dstv.eSet( 0, c1*c2*c3 - s1*c2*s3 );
 
     // dstv.eSet( 0, 2 + 4 );
     // dstv.eSet( 1, 1 + 3 );
@@ -300,10 +314,14 @@ function fromEuler( dst, euler, v )
   else if( ox === 1 && oy === 2 ) /* yzy */
   {
 
-    dstv.eSet( 0, s1*s2*c3 - c1*s2*s3 );
-    dstv.eSet( 1, s1*c2*c3 + c1*c2*s3 );
-    dstv.eSet( 2, c1*s2*c3 + s1*s2*s3 );
-    dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    // dstv.eSet( 0, s1*s2*c3 - c1*s2*s3 );
+    // dstv.eSet( 1, s1*c2*c3 + c1*c2*s3 );
+    // dstv.eSet( 2, c1*s2*c3 + s1*s2*s3 );
+    // dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    dstv.eSet( 1, s1*s2*c3 - c1*s2*s3 );
+    dstv.eSet( 2, s1*c2*c3 + c1*c2*s3 );
+    dstv.eSet( 3, c1*s2*c3 + s1*s2*s3 );
+    dstv.eSet( 0, c1*c2*c3 - s1*c2*s3 );
 
     // dstv.eSet( 0, 7 - 5 );
     // dstv.eSet( 1, 1 + 3 );
@@ -317,10 +335,14 @@ function fromEuler( dst, euler, v )
   else if( ox === 2 && oy === 0 ) /* zxz */
   {
 
-    dstv.eSet( 0, c1*s2*c3 + s1*s2*s3 );
-    dstv.eSet( 1, s1*s2*c3 - c1*s2*s3 );
-    dstv.eSet( 2, s1*c2*c3 + c1*c2*s3 );
-    dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    // dstv.eSet( 0, c1*s2*c3 + s1*s2*s3 );
+    // dstv.eSet( 1, s1*s2*c3 - c1*s2*s3 );
+    // dstv.eSet( 2, s1*c2*c3 + c1*c2*s3 );
+    // dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    dstv.eSet( 1, c1*s2*c3 + s1*s2*s3 );
+    dstv.eSet( 2, s1*s2*c3 - c1*s2*s3 );
+    dstv.eSet( 3, s1*c2*c3 + c1*c2*s3 );
+    dstv.eSet( 0, c1*c2*c3 - s1*c2*s3 );
 
     // dstv.eSet( 0, 2 + 4 );
     // dstv.eSet( 1, 7 - 5 );
@@ -342,10 +364,14 @@ function fromEuler( dst, euler, v )
     // dstv.eSet( 2, cs1 + cs3 );
     // dstv.eSet( 3, c - sc2 );
 
-    dstv.eSet( 0, c1*s2*s3 - s1*s2*c3 );
-    dstv.eSet( 1, c1*s2*c3 + s1*s2*s3 );
-    dstv.eSet( 2, s1*c2*c3 + c1*c2*s3 );
-    dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    // dstv.eSet( 0, c1*s2*s3 - s1*s2*c3 );
+    // dstv.eSet( 1, c1*s2*c3 + s1*s2*s3 );
+    // dstv.eSet( 2, s1*c2*c3 + c1*c2*s3 );
+    // dstv.eSet( 3, c1*c2*c3 - s1*c2*s3 );
+    dstv.eSet( 1, c1*s2*s3 - s1*s2*c3 );
+    dstv.eSet( 2, c1*s2*c3 + s1*s2*s3 );
+    dstv.eSet( 3, s1*c2*c3 + c1*c2*s3 );
+    dstv.eSet( 0, c1*c2*c3 - s1*c2*s3 );
 
     // dstv.eSet( 0, 5 - 7 );
     // dstv.eSet( 1, 2 + 4 );
@@ -444,13 +470,18 @@ function fromAxisAndAngle( dst, axisAndAngle, angle )
   let dstv = this.tools.vectorAdapter.from( dst );
   let axisAndAnglev = this.tools.axisAndAngle.adapterFrom( axisAndAngle, angle );
 
-  let halfAngle = axisAndAnglev.eGet( 3 ) / 2;
+  let halfAngle = axisAndAnglev.eGet( 0 ) / 2;
+  // let halfAngle = axisAndAnglev.eGet( 3 ) / 2;
   let s = sin( halfAngle );
 
-  dstv.eSet( 0, axisAndAnglev.eGet( 0 ) * s );
+  // dstv.eSet( 0, axisAndAnglev.eGet( 0 ) * s );
+  // dstv.eSet( 1, axisAndAnglev.eGet( 1 ) * s );
+  // dstv.eSet( 2, axisAndAnglev.eGet( 2 ) * s );
+  // dstv.eSet( 3, cos( halfAngle ) );
   dstv.eSet( 1, axisAndAnglev.eGet( 1 ) * s );
   dstv.eSet( 2, axisAndAnglev.eGet( 2 ) * s );
-  dstv.eSet( 3, cos( halfAngle ) );
+  dstv.eSet( 3, axisAndAnglev.eGet( 3 ) * s );
+  dstv.eSet( 0, cos( halfAngle ) );
 
   return dst;
 }
@@ -468,23 +499,29 @@ function toAxisAndAngle( quat, axisAndAngle )
   axisAndAngle = this.tools.axisAndAngle.from( axisAndAngle );
   let axisAndAnglev = this.tools.vectorAdapter.from( axisAndAngle );
 
-  let w = quatView.eGet( 3 );
+  let w = quatView.eGet( 0 );
+  // let w = quatView.eGet( 3 );
 
   // if( abs( w-1 ) < this.tools.accuracySqr )
   if( this.tools.avector.isLessAprox( abs( w-1 ), this.tools.accuracySqr ) )
   {
     axisAndAnglev.assign( 0 );
-    axisAndAnglev.eSet( 3, 0 );
+    axisAndAnglev.eSet( 0, 0 );
+    // axisAndAnglev.eSet( 3, 0 );
     return axisAndAngle;
   }
 
   let halfAngle = acos( w );
   let s = sin( halfAngle );
 
-  axisAndAnglev.eSet( 0, quatView.eGet( 0 ) / s );
+  // axisAndAnglev.eSet( 0, quatView.eGet( 0 ) / s );
+  // axisAndAnglev.eSet( 1, quatView.eGet( 1 ) / s );
+  // axisAndAnglev.eSet( 2, quatView.eGet( 2 ) / s );
+  // axisAndAnglev.eSet( 3, halfAngle * 2 );
   axisAndAnglev.eSet( 1, quatView.eGet( 1 ) / s );
   axisAndAnglev.eSet( 2, quatView.eGet( 2 ) / s );
-  axisAndAnglev.eSet( 3, halfAngle * 2 );
+  axisAndAnglev.eSet( 3, quatView.eGet( 3 ) / s );
+  axisAndAnglev.eSet( 0, halfAngle * 2 );
 
   return axisAndAngle;
 }
@@ -498,7 +535,8 @@ function fromVectors( dst, src1, src2 )
 
   dst = this.from( dst );
   let dstv = this.tools.vectorAdapter.from( dst );
-  let dst3 = dstv.review([ 0, 2 ]);
+  // let dst3 = dstv.review([ 0, 2 ]);
+  let dst3 = dstv.review([ 1, 3 ]);
   let dot = this.tools.avector.dot( src1, src2 );
 
   dot += Math.sqrt( this.tools.avector.magSqr( src1 ) * this.tools.avector.magSqr( src2 ) );
@@ -517,7 +555,8 @@ function fromVectors( dst, src1, src2 )
 
   }
 
-  dstv.eSet( 3, dot );
+  dstv.eSet( 0, dot );
+  // dstv.eSet( 3, dot );
 
   this.normalize( dstv );
 
@@ -537,7 +576,8 @@ function fromVectors2( src1, src2, axis )
   let v1 = src1.slice().normalize();
   let v2 = src2.slice().normalize();
   let d = v1.dot( v2 );
-  let result = [ 0, 0, 0, 1 ];
+  let result = [ 1, 0, 0, 0 ];
+  // let result = [ 0, 0, 0, 1 ];
 
   if( d >= 1 - accuracy )
   {
@@ -555,7 +595,8 @@ function fromVectors2( src1, src2, axis )
     let invw = 1 / w;
     let v = [ 0, 0, 0 ];
     v.crossVectors( v1, v2 );
-    result.set( v[ 0 ]*invw , v[ 1 ]*invw , v[ 2 ]*invw , w * 0.5 );
+    result.set( w * 0.5 , v[ 0 ]*invw , v[ 1 ]*invw , v[ 2 ]*invw );
+    // result.set( v[ 0 ]*invw , v[ 1 ]*invw , v[ 2 ]*invw , w * 0.5 );
     result.normalize();
   }
 
@@ -571,7 +612,8 @@ function fromNormalizedVectors( dst, src1, src2 )
 
   dst = this.from( dst );
   let dstv = this.tools.vectorAdapter.from( dst );
-  let dst3 = dstv.review([ 0, 2 ]);
+  let dst3 = dstv.review([ 1, 3 ]);
+  // let dst3 = dstv.review([ 0, 2 ]);
   let dot = this.tools.avector.dot( src1, src2 ) + 1;
 
   if( this.tools.numbersAreEquivalent( dot, 0 ) )
@@ -588,7 +630,8 @@ function fromNormalizedVectors( dst, src1, src2 )
 
   }
 
-  dstv.eSet( 3, dot );
+  dstv.eSet( 0, dot );
+  // dstv.eSet( 3, dot );
 
   this.normalize( dstv );
 
@@ -617,10 +660,14 @@ function fromMatrixRotation( dst, mat )
 
     let s = 0.5 / Math.sqrt( trace + 1.0 );
 
-    dstv.eSet( 0, ( m21 - m12 ) * s );
-    dstv.eSet( 1, ( m02 - m20 ) * s );
-    dstv.eSet( 2, ( m10 - m01 ) * s );
-    dstv.eSet( 3, 0.25 / s );
+    // dstv.eSet( 0, ( m21 - m12 ) * s );
+    // dstv.eSet( 1, ( m02 - m20 ) * s );
+    // dstv.eSet( 2, ( m10 - m01 ) * s );
+    // dstv.eSet( 3, 0.25 / s );
+    dstv.eSet( 1, ( m21 - m12 ) * s );
+    dstv.eSet( 2, ( m02 - m20 ) * s );
+    dstv.eSet( 3, ( m10 - m01 ) * s );
+    dstv.eSet( 0, 0.25 / s );
 
   }
   else if( m00 > m11 && m00 > m22 )
@@ -628,10 +675,14 @@ function fromMatrixRotation( dst, mat )
 
     let s = 2.0 * Math.sqrt( 1.0 + m00 - m11 - m22 );
 
-    dstv.eSet( 0, 0.25 * s );
-    dstv.eSet( 1, ( m01 + m10 ) / s );
-    dstv.eSet( 2, ( m02 + m20 ) / s );
-    dstv.eSet( 3, ( m21 - m12 ) / s );
+    // dstv.eSet( 0, 0.25 * s );
+    // dstv.eSet( 1, ( m01 + m10 ) / s );
+    // dstv.eSet( 2, ( m02 + m20 ) / s );
+    // dstv.eSet( 3, ( m21 - m12 ) / s );
+    dstv.eSet( 1, 0.25 * s );
+    dstv.eSet( 2, ( m01 + m10 ) / s );
+    dstv.eSet( 3, ( m02 + m20 ) / s );
+    dstv.eSet( 0, ( m21 - m12 ) / s );
 
   }
   else if ( m11 > m22 )
@@ -639,10 +690,14 @@ function fromMatrixRotation( dst, mat )
 
     let s = 2.0 * Math.sqrt( 1.0 + m11 - m00 - m22 );
 
-    dstv.eSet( 0, ( m01 + m10 ) / s );
-    dstv.eSet( 1, 0.25 * s );
-    dstv.eSet( 2, ( m12 + m21 ) / s );
-    dstv.eSet( 3, ( m02 - m20 ) / s );
+    // dstv.eSet( 0, ( m01 + m10 ) / s );
+    // dstv.eSet( 1, 0.25 * s );
+    // dstv.eSet( 2, ( m12 + m21 ) / s );
+    // dstv.eSet( 3, ( m02 - m20 ) / s );
+    dstv.eSet( 1, ( m01 + m10 ) / s );
+    dstv.eSet( 2, 0.25 * s );
+    dstv.eSet( 3, ( m12 + m21 ) / s );
+    dstv.eSet( 0, ( m02 - m20 ) / s );
 
   }
   else
@@ -650,10 +705,14 @@ function fromMatrixRotation( dst, mat )
 
     let s = 2.0 * Math.sqrt( 1.0 + m22 - m00 - m11 );
 
-    dstv.eSet( 0, ( m02 + m20 ) / s );
-    dstv.eSet( 1, ( m12 + m21 ) / s );
-    dstv.eSet( 2, 0.25 * s );
-    dstv.eSet( 3, ( m10 - m01 ) / s );
+    // dstv.eSet( 0, ( m02 + m20 ) / s );
+    // dstv.eSet( 1, ( m12 + m21 ) / s );
+    // dstv.eSet( 2, 0.25 * s );
+    // dstv.eSet( 3, ( m10 - m01 ) / s );
+    dstv.eSet( 1, ( m02 + m20 ) / s );
+    dstv.eSet( 2, ( m12 + m21 ) / s );
+    dstv.eSet( 3, 0.25 * s );
+    dstv.eSet( 0, ( m10 - m01 ) / s );
 
   }
 
@@ -689,10 +748,14 @@ function fromMatrixRotation2( dst, mat )
   if( _.math.sign( z ) !== _.math.sign( m10 - m01 ) )
   z *= -1;
 
-  dstv.eSet( 0 , x );
-  dstv.eSet( 1 , y );
-  dstv.eSet( 2 , z );
-  dstv.eSet( 3 , w );
+  // dstv.eSet( 0 , x );
+  // dstv.eSet( 1 , y );
+  // dstv.eSet( 2 , z );
+  // dstv.eSet( 3 , w );
+  dstv.eSet( 1 , x );
+  dstv.eSet( 2 , y );
+  dstv.eSet( 3 , z );
+  dstv.eSet( 0 , w );
 
   dstv.normalize();
 
@@ -723,10 +786,14 @@ function fromMatrixWithScale( dst, mat )
     let s = 0.5 / Math.sqrt( trace + 1.0 );
     let sm = s*m;
 
-    dstv.eSet( 0, ( m21 - m12 ) * sm );
-    dstv.eSet( 1, ( m02 - m20 ) * sm );
-    dstv.eSet( 2, ( m10 - m01 ) * sm );
-    dstv.eSet( 3, 0.25*m / s );
+    // dstv.eSet( 0, ( m21 - m12 ) * sm );
+    // dstv.eSet( 1, ( m02 - m20 ) * sm );
+    // dstv.eSet( 2, ( m10 - m01 ) * sm );
+    // dstv.eSet( 3, 0.25*m / s );
+    dstv.eSet( 1, ( m21 - m12 ) * sm );
+    dstv.eSet( 2, ( m02 - m20 ) * sm );
+    dstv.eSet( 3, ( m10 - m01 ) * sm );
+    dstv.eSet( 0, 0.25*m / s );
 
   }
   else if( m00 > m11 && m00 > m22 )
@@ -735,10 +802,14 @@ function fromMatrixWithScale( dst, mat )
     let s = 2.0 * Math.sqrt( 1.0 + m00 - m11 - m22 );
     let sm = s/m;
 
-    dstv.eSet( 0, 0.25 * s * m );
-    dstv.eSet( 1, ( m01 + m10 ) / sm );
-    dstv.eSet( 2, ( m02 + m20 ) / sm );
-    dstv.eSet( 3, ( m21 - m12 ) / sm );
+    // dstv.eSet( 0, 0.25 * s * m );
+    // dstv.eSet( 1, ( m01 + m10 ) / sm );
+    // dstv.eSet( 2, ( m02 + m20 ) / sm );
+    // dstv.eSet( 3, ( m21 - m12 ) / sm );
+    dstv.eSet( 1, 0.25 * s * m );
+    dstv.eSet( 2, ( m01 + m10 ) / sm );
+    dstv.eSet( 3, ( m02 + m20 ) / sm );
+    dstv.eSet( 0, ( m21 - m12 ) / sm );
 
   }
   else if ( m11 > m22 )
@@ -747,10 +818,14 @@ function fromMatrixWithScale( dst, mat )
     let s = 2.0 * Math.sqrt( 1.0 + m11 - m00 - m22 );
     let sm = s/m;
 
-    dstv.eSet( 0, ( m01 + m10 ) / sm );
-    dstv.eSet( 1, 0.25 * s * m );
-    dstv.eSet( 2, ( m12 + m21 ) / sm );
-    dstv.eSet( 3, ( m02 - m20 ) / sm );
+    // dstv.eSet( 0, ( m01 + m10 ) / sm );
+    // dstv.eSet( 1, 0.25 * s * m );
+    // dstv.eSet( 2, ( m12 + m21 ) / sm );
+    // dstv.eSet( 3, ( m02 - m20 ) / sm );
+    dstv.eSet( 1, ( m01 + m10 ) / sm );
+    dstv.eSet( 2, 0.25 * s * m );
+    dstv.eSet( 3, ( m12 + m21 ) / sm );
+    dstv.eSet( 0, ( m02 - m20 ) / sm );
 
   }
   else
@@ -759,10 +834,14 @@ function fromMatrixWithScale( dst, mat )
     let s = 2.0 * Math.sqrt( 1.0 + m22 - m00 - m11 );
     let sm = s/m;
 
-    dstv.eSet( 0, ( m02 + m20 ) / sm );
-    dstv.eSet( 1, ( m12 + m21 ) / sm );
-    dstv.eSet( 2, 0.25 * s * m );
-    dstv.eSet( 3, ( m10 - m01 ) / sm );
+    // dstv.eSet( 0, ( m02 + m20 ) / sm );
+    // dstv.eSet( 1, ( m12 + m21 ) / sm );
+    // dstv.eSet( 2, 0.25 * s * m );
+    // dstv.eSet( 3, ( m10 - m01 ) / sm );
+    dstv.eSet( 1, ( m02 + m20 ) / sm );
+    dstv.eSet( 2, ( m12 + m21 ) / sm );
+    dstv.eSet( 3, 0.25 * s * m );
+    dstv.eSet( 4, ( m10 - m01 ) / sm );
 
   }
 
@@ -783,9 +862,12 @@ function fromPlane( plane, origin )
     let pos0 = [ 0, 0, 0 ];
     let pos1 = [ 0, 0, 0 ];
     let pos2 = [ 0, 0, 0 ];
-    pos0.copy( plane[ 0 ] );
-    pos1.copy( plane[ 1 ] ).sub( pos0 );
-    pos2.copy( plane[ 2 ] ).sub( pos0 );
+    // pos0.copy( plane[ 0 ] );
+    // pos1.copy( plane[ 1 ] ).sub( pos0 );
+    // pos2.copy( plane[ 2 ] ).sub( pos0 );
+    pos0.copy( plane[ 1 ] );
+    pos1.copy( plane[ 2 ] ).sub( pos0 );
+    pos2.copy( plane[ 3 ] ).sub( pos0 );
     pos0.crossVectors( pos1, pos2 ).normalize();
 
     return Self.quatWithVectors( origin, pos0 );
@@ -815,7 +897,7 @@ function toMatrix( quat, mat )
 //
 
 function toEuler( quat, euler )
-{ 
+{
   _.assert( arguments.length === 2 );
   return _.euler.fromQuat2( euler, quat );
 }
@@ -837,12 +919,17 @@ function isUnit( quat )
 
   let quatView = this.adapterFrom( quat );
 
-  if( quatView.eGet( 3 ) !== 1 )
+  if( quatView.eGet( 0 ) !== 1 )
   return false;
+  // if( quatView.eGet( 3 ) !== 1 )
+  // return false;
 
-  for( let d = 0 ; d < 3 ; d++ )
+  for( let d = 1 ; d < 4 ; d++ )
   if( quatView.eGet( d ) !== 0 )
   return false;
+  // for( let d = 0 ; d < 3 ; d++ )
+  // if( quatView.eGet( d ) !== 0 )
+  // return false;
 
   return true;
 }
@@ -856,12 +943,17 @@ function isZero( quat )
 
   let quatView = this.adapterFrom( quat );
 
-  if( quatView.eGet( 3 ) !== 0 )
+  if( quatView.eGet( 0 ) !== 0 )
   return false;
+  // if( quatView.eGet( 3 ) !== 0 )
+  // return false;
 
-  for( let d = 0 ; d < 3 ; d++ )
+  for( let d = 1 ; d < 4 ; d++ )
   if( quatView.eGet( d ) !== 0 )
   return false;
+  // for( let d = 0 ; d < 3 ; d++ )
+  // if( quatView.eGet( d ) !== 0 )
+  // return false;
 
   return true;
 }
@@ -883,9 +975,12 @@ function conjugate( dst )
 
   _.assert( arguments.length === 1, 'Expects single argument' );
 
-  dstv.eSet( 0, -dstv.eGet( 0 ) );
   dstv.eSet( 1, -dstv.eGet( 1 ) );
   dstv.eSet( 2, -dstv.eGet( 2 ) );
+  dstv.eSet( 3, -dstv.eGet( 3 ) );
+  // dstv.eSet( 0, -dstv.eGet( 0 ) );
+  // dstv.eSet( 1, -dstv.eGet( 1 ) );
+  // dstv.eSet( 2, -dstv.eGet( 2 ) );
 
   return dst;
 }
@@ -911,10 +1006,14 @@ function _mul3( dst, src1, src2 )
   let src10 = src1.eGet( 0 ), src11 = src1.eGet( 1 ), src12 = src1.eGet( 2 ), src13 = src1.eGet( 3 );
   let src20 = src2.eGet( 0 ), src21 = src2.eGet( 1 ), src22 = src2.eGet( 2 ), src23 = src2.eGet( 3 );
 
-  dst.eSet( 0, src10 * src23 + src13 * src20 + src11 * src22 - src12 * src21 );
-  dst.eSet( 1, src11 * src23 + src13 * src21 + src12 * src20 - src10 * src22 );
-  dst.eSet( 2, src12 * src23 + src13 * src22 + src10 * src21 - src11 * src20 );
-  dst.eSet( 3, src13 * src23 - src10 * src20 - src11 * src21 - src12 * src22 );
+  dst.eSet( 1, src10 * src23 + src13 * src20 + src11 * src22 - src12 * src21 );
+  dst.eSet( 2, src11 * src23 + src13 * src21 + src12 * src20 - src10 * src22 );
+  dst.eSet( 3, src12 * src23 + src13 * src22 + src10 * src21 - src11 * src20 );
+  dst.eSet( 0, src13 * src23 - src10 * src20 - src11 * src21 - src12 * src22 );
+  // dst.eSet( 0, src10 * src23 + src13 * src20 + src11 * src22 - src12 * src21 );
+  // dst.eSet( 1, src11 * src23 + src13 * src21 + src12 * src20 - src10 * src22 );
+  // dst.eSet( 2, src12 * src23 + src13 * src22 + src10 * src21 - src11 * src20 );
+  // dst.eSet( 3, src13 * src23 - src10 * src20 - src11 * src21 - src12 * src22 );
 
   return dst;
 }
@@ -1045,10 +1144,14 @@ function applyTo( quat, vector )
   let y = vectorv.eGet( 1 );
   let z = vectorv.eGet( 2 );
 
-  let qx = quatView.eGet( 0 );
-  let qy = quatView.eGet( 1 );
-  let qz = quatView.eGet( 2 );
-  let qw = quatView.eGet( 3 );
+  let qx = quatView.eGet( 1 );
+  let qy = quatView.eGet( 2 );
+  let qz = quatView.eGet( 3 );
+  let qw = quatView.eGet( 0 );
+  // let qx = quatView.eGet( 0 );
+  // let qy = quatView.eGet( 1 );
+  // let qz = quatView.eGet( 2 );
+  // let qw = quatView.eGet( 3 );
 
   let ix = + qw * x + qy * z - qz * y;
   let iy = + qw * y + qz * x - qx * z;
