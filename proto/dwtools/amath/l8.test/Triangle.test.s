@@ -110,7 +110,6 @@ function from( test )
   return;
 
   test.shouldThrowErrorSync( () => _.triangle.from( ));
-  test.shouldThrowErrorSync( () => _.triangle.from( [] ));
   test.shouldThrowErrorSync( () => _.triangle.from( [ 0, 0, 0, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.triangle.from( [ 0, 0, 0, 0 ], [ 0, 0, 0, 1 ] ));
   test.shouldThrowErrorSync( () => _.triangle.from( 'triangle' ));

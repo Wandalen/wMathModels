@@ -902,7 +902,7 @@ function centerGet( test )
 
   var srcSegment = [ 0, 1 ];
   var gotCenter = _.segment.centerGet( srcSegment );
-  var expected = _.segment.tools.longMake( [ 0.5 ] );
+  var expected = [ 0.5 ];
   test.identical( gotCenter, expected );
   test.is( gotCenter !== srcSegment );
 
@@ -3480,7 +3480,7 @@ function pointClosestPoint( test )
 
   var segment = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = _.segment.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
 
   var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
   test.identical( gotClosestPoint, expected );
@@ -3491,7 +3491,7 @@ function pointClosestPoint( test )
 
   var segment = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = _.segment.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var gotClosestPoint = _.segment.pointClosestPoint( segment, point );
   test.identical( gotClosestPoint, expected );
@@ -4566,10 +4566,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 1, 1, 1, 3, 3, 3 ];
   var expected = true;
@@ -4582,10 +4583,11 @@ function frustumIntersects( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4594,10 +4596,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
@@ -4609,10 +4612,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 2, 2, 0, - 1, -1, 1 ];
   var expected = true;
@@ -4624,10 +4628,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 1, 1, 1, 0, 0, 2 ];
   var expected = true;
@@ -4639,10 +4644,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ -1, -1, 0, 0.5, 0.5, 0 ];
   var expected = true;
@@ -4654,10 +4660,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 4, 4, 4, 5, 5, 5 ];
   var expected = false;
@@ -4669,10 +4676,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 1.1, 1.1, 1.1, 5, 5, 5 ];
   var expected = false;
@@ -4684,10 +4692,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 1, 1, 1, 5 , 5, 5 ];
   var expected = true;
@@ -4699,10 +4708,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 0.9, 0.9, 0.9, 5, 5, 5 ];
   var expected = true;
@@ -4714,10 +4724,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = null;
   var expected = true;
@@ -4729,10 +4740,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var segment = null;
   var expected = false;
@@ -4747,10 +4759,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
 
   test.shouldThrowErrorSync( () => _.segment.frustumIntersects( ));
@@ -4781,10 +4794,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 1, 1, 1, 3, 3, 3 ];
   var expected = 0;
@@ -4797,10 +4811,11 @@ function frustumDistance( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4808,10 +4823,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
@@ -4823,10 +4839,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 2, 2, 0, - 1, -1, 1 ];
   var expected = 0;
@@ -4838,10 +4855,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ -1, -1, 0, 0.5, 0.5, 0 ];
   var expected = 0;
@@ -4853,10 +4871,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 4, 4, 4, 5, 5, 5 ];
   var expected = Math.sqrt( 27 );
@@ -4868,10 +4887,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 1.1, 1.1, 1.1, 5, 5, 5 ];
   var expected = Math.sqrt( 0.03 );
@@ -4883,10 +4903,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = null;
   var expected = 0;
@@ -4898,10 +4919,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var segment = null;
   var expected = Math.sqrt( 0.75 );
@@ -4913,10 +4935,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 2, - 3, 2, 2, - 3,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 2, - 3, 2, 2, - 3
+
   ]);
   var segment = [ - 2, 0.3, 0, 1, 0, 0 ];
   var expected = 3;
@@ -4927,10 +4950,11 @@ function frustumDistance( test )
   test.description = 'Inclined segment closest to box side'; //
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 2, - 3, 2, 2, - 3,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 2, - 3, 2, 2, - 3
+
   ]);
   var segment = [ -2, 0.3, 0, 1, 0, 0.1 ];
   var expected = Math.sqrt( 8.61 );
@@ -4945,10 +4969,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
 
   test.shouldThrowErrorSync( () => _.segment.frustumDistance( ));
@@ -4979,10 +5004,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 1, 1, 1, 3, 3, 3 ];
   var expected = 0;
@@ -4995,10 +5021,11 @@ function frustumClosestPoint( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -5006,10 +5033,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
@@ -5021,10 +5049,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 2, 2, 0, - 1, -1, 1 ];
   var expected = 0;
@@ -5036,10 +5065,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ -1, -1, 0, 0.5, 0.5, 0 ];
   var expected = 0;
@@ -5051,10 +5081,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 4, 4, 4, 5, 5, 5 ];
   var expected = _.segment.tools.longMake( [ 4, 4, 4 ] );
@@ -5066,10 +5097,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = [ 1.1, 1.1, 1.1, 5, 5, 5 ];
   var expected = _.segment.tools.longMake( [ 1.1, 1.1, 1.1 ] );
@@ -5081,10 +5113,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var segment = null;
   var expected = 0;
@@ -5096,10 +5129,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var segment = null;
   var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
@@ -5111,10 +5145,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var segment = [ - 2, 0.3, 0, -1, 0.3, 0 ];
   var expected = _.segment.tools.longMake( [ -1, 0.3, 0 ] );
@@ -5126,10 +5161,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 2, - 3, 2, 2, - 3,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 2, - 3, 2, 2, - 3
+
   ]);
   var segment = [ -2, 0.3, 0, 1, 0, 0.1 ];
   var expected = _.segment.tools.longMake( [ 1, 0, 0.1 ] );
@@ -5141,10 +5177,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var segment = [ 0, 2, 2, 0, 1, 2 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
@@ -5160,10 +5197,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
 
   test.shouldThrowErrorSync( () => _.segment.frustumClosestPoint( ));
@@ -6202,7 +6240,7 @@ function planeIntersects( test )
   test.case = 'Segment and plane remain unchanged';
 
   var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6211,7 +6249,7 @@ function planeIntersects( test )
   var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
   test.identical( segment, oldSegment );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -6219,7 +6257,7 @@ function planeIntersects( test )
   test.case = 'Null segment - empty plane';
 
   var segment = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6230,7 +6268,7 @@ function planeIntersects( test )
   test.case = 'point segment - no intersection';
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6241,7 +6279,7 @@ function planeIntersects( test )
   test.case = 'point segment in plane';
 
   var segment = [ - 1, 2, 3, -1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6252,7 +6290,7 @@ function planeIntersects( test )
   test.case = 'Segment and plane intersect';
 
   var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6263,7 +6301,7 @@ function planeIntersects( test )
   test.case = 'Segment over plane';
 
   var segment = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6274,7 +6312,7 @@ function planeIntersects( test )
   test.case = 'plane closer to origin';
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6285,7 +6323,7 @@ function planeIntersects( test )
   test.case = 'Segment ( normalized to 1 ) intersection';
 
   var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 0.2 ];
+  var plane = [ - 0.2, 0, 2, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6296,7 +6334,7 @@ function planeIntersects( test )
   test.case = 'Segment ( normalized to 1 ) no intersection';
 
   var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6307,7 +6345,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = false;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6318,7 +6356,7 @@ function planeIntersects( test )
   test.case = 'plane parallel contains segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6329,7 +6367,7 @@ function planeIntersects( test )
   test.case = 'plane perpendicular to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.segment.planeIntersects( segment, plane );
@@ -6363,7 +6401,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment and plane remain unchanged';
 
   var segment = [ - 4, - 4, - 4, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6372,7 +6410,7 @@ function planeIntersectionPoint( test )
   var oldSegment = [ - 4, - 4, - 4, 1, 1, 1 ];
   test.identical( segment, oldSegment );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -6380,7 +6418,7 @@ function planeIntersectionPoint( test )
   test.case = 'point segment - no intersection';
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6391,7 +6429,7 @@ function planeIntersectionPoint( test )
   test.case = 'point segment in plane';
 
   var segment = [ - 1, 2, 3, -1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ -1, 2, 3 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6402,7 +6440,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment and plane intersect';
 
   var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6413,7 +6451,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment over plane';
 
   var segment = [ 0, -6, 4, 6, 0, 4 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6424,7 +6462,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane closer to origin';
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6435,7 +6473,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment intersection';
 
   var segment = [ 0, 0, 0, 5, 5, 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var expected = _.segment.tools.longMake( [ 1, 1, 0 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6446,7 +6484,7 @@ function planeIntersectionPoint( test )
   test.case = 'Segment ( normalized to 1 ) no intersection';
 
   var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6457,7 +6495,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6468,7 +6506,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel contains segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6479,7 +6517,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane perpendicular to segment';
 
   var segment = [ 0, 0, -3, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.planeIntersectionPoint( segment, plane );
@@ -6490,7 +6528,7 @@ function planeIntersectionPoint( test )
   test.case = 'dstPoint is arsegment';
 
   var segment = [ 0, 0, 2, 5, 0, -8 ];
-  var plane = [ 1, 0, 0, -3 ];
+  var plane = [ -3, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.segment.tools.longMake( [ 3, 0, -4 ] );
 
@@ -6502,7 +6540,7 @@ function planeIntersectionPoint( test )
   test.case = 'dstPoint is vector';
 
   var segment = [ 0, 0, 24, 6, 0, 30 ];
-  var plane = [ 1, 0, 0, -3 ];
+  var plane = [ -3, 1, 0, 0 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.segment.tools.vectorAdapter.from( [ 3, 0, 27 ] );
 
@@ -6538,7 +6576,7 @@ function planeDistance( test )
   test.case = 'Segment and plane remain unchanged';
 
   var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6547,7 +6585,7 @@ function planeDistance( test )
   var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
   test.identical( segment, oldSegment );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -6555,7 +6593,7 @@ function planeDistance( test )
   test.case = 'Null segment - empty plane';
 
   var segment = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 1;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6566,7 +6604,7 @@ function planeDistance( test )
   test.case = 'point segment - no intersection';
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 2;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6577,7 +6615,7 @@ function planeDistance( test )
   test.case = 'point segment in plane';
 
   var segment = [ - 1, 2, 3, -1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6588,7 +6626,7 @@ function planeDistance( test )
   test.case = 'Segment and plane intersect';
 
   var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6599,7 +6637,7 @@ function planeDistance( test )
   test.case = 'Segment over plane';
 
   var segment = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 3;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6610,7 +6648,7 @@ function planeDistance( test )
   test.case = 'plane closer to origin';
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = 0.5;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6621,7 +6659,7 @@ function planeDistance( test )
   test.case = 'Segment ( normalized to 1 ) intersection';
 
   var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 0.2 ];
+  var plane = [ - 0.2, 0, 2, 0 ];
   var expected = 0;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6632,7 +6670,7 @@ function planeDistance( test )
   test.case = 'Segment ( normalized to 1 ) no intersection';
 
   var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = 1/3;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6643,7 +6681,7 @@ function planeDistance( test )
   test.case = 'plane parallel to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = 0.5;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6654,7 +6692,7 @@ function planeDistance( test )
   test.case = 'plane parallel contains segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6665,7 +6703,7 @@ function planeDistance( test )
   test.case = 'plane perpendicular to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotDistance = _.segment.planeDistance( segment, plane );
@@ -6699,7 +6737,7 @@ function planeClosestPoint( test )
   test.case = 'Segment and plane remain unchanged';
 
   var segment = [  - 1,  - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6708,7 +6746,7 @@ function planeClosestPoint( test )
   var oldSegment = [  - 1, - 1, -1, 1, 1, 1 ];
   test.identical( segment, oldSegment );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -6716,7 +6754,7 @@ function planeClosestPoint( test )
   test.case = 'Null segment - empty plane';
 
   var segment = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6727,7 +6765,7 @@ function planeClosestPoint( test )
   test.case = 'point segment - no intersection';
 
   var segment = [ 1, 2, 3, 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6738,7 +6776,7 @@ function planeClosestPoint( test )
   test.case = 'point segment in plane';
 
   var segment = [ - 1, 2, 3, - 1, 2, 3 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6749,7 +6787,7 @@ function planeClosestPoint( test )
   test.case = 'Segment and plane intersect';
 
   var segment = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6760,7 +6798,7 @@ function planeClosestPoint( test )
   test.case = 'Segment over plane';
 
   var segment = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ 0, -6, 4 ] );
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6771,7 +6809,7 @@ function planeClosestPoint( test )
   test.case = 'plane closer to origin';
 
   var segment = [ 0, 0, 0, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6782,7 +6820,7 @@ function planeClosestPoint( test )
   test.case = 'Segment ( normalized to 1 ) intersection';
 
   var segment = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 0.2 ];
+  var plane = [ - 0.2, 0, 2, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6793,7 +6831,7 @@ function planeClosestPoint( test )
   test.case = 'Segment ( normalized to 1 ) no intersection';
 
   var segment = [ 0, 0, 0, 0.194, 0.766, 0.766 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6804,7 +6842,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = _.segment.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6815,7 +6853,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel contains segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6826,7 +6864,7 @@ function planeClosestPoint( test )
   test.case = 'plane perpendicular to segment';
 
   var segment = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotPoint = _.segment.planeClosestPoint( segment, plane );
@@ -6837,7 +6875,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is array';
 
   var segment = [ 0, -6, 24, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
+  var plane = [ 3, 1, 0, 1 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.segment.tools.longMake( [ 1, 1, 1 ] );
 
@@ -6849,7 +6887,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is vector';
 
   var segment = [ 0, -6, 24, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
+  var plane = [ 3, 1, 0, 1 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.segment.tools.vectorAdapter.from( [ 1, 1, 1 ] );
 
