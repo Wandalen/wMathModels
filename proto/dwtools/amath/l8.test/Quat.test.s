@@ -1270,6 +1270,17 @@ toMatrix.accuracy = _.accuracy;
 
 //
 
+function mul( test )
+{
+  var quat1 = [ 0.9999996192282494, 0, 0, -0.0008726645152351496 ];
+  var quat2 = [ 0.766044443118978, 0.6427876096865393, 0, 0 ];
+  var expected = [ 0.7660441514308944, 0.6427873649311758, -0.0005609379378062644, -0.0006684998026030031 ]
+  var gotQuat = _.quat.mul( quat1, quat2 );
+  test.equivalent( gotQuat, expected );
+}
+
+//
+
 function eulerToQuatToMatrixToQuatFast( test )
 {
 
@@ -1469,6 +1480,8 @@ var Self =
     fromMatrixRotationFast,
 
     toMatrix,
+
+    mul,
 
     /* takes 6 seconds */
     eulerToQuatToMatrixToQuatFast,
