@@ -36,7 +36,7 @@ console.log( `Distance from segment to point : ${ _.toStr( distance, { precision
 
 ![Segment](../../img/Segment.png)
 
-Defined by two points: the beginning of `( 2, 1 )` and the end of the segment `( 9, 4 )`. 4 scalars are enough to describe a segment in 2D.
+Defined by two points: the beginning of `( 9, 1 )` and the end of the segment `( 2, 4 )`. 4 scalars are enough to describe a segment in 2D.
 
 ### Capsule
 
@@ -54,7 +54,7 @@ console.log( `Distance from capsule to point : ${ _.toStr( distance, { precision
 
 ![Capsule](../../img/Capsule.png)
 
-The capsule in the example starts at the point `( 2, 1 )`, ends at the point `( 9, 4 )` and has a radius of `0.5`. 5 scalars are enough to describe a capsule in 2D.
+The capsule in the example starts at the point `( 9, 1 )`, ends at the point `( 2, 4 )` and has a radius of `0.5`. 5 scalars are enough to describe a capsule in 2D.
 
 ### Sphere
 
