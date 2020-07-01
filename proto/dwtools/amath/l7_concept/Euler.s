@@ -398,10 +398,14 @@ function fromQuat( dst, quat, v )
   // let z = quatv.eGet( oz );
   // let w = quatv.eGet( 3 );
 
-  let x = quatv.eGet( 0 );
-  let y = quatv.eGet( 1 );
-  let z = quatv.eGet( 2 );
-  let w = quatv.eGet( 3 );
+  let x = quatv.eGet( 1 );
+  let y = quatv.eGet( 2 );
+  let z = quatv.eGet( 3 );
+  let w = quatv.eGet( 0 );
+  // let x = quatv.eGet( 0 );
+  // let y = quatv.eGet( 1 );
+  // let z = quatv.eGet( 2 );
+  // let w = quatv.eGet( 3 );
 
   let sqx = x*x;
   let sqy = y*y;

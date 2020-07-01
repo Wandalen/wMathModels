@@ -1820,8 +1820,7 @@ function cornerLeftGet( test )
   test.case = 'One dimension box';
 
   var box = [ 0, 1 ];
-  var expected = _.box.tools.longMake( [ 0 ] );
-  expected = _.box.tools.vectorAdapter.from(expected);
+  var expected = _.box.tools.vectorAdapter.from([ 0 ]);
 
   var gotCorner = _.box.cornerLeftGet( box );
   test.identical( gotCorner, expected );
@@ -1985,8 +1984,8 @@ function cornerRightGet( test )
   test.case = 'One dimension box';
 
   var box = [ 0, 1 ];
-  var expected = _.box.tools.longMake( [ 1 ] );
-  expected = _.box.tools.vectorAdapter.from(expected);
+  var expected = [ 1 ];
+  var expected = _.box.tools.vectorAdapter.from(expected);
 
   var gotCorner = _.box.cornerRightGet( box );
   test.identical( gotCorner, expected );
@@ -2156,7 +2155,7 @@ function centerGet( test )
 
   var box = [ 0, 0 ];
   var point = [ 0 ];
-  var expected = _.box.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var gotCenter = _.box.centerGet( box, point );
   test.equivalent( gotCenter, expected );
@@ -2426,7 +2425,7 @@ function sizeGet( test )
 
   var box = [ 0, 0 ];
   var point = [ 0 ];
-  var expected = _.box.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var gotSize = _.box.sizeGet( box, point );
   test.identical( gotSize, expected );
@@ -4345,7 +4344,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = _.box.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4356,7 +4355,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 2 ];
   var point = [ 3 ];
-  var expected = _.box.tools.longMake( [ 2 ] );
+  var expected = [ 2 ];
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4367,7 +4366,7 @@ function pointClosestPoint( test )
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = _.box.tools.longMake( [ 0 ] );
+  var expected = [ 0 ];
 
   var gotClamped = _.box.pointClosestPoint( box, point );
   test.identical( gotClamped, expected );
@@ -4836,7 +4835,7 @@ function pointRelative( test )
 
   var box = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = _.box.tools.longMake( [ 0.5 ] );
+  var expected = [ 0.5 ];
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4847,7 +4846,7 @@ function pointRelative( test )
 
   var box = [ 0, 2 ];
   var point = [ 3 ];
-  var expected = _.box.tools.longMake( [ 1.5 ] );
+  var expected = [ 1.5 ];
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -4858,7 +4857,7 @@ function pointRelative( test )
 
   var box = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = _.box.tools.longMake( [ - 1.5 ] );
+  var expected = [ - 1.5 ];
 
   var gotPoint = _.box.pointRelative( box, point );
   test.equivalent( gotPoint, expected );
@@ -6629,11 +6628,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ 1, 1, 1, 3, 3, 3 ];
   var oldBox = box.slice();
   var expected = false;
@@ -6644,22 +6643,22 @@ function frustumContains( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   test.identical( frustum, oldFrustum );
 
   test.description = 'Box contains frustum'; //
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ -1, -1, -1, 3, 3, 3 ];
   var expected = true;
 
@@ -6670,11 +6669,11 @@ function frustumContains( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    0,  0,  0,  0,  0,  0,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    0,  0,  0,  0,  0,  0 ]
-  );
+  ]);
 
   var box = [ -1, -1, -1, 3, 3, 3 ];
   var expected = true;
@@ -6686,11 +6685,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
 
@@ -6701,11 +6700,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ 0.1, 0.1, 0.1, 0.5, 0.5, 0.5 ];
   var expected = false;
 
@@ -6716,11 +6715,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ 0.1, 0.1, 0.1, 2, 2, 2 ];
   var expected = false;
 
@@ -6731,11 +6730,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ 3, 3, 3, 4, 4, 4 ];
   var expected = false;
 
@@ -6749,11 +6748,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
 
   test.shouldThrowErrorSync( () => _.box.frustumContains( ));
   test.shouldThrowErrorSync( () => _.box.frustumContains( box ));
@@ -6783,10 +6782,10 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
   var oldBox = box.slice();
@@ -6798,10 +6797,10 @@ function frustumDistance( test )
 
   var oldF = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   test.identical( frustum, oldF );
 
@@ -6809,10 +6808,10 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
   var expected = Math.sqrt( 3 );
@@ -6824,14 +6823,13 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
   var expected = Math.sqrt( 0.75 );
- debugger;
   var gotDistance = _.box.frustumDistance( box, frustum );
   test.equivalent( gotDistance, expected );
 
@@ -6839,10 +6837,10 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
   var expected = 0;
@@ -6854,10 +6852,10 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
   var expected = Math.sqrt( 0.05 );
@@ -6869,11 +6867,11 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ -2, -2, 2, 0, 0, 4 ];
   var expected = Math.sqrt( 3.4 );
 
@@ -6884,10 +6882,10 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
   var expected = Math.sqrt( 12 );
@@ -6899,10 +6897,10 @@ function frustumDistance( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
   var expected = 0.1;
@@ -6932,16 +6930,18 @@ function frustumDistance( test )
 
 }
 
+//
+
 function frustumClosestPoint( test )
 {
   test.description = 'Frustum and box remain unchanged'; //
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
   var oldBox = box.slice();
@@ -6953,10 +6953,10 @@ function frustumClosestPoint( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   test.identical( frustum, oldFrustum );
 
@@ -6964,10 +6964,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
   var expected = _.box.tools.longMake( [ 2, 2, 2 ] );
@@ -6979,10 +6979,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
   var expected = _.box.tools.longMake( [ -0.5, -0.5, -0.5 ] );
@@ -6994,10 +6994,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
   var expected = 0;
@@ -7009,10 +7009,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
   var expected = _.box.tools.longMake( [ 0.5, 1.5, 1 ] );
@@ -7024,11 +7024,11 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ -2, -2, 2, 0, 0, 4 ];
   var expected = _.box.tools.longMake( [ 0, 0, 2 ] );
 
@@ -7039,10 +7039,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
   var expected = _.box.tools.longMake( [ -2, -2, -2 ] );
@@ -7054,10 +7054,10 @@ function frustumClosestPoint( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
   var expected = _.box.tools.longMake( [ 1.1, 0.5, 0.5 ] );
@@ -7094,10 +7094,10 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
-    0,  0,  0,  0, - 1,  1,
-    1, - 1,  0,  0,  0,  0,
-    0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
+    -1,  0, -1,  0,  0, -1,
+     0,  0,  0,  0, -1,  1,
+     1, -1,  0,  0,  0,  0,
+     0,  0,  1, -1,  0,  0,
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
   var expected = _.box.tools.longMake( [ 0, 0, 0, 1.5, 1.5, 1.5 ] );
@@ -7107,10 +7107,10 @@ function frustumExpand( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
-    0,  0,  0,  0, - 1,  1,
-    1, - 1,  0,  0,  0,  0,
-    0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
+    -1,  0, -1,  0,  0, -1,
+     0,  0,  0,  0, -1,  1,
+     1, -1,  0,  0,  0,  0,
+     0,  0,  1, -1,  0,  0,
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -7118,10 +7118,10 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,  0, - 2,  0,  0, - 2,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 2,  0, - 2,  0,  0, - 2
   ]);
   var box = [ 0.5, 0.5, 0.5, 1.5, 1.5, 1.5 ];
   var expected = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
@@ -7133,10 +7133,10 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0, - 2,  0,  0, - 2,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 2, 0, - 2,  0,  0, - 2
   ]);
   var box = [ 0, 0, 0.5, 1.5, 2, 2 ];
   var expected = _.box.tools.longMake( [ 0, 0, 0, 2, 2, 2 ] );
@@ -7148,10 +7148,10 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 2, 2, 2, 2.5, 2.5, 2.5 ];
   var expected = _.box.tools.longMake( [ 0, 0, 0, 2.5, 2.5, 2.5 ] );
@@ -7163,10 +7163,10 @@ function frustumExpand( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, -1, -0.5, -0.5, -0.5 ];
   var expected = _.box.tools.longMake( [ -1, -1, -1, 1, 1, 1 ] );
@@ -7178,10 +7178,10 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, -1, 0.5, 0.5, 0.5 ];
   var expected = _.box.tools.longMake( [ -1, -1, -1, 1, 1, 1 ] );
@@ -7193,10 +7193,10 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -1, -1, 1, 0.5, 1.5, 2 ];
   var expected = _.box.tools.longMake( [ -1, -1, 0, 1, 3, 2 ] );
@@ -7208,11 +7208,11 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1 ]
-  );
+  ]);
   var box = [ -2, -2, 2, 0, 0, 4 ];
   var expected = _.box.tools.longMake( [ -2, -2, 0, 1, 3, 4 ] );
 
@@ -7223,10 +7223,10 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  2,  1, - 1,  0,  0,
-    - 3,  0, - 1,  0,  0, - 1
   ]);
   var box = [ -2, -2, -2, -2, -2, -2 ];
   var expected = _.box.tools.longMake( [ -2, -2, -2, 1, 3, 1 ] );
@@ -7238,10 +7238,10 @@ function frustumExpand( test )
 
   var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,  0, - 1,  0,  0, - 1,
     0,  0,  0,  0, - 1,  1,
     1, - 1,  0,  0,  0,  0,
     0,  0,  1, - 1,  0,  0,
-    - 1,  0, - 1,  0,  0, - 1
   ]);
   var box = [ 1.1, 0.5, 0.5, 1.1, 0.5, 0.5 ];
   var expected = _.box.tools.longMake( [ 0, 0, 0, 1.1, 1, 1 ] );
@@ -7402,7 +7402,7 @@ function planeDistance( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var oldSrcBox = srcBox.slice();
-  var srcPlane = [ 1, 0, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = 1;
 
@@ -7416,7 +7416,7 @@ function planeDistance( test )
   test.case = 'Plane as box side';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 3 ];
+  var srcPlane = [ - 3, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7427,7 +7427,7 @@ function planeDistance( test )
   test.case = 'Plane touching box corner';
 
   var srcBox = [ 0, 1, 2, 1, 1, 3 ];
-  var srcPlane = [ 1, -1, 0, 0 ];
+  var srcPlane = [ 0, 1, -1, 0 ];
   var expected = 0;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7438,7 +7438,7 @@ function planeDistance( test )
   test.case = 'Plane crossing box';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 1 ];
+  var srcPlane = [ - 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7449,7 +7449,7 @@ function planeDistance( test )
   test.case = 'Plane under box parallel to side';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, 3 ];
+  var srcPlane = [ 3, 1, 0, 0 ];
   var expected = 3;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7460,7 +7460,7 @@ function planeDistance( test )
   test.case = 'Plane over box';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 6 ];
+  var srcPlane = [ - 6, 1, 0, 0 ];
   var expected = 3;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7471,7 +7471,7 @@ function planeDistance( test )
   test.case = 'Plane close to box corner';
 
   var srcBox = [ 3, 0, 2, 4, 1, 2 ];
-  var srcPlane = [ 1, -1, 0, 0 ];
+  var srcPlane = [ 0, 1, -1, 0 ];
   var expected = Math.sqrt( 2 );
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7482,7 +7482,7 @@ function planeDistance( test )
   test.case = 'Zero box';
 
   var srcBox = [ 0, 0, 0, 0, 0, 0 ];
-  var srcPlane = [ 1, -1, 4, 3 ];
+  var srcPlane = [ 3, 1, -1, 4 ];
   var expected = Math.sqrt( 2 )/2;
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7493,7 +7493,7 @@ function planeDistance( test )
   test.case = '2D';
 
   var srcBox = [ 0, 0, 0, 0 ];
-  var srcPlane = [ 1, -1, 3 ];
+  var srcPlane = [ 3, 1, -1 ];
   var expected = Math.sqrt( 4.5 );
 
   var gotDistance = _.box.planeDistance( srcBox, srcPlane );
@@ -7530,7 +7530,7 @@ function planeClosestPoint( test )
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
   var oldSrcBox = srcBox.slice();
-  var srcPlane = [ 1, 0, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
 
@@ -7544,7 +7544,7 @@ function planeClosestPoint( test )
   test.case = 'Plane and box intersect';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 1 ];
+  var srcPlane = [ - 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
@@ -7555,7 +7555,7 @@ function planeClosestPoint( test )
   test.case = 'Plane is box side';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, 0 ];
+  var srcPlane = [ 0, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
@@ -7566,7 +7566,7 @@ function planeClosestPoint( test )
   test.case = 'Plane parallel to box side x = 0';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
   var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
@@ -7577,7 +7577,7 @@ function planeClosestPoint( test )
   test.case = 'Plane parallel to box side y = 0';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 0, 1, 0, 1 ];
+  var srcPlane = [ 1, 0, 1, 0 ];
   var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
@@ -7588,7 +7588,7 @@ function planeClosestPoint( test )
   test.case = 'Plane parallel to box side x = 3';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 4 ];
+  var srcPlane = [ - 4, 1, 0, 0 ];
   var expected = _.box.tools.longMake( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
@@ -7599,7 +7599,7 @@ function planeClosestPoint( test )
   test.case = 'Plane parallel to box side y = 3';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 0, 1, 0, - 4 ];
+  var srcPlane = [ - 4, 0, 1, 0 ];
   var expected = _.box.tools.longMake( [ 0, 3, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
@@ -7610,7 +7610,7 @@ function planeClosestPoint( test )
   test.case = 'Plane next to box corner [ 0, 0, 0 ]';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 0, 1 ];
+  var srcPlane = [ 1, 1, 1, 0 ];
   var expected = _.box.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
@@ -7621,7 +7621,7 @@ function planeClosestPoint( test )
   test.case = 'Plane next to box corner [ 3, 3, 3 ]';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 0, - 7 ];
+  var srcPlane = [ - 7, 1, 1, 0 ];
   var expected = _.box.tools.longMake( [ 3, 3, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
@@ -7632,7 +7632,7 @@ function planeClosestPoint( test )
   test.case = 'Plane next to box corner [ 3, 0, 0 ]';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, - 1, 0, - 7 ];
+  var srcPlane = [ - 7, 1, - 1, 0 ];
   var expected = _.box.tools.longMake( [ 3, 0, 0 ] );
 
   var gotPoint = _.box.planeClosestPoint( srcBox, srcPlane );
@@ -7643,7 +7643,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is array';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, - 1, 0, - 7 ];
+  var srcPlane = [ - 7, 1, - 1, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.box.tools.longMake( [ 3, 0, 0 ] );
 
@@ -7656,7 +7656,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is vector';
 
   var srcBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, - 1, 0, - 7 ];
+  var srcPlane = [ - 7, 1, - 1, 0 ];
   var dstPoint = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 0 ] );
   var expected = _.box.tools.vectorAdapter.fromLong( [ 3, 0, 0 ] );
 
@@ -7680,7 +7680,7 @@ function planeClosestPoint( test )
   test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 1, 0, 1, 2, 1 ], null ) );
   test.shouldThrowErrorSync( () => _.box.planeClosestPoint( NaN, [ 1, 0, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeClosestPoint( [ 0, 1, 0, 1 ], [ 1, 0, 0 ] ) );
 
 }
 
@@ -7694,7 +7694,7 @@ function planeExpand( test )
   test.case = 'Source plane remains unchanged';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, 1 ];
+  var srcPlane = [ 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ -1, 0, 0, 3, 3, 3 ] );
 
@@ -7708,7 +7708,7 @@ function planeExpand( test )
   test.case = 'Plane and box intersect - no expansion';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 1 ];
+  var srcPlane = [ - 1, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ 0, 0, 0, 3, 3, 3 ] );
 
@@ -7720,7 +7720,7 @@ function planeExpand( test )
   test.case = 'Box expanded by min';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 1, 3 ];
+  var srcPlane = [ 3, 1, 1, 1 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ -1, -1, -1, 3, 3, 3 ] );
 
@@ -7732,7 +7732,7 @@ function planeExpand( test )
   test.case = 'Box expanded by max';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 1, - 12 ];
+  var srcPlane = [ - 12, 1, 1, 1 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 4, 4 ] );
 
@@ -7744,7 +7744,7 @@ function planeExpand( test )
   test.case = 'Box expanded on two sides - by min';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 0, 8 ];
+  var srcPlane = [ 8, 1, 1, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ -4, -4, 0, 3, 3, 3 ] );
 
@@ -7756,7 +7756,7 @@ function planeExpand( test )
   test.case = 'Box expanded on two sides - by max';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 1, 0, - 8 ];
+  var srcPlane = [ - 8, 1, 1, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 4, 3 ] );
 
@@ -7768,7 +7768,7 @@ function planeExpand( test )
   test.case = 'Box expanded on one side by min';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, 3 ];
+  var srcPlane = [ 3, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ -3, 0, 0, 3, 3, 3 ] );
 
@@ -7780,7 +7780,7 @@ function planeExpand( test )
   test.case = 'Box expanded on one side by max';
 
   var dstBox = [ 0, 0, 0, 3, 3, 3 ];
-  var srcPlane = [ 1, 0, 0, - 4 ];
+  var srcPlane = [ - 4, 1, 0, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.longMake( [ 0, 0, 0, 4, 3, 3 ] );
 
@@ -7792,7 +7792,7 @@ function planeExpand( test )
   test.case = 'dstBox is vector';
 
   var dstBox = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 0, 3, 3, 3 ] );
-  var srcPlane = [ 1, 1, 0, - 8 ];
+  var srcPlane = [ - 8, 1, 1, 0 ];
   var oldSrcPlane = srcPlane.slice();
   var expected = _.box.tools.vectorAdapter.fromLong( [ 0, 0, 0, 4, 4, 3 ] );
 
@@ -7816,7 +7816,7 @@ function planeExpand( test )
   test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1, 2, 1 ], null ) );
   test.shouldThrowErrorSync( () => _.box.planeExpand( NaN, [ 1, 0, 1, 2 ] ) );
   test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1, 2, 1 ], NaN ) );
-  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1 ], [ 0, 0, 1 ] ) );
+  test.shouldThrowErrorSync( () => _.box.planeExpand( [ 0, 1, 0, 1 ], [ 1, 0, 0 ] ) );
 
 }
 

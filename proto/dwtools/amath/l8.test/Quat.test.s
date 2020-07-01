@@ -197,8 +197,10 @@ function eachQuat( onQuat )
   for( var i = 0 ; i < 1000 ; i++ )
   {
 
+    debugger;
     var quat1 = _.avector.mix( null, begin, end, i/999 );
-    quat1[ 3 ] = sqrt( 1 - quat1[ 0 ]**2 - quat1[ 1 ]**2 - quat1[ 2 ]**2 );
+    quat1.unshift( sqrt( 1 - quat1[ 0 ]**2 - quat1[ 1 ]**2 - quat1[ 2 ]**2 ) );
+    // quat1[ 3 ] = sqrt( 1 - quat1[ 0 ]**2 - quat1[ 1 ]**2 - quat1[ 2 ]**2 );
 
     // var axisAndAngle = _.quat.toAxisAndAngle( quat1, null );
     // var quat2 = _.quat.fromAxisAndAngle( null, axisAndAngle );
@@ -323,7 +325,7 @@ function isUnit( test )
 
   test.case = 'zero';
 
-  test.is( _.quat.isUnit([ 0, 0, 0, 1 ]) );
+  test.is( _.quat.isUnit([ 1, 0, 0, 0 ]) );
 
   /* */
 
@@ -333,7 +335,7 @@ function isUnit( test )
   test.is( !_.quat.isUnit([ 0, 0, 0, 1.1 ]) );
   test.is( !_.quat.isUnit([ 0, 0, 0, Infinity ]) );
 
-  test.is( !_.quat.isUnit([ 1, 0, 0, 0 ]) );
+  test.is( !_.quat.isUnit([ 0, 0, 0, 1 ]) );
   test.is( !_.quat.isUnit([ 0, 1, 0, 0 ]) );
   test.is( !_.quat.isUnit([ 0, 0, 1, 0 ]) );
 
@@ -362,7 +364,7 @@ function make( test )
 
   var src = undefined;
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -372,7 +374,7 @@ function make( test )
 
   var src = null;
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -380,9 +382,9 @@ function make( test )
 
   test.case = 'src array';
 
-  var src = [ 0, 1, 2, 3 ];
+  var src = [ 3, 0, 1, 2 ];
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 0, 1, 2, 3 ] );
+  var expected = _.quat.tools.longMake( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
@@ -390,20 +392,23 @@ function make( test )
 
   test.case = 'src vector';
 
-  var src = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var src = _.vectorAdapter.fromLong([ 3, 0, 1, 2 ]);
   var got = _.quat.make( src );
-  var expected = _.quat.tools.longMake( [ 0, 1, 2, 3 ] );
+  var expected = _.quat.tools.longMake( [ 3, 0, 1, 2 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
-  /* */
+  /* - */
+
+  if( !Config.debug )
+  return;
 
   test.case = 'bad arguments';
 
   test.shouldThrowErrorSync( () => _.quat.make( 0 ) );
   test.shouldThrowErrorSync( () => _.quat.make( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.make( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.make( [ 0, 0, 0, 1 ], 2 ) );
+  test.shouldThrowErrorSync( () => _.quat.make( [ 1, 0, 0, 0 ], 2 ) );
 
 }
 
@@ -420,19 +425,18 @@ function makeZero( test )
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
 
+  /* */
+
   if( !Config.debug )
   return;
 
-  /* */
-
   test.case = 'bad arguments';
-
   test.shouldThrowErrorSync( () => _.quat.makeZero( undefined ) );
   test.shouldThrowErrorSync( () => _.quat.makeZero( null ) );
   test.shouldThrowErrorSync( () => _.quat.makeZero( 4 ) );
-  test.shouldThrowErrorSync( () => _.quat.makeZero([ 0, 0, 0, 1 ]) );
+  test.shouldThrowErrorSync( () => _.quat.makeZero([ 1, 0, 0, 0 ]) );
   test.shouldThrowErrorSync( () => _.quat.makeZero( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.makeZero( [ 0, 0, 0, 1 ], 2 ) );
+  test.shouldThrowErrorSync( () => _.quat.makeZero( [ 1, 0, 0, 0 ], 2 ) );
 
 }
 
@@ -440,22 +444,17 @@ function makeZero( test )
 
 function makeUnit( test )
 {
+  test.case = 'trivial';
+  var got = _.quat.makeUnit();
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
+  test.identical( got, expected );
 
   /* */
-
-  test.case = 'trivial';
-
-  var got = _.quat.makeUnit();
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
-  test.identical( got, expected );
 
   if( !Config.debug )
   return;
 
-  /* */
-
   test.case = 'bad arguments';
-
   test.shouldThrowErrorSync( () => _.quat.makeUnit( undefined ) );
   test.shouldThrowErrorSync( () => _.quat.makeUnit( null ) );
   test.shouldThrowErrorSync( () => _.quat.makeUnit( 4 ) );
@@ -469,55 +468,44 @@ function makeUnit( test )
 
 function zero( test )
 {
-
-  /* */
-
   test.case = 'src undefined';
-
   var src = undefined;
   var got = _.quat.zero( src );
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
-  /* */
-
   test.case = 'src null';
-
   var src = null;
   var got = _.quat.zero( src );
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
-  /* */
-
   test.case = 'dst array';
-
-  var dst = [ 0, 1, 2, 3 ];
+  var dst = [ 3, 0, 1, 2 ];
   var got = _.quat.zero( dst );
   var expected = _.quat.tools.longMake( [ 0, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got === dst );
 
-  /* */
-
   test.case = 'dst vector';
-
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var dst = _.vectorAdapter.fromLong([ 3, 0, 1, 2 ]);
   var got = _.quat.zero( dst );
   var expected = _.quat.tools.vectorAdapter.fromLong([ 0, 0, 0, 0 ]);
   test.identical( got, expected );
   test.is( got === dst );
 
-  /* */
+  /* - */
+
+  if( !Config.debug )
+  return;
 
   test.case = 'bad arguments';
-
   test.shouldThrowErrorSync( () => _.quat.zero( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.zero([ 0, 0, 0 ]) );
   test.shouldThrowErrorSync( () => _.quat.zero( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.zero( [ 0, 0, 0, 1 ], 2 ) );
+  test.shouldThrowErrorSync( () => _.quat.zero( [ 1, 0, 0, 0 ], 2 ) );
 
 }
 
@@ -529,51 +517,49 @@ function unit( test )
   /* */
 
   test.case = 'src undefined';
-
   var src = undefined;
   var got = _.quat.unit( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
   /* */
 
   test.case = 'src null';
-
   var src = null;
   var got = _.quat.unit( src );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got !== src );
 
   /* */
 
   test.case = 'dst array';
-
-  var dst = [ 0, 1, 2, 3 ];
+  var dst = [ 3, 0, 1, 2 ];
   var got = _.quat.unit( dst );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   test.identical( got, expected );
   test.is( got === dst );
 
   /* */
 
   test.case = 'dst vector';
-
-  var dst = _.vectorAdapter.fromLong([ 0, 1, 2, 3 ]);
+  var dst = _.vectorAdapter.fromLong([ 3, 0, 1, 2 ]);
   var got = _.quat.unit( dst );
-  var expected = _.quat.tools.vectorAdapter.fromLong([ 0, 0, 0, 1 ]);
+  var expected = _.quat.tools.vectorAdapter.fromLong([ 1, 0, 0, 0 ]);
   test.identical( got, expected );
   test.is( got === dst );
 
-  /* */
+  /* - */
+
+  if( !Config.debug )
+  return;
 
   test.case = 'bad arguments';
-
   test.shouldThrowErrorSync( () => _.quat.unit( 4 ) );
   test.shouldThrowErrorSync( () => _.quat.unit([ 0, 0, 0 ]) );
   test.shouldThrowErrorSync( () => _.quat.unit( '4' ) );
-  test.shouldThrowErrorSync( () => _.quat.unit( [ 0, 0, 0, 1 ], 2 ) );
+  test.shouldThrowErrorSync( () => _.quat.unit( [ 1, 0, 0, 0 ], 2 ) );
 
 }
 
@@ -594,55 +580,43 @@ function fromEuler( test )
   /* */
 
   test.case = 'trivial xyz';
-
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var euler1 = [ 0, 0, 0, 0, 1, 2 ];
-
   sampleTest();
 
   /* */
 
   test.case = 'trivial xzy';
-
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var euler1 = [ 0, 0, 0, 0, 2, 1 ];
-
   sampleTest();
 
   /* */
 
   test.case = 'trivial yxz';
-
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var euler1 = [ 0, 0, 0, 1, 0, 2 ];
-
   sampleTest();
 
   /* */
 
   test.case = 'trivial yzx';
-
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var euler1 = [ 0, 0, 0, 1, 2, 0 ];
-
   sampleTest();
 
   /* */
 
   test.case = 'trivial zxy';
-
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var euler1 = [ 0, 0, 0, 2, 0, 1 ];
-
   sampleTest();
 
   /* */
 
   test.case = 'trivial zyx';
-
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var euler1 = [ 0, 0, 0, 2, 1, 0 ];
-
   sampleTest();
 
   // test.identical( 0, 1 );
@@ -655,7 +629,6 @@ function fromEuler( test )
     var quat2 = _.quat.fromEuler( null, euler1 );
     var euler2 = _.euler.fromQuat( euler1.slice(), quat2 );
 
-    // var quat3 = _.quat.fromEuler( null, euler2 );
     var m1 = _.quat.toMatrix( quat1, null );
     var euler3 = _.euler.fromMatrix( euler1.slice(), m1 );
     var quat3 = _.quat.fromEuler( null, euler3 );
@@ -664,14 +637,7 @@ function fromEuler( test )
     var applied2 = _.quat.applyTo( quat2, [ 0.25, 0.5, 1.0 ] );
     var applied3 = _.quat.applyTo( quat3, [ 0.25, 0.5, 1.0 ] );
 
-    // test.equivalent( quat1, quat3 );
-    // test.equivalent( quat2, quat3 );
-    // test.equivalent( euler2, euler1 );
-
     test.equivalent( applied2, applied1 );
-    // test.equivalent( applied3, applied1 );
-
-    // logger.log( 'signs', signs );
 
     logger.log( 'quat1', quat1 );
     logger.log( 'quat2', quat2 );
@@ -684,9 +650,6 @@ function fromEuler( test )
     logger.log( 'euler1', euler1 );
     logger.log( 'euler2', euler2 );
     logger.log( 'euler3', euler3 );
-
-    // [ x: -1.1460588, y: 0.4274791, z: -2.863293 ]
-
   }
 
 }
@@ -703,14 +666,19 @@ function fromAxisAndAngle( test )
   /* */
 
   test.case = 'zero';
-
-  var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 0 ], 0 );
   test.equivalent( got, expected );
+
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 1, 0, 0 ], 0 );
   test.equivalent( got, expected );
+
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 1, 0 ], 0 );
   test.equivalent( got, expected );
+
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 1 ], 0 );
   test.equivalent( got, expected );
 
@@ -719,13 +687,13 @@ function fromAxisAndAngle( test )
   test.case = 'near zero';
 
   var angle = test.accuracy;
-  var expected = _.quat.tools.longMake( [ 0.00000004999999873689376, 0, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0.00000004999999873689376, 0, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 1, 0, 0 ], angle );
   test.equivalent( got, expected );
-  var expected = _.quat.tools.longMake( [ 0, 0.00000004999999873689376, 0, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0.00000004999999873689376, 0 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 1, 0 ], angle );
   test.equivalent( got, expected );
-  var expected = _.quat.tools.longMake( [ 0, 0, 0.00000004999999873689376, 1 ] );
+  var expected = _.quat.tools.longMake( [ 1, 0, 0, 0.00000004999999873689376 ] );
   var got = _.quat.fromAxisAndAngle( null, [ 0, 0, 1 ], angle );
   test.equivalent( got, expected );
 
@@ -758,11 +726,11 @@ function fromAxisAndAngle( test )
     var quat = _.quat.fromAxisAndAngle( null, axis, angle );
     test.equivalent( quat, expected );
 
-    axis[ 3 ] = angle;
+    axis[ 0 ] = angle;
     var quat = _.quat.fromAxisAndAngle( null, _.vectorAdapter.from( axis ) );
     test.equivalent( quat, expected );
 
-    axis[ 3 ] = angle;
+    axis[ 0 ] = angle;
     var quat = _.quat.fromAxisAndAngle( null, axis );
     test.equivalent( quat, expected );
 
@@ -794,27 +762,27 @@ function fromAxisAndAngle( test )
   {
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.oc, sample.oc, sample.oc, sample.w ];
+    expected = [ sample.w, sample.oc, sample.oc, sample.oc ];
     axis = [ 0, 0, 0 ];
     caseTest();
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.tc, sample.oc, sample.oc, sample.w ];
+    expected = [ sample.w, sample.tc, sample.oc, sample.oc ];
     axis = [ 1, 0, 0 ];
     caseTest();
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.oc, sample.tc, sample.oc, sample.w ];
+    expected = [ sample.w, sample.oc, sample.tc, sample.oc ];
     axis = [ 0, 1, 0 ];
     caseTest();
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.oc, sample.oc, sample.tc, sample.w ];
+    expected = [ sample.w, sample.oc, sample.oc, sample.tc ];
     axis = [ 0, 0, 1 ];
     caseTest();
 
     test.case = d + ' with axis ' + _.toStr( axis );
-    expected = [ sample.tc, sample.tc, sample.tc, sample.w ];
+    expected = [ sample.w, sample.tc, sample.tc, sample.tc ];
     axis = [ 1, 1, 1 ];
     caseTest();
 
@@ -850,21 +818,14 @@ function fromAxisAndAngle( test )
 
   eachQuat( function( quat1 )
   {
-
+    debugger;
     var axisAndAngle = _.quat.toAxisAndAngle( quat1, null );
     var quat2 = _.quat.fromAxisAndAngle( null, axisAndAngle );
-
     test.equivalent( quat1, quat2 );
-
-    // logger.log( 'quat1', quat1 );
-    // logger.log( 'quat2', quat2 );
-    // logger.log( 'axisAndAngle', axisAndAngle );
-
   });
 
-  /* throwing error */
+  /* - */
 
-  return;
   if( !Config.debug )
   return;
 
@@ -884,7 +845,7 @@ function fromAxisAndAngle( test )
 }
 
 fromAxisAndAngle.accuracy = [ _.accuracy * 1e+2, 1e-1 ];
-fromAxisAndAngle.timeOut = 10000;
+fromAxisAndAngle.timeOut = 20000;
 
 //
 
@@ -907,11 +868,11 @@ function fromVectors( test )
 
     test.case = 'same avectors';
 
-    var expected = _.quat.tools.longMake( [ 0, 0, 0, normalized ? 1 : 0 ] );
+    var expected = _.quat.tools.longMake( [ normalized ? 1 : 0, 0, 0, 0 ] );
     var got = _.quat[ r ]( null, [ 0, 0, 0 ], [ 0, 0, 0 ] );
     test.equivalent( got, expected );
 
-    var expected = _.quat.tools.longMake( [ 0, 0, 0, 1 ] );
+    var expected = _.quat.tools.longMake( [ 1, 0, 0, 0 ] );
     var got = _.quat[ r ]( null, [ 1, 0, 0 ], [ 1, 0, 0 ] );
     test.equivalent( got, expected );
 
@@ -925,29 +886,29 @@ function fromVectors( test )
     var samples =
     [
 
-      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 1, 0, 0 ], e : [ 0, 0, 0, 1 ] },
-      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, 1, 0 ], e : [ 0, 0, +h, +h ] },
-      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, 0, 1 ], e : [ 0, -h, 0, +h ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 1, 0, 0 ], e : [ 1, 0, 0, 0 ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, 1, 0 ], e : [ +h, 0, 0, +h ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, 0, 1 ], e : [ +h, 0, -h, 0 ] },
 
-      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 1, 0, 0 ], e : [ 0, 0, -h, +h ] },
-      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, 1, 0 ], e : [ 0, 0, 0, 1 ] },
-      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, 0, 1 ], e : [ +h, 0, 0, +h ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 1, 0, 0 ], e : [ +h, 0, 0, -h ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, 1, 0 ], e : [ 1, 0, 0, 0 ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, 0, 1 ], e : [ +h, +h, 0, 0 ] },
 
-      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 1, 0, 0 ], e : [ 0, +h, 0, +h ] },
-      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, 1, 0 ], e : [ -h, 0, 0, +h ] },
-      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, 0, 1 ], e : [ 0, 0, 0, 1 ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 1, 0, 0 ], e : [ +h, 0, +h, 0 ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, 1, 0 ], e : [ +h, -h, 0, 0 ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, 0, 1 ], e : [ 1, 0, 0, 0 ] },
 
-      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ -1, 0, 0 ], e : [ 0, 0, 1, 0 ] },
-      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, -1, 0 ], e : [ 0, 0, -h, +h ] },
-      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, 0, -1 ], e : [ 0, +h, 0, +h ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ -1, 0, 0 ], e : [ 0, 0, 0, 1 ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, -1, 0 ], e : [ +h, 0, 0, -h ] },
+      { d : 'from x', v1 : [ 1, 0, 0 ], v2 : [ 0, 0, -1 ], e : [ +h, 0, +h, 0 ] },
 
-      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ -1, 0, 0 ], e : [ 0, 0, +h, +h ] },
-      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, -1, 0 ], e : [ 0, 1, 0, 0 ] },
-      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, 0, -1 ], e : [ -h, 0, 0, +h ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ -1, 0, 0 ], e : [ +h, 0, 0, +h ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, -1, 0 ], e : [ 0, 0, 1, 0 ] },
+      { d : 'from y', v1 : [ 0, 1, 0 ], v2 : [ 0, 0, -1 ], e : [ +h, -h, 0, 0 ] },
 
-      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ -1, 0, 0 ], e : [ 0, -h, 0, +h ] },
-      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, -1, 0 ], e : [ +h, 0, 0, +h ] },
-      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, 0, -1 ], e : [ -1, 0, 0, 0 ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ -1, 0, 0 ], e : [ +h, 0, -h, 0 ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, -1, 0 ], e : [ +h, +h, 0, 0 ] },
+      { d : 'from z', v1 : [ 0, 0, 1 ], v2 : [ 0, 0, -1 ], e : [ 0, -1, 0, 0 ] },
 
     ]
 
@@ -1087,6 +1048,7 @@ function fromMatrixRotationFast( test )
     eachQuat( function( quat1 )
     {
 
+      debugger;
       var matrix = _.quat.toMatrix( quat1, null );
       var quat2 = _.quat.fromMatrixRotation( null, matrix );
 
@@ -1135,16 +1097,6 @@ function fromMatrixRotationFast( test )
       var m2 = _.Matrix.Make([ 3, 3 ]).fromQuat( q1 );
       var q3 = _.quat[ r ]( null, m2 );
 
-      // logger.log( 'q1', q1 );
-      // logger.log( 'q2', q2 );
-      // logger.log( 'q3', q3 );
-      // logger.log( 'm1', m1 );
-      // logger.log( 'm2', m2 );
-      //
-      // logger.log( 'q1', _.quat.applyTo( q1, [ 1, 1, 1 ] ) );
-      // logger.log( 'q2', _.quat.applyTo( q2, [ 1, 1, 1 ] ) );
-      // logger.log( 'q3', _.quat.applyTo( q3, [ 1, 1, 1 ] ) );
-
       var expected = _.quat.applyTo( q1, [ 1, 1, 1 ] );
 
       test.equivalent( _.quat.applyTo( q1, [ 1, 1, 1 ] ) , expected );
@@ -1153,9 +1105,6 @@ function fromMatrixRotationFast( test )
 
       test.equivalent( m1.matrixApplyTo([ 1, 1, 1 ]) , expected );
       test.equivalent( m2.matrixApplyTo([ 1, 1, 1 ]) , expected );
-
-      // test.equivalent( q3, q1 );
-      // test.equivalent( q2, q1 );
 
       test.equivalent( m2, m1 );
 
@@ -1208,7 +1157,6 @@ function fromMatrixRotationFast( test )
 }
 
 fromMatrixRotationFast.timeOut = 300000;
-// fromMatrixRotationFast.usingSourceCode = 0;
 fromMatrixRotationFast.rapidity = -1;
 
 //
@@ -1216,7 +1164,7 @@ fromMatrixRotationFast.rapidity = -1;
 function toMatrix( test )
 {
 
-  test.case = 'trivial'; debugger;
+  test.case = 'trivial';
 
   var axis = null;
   var h = _.math.sqrt( 2 ) / 2;

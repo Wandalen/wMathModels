@@ -2452,7 +2452,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 2, 1 ];
   var point = [ 1 ];
-  var expected = _.capsule.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -2463,7 +2463,7 @@ function pointClosestPoint( test )
 
   var capsule = [ 0, 2, 1 ];
   var point = [ - 3 ];
-  var expected = _.capsule.tools.longMake( [ - 1 ] );
+  var expected = [ -1 ];
 
   var gotClosestPoint = _.capsule.pointClosestPoint( capsule, point );
   test.identical( gotClosestPoint, expected );
@@ -4279,11 +4279,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
+  ]);
   var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   var oldCapsule = capsule.slice();
   var expected = false;
@@ -4294,22 +4294,22 @@ function frustumContains( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
+  ]);
   test.identical( frustum, oldFrustum );
 
   test.description = 'Capsule contains frustum'; //
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
+  ]);
   var capsule = [ -1, -1, -1, 3, 3, 3, 1 ];
   var expected = true;
 
@@ -4320,11 +4320,11 @@ function frustumContains( test )
 
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    0,   0,   0,   0,   0,   0,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    0,   0,   0,   0,   0,   0 ]
-  );
+  ]);
 
   var capsule = [ -1, -1, -1, 3, 3, 3, 0.5 ];
   var expected = true;
@@ -4336,11 +4336,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
+  ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, Math.sqrt( 3/4 ) ];
   var expected = true;
 
@@ -4351,11 +4351,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
+  ]);
   var capsule = [ 0.1, 0.1, 0.1, 0.5, 0.5, 0.5, 0.1 ];
   var expected = false;
 
@@ -4366,11 +4366,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
+  ]);
   var capsule = [ 0.1, 0.1, 0.1, 2, 2, 2, 0.1 ];
   var expected = false;
 
@@ -4381,11 +4381,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
+  ]);
   var capsule = [ 3, 3, 3, 4, 4, 4, 1 ];
   var expected = false;
 
@@ -4399,11 +4399,11 @@ function frustumContains( test )
 
   var frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1 ]
-  );
+  ]);
 
   test.shouldThrowErrorSync( () => _.capsule.frustumContains( ));
   test.shouldThrowErrorSync( () => _.capsule.frustumContains( capsule ));
@@ -4433,10 +4433,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   var expected = true;
@@ -4449,10 +4449,10 @@ function frustumIntersects( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4461,10 +4461,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   var expected = true;
@@ -4476,10 +4476,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 2, 2, 1, 4, 4, 2, Math.sqrt( 2 ) ];
   var expected = true;
@@ -4491,10 +4491,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 0, 0, 4, 1 ];
   var expected = true;
@@ -4506,10 +4506,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ -1, -1, 0, 0.5, 0.5, 0, 0.1 ];
   var expected = true;
@@ -4521,10 +4521,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 4, 4, 4, 5, 5, 5, 1 ];
   var expected = false;
@@ -4536,10 +4536,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.2, 1.2, 1.2, 5, 5, 5, 0.1 ];
   var expected = false;
@@ -4551,10 +4551,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.1, 1.1, 1.1, 5, 5, 5, Math.sqrt( 0.03 ) + test.accuracy ];
   var expected = true;
@@ -4566,10 +4566,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 5, 5, 5, 0.1 ];
   var expected = true;
@@ -4581,10 +4581,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = null;
   var expected = true;
@@ -4596,10 +4596,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = null;
   var expected = false;
@@ -4614,10 +4614,10 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 1]
   test.shouldThrowErrorSync( () => _.capsule.frustumIntersects( ));
@@ -4650,10 +4650,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   var expected = 0;
@@ -4666,10 +4666,10 @@ function frustumDistance( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4677,10 +4677,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 2 ];
   var expected = 0;
@@ -4692,10 +4692,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 2, 2, 1, 4, 4, 4, Math.sqrt( 2 ) ];
   var expected = 0;
@@ -4707,10 +4707,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ -1, -1, 0, 0.5, 0.5, 0, 0.01 ];
   var expected = 0;
@@ -4722,10 +4722,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 4, 4, 4, 5, 5, 5, Math.sqrt( 3 ) ];
   var expected = Math.sqrt( 12 );
@@ -4737,10 +4737,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.1, 1.1, 1.1, 5, 5, 5, 0 ];
   var expected = Math.sqrt( 0.03 );
@@ -4752,10 +4752,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = null;
   var expected = 0;
@@ -4767,10 +4767,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = null;
   var expected = Math.sqrt( 0.75 );
@@ -4782,10 +4782,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 2, - 3, 2, 2, - 3,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 2, - 3, 2, 2, - 3
   ]);
   var capsule = [ - 2, 0.3, 0, 1, 0, 0, 1 ];
   var expected = 2;
@@ -4796,10 +4796,10 @@ function frustumDistance( test )
   test.description = 'Inclined capsule closest to box side'; //
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 2, - 3, 2, 2, - 3,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 2, - 3, 2, 2, - 3
   ]);
   var capsule = [ -2, 0.3, 0, 1, 0, 0.1, 2 ];
   var expected = Math.sqrt( 8.61 ) - 2;
@@ -4814,10 +4814,10 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumDistance( ));
@@ -4850,10 +4850,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1, 1, 1, 3, 3, 3, 1 ];
   var expected = 0;
@@ -4866,10 +4866,10 @@ function frustumClosestPoint( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4877,10 +4877,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 2 ];
   var expected = 0;
@@ -4892,10 +4892,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 2, 2, 0, - 1, -1, 1, 0.5 ];
   var expected = 0;
@@ -4907,10 +4907,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ -1, -1, 0, 0.5, 0.5, 0, 0.1 ];
   var expected = 0;
@@ -4922,10 +4922,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 4, 4, 4, 5, 5, 5, Math.sqrt( 3 ) ];
   var expected = _.capsule.tools.longMake( [ 3, 3, 3 ] );
@@ -4937,10 +4937,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 1.2, 1.2, 1.2, 5, 5, 5, Math.sqrt( 0.03 ) ];
   var expected = _.capsule.tools.longMake( [ 1.1, 1.1, 1.1 ] );
@@ -4952,10 +4952,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = null;
   var expected = 0;
@@ -4967,10 +4967,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = null;
   var expected = _.capsule.tools.longMake( [ 0, 0, 0 ] );
@@ -4982,10 +4982,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = [ - 2, 0.3, 0, -1, 0.3, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ -1, 0.3, 0 ] );
@@ -4997,10 +4997,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3, 2, - 3, 2, 2, - 3,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 3, 2, - 3, 2, 2, - 3
   ]);
   var capsule = [ -2, 0.3, 0, 1, 0, 0.1, 0.1 ];
   var expected = _.capsule.tools.longMake( [ 1.0340799088295498, 0.06815981765909972, 0.16475182677614472 ] );
@@ -5012,10 +5012,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
   ]);
   var capsule = [ 0, 2, 2, 0, 1, 2, 0.5 ];
   var dstPoint = _.capsule.tools.vectorAdapter.from( [ 0, 0, 0 ] );
@@ -5031,10 +5031,10 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
   ]);
   var capsule = [ 0, 0, 0, 1, 1, 1, 1 ];
   test.shouldThrowErrorSync( () => _.capsule.frustumClosestPoint( ));
@@ -5674,7 +5674,7 @@ function planeIntersects( test )
   test.case = 'Capsule and plane remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5683,7 +5683,7 @@ function planeIntersects( test )
   var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5691,7 +5691,7 @@ function planeIntersects( test )
   test.case = 'Null capsule - no intersection';
 
   var capsule = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5702,7 +5702,7 @@ function planeIntersects( test )
   test.case = 'Null capsule - Intersection';
 
   var capsule = null;
-  var plane = [ 1, 0, -1, 0 ];
+  var plane = [ 0, 1, 0, -1 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5713,7 +5713,7 @@ function planeIntersects( test )
   test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5724,7 +5724,7 @@ function planeIntersects( test )
   test.case = 'point capsule in plane';
 
   var capsule = [ - 1, 2, 3, -1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5735,7 +5735,7 @@ function planeIntersects( test )
   test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5746,7 +5746,7 @@ function planeIntersects( test )
   test.case = 'point capsule intersection';
 
   var capsule = [ - 1.1, 2, 3, -1.1, 2, 3, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5757,7 +5757,7 @@ function planeIntersects( test )
   test.case = 'Capsule and plane intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5768,7 +5768,7 @@ function planeIntersects( test )
   test.case = 'Capsule over plane';
 
   var capsule = [ 0, -6, 4, 1, 1, 0, 0.5 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5779,7 +5779,7 @@ function planeIntersects( test )
   test.case = 'plane closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.4 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5790,7 +5790,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.4 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = false;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5801,7 +5801,7 @@ function planeIntersects( test )
   test.case = 'plane parallel contains capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5812,7 +5812,7 @@ function planeIntersects( test )
   test.case = 'plane perpendicular to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.capsule.planeIntersects( capsule, plane );
@@ -5848,7 +5848,7 @@ function planeDistance( test )
   test.case = 'Capsule and plane remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5857,7 +5857,7 @@ function planeDistance( test )
   var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5865,7 +5865,7 @@ function planeDistance( test )
   test.case = 'Null capsule - empty plane';
 
   var capsule = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 1;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5876,7 +5876,7 @@ function planeDistance( test )
   test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 2;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5887,7 +5887,7 @@ function planeDistance( test )
   test.case = 'point capsule in plane';
 
   var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5898,7 +5898,7 @@ function planeDistance( test )
   test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 1;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5909,7 +5909,7 @@ function planeDistance( test )
   test.case = 'sphere capsule intersection';
 
   var capsule = [ - 1, 2, 3, -1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5920,7 +5920,7 @@ function planeDistance( test )
   test.case = 'Capsule and plane intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5931,7 +5931,7 @@ function planeDistance( test )
   test.case = 'Capsule over plane';
 
   var capsule = [ 0, -6, 4, 1, 1, 0, 1 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 2;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5942,7 +5942,7 @@ function planeDistance( test )
   test.case = 'plane closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.1 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = 0.4;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5953,7 +5953,7 @@ function planeDistance( test )
   test.case = 'plane parallel to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = 0.3;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5964,7 +5964,7 @@ function planeDistance( test )
   test.case = 'plane parallel contains capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.1 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -5975,7 +5975,7 @@ function planeDistance( test )
   test.case = 'plane perpendicular to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 0.1 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotDistance = _.capsule.planeDistance( capsule, plane );
@@ -6011,7 +6011,7 @@ function planeClosestPoint( test )
   test.case = 'Capsule and plane remain unchanged';
 
   var capsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6020,7 +6020,7 @@ function planeClosestPoint( test )
   var oldCapsule = [  - 1, - 1, -1, 1, 1, 1, 1 ];
   test.identical( capsule, oldCapsule );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -6028,7 +6028,7 @@ function planeClosestPoint( test )
   test.case = 'Null capsule - empty plane';
 
   var capsule = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6039,7 +6039,7 @@ function planeClosestPoint( test )
   test.case = 'point capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6050,7 +6050,7 @@ function planeClosestPoint( test )
   test.case = 'point capsule in plane';
 
   var capsule = [ - 1, 2, 3, - 1, 2, 3, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6061,7 +6061,7 @@ function planeClosestPoint( test )
   test.case = 'sphere capsule - no intersection';
 
   var capsule = [ 1, 2, 3, 1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ 0, 2, 3 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6072,7 +6072,7 @@ function planeClosestPoint( test )
   test.case = 'sphere capsule intersection';
 
   var capsule = [ - 1, 2, 3, - 1, 2, 3, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6083,7 +6083,7 @@ function planeClosestPoint( test )
   test.case = 'Capsule and plane intersect';
 
   var capsule = [ -2, -2, -2, 2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6094,7 +6094,7 @@ function planeClosestPoint( test )
   test.case = 'Capsule over plane';
 
   var capsule = [ 0, -6, 4, 1, 1, 0, 2 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ -2, -6, 4 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6105,7 +6105,7 @@ function planeClosestPoint( test )
   test.case = 'plane closer to origin';
 
   var capsule = [ 0, 0, 0, 2, 2, 2, 0.4 ];
-  var plane = [ 1, 0, 0, 0.5 ];
+  var plane = [ 0.5, 1, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ - 0.4, 0, 0 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6116,7 +6116,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 1, 0, 1.5 ];
+  var plane = [ 1.5, 0, 1, 0 ];
   var expected = _.capsule.tools.longMake( [ 0, -1, 0 ] );
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6127,7 +6127,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel contains capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6138,7 +6138,7 @@ function planeClosestPoint( test )
   test.case = 'plane perpendicular to capsule';
 
   var capsule = [ 0, 0, 0, 0, 0, 2, 1 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotPoint = _.capsule.planeClosestPoint( capsule, plane );
@@ -6149,7 +6149,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is array';
 
   var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
+  var plane = [ 3, 1, 0, 1 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.capsule.tools.longMake( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
 
@@ -6161,7 +6161,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is vector';
 
   var capsule = [ 0, -6, 24, 1, 1, 1, 1 ];
-  var plane = [ 1, 0, 1, 3 ];
+  var plane = [ 3, 1, 0, 1 ];
   var dstPoint = _.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.capsule.tools.vectorAdapter.from( [ 0.29289321881345254, 1, 0.29289321881345254 ] );
 

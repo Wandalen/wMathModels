@@ -2859,7 +2859,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 2 ];
   var point = [ 1 ];
-  var expected = _.linePointDir.tools.longMake( [ 1 ] );
+  var expected = [ 1 ];
 
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -2870,7 +2870,7 @@ function pointClosestPoint( test )
 
   var line = [ 0, 2 ];
   var point = [ - 3 ];
-  var expected = _.linePointDir.tools.longMake( [ - 3 ] );
+  var expected = [ -3 ];
 
   var gotClosestPoint = _.linePointDir.pointClosestPoint( line, point );
   test.identical( gotClosestPoint, expected );
@@ -3923,10 +3923,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1, 1, 1, 3, 3, 3 ];
   var expected = true;
@@ -3939,10 +3940,11 @@ function frustumIntersects( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -3951,10 +3953,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 0, 0, 0, 1, 1, 1 ];
   var expected = true;
@@ -3966,10 +3969,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 2, 2, 0, - 1, -1, 1 ];
   var expected = true;
@@ -3981,10 +3985,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1, 1, 1, 0, 0, 2 ];
   var expected = true;
@@ -3996,10 +4001,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ -1, -1, 0, 0.5, 0.5, 0 ];
   var expected = true;
@@ -4011,10 +4017,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 4, 4, 4, 1, 1, 1 ];
   var expected = true;
@@ -4026,10 +4033,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 4, 4, 4, 5, 5, 0 ];
   var expected = false;
@@ -4041,10 +4049,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1.1, 1.1, 4.1, 5, 5, 5 ];
   var expected = false;
@@ -4056,10 +4065,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1, 1, 1, 5 , 5, 5 ];
   var expected = true;
@@ -4071,10 +4081,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 0.9, 0.9, 0.9, 5, 5, 5 ];
   var expected = true;
@@ -4086,10 +4097,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = null;
   var expected = true;
@@ -4101,10 +4113,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = null;
   var expected = false;
@@ -4119,10 +4132,11 @@ function frustumIntersects( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
 
   test.shouldThrowErrorSync( () => _.linePointDir.frustumIntersects( ));
@@ -4153,10 +4167,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1, 1, 1, 3, 3, 3 ];
   var expected = 0;
@@ -4169,10 +4184,11 @@ function frustumDistance( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4180,10 +4196,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
@@ -4195,10 +4212,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 2, 2, 0, - 1, -1, 1 ];
   var expected = 0;
@@ -4210,10 +4228,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ -1, -1, 0, 0.5, 0.5, 0 ];
   var expected = 0;
@@ -4225,10 +4244,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 4, 4, 4, 5, 5, 5 ];
   var expected = 0;
@@ -4240,10 +4260,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 4, 4, 4, 1, 1, 0 ];
   var expected = 3;
@@ -4255,10 +4276,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1.1, 1.1, 1.1, 5, 5, 0 ];
   var expected = 0.1;
@@ -4270,10 +4292,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = null;
   var expected = 0;
@@ -4285,10 +4308,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = null;
   var expected = Math.sqrt( 0.75 );
@@ -4300,10 +4324,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = [ - 2, 0.3, 0, 1, 0, 0 ];
   var expected = Math.sqrt( 0.29 );
@@ -4315,16 +4340,17 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = [ -2, 0.3, 0, 1, 0, 0.1 ];
   var expected = 0.2821417381318113;
 
   var gotDistance = _.linePointDir.frustumDistance( line, srcFrustum );
-  test.identical( gotDistance, expected );
+  test.equivalent( gotDistance, expected );
 
   /* */
 
@@ -4333,10 +4359,11 @@ function frustumDistance( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
 
   test.shouldThrowErrorSync( () => _.linePointDir.frustumDistance( ));
@@ -4367,10 +4394,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1, 1, 1, 3, 3, 3 ];
   var expected = 0;
@@ -4383,10 +4411,11 @@ function frustumClosestPoint( test )
 
   var oldFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   test.identical( srcFrustum, oldFrustum );
 
@@ -4394,10 +4423,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 0, 0, 0, 1, 1, 1 ];
   var expected = 0;
@@ -4409,10 +4439,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 2, 2, 0, - 1, -1, 1 ];
   var expected = 0;
@@ -4424,10 +4455,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ -1, -1, 0, 0.5, 0.5, 0 ];
   var expected = 0;
@@ -4439,10 +4471,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 4, 4, 4, 5, 5, 5 ];
   var expected = 0;
@@ -4454,10 +4487,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 4, 4, 4, 5, 5, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, 1, 4 ] );
@@ -4466,10 +4500,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = [ 1.1, 1.1, 1.1, 5, 5, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, 1, 1.1 ] );
@@ -4481,10 +4516,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
   var line = null;
   var expected = 0;
@@ -4496,10 +4532,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = null;
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
@@ -4511,10 +4548,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = [ - 2, 0.3, 0, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0.5, 0.3, 0 ] );
@@ -4526,25 +4564,27 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = [ -2, 0.3, 0, 1, 0, 0.1 ];
-  var expected = _.linePointDir.tools.longMake( [ 1.0198019801980198, 0.3, 0.301980198019802 ] );
+  var expected = _.linePointDir.tools.longMake( [ 1.0198020935058594, 0.3, 0.30198020935058595 ] );
 
   var gotClosestPoint = _.linePointDir.frustumClosestPoint( line, srcFrustum );
-  test.identical( gotClosestPoint, expected );
+  test.equivalent( gotClosestPoint, expected );
 
   test.description = 'Destination point is vector'; //
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0.5, - 1, 0.5, 0.5, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0.5, - 1, 0.5, 0.5, - 1
+
   ]);
   var line = [ 0, 2, 2, - 1, - 1, - 1 ];
   var dstPoint = _.linePointDir.tools.vectorAdapter.from( [ 0, 0, 0 ] );
@@ -4560,10 +4600,11 @@ function frustumClosestPoint( test )
 
   var srcFrustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1, 0, - 1, 0, 0, - 1,
     0, 0, 0, 0, - 1, 1,
     1, - 1, 0, 0, 0, 0,
     0, 0, 1, - 1, 0, 0,
-    - 1, 0, - 1, 0, 0, - 1
+
   ]);
 
   test.shouldThrowErrorSync( () => _.linePointDir.frustumClosestPoint( ));
@@ -5151,7 +5192,7 @@ function planeIntersects( test )
   test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5160,7 +5201,7 @@ function planeIntersects( test )
   var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
   test.identical( line, oldLine );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5168,7 +5209,7 @@ function planeIntersects( test )
   test.case = 'Null line';
 
   var line = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5179,7 +5220,7 @@ function planeIntersects( test )
   test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5190,7 +5231,7 @@ function planeIntersects( test )
   test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5201,7 +5242,7 @@ function planeIntersects( test )
   test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5212,7 +5253,7 @@ function planeIntersects( test )
   test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5223,7 +5264,7 @@ function planeIntersects( test )
   test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5234,7 +5275,7 @@ function planeIntersects( test )
   test.case = 'Line ( normalized to 1 ) no intersection';
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5245,7 +5286,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5256,7 +5297,7 @@ function planeIntersects( test )
   test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5267,7 +5308,7 @@ function planeIntersects( test )
   test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5278,7 +5319,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to line 4D';
 
   var line = [ 0, 2, 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5289,7 +5330,7 @@ function planeIntersects( test )
   test.case = 'plane parallel to line 4D';
 
   var line = [ 0, 2, 0, 0, 1, 0, 1, 2 ];
-  var plane = [ 0, 1, 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5301,7 +5342,7 @@ function planeIntersects( test )
   test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.linePointDir.planeIntersects( line, plane );
@@ -5335,7 +5376,7 @@ function planeIntersectionPoint( test )
   test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1,  - 1, -1, 1, 0, 0 ];
-  var plane = [ 1, 0, 0, - 1 ];
+  var plane = [ - 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, -1, -1 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5344,7 +5385,7 @@ function planeIntersectionPoint( test )
   var oldLine = [  - 1, - 1, -1, 1, 0, 0 ];
   test.identical( line, oldLine );
 
-  var oldPlane = [ 1, 0, 0, -1 ];
+  var oldPlane = [ -1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5352,7 +5393,7 @@ function planeIntersectionPoint( test )
   test.case = 'Null line';
 
   var line = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5363,7 +5404,7 @@ function planeIntersectionPoint( test )
   test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5374,7 +5415,7 @@ function planeIntersectionPoint( test )
   test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ -1, 2, 3 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5385,7 +5426,7 @@ function planeIntersectionPoint( test )
   test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ -1, -1, -1 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5396,7 +5437,7 @@ function planeIntersectionPoint( test )
   test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ - 3, -9, 4 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5407,7 +5448,7 @@ function planeIntersectionPoint( test )
   test.case = 'Positive factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, - 3 ];
+  var plane = [ - 3, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 3, -3, 4 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5418,7 +5459,7 @@ function planeIntersectionPoint( test )
   test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, 1, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5429,7 +5470,7 @@ function planeIntersectionPoint( test )
   test.case = 'Line ( normalized to 1 ) no intersection';
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5440,7 +5481,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5451,7 +5492,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5462,7 +5503,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane contains line origin';
 
   var line = [ 0, 0, 0, 0, 3, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5473,7 +5514,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane perpendicular to line';
 
   var line = [ 3, 4, 4, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = _.linePointDir.tools.longMake( [ 3, 4, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5484,7 +5525,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane parallel to line 4D';
 
   var line = [ 0, 2, 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5495,7 +5536,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane perpendicular to line 4D';
 
   var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 0, 3, 0 ];
+  var plane = [ 0, 0, 0, 0, 3 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 1, 2, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5506,7 +5547,7 @@ function planeIntersectionPoint( test )
   test.case = 'plane and line intersect 4D';
 
   var line = [ 0, 1, 2, 3, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 2, 3, 0 ];
+  var plane = [ 0, 0, 1, 2, 3 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 1, 2, - ( 1 + 2/3 ) ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane );
@@ -5517,7 +5558,7 @@ function planeIntersectionPoint( test )
   test.case = 'dstPoint is vector';
 
   var line = [ 3, 4, 4, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 3, 4, 0 ] );
 
   var gotPoint = _.linePointDir.planeIntersectionPoint( line, plane, _.linePointDir.tools.vectorAdapter.from( [ 0, 0, 0 ] ) );
@@ -5553,7 +5594,7 @@ function planeDistance( test )
   test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5562,7 +5603,7 @@ function planeDistance( test )
   var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
   test.identical( line, oldLine );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5570,7 +5611,7 @@ function planeDistance( test )
   test.case = 'Null line - empty plane';
 
   var line = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 1;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5581,7 +5622,7 @@ function planeDistance( test )
   test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 2;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5592,7 +5633,7 @@ function planeDistance( test )
   test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5603,7 +5644,7 @@ function planeDistance( test )
   test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5614,7 +5655,7 @@ function planeDistance( test )
   test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 0;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5625,7 +5666,7 @@ function planeDistance( test )
   test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var expected = 0;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5636,7 +5677,7 @@ function planeDistance( test )
   test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = 0.5;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5647,7 +5688,7 @@ function planeDistance( test )
   test.case = 'plane parallel to line opposite side';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, - 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, - 1, 0 ];
   var expected = 0.5;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5659,7 +5700,7 @@ function planeDistance( test )
   test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5670,7 +5711,7 @@ function planeDistance( test )
   test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5682,7 +5723,7 @@ function planeDistance( test )
   test.case = 'plane parallel to line 4D';
 
   var line = [ 1, 2, 3, 4, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 0, 0 ];
   var expected = 2;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5693,7 +5734,7 @@ function planeDistance( test )
   test.case = 'plane perpendicular to line 4D';
 
   var line = [ 0, 0, 0, 0, 0, 0, 2, 0 ];
-  var plane = [ 0, 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotDistance = _.linePointDir.planeDistance( line, plane );
@@ -5727,7 +5768,7 @@ function planeClosestPoint( test )
   test.case = 'Line and plane remain unchanged';
 
   var line = [  - 1, - 1, -1, 1, 1, 1 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5736,7 +5777,7 @@ function planeClosestPoint( test )
   var oldLine = [  - 1, - 1, -1, 1, 1, 1 ];
   test.identical( line, oldLine );
 
-  var oldPlane = [ 1, 0, 0, 1 ];
+  var oldPlane = [ 1, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   /* */
@@ -5744,7 +5785,7 @@ function planeClosestPoint( test )
   test.case = 'Null line - empty plane';
 
   var line = null;
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5755,7 +5796,7 @@ function planeClosestPoint( test )
   test.case = 'point line - no intersection';
 
   var line = [ 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, 2, 3 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5766,7 +5807,7 @@ function planeClosestPoint( test )
   test.case = 'point line in plane';
 
   var line = [ - 1, 2, 3, 0, 0, 0 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5777,7 +5818,7 @@ function planeClosestPoint( test )
   test.case = 'Line and plane intersect';
 
   var line = [ -2, -2, -2, 2, 2, 2 ];
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5788,7 +5829,7 @@ function planeClosestPoint( test )
   test.case = 'Negative factor';
 
   var line = [ 0, -6, 4, 1, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5799,7 +5840,7 @@ function planeClosestPoint( test )
   test.case = 'Line ( normalized to 1 ) intersection';
 
   var line = [ 0, 0, 0, 1/ Math.sqrt( 2 ), 1/ Math.sqrt( 2 ), 0 ];
-  var plane = [ 0, 2, 0, - 2 ];
+  var plane = [ - 2, 0, 2, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5810,7 +5851,7 @@ function planeClosestPoint( test )
   test.case = 'Line ( normalized to 1 ) parallel';
 
   var line = [ 0, 0, 0, 0, 0.194, 0 ];
-  var plane = [ 3, 0, 0, 1 ];
+  var plane = [ 1, 3, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5821,7 +5862,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0.5 ];
+  var plane = [ 0.5, 0, 1, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, 0, 0 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5832,7 +5873,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel contains line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5843,7 +5884,7 @@ function planeClosestPoint( test )
   test.case = 'plane perpendicular to line';
 
   var line = [ 0, 0, 0, 0, 0, 2 ];
-  var plane = [ 0, 0, 1, 0 ];
+  var plane = [ 0, 0, 0, 1 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5855,7 +5896,7 @@ function planeClosestPoint( test )
   test.case = 'plane parallel to line 4D';
 
   var line = [ 1, 2, 3, 4, 0, 0, 0, 2 ];
-  var plane = [ 0, 1, 0, 0, 0 ];
+  var plane = [ 0, 0, 1, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 1, 2, 3, 4 ] );
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5866,7 +5907,7 @@ function planeClosestPoint( test )
   test.case = 'plane perpendicular to line 4D';
 
   var line = [ 0, 0, 0, 0, 0, 0, 2, 0 ];
-  var plane = [ 0, 0, 1, 0, 0 ];
+  var plane = [ 0, 0, 0, 1, 0 ];
   var expected = 0;
 
   var gotPoint = _.linePointDir.planeClosestPoint( line, plane );
@@ -5877,7 +5918,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is array';
 
   var line = [ 0, -6, 24, 0, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var dstPoint = [ 0, 0, 0 ];
   var expected = _.linePointDir.tools.longMake( [ 0, -6, 24 ] );
 
@@ -5889,7 +5930,7 @@ function planeClosestPoint( test )
   test.case = 'dstPoint is vector';
 
   var line = [ 0, -6, 24, 0, 1, 0 ];
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var dstPoint = _.linePointDir.tools.vectorAdapter.from( [ 0, 0, 0 ] );
   var expected = _.linePointDir.tools.vectorAdapter.from( [ 0, -6, 24 ] );
 

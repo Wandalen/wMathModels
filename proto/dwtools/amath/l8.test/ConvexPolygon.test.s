@@ -3762,10 +3762,10 @@ function frustumIntersects( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = true;
 
@@ -3782,10 +3782,10 @@ function frustumIntersects( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( frustum, oldFrustum );
 
@@ -3799,10 +3799,10 @@ function frustumIntersects( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = true;
 
@@ -3819,10 +3819,10 @@ function frustumIntersects( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,   4, - 3,   4,   4, - 3,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 3,   4, - 3,   4,   4, - 3
   ]);
   var expected = false;
 
@@ -3839,10 +3839,10 @@ function frustumIntersects( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1.1, - 2,   1.1,   1.1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1.1, - 2,   1.1,   1.1, - 2
   ]);
   var expected = false;
 
@@ -3859,10 +3859,10 @@ function frustumIntersects( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1, - 2,   1,   1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1, - 2,   1,   1, - 2
   ]);
   var expected = true;
 
@@ -3879,10 +3879,10 @@ function frustumIntersects( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   var expected = true;
 
@@ -3901,10 +3901,10 @@ function frustumIntersects( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumIntersects( polygon ));
@@ -3940,10 +3940,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = 0;
 
@@ -3960,10 +3960,10 @@ function frustumDistance( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( frustum, oldFrustum );
 
@@ -3977,10 +3977,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = 0;
 
@@ -3997,10 +3997,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,   4, - 3,   4,   4, - 3,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 3,   4, - 3,   4,   4, - 3
   ]);
   var expected = Math.sqrt( 10 );
 
@@ -4017,10 +4017,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1.1, - 2,   1.1,   1.1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1.1, - 2,   1.1,   1.1, - 2
   ]);
   var expected = Math.sqrt( 0.03 );
 
@@ -4037,10 +4037,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1, - 2,   1,   1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1, - 2,   1,   1, - 2
   ]);
   var expected = 0;
 
@@ -4057,10 +4057,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   var expected = 0;
 
@@ -4077,10 +4077,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = Math.sqrt( 0.14 );
 
@@ -4097,10 +4097,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = Math.sqrt( 2 );
 
@@ -4119,10 +4119,10 @@ function frustumDistance( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumDistance( polygon ));
@@ -4158,10 +4158,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = 0;
 
@@ -4178,10 +4178,10 @@ function frustumClosestPoint( test )
 
   var oldFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   test.identical( frustum, oldFrustum );
 
@@ -4195,10 +4195,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 1,   0, - 1,   0,   0, - 1,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 1,   0, - 1,   0,   0, - 1
   ]);
   var expected = 0;
 
@@ -4215,10 +4215,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 3,   4, - 3,   4,   4, - 3,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 3,   4, - 3,   4,   4, - 3
   ]);
   var expected = _.convexPolygon.tools.longMake( [ 0, 2, 3 ] );
 
@@ -4235,10 +4235,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1.1, - 2,   1.1,   1.1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1.1, - 2,   1.1,   1.1, - 2
   ]);
   var expected = _.convexPolygon.tools.longMake( [ 1, 1, 1 ] );
 
@@ -4255,10 +4255,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2,   1, - 2,   1,   1, - 2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2,   1, - 2,   1,   1, - 2
   ]);
   var expected = 0;
 
@@ -4275,10 +4275,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   var expected = 0;
 
@@ -4295,10 +4295,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = _.convexPolygon.tools.longMake( [ 0.9, 0.8, 0.7 ] );
 
@@ -4315,10 +4315,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = _.convexPolygon.tools.longMake( [ 0, 0, 2 ] );
 
@@ -4335,15 +4335,15 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 1, - 2,   1,   1,  -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 1, - 2,   1,   1,  -2
   ]);
   var expected = _.convexPolygon.tools.vectorAdapter.from( [ 1, 0.4, 3.2 ] );
 
   var gotBool = _.convexPolygon.frustumClosestPoint( polygon, frustum, _.vectorAdapter.from( [ 0, 0, 0 ] ) );
-  test.identical( gotBool, expected );
+  test.equivalent( gotBool, expected );
 
   /* */
 
@@ -4357,10 +4357,10 @@ function frustumClosestPoint( test )
   ]);
   var frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   ([
+    - 2, 0.9, - 2, 0.9, 0.9, -2,
     0,   0,   0,   0, - 1,   1,
     1, - 1,   0,   0,   0,   0,
     0,   0,   1, - 1,   0,   0,
-    - 2, 0.9, - 2, 0.9, 0.9, -2
   ]);
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( ));
   test.shouldThrowErrorSync( () => _.convexPolygon.frustumClosestPoint( polygon ));
@@ -5119,13 +5119,13 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
   test.identical( gotBool, expected );
 
-  var oldPlane = [ 1, 0, 0, 3 ];
+  var oldPlane = [ 3, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -5144,7 +5144,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, -1, 2, 0 ];
+  var plane = [ 0, 0, -1, 2 ];
   var expected = true;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5158,7 +5158,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var expected = true;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5172,7 +5172,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5186,7 +5186,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 0, -2 ];
+  var plane = [ -2, 0, 1, 0 ];
   var expected = false;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5200,7 +5200,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0.1 ];
+  var plane = [ 0.1, 1, 0, 0 ];
   var expected = false;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5214,7 +5214,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1 ];
+  var plane = [ -1, 0, 0, 1 ];
   var expected = true;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5228,7 +5228,7 @@ function planeIntersects( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1 ];
+  var plane = [ -1, 0, 1, 1 ];
   var expected = true;
 
   var gotBool = _.convexPolygon.planeIntersects( polygon, plane );
@@ -5276,13 +5276,13 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = 3;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
   test.identical( gotDist, expected );
 
-  var oldPlane = [ 1, 0, 0, 3 ];
+  var oldPlane = [ 3, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -5301,7 +5301,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, -1, 2, 0 ];
+  var plane = [ 0, 0, -1, 2 ];
   var expected = 0;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5315,7 +5315,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var expected = 0;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5329,7 +5329,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = 1;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5343,7 +5343,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 0, -2 ];
+  var plane = [ -2, 0, 1, 0 ];
   var expected = 1;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5357,7 +5357,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0.1 ];
+  var plane = [ 0.1, 1, 0, 0 ];
   var expected = 0.1;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5371,7 +5371,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1 ];
+  var plane = [ -1, 0, 0, 1 ];
   var expected = 0;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5385,7 +5385,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1.2 ];
+  var plane = [ -1.2, 0, 0, 1 ];
   var expected = 0.2;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5399,7 +5399,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1 ];
+  var plane = [ -1, 0, 1, 1 ];
   var expected = 0;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5413,7 +5413,7 @@ function planeDistance( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1.1 ];
+  var plane = [ -1.1, 0, 1, 1 ];
   var expected = 0.1 * Math.sqrt( 2 ) / 2;
 
   var gotDist = _.convexPolygon.planeDistance( polygon, plane );
@@ -5461,13 +5461,13 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 3 ];
+  var plane = [ 3, 1, 0, 0 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
   test.identical( gotPoint, expected );
 
-  var oldPlane = [ 1, 0, 0, 3 ];
+  var oldPlane = [ 3, 1, 0, 0 ];
   test.identical( plane, oldPlane );
 
   var oldPolygon =  _.Matrix.Make( [ 3, 4 ] ).copy
@@ -5486,7 +5486,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, -1, 2, 0 ];
+  var plane = [ 0, 0, -1, 2 ];
   var expected = 0;
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5500,7 +5500,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0 ];
+  var plane = [ 0, 1, 0, 0 ];
   var expected = 0;
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5514,7 +5514,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 1 ];
+  var plane = [ 1, 1, 0, 0 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5528,7 +5528,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 0, 2 ];
+  var plane = [ 2, 0, 1, 0 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, -1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5542,7 +5542,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 1, 0, 0, 0.1 ];
+  var plane = [ 0.1, 1, 0, 0 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5556,7 +5556,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1 ];
+  var plane = [ -1, 0, 0, 1 ];
   var expected = 0;
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5570,7 +5570,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 0, 1, -1.2 ];
+  var plane = [ -1.2, 0, 0, 1 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 0, 1 ] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5584,7 +5584,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1 ];
+  var plane = [ -1, 0, 1, 1 ];
   var expected = 0;
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );
@@ -5598,7 +5598,7 @@ function planeClosestPoint( test )
     1,   0, - 1,   0,
     0,   1,   0, - 1
   ]);
-  var plane = [ 0, 1, 1, -1.1 ];
+  var plane = [ -1.1, 0, 1, 1 ];
   var expected = _.convexPolygon.tools.longMake( [ 0, 1, 0] );
 
   var gotPoint = _.convexPolygon.planeClosestPoint( polygon, plane );

@@ -348,7 +348,7 @@ function fromQuat( test )
   function sampleTest()
   {
 
-    // var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+    // var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
     // var euler1 = [ 1.7518, 0.0004, 1.7926, 2, 1, 0 ];
 
     var dst = expected.slice();
@@ -408,11 +408,11 @@ function fromQuat( test )
 
   test.case = 'trivial xyz';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ -0.8768166446364086, 1.2855172555584793, 2.4682396612065283, 0, 1, 2 ] );
   sampleTest();
 
-  var quat1 = [ 0.2, 0.3, 0.45, 0.8170067319184096 ];
+  var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
   var expected = _.euler.tools.longMake( [ 0.07661016491652753, 0.73448367317603, 0.9774169729318261, 0, 1, 2 ] );
   sampleTest();
 
@@ -420,7 +420,7 @@ function fromQuat( test )
 
   test.case = 'trivial xzy';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ 1.611438122848755, 0.1764134071967898, 1.79616768779864, 0, 2, 1 ] );
 
   sampleTest();
@@ -429,7 +429,7 @@ function fromQuat( test )
 
   test.case = 'trivial yxz';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ 1.3853696932905102, -0.21805744508021838, 1.611777990662973, 1, 0, 2 ] );
 
   sampleTest();
@@ -438,7 +438,7 @@ function fromQuat( test )
 
   test.case = 'trivial yzx';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ -3.139697893726683, 1.3489814514664218, -1.7536311318816715, 1, 2, 0 ] );
 
   sampleTest();
@@ -447,7 +447,7 @@ function fromQuat( test )
 
   test.case = 'trivial zxy';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ 1.7948888079254575, 1.3898093848622433, -0.0023158162419024777, 2, 0, 1 ] );
 
   sampleTest();
@@ -456,11 +456,11 @@ function fromQuat( test )
 
   test.case = 'trivial zyx';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ 1.7926108168855637, -0.0004168476808001178, 1.3898098596500965, 2, 1, 0 ] );
   sampleTest();
 
-  var quat1 = [ 0.2, 0.3, 0.45, 0.8170067319184096 ];
+  var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
   var expected = _.euler.tools.longMake( [ 1.1190534595035637, 0.31540765161226797, 0.6786858260419525, 2, 1, 0 ] );
   sampleTest();
 
@@ -470,11 +470,11 @@ function fromQuat( test )
 
   test.case = 'trivial xyx';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ 1.5712236437976341, 1.792610797291691, -0.1808924573987528, 0, 1, 0 ] );
   sampleTest();
 
-  var quat1 = [ 0.2, 0.3, 0.45, 0.8170067319184096 ];
+  var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
   var expected = _.euler.tools.longMake( [ 1.2228685618221453, 1.1428535238213908, -0.7427188846725128, 0, 1, 0 ] );
   sampleTest();
 
@@ -482,11 +482,11 @@ function fromQuat( test )
 
   test.case = 'trivial xzx';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ 0.0004273170027373423, 1.792610797291691, 1.3899038693961439, 0, 2, 0 ] );
   sampleTest();
 
-  var quat1 = [ 0.2, 0.3, 0.45, 0.8170067319184096 ];
+  var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
   var expected = _.euler.tools.longMake( [ -0.3479277649727513, 1.1428535238213908, 0.8280774421223838, 0, 2, 0 ] );
   sampleTest();
 
@@ -494,11 +494,11 @@ function fromQuat( test )
 
   test.case = 'trivial yxy';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ -0.17655619363859168, 1.6108070011488855, 1.7890312528560666, 1, 0, 1 ] );
   sampleTest();
 
-  var quat1 = [ 0.2, 0.3, 0.45, 0.8170067319184096 ];
+  var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
   var expected = _.euler.tools.longMake( [ -0.8006624116228127, 1.0297886775455747, 1.5044815828085223, 1, 0, 1 ] );
   sampleTest();
 
@@ -506,11 +506,11 @@ function fromQuat( test )
 
   test.case = 'trivial yzy';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ 1.394240133156305, 1.6108070011488855, 0.2182349260611697, 1, 2, 1 ] );
   sampleTest();
 
-  var quat1 = [ 0.2, 0.3, 0.45, 0.8170067319184096 ];
+  var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
   var expected = _.euler.tools.longMake( [ 0.770133915172084, 1.0297886775455747, -0.06631474398637426, 1, 2, 1 ] );
   sampleTest();
 
@@ -518,11 +518,11 @@ function fromQuat( test )
 
   test.case = 'trivial zxz';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ 1.7925345384125673, 1.389809875548349, 0.00042376926987936647, 2, 0, 2 ] );
   sampleTest();
 
-  var quat1 = [ 0.2, 0.3, 0.45, 0.8170067319184096 ];
+  var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
   var expected = _.euler.tools.longMake( [ 1.486244067362877, 0.7377259684532488, -0.47934337913178104, 2, 0, 2 ] );
 
   sampleTest();
@@ -531,11 +531,11 @@ function fromQuat( test )
 
   test.case = 'trivial zyz';
 
-  var quat1 = [ 0.4, 0.5, 0.6, 0.4795831523312719 ];
+  var quat1 = [ 0.4795831523312719, 0.4, 0.5, 0.6 ];
   var expected = _.euler.tools.longMake( [ 0.22173821161767063, 1.389809875548349, 1.5712200960647762, 2, 1, 2 ] );
   sampleTest();
 
-  var quat1 = [ 0.2, 0.3, 0.45, 0.8170067319184096 ];
+  var quat1 = [ 0.8170067319184096, 0.2, 0.3, 0.45 ];
   var expected = _.euler.tools.longMake( [ -0.0845522594320196, 0.7377259684532488, 1.0914529476631156, 2, 1, 2 ] );
   sampleTest();
 
@@ -543,7 +543,7 @@ function fromQuat( test )
 
   test.case = 'trivial xzy';
 
-  var quat1 = [ 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ), 0 ];
+  var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
   var expected = _.euler.tools.longMake( [ 2.0344439357957027, -0.7297276562269666, 2.0344439357957027, 0, 2, 1 ] );
   sampleTest();
 
@@ -551,7 +551,7 @@ function fromQuat( test )
 
   test.case = 'trivial yxz';
 
-  var quat1 = [ 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ), 0 ];
+  var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
   var expected = _.euler.tools.longMake( [  2.0344439357957027, -0.7297276562269666, 2.0344439357957027, 1, 0, 2 ] );
   sampleTest();
 
@@ -559,7 +559,7 @@ function fromQuat( test )
 
   test.case = 'trivial yzx';
 
-  var quat1 = [ 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ), 0 ];
+  var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
   var expected = _.euler.tools.longMake( [ -2.0344439357957027, 0.7297276562269666, -2.0344439357957027, 1, 2, 0 ] );
   sampleTest();
 
@@ -567,7 +567,7 @@ function fromQuat( test )
 
   test.case = 'trivial zxy';
 
-  var quat1 = [ 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ), 0 ];
+  var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
   var expected = _.euler.tools.longMake( [ -2.0344439357957027, 0.7297276562269666, -2.0344439357957027, 2, 0, 1 ] );
   sampleTest();
 
@@ -575,7 +575,7 @@ function fromQuat( test )
 
   test.case = 'trivial zyx';
 
-  var quat1 = [ 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ), 0 ];
+  var quat1 = [ 0, 1 / sqrt( 3 ), 1 / sqrt( 3 ), 1 / sqrt( 3 ) ];
   var expected = _.euler.tools.longMake( [ 2.0344439357957027, -0.7297276562269666, 2.0344439357957027, 2, 1, 0 ] );
   sampleTest();
 
@@ -583,7 +583,7 @@ function fromQuat( test )
 
   test.case = 'trivial xyx';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ 2.5989535513401405, 2.636232143305636, 0.5426391022496527, 0, 1, 0 ] );
   sampleTest();
 
@@ -591,7 +591,7 @@ function fromQuat( test )
 
   test.case = 'trivial xzx';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ 1.028157224545244, 2.636232143305636, 2.113435429044549, 0, 2, 0 ] );
   sampleTest();
 
@@ -599,7 +599,7 @@ function fromQuat( test )
 
   test.case = 'trivial yxy';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ 0.2928427717285755, 2.0943951023931957, 2.8487498818612176, 1, 0, 1 ] );
   sampleTest();
 
@@ -607,7 +607,7 @@ function fromQuat( test )
 
   test.case = 'trivial yzy';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ 1.8636390985234723, 2.0943951023931957, 1.277953555066321, 1, 2, 1 ] );
   sampleTest();
 
@@ -615,7 +615,7 @@ function fromQuat( test )
 
   test.case = 'trivial zxz';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ 2.677945044588987, 1.1863995522992576, 0.4636476090008061, 2, 0, 2 ] );
   sampleTest();
 
@@ -623,7 +623,7 @@ function fromQuat( test )
 
   test.case = 'trivial zyz';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ 1.1071487177940904, 1.1863995522992576, 2.0344439357957027, 2, 1, 2 ] );
   sampleTest();
 
@@ -631,37 +631,37 @@ function fromQuat( test )
 
   test.case = 'trivial xyz';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ -1.1460587478032058, 0.4274791332848927, -2.8632929945846817, 0, 1, 2 ] );
   sampleTest();
 
   test.case = 'trivial xzy';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ 2.113435429044549, -0.25268025514207865, 2.6991209725017002, 0, 2, 1 ] );
   sampleTest();
 
   test.case = 'trivial yxz';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ 0.8354818739782282, -0.9775965506452678, 2.677945044588987, 1, 0, 2 ] );
   sampleTest();
 
   test.case = 'trivial yzx';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ -2.6991209725017002, 0.25268025514207865, -2.113435429044549, 1, 2, 0 ] );
   sampleTest();
 
   test.case = 'trivial zxy';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ -2.677945044588987, 0.9775965506452678, -0.8354818739782282, 2, 0, 1 ] );
   sampleTest();
 
   test.case = 'trivial zyx';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var expected = _.euler.tools.longMake( [ 2.8632929945846817, -0.4274791332848927, 1.1460587478032058, 2, 1, 0 ] );
   sampleTest();
 
@@ -676,7 +676,7 @@ function fromMatrix( test )
 
   test.case = 'trivial xyz';
 
-  var quat1 = [ 0.25, 0.5, 0.82915619758885, 0 ];
+  var quat1 = [ 0, 0.25, 0.5, 0.82915619758885 ];
   var m1 = _.quat.toMatrix( quat1, null );
   var euler1 = _.euler.fromMatrix( [ 0, 0, 0, 0, 1, 2 ], m1 ); /* x */
   var euler2 = _.euler.fromQuat( [ 0, 0, 0, 0, 1, 2 ], quat1 ); /* x */
