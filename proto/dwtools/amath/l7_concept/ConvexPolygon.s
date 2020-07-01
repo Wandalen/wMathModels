@@ -239,6 +239,8 @@ function isConvex( polygon )
 
 function isConcave( polygon )
 {
+  if( !this.isPolygon( polygon ) )
+  return false;
   return !this.isConvex( polygon );
 }
 

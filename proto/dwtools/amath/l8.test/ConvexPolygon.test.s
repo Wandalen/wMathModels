@@ -498,6 +498,167 @@ function isConvex( test )
 
 //
 
+function isConcave( test )
+{
+  test.open( '2d' );
+
+  test.case = 'is not a polygon - Matrix 2x2';
+  var polygon = _.Matrix.Make([ 2, 2 ]).copy
+  ([
+     1, 3,
+    -2, 6,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, false );
+
+  /* */
+
+  test.case = 'convex polygon - Matrix 2x3';
+  var polygon = _.Matrix.Make([ 2, 3 ]).copy
+  ([
+     1,  3,  5,
+    -2,  6,  0,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, false );
+
+  test.case = 'convex polygon - Matrix 2x4';
+  var polygon = _.Matrix.Make([ 2, 4 ]).copy
+  ([
+     1,  3,  5,  4,
+    -2,  6,  0, -1,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, false );
+
+  test.case = 'convex polygon - Matrix 2x6';
+  var polygon = _.Matrix.Make([ 2, 6 ]).copy
+  ([
+    -2,  1,  3,  5,  6,  4,
+    -4,  4,  6,  3, -1, -3,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, false );
+
+  /* */
+
+  test.case = 'concave polygon - Matrix 2x4';
+  var polygon = _.Matrix.Make([ 2, 4 ]).copy
+  ([
+     1,  3,  5,  4,
+    -2,  6,  0,  1,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, true );
+
+  test.case = 'concave polygon - Matrix 2x6';
+  var polygon = _.Matrix.Make([ 2, 6 ]).copy
+  ([
+    -2,  1,  3,  5,  6,  4,
+    -4,  4,  6,  3,  1,  3,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, true );
+
+  test.close( '2d' );
+
+  /* - */
+
+  test.open( '3d' );
+
+  test.case = 'is not a polygon - Matrix 3x2';
+  var polygon = _.Matrix.Make([ 3, 2 ]).copy
+  ([
+     1, 3,
+    -2, 6,
+     1, 2,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, false );
+
+  /* */
+
+  test.case = 'convex polygon - Matrix 3x3';
+  var polygon = _.Matrix.Make([ 3, 3 ]).copy
+  ([
+     1,  3,  5,
+    -2,  6,  0,
+    -4,  1,  0,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, false );
+
+  test.case = 'convex polygon - Matrix 3x4';
+  var polygon = _.Matrix.Make([ 3, 4 ]).copy
+  ([
+     1,  3,  5,  4,
+    -2,  6,  0, -1,
+     1,  1,  1,  1,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, false );
+
+  test.case = 'convex polygon - Matrix 3x6';
+  var polygon = _.Matrix.Make([ 3, 6 ]).copy
+  ([
+    -2,  1,  3,  5,  6,  4,
+    -4,  4,  6,  3, -1, -3,
+     1,  1,  1,  1,  1,  1,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, false );
+
+  /* */
+
+  test.case = 'concave polygon - Matrix 3x4';
+  var polygon = _.Matrix.Make([ 3, 4 ]).copy
+  ([
+     1,  3,  5,  4,
+    -2,  6,  0,  1,
+     1,  1,  1,  1,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, true );
+
+  test.case = 'concave polygon - Matrix 2x6';
+  var polygon = _.Matrix.Make([ 3, 6 ]).copy
+  ([
+    -2,  1,  3,  5,  6,  4,
+    -4,  4,  6,  3,  1,  3,
+     1,  1,  1,  1,  1,  1,
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, true );
+
+  test.close( '3d' );
+
+  /* - */
+
+  test.case = '4d'; //
+  var polygon = _.Matrix.Make([ 4, 5 ]).copy
+  ([
+    1, 0, 0, 0, 2,
+    1, 0, 0, 0, 2,
+    1, 0, 0, 0, 2,
+    1, 0, 0, 0, 2
+  ]);
+  var got = _.convexPolygon.isConcave( polygon );
+  test.identical( got, false );
+
+  /* - */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'without arguments';
+  test.shouldThrowErrorSync( () => _.convexPolygon.isConcave() );
+
+  test.case = 'wrong type of polygon';
+  test.shouldThrowErrorSync( () => _.convexPolygon.isConcave([ 1, 2, 3, 4 ]) );
+}
+
+//
+
 function isClockwise( test )
 {
   test.case = '2d clockwise'
@@ -8426,6 +8587,7 @@ var Self =
     is,
     isPolygon,
     isConvex,
+    isConcave,
     isClockwise,
     angleThreePoints,
 
