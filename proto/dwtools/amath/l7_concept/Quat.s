@@ -1006,10 +1006,11 @@ function _mul3( dst, src1, src2 )
   let src10 = src1.eGet( 0 ), src11 = src1.eGet( 1 ), src12 = src1.eGet( 2 ), src13 = src1.eGet( 3 );
   let src20 = src2.eGet( 0 ), src21 = src2.eGet( 1 ), src22 = src2.eGet( 2 ), src23 = src2.eGet( 3 );
 
-  dst.eSet( 1, src10 * src23 + src13 * src20 + src11 * src22 - src12 * src21 );
-  dst.eSet( 2, src11 * src23 + src13 * src21 + src12 * src20 - src10 * src22 );
-  dst.eSet( 3, src12 * src23 + src13 * src22 + src10 * src21 - src11 * src20 );
-  dst.eSet( 0, src13 * src23 - src10 * src20 - src11 * src21 - src12 * src22 );
+  dst.eSet( 0, src10 * src20 - src11 * src21 - src12 * src22 - src13 * src23 );
+  dst.eSet( 1, src11 * src20 + src10 * src21 + src12 * src23 - src13 * src22 );
+  dst.eSet( 2, src12 * src20 + src10 * src22 + src13 * src21 - src11 * src23 );
+  dst.eSet( 3, src13 * src20 + src10 * src23 + src11 * src22 - src12 * src21 );
+
   // dst.eSet( 0, src10 * src23 + src13 * src20 + src11 * src22 - src12 * src21 );
   // dst.eSet( 1, src11 * src23 + src13 * src21 + src12 * src20 - src10 * src22 );
   // dst.eSet( 2, src12 * src23 + src13 * src22 + src10 * src21 - src11 * src20 );
