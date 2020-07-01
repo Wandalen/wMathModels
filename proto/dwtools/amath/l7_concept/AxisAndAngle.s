@@ -267,7 +267,7 @@ function adapterFrom( axisAndAngle, angle )
   {
     if( axisAndAngle.length === 3 )
     {
-      debugger;
+      // debugger;
       axisAndAngle = _.longGrow( axisAndAngle, [ -1, 3 ] );
       axisAndAngle[ 0 ] = angle === null ? 0 : angle;
       // axisAndAngle[ 3 ] = angle === null ? 0 : angle;

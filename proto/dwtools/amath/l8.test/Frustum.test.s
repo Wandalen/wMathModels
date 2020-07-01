@@ -31,6 +31,22 @@ _.assert( _.routineIs( sqrt ) );
 // test
 // --
 
+function fromMatrixHomogenous( test )
+{
+  var frustum = _.frustum.make();
+  var matrix = _.Matrix.FormPerspective( 90, [ 20, 70 ], [ 10, 50 ] );
+  var gotFrustum = _.frustum.fromMatrixHomogenous( frustum, matrix );
+  var expected = _.Matrix.Make( [ 4, 6 ] ).copy
+  ([
+    0, 0, 0, 0, 25, -25,
+    -1, 1, 0, 0, 0, 0,
+    0, 0, 0.285, -0.285, 0, 0,
+    -1, -1, -1, -1, 0.500, -2.5
+  ]);
+  test.equivalent( gotFrustum, expected, 0.1 );
+}
+
+//
 
 function cornersGet( test )
 {
@@ -5150,7 +5166,7 @@ var Self =
 
   tests :
   {
-
+    fromMatrixHomogenous,
     cornersGet,
 
     pointContains,
