@@ -31,7 +31,7 @@ let Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
 
 function is( polygon )
 {
-  return _.matrixIs( polygon ); /* Dmytro : maybe, needs improvement, it's should be like: return _.matrixIs( polygon ) && polygon.dims[ 0 ] === 2 */
+  return _.matrixIs( polygon ); /* Dmytro : maybe, needs improvement, it's should be like: return _.matrixIs( polygon ) && polygon.dims.length === 2 */
 }
 
 //
