@@ -68,6 +68,15 @@ function isPolygon( polygon )
 
 //
 
+function isConvex( polygon )
+{
+  if( !this.isPolygon( polygon ) )
+  return false;
+  return !this.isConcave( polygon );
+}
+
+//
+
 function isConcave( polygon )
 {
 
@@ -97,15 +106,6 @@ function isConcave( polygon )
   }
 
   return false;
-}
-
-//
-
-function isConvex( polygon )
-{
-  if( !this.isPolygon( polygon ) )
-  return false;
-  return !this.isConcave( polygon );
 }
 
 //
@@ -301,8 +301,8 @@ let Extension = /* qqq xxx : normalize order */
 
   is,
   isPolygon,
-  isConcave,
   isConvex,
+  isConcave,
   isClockwise,
 
   make,
