@@ -10,96 +10,60 @@ let Self = _.concavePolygon = _.concavePolygon || Object.create( _.avector );
 
 /**
  * @description
-  A concave polygon is a simple polygon where all interior angles are greater
-  than 180 degrees. Therefore, it is a plane figure ( 2D ), closed and defined by a set of
-  A concave polygon is the opposite of a convex polygon.
-  In the following methods, concave polygons will be defined by a space where each column
-  represents one of the plygon´s vertices.
+ * A concave polygon is a simple polygon where all interior angles are greater
+ * than 180 degrees. Therefore, it is a plane figure ( 2D ), closed and defined by a set of
+ * A concave polygon is the opposite of a convex polygon.
+ * In the following methods, concave polygons will be defined by a space where each column
+ * represents one of the plygon´s vertices.
  * @namespace wTools.concavePolygon
-  * @module Tools/math/Concepts
+ * @module Tools/math/Concepts
  */
 
 // --
 // routines
 // --
 
-/**
-  * Create a concave polygon of 'vertices' number of vertices and dimension dim ( 2 or 3 ), full of zeros.
-  * Returns the created polygon. Vertices and dim remain unchanged.
-  *
-  * @param { Number } vertices - Number of vertices of the polygon.
-  * @param { Number } dim - Dimension of the created polygon.
-  *
-  * @example
-  * // returns cvexPolygon =
-  * [
-  *   0, 0, 0, 0, 0, 0, 0, 0,
-  *   0, 0, 0, 0, 0, 0, 0, 0,
-  *   0, 0, 0, 0, 0, 0, 0, 0,
-  * ];
-  * _.make( 8, 3 );
-  *
-  * @example
-  * // returns [ 0, 0, 1, 1 ];
-  * _.make( [ 0, 0, 1, 1 ] );
-  *
-  * @returns { Array } Returns the array of the created box.
-  * @function make
-  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @namespace wTools.concavePolygon
-  * @module Tools/math/Concepts
-  */
-
-function make( vertices, dim )
+function is( polygon )
 {
-  return this.tools.convexPolygon.make( vertices, dim );
+  return this.tools.convexPolygon.is( polygon );
 }
 
-//
-
 /**
-  * Check if the source polygon is a polygon. Returns true if it is a polygon.
-  * Source polygon stays unchanged.
-  *
-  * @param { Matrix } polygon - The source polygon.
-  *
-  * @example
-  * // returns true;
-  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
-  * ([
-  *   1, 0, -1, 0, 2,
-  *   0, 0, 1, 2, 2,
-  *   0, 0, 0, 0, 0
-  * ]);
-  * _.isPolygon( polygon );
-  *
-  * @example
-  * // returns false;
-  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
-  * ([
-  *   1, 0, -1, 0, 2,
-  *   0, 0, 1, 2, 2,
-  *   0, 0, 0, 2, 0
-  * ]);
-  * _.isPolygon( polygon );
-  *
-  * @returns { Boolean } Returns true if polygon is a polygon and false if not.
-  * @function isPolygon
-  * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @namespace wTools.concavePolygon
-  * @module Tools/math/Concepts
-  */
+ * Check if the source polygon is a polygon. Returns true if it is a polygon.
+ * Source polygon stays unchanged.
+ *
+ * @param { Matrix } polygon - The source polygon.
+ *
+ * @example
+ * // returns true;
+ * var polygon = _.Matrix.Make([ 3, 5 ]).copy
+ * ([
+ *   1, 0, -1, 0, 2,
+ *   0, 0, 1, 2, 2,
+ *   0, 0, 0, 0, 0
+ * ]);
+ * _.isPolygon( polygon );
+ *
+ * @example
+ * // returns false;
+ * var polygon = _.Matrix.Make([ 3, 5 ]).copy
+ * ([
+ *   1, 0, -1, 0, 2,
+ *   0, 0, 1, 2, 2,
+ *   0, 0, 0, 2, 0
+ * ]);
+ * _.isPolygon( polygon );
+ *
+ * @returns { Boolean } Returns true if polygon is a polygon and false if not.
+ * @function isPolygon
+ * @throws { Error } An Error if ( arguments.length ) is different than one.
+ * @namespace wTools.concavePolygon
+ * @module Tools/math/Concepts
+ */
 
 function isPolygon( polygon )
 {
   return this.tools.convexPolygon.isPolygon( polygon );
-}
-
-//
-
-function is( polygon )
-{
-  return this.tools.convexPolygon.is( polygon );
 }
 
 //
@@ -144,6 +108,46 @@ function isConvex( polygon )
   return !this.isConcave( polygon );
 }
 
+//
+
+function isClockwise( polygon )
+{
+  return this.tools.convexPolygon.isClockwise( polygon );
+}
+
+//
+
+/**
+ * Create a concave polygon of 'vertices' number of vertices and dimension dim ( 2 or 3 ), full of zeros.
+ * Returns the created polygon. Vertices and dim remain unchanged.
+ *
+ * @param { Number } vertices - Number of vertices of the polygon.
+ * @param { Number } dim - Dimension of the created polygon.
+ *
+ * @example
+ * // returns cvexPolygon =
+ * [
+ *   0, 0, 0, 0, 0, 0, 0, 0,
+ *   0, 0, 0, 0, 0, 0, 0, 0,
+ *   0, 0, 0, 0, 0, 0, 0, 0,
+ * ];
+ * _.make( 8, 3 );
+ *
+ * @example
+ * // returns [ 0, 0, 1, 1 ];
+ * _.make( [ 0, 0, 1, 1 ] );
+ *
+ * @returns { Array } Returns the array of the created box.
+ * @function make
+ * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+ * @namespace wTools.concavePolygon
+ * @module Tools/math/Concepts
+ */
+
+function make( vertices, dim )
+{
+  return this.tools.convexPolygon.make( vertices, dim );
+}
 //
 
 function pointContains( polygon, point )
@@ -197,29 +201,29 @@ function pointContains( polygon, point )
 //
 
 /**
-  * Calculates the distance between a concave polygon and a point. Returns the squared distance.
-  * Polygon and point remain unchanged.
-  *
-  * @param { ConvexPolygon } polygon - Source polygon.
-  * @param { Array } point - Source point.
-  *
-  * @example
-  * // returns 1;
-  * let polygon = _.Matrix.Make( [ 2, 3 ] ).copy
-  * ([
-  *     0, 1, 0,
-  *     1, 0, 0
-  * ]);
-  * _.concavePolygon.pointDistanceSqr( polygon, [ 2, 0 ] );
-  **
-  * @returns { Distance } Returns the distance between the polygon and the point.
-  * @function pointDistanceSqr
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( polygon ) is not concave polygon.
-  * @throws { Error } An Error if ( point ) is not point.
-  * @namespace wTools.concavePolygon
-  * @module Tools/math/Concepts
-  */
+ * Calculates the distance between a concave polygon and a point. Returns the squared distance.
+ * Polygon and point remain unchanged.
+ *
+ * @param { ConvexPolygon } polygon - Source polygon.
+ * @param { Array } point - Source point.
+ *
+ * @example
+ * // returns 1;
+ * let polygon = _.Matrix.Make( [ 2, 3 ] ).copy
+ * ([
+ *     0, 1, 0,
+ *     1, 0, 0
+ * ]);
+ * _.concavePolygon.pointDistanceSqr( polygon, [ 2, 0 ] );
+ **
+ * @returns { Distance } Returns the distance between the polygon and the point.
+ * @function pointDistanceSqr
+ * @throws { Error } An Error if ( arguments.length ) is different than two.
+ * @throws { Error } An Error if ( polygon ) is not concave polygon.
+ * @throws { Error } An Error if ( point ) is not point.
+ * @namespace wTools.concavePolygon
+ * @module Tools/math/Concepts
+ */
 
 //
 
@@ -256,29 +260,29 @@ function pointDistanceSqr( polygon, point )
 //
 
 /**
-  * Calculates the distance between a concave polygon and a point. Returns the square root of calculated distance.
-  * Polygon and point remain unchanged.
-  *
-  * @param { ConvexPolygon } polygon - Source polygon.
-  * @param { Array } point - Source point.
-  *
-  * @example
-  * // returns 1;
-  * let polygon = _.Matrix.Make( [ 2, 3 ] ).copy
-  * ([
-  *     0, 1, 0,
-  *     1, 0, 0
-  * ]);
-  * _.concavePolygon.pointDistance( polygon, [ 2, 0 ] );
-  **
-  * @returns { Distance } Returns the distance between the polygon and the point.
-  * @function pointDistance
-  * @throws { Error } An Error if ( arguments.length ) is different than two.
-  * @throws { Error } An Error if ( polygon ) is not concave polygon.
-  * @throws { Error } An Error if ( point ) is not point.
-  * @namespace wTools.concavePolygon
-  * @module Tools/math/Concepts
-  */
+ * Calculates the distance between a concave polygon and a point. Returns the square root of calculated distance.
+ * Polygon and point remain unchanged.
+ *
+ * @param { ConvexPolygon } polygon - Source polygon.
+ * @param { Array } point - Source point.
+ *
+ * @example
+ * // returns 1;
+ * let polygon = _.Matrix.Make( [ 2, 3 ] ).copy
+ * ([
+ *     0, 1, 0,
+ *     1, 0, 0
+ * ]);
+ * _.concavePolygon.pointDistance( polygon, [ 2, 0 ] );
+ **
+ * @returns { Distance } Returns the distance between the polygon and the point.
+ * @function pointDistance
+ * @throws { Error } An Error if ( arguments.length ) is different than two.
+ * @throws { Error } An Error if ( polygon ) is not concave polygon.
+ * @throws { Error } An Error if ( point ) is not point.
+ * @namespace wTools.concavePolygon
+ * @module Tools/math/Concepts
+ */
 
 function pointDistance( polygon, point )
 {
@@ -286,14 +290,6 @@ function pointDistance( polygon, point )
 
   return Math.sqrt( this.pointDistanceSqr( polygon, point ) );
 }
-
-//
-
-function isClockwise( polygon )
-{
-  return this.tools.convexPolygon.isClockwise( polygon );
-}
-
 
 // --
 // declare
@@ -303,17 +299,17 @@ function isClockwise( polygon )
 let Extension = /* qqq xxx : normalize order */
 {
 
-  make,
-  isPolygon,
   is,
+  isPolygon,
   isConcave,
   isConvex,
+  isClockwise,
+
+  make,
 
   pointContains,
   pointDistanceSqr,
   pointDistance,
-
-  isClockwise,
 
   // ref
 
