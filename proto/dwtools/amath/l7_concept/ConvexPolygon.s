@@ -263,6 +263,46 @@ function isValid( polygon )
 
 //
 
+function isConvex( polygon )
+{
+
+  if( !this.isPolygon( polygon ) )
+  return false;
+
+  let dims = _.Matrix.DimsOf( polygon );
+
+  if ( dims[ 1 ] < 4 )
+  return true;
+
+  let result = false;
+  let vertexNumber = dims[ 1 ];
+
+  for( let i = 0 ; i < vertexNumber ; i++ )
+  {
+    let dx1 = polygon.scalarGet([ 0, ( i + 2 ) % vertexNumber ]) - polygon.scalarGet([ 0, ( i + 1 ) % vertexNumber ]);
+    let dy1 = polygon.scalarGet([ 1, ( i + 2 ) % vertexNumber ]) - polygon.scalarGet([ 1, ( i + 1 ) % vertexNumber ]);
+    let dx2 = polygon.scalarGet([ 0, i ]) - polygon.scalarGet([ 0, ( i + 1 ) % vertexNumber ]);
+    let dy2 = polygon.scalarGet([ 1, i ]) - polygon.scalarGet([ 1, ( i + 1 ) % vertexNumber ]);
+    let cross = dx1 * dy2 - dy1 * dx2;
+
+    if ( i == 0 )
+    result = cross > 0;
+    else if ( result != ( cross > 0 ) )
+    return false;
+  }
+
+  return true;
+}
+
+//
+
+function isConcave( polygon )
+{
+  return !this.isConvex( polygon );
+}
+
+//
+
 /**
   * Get an angle out of three points. Returns angle in radians.
   * Source points and normal stay unchanged.
@@ -2680,6 +2720,8 @@ let Extension = /* qqq xxx : normalize order */
   isPolygon,
   is,
   isValid,
+  isConvex,
+  isConcave,
   angleThreePoints,
 
   pointContains,
