@@ -70,50 +70,50 @@ function fromMatrixHomogenous( frustum , m )
 
   frustum.colGet( 0 ).copy
   ([
+    m.scalarGet([ 3, 3 ]) - m.scalarGet([ 0, 3 ]),
     m.scalarGet([ 3, 0 ]) - m.scalarGet([ 0, 0 ]),
     m.scalarGet([ 3, 1 ]) - m.scalarGet([ 0, 1 ]),
-    m.scalarGet([ 3, 2 ]) - m.scalarGet([ 0, 2 ]),
-    m.scalarGet([ 3, 3 ]) - m.scalarGet([ 0, 3 ]),
+    m.scalarGet([ 3, 2 ]) - m.scalarGet([ 0, 2 ])
   ]);
 
   frustum.colGet( 1 ).copy
   ([
+    m.scalarGet([ 3, 3 ]) + m.scalarGet([ 0, 3 ]),
     m.scalarGet([ 3, 0 ]) + m.scalarGet([ 0, 0 ]),
     m.scalarGet([ 3, 1 ]) + m.scalarGet([ 0, 1 ]),
-    m.scalarGet([ 3, 2 ]) + m.scalarGet([ 0, 2 ]),
-    m.scalarGet([ 3, 3 ]) + m.scalarGet([ 0, 3 ]),
+    m.scalarGet([ 3, 2 ]) + m.scalarGet([ 0, 2 ])
   ]);
 
   frustum.colGet( 2 ).copy
   ([
+    m.scalarGet([ 3, 3 ]) + m.scalarGet([ 1, 3 ]),
     m.scalarGet([ 3, 0 ]) + m.scalarGet([ 1, 0 ]),
     m.scalarGet([ 3, 1 ]) + m.scalarGet([ 1, 1 ]),
     m.scalarGet([ 3, 2 ]) + m.scalarGet([ 1, 2 ]),
-    m.scalarGet([ 3, 3 ]) + m.scalarGet([ 1, 3 ]),
   ]);
 
   frustum.colGet( 3 ).copy
   ([
+    m.scalarGet([ 3, 3 ]) - m.scalarGet([ 1, 3 ]),
     m.scalarGet([ 3, 0 ]) - m.scalarGet([ 1, 0 ]),
     m.scalarGet([ 3, 1 ]) - m.scalarGet([ 1, 1 ]),
     m.scalarGet([ 3, 2 ]) - m.scalarGet([ 1, 2 ]),
-    m.scalarGet([ 3, 3 ]) - m.scalarGet([ 1, 3 ]),
   ]);
 
   frustum.colGet( 4 ).copy
   ([
+    m.scalarGet([ 3, 3 ]) - m.scalarGet([ 2, 3 ]),
     m.scalarGet([ 3, 0 ]) - m.scalarGet([ 2, 0 ]),
     m.scalarGet([ 3, 1 ]) - m.scalarGet([ 2, 1 ]),
     m.scalarGet([ 3, 2 ]) - m.scalarGet([ 2, 2 ]),
-    m.scalarGet([ 3, 3 ]) - m.scalarGet([ 2, 3 ]),
   ]);
 
   frustum.colGet( 5 ).copy
   ([
+    m.scalarGet([ 3, 3 ]) + m.scalarGet([ 2, 3 ]),
     m.scalarGet([ 3, 0 ]) + m.scalarGet([ 2, 0 ]),
     m.scalarGet([ 3, 1 ]) + m.scalarGet([ 2, 1 ]),
     m.scalarGet([ 3, 2 ]) + m.scalarGet([ 2, 2 ]),
-    m.scalarGet([ 3, 3 ]) + m.scalarGet([ 2, 3 ]),
   ]);
 
   return frustum;
