@@ -70,42 +70,14 @@ function isPolygon( polygon )
 
 function isConvex( polygon )
 {
-  if( !this.isPolygon( polygon ) )
-  return false;
-  return !this.isConcave( polygon );
+  return this.tools.convexPolygon.isConvex( polygon );
 }
 
 //
 
 function isConcave( polygon )
 {
-
-  if( !this.isPolygon( polygon ) )
-  return false;
-
-  let dims = _.Matrix.DimsOf( polygon );
-
-  if ( dims[ 1 ] < 4 )
-  return false;
-
-  let result = false;
-  let vertexNumber = dims[ 1 ];
-
-  for( let i = 0 ; i < vertexNumber ; i++ )
-  {
-    let dx1 = polygon.scalarGet([ 0, ( i + 2 ) % vertexNumber ]) - polygon.scalarGet([ 0, ( i + 1 ) % vertexNumber ]);
-    let dy1 = polygon.scalarGet([ 1, ( i + 2 ) % vertexNumber ]) - polygon.scalarGet([ 1, ( i + 1 ) % vertexNumber ]);
-    let dx2 = polygon.scalarGet([ 0, i ]) - polygon.scalarGet([ 0, ( i + 1 ) % vertexNumber ]);
-    let dy2 = polygon.scalarGet([ 1, i ]) - polygon.scalarGet([ 1, ( i + 1 ) % vertexNumber ]);
-    let cross = dx1 * dy2 - dy1 * dx2;
-
-    if ( i == 0 )
-    result = cross > 0;
-    else if ( result != ( cross > 0 ) )
-    return true;
-  }
-
-  return false;
+  return this.tools.convexPolygon.isConcave( polygon );
 }
 
 //
