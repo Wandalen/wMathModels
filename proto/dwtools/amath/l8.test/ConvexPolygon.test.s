@@ -31,111 +31,151 @@ _.assert( _.routineIs( sqrt ) );
 // test
 // --
 
-
-function make( test )
+function is( test )
 {
 
-  test.case = 'Dim and vertices remain unchanged'; //
+  test.case = 'Source polygon remains unchanged'; //
 
-  var dim = 3;
-  var vertices = 8;
+  var polygon = _.convexPolygon.make( 3, 3 );
 
-  var gotPolygon = _.convexPolygon.make( vertices, dim );
+  var gotBool = _.convexPolygon.is( polygon );
 
-  var expected = _.Matrix.Make( [ 3, 8 ] ).copy
-  ([
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0
-  ]);
-  test.equivalent( gotPolygon, expected );
+  var expected = true;
+  test.identical( gotBool, expected );
 
-  var oldDim = 3;
-  test.identical( dim, oldDim );
-
-  var oldVertices = 8;
-  test.identical( vertices, oldVertices );
+  var oldPolygon = _.convexPolygon.make( 3, 3 );
+  test.equivalent( oldPolygon, polygon );
 
   test.case = 'Triangle 2D'; //
 
-  var dim = 2;
-  var vertices = 3;
-
-  var gotPolygon = _.convexPolygon.make( vertices, dim );
-
-  var expected = _.Matrix.Make( [ 2, 3 ] ).copy
+  var polygon = _.convexPolygon.make( 3, 2 ).copy
   ([
-    0, 0, 0,
-    0, 0, 0
+    1, 0, 0,
+    0, 0, 1
   ]);
-  test.equivalent( gotPolygon, expected );
+
+  var gotBool = _.convexPolygon.is( polygon );
+
+  var expected = true;
+  test.equivalent( gotBool, expected );
 
   test.case = 'Square 3D'; //
 
-  var dim = 3;
-  var vertices = 4;
-
-  var gotPolygon = _.convexPolygon.make( vertices, dim );
-
-  var expected = _.Matrix.Make( [ 3, 4 ] ).copy
+  var polygon = _.convexPolygon.make( 4, 3 ).copy
   ([
-    0, 0, 0, 0,
-    0, 0, 0, 0,
+    1, 1, 0, 0,
+    0, 1, 1, 0,
     0, 0, 0, 0
   ]);
-  test.equivalent( gotPolygon, expected );
+
+  var gotBool = _.convexPolygon.is( polygon );
+
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  test.case = '4 points in 3D forming concave polygon'; //
+
+  var polygon = _.convexPolygon.make( 4, 3 ).copy
+  ([
+    1, 1, 0.9, 0,
+    0, 1, 0.1, 0,
+    0, 0, 0, 0
+  ]);
+
+  var gotBool = _.convexPolygon.is( polygon );
+
+  var expected = true;
+  test.equivalent( gotBool, expected );
 
   test.case = 'Pentagone 2D'; //
 
-  var dim = 2;
-  var vertices = 5;
-
-  var gotPolygon = _.convexPolygon.make( vertices, dim );
-
-  var expected = _.Matrix.Make( [ 2, 5 ] ).copy
+  var polygon = _.convexPolygon.make( 5, 2 ).copy
   ([
-    0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0
+    1, 0, 0, 0, 2,
+    0, 0, 1, 2, 0
   ]);
-  test.equivalent( gotPolygon, expected );
 
-  /* */
+  var gotBool = _.convexPolygon.is( polygon );
 
-  test.case = 'from vector';
+  var expected = true;
+  test.equivalent( gotBool, expected );
 
-  var dim = 2;
-  var vertices =
-  [
-    0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0
-  ]
+  test.case = 'Concave pentagone 2D'; //
 
-  var gotPolygon = _.convexPolygon.make( vertices, dim );
+  var polygon = _.convexPolygon.make( 5, 2 ).copy
+  ([
+    1, 0, 0, 2, 0,
+    0, 0, 1, 0, 2
+  ]);
 
-  var expected = _.Matrix.Make( [ 2, 5 ] ).copy( vertices );
-  test.equivalent( gotPolygon, expected );
+  var gotBool = _.convexPolygon.is( polygon );
 
-  /* */
+  var expected = true;
+  test.equivalent( gotBool, expected );
 
-  if( !Config.debug )
-  return;
+  test.case = 'Wrong dim and vertices'; //
 
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( dim ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, dim, vertices ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, null ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, NaN ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, undefined ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, 'dim' ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, [ 3 ] ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( null, dim ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( NaN, dim ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( undefined, dim ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( 'vertices', dim ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( [ 3 ], dim ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( 3, 1 ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( 3, 4 ));
-  test.shouldThrowErrorSync( () => _.convexPolygon.make( 2, 2 ));
+  var polygon = _.Matrix.Make( [ 1, 2 ] ).copy
+  ([
+    1, 0
+  ]);
+
+  var gotBool = _.convexPolygon.is( polygon );
+
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Three points are always coplanar'; //
+
+  var polygon = _.convexPolygon.make( 3, 3 ).copy
+  ([
+    1, 0, 0,
+    0, 1, 0,
+    1, 1, 1,
+  ]);
+
+  var gotBool = _.convexPolygon.is( polygon );
+
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Four points convex'; //
+
+  var polygon = _.convexPolygon.make( 4, 3 ).copy
+  ([
+    0,   0,   0,   2,
+    1, - 1,   -2,   0,
+    1, - 1,   -2,   0
+  ]);
+
+  var gotBool = _.convexPolygon.is( polygon );
+
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  test.case = 'Four points concave'; //
+
+  var polygon = _.convexPolygon.make( 4, 3 ).copy
+  ([
+    0,   1,   0,   2,
+    1, - 1,   -2,   0,
+    1, - 1,   -2,   0
+  ]);
+
+  var gotBool = _.convexPolygon.is( polygon );
+
+  var expected = true;
+  test.equivalent( gotBool, expected );
+
+  //
+
+  test.is( !_.convexPolygon.is( ) );
+  test.is( !_.convexPolygon.is( null ) );
+  test.is( !_.convexPolygon.is( NaN ) );
+  test.is( !_.convexPolygon.is( undefined ) );
+  test.is( !_.convexPolygon.is( 'polygon' ) );
+  test.is( !_.convexPolygon.is( [ 3 ] ) );
+  test.is( !_.convexPolygon.is( 3 ) );
 
 }
 
@@ -297,152 +337,23 @@ function isPolygon( test )
 
 //
 
-function is( test )
+function isClockwise( test )
 {
-
-  test.case = 'Source polygon remains unchanged'; //
-
-  var polygon = _.convexPolygon.make( 3, 3 );
-
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.identical( gotBool, expected );
-
-  var oldPolygon = _.convexPolygon.make( 3, 3 );
-  test.equivalent( oldPolygon, polygon );
-
-  test.case = 'Triangle 2D'; //
-
-  var polygon = _.convexPolygon.make( 3, 2 ).copy
+  test.case = '2d clockwise'
+  var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
-    1, 0, 0,
-    0, 0, 1
-  ]);
+    5, 2, 2, 5,
+    5, 5, 1, 1
+  ])
+  test.is( _.convexPolygon.isClockwise( polygon ) );
 
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.equivalent( gotBool, expected );
-
-  test.case = 'Square 3D'; //
-
-  var polygon = _.convexPolygon.make( 4, 3 ).copy
+  test.case = '2d counter clockwise'
+  var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
-    1, 1, 0, 0,
-    0, 1, 1, 0,
-    0, 0, 0, 0
-  ]);
-
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.equivalent( gotBool, expected );
-
-  test.case = '4 points in 3D forming concave polygon'; //
-
-  var polygon = _.convexPolygon.make( 4, 3 ).copy
-  ([
-    1, 1, 0.9, 0,
-    0, 1, 0.1, 0,
-    0, 0, 0, 0
-  ]);
-
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.equivalent( gotBool, expected );
-
-  test.case = 'Pentagone 2D'; //
-
-  var polygon = _.convexPolygon.make( 5, 2 ).copy
-  ([
-    1, 0, 0, 0, 2,
-    0, 0, 1, 2, 0
-  ]);
-
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.equivalent( gotBool, expected );
-
-  test.case = 'Concave pentagone 2D'; //
-
-  var polygon = _.convexPolygon.make( 5, 2 ).copy
-  ([
-    1, 0, 0, 2, 0,
-    0, 0, 1, 0, 2
-  ]);
-
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.equivalent( gotBool, expected );
-
-  test.case = 'Wrong dim and vertices'; //
-
-  var polygon = _.Matrix.Make( [ 1, 2 ] ).copy
-  ([
-    1, 0
-  ]);
-
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.equivalent( gotBool, expected );
-
-  test.case = 'Three points are always coplanar'; //
-
-  var polygon = _.convexPolygon.make( 3, 3 ).copy
-  ([
-    1, 0, 0,
-    0, 1, 0,
-    1, 1, 1,
-  ]);
-
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.equivalent( gotBool, expected );
-
-  test.case = 'Four points convex'; //
-
-  var polygon = _.convexPolygon.make( 4, 3 ).copy
-  ([
-    0,   0,   0,   2,
-    1, - 1,   -2,   0,
-    1, - 1,   -2,   0
-  ]);
-
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.equivalent( gotBool, expected );
-
-  test.case = 'Four points concave'; //
-
-  var polygon = _.convexPolygon.make( 4, 3 ).copy
-  ([
-    0,   1,   0,   2,
-    1, - 1,   -2,   0,
-    1, - 1,   -2,   0
-  ]);
-
-  var gotBool = _.convexPolygon.is( polygon );
-
-  var expected = true;
-  test.equivalent( gotBool, expected );
-
-  //
-
-  test.is( !_.convexPolygon.is( ) );
-  test.is( !_.convexPolygon.is( null ) );
-  test.is( !_.convexPolygon.is( NaN ) );
-  test.is( !_.convexPolygon.is( undefined ) );
-  test.is( !_.convexPolygon.is( 'polygon' ) );
-  test.is( !_.convexPolygon.is( [ 3 ] ) );
-  test.is( !_.convexPolygon.is( 3 ) );
-
+    5, 2, 2, 5,
+    1, 1, 5, 5,
+  ])
+  test.is( !_.convexPolygon.isClockwise( polygon ) );
 }
 
 //
@@ -710,6 +621,115 @@ function angleThreePoints( test )
   test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( undefined, [ 1, 0, 0 ], [ 1, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( 'polygon', [ 1, 0, 0 ], [ 1, 0, 0 ] ));
   test.shouldThrowErrorSync( () => _.convexPolygon.angleThreePoints( 3, [ 1, 0, 0 ], [ 1, 0, 0 ] ));
+
+}
+
+//
+
+function make( test )
+{
+
+  test.case = 'Dim and vertices remain unchanged'; //
+
+  var dim = 3;
+  var vertices = 8;
+
+  var gotPolygon = _.convexPolygon.make( vertices, dim );
+
+  var expected = _.Matrix.Make( [ 3, 8 ] ).copy
+  ([
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
+  ]);
+  test.equivalent( gotPolygon, expected );
+
+  var oldDim = 3;
+  test.identical( dim, oldDim );
+
+  var oldVertices = 8;
+  test.identical( vertices, oldVertices );
+
+  test.case = 'Triangle 2D'; //
+
+  var dim = 2;
+  var vertices = 3;
+
+  var gotPolygon = _.convexPolygon.make( vertices, dim );
+
+  var expected = _.Matrix.Make( [ 2, 3 ] ).copy
+  ([
+    0, 0, 0,
+    0, 0, 0
+  ]);
+  test.equivalent( gotPolygon, expected );
+
+  test.case = 'Square 3D'; //
+
+  var dim = 3;
+  var vertices = 4;
+
+  var gotPolygon = _.convexPolygon.make( vertices, dim );
+
+  var expected = _.Matrix.Make( [ 3, 4 ] ).copy
+  ([
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0
+  ]);
+  test.equivalent( gotPolygon, expected );
+
+  test.case = 'Pentagone 2D'; //
+
+  var dim = 2;
+  var vertices = 5;
+
+  var gotPolygon = _.convexPolygon.make( vertices, dim );
+
+  var expected = _.Matrix.Make( [ 2, 5 ] ).copy
+  ([
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0
+  ]);
+  test.equivalent( gotPolygon, expected );
+
+  /* */
+
+  test.case = 'from vector';
+
+  var dim = 2;
+  var vertices =
+  [
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0
+  ]
+
+  var gotPolygon = _.convexPolygon.make( vertices, dim );
+
+  var expected = _.Matrix.Make( [ 2, 5 ] ).copy( vertices );
+  test.equivalent( gotPolygon, expected );
+
+  /* */
+
+  if( !Config.debug )
+  return;
+
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( dim ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, dim, vertices ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, null ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, NaN ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, undefined ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, 'dim' ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( vertices, [ 3 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( null, dim ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( NaN, dim ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( undefined, dim ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( 'vertices', dim ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( [ 3 ], dim ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( 3, 1 ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( 3, 4 ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.make( 2, 2 ));
 
 }
 
@@ -1946,27 +1966,6 @@ function pointClosestPoint( test )
 
   var polygon = _.Matrix.Make( [ 1, 2 ] )
   test.shouldThrowErrorSync( () => _.convexPolygon.pointClosestPoint( polygon, [ 1 ] ));
-}
-
-//
-
-function isClockwise( test )
-{
-  test.case = '2d clockwise'
-  var polygon = _.convexPolygon.make( 4, 2 ).copy
-  ([
-    5, 2, 2, 5,
-    5, 5, 1, 1
-  ])
-  test.is( _.convexPolygon.isClockwise( polygon ) );
-
-  test.case = '2d counter clockwise'
-  var polygon = _.convexPolygon.make( 4, 2 ).copy
-  ([
-    5, 2, 2, 5,
-    1, 1, 5, 5,
-  ])
-  test.is( !_.convexPolygon.isClockwise( polygon ) );
 }
 
 //
@@ -8263,17 +8262,17 @@ var Self =
   tests :
   {
 
-    make,
-    isPolygon,
     is,
+    isPolygon,
+    isClockwise,
     angleThreePoints,
+
+    make,
 
     pointContains,
     pointDistance,
     pointDistanceSqr,
     pointClosestPoint,
-
-    isClockwise,
 
     boxIntersects,
     boxDistance,
