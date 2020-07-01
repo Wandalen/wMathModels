@@ -299,10 +299,12 @@ function fromAxisAndAngle( dst, axis, angle )
 
   dst = this.from( dst );
   let dstv = this.tools.vectorAdapter.from( dst );
-  let axisv = this.tools.vectorAdapter.from( axis );
+  // let axisv = this.tools.vectorAdapter.from( axis );
+  let axisv = this.tools.axisAndAngle.adapterFrom( axis, angle );
 
   if( angle === undefined )
-  angle = axis[ 3 ];
+  angle = axisv.eGet( 0 );
+  // angle = axis[ 3 ];
 
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
   _.assert( axis.length === 3 || axis.length === 4 );
@@ -313,9 +315,12 @@ function fromAxisAndAngle( dst, axis, angle )
   let c = cos( angle );
   let t = 1-c;
 
-  let x = axisv.eGet( 0 );
-  let y = axisv.eGet( 1 );
-  let z = axisv.eGet( 2 );
+  let x = axisv.eGet( 1 );
+  let y = axisv.eGet( 2 );
+  let z = axisv.eGet( 3 );
+  // let x = axisv.eGet( 0 );
+  // let y = axisv.eGet( 1 );
+  // let z = axisv.eGet( 2 );
 
   if( ( x*y*t + z*s ) > 1-this.accuracy )
   {
@@ -1291,10 +1296,14 @@ function fromQuat2( dstEuler, srcQuat )
   let accuracy =  this.tools.accuracy;
   let accuracySqr = this.tools.accuracySqr;
 
-  let x = srcQuatVector.eGet( 0 ); let x2 = x*x;
-  let y = srcQuatVector.eGet( 1 ); let y2 = y*y;
-  let z = srcQuatVector.eGet( 2 ); let z2 = z*z;
-  let w = srcQuatVector.eGet( 3 ); let w2 = w*w;
+  let x = srcQuatVector.eGet( 1 ); let x2 = x*x;
+  let y = srcQuatVector.eGet( 2 ); let y2 = y*y;
+  let z = srcQuatVector.eGet( 3 ); let z2 = z*z;
+  let w = srcQuatVector.eGet( 0 ); let w2 = w*w;
+  // let x = srcQuatVector.eGet( 0 ); let x2 = x*x;
+  // let y = srcQuatVector.eGet( 1 ); let y2 = y*y;
+  // let z = srcQuatVector.eGet( 2 ); let z2 = z*z;
+  // let w = srcQuatVector.eGet( 3 ); let w2 = w*w;
 
   let xy2 = 2*x*y; let xz2 = 2*x*z; let xw2 = 2*x*w;
   let yz2 = 2*y*z; let yw2 = 2*y*w; let zw2 = 2*z*w;
@@ -1670,18 +1679,26 @@ function toQuat2( srcEuler, dstQuat )
   let sum, dif;
   if( ox === 0 && oy === 1 && oz === 2 )
   {
-    dstQuatVector.eSet( 0, s0*c1*c2 + c0*s1*s2 );
-    dstQuatVector.eSet( 1, c0*s1*c2 - s0*c1*s2 );
-    dstQuatVector.eSet( 2, c0*c1*s2 + s0*s1*c2 );
-    dstQuatVector.eSet( 3, c0*c1*c2 - s0*s1*s2 );
+    // dstQuatVector.eSet( 0, s0*c1*c2 + c0*s1*s2 );
+    // dstQuatVector.eSet( 1, c0*s1*c2 - s0*c1*s2 );
+    // dstQuatVector.eSet( 2, c0*c1*s2 + s0*s1*c2 );
+    // dstQuatVector.eSet( 3, c0*c1*c2 - s0*s1*s2 );
+    dstQuatVector.eSet( 1, s0*c1*c2 + c0*s1*s2 );
+    dstQuatVector.eSet( 2, c0*s1*c2 - s0*c1*s2 );
+    dstQuatVector.eSet( 3, c0*c1*s2 + s0*s1*c2 );
+    dstQuatVector.eSet( 0, c0*c1*c2 - s0*s1*s2 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 1 )
   {
-    dstQuatVector.eSet( 0, s0*c1*c2 - c0*s1*s2 );
-    dstQuatVector.eSet( 1, c0*c1*s2 - s0*s1*c2 );
-    dstQuatVector.eSet( 2, c0*s1*c2 + s0*c1*s2 );
-    dstQuatVector.eSet( 3, c0*c1*c2 + s0*s1*s2 );
+    // dstQuatVector.eSet( 0, s0*c1*c2 - c0*s1*s2 );
+    // dstQuatVector.eSet( 1, c0*c1*s2 - s0*s1*c2 );
+    // dstQuatVector.eSet( 2, c0*s1*c2 + s0*c1*s2 );
+    // dstQuatVector.eSet( 3, c0*c1*c2 + s0*s1*s2 );
+    dstQuatVector.eSet( 1, s0*c1*c2 - c0*s1*s2 );
+    dstQuatVector.eSet( 2, c0*c1*s2 - s0*s1*c2 );
+    dstQuatVector.eSet( 3, c0*s1*c2 + s0*c1*s2 );
+    dstQuatVector.eSet( 0, c0*c1*c2 + s0*s1*s2 );
   }
 
   else if( ox === 0 && oy === 1 && oz === 0 )
@@ -1689,10 +1706,14 @@ function toQuat2( srcEuler, dstQuat )
     sum = ( e0 + e2 )/2;
     dif = ( e0 - e2 )/2;
 
-    dstQuatVector.eSet( 0, sin( sum )*c1 );
-    dstQuatVector.eSet( 1, cos( dif )*s1 );
-    dstQuatVector.eSet( 2, sin( dif )*s1 );
-    dstQuatVector.eSet( 3, cos( sum )*c1 );
+    // dstQuatVector.eSet( 0, sin( sum )*c1 );
+    // dstQuatVector.eSet( 1, cos( dif )*s1 );
+    // dstQuatVector.eSet( 2, sin( dif )*s1 );
+    // dstQuatVector.eSet( 3, cos( sum )*c1 );
+    dstQuatVector.eSet( 1, sin( sum )*c1 );
+    dstQuatVector.eSet( 2, cos( dif )*s1 );
+    dstQuatVector.eSet( 3, sin( dif )*s1 );
+    dstQuatVector.eSet( 0, cos( sum )*c1 );
   }
 
   else if( ox === 0 && oy === 2 && oz === 0 )
@@ -1700,26 +1721,38 @@ function toQuat2( srcEuler, dstQuat )
     sum = ( e0 + e2 )/2;
     dif = ( e0 - e2 )/2;
 
-    dstQuatVector.eSet( 0, sin( sum )*c1 );
-    dstQuatVector.eSet( 1, - sin( dif )*s1 );
-    dstQuatVector.eSet( 2, cos( dif )*s1 );
-    dstQuatVector.eSet( 3, cos( sum )*c1 );
+    // dstQuatVector.eSet( 0, sin( sum )*c1 );
+    // dstQuatVector.eSet( 1, - sin( dif )*s1 );
+    // dstQuatVector.eSet( 2, cos( dif )*s1 );
+    // dstQuatVector.eSet( 3, cos( sum )*c1 );
+    dstQuatVector.eSet( 1, sin( sum )*c1 );
+    dstQuatVector.eSet( 2, - sin( dif )*s1 );
+    dstQuatVector.eSet( 3, cos( dif )*s1 );
+    dstQuatVector.eSet( 0, cos( sum )*c1 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 2 )
   {
-    dstQuatVector.eSet( 0, c0*s1*c2 + s0*c1*s2 );
-    dstQuatVector.eSet( 1, s0*c1*c2 - c0*s1*s2 );
-    dstQuatVector.eSet( 2, c0*c1*s2 - s0*s1*c2 );
-    dstQuatVector.eSet( 3, c0*c1*c2 + s0*s1*s2 );
+    // dstQuatVector.eSet( 0, c0*s1*c2 + s0*c1*s2 );
+    // dstQuatVector.eSet( 1, s0*c1*c2 - c0*s1*s2 );
+    // dstQuatVector.eSet( 2, c0*c1*s2 - s0*s1*c2 );
+    // dstQuatVector.eSet( 3, c0*c1*c2 + s0*s1*s2 );
+    dstQuatVector.eSet( 1, c0*s1*c2 + s0*c1*s2 );
+    dstQuatVector.eSet( 2, s0*c1*c2 - c0*s1*s2 );
+    dstQuatVector.eSet( 3, c0*c1*s2 - s0*s1*c2 );
+    dstQuatVector.eSet( 0, c0*c1*c2 + s0*s1*s2 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 0 )
   {
-    dstQuatVector.eSet( 0, c0*c1*s2 + s0*s1*c2 );
-    dstQuatVector.eSet( 1, s0*c1*c2 + c0*s1*s2 );
-    dstQuatVector.eSet( 2, c0*s1*c2 - s0*c1*s2 );
-    dstQuatVector.eSet( 3, c0*c1*c2 - s0*s1*s2 );
+    // dstQuatVector.eSet( 0, c0*c1*s2 + s0*s1*c2 );
+    // dstQuatVector.eSet( 1, s0*c1*c2 + c0*s1*s2 );
+    // dstQuatVector.eSet( 2, c0*s1*c2 - s0*c1*s2 );
+    // dstQuatVector.eSet( 3, c0*c1*c2 - s0*s1*s2 );
+    dstQuatVector.eSet( 1, c0*c1*s2 + s0*s1*c2 );
+    dstQuatVector.eSet( 2, s0*c1*c2 + c0*s1*s2 );
+    dstQuatVector.eSet( 3, c0*s1*c2 - s0*c1*s2 );
+    dstQuatVector.eSet( 0, c0*c1*c2 - s0*s1*s2 );
   }
 
   else if( ox === 1 && oy === 0 && oz === 1 )
@@ -1727,10 +1760,14 @@ function toQuat2( srcEuler, dstQuat )
     sum = ( e0 + e2 )/2;
     dif = ( e0 - e2 )/2;
 
-    dstQuatVector.eSet( 0, cos( dif )*s1 );
-    dstQuatVector.eSet( 1, sin( sum )*c1 );
-    dstQuatVector.eSet( 2, - sin( dif )*s1 );
-    dstQuatVector.eSet( 3, cos( sum )*c1 );
+    // dstQuatVector.eSet( 0, cos( dif )*s1 );
+    // dstQuatVector.eSet( 1, sin( sum )*c1 );
+    // dstQuatVector.eSet( 2, - sin( dif )*s1 );
+    // dstQuatVector.eSet( 3, cos( sum )*c1 );
+    dstQuatVector.eSet( 1, cos( dif )*s1 );
+    dstQuatVector.eSet( 2, sin( sum )*c1 );
+    dstQuatVector.eSet( 3, - sin( dif )*s1 );
+    dstQuatVector.eSet( 0, cos( sum )*c1 );
   }
 
   else if( ox === 1 && oy === 2 && oz === 1 )
@@ -1738,26 +1775,38 @@ function toQuat2( srcEuler, dstQuat )
     sum = ( e0 + e2 )/2;
     dif = ( e0 - e2 )/2;
 
-    dstQuatVector.eSet( 0, sin( dif )*s1 );
-    dstQuatVector.eSet( 1, sin( sum )*c1 );
-    dstQuatVector.eSet( 2, cos( dif )*s1 );
-    dstQuatVector.eSet( 3, cos( sum )*c1 );
+    // dstQuatVector.eSet( 0, sin( dif )*s1 );
+    // dstQuatVector.eSet( 1, sin( sum )*c1 );
+    // dstQuatVector.eSet( 2, cos( dif )*s1 );
+    // dstQuatVector.eSet( 3, cos( sum )*c1 );
+    dstQuatVector.eSet( 1, sin( dif )*s1 );
+    dstQuatVector.eSet( 2, sin( sum )*c1 );
+    dstQuatVector.eSet( 3, cos( dif )*s1 );
+    dstQuatVector.eSet( 0, cos( sum )*c1 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 0 )
   {
-    dstQuatVector.eSet( 0, c0*c1*s2 - s0*s1*c2 );
-    dstQuatVector.eSet( 1, c0*s1*c2 + s0*c1*s2 );
-    dstQuatVector.eSet( 2, s0*c1*c2 - c0*s1*s2 );
-    dstQuatVector.eSet( 3, c0*c1*c2 + s0*s1*s2 );
+    // dstQuatVector.eSet( 0, c0*c1*s2 - s0*s1*c2 );
+    // dstQuatVector.eSet( 1, c0*s1*c2 + s0*c1*s2 );
+    // dstQuatVector.eSet( 2, s0*c1*c2 - c0*s1*s2 );
+    // dstQuatVector.eSet( 3, c0*c1*c2 + s0*s1*s2 );
+    dstQuatVector.eSet( 1, c0*c1*s2 - s0*s1*c2 );
+    dstQuatVector.eSet( 2, c0*s1*c2 + s0*c1*s2 );
+    dstQuatVector.eSet( 3, s0*c1*c2 - c0*s1*s2 );
+    dstQuatVector.eSet( 0, c0*c1*c2 + s0*s1*s2 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 1 )
   {
-    dstQuatVector.eSet( 0, c0*s1*c2 - s0*c1*s2 );
-    dstQuatVector.eSet( 1, c0*c1*s2 + s0*s1*c2 );
-    dstQuatVector.eSet( 2, s0*c1*c2 + c0*s1*s2 );
-    dstQuatVector.eSet( 3, c0*c1*c2 - s0*s1*s2 );
+    // dstQuatVector.eSet( 0, c0*s1*c2 - s0*c1*s2 );
+    // dstQuatVector.eSet( 1, c0*c1*s2 + s0*s1*c2 );
+    // dstQuatVector.eSet( 2, s0*c1*c2 + c0*s1*s2 );
+    // dstQuatVector.eSet( 3, c0*c1*c2 - s0*s1*s2 );
+    dstQuatVector.eSet( 1, c0*s1*c2 - s0*c1*s2 );
+    dstQuatVector.eSet( 2, c0*c1*s2 + s0*s1*c2 );
+    dstQuatVector.eSet( 3, s0*c1*c2 + c0*s1*s2 );
+    dstQuatVector.eSet( 0, c0*c1*c2 - s0*s1*s2 );
   }
 
   else if( ox === 2 && oy === 0 && oz === 2 )
@@ -1765,10 +1814,14 @@ function toQuat2( srcEuler, dstQuat )
     sum = ( e0 + e2 )/2;
     dif = ( e0 - e2 )/2;
 
-    dstQuatVector.eSet( 0, cos( dif )*s1 );
-    dstQuatVector.eSet( 1, sin( dif )*s1 );
-    dstQuatVector.eSet( 2, sin( sum )*c1 );
-    dstQuatVector.eSet( 3, cos( sum )*c1 );
+    // dstQuatVector.eSet( 0, cos( dif )*s1 );
+    // dstQuatVector.eSet( 1, sin( dif )*s1 );
+    // dstQuatVector.eSet( 2, sin( sum )*c1 );
+    // dstQuatVector.eSet( 3, cos( sum )*c1 );
+    dstQuatVector.eSet( 1, cos( dif )*s1 );
+    dstQuatVector.eSet( 2, sin( dif )*s1 );
+    dstQuatVector.eSet( 3, sin( sum )*c1 );
+    dstQuatVector.eSet( 0, cos( sum )*c1 );
   }
 
   else if( ox === 2 && oy === 1 && oz === 2 )
@@ -1776,10 +1829,14 @@ function toQuat2( srcEuler, dstQuat )
     sum = ( e0 + e2 )/2;
     dif = ( e0 - e2 )/2;
 
-    dstQuatVector.eSet( 0, - sin( dif )*s1 );
-    dstQuatVector.eSet( 1, cos( dif )*s1 );
-    dstQuatVector.eSet( 2, sin( sum )*c1 );
-    dstQuatVector.eSet( 3, cos( sum )*c1 );
+    // dstQuatVector.eSet( 0, - sin( dif )*s1 );
+    // dstQuatVector.eSet( 1, cos( dif )*s1 );
+    // dstQuatVector.eSet( 2, sin( sum )*c1 );
+    // dstQuatVector.eSet( 3, cos( sum )*c1 );
+    dstQuatVector.eSet( 1, - sin( dif )*s1 );
+    dstQuatVector.eSet( 2, cos( dif )*s1 );
+    dstQuatVector.eSet( 3, sin( sum )*c1 );
+    dstQuatVector.eSet( 0, cos( sum )*c1 );
   }
   else _.assert( 0 );
 
@@ -2617,10 +2674,14 @@ function isGimbalLock( srcEuler )
   let accuracySqr = this.tools.accuracySqr;
 
   let srcQuatVector = this.tools.vectorAdapter.fromLong( this.toQuat2( srcEuler, null ) );
-  let x = srcQuatVector.eGet( 0 ); let x2 = x*x;
-  let y = srcQuatVector.eGet( 1 ); let y2 = y*y;
-  let z = srcQuatVector.eGet( 2 ); let z2 = z*z;
-  let w = srcQuatVector.eGet( 3 ); let w2 = w*w;
+  let x = srcQuatVector.eGet( 1 ); let x2 = x*x;
+  let y = srcQuatVector.eGet( 2 ); let y2 = y*y;
+  let z = srcQuatVector.eGet( 3 ); let z2 = z*z;
+  let w = srcQuatVector.eGet( 0 ); let w2 = w*w;
+  // let x = srcQuatVector.eGet( 0 ); let x2 = x*x;
+  // let y = srcQuatVector.eGet( 1 ); let y2 = y*y;
+  // let z = srcQuatVector.eGet( 2 ); let z2 = z*z;
+  // let w = srcQuatVector.eGet( 3 ); let w2 = w*w;
 
   let xy2 = 2*x*y; let xz2 = 2*x*z; let xw2 = 2*x*w;
   let yz2 = 2*y*z; let yw2 = 2*y*w; let zw2 = 2*z*w;
