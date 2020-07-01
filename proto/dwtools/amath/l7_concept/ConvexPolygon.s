@@ -9,14 +9,14 @@ let Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
 
 /**
  * @description
-  A convex polygon is a simple polygon where all interior angles are less than or equal
-  edges ( segments ) and vertices ( corners ).
-  to 180 degrees. Therefore, it is a plane figure ( 2D ), closed and defined by a set of
-
-  In the following methods, convex polygons will be defined by a space where each column
-  represents one of the plygon´s vertices.
+ * A convex polygon is a simple polygon where all interior angles are less than or equal
+ * edges ( segments ) and vertices ( corners ).
+ * to 180 degrees. Therefore, it is a plane figure ( 2D ), closed and defined by a set of
+ *
+ * In the following methods, convex polygons will be defined by a space where each column
+ * represents one of the polygon´s vertices.
  * @namespace wTools.convexPolygon
-  * @module Tools/math/Concepts
+ * @module Tools/math/Concepts
  */
 
 /*
@@ -29,96 +29,46 @@ let Self = _.convexPolygon = _.convexPolygon || Object.create( _.avector );
 // routines
 // --
 
-/**
-  * Create a convex polygon of 'vertices' number of vertices and dimension dim ( 2 or 3 ), full of zeros.
-  * Returns the created polygon. Vertices and dim remain unchanged.
-  *
-  * @param { Number } vertices - Number of vertices of the polygon.
-  * @param { Number } dim - Dimension of the created polygon.
-  *
-  * @example
-  * // returns cvexPolygon =
-  * [
-  *   0, 0, 0, 0, 0, 0, 0, 0,
-  *   0, 0, 0, 0, 0, 0, 0, 0,
-  *   0, 0, 0, 0, 0, 0, 0, 0,
-  * ];
-  * _.make( 8, 3 );
-  *
-  * @example
-  * // returns [ 0, 0, 1, 1 ];
-  * _.make( [ 0, 0, 1, 1 ] );
-  *
-  * @returns { Array } Returns the array of the created box.
-  * @function make
-  * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
-  * @namespace wTools.convexPolygon
-  * @module Tools/math/Concepts
-  */
-
-function make( vertices, dim )
+function is( polygon )
 {
-  _.assert( arguments.length === 2, 'convexPolygon.make expects exactly 2 arguments' );
-  _.assert( _.numberIs( dim ) && dim > 1 && dim < 4, 'dim must be a number ( 2 or 3 )' );
-  _.assert( _.longIs( vertices ) || _.numberIs( vertices ), 'vertices must be a vector or a number' );
-
-  let dst;
-  let numberOfVertices = vertices;
-  let verticesIsLong = _.longIs( vertices );
-
-  if( verticesIsLong )
-  numberOfVertices = vertices.length / dim;
-
-  _.assert( numberOfVertices > 2, 'vertices must be a number superior to two' );
-  dst = _.Matrix.MakeZero([ dim, numberOfVertices ]);
-
-  if( verticesIsLong )
-  dst.copy( vertices );
-
-/*
-[
-  1 2 3 4
-  1 2 3 4
-]
-*/
-
-  return dst;
+  return _.matrixIs( polygon ); /* Dmytro : maybe, needs improvement, it's should be like: return _.matrixIs( polygon ) && polygon.dims[ 0 ] === 2 */
 }
 
 //
 
 /**
-  * Check if the source polygon is a polygon. Returns true if it is a polygon.
-  * Source polygon stays unchanged.
-  *
-  * @param { Matrix } polygon - The source polygon.
-  *
-  * @example
-  * // returns true;
-  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
-  * ([
-  *   1, 0, -1, 0, 2,
-  *   0, 0, 1, 2, 2,
-  *   0, 0, 0, 0, 0
-  * ]);
-  * _.isPolygon( polygon );
-  *
-  * @example
-  * // returns false;
-  * var polygon = _.Matrix.Make([ 3, 5 ]).copy
-  * ([
-  *   1, 0, -1, 0, 2,
-  *   0, 0, 1, 2, 2,
-  *   0, 0, 0, 2, 0
-  * ]);
-  * _.isPolygon( polygon );
-  *
-  * @returns { Boolean } Returns true if polygon is a polygon and false if not.
-  * @function isPolygon
-  * @throws { Error } An Error if ( arguments.length ) is different than one.
-  * @namespace wTools.convexPolygon
-  * @module Tools/math/Concepts
-  */
+ * Check if the source polygon is a polygon. Returns true if it is a polygon.
+ * Source polygon stays unchanged.
+ *
+ * @param { Matrix } polygon - The source polygon.
+ *
+ * @example
+ * // returns true;
+ * var polygon = _.Matrix.Make([ 3, 5 ]).copy
+ * ([
+ *   1, 0, -1, 0, 2,
+ *   0, 0, 1, 2, 2,
+ *   0, 0, 0, 0, 0
+ * ]);
+ * _.isPolygon( polygon );
+ *
+ * @example
+ * // returns false;
+ * var polygon = _.Matrix.Make([ 3, 5 ]).copy
+ * ([
+ *   1, 0, -1, 0, 2,
+ *   0, 0, 1, 2, 2,
+ *   0, 0, 0, 2, 0
+ * ]);
+ * _.isPolygon( polygon );
+ *
+ * @returns { Boolean } Returns true if polygon is a polygon and false if not.
+ * @function isPolygon
+ * @throws { Error } An Error if ( arguments.length ) is different than one.
+ * @namespace wTools.convexPolygon
+ * @module Tools/math/Concepts
+ */
+
 function isPolygon( polygon )
 {
   _.assert( arguments.length === 1, 'Expects single argument' );
@@ -154,13 +104,6 @@ function isPolygon( polygon )
   }
 
   return true;
-}
-
-//
-
-function is( polygon )
-{
-  return _.matrixIs( polygon );
 }
 
 //
@@ -253,8 +196,6 @@ function isValid( polygon )
   if(  this.tools.avector.allEquivalent( angles, this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 1 ] - zeros ) ) || angles.length === 0 )
   return true;
 
-  debugger;
-
   if( this.tools.vectorAdapter.allLessEqual( angles, Math.PI ) || this.tools.vectorAdapter.allGreaterEqual( angles, Math.PI ) )
   return true;
 
@@ -299,6 +240,86 @@ function isConvex( polygon )
 function isConcave( polygon )
 {
   return !this.isConvex( polygon );
+}
+
+//
+
+function isClockwise( polygon )
+{
+  let result = 0;
+
+  _.assert( this.is( polygon ) );
+  _.assert( arguments.length === 1, 'Expects single argument' );
+
+  let dims = _.Matrix.DimsOf( polygon );
+  let l = dims[ 1 ];
+  for( let p = l-1 ; p >= 0 ; p-- )
+  {
+    let p2 = p + 1;
+    if( p2 === l )
+    p2 = 0;
+
+    let vertex = polygon.colGet( p );
+    let nextVertex = polygon.colGet( p2 );
+
+    result += ( vertex.eGet( 0 ) - nextVertex.eGet( 0 ) ) * ( vertex.eGet( 1 ) + nextVertex.eGet( 1 ) );
+    // result += ( polygon[ p*2+0 ] - polygon[ p2*2+0 ] ) * ( polygon[ p*2+1 ] + polygon[ p2*2+1 ] );
+  }
+
+  _.assert( _.numberIsFinite( result ) );
+
+  return result > 0;
+}
+
+//
+
+/**
+ * Create a convex polygon of 'vertices' number of vertices and dimension dim ( 2 or 3 ), full of zeros.
+ * Returns the created polygon. Vertices and dim remain unchanged.
+ *
+ * @param { Number } vertices - Number of vertices of the polygon.
+ * @param { Number } dim - Dimension of the created polygon.
+ *
+ * @example
+ * // returns cvexPolygon =
+ * [
+ *   0, 0, 0, 0, 0, 0, 0, 0,
+ *   0, 0, 0, 0, 0, 0, 0, 0,
+ *   0, 0, 0, 0, 0, 0, 0, 0,
+ * ];
+ * _.make( 8, 3 );
+ *
+ * @example
+ * // returns [ 0, 0, 1, 1 ];
+ * _.make( [ 0, 0, 1, 1 ] );
+ *
+ * @returns { Array } Returns the array of the created box.
+ * @function make
+ * @throws { Error } An Error if ( arguments.length ) is different than zero or one.
+ * @namespace wTools.convexPolygon
+ * @module Tools/math/Concepts
+ */
+
+function make( vertices, dim )
+{
+  _.assert( arguments.length === 2, 'convexPolygon.make expects exactly 2 arguments' );
+  _.assert( _.numberIs( dim ) && dim > 1 && dim < 4, 'dim must be a number ( 2 or 3 )' );
+  _.assert( _.longIs( vertices ) || _.numberIs( vertices ), 'vertices must be a vector or a number' );
+
+  let dst;
+  let numberOfVertices = vertices;
+  let verticesIsLong = _.longIs( vertices );
+
+  if( verticesIsLong )
+  numberOfVertices = vertices.length / dim;
+
+  _.assert( numberOfVertices > 2, 'vertices must be a number superior to two' );
+  dst = _.Matrix.MakeZero([ dim, numberOfVertices ]);
+
+  if( verticesIsLong )
+  dst.copy( vertices );
+
+  return dst;
 }
 
 //
@@ -752,35 +773,6 @@ function pointClosestPoint( polygon , srcPoint, dstPoint )
   _.assert( this.pointContains( polygon, dstPointView ) === true );
 
   return dstPoint;
-}
-
-//
-
-function isClockwise( polygon )
-{
-  let result = 0;
-
-  _.assert( this.is( polygon ) );
-  _.assert( arguments.length === 1, 'Expects single argument' );
-
-  let dims = _.Matrix.DimsOf( polygon );
-  let l = dims[ 1 ];
-  for( let p = l-1 ; p >= 0 ; p-- )
-  {
-    let p2 = p + 1;
-    if( p2 === l )
-    p2 = 0;
-
-    let vertex = polygon.colGet( p );
-    let nextVertex = polygon.colGet( p2 );
-
-    result += ( vertex.eGet( 0 ) - nextVertex.eGet( 0 ) ) * ( vertex.eGet( 1 ) + nextVertex.eGet( 1 ) );
-    // result += ( polygon[ p*2+0 ] - polygon[ p2*2+0 ] ) * ( polygon[ p*2+1 ] + polygon[ p2*2+1 ] );
-  }
-
-  _.assert( _.numberIsFinite( result ) );
-
-  return result > 0;
 }
 
 //
@@ -2716,21 +2708,21 @@ function boundingSphereGet( polygon, dstSphere )
 let Extension = /* qqq xxx : normalize order */
 {
 
-  make,
-  isPolygon,
   is,
+  isPolygon,
   isValid,
   isConvex,
   isConcave,
+  isClockwise,
   angleThreePoints,
+
+  make,
 
   pointContains,
   pointContains2D,
   pointDistance,
   pointDistanceSqr,
   pointClosestPoint,
-
-  isClockwise,
 
   boxIntersects,
   boxDistance,
