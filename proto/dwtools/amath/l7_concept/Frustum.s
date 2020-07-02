@@ -27,10 +27,10 @@ let Self = _.frustum = _.frustum || Object.create( _.avector );
  * ```
  * var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
  * ([
+ *   -1,  0,   0,  -1,   0,  -1,
  *   0,   0,   0,   0,  -1,   1,
  *   1,  -1,   0,   0,   0,   0,
  *   0,   0,  -1,   1,   0,   0,
- *   -1,  0,   0,  -1,   0,  -1
  * ]);
  * ```
  * Where all director vectors point outwards the frustum.
@@ -137,15 +137,17 @@ function is( frustum )
   *
   * @example
   * // returns furstumCorners =
-  * [ 0, 0, 0, 0, 1, 1, 1, 1,
+  * [
+  *   0, 0, 0, 0, 1, 1, 1, 1,
   *   1, 0, 1, 0, 1, 0, 1, 0,
   *   1, 1, 0, 0, 1, 1, 0, 0,
   * ];
   * let srcfrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  * ([ 0, 0, 0, 0, - 1, 1,
-  *   1, - 1, 0, 0, 0, 0,
-  *   0, 0, 1, - 1, 0, 0,
-  *   - 1, 0, - 1, 0, 0, - 1
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1,
   * ]);
   *
   * _.cornersGet( srcfrustum );
@@ -163,7 +165,6 @@ function cornersGet( srcfrustum )
 
   _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( this.is( srcfrustum ) );
-  debugger;
 
   let dims = _.Matrix.DimsOf( srcfrustum ) ;
   let rows = dims[ 0 ];
@@ -184,7 +185,9 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.scalarSet( [ 0, 0 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 0 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 0 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 0 ], point.eGet( 0 ) );
+    pointsFru.scalarSet( [ 1, 0 ], point.eGet( 1 ) );
+    pointsFru.scalarSet( [ 2, 0 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( far, top, left );
@@ -194,7 +197,9 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.scalarSet( [ 0, 1 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 1 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 1 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 1 ], point.eGet( 0 ) );
+    pointsFru.scalarSet( [ 1, 1 ], point.eGet( 1 ) );
+    pointsFru.scalarSet( [ 2, 1 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( far, bottom, right );
@@ -204,7 +209,9 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.scalarSet( [ 0, 2 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 2 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 2 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 2 ], point.eGet( 0 ) );
+    pointsFru.scalarSet( [ 1, 2 ], point.eGet( 1 ) );
+    pointsFru.scalarSet( [ 2, 2 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( far, bottom, left );
@@ -214,7 +221,9 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.scalarSet( [ 0, 3 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 3 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 3 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 3 ], point.eGet( 0 ) );
+    pointsFru.scalarSet( [ 1, 3 ], point.eGet( 1 ) );
+    pointsFru.scalarSet( [ 2, 3 ], point.eGet( 2 ) );
   }
 
   point = this.tools.plane.threeIntersectionPoint( near, top, right );
@@ -224,7 +233,9 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.scalarSet( [ 0, 4 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 4 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 4 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 4 ], point.eGet( 0 ) );
+    pointsFru.scalarSet( [ 1, 4 ], point.eGet( 1 ) );
+    pointsFru.scalarSet( [ 2, 4 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( near, top, left );
@@ -234,7 +245,9 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.scalarSet( [ 0, 5 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 5 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 5 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 5 ], point.eGet( 0 ) );
+    pointsFru.scalarSet( [ 1, 5 ], point.eGet( 1 ) );
+    pointsFru.scalarSet( [ 2, 5 ], point.eGet( 2 ) );
   }
 
   point =  this.tools.plane.threeIntersectionPoint( near, bottom, right );
@@ -244,7 +257,9 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.scalarSet( [ 0, 6 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 6 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 6 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 6 ], point.eGet( 0 ) );
+    pointsFru.scalarSet( [ 1, 6 ], point.eGet( 1 ) );
+    pointsFru.scalarSet( [ 2, 6 ], point.eGet( 2 ) );
   }
 
   point = this.tools.plane.threeIntersectionPoint( near, bottom, left );
@@ -254,9 +269,10 @@ function cornersGet( srcfrustum )
   }
   else
   {
-    pointsFru.scalarSet( [ 0, 7 ], point.eGet( 0 ) ); pointsFru.scalarSet( [ 1, 7 ], point.eGet( 1 ) ); pointsFru.scalarSet( [ 2, 7 ], point.eGet( 2 ) );
+    pointsFru.scalarSet( [ 0, 7 ], point.eGet( 0 ) );
+    pointsFru.scalarSet( [ 1, 7 ], point.eGet( 1 ) );
+    pointsFru.scalarSet( [ 2, 7 ], point.eGet( 2 ) );
   }
-  debugger;
 
   return pointsFru;
 }
@@ -344,8 +360,6 @@ function pointDistance( frustum, point )
   let cols = dims[ 1 ];
   _.assert( rows - 1 === point.length );
 
-  debugger;
-
   if( this.pointContains( frustum, point ) )
   return 0;
 
@@ -396,11 +410,13 @@ function pointDistance( frustum, point )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.pointClosestPoint( frustum , [ - 1, - 1, - 1 ] );
   *
   * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
@@ -565,7 +581,6 @@ function boxContains( frustum, box )
   let srcMax = this.tools.box.cornerRightGet( boxView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
-  debugger;
 
   let dims = _.Matrix.DimsOf( frustum ) ;
   let rows = dims[ 0 ];
@@ -629,7 +644,6 @@ function boxIntersects( frustum , box )
   let max1 = this.tools.box.cornerRightGet( boxView );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
-  debugger;
 
   let c0 = this.tools.vectorAdapter.from( min1.slice() );
   let c4 = this.tools.vectorAdapter.from( max1.slice() );
@@ -728,11 +742,13 @@ function boxIntersects( frustum , box )
   *
   * @example
   * // returns 1;
-  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.boxDistance( frustum , [ 0, 0, 2, 3, 3, 3 ] );
   *
   * @returns { Number } Returns the distance between the frustum and the box.
@@ -749,7 +765,6 @@ function boxDistance( frustum, box )
   let boxView = this.tools.box.adapterFrom( box );
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( this.is( frustum ) );
-  debugger;
 
   let distance = this.tools.box.frustumDistance( boxView, frustum );
 
@@ -767,11 +782,13 @@ function boxDistance( frustum, box )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.boxClosestPoint( frustum , [ - 1, - 1, - 1, -0.1, -0.1, -0.1 ] );
   *
   * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
@@ -860,11 +877,13 @@ function boxClosestPoint( frustum, box, dstPoint )
   *
   * @example
   * // returns [ 0, 0, 0, 1, 1, 1 ]
-  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.boundingBoxGet( null, frustum );
   *
   * @returns { Array } Returns the array of the bounding box.
@@ -876,6 +895,7 @@ function boxClosestPoint( frustum, box, dstPoint )
   * @namespace wTools.frustum
   * @module Tools/math/Concepts
   */
+
 function boundingBoxGet( dstBox, srcFrustum )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -957,10 +977,12 @@ function boundingBoxGet( dstBox, srcFrustum )
   * @example
   * // returns false;
   * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.capsuleContains( frustum , [ 0, 0, 0, 2, 2, 2, 1 ] );
   *
   * @returns { Boolean } Returns true if the frustum contains the capsule.
@@ -1039,12 +1061,12 @@ function capsuleDistance( srcFrustum , tstCapsule )
   * @example
   * // returns 0
   * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  *   );
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * let capsule = [ 0, 0, 0, - 1, - 1, - 1, 1 ]
   * _.capsuleClosestPoint( srcFrustum, capsule );
   *
@@ -1114,16 +1136,16 @@ function capsuleClosestPoint( frustum, capsule, dstPoint )
   * // returns false;
   * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
-  *    0,   0,   0,   0, - 1,   1,
-  *    1, - 1,   0,   0,   0,   0,
-  *    0,   0,   1, - 1,   0,   0,
-  *    - 1,   0, - 1,   0,   0, - 1
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
   * ]);
   * let polygon = _.Matrix.Make( [ 3, 3 ] ).copy
   * ([
-  *    0,   0, -1,
-  *    0,  -1,  0,
-  *    -1,  0,  0
+  *    0,  0, -1,
+  *    0, -1,  0,
+  *   -1,  0,  0
   * ]);
   * _.convexPolygonContains( frustum, polygon );
   *
@@ -1196,18 +1218,19 @@ function convexPolygonDistance( srcFrustum , polygon )
   * @example
   * // returns [ 0, 0, 0 ]
   * let polygon = _.Matrix.Make( [ 3, 4 ] ).copy
-  *  ([
-  *    -1,  -1, -1,  -1,
-  *    1,   0, - 1,   0,
-  *    0,   1,   0, - 1
-  *  ]);
+  * ([
+  *   -1, -1, -1, -1,
+  *    1,  0, -1,  0,
+  *    0,  1,  0, -1
+  * ]);
   * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  *   );
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
+
   * _.convexPolygonClosestPoint( srcFrustum, polygon );
   *
   * @returns { Array } Returns the closest point to the polygon.
@@ -1219,6 +1242,7 @@ function convexPolygonDistance( srcFrustum , polygon )
   * @namespace wTools.frustum
   * @module Tools/math/Concepts
   */
+
 function convexPolygonClosestPoint( frustum, polygon, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
@@ -1260,59 +1284,57 @@ function convexPolygonClosestPoint( frustum, polygon, dstPoint )
 //
 
 /**
-* Check if a frustum contains another frustum. Returns true if it contains the frustum.
-* Both frustums remain unchanged.
-*
-* @param { Frustum } srcFrustum - Source frustum ( container ).
-* @param { Frustum } tstFrustum - Frustum to test if it is contained.
-*
-* @example
-* // returns true;
-* let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-*  ([
-*     0,   0,   0,   0, - 1,   1,
-*     1, - 1,   0,   0,   0,   0,
-*     0,   0,   1, - 1,   0,   0,
-*   - 1,   0, - 1,   0,   0, - 1 ]
-*   );
-* let tstFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-*   ([
-*    0,   0,   0,   0, - 1,   1,
-*    1, - 1,   0,   0,   0,   0,
-*    0,   0,   1, - 1,   0,   0,
-*   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
-*   );
-* _.frustumContains( srcFrustum , tstFrustum );
-*
-* @returns { Boolean } Returns true if the srcFrustum contains the tstFrustum.
-* @function frustumContains
-* @throws { Error } An Error if ( arguments.length ) is different than two.
-* @throws { Error } An Error if ( srcFrustum ) is not frustum.
-* @throws { Error } An Error if ( tstFrustum ) is not frustum.
-* @namespace wTools.frustum
+  * Check if a frustum contains another frustum. Returns true if it contains the frustum.
+  * Both frustums remain unchanged.
+  *
+  * @param { Frustum } srcFrustum - Source frustum ( container ).
+  * @param { Frustum } tstFrustum - Frustum to test if it is contained.
+  *
+  * @example
+  * // returns true;
+  * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
+  * let tstFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
+  * ([
+  *    0,    0,    0,    0,   -1,    1,
+  *    1,   -1,    0,    0,    0,    0,
+  *    0,    0,    1,   -1,    0,    0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5
+  * ]);
+  * _.frustumContains( srcFrustum , tstFrustum );
+  *
+  * @returns { Boolean } Returns true if the srcFrustum contains the tstFrustum.
+  * @function frustumContains
+  * @throws { Error } An Error if ( arguments.length ) is different than two.
+  * @throws { Error } An Error if ( srcFrustum ) is not frustum.
+  * @throws { Error } An Error if ( tstFrustum ) is not frustum.
+  * @namespace wTools.frustum
   * @module Tools/math/Concepts
-*/
+  */
 
 function frustumContains( srcFrustum , tstFrustum )
 {
 
-_.assert( arguments.length === 2, 'Expects exactly two arguments' );
-_.assert( this.is( srcFrustum ) );
-_.assert( this.is( tstFrustum ) );
-debugger;
+  _.assert( arguments.length === 2, 'Expects exactly two arguments' );
+  _.assert( this.is( srcFrustum ) );
+  _.assert( this.is( tstFrustum ) );
 
-let points = this.cornersGet( tstFrustum );
+  let points = this.cornersGet( tstFrustum );
 
-for( let i = 0 ; i < points.length ; i += 1 )
-{
-let point = points.colGet( i );
-let c = this.pointContains( srcFrustum, point );
-if( c !== true )
-return false;
+  for( let i = 0 ; i < points.length ; i += 1 )
+  {
+    let point = points.colGet( i );
+    let c = this.pointContains( srcFrustum, point );
+    if( c !== true )
+    return false;
+  }
 
-}
-
-return true;
+  return true;
 }
 
 //
@@ -1327,19 +1349,19 @@ return true;
   * @example
   * // returns true;
   * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  *   );
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * let tstFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *   ([
-  *    0,   0,   0,   0, - 1,   1,
-  *    1, - 1,   0,   0,   0,   0,
-  *    0,   0,   1, - 1,   0,   0,
-  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
-  *   );
+  * ([
+  *    0,    0,    0,    0,   -1,    1,
+  *    1,   -1,    0,    0,    0,    0,
+  *    0,    0,    1,   -1,    0,    0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5
+  * ]);
   * _.frustumIntersects( srcFrustum , tstFrustum );
   *
   * @returns { Boolean } Returns true if the frustums intersect.
@@ -1396,19 +1418,19 @@ function frustumIntersects( srcFrustum , tstFrustum )
   * @example
   * // returns 0;
   * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  *   );
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * let tstFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *   ([
-  *    0,   0,   0,   0, - 1,   1,
-  *    1, - 1,   0,   0,   0,   0,
-  *    0,   0,   1, - 1,   0,   0,
-  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
-  *   );
+  * ([
+  *    0,    0,    0,    0,   -1,    1,
+  *    1,   -1,    0,    0,    0,    0,
+  *    0,    0,    1,   -1,    0,    0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5
+  * ]);
   * _.frustumDistance( srcFrustum , tstFrustum );
   *
   * @returns { Number } Returns the distance between the two frustums.
@@ -1467,19 +1489,19 @@ function frustumDistance( srcFrustum , tstFrustum )
   * @example
   * // returns 0;
   * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  *   );
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * let tstFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *   ([
-  *    0,   0,   0,   0, - 1,   1,
-  *    1, - 1,   0,   0,   0,   0,
-  *    0,   0,   1, - 1,   0,   0,
-  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5 ]
-  *   );
+  * ([
+  *    0,    0,    0,    0,   -1,    1,
+  *    1,   -1,    0,    0,    0,    0,
+  *    0,    0,    1,   -1,    0,    0,
+  *   -0.5, -0.5, -0.5, -0.5, -0.5, -0.5
+  * ]);
   * _.frustumClosestPoint( srcFrustum , testFrustum );
   *
   * @returns { Number } Returns the closest point to a frustum.
@@ -1592,12 +1614,12 @@ function lineDistance( srcFrustum , tstLine )
   * // returns [ 1, 0, 0 ]
   * let line = [ 2, 0, 0, 1, 0, 0 ]
   * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  *   );
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.lineClosestPoint( frusrum, line );
   *
   * @returns { Array } Returns the closest point to the line.
@@ -1609,6 +1631,7 @@ function lineDistance( srcFrustum , tstLine )
   * @namespace wTools.frustum
   * @module Tools/math/Concepts
   */
+
 function lineClosestPoint( frustum, line, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
@@ -1712,13 +1735,13 @@ function planeIntersects( frustum, plane )
   * // returns 2;
   * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  * );
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.planeDistance( frustum , [ 1, 0, 0, 2 ] );
-  **
+  *
   * @returns { Number } Returns the distance between the frustum and the plane.
   * @function planeDistance
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -1764,11 +1787,11 @@ function planeDistance( frustum, plane )
   * // returns [ 1, 1, 1 ];
   * let frustum =  _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  * );
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.planeClosestPoint( frustum , [ 1, 1, 1, 6 ] );
   *
   * @returns { Array } Returns the coordinates of the closest point.
@@ -1862,12 +1885,12 @@ function rayDistance( srcFrustum , tstRay )
   * // returns [ 1, 0, 0 ]
   * let ray = [ 2, 0, 0, 1, 0, 0 ]
   * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  *   );
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.rayClosestPoint( frusrum, ray );
   *
   * @returns { Array } Returns the closest point to the ray.
@@ -1879,6 +1902,7 @@ function rayDistance( srcFrustum , tstRay )
   * @namespace wTools.frustum
   * @module Tools/math/Concepts
   */
+
 function rayClosestPoint( frustum, ray, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
@@ -1931,10 +1955,10 @@ function rayClosestPoint( frustum, ray, dstPoint )
   * // returns false;
   * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
   * ]);
   * _.segmentContains( frustum , [ 1, 1, 1, 2, 2, 2 ] );
   *
@@ -2013,12 +2037,12 @@ function segmentDistance( srcFrustum , tstSegment )
   * // returns [ 1, 0, 0 ]
   * let segment = [ 2, 0, 0, 1, 0, 0 ]
   * let srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
-  *  ([
-  *     0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ]
-  *   );
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.segmentClosestPoint( frusrum, segment );
   *
   * @returns { Array } Returns the closest point to the segment.
@@ -2030,6 +2054,7 @@ function segmentDistance( srcFrustum , tstSegment )
   * @namespace wTools.frustum
   * @module Tools/math/Concepts
   */
+
 function segmentClosestPoint( frustum, segment, dstPoint )
 {
   _.assert( arguments.length === 2 || arguments.length === 3, 'Expects two or three arguments' );
@@ -2082,10 +2107,10 @@ function segmentClosestPoint( frustum, segment, dstPoint )
   * // returns false;
   * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
   * ([
-  *   0,   0,   0,   0, - 1,   1,
-  *   1, - 1,   0,   0,   0,   0,
-  *   0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
   * ]);
   * _.sphereContains( frustum , [ 2, 2, 2, 1 ] );
   *
@@ -2129,7 +2154,7 @@ function sphereContains( frustum , sphere )
   * @example
   * // returns false;
   * _.sphereIntersects( this.make() , [ 2, 2, 2, 1 ] );
-  **
+  *
   * @returns { Boolean } Returns true if the frustum and the sphere intersect.
   * @function sphereIntersects
   * @throws { Error } An Error if ( arguments.length ) is different than two.
@@ -2175,11 +2200,13 @@ function sphereIntersects( frustum , sphere )
   *
   * @example
   * // returns 1;
-  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.sphereDistance( frustum , [ 0, 0, 3, 1 ] );
   *
   * @returns { Number } Returns the distance between the frustum and the sphere.
@@ -2215,11 +2242,13 @@ function sphereDistance( frustum, sphere )
   *
   * @example
   * // returns [ 0, 0, 0 ];
-  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.sphereClosestPoint( frustum , [ - 1, - 1, - 1, 0.1 ] );
   *
   * @returns { Array } Returns the array of coordinates of the closest point in the frustum.
@@ -2276,11 +2305,13 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   *
   * @example
   * // returns [ 0.5, 0.5, 0.5,  Math.sqrt( 0.75 ) ]
-  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy(
-  *   [ 0,   0,   0,   0, - 1,   1,
-  *     1, - 1,   0,   0,   0,   0,
-  *     0,   0,   1, - 1,   0,   0,
-  *   - 1,   0, - 1,   0,   0, - 1 ] );
+  * let frustum = _.Matrix.Make( [ 4, 6 ] ).copy
+  * ([
+  *    0,  0,  0,  0, -1,  1,
+  *    1, -1,  0,  0,  0,  0,
+  *    0,  0,  1, -1,  0,  0,
+  *   -1,  0, -1,  0,  0, -1
+  * ]);
   * _.boundingSphereGet( null, frustum );
   *
   * @returns { Array } Returns the array of the bounding sphere.
@@ -2292,6 +2323,7 @@ function sphereClosestPoint( frustum , sphere, dstPoint )
   * @namespace wTools.frustum
   * @module Tools/math/Concepts
   */
+
 function boundingSphereGet( dstSphere, srcFrustum )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
