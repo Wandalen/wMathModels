@@ -1989,7 +1989,7 @@ function pointClosestPoint( test )
   var polygon = _.convexPolygon.make( 3, 2 ).copy
   ([
     1, 0, 0,
-    0, 0, 1
+    0, 1, 0,
   ]);
   var point = [ 0.5, 0.5 ];
 
@@ -2000,7 +2000,7 @@ function pointClosestPoint( test )
   var polygon = _.convexPolygon.make( 3, 2 ).copy
   ([
     1, 0, 0,
-    0, 0, 1
+    0, 1, 0,
   ]);
   var point = [ 0.5, 2.5 ];
 
@@ -2011,9 +2011,9 @@ function pointClosestPoint( test )
   test.description = '3D';
   var polygon = _.convexPolygon.make( 3, 3 ).copy
   ([
-    1, 4, 2,
-    3, 4, 1,
-    2, 2, 2
+    1, 2, 4,
+    3, 1, 4,
+    2, 2, 2,
   ]);
   var point = [ 1.5, 3, 2 ];
 
@@ -2023,9 +2023,9 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 3, 3 ).copy
   ([
-    -1, 0, 0,
-    0, 0, -1,
-    0, 0, 0
+    -1,  0,  0,
+     0, -1,  0,
+     0,  0,  0,
   ]);
   var point = [ -0.5, -0.5, 2 ];
 
@@ -2038,8 +2038,8 @@ function pointClosestPoint( test )
   test.description = '2D';
   var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
+    3, 4, 4, 3,
     3, 3, 4, 4,
-    3, 4, 4, 3
   ]);
   var point = [ 3.1, 3.9 ];
 
@@ -2049,8 +2049,8 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
+    3, 4, 4, 3,
     3, 3, 4, 4,
-    3, 4, 4, 3
   ]);
   var point = [ 3.1, 4.1 ];
 
@@ -2061,9 +2061,9 @@ function pointClosestPoint( test )
   test.description = '3D';
   var polygon = _.convexPolygon.make( 4, 3 ).copy
   ([
-    1, 0, 0, 1,
-    0, 0, 1, 1,
-    2, 2, 2, 2
+    1, 1, 0, 0,
+    0, 1, 1, 0,
+    2, 2, 2, 2,
   ]);
   var point = [ 0, 0.5, 2 ];
 
@@ -2073,9 +2073,9 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 4, 3 ).copy
   ([
-    1, 0, 0, 1,
-    0, 0, 1, 1,
-    0, 0, 0, 0
+    1, 1, 0, 0,
+    0, 1, 1, 0,
+    0, 0, 0, 0,
   ]);
   var point = [ 0.5, 2, 2 ];
 
@@ -2099,8 +2099,8 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 5, 2 ).copy
   ([
-    1, 0, 0, 1, 2,
-    0, 0, 1, 1, 1
+    1, 2, 1, 0, 0,
+    0, 1, 1, 1, 0,
   ]);
   var point = [ - 0.1, 0.1 ];
 
@@ -2111,9 +2111,9 @@ function pointClosestPoint( test )
   test.description = '3D';
   var polygon = _.convexPolygon.make( 5, 3 ).copy
   ([
-    1, 0, 0, 1, 2,
-    0, 0, 1, 1, 1,
-    2, 2, 2, 2, 2
+    1, 2, 1, 0, 0,
+    0, 1, 1, 1, 0,
+    2, 2, 2, 2, 2,
   ]);
   var point = [ 0, 0.5, 2 ];
 
@@ -2123,9 +2123,9 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 5, 3 ).copy
   ([
-    1, 0, 0, 1, 2,
-    0, 0, 1, 1, 1,
-    0, 0, 0, 0, 0
+    1, 2, 1, 0, 0,
+    0, 1, 1, 1, 0,
+    0, 0, 0, 0, 0,
   ]);
   var point = [ 0.5, 0.5, 2 ];
 
@@ -2138,8 +2138,8 @@ function pointClosestPoint( test )
   test.description = '2D';
   var polygon = _.convexPolygon.make( 10, 2 ).copy
   ([
-    1,   0,  -1, -2, -2.1, -2,  -1,   0,   1, 2,
-    0.1, 0, 0.1,  1,  1.5,  2, 2.5, 2.6, 2.5, 1
+    1,   2,   1,   0,  -1, -2, -2.1, -2,  -1, 0,
+    0.1, 1, 2.5, 2.6, 2.5,  2,  1.5,  1, 0.1, 0,
   ]);
   var pointT = [ 0, 0.1 ];
 
@@ -2155,9 +2155,9 @@ function pointClosestPoint( test )
   test.description = '3D';
   var polygon = _.convexPolygon.make( 10, 3 ).copy
   ([
-    1,   0,  -1, -2, -2.1, -2,  -1,   0,   1, 2,
-    0.1, 0, 0.1,  1,  1.5,  2, 2.5, 2.6, 2.5, 1,
-    4,   4,   4,  4,    4,  4,   4,   4,   4, 4
+    1,   2,   1,   0,  -1, -2, -2.1, -2,  -1, 0,
+    0.1, 1, 2.5, 2.6, 2.5,  2,  1.5,  1, 0.1, 0,
+    4,   4,   4,   4,   4,  4,    4,  4,   4, 4,
   ]);
   var pointT = [ 0, 0.1, 4 ];
 
@@ -2189,8 +2189,8 @@ function pointClosestPoint( test )
   test.description = '2D';
   var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
-    1,   0,  -1, -2,
-    0.25, 0, 0.25,  1
+    1,    -2,   -1, 0,
+    0.25,  1, 0.25, 0,
   ]);
   var point = [ -1, 0 ];
 
@@ -2202,8 +2202,8 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
-    1,   0,  -1, 0,
-    0, 0,  1,  2
+    1,  0, -1,  0,
+    0,  2,  1,  0,
   ]);
   var point = [ 0.5, 0 ];
 
@@ -2215,8 +2215,8 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
-    1,   0,  -1, -2,
-    0.15, 0, 0.15,  1
+    1,    -2,    -1,  0,
+    0.15,  1,  0.15,  0,
   ]);
 
   var pointOne = [ -2, 0 ];
@@ -2233,8 +2233,8 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
-    1,   0,  -1, -2,
-    0.15, 0, 0.15,  1
+    1,     -2,    -1,  0,
+    0.15,   1,  0.15,  0,
   ]);
   var srcPoint = _.vectorAdapter.from( [ -2, 0 ] );
   var dstPoint = [ 5, 5 ];
@@ -2247,8 +2247,8 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
-    1,   0,  -1, -2,
-    0.15, 0, 0.15,  1
+    1,    -2,   -1, 0,
+    0.15,  1, 0.15, 0,
   ]);
   var srcPoint = _.vectorAdapter.from( [ -2, 0 ] );
   var dstPoint = _.vectorAdapter.from( [ 5, 5 ] );
@@ -2281,13 +2281,13 @@ function pointClosestPoint( test )
 
   var polygon = _.convexPolygon.make( 4, 2 ).copy
   ([
-    1, 0, 0, 0.1,
-    0, 0, 1, 0.1
+    1, 0.1, 0, 0,
+    0, 0.1, 1, 0,
   ]);
-  test.shouldThrowErrorSync( () => _.convexPolygon.pointClosestPoint( polygon, [ 1, 0 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointClosestPoint( polygon, [ 1, 0 ], null ));
 
   var polygon = _.Matrix.Make( [ 1, 2 ] )
-  test.shouldThrowErrorSync( () => _.convexPolygon.pointClosestPoint( polygon, [ 1 ] ));
+  test.shouldThrowErrorSync( () => _.convexPolygon.pointClosestPoint( polygon, [ 1 ], undefined ));
 }
 
 //
