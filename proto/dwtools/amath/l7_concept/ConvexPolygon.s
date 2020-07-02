@@ -270,7 +270,8 @@ function isClockwise( polygon )
 
   _.assert( _.numberIsFinite( result ) );
 
-  return result > 0;
+  return result >= 0;
+  // return result > 0;
 }
 
 //
