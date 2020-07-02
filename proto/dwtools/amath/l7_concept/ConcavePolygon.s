@@ -120,6 +120,7 @@ function make( vertices, dim )
 {
   return this.tools.convexPolygon.make( vertices, dim );
 }
+
 //
 
 function pointContains( polygon, point )
@@ -131,40 +132,46 @@ function pointContains( polygon, point )
 
   _.assert( pl === 2, 'not implemented' );
 
-  let p1 = [ polygon[ (pl-1)*2+0 ], polygon[ (pl-1)*2+1 ] ];
+  let p1 = [ polygon.scalarGet([ 0, pl-1 ]), polygon.scalarGet([ 1, pl-1 ]) ];
+  // let p1 = [ polygon[ (pl-1)*2+0 ], polygon[ (pl-1)*2+1 ] ];
 
   for( p = 1 ; p < pl ; p++ )
   {
 
-    let p2 = [ polygon[ (p-1)*2+0 ], polygon[ (p-1)*2+1 ] ];
-    let p3 = [ polygon[ (p+0)*2+0 ], polygon[ (p+0)*2+1 ] ];
+    let p2 = [ polygon.scalarGet([ 0, p-1 ]), polygon.scalarGet([ 1, p-1 ]) ];
+    let p3 = [ polygon.scalarGet([ 0, p ]), polygon.scalarGet([ 1, p ]) ];
+    // let p2 = [ polygon[ (p-1)*2+0 ], polygon[ (p-1)*2+1 ] ];
+    // let p3 = [ polygon[ (p+0)*2+0 ], polygon[ (p+0)*2+1 ] ];
 
-    let side = this.tools.linePointDir.pointsToPointSide( [ p1, p2 ], point );
+    // let side = this.tools.linePointDir.pointsToPointSide( [ p1, p2 ], point );
+    let side = this.tools.linePointDir.pointsToPointSide( [ ... p1, ... p2 ], point );
     if( side === 0 )
     {
       let r = this.tools.segment.relativeSegment( [ p1, p2 ], point );
-      return 0 <= r && r <= 1 ? p : 0;
+      return ( 0 <= r && r <= 1 && this.isClockwise( polygon ) ) ? p : 0;
     }
 
-    let cside1 = this.tools.linePointDir.pointsToPointSide( [ p2, p3 ], point );
+    // let cside1 = this.tools.linePointDir.pointsToPointSide( [ p2, p3 ], point );
+    let cside1 = this.tools.linePointDir.pointsToPointSide( [ ... p2, ... p3 ], point );
     if( side*cside1 < 0 )
     continue;
     else if( cside1 === 0 )
     {
       let r = this.tools.segment.relativeSegment( [ p2, p3 ], point );
-      return 0 <= r && r <= 1 ? p : 0;
+      return ( 0 <= r && r <= 1 && this.isClockwise( polygon ) ) ? p : 0;
     }
 
-    let cside2 = this.tools.linePointDir.pointsToPointSide( [ p3, p1 ], point );
+    // let cside2 = this.tools.linePointDir.pointsToPointSide( [ p3, p1 ], point );
+    let cside2 = this.tools.linePointDir.pointsToPointSide( [ ... p3, ... p1 ], point );
     if( side*cside2 < 0 )
     continue;
     else if( cside2 === 0 )
     {
       let r = this.tools.segment.relativeSegment( [ p3, p1 ], point );
-      return 0 <= r && r <= 1 ? p : 0;
+      return ( 0 <= r && r <= 1 && this.isClockwise( polygon ) ) ? p : 0;
     }
 
-    return pl+1;
+    return this.isClockwise( polygon ) ? pl+1 : 0;
   }
 
   return 0;
