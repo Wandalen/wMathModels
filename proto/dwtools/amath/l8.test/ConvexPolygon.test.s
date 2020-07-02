@@ -8249,8 +8249,8 @@ function sphereClosestPoint( test )
 
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
-    1,   1,   2,   2,
-    0,   1,   1,   0
+    1,   2,   2,   1,
+    0,   0,   1,   1,
   ]);
   var sphere = [ 0, 0.5, 0.9 ];
   var expected = _.convexPolygon.tools.longMake( [ 1, 0.5 ] );
@@ -8262,8 +8262,8 @@ function sphereClosestPoint( test )
 
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
-    1,   1,   2,   2,
-    0,   1,   1,   0
+    1,   2,   2,   1,
+    0,   0,   1,   1,
   ]);
   var sphere = [ 0, -1, Math.sqrt( 2 ) - 0.2];
   var expected = _.convexPolygon.tools.longMake( [ 1, 0 ] );
@@ -8306,8 +8306,8 @@ function sphereClosestPoint( test )
   var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
   ([
     0,   0,   0,   0,
-    1,   0, - 1,   0,
-    0,   1,   0, - 1
+    1,   0,  -1,   0,
+    0,  -1,   0,   1,
   ]);
   var sphere = [ 0, 0, 0, 0.2 ];
   var expected = 0;
