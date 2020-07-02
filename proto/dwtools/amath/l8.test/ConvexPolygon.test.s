@@ -7206,8 +7206,8 @@ function segmentDistance( test )
 
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
+    0,   1,   1,   0,
     0,   0,   1,   1,
-    0,   1,   1,   0
   ]);
   var segment = [ 0.5, -2, 0.5, -1 ];
   var expected = 1;
@@ -7219,8 +7219,8 @@ function segmentDistance( test )
 
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
-    1,   1,   2,   2,
-    0,   1,   1,   0
+    1,   2,   2,   1,
+    0,   0,   1,   1,
   ]);
   var segment = [ 0, 0.5, 1, -0.5 ];
   var expected = Math.sqrt( 0.125 );
