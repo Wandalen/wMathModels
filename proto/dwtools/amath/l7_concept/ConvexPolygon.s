@@ -414,9 +414,9 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   * // returns true;
   * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
-  *   1, 0, -1, 0, 2,
-  *   0, 0, 1, 2, 2,
-  *   0, 0, 0, 0, 0
+  *   1,  0, -1,  0,  2,
+  *   0,  0,  1,  2,  2,
+  *   0,  0,  0,  0,  0
   * ]);
   * _.pointContains( polygon, [ 1, 1, 0 ] );
   *
@@ -424,9 +424,9 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   * // returns false;
   * var polygon = _.Matrix.Make([ 3, 5 ]).copy
   * ([
-  *   1, 0, -1, 0, 2,
-  *   0, 0, 1, 2, 2,
-  *   0, 0, 0, 0, 0
+  *   1,  0, -1,  0,  2,
+  *   0,  0,  1,  2,  2,
+  *   0,  0,  0,  0,  0
   * ]);
   * _.pointContains( polygon, [ 3, 3, 3 ] );
   *
@@ -438,6 +438,7 @@ function angleThreePoints( pointOne, pointTwo, pointThree, normal )
   * @namespace wTools.convexPolygon
   * @module Tools/math/Concepts
   */
+
 function pointContains( polygon, point )
 {
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
@@ -447,7 +448,6 @@ function pointContains( polygon, point )
   let dims = _.Matrix.DimsOf( polygon );
 
   _.assert( dims[ 0 ] === point.length, 'Polygon and point must have same dimension' );
-  debugger;
 
   let normal = this.tools.vectorAdapter.from( this.tools.longMakeZeroed/* _.array.makeArrayOfLengthZeroed */( dims[ 0 ] ) );
   if( dims[ 0 ] === 3 )
@@ -502,7 +502,8 @@ function pointContains( polygon, point )
 
   debugger;
 
-  if( this.tools.vectorAdapter.allLessAprox( angles, Math.PI ) || this.tools.vectorAdapter.allGreaterAprox( angles, Math.PI ) )
+  // if( this.tools.vectorAdapter.allLessAprox( angles, Math.PI ) || this.tools.vectorAdapter.allGreaterAprox( angles, Math.PI ) )
+  if( ( this.tools.vectorAdapter.allLessAprox( angles, Math.PI ) || this.tools.vectorAdapter.allGreaterAprox( angles, Math.PI ) ) && this.isClockwise( polygon ) )
   return true;
 
   return false;
