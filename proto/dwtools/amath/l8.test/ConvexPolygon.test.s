@@ -3630,8 +3630,8 @@ function capsuleDistance( test )
 
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
+    0,   1,   1,   0,
     0,   0,   1,   1,
-    0,   1,   1,   0
   ]);
   var capsule = [ 0.5, -2, 0.5, -1, 0.3 ];
   var expected = 0.7;
@@ -3643,8 +3643,8 @@ function capsuleDistance( test )
 
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
-    1,   1,   2,   2,
-    0,   1,   1,   0
+    1,   2,   2,   1,
+    0,   0,   1,   1,
   ]);
   var capsule = [ 0, 0.5, 1, -0.5, 0.01 ];
   var expected = Math.sqrt( 0.125 ) - 0.01;
