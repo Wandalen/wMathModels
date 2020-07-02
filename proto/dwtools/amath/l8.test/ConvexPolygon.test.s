@@ -7474,8 +7474,8 @@ function segmentClosestPoint( test )
 
   var polygon =  _.Matrix.Make( [ 2, 4 ] ).copy
   ([
-    0,   0,   1,   1,
-    0,   1,   1,   0
+    0,  1,  1,  0,
+    0,  0,  1,  1,
   ]);
   var segment = [ 0.5, -2, 0.5, -1 ];
   var expected = _.convexPolygon.tools.longMake( [ 0.5, 0 ] );
