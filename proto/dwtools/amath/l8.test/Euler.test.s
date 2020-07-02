@@ -1268,8 +1268,8 @@ function toQuat2( test )
 
   var srcEuler = [ 0.5, 0.5, 0.5, 0, 1, 2 ];
   var oldEuler =   srcEuler.slice();
-  var dstQuat = [ 0, 0, 0, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.29156656802867026, 0.17295479161025828, 0.29156656802867026, 0.89446325406638 ] );
+  var dstQuat = [ 1, 0, 0, 0 ];
+  var expected = _.euler.tools.longMake( [ 0.89446325406638, 0.29156656802867026, 0.17295479161025828, 0.29156656802867026 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
@@ -1282,7 +1282,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 1, 0.25, 0, 1, 2 ];
   var dstQuat = null;
-  var expected = _.euler.tools.longMake( [ 0.46990785942494523, 0.3649976887426158, 0.32407387953254757, 0.7354858336283155 ] );
+  var expected = _.euler.tools.longMake( [ 0.7354858336283155, 0.46990785942494523, 0.3649976887426158, 0.32407387953254757 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
@@ -1294,7 +1294,7 @@ function toQuat2( test )
 
   var srcEuler = [ 1, 0.25, 0.5, 0, 2, 1 ];
   var dstQuat = undefined;
-  var expected = _.euler.tools.longMake( [ 0.43382795540572155, 0.15750930151157658, 0.22369733411737125, 0.8584542083038603 ] );
+  var expected = _.euler.tools.longMake( [ 0.8584542083038603, 0.43382795540572155, 0.15750930151157658, 0.22369733411737125 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, dstQuat );
   test.equivalent( gotQuat, expected );
@@ -1305,7 +1305,7 @@ function toQuat2( test )
   test.case = 'Euler YXZ';
 
   var srcEuler = [ 1, 2, 0.25, 1, 0, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.7649936350495811, 0.1649463125283644, - 0.3411592852710977, 0.5207569436793306 ] );
+  var expected = _.euler.tools.longMake( [ 0.5207569436793306, 0.7649936350495811, 0.1649463125283644, - 0.3411592852710977 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1315,7 +1315,7 @@ function toQuat2( test )
   test.case = 'Euler YZX';
 
   var srcEuler = [ 1, 0.25, 2, 1, 2, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.7649936350495811, 0.3490809852398744, - 0.3411592852710977, 0.4201637135104611 ] );
+  var expected = _.euler.tools.longMake( [ 0.4201637135104611, 0.7649936350495811, 0.3490809852398744, - 0.3411592852710977 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1325,7 +1325,7 @@ function toQuat2( test )
   test.case = 'Euler ZXY';
 
   var srcEuler = [ 0.25, 1, 1, 2, 0, 1 ];
-  var expected = _.euler.tools.longMake( [ 0.3649976887426158, 0.46990785942494523, 0.32407387953254757, 0.7354858336283155 ] );
+  var expected = _.euler.tools.longMake( [ 0.7354858336283155, 0.3649976887426158, 0.46990785942494523, 0.32407387953254757 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1335,7 +1335,7 @@ function toQuat2( test )
   test.case = 'Euler ZYX';
 
   var srcEuler = [ 0.25, 1, 0.5, 2, 1, 0 ];
-  var expected = _.euler.tools.longMake( [ 0.15750930151157658, 0.48796606341816057, -0.011675321619178877, 0.8584542083038603 ] );
+  var expected = _.euler.tools.longMake( [ 0.8584542083038603, 0.15750930151157658, 0.48796606341816057, -0.011675321619178877 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1489,7 +1489,7 @@ function toQuat2( test )
   test.case = 'dstQuat null';
 
   var srcEuler = [ 1, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.479425538604203, 0, 0, 0.8775825618903728 ] );
+  var expected = _.euler.tools.longMake( [ 0.8775825618903728, 0.479425538604203, 0, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, null );
   test.equivalent( gotQuat, expected );
@@ -1499,7 +1499,7 @@ function toQuat2( test )
   test.case = 'dstQuat undefined';
 
   var srcEuler = [ 1, 0, 0, 0, 1, 2 ];
-  var expected = _.euler.tools.longMake( [ 0.479425538604203, 0, 0, 0.8775825618903728 ] );
+  var expected = _.euler.tools.longMake( [ 0.8775825618903728, 0.479425538604203, 0, 0 ] );
 
   var gotQuat = _.euler.toQuat2( srcEuler, undefined );
   test.equivalent( gotQuat, expected );
