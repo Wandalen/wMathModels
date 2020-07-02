@@ -286,8 +286,9 @@ pairIntersectionPointAccurate.shaderChunkName = 'pairPairIntersectionPointAccura
 function injectChunks( routines )
 {
 
-  _global_.w4d = _global_.w4d || Object.create( null );
-  let Chunks = w4d.Chunks = w4d.Chunks || Object.create( null );
+  _global_.SRT = _global_.SRT || Object.create( null );
+  _global_.SRT.gl = _global_.SRT.gl || Object.create( null );
+  let Chunks = SRT.gl.Chunks = SRT.gl.Chunks || Object.create( null );
 
   for( let r in routines )
   {
