@@ -793,14 +793,14 @@ function make( test )
 
 function pointDistance( test )//qqq:extend
 {
-
-  var polygon =
+  var vertices =
   [
-    0,1,
-    0,1
+    2,  6,  9,  5,
+    1,  4,  4,  6,
   ]
-  var point = [ 0.5,0 ]
-  var expected = 0;
+  var polygon = _.concavePolygon.make( vertices, 2 );
+  var point = [ 2, 0 ];
+  var expected = 1;
   var gotDistance = _.concavePolygon.pointDistance( polygon, point );
 
   test.identical( gotDistance, expected );
