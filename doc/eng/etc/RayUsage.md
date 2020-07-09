@@ -1,5 +1,5 @@
 
-# Ray.s Usage [![Ray methods](https://travis-ci.org/Wandalen/wMathModels.svg?branch=master)](https://github.com/Wandalen/wMathModels/blob/master/proto/dwtools/amath/geometric/Ray.s)
+# Ray.s Usage [![Ray methods](https://travis-ci.org/Wandalen/wMathModels.svg?branch=master)](https://github.com/Wandalen/wMathModels/blob/master/proto/wtools/amath/geometric/Ray.s)
 
 ### Definition:
   Ray.s contains a collection of functions to work with the geometrical concept of a ray ( a line starting at an origin point that extends infinitely in a given direction).

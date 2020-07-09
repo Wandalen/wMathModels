@@ -130,7 +130,7 @@ module:
       entry.proto.no.tests:
         criterion:
           tests: no.tests
-        path: ../proto/dwtools/amath/l8/Concepts.s
+        path: ../proto/wtools/amath/l8/Concepts.s
       entry.proto.only.tests:
         criterion:
           tests: only.tests
@@ -140,13 +140,13 @@ module:
           debug: debug
           raw: raw
           content: prime
-        path: '{path::out.*=1}/source/dwtools/amath/l8/Concepts.s'
+        path: '{path::out.*=1}/source/wtools/amath/l8/Concepts.s'
       entry.out.raw.debug.release:
         criterion:
           debug: release
           raw: raw
           content: prime
-        path: '{path::out.*=1}/source/dwtools/amath/l8/Concepts.s'
+        path: '{path::out.*=1}/source/wtools/amath/l8/Concepts.s'
       entry.out.compiled.debug.debug:
         criterion:
           debug: debug
@@ -173,51 +173,51 @@ module:
         path:
           - ../proto
           - ../proto/Integration.test.s
-          - ../proto/dwtools
-          - ../proto/dwtools/Tools.s
-          - ../proto/dwtools/abase
-          - ../proto/dwtools/amath
-          - ../proto/dwtools/amath/l7_concept
-          - ../proto/dwtools/amath/l7_concept/AxisAndAngle.s
-          - ../proto/dwtools/amath/l7_concept/Box.s
-          - ../proto/dwtools/amath/l7_concept/Capsule.s
-          - ../proto/dwtools/amath/l7_concept/ConcavePolygon.s
-          - ../proto/dwtools/amath/l7_concept/ConvexPolygon.s
-          - ../proto/dwtools/amath/l7_concept/Euler.s
-          - ../proto/dwtools/amath/l7_concept/Frustum.s
-          - ../proto/dwtools/amath/l7_concept/LineImplicit.s
-          - ../proto/dwtools/amath/l7_concept/LinePointCentered.s
-          - ../proto/dwtools/amath/l7_concept/LinePointDir.s
-          - ../proto/dwtools/amath/l7_concept/LinePoints.s
-          - ../proto/dwtools/amath/l7_concept/Plane.s
-          - ../proto/dwtools/amath/l7_concept/Quat.s
-          - ../proto/dwtools/amath/l7_concept/Ray.s
-          - ../proto/dwtools/amath/l7_concept/Segment.s
-          - ../proto/dwtools/amath/l7_concept/Sphere.s
-          - ../proto/dwtools/amath/l7_concept/Triangle.s
-          - ../proto/dwtools/amath/l8
-          - ../proto/dwtools/amath/l8/Concepts.s
-          - ../proto/dwtools/amath/l8.test
-          - ../proto/dwtools/amath/l8.test/AxisAndAngle.test.s
-          - ../proto/dwtools/amath/l8.test/Box.test.s
-          - ../proto/dwtools/amath/l8.test/Capsule.test.s
-          - ../proto/dwtools/amath/l8.test/ConcavePolygon.test.s
-          - ../proto/dwtools/amath/l8.test/ConvexPolygon.test.s
-          - ../proto/dwtools/amath/l8.test/Euler.test.s
-          - ../proto/dwtools/amath/l8.test/Experiment.experiment.s
-          - ../proto/dwtools/amath/l8.test/Frustum.test.s
-          - ../proto/dwtools/amath/l8.test/LineImplicit.test.s
-          - ../proto/dwtools/amath/l8.test/LinePointCentered.test.s
-          - ../proto/dwtools/amath/l8.test/LinePointDir.test.s
-          - ../proto/dwtools/amath/l8.test/LinePoints.test.s
-          - ../proto/dwtools/amath/l8.test/Plane.test.s
-          - ../proto/dwtools/amath/l8.test/Quat.test.s
-          - ../proto/dwtools/amath/l8.test/Ray.test.s
-          - ../proto/dwtools/amath/l8.test/Segment.test.s
-          - ../proto/dwtools/amath/l8.test/Sphere.test.s
-          - ../proto/dwtools/amath/l8.test/Triangle.test.s
-          - ../proto/dwtools/amid
-          - ../proto/dwtools/atop
+          - ../proto/wtools
+          - ../proto/wtools/Tools.s
+          - ../proto/wtools/abase
+          - ../proto/wtools/amath
+          - ../proto/wtools/amath/l7_concept
+          - ../proto/wtools/amath/l7_concept/AxisAndAngle.s
+          - ../proto/wtools/amath/l7_concept/Box.s
+          - ../proto/wtools/amath/l7_concept/Capsule.s
+          - ../proto/wtools/amath/l7_concept/ConcavePolygon.s
+          - ../proto/wtools/amath/l7_concept/ConvexPolygon.s
+          - ../proto/wtools/amath/l7_concept/Euler.s
+          - ../proto/wtools/amath/l7_concept/Frustum.s
+          - ../proto/wtools/amath/l7_concept/LineImplicit.s
+          - ../proto/wtools/amath/l7_concept/LinePointCentered.s
+          - ../proto/wtools/amath/l7_concept/LinePointDir.s
+          - ../proto/wtools/amath/l7_concept/LinePoints.s
+          - ../proto/wtools/amath/l7_concept/Plane.s
+          - ../proto/wtools/amath/l7_concept/Quat.s
+          - ../proto/wtools/amath/l7_concept/Ray.s
+          - ../proto/wtools/amath/l7_concept/Segment.s
+          - ../proto/wtools/amath/l7_concept/Sphere.s
+          - ../proto/wtools/amath/l7_concept/Triangle.s
+          - ../proto/wtools/amath/l8
+          - ../proto/wtools/amath/l8/Concepts.s
+          - ../proto/wtools/amath/l8.test
+          - ../proto/wtools/amath/l8.test/AxisAndAngle.test.s
+          - ../proto/wtools/amath/l8.test/Box.test.s
+          - ../proto/wtools/amath/l8.test/Capsule.test.s
+          - ../proto/wtools/amath/l8.test/ConcavePolygon.test.s
+          - ../proto/wtools/amath/l8.test/ConvexPolygon.test.s
+          - ../proto/wtools/amath/l8.test/Euler.test.s
+          - ../proto/wtools/amath/l8.test/Experiment.experiment.s
+          - ../proto/wtools/amath/l8.test/Frustum.test.s
+          - ../proto/wtools/amath/l8.test/LineImplicit.test.s
+          - ../proto/wtools/amath/l8.test/LinePointCentered.test.s
+          - ../proto/wtools/amath/l8.test/LinePointDir.test.s
+          - ../proto/wtools/amath/l8.test/LinePoints.test.s
+          - ../proto/wtools/amath/l8.test/Plane.test.s
+          - ../proto/wtools/amath/l8.test/Quat.test.s
+          - ../proto/wtools/amath/l8.test/Ray.test.s
+          - ../proto/wtools/amath/l8.test/Segment.test.s
+          - ../proto/wtools/amath/l8.test/Sphere.test.s
+          - ../proto/wtools/amath/l8.test/Triangle.test.s
+          - ../proto/wtools/amid
+          - ../proto/wtools/atop
     submodule:
       wTools:
         path: 'npm:///wTools'
@@ -985,7 +985,7 @@ module:
       entry.proto.no.tests:
         criterion:
           tests: no.tests
-        path: proto/dwtools/amath/l8/Concepts.s
+        path: proto/wtools/amath/l8/Concepts.s
       entry.proto.only.tests:
         criterion:
           tests: only.tests
@@ -995,13 +995,13 @@ module:
           debug: debug
           raw: raw
           content: prime
-        path: '{path::out.*=1}/source/dwtools/amath/l8/Concepts.s'
+        path: '{path::out.*=1}/source/wtools/amath/l8/Concepts.s'
       entry.out.raw.debug.release:
         criterion:
           debug: release
           raw: raw
           content: prime
-        path: '{path::out.*=1}/source/dwtools/amath/l8/Concepts.s'
+        path: '{path::out.*=1}/source/wtools/amath/l8/Concepts.s'
       entry.out.compiled.debug.debug:
         criterion:
           debug: debug
