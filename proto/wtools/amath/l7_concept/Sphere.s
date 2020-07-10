@@ -449,7 +449,7 @@ function fromBox( sphere, box )
   let size = this.tools.box.sizeGet( boxView );
 
   if( sphere === null )
-  sphere = this.make( dim );
+  sphere = this.make( dimB );
 
   let sphereView = this.adapterFrom( sphere );
   let center = this.centerGet( sphereView );
