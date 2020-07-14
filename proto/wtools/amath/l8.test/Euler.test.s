@@ -37,7 +37,7 @@ excluding half cases                            for two angles    for locked axi
 if( typeof module !== 'undefined' )
 {
 
-  let _ = require( '../../../dwtools/Tools.s' );
+  let _ = require( '../../../wtools/Tools.s' );
 
   _.include( 'wTesting' );
   _.include( 'wMathVector' );
