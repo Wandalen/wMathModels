@@ -150,6 +150,31 @@ function fromRay( ray )
 
 //
 
+function fromLineImplicit( lineImplicit )
+{
+  _.assert( arguments.length === 1, 'Expects single argument' );
+  _.assert( this.tools.lineImplicit.is( lineImplicit ) );
+
+  let lineView = this.tools.lineImplicit.adapterFrom( lineImplicit.slice() );
+  let a = lineView.eGet( 0 );
+  let b = lineView.eGet( 1 );
+  let c = lineView.eGet( 2 );
+
+  let linePoints = this.make();
+  let a2plusb2 = Math.pow( a + b, 2 ) - 2*a*b;
+
+  linePoints[ 0 ] = ( a * c ) / a2plusb2;
+  linePoints[ 1 ] = ( b * c ) / a2plusb2;
+
+  linePoints[ 2 ] = linePoints[ 0 ] + 1
+  linePoints[ 3 ] = linePoints[ 1 ];
+
+  return linePoints;
+
+}
+
+//
+
 function pairAt( pair, factor )
 {
   _.assert( arguments.length === 2 );
@@ -361,6 +386,7 @@ let Extension = /* qqq xxx : normalize order */
   makeZero,
 
   from,
+  fromLineImplicit,
   adapterFrom,
 
   is,
