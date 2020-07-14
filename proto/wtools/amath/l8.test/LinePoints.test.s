@@ -142,6 +142,21 @@ function fromRay( test )
 
 //
 
+function fromLineImplicit( test )
+{
+  var expected = [ 0, 1, 0, 2 ];
+  var lineImplicit = _.lineImplicit.from( [ -1, 0, 0 ] );
+  var got = _.linePoints.fromLineImplicit( lineImplicit );
+  test.identical( got, expected )
+
+  var expected = [ 0, 0, 2, 2 ];
+  var lineImplicit = _.lineImplicit.fromPair([ [ 0, 0 ], [ 2, 2 ] ]);
+  var got = _.linePoints.fromLineImplicit( lineImplicit );
+  test.identical( got, expected )
+}
+
+//
+
 function pairAt( test )
 {
   var src = [ 1, 1, 5, 5 ]
@@ -364,6 +379,7 @@ var Self =
     from,
 
     fromRay,
+    fromLineImplicit,
 
     pairAt,
 
