@@ -2880,7 +2880,8 @@ function eulerToQuatToEulerToQuatFast( test )
 
 }
 
-eulerToQuatToEulerToQuatFast.timeOut = 20000;
+// eulerToQuatToEulerToQuatFast.timeOut = 30000;
+eulerToQuatToEulerToQuatFast.timeOut = 300000;
 eulerToQuatToEulerToQuatFast.usingSourceCode = 0;
 eulerToQuatToEulerToQuatFast.rapidity = -1;
 
@@ -4105,6 +4106,21 @@ function eachAngle( o )
 
   /**/
 
+  if( o.representations === null )
+  o.representations = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
+  if( o.angles === null )
+  o.angles = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];
+  if( o.anglesLocked === null )
+  o.anglesLocked = [ 0, Math.PI / 3 ];
+  if( o.quadrants === null )
+  o.quadrants = [ 0, 1, 2, 3 ];
+  if( o.quadrantsLocked === null )
+  o.quadrantsLocked = [ 0 ];
+  if( o.deltasLocked === null )
+  o.deltasLocked = [ 0 ];
+
+  /**/
+
   // o.angles = o.angles.slice( 0, 1 );
   // o.quadrants = o.quadrants.slice( 0, 1 );
   // o.quadrantsLocked = o.quadrantsLocked.slice( 0, 1 );
@@ -4163,15 +4179,24 @@ function eachAngle( o )
 
 eachAngle.defaults =
 {
-  representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
-  angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
-  anglesLocked : [ 0, Math.PI / 3 ],
-  quadrants : [ 0, 1, 2, 3 ],
-  quadrantsLocked : [ 0 ],
+  representations : null,
+  angles : null,
+  anglesLocked : null,
+  quadrants : null,
+  quadrantsLocked : null,
   deltas : null,
-  deltasLocked : [ 0 ],
+  deltasLocked : null,
   onEach : null,
   dst : null,
+  // representations : [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ],
+  // angles : [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ],
+  // anglesLocked : [ 0, Math.PI / 3 ],
+  // quadrants : [ 0, 1, 2, 3 ],
+  // quadrantsLocked : [ 0 ],
+  // deltas : null,
+  // deltasLocked : [ 0 ],
+  // onEach : null,
+  // dst : null,
 }
 
 //

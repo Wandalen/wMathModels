@@ -1324,7 +1324,7 @@ function boxClosestPoint( srcSphere, srcBox, dstPoint )
   _.assert( dimS === dimB );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools/* _.long */.longMakeZeroed( dimB );
+  dstPoint = this.tools.longMakeZeroed( dimB );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Null or undefined dstPoint is not allowed' );

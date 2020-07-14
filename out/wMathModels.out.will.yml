@@ -1584,6 +1584,4 @@ module:
       ../.im.will.yml:
         hash: 4b02a10659c2f9438ec5315cf4c6eeca
         size: 5231
-      wMathModels.out.will.yml:
-        hash: 5d05af8f8b57930f830bde2316c32244
-        size: 42560
+      wMathModels.out.will.yml: *ref_0

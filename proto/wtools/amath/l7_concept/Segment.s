@@ -296,7 +296,7 @@ function directionGet( segment )
   let origin = this.originGet( segment );
   let endPoint = this.endPointGet( segment );
   let dim = this.dimGet( segmentView );
-  let direction = this.tools.vectorAdapter.from( this.tools/* _.long */.longMake( dim ) );
+  let direction = this.tools.vectorAdapter.from( this.tools.longMake( dim ) );
 
   for( var i = 0; i < dim; i++ )
   {
@@ -1196,7 +1196,7 @@ function fromPair( pair )
     _.assert( pair.length === 2, 'Expects two points' );
     _.assert( pair[ 0 ].length === pair[ 1 ].length, 'Expects two points' );
 
-    let result = this.tools.vectorAdapter.from( this.tools/* _.long */.longMake( pair[ 0 ].length * 2 ) );
+    let result = this.tools.vectorAdapter.from( this.tools.longMake( pair[ 0 ].length * 2 ) );
     let pair0 = this.tools.vectorAdapter.from( pair[ 0 ] );
     let pair1 = this.tools.vectorAdapter.from( pair[ 1 ] );
 
@@ -1428,7 +1428,7 @@ function pointClosestPoint( srcSegment, srcPoint, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools/* _.long */.longMake( srcPoint.length );
+  dstPoint = this.tools.longMake( srcPoint.length );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
@@ -1639,7 +1639,7 @@ function boxClosestPoint( srcSegment, srcBox, dstPoint )
   _.assert( arguments.length === 2 || arguments.length === 3 , 'Expects two or three arguments' );
 
   if( arguments.length === 2 )
-  dstPoint = this.tools/* _.long */.longMake( srcBox.length / 2 );
+  dstPoint = this.tools.longMake( srcBox.length / 2 );
 
   if( dstPoint === null || dstPoint === undefined )
   throw _.err( 'Not a valid destination point' );
