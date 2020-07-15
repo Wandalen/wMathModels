@@ -156,21 +156,28 @@ function fromLineImplicit( lineImplicit )
   _.assert( this.tools.lineImplicit.is( lineImplicit ) );
 
   let lineView = this.tools.lineImplicit.adapterFrom( lineImplicit.slice() );
-  let a = lineView.eGet( 0 );
-  let b = lineView.eGet( 1 );
-  let c = lineView.eGet( 2 );
+  let A = lineView.eGet( 0 );
+  let B = lineView.eGet( 1 );
+  let C = lineView.eGet( 2 );
 
-  let linePoints = this.make();
-  let a2plusb2 = Math.pow( a + b, 2 ) - 2*a*b;
+  let m = -( A/B );
+  let b = -( C/B );
 
-  linePoints[ 0 ] = ( a * c ) / a2plusb2;
-  linePoints[ 1 ] = ( b * c ) / a2plusb2;
+  let points = this.make();
 
-  linePoints[ 2 ] = linePoints[ 0 ] + 1
-  linePoints[ 3 ] = linePoints[ 1 ];
+  points[ 0 ] = -m * b / ( m * m + 1 );
+  points[ 1 ] = b / ( m * m + 1 );
 
-  return linePoints;
+  points[ 2 ] = points[ 0 ];
+  points[ 3 ] = points[ 1 ];
 
+  if( points[ 2 ] === 0 )
+  points[ 2 ] += ( -b * A + 1 );
+
+  if( points[ 3 ] === 0 )
+  points[ 3 ] += ( -b * A + 1 );
+
+  return points;
 }
 
 //
@@ -386,7 +393,6 @@ let Extension = /* qqq xxx : normalize order */
   makeZero,
 
   from,
-  fromLineImplicit,
   adapterFrom,
 
   is,
@@ -396,6 +402,7 @@ let Extension = /* qqq xxx : normalize order */
   secondPointGet,
 
   fromRay,
+  fromLineImplicit,
 
   pairAt,
 

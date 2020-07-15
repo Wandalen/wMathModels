@@ -144,15 +144,50 @@ function fromRay( test )
 
 function fromLineImplicit( test )
 {
-  var expected = [ 0, 1, 0, 2 ];
-  var lineImplicit = _.lineImplicit.from( [ -1, 0, 0 ] );
+  var expected = [ 0, 2, 1, 2 ];
+  var lineImplicit = _.lineImplicit.fromPair([ [ -2, 2 ], [ 3, 2 ] ]).toLong();
   var got = _.linePoints.fromLineImplicit( lineImplicit );
+  var checkPoint1 = lineImplicit[ 0 ] * got[ 0 ] + lineImplicit[ 1 ] * got[ 1 ] + lineImplicit[ 2 ]
+  var checkPoint2 = lineImplicit[ 0 ] * got[ 2 ] + lineImplicit[ 1 ] * got[ 3 ] + lineImplicit[ 2 ]
   test.identical( got, expected )
+  test.identical( checkPoint1, 0 )
+  test.identical( checkPoint2, 0 )
 
-  var expected = [ 0, 0, 2, 2 ];
-  var lineImplicit = _.lineImplicit.fromPair([ [ 0, 0 ], [ 2, 2 ] ]);
+  var expected = [ 0.29508196721311475, -0.2459016393442623, 0.29508196721311475, -0.2459016393442623 ];
+  var lineImplicit = _.lineImplicit.fromPair([ [ -2, -3 ], [ 3, 3 ] ]).toLong();
   var got = _.linePoints.fromLineImplicit( lineImplicit );
+  var checkPoint1 = lineImplicit[ 0 ] * got[ 0 ] + lineImplicit[ 1 ] * got[ 1 ] + lineImplicit[ 2 ]
+  var checkPoint2 = lineImplicit[ 0 ] * got[ 2 ] + lineImplicit[ 1 ] * got[ 3 ] + lineImplicit[ 2 ]
+  test.equivalent( got, expected )
+  test.identical( checkPoint1, 0 )
+  test.identical( checkPoint2, 0 )
+
+  var expected = [ -0, 2, 1, 2 ];
+  var lineImplicit = _.lineImplicit.fromPair([ [ 3, 2 ], [ -2, 2 ] ]).toLong();
+  var got = _.linePoints.fromLineImplicit( lineImplicit );
+  var checkPoint1 = lineImplicit[ 0 ] * got[ 0 ] + lineImplicit[ 1 ] * got[ 1 ] + lineImplicit[ 2 ]
+  var checkPoint2 = lineImplicit[ 0 ] * got[ 2 ] + lineImplicit[ 1 ] * got[ 3 ] + lineImplicit[ 2 ]
   test.identical( got, expected )
+  test.identical( checkPoint1, 0 )
+  test.identical( checkPoint2, 0 )
+
+  var expected = [ 0, -0, 1, 1 ];
+  var lineImplicit = _.lineImplicit.fromPair([ [ 0, 0 ], [ 3, 3 ] ]).toLong();
+  var got = _.linePoints.fromLineImplicit( lineImplicit );
+  var checkPoint1 = lineImplicit[ 0 ] * got[ 0 ] + lineImplicit[ 1 ] * got[ 1 ] + lineImplicit[ 2 ]
+  var checkPoint2 = lineImplicit[ 0 ] * got[ 2 ] + lineImplicit[ 1 ] * got[ 3 ] + lineImplicit[ 2 ]
+  test.identical( got, expected )
+  test.identical( checkPoint1, 0 )
+  test.identical( checkPoint2, 0 )
+
+  var expected = [ -0, 0, 1, 1 ];
+  var lineImplicit = _.lineImplicit.fromPair([ [ 3, 3 ], [ 0, 0 ] ]).toLong();
+  var got = _.linePoints.fromLineImplicit( lineImplicit );
+  var checkPoint1 = lineImplicit[ 0 ] * got[ 0 ] + lineImplicit[ 1 ] * got[ 1 ] + lineImplicit[ 2 ]
+  var checkPoint2 = lineImplicit[ 0 ] * got[ 2 ] + lineImplicit[ 1 ] * got[ 3 ] + lineImplicit[ 2 ]
+  test.identical( got, expected )
+  test.identical( checkPoint1, 0 )
+  test.identical( checkPoint2, 0 )
 }
 
 //
