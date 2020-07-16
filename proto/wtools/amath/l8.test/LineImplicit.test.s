@@ -19,13 +19,13 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withDefaultLong.Fx;
+let _ = _global_.wTools.withDefaultLong.Fx;
 var Matrix = _.Matrix;
 var vector = _.vectorAdapter;
 var vec = _.vectorAdapter.fromLong;
 var avector = _.avector;
 var sqrt = _.math.sqrt;
-var Parent = wTester;
+let Parent = wTester;
 
 _.assert( _.routineIs( sqrt ) );
 
@@ -792,7 +792,7 @@ function pointDistance( test ) //qqq:cover with tests
 // define class
 // --
 
-var Self =
+let Self =
 {
 
   name : 'Tools.Math.LineImplicit',

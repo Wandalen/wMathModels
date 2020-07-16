@@ -6,7 +6,7 @@ Collection of functions to operate such geometrical models as Sphere, Box, Plane
 ### Try out
 ```
 npm install
-node sample/Sample.js
+node sample/Sample.s
 ```
 
 ### Making an instance

@@ -1,7 +1,7 @@
 if( typeof module !== 'undefined' )
 require( 'wmathmodels' );
 
-var _ = wTools;
+let _ = wTools;
 
 var eulerSeqs = [ 'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx', 'xyx', 'xzx', 'yxy', 'yzy', 'zxz', 'zyz' ];
 var angle = [ 0, Math.PI / 6, Math.PI / 4, Math.PI / 3 ];

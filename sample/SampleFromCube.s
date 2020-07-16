@@ -1,7 +1,7 @@
 if( typeof module !== 'undefined' )
 require( 'wmathmodels' );
 
-var _ = wTools;
+let _ = wTools;
 
 var box = [ 0, 0, 0, 0, 0, 0 ];
 var Oldbox =  [ 0, 0, 0, 0, 0, 0 ];

@@ -1,7 +1,7 @@
 if( typeof module !== 'undefined' )
 require( 'wmathmodels' );
 
-var _ = wTools;
+let _ = wTools;
 
 var srcFrustum = _.Matrix.Make( [ 4, 6 ] ).copy
 ([

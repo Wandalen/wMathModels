@@ -50,9 +50,9 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withDefaultLong.Fx;
+let _ = _global_.wTools.withDefaultLong.Fx;
 var Matrix = _.Matrix;
-var Parent = wTester;
+let Parent = wTester;
 
 var avector = _.avector;
 var vector = _.vectorAdapter;
@@ -2938,7 +2938,7 @@ function eulerToQuatToEulerToQuatSlow( test )
 
 }
 
-eulerToQuatToEulerToQuatSlow.timeOut = 120000;
+eulerToQuatToEulerToQuatSlow.timeOut = 500000;
 eulerToQuatToEulerToQuatSlow.usingSourceCode = 0;
 eulerToQuatToEulerToQuatSlow.rapidity = -2;
 eulerToQuatToEulerToQuatSlow.accuracy = [ 1e-10, 1e-1 ];
@@ -4213,7 +4213,7 @@ eachAngle.defaults =
 // declare
 // --
 
-var Self =
+let Self =
 {
 
   name : 'Tools.Math.Euler',

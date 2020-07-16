@@ -17,9 +17,9 @@ if( typeof module !== 'undefined' )
 
 //
 
-var _ = _global_.wTools.withDefaultLong.Fx;
+let _ = _global_.wTools.withDefaultLong.Fx;
 var Matrix = _.Matrix;
-var Parent = wTester;
+let Parent = wTester;
 var sqrt = _.math.sqrt;
 var abs = Math.abs;
 var pi = Math.PI;
@@ -1447,7 +1447,7 @@ eulerToQuatToAxisAndAngleToQuatSlow.rapidity = -2;
 // declare
 // --
 
-var Self =
+let Self =
 {
 
   name : 'Tools.Math.Quaternion',

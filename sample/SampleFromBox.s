@@ -2,7 +2,7 @@
 if( typeof module !== 'undefined' )
 require( 'wmathmodels' );
 
-var _ = wTools;
+let _ = wTools;
 
 var srcBox = [ - 1, - 1, -1, 2, 2, 2 ];
 var polygon =  _.Matrix.Make( [ 3, 4 ] ).copy
