@@ -12,7 +12,7 @@
   "license" : "MIT",
   "main" : "proto/wtools/amath/l8/Concepts.s",
   "files" : [ "proto/wtools/amath/l7_concept", "proto/wtools/amath/l8", "proto/wtools/Tools.s", "out" ],
-  "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen proto" },
+  "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-1", "docgen" : "wdocgen proto" },
   "repository" :
   {
     "type" : "git",
@@ -29,6 +29,6 @@
     "wmathmatrix" : "",
     "wmathvector" : ""
   },
-  "devDependencies" : { "wTesting" : "", "wmathmodels" : "file:." },
+  "devDependencies" : { "wTesting" : "", "eslint" : "7.1.0", "wmathmodels" : "file:." },
   "keywords" : [ "wTools", "math", "vector", "dot product", "convolution" ]
 }

@@ -1,7 +1,7 @@
 if( typeof module !== 'undefined' )
 require( 'wmathmodels' );
 
-var _ = wTools;
+let _ = wTools;
 
 var srcLine = [ -5, 2, -5, 1, 0, 1 ];
 var polygon =  _.Matrix.Make([ 3, 4 ]).copy

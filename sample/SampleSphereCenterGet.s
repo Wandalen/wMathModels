@@ -1,7 +1,7 @@
 if( typeof module !== 'undefined' )
 require( 'wmathmodels' );
 
-var _ = wTools;
+let _ = wTools;
 
 var sphere = [ 0, 0, 3 ];
 var Oldsphere = [ 0, 0, 3 ];
